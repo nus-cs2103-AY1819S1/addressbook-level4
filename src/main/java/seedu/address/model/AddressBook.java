@@ -2,13 +2,16 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.tag.Tag;
 
 /**
  * Wraps all data at the address-book level
@@ -89,6 +92,25 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) throws PersonNotFoundException {
         persons.remove(key);
+    }
+
+    public void removeTagFromAll(String tagName) throws DuplicatePersonException {
+        ArrayList<Person> modifiedPersons = new ArrayList<>();
+
+        for (Person person: persons.asUnmodifiableObservableList()) {
+            Set<Tag> modifiedTags = person.getTags();
+            modifiedTags.removeIf(t -> t.tagName == tagName);
+
+            Person modifiedPerson = new Person(person.getName(),
+                    person.getPhone(),
+                    person.getEmail(),
+                    person.getAddress(),
+                    modifiedTags);
+
+            modifiedPersons.add(modifiedPerson);
+        }
+
+        persons.setPersons(modifiedPersons);
     }
 
     //// util methods
