@@ -94,12 +94,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
-    public void removeTagFromAll(String tagName) throws DuplicatePersonException {
+    public void removeTagFromAll(Tag tag) throws DuplicatePersonException {
         ArrayList<Person> modifiedPersons = new ArrayList<>();
 
         for (Person person: persons.asUnmodifiableObservableList()) {
             Set<Tag> modifiedTags = person.getTags();
-            modifiedTags.removeIf(t -> t.tagName == tagName);
+            modifiedTags.removeIf(t -> t == tag);
 
             Person modifiedPerson = new Person(person.getName(),
                     person.getPhone(),
