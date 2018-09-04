@@ -1,29 +1,26 @@
 language: java
 matrix:
   include:
-    - jdk: oraclejdk9
-
-script: >-
-    ./config/travis/run-checks.sh &&
-    travis_retry ./gradlew clean checkstyleMain checkstyleTest headless allTests coverage coveralls asciidoctor copyDummySearchPage
-
+  - jdk: oraclejdk9
+script: "./config/travis/run-checks.sh && travis_retry ./gradlew clean checkstyleMain
+  checkstyleTest headless allTests coverage coveralls asciidoctor copyDummySearchPage"
 deploy:
   skip_cleanup: true
   provider: script
-  script: ./config/travis/deploy_github_pages.sh
+  script: "./config/travis/deploy_github_pages.sh"
   on:
     branch: master
-
 addons:
   apt:
     packages:
-      - oracle-java9-installer
-
+    - oracle-java9-installer
 before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+notifications:
+  slack:
+    secure: kGbafOQPc23uCU33ECINkgtcex6VL2PyAxCYBXoyuWQUYcQxB4nLk7MXPfF8InfrLWj0Uw/XJIFvPNObU9MHvgBl5+K25+ESZgONniIsCq6UbkVjT099qJoZHHU4fuwpKTYtRdbqduQr1yMoSrVBuUD7zkSGnD+VQDuU3EDkp6zqp6tVK5NKstRSVj+xQGPfJ4v1LKRbEvGu2whL8bPMyLY7ulk/8+yw7pW24mj5bv+edA7tZ19L99lrjAXW+l6sfxTojcAMJ6RRCwop/E5iqAgBCLCxDuxFUFPZdIXbXMk9Wqg2ANIEaLoBirIKMQ8oPfaIg5WRo3TjZP6Q54e4fTnt99NOnERfoaNdrG55dDcwEzJ2z9lgZVL/zdmivBdNSqR6+LYKLGjv1fCovyLR5tVRgfgAXvXbYlAJtAweGfQ5H2TRFSUCM0ed9XE1nCvIwFX4BRsMB5vZaf32MVpVwOW6AzJGVNZiCGfLIGy/cED7v9MRKWTpg9VrXvZNamm6ruICihv8VW/tkLEvKhRHlinRNrytfiXSNGufhqmLjeJ2LYTIWfbjCwiDU7p3Pe7WQ/ZuYUxUn9GslRjN9gFeIVB6v/BB1xsxpKfTDS7Wn85CXhF7HnR9vIyn7mesaQ00G1i0LuF9IS4ZR+lbURpcLATfCwknAHKoAAu8iy8Wwas=
