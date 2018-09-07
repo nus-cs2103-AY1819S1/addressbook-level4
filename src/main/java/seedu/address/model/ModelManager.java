@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 
 /**
@@ -22,6 +23,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Event> filteredEvents;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -34,6 +36,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredEvents = new FilteredList<>(versionedAddressBook.getEventList());
     }
 
     public ModelManager() {
@@ -62,6 +65,11 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedAddressBook.hasPerson(person);
     }
 
+    public boolean hasEvent(Event event) {
+        requireNonNull(event);
+        return versionedAddressBook.hasEvent(event);
+    }
+
     @Override
     public void deletePerson(Person target) {
         versionedAddressBook.removePerson(target);
@@ -72,6 +80,13 @@ public class ModelManager extends ComponentManager implements Model {
     public void addPerson(Person person) {
         versionedAddressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void addEvent(Event event) {
+        versionedAddressBook.addEvent(event);
+        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         indicateAddressBookChanged();
     }
 
@@ -95,10 +110,22 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public ObservableList<Event> getFilteredEventList() {
+        return FXCollections.unmodifiableObservableList(filteredEvents);
+    }
+
+    @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
+
+
+    private void updateFilteredEventList(Predicate<Event> predicate) {
+        requireNonNull(predicate);
+        filteredEvents.setPredicate(predicate);
+    }
+
 
     //=========== Undo/Redo =================================================================================
 
@@ -128,6 +155,8 @@ public class ModelManager extends ComponentManager implements Model {
     public void commitAddressBook() {
         versionedAddressBook.commit();
     }
+
+
 
     @Override
     public boolean equals(Object obj) {

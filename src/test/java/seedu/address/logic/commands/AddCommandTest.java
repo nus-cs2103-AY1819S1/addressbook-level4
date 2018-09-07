@@ -19,6 +19,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -109,6 +110,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasEvent(Event event) {
+            return false;
+        }
+
+        @Override
         public void deletePerson(Person target) {
             throw new AssertionError("This method should not be called.");
         }
@@ -121,6 +127,11 @@ public class AddCommandTest {
         @Override
         public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Event> getFilteredEventList() {
+            return null;
         }
 
         @Override
@@ -151,6 +162,11 @@ public class AddCommandTest {
         @Override
         public void commitAddressBook() {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addEvent(Event toAdd) {
+
         }
     }
 

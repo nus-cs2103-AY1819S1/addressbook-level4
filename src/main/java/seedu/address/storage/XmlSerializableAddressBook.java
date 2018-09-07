@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 
 /**
@@ -23,12 +24,16 @@ public class XmlSerializableAddressBook {
     @XmlElement
     private List<XmlAdaptedPerson> persons;
 
+    @XmlElement
+    private List<XmlAdaptedEvent> events;
+
     /**
      * Creates an empty XmlSerializableAddressBook.
      * This empty constructor is required for marshalling.
      */
     public XmlSerializableAddressBook() {
         persons = new ArrayList<>();
+        events = new ArrayList<>();
     }
 
     /**
@@ -37,6 +42,7 @@ public class XmlSerializableAddressBook {
     public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
         this();
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+        events.addAll(src.getEventList().stream().map(XmlAdaptedEvent::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,6 +53,7 @@ public class XmlSerializableAddressBook {
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
+
         for (XmlAdaptedPerson p : persons) {
             Person person = p.toModelType();
             if (addressBook.hasPerson(person)) {
@@ -54,6 +61,15 @@ public class XmlSerializableAddressBook {
             }
             addressBook.addPerson(person);
         }
+
+        for (XmlAdaptedEvent p : events) {
+            Event event = p.toModelType();
+            if (addressBook.hasEvent(event)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+            }
+            addressBook.addEvent(event);
+        }
+
         return addressBook;
     }
 
@@ -66,6 +82,6 @@ public class XmlSerializableAddressBook {
         if (!(other instanceof XmlSerializableAddressBook)) {
             return false;
         }
-        return persons.equals(((XmlSerializableAddressBook) other).persons);
+        return persons.equals(((XmlSerializableAddressBook) other).persons) && events.equals(((XmlSerializableAddressBook) other).events);
     }
 }

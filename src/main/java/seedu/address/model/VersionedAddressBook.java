@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import seedu.address.model.event.Event;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,6 +90,8 @@ public class VersionedAddressBook extends AddressBook {
                 && addressBookStateList.equals(otherVersionedAddressBook.addressBookStateList)
                 && currentStatePointer == otherVersionedAddressBook.currentStatePointer;
     }
+
+
 
     /**
      * Thrown when trying to {@code undo()} but can't.

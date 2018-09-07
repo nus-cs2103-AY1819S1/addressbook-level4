@@ -4,6 +4,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
+import seedu.address.model.event.Event;
 
 /**
  * The API of the Model component.
@@ -11,6 +12,8 @@ import seedu.address.model.person.Person;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+
+    Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
@@ -23,6 +26,7 @@ public interface Model {
      */
     boolean hasPerson(Person person);
 
+    boolean hasEvent(Event event);
     /**
      * Deletes the given person.
      * The person must exist in the address book.
@@ -35,6 +39,8 @@ public interface Model {
      */
     void addPerson(Person person);
 
+
+
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
@@ -44,6 +50,9 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
+
+    ObservableList<Event> getFilteredEventList();
+
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
@@ -75,4 +84,6 @@ public interface Model {
      * Saves the current address book state for undo/redo.
      */
     void commitAddressBook();
+
+    void addEvent(Event toAdd);
 }
