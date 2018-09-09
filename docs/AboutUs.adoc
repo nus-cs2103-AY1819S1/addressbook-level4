@@ -19,12 +19,12 @@ Role: Project Advisor
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Joel Lee
+image::leeyjjoel.jpg[width="150", align="left"]
+{empty}[http://github.com/leeyjjoel[github]] [<<leeyjjoel#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: UI
+Responsibilities: Data
 
 '''
 
