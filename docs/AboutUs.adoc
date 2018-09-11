@@ -11,20 +11,24 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== Foo Guo Wei
-image::tomforge.jpg[width="150", align="left"]
-{empty} [https://github.com/tomforge[github]] [<<johndoe#, portfolio>>]
-
-Role: Project Advisor
-
-'''
-
 === Joel Lee
 image::leeyjjoel.jpg[width="150", align="left"]
 {empty}[http://github.com/leeyjjoel[github]] [<<leeyjjoel#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: Data
+.Responsibilities:
+* Data
+
+'''
+
+=== Foo Guo Wei
+image::tomforge.jpg[width="150", align="left"]
+{empty} [https://github.com/tomforge[github]] [<<tomforge#, portfolio>>]
+
+Role: Developer +
+.Responsibilities:
+* Git expert
+* In charge of Model
 
 '''
 
