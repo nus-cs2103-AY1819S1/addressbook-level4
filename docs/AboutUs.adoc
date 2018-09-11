@@ -41,13 +41,15 @@ Responsibilities: Data
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== David Goh
+image::lessthanfree.jpg[width="150", align="left"]
+{empty}[http://github.com/lessthanfree[github]] [<<lessthanfree#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Role: Developer
 
+.Responsibilities:
+- Documentation
+- Deadlines manager
 '''
 
 === Benson Meier
