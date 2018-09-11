@@ -43,9 +43,9 @@ image::lessthanfree.jpg[width="150", align="left"]
 
 Role: Developer
 
-.Responsibilities: 
--Documentation
--Deadlines manager
+.Responsibilities:
+- Documentation
+- Deadlines manager
 '''
 
 === Benson Meier
