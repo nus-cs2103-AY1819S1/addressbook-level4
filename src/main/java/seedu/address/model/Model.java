@@ -3,14 +3,14 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Patient;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Patient> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
@@ -19,37 +19,37 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a patient with the same identity as {@code patient} exists in the address book.
      */
-    boolean hasPerson(Person person);
+    boolean hasPerson(Patient patient);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given patient.
+     * The patient must exist in the address book.
      */
-    void deletePerson(Person target);
+    void deletePerson(Patient target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given patient.
+     * {@code patient} must not already exist in the address book.
      */
-    void addPerson(Person person);
+    void addPerson(Patient patient);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given patient {@code target} with {@code editedPatient}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The patient identity of {@code editedPatient} must not be the same as another existing patient in the address book.
      */
-    void updatePerson(Person target, Person editedPerson);
+    void updatePerson(Patient target, Patient editedPatient);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered patient list */
+    ObservableList<Patient> getFilteredPersonList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered patient list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredPersonList(Predicate<Patient> predicate);
 
     /**
      * Returns true if the model has previous address book states to restore.

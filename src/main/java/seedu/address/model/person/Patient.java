@@ -10,13 +10,14 @@ import java.util.Set;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Patient in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person {
+public class Patient {
 
     // Identity fields
     private final Name name;
+    private final IcNumber icNumber;
     private final Phone phone;
     private final Email email;
 
@@ -27,9 +28,10 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Patient(Name name, IcNumber icNumber, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
+        this.icNumber = icNumber;
         this.phone = phone;
         this.email = email;
         this.address = address;
@@ -39,6 +41,8 @@ public class Person {
     public Name getName() {
         return name;
     }
+
+    public IcNumber getIcNumber() { return icNumber; }
 
     public Phone getPhone() {
         return phone;
@@ -64,14 +68,14 @@ public class Person {
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
+    public boolean isSamePerson(Patient otherPatient) {
+        if (otherPatient == this) {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+        return otherPatient != null
+                && otherPatient.getName().equals(getName()) && otherPatient.getIcNumber().equals(getIcNumber())
+                && (otherPatient.getPhone().equals(getPhone()) || otherPatient.getEmail().equals(getEmail()));
     }
 
     /**
@@ -84,28 +88,31 @@ public class Person {
             return true;
         }
 
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Patient)) {
             return false;
         }
 
-        Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+        Patient otherPatient = (Patient) other;
+        return otherPatient.getName().equals(getName())
+                && otherPatient.getIcNumber().equals(getIcNumber())
+                && otherPatient.getPhone().equals(getPhone())
+                && otherPatient.getEmail().equals(getEmail())
+                && otherPatient.getAddress().equals(getAddress())
+                && otherPatient.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, icNumber, phone, email, address, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append(" IC Number: ")
+                .append(getIcNumber())
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Email: ")
