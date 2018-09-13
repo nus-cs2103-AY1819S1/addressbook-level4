@@ -89,6 +89,5 @@ public class ClearCommand extends Command {
             }
         }).orElse(new CommandResult(MESSAGE_FAIL_CANCEL));
 
-
     }
 }
