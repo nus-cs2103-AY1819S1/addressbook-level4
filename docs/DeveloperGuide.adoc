@@ -820,13 +820,18 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
+* Insurance Agents
+* needs to manage many meetings with clients
 * has a need to manage a significant number of contacts
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+
+*Value proposition*: 
+* Specific to Insurance Agents
+* Manage contacts faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -836,25 +841,78 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |New User |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |Insurance Agent getting new customers |Add clients (including incomplete ones) |Be able to add clients who did not fill their forms completely
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |Insurance Agent |delete a client's details |remove clients that I no longer need
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |Insurance Agent |find a client by name |locate details of clients without having to go through the entire list
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* *` |Insurance Agent |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`*` |Insurance Agent with many clients |sort clients by name |locate a client easily
+
+|`* * *` |Insurance Agent |Maintain updated contacts to my clients |Maintain my network
+
+|`* *` |Insurance Agent with many meetings |See when my meetings with clients are |Set aside time to meet them
+
+|`* *` |Insurance Agent, concerned about customer’s plan being cancelled |Be notified when customer's deadlines for payments are near |Notify my clients of impending payments on time
+
+|`* *` |Experienced Insurance Agent |Mass import contact details (via excel) |Load my existing contacts without keying them manually
+
+
+|`* *` |Insurance Agent |Export email addresses |Email the contacts
+
+
+|`* * *` |Insurance Agent who needs to maintain contact |Add a picture for my contacts |To identify them by picture and name
+
+
+|`* * *` |Insurance Agent who needs to maintain contact |Display frequently contacted people |Contact them fast
+
+
+|`* *` |Insurance Agent |Remove accidental duplicates |Keep my contact book neat
+
+
+|`* *` |Insurance Agent who has different networks |Create groups of contacts |To contact groups of contact instead of individually
+
+
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+
+[discrete]
+=== Use Case: Add Clients 
+
+*MSS*
+
+1. User requests to add client, specifying the compulsory field (name) and non-compulsory fields (address, email, phone number, and tags).
+2. AddressBook stores the new client, and displays a confirmation message.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The user does not include the person’s name.
++
+[none]
+** 1a1. AddressBook shows an error message.
+Step 1 is repeated until the data entered are correct.
++
+Use case resumes at step 2.
+	
+* 1b. The user does not include non-compulsory fields (refer to 1.).
++
+[none]
+** 1b1. AddressBook prompts user to include any more missing fields, or to input nothing and continue otherwise.
+** 1b2. User inputs any additional fields/nothing.
++
+Use case resumes at step 2.
 
 [discrete]
 === Use case: Delete person
@@ -881,6 +939,245 @@ Use case ends.
 ** 3a1. AddressBook shows an error message.
 +
 Use case resumes at step 2.
+
+[discrete]
+=== Use Case: See Meeting Timings with Clients
+
+*MSS*
+
+1. User inputs the customers’ meeting times in their address book entries.
+2. User searches for meetings with clients by time, and AddressBook returns the client details if there is a meeting scheduled at that time.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. There are no meetings scheduled for the time searched.
++
+[none]
+** 2a1. AddressBook returns the next meeting after the specified time.
++
+Use case ends.
+
+* 2b. There are no meetings scheduled for any time after the searched time.
++
+[none]
+** 2b1. AddressBook states that there are no meetings scheduled
++
+Use case ends.
+
+[discrete]
+=== Use Case: Add meeting field to an entry
+
+*MSS*
+
+1. User adds meeting time with specific client.
+2. AddressBook will add meeting field to specified contact. Meeting will be displayed the next time user executes ‘list’.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User inputs invalid contact/meeting time.
++
+[none]
+** 1a1. AddressBook prints error message, prompting user to re-enter a valid ‘schedule’ command. 
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use Case: Be notified of expiring plans
+
+*MSS*
+
+1. User inputs an expiry date field for each client’s insurance plan.
+2. AddressBook alerts the user of clients with expiring insurance plans every time it is initialized.
++
+Use case ends.
+
+*Extensions*
+
+* 2a. There are no plans expiring soon.
++
+[none]
+** 2a1. AddressBook notifies the user that there are no imminent expiries.
++
+Use case ends.
+
+[discrete]
+=== Use Case: Mass Import Contact Details
+
+*MSS*
+
+1. User requests to add import contacts from a file in a user-given directory.
+2. AddressBook loads new contacts from import file, appending the new contacts to the end of the existing contact list. 
++
+Use case ends.
+
+*Extensions*
+
+* 1a. No file at directory path or invalid file type (must be a csv)
++
+[none]
+** 1a1. AddressBook shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use Case: Export Email Addresses
+
+*MSS*
+
+1. User requests to export email addresses to a user-given directory.
+2. AddressBook compiles all emails into a csv, saves it in the given directory. 
++
+Use case ends.
+
+*Extensions*
+
+* 1a. No file directory given
++
+[none]
+** 1a1. AddressBook shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use Case: Edit Clients by Name
+
+*MSS*
+
+1. User requests to edit client, specifying the name of the client and any fields to be modified.
+2. AddressBook edits the client’s respective fields, and displays a confirmation message.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The user does not include the person’s name.
++
+[none]
+** 1a1. AddressBook shows an error message.
++
+Use case resumes at step 1.
+
+*	1b. The user does not include any field to edit
++
+[none]
+** 1b1. AddressBook prompts user to include any missing fields, or to input nothing and continue otherwise.
+** 1b2. User inputs any additional fields/nothing.
++
+Use case resumes at step 2 if fields are inputted, otherwise display a confirmation message that nothing was changed.
+*	1c. There are multiple clients with the same name.
++
+[none]
+** 1c1. Ask for the user to specify a field (p/, e/, a/) and the value of the field that will identify that specific person
+** 1c2. The user inputs that field.
+** 1c3. AddressBook prompts the user to type the fields to be modified.
++
+Use case resumes at step 2 if fields are inputted, otherwise display a confirmation that nothing was changed. 
+
+[discrete]
+=== Use Case: Upload Picture of Client
+
+*MSS*
+
+1. User requests upload picture of client.
+2. AddressBook requests for the client’s name.
+3. User specifies the client’s name.
+4. AddressBook requests for the file location.
+5. User specifies the file location.
+6. AddressBook uploads the file and tags it to the client’s profile.
++
+Use case ends.
+
+*Extensions*
+
+*	3a. AddressBook detects an error in the entered data.
++
+[none]
+** 3a1. AddressBook requests for the correct data.
++
+Use case resumes from step 3.
+* 5a. AddressBook detects an error in the entered data.
++
+[none]
+** 5a1. AddressBook requests for the correct data.
++
+Use case resumes from step 5.
+
+[discrete]
+=== Use Case: List Frequently Contacted Clients
+
+*MSS*
+
+1. User requests to list frequently contacted clients.
+2. AddressBook shows a list of frequently contacted clients.
++
+Use case ends.
+
+*Extensions*
+
+*	1a. User requests to limit or extend the list results.
++
+[none]
+** 1a1. AddressBook requests for a upper limit.
+** 1a2. User enters upper limit.
++
+Use case resumes from step 2.
+* 2a. The list is empty.
++
+Use case ends.
+
+[discrete]
+=== Use Case: Allow User to Edit Contact if Duplicate Contact is Added
+
+*MSS*
+
+1. User adds client with the same name and same phone number or email or address (at least one of the three fields) as an existing contact.
+2. AddressBook recognises that the contact is a duplicate and informs user of existing contact.
+3. User can choose to edit existing contact.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. User intends to create a contact with the same name and phone number or email or address (at least one of the three fields) as an existing contact.
++
+[none]
+** 1a1. AddressBook allows user to create near-duplicate contact instead of editing existing contact.
++
+Use case ends.
+
+[discrete]
+=== Use Case: Create groups of contacts
+
+*MSS*
+
+1. User creates a group in AddressBook that can store clients’ contacts, specifying the group name.
+2. AddressBook creates a new group.
+3. User can create new contacts within the group or add existing contacts to the group.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. User creates a group with the same name as an existing group.
++
+[none]
+** 1a1. AddressBook prompts user to choose a different name that will be unique.
++
+Use case resumes at step 1.
+
+* 1b. User enters a group name with an no characters (empty string).
++
+[none]
+** 1b1. AddressBook prompts user to type in a group name.
++
+Use case resumes at step 1.
+
 
 _{More to be added}_
 
