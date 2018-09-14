@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.person.medicalrecord.MedicalRecord;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -25,17 +26,21 @@ public class Patient {
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
+    // Medical Record
+    private MedicalRecord medicalRecord;
+
     /**
      * Every field must be present and not null.
      */
     public Patient(Name name, IcNumber icNumber, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+        requireAllNonNull(name, icNumber, phone, email, address, tags);
         this.name = name;
         this.icNumber = icNumber;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.medicalRecord = null;
     }
 
     public Name getName() {
@@ -56,12 +61,23 @@ public class Patient {
         return address;
     }
 
+    public MedicalRecord getMedicalRecord() { return medicalRecord; }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Add a new medical record to the patient. Patient's current medical record must be null.
+     * @param medicalRecord
+     */
+    public void addMedicalRecord(MedicalRecord medicalRecord) {
+        assert(this.medicalRecord == null);
+        this.medicalRecord = medicalRecord;
     }
 
     /**
