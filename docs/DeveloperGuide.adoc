@@ -829,7 +829,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 * is reasonably comfortable using CLI apps
 
 
-*Value proposition*: 
+*Value proposition*:
 * Specific to Insurance Agents
 * Manage contacts faster than a typical mouse/GUI driven app
 
@@ -886,7 +886,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use Case: Add Clients 
+=== Use Case: Add Clients
 
 *MSS*
 
@@ -905,7 +905,7 @@ Use case ends.
 Step 1 is repeated until the data entered are correct.
 +
 Use case resumes at step 2.
-	
+
 * 1b. The user does not include non-compulsory fields (refer to 1.).
 +
 [none]
@@ -983,7 +983,7 @@ Use case ends.
 * 1a. User inputs invalid contact/meeting time.
 +
 [none]
-** 1a1. AddressBook prints error message, prompting user to re-enter a valid ‘schedule’ command. 
+** 1a1. AddressBook prints error message, prompting user to re-enter a valid ‘schedule’ command.
 +
 Use case resumes at step 1.
 
@@ -1012,7 +1012,7 @@ Use case ends.
 *MSS*
 
 1. User requests to add import contacts from a file in a user-given directory.
-2. AddressBook loads new contacts from import file, appending the new contacts to the end of the existing contact list. 
+2. AddressBook loads new contacts from import file, appending the new contacts to the end of the existing contact list.
 +
 Use case ends.
 
@@ -1031,7 +1031,7 @@ Use case resumes at step 1.
 *MSS*
 
 1. User requests to export email addresses to a user-given directory.
-2. AddressBook compiles all emails into a csv, saves it in the given directory. 
+2. AddressBook compiles all emails into a csv, saves it in the given directory.
 +
 Use case ends.
 
@@ -1077,7 +1077,7 @@ Use case resumes at step 2 if fields are inputted, otherwise display a confirmat
 ** 1c2. The user inputs that field.
 ** 1c3. AddressBook prompts the user to type the fields to be modified.
 +
-Use case resumes at step 2 if fields are inputted, otherwise display a confirmation that nothing was changed. 
+Use case resumes at step 2 if fields are inputted, otherwise display a confirmation that nothing was changed.
 
 [discrete]
 === Use Case: Upload Picture of Client
