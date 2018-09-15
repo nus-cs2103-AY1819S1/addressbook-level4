@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W10-4`      Since: `SEP 2018`      Licence: `MIT`
 
 == Introduction
 
@@ -51,10 +51,31 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
+=== Universal Command
+==== View help
+To view the help menu containing all the universal commands. +
+`local` flag display local commands unique to an application page. +
 
-=== Viewing help : `help`
+Format: +
+`help`
 
-Format: `help`
+=== Recipes/Favorite List Command
+
+
+=== Recipe Details Command
+
+
+=== Ingredient Manager Command
+
+
+=== Meal Planner Command
+
+
+=== Cook-Mode Command
+
+
+== OLD TO BE DELETED (See examples here)
+
 
 === Adding a person: `add`
 
