@@ -1002,6 +1002,28 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
+===Use case: Add CCA
+
+*MSS*
+
+1. JCRC member requests to add a CCA
+2. System requests for details of CCA (Name of CCA, names of head and vice-head, budget)
+3. JCRC member enters the details
+4. System displays the details of the CCA
++
+Use Case ends.
+
+*Extensions*
+
+[none]
+* 3a. Name(s) of head and/or vice-head is/are not detected in the contact list
++
+[none]
+** 3a1. System shows an error message
++
+Use case resumes at step 2.
+
 _{More to be added}_
 
 [appendix]
