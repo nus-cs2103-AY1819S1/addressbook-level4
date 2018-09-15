@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-W16-1/main/tree/master
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
@@ -831,17 +831,36 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |new JCRC member |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |JCRC member |add a new person |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |JCRC member |delete a person |remove entries that I no longer need
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |JCRC member |list all persons |
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |JCRC member |find a person by name |locate details of persons without having to go through the entire list
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |JCRC member |mass import residents' details |save time from not having to manually key in contacts one by one
+
+|`* * *` |JCRC member |delete selected groups of residents |save time from not having to search for and delete persons one by one
+
+|`* * *` |JCRC member |delete selected tags from residents |accommodate mass changes in CCA members list
+
+|`* * *` |JCRC member |compose emails |ease the process of sending emails to groups of hall residents
+
+|`* * *` |JCRC member |publish calenders |prevent clashes between events and inform hall residents of upcoming events
+
+|`* * *` |JCRC Finance Director |keep track of each CCA's budget |prevent problems during an audit
+
+|`* *` |JCRC member |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+
+|`* *` |JCRC member |list which residents are in specified CCAs |contact personnel in the CCA more efficiently
+
+|`*` |JCRC member |sort persons by name |locate a resident easily
+
+|`*` |JCRC member |store pictures under contact details |easily identify hall residents and distinguish between those with similar names
+
 |=======================================================================
 
 _{More to be added}_
@@ -849,16 +868,26 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `JCRC member`, unless specified otherwise)
+
+[discrete]
+=== Use case: Add person
+
+*MSS*
+
+1. JCRC member requests to add a person with specific details
+2. System adds the person
++
+Use case ends.
 
 [discrete]
 === Use case: Delete person
 
 *MSS*
 
-1.  User requests to list persons
+1.  JCRC member requests to list persons
 2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
+3.  JCRC member requests to delete a specific person in the list
 4.  AddressBook deletes the person
 +
 Use case ends.
@@ -876,6 +905,98 @@ Use case ends.
 ** 3a1. AddressBook shows an error message.
 +
 Use case resumes at step 2.
+
+[discrete]
+=== Use case: List persons
+
+*MSS*
+
+1. JCRC member requests to list persons
+2. System shows list of all persons
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. JCRC member requests for list of persons with specific tag
++
+[none]
+** 1a1. System shows list of only persons with specified tag
++
+Use case ends.
+
+[discrete]
+===Use case: Find person
+
+*MSS*
+
+1. JCRC member requests to find person using name
+2. System shows persons with matching name
+Use case ends.
+
+[discrete]
+=== Use case: Clear persons
+
+*MSS*
+
+1. JCRC member requests to clear persons
+2. System clears all persons
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. JCRC member requests to clear persons with specific tag
++
+[none]
+** 1a1. System clears all persons with specified tag
++
+Use case ends.
+
+[discrete]
+=== Use case: Clear tag
+
+*MSS*
+
+1. JCRC member requests to clear a specific tag
+2. System deletes specified tag from all persons
++
+Use case ends.
+
+[discrete]
+=== Use case: Compose email
+
+*MSS*
+
+1. JCRC member requests to publish email
+2. System requests for all details of email (Sender, recipient, subject, content, attachment)
+3. JCRC member enters all details
+4. System saves an output file in the computer
++
+Use case ends.
+
+[discrete]
+=== Use case: Select person
+
+*MSS*
+
+1. JCRC member requests to list persons
+2. System shows list of persons
+3. JCRC member requests to select a person with specific index
+4. System shows details of selected person
++
+Use case ends.
+
+[discrete]
+=== Use case: Publish calendar
+
+*MSS*
+
+1.
++
+Use case ends.
 
 _{More to be added}_
 
