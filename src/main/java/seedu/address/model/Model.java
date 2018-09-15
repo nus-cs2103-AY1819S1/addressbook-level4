@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.card.Card;
 import seedu.address.model.person.Person;
 
 /**
@@ -11,9 +12,14 @@ import seedu.address.model.person.Person;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Card> PREDICATE_SHOW_ALL_CARDS = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
+
+    /** Clears existing backing model and replaces with the provided new data. */
+    void resetData(ReadOnlyTriviaBundle newData);
 
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
@@ -75,4 +81,39 @@ public interface Model {
      * Saves the current address book state for undo/redo.
      */
     void commitAddressBook();
+
+    /** Returns the TriviaBundle */
+    ReadOnlyTriviaBundle getTriviaBundle();
+
+    /**
+     * Returns true if a card with the same identity as {@code card} exists in the list of trivia bundle.
+     */
+    boolean hasCard(Card card);
+
+    /**
+     * Adds the given card.
+     * {@code card} must not already exist in the list of trivia bundle.
+     */
+    void addCard(Card card);
+
+    /** Returns an unmodifiable view of the filtered card's list */
+    ObservableList<Card> getFilteredCardList();
+
+    /**
+     * Updates the filter of the filtered card list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredCardList(Predicate<Card> predicate);
+
+    /**
+     * Replaces the given card {@code target} with {@code editedCard}.
+     * {@code target} must exist in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     */
+    void updateCard(Card target, Card editedCard);
+
+    /**
+     * Saves the current address book state for undo/redo.
+     */
+    void commitTriviaBundle();
 }

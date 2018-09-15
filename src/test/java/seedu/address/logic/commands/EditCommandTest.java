@@ -5,13 +5,21 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_EARTH_FALT;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_GIT_COMMIT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_GIT_COMMIT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PHYSICS;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.showCardAtIndex;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.address.testutil.TypicalCards.getTypicalTriviaBundle;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARD;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -20,12 +28,17 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.EditCCommand.EditCardDescriptor;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.TriviaBundle;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.card.Card;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.CardBuilder;
+import seedu.address.testutil.EditCardDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 
@@ -34,7 +47,7 @@ import seedu.address.testutil.PersonBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalTriviaBundle(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -51,6 +64,23 @@ public class EditCommandTest {
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
+
+    @Test
+    public void execute_allTriviaFieldsSpecifiedUnfilteredList_success() {
+        Card editedCard = new CardBuilder().build();
+        EditCardDescriptor descriptor = new EditCardDescriptorBuilder(editedCard).build();
+        EditCCommand editCommand = new EditCCommand(INDEX_FIRST_PERSON, descriptor);
+
+        String expectedMessage = String.format(EditCCommand.MESSAGE_EDIT_CARD_SUCCESS, editedCard);
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+                new TriviaBundle(model.getTriviaBundle()), new UserPrefs());
+        expectedModel.updateCard(model.getFilteredCardList().get(0), editedCard);
+        expectedModel.commitTriviaBundle();
+
+        assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
@@ -75,6 +105,29 @@ public class EditCommandTest {
     }
 
     @Test
+    public void execute_someTriviaFieldsSpecifiedUnfilteredList_success() {
+        Index indexLastCard = Index.fromOneBased(model.getFilteredCardList().size());
+        Card lastCard = model.getFilteredCardList().get(indexLastCard.getZeroBased());
+
+        CardBuilder cardInList = new CardBuilder(lastCard);
+        Card editedCard = cardInList.withQuestion(VALID_QUESTION_GIT_COMMIT)
+                .withTags(VALID_TAG_PHYSICS).build();
+
+        EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_GIT_COMMIT)
+                .withTags(VALID_TAG_PHYSICS).build();
+        EditCCommand editCommand = new EditCCommand(indexLastCard, descriptor);
+
+        String expectedMessage = String.format(EditCCommand.MESSAGE_EDIT_CARD_SUCCESS, editedCard);
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+                new TriviaBundle(model.getTriviaBundle()), new UserPrefs());
+        expectedModel.updateCard(lastCard, editedCard);
+        expectedModel.commitTriviaBundle();
+
+        assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
         Person editedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
@@ -83,6 +136,20 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.commitAddressBook();
+
+        assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_noTriviaFieldSpecifiedUnfilteredList_success() {
+        EditCCommand editCommand = new EditCCommand(INDEX_FIRST_CARD, new EditCardDescriptor());
+        Card editedCard = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
+
+        String expectedMessage = String.format(EditCCommand.MESSAGE_EDIT_CARD_SUCCESS, editedCard);
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+                new TriviaBundle(model.getTriviaBundle()), new UserPrefs());
+        expectedModel.commitTriviaBundle();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -106,12 +173,40 @@ public class EditCommandTest {
     }
 
     @Test
+    public void execute_filteredTriviaList_success() {
+        showCardAtIndex(model, INDEX_FIRST_CARD);
+
+        Card cardInFilteredList = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
+        Card editedCard = new CardBuilder(cardInFilteredList).withQuestion(VALID_QUESTION_GIT_COMMIT).build();
+        EditCCommand editCommand = new EditCCommand(INDEX_FIRST_CARD,
+                new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_GIT_COMMIT).build());
+
+        String expectedMessage = String.format(EditCCommand.MESSAGE_EDIT_CARD_SUCCESS, editedCard);
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+                new TriviaBundle(model.getTriviaBundle()), new UserPrefs());
+        expectedModel.updateCard(model.getFilteredCardList().get(0), editedCard);
+        expectedModel.commitTriviaBundle();
+
+        assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
     public void execute_duplicatePersonUnfilteredList_failure() {
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstPerson).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
 
         assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_PERSON);
+    }
+
+    @Test
+    public void execute_duplicateCardUnfilteredList_failure() {
+        Card firstCard = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
+        EditCardDescriptor descriptor = new EditCardDescriptorBuilder(firstCard).build();
+        EditCCommand editCommand = new EditCCommand(INDEX_SECOND_CARD, descriptor);
+
+        assertCommandFailure(editCommand, model, commandHistory, EditCCommand.MESSAGE_DUPLICATE_CARD);
     }
 
     @Test
@@ -127,6 +222,18 @@ public class EditCommandTest {
     }
 
     @Test
+    public void execute_duplicateCardFilteredList_failure() {
+        showCardAtIndex(model, INDEX_FIRST_CARD);
+
+        // edit card in filtered list into a duplicate in trivia bundle
+        Card cardInList = model.getTriviaBundle().getCardList().get(INDEX_SECOND_CARD.getZeroBased());
+        EditCCommand editCommand = new EditCCommand(INDEX_FIRST_CARD,
+                new EditCardDescriptorBuilder(cardInList).build());
+
+        assertCommandFailure(editCommand, model, commandHistory, EditCCommand.MESSAGE_DUPLICATE_CARD);
+    }
+
+    @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
@@ -135,9 +242,18 @@ public class EditCommandTest {
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
+    @Test
+    public void execute_invalidCardIndexUnfilteredList_failure() {
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredCardList().size() + 1);
+        EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_GIT_COMMIT).build();
+        EditCCommand editCommand = new EditCCommand(outOfBoundIndex, descriptor);
+
+        assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
+    }
+
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of address book
+     * but smaller than size of address book/trivia bundle
      */
     @Test
     public void execute_invalidPersonIndexFilteredList_failure() {
@@ -150,6 +266,19 @@ public class EditCommandTest {
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_invalidCardIndexFilteredList_failure() {
+        showCardAtIndex(model, INDEX_FIRST_CARD);
+        Index outOfBoundIndex = INDEX_SECOND_CARD;
+        // ensures that outOfBoundIndex is still in bounds of trivia bundle list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getTriviaBundle().getCardList().size());
+
+        EditCCommand editCommand = new EditCCommand(outOfBoundIndex,
+                new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_GIT_COMMIT).build());
+
+        assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
     }
 
     @Test
@@ -245,4 +374,28 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_PERSON, DESC_BOB)));
     }
 
+    @Test
+    public void equalsForTrivia() {
+        final EditCCommand standardCommand = new EditCCommand(INDEX_FIRST_CARD, DESC_EARTH_FALT);
+
+        // same values -> returns true
+        EditCardDescriptor copyDescriptor = new EditCardDescriptor(DESC_EARTH_FALT);
+        EditCCommand commandWithSameValues = new EditCCommand(INDEX_FIRST_CARD, copyDescriptor);
+        assertTrue(standardCommand.equals(commandWithSameValues));
+
+        // same object -> returns true
+        assertTrue(standardCommand.equals(standardCommand));
+
+        // null -> returns false
+        assertFalse(standardCommand.equals(null));
+
+        // different types -> returns false
+        assertFalse(standardCommand.equals(1));
+
+        // different index -> returns false
+        assertFalse(standardCommand.equals(new EditCCommand(INDEX_SECOND_CARD, DESC_EARTH_FALT)));
+
+        // different descriptor -> returns false
+        assertFalse(standardCommand.equals(new EditCCommand(INDEX_FIRST_CARD, DESC_GIT_COMMIT)));
+    }
 }

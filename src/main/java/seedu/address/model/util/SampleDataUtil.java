@@ -6,6 +6,11 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyTriviaBundle;
+import seedu.address.model.TriviaBundle;
+import seedu.address.model.card.Answer;
+import seedu.address.model.card.Card;
+import seedu.address.model.card.Question;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -40,12 +45,35 @@ public class SampleDataUtil {
         };
     }
 
+    public static Card[] getSampleCards() {
+        return new Card[] {
+            new Card(new Question("Why is the earth round?"), new Answer("Because of gravity!"),
+                    getTagSet("Physics")),
+            new Card(new Question("Which git command will get a copy of an online repository to your computer?"),
+                    new Answer("git clone"), getTagSet("Git")),
+            new Card(new Question("What is the formula for calculating force?"),
+                    new Answer("force = mass * acceleration"), getTagSet("Physics")),
+            new Card(new Question("What are the ways to merge 2 branches?"),
+                    new Answer("rebase and merge"), getTagSet("Git")),
+            new Card(new Question("What is the capital of Singapore?"), new Answer("Singapore"),
+                    getTagSet("GeneralKnowledge")),
+        };
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }
         return sampleAb;
+    }
+
+    public static ReadOnlyTriviaBundle getSampleTriviaBundle() {
+        TriviaBundle sampleTriviaBundle = new TriviaBundle();
+        for (Card sampleCard : getSampleCards()) {
+            sampleTriviaBundle.addCard(sampleCard);
+        }
+        return sampleTriviaBundle;
     }
 
     /**

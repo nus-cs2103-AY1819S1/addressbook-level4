@@ -19,7 +19,11 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyTriviaBundle;
+import seedu.address.model.TriviaBundle;
+import seedu.address.model.card.Card;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.CardBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -38,6 +42,12 @@ public class AddCommandTest {
     }
 
     @Test
+    public void constructor_nullCard_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        new AddCCommand(null);
+    }
+
+    @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Person validPerson = new PersonBuilder().build();
@@ -50,6 +60,18 @@ public class AddCommandTest {
     }
 
     @Test
+    public void execute_cardAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingCardAdded modelStub = new ModelStubAcceptingCardAdded();
+        Card validCard = new CardBuilder().build();
+
+        CommandResult commandResult = new AddCCommand(validCard).execute(modelStub, commandHistory);
+
+        assertEquals(String.format(AddCCommand.MESSAGE_SUCCESS, validCard), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validCard), modelStub.cardsAdded);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+    }
+
+    @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
         Person validPerson = new PersonBuilder().build();
         AddCommand addCommand = new AddCommand(validPerson);
@@ -57,6 +79,17 @@ public class AddCommandTest {
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
+        addCommand.execute(modelStub, commandHistory);
+    }
+
+    @Test
+    public void execute_duplicateCard_throwsCommandException() throws Exception {
+        Card validCard = new CardBuilder().build();
+        AddCCommand addCommand = new AddCCommand(validCard);
+        ModelStub modelStub = new ModelStubWithCard(validCard);
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(AddCCommand.MESSAGE_DUPLICATE_CARD);
         addCommand.execute(modelStub, commandHistory);
     }
 
@@ -84,6 +117,30 @@ public class AddCommandTest {
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
+    @Test
+    public void equalsForTrivia() {
+        Card qOnEarthRound = new CardBuilder().withQuestion("Why is the earth round?").build();
+        Card qOnEarthFlat = new CardBuilder().withQuestion("Why is the earth flat?").build();
+        AddCCommand addEarthRoundCommand = new AddCCommand(qOnEarthRound);
+        AddCCommand addEarthFlatCommand = new AddCCommand(qOnEarthFlat);
+
+        // same object -> returns true
+        assertTrue(addEarthRoundCommand.equals(addEarthRoundCommand));
+
+        // same values -> returns true
+        AddCCommand addEarthRoundCommandCopy = new AddCCommand(qOnEarthRound);
+        assertTrue(addEarthRoundCommand.equals(addEarthRoundCommandCopy));
+
+        // different types -> returns false
+        assertFalse(addEarthRoundCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(addEarthRoundCommand.equals(null));
+
+        // different person -> returns false
+        assertFalse(addEarthRoundCommand.equals(addEarthFlatCommand));
+    }
+
     /**
      * A default model stub that have all of the methods failing.
      */
@@ -94,8 +151,18 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addCard(Card card) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void resetData(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void resetData(ReadOnlyTriviaBundle newData) {
+            throw new AssertionError(("This method should not be called."));
         }
 
         @Override
@@ -104,7 +171,17 @@ public class AddCommandTest {
         }
 
         @Override
+        public ReadOnlyTriviaBundle getTriviaBundle() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasCard(Card card) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -119,12 +196,27 @@ public class AddCommandTest {
         }
 
         @Override
+        public void updateCard(Card target, Card editedCard) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+        public ObservableList<Card> getFilteredCardList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredCardList(Predicate<Card> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -152,6 +244,11 @@ public class AddCommandTest {
         public void commitAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void commitTriviaBundle() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
@@ -169,6 +266,24 @@ public class AddCommandTest {
         public boolean hasPerson(Person person) {
             requireNonNull(person);
             return this.person.isSamePerson(person);
+        }
+    }
+
+    /**
+     * A Model stub that contains a single card.
+     */
+    private class ModelStubWithCard extends ModelStub {
+        private final Card card;
+
+        ModelStubWithCard(Card card) {
+            requireNonNull(card);
+            this.card = card;
+        }
+
+        @Override
+        public boolean hasCard(Card card) {
+            requireNonNull(card);
+            return this.card.equals(card);
         }
     }
 
@@ -198,6 +313,39 @@ public class AddCommandTest {
         @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
+        }
+
+        public ReadOnlyTriviaBundle getTriviaBundle() {
+            return new TriviaBundle();
+        }
+    }
+
+    /**
+     * A Model stub that always accept the card being added.
+     */
+    private class ModelStubAcceptingCardAdded extends ModelStub {
+        final ArrayList<Card> cardsAdded = new ArrayList<>();
+
+        @Override
+        public boolean hasCard(Card card) {
+            requireNonNull(card);
+            return cardsAdded.stream().anyMatch(card::equals);
+        }
+
+        @Override
+        public void addCard(Card card) {
+            requireNonNull(card);
+            cardsAdded.add(card);
+        }
+
+        @Override
+        public void commitTriviaBundle() {
+            // called by {@code AddCommand#execute()}
+        }
+
+        @Override
+        public ReadOnlyTriviaBundle getTriviaBundle() {
+            return new TriviaBundle();
         }
     }
 

@@ -3,9 +3,11 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
@@ -17,8 +19,11 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.card.Card;
+import seedu.address.model.card.QuestionContainsKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.EditCardDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -37,6 +42,20 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
+    public static final String VALID_QUESTION_EARTH_FLAT = "Is earth flat?";
+    public static final String VALID_ANSWER_EARTH_FLAT = "No.";
+    public static final String VALID_TAG_PHYSICS = "Physics";
+    public static final String VALID_QUESTION_GIT_COMMIT = "How to commit in git?";
+    public static final String VALID_ANSWER_GIT_COMMIT = "git commit -m 'whatever you wanna say'";
+    public static final String VALID_TAG_GIT = "Git";
+
+    public static final String QUESTION_DESC_EARTH_FLAT = " " + PREFIX_QUESTION + VALID_QUESTION_EARTH_FLAT;
+    public static final String QUESTION_DESC_GIT_COMMIT = " " + PREFIX_QUESTION + VALID_QUESTION_GIT_COMMIT;
+    public static final String ANSWER_DESC_EARTH_FLAT = " " + PREFIX_ANSWER + VALID_ANSWER_EARTH_FLAT;
+    public static final String ANSWER_DESC_GIT_COMMIT = " " + PREFIX_ANSWER + VALID_ANSWER_GIT_COMMIT;
+    public static final String TAG_DESC_PHYSICS = " " + PREFIX_TAG + VALID_TAG_PHYSICS;
+    public static final String TAG_DESC_GIT = " " + PREFIX_TAG + VALID_TAG_GIT;
+
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
@@ -52,13 +71,19 @@ public class CommandTestUtil {
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+
+    public static final String INVALID_QUESTION_DESC = " " + PREFIX_QUESTION + ""; // empty strings not allowed
+    public static final String INVALID_ANSWER_DESC = " " + PREFIX_ANSWER + "  "; // empty strings not allowed
+    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "tags*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
+
+    public static final EditCCommand.EditCardDescriptor DESC_EARTH_FALT;
+    public static final EditCCommand.EditCardDescriptor DESC_GIT_COMMIT;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -67,6 +92,13 @@ public class CommandTestUtil {
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+
+        DESC_EARTH_FALT = new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_EARTH_FLAT)
+                .withAnswer(VALID_ANSWER_EARTH_FLAT)
+                .withTags(VALID_TAG_PHYSICS).build();
+        DESC_GIT_COMMIT = new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_GIT_COMMIT)
+                .withAnswer(VALID_ANSWER_GIT_COMMIT)
+                .withTags(VALID_TAG_GIT).build();
     }
 
     /**
@@ -127,6 +159,20 @@ public class CommandTestUtil {
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the card at the given {@code targetIndex} in the
+     * {@code model}'s trivia bundle.
+     */
+    public static void showCardAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredCardList().size());
+
+        Card card = model.getFilteredCardList().get(targetIndex.getZeroBased());
+        final String[] splitName = card.getQuestion().value.split("\\s+");
+        model.updateFilteredCardList(new QuestionContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredCardList().size());
     }
 
     /**
