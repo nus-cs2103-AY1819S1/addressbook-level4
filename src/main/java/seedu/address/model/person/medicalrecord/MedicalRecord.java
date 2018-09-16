@@ -15,6 +15,12 @@ public class MedicalRecord {
     private List<Disease> diseaseHistory;
     private List<Note> notes;
 
+    public MedicalRecord() {
+        this.bloodType = new BloodType("");
+        this.drugAllergies = new ArrayList<>();
+        this.diseaseHistory = new ArrayList<>();
+        this.notes = new ArrayList<>();
+    }
 
     /**
      * Initialise MedicalRecord with only BloodType, since BloodType is the only attribute that must be non-null.
@@ -32,6 +38,13 @@ public class MedicalRecord {
         this.drugAllergies = drugAllergies;
         this.diseaseHistory = diseaseHistory;
         this.notes = notes;
+    }
+
+    public MedicalRecord(MedicalRecord medicalRecord) {
+        this.bloodType = medicalRecord.getBloodType();
+        this.drugAllergies = new ArrayList<>(medicalRecord.getDrugAllergies());
+        this.diseaseHistory = new ArrayList<>(medicalRecord.getDiseaseHistory());
+        this.notes = new ArrayList<>(medicalRecord.getNotes());
     }
 
     public BloodType getBloodType() {
@@ -64,11 +77,16 @@ public class MedicalRecord {
 
     public static MedicalRecord combineMedicalRecords(MedicalRecord record1, MedicalRecord record2) {
 
+        BloodType newBloodType = record1.getBloodType();
+
         // TODO: Some kind of proper exception throwing when there is attempt to change blood type.
-        if (record1.getBloodType() != record2.getBloodType()
-                && record1.getBloodType() != null && record2.getBloodType() != null) {
+        if (!record1.getBloodType().equals(record2.getBloodType())
+                && !record1.getBloodType().value.equals("") && !record2.getBloodType().value.equals("")) {
             // This is not allowed!
             System.out.println("This is not allowed bruh, you can't change your blood type.");
+            System.out.println("Defaulting to original bloodtype");
+        } else {
+            newBloodType = record2.getBloodType();
         }
 
         List<DrugAllergy> newDrugAllergies = new ArrayList<>(record1.getDrugAllergies());
@@ -92,7 +110,9 @@ public class MedicalRecord {
             }
         }
 
-        return new MedicalRecord(record1.getBloodType(), newDrugAllergies, newDiseaseHistory, newNotes);
+        MedicalRecord newRecord = new MedicalRecord(newBloodType, newDrugAllergies, newDiseaseHistory, newNotes);
+        
+        return newRecord;
     }
 
     @Override

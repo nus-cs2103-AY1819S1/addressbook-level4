@@ -31,7 +31,7 @@ public class AddMedicalRecordCommand extends Command {
     public static final String COMMAND_WORD = "addMedicalRecord";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new medical record, or adds data to existing "
-            + "medical record of specified patient to the address book. "
+            + "medical record of specified patient to the address book. \n"
             + "Parameters: "
             + PREFIX_BLOODTYPE + "BLOODTYPE "
             + "[" + PREFIX_DIESEASE + "PAST DISEASE]... "

@@ -41,7 +41,18 @@ public class Patient {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
-        this.medicalRecord = null;
+        this.medicalRecord = new MedicalRecord();
+    }
+
+    public Patient(Name name, IcNumber icNumber, Phone phone, Email email, Address address, Set<Tag> tags, MedicalRecord medicalRecord) {
+        requireAllNonNull(name, icNumber, phone, email, address, tags, medicalRecord);
+        this.name = name;
+        this.icNumber = icNumber;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.medicalRecord = medicalRecord;
     }
 
     /**

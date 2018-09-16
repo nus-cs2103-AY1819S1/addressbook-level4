@@ -16,6 +16,7 @@ import seedu.address.model.person.IcNumber;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.medicalrecord.MedicalRecord;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -37,6 +38,9 @@ public class XmlAdaptedPerson {
     private String address;
 
     @XmlElement
+    private XmlAdaptedMedicalRecord medicalRecord;
+
+    @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -48,12 +52,16 @@ public class XmlAdaptedPerson {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given patient details.
      */
-    public XmlAdaptedPerson(String name, String icNumber, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedPerson(String name, String icNumber, String phone, String email, String address,
+                            XmlAdaptedMedicalRecord medicalRecord, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.icNumber = icNumber;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        if (medicalRecord != null) {
+            this.medicalRecord = medicalRecord;
+        }
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
@@ -70,6 +78,7 @@ public class XmlAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+        medicalRecord = new XmlAdaptedMedicalRecord(source.getMedicalRecord());
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
@@ -126,8 +135,13 @@ public class XmlAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
+        if (medicalRecord == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, MedicalRecord.class.getSimpleName()));
+        }
+        final MedicalRecord modelMedicalRecord = new MedicalRecord(medicalRecord.toModelType());
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Patient(modelName, modelIcNumber, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Patient(modelName, modelIcNumber, modelPhone, modelEmail, modelAddress, modelTags, modelMedicalRecord);
     }
 
     @Override

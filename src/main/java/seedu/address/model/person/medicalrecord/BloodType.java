@@ -7,7 +7,7 @@ public class BloodType {
 
     public static final String MESSAGE_BLOODTYPE_CONSTRAINTS =
             "Blood types can only be one of the following: A(+-), B(+-), O(+-), or AB(+-)";
-    public static final String BLOODTYPE_VALIDATION_REGEX = "(A|B|AB|O)[+-]";
+    public static final String BLOODTYPE_VALIDATION_REGEX = "^$|(A|B|AB|O)[+-]";
     public final String value;
 
     /**
