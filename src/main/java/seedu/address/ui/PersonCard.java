@@ -48,7 +48,7 @@ public class PersonCard extends UiPart<Region> {
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
         person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        
+
         name.setWrapText(true);
         address.setWrapText(true);
         email.setWrapText(true);
