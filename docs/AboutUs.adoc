@@ -11,12 +11,12 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== Bark Hyehyeon
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Bark HyeHyeon
+image::barkhyehyeon.jpg[width="150", align="left"]
+{empty}[http://github.com/barkhyehyeon[github]] [<<johndoe#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: UI
+Role: Developer +
+Responsibilities: Ingredient Management
 
 '''
 

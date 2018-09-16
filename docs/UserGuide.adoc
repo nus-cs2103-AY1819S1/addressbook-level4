@@ -67,6 +67,53 @@ Format: +
 
 === Ingredient Manager Command
 
+=== Add an ingredient
+
+Adds an ingredient to the ingredient manager.
+Format: 'add NAME AMOUNT DATE'
+
+****
+* If there are more than 1 words for name, ‘_’ is used to separate words
+* Amount: follows the recipe book's standard
+* Expiry Date: mm-dd-yyyy
+
+=== List all ingredients
+
+Shows a list of user’s ingredients.
+Format: List
+
+=== Edit ingredient info
+
+Edit an existing ingredient in the ingredient manager.
+Format: Edit NAME FIELD_NAME NEW_INFO (FIELD_NAME NEW_INFO)… end
+
+****
+* _ can be used to define compound ingredient name e.g. Spring_Onion
+
+=== Search ingredient
+
+Find ingredients whose name contains any of the given keywords.
+Format: find KEYWORD…
+
+****
+* Keywords are case insensitive
+* Only the name is searched
+* Match only full words
+
+=== Delete ingredient
+
+Delete ingredient(s) added by user.
+Format: delete NAME
+
+=== Search recipes based on ingredients manager availability
+
+Search for recipes based on ingredients stored in manager. User can add additional parameters to widen search result.
+Format: Select [NUMBER_OF_SERVINGS] KEYWORD… optional KEYWORD… end
+
+****
+* Multi-line command that ends with end.
+* Search result guarantees Keywords before entered before “optional”.
+* Search result that aligns with keywords after “optional” are placed higher in order.
 
 === Meal Planner Command
 
