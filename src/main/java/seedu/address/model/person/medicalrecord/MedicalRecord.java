@@ -111,7 +111,7 @@ public class MedicalRecord {
         }
 
         MedicalRecord newRecord = new MedicalRecord(newBloodType, newDrugAllergies, newDiseaseHistory, newNotes);
-        
+
         return newRecord;
     }
 
