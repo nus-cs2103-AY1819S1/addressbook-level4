@@ -67,7 +67,7 @@ Format: `listUsers`
 
 ==== Locating users: `findUser`
 
-Finds persons whose names contain any of the given keywords. +
+Finds userss whose names contain any of the given keywords. +
 Format: `findUser [KEYWORD] [KEYWORDS]...`
 
 ****
@@ -83,11 +83,37 @@ Examples:
 * `findUser John` +
 Returns `john` and `John Doe`
 * `findUser Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+Returns any user having names `Betsy`, `Tim`, or `John`
 
-==== Locating users by available time: `findUserAvailAt`
+==== Locating users by available time range: `findUserAvailAt`
+Finds users who are available between a start and end time on a specific day. + 
+Format: `findUserAvailAt t1/HOUR:MINUTE t2/HOUR:MINUTE d/DAY/MONTH/YEAR`
+
+Examples:
+
+* `findUserAvailAt t1/08:00 t2/10:00 d/23/08/2018` + 
+Finds users available from 8am to 10am on 23 August. 
+
 ==== Locating users who live close to a location: `findUserCloseTo`
+Finds users who live close to a location. + 
+Format: `findUserCloseTo PLACENAME r/SEARCHRADIUS`
+
+****
+* Search radius is specified in kilometres.
+****
+
+Examples:
+
+* `findUserCloseTo Clementi Mall r/5`
+Finds all users who live within 5km of Clementi Mall.
+
 ==== Locating users who know a user: `findFriendsOf`
+Finds users who are friends of a user. + 
+Format: `findFriendsOf USERNAME`
+
+Examples:
+
+* `findFriendsOf John Doe`
 
 ==== Deleting a user : `deleteUser`
 
@@ -175,6 +201,7 @@ Adds an interest to the pre-selected user. +
 Format: `addInterest INTEREST`
 
 Example:
+
 * `addInterest Tennis` +
 Adds the interest "Tennis" to the pre-selected user.
 
@@ -184,6 +211,7 @@ Adds a group to the pre-selected user. +
 Format: `addGroup GROUP`
 
 Example:
+
 * `addGroup SOC` +
 Adds the group "SOC" to the pre-selected user.
 
@@ -193,10 +221,28 @@ Adds another user as a friend of the pre-selected user. +
 Format: `addFriend USERNAME`
 
 Example:
+
 * `addFriend John Doe` +
 Adds the user 'John Doe' as a friend of pre-selected user.
 
-==== Setup personal schedule : `addSchedule`
+==== Setup personal weekly schedule : `addSchedule`
+Setups up a user's weekly schedule using NUSMods timetable
+Format: `addSchedule NUSMODS_LINK`
+
+Example:
+
+* `addSchedule ...`
+
+==== Add activity to schedule : `addToSchedule`
+Adds a range of unavailable times to the weekly schedule, or to a specific date.
+Format: `addToSchedule t1/HOUR:MINUTE t2/HOUR:MINUTE [w/DAY_OF_WEEK] [d/DAY/MONTH/YEAR]`
+
+Examples:
+
+* `addToSchedule t1/08:00 t2/12:00 w/Tuesday` +
+Adds activity from 8am to 12pm every Tuesday.
+* `addToSchedule t1/12:00 t2/14:30 d/23/08/2018` + 
+Adds activity from 12pm to 2:30pm on 23 August 2018. 
 
 === Create and confirm event commands
 
@@ -312,6 +358,7 @@ Sets a deadline for the poll +
 Format: `setPollDeadline DAY/MONTH/YEAR HOUR:MINUTE`
 
 Examples: 
+
 * `setPollDeadline 08/09/2018 23:59`
 * `setPollDeadline 10/11/2019 13:00`
 
@@ -367,6 +414,7 @@ Joins event identified by unique event ID +
 Format: `joinEvent ID`
 
 Examples:
+
 * `joinEvent 213`
 
 ==== Vote for date : `voteDate`
@@ -374,6 +422,7 @@ Vote for a option specified in the date poll, if there is one.
 Format: `voteDate OPTION`
 
 Examples:
+
 * `voteDate 3`
 
 ==== Vote for time : `voteTime`
@@ -381,6 +430,7 @@ Vote for a option specified in the time poll, if there is one.
 Format: `voteTime OPTION`
 
 Examples:
+
 * `voteTime 3`
 
 ==== Vote for location : `votePlace`
@@ -388,10 +438,12 @@ Vote for a option specified in the location poll, if there is one.
 Format: `votePlace OPTION`
 
 Examples:
+
 * `votePlace 3`
 
 ==== List joined events : `listJoinedEvents`
-
+Lists all the events joined by the current user.
+Format: `listJoinedEvents`
 
 === Listing entered commands : `history`
 
