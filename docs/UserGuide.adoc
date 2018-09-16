@@ -164,7 +164,7 @@ Format: `clear`
 
 ==== Setup a user : `addUser`
 
-Adds a new user to the event organiser +
+Adds a new user to the event organiser. +
 Format: `addUser n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
 [TIP]
@@ -226,7 +226,7 @@ Example:
 Adds the user 'John Doe' as a friend of pre-selected user.
 
 ==== Setup personal weekly schedule : `addSchedule`
-Setups up a user's weekly schedule using NUSMods timetable
+Sets up a user's weekly schedule using NUSMods timetable.
 Format: `addSchedule NUSMODS_LINK`
 
 Example:
@@ -247,7 +247,7 @@ Adds activity from 12pm to 2:30pm on 23 August 2018.
 === Create and confirm event commands
 
 ==== Create a new event : `addEvent`
-Adds a new event to the event organiser +
+Adds a new event to the event organiser. +
 Format: `addEvent n/NAME`
 
 Examples:
@@ -272,7 +272,7 @@ Examples:
 Deletes the 2nd event in the event organiser. 
 
 ==== Set the event date : `setDate`
-Sets the event date + 
+Sets the event date. + 
 Format: `setDate DAY/MONTH/YEAR`
 
 ****
@@ -285,7 +285,7 @@ Examples:
 * `setDate 11/12/2019`
 
 ==== Set the event time : `setTime`
-Sets the event time + 
+Sets the event time. + 
 Format: `setTime HOUR:MINUTE`
 
 ****
@@ -298,7 +298,7 @@ Examples:
 * `setTime 13:30`
 
 ==== Set the event location : `setPlace`
-Sets the location of the event + 
+Sets the location of the event. + 
 Format: `setPlace PLACENAME`
 
 Examples: 
@@ -307,11 +307,11 @@ Examples:
 * `setPlace Clementi Mall`
 
 ==== Setup poll for date : `pollDate`
-Sets up a poll for the event date + 
+Sets up a poll for the event date. + 
 Format: `pollDate`
 
 ==== Add poll option for date : `addDate`
-Adds a new option to the poll for dates + 
+Adds a new option to the poll for dates. + 
 Format: `addDate DAY/MONTH/YEAR`
 
 ****
@@ -324,11 +324,11 @@ Examples:
 * `addDate 11/12/2019`
 
 ==== Setup poll for time : `pollTime`
-Sets up a poll for the event time + 
+Sets up a poll for the event time. + 
 Format: `pollTime`
 
 ==== Add poll option for time : `addTime`
-Adds a new option to the poll for times + 
+Adds a new option to the poll for times. + 
 Format: `addTime HOUR:MINUTE`
 
 ****
@@ -341,11 +341,11 @@ Examples:
 * `addTime 13:30`
 
 ==== Setup poll for location : `pollPlace`
-Sets up a poll for the event location + 
+Sets up a poll for the event location. + 
 Format: `pollPlace`
 
 ==== Add poll option for location : `addPlace`
-Adds a new option to the poll for places + 
+Adds a new option to the poll for places. + 
 Format: `addPlace PLACENAME`
 
 Examples: 
@@ -354,7 +354,7 @@ Examples:
 * `addPlace Clementi Mall`
 
 ==== Set poll deadline : `setPollDeadline`
-Sets a deadline for the poll +
+Sets a deadline for the poll. +
 Format: `setPollDeadline DAY/MONTH/YEAR HOUR:MINUTE`
 
 Examples: 
@@ -364,30 +364,30 @@ Examples:
 
 ==== Confirm all event details : `confirmEvent`
 ==== Get recommendation for time : `recTime`
-Retrieves recommendations for the best time to hold the event + 
+Retrieves recommendations for the best time to hold the event. + 
 Format: `recTime`
 
 ****
-* If the event has a poll, the event organiser will recommend the most popular options
-* Otherwise, the event organiser will display the times when all event participants are available
+* If the event has a poll, the event organiser will recommend the most popular options.
+* Otherwise, the event organiser will display the times when all event participants are available.
 ****
 
 ==== Get recommendation for date : `recDate`
-Retrieves recommendations for the best date to hold the event + 
+Retrieves recommendations for the best date to hold the event. + 
 Format: `recDate`
 
 ****
-* If the event has a poll, the event organiser will recommend the most popular options
-* Otherwise, the event organiser will display the dates when all event participants are available
+* If the event has a poll, the event organiser will recommend the most popular options.
+* Otherwise, the event organiser will display the dates when all event participants are available.
 ****
 
 ==== Get recommendation for location : `recPlace`
-Retrieves recommendations for the best location to hold the event + 
+Retrieves recommendations for the best location to hold the event. + 
 Format: `recPlace`
 
 ****
-* If the event has a poll, the event organiser will recommend the most popular options
-* Otherwise, the event organiser will compute the best event location from 
+* If the event has a poll, the event organiser will recommend the most popular options.
+* Otherwise, the event organiser will compute the best event location from.
 ****
 
 === Join event commands
@@ -398,8 +398,8 @@ Format: `findUser [n/NAME] [d/DATE] [d1/FROMDATE] [d2/TODATE] [t1/FROMTIME] [t2/
 
 ****
 * Parameters are optional, but at least one must be specified. 
-* Dates are specified in DAY/MONTH/YEAR format
-* Times are specfied in 24 hour, HOUR:MINUTE format
+* Dates are specified in DAY/MONTH/YEAR format.
+* Times are specfied in 24 hour, HOUR:MINUTE format.
 ****
 
 Examples:
@@ -410,7 +410,7 @@ Finds all events held between 23 August and 25 August in 2018.
 Finds all events held between 12pm and 6pm on 23 August 2018. 
 
 ==== Join event : `joinEvent`
-Joins event identified by unique event ID + 
+Joins event identified by unique event ID. + 
 Format: `joinEvent ID`
 
 Examples:
