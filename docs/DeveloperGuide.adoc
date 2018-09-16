@@ -872,7 +872,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `JCRC member`, unless specified otherwise)
+(For all use cases below, the *System* is the `Hallper` and the *Actor* is the `JCRC member`, unless specified otherwise)
 
 [discrete]
 === Use case: Add person
@@ -880,7 +880,7 @@ _{More to be added}_
 *MSS*
 
 1. JCRC member requests to add a person with specific details
-2. System adds the person
+2. Hallper adds the person
 +
 Use case ends.
 
@@ -890,9 +890,9 @@ Use case ends.
 *MSS*
 
 1.  JCRC member requests to list persons
-2.  AddressBook shows a list of persons
+2.  Hallper shows a list of persons
 3.  JCRC member requests to delete a specific person in the list
-4.  AddressBook deletes the person
+4.  Hallper deletes the person
 +
 Use case ends.
 
@@ -906,7 +906,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. Hallper shows an error message.
 +
 Use case resumes at step 2.
 
@@ -916,17 +916,17 @@ Use case resumes at step 2.
 *MSS*
 
 1. JCRC member requests to list persons
-2. System shows list of all persons
+2. Hallper shows list of all persons
 +
 Use case ends.
 
-*Extensions*
+[discrete]
+=== Use case: Search tag
 
-[none]
-* 1a. JCRC member requests for list of persons with specific tag
-+
-[none]
-** 1a1. System shows list of only persons with specified tag
+*MSS*
+
+1. JCRC member requests to search by specific tag
+2. Hallper shows list of only persons with specified tag
 +
 Use case ends.
 
@@ -935,8 +935,9 @@ Use case ends.
 
 *MSS*
 
-1. JCRC member requests to find person using name
-2. System shows persons with matching name
+1. JCRC member requests to find person containing specific name
+2. Hallper shows list of persons with matching name
++
 Use case ends.
 
 [discrete]
@@ -945,7 +946,7 @@ Use case ends.
 *MSS*
 
 1. JCRC member requests to clear persons
-2. System clears all persons
+2. Hallper clears all persons
 +
 Use case ends.
 
@@ -955,17 +956,17 @@ Use case ends.
 * 1a. JCRC member requests to clear persons with specific tag
 +
 [none]
-** 1a1. System clears all persons with specified tag
+** 1a1. Hallper clears all persons with specified tag
 +
 Use case ends.
 
 [discrete]
-=== Use case: Clear tag
+=== Use case: Erase tag
 
 *MSS*
 
-1. JCRC member requests to clear a specific tag
-2. System deletes specified tag from all persons
+1. JCRC member requests to erase a specific tag
+2. Hallper erases specified tag from all persons
 +
 Use case ends.
 
@@ -974,10 +975,10 @@ Use case ends.
 
 *MSS*
 
-1. JCRC member requests to publish email
-2. System requests for all details of email (Sender, recipient, subject, content, attachment)
+1. JCRC member requests to compose email
+2. Hallper requests for all details of email (Sender, recipient, subject, content, attachment)
 3. JCRC member enters all details
-4. System saves an output file in the computer
+4. Hallper saves an output file in the computer
 +
 Use case ends.
 
@@ -987,11 +988,25 @@ Use case ends.
 *MSS*
 
 1. JCRC member requests to list persons
-2. System shows list of persons
-3. JCRC member requests to select a person with specific index
-4. System shows details of selected person
+2. Hallper shows list of persons
+3. JCRC member requests to select a specific person in the list
+4. Hallper shows details of selected person
 +
 Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. Hallper shows an error message.
++
+Use case resumes at step 2.
 
 [discrete]
 === Use case: Publish calendar
@@ -1008,9 +1023,9 @@ Use case ends.
 *MSS*
 
 1. JCRC member requests to add a CCA
-2. System requests for details of CCA (Name of CCA, names of head and vice-head, budget)
+2. Hallper requests for details of CCA (Name of CCA, names of head and vice-head, budget)
 3. JCRC member enters the details
-4. System displays the details of the CCA
+4. Hallper displays the details of the CCA
 +
 Use Case ends.
 
@@ -1020,9 +1035,175 @@ Use Case ends.
 * 3a. Name(s) of head and/or vice-head is/are not detected in the contact list
 +
 [none]
-** 3a1. System shows an error message
+** 3a1. Hallper shows an error message
 +
 Use case resumes at step 2.
+
+* 3b. Budget entered is invalid
++
+[none]
+** 3b1. Hallper shows an error message
++
+Use case resumes at step 2.
+
+[discrete]
+===Use case: Modify CCA
+
+*MSS*
+
+1. JCRC member requests to list CCAs
+2. Hallper shows list of CCAs
+3. JCRC member requests to modify a specific CCA in the list
+4. Hallper requests for new details of the CCA (Name of CCA, names of head and vice-head, budget)
+5. JCRC member enters the details
+6. Hallper displays the new details of the CCA
++
+Use Case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty
++
+Use case ends.
+
+* 3a. The given index is invalid
++
+[none]
+** 3a1. Hallper displays error message
++
+Use case resumes at step 2.
+
+* 5a. Name(s) of head and/or vice-head is/are not detected in the contact list
++
+[none]
+** 5a1. Hallper shows an error message
++
+Use case resumes at step 2.
+
+* 5b. Budget entered is invalid
++
+[none]
+** 5b1. Hallper shows an error message
++
+Use case resumes at step 2.
+
+[discrete]
+===Use case: Delete CCA
+
+*MSS*
+
+1. JCRC member requests to list CCAs
+2. Hallper shows list of CCAs
+3. JCRC member requests to delete a specific CCA in the list
+4. Hallper requests for confirmation of deletion
+5. JCRC member confirms
+6. Hallper deletes the CCA
++
+Use Case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty
++
+Use case ends.
+
+* 3a. The given index is invalid
++
+[none]
+** 3a1. Hallper shows an error message
++
+Use case resumes at step 2.
+
+* 5a. JCRC member cancels instead
++
+Use case ends.
+
+[discrete]
+=== Use case: Select CCA
+
+*MSS*
+
+1. JCRC member requests to list CCAs
+2. Hallper shows list of CCAs
+3. JCRC member requests to select a specific CCA in the list
+4. Hallper shows details of selected CCA
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. Hallper shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+===Use case: List all CCAs
+
+*MSS*
+
+1. JCRC member requests for list of CCAs
+2. Hallper displays list of CCAs
++
+Use Case ends.
+
+[discrete]
+===Use case: Add CCA Transaction
+
+*MSS*
+
+1. JCRC member requests for list of CCAs
+2. Hallper displays list of CCAs
+3. JCRC member requests to add a transaction for a specific CCA in the list
+4. Hallper requests transaction details (Amount of money, name of person-in-charge, comments)
+5. JCRC member enters transaction details
+6. Hallper displays details of the CCA
++
+Use Case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty
++
+Use case ends.
+
+* 3a. The given index is invalid
++
+[none]
+** 3a1. Hallper shows an error message
++
+Use case resumes at step 2.
+
+* 5a. Name of person-in-charge is not detected in the contact list
++
+[none]
+** 5a1. Hallper shows an error message
++
+Use case resumes at step 4.
+
+* 5b. Amount of money entered is invalid
++
+[none]
+** 5b1. Hallper shows an error message
++
+Use case resumes at step 4.
+
+* 5c. Comments left empty
++
+[none]
+** 5c1. Hallper shows an error message
++
+Use case resumes at step 4.
 
 _{More to be added}_
 
