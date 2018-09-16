@@ -62,6 +62,39 @@ public class MedicalRecord {
         this.notes.add(note);
     }
 
+    public static MedicalRecord combineMedicalRecords(MedicalRecord record1, MedicalRecord record2) {
+
+        // TODO: Some kind of proper exception throwing when there is attempt to change blood type.
+        if (record1.getBloodType() != record2.getBloodType()
+                && record1.getBloodType() != null && record2.getBloodType() != null) {
+            // This is not allowed!
+            System.out.println("This is not allowed bruh, you can't change your blood type.");
+        }
+
+        List<DrugAllergy> newDrugAllergies = new ArrayList<>(record1.getDrugAllergies());
+        for (DrugAllergy drugAllergy: record2.getDrugAllergies()) {
+            if (!newDrugAllergies.contains(drugAllergy)) {
+                newDrugAllergies.add(drugAllergy);
+            }
+        }
+
+        List<Disease> newDiseaseHistory = new ArrayList<>(record1.getDiseaseHistory());
+        for (Disease disease: record2.getDiseaseHistory()) {
+            if (!newDiseaseHistory.contains(disease)) {
+                newDiseaseHistory.add(disease);
+            }
+        }
+
+        List<Note> newNotes = new ArrayList<>(record1.getNotes());
+        for (Note note: record2.getNotes()) {
+            if (!newNotes.contains(note)) {
+                newNotes.add(note);
+            }
+        }
+
+        return new MedicalRecord(record1.getBloodType(), newDrugAllergies, newDiseaseHistory, newNotes);
+    }
+
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own

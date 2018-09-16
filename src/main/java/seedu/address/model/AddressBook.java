@@ -7,6 +7,7 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.medicalrecord.MedicalRecord;
 
 /**
  * Wraps all data at the address-book level
@@ -92,6 +93,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removePerson(Patient key) {
         persons.remove(key);
     }
+
 
     //// util methods
 

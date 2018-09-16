@@ -6,8 +6,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Note {
 
     public static final String MESSAGE_NOTE_CONSTRAINTS =
-            "Notes should only contain alphanumeric characters and spaces, and it should not be blank";
-    public static final String NOTE_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+            "Notes should not be blank, and first character should not be a whitespace.";
+    public static final String NOTE_VALIDATION_REGEX = "[^\\s].*";
     public final String value;
 
     /**

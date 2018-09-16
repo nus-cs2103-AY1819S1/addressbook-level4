@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
@@ -41,6 +42,24 @@ public class Patient {
         this.address = address;
         this.tags.addAll(tags);
         this.medicalRecord = null;
+    }
+
+    /**
+     * Make new Patient with specified MedicalRecord. MedicalRecord will combine with current MedicalRecord, if any.
+     */
+    public Patient(Patient patient, MedicalRecord medicalRecord) {
+        requireNonNull(patient);
+        requireNonNull(medicalRecord);
+
+        this.name = patient.getName();
+        this.icNumber = patient.getIcNumber();
+        this.phone = patient.getPhone();
+        this.email = patient.getEmail();
+        this.address = patient.getAddress();
+        this.tags.addAll(patient.getTags()); // Dunno if this works? Cuz .getTags() is returning unmodifiable set,
+        this.medicalRecord = patient.getMedicalRecord() == null ?
+                medicalRecord :
+                MedicalRecord.combineMedicalRecords(patient.getMedicalRecord(), medicalRecord);
     }
 
     public Name getName() {
