@@ -23,7 +23,7 @@ public class StatusBarFooter extends UiPart<Region> {
 
     public static final String SYNC_STATUS_INITIAL = "Not updated yet in this session";
     public static final String SYNC_STATUS_UPDATED = "Last Updated: %s";
-    public static final String TOTAL_NUMBER = "%d person(s) total";
+    public static final String TOTAL_NUMBER_STATUS = "%d person(s) total";
 
     /**
      * Used to generate time stamps.
@@ -71,7 +71,7 @@ public class StatusBarFooter extends UiPart<Region> {
     }
 
     public void setTotalNumberStatus(int totalNumber) {
-        Platform.runLater(() -> totalNumberStatus.setText(String.format(TOTAL_NUMBER, totalNumber)));
+        Platform.runLater(() -> totalNumberStatus.setText(String.format(TOTAL_NUMBER_STATUS, totalNumber)));
     }
 
     private void setSaveLocation(String location) {
