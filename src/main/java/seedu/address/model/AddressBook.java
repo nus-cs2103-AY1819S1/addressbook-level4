@@ -109,7 +109,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
             modifiedPersons.add(modifiedPerson);
         }
-
         persons.setPersons(modifiedPersons);
     }
 
