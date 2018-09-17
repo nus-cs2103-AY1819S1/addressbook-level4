@@ -364,59 +364,34 @@ Examples:
 Address Book will warn you that an existing contact John Doe already exists. Address Book will ask you if you would like
 to go ahead and create a new contact, edit the existing contact, or cancel the operation.
 
-=== Group contacts: `group`
+=== Using tags: `tag`
 
-==== Add contacts to a group
-Add any number of contacts to a new or existing group. +
-Format: `group GROUP_NAME add NAME [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* If `GROUP_NAME` is has not been created, a group titled `GROUP_NAME` will created after adding the first contact.
-* You can add new or existing contacts into the group.
-* If there are multiple contacts with the same name, address book will prompt for one unique field (address, email,
-phone or other tags) to identify the contact, after which it will add the specified contact to the group.
-* The specified contact will then have a `GROUP_NAME` tag in his or her details.
-****
-
-Examples:
-
-* `group Work add John Doe p/91234567 e/johndoe@example.com a/John street, block 123, #01-01` +
-A new contact `John Doe` will be added to the group `Work`. If `Work` does not exist already, it will be created along
-with the contact.
-* `group Work add John` +
-If contact already exists in the address book, you can add a user by name.
-* `p/91234567` +
-If the name `John` is not unique, you need to provide a unique field to identify the right `John`. In this example, the
-`John` you add will have phone number `91234567`. +
-The `John` that has been specified will be added to the group `Work`. If `Work` tag does not exist already, it will be
-created now.
-
-==== View contacts in a group
-View all contacts in any existing group. +
-Format: `group GROUP_NAME`
+==== View contacts in a tag
+View all contacts in any existing tag. +
+Format: `tag TAG_NAME`
 
 ****
-* You can view all users that belong to the same group.
-* Address book will throw an error if an invalid `GROUP_NAME` is given.
+* You can view all users that belong to the same tag.
+* Address book will throw an error if an invalid `TAG_NAME` is given.
 ****
 
 Example:
 
-* `group Work` +
-You can view all contacts in the `Work` group, or with the `g/Work` tag.
+* `tag Work` +
+You can view all contacts in the `Work` tag, or with the `g/Work` tag.
 
-=== Remove a group
-Remove all users from a group. +
-Format: `group GROUP_NAME remove`
+=== Remove a tag
+Remove all users from a tag. +
+Format: `tag TAG_NAME remove`
 
 ****
-* All contacts in `GROUP_NAME` will be removed from the group. Their `GROUP_NAME` tag will be deleted.
-* The group will be deleted. Contacts that were previously in the group *are not deleted.*
+* All contacts in `TAG_NAME` will be removed from the tag. Their `TAG_NAME` tag will be deleted.
+* The tag will be deleted. Contacts that were previously in the tag *are not deleted.*
 ****
 
 Example:
 
-* `group Work remove` +
+* `tag Work remove` +
 All contacts that were previously in `Work` are now not in any group. `Work` group is deleted.
 
 === Saving the data
