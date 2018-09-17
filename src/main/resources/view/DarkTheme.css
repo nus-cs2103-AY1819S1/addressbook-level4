@@ -388,13 +388,3 @@
     -fx-text-fill: black;
     -fx-background-color: grey;
 }
-
-#tags .purple {
-    -fx-text-fill: white;
-    -fx-background-color: purple;
-}
-
-#tags .white {
-    -fx-text-fill: black;
-    -fx-background-color: white;
-}
