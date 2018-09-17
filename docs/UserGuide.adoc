@@ -366,7 +366,7 @@ to go ahead and create a new contact, edit the existing contact, or cancel the o
 
 === Using tags: `tag`
 
-==== View contacts in a tag
+==== View contacts by tag
 View all contacts in any existing tag. +
 Format: `tag TAG_NAME`
 
@@ -378,21 +378,21 @@ Format: `tag TAG_NAME`
 Example:
 
 * `tag Work` +
-You can view all contacts in the `Work` tag, or with the `g/Work` tag.
+You can view all contacts with the `Work` tag.
 
 ==== Remove a tag
 Remove all users from a tag. +
 Format: `tag TAG_NAME remove`
 
 ****
-* All contacts in `TAG_NAME` will be removed from the tag. Their `TAG_NAME` tag will be deleted.
-* The tag will be deleted. Contacts that were previously in the tag *are not deleted.*
+* All contacts in `TAG_NAME` will be removed from the tag. Contacts that were previously tagged are not deleted.
+* Address book will throw an error if an invalid `TAG_NAME` is given.
 ****
 
 Example:
 
 * `tag Work remove` +
-All contacts that were previously in `Work` are now not in any group. `Work` group is deleted.
+All contacts that were previously tagged with `Work` have the `Work` tag removed.
 
 === Saving the data
 
@@ -433,6 +433,5 @@ e.g.`select 2`
 * *Schedule* : `schedule n/NAME d/DDMMYY [t/HHMM]`
 * *Meetings* : `meetings [d/DDMMYY] [t/HHMM]`
 * *Add picture* : `​pic n/NAME l/FILE_LOCATION`
-* *Add contact to group* : `group GROUP_NAME add NAME [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-* *View contacts in group* : `group GROUP_NAME`
-* *Remove contacts from group* : `group GROUP_NAME remove`
+* *View all contacts with a specified tag* : `tag TAG_NAME`
+* *Remove all contacts from a specified tag* : `tag TAG_NAME remove`
