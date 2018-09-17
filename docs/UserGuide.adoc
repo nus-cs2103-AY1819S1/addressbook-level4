@@ -263,8 +263,38 @@ Format: `upload`
 Composes a .eml file that can be used to send emails to residents. +
 Format: `compose`
 
-=== Publishing calendars and events : `publish`
+=== Creating calendar : `create_calendar`
 
+Creates a calendar file in the address book for updating of events. +
+Format: `create_calendar MONTH`
+
+Example:
+* `create_calendar Feb`
+
+=== Exporting calendars : `publish_calendar`
+
+Exports the calendar as a .ics file that can be used to sync with Google Calendar. +
+Format: `publish_calendar MONTH`
+
+Example:
+* `publish_calendar Feb`
+
+=== Viewing calendar : `view_calendar`
+
+Views the calendar of the specified month. +
+Format: `view_calendar MONTH`
+
+Example:
+* `view_calendar Feb`
+
+=== Adding event into calendar : `add_event`
+
+Adds an event into the calendar. +
+Format: `add_event m/MONTH d/DATE st/START TIME et/END TIME n/NAME OF EVENT
+
+Example:
+* `add_event m/Feb d/2 st/1800 et/2100 n/Enthral`
+ 
 === Viewing the budget for all CCAs : `budget`
 
 Allows for the viewing of the budgets for all the CCAs. +
