@@ -13,7 +13,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === John Doe
 image::spikerheado1234.png[width="150", align="left"]
-{empty}[http://www.ahangupta.com[homepage]] [https://github.com/spikerheado1234[github]] [<<johndoe#, portfolio>>]
+{empty}[http://www.ahangupta.com[homepage]] [https://github.com/spikerheado1234[github]] [<<spikerheado1234#, portfolio>>]
 
 Role: Team Member
 
