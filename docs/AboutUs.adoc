@@ -47,7 +47,7 @@ Responsibilities: Dev Ops + Threading
 '''
 
 === Tian Xueyan
-image::tianxueyan.jpeg[width="150", align="left"]
+image::xueyantian.jpeg[width="150", align="left"]
 {empty}[http://github.com/xueyantian[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Member
