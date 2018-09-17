@@ -76,7 +76,7 @@ Format: `list`
 
 === Editing a person : `edit`
 
-==== Editing by index   
+==== Editing by index
 
 Edits an existing person in the address book by the list's index. +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
