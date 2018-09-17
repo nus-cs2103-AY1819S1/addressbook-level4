@@ -11,6 +11,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.IcNumber;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
@@ -48,6 +49,21 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_NAME_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String icNumber} into a {@code IcNumber}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code icNumber} is invalid.
+     */
+    public static IcNumber parseIcNumber(String icNumber) throws ParseException {
+        requireNonNull(icNumber);
+        String trimmedIcNumber = icNumber.trim();
+        if (!IcNumber.isValidIcNumber(trimmedIcNumber)) {
+            throw new ParseException(IcNumber.MESSAGE_ICNUMBER_CONSTRAINTS);
+        }
+        return new IcNumber(trimmedIcNumber);
     }
 
     /**
