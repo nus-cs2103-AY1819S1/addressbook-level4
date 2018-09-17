@@ -46,11 +46,10 @@ Responsibilities: Dev Ops + Threading
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Tian Xueyan
+image::tianxueyan.jpeg[width="150", align="left"]
+{empty}[http://github.com/xueyantian[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+Role: Team Member
 
 '''
