@@ -60,14 +60,14 @@ Format: `help`
 
 === User Commands
 
-==== Listing all persons : `listUsers`
+==== Listing all users : `listUsers`
 
 Shows a list of all users in the event organiser. +
 Format: `listUsers`
 
 ==== Locating users: `findUser`
 
-Finds userss whose names contain any of the given keywords. +
+Finds users whose names contain any of the given keywords. +
 Format: `findUser [KEYWORD] [KEYWORDS]...`
 
 ****
@@ -75,7 +75,7 @@ Format: `findUser [KEYWORD] [KEYWORDS]...`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* users matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
 
 Examples:
@@ -86,29 +86,30 @@ Returns `john` and `John Doe`
 Returns any user having names `Betsy`, `Tim`, or `John`
 
 ==== Locating users by available time range: `findUserAvailAt`
-Finds users who are available between a start and end time on a specific day. + 
+Finds users who are available between a start and end time on a specific day.
 Format: `findUserAvailAt t1/HOUR:MINUTE t2/HOUR:MINUTE d/DAY/MONTH/YEAR`
 
 Examples:
 
-* `findUserAvailAt t1/08:00 t2/10:00 d/23/08/2018` + 
-Finds users available from 8am to 10am on 23 August. 
+* `findUserAvailAt t1/08:00 t2/10:00 d/23-08-2018` +
+Finds users available from 8am to 10am on 23 August.
 
-==== Locating users who live close to a location: `findUserCloseTo`
-Finds users who live close to a location. + 
-Format: `findUserCloseTo PLACENAME r/SEARCHRADIUS`
+==== Locating users who live close to a MRT station: `findUserCloseTo`
+//
+Finds users who live close to a MRT station. +
+Format: `findUserCloseTo MRTNAME r/SEARCH_RADIUS`
 
 ****
-* Search radius is specified in kilometres.
+* SEARCH_RADIUS is defined by the number of MRT stations from MRTNAME
 ****
 
 Examples:
 
-* `findUserCloseTo Clementi Mall r/5`
-Finds all users who live within 5km of Clementi Mall.
+* `findUserCloseTo Clementi r/2`
+Finds all users who live within 2 stops from Clementi MRT Station.
 
 ==== Locating users who know a user: `findFriendsOf`
-Finds users who are friends of a user. + 
+Finds users who are friends of a user. +
 Format: `findFriendsOf USERNAME`
 
 Examples:
@@ -121,28 +122,29 @@ Deletes the specified user from the event organiser. +
 Format: `deleteUser INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the user at the specified `INDEX`.
+* The index refers to the index number shown in the displayed user list.
 * The index *must be a positive integer* 1, 2, 3, ...
+* A user can only deleted by the owner of the user profile
 ****
 
 Examples:
 
 * `list` +
 `deleteUser 2` +
-Deletes the 2nd person in the event organiser. 
+Deletes the 2nd user in the event organiser.
 * `find Betsy` +
 `deleteUser 1` +
-Deletes the 1st person in the results of the `find` command.
+Deletes the 1st user in the results of the `find` command.
 
-==== Selecting a person : `select`
+==== Selecting a user : `select`
 
-Selects the person identified by the index number used in the displayed person list. +
+Selects the user identified by the index number used in the displayed user list. +
 Format: `select INDEX`
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Selects the user and loads the Google search page the user at the specified `INDEX`.
+* The index refers to the index number shown in the displayed user list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
 
@@ -150,10 +152,10 @@ Examples:
 
 * `list` +
 `select 2` +
-Selects the 2nd person in the event organiser.
+Selects the 2nd user in the event organiser.
 * `find Betsy` +
 `select 1` +
-Selects the 1st person in the results of the `find` command.
+Selects the 1st user in the results of the `find` command.
 
 ==== Clearing all user entries : `clear`
 
@@ -162,38 +164,38 @@ Format: `clear`
 
 === Setup user commands
 
-==== Setup a user : `addUser`
+==== Setup a user : `setupUser`
 
-Adds a new user to the event organiser. +
-Format: `addUser n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Set up a new user to the event organiser. +
+Format: `setupUser n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [i/INTEREST]...`
 
 [TIP]
-A person can have any number of tags (including 0)
+A user can have any number of tags (including 0)
 
 Examples:
 
-* `addUser n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `addUser n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `setupUser n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+* `setupUser n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
 ==== Editing a user : `edit`
 
-Edits an existing person in the event organiser. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Edits an existing user in the event organiser. +
+Format: `edit INDEX n/NAME p/PHONE e/EMAIL a/ADDRESS i/INTEREST...`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the user at the specified `INDEX`. The index refers to the index number shown in the displayed user list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* When editing tags, the existing tags of the user will be removed i.e adding of tags is not cumulative.
+* You can remove all the user's tags by typing `t/` without specifying any tags after it.
 ****
 
 Examples:
 
 * `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+Edits the phone number and email address of the 1st user to be `91234567` and `johndoe@example.com` respectively.
 * `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+Edits the name of the 2nd user to be `Betsy Crower` and clears all existing tags.
 
 ==== Add an interest : `addInterest`
 
@@ -225,7 +227,7 @@ Example:
 * `addFriend John Doe` +
 Adds the user 'John Doe' as a friend of pre-selected user.
 
-==== Setup personal weekly schedule : `addSchedule`
+==== Setup useral weekly schedule : `addSchedule`
 Sets up a user's weekly schedule using NUSMods timetable.
 Format: `addSchedule NUSMODS_LINK`
 
@@ -234,15 +236,14 @@ Example:
 * `addSchedule ...`
 
 ==== Add activity to schedule : `addToSchedule`
-Adds a range of unavailable times to the weekly schedule, or to a specific date.
-Format: `addToSchedule t1/HOUR:MINUTE t2/HOUR:MINUTE [w/DAY_OF_WEEK] [d/DAY/MONTH/YEAR]`
+Adds a range of unavailable times to the weekly schedule.
+Format: `addToSchedule t1/HOUR:MINUTE t2/HOUR:MINUTE [w/DAY_OF_WEEK]`
 
 Examples:
 
 * `addToSchedule t1/08:00 t2/12:00 w/Tuesday` +
 Adds activity from 8am to 12pm every Tuesday.
-* `addToSchedule t1/12:00 t2/14:30 d/23/08/2018` + 
-Adds activity from 12pm to 2:30pm on 23 August 2018. 
+
 
 === Create and confirm event commands
 
@@ -261,128 +262,93 @@ Format: `deleteUser INDEX`
 
 ****
 * Deletes the event at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* The index refers to the index number shown in the displayed user list.
 * The index *must be a positive integer* 1, 2, 3, ...
+* Event can only be deleted by the event organiser
 ****
 
 Examples:
 
 * `list` +
 `deleteEvent 2` +
-Deletes the 2nd event in the event organiser. 
+Deletes the 2nd event in the event organiser.
 
 ==== Set the event date : `setDate`
-Sets the event date. + 
-Format: `setDate DAY/MONTH/YEAR`
+Sets the event date. +
+Format: `setDate DAY-MONTH-YEAR`
 
 ****
-* Day, month and year are specified as numbers. 
+* Day, month and year are specified as numbers.
 ****
 
-Examples: 
+Examples:
 
-* `setDate 08/09/2018`
-* `setDate 11/12/2019`
+* `setDate 08-09-2018`
+* `setDate 11-12-2019`
 
 ==== Set the event time : `setTime`
-Sets the event time. + 
+Sets the event time. +
 Format: `setTime HOUR:MINUTE`
 
 ****
 * Time is specified in 24 hour format
 ****
 
-Examples: 
+Examples:
 
 * `setTime 23:00`
 * `setTime 13:30`
 
 ==== Set the event location : `setPlace`
-Sets the location of the event. + 
+Sets the location of the event. +
 Format: `setPlace PLACENAME`
 
-Examples: 
+Examples:
 
 * `setPlace Central Library`
 * `setPlace Clementi Mall`
 
-==== Setup poll for date : `pollDate`
-Sets up a poll for the event date. + 
+==== Setup poll for date : `poll`
+Sets up a poll for the event date. +
 Format: `pollDate`
 
-==== Add poll option for date : `addDate`
-Adds a new option to the poll for dates. + 
-Format: `addDate DAY/MONTH/YEAR`
+==== Setup poll for location : `addOption`
+Add new poll option in the specified poll. +
+Format: `addOption POLL_ID OPTION`
 
-****
-* Day, month and year are specified as numbers. 
-****
+Examples:
 
-Examples: 
-
-* `addDate 08/09/2018`
-* `addDate 11/12/2019`
-
-==== Setup poll for time : `pollTime`
-Sets up a poll for the event time. + 
-Format: `pollTime`
-
-==== Add poll option for time : `addTime`
-Adds a new option to the poll for times. + 
-Format: `addTime HOUR:MINUTE`
-
-****
-* Time is specified in 24 hour format
-****
-
-Examples: 
-
-* `addTime 23:00`
-* `addTime 13:30`
-
-==== Setup poll for location : `pollPlace`
-Sets up a poll for the event location. + 
-Format: `pollPlace`
-
-==== Add poll option for location : `addPlace`
-Adds a new option to the poll for places. + 
-Format: `addPlace PLACENAME`
-
-Examples: 
-
-* `addPlace Central Library`
-* `addPlace Clementi Mall`
+* `addOption 1 11:00 `
 
 ==== Set poll deadline : `setPollDeadline`
 Sets a deadline for the poll. +
 Format: `setPollDeadline DAY/MONTH/YEAR HOUR:MINUTE`
 
-Examples: 
+Examples:
 
 * `setPollDeadline 08/09/2018 23:59`
 * `setPollDeadline 10/11/2019 13:00`
 
+==== Get poll result : `getPollResult`
+Gets the result of a specified poll. +
+Format: `getPollResult POLL_RESULT`
+
+Examples:
+
+* `getPollResult 1`
+
 ==== Confirm all event details : `confirmEvent`
-==== Get recommendation for time : `recTime`
-Retrieves recommendations for the best time to hold the event. + 
-Format: `recTime`
+==== Get recommendation for time : `recDayTime`
+Retrieves recommendations for the best time on a specific day of a week to hold the event. +
+Format: `recDayTime`
 
 ****
-* If the event has a poll, the event organiser will recommend the most popular options.
-* Otherwise, the event organiser will display the times when all event participants are available.
+* The event organiser will display the times when all event participants are available.
 ****
 
-==== Get recommendation for date : `recDate`
-Retrieves recommendations for the best date to hold the event. + 
-Format: `recDate`
-
-****
-* If the event has a poll, the event organiser will recommend the most popular options.
-* Otherwise, the event organiser will display the dates when all event participants are available.
-****
 
 ==== Get recommendation for location : `recPlace`
-Retrieves recommendations for the best location to hold the event. + 
+Retrieves recommendations for the best location to hold the event. +
 Format: `recPlace`
 
 ****
@@ -392,54 +358,68 @@ Format: `recPlace`
 
 === Join event commands
 
-==== Find event : `findEvent`
-Finds events based on name, exact date, start and end date, start and end time, and location. +
-Format: `findUser [n/NAME] [d/DATE] [d1/FROMDATE] [d2/TODATE] [t1/FROMTIME] [t2/TOTIME] [p/PLACE]`
+==== Find event by the name of the event : `findEventByName`
+Finds events based on name.+
+Format: `findEvent n/NAME`
+
+
+Examples:
+
+* `findEvent FaceBook Recruitment Talk` +
+Finds all event with the name "FaceBook Recruitment Talk".
+
+==== Find event by a date range : `findEventByDate`
+Finds events based start and end date. +
+Format: `findEvent d1/FROMDATE d2/TODATE`
 
 ****
-* Parameters are optional, but at least one must be specified. 
 * Dates are specified in DAY/MONTH/YEAR format.
+****
+
+Examples:
+
+* `findEvent d1/23/08/2018 d2/25/08/2018` +
+Finds all events held between 23 August and 25 August in 2018.
+
+
+==== Find event by a time interval: `findEventByTime`
+Finds events based start and end time. +
+Format: `findEvent t1/FROMTIME t2/TOTIME`
+
+****
 * Times are specfied in 24 hour, HOUR:MINUTE format.
 ****
 
 Examples:
 
-* `findEvent d1/23/08/2018 d2/25/08/2018` + 
-Finds all events held between 23 August and 25 August in 2018.
-* `findEvent d/23/08/2018 t1/12:00 t2/18:00` + 
-Finds all events held between 12pm and 6pm on 23 August 2018. 
+* `findEvent t1/12:00 t2/18:00` +
+Finds all events held between 12pm and 6pm on any day.
+
+==== Find event by a time interval: `findEventByMRTStation`
+Finds events based MRT Station. +
+Format: `findEvent p/PLACE`
+
+Examples:
+
+* `findEvent Clementi` +
+Finds all events held near Clementi.
+// Find event by interest?
 
 ==== Join event : `joinEvent`
-Joins event identified by unique event ID. + 
+Joins event identified by unique event ID. +
 Format: `joinEvent ID`
 
 Examples:
 
 * `joinEvent 213`
 
-==== Vote for date : `voteDate`
-Vote for a option specified in the date poll, if there is one.
-Format: `voteDate OPTION`
+==== Vote for date : `voteOption`
+Vote for a option specified in a specified poll, if there is one.
+Format: `voteDate POLL_ID OPTION_ID`
 
 Examples:
 
-* `voteDate 3`
-
-==== Vote for time : `voteTime`
-Vote for a option specified in the time poll, if there is one.
-Format: `voteTime OPTION`
-
-Examples:
-
-* `voteTime 3`
-
-==== Vote for location : `votePlace`
-Vote for a option specified in the location poll, if there is one.
-Format: `votePlace OPTION`
-
-Examples:
-
-* `votePlace 3`
+* `voteDate 3 1`
 
 ==== List joined events : `listJoinedEvents`
 Lists all the events joined by the current user.
