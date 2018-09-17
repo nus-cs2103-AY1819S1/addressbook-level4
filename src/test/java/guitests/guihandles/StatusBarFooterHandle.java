@@ -49,7 +49,7 @@ public class StatusBarFooterHandle extends NodeHandle<Node> {
     public String getTotalNumberStatus() {
         return totalNumberNode.getText();
     }
-    
+
     /**
      * Remembers the content of the sync status portion of the status bar.
      */

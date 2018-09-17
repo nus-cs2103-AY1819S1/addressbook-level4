@@ -20,7 +20,6 @@ import org.junit.Test;
 
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.model.AddressBook;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.TypicalPersons;
 
@@ -31,12 +30,12 @@ public class StatusBarFooterTest extends GuiUnitTest {
 
     //@@author zioul123-reused
     //Reused from https://github.com/se-edu/addressbook-level4/pull/803/
-    private static final AddressBookChangedEvent EVENT_STUB = new AddressBookChangedEvent(
-            (new AddressBookBuilder()).withPerson(TypicalPersons.ALICE).build());
+    private static final AddressBookChangedEvent EVENT_STUB = new AddressBookChangedEvent((
+            new AddressBookBuilder()).withPerson(TypicalPersons.ALICE).build());
 
     private static final Clock originalClock = StatusBarFooter.getClock();
     private static final Clock injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
-    
+
     private static final int INITIAL_NUMBER_OF_PERSONS = 0;
 
     private StatusBarFooterHandle statusBarFooterHandle;
@@ -76,10 +75,10 @@ public class StatusBarFooterTest extends GuiUnitTest {
 
     /**
      * Asserts that the save location matches that of {@code expectedSaveLocation}, the
-     * sync status matches that of {@code expectedSyncStatus}, and the total number of 
+     * sync status matches that of {@code expectedSyncStatus}, and the total number of
      * people status matches that of {@code expectedTotalNumberStatus}.
      */
-    private void assertStatusBarContent(String expectedSaveLocation, String expectedSyncStatus, 
+    private void assertStatusBarContent(String expectedSaveLocation, String expectedSyncStatus,
                                         String expectedTotalNumberStatus) {
         assertEquals(expectedSaveLocation, statusBarFooterHandle.getSaveLocation());
         assertEquals(expectedSyncStatus, statusBarFooterHandle.getSyncStatus());
