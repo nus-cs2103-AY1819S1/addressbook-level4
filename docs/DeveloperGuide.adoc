@@ -875,6 +875,16 @@ _{More to be added}_
 (For all use cases below, the *System* is the `Hallper` and the *Actor* is the `JCRC member`, unless specified otherwise)
 
 [discrete]
+=== Use case: Display usage instructions
+
+*MSS*
+
+1. JCRC member requests to view usage instructions
+2. Hallper shows usage instructions
++
+Use case ends.
+
+[discrete]
 === Use case: Add person
 
 *MSS*
@@ -961,6 +971,28 @@ Use case ends.
 Use case ends.
 
 [discrete]
+=== Use case: Import contacts
+
+*MSS*
+
+1. JCRC member requests to import contacts
+2. Hallper requests for file location
+3. JCRC member enters file location
+4. Hallper imports contacts
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. File is invalid
++
+[none]
+** 3a1. Hallper shows error message
++
+Use case ends.
+
+[discrete]
 === Use case: Erase tag
 
 *MSS*
@@ -1013,7 +1045,76 @@ Use case resumes at step 2.
 
 *MSS*
 
-1.
+1. JCRC member requests to publish calendar
+2. Hallper requests for the intended calendar month
+3. JCRC member enters the month
+4. Hallper saves an output file in the computer
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete a calendar
+
+*MSS*
+
+1. JCRC member requests to delete a calendar
+2. Hallper requests the calendar month
+3. JCRC member enters the month
+4. Hallper deletes the specified calendar
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. Calendar does not exist
++
+[none]
+** 3a1. Hallper shows an error message
++
+Use case ends.
+
+[discrete]
+=== Use case: Add event to calendar
+
+*MSS*
+
+1. JCRC member requests to add a new event to a calendar
+2. Hallper requests for all details of event (Month, year, day, start time, end time, event name)
+3. JCRC member enters all details
+4. Hallper creates a new event on the calendar
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. Another event clashes with the same timing
++
+[none]
+** 3a1. Hallper shows an error message
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete event on a calendar
+
+*MSS*
+
+1. JCRC member requests to delete an event on a calendar
+2. Hallper requests for all details of event (Month, year, day, event name)
+3. JCRC member enters all details
+4. Hallper deletes the specified event on the calendar
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. Event does not exist
++
+[none]
+** 3a1. Hallper shows an error message
 +
 Use case ends.
 
@@ -1204,6 +1305,28 @@ Use case resumes at step 4.
 ** 5c1. Hallper shows an error message
 +
 Use case resumes at step 4.
+
+[discrete]
+=== Use case: Sort contacts
+
+*MSS*
+
+1. JCRC member requests sort the contacts
+2. Hallper sorts the contacts
++
+Use case ends.
+
+[discrete]
+=== Use case: Add image
+
+*MSS*
+
+1. JCRC member requests to add a person's image
+2. Hallper requests for name and image location
+3. JCRC member enters name and image location
+4. Hallper adds the image
++
+Use case ends.
 
 _{More to be added}_
 
