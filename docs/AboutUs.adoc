@@ -11,46 +11,46 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== John Doe
+=== Adeel Dhedhi Bhyria
 image::damithc.jpg[width="150", align="left"]
 {empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
 
-Role: Project Advisor
+Role: ...
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Chow Keng Ji
+image::KengJi.jpg[width="150", align="left"]
+{empty}[http://github.com/theJrLinguist[github]] [<<johndoe#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: UI
+Role: ...
+Responsibilities: ..
 
 '''
 
-=== Johnny Doe
+=== Soh Jason
 image::yijinl.jpg[width="150", align="left"]
 {empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
+Role: ...
+Responsibilities: ...
 
 '''
 
-=== Johnny Roe
+=== Wang Yaofeng
 image::m133225.jpg[width="150", align="left"]
 {empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Role: ...
+Responsibilities: ...
 
 '''
 
-=== Benson Meier
+=== Zhang Cheng
 image::yl_coder.jpg[width="150", align="left"]
 {empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+Role: ...
+Responsibilities: ...
 
 '''

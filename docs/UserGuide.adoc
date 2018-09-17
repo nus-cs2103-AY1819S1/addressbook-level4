@@ -56,27 +56,128 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Login : `login`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+=== User Commands
+
+==== Listing all persons : `listUsers`
+
+Shows a list of all users in the event organiser. +
+Format: `listUsers`
+
+==== Locating users: `findUser`
+
+Finds userss whose names contain any of the given keywords. +
+Format: `findUser [KEYWORD] [KEYWORDS]...`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+****
+
+Examples:
+
+* `findUser John` +
+Returns `john` and `John Doe`
+* `findUser Betsy Tim John` +
+Returns any user having names `Betsy`, `Tim`, or `John`
+
+==== Locating users by available time range: `findUserAvailAt`
+Finds users who are available between a start and end time on a specific day. + 
+Format: `findUserAvailAt t1/HOUR:MINUTE t2/HOUR:MINUTE d/DAY/MONTH/YEAR`
+
+Examples:
+
+* `findUserAvailAt t1/08:00 t2/10:00 d/23/08/2018` + 
+Finds users available from 8am to 10am on 23 August. 
+
+==== Locating users who live close to a location: `findUserCloseTo`
+Finds users who live close to a location. + 
+Format: `findUserCloseTo PLACENAME r/SEARCHRADIUS`
+
+****
+* Search radius is specified in kilometres.
+****
+
+Examples:
+
+* `findUserCloseTo Clementi Mall r/5`
+Finds all users who live within 5km of Clementi Mall.
+
+==== Locating users who know a user: `findFriendsOf`
+Finds users who are friends of a user. + 
+Format: `findFriendsOf USERNAME`
+
+Examples:
+
+* `findFriendsOf John Doe`
+
+==== Deleting a user : `deleteUser`
+
+Deletes the specified user from the event organiser. +
+Format: `deleteUser INDEX`
+
+****
+* Deletes the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list` +
+`deleteUser 2` +
+Deletes the 2nd person in the event organiser. 
+* `find Betsy` +
+`deleteUser 1` +
+Deletes the 1st person in the results of the `find` command.
+
+==== Selecting a person : `select`
+
+Selects the person identified by the index number used in the displayed person list. +
+Format: `select INDEX`
+
+****
+* Selects the person and loads the Google search page the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+* `list` +
+`select 2` +
+Selects the 2nd person in the event organiser.
+* `find Betsy` +
+`select 1` +
+Selects the 1st person in the results of the `find` command.
+
+==== Clearing all user entries : `clear`
+
+Clears all users from the event organiser. +
+Format: `clear`
+
+=== Setup user commands
+
+==== Setup a user : `addUser`
+
+Adds a new user to the event organiser. +
+Format: `addUser n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
 [TIP]
 A person can have any number of tags (including 0)
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `addUser n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+* `addUser n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-=== Listing all persons : `list`
+==== Editing a user : `edit`
 
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
+Edits an existing person in the event organiser. +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 ****
@@ -94,33 +195,72 @@ Edits the phone number and email address of the 1st person to be `91234567` and 
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-=== Locating persons by name: `find`
+==== Add an interest : `addInterest`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Adds an interest to the pre-selected user. +
+Format: `addInterest INTEREST`
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+Example:
+
+* `addInterest Tennis` +
+Adds the interest "Tennis" to the pre-selected user.
+
+==== Add a group : `addGroup`
+
+Adds a group to the pre-selected user. +
+Format: `addGroup GROUP`
+
+Example:
+
+* `addGroup SOC` +
+Adds the group "SOC" to the pre-selected user.
+
+==== Add a friend : `addFriend`
+
+Adds another user as a friend of the pre-selected user. +
+Format: `addFriend USERNAME`
+
+Example:
+
+* `addFriend John Doe` +
+Adds the user 'John Doe' as a friend of pre-selected user.
+
+==== Setup personal weekly schedule : `addSchedule`
+Sets up a user's weekly schedule using NUSMods timetable.
+Format: `addSchedule NUSMODS_LINK`
+
+Example:
+
+* `addSchedule ...`
+
+==== Add activity to schedule : `addToSchedule`
+Adds a range of unavailable times to the weekly schedule, or to a specific date.
+Format: `addToSchedule t1/HOUR:MINUTE t2/HOUR:MINUTE [w/DAY_OF_WEEK] [d/DAY/MONTH/YEAR]`
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `addToSchedule t1/08:00 t2/12:00 w/Tuesday` +
+Adds activity from 8am to 12pm every Tuesday.
+* `addToSchedule t1/12:00 t2/14:30 d/23/08/2018` + 
+Adds activity from 12pm to 2:30pm on 23 August 2018. 
 
-=== Deleting a person : `delete`
+=== Create and confirm event commands
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+==== Create a new event : `addEvent`
+Adds a new event to the event organiser. +
+Format: `addEvent n/NAME`
+
+Examples:
+
+* `addEvent NUS Tennis Welcome Session`
+* `addEvent CS1101S Meet-up`
+
+==== Delete an event : `deleteEvent`
+Deletes the specified event from the event organiser. +
+Format: `deleteUser INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
+* Deletes the event at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
@@ -128,31 +268,182 @@ Format: `delete INDEX`
 Examples:
 
 * `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+`deleteEvent 2` +
+Deletes the 2nd event in the event organiser. 
 
-=== Selecting a person : `select`
-
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
+==== Set the event date : `setDate`
+Sets the event date. + 
+Format: `setDate DAY/MONTH/YEAR`
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
+* Day, month and year are specified as numbers. 
+****
+
+Examples: 
+
+* `setDate 08/09/2018`
+* `setDate 11/12/2019`
+
+==== Set the event time : `setTime`
+Sets the event time. + 
+Format: `setTime HOUR:MINUTE`
+
+****
+* Time is specified in 24 hour format
+****
+
+Examples: 
+
+* `setTime 23:00`
+* `setTime 13:30`
+
+==== Set the event location : `setPlace`
+Sets the location of the event. + 
+Format: `setPlace PLACENAME`
+
+Examples: 
+
+* `setPlace Central Library`
+* `setPlace Clementi Mall`
+
+==== Setup poll for date : `pollDate`
+Sets up a poll for the event date. + 
+Format: `pollDate`
+
+==== Add poll option for date : `addDate`
+Adds a new option to the poll for dates. + 
+Format: `addDate DAY/MONTH/YEAR`
+
+****
+* Day, month and year are specified as numbers. 
+****
+
+Examples: 
+
+* `addDate 08/09/2018`
+* `addDate 11/12/2019`
+
+==== Setup poll for time : `pollTime`
+Sets up a poll for the event time. + 
+Format: `pollTime`
+
+==== Add poll option for time : `addTime`
+Adds a new option to the poll for times. + 
+Format: `addTime HOUR:MINUTE`
+
+****
+* Time is specified in 24 hour format
+****
+
+Examples: 
+
+* `addTime 23:00`
+* `addTime 13:30`
+
+==== Setup poll for location : `pollPlace`
+Sets up a poll for the event location. + 
+Format: `pollPlace`
+
+==== Add poll option for location : `addPlace`
+Adds a new option to the poll for places. + 
+Format: `addPlace PLACENAME`
+
+Examples: 
+
+* `addPlace Central Library`
+* `addPlace Clementi Mall`
+
+==== Set poll deadline : `setPollDeadline`
+Sets a deadline for the poll. +
+Format: `setPollDeadline DAY/MONTH/YEAR HOUR:MINUTE`
+
+Examples: 
+
+* `setPollDeadline 08/09/2018 23:59`
+* `setPollDeadline 10/11/2019 13:00`
+
+==== Confirm all event details : `confirmEvent`
+==== Get recommendation for time : `recTime`
+Retrieves recommendations for the best time to hold the event. + 
+Format: `recTime`
+
+****
+* If the event has a poll, the event organiser will recommend the most popular options.
+* Otherwise, the event organiser will display the times when all event participants are available.
+****
+
+==== Get recommendation for date : `recDate`
+Retrieves recommendations for the best date to hold the event. + 
+Format: `recDate`
+
+****
+* If the event has a poll, the event organiser will recommend the most popular options.
+* Otherwise, the event organiser will display the dates when all event participants are available.
+****
+
+==== Get recommendation for location : `recPlace`
+Retrieves recommendations for the best location to hold the event. + 
+Format: `recPlace`
+
+****
+* If the event has a poll, the event organiser will recommend the most popular options.
+* Otherwise, the event organiser will compute the best event location from.
+****
+
+=== Join event commands
+
+==== Find event : `findEvent`
+Finds events based on name, exact date, start and end date, start and end time, and location. +
+Format: `findUser [n/NAME] [d/DATE] [d1/FROMDATE] [d2/TODATE] [t1/FROMTIME] [t2/TOTIME] [p/PLACE]`
+
+****
+* Parameters are optional, but at least one must be specified. 
+* Dates are specified in DAY/MONTH/YEAR format.
+* Times are specfied in 24 hour, HOUR:MINUTE format.
 ****
 
 Examples:
 
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
+* `findEvent d1/23/08/2018 d2/25/08/2018` + 
+Finds all events held between 23 August and 25 August in 2018.
+* `findEvent d/23/08/2018 t1/12:00 t2/18:00` + 
+Finds all events held between 12pm and 6pm on 23 August 2018. 
+
+==== Join event : `joinEvent`
+Joins event identified by unique event ID. + 
+Format: `joinEvent ID`
+
+Examples:
+
+* `joinEvent 213`
+
+==== Vote for date : `voteDate`
+Vote for a option specified in the date poll, if there is one.
+Format: `voteDate OPTION`
+
+Examples:
+
+* `voteDate 3`
+
+==== Vote for time : `voteTime`
+Vote for a option specified in the time poll, if there is one.
+Format: `voteTime OPTION`
+
+Examples:
+
+* `voteTime 3`
+
+==== Vote for location : `votePlace`
+Vote for a option specified in the location poll, if there is one.
+Format: `votePlace OPTION`
+
+Examples:
+
+* `votePlace 3`
+
+==== List joined events : `listJoinedEvents`
+Lists all the events joined by the current user.
+Format: `listJoinedEvents`
 
 === Listing entered commands : `history`
 
@@ -167,12 +458,12 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Restores the event organiser to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the event organiser's content (`add`, `delete`, `edit` and `clear`).
 ====
 
 Examples:
@@ -214,11 +505,6 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
 === Exiting the program : `exit`
 
 Exits the program. +
@@ -226,7 +512,7 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Event organiser data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]
