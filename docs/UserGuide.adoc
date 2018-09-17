@@ -34,7 +34,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* **`add`**`n/John Doe p/98765432 e/johnd@example.com b/A r/110 s/Faculty of Science c/basketball` : adds a contact named `John Doe` to the Address Book.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
@@ -260,7 +260,7 @@ Format: `upload`
 
 === Composing email : `compose`
 
-Composes a .eml file that can be used to send emails to residents. +
+Composes a *`.eml`* file that can be used to send emails to residents. +
 Format: `compose`
 
 === Creating calendar : `create_calendar`
@@ -269,6 +269,7 @@ Creates a calendar file in the address book for updating of events. +
 Format: `create_calendar MONTH`
 
 Example:
+
 * `create_calendar Feb`
 
 === Exporting calendars : `publish_calendar`
@@ -277,6 +278,7 @@ Exports the calendar as a .ics file that can be used to sync with Google Calenda
 Format: `publish_calendar MONTH`
 
 Example:
+
 * `publish_calendar Feb`
 
 === Viewing calendar : `view_calendar`
@@ -285,6 +287,7 @@ Views the calendar of the specified month. +
 Format: `view_calendar MONTH`
 
 Example:
+
 * `view_calendar Feb`
 
 === Adding event into calendar : `add_event`
@@ -293,8 +296,9 @@ Adds an event into the calendar. +
 Format: `add_event m/MONTH d/DATE st/START TIME et/END TIME n/NAME OF EVENT
 
 Example:
+
 * `add_event m/Feb d/2 st/1800 et/2100 n/Enthral`
- 
+
 === Viewing the budget for all CCAs : `budget`
 
 Allows for the viewing of the budgets for all the CCAs. +
@@ -310,6 +314,7 @@ Allows for the viewing of the budget and past transactions of the specified CCA.
 Format: `view_cca CCA`
 
 Example:
+
 * `view_cca soccer`
 
 === Adding a CCA's budget : `add_cca`
@@ -318,6 +323,7 @@ Adds a CCA's budget. +
 Format: `add_cca CCA BUDGET`
 
 Example:
+
 * `add_cca badminton 500`
 
 === Deleting a CCA's budget : `delete_cca`
@@ -326,6 +332,7 @@ Deletes the CCA's exisiting budget. +
 Format: `delete_cca CCA`
 
 Example:
+
 * `delete_cca soccer` 
 
 === Modifying a CCA's budget : `modify_cca`
@@ -334,6 +341,7 @@ Modifies the budget of specified CCA. +
 Format: `modify_cca CCA BUDGET`
 
 Example: 
+
 * `modify_cca soccer 500`
 
 === Adding a transaction to the budget : `add_transaction`
@@ -384,7 +392,7 @@ e.g. `modify_cca basketball 500`
 e.g. `delete_cca basketball`
 * *View CCA* : `view_cca CCA` +
 e.g. `view_cca basketball`
-* *Add Transaction* : `add_transaction CCA AMOUNT TYPE PERSON-IN-CHARGE`
+* *Add Transaction* : `add_transaction CCA AMOUNT TYPE PERSON-IN-CHARGE` +
 e.g. `add_transaction soccer 500 debit James` 
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
@@ -402,7 +410,14 @@ e.g. `search basketball`
 * *Help* : `help`
 * *Select* : `select INDEX` +
 e.g. `select 2`
-* *Publish* : `publish`
+* *Create Calendar* : `create_calendar MONTH` +
+e.g. `create_calendar Feb`
+* *Publish Calendar* : `publish_calendar MONTH` +
+e.g. `publish_calendar Feb`
+* *View Calendar* : `view_calendar MONTH` +
+e.g. `view_calendar Feb`
+* *Add Event* : `add_event m/MONTH d/DATE st/START TIME et/END TIME n/NAME OF EVENT`
+e.g. `add_event m/Feb d/2 st/1800 et/2100 n/Enthral
 * *Image* : `image`
 * *Import* : `import`
 * *History* : `history`
