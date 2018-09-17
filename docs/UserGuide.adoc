@@ -380,7 +380,7 @@ Example:
 * `tag Work` +
 You can view all contacts in the `Work` tag, or with the `g/Work` tag.
 
-=== Remove a tag
+==== Remove a tag
 Remove all users from a tag. +
 Format: `tag TAG_NAME remove`
 
