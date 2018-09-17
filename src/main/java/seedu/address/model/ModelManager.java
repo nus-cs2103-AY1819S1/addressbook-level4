@@ -82,6 +82,10 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    /**
+     * Removes {@code tag} from all {@code person}s in this {@code AddressBook}.
+     * @throws DuplicatePersonException if there's a duplicate {@code Person} in this {@code AddressBook}.
+     */
     public void deleteTag(Tag tag) throws DuplicatePersonException {
 
         versionedAddressBook.removeTagFromAll(tag);
