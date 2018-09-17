@@ -1,7 +1,5 @@
 package seedu.address.model;
 
-import seedu.address.model.event.Event;
-
 import java.util.ArrayList;
 import java.util.List;
 

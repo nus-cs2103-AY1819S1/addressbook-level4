@@ -62,8 +62,7 @@ public class Event {
         }
 
         return otherEvent != null
-                && otherEvent.getName().equals(getName())
-                ;
+                && otherEvent.getName().equals(getName());
     }
 
     /**

@@ -65,6 +65,11 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedAddressBook.hasPerson(person);
     }
 
+    /**
+     * Check if a event already exists in a versionedAddressBook
+     * @param event
+     * @return true if versionAddressBook already has this event.
+     */
     public boolean hasEvent(Event event) {
         requireNonNull(event);
         return versionedAddressBook.hasEvent(event);
