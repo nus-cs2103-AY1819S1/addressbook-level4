@@ -882,30 +882,97 @@ _{More to be added}_
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Adding an entry
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User asks application to add a new entry.
+2.  Application creates a new entry, displays confirmation to user.
+3.  User enters additional information for new entry.
+4.  Application updates entry, displays info to user.
+
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a.  User creates new entry along with associated information.
+** 1a1.  Application displays confirmation of entry creation.
+** 1a2.  Application displays entry along with associated information.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 1b.  Entry with same name already exists in AddressBook.
+** 1b1.  Application informs user, requests for confirmation.
+** 1b2.  User confirms request.
 +
+Use case resumes from step 2.
+
+* 3a.  Wrong keyword or details input by user.
+** 3a1.  Application prompts user for re-entry.
+** 3a2.  Application will give example of a proper command.
+** 3a3.  User gives proper format of input.
++
+Use case resumes from step 4.
+
+* 3b.  Entry with same name already exists in AddressBook.
+** 3b1.  Application displays numbered list of entries with that same name.
+** 3b2.  User inputs number associated with correct entry.
++
+Use case resumes from step 4.
+
+[discrete]
+=== Use case: Delete an entry
+
+*MSS*
+
+1.  User asks application to delete a entry.
+2.  Application asks user to confirm deletion.
+3.  User confirms deletion.
+4.  Application deletes entry, shows confirmation message to user.
+
+*Extensions*
+
 [none]
-** 3a1. AddressBook shows an error message.
+* 1a.  User’s requested entry does not exist.
+** 1a1.  Application informs user.
 +
-Use case resumes at step 2.
+Use case resumes from step 1.
+
+* 1b.  Multiple entries with identical names exist.
+** 1b1.  Application displays numbered list of entries with that same name.
+** 1b2.  User inputs number associated with correct entry (or 0 to cancel).
++
+Use case resumes from step 4.
+
+* 3a.  User requests to cancel deletion.
+** 3a1.  Application displays acknowledgement message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete an entry
+
+*MSS*
+
+1.  User searches for an entry name.
+2.  Application displays entry and associated information.
+3.  User adds info into new fields.
+4.  Application displays updated entry.
+
+*Extensions*
+
+[none]
+* 3a.  User edits existing field.
+** 3a1.  Application modifies requested field, displays updated entry.
++
+Use case ends.
+
+* 3b.  User deletes existing field.
+** 3b1.  Application deletes existing field, displays updated entry.
++
+Use case ends.
 
 _{More to be added}_
 
