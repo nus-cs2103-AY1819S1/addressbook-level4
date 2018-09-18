@@ -83,12 +83,15 @@ Shorthand: `l`
 
 === Editing a person : `edit`
 
-Edits an existing person in the address book. +
+==== Editing by index
+
+Edits an existing person in the address book by the list's index. +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 Shorthand: `e`
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list.
+The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
@@ -101,6 +104,35 @@ Examples:
 Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+==== Editing by name
+
+Edits an existing person in the address book by the person's name. +
+Format: `edit n/NAME [p/phone] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+
+****
+* Edits the person with the specified NAME. The index *​must be the full name.*
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the person will be removed i.e. adding of tags is not cumulative.
+* You can remove all the person’s tags by typing ​*t/*​ without specifying any tags after it.
+* If there are multiple contacts with the same name, address book will prompt for one unique field (address, email,
+phone or other tags) to identify the contact, after which it will ask for the fields to update.
+****
+
+Examples:
+
+* `edit John Doe p/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of John Doe to be ​91234567​ and
+johndoe@example.com​ respectively.
+* When there are two `John Doe` s on the list, and command provided is:
+** `edit John Doe` +
+Address book prompts for a unique field.
+** `p/98765432` +
+You provides a unique field. In this example the `John Doe` contact you will be editing should have phone number
+`98765432`.
+** `p/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of John Doe to be ​`91234567​` and `johndoe@example.com​` respectively.
 
 === Locating persons by name: `find`
 
@@ -174,7 +206,8 @@ Format: `history`
 Shorthand: `hs`
 [NOTE]
 ====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command
+box.
 ====
 
 // tag::undoredo[]
@@ -242,7 +275,146 @@ Shorthand: `c`
 Exits the program. +
 Format: `exit`
 
+
 Shorthand: `q`
+
+=== Mass import contacts: `import`
+
+Import contacts from a csv file. User provides the file path as the second argument. +
+Format: `import SOURCE_FILE_PATH`
+
+****
+* Address book will fetch the file from the given path.
+* Address book will throw an error message if the path or file type is invalid.
+****
+
+Example:
+
+* `import C:\Users\John Doe\Desktop\contacts.csv` +
+Address book will import the contacts provided in the csv file.
+
+=== Mass export email addresses: `export`
+
+Exports all emails into a csv file in a directory that is given as the second argument. +
+Format: `export DESTINATION_DIRECTORY`
+
+****
+* Address book will extract all email addresses, compile into a csv and save it in the given destination with default
+name AB4DDMMYY.csv
+* Address book will throw an error message if path is invalid.
+****
+
+Example:
+
+* `export C:\Users\John Doe\Documents` +
+Email addresses are exported to `C:\Users\John Doe\Documents\AB4DDMMYY.csv`
+
+=== Add meeting time: `schedule`
+
+Add a meeting at the input date and time with a specified person. +
+Format: `schedule n/PERSON d/DDMMYY [t/HHMM]`
+
+****
+* Address book will add the meeting to your list of meetings, as well as mark the person with the meeting.
+****
+
+Example:
+
+* `schedule Jane Doe d/120319 t/0930` +
+Address book will record that Jane Doe is scheduled for a meeting on 12 March 2019, 0930.
+
+=== View meeting timings: `meetings`
+
+Displays the details of the meeting at the input date and time. +
+Format: `meetings [d/DDMMYY] [t/HHMM]`
+
+****
+* If there is a meeting scheduled at the queried date and time, the details of the client the meeting is scheduled with
+are displayed.
+* If the query has no time, then all meetings scheduled on the day are displayed.
+* If the query has no date, then all meetings scheduled in the address book are displayed.
+* If there is no meeting scheduled on the day/time, the details of the first meeting after the queried date/time are
+displayed.
+* If there are no meetings on/at and after the scheduled date/time, you are notified that there are no upcoming
+meetings.
+****
+
+Example:
+
+* `meetings 23022018 1600` +
+Address book displays meetings at that time or the earliest meeting after the specified time.
+
+=== Notifications for expiring plans
+
+The address book entries have an optional field for date of plan expiry. You will automatically be notified of clients
+with plans expiring within a month from the day when the address book is initialized. +
+No additional search queries are needed.
+
+=== Adding a picture to contact: `pic`
+
+Adds a picture to a person in the address book. +
+Format: `​pic n/NAME [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] l/FILE_LOCATION​`
+
+****
+* Address book will add the image to the contact.
+* If there are multiple contacts with the same name, address book will prompt for one unique field (address, email,
+phone or other tags) to identify the contact. The image will then be added to the specified contact.
+****
+
+Examples:
+
+* `pic n/John Doe l/john.jpg` +
+Contact `John Doe` will now have image `john.jpg` in his contact.
+* When there are two `John Doe` s on the list, and command provided is:
+** `pic n/John Doe l/john.jpg` +
+Address book prompts for a unique field.
+** `p/98765432` +
+You provide a unique field. In this example the `John Doe` contact you will be editing should have phone number
+`98765432`. This `John Doe` will then have image `john.jpg` in his contact.
+
+=== Allow user to edit contact if duplicate contact is added
+
+Warns you about adding a contact that has the same name and same phone number or email or address field.
+Address Book allows you to add contact with the same name as an existing contact as long as one of the other fields
+are different.
+
+Examples:
+
+* `add n/John Doe p/91234567 e/johndoe@example.com a/John street, block 123, #01-01` +
+`add n/John Doe p/98765432 e/differentemail@example.com a/Different street, block 123, #01-01` +
+Address Book will warn you that an existing contact John Doe already exists. Address Book will ask you if you would like
+to go ahead and create a new contact, edit the existing contact, or cancel the operation.
+
+=== Using tags: `tag`
+
+==== View contacts by tag
+View all contacts in any existing tag. +
+Format: `tag TAG_NAME`
+
+****
+* You can view all users that belong to the same tag.
+* Address book will throw an error if an invalid `TAG_NAME` is given.
+****
+
+Example:
+
+* `tag Work` +
+You can view all contacts with the `Work` tag.
+
+==== Remove a tag
+Remove all users from a tag. +
+Format: `tag TAG_NAME remove`
+
+****
+* All contacts in `TAG_NAME` will be removed from the tag. Contacts that were previously tagged are not deleted.
+* Address book will throw an error if an invalid `TAG_NAME` is given.
+****
+
+Example:
+
+* `tag Work remove` +
+All contacts that were previously tagged with `Work` have the `Work` tag removed.
+
 
 === Saving the data
 
@@ -278,3 +450,10 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *Import contacts* : `import SOURCE_FILE_PATH`
+* *Export email addresses* : `export DESTINATION_DIRECTORY`
+* *Schedule* : `schedule n/NAME d/DDMMYY [t/HHMM]`
+* *Meetings* : `meetings [d/DDMMYY] [t/HHMM]`
+* *Add picture* : `​pic n/NAME l/FILE_LOCATION`
+* *View all contacts with a specified tag* : `tag TAG_NAME`
+* *Remove all contacts from a specified tag* : `tag TAG_NAME remove`
