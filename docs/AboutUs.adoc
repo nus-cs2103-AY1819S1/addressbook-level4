@@ -18,9 +18,9 @@ Responsibilities: UI
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Arsalan Cheema
+image::arsalanc-v2.png[width="150", align="left"]
+{empty}[http://github.com/arsalanc-v2[github]] [<<arsalanc-v2#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Data
