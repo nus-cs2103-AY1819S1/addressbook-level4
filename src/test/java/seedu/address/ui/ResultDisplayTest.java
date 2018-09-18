@@ -13,7 +13,7 @@ import seedu.address.commons.events.ui.NewResultAvailableEvent;
 
 public class ResultDisplayTest extends GuiUnitTest {
 
-    private static final NewResultAvailableEvent NEW_RESULT_VALID_EVENT_STUB = 
+    private static final NewResultAvailableEvent NEW_RESULT_VALID_EVENT_STUB =
             new NewResultAvailableEvent("Stub", true);
     private static final NewResultAvailableEvent NEW_RESULT_INVALID_EVENT_STUB =
             new NewResultAvailableEvent("Stub", false);
@@ -30,7 +30,7 @@ public class ResultDisplayTest extends GuiUnitTest {
 
         resultDisplayHandle = new ResultDisplayHandle(getChildNode(resultDisplay.getRoot(),
                 ResultDisplayHandle.RESULT_DISPLAY_ID));
-        
+
         defaultStyleOfResultDisplay = new ArrayList<>(resultDisplayHandle.getStyleClass());
 
         errorStyleOfResultDisplay = new ArrayList<>(defaultStyleOfResultDisplay);
