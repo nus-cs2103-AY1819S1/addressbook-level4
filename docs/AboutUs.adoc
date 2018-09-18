@@ -15,12 +15,12 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::spikerheado1234.png[width="150", align="left"]
 {empty}[http://www.ahangupta.com[homepage]] [https://github.com/spikerheado1234[github]] [<<spikerheado1234#, portfolio>>]
 
-Role: Team Member
+Role: Team Lead
 
 
 === Way Tan
 image::waytan.png[width="150", align="left"]
-{empty}[http://github.com/waytan[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/waytan[github]] [<<waytan#, portfolio>>]
 Role: Team Member
 
 '''
@@ -33,18 +33,17 @@ Role: Team Member
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Alistair Ong
+image::alistairong.jpg[width="150", align="left"]
+{empty}[http://github.com/alistairong[github]] [<<alistairong#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Role: Team Member
 
 '''
 
 === Tian Xueyan
 image::xueyantian.jpeg[width="150", align="left"]
-{empty}[http://github.com/xueyantian[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/xueyantian[github]] [<<xueyantian#, portfolio>>]
 
 Role: Team Member
 
