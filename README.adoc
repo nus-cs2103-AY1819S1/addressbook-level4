@@ -15,6 +15,7 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
+<<<<<<< HEAD
 * Welcome to TheTracker
 * TheTracker aims at NUS students to keep track of everything from the
 modules they take to the events they join, and every person related to them
@@ -26,6 +27,20 @@ from NUS staff to their friends.
 ** Academic and wish to keep track of their grades for certain modules and all
 the modules
 ** keep track of schedule of events on a calendar
+=======
+* Welcome to TheTracker.
+* TheTracker helps NUS students to keep track
+ of every person related to you for yourself to friends, and everything from
+ the modules you are taken and the events you participate in.
+* The design of TheTracker especially favours students who prefer interactions
+which are using CLI.
+* TheTracker welcomes NUS students who are:
+** Sociable and wish to know about his/her NUS peers
+** Academic and wish to keep track of their grades for certain modules and all
+  the modules
+** keep track of schedule of events on a calendar
+
+>>>>>>> master
 
 == Site Map
 
@@ -36,6 +51,11 @@ the modules
 
 == Acknowledgements
 
+<<<<<<< HEAD
+=======
+* The original source of code: AddressBook-Level4 project created by SE-EDU
+initiative at https://github.com/se-edu/g
+>>>>>>> master
 * Libraries used: https://github.com/TestFX/TestFX[TextFX], https://bitbucket.org/controlsfx/controlsfx/[ControlsFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]
 
 == Licence : link:LICENSE[MIT]
