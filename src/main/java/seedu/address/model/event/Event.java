@@ -1,5 +1,3 @@
-
-
 package seedu.address.model.event;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -14,7 +12,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Event in the event organiser. 
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Event {
@@ -23,7 +21,7 @@ public class Event {
     private final Name name;
 
     // Data fields
-    private final Address address;
+    private final Address location;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -32,7 +30,7 @@ public class Event {
     public Event(Name name, Address address, Set<Tag> tags) {
         requireAllNonNull(name, address, tags);
         this.name = name;
-        this.address = address;
+        this.location = address;
         this.tags.addAll(tags);
     }
 
@@ -40,8 +38,8 @@ public class Event {
         return name;
     }
 
-    public Address getAddress() {
-        return address;
+    public Address getLocation() {
+        return location;
     }
 
     /**
@@ -75,20 +73,20 @@ public class Event {
             return true;
         }
 
-        if (!(other instanceof seedu.address.model.person.Person)) {
+        if (!(other instanceof seedu.address.model.event.Event)) {
             return false;
         }
 
-        seedu.address.model.person.Person otherPerson = (seedu.address.model.person.Person) other;
+        Event otherPerson = (seedu.address.model.event.Event) other;
         return otherPerson.getName().equals(getName())
-                && otherPerson.getAddress().equals(getAddress())
+                && otherPerson.getLocation().equals(getLocation())
                 && otherPerson.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, address, tags);
+        return Objects.hash(name, location, tags);
     }
 
     @Override
@@ -96,7 +94,7 @@ public class Event {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append(" Address: ")
-                .append(getAddress())
+                .append(getLocation())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
