@@ -49,6 +49,11 @@ public class PersonCard extends UiPart<Region> {
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
         initTags(person);
+
+        name.setWrapText(true);
+        address.setWrapText(true);
+        email.setWrapText(true);
+
     }
 
     /**
