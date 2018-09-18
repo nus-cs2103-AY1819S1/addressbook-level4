@@ -2,6 +2,7 @@ package seedu.address.model.event;
 
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
