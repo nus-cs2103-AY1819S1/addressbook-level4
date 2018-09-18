@@ -856,6 +856,8 @@ _{More to be added}_
 
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
+
+--------------------------------------- start----------------------------------------------
 [discrete]
 === Use case: Delete person
 
@@ -881,8 +883,81 @@ Use case ends.
 ** 3a1. AddressBook shows an error message.
 +
 Use case resumes at step 2.
+-------------------------------------------------------------- top is structure
+== Use Cases
 
-_{More to be added}_
+(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+
+
+--------------------------------------- start----------------------------------------------
+[discrete]
+=== Use case: Sign out patient's visitors
+
+*MSS*
+
+1.  Counter staff inputs the visited patient's number and visitor name
+2.  Visitor is signed out
+3.  Use case ends
+
+*Extensions*
+
+[none]
+*   1a. Counter staff inputs the visited patient's number and visitor name.
+*   2a. Visitor is signed out.
++   Use case ends.
+
+
+[discrete]
+=== Use case: Checkin patient
+
+*MSS*
+
+1.  Counter nurse request to check in patient
+2.  Counter nurse inputs the patient's NRIC
+3.  HMS adds the patient into the patient queue
+4.  Use case ends
+
+*Extensions*
+
+[none]
+* 1a. The patient is already checked in.
+**  1a1. HMS shows an error message.
++   Use case resumes at step 2.
+
+* 2a. The patient has no existing data.
+**  2a1. HMS prompts for additional data.
++ User case resumes at step 2.
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Checkout patient
+
+*MSS*
+
+1.  Counter nurse request to checkout patient
+2.  Counter nurse inputs the details for the patient to be checked out.
+3.  User requests to delete a specific person in the list
+4.  AddressBook removes the patient from patient queue
+5.  Use case ends
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
 
 [appendix]
 == Non Functional Requirements
