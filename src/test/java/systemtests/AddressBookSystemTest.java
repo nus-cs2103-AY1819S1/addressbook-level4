@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
+import static seedu.address.ui.StatusBarFooter.TOTAL_NUMBER_STATUS;
 import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
@@ -192,6 +193,7 @@ public abstract class AddressBookSystemTest {
         getBrowserPanel().rememberUrl();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
+        statusBarFooterHandle.rememberTotalNumberStatus();
         getPersonListPanel().rememberSelectedPersonCard();
     }
 
@@ -256,18 +258,21 @@ public abstract class AddressBookSystemTest {
         StatusBarFooterHandle handle = getStatusBarFooter();
         assertFalse(handle.isSaveLocationChanged());
         assertFalse(handle.isSyncStatusChanged());
+        assertFalse(handle.isTotalNumberStatusChanged());
     }
 
     /**
      * Asserts that only the sync status in the status bar was changed to the timing of
      * {@code ClockRule#getInjectedClock()}, while the save location remains the same.
      */
-    protected void assertStatusBarUnchangedExceptSyncStatus() {
+    protected void assertStatusBarChangedExceptLocation() {
         StatusBarFooterHandle handle = getStatusBarFooter();
         String timestamp = new Date(clockRule.getInjectedClock().millis()).toString();
         String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
         assertEquals(expectedSyncStatus, handle.getSyncStatus());
         assertFalse(handle.isSaveLocationChanged());
+        assertEquals(handle.getTotalNumberStatus(),
+                String.format(TOTAL_NUMBER_STATUS, testApp.getModel().getAddressBook().getPersonList().size()));
     }
 
     /**
