@@ -13,7 +13,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::Adeel.png[width="150", align="left"]
 {empty} [https://github.com/adeeldb[github]] [<<johndoe#, portfolio>>]
 
-Role: ...
+Responsibilities: UI
 
 '''
 
@@ -21,8 +21,7 @@ Role: ...
 image::KengJi.jpg[width="150", align="left"]
 {empty}[http://github.com/theJrLinguist[github]] [<<johndoe#, portfolio>>]
 
-Role: ...
-Responsibilities: ..
+Responsibilities: Model (Event)
 
 '''
 
@@ -30,8 +29,7 @@ Responsibilities: ..
 image::Jason.png[width="150", align="left"]
 {empty}[https://github.com/adjscent[github]] [<<johndoe#, portfolio>>]
 
-Role: ...
-Responsibilities: ...
+Responsibilities: Storage
 
 '''
 
@@ -39,8 +37,7 @@ Responsibilities: ...
 image::m133225.jpg[width="150", align="left"]
 {empty}[https://github.com/yao-feng[github]] [<<johndoe#, portfolio>>]
 
-Role: ...
-Responsibilities: ...
+Responsibilities: Model (User)
 
 '''
 
@@ -48,7 +45,6 @@ Responsibilities: ...
 image::Zhang Cheng.png[width="150", align="left"]
 {empty}[https://github.com/agendazhang[github]] [<<johndoe#, portfolio>>]
 
-Role: ...
-Responsibilities: ...
+Responsibilities: Logic
 
 '''
