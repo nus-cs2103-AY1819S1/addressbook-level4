@@ -47,7 +47,7 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedpatient.java[`XmlAdaptedpatient.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
 . Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
@@ -89,7 +89,7 @@ Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingT
 After setting up Travis, you can optionally set up coverage reporting for your team fork (see <<UsingCoveralls#, UsingCoveralls.adoc>>).
 
 [NOTE]
-Coverage reporting could be useful for a team repository that hosts the final version but it is not that useful for your personal fork.
+Coverage reporting could be useful for a team repository that hosts the final version but it is not that useful for your patiental fork.
 
 Optionally, you can set up AppVeyor (second CI (see <<UsingAppVeyor#) | UsingAppVeyor.adoc>>).
 
@@ -149,7 +149,7 @@ image::LogicClassDiagram.png[width="800"]
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
 
 .Component interactions for `delete 1` command (part 1)
-image::SDforDeletePerson.png[width="800"]
+image::SDforDeletepatient.png[width="800"]
 
 [NOTE]
 Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
@@ -157,7 +157,7 @@ Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
 .Component interactions for `delete 1` command (part 2)
-image::SDforDeletePersonEventHandling.png[width="800"]
+image::SDforDeletepatientEventHandling.png[width="800"]
 
 [NOTE]
 Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
@@ -172,7 +172,7 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `patientListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -194,13 +194,13 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+.  The command execution can affect the `Model` (e.g. adding a patient) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+image::DeletepatientsdForLogic.png[width="800"]
 
 [[Design-Model]]
 === Model component
@@ -214,11 +214,11 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<patient>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-(more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`) | instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Address Book`, which `patient` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `patient` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
 
@@ -497,17 +497,17 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Hospital Management System 2K18 (HMS)` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Delete patients
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list patients
+2.  HMS shows a list of patients
+3.  User requests to delete a specific patient in the list
+4.  HMS deletes the patient
 +
 Use case ends.
 
@@ -521,9 +521,96 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. HMS shows an error message.
 +
 Use case resumes at step 2.
+
+[discrete]
+=== Use case: View patient's medical details
+
+*MSS*
+
+1.  Doctor requests to list patient’s medical details
+2.  HMS shows a list of the patient’s medical details
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The patient does not exist.
++
+[none]
+** 2a1. HMS shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: View patient's medication
+
+*MSS*
+
+1.  Doctor/Pharmacist requests to list patient’s current medication
+2.  HMS shows a list of the patient’s current medication
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The patient does not exist.
++
+[none]
+** 2a1. HMS shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: View patient's dietary details
+
+*MSS*
+
+1.  User searches the name of a patient
+2.  HMS shows a list of patients
+3.  User requests to view a patient’s dietary details
+4.  HMS shows requested details
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. HMS shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Sign in patient's visitors
+
+*MSS*
+
+1.  Counter staff inputs the visited patient’s number
+2.  HMS displays the number of visitors the patiently currently has
+3.  Visitor is registered
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Number of visitors for that patient exceeds maximum number allowed.
++
+[none]
+** 2a1. HMS rejects visitor.
++
+Use case ends.
 
 _{More to be added}_
 
@@ -531,10 +618,10 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 patients without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  Should work on Windows 10 and above as long as it has Java 9 or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 patients without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  Patient data should be securely encrypted.
 .  Patients information will be safely backed up every week.
@@ -607,15 +694,15 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting a patient
 
-. Deleting a person while all persons are listed
+. Deleting a patient while all patients are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all patients using the `list` command. Multiple patients in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No patient is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
