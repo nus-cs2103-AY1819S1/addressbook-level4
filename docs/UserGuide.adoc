@@ -156,13 +156,15 @@ Selects the 1st patient in the results of the `find` command.
 
 === Generate Medical Certificate : `mc`
 
-Create a Medical Certificate based on the IC Number or Index Number from the last list/find command.
-Format: `mc <INDEX> d/<DATE>-<DATE> *DATE = DD-MM-YYYY` or `mc <IC Number> d/<DATE>-<DATE> *DATE = DD-MM-YYYY`
+Create a Medical Certificate based on the IC Number or Index Number from the last list/find command. +
+Format: `mc <INDEX> d/<DATE>-<DATE>` or `mc <IC Number> d/<DATE>-<DATE>` where date is in the format DD-MM-YYYY
 
 Examples:
 
-* `mc 1 d/02-09-2018-04-09-2018`
-* `mc S7473920X d/02-09-2018-02-09-2018`
+* `mc 1 d/02-09-2018-04-09-2018` +
+Generates a MC for the 1st patient in the address book.
+* `mc S7473920X d/02-09-2018-02-09-2018` +
+Generates a MC for the IC number.
 
 === Listing entered commands : `history`
 
