@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= FlashBook - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,19 +12,19 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-W17-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team CS2103-AY1819S1-W17-3`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Flashbook is for those who prefer to use a desktop app to manage their to-do for university. Flashbook is *designed for those who prefer to work with a Command Line Interface (CLI)* while still having the benefits of a Graphical User Interface (GUI). Users who can type fast can navigate and use the to-do list faster than traditional GUI apps. Makes your hand itchy and want to try out? Go to <<Quick Start>> to get started!
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `flashbook.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your Flash Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,8 +33,8 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* *`list`* : Display all existing tasks on the display.
+* **`add`**`n this add high Problem_5.12 with deadline on 100918: the most difficult one` : adds a task named `Problem_5.12` to the FlashBook and set the deadline of the task to due on `10/08/18`.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
@@ -46,93 +46,90 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in square brackets are the parameters to be supplied by the user e.g. in `changeto [tag] with [TaskParameters]`, `TaskParameters` and `tag` are parameters which can be used as `changeto urgent with deadline on 110918`.
+* Words in square brackets are optional. e.g. `changeto [tag] with [TaskParameters]` can be used as `changeto with deadline on 110918` or `changeto urgent`
+
 ====
 
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding a new task: `add`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Add a new task named [Task Name] with parameters described in [Task Parameters] to the module [Module Name]. +
+Format: `in [Module Name] add [Tag] [Task Name] with [Task Parameters]:[Description]`
 
-[TIP]
-A person can have any number of tags (including 0)
+[NOTE]
+If Module Name is “this” or “&”, the new task will be added as a subtask of the selected task
 
-Examples:
+.Possible tags are: 
+* urgent / u
+* high / h
+* normal / n (default)
+* low / l
+* done / d (this task will not show up in the find command unless specified) 
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+.Possible task parameters:
 
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+* Deadline: `deadline on DDMMYY`, or the shorthand `dlDDMMYY`
+* Location: `@[Location Name]`
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `in ST2131 add urgent Homework_1 with deadline on 170918 @S17:12 pages of statistics.` : In Module ST2131, add task Homework_1 with deadline on `17/09/18`, with task description of `12 pages of statistics` and location of task is at `S17`.
+* `#ST2131 a u Homework_1 dl170918 @S17:12 pages of statistics.`
+* `in this add high Problem_5.12 with deadline on 100918: the most difficult one`
+* `#& a h Problem_5.12 dl100918: the most difficult one`
 
-=== Locating persons by name: `find`
+[NOTE] 
+[Task Name] must be a string without spaces and is not a restricted keyword.
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
+=== Editing a task : `changeto`
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+Pre-condition: Task is already selected using `select` command. +
 ****
+Replace the selected tasks’ parameters with those described in this command (undescribed parameters will not be changed) +
+
+Format: `changeto [Tag] with [TaskParameters]:[TaskDescription]`, or the shorthand `c [Tag] w [Taskparameters]:[TaskDescription]`
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `changeto urgent with deadline on 150918: only ten pages is needed` +
+Edits task selected to be of `urgent` tag and deadline on `15/09/18`, with task description of `only ten pages is needed`.
+* `ct u w dl120918` +
+Edit task selected tagging it with `urgent` and set its deadline to `12/09/18`
+* `changeto with deadline on 110918: deadline extended` + 
+Edit task selected deadline to `11/09/18`
 
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
+=== Deleting a task: `delete`
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+Pre-condition: Task is already selected using select command
 ****
+Remove the selected task. +
+Format: `delete`, or the shorthand `dl`
+
+
+=== Managing the module list: modules
+
+Management of modules in FlashBook. Capabilities of FlashBook module system includes: 
+
+- Create a module: `modules create [Module Name]`, or `+\#[Module Name]`
+- Delete a module: `modules delete [Module Name]`, or `~#[Module Name]`
+- List modules: `modules`, or `#`
+- List tasks in the module: `modules [Module Name]`, or `#[Module Name]`
+- Delete all modules: `modules delete \*` or `~*`
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* modules create CS2103T
+* modules delete CS2101
+* +#ST2334
+* ~#CS2040
+* #CS2040
+* #
+* ~*
+
 
 === Selecting a person : `select`
 
