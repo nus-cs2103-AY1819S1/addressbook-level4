@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= FlashBook - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,19 +12,19 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-W17-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team CS2103-AY1819S1-W17-3`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Flashbook is for those who prefer to use a desktop app to manage their to-do for university. Flashbook is *designed for those who prefer to work with a Command Line Interface (CLI)* while still having the benefits of a Graphical User Interface (GUI). Users who can type fast can navigate and use the to-do list faster than traditional GUI apps. Makes your hand itchy and want to try out? Go to <<Quick Start>> to get started!
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `flashbook.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your Flash Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,8 +33,8 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* *`list`* : Display all existing tasks on the display.
+* **`add`**`n this add high Problem_5.12 with deadline on 100918: the most difficult one` : adds a task named `Problem_5.12` to the FlashBook and set the deadline of the task to due on `10/08/18`.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
@@ -46,188 +46,171 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in square brackets are the parameters to be supplied by the user e.g. in `changeto [tag] with [TaskParameters]`, `TaskParameters` and `tag` are parameters which can be used as `changeto urgent with deadline on 110918`.
+* Words in square brackets are optional. e.g. `changeto [tag] with [TaskParameters]` can be used as `changeto with deadline on 110918` or `changeto urgent`
+
 ====
 
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding a new task: `add`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-
-[TIP]
-A person can have any number of tags (including 0)
-
-Examples:
-
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-=== Selecting a person : `select`
-
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
-
-****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
-
-Examples:
-
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
-
-=== Listing entered commands : `history`
-
-Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
+Add a new task named [Task Name] with parameters described in [Task Parameters] to the module [Module Name]. +
+Format: `in [Module Name] add [Tag] [Task Name] with [Task Parameters]:[Description]`
 
 [NOTE]
-====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
+If Module Name is “this” or “&”, the new task will be added as a subtask of the selected task
 
-// tag::undoredo[]
-=== Undoing previous command : `undo`
+.Possible tags are:
+* urgent / u
+* high / h
+* normal / n (default)
+* low / l
+* done / d (this task will not show up in the find command unless specified)
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
-Format: `undo`
+.Possible task parameters:
+
+* Deadline: `deadline on DDMMYY`, or the shorthand `dlDDMMYY`
+* Location: `@[Location Name]`
+
+Examples:
+
+* `in ST2131 add urgent Homework_1 with deadline on 170918 @S17:12 pages of statistics.` : In Module ST2131, add task Homework_1 with deadline on `17/09/18`, with task description of `12 pages of statistics` and location of task is at `S17`.
+* `#ST2131 a u Homework_1 dl170918 @S17:12 pages of statistics.`
+* `in this add high Problem_5.12 with deadline on 100918: the most difficult one`
+* `#& a h Problem_5.12 dl100918: the most difficult one`
 
 [NOTE]
-====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
-====
+[Task Name] must be a string without spaces and is not a restricted keyword.
+
+=== Editing a task : `changeto`
+****
+Pre-condition: Task is already selected using `select` command. +
+****
+Replace the selected tasks’ parameters with those described in this command (undescribed parameters will not be changed) +
+
+Format: `changeto [Tag] with [TaskParameters]:[TaskDescription]`, or the shorthand `c [Tag] w [Taskparameters]:[TaskDescription]`
 
 Examples:
 
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
+* `changeto urgent with deadline on 150918: only ten pages is needed` +
+Edits task selected to be of `urgent` tag and deadline on `15/09/18`, with task description of `only ten pages is needed`.
+* `ct u w dl120918` +
+Edit task selected tagging it with `urgent` and set its deadline to `12/09/18`
+* `changeto with deadline on 110918: deadline extended` +
+Edit task selected deadline to `11/09/18`
 
-* `select 1` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
+=== Deleting a task: `delete`
+****
+Pre-condition: Task is already selected using select command
+****
+Remove the selected task. +
+Format: `delete`, or the shorthand `dl`
 
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
 
-=== Redoing the previously undone command : `redo`
+=== Managing the module list: modules
 
-Reverses the most recent `undo` command. +
-Format: `redo`
+Management of modules in FlashBook. Capabilities of FlashBook module system includes:
+
+- Create a module: `modules create [Module Name]`, or `+\#[Module Name]`
+- Delete a module: `modules delete [Module Name]`, or `~#[Module Name]`
+- List modules: `modules`, or `#`
+- List tasks in the module: `modules [Module Name]`, or `#[Module Name]`
+- Delete all modules: `modules delete \*` or `~*`
 
 Examples:
 
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+* modules create CS2103T
+* modules delete CS2101
+* +#ST2334
+* ~#CS2040
+* #CS2040
+* #
+* ~*
 
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
 
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
+=== Find a task: `find / findwhere`
 
-=== Clearing all entries : `clear`
+Finds tasks and display it on the screen. +
+Format: `in [Module List] findwhere [TaskParameters] , or in [Module List] find [Name]` +
+Shorthand format: `#[Module List] fw [TaskParameters], or #[Module List] f [Name]`
 
-Clears all entries from the address book. +
-Format: `clear`
+* The first version finds tasks with parameters that match [TaskParameters], while the second version finds tasks with name that match [Name].
+* Possible [TaskParameters] are: +
+.  Deadline: “Deadline [on/after/before] DDMMYY” or “dl[=/>/<]DDMMYY”
+.  Tag: “tag=[Tag]” or “t=[Tag]”
+.  Location: “location=[LocationName]” or “@=[LocationName]”
+* [Module List] can be replaced with “any” or “*” to select all modules
 
-=== Exiting the program : `exit`
+Examples:
 
-Exits the program. +
-Format: `exit`
+* `in MA2101 findwhere tag=high location=S17 deadline before 300918`
+* `in CS2103T, CS2101 find LO5.7`
+* `in any findwhere tag=urgent`
+* `#CS2030,CS2040 fw @=COM1`
+* `#* find lab3`
+
+The “then” keyword:
+
+If “then [Command]”  is inserted after find, the [Command] will be applied to all results of the find command.
+[Command] can be replaced with either changeto, delete, or markdone.
+
+Thus it is possible to run commands like
+“in CS2101 findwhere then delete” to delete every task under CS2101
+
+
+
+=== Selecting a task : `select`
+
+****
+Pre-condition: user already list all available tasks using  find/findwhere command
+Select and displays a task from the list obtained using find
+****
+
+Format: `“select [index]” or “s[index]” when [index] is a positive integer (starts from 1)`
+
+****
+* This also display all subtasks of the selected task.
+  If a task is already on display, this command instead select a subtask from the displayed tasks’ list of subtasks.
+****
+
+
+=== Going back to the parent task : `back / b`
+
+If the selected task is a subtask, go back to the parent task of this subtask.
+
+=== Listing all tasks : `list`
+
+Display all existing tasks on the display.
+
+=== Marking the selected task as done: `markdone / md`
+
+*Pre-condition:* Task is already selected using select command
+
+Change the tag the selected task to “done”.
+To reverse this, find and select the task then use the changeto command
+
+=== Import tasks : `import`
+
+User is able to import other users tasks. +
+Format: `import <relative filepath>`
+
+=== Export tasks : `export`
+
+User is able to export tasks to store as backup elsewhere or send tasks to other users of Flashbook. +
+Format: +
+`Export all tasks : export * <relative filepath>` +
+`Export all tasks of [Module Name]: export #[Module Name] <relative filepath>`
+
+=== Autocomplete
+
+To assist user to speed up typing of command, user can <TAB> to autocomplete the command.
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Flashbook data are saved in the hard disk automatically after any command that changes the data.
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
@@ -238,23 +221,32 @@ _{explain how the user can enable/disable data encryption}_
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and transfer the data file into the same folder.
+
+*Q*: Is the app only for NUS student? +
+*A*: While this app is tailored to NUS students, it can be used for general day-to-day activities.
+
+*Q*: Are there any plans to include other institutions? +
+*A*: We plan to include other institutions after implementing all core functionalities of the app.
+
+*Q*: Are there any plans to build for mobile as well? +
+*A*: We might look into it if we receive enough requests from users.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
+* *Adding a new task:* `[module] add [tag] [task name] with [task parameters]:[description]` +
+e.g. `CS2103T add assignment v1.0 with deadline on 170918 @S17:submit docs`
+* *Editing a task* : `changeto [tag] with [task parameters]:[task description]` +
+e.g. `changeto urgent with deadline on 150918 @COM1: only ten pages is needed`
+* *Delete a task* : `delete`
+* *Managing the module list* : `modules` +
+e.g. `modules create CS2103T`
+* *Find a task* : `in [module] find [task parameter] / in [module] find [name]` +
+e.g. `in CS2103T find LO5.7`
+* *Selecting a task* : `select` +
+e.g. `select 1`
+* *Going back to the parent task* : `back / b`
+* *List all tasks* : `list`
+* *Marking the selected task as done* : `markdone / md`
+* *Import tasks* : `import`
+* *Export tasks* : `export`
