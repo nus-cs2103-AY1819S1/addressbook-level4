@@ -21,7 +21,7 @@ Responsibilities: UI
 '''
 
 === Arsalan Cheema
-image::arsalanc-v2.jpg[width="150", align="left"]
+image::arsalanc-v2.png[width="150", align="left"]
 {empty}[http://github.com/arsalanc-v2[github]] [<<arsalanc-v2#, portfolio>>]
 
 Role: Developer +
