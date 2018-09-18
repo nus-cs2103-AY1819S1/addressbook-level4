@@ -12,7 +12,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Event in the event organiser. 
+ * Represents a Event in the event organiser.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Event {

@@ -36,7 +36,7 @@ public class Poll {
     }
 
     /**
-     * Retrieves most popular options by number of votes. 
+     * Retrieves most popular options by number of votes.
      */
     public LinkedList<String> getHighest() {
         TreeMap<Integer, LinkedList<String>> frequency = new TreeMap<>();
