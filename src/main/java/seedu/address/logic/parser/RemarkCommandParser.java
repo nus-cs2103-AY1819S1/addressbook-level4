@@ -7,7 +7,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 
-public class RemarkCommandParser {
+public class RemarkCommandParser implements Parser<RemarkCommand>{
 
     /**
      * Parses the given {@code String} of arguments in the context of the RemarkCommand

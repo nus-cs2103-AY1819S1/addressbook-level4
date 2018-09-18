@@ -12,20 +12,22 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.logic.commands.CommandTestUtil.SAMPLE_REMARK_1;
+import static seedu.address.logic.commands.CommandTestUtil.SAMPLE_REMARK_2;
 
 public class RemarkCommandTest {
     Model model = new ModelManager(TypicalPersons.getTypicalAddressBook(),new UserPrefs());
 
     @Test
     public void execute_invalidCommandFormat_failure() {
-        RemarkCommand remarkCommand = new RemarkCommand(INDEX_FIRST_PERSON, "test remark");
-        assertCommandFailure(remarkCommand, model, INDEX_FIRST_PERSON +" "+"test remark");
+        RemarkCommand remarkCommand = new RemarkCommand(INDEX_FIRST_PERSON, SAMPLE_REMARK_1);
+        assertCommandFailure(remarkCommand, model, INDEX_FIRST_PERSON +" "+SAMPLE_REMARK_1);
     }
 
     @Test
     public void equals() {
-        final RemarkCommand standardCommand = new RemarkCommand(INDEX_FIRST_PERSON, "test remark");
-        final RemarkCommand commandWithSameValues = new RemarkCommand(INDEX_FIRST_PERSON,"test remark");
+        final RemarkCommand standardCommand = new RemarkCommand(INDEX_FIRST_PERSON, SAMPLE_REMARK_1);
+        final RemarkCommand commandWithSameValues = new RemarkCommand(INDEX_FIRST_PERSON,SAMPLE_REMARK_1);
 
         // same values -> returns true
         assertTrue(standardCommand.equals(commandWithSameValues));
@@ -40,9 +42,9 @@ public class RemarkCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new RemarkCommand(INDEX_SECOND_PERSON, "test remark")));
+        assertFalse(standardCommand.equals(new RemarkCommand(INDEX_SECOND_PERSON, SAMPLE_REMARK_1)));
 
         // different remark -> returns false
-        assertFalse(standardCommand.equals(new RemarkCommand(INDEX_FIRST_PERSON, "test remark 2")));
+        assertFalse(standardCommand.equals(new RemarkCommand(INDEX_FIRST_PERSON, SAMPLE_REMARK_2)));
     }
 }
