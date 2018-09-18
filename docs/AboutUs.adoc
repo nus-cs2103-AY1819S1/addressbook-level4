@@ -4,15 +4,13 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+ClinicIO was developed by the https://github.com/CS2103-AY1819S1-W14-1/main/AboutUs.html[CS2103T W14-1] team based on the previous work of the https://se-edu.github.io/Team.html[se-edu] team. +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
 === Joseph Lee Zhuo Xun
-image::jjlee050.jpg[width="150", align="left"]
+image::jjlee050.png[width="150", align="left"]
 {empty}[https://github.com/jjlee050[github]] [<<jjlee050#, portfolio>>]
 
 Role: Team Lead +
