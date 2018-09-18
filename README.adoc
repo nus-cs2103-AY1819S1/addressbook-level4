@@ -17,7 +17,7 @@ endif::[]
 
 * This is a desktop Event Organiser application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * It allows users to store their own personal particulars and organise events and for other users to join the event as event participants.
-* The event organiser can get participants to vote for the time and location to hold the event, 
+* The event organiser can get participants to vote for the time and location to hold the event,
 and ask the application for recommendations based on the participants' schedule and addresses.
 ** Support for _Build Automation_ using Gradle and for _Continuous Integration_ using Travis CI.
 
