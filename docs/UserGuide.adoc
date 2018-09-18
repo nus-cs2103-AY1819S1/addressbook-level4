@@ -1,4 +1,4 @@
-= {PROJECT_NAME} - User Guide
+= Hospital Manager 2K18 - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -18,14 +18,17 @@ By: `Team W14-3`      Since: `September 2018`      Licence: `MIT`
 
 == Introduction
 
-{PROJECT_INTRODUCTION} +
+
+Hospital Manager 2K18 is for hospital administrators, doctors, nurses, and pharmacists who prefer to use a desktop app to manage patients and their associated data. +
+More importantly, Hospital Manager 2K18 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). +
+If you can type fast, Hospital Manager 2K18 can get your hospital management tasks doen faster than traditional GUI apps. +
 Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `{PROJECT_JAR_RELASE_NAME}.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your {PROJECT_NAME}.
+.  Download the latest `hm2k18.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your Hospital Manager 2K18.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -87,14 +90,14 @@ Examples:
 
 * `checkout S1234567A`
 
-=== View patient queue: `{PATIENT_QUEUE_COMMAND}`
+=== View patient queue: `viewqueue`
 View the current patient queue.
 
-Format: `{PATIENT_QUEUE_COMMAND}`
+Format: `viewqueue`
 
 Examples:
 
-* `{PATIENT_QUEUE_COMMAND}`
+* `viewqueue`
 
 === View patient’s medical history: `viewmh`
 View a patient’s medical history.
@@ -238,6 +241,8 @@ _{explain how the user can enable/disable data encryption}_
 e.g. `checkin S1234567A`; `n/Ling Zhi Yu p/91234567 a/6 College Avenue East, #00-00, University Town, National University of Singapore, 138614 d/nil`
 * *Check-out* : `checkout NRIC` +
 e.g. `checkout S1234567A`
+* *View patient queue* : `viewqueue` +
+e.g. `viewqueue`
 * *View medical history* : `viewmh NRIC` +
 e.g. `viewmh S1234567A`
 * *Add medical history* : `addmh NRIC`; `[MEDICAL_ENTRY]` +
