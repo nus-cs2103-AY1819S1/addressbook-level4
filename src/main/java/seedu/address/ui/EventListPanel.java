@@ -20,7 +20,7 @@ import seedu.address.model.event.Event;
  */
 public class EventListPanel extends UiPart<Region> {
     private static final String FXML = "EventListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(EventListPanel.class);
 
     @FXML
     private ListView<Event> eventListView;
@@ -41,7 +41,7 @@ public class EventListPanel extends UiPart<Region> {
         eventListView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
-                        logger.fine("Selection in person list panel changed to : '" + newValue + "'");
+                        logger.fine("Selection in event list panel changed to : '" + newValue + "'");
                         raise(new EventPanelSelectionChangedEvent(newValue));
                     }
                 });

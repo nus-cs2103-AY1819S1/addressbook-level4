@@ -25,7 +25,7 @@ public class EventCard extends UiPart<Region> {
     public final Event person;
 
     @FXML
-    private HBox cardPane;
+    private HBox eventCardPane;
     @FXML
     private Label name;
     @FXML
