@@ -17,8 +17,8 @@ endif::[]
 * Works at a attraction/theme park as an operator
 * Need to manage crowds and update status of park
 * Highly proficient with keyboard
-  
-== Information  
+
+== Information
 * This is a desktop theme park management application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 ** A more sophisticated GUI that includes a list  panel and an in-built Browser.
 ** More test cases, including automated GUI testing.
