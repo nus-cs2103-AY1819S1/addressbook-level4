@@ -22,7 +22,7 @@ public class ResultDisplayHandle extends NodeHandle<TextArea> {
     }
 
     /**
-     * Returns the list of style classes present in the command box.
+     * Returns the list of style classes present in the result display.
      */
     public ObservableList<String> getStyleClass() {
         return getRootNode().getStyleClass();
