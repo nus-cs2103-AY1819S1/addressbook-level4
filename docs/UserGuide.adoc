@@ -18,7 +18,10 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-Working at the front desk in a medical clinic? Meet ClinicIO, a desktop app for you to manage patients' medical record and their visits. More importantly, ClinicIO is *optimized for receptionists who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ClinicIO can get your patient management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Working at the front desk in a medical clinic? Meet ClinicIO, a desktop app for you to manage patients' medical record as fast as possible.
+More importantly, ClinicIO is *optimized for Command Line Interface* (CLI) while retaining the benefits of a Graphical User Interface (GUI).
+ClinicIO covers a comprehensive set of actions and is designed to get out of your way!
+Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
