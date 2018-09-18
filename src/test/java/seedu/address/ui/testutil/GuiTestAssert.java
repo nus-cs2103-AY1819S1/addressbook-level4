@@ -70,7 +70,7 @@ public class GuiTestAssert {
      * @see PersonCard#getTagColorStyleFor(String)
      */
     private static String getTagColorStyleFor(String tagName) {
-        switch (tagName) { 
+        switch (tagName) {
         case "classmates":
         case "owesMoney":
             return "teal";
