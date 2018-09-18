@@ -63,7 +63,7 @@ Format to add person: `add n/NAME t/VALUE OF TAG ONE t/VALUE OF TAG TWO t/VALUE 
 [TIP]
 A person, module or an event can have any number of tags (including 0) and in no particular order.
 
-The values a `x` can take:
+The values a `x` can take: +
 * n: Name of person to be added. +
 * m: Name/Code of the module to be added. +
 * e: Name of the event to be added. +
@@ -90,7 +90,7 @@ Format: `edit x/VALUE [t/VALUE TO EDIT | NEW VALUE] [t/VALUE TO EDIT | NEW VALUE
 * At least one value to edit must be provided. +
 * Existing values will be updated to the input values. +
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative. +
-* You can remove all the person's tags by typing `t/` without specifying any tags after it. +
+* You can remove all the person's tags by typing `t/` without specifying any tags after it.
 ***
 
 Examples:
@@ -246,5 +246,5 @@ e.g. `find n/James Jake`
 * *History* : `history`
 * *Undo* : `undo [NUMBER]` +
 e.g. `undo 1`
-* *Redo* : `redo [NUMBER]`
+* *Redo* : `redo [NUMBER]` +
 e.g. `redo 1`
