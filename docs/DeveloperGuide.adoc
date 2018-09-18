@@ -11,6 +11,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 :warning-caption: :warning:
+:experimental:
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
@@ -46,6 +47,10 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
+. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+.. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
+.. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
+. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
@@ -815,13 +820,13 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* has a need to manage a lot of lost and found items
+* prefer desktop apps over web equivalents
 * can type fast
-* prefers typing over mouse input
+* prefer typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: make it faster and easier to manage lost and found items compared to GUI apps.
 
 [appendix]
 == User Stories
@@ -831,20 +836,46 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |new user |see usage instructions | Refer to instructions when I forget how to use the commands
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add an item | Make a new entry
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |delete an item | Remove items that are no longer needed
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |Set the description of the item | Identify the item
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |Set the photo of the item | Identify the item
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |Set the properties of the item | Identify the item
+
+|`* * *` |user |Set the location the item was lost/found | Identify the item
+
+|`* * *` |user |Show the number of listings| Keep track of the number of entries
+
+|`* * *` |user |View the details of a selected item| See the specific details of the item
+
+|`* * *` |user |Find items using the name of the item| Find the item easily
+
+|`* * *` |user |Resolve items that have been returned| Categorize resolved items
+
+|`* *`   |user |Find items with matching keywords in their description| Find the items easily
+
+|`* *`   |user |Sort the item by their names| Reorganize the listings
+
+|`* *`   |user |Undo the last n actions|Cancel actions I did by mistake
+
+|`* *`   |user |Redo the last n actions|Cancel undo actions that I did by mistake
+
+|`* *`   |user |Add / remove multiple tags from an item |
+
+|`*`     |user |Sort the items by the name of the person who lost it |
+
+|`*`     |user |Sort the items by the name of the person who found it |
+
+|`*`     |user |Find items with specific combination of tag|
+
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -852,41 +883,110 @@ _{More to be added}_
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
-
+=== Use Cases: Add item
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to add item
+2.  System adds the item
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. The command format is invalid.
++
+[none]
+** 1b. System sends error message and command instruction to user.
++
+Use case ends
+
+[discrete]
+=== Use Cases: Delete item
+*MSS*
+
+1.  User requests to list item
+2.  System shows a list of items
+3.  User requests to delete a specific item from the list
+4.  System deletes the item
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+*Extensions*
+
+[none]
+* 2a. The list is empty
++
+Use case ends.
+* 2b. The given index is invalid.
++
+Use case ends
+
+[discrete]
+=== Use Cases: Find item
+*MSS*
+
+1.  User requests to find items
+2.  System shows a list of items
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. Invalid command format
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3aa. Systems sends error message to user
+Use case ends.
+
+[discrete]
+=== Use Cases: Resolve item
+*MSS*
+
+1.  User requests to list item
+2.  System shows a list of items
+3.  User requests to resolve a specific item from the list
+4.  System deletes the item
 +
-Use case resumes at step 2.
+Use case ends.
 
-_{More to be added}_
+*Extensions*
 
-[appendix]
+[none]
+* 4a. The list is empty
++
+Use case ends.
+* 4b. The given index is invalid.
++
+Use case ends
+
+[discrete]
+=== Use Cases: Set description item
+*MSS*
+
+1.  User requests to list item
+2.  System shows a list of items
+3.  User requests to set the description of a specific item from the list
+4.  System changes the description of the item
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 5a. The list is empty
++
+Use case ends.
+* 5b. The given index is invalid.
++
+Use case ends
+
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 Items without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
 
 [appendix]
 == Glossary
