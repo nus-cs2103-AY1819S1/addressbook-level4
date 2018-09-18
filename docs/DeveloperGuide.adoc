@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= Flashbook - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `W17-3`      Since: `Sep 2018`      Licence: `MIT`
 
 == Setting up
 
@@ -815,13 +815,14 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* is a student taking modules in NUS
+* has a need to manage a significant number of tasks
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* is reasonably comfortable using <<cli,CLI>> apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage tasks faster than a typical mouse/<<gui,GUI>> driven app
 
 [appendix]
 == User Stories
@@ -831,17 +832,55 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |user |undo my commands|revert unwanted changes
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add a new task |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |edit tasks |make changes to existing tasks
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user with many tasks |find tasks |retrieve relevant tasks
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |check tasks as done |know which tasks are completed
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |organized user |categorize tasks by module |navigate tasks list more easily
+
+|`* * *` |forgetful user |be reminded of deadlines |reschedule and prioritize to work on urgent tasks
+
+|`* * *` |user |see overdue tasks |reschedule to make up for it
+
+|`* * *` |new user |have commands that can be easily understood |learn how to use the software without steep learning curve
+
+|`* * *` |organized user |assign tags to tasks |navigate task list easily and generate default template for each type of task to reduce time needed to add task
+
+|`* *` |impatient user |have autocomplete when typing my commands |execute my commands faster
+
+|`* *` |user |import and export data |transfer data between machines
+
+|`* *` |user |add estimated duration for task |estimate time needed to complete the task
+
+|`* *` |new user |quick rundown of functionalities |fully understand the software features
+
+|`* *` |advanced user |add subtask to certain task |break down huge task to smaller manageable tasks
+
+|`* *` |user |see an overview of task list for the day |plan schedule for the day
+
+|`* *` |user |pin some tasks on top |be reminded of information of highest importance (not limited to deadline)
+
+|`* *` |confused user |check usage of particular functionality before using it |understand the function to use it
+
+|`* *` |user |highlight task as urgent |prioritize schedule
+
+|`* *` |user |see upcoming deadline |prioritize schedule
+
+|`*` |user |see usage statistics |understand working habits / productivity
+
+|`*` |artist |change application themes |personalize the app
+
+|`*` |international user |have multilingual typefaces |use the app in native language
+
+|`*` |multi-device user |have access from smartphone |check task list on the go without computer
+
+|`*` |user |security features |prevent information leakage
 |=======================================================================
 
 _{More to be added}_
@@ -849,33 +888,190 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Flashbook` and the *Actor* is the `student`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add task
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  Student enters add command with relevant parameters such as name, description, deadline of the tasks.
+2.  Flashbook updates the task list.
+3.  Flashbook informs the student that the task has been successfully added, and refreshes the main page to reflect the newly updated task list.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a. Student enters invalid parameter.
+[none]
+** 2a1. Flashbook informs the student that he/she has entered invalid parameters.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+[discrete]
+=== Use case: Find task
+
+*MSS*
+
+1.  Student enters command and keyword of task on command field.
+2.  Flashbook returns a list of tasks that matches the keyword.
 +
+Use case ends.
+
+*Extensions*
+
 [none]
-** 3a1. AddressBook shows an error message.
+* 2a. Student enters keyword that does not exist in the database.
+[none]
+** 2a1. Flashbook informs the student that there are no tasks that match the keyword entered.
 +
-Use case resumes at step 2.
+Use case ends.
+
+[discrete]
+=== Use case: Check tasks as done
+
+*MSS*
+
+1.  Student enters command and the task to check as done on command field.
+2.  Flashbook returns a feedback to inform student that the task has been marked as done successfully.
+3.  Flashbook updates the task list to remove the task that is marked as done.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Student enters task that is already done.
++
+Use case ends.
+[none]
+* 1b. Student enters task that does not exist in the database.
++
+Use case ends.
+[none]
+* 2a. Student can use find command to get a list of relevant tasks he/she is looking for.
+
+[discrete]
+=== Use case: Edit task
+
+*MSS*
+
+1.  Student enters command and the task with relevant fields that he/she wishes to edit.
+2.  Flashbook returns a feedback to inform user that the task has been successfully edited.
+3.  Flashbook updates the task list with updated information.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Student enters invalid field.
++
+Use case ends.
+[none]
+* 2b. Student enters task that does not exist in the database.
++
+Use case ends.
+[none]
+* 2c. Student enters task that is already marked as done.
++
+Use case ends.
+
+[discrete]
+=== Use case: Add sub task
+
+*MSS*
+
+1.  Student enters command to add task with an additional parameter [parent task] and press enter.
+2.  Flashbook returns feedback to inform user that the task has been added and attached to parent task.
+3.  Flashbook updates the task list with newly added task.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Student enters parent task does not exist in the database.
++
+Use case ends.
+[none]
+* 2b. Student enters parent task is already marked as done.
++
+Use case ends.
+[none]
+* 2c. Student enters invalid parameters for child task.
++
+Use case ends.
+
+[discrete]
+=== Use case: Add module category
+
+*MSS*
+
+1.  Student enters command to create a new category with a [module code] parameter.
+2.  Flashbook creates the category.
+3.  Flashbook feedbacks that the category had been successfully created.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Student enters category that already exists.
+[none]
+** 1a1.  Flashbook informs the student that the category already exists.
++
+Use case ends.
+
+[discrete]
+=== Use case: Import
+
+*MSS*
+
+1.  Student copies out the storage file from the exporting machine.
+2.  Student pastes the storage file on the importing machine.
+3.  Student starts the Flashbook.
+4.  Flashbook scans and imports the data.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 4a. The storage file is invalid / corrupted.
+[none]
+** 4a1. Flashbook will show an error telling the student that the file is corrupted.
++
+Use case ends.
+
+[discrete]
+=== Use case: Export data
+
+*MSS*
+
+1.  Student copies out the storage file from the exporting machine.
++
+Use case ends.
+
+[discrete]
+=== Use case: Toggle autocomplete
+
+*MSS*
+
+1.  Student types part of the command on command field.
+2.  Student uses tab to scroll through available commands.
+3.  Flashbook updates the command field with the highlighted command from the suggestion list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. No command autocomplete is available.
++
+Use case ends.
 
 _{More to be added}_
 
@@ -883,10 +1079,8 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 tasks and 10 <<nus-module,NUS modules>> without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -894,8 +1088,14 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[nus-module]] NUS module::
+Modules offered by NUS in a semester
+
+[[cli]] CLI::
+Command line interface
+
+[[gui]] GUI::
+Graphical user interface
 
 [appendix]
 == Product Survey
