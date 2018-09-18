@@ -16,7 +16,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::chikchengyao.jpg[width="150", align="left"]
 {empty}[https://github.com/chikchengyao[github]] [<<chikchengyao#, portfolio>>]
 
-Role: BAU5 & Math prodigy
+Role: Repo Maintainer
 
 '''
 
@@ -24,7 +24,7 @@ Role: BAU5 & Math prodigy
 image::jiaxiu11.jpg[width="150", align="left"]
 {empty}[http://github.com/jiaxiu11[github]] [<<jiaxiu11#, portfolio>>]
 
-Role: Alpha
+Role: Team Coordinator
 
 '''
 
@@ -32,7 +32,7 @@ Role: Alpha
 image::unsatisfiedpopcorn.jpg[width="150", align="left"]
 {empty}[http://github.com/unsatisfiedpopcorn[github]] [<<unsatisfiedpopcorn#, portfolio>>]
 
-Role: 1 true WAG
+Role: Repo Maintainer
 
 '''
 
@@ -40,7 +40,7 @@ Role: 1 true WAG
 image::pengnam.jpg[width="150", align="left"]
 {empty}[http://github.com/pengnam[github]] [<<pengnam#, portfolio>>]
 
-Role: Most handsome member
+Role: Project Manager
 
 '''
 
@@ -48,6 +48,6 @@ Role: Most handsome member
 image::remo5000.jpg[width="150", align="left"]
 {empty}[http://github.com/remo5000[github]] [<<remo5000#, portfolio>>]
 
-Role: A member
+Role: QA
 
 '''
