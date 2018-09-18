@@ -13,7 +13,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Bark HyeHyeon
 image::barkhyehyeon.jpg[width="150", align="left"]
-{empty}[http://github.com/barkhyehyeon[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/barkhyehyeon[github]]
 
 Role: Developer +
 Responsibilities: Ingredient Management
@@ -22,7 +22,7 @@ Responsibilities: Ingredient Management
 
 === Benn Tay Guobin
 image::benntayguobin.jpg[width="150", align="left"]
-{empty}[http://github.com/benntay[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/benntay[github]]
 
 Role: Developer +
 Responsibilities: Meal Planner
@@ -31,7 +31,7 @@ Responsibilities: Meal Planner
 
 === Lim Shi Min
 image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/m133225[github]]
 
 Role: Developer +
 Responsibilities: Dev Ops + Threading
@@ -40,7 +40,7 @@ Responsibilities: Dev Ops + Threading
 
 === Yuen Jun Rong
 image::junrong09.jpg[width="150", align="left"]
-{empty}[http://github.com/junrong09[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/junrong09[github]]
 
 Role: Developer +
 Responsibilities: Recipes Management and cook-mode
