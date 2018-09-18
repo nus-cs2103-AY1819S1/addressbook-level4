@@ -18,7 +18,6 @@ image::spikerheado1234.png[width="150", align="left"]
 Role: Team Member
 
 
-
 === Way Tan
 image::waytan.png[width="150", align="left"]
 {empty}[http://github.com/waytan[github]] [<<johndoe#, portfolio>>]
@@ -31,7 +30,6 @@ image::kongzijin.jpg[width="150", align="left"]
 {empty}[http://github.com/KongZijin[github]] [<<KongZijin#, portfolio>>]
 
 Role: Team Member
-Responsibilities: Deliverables and deadlines
 
 '''
 
