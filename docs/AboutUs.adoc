@@ -11,14 +11,14 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== John Doe
+=== Ahan Gupta
 image::spikerheado1234.png[width="150", align="left"]
 {empty}[http://www.ahangupta.com[homepage]] [https://github.com/spikerheado1234[github]] [<<spikerheado1234#, portfolio>>]
 
 Role: Team Member
 
 
-=======
+
 === Way Tan
 image::waytan.png[width="150", align="left"]
 {empty}[http://github.com/waytan[github]] [<<johndoe#, portfolio>>]
