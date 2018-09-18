@@ -63,11 +63,14 @@ Adds a person to the address book +
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
 [TIP]
-A person can have any number of tags (including 0)
+====
+* A person can have any number of tags (including 0)
+* A person can have 1 or many phone numbers
+====
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+* `add n/John Doe p/98765432 p/88888888 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
 === Listing all persons : `list`
@@ -230,11 +233,177 @@ Format: `exit`
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+=== Add contacts to an exising group : `addToGroup`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Adds a specified list of contacts to a specified group, based on the user's last-viewed listing. +
+Any number of contacts can be added to the group (including 0).
+
+[NOTE]
+====
+If the INDEX field is empty, no contacts will be added to the group. +
+====
+
+Format: `addToGroup group/GROUP_NAME [i/INDEX]`
+
+Examples:
+
+* `list` +
+`addToGroup group/CS2103Group i/1` +
+The `addToGroup` command adds the first person returned from `list`.
+
+* `find Betsy Tim John` +
+`addToGroup group/CS2103Group i/1 i/2 i/3` + 
+The `addToGroup` command adds the first(Betsy), second(Tim) and Third(John) person returned from `list`.
+
+=== Rename groups : `renameGroup`
+
+Renames a specified group, if it exists.
+
+[NOTE]
+====
+If the group does not exist, an error message is displayed accordingly to indicate that this command cannot be parsed. 
+====
+
+Format: `renameGroup group/ORIGINAL_NAME n/NEW_GROUP_NAME`
+
+Examples:
+
+* `renameGroup group/CS2103Group n/HelloWorld`
+
+=== Merge groups : `mergeGroup`
+
+Merges a list of groups together. Any number of groups can be merged together. +
+When groups are merged, a new group will be created containing all the contacts in the listed groups. +
+At least one group must be listed. If only one group is listed, no changes will take place. 
+
+[NOTE]
+====
+* Events that were created in the individual groups prior to merging will not affected by this command. +
+* Future events created from this merged group will be under the merged group. 
+====
+
+Format: `mergeGroup n/NEW_GROUP_NAME group/GROUP_NAME[...]`
+
+Examples: 
+
+* `mergeGroup n/CS2103_MERGED group/CS2103_Group1 group/CS2103_Group2 group/CS2103_Group3` +
+A new group called `CS2103_MERGED` is created containing all contacts from `CS2103_Group1`, `CS2103_Group2` and `CS2103_Group3`
+
+=== Split groups : `splitGroup`
+
+Splits a group through a series of commands. 
+
+Firstly, `splitGroup` command will inform the system that the user wishes to split a group. +
+The system will then display all contacts in this group and a message to inicate that it is awaiting user input. +
+To create new group, input the new group names and the indexes of the contacts. Each of the newly created groups must contain at least one contact. 
+
+[NOTE]
+====
+The original group will not be deleted as a result of any of the above commands. However, the split groups will contain an indicator showing that it was created from splitting the original group. 
+====
+
+Format: `splitGroup group/GROUP_NAME {n/NEW_GROUP_NAME i/INDEX[...]}[...]`
+
+Examples:
+
+* `splitGroup group/CS2103_MERGE` + 
+`n/CS2103_Group1 i/1 i/2 i/3 i/4 i/5`
+
+=== View team members who belong to a group : `viewGroup`
+
+Shows the information of each team members in a particular group
+
+Format: `viewGroup/GROUP_NAME`
+
+Examples:
+
+* `viewGroup/CS2103Group`
+
+=== View other contacts in the same group as a specific contact : `commonGroupContacts`
+
+Shows other contacts who may be in the same group with the contact that the user is currently viewing. 
+
+Format: `commonGroupContacts n/CONTACT_NAME`
+
+Examples:
+
+* `commonGroupContacts n/James Bond`
+
+=== Remove a contact from a group : `remove`
+
+Removes a specific contact from a group
+
+Format: `remove n/CONTACT_NAME group/GROUP_NAME`
+
+Examples:
+
+* `remove n/James Bond group/CS2103Group`
+
+=== Delete an entire group : `deleteGroup`
+
+Delete inactive groups or groups who you are not going to work with in the future without affecting contact list. 
+
+Format: `deleteGroup group/GROUP_NAME`
+
+Examples:
+
+* `deleteGroup group/CS2103Group`
+
+=== Import user's timetable : `importCalendar`
+
+Allows the user to import timetable from an external source to load into the app. +
+This allows app to prevent any possible clash with events in groups.
+
+Format: `importCalendar SOURCE`
+
+Examples:
+
+* `importCalendar Google`
+App will redirect to the source to handle majority of the importing process - e.g. logging in, calendar to import, etc.)
+
+
+=== Share multiple contacts with my peers : `share`
+
+Send selected contacts to friends via email.
+
+Format: `share i/INDEX[...] t/INDEX`
+
+Examples:
+
+* `list` +
+`share i/2 i/3 i/4 t/1` +
+Sends the 2nd, 3rd and 4th person to 1st person in the list.
+
+=== Archive groups : `archive`
+
+Archive groups to unclutter the list of visible group without losing the group's information
+
+Format: `archive group/GROUP_NAME`
+
+Examples:
+
+* `archive group/CS2103Group`
+
+=== Unarchive old groups : `unarchive`
+
+Unarchive group to retrieve archived group information and make group visible again. 
+
+Format: `unarchive group/GROUP_NAME`
+
+Examples: 
+
+* `unarchive group/CS2103Group`
+
+
+=== Feature name : `featureCommand`
+
+description
+
+Format: format
+
+Examples:
+
+* 
 
 == FAQ
 
