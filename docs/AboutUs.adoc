@@ -12,46 +12,42 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Chik Cheng Yao
+image::chikchengyao.jpg[width="150", align="left"]
+{empty}[https://github.com/chikchengyao[github]] [<<chikchengyao#, portfolio>>]
 
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
+Role: BAU5 & Math prodigy
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Cai Jiaxiu
+image::jiaxiu11.jpg[width="150", align="left"]
+{empty}[http://github.com/jiaxiu11[github]] [<<jiaxiu11#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
-
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Role: Alpha
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Jeffery Kwoh Ji Hui
+image::unsatisfiedpopcorn.jpg[width="150", align="left"]
+{empty}[http://github.com/unsatisfiedpopcorn[github]] [<<unsatisfiedpopcorn#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+Role: 1 true WAG
+
+'''
+
+=== Ng Peng Nam Sean
+image::pengnam.jpg[width="150", align="left"]
+{empty}[http://github.com/pengnam[github]] [<<pengnam#, portfolio>>]
+
+Role: Most handsome member
+
+'''
+
+=== Vignesh Shankar
+image::remo5000.jpg[width="150", align="left"]
+{empty}[http://github.com/remo5000[github]] [<<remo5000#, portfolio>>]
+
+Role: A member
 
 '''
