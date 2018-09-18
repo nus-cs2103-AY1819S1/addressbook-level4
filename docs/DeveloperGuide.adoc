@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= CLInic - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -15,7 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W16-4`      Since: `Aug 2018`      Licence: `MIT`
 
 == Setting up
 
@@ -893,8 +893,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 . Users without any technical knowledge should be able to use the program effectively
 . Each command is processed in less than 1 second.
-
-_{More to be added}_
 
 [appendix]
 == Glossary
