@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== John Doe
+=== Afiq
 image::damithc.jpg[width="150", align="left"]
 {empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
 
@@ -19,34 +19,34 @@ Role: Project Advisor
 
 '''
 
-=== John Roe
+=== Sem Jing Han
 image::lejolly.jpg[width="150", align="left"]
 {empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: UI
+Role: Developer +
+Responsibilities: -
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Amabel Yeo
+image::imarbles.jpg[width="150", align="left"]
+{empty}[https://github.com/iMarbles[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: -
 
 '''
 
-=== Johnny Roe
+=== Thangavel Sharan
 image::m133225.jpg[width="150", align="left"]
 {empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: -
 
 '''
 
-=== Benson Meier
+=== Ngoh Wen Jun
 image::yl_coder.jpg[width="150", align="left"]
 {empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
 
