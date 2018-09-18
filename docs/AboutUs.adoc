@@ -20,8 +20,8 @@ Role: Project Advisor
 '''
 
 === Sem Jing Han
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+image::kratious.jpg[width="150", align="left"]
+{empty}[http://github.com/kratious[github]] [<<semjinghan#, portfolio>>]
 
 Role: Developer +
 Responsibilities: -
