@@ -6,9 +6,9 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.event.UniqueEventList;
 
 /**
  * Wraps all data at the address-book level
@@ -78,6 +78,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.contains(person);
     }
 
+    /**
+     * Returns true if a event with the same identity as {@code person} exists in the address book.
+     */
     public boolean hasEvent(Event event) {
         requireNonNull(event);
         return events.contains(event);
