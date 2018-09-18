@@ -21,6 +21,11 @@ endif::[]
  the modules you are taken and the events you participate in.
 * The design of TheTracker especially favours students who prefer interactions
 which are using CLI.
+* TheTracker welcomes NUS students who are:
+** Sociable and wish to know about his/her NUS peers
+** Academic and wish to keep track of their grades for certain modules and all
+  the modules
+** keep track of schedule of events on a calendar
 
 
 == Site Map
