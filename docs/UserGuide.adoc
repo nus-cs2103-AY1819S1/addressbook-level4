@@ -18,7 +18,7 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+TheTracker is for NUS students who *prefer to use a desktop app for managing contacts, events or modules*. More importantly, TheTracker is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TheTracker can get your contact management tasks done faster than traditional GUI apps whilst being able to keep track with your friends! Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -34,8 +34,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* **`add`**`n/John Doe t/98765432 t/johnd@example.com t/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* **`delete n/John Doe` : deletes the person John Doe from TheTracker.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -47,9 +47,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Items in square brackets are optional e.g `n/NAME [t/VALUE]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
@@ -65,15 +64,15 @@ Format to add person: `add n/NAME t/VALUE OF TAG ONE t/VALUE OF TAG TWO t/VALUE 
 A person, module or an event can have any number of tags (including 0) and in no particular order.
 
 The values a `x` can take:
-* n: Name of person to be added.
-* m: Name/Code of the module to be added.
-* e: Name of the event to be added.
+* n: Name of person to be added. +
+* m: Name/Code of the module to be added. +
+* e: Name of the event to be added. +
 * t: Keyword to tag the person, event or module with.
 
 Examples:
 
-* `add n/Betsy Crowe t/friend t/betsycrowe@example.com t/criminal`
-* `add m/CS2103 t/Software Engineering t/Dr. Damith`
+* `add n/Betsy Crowe t/friend t/betsycrowe@example.com t/criminal` +
+* `add m/CS2103 t/Software Engineering t/Dr. Damith` +
 * `add e/Birthday t/My friend's Birthday!`
 
 === Listing all persons : `list`
@@ -87,11 +86,11 @@ Edits an existing person in the address book. +
 Format: `edit x/VALUE [t/VALUE TO EDIT | NEW VALUE] [t/VALUE TO EDIT | NEW VALUE] [t/TAG]...`
 
 ***
-* Edits the person, name of module specified by x - "n | m | e" followed by the VALUE which is the value of the person, module or event assigned during the add stage.
-* At least one value to edit must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* Edits the person, name of module specified by x - "n | m | e" followed by the VALUE which is the value of the person, module or event assigned during the add stage. +
+* At least one value to edit must be provided. +
+* Existing values will be updated to the input values. +
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative. +
+* You can remove all the person's tags by typing `t/` without specifying any tags after it. +
 ***
 
 Examples:
@@ -105,13 +104,13 @@ Finds a person, module or event whose tags contain any of the given keywords. +
 Format: `find x/VALUE t/VALUE ONE t/VALUE TWO...`
 
 Values a `x` can take:
-* n: Name of the Person you would like to find.
-* m: name/Code of the module you would like to find.
+* n: Name of the Person you would like to find. +
+* m: name/Code of the module you would like to find. +
 * e: The event name that you would like to find.
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* Only full words will be matched e.g. `Han` will not match `Hans`
+* The search is case insensitive. e.g `hans` will match `Hans` +
+* Only full words will be matched e.g. `Han` will not match `Hans` +
 * Persons, events or modules matching at least one keyword will be returned (i.e. `OR` search). e.g. `t/Hans t/Bo` will return an item that has the following tags: `t/Hans t/Gruber` or `Bo Yang`
 ****
 
@@ -124,43 +123,26 @@ Returns any person having names `Betsy`, `Tim`, or `John`
 
 === Deleting a person : `delete`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Deletes the specified person, event or module from the address book. +
+Format: `delete x/VALUE`
+
+The value of `x` is:
+* n: Represents that a person will be deleted. +
+* m: Represents that a module will be deleted. +
+* e: Represents that an event will be deleted.
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-=== Selecting a person : `select`
-
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
-
-****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
+* Deletes the person, module or event at with the specified `VALUE`. +
 ****
 
 Examples:
 
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
+* `delete n/John Doe` +
+Deletes the person whose name is John Doe.
+* `delete m/CS2103` +
+Deletes the module whose value is CS2103. +
+* `delete e/Birthday` +
+Deletes the event whose value is Birthday.
 
 === Listing entered commands : `history`
 
@@ -250,19 +232,19 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add* `add n/NAME t/VALUE ONE t/VALUE TWO t/VALUE THREE [t/VALUE]...` +
+e.g. `add n/James Ho t/22224444 t/jamesho@example.com t/123, Clementi Rd, 1234665 t/friend t/colleague`
 * *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
+* *Delete* : `delete x/VALUE` +
+e.g. `delete n/James Ho`
+* *Edit* : `edit INDEX [x/VALUE] [t/VALUE TO EDIT | NEW VALUE] [t/VALUE TO EDIT | NEW VALUE] [t/TAG]...` +
+e.g. `edit 2 n/James Lee t/jameslee@example.com | johndoe@example.com`
+* *Find* : `find KEYWORD x/VALUE t/VALUE ONE t/VALUE TWO` +
+e.g. `find n/James Jake`
 * *List* : `list`
 * *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
 * *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
+* *Undo* : `undo [NUMBER]` +
+e.g. `undo 1`
+* *Redo* : `redo [NUMBER]`
+e.g. `redo 1`
