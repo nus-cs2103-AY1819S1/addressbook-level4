@@ -246,6 +246,46 @@ Finds the details of the medicine tagged with the serial number 1001.
 List all medicines that are low in stock.
 Format: `checkStock`
 
+=== Register Patient to Queue : `register`
+
+Register a new patient that comes to the clinic.
+Format: `register <INDEX>`
+
+Example:
+
+* `register 3` +
+Register the patient into the 3rd index.
+
+=== Serve the first patient in the queue : `serve`
+
+Serve the patient first in queue.
+Format: `serve`
+
+=== Remove a patient from queue : `dequeue`
+
+Remove someone from the queue if he/she leaves before being served.
+Format: `dequeue <INDEX>` or `dequeue <IC Number>`
+
+Examples:
+
+* `dequeue 5` +
+Dequeues the 5th patient in the queue.
+* `dequeue S9786585D` +
+Dequeues the patient with that IC Number.
+
+=== Insert a patient to queue : `insert`
+
+Insert a patient at specified position in the queue.
+Format: `insert <INDEX> <POSITION>` or `insert <IC Number> <POSITION>`
+
+Examples:
+
+* `insert 4 5` +
+Inserts the 4th person of the address book into the 5th index of the queue.
+* `insert S9123456A 5` +
+Inserts the patient with that IC number to the 5th index of the queue.
+
+
 === Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
