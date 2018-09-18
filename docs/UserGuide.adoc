@@ -140,10 +140,7 @@ After displaying the meal planner, deletes the recipe at the specified meal slot
 
 Format: `delete DAY MEAL`
 
-==== Cook-mode (view full recipe): `cook`
-After displaying the meal planner, enters cook-mode by displaying the full recipe at the specified meal slot
-
-Format: `cook DAY MEAL`
+=== Cook-Mode Command
 
 == OLD TO BE DELETED (See examples here)
 
