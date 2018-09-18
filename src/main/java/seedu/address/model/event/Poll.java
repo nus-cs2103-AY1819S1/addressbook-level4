@@ -7,7 +7,7 @@ import java.util.TreeMap;
 import seedu.address.model.person.Person;
 
 /**
- * Represents a poll associated with an event. 
+ * Represents a poll associated with an event.
  */
 public class Poll {
     private String pollName;
