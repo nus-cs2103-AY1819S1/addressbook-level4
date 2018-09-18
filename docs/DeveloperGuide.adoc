@@ -849,30 +849,12 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the program, unless specified otherwise)
 
 [discrete]
-=== Use case: View all patients record
-
-Actor: <<medical-clinic-receptionist, Medical Clinic Receptionist>>
-
-*MSS*
-
-1.  Actor(s) chooses to view all patients record
-2.  System retrieve and display all patients record.
-+
-Use case ends.
-
-*Extensions*
-
-* 2a. The system cannot find all patient records.
-	- System displays an error message. "No record found."
-+
-Use case ends.
-
 === Use case: View a patient's record
 
-Actor: <<medical-clinic-receptionist, Medical Clinic Receptionist>>, Doctor
+Actors: <<medical-clinic-receptionist, Medical Clinic Receptionist>>, <<doctor, Doctor>>
 Pre-condition: patient record must exist
 
 *MSS*
@@ -1032,7 +1014,10 @@ A contact detail that is not meant to be shared with others
 A clinic that deal with medical issues only.
 
 [[medical-clinic-receptionist]] Medical Clinic Receptionist::
-A person that is in charge of the front desk receptionist in a medical clinic. 
+A person that is in charge of the front desk receptionist in a medical clinic.
+
+[[doctor]] Doctor::
+A person who is qualified to treat people who are ill.
 
 [appendix]
 == Product Survey
@@ -1050,7 +1035,7 @@ Cons:
 
 * ...
 * ...
-
+ 
 [appendix]
 == Instructions for Manual Testing
 
