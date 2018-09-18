@@ -14,11 +14,12 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103-AY1819S1-W14-2`      Since: `Sep 2018`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+ThanePark is for those who *prefer to use a desktop app for managing contacts*. More importantly, ThanePark is
+*optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -33,9 +34,6 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -46,134 +44,63 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* `<>` denotes compulsory field
+* `[]` denotes optional field
+* `||` denotes flag
+* `{}` denotes keystroke
+* `...` denotes variable arguments
+
 ====
 
-=== Viewing help : `help`
+=== Manage attractions:
 
-Format: `help`
+==== Add attractions: `add`
 
-=== Adding a person: `add`
+Add an attraction by name. +
+Format: `add <attraction>`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+==== Delete attractions: `delete`
 
-[TIP]
-A person can have any number of tags (including 0)
+Delete an attraction by name. +
+Format: `delete <attraction>`
 
-Examples:
+==== Update information of attraction: `update`
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+Updates the information `<tag>` with `<value>` about the attraction with `<name>`. +
+Format: `update <attraction> <tag> <value>`
 
-=== Listing all persons : `list`
+==== Shutdown attraction: `shutdown`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Close the attraction for the day. Display statistics for the ride on that day. +
+Format: `shutdown <attraction>`
 
-=== Editing a person : `edit`
+==== Open attraction: `open`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Open the attraction for the day. Display statistics for the ride on that day. +
+Format: `open <attraction>`
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+=== User help and accessbility:
 
-Examples:
+==== Viewing help: `help`
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+Display short summary of important commands if `option` was not supplied. Displays a full list of important commands
+with a more detailed description if more is supplied as an `option`. If a specific command is supplied as `option`, show
+greater detail of the specified command. If invalid `option` is specified, will show default help message. +
+Format: `help [option]`
 
-=== Locating persons by name: `find`
+==== History of previously inputted commands: `history`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Display previously inputted commands during this session. Inputted
+commands from the past are logged into the system. To view/start a
+query on commands, specify the `find` flag with the appropriate find
+arguments. If invalid arguments are passed, the error handling will be
+done by `find`. +
+Format: `history |find| [findargs...]`
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+==== Undoing commands: `undo`
 
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-=== Selecting a person : `select`
-
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
-
-****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
-
-Examples:
-
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
-
-=== Listing entered commands : `history`
-
-Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
-
-[NOTE]
-====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
-
-// tag::undoredo[]
-=== Undoing previous command : `undo`
-
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Undo previous command during current session. +
 Format: `undo`
-
-[NOTE]
-====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
-====
 
 Examples:
 
@@ -191,9 +118,9 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
 
-=== Redoing the previously undone command : `redo`
+==== Redoing previously undone commands: `redo`
 
-Reverses the most recent `undo` command. +
+Reverse the previously undone commands during current session. +
 Format: `redo`
 
 Examples:
@@ -214,26 +141,53 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
-=== Clearing all entries : `clear`
+==== Autocomplete/Suggest: `{tab}`
 
-Clears all entries from the address book. +
-Format: `clear`
+Non-tech savvy users wouldn’t need to remember commands and can
+just use `tab` s to complete their sentences, or get suggestions on what
+commands start with their specified prefix. +
+Format: `{tab}`
 
-=== Exiting the program : `exit`
+==== UI to better display rides information
 
-Exits the program. +
+=== View the information of a ride:
+
+==== Viewing all available attractions: `viewall`
+
+Display all available attractions in a list according to the number of
+people that have taken the ride for the day in alphanumeric order if
+optional fields are not specified. `status` field specifies whether the user
+want to view opened or closed rides. `Order` field specifies whether the
+user want to view the rides in ascending or descending alphanumeric
+order. +
+Format: `viewall [status] [order]`
+
+==== View detailed information of a specific ride: `view`
+
+Display all available information about a single ride. +
+Format: `view <name>`
+
+==== Quick view information of top five most frequented rides: `quickview`
+
+Quick view information of the top 5 most frequented rides in the park if
+optional field is empty. +
+Format: `quickview [order]`
+
+=== Storage/data management:
+
+==== Filter: `filter`
+
+Display all attractions that fits the condition in a table +
+Format: `filter <tag> <condition>`
+
+==== Find a particular attraction: `find`
+
+Find the attractions that the user needs to check on. Case insensitive. +
+Format: `find <attraction>`
+
+=== Exit: `exit`
+
 Format: `exit`
-
-=== Saving the data
-
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 
@@ -242,19 +196,20 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
+=== Provided
+* *Add*: `add <attraction>`
+* *Delete*: `delete <attraction>`
+* *Exit*: `exit`
+* *Find*: `find <attraction>`
+* *Help*: `help [option]`
+* *History*: `history |find| [findargs...]`
+* *Undo*: `undo`
+* *Redo*: `redo`
+
+=== Added
+* *Update*: `update <attraction> <tag> <value>`
+* *Shutdown*: `shutdown <attraction>`
+* *View*: `view <name>`
+* *Quickview*: `quickview`
+* *Filter*: `filter <tag> <condition>`
+* *tab*: `{tab}`
