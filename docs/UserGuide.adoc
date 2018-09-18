@@ -33,12 +33,12 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
+* *`listUsers`* : lists all contacts
 * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
+
 
 [[Features]]
 == Features
@@ -54,9 +54,12 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === Viewing help : `help`
 
-Format: `help`
+Shows all the commands in the app and how to use them.
 
 === Login : `login`
+
+Allows the user to login to the system. This is one of the only two commands that are available before an user logs in (the other being `setupUser`).
+Format: `login` USERNAME
 
 === User Commands
 
@@ -166,7 +169,7 @@ Format: `clear`
 
 ==== Setup a user : `setupUser`
 
-Set up a new user to the event organiser. +
+Set up a new user to the event organiser. This is one of the only two commands that are available before an user logs in (the other being `setupUser`) +
 Format: `setupUser n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [i/INTEREST]...`
 
 [TIP]
@@ -233,7 +236,7 @@ Format: `addSchedule NUSMODS_LINK`
 
 Example:
 
-* `addSchedule ...`
+* `addSchedule http://modsn.us/ij207`
 
 ==== Add activity to schedule : `addToSchedule`
 Adds a range of unavailable times to the weekly schedule.
@@ -343,7 +346,7 @@ Retrieves recommendations for the best time on a specific day of a week to hold 
 Format: `recDayTime`
 
 ****
-* The event organiser will display the times when all event participants are available.
+* The event organiser will calculate and display the time slots where the most participants can attend, based on their NUSMods schedule and stated unavailable timeslots.
 ****
 
 
@@ -352,8 +355,7 @@ Retrieves recommendations for the best location to hold the event. +
 Format: `recPlace`
 
 ****
-* If the event has a poll, the event organiser will recommend the most popular options.
-* Otherwise, the event organiser will compute the best event location from.
+* The event organiser will compute the best event location (most central MRT station) based on the proximity of the participants' addresses.
 ****
 
 === Join event commands
