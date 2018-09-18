@@ -1,4 +1,4 @@
-= Afiq - Project Portfolio
+= Afiq Latiff - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
