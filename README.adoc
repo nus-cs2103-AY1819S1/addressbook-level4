@@ -20,14 +20,14 @@ network of clients in an organized, efficient and intuitive manner. InsuRen is g
 Insurance salesman, but anyone whose business is their strong rapport with their clients will find this
 to be an indispensable tool.
 
-Managing one's clientele has never been easier. InsuRen is designed to be used
+Managing one's clientele has never been easier! InsuRen is designed to be used
 without the hassle of a mouse, as users interact with their database purely through intuitive text commands.
 Some key features of our product include:
 
 * Adding tags to contacts and sorting contacts by tags.
 * Scheduling meetings for each contact and consolidating all meetings into a weekly timetable.
 * Keeping track of clients' payment dues.
-* Import contacts from external databases and exporting the contacts in InsuRen's database.
+* Importing contacts from external databases and exporting the contacts in InsuRen's database.
 * And many more!
 
 == Site Map
