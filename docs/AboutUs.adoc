@@ -47,7 +47,7 @@ Responsibilities: __
 '''
 
 === Liu Yingnan
-image::yingnan.jpg[width="150", align="left"]
+image::yingnan.png[width="150", align="left"]
 {empty}[http://github.com/NancyQuris[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
