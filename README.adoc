@@ -16,16 +16,16 @@ endif::[]
 
 * ClinicIO is a clinic management desktop application.
 * ClinicIO is a CLI friendly with GUI (Graphical User Interface).
-* ClinicIO is intended for 
-** Clinic receptionist 
-*** Manage patient record 
+* ClinicIO is intended for
+** Medical Clinic receptionist
+*** Manage patient record
 *** Manage a centralized queue
 *** Manage medication in the clinic
 *** Manage future patient appointment
 ** Doctor
 *** View patient record
 *** Prescribe medications
-*** Enter patient additional medical information 
+*** Enter patient additional medical information
 
 
 == Site Map
