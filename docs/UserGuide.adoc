@@ -275,7 +275,6 @@ Shorthand: `c`
 Exits the program. +
 Format: `exit`
 
-
 Shorthand: `q`
 
 === Mass import contacts: `import`
@@ -414,7 +413,6 @@ Example:
 
 * `tag Work remove` +
 All contacts that were previously tagged with `Work` have the `Work` tag removed.
-
 
 === Saving the data
 
