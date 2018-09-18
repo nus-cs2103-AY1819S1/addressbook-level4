@@ -191,6 +191,30 @@ Generates a referral letter for the 3rd patient in the address book with the fol
 * `refer S7722742C h/SGH d/Emergency r/Internal bleeding n/Patient is dying` +
 Generates a referral letter for the patient of that IC number with the following reason and notes.
 
+=== Add medical records of a patient : `addMedicalRecord`
+
+Add a medical record for the patient based on the Index Number or IC Number from the last list/find command using any/all of the parameters. +
+Format: `addMedicalRecord <INDEX> <RELEVANT PARAMETERS>` or `addMedicalRecord <IC Number> <RELEVANT PARAMETERS>`
+
+Examples:
+
+* `addMedicalRecord 5 b/A+ d/Paracetamol p/Diabetes`
+Adds Paracetamol and Diabetes to the 5th patient details.
+* `addMedicalRecord S94738123X b/B+ `
+Adds blood type of the patient with that IC Number.
+
+=== Adding extra notes to medical records : `addNoteToMedicalRecord`
+
+Add a note to the current medical record of a specified patient. Patient index is referenced from the previous ‘list’ or ‘find’ command. +
+Format: `addNoteToMedicalRecord <INDEX> m/<MESSAGE>` or `addNoteToMedicalRecord <IC Number> m/<MESSAGE>`
+
+Examples:
+
+* `addNoteToMedicalRecord 5 m/Patient is recovering well from his flu. Needs to rest for another few days.`
+Adds the message to the 5th patient of the address book.
+* `addNoteToMedicalRecord S9336262X m/Patient should not use his arm for any intensive physical activities.`
+Adds the message to the patient with that IC number.
+
 === Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
