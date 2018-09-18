@@ -14,8 +14,8 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::jack.jpg[width="150", align="left"]
 {empty}[https://github.com/cjiefeng[github]]
 
-Role: Team Lead
-Responsibility: Overall project coordination, Code quality
+Role: Team Lead +
+Responsibility: Overall project coordination, Code quality +
 Component: Model
 
 '''
@@ -24,8 +24,8 @@ Component: Model
 image::kaiting.jpg[width="150", align="left"]
 {empty}[http://github.com/kaitingpeck[github]]
 
-Role: Developer
-Responsibilities: Scheduling and Tracking, Documentation
+Role: Developer +
+Responsibilities: Scheduling and Tracking, Documentation +
 Component: Logic
 
 '''
@@ -34,8 +34,8 @@ Component: Logic
 image::pratyay.jpg[width="150", align="left"]
 {empty}[http://github.com/pratyayj[github]]
 
-Role: Developer
-Responsibilities: Intellij expert
+Role: Developer +
+Responsibilities: Intellij expert +
 Component: UI
 
 '''
@@ -44,8 +44,8 @@ Component: UI
 image::yuwei.jpg[width="150", align="left"]
 {empty}[http://github.com/yap666y[github]]
 
-Role: Developer
-Responsibilities: Deliverables and Deadlines
+Role: Developer +
+Responsibilities: Deliverables and Deadlines +
 Component: Storage
 
 '''
@@ -54,8 +54,8 @@ Component: Storage
 image::ryan.jpg[width="150", align="left"]
 {empty}[http://github.com/ryantanwk[github]]
 
-Role: Developer
-Responsibilities: Integration, Testing
+Role: Developer +
+Responsibilities: Integration, Testing +
 Component: Logic
 
 '''
