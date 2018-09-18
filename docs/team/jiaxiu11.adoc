@@ -1,4 +1,4 @@
-= John Doe - Project Portfolio
+= Cai Jiaxiu - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets

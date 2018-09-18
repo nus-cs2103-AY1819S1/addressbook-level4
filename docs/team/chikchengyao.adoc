@@ -1,4 +1,4 @@
-= John Doe - Project Portfolio
+= Chik Cheng Yao - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets

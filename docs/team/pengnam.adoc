@@ -1,4 +1,4 @@
-= John Doe - Project Portfolio
+= Ng Peng Nam Sean - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
