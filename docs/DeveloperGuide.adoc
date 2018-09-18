@@ -815,13 +815,22 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Sociable and wish to know about his/her NUS peers
+* Academic and wish to keep track of their grades for certain modules and all the modules can type fast
+* Wish keep track of schedule of events on a calendar
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+
+*Value proposition*:
+
+* Key concepts: Enable  NUS students to keep track of their friends, one's own modules and events, in addition to other
+personal information.
+* What users want: A consolidated platform of friends and modules and events so that one's entire NUS life is
+conveniently available in one place so as to bolster the organisation of a student's life.
+* Limitations of what users can do now: A current undergraduate of NUS' information is spread out over IVLE, MYISIS and
+NUSMODS without any tracking on the information of close friends within the university.
+* Benefits users seek to achieve: Integrate existing information on different platforms all into a single platform.
+* How value proposition is delivered: When we have built a platform that allows the importing of information from
+multiple pre-existing platforms and consolidates all this information in a neat and presentable manner.
 
 [appendix]
 == User Stories
@@ -831,17 +840,38 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |NUS Student |create a profile of myself and be able to edit it to join the address book |I can share my schedule and profile with other people
 
-|`* * *` |user |add a new person |
+|`* * *` |NUS Student |find other students in the same faculty/major |I can network with them
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |people oriented person |see the full list of students in your module / your class |I can see all persons in campus
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |very selective friend |find specific friends and events in the address book |I can pick and choose certain events from a long list
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |Active NUS student |find all students who are taking the same modules as me |we can form study/project groups
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |NUS student |track all the modules I have taken |quickly know about the which modules I have taken
+
+|`* *` |NUS student who has joined some CCA |join my CCA group in this App |know who is in the same CCA as me and make friends with them
+
+|`* *` |NUS student |track my grades |quickly know about my academic performance for every semester
+
+|`* *` |User that may have difficulty spelling names |have similar names suggested when using the find function |ensure I have found the correct person
+
+|`* *` |NUS student who is also a Teaching Assistant of other modules |grades for the past modules given permission from the student |understanding of which level this student is in
+
+|`* *` |Student reading many modules |add URLs to my saved modules |I can quickly access my modules across NUS platforms
+
+|`* *` |Sociable and studious NUS student |see my friends' profiles |I know whether they are taking the same modules as I am and if they are, whether they are in the same tutorial groups as I am
+
+|`* *` |careless user |redo/undo instructions I have just done |Correct quickly if I have given an instruction just now that I don’t it anymore
+
+|`* *` |NUS Student who stays on campus |know the location of other students |we can arrange meet-ups on campus
+
+|`* *` |Current student |set my exam date on the page of addressbook |I can be reminded automatically the date, venue before my exams according to my reminder setting
+
+|`* *` |involved student |create new events to place in my schedule in my profile |have many events in schedule with their details recorded
+
 |=======================================================================
 
 _{More to be added}_
