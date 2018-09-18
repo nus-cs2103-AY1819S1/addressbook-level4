@@ -890,6 +890,12 @@ _{More to be added}_
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should work on Windows 10 and above as long as it has Java 9 or higher installed.
+.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Patient data should be securely encrypted.
+.  Patients information will be safely backed up every week.
+
 
 _{More to be added}_
 
@@ -901,6 +907,21 @@ Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
+
+[[patients-medical-details]] Patient's medical details::
+Information about the patient's medical history and drug allergies
+
+[[medical-history]] Medical history::
+Past records of healthcare visits, pre-existing medical conditions
+
+[[authorised-visitors]] Authorised visitors::
+Upon check-in of patient, the information of permitted visitors entered
+
+[[checkin]] Checkin::
+Patient registers at the hospital
+
+[[checkout]] Checkout::
+Patient is discharged from the hospital
 
 [appendix]
 == Product Survey
