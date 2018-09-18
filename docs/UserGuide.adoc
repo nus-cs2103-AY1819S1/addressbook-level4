@@ -215,6 +215,37 @@ Adds the message to the 5th patient of the address book.
 * `addNoteToMedicalRecord S9336262X m/Patient should not use his arm for any intensive physical activities.`
 Adds the message to the patient with that IC number.
 
+=== Add a new medicine to records : `addMedicine`
+
+Adds a new medicine into a record. +
+Format: `addMedicine sn/<SERIAL NUMBER> n/<NAME> s/<CURRENT STOCK> p/<PRICE PER PIECE> min/<MINIMUM STOCK QUANTITY>`
+
+Example:
+
+* `addMedicine sn/1000 n/panadol s/500 p/0.50 min/50`
+Adds a new Medicine called panadol with serial number 1000, stock of 500 units, price of 0.50 per unit and minimum stock to maintain set at 50 units.
+
+=== List all medicine in stock : `listStock`
+
+List all medical stocks in the clinic. +
+Format: `listStock`
+
+=== Finding medicine details : `findStock`
+
+Find the details of a given medicine from the serial number.
+Format: `findStock <SERIAL NUMBER>`
+
+Example:
+
+* `findStock 1001`
+Finds the details of the medicine tagged with the serial number 1001.
+
+
+=== Check the stocks of all medicine that are low in supply : `checkStock`
+
+List all medicines that are low in stock.
+Format: `checkStock`
+
 === Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
