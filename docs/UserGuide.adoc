@@ -63,12 +63,12 @@ Format: `in [Module Name] add [Tag] [Task Name] with [Task Parameters]:[Descript
 [NOTE]
 If Module Name is “this” or “&”, the new task will be added as a subtask of the selected task
 
-.Possible tags are: 
+.Possible tags are:
 * urgent / u
 * high / h
 * normal / n (default)
 * low / l
-* done / d (this task will not show up in the find command unless specified) 
+* done / d (this task will not show up in the find command unless specified)
 
 .Possible task parameters:
 
@@ -82,7 +82,7 @@ Examples:
 * `in this add high Problem_5.12 with deadline on 100918: the most difficult one`
 * `#& a h Problem_5.12 dl100918: the most difficult one`
 
-[NOTE] 
+[NOTE]
 [Task Name] must be a string without spaces and is not a restricted keyword.
 
 === Editing a task : `changeto`
@@ -99,7 +99,7 @@ Examples:
 Edits task selected to be of `urgent` tag and deadline on `15/09/18`, with task description of `only ten pages is needed`.
 * `ct u w dl120918` +
 Edit task selected tagging it with `urgent` and set its deadline to `12/09/18`
-* `changeto with deadline on 110918: deadline extended` + 
+* `changeto with deadline on 110918: deadline extended` +
 Edit task selected deadline to `11/09/18`
 
 === Deleting a task: `delete`
@@ -112,7 +112,7 @@ Format: `delete`, or the shorthand `dl`
 
 === Managing the module list: modules
 
-Management of modules in FlashBook. Capabilities of FlashBook module system includes: 
+Management of modules in FlashBook. Capabilities of FlashBook module system includes:
 
 - Create a module: `modules create [Module Name]`, or `+\#[Module Name]`
 - Delete a module: `modules delete [Module Name]`, or `~#[Module Name]`
