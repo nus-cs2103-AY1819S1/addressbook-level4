@@ -1,4 +1,6 @@
-= Address Book (Level 4)
+image::docs/images/Anakin.png[width="250", align="center"]
+
+= Anakin
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/se-edu/addressbook-level[image:https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master[Build Status]]
@@ -7,21 +9,12 @@ https://coveralls.io/github/CS2103-AY1819S1-T09-2/Main?branch=master[image:https
 https://www.codacy.com/app/damith/addressbook-level4?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level4&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
 https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
 
-ifdef::env-github[]
-image::docs/images/Ui.png[width="600"]
-endif::[]
+Anakin is a
 
 ifndef::env-github[]
-image::images/Ui.png[width="600"]
+image:docs/images/ui-mockups/Gameplay-Question.png[width="400"]
+image:docs/images/ui-mockups/Gameplay-Answer.png[width="400"]
 endif::[]
-
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
-* What's different from https://github.com/se-edu/addressbook-level3[level 3]:
-** A more sophisticated GUI that includes a list  panel and an in-built Browser.
-** More test cases, including automated GUI testing.
-** Support for _Build Automation_ using Gradle and for _Continuous Integration_ using Travis CI.
 
 == Site Map
 
@@ -36,5 +29,6 @@ endif::[]
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://github.com/TestFX/TestFX[TextFX], https://bitbucket.org/controlsfx/controlsfx/[ControlsFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]
+* Darth Vadar icon by https://thenounproject.com/Alone_Forever/uploads/?i=1799999[Alone_Forever]
 
-== Licence : link:LICENSE[MIT]
+== Licence: link:LICENSE[MIT]
