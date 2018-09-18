@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= CLInic - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -15,7 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W16-4`      Since: `Aug 2018`      Licence: `MIT`
 
 == Setting up
 
@@ -820,13 +820,17 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Receptionist and Doctor in a family clinic with no other branches
+* Has a need to manage a significant number of data
+* Prefer desktop apps over other types e.g. mobile app
+* Can type fast
+* Prefers typing over mouse input
+* Is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: 
+
+* Manage clinic data (beyond just patient information) faster than a typical mouse/GUI-driven app
+* Manage medical stocks
 
 [appendix]
 == User Stories
@@ -836,20 +840,26 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |Receptionist |CRUD patient information and appointments easily with templates |Be more efficient and focus on taking care of patients
 
-|`* * *` |user |add a new patient |
+|`* * *` |Receptionist |Have a system to manage all patients who arrive at the clinic |Let patients to not need to stay in the clinic, and they can be notified by text message when their turn is about to be reached
 
-|`* * *` |user |delete a patient |remove entries that I no longer need
+|`* * *` |Doctor |Enter consultation notes, diagnosis and prescription easily |Save time doing administrative work all on the same platform
 
-|`* * *` |user |find a patient by name |locate details of patients without having to go through the entire list
+|`* * *` |Receptionist |Get costs of treatment + CHAS information (*) |Inform a patient the exact amount he is going to expect
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |Receptionist |View diagnosis and prescription (by doctor) then generate a receipt |Create a receipt and record at the same time
 
-|`*` |user with many patients in the address book |sort patients by name |locate a patient easily
+|`* *` |Doctor |Receive patient information from my receptionist before the patient arrives |View their medical history in our clinic for more accurate diagnosis
+
+|`* *` |Doctor |Create a referral letter & MC easily |Save time by not re-typing the non-essential details every time
+
+|`*` |Receptionist |Let patient self-register when they arrive at the clinic |Focus on more important aspects of my job
+
+|`*` |Friendly Receptionist |Remind patients to take their medication |Provide quality care and timely recovery
+
+|`*` |Receptionist | Able to enter insurance company of patient easily (and perhaps save it too for future visits), and maybe even to view insurance policy coverages |Check easily for patient fees during payment and claims for the clinic visit.
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -857,32 +867,23 @@ _{More to be added}_
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete patient
+=== Use case: Patient arrives in the clinic
+1. User registers patient
+2. If patient is in database, no need to add. Otherwise, system will prompt user to add into the database.
+3. Patient is added into the queue.
 
-*MSS*
+[discrete]
+=== Use case: Patient’s turn to see doctor
+1. Serve patient. Patient will be automatically removed from the head of the queue.
+2. Doctor (User) will add notes to the patient’s medical records
 
-1.  User requests to list patients
-2.  AddressBook shows a list of patients
-3.  User requests to delete a specific patient in the list
-4.  AddressBook deletes the patient
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
-
-_{More to be added}_
+[discrete]
+=== Use case: Patient done seeing doctor
+1. Doctor (User) will indicate that he is done seeing the patient, and patient will be added to a done set.
+2. Receptionist (User) will generate MC for patient (if needed)
+3. Receptionist (User) will generate receipt for patient’s visit
+4. Receptionist (User) will make referral for patient (if needed)
+5. Receptionist (User) will remove patient from done set when finished.
 
 [appendix]
 == Non Functional Requirements
@@ -890,8 +891,8 @@ _{More to be added}_
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 patients without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+. Users without any technical knowledge should be able to use the program effectively
+. Each command is processed in less than 1 second.
 
 [appendix]
 == Glossary
@@ -899,8 +900,20 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[CLI]] CLI::
+Command line interface
+
+[[GUI]] GUI::
+Graphical user interface
+
+[[MC]] MC::
+Medical Certificate
+
+[[CRUD]] CRUD::
+Create Read Update Delete
+
+[[CHAS]] CHAS::
+Community Health Assistance Scheme
 
 [appendix]
 == Product Survey
