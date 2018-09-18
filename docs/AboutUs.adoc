@@ -19,12 +19,10 @@ Role: Team Member
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
+=== Way Tan
+image::waytan.png[width="150", align="left"]
+{empty}[http://github.com/waytan[github]] [<<johndoe#, portfolio>>]
+Role: Team Member
 
 '''
 
