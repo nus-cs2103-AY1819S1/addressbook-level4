@@ -1,4 +1,5 @@
-= Address Book (Level 4)
+= Sous Chef
+:imagesDir: docs/images/
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/se-edu/addressbook-level4[image:https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master[Build Status]]
@@ -7,21 +8,40 @@ https://coveralls.io/github/se-edu/addressbook-level4?branch=master[image:https:
 https://www.codacy.com/app/damith/addressbook-level4?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level4&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
 https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
 
-ifdef::env-github[]
-image::docs/images/Ui.png[width="600"]
-endif::[]
+//ifdef::env-github[]
+//image::docs/images/Ui.png[width="600"]
+//endif::[]
+//
+//ifndef::env-github[]
+//image::images/Ui.png[width="600"]
+//endif::[]
+image::title.png[width="700", align="left"]
+== About
+Souschef is your smart cooking sidekick, offering personalised guidance every step of the way.
+From recipe recommendations just for you, to meal planning and inventory management,
+Sous Chef has everything you need to improve life in the kitchen.
+Experience what many are enjoying.
 
-ifndef::env-github[]
-image::images/Ui.png[width="600"]
-endif::[]
+=== Recipes from our renowned chef
+An endless supply of recipes to fuel your next cooking adventure.
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
-* What's different from https://github.com/se-edu/addressbook-level3[level 3]:
-** A more sophisticated GUI that includes a list  panel and an in-built Browser.
-** More test cases, including automated GUI testing.
-** Support for _Build Automation_ using Gradle and for _Continuous Integration_ using Travis CI.
+=== Discover recipe recommendations
+Setup your taste and inventory limitations and we'll only serve up recipes that match.
+
+=== Step-by-step guided recipes
+Let Sous Chef do the thinking for you with our step-by-step cooking mode.
+Cooking at home can never be easier.
+
+=== Scheduling recipes
+Schedule a recipe at exactly the time you want and we will plan the cook time for
+you. Sous Chef keeps the worries at the back of your mind.
+
+image::ui.png[width="700", align="left"]
+== User-oriented
+The application works with a Command Line Interface (CLI) for speedy provision
+of recipe choices, management of your cooking plan while guiding you through the
+preparation process. With a few commands, this kitchen helper will be there to
+keep cooking as simple as ABC.
 
 == Site Map
 
