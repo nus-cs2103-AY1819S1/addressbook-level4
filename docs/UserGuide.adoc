@@ -167,8 +167,14 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
-Format: `undo`
+A command to allow the user to undo previous commands. +
+
+Command Syntax: +
+`undo`: +
+This command will undo the user’s previous command. +
+`undo [number]`: +
+The number of commands you want to undo.
+This command will undo a certain number of commands. The number should be at least 1. If the number exceeds the number of operations that has been done, the application will undo all the previous operations.
 
 [NOTE]
 ====
@@ -184,17 +190,22 @@ Examples:
 * `select 1` +
 `list` +
 `undo` +
-The `undo` command fails as there are no undoable commands executed previously.
+The `undo` command fails as there are no undoable commands executed previously. +
 
 * `delete 1` +
 `clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
+`undo 2` (reverses the `clear` command and the `delete 1` command) +
 
 === Redoing the previously undone command : `redo`
 
-Reverses the most recent `undo` command. +
-Format: `redo`
+A command to allow the user to redo previously undone commands. +
+
+Command Syntax:
+`redo`:  +
+This command will redo the user’s previous undone command. +
+`redo [number]`: +
+The number of undone commands you want to redo.
+This command will redo a certain number of undone commands. The number should be at least 1. If the number exceeds the number of operations that has been undone, the application will redo all the previous operations that have been undone.
 
 Examples:
 
@@ -210,14 +221,29 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `clear` +
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
+`redo 2` (reapplies the `delete 1` command and the `clear` command) +
 // end::undoredo[]
 
-=== Clearing all entries : `clear`
+=== Grouping content together by tag: `group`
+A command to allow the user to group students under a certain group tag. +
+Command Syntax: +
+`group [group_name] [keyword]`: +
+group_name: The name of this group of people. +
+keyword: n/NAME The name of the person you want to put in this group.
+                  i/INDEX The index of the person you want to put in this group.
 
-Clears all entries from the address book. +
-Format: `clear`
+=== Show command history: `history`
+A command to allow the user to see the history of commands used within the address book.+
+Command Syntax: `history`
+
+=== Import information from external platform: `import`
+A command to allow the user to see the history of commands used within the address book.+
+Command Syntax: `import [keyword]` +
+keyword: One of either: IVLE, NUSMODS, MYISIS.
+
+=== Autocomplete
+A feature that gives a list of potential matches based on substrings of a result that a user types into any other command.
+
 
 === Exiting the program : `exit`
 
