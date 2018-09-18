@@ -28,6 +28,9 @@ Format: `exit`
 
 ### Task Management
 
+* _+Example indicates positive example_
+* _-Example indicates negative example_
+
 #### Display Welcome Screen
 On starting the application, the user will be greeted with a welcome screen of the top 10 impending tasks.
 
@@ -35,6 +38,7 @@ On starting the application, the user will be greeted with a welcome screen of t
 [%hardbreaks]
 Adds a task to the task manager.
 Format:
+
 `add n/TASK_NAME t/DUE_DATE p/PRIORITY_VALUE [d/detailed description] [l/LABEL]`
 Date Format: yyyy.mm.dd
 
