@@ -1,4 +1,9 @@
+ifdef::env-github[]
 image::docs/images/Anakin.png[width="250", align="center"]
+endif::[]
+ifndef::env-github[]
+image::images/Anakin.png[width="250", align="center"]
+endif::[]
 
 = Anakin
 ifdef::env-github,env-browser[:relfileprefix: docs/]
@@ -9,11 +14,16 @@ https://coveralls.io/github/CS2103-AY1819S1-T09-2/Main?branch=master[image:https
 https://www.codacy.com/app/damith/addressbook-level4?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level4&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
 https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
 
-Anakin is a
+<Insert description about Anakin>
 
-ifndef::env-github[]
+ifdef::env-github[]
 image:docs/images/ui-mockups/Gameplay-Question.png[width="400"]
 image:docs/images/ui-mockups/Gameplay-Answer.png[width="400"]
+endif::[]
+
+ifndef::env-github[]
+image:images/ui-mockups/Gameplay-Question.png[width="400"]
+image:images/ui-mockups/Gameplay-Answer.png[width="400"]
 endif::[]
 
 == Site Map
