@@ -17,23 +17,21 @@ image::spikerheado1234.png[width="150", align="left"]
 
 Role: Team Member
 
-'''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
+=======
+=== Way Tan
+image::waytan.png[width="150", align="left"]
+{empty}[http://github.com/waytan[github]] [<<johndoe#, portfolio>>]
+Role: Team Member
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Kong Zijin
+image::kongzijin.jpg[width="150", align="left"]
+{empty}[http://github.com/KongZijin[github]] [<<KongZijin#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
+Role: Team Member
+Responsibilities: Deliverables and deadlines
 
 '''
 
@@ -46,11 +44,10 @@ Responsibilities: Dev Ops + Threading
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Tian Xueyan
+image::xueyantian.jpeg[width="150", align="left"]
+{empty}[http://github.com/xueyantian[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+Role: Team Member
 
 '''
