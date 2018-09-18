@@ -54,3 +54,12 @@ Role: Developer +
 Responsibilities: UI
 
 '''
+
+=== Sem Jing Han
+image::kratious.jpg[width="150", align="left"]
+{empty}[http://github.com/kratious[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: UI
+
+'''
