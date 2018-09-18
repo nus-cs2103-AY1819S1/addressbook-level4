@@ -32,6 +32,8 @@ which are using CLI.
 
 == Acknowledgements
 
+* The original source of code: AddressBook-Level4 project created by SE-EDU
+initiative at https://github.com/se-edu/g
 * Libraries used: https://github.com/TestFX/TestFX[TextFX], https://bitbucket.org/controlsfx/controlsfx/[ControlsFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]
 
 == Licence : link:LICENSE[MIT]
