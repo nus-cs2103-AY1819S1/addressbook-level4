@@ -17,8 +17,8 @@ image::spikerheado1234.png[width="150", align="left"]
 
 Role: Team Member
 
-'''
 
+=======
 === Way Tan
 image::waytan.png[width="150", align="left"]
 {empty}[http://github.com/waytan[github]] [<<johndoe#, portfolio>>]
@@ -26,12 +26,12 @@ Role: Team Member
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Kong Zijin
+image::kongzijin.jpg[width="150", align="left"]
+{empty}[http://github.com/KongZijin[github]] [<<KongZijin#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
+Role: Team Member
+Responsibilities: Deliverables and deadlines
 
 '''
 
