@@ -1,11 +1,14 @@
 package seedu.address.model.event;
 
-import java.util.LinkedList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.TreeMap;
 
 import seedu.address.model.person.Person;
 
+/**
+ * Represents a poll associated with an event. 
+ */
 public class Poll {
     private String pollName;
     private HashMap<String, LinkedList<Person>> pollData;
@@ -40,7 +43,7 @@ public class Poll {
      */
     public LinkedList<String> getHighest() {
         TreeMap<Integer, LinkedList<String>> frequency = new TreeMap<>();
-        pollData.forEach((k,v) -> {
+        pollData.forEach((k, v) -> {
             if (!frequency.containsKey(v.size())) {
                 LinkedList<String> options = new LinkedList<>();
                 options.add(k);
