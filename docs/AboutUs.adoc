@@ -14,9 +14,10 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Pakorn Ueareeworakul
+image::nyxf4ll.jpeg[width="150", align="left"]
 {empty}[https://github.com/NyxF4ll[github]]
 
-Role: Lead Developer +
+Role: Developer +
 Responsibilities: Model
 
 '''
