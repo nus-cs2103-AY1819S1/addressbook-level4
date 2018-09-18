@@ -854,7 +854,7 @@ _{More to be added}_
 [discrete]
 === Use case: View a patient's record
 
-Actors: <<medical-clinic-receptionist, Medical Clinic Receptionist>>, <<doctor, Doctor>>
+Actors: <<medical-clinic-receptionist, Medical Clinic Receptionist>>, <<doctor, Doctor>> +
 Pre-condition: patient record must exist
 
 *MSS*
@@ -918,7 +918,7 @@ Use case resumes at step 1
 
 === Use case: Edit patient record
 
-Actor: <<medical-clinic-receptionist, Medical Clinic Receptionist>>
+Actor: <<medical-clinic-receptionist, Medical Clinic Receptionist>> +
 Pre-condition: Patient's record exists
 
 *MSS*
@@ -965,7 +965,7 @@ Use case ends.
 
 === Use case: Assign patient to a different queue for each room
 
-Actor: <<medical-clinic-receptionist, Medical Clinic Receptionist>>
+Actor: <<medical-clinic-receptionist, Medical Clinic Receptionist>> +
 Pre-condition: Patient is registered.
 
 *MSS*
