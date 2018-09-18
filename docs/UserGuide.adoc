@@ -107,7 +107,7 @@ Format: `find x/VALUE t/VALUE ONE t/VALUE TWO...`
 Values a `x` can take:
 * n: Name of the Person you would like to find.
 * m: name/Code of the module you would like to find.
-* e: The event name that you would like to find. 
+* e: The event name that you would like to find.
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
