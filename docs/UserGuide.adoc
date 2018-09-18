@@ -156,13 +156,135 @@ Selects the 1st patient in the results of the `find` command.
 
 === Generate Medical Certificate : `mc`
 
-Create a Medical Certificate based on the IC Number or Index Number from the last list/find command.
-Format: `mc <INDEX> d/<DATE>-<DATE> *DATE = DD-MM-YYYY` or `mc <IC Number> d/<DATE>-<DATE> *DATE = DD-MM-YYYY`
+Create a Medical Certificate based on the IC Number or Index Number from the last list/find command. +
+Format: `mc <INDEX> d/<DATE>-<DATE>` or `mc <IC Number> d/<DATE>-<DATE>` where date is in the format DD-MM-YYYY
 
 Examples:
 
-* `mc 1 d/02-09-2018-04-09-2018`
-* `mc S7473920X d/02-09-2018-02-09-2018`
+* `mc 1 d/02-09-2018-04-09-2018` +
+Generates a MC for the 1st patient in the address book.
+* `mc S7473920X d/02-09-2018-02-09-2018` +
+Generates a MC for the IC number.
+
+=== Generate Receipt : `receipt`
+
+Generates a receipt for the patient’s current visit based on Index Number in the Done List or IC Number. +
+Format: `receipt <INDEX>` or `receipt <IC Number>`
+
+Examples:
+
+* `receipt 5` +
+Generates a receipt for the 5th patient in the address book.
+* `receipt S8847383L` +
+Generates a receipt for the patient with that IC number.
+
+=== Generate Referral Letter : `refer`
+
+Create a Referral Letter for the patient based on the IC Number or Index Number from the last list/find command. +
+Format: `refer <INDEX> h/<HOSPITAL> d/<DEPARTMENT> r/<REASON> n/<NOTES>
+` or `refer <IC Number> h/<HOSPITAL> d/<DEPARTMENT> r/<REASON> n/<NOTES>`
+
+Examples:
+
+* `refer 3 h/NUH d/Surgery r/Internal bleeding n/Patient complains heart is in pain` +
+Generates a referral letter for the 3rd patient in the address book with the following reason and notes.
+* `refer S7722742C h/SGH d/Emergency r/Internal bleeding n/Patient is dying` +
+Generates a referral letter for the patient of that IC number with the following reason and notes.
+
+=== Add medical records of a patient : `addMedicalRecord`
+
+Add a medical record for the patient based on the Index Number or IC Number from the last list/find command using any/all of the parameters. +
+Format: `addMedicalRecord <INDEX> <RELEVANT PARAMETERS>` or `addMedicalRecord <IC Number> <RELEVANT PARAMETERS>`
+
+Examples:
+
+* `addMedicalRecord 5 b/A+ d/Paracetamol p/Diabetes`
+Adds Paracetamol and Diabetes to the 5th patient details.
+* `addMedicalRecord S94738123X b/B+ `
+Adds blood type of the patient with that IC Number.
+
+=== Adding extra notes to medical records : `addNoteToMedicalRecord`
+
+Add a note to the current medical record of a specified patient. Patient index is referenced from the previous ‘list’ or ‘find’ command. +
+Format: `addNoteToMedicalRecord <INDEX> m/<MESSAGE>` or `addNoteToMedicalRecord <IC Number> m/<MESSAGE>`
+
+Examples:
+
+* `addNoteToMedicalRecord 5 m/Patient is recovering well from his flu. Needs to rest for another few days.`
+Adds the message to the 5th patient of the address book.
+* `addNoteToMedicalRecord S9336262X m/Patient should not use his arm for any intensive physical activities.`
+Adds the message to the patient with that IC number.
+
+=== Add a new medicine to records : `addMedicine`
+
+Adds a new medicine into a record. +
+Format: `addMedicine sn/<SERIAL NUMBER> n/<NAME> s/<CURRENT STOCK> p/<PRICE PER PIECE> min/<MINIMUM STOCK QUANTITY>`
+
+Example:
+
+* `addMedicine sn/1000 n/panadol s/500 p/0.50 min/50`
+Adds a new Medicine called panadol with serial number 1000, stock of 500 units, price of 0.50 per unit and minimum stock to maintain set at 50 units.
+
+=== List all medicine in stock : `listStock`
+
+List all medical stocks in the clinic. +
+Format: `listStock`
+
+=== Finding medicine details : `findStock`
+
+Find the details of a given medicine from the serial number.
+Format: `findStock <SERIAL NUMBER>`
+
+Example:
+
+* `findStock 1001`
+Finds the details of the medicine tagged with the serial number 1001.
+
+
+=== Check the stocks of all medicine that are low in supply : `checkStock`
+
+List all medicines that are low in stock.
+Format: `checkStock`
+
+=== Register Patient to Queue : `register`
+
+Register a new patient that comes to the clinic.
+Format: `register <INDEX>`
+
+Example:
+
+* `register 3` +
+Register the patient into the 3rd index.
+
+=== Serve the first patient in the queue : `serve`
+
+Serve the patient first in queue.
+Format: `serve`
+
+=== Remove a patient from queue : `dequeue`
+
+Remove someone from the queue if he/she leaves before being served.
+Format: `dequeue <INDEX>` or `dequeue <IC Number>`
+
+Examples:
+
+* `dequeue 5` +
+Dequeues the 5th patient in the queue.
+* `dequeue S9786585D` +
+Dequeues the patient with that IC Number.
+
+=== Insert a patient to queue : `insert`
+
+Insert a patient at specified position in the queue.
+Format: `insert <INDEX> <POSITION>` or `insert <IC Number> <POSITION>`
+
+Examples:
+
+* `insert 4 5` +
+Inserts the 4th person of the address book into the 5th index of the queue.
+* `insert S9123456A 5` +
+Inserts the patient with that IC number to the 5th index of the queue.
+
 
 === Listing entered commands : `history`
 
@@ -182,7 +304,7 @@ Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `deleteAll`).
 ====
 
 Examples:
@@ -197,8 +319,8 @@ Examples:
 The `undo` command fails as there are no undoable commands executed previously.
 
 * `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
+`deleteAll` +
+`undo` (reverses the `deleteAll` command) +
 `undo` (reverses the `delete 1` command) +
 
 === Redoing the previously undone command : `redo`
@@ -217,17 +339,17 @@ Examples:
 The `redo` command fails as there are no `undo` commands executed previously.
 
 * `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
+`deleteAll` +
+`undo` (reverses the `deleteAll` command) +
 `undo` (reverses the `delete 1` command) +
 `redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
+`redo` (reapplies the `deleteAll` command) +
 // end::undoredo[]
 
-=== Clearing all entries : `clear`
+=== Clearing all entries : `deleteAll`
 
 Clears all entries from the address book. +
-Format: `clear`
+Format: `deleteAll`
 
 === Exiting the program : `exit`
 
@@ -254,7 +376,7 @@ _{explain how the user can enable/disable data encryption}_
 
 * *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
+* *DeleteAll* : `deleteAll`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
 * *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
