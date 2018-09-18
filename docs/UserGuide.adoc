@@ -29,12 +29,12 @@ Format: `exit`
 ### Task Management
 
 #### Display Welcome Screen
-On starting the application, the user will be greeted with a welcome screen of the top 10 impending tasks. 
+On starting the application, the user will be greeted with a welcome screen of the top 10 impending tasks.
 
 #### Adding a Task: `add`
 [%hardbreaks]
-Adds a task to the task manager. 
-Format: 
+Adds a task to the task manager.
+Format:
 `add n/TASK_NAME t/DUE_DATE p/PRIORITY_VALUE [d/detailed description] [l/LABEL]`
 Date Format: yyyy.mm.dd
 
@@ -43,15 +43,15 @@ On task creation, the task's `INDEX` is shown as such:
 Task <INDEX>, <TASK_NAME> was created.
 ```
 [%hardbreaks]
-+Example: 
++Example:
 `add n/complete milestone t/2018.09.14 p/high [d/a detailed discription of what needs to be done] l/CS2103` +
--Example: 
+-Example:
 `add n/complete milestone t/2018/09/14 p/important`
 
 #### Adding Dependency to a Task
 [%hardbreaks]
 Indicate that task A depends on task B and can only be done when task B is done.
-E.g. User must first complete module mapping before submitting his Semester Exchange Programme (SEP) application. 
+E.g. User must first complete module mapping before submitting his Semester Exchange Programme (SEP) application.
 On an attempt to add an entry that results in cyclic entry, the task manager would reject the attempt.
 
 Format: `dependency INDEX_OF_B then INDEX_OF_A` +
@@ -68,11 +68,11 @@ Format: `delete INDEX`
 #### Editing a Task: `update`
 [%hardbreaks]
 Edits a task in the task manager
-Format: 
+Format:
 `update INDEX [t/DUE_DATE] [p/PRIORITY_VALUE] [d/detailed description] [l/LABEL] [dep/INDEX]`
-+Example: 
-`update 1 t/2018.09.18 d/a updated detailed discription of what needs to be done dep/2` 
--Example: 
++Example:
+`update 1 t/2018.09.18 d/a updated detailed discription of what needs to be done dep/2`
+-Example:
 `update complete milestone t/2018.09.18 d/a updated detailed discription of what needs to be done`
 
 #### Listing Tasks: `list`
@@ -92,7 +92,7 @@ Format: `list [n/NAME_FILTER] [l/LABEL_FILTER][c/INCLUDE_COMPLETED] [s/SORT_FIEL
 +Example: `list n/tutorial l/school c/true s/duedate`
 ```
 1 finish math tutorial  due:1 days status:pending
-2 finish science tutorial  due:2 days status:pending 
+2 finish science tutorial  due:2 days status:pending
 3 finish tamil homework  due:2 days status:completed
 ```
 
