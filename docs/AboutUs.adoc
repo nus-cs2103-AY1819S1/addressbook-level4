@@ -21,11 +21,11 @@ Responsibilities: Ingredient Management
 '''
 
 === Benn Tay Guobin
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+image::benntayguobin.jpg[width="150", align="left"]
+{empty}[http://github.com/benntay[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Meal Planner
 
 '''
 

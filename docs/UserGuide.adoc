@@ -116,10 +116,31 @@ Format: Select [NUMBER_OF_SERVINGS] KEYWORD… optional KEYWORD… end
 * Search result that aligns with keywords after “optional” are placed higher in order.
 
 === Meal Planner Command
+****
+* DAY denotes the day of the week (Monday to Sunday), while MEAL denotes the meal of the day (breakfast, lunch, dinner)
+* DAY can be specified with the following keywords: *mon* (Monday), *tue* (Tuesday), *wed* (Wednesday), *thu* (Thursday), *fri* (Friday), *sat* (Saturday), *sun* (Sunday)
+* MEAL can be specified with the following keywords: *m1* (breakfast), *m2* (lunch), *m3* (dinner)
+****
 
+==== View full meal plan: `view plan`
+
+Displays the current full meal plan for the week
+
+Format: `view plan`
+
+==== Add recipes: `add`
+
+After listing all available recipes with `list`, adds the recipe at the specified index to the specified meal slot of the meal planner
+
+Format: `add INDEX DAY MEAL`
+
+==== Delete recipes: `delete`
+
+After displaying the meal planner, deletes the recipe at the specified meal slot
+
+Format: `delete DAY MEAL`
 
 === Cook-Mode Command
-
 
 == OLD TO BE DELETED (See examples here)
 
