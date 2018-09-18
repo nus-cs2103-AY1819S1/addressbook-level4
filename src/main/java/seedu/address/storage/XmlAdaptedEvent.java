@@ -54,7 +54,7 @@ public class XmlAdaptedEvent {
      */
     public XmlAdaptedEvent(Event source) {
         name = source.getName().fullName;
-        address = source.getAddress().value;
+        address = source.getLocation().value;
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());

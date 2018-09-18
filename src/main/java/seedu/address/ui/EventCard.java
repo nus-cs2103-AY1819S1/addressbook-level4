@@ -40,7 +40,7 @@ public class EventCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
-        address.setText(person.getAddress().value);
+        address.setText(person.getLocation().value);
         person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
