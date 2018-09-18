@@ -39,7 +39,7 @@ Responsibilities: -
 '''
 
 === Thangavel Sharan
-image::m133225.jpg[width="150", align="left"]
+image::sharan8.jpeg[width="150", align="left"]
 {empty}[https://github.com/sharan8[github]] [<<thangavelsharan#, portfolio>>]
 
 Role: Developer +
