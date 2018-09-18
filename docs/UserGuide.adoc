@@ -58,16 +58,23 @@ Format: `help`
 
 === Adding a person: `add`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds a person, module or an event to the address book +
+Format to add person: `add n/NAME t/VALUE OF TAG ONE t/VALUE OF TAG TWO t/VALUE OF TAG THREE [x/TAG VALUE]...`
 
 [TIP]
-A person can have any number of tags (including 0)
+A person, module or an event can have any number of tags (including 0) and in no particular order.
+
+The values a `x` can take:
+* n: Name of person to be added.
+* m: Name/Code of the module to be added.
+* e: Name of the event to be added.
+* t: Keyword to tag the person, event or module with.
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/Betsy Crowe t/friend t/betsycrowe@example.com t/criminal`
+* `add m/CS2103 t/Software Engineering t/Dr. Damith`
+* `add e/Birthday t/My friend's Birthday!`
 
 === Listing all persons : `list`
 
@@ -77,41 +84,42 @@ Format: `list`
 === Editing a person : `edit`
 
 Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Format: `edit x/VALUE [t/VALUE TO EDIT | NEW VALUE] [t/VALUE TO EDIT | NEW VALUE] [t/TAG]...`
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
+***
+* Edits the person, name of module specified by x - "n | m | e" followed by the VALUE which is the value of the person, module or event assigned during the add stage.
+* At least one value to edit must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+***
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit n/Betsy Crowe t/friend | enemy t/betsycrowe@example.com | johndoe@example.com` +
+Edits the tag of Betsy Crowe from friend to enemy, and the tag from betsycrowe@example.com to johndoe@example.com.
 
 === Locating persons by name: `find`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Finds a person, module or event whose tags contain any of the given keywords. +
+Format: `find x/VALUE t/VALUE ONE t/VALUE TWO...`
+
+Values a `x` can take:
+* n: Name of the Person you would like to find.
+* m: name/Code of the module you would like to find.
+* e: The event name that you would like to find. 
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Persons, events or modules matching at least one keyword will be returned (i.e. `OR` search). e.g. `t/Hans t/Bo` will return an item that has the following tags: `t/Hans t/Gruber` or `Bo Yang`
 ****
 
 Examples:
 
-* `find John` +
+* `find n/John` +
 Returns `john` and `John Doe`
-* `find Betsy Tim John` +
+* `find n/Betsy n/Tim n/John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
 
 === Deleting a person : `delete`
