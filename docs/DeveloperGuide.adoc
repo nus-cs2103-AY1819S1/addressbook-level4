@@ -848,7 +848,18 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |user who wants to cook more than one serving of dishes |get the accordingly calculated missing amount of ingredients |-
 |=======================================================================
 === Meal Planner
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+|`*` |meticulous user |view the time taken for each recipe |I can plan ahead for meal preparations to fit my schedule
 
+|`* * *` |user |plan my meals for breakfast, lunch and dinner |I can remember my meals for each day
+
+|`* *` |health-conscious user |view the nutritional value of each recipe |I can choose recipes according to my nutritional needs
+
+|`* * *` |fickle-minded user |edit my meal plans |I can add different recipes if I change my mind
+
+|`* * *` |efficient user |clear the meal planner immediately at the end of the week |I can save time
+|=======================================================================
 === User Profiling
 
 === Recipes Management and cook-mode
@@ -971,6 +982,49 @@ Use case ends.
 Use case ends.
 
 === Meal Planner
+[discrete]
+=== Use case: Add recipe to meal planner
+
+*MSS*
+
+1. User requests to list available recipes
+2. System shows list of available recipes
+3. User selects desired recipe and adds it to the desired meal slot.
+4. System shows the recipe listed under the indicated meal slot.
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete recipe from meal planner
+
+*MSS*
+
+1. User requests to view current meal plan
+2. System shows current meal plan
+3. User requests to delete unwanted recipe
+4. System shows specified meal slot as empty
++
+Use case ends.
+
+[discrete]
+=== Use case: View meal plan
+
+*MSS*
+
+1. User requests to view current meal plan
+2. System shows current full meal plan
++
+Use case ends.
+
+[discrete]
+=== Use case: View meal recipe
+
+*MSS*
+
+1. User requests to view recipe for a specific meal slot
+2. System shows the full recipe of the specified meal slot
++
+Use case ends.
 
 === User Profiling
 
