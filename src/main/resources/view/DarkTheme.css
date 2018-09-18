@@ -111,7 +111,12 @@
     -fx-background-color: #424d5f;
 }
 
-.list-cell:filled:selected #cardPane {
+.list-cell:filled:selected #eventCardPane {
+    -fx-border-color: #3e7b91;
+    -fx-border-width: 1;
+}
+
+.list-cell:filled:selected #personEventPane {
     -fx-border-color: #3e7b91;
     -fx-border-width: 1;
 }
@@ -306,10 +311,16 @@
     -fx-padding: 8 1 8 1;
 }
 
-#cardPane {
+#eventCardPane {
     -fx-background-color: transparent;
     -fx-border-width: 0;
 }
+
+#personCardPane {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
 
 #commandTypeLabel {
     -fx-font-size: 11px;
