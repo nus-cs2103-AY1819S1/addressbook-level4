@@ -13,7 +13,8 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::yuntongzhang.jpg[width="150", align="left"]
 {empty}[[homepage]] [https://github.com/yuntongzhang[github]] [<<johndoe#, portfolio>>]
 
-Role: TBD
+Role: TBD +
+Responsibilities: TBD +
 
 '''
 
@@ -21,7 +22,8 @@ Role: TBD
 image::snajef.jpg[width="150", align="left"]
 {empty}[http://github.com/snajef[github]] [<<johndoe#, portfolio>>]
 
-Role: TBD
+Role: TBD +
+Responsibilities: TBD +
 
 '''
 
@@ -29,7 +31,8 @@ Role: TBD
 image::omegafishy.jpg[width="150", align="left"]
 {empty}[http://github.com/omegafishy[github]] [<<johndoe#, portfolio>>]
 
-Role: TBD
+Role: TBD +
+Responsibilities: TBD +
 
 '''
 
@@ -37,7 +40,8 @@ Role: TBD
 image::jeffypie369.jpg[width="150", align="left"]
 {empty}[http://github.com/jeffypie369[github]] [<<johndoe#, portfolio>>]
 
-Role: TBD
+Role: TBD +
+Responsibilities: TBD +
 
 '''
 
@@ -45,6 +49,7 @@ Role: TBD
 image::gaojiaxin666.jpg[width="150", align="left"]
 {empty}[http://github.com/gaojiaxin666[github]] [<<johndoe#, portfolio>>]
 
-Role: TBD
+Role: TBD +
+Responsibilities: TBD +
 
 '''
