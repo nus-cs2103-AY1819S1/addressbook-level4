@@ -29,6 +29,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         ExpenseList = new ArrayList<>();
+        ExpenseList.clear();
     }
 
     public AddressBook() {}

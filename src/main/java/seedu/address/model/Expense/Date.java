@@ -10,6 +10,7 @@ public class Date {
     public static final String DATE_VALIDATION_REGEX = "(\\d{1,2})(\\-)(\\d{1,2})(\\-)(\\d{4})";
     public final String fullDate;
 
+
     /**
      * Constructs a {@code Date}.
      *
@@ -20,6 +21,7 @@ public class Date {
         checkArgument(isValidDate(date), MESSAGE_DATE_CONSTRAINTS);
         fullDate = date;
     }
+
 
     /**
      * return true is the given date is a valid date.
