@@ -8,8 +8,8 @@ import java.util.List;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.Expense.Expense;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.expense.Person;
+import seedu.address.model.expense.UniquePersonList;
 
 /**
  * Wraps all data at the address-book level
