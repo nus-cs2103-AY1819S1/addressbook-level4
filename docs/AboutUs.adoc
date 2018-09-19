@@ -44,3 +44,10 @@ Role: Developer +
 Responsibilities: UI
 
 '''
+
+=== Sophia Simangan
+image::gingivitiss.png[width="150", align="left"]
+{empty}[https://github.com/gingivitiss[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Appointment Feature
