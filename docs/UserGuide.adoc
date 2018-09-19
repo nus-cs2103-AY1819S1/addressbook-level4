@@ -18,7 +18,7 @@ By: `Team W13-2`      Since: `Sept 2017`      Licence: `MIT`
 
 == Introduction
 
-Eventsplus+ is for the busy university student who *prefer to use a desktop app for managing contacts and planning ad-hoc events*. Eventsplus+ aims to simplify some of the more time-consuming administrative tasks such as coordinating location and date of ad-hoc events using a *Command Line Interface* (CLI). 
+Eventsplus+ is for the busy university student who *prefer to use a desktop app for managing contacts and planning ad-hoc events*. Eventsplus+ aims to simplify some of the more time-consuming administrative tasks such as coordinating location and date of ad-hoc events using a *Command Line Interface* (CLI).
 
 == Quick Start
 
@@ -63,17 +63,14 @@ Adds a person to the address book +
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
 [TIP]
- 
-==== 
-
-* A person can have any number of tags (including 0) 
-* A person can have 1 or many phone numbers 
-
-==== 
+====
+* A person can have any number of tags (including 0)
+* A person can have 1 or many phone numbers
+====
 
 Examples:
 
-* `add n/John Doe p/98765432 p/88888888 e/johnd@example.com a/John street, block 123, #01-01` 
+* `add n/John Doe p/98765432 p/88888888 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
 === Listing all persons : `list`
