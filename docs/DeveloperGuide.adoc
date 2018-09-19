@@ -27,8 +27,9 @@ By offering a gamified experience, we hope to be able to improve the user experi
 ## Appendix C: User Stories
 Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely to have) - *
 
-| Priority   | As a ...  | I want to ... | So that I can ...
 |===
+| Priority   | As a ...  | I want to ... | So that I can ...
+
 | *** | organised student | apply lables to my task | focus on tasks
 |*** | forgetful student | alerted of important deadlines | not forget about tasks
 | *** | busy person | easily prioritise tasks | get important things out of the way first
@@ -203,7 +204,6 @@ Use case resumes at step 1 in MSS.
 A glossary serves to ensure that all stakeholders have a common understanding of the noteworthy terms, abbreviation, acronyms etc.
 
 |===
-
 | Word         | Meaning
 
 |   Task
