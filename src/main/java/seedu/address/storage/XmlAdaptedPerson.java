@@ -28,6 +28,8 @@ public class XmlAdaptedPerson {
     private String email;
     @XmlElement(required = true)
     private String address;
+    @XmlElement(required = true)
+    private String remark;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -46,6 +48,7 @@ public class XmlAdaptedPerson {
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.remark = "";
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
@@ -61,6 +64,7 @@ public class XmlAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+        remark = source.getRemark().value;
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
@@ -109,9 +113,13 @@ public class XmlAdaptedPerson {
         }
         final Address address = new Address(this.address);
 
+        if(this.remark == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+        }
+        final Remark remark = new Remark(this.remark);
+
         final Set<Tag> tags = new HashSet<>(personTags);
 
-        Remark remark = new Remark("");
         return new Person(name, phone, email, address, remark, tags);
     }
 
@@ -130,6 +138,7 @@ public class XmlAdaptedPerson {
                 && Objects.equals(phone, otherPerson.phone)
                 && Objects.equals(email, otherPerson.email)
                 && Objects.equals(address, otherPerson.address)
+                && Objects.equals(remark, otherPerson.remark)
                 && tagged.equals(otherPerson.tagged);
     }
 }
