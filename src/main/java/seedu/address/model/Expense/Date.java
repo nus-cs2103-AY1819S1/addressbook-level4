@@ -30,6 +30,4 @@ public class Date {
         return test.matches(DATE_VALIDATION_REGEX);
     }
 
-   
-
 }
