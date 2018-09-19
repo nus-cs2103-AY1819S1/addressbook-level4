@@ -10,16 +10,9 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== Someone
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
-
-Role: Project Advisor
-
-'''
 
 === Winson Heng Yong Seng
-image::winson.jpg[width="150", align="left"]
+image::winsonhys.jpg[width="150", align="left"]
 {empty}[https://github.com/winsonhys[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
@@ -28,7 +21,7 @@ Responsibilities: Model and Logic
 '''
 
 === Jonathan Tan Jit Ming
-image::jonathan.jpg[width="150", align="left"]
+image::jonathantjm.jpg[width="150", align="left"]
 {empty}[https://github.com/jonathantjm[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -37,7 +30,7 @@ Responsibilities: Documentation
 '''
 
 === Jamie Chow Wen Juan
-image::jamie.jpg[width="150", align="left"]
+image::snookerballs.jpg[width="150", align="left"]
 {empty}[https://github.com/Snookerballs[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -46,7 +39,7 @@ Responsibilities: UI
 '''
 
 === Jiang Chen
-image::jiangchen.jpg[width="150", align="left"]
+image::jcjxwy.jpg[width="150", align="left"]
 {empty}[https://github.com/jcjxwy[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -55,7 +48,7 @@ Responsibilities: Integration
 '''
 
 === Jason Chong Yi Sheng
-image::jason.jpg[width="150", align="left"]
+image::jasonchong96.jpg[width="150", align="left"]
 {empty}[https://github.com/JasonChong96[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
