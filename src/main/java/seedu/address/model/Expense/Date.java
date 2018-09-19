@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 public class Date {
-
     public static final String MESSAGE_DATE_CONSTRAINTS =
             "Date should only contain numbers and slashes, and it should not be blank";
 
@@ -29,5 +28,6 @@ public class Date {
         return test.matches(DATE_VALIDATION_REGEX);
     }
 
+   
 
 }
