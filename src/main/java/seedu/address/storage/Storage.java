@@ -28,7 +28,7 @@ public interface Storage extends ExpensesStorage, UserPrefsStorage {
     Optional<ReadOnlyAddressBook> readExpenses() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveExpenses(ReadOnlyAddressBook addressBook) throws IOException;
 
     /**
      * Saves the current version of the Address Book to the hard disk.

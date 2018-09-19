@@ -80,20 +80,20 @@ public class XmlExpensesStorageTest {
         XmlExpensesStorage xmlAddressBookStorage = new XmlExpensesStorage(filePath);
 
         //Save in new file and read back
-        xmlAddressBookStorage.saveAddressBook(original, filePath);
+        xmlAddressBookStorage.saveExpenses(original, filePath);
         ReadOnlyAddressBook readBack = xmlAddressBookStorage.readExpenses(filePath).get();
         assertEquals(original, new AddressBook(readBack));
 
         //Modify data, overwrite exiting file, and read back
         original.addPerson(HOON);
         original.removePerson(ALICE);
-        xmlAddressBookStorage.saveAddressBook(original, filePath);
+        xmlAddressBookStorage.saveExpenses(original, filePath);
         readBack = xmlAddressBookStorage.readExpenses(filePath).get();
         assertEquals(original, new AddressBook(readBack));
 
         //Save and read without specifying file path
         original.addPerson(IDA);
-        xmlAddressBookStorage.saveAddressBook(original); //file path not specified
+        xmlAddressBookStorage.saveExpenses(original); //file path not specified
         readBack = xmlAddressBookStorage.readExpenses().get(); //file path not specified
         assertEquals(original, new AddressBook(readBack));
 
@@ -111,7 +111,7 @@ public class XmlExpensesStorageTest {
     private void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) {
         try {
             new XmlExpensesStorage(Paths.get(filePath))
-                    .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveExpenses(addressBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
