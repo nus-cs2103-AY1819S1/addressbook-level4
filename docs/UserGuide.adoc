@@ -394,6 +394,85 @@ Examples:
 
 * `unarchive group/CS2103Group`
 
+=== Suggested Location : `generateLocation`
+
+Creates a suggested location to meet up based on each team member’s faculty.
+
+Format: `generateLocation event/EVENT_NAME group/GROUP_NAME`
+
+Examples:
+
+* `generateLocation event/First Meeting group/CS2103Group`
+
+=== Add personal event: `addEvent`
+
+Adds an event in the system. Any number of contacts can be included in the event. A notification will be sent to the user only 24 hours before the event.
+
+Format: `addEvent n/EVENT_NAME dsc/DESCRIPTION d/DATE(DD-MM-YY) t/TIME(HHMM) [i/CONTACT_INDEX…]`
+
+Examples:
+
+* `addEvent n/Dental Appointment dsc/Consultation d/15-09-18 t/1030`
+* list
+  `addEvent n/Dental Appointment dsc/Consultation d/15-09-18 t/1030 i/1`
+* Find Betsy Tim John
+  `addEvent n/Dental Appointment dsc/Consultation d/15-09-18 t/1030 i/1 i/2 i/3`
+
+=== List personal events: `listEvent`
+
+Lists all events in the system.
+
+Format: `listEvent`
+
+Examples:
+
+* `listEvent`
+
+=== Add group event: `addGroupEvent`
+
+Adds an event in the system for the specified group. A notification will be sent to the user and the contacts in the group 24 hours before the event.
+
+Format: `addGroupEvent n/EVENT_NAME dsc/DESCRIPTION d/DATE(DD-MM-YY) t/TIME(HHMM) group/GROUP_NAME`
+
+Examples:
+
+* `addGroupEvent n/Project Meeting dsc/First Meeting d/12-09-18 t/1200 group/CS2103_Group`
+
+=== List group events: `listGroupEvent`
+
+Lists all group events in the system.
+
+Format: `listGroupEvent`
+
+Examples:
+
+* `listGroupEvent`
+
+=== Import Contacts: `importContacts`
+
+Import contacts from a specified csv file. Duplicate contacts will be merged together.
+
+Format: `importContacts file/FILEPATH`
+
+Examples:
+
+* `importContacts file/~/Downloads/contacts1.csv`
+  Imports all contacts from root/Downloads/contacts1.csv into application address book
+
+=== Notifications: `notification`
+
+Allow users to disable notifications for upcoming events based on most recently displayed events list. All events initially have notifications enabled.
+
+Format: `notification <EVENT INDEX> enable/disable`
+
+Examples:
+
+* `notification 2 disable`
+  V 1.1: Access Windows OS notification
+  V 1.2: Access Notification on other common OS
+  V 1.3: Allow events to sent notification.
+  V 1.4: Allow user to enable/disable notification for each event.
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
