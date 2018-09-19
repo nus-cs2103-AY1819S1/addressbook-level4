@@ -855,7 +855,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is `Piconso` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `Picconso` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Editing an image
@@ -875,7 +875,7 @@ Use case ends.
 * 1a. The given image cannot be opened.
 +
 [none]
-** 1a1. Piconso shows an error message.
+** 1a1. Picconso shows an error message.
 +
 Use case resumes at step 1.
 
@@ -892,11 +892,11 @@ Use case resumes at step 2.
 *MSS*
 
 1.  User edits an image (from use case Editing an image)
-2.  Piconso displays transformations done on the right side pane
+2.  Picconso displays transformations done on the right side pane
 3.  User enters command to save the set of transformations
-4.  Piconso requests for a name for the set
+4.  Picconso requests for a name for the set
 5.  User enters a name
-6.  Piconso saves the set
+6.  Picconso saves the set
 +
 Use case ends.
 
@@ -906,7 +906,7 @@ Use case ends.
 * 5a. The input name is already used.
 +
 [none]
-** 5a1. Piconso asks if user wants to overwrite to previously stored set.
+** 5a1. Picconso asks if user wants to overwrite to previously stored set.
 +
 Use case resumes at step 4.
 
@@ -928,7 +928,7 @@ Use case ends.
 * 1a. Selected range is an empty set.
 +
 [none]
-** 1a1. Piconso shows an error message.
+** 1a1. Picconso shows an error message.
 +
 Use case resumes at step 1.
 
@@ -938,9 +938,9 @@ Use case resumes at step 1.
 *MSS*
 
 1.  User opens an image
-2.  Piconso displays the image in the preview pane
+2.  Picconso displays the image in the preview pane
 3.  User inputs caption or watermark text into input
-4.  Piconso displays the caption/watermark in the preview pane
+4.  Picconso displays the caption/watermark in the preview pane
 +
 Use case ends.
 
