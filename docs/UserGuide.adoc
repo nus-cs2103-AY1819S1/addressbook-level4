@@ -394,7 +394,7 @@ e.g. `receipt 5`
 e.g. `refer 3 h/NUH d/Surgery r/Internal bleeding n/Patient complains heart is in pain`
 * *AddMedicalRecord* : `addMedicalRecord <INDEX> <RELEVANT PARAMETERS>` +
 e.g. addMedicalRecord 5 b/A+ d/Paracetamol p/Diabetes
-* *AddNoteToMedicalRecord* : `addNoteToMedicalRecord <INDEX> m/<MESSAGE>` + 
+* *AddNoteToMedicalRecord* : `addNoteToMedicalRecord <INDEX> m/<MESSAGE>` +
 e.g. addNoteToMedicalRecord 5 m/Patient is recovering well from his flu. Needs to rest for another few days.
 * *AddMedicine* : `addMedicine sn/<SERIAL NUMBER> n/<NAME> s/<CURRENT STOCK> p/<PRICE PER PIECE> min/<MINIMUM STOCK QUANTITY>` +
 e.g. addMedicine sn/1000 n/panadol s/500 p/0.50 min/50

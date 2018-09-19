@@ -827,7 +827,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 * Prefers typing over mouse input
 * Is reasonably comfortable using CLI apps
 
-*Value proposition*: 
+*Value proposition*:
 
 * Manage clinic data (beyond just patient information) faster than a typical mouse/GUI-driven app
 * Manage medical stocks
