@@ -1,10 +1,9 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
+import seedu.address.model.person.Remark;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 
@@ -20,19 +19,19 @@ public class RemarkCommand extends Command {
             + PREFIX_REMARK + "random remark";
 
     private final Index index;
-    private final String remarkString;
+    private final Remark remark;
 
-    public RemarkCommand(Index index, String remarkString) {
+    public RemarkCommand(Index index, Remark remark) {
         requireNonNull(index);
-        requireNonNull(remarkString);
+        requireNonNull(remark);
 
         this.index = index;
-        this.remarkString = remarkString;
+        this.remark = remark;
     }
 
     @Override
     public CommandResult execute() throws CommandException {
-        throw new CommandException(index + " " + remarkString);
+        throw new CommandException(index + " " + remark);
     }
 
     @Override
@@ -45,7 +44,7 @@ public class RemarkCommand extends Command {
             return false;
         }
 
-        if(((RemarkCommand) other).remarkString.equals(this.remarkString) &&
+        if(((RemarkCommand) other).remark.equals(this.remark) &&
                 ((RemarkCommand) other).index.equals(index)
         ) {
             return true;

@@ -15,6 +15,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Remark;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -32,9 +33,10 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
-    public static final String SAMPLE_REMARK_1 = "test remark";
-    public static final String SAMPLE_REMARK_2 = "test remark 2";
-    public static final String SAMPLE_REMARK_EMPTY = "";
+    public static final Remark SAMPLE_REMARK_1 = new Remark("test remark");
+    public static final Remark SAMPLE_REMARK_1b = new Remark("test remark");
+    public static final Remark SAMPLE_REMARK_2 = new Remark("test remark 2");
+    public static final Remark SAMPLE_REMARK_EMPTY = new Remark("");
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;

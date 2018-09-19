@@ -6,12 +6,10 @@ import seedu.address.testutil.Assert;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.SAMPLE_REMARK_1;
+import static seedu.address.logic.commands.CommandTestUtil.SAMPLE_REMARK_1b;
 import static seedu.address.logic.commands.CommandTestUtil.SAMPLE_REMARK_2;
 
 public class RemarkTest {
-    Remark sampleRemark1a = new Remark(SAMPLE_REMARK_1);
-    Remark sampleRemark1b = new Remark(SAMPLE_REMARK_1);
-    Remark sampleRemark2 = new Remark(SAMPLE_REMARK_2);
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -26,12 +24,12 @@ public class RemarkTest {
     @Test
     public void equals() {
         // same remark object
-        assertTrue(sampleRemark1a.equals(sampleRemark1a));
+        assertTrue(SAMPLE_REMARK_1.equals(SAMPLE_REMARK_1));
 
         // different remark objects with same value
-        assertTrue(sampleRemark1a.equals(sampleRemark1b));
+        assertTrue(SAMPLE_REMARK_1.equals(SAMPLE_REMARK_1b));
 
         // different remark objects with different values
-        assertFalse(sampleRemark1a.equals(sampleRemark2));
+        assertFalse(SAMPLE_REMARK_1.equals(SAMPLE_REMARK_2));
     }
 }

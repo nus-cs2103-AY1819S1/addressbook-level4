@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import org.junit.Test;
 import seedu.address.logic.commands.RemarkCommand;
+import seedu.address.model.person.Remark;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.*;
@@ -21,7 +22,7 @@ public class RemarkCommandParserTest {
     public void parse_allFieldsPresent_success() {
         // empty remark
         assertParseSuccess(parser,INDEX_FIRST_PERSON.getOneBased() + REMARK_DESC_EMPTY,
-                new RemarkCommand(INDEX_FIRST_PERSON,""));
+                new RemarkCommand(INDEX_FIRST_PERSON,SAMPLE_REMARK_EMPTY));
 
         // no empty fields
         assertParseSuccess(parser,INDEX_FIRST_PERSON.getOneBased() + REMARK_DESC_SAMPLE_1,
