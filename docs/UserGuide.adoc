@@ -1,7 +1,11 @@
 # User Guide
+:toc:
+:toc-title:
+:toclevels: 2
+:sectnums:
 
 ## Features
----
+
 ### System Commands
 #### Viewing help: `help`
 
