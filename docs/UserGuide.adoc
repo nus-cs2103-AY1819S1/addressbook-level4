@@ -333,14 +333,14 @@ Format: `delete_cca CCA`
 
 Example:
 
-* `delete_cca soccer` 
+* `delete_cca soccer`
 
 === Modifying a CCA's budget : `modify_cca`
 
 Modifies the budget of specified CCA. +
 Format: `modify_cca CCA BUDGET`
 
-Example: 
+Example:
 
 * `modify_cca soccer 500`
 
@@ -394,7 +394,7 @@ e.g. `delete_cca basketball`
 * *View CCA* : `view_cca CCA` +
 e.g. `view_cca basketball`
 * *Add Transaction* : `add_transaction CCA AMOUNT TYPE PERSON-IN-CHARGE` +
-e.g. `add_transaction soccer 500 debit James` 
+e.g. `add_transaction soccer 500 debit James`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
@@ -418,7 +418,7 @@ e.g. `publish_calendar Feb`
 * *View Calendar* : `view_calendar MONTH` +
 e.g. `view_calendar Feb`
 * *Add Event* : `add_event m/MONTH d/DATE st/START TIME et/END TIME n/NAME OF EVENT` +
-e.g. `add_event m/Feb d/2 st/1800 et/2100 n/Enthral
+e.g. `add_event m/Feb d/2 st/1800 et/2100 n/Enthral`
 * *Image* : `image`
 * *Import* : `import`
 * *History* : `history`
