@@ -18,7 +18,7 @@ The source code can be found https://github.com/nus-cs2103-AY1819S1/addressbook-
 image::bannified.jpg[width="150", align="left"]
 {empty} [https://github.com/bannified[github]] [https://bannified.github.io/portfolio/[portfolio]]
 
-Role: Team Lead
+Role: Team Lead +
 Responsibilities: Scheduling and Tasking, In charge of Model
 
 '''
@@ -27,7 +27,7 @@ Responsibilities: Scheduling and Tasking, In charge of Model
 image::leongshengmin.jpg[width="150", align="left"]
 {empty}[http://github.com/leongshengmin[github]] [[portfolio]]
 
-Role: Developer
+Role: Developer +
 Responsibilities: Code Quality, In charge of Storage
 
 '''
@@ -43,7 +43,7 @@ Responsibilities: Testing, Integration, IntelliJ Expert
 
 === Lionel Tan
 image::lionelat.jpg[width="150", align="left"]
-{empty}[http://github.com/lionelat[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/lionelat[github]] [[portfolio]]
 
 Role: Developer +
 Responsibilities: Documentation, In charge of Logic, Deliverables and Deadlines
