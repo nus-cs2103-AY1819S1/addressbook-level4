@@ -14,7 +14,7 @@ public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
     private static final String[] TAG_COLORS = { "teal", "red", "yellow", "blue", "orange", "brown", "green",
-            "pink", "black", "grey" };
+        "pink", "black", "grey" };
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
      * As a consequence, UI elements' variable names cannot be set to such keywords
@@ -48,8 +48,7 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
-        person.getTags().forEach(tag ->
-        {
+        person.getTags().forEach(tag -> {
             Label tempLabel = new Label(tag.tagName);
             tempLabel.setStyle("-fx-background-color: " + getColorStyleOfTag(tag.tagName));
             tags.getChildren().add(tempLabel);
