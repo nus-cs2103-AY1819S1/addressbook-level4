@@ -143,7 +143,7 @@ public class MainWindow extends UiPart<Stage> {
             originalImagePanel = new ImagePanel(new URL("https://source.unsplash.com/random/800x600"));
             originalImagePlaceholder.getChildren().add(originalImagePanel.getRoot());
 
-            previewImagePanel = new ImagePanel(new URL("https://source.unsplash.com/random/800x600"));
+            previewImagePanel = new ImagePanel(new URL("https://picsum.photos/800/800/?random"));
             previewImagePlaceholder.getChildren().add(previewImagePanel.getRoot());
         }catch(IOException e){
             logger.severe(e.toString());
