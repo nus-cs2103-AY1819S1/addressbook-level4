@@ -85,7 +85,7 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public void backupExpenses(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
-        logger.fine("Attempting to write to backup file of: " + filePath);
+        logger.fine("Attempting to write backup of: " + filePath);
         expensesStorage.backupExpenses(addressBook, filePath);
     }
 
