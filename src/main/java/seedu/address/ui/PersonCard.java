@@ -24,7 +24,7 @@ public class PersonCard extends UiPart<Region> {
      */
 
     public final Person person;
-
+    
     @FXML
     private HBox cardPane;
     @FXML
@@ -48,7 +48,13 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
-        person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        person.getTags().forEach(tag ->
+        {
+            Label tempLabel = new Label(tag.tagName);
+            tempLabel.setStyle("-fx-background-color: " + getColorStyleOfTag(tag.tagName));
+            tags.getChildren().add(tempLabel);
+        });
+
     }
 
     @Override
@@ -68,4 +74,13 @@ public class PersonCard extends UiPart<Region> {
         return id.getText().equals(card.id.getText())
                 && person.equals(card.person);
     }
+    
+    /** 
+     * Returns color style for a specific tag
+     */
+    public static String getColorStyleOfTag(String tagName) {
+        return TAG_COLORS[Math.abs(tagName.hashCode() % TAG_COLORS.length)];
+    }
+    
+    
 }
