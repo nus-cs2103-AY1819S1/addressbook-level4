@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -23,9 +24,11 @@ public class XmlExpensesStorage implements ExpensesStorage {
     private static final Logger logger = LogsCenter.getLogger(XmlExpensesStorage.class);
 
     private Path filePath;
+    private Path backupFilePath;
 
     public XmlExpensesStorage(Path filePath) {
         this.filePath = filePath;
+        this.backupFilePath = Paths.get(filePath.toString() + ".backup");
     }
 
     public Path getExpensesFilePath() {
@@ -77,4 +80,20 @@ public class XmlExpensesStorage implements ExpensesStorage {
         XmlFileStorage.saveDataToFile(filePath, new XmlSerializableAddressBook(addressBook));
     }
 
+    @Override
+    public void backupExpenses(ReadOnlyAddressBook addressBook) throws IOException {
+        backupExpenses(addressBook, backupFilePath);
+    }
+
+    /**
+     * Similar to {@link #backupExpenses(ReadOnlyAddressBook)}
+     * @param filePath location of the data. Cannot be null
+     */
+    public void backupExpenses(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+        requireNonNull(addressBook);
+        requireNonNull(filePath);
+
+        FileUtil.createIfMissing(filePath);
+        XmlFileStorage.saveDataToFile(filePath, new XmlSerializableAddressBook(addressBook));
+    }
 }

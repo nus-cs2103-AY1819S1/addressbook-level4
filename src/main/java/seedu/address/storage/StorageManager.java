@@ -78,6 +78,16 @@ public class StorageManager extends ComponentManager implements Storage {
         expensesStorage.saveExpenses(addressBook, filePath);
     }
 
+    @Override
+    public void backupExpenses(ReadOnlyAddressBook addressBook) throws IOException {
+        backupExpenses(addressBook, expensesStorage.getExpensesFilePath());
+    }
+
+    @Override
+    public void backupExpenses(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+        logger.fine("Attempting to write to backup file of: " + filePath);
+        expensesStorage.backupExpenses(addressBook, filePath);
+    }
 
     @Override
     @Subscribe
