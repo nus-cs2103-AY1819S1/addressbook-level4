@@ -65,7 +65,7 @@ Responsibilities: __
 '''
 
 === Qi Gongjie
-image::yl_coder.jpg[width="150", align="left"]
+image::QiGongjie.jpeg[width="150", align="left"]
 {empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
