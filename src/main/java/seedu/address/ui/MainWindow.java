@@ -1,17 +1,25 @@
 package seedu.address.ui;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import seedu.address.MainApp;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -19,6 +27,9 @@ import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -39,6 +50,8 @@ public class MainWindow extends UiPart<Stage> {
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
+    private ImagePanel originalImagePanel;
+    private ImagePanel previewImagePanel;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -57,6 +70,13 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane originalImagePlaceholder;
+
+    @FXML
+    private StackPane previewImagePlaceholder;
+
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
@@ -119,11 +139,15 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        try{
+            originalImagePanel = new ImagePanel(new URL("https://source.unsplash.com/random/800x600"));
+            originalImagePlaceholder.getChildren().add(originalImagePanel.getRoot());
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+            previewImagePanel = new ImagePanel(new URL("https://source.unsplash.com/random/800x600"));
+            previewImagePlaceholder.getChildren().add(previewImagePanel.getRoot());
+        }catch(IOException e){
+            logger.severe(e.toString());
+        }
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
