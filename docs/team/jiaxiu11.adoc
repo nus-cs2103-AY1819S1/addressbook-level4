@@ -1,3 +1,9 @@
+== Note
+
+This is a template for a portfolio, copied from the original AB4 fork.
+
+---
+
 = Cai Jiaxiu - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
