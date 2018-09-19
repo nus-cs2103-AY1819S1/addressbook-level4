@@ -49,7 +49,7 @@ public class AddressBookParser {
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
-            case AddCommand.COMMAND_WORD_ALIAS:
+            case AddCommand.COMMAND_WORD_ALIAS: // test case for command alias
             return new AddCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
