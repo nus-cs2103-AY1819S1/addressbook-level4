@@ -5,7 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Person;
+import seedu.address.model.expense.Person;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -13,8 +13,13 @@ import seedu.address.model.person.Person;
 public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
+<<<<<<< HEAD
     private static final String[] TAG_COLORS = { "teal", "red", "yellow", "blue", "orange", "brown", "green",
         "pink", "black", "grey" };
+=======
+    private static final String[] TAG_COLORS = {"teal", "red", "yellow", "blue", "orange", "brown", "green",
+        "pink", "black", "grey"};
+>>>>>>> 0f0562a5701a36e36c60472fcfe4b6d9e5b7bd0d
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
      * As a consequence, UI elements' variable names cannot be set to such keywords
@@ -24,7 +29,10 @@ public class PersonCard extends UiPart<Region> {
      */
 
     public final Person person;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0f0562a5701a36e36c60472fcfe4b6d9e5b7bd0d
     @FXML
     private HBox cardPane;
     @FXML
