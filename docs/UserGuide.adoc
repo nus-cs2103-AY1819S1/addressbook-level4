@@ -252,7 +252,7 @@ Examples:
 The `addToGroup` command adds the first person returned from `list`.
 
 * `find Betsy Tim John` +
-`addToGroup group/CS2103Group i/1 i/2 i/3` + 
+`addToGroup group/CS2103Group i/1 i/2 i/3` +
 The `addToGroup` command adds the first(Betsy), second(Tim) and Third(John) person returned from `list`.
 
 === Rename groups : `renameGroup`
@@ -261,7 +261,7 @@ Renames a specified group, if it exists.
 
 [NOTE]
 ====
-If the group does not exist, an error message is displayed accordingly to indicate that this command cannot be parsed. 
+If the group does not exist, an error message is displayed accordingly to indicate that this command cannot be parsed.
 ====
 
 Format: `renameGroup group/ORIGINAL_NAME n/NEW_GROUP_NAME`
@@ -274,39 +274,39 @@ Examples:
 
 Merges a list of groups together. Any number of groups can be merged together. +
 When groups are merged, a new group will be created containing all the contacts in the listed groups. +
-At least one group must be listed. If only one group is listed, no changes will take place. 
+At least one group must be listed. If only one group is listed, no changes will take place.
 
 [NOTE]
 ====
 * Events that were created in the individual groups prior to merging will not affected by this command. +
-* Future events created from this merged group will be under the merged group. 
+* Future events created from this merged group will be under the merged group.
 ====
 
 Format: `mergeGroup n/NEW_GROUP_NAME group/GROUP_NAME[...]`
 
-Examples: 
+Examples:
 
 * `mergeGroup n/CS2103_MERGED group/CS2103_Group1 group/CS2103_Group2 group/CS2103_Group3` +
 A new group called `CS2103_MERGED` is created containing all contacts from `CS2103_Group1`, `CS2103_Group2` and `CS2103_Group3`
 
 === Split groups : `splitGroup`
 
-Splits a group through a series of commands. 
+Splits a group through a series of commands.
 
 Firstly, `splitGroup` command will inform the system that the user wishes to split a group. +
 The system will then display all contacts in this group and a message to inicate that it is awaiting user input. +
-To create new group, input the new group names and the indexes of the contacts. Each of the newly created groups must contain at least one contact. 
+To create new group, input the new group names and the indexes of the contacts. Each of the newly created groups must contain at least one contact.
 
 [NOTE]
 ====
-The original group will not be deleted as a result of any of the above commands. However, the split groups will contain an indicator showing that it was created from splitting the original group. 
+The original group will not be deleted as a result of any of the above commands. However, the split groups will contain an indicator showing that it was created from splitting the original group.
 ====
 
 Format: `splitGroup group/GROUP_NAME {n/NEW_GROUP_NAME i/INDEX[...]}[...]`
 
 Examples:
 
-* `splitGroup group/CS2103_MERGE` + 
+* `splitGroup group/CS2103_MERGE` +
 `n/CS2103_Group1 i/1 i/2 i/3 i/4 i/5`
 
 === View team members who belong to a group : `viewGroup`
@@ -321,7 +321,7 @@ Examples:
 
 === View other contacts in the same group as a specific contact : `commonGroupContacts`
 
-Shows other contacts who may be in the same group with the contact that the user is currently viewing. 
+Shows other contacts who may be in the same group with the contact that the user is currently viewing.
 
 Format: `commonGroupContacts n/CONTACT_NAME`
 
@@ -341,7 +341,7 @@ Examples:
 
 === Delete an entire group : `deleteGroup`
 
-Delete inactive groups or groups who you are not going to work with in the future without affecting contact list. 
+Delete inactive groups or groups who you are not going to work with in the future without affecting contact list.
 
 Format: `deleteGroup group/GROUP_NAME`
 
@@ -386,24 +386,13 @@ Examples:
 
 === Unarchive old groups : `unarchive`
 
-Unarchive group to retrieve archived group information and make group visible again. 
+Unarchive group to retrieve archived group information and make group visible again.
 
 Format: `unarchive group/GROUP_NAME`
 
-Examples: 
-
-* `unarchive group/CS2103Group`
-
-
-=== Feature name : `featureCommand`
-
-description
-
-Format: format
-
 Examples:
 
-* 
+* `unarchive group/CS2103Group`
 
 == FAQ
 
