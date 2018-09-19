@@ -418,7 +418,7 @@ e.g. `publish_calendar Feb`
 * *View Calendar* : `view_calendar MONTH` +
 e.g. `view_calendar Feb`
 * *Add Event* : `add_event m/MONTH d/DATE st/START TIME et/END TIME n/NAME OF EVENT` +
-e.g. `add_event m/Feb d/2 st/1800 et/2100 n/Enthral
+e.g. `add_event m/Feb d/2 st/1800 et/2100 n/Enthral`
 * *Image* : `image`
 * *Import* : `import`
 * *History* : `history`
