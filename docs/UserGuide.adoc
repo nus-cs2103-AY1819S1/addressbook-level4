@@ -130,6 +130,7 @@ Examples:
 * #
 * ~*
 
+`[Module Name] must be an alphanumeric string without spaces.`
 
 === Find a task: `find / findwhere`
 
