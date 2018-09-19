@@ -22,7 +22,7 @@ Responsibilities: [To be filled up]
 '''
 
 === JAVEN SEOW YU BIN
-image::javenseow.jpg[width="150", align="left"]
+image::javenseow.jpeg[width="150", align="left"]
 {empty}[https://github.com/javenseow[github]] [<<javenseow#, portfolio>>] +
 _{#To add in portfolio#}_
 
@@ -42,7 +42,7 @@ Responsibilities: [#To be filled up#]
 '''
 
 === SHANNA LIM KENG WOON
-image::kengwoon.jpg[width="150", align="left"]
+image::kengwoon.jpeg[width="150", align="left"]
 {empty}[https://github.com/kengwoon[github]] [<<kengwoon#, portfolio>>] +
 _{#To add in portfolio#}_
 
@@ -52,7 +52,7 @@ Responsibilities: [#To be filled up#]
 '''
 
 === TRAVIS CHING JIA YEA
-image::gilgameshtc.jpg[width="150", align="left"]
+image::gilgameshtc.jpeg[width="150", align="left"]
 {empty}[https://github.com/gilgameshtc[github]] [<<gilgameshtc#, portfolio>>] +
 _{#To add in portfolio#}_
 
