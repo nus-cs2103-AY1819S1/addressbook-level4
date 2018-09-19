@@ -262,7 +262,7 @@ Renames a specified group, if it exists.
 [NOTE]
 ====
 If the group does not exist, an error message is displayed accordingly to indicate that this command cannot be parsed.
-==== 
+====
 
 Format: `renameGroup group/ORIGINAL_NAME n/NEW_GROUP_NAME`
 
@@ -308,7 +308,7 @@ Examples:
 
 * `splitGroup group/CS2103_MERGE` +
 `n/CS2103_Group1 i/1 i/2 i/3 i/4 i/5`
- 
+
 === View team members who belong to a group : `viewGroup`
 
 Shows the information of each team members in a particular group
@@ -328,7 +328,7 @@ Format: `commonGroupContacts n/CONTACT_NAME`
 Examples:
 
 * `commonGroupContacts n/James Bond`
- 
+
 === Remove a contact from a group : `remove`
 
 Removes a specific contact from a group
@@ -418,7 +418,7 @@ Examples:
 * Find Betsy Tim John
   `addEvent n/Dental Appointment dsc/Consultation d/15-09-18 t/1030 i/1 i/2 i/3`
 
-=== List personal events: `listEvent` 
+=== List personal events: `listEvent`
 
 Lists all events in the system.
 
@@ -448,7 +448,7 @@ Examples:
 
 * `listGroupEvent`
 
-=== Import Contacts: `importContacts` 
+=== Import Contacts: `importContacts`
 
 Import contacts from a specified csv file. Duplicate contacts will be merged together.
 
