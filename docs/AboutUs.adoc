@@ -20,7 +20,7 @@ Responsibilities: Responsible for overall project coordination.
 
 === Lin Xu
 image::linxu.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/Woodnsuns[github]] [<<johndoe#, portfolio>>]
 
 Role: Documentation, Code Quality +
 Responsibilities: Maintaining the quality of various project documents +
