@@ -7,7 +7,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 
-import seedu.address.model.Expense.Expense;
+import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Person;
 import seedu.address.model.expense.UniquePersonList;
 
@@ -18,7 +18,7 @@ import seedu.address.model.expense.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
-    private final ArrayList<Expense> ExpenseList;
+    private final ArrayList<Expense> expenseList;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -29,8 +29,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
-        ExpenseList = new ArrayList<>();
-        ExpenseList.clear();
+        expenseList = new ArrayList<>();
+        expenseList.clear();
     }
 
     public AddressBook() {}
