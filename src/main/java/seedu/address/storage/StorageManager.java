@@ -21,13 +21,13 @@ import seedu.address.model.UserPrefs;
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private ExpenseTrackerStorage expenseTrackerStorage;
+    private ExpensesStorage expensesStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(ExpenseTrackerStorage expenseTrackerStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(ExpensesStorage expensesStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.expenseTrackerStorage = expenseTrackerStorage;
+        this.expensesStorage = expensesStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -52,30 +52,30 @@ public class StorageManager extends ComponentManager implements Storage {
     // ================ AddressBook methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return expenseTrackerStorage.getAddressBookFilePath();
+    public Path getExpensesFilePath() {
+        return expensesStorage.getExpensesFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(expenseTrackerStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyAddressBook> readExpenses() throws DataConversionException, IOException {
+        return readExpenses(expensesStorage.getExpensesFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyAddressBook> readExpenses(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return expenseTrackerStorage.readAddressBook(filePath);
+        return expensesStorage.readExpenses(filePath);
     }
 
     @Override
     public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, expenseTrackerStorage.getAddressBookFilePath());
+        saveAddressBook(addressBook, expensesStorage.getExpensesFilePath());
     }
 
     @Override
     public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        expenseTrackerStorage.saveAddressBook(addressBook, filePath);
+        expensesStorage.saveAddressBook(addressBook, filePath);
     }
 
 

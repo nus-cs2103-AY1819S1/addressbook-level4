@@ -18,31 +18,31 @@ import seedu.address.model.ReadOnlyAddressBook;
 /**
  * A class to access AddressBook data stored as an xml file on the hard disk.
  */
-public class XmlExpenseTrackerStorage implements ExpenseTrackerStorage {
+public class XmlExpensesStorage implements ExpensesStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(XmlExpenseTrackerStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(XmlExpensesStorage.class);
 
     private Path filePath;
 
-    public XmlExpenseTrackerStorage(Path filePath) {
+    public XmlExpensesStorage(Path filePath) {
         this.filePath = filePath;
     }
 
-    public Path getAddressBookFilePath() {
+    public Path getExpensesFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlyAddressBook> readExpenses() throws DataConversionException, IOException {
+        return readExpenses(filePath);
     }
 
     /**
-     * Similar to {@link #readAddressBook()}
+     * Similar to {@link #readExpenses()}
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException,
+    public Optional<ReadOnlyAddressBook> readExpenses(Path filePath) throws DataConversionException,
                                                                                  FileNotFoundException {
         requireNonNull(filePath);
 

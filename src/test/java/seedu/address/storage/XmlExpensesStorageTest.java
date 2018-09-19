@@ -20,8 +20,8 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 
-public class XmlExpenseTrackerStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlExpenseTrackerStorageTest");
+public class XmlExpensesStorageTest {
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlExpensesStorageTest");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -36,7 +36,7 @@ public class XmlExpenseTrackerStorageTest {
     }
 
     private java.util.Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws Exception {
-        return new XmlExpenseTrackerStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
+        return new XmlExpensesStorage(Paths.get(filePath)).readExpenses(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -77,24 +77,24 @@ public class XmlExpenseTrackerStorageTest {
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.xml");
         AddressBook original = getTypicalAddressBook();
-        XmlExpenseTrackerStorage xmlAddressBookStorage = new XmlExpenseTrackerStorage(filePath);
+        XmlExpensesStorage xmlAddressBookStorage = new XmlExpensesStorage(filePath);
 
         //Save in new file and read back
         xmlAddressBookStorage.saveAddressBook(original, filePath);
-        ReadOnlyAddressBook readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
+        ReadOnlyAddressBook readBack = xmlAddressBookStorage.readExpenses(filePath).get();
         assertEquals(original, new AddressBook(readBack));
 
         //Modify data, overwrite exiting file, and read back
         original.addPerson(HOON);
         original.removePerson(ALICE);
         xmlAddressBookStorage.saveAddressBook(original, filePath);
-        readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
+        readBack = xmlAddressBookStorage.readExpenses(filePath).get();
         assertEquals(original, new AddressBook(readBack));
 
         //Save and read without specifying file path
         original.addPerson(IDA);
         xmlAddressBookStorage.saveAddressBook(original); //file path not specified
-        readBack = xmlAddressBookStorage.readAddressBook().get(); //file path not specified
+        readBack = xmlAddressBookStorage.readExpenses().get(); //file path not specified
         assertEquals(original, new AddressBook(readBack));
 
     }
@@ -110,7 +110,7 @@ public class XmlExpenseTrackerStorageTest {
      */
     private void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) {
         try {
-            new XmlExpenseTrackerStorage(Paths.get(filePath))
+            new XmlExpensesStorage(Paths.get(filePath))
                     .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);

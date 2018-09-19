@@ -10,12 +10,12 @@ import seedu.address.model.ReadOnlyAddressBook;
 /**
  * Represents a storage for {@link seedu.address.model.AddressBook}.
  */
-public interface ExpenseTrackerStorage {
+public interface ExpensesStorage {
 
     /**
      * Returns the file path of the data file.
      */
-    Path getAddressBookFilePath();
+    Path getExpensesFilePath();
 
     /**
      * Returns AddressBook data as a {@link ReadOnlyAddressBook}.
@@ -23,12 +23,12 @@ public interface ExpenseTrackerStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyAddressBook> readExpenses() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getExpensesFilePath()
      */
-    Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyAddressBook> readExpenses(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyAddressBook} to the storage.
