@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-W16-1/main/tree/master
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
@@ -815,13 +815,17 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* JCRC member of a Hall of NUS
+* has to manage a significant number of hall residents
+* has to manage budget for CCAs
+* has to consolidate hall event dates
+* has to notify hall residents about events
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage hall residents faster and easier than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -831,17 +835,36 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |new JCRC member |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |JCRC member |add a new person |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |JCRC member |delete a person |remove entries that I no longer need
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |JCRC member |list all persons |
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |JCRC member |find a person by name |locate details of persons without having to go through the entire list
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |JCRC member |mass import residents' details |save time from not having to manually key in contacts one by one
+
+|`* * *` |JCRC member |delete selected groups of residents |save time from not having to search for and delete persons one by one
+
+|`* * *` |JCRC member |delete selected tags from residents |accommodate mass changes in CCA members list
+
+|`* * *` |JCRC member |compose emails |ease the process of sending emails to groups of hall residents
+
+|`* * *` |JCRC member |publish calenders |prevent clashes between events and inform hall residents of upcoming events
+
+|`* * *` |JCRC Finance Director |keep track of each CCA's budget |prevent problems during an audit
+
+|`* *` |JCRC member |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+
+|`* *` |JCRC member |list which residents are in specified CCAs |contact personnel in the CCA more efficiently
+
+|`*` |JCRC member |sort persons by name |locate a resident easily
+
+|`*` |JCRC member |store pictures under contact details |easily identify hall residents and distinguish between those with similar names
+
 |=======================================================================
 
 _{More to be added}_
@@ -849,17 +872,37 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Hallper` and the *Actor* is the `JCRC member`, unless specified otherwise)
+
+[discrete]
+=== Use case: Display usage instructions
+
+*MSS*
+
+1. JCRC member requests to view usage instructions
+2. Hallper shows usage instructions
++
+Use case ends.
+
+[discrete]
+=== Use case: Add person
+
+*MSS*
+
+1. JCRC member requests to add a person with specific details
+2. Hallper adds the person
++
+Use case ends.
 
 [discrete]
 === Use case: Delete person
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  JCRC member requests to list persons
+2.  Hallper shows a list of persons
+3.  JCRC member requests to delete a specific person in the list
+4.  Hallper deletes the person
 +
 Use case ends.
 
@@ -873,9 +916,417 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. Hallper shows an error message.
 +
 Use case resumes at step 2.
+
+[discrete]
+=== Use case: List persons
+
+*MSS*
+
+1. JCRC member requests to list persons
+2. Hallper shows list of all persons
++
+Use case ends.
+
+[discrete]
+=== Use case: Search tag
+
+*MSS*
+
+1. JCRC member requests to search by specific tag
+2. Hallper shows list of only persons with specified tag
++
+Use case ends.
+
+[discrete]
+=== Use case: Find person
+
+*MSS*
+
+1. JCRC member requests to find person containing specific name
+2. Hallper shows list of persons with matching name
++
+Use case ends.
+
+[discrete]
+=== Use case: Clear persons
+
+*MSS*
+
+1. JCRC member requests to clear persons
+2. Hallper clears all persons
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. JCRC member requests to clear persons with specific tag
++
+[none]
+** 1a1. Hallper clears all persons with specified tag
++
+Use case ends.
+
+[discrete]
+=== Use case: Import contacts
+
+*MSS*
+
+1. JCRC member requests to import contacts
+2. Hallper requests for file location
+3. JCRC member enters file location
+4. Hallper imports contacts
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. File is invalid
++
+[none]
+** 3a1. Hallper shows error message
++
+Use case ends.
+
+[discrete]
+=== Use case: Erase tag
+
+*MSS*
+
+1. JCRC member requests to erase a specific tag
+2. Hallper erases specified tag from all persons
++
+Use case ends.
+
+[discrete]
+=== Use case: Compose email
+
+*MSS*
+
+1. JCRC member requests to compose email
+2. Hallper requests for all details of email (Sender, recipient, subject, content, attachment)
+3. JCRC member enters all details
+4. Hallper saves an output file in the computer
++
+Use case ends.
+
+[discrete]
+=== Use case: Select person
+
+*MSS*
+
+1. JCRC member requests to list persons
+2. Hallper shows list of persons
+3. JCRC member requests to select a specific person in the list
+4. Hallper shows details of selected person
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. Hallper shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Publish calendar
+
+*MSS*
+
+1. JCRC member requests to publish calendar
+2. Hallper requests for the intended calendar month
+3. JCRC member enters the month
+4. Hallper saves an output file in the computer
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete a calendar
+
+*MSS*
+
+1. JCRC member requests to delete a calendar
+2. Hallper requests the calendar month
+3. JCRC member enters the month
+4. Hallper deletes the specified calendar
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. Calendar does not exist
++
+[none]
+** 3a1. Hallper shows an error message
++
+Use case ends.
+
+[discrete]
+=== Use case: Add event to calendar
+
+*MSS*
+
+1. JCRC member requests to add a new event to a calendar
+2. Hallper requests for all details of event (Month, year, day, start time, end time, event name)
+3. JCRC member enters all details
+4. Hallper creates a new event on the calendar
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. Another event clashes with the same timing
++
+[none]
+** 3a1. Hallper shows an error message
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete event on a calendar
+
+*MSS*
+
+1. JCRC member requests to delete an event on a calendar
+2. Hallper requests for all details of event (Month, year, day, event name)
+3. JCRC member enters all details
+4. Hallper deletes the specified event on the calendar
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. Event does not exist
++
+[none]
+** 3a1. Hallper shows an error message
++
+Use case ends.
+
+[discrete]
+=== Use case: Add CCA
+
+*MSS*
+
+1. JCRC member requests to add a CCA
+2. Hallper requests for details of CCA (Name of CCA, names of head and vice-head, budget)
+3. JCRC member enters the details
+4. Hallper displays the details of the CCA
++
+Use Case ends.
+
+*Extensions*
+
+[none]
+* 3a. Name(s) of head and/or vice-head is/are not detected in the contact list
++
+[none]
+** 3a1. Hallper shows an error message
++
+Use case resumes at step 2.
+
+* 3b. Budget entered is invalid
++
+[none]
+** 3b1. Hallper shows an error message
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Modify CCA
+
+*MSS*
+
+1. JCRC member requests to list CCAs
+2. Hallper shows list of CCAs
+3. JCRC member requests to modify a specific CCA in the list
+4. Hallper requests for new details of the CCA (Name of CCA, names of head and vice-head, budget)
+5. JCRC member enters the details
+6. Hallper displays the new details of the CCA
++
+Use Case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty
++
+Use case ends.
+
+* 3a. The given index is invalid
++
+[none]
+** 3a1. Hallper displays error message
++
+Use case resumes at step 2.
+
+* 5a. Name(s) of head and/or vice-head is/are not detected in the contact list
++
+[none]
+** 5a1. Hallper shows an error message
++
+Use case resumes at step 2.
+
+* 5b. Budget entered is invalid
++
+[none]
+** 5b1. Hallper shows an error message
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Delete CCA
+
+*MSS*
+
+1. JCRC member requests to list CCAs
+2. Hallper shows list of CCAs
+3. JCRC member requests to delete a specific CCA in the list
+4. Hallper requests for confirmation of deletion
+5. JCRC member confirms
+6. Hallper deletes the CCA
++
+Use Case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty
++
+Use case ends.
+
+* 3a. The given index is invalid
++
+[none]
+** 3a1. Hallper shows an error message
++
+Use case resumes at step 2.
+
+* 5a. JCRC member cancels instead
++
+Use case ends.
+
+[discrete]
+=== Use case: Select CCA
+
+*MSS*
+
+1. JCRC member requests to list CCAs
+2. Hallper shows list of CCAs
+3. JCRC member requests to select a specific CCA in the list
+4. Hallper shows details of selected CCA
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. Hallper shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: List all CCAs
+
+*MSS*
+
+1. JCRC member requests for list of CCAs
+2. Hallper displays list of CCAs
++
+Use Case ends.
+
+[discrete]
+=== Use case: Add CCA Transaction
+
+*MSS*
+
+1. JCRC member requests for list of CCAs
+2. Hallper displays list of CCAs
+3. JCRC member requests to add a transaction for a specific CCA in the list
+4. Hallper requests transaction details (Amount of money, name of person-in-charge, comments)
+5. JCRC member enters transaction details
+6. Hallper displays details of the CCA
++
+Use Case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty
++
+Use case ends.
+
+* 3a. The given index is invalid
++
+[none]
+** 3a1. Hallper shows an error message
++
+Use case resumes at step 2.
+
+* 5a. Name of person-in-charge is not detected in the contact list
++
+[none]
+** 5a1. Hallper shows an error message
++
+Use case resumes at step 4.
+
+* 5b. Amount of money entered is invalid
++
+[none]
+** 5b1. Hallper shows an error message
++
+Use case resumes at step 4.
+
+* 5c. Comments left empty
++
+[none]
+** 5c1. Hallper shows an error message
++
+Use case resumes at step 4.
+
+[discrete]
+=== Use case: Sort contacts
+
+*MSS*
+
+1. JCRC member requests sort the contacts
+2. Hallper sorts the contacts
++
+Use case ends.
+
+[discrete]
+=== Use case: Add image
+
+*MSS*
+
+1. JCRC member requests to add a person's image
+2. Hallper requests for name and image location
+3. JCRC member enters name and image location
+4. Hallper adds the image
++
+Use case ends.
 
 _{More to be added}_
 
