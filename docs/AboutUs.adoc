@@ -30,7 +30,7 @@ Responsibilities: UI
 
 === David Choo
 image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/hidingmode[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities:__
@@ -39,7 +39,7 @@ Responsibilities:__
 
 === Hansel Chia Chen Young
 image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/handshou[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: __
@@ -57,7 +57,7 @@ Responsibilities: __
 
 === Phillips Hayden Roy
 image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/Gongjie663746[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/HaydenPhillips[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: __
@@ -66,7 +66,7 @@ Responsibilities: __
 
 === Qi Gongjie
 image::QiGongjie.jpeg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/Gongjie663746[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: __
