@@ -200,7 +200,7 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_redoCommandWord_returnsRedoCommand_alias() throws Exception {
+    public void parseCommand_redoCommandWordAlias_returnsRedoCommand() throws Exception {
         assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD_ALIAS) instanceof RedoCommand);
         assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD_ALIAS + " 1") instanceof RedoCommand);
     }
@@ -212,7 +212,7 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_undoCommandWord_returnsUndoCommand_alias() throws Exception {
+    public void parseCommand_undoCommandWordAlias_returnsUndoCommand() throws Exception {
         assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD_ALIAS) instanceof UndoCommand);
         assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD_ALIAS + " 3") instanceof UndoCommand);
     }

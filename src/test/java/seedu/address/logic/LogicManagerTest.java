@@ -47,7 +47,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_validCommand_alias_success() {
+    public void execute_validCommandAlias_success() {
         String listCommand = ListCommand.COMMAND_WORD_ALIAS;
         assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
         assertHistoryCorrect(listCommand);
