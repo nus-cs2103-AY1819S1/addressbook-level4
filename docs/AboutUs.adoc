@@ -12,15 +12,16 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Vighnesh Ramesh Iyer
-image::damithc.jpg[width="150", align="left"]
+image::vig42.jpg[width="150", align="left"]
 {empty}[https://github.com/vig42] [<<johndoe#, portfolio>>]
 
 Role: Developer
+Responsibilities: Travis
 
 '''
 
 === Pang Jia Hao
-image::yijinl.jpg[width="150", align="left"]
+image::pangjiahao.jpg[width="150", align="left"]
 {empty}[https://github.com/pangjiahao] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -42,6 +43,6 @@ image::bryanwongweiheng.jpg[width="150", align="left"]
 {empty}[http://github.com/bryanwongweiheng] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: UI, Gradle
 
 '''
