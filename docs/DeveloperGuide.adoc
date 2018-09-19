@@ -820,13 +820,13 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to manage a significant number of volunteers and social welfare events
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage volunteers and events faster than a typical mouse/GUI driven app, and derive insights from them
 
 [appendix]
 == User Stories
@@ -838,18 +838,52 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |register a new volunteer |begin tracking their volunteer work & hours
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |view a volunteer's details |track their volunteer work & hours
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |update volunteer details |keep their details updated for administrative & other purposes
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* *` |user |archive volunteer details |stash away unnecessary volunteer records, yet have the option of restoring them if needed
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *` |user |restore volunteer record |restore volunteer details that were archived
+
+|`* * *` |user |delete volunteer record |permanently remove volunteer record from database
+
+|`* *` |user |import volunteer record details |add multiple volunteer data into the database
+
+|`*` |user |export volunteer record details |have a backup of the volunteer records
+
+|`* * *` |user |create new event |have a record of the event details
+
+|`* * *` |user |update event details |ensure that event details are kept up to date
+
+|`* * *` |user |view event details |verify the details of the event
+
+|`* * *` |user |delete event details |remove the event from the list if event details were entered wrongly or cancelled
+
+|`* *` |user |archive event details |stash away event records yet have the option of restoring them
+
+|`* *` |user |restore event details |restore event details that were archived
+
+|`* *` |user |import event data |add multiple events at once
+
+|`*` |user |export event data |have a backup of event details
+
+|`* * *` |user |add volunteer hours to volunteer profiles |keep track of the number of hours spent by the volunteer volunteering
+
+|`* * *` |user |edit volunteer hours in volunteer profiles |maintain accuracy of information pertaining to volunteer work
+
+|`*` |user |export certification document from volunteers’ data |provide volunteers with official acknowledgement of service rendered to organization
+
+|`* *` |user |view spread of volunteers across events |determine which are the more popular events
+
+|`* *` |user |view demographics of volunteers |know what my volunteer profiles are like
+
+|`* *` |user |auto-complete commands |execute commands more efficiently
 |=======================================================================
 
-_{More to be added}_
+_{To be updated and expanded}_
 
 [appendix]
 == Use Cases
