@@ -102,12 +102,12 @@ Edit task selected tagging it with `urgent` and set its deadline to `12/09/18`
 * `changeto with deadline on 110918: deadline extended` +
 Edit task selected deadline to `11/09/18`
 
-=== Deleting a task: `delete`
+=== Deleting a task: `delete/del`
 ****
 Pre-condition: Task is already selected using select command
 ****
 Remove the selected task. +
-Format: `delete`, or the shorthand `dl`
+Format: `delete`, or the shorthand `del`
 
 
 === Managing the module list: modules
