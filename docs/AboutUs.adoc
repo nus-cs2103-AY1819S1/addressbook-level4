@@ -4,7 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-ClinicIO was developed by the https://github.com/CS2103-AY1819S1-W14-1/main[CS2103T W14-1] team based on the previous work of the https://se-edu.github.io/Team.html[se-edu] team. +
+ClinicIO was developed by the https://github.com/CS2103-AY1819S1-W14-1/main[W14-1] team based on the previous work of the https://se-edu.github.io/Team.html[se-edu] team. +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
