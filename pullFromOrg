@@ -1,1 +1,0 @@
-git pull https://github.com/CS2103-AY1819S1-T12-1/expense-tracker.git $(git symbolic-ref -q --short HEAD)
