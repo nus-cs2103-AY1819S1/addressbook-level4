@@ -865,20 +865,21 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 === Recipes Management and cook-mode
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |Indian |search for recipes of Indian dishes	|prepare a wholesome meal for my family
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |vegetarian |search for vegan option |prepare self-make food for my dietary requirements
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |mum |search for kids-friendly recipes |prepare food that is to my kids liking
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* *` |amateur cook |follow through the step-by-step cooking instructions explicitly |my cooking process is guided
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`*` |user |provide suggestions to a recipe |improve on the recipe to value-add the community
+
+|`*` |picky user |search for recipes with good reviews |prepare tasty food that is worth the calories
+
+|`*` |user |“like/dislike” reviews on a recipe made by other users	 |credit/discredit valid/invalid reviews
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -920,6 +921,7 @@ Use case resumes at step 2.
 === Use case: Edit Ingredient
 
 *MSS*
+
 1. User requests to edit an ingredient
 2. System reflects the change to the list and show the list
 +
@@ -939,6 +941,7 @@ Use case resumes at step 2.
 === Use case: Delete Ingredient
 
 *MSS*
+
 1. User requests to delete an ingredient
 2. System deletes the ingredient and shows the list
 +
@@ -958,6 +961,7 @@ Use case ends.
 === Use case: Find Ingredient
 
 *MSS*
+
 1. User requests to find ingredients
 2. System show the list of ingredients that contains the keywords
 +
@@ -967,6 +971,7 @@ Use case ends.
 === Use case: Search recipes based on ingredients manager availability
 
 *MSS*
+
 1. User list ingredients (UC11)
 2. System shows the list of recipes in order of most number of ingredients in IM included
 3. User selects both mandatory and desirable ingredients for the search
@@ -1025,30 +1030,77 @@ Use case ends.
 
 === Recipes Management and cook-mode
 [discrete]
-==== Use case: Delete person
-
+==== Use case: UC01 – Search for Recipe
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.	User chooses to search for recipe.
+2.	System requests for details.
+3.	User enters keywords.
+4.	System displays recipes.
+5.	System suggests ways to refine result
++
+Steps 3 – 5 are repeated until search result becomes too narrow or user choose to look at existing result.
++
+Use case ends.
+
+[discrete]
+==== Use case: UC02 – View Recipe
+*MSS*
+
+1.	User +++<u>searches for recipe (UC01)</u>+++.
+2.	User chooses a recipe.
+3.	System displays recipe details.
++
+Use case ends.
+
+[discrete]
+==== Use case: UC04 – Navigate Recipe
+*MSS*
+
+1.	User +++<u>views recipe (UC02)</u>+++.
+2.	User chooses to enter navigation mode.
+3.	System displays instruction.
+4.	User chooses next instruction.
++
+Steps 3 – 4 are repeated until end of recipe’s instruction or user chooses to end navigation.
++
+Use case ends.
+
+
+*Extensions*
+[none]
+* 3a. 	System displays timer for duration specific instruction.
+* 3b. 	User chooses to start timer.
+* 3c. 	System displays countdown.
+* 3d. 	System displays alert when timer ends.
++
+Use case resumes at step 3.
+
+* *c. 	At any time, user chooses to end timer.
+[none]
+** c1. 	System ends timer.
++
+Use case resumes at step 3.
+
+[discrete]
+==== Use case: UC05 – Add Recipe
+*MSS*
+
+1.	User chooses to add recipe.
+2.	System requests for details.
+3.	User enters details.
+4.	User chooses to save.
+5.	System displays saved recipe.
 +
 Use case ends.
 
 *Extensions*
-
 [none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+* 4a. 	System detects missing field(s).
+* 4a1. 	System requests for input of missing field(s).
+* 4a2. 	User enters details.
+* Steps 4a1 – 4a2 are repeated until the data entered are correct.
+* Use case resumes at step 5.
 
 _{More to be added}_
 
