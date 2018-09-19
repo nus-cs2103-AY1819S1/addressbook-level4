@@ -14,10 +14,11 @@ Tech savvy students who need to keep their tasks organized and motivate themselv
 The target age group is from 15 years old to 25 years old.
 
 Attributable to our target demographic are the following qualities:
-  + Adept with technology
-  + Inclined to vicariously project a virtual avatar's experience unto themselves
-  + Inclined against keeping data on physical mediums
-  + Perpetually experiencing the continuous bombardment of deadlines from assignments
+
+  * Adept with technology
+  * Inclined to vicariously project a virtual avatar's experience unto themselves
+  * Inclined against keeping data on physical mediums
+  * Perpetually experiencing the continuous bombardment of deadlines from assignments
 
 ## Appendix B: Value proposition
 
