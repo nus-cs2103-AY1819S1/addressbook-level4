@@ -60,13 +60,13 @@ Examples:
 
 Format: `add [TRANSFORMATION]`: adds a specific transformation to the current set of transformation thus far
 
-Custom defined transformation by user (see save set, 3.5) 
+Custom defined transformation by user (see save set, 3.5)
 
 * Format: `add [-NAME_OF_TRANSFORMATION_SET]`
 
-Available transformations 
+Available transformations
 
-* `crop`: crops an image to a specified size.  X and Y offset values represent the location of the top left corner of the cropped image with respect to the original image 
+* `crop`: crops an image to a specified size.  X and Y offset values represent the location of the top left corner of the cropped image with respect to the original image
 
 ** Format: `add -crop [X-POSITION][Y-POSITION]`
 
@@ -74,7 +74,7 @@ Available transformations
 
 ** Format: `add -gblur [AMOUNT]`
 
-* `hue`: changes the overall hue of the image by rotating colors on color wheel (i.e rotating by a certain degree to map red all red in image to purple) 
+* `hue`: changes the overall hue of the image by rotating colors on color wheel (i.e rotating by a certain degree to map red all red in image to purple)
 
 ** Format: `add -hue [VALUE_OF_ROTATION]`
 
