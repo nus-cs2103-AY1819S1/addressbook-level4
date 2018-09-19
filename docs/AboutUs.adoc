@@ -29,7 +29,7 @@ Responsibilities: UI
 '''
 
 === David Choo
-image::yijinl.jpg[width="150", align="left"]
+image::david.jpg[width="150", align="left"]
 {empty}[http://github.com/hidingmode[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
