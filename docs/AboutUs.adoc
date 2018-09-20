@@ -28,13 +28,11 @@ Responsibilities: TBD
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Russell Ong
+image::RussellOng95.jpg[width="150", align="left"]
+{empty}[https://github.com/RussellOng95[github]]
 
-Role: Developer +
-Responsibilities: Data
-
+Role: Group Member
 '''
 
 === Johnny Roe
