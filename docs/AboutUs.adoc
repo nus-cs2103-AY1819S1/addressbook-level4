@@ -19,15 +19,6 @@ Role: Project Advisor
 
 '''
 
-=== Johnny Doe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
-
-'''
-
 === David Choo
 image::david.jpg[width="150", align="left"]
 {empty}[http://github.com/hidingmode[github]] [<<johndoe#, portfolio>>]
