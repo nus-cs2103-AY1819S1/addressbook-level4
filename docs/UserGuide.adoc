@@ -170,6 +170,25 @@ Shows a list of all tasks due within 1 day.
 * `view task 7` +
 Shows a list of all tasks due within 1 week.
 
+=== Listing overdue tasks: `list overdue`
+
+Lists all the overdue tasks. +
+Format: `list overdue`
+
+=== Sorting task by priority level : `sort priority`
+
+Sorts the list of tasks by priority. Highest priority tasks (level 3) will be shown first. +
+Format: `sort priority`
+
+=== Listing categories : `list category`
+
+Shows a list of existing categories. +
+Format: `list category`
+
+****
+* The categories will be listed in alphabetical order
+****
+
 === Adding an exam : `add exam`
 
 Adds an exam to the list of exams. +
