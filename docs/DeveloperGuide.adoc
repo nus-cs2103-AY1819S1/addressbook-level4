@@ -1015,6 +1015,21 @@ Windows, Linux, Unix, OS-X
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
 
+[[guest]] Guest:;
+A person staying in the hotel
+
+[[receptionist]] Receptionist::
+Staff at the counter, in-charge of check-in and check-out procedures. They occasionally receive calls from potential guests
+
+[[hotel-manager]] Hotel Manager::
+The one person in-charge of the entire hotel. Manages staff, guests and facilities
+
+[[housekeeping]] Housekeeping::
+Staff in-charge of cleaning rooms and restoring them to the default configuration for a new Guest to stay
+
+[[facilities]] Facilities::
+Facilities: Any form of services provided within the hotel. These include the spa, gym, game room, casino, laundry, bar, restaurants, etc 
+
 [appendix]
 == Product Survey
 
