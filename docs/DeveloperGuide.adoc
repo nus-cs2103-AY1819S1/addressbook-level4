@@ -849,35 +849,146 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the program, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: View a patient's record
+
+Actors: <<medical-clinic-receptionist, Medical Clinic Receptionist>>, <<doctor, Doctor>> +
+Pre-condition: patient record must exist
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  Actor(s) chooses to view a patients record
+2.  System retrieve and display the patients record details.
 +
 Use case ends.
 
 *Extensions*
 
-[none]
-* 2a. The list is empty.
+* 2a. The system cannot find the patient's record.
+	- System displays an error message. "No record found."
++
+Use case ends
+
+=== Use case: Find patients record
+
+Actor: <<medical-clinic-receptionist, Medical Clinic Receptionist>>
+
+*MSS*
+
+1.  Actor requests to find patients record
+2.  System retrieve and display patient records relevant to search information.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+*Extensions*
 
-_{More to be added}_
+* 2a. No search information entered.
+	- System displays an error message. "No search information found."
++
+Use case ends
+* 3a. System cannot find patient record.
+	- System displays an error message. "No record found."
++
+Use case ends
+
+=== Use case: add a patient record
+
+Actor: <<medical-clinic-receptionist, Medical Clinic Receptionist>>
+
+*MSS*
+
+1.  Actor enters patient information
+2.  Actor requests to add patient record to the system.
+3. System display a successful message. “Patient added successfully.”
++
+Use case ends.
+
+*Extensions*
+
+* 2a. No information entered
+	- System displays an error message. "Please enter required information."
++
+Use case ends
+* 3a. Invalid information
+	- System displays an error message. "Invalid information entered".
++
+Use case resumes at step 1
+
+=== Use case: Edit patient record
+
+Actor: <<medical-clinic-receptionist, Medical Clinic Receptionist>> +
+Pre-condition: Patient's record exists
+
+*MSS*
+
+1. Actor(s) request to retrieve patient’s record.
+2. System finds and displays patient’s record.
+3. Actor(s) request to edit patient’s record.
+4. Actor(s) selects field to edit and edits patient’s record.
+5. System requests confirmation of edit(s).
+6. Actor(s) confirm message.
+7. System updates patient’s record and displays edited record.
+8. System displays success message: “Record edited successfully”.
++
+Use case ends.
+
+*Extensions*
+
+* 2a. The system cannot find the requested patient's record.
+	- System displays an error message. "No record found."
++
+Use case ends.
+
+=== Use case: Delete patient record
+
+Actor: <<medical-clinic-receptionist, Medical Clinic Receptionist>>
+
+*MSS*
+
+1. Actor(s) request to retrieve a patient record.
+2. System find and display the patient record.
+3. Actor(s) request to delete patient record in the system.
+4. System request confirmation from Actor(s).
+5. Actor(s) confirm message.
+6. System delete patient record and displays a successful message. “Patient deleted successfully.”
++
+Use case ends.
+
+*Extensions*
+
+* 2a. The system cannot find the requested patient's record.
+	- System displays an error message. "No record found."
++
+Use case ends.
+
+=== Use case: Assign patient to a different queue for each room
+
+Actor: <<medical-clinic-receptionist, Medical Clinic Receptionist>> +
+Pre-condition: Patient is registered.
+
+*MSS*
+
+1. Actor request to add patient to queue.
+2. System finds and displays queues for each room.
+3. Actor selects queue and adds patient to queue.
+4. System displays confirmation message for queue assignment.
+5. Actor confirms queue assignment.
+6. System adds patient to queue and returns queue numb
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The system cannot find the requested patient's record.
+	1a.1 System displays an error message. "No record found."
+	1a.2 System displays prompt to add patient
+	1a.3 Actor adds patient records
+	1a.4 Use case: Add patient record.
+	1a.5 Repeat MSS
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
@@ -885,8 +996,10 @@ _{More to be added}_
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  Provide a simple, clean and minimalist GUI interface for all read queries.
+.  User can use command line for all write queries.
+.  Should have a simple tutorial section to help ramp up new users to the system.
+.  Should be able to access offline in order to ensure smooth operations daily.
 
 [appendix]
 == Glossary
@@ -896,6 +1009,15 @@ Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
+
+[[medical-clinic]] Medical Clinic::
+A clinic that deal with medical issues only.
+
+[[medical-clinic-receptionist]] Medical Clinic Receptionist::
+A person that is in charge of the front desk receptionist in a medical clinic.
+
+[[doctor]] Doctor::
+A person who is qualified to treat people who are ill.
 
 [appendix]
 == Product Survey
