@@ -1033,19 +1033,38 @@ Facilities: Any form of services provided within the hotel. These include the sp
 [appendix]
 == Product Survey
 
-*Product Name*
+*Cloudbeds*
 
-Author: ...
+* Easy to use: staff are able to learn how to operate the system with minimal training
+* Access to leading travel channels (e.g. booking.com)
+* Custom payment options
+* Group analytics
+* Global currency support
 
-Pros:
+*eZee Frontdesk*
 
-* ...
-* ...
+* Booking Engine, Channel Manager and Restaurant POS in one system
+* Rate management to maximise revenue through seasonal stay rates
 
-Cons:
+*Frontdesk Anywhere*
 
-* ...
-* ...
+* Export guest profiles
+* Data encryption and privilege control for users
+* Sends "Thank You" letters to guests after their stay
+
+*Hotelogix*
+
+* Multi-device booking engine
+
+*MSI CloudPM*
+
+* Automatic back-up on the cloud
+* Access to archived night audit reports
+
+*roomMaster*
+
+*	Complete audit trail for all financial transactions
+*	Guest history available
 
 [appendix]
 == Instructions for Manual Testing
