@@ -42,4 +42,16 @@ public interface ExpensesStorage {
      */
     void saveExpenses(ReadOnlyAddressBook addressBook, Path filePath) throws IOException;
 
+    /**
+     * Backup the given {@link ReadOnlyAddressBook} to the storage.
+     * @param addressBook cannot be null.
+     * @throws IOException if there was any problem writing to the file.
+     */
+    void backupExpenses(ReadOnlyAddressBook addressBook) throws IOException;
+
+    /**
+     * @see #backupExpenses(ReadOnlyAddressBook)
+     */
+    void backupExpenses(ReadOnlyAddressBook addressBook, Path filePath) throws IOException;
+
 }
