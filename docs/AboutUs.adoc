@@ -55,8 +55,8 @@ Responsibilities: __
 
 '''
 
-=== Phillips Hayden Roy
-image::yl_coder.jpg[width="150", align="left"]
+=== Phillips Hayden
+image::hayden.jpg[width="150", align="left"]
 {empty}[http://github.com/HaydenPhillips[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
