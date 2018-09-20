@@ -95,6 +95,7 @@ public class PersonListPanelTest extends GuiUnitTest {
         builder.append("<addressbook>\n");
         for (int i = 0; i < personCount; i++) {
             builder.append("<persons>\n");
+            builder.append("<nric>").append(generateNricString(i)).append("</nric>\n");
             builder.append("<name>").append(i).append("a</name>\n");
             builder.append("<phone>000</phone>\n");
             builder.append("<email>a@aa</email>\n");
@@ -108,6 +109,17 @@ public class PersonListPanelTest extends GuiUnitTest {
         FileUtil.writeToFile(manyPersonsFile, builder.toString());
         manyPersonsFile.toFile().deleteOnExit();
         return manyPersonsFile;
+    }
+
+    //@@author snajef
+    /**
+     * Generates an NRIC-formatted String given a number.
+     *
+     * @param i The number to use to generate the "NRIC".
+     * @return A NRIC-formatted string.
+     */
+    private String generateNricString(int i) {
+        return "S" + String.format("%07d", i) + Character.toString((char) (i % (90 - 65 + 1) + 65));
     }
 
     /**
