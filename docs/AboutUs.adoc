@@ -28,7 +28,7 @@ Responsibilities: Data
 '''
 
 === Jack Wong
-image::m133225.jpg[width="150", align="left"]
+image::iamjackslayer.png[width="150", align="left"]
 {empty}[https://github.com/iamjackslayer[github]] [<<iamjackslayer#, portfolio>>]
 
 Role: Developer +
