@@ -341,6 +341,7 @@ Certain properties of the application can be controlled (e.g App name, logging l
 We use asciidoc for writing documentation.
 
 We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
+
 ### 4.1. Editing Documentation
 See UsingGradle.adoc to learn how to render .adoc files locally to preview the end result of your edits. Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your .adoc files in real-time.
 
