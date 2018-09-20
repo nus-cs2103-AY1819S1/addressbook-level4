@@ -1,12 +1,15 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Deletes a person identified using it's displayed index from the address book.
@@ -29,7 +32,8 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public CommandResult execute() throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -37,14 +41,8 @@ public class DeleteCommand extends Command {
         }
 
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
-
-        try {
-            model.deletePerson(personToDelete);
-            model.commitAddressBook();
-        } catch (PersonNotFoundException pnfe) {
-            throw new AssertionError("The target person cannot be missing", pnfe);
-        }
-
+        model.deletePerson(personToDelete);
+        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
     }
 
@@ -52,6 +50,6 @@ public class DeleteCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteCommand // instanceof handles nulls
-                && this.targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
     }
 }

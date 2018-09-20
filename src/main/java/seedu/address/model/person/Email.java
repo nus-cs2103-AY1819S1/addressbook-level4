@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Email {
 
-    private static  final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";
+    private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";
     public static final String MESSAGE_EMAIL_CONSTRAINTS = "Emails should be of the format local-part@domain "
             + "and adhere to the following constraints:\n"
             + "1. The local-part should only contain alphanumeric characters and these special characters, excluding "
@@ -37,7 +37,7 @@ public class Email {
     public Email(String email) {
         requireNonNull(email);
         checkArgument(isValidEmail(email), MESSAGE_EMAIL_CONSTRAINTS);
-        this.value = email;
+        value = email;
     }
 
     /**
@@ -56,7 +56,7 @@ public class Email {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Email // instanceof handles nulls
-                && this.value.equals(((Email) other).value)); // state check
+                && value.equals(((Email) other).value)); // state check
     }
 
     @Override

@@ -60,7 +60,7 @@ public class JsonUtil {
         requireNonNull(filePath);
 
         if (!Files.exists(filePath)) {
-            logger.info("Json file "  + filePath + " not found");
+            logger.info("Json file " + filePath + " not found");
             return Optional.empty();
         }
 
@@ -120,7 +120,7 @@ public class JsonUtil {
         }
 
         @Override
-        protected Level _deserialize(String value, DeserializationContext ctxt) throws IOException {
+        protected Level _deserialize(String value, DeserializationContext ctxt) {
             return getLoggingLevel(value);
         }
 

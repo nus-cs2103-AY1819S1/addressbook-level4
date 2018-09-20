@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -20,7 +19,6 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -74,14 +72,17 @@ public class CommandTestUtil {
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the result message matches {@code expectedMessage} <br>
-     * - the {@code actualModel} matches {@code expectedModel}
+     * - the {@code actualModel} matches {@code expectedModel} <br>
+     * - the {@code actualCommandHistory} remains unchanged.
      */
-    public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-            Model expectedModel) {
+    public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
+            String expectedMessage, Model expectedModel) {
+        CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
-            CommandResult result = command.execute();
+            CommandResult result = command.execute(actualModel, actualCommandHistory);
             assertEquals(expectedMessage, result.feedbackToUser);
             assertEquals(expectedModel, actualModel);
+            assertEquals(expectedCommandHistory, actualCommandHistory);
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
@@ -91,21 +92,26 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book and the filtered person list in the {@code actualModel} remain unchanged
+     * - the address book and the filtered person list in the {@code actualModel} remain unchanged <br>
+     * - {@code actualCommandHistory} remains unchanged.
      */
-    public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
+    public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
+            String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
         List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
 
+        CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
+
         try {
-            command.execute();
-            fail("The expected CommandException was not thrown.");
+            command.execute(actualModel, actualCommandHistory);
+            throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedAddressBook, actualModel.getAddressBook());
             assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+            assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }
 
@@ -128,29 +134,8 @@ public class CommandTestUtil {
      */
     public static void deleteFirstPerson(Model model) {
         Person firstPerson = model.getFilteredPersonList().get(0);
-        try {
-            model.deletePerson(firstPerson);
-            model.commitAddressBook();
-        } catch (PersonNotFoundException pnfe) {
-            throw new AssertionError("Person in filtered list must exist in model.", pnfe);
-        }
+        model.deletePerson(firstPerson);
+        model.commitAddressBook();
     }
 
-    /**
-     * Returns an {@code UndoCommand} with the given {@code model}.
-     */
-    public static UndoCommand prepareUndoCommand(Model model) {
-        UndoCommand undoCommand = new UndoCommand();
-        undoCommand.setData(model, new CommandHistory());
-        return undoCommand;
-    }
-
-    /**
-     * Returns a {@code RedoCommand} with the given {@code model}.
-     */
-    public static RedoCommand prepareRedoCommand(Model model) {
-        RedoCommand redoCommand = new RedoCommand();
-        redoCommand.setData(model, new CommandHistory());
-        return redoCommand;
-    }
 }
