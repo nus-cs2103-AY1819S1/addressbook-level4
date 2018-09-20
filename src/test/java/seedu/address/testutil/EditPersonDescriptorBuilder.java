@@ -40,6 +40,9 @@ public class EditPersonDescriptorBuilder {
         descriptor.setTags(person.getTags());
     }
 
+    /**
+     * Sets the {@code Nric} of the {@code EditPersonDescriptor} that we are building.
+     */
     public EditPersonDescriptorBuilder withNric(String nric) {
         descriptor.setNric(new Nric(nric));
         return this;
