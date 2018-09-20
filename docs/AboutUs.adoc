@@ -55,7 +55,7 @@ Responsibilities: __
 
 '''
 
-=== Phillips Hayden
+=== Hayden Phillips
 image::hayden.jpg[width="150", align="left"]
 {empty}[http://github.com/HaydenPhillips[github]] [<<johndoe#, portfolio>>]
 
