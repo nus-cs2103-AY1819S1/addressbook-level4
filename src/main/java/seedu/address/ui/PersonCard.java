@@ -51,16 +51,20 @@ public class PersonCard extends UiPart<Region> {
         initTags(person);
     }
 
-    //Return designated color for tag label
-
-    private String getTagColor(String tagName) {
+    /**
+     * Returns the color style for {@code tagName}'s label.
+     */
+    private String getTagColorStyleFor(String tagName) {
         return TAG_COLORS[Math.abs(tagName.hashCode()) % TAG_COLORS.length];
     }
 
+    /**
+     * Creates the tag labels for {@code person}.
+     */
     private void initTags(Person person) {
         person.getTags().forEach(tag -> {
             Label tagLabel = new Label(tag.tagName);
-            tagLabel.getStyleClass().add(getTagColor(tag.tagName));
+            tagLabel.getStyleClass().add(getTagColorStyleFor(tag.tagName));
             tags.getChildren().add(tagLabel);
         });
     }
