@@ -27,12 +27,12 @@ Responsibilities: Data
 
 '''
 
-=== Johnny Roe
+=== Jack Wong
 image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/iamjackslayer[github]] [<<iamjackslayer#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Queue management
 
 '''
 
