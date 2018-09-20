@@ -349,3 +349,36 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+#tags .red {
+    -fx-background-color: red;
+}
+
+#tags .yellow {
+    -fx-text-fill: black;
+    -fx-background-color: yellow;
+}
+
+#tags .blue {
+    -fx-background-color: blue;
+}
+
+#tags .orange {
+    -fx-background-color: orange;
+}
+
+#tags .brown {
+    -fx-background-color: brown;
+}
+
+#tags .green {
+    -fx-background-color: green;
+}
+
+#tags .pink {
+    -fx-background-color: pink;
+}
+
+#tags .black {
+    -fx-background-color: black;
+}
