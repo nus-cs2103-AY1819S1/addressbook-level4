@@ -208,7 +208,7 @@ asciidoctor {
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
         'site-name': 'ClinicIO',
-        'site-githuburl': 'https://github.com/CS2103-AY1819S1-W14-1/main',
+        'site-githuburl': 'https://github.com/CS2103-AY1819S1-W14-1/main'
     ]
 
     options['template_dirs'].each {
