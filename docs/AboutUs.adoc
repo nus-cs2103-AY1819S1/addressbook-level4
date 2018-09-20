@@ -11,46 +11,46 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== John Doe
+=== Chua Chenlu
 image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/chenlu[github]] [<<johndoe#, portfolio>>]
 
-Role: Project Advisor
+Role: Team lead + Testing
 
 '''
 
-=== John Roe
+=== Chen Juan
 image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/CJuanvip[github]] [<<johndoe#, portfolio>>]
 
-Role: Team Lead +
+Role: Deliverables and deadline + Scheduling and tracking
 Responsibilities: UI
 
 '''
 
-=== Johnny Doe
+=== Liu Zhaoyu
 image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/LZYAndy[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
+Role: Documentation + Code quality
 Responsibilities: Data
 
 '''
 
-=== Johnny Roe
+=== Ong Junjie
 image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/junjiee[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
+Role: Code quality
 Responsibilities: Dev Ops + Threading
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Xiong Haoran
+image::hrxiong.png[width="150", align="left"]
+{empty}[http://github.com/hrxiong[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
+Role: Testing + Integration
 Responsibilities: UI
 
 '''
