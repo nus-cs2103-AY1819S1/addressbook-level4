@@ -56,18 +56,23 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding an event
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds an event to the scheduler +
+Format: `add event n/EVENT_NAME [s/EVENT_START_DATE_TIME] [e/EVENT_END_DATE_TIME] [d/DESCRIPTION] [p/PRIORIY] [v/VENUE] [rs/EVENT_RECURRING_STATUS] [ru/EVENT_RECURRING_UNTIL_DATE_TIME] [t/TAG]…​`
 
 [TIP]
-A person can have any number of tags (including 0)
+An event can have any number of tags (including 0)
+
+* `DATE_TIME` expressions should be expressed in ENGLISH
+* `PRIORIY` should be chosen from the list of priority. Priority can be expressed as an integer(index) or in English
+* `TAG` should be chosen from the list of tags. Tags can be expressed as an integer(index) or in English
+* `EVENT_RECURRING_STATUS` should be chosen from either DAILY, WEEKLY OR MONTHlY.
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/Study With Yoko s/tomorrow at 3pm d/Study again and again p/high rs/MONTHLY ru/ next friday 3pm tag/ad-hoc`
+* `add n/CS2103 Lecture s/23 September 2018 6pm e/ 24 September 2018 p/low rs/WEEKLY ru/ next monday tag/timetable`
 
 === Listing all persons : `list`
 
@@ -242,8 +247,8 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add event* `add event n/EVENT_NAME [s/EVENT_START_DATE_TIME] [e/EVENT_END_DATE_TIME] [d/DESCRIPTION] [p/PRIORIY] [v/VENUE] [rs/EVENT_RECURRING_STATUS] [ru/EVENT_RECURRING_UNTIL_DATE_TIME] [t/TAG]…​` +
+e.g. `add n/Study With Yoko s/tomorrow at 3pm d/Study again and again p/high r/MONTHLY tag/ad-hoc`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
