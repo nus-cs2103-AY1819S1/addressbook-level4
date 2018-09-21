@@ -9,7 +9,7 @@ import javafx.scene.control.ListView;
 import seedu.address.model.person.Person;
 
 /**
- * Provides a handle for {@code PersonListPanel} containing the list of {@code TaskCard}.
+ * Provides a handle for {@code TaskListPanel} containing the list of {@code TaskCard}.
  */
 public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
     public static final String PERSON_LIST_VIEW_ID = "#personListView";

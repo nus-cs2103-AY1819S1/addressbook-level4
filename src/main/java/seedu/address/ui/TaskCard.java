@@ -39,15 +39,15 @@ public class TaskCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public TaskCard(Person person, int displayedIndex) {
+    public TaskCard(Person task, int displayedIndex) {
         super(FXML);
-        this.task = person;
+        this.task = task;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
-        person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        name.setText(task.getName().fullName);
+        phone.setText(task.getPhone().value);
+        address.setText(task.getAddress().value);
+        email.setText(task.getEmail().value);
+        task.getTags().forEach(label -> tags.getChildren().add(new Label(label.tagName)));
     }
 
     @Override
