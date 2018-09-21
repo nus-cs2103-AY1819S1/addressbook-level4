@@ -119,6 +119,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void enqueue(Person target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
