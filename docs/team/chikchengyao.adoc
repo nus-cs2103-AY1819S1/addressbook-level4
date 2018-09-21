@@ -1,4 +1,10 @@
-= John Doe - Project Portfolio
+== Note
+
+This is a template for a portfolio, copied from the original AB4 fork.
+
+---
+
+= Chik Cheng Yao - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
