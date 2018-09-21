@@ -15,7 +15,7 @@ import seedu.address.model.person.DueDate;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Task;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.Label;
 
 /**
  * JAXB-friendly version of the Task.
@@ -76,7 +76,7 @@ public class XmlAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Task toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+        final List<Label> personTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
         }
@@ -113,7 +113,7 @@ public class XmlAdaptedPerson {
         }
         final Description modelAddress = new Description(address);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
+        final Set<Label> modelTags = new HashSet<>(personTags);
         return new Task(modelName, modelPhone, modelEmail, modelAddress, modelTags);
     }
 

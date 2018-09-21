@@ -17,7 +17,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Task;
 import seedu.address.model.person.DueDate;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.Label;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -42,7 +42,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         DueDate phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Description address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Set<Label> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Task person = new Task(name, phone, email, address, tagList);
 

@@ -25,7 +25,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Task;
 import seedu.address.model.person.DueDate;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.Label;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -99,7 +99,7 @@ public class EditCommand extends Command {
         DueDate updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getDueDate());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Description updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getDescription());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getLabels());
+        Set<Label> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getLabels());
 
         return new Task(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
@@ -131,7 +131,7 @@ public class EditCommand extends Command {
         private DueDate phone;
         private Email email;
         private Description address;
-        private Set<Tag> tags;
+        private Set<Label> tags;
 
         public EditPersonDescriptor() {}
 
@@ -190,7 +190,7 @@ public class EditCommand extends Command {
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
          */
-        public void setTags(Set<Tag> tags) {
+        public void setTags(Set<Label> tags) {
             this.tags = (tags != null) ? new HashSet<>(tags) : null;
         }
 
@@ -199,7 +199,7 @@ public class EditCommand extends Command {
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code tags} is null.
          */
-        public Optional<Set<Tag>> getTags() {
+        public Optional<Set<Label>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
 

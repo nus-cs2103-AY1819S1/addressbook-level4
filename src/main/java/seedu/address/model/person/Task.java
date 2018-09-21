@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.Label;
 
 /**
  * Represents a Task in the address book.
@@ -22,12 +22,12 @@ public class Task {
 
     // Data fields
     private final Description address;
-    private final Set<Tag> tags = new HashSet<>();
+    private final Set<Label> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, DueDate phone, Email email, Description address, Set<Tag> tags) {
+    public Task(Name name, DueDate phone, Email email, Description address, Set<Label> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
@@ -56,7 +56,7 @@ public class Task {
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<Tag> getLabels() {
+    public Set<Label> getLabels() {
         return Collections.unmodifiableSet(tags);
     }
 
