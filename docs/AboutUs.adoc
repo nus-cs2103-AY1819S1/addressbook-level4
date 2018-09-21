@@ -33,6 +33,15 @@ image::RussellOng95.jpg[width="150", align="left"]
 {empty}[https://github.com/RussellOng95[github]]
 
 Role: Group Member
+
+'''
+
+=== Daniel Koh
+image::danielkoh.jpg[width="160", align="left"]
+{empty}[https://github.com/danielkoh94[github]]
+
+Role: Group Member
+
 '''
 
 === Johnny Roe
