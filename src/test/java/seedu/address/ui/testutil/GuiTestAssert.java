@@ -32,7 +32,7 @@ public class GuiTestAssert {
     public static void assertCardDisplaysPerson(Task expectedPerson, PersonCardHandle actualCard) {
         assertEquals(expectedPerson.getName().fullName, actualCard.getName());
         assertEquals(expectedPerson.getDueDate().value, actualCard.getPhone());
-        assertEquals(expectedPerson.getEmail().value, actualCard.getEmail());
+        assertEquals(expectedPerson.getPriorityValue().value, actualCard.getEmail());
         assertEquals(expectedPerson.getDescription().value, actualCard.getAddress());
         assertEquals(expectedPerson.getLabels().stream().map(tag -> tag.labelName).collect(Collectors.toList()),
                 actualCard.getTags());

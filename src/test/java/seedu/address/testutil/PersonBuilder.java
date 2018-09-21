@@ -5,7 +5,7 @@ import java.util.Set;
 
 import seedu.address.model.person.Description;
 import seedu.address.model.person.DueDate;
-import seedu.address.model.person.Email;
+import seedu.address.model.person.PriorityValue;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Task;
 import seedu.address.model.tag.Label;
@@ -23,14 +23,14 @@ public class PersonBuilder {
 
     private Name name;
     private DueDate phone;
-    private Email email;
+    private PriorityValue email;
     private Description address;
     private Set<Label> tags;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new DueDate(DEFAULT_PHONE);
-        email = new Email(DEFAULT_EMAIL);
+        email = new PriorityValue(DEFAULT_EMAIL);
         address = new Description(DEFAULT_ADDRESS);
         tags = new HashSet<>();
     }
@@ -41,7 +41,7 @@ public class PersonBuilder {
     public PersonBuilder(Task personToCopy) {
         name = personToCopy.getName();
         phone = personToCopy.getDueDate();
-        email = personToCopy.getEmail();
+        email = personToCopy.getPriorityValue();
         address = personToCopy.getDescription();
         tags = new HashSet<>(personToCopy.getLabels());
     }
@@ -79,10 +79,10 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code Task} that we are building.
+     * Sets the {@code PriorityValue} of the {@code Task} that we are building.
      */
     public PersonBuilder withEmail(String email) {
-        this.email = new Email(email);
+        this.email = new PriorityValue(email);
         return this;
     }
 

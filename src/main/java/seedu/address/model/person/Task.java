@@ -18,7 +18,7 @@ public class Task {
     // Identity fields
     private final Name name;
     private final DueDate phone;
-    private final Email email;
+    private final PriorityValue email;
 
     // Data fields
     private final Description address;
@@ -27,7 +27,7 @@ public class Task {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, DueDate phone, Email email, Description address, Set<Label> tags) {
+    public Task(Name name, DueDate phone, PriorityValue email, Description address, Set<Label> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
@@ -44,7 +44,7 @@ public class Task {
         return phone;
     }
 
-    public Email getEmail() {
+    public PriorityValue getPriorityValue() {
         return email;
     }
 
@@ -71,7 +71,7 @@ public class Task {
 
         return othertask != null
                 && othertask.getName().equals(getName())
-                && (othertask.getDueDate().equals(getDueDate()) || othertask.getEmail().equals(getEmail()));
+                && (othertask.getDueDate().equals(getDueDate()) || othertask.getPriorityValue().equals(getPriorityValue()));
     }
 
     /**
@@ -91,7 +91,7 @@ public class Task {
         Task othertask = (Task) other;
         return othertask.getName().equals(getName())
                 && othertask.getDueDate().equals(getDueDate())
-                && othertask.getEmail().equals(getEmail())
+                && othertask.getPriorityValue().equals(getPriorityValue())
                 && othertask.getDescription().equals(getDescription())
                 && othertask.getLabels().equals(getLabels());
     }
@@ -108,8 +108,8 @@ public class Task {
         builder.append(getName())
                 .append(" DueDate: ")
                 .append(getDueDate())
-                .append(" Email: ")
-                .append(getEmail())
+                .append(" PriorityValue: ")
+                .append(getPriorityValue())
                 .append(" Description: ")
                 .append(getDescription())
                 .append(" Tags: ");

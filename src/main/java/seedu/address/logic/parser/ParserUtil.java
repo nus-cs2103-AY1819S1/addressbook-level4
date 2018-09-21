@@ -11,7 +11,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.DueDate;
-import seedu.address.model.person.Email;
+import seedu.address.model.person.PriorityValue;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Label;
 
@@ -81,18 +81,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String email} into an {@code Email}.
+     * Parses a {@code String email} into an {@code PriorityValue}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code email} is invalid.
      */
-    public static Email parseEmail(String email) throws ParseException {
+    public static PriorityValue parseEmail(String email) throws ParseException {
         requireNonNull(email);
         String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_EMAIL_CONSTRAINTS);
+        if (!PriorityValue.isValidPriorityValue(trimmedEmail)) {
+            throw new ParseException(PriorityValue.MESSAGE_PRIORITYVALUE_CONSTRAINTS);
         }
-        return new Email(trimmedEmail);
+        return new PriorityValue(trimmedEmail);
     }
 
     /**

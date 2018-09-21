@@ -21,7 +21,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Description;
-import seedu.address.model.person.Email;
+import seedu.address.model.person.PriorityValue;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Task;
 import seedu.address.model.person.DueDate;
@@ -97,7 +97,7 @@ public class EditCommand extends Command {
 
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         DueDate updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getDueDate());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
+        PriorityValue updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getPriorityValue());
         Description updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getDescription());
         Set<Label> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getLabels());
 
@@ -129,7 +129,7 @@ public class EditCommand extends Command {
     public static class EditPersonDescriptor {
         private Name name;
         private DueDate phone;
-        private Email email;
+        private PriorityValue email;
         private Description address;
         private Set<Label> tags;
 
@@ -170,11 +170,11 @@ public class EditCommand extends Command {
             return Optional.ofNullable(phone);
         }
 
-        public void setEmail(Email email) {
+        public void setEmail(PriorityValue email) {
             this.email = email;
         }
 
-        public Optional<Email> getEmail() {
+        public Optional<PriorityValue> getEmail() {
             return Optional.ofNullable(email);
         }
 

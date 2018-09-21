@@ -41,7 +41,7 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.DueDate;
-import seedu.address.model.person.Email;
+import seedu.address.model.person.PriorityValue;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Task;
 import seedu.address.model.tag.Label;
@@ -173,7 +173,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: invalid email -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_EMAIL_DESC,
-                Email.MESSAGE_EMAIL_CONSTRAINTS);
+                PriorityValue.MESSAGE_PRIORITYVALUE_CONSTRAINTS);
 
         /* Case: invalid address -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_ADDRESS_DESC,

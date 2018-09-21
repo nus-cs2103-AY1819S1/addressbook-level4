@@ -32,7 +32,7 @@ public class PersonUtil {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + person.getName().fullName + " ");
         sb.append(PREFIX_PHONE + person.getDueDate().value + " ");
-        sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
+        sb.append(PREFIX_EMAIL + person.getPriorityValue().value + " ");
         sb.append(PREFIX_ADDRESS + person.getDescription().value + " ");
         person.getLabels().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.labelName + " ")
