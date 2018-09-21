@@ -17,7 +17,7 @@ public class Task {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
+    private final DueDate phone;
     private final Email email;
 
     // Data fields
@@ -27,7 +27,7 @@ public class Task {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Phone phone, Email email, Description address, Set<Tag> tags) {
+    public Task(Name name, DueDate phone, Email email, Description address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
@@ -40,7 +40,7 @@ public class Task {
         return name;
     }
 
-    public Phone getDueDate() {
+    public DueDate getDueDate() {
         return phone;
     }
 
@@ -106,7 +106,7 @@ public class Task {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
+                .append(" DueDate: ")
                 .append(getDueDate())
                 .append(" Email: ")
                 .append(getEmail())

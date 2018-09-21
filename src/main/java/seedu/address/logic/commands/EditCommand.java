@@ -24,7 +24,7 @@ import seedu.address.model.person.Description;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Task;
-import seedu.address.model.person.Phone;
+import seedu.address.model.person.DueDate;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -96,7 +96,7 @@ public class EditCommand extends Command {
         assert personToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getDueDate());
+        DueDate updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getDueDate());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Description updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getDescription());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getLabels());
@@ -128,7 +128,7 @@ public class EditCommand extends Command {
      */
     public static class EditPersonDescriptor {
         private Name name;
-        private Phone phone;
+        private DueDate phone;
         private Email email;
         private Description address;
         private Set<Tag> tags;
@@ -162,11 +162,11 @@ public class EditCommand extends Command {
             return Optional.ofNullable(name);
         }
 
-        public void setPhone(Phone phone) {
+        public void setPhone(DueDate phone) {
             this.phone = phone;
         }
 
-        public Optional<Phone> getPhone() {
+        public Optional<DueDate> getPhone() {
             return Optional.ofNullable(phone);
         }
 
