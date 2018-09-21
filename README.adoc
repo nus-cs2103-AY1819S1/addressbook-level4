@@ -1,11 +1,9 @@
-= Address Book (Level 4)
+= Hospital Management System 2K18
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-https://travis-ci.org/se-edu/addressbook-level4[image:https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master[Build Status]]
-https://ci.appveyor.com/project/damithc/addressbook-level4[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
-https://coveralls.io/github/se-edu/addressbook-level4?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master[Coverage Status]]
-https://www.codacy.com/app/damith/addressbook-level4?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level4&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
-https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
+https://travis-ci.org/CS2103-AY1819S1-W14-3/main[image:https://travis-ci.org/CS2103-AY1819S1-W14-3/main.svg?branch=master[Build Status]]
+https://coveralls.io/github/CS2103-AY1819S1-W14-3/main?branch=master[image:https://coveralls.io/repos/github/CS2103-AY1819S1-W14-3/main/badge.svg?branch=master[Coverage Status]]
+
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
@@ -15,26 +13,27 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
-* What's different from https://github.com/se-edu/addressbook-level3[level 3]:
-** A more sophisticated GUI that includes a list  panel and an in-built Browser.
-** More test cases, including automated GUI testing.
+* Have you ever wished for a digital alternative to pen and paper management for your hospital? Tired of sifting through boxes of patient records for that one visit you need? Then this is the app for you!
+* Hospital Management System 2K18 can store all your medical data for easy retrieval, anytime!
+** No longer will you have to wade through reams of documents for that patient record you need!
+** Never again will you have to go through all the counter staff to find out if that one patient left two hours ago!
+
+* Features
+** Patient management
+** Patient visitor management
+** Patient medical data management
 ** Support for _Build Automation_ using Gradle and for _Continuous Integration_ using Travis CI.
 
 == Site Map
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
 == Acknowledgements
 
-* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
-_Marco Jakob_.
+* Based off the https://github.com/se-edu/addressbook-level4[AddressBook-Level4 project] created by the https://github.com/se-edu/[SE-EDU initiative]
 * Libraries used: https://github.com/TestFX/TestFX[TextFX], https://bitbucket.org/controlsfx/controlsfx/[ControlsFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]
 
 == Licence : link:LICENSE[MIT]
