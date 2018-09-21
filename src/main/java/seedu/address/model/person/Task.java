@@ -21,13 +21,13 @@ public class Task {
     private final Email email;
 
     // Data fields
-    private final Address address;
+    private final Description address;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Task(Name name, Phone phone, Email email, Description address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
@@ -48,7 +48,7 @@ public class Task {
         return email;
     }
 
-    public Address getDescription() {
+    public Description getDescription() {
         return address;
     }
 
@@ -110,7 +110,7 @@ public class Task {
                 .append(getDueDate())
                 .append(" Email: ")
                 .append(getEmail())
-                .append(" Address: ")
+                .append(" Description: ")
                 .append(getDescription())
                 .append(" Tags: ");
         getLabels().forEach(builder::append);
