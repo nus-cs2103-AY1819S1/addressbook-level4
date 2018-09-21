@@ -122,6 +122,7 @@ public class PersonListPanelTest extends GuiUnitTest {
         return "S" + String.format("%07d", i) + Character.toString((char) (i % (90 - 65 + 1) + 65));
     }
 
+    //@@author
     /**
      * Initializes {@code personListPanelHandle} with a {@code PersonListPanel} backed by {@code backingList}.
      * Also shows the {@code Stage} that displays only {@code PersonListPanel}.

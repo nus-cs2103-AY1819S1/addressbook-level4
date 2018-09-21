@@ -59,6 +59,7 @@ public class ParserUtil {
         return new Nric(trimmedName);
     }
 
+    //@@author
     /**
      * Parses a {@code String name} into a {@code Name}. Leading and trailing
      * whitespaces will be trimmed.
@@ -161,6 +162,7 @@ public class ParserUtil {
         return new Duration(durationInDays);
     }
 
+    //@@author
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */

@@ -171,6 +171,7 @@ public class EditCommand extends Command {
             return Optional.ofNullable(nric);
         }
 
+        //@@author
         public void setName(Name name) {
             this.name = name;
         }
