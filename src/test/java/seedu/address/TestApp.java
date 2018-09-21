@@ -11,10 +11,10 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
+import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.model.TaskManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.XmlSerializableAddressBook;
@@ -32,13 +32,13 @@ public class TestApp extends MainApp {
 
     protected static final Path DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
             TestUtil.getFilePathInSandboxFolder("pref_testing.json");
-    protected Supplier<ReadOnlyAddressBook> initialDataSupplier = () -> null;
+    protected Supplier<ReadOnlyTaskManager> initialDataSupplier = () -> null;
     protected Path saveFileLocation = SAVE_LOCATION_FOR_TESTING;
 
     public TestApp() {
     }
 
-    public TestApp(Supplier<ReadOnlyAddressBook> initialDataSupplier, Path saveFileLocation) {
+    public TestApp(Supplier<ReadOnlyTaskManager> initialDataSupplier, Path saveFileLocation) {
         super();
         this.initialDataSupplier = initialDataSupplier;
         this.saveFileLocation = saveFileLocation;

@@ -18,10 +18,10 @@ import seedu.address.testutil.AddressBookBuilder;
 
 public class VersionedAddressBookTest {
 
-    private final ReadOnlyAddressBook addressBookWithAmy = new AddressBookBuilder().withPerson(AMY).build();
-    private final ReadOnlyAddressBook addressBookWithBob = new AddressBookBuilder().withPerson(BOB).build();
-    private final ReadOnlyAddressBook addressBookWithCarl = new AddressBookBuilder().withPerson(CARL).build();
-    private final ReadOnlyAddressBook emptyAddressBook = new AddressBookBuilder().build();
+    private final ReadOnlyTaskManager addressBookWithAmy = new AddressBookBuilder().withPerson(AMY).build();
+    private final ReadOnlyTaskManager addressBookWithBob = new AddressBookBuilder().withPerson(BOB).build();
+    private final ReadOnlyTaskManager addressBookWithCarl = new AddressBookBuilder().withPerson(CARL).build();
+    private final ReadOnlyTaskManager emptyAddressBook = new AddressBookBuilder().build();
 
     @Test
     public void commit_singleAddressBook_noStatesRemovedCurrentStateSaved() {
@@ -241,9 +241,9 @@ public class VersionedAddressBookTest {
      * and states after {@code versionedAddressBook#currentStatePointer} is equal to {@code expectedStatesAfterPointer}.
      */
     private void assertAddressBookListStatus(VersionedAddressBook versionedAddressBook,
-                                             List<ReadOnlyAddressBook> expectedStatesBeforePointer,
-                                             ReadOnlyAddressBook expectedCurrentState,
-                                             List<ReadOnlyAddressBook> expectedStatesAfterPointer) {
+                                             List<ReadOnlyTaskManager> expectedStatesBeforePointer,
+                                             ReadOnlyTaskManager expectedCurrentState,
+                                             List<ReadOnlyTaskManager> expectedStatesAfterPointer) {
         // check state currently pointing at is correct
         assertEquals(new TaskManager(versionedAddressBook), expectedCurrentState);
 
@@ -253,13 +253,13 @@ public class VersionedAddressBookTest {
         }
 
         // check states before pointer are correct
-        for (ReadOnlyAddressBook expectedAddressBook : expectedStatesBeforePointer) {
+        for (ReadOnlyTaskManager expectedAddressBook : expectedStatesBeforePointer) {
             assertEquals(expectedAddressBook, new TaskManager(versionedAddressBook));
             versionedAddressBook.redo();
         }
 
         // check states after pointer are correct
-        for (ReadOnlyAddressBook expectedAddressBook : expectedStatesAfterPointer) {
+        for (ReadOnlyTaskManager expectedAddressBook : expectedStatesAfterPointer) {
             versionedAddressBook.redo();
             assertEquals(expectedAddressBook, new TaskManager(versionedAddressBook));
         }
@@ -275,7 +275,7 @@ public class VersionedAddressBookTest {
      * Creates and returns a {@code VersionedAddressBook} with the {@code addressBookStates} added into it, and the
      * {@code VersionedAddressBook#currentStatePointer} at the end of list.
      */
-    private VersionedAddressBook prepareAddressBookList(ReadOnlyAddressBook... addressBookStates) {
+    private VersionedAddressBook prepareAddressBookList(ReadOnlyTaskManager... addressBookStates) {
         assertFalse(addressBookStates.length == 0);
 
         VersionedAddressBook versionedAddressBook = new VersionedAddressBook(addressBookStates[0]);

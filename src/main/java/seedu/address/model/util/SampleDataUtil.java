@@ -5,7 +5,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.TaskManager;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.DueDate;
 import seedu.address.model.person.PriorityValue;
@@ -40,7 +40,7 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
+    public static ReadOnlyTaskManager getSampleAddressBook() {
         TaskManager sampleAb = new TaskManager();
         for (Task samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);

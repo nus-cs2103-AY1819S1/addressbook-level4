@@ -12,7 +12,7 @@ import seedu.address.model.person.UniqueTaskList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSameTask comparison)
  */
-public class TaskManager implements ReadOnlyAddressBook {
+public class TaskManager implements ReadOnlyTaskManager {
 
     private final UniqueTaskList persons;
 
@@ -32,7 +32,7 @@ public class TaskManager implements ReadOnlyAddressBook {
     /**
      * Creates an TaskManager using the Persons in the {@code toBeCopied}
      */
-    public TaskManager(ReadOnlyAddressBook toBeCopied) {
+    public TaskManager(ReadOnlyTaskManager toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -50,10 +50,10 @@ public class TaskManager implements ReadOnlyAddressBook {
     /**
      * Resets the existing data of this {@code TaskManager} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyTaskManager newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setPersons(newData.getTaskList());
     }
 
     //// person-level operations
@@ -102,7 +102,7 @@ public class TaskManager implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Task> getPersonList() {
+    public ObservableList<Task> getTaskList() {
         return persons.asUnmodifiableObservableList();
     }
 

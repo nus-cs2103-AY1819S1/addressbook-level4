@@ -26,14 +26,14 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyTaskManager addressBook, UserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredPersons = new FilteredList<>(versionedAddressBook.getTaskList());
     }
 
     public ModelManager() {
@@ -41,13 +41,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyTaskManager newData) {
         versionedAddressBook.resetData(newData);
         indicateAddressBookChanged();
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyTaskManager getAddressBook() {
         return versionedAddressBook;
     }
 

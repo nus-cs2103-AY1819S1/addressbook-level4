@@ -8,10 +8,10 @@ import java.util.List;
  */
 public class VersionedAddressBook extends TaskManager {
 
-    private final List<ReadOnlyAddressBook> addressBookStateList;
+    private final List<ReadOnlyTaskManager> addressBookStateList;
     private int currentStatePointer;
 
-    public VersionedAddressBook(ReadOnlyAddressBook initialState) {
+    public VersionedAddressBook(ReadOnlyTaskManager initialState) {
         super(initialState);
 
         addressBookStateList = new ArrayList<>();
