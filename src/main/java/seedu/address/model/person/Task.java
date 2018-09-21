@@ -10,30 +10,30 @@ import java.util.Set;
 import seedu.address.model.tag.Label;
 
 /**
- * Represents a Task in the address book.
+ * Represents a Task in the description book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Task {
 
     // Identity fields
     private final Name name;
-    private final DueDate phone;
-    private final PriorityValue email;
+    private final DueDate dueDate;
+    private final PriorityValue priorityValue;
 
     // Data fields
-    private final Description address;
-    private final Set<Label> tags = new HashSet<>();
+    private final Description description;
+    private final Set<Label> labels = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, DueDate phone, PriorityValue email, Description address, Set<Label> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Task(Name name, DueDate dueDate, PriorityValue priorityValue, Description description, Set<Label> labels) {
+        requireAllNonNull(name, dueDate, priorityValue, description, labels);
         this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.tags.addAll(tags);
+        this.dueDate = dueDate;
+        this.priorityValue = priorityValue;
+        this.description = description;
+        this.labels.addAll(labels);
     }
 
     public Name getName() {
@@ -41,15 +41,15 @@ public class Task {
     }
 
     public DueDate getDueDate() {
-        return phone;
+        return dueDate;
     }
 
     public PriorityValue getPriorityValue() {
-        return email;
+        return priorityValue;
     }
 
     public Description getDescription() {
-        return address;
+        return description;
     }
 
     /**
@@ -57,7 +57,7 @@ public class Task {
      * if modification is attempted.
      */
     public Set<Label> getLabels() {
-        return Collections.unmodifiableSet(tags);
+        return Collections.unmodifiableSet(labels);
     }
 
     /**
@@ -99,7 +99,7 @@ public class Task {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, dueDate, priorityValue, description, labels);
     }
 
     @Override
