@@ -83,6 +83,13 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public void enqueue(Person target) {
+
+    }
+
+    @Override
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
