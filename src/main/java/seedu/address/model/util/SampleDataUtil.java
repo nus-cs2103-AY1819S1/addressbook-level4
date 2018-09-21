@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.TaskManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.DueDate;
@@ -14,7 +14,7 @@ import seedu.address.model.person.Task;
 import seedu.address.model.tag.Label;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code TaskManager} with sample data.
  */
 public class SampleDataUtil {
     public static Task[] getSamplePersons() {
@@ -41,7 +41,7 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+        TaskManager sampleAb = new TaskManager();
         for (Task samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }
