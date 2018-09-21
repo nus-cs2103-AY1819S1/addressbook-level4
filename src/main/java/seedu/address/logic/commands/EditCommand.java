@@ -48,9 +48,9 @@ public class EditCommand extends Command {
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Task: %1$s";
+    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the " +
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the " +
         "address book.";
 
     private final Index index;
@@ -78,23 +78,23 @@ public class EditCommand extends Command {
         }
 
         Person TaskToEdit = lastShownList.get(index.getZeroBased());
-        Person editedTask = createEditedPerson(TaskToEdit, editTaskDescriptor);
+        Person editedTask = createEditedTask(TaskToEdit, editTaskDescriptor);
 
         if (!TaskToEdit.isSamePerson(editedTask) && model.hasPerson(editedTask)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
 
         model.updatePerson(TaskToEdit, editedTask);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedTask));
+        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask));
     }
 
     /**
      * Creates and returns a {@code Person} with the details of {@code taskToEdit}
      * edited with {@code editTaskDescriptor}.
      */
-    private static Person createEditedPerson(Person taskToEdit, EditTaskDescriptor editTaskDescriptor) {
+    private static Person createEditedTask(Person taskToEdit, EditTaskDescriptor editTaskDescriptor) {
         assert taskToEdit != null;
 
         Name updatedName = editTaskDescriptor.getName().orElse(taskToEdit.getName());
