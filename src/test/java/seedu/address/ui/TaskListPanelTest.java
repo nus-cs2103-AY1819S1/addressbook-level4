@@ -24,7 +24,7 @@ import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.person.Person;
 import seedu.address.storage.XmlSerializableAddressBook;
 
-public class PersonListPanelTest extends GuiUnitTest {
+public class TaskListPanelTest extends GuiUnitTest {
     private static final ObservableList<Person> TYPICAL_PERSONS =
             FXCollections.observableList(getTypicalPersons());
 
