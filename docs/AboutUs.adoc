@@ -51,3 +51,12 @@ image::gingivitiss.png[width="150", align="left"]
 
 Role: Developer +
 Responsibilities: Appointment Feature
+
+'''
+
+=== Aaron Seah
+image::aaronseahyh.png[width="150", align="left"]
+{empty}[https://github.com/aaronseahyh[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Medicine Management
