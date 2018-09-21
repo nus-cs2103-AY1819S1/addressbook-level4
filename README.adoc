@@ -15,18 +15,17 @@ ifndef::env-github[]
 image::docs/images/Ui.png[width="600"]
 endif::[]
 
-* Welcome to TheTracker.
-* TheTracker helps NUS students to keep track
- of every person related to you for yourself to friends, and everything from
- the modules you are taken and the events you participate in.
-* The design of TheTracker especially favours students who prefer interactions
-which are using CLI.
-* TheTracker welcomes NUS students who are:
+* Welcome to TheTracker
+* TheTracker aims at NUS students to keep track of everything from the
+modules they take to the events they join, and every person related to them
+from NUS staff to their friends.
+* The design of TheTracker favours students who prefer interactions which are
+ using CLI(Command Line Interface).
+* TheTracker welcomes students who are:
 ** Sociable and wish to know about his/her NUS peers
 ** Academic and wish to keep track of their grades for certain modules and all
-  the modules
+the modules
 ** keep track of schedule of events on a calendar
-
 
 == Site Map
 
