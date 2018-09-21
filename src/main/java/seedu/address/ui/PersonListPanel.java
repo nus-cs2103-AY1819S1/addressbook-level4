@@ -18,27 +18,27 @@ import seedu.address.model.person.Person;
 /**
  * Panel containing the list of persons.
  */
-public class TaskListPanel extends UiPart<Region> {
+public class PersonListPanel extends UiPart<Region> {
     private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
     @FXML
-    private ListView<Person> taskListView;
+    private ListView<Person> personListView;
 
-    public TaskListPanel(ObservableList<Person> taskList) {
+    public PersonListPanel(ObservableList<Person> personList) {
         super(FXML);
-        setConnections(taskList);
+        setConnections(personList);
         registerAsAnEventHandler(this);
     }
 
-    private void setConnections(ObservableList<Person> taskList) {
-        taskListView.setItems(taskList);
-        taskListView.setCellFactory(listView -> new TaskListViewCell());
+    private void setConnections(ObservableList<Person> personList) {
+        personListView.setItems(personList);
+        personListView.setCellFactory(listView -> new PersonListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
-        taskListView.getSelectionModel().selectedItemProperty()
+        personListView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
                         logger.fine("Selection in person list panel changed to : '" + newValue + "'");
@@ -48,12 +48,12 @@ public class TaskListPanel extends UiPart<Region> {
     }
 
     /**
-     * Scrolls to the {@code TaskCard} at the {@code index} and selects it.
+     * Scrolls to the {@code PersonCard} at the {@code index} and selects it.
      */
     private void scrollTo(int index) {
         Platform.runLater(() -> {
-            taskListView.scrollTo(index);
-            taskListView.getSelectionModel().clearAndSelect(index);
+            personListView.scrollTo(index);
+            personListView.getSelectionModel().clearAndSelect(index);
         });
     }
 
@@ -64,9 +64,9 @@ public class TaskListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code TaskCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
-    class TaskListViewCell extends ListCell<Person> {
+    class PersonListViewCell extends ListCell<Person> {
         @Override
         protected void updateItem(Person person, boolean empty) {
             super.updateItem(person, empty);

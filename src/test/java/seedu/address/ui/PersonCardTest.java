@@ -17,13 +17,13 @@ public class PersonCardTest extends GuiUnitTest {
     public void display() {
         // no tags
         Person personWithNoTags = new PersonBuilder().withTags(new String[0]).build();
-        PersonCard personCard = new PersonCard(personWithNoTags, 1);
+        TaskCard personCard = new TaskCard(personWithNoTags, 1);
         uiPartRule.setUiPart(personCard);
         assertCardDisplay(personCard, personWithNoTags, 1);
 
         // with tags
         Person personWithTags = new PersonBuilder().build();
-        personCard = new PersonCard(personWithTags, 2);
+        personCard = new TaskCard(personWithTags, 2);
         uiPartRule.setUiPart(personCard);
         assertCardDisplay(personCard, personWithTags, 2);
     }
@@ -31,10 +31,10 @@ public class PersonCardTest extends GuiUnitTest {
     @Test
     public void equals() {
         Person person = new PersonBuilder().build();
-        PersonCard personCard = new PersonCard(person, 0);
+        TaskCard personCard = new TaskCard(person, 0);
 
         // same person, same index -> returns true
-        PersonCard copy = new PersonCard(person, 0);
+        TaskCard copy = new TaskCard(person, 0);
         assertTrue(personCard.equals(copy));
 
         // same object -> returns true
@@ -48,17 +48,17 @@ public class PersonCardTest extends GuiUnitTest {
 
         // different person, same index -> returns false
         Person differentPerson = new PersonBuilder().withName("differentName").build();
-        assertFalse(personCard.equals(new PersonCard(differentPerson, 0)));
+        assertFalse(personCard.equals(new TaskCard(differentPerson, 0)));
 
         // same person, different index -> returns false
-        assertFalse(personCard.equals(new PersonCard(person, 1)));
+        assertFalse(personCard.equals(new TaskCard(person, 1)));
     }
 
     /**
      * Asserts that {@code personCard} displays the details of {@code expectedPerson} correctly and matches
      * {@code expectedId}.
      */
-    private void assertCardDisplay(PersonCard personCard, Person expectedPerson, int expectedId) {
+    private void assertCardDisplay(TaskCard personCard, Person expectedPerson, int expectedId) {
         guiRobot.pauseForHuman();
 
         PersonCardHandle personCardHandle = new PersonCardHandle(personCard.getRoot());
