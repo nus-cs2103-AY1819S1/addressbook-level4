@@ -295,6 +295,56 @@ To end step-by-step instruction of cook-mode. +
 Format: +
 `end`
 
+=== Health-planner Command
+
+==== Add plan: `add`
+
+Adds a health plan under the user.
+Format: `add GOAL DURATION`
+
+==== Delete plan: `delete`
+
+After listing the list of health plans by user.
+Deletes the plan selected by user.
+
+Format: `delete INDEX`
+
+==== Edit plan: `edit`
+
+After listing the list of health plans by User.
+Prompts for edit on the plan selected by the user.
+
+Format : `edit INDEX GOAL DURATION`
+
+==== Add current intake item: `addIntake`
+
+After being shown the recipe list by the system
+User selects to add to intake List
+
+Format: `addIntake RECIPE_INDEX`
+
+==== Remove current intake item: `removeIntake`
+
+After being shown the list of recipe from intake list
+User selects recipe to remove
+
+Format: `removeIntake INDEX_OF_ITEM`
+
+==== View overall intake : `viewIntake`
+
+After shown the list of Recipes by the system
+User enters command to view overall intake
+
+Format: `viewIntake`
+
+==== Compare overall intake against : `compareIntake`
+
+After being shown list of health plans
+User enters command to compare against set health plan.
+
+Format: `compareIntake PLAN_ID`
+
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
