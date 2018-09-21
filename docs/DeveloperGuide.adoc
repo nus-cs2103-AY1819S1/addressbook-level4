@@ -815,13 +815,14 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* is a tech-savvy university student
+* wants to manage significant number of tasks/events - e.g. courses, deadlines, homework - in one place
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage university related tasks fast in a CLI driven application
 
 [appendix]
 == User Stories
@@ -889,9 +890,14 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 events without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-.  Events should be color coded by category or tag
+.  Events should be color coded by category or tag.
+.  System should respond in less than 1 second.
+.  The project is expected to be tested every week.
+.  Data should be stored in a human readable file.
+.  A new user should be able to learn the basics of the application in less than one hour.
+.  System should be able to work with user-inputted dates in any format.
 
 _{More to be added}_
 
@@ -900,9 +906,6 @@ _{More to be added}_
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
 
 [appendix]
 == Product Survey
