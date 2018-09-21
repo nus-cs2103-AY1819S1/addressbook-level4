@@ -10,19 +10,19 @@ import java.util.List;
  * @author Darien Chong
  *
  */
-public class MedicineList {
-    private List<Medicine> medicineList;
+public class PrescriptionList {
+    private List<Prescription> medicineList;
 
-    public MedicineList() {
-        medicineList = new ArrayList<Medicine>();
+    public PrescriptionList() {
+        medicineList = new ArrayList<Prescription>();
     }
 
-    public MedicineList(List<Medicine> medicineList) {
+    public PrescriptionList(List<Prescription> medicineList) {
         this.medicineList = new ArrayList<>(medicineList);
     }
 
-    public MedicineList(MedicineList medicineList) {
-        this.medicineList = new ArrayList<>(medicineList.medicineList);
+    public PrescriptionList(PrescriptionList prescriptionList) {
+        this.medicineList = new ArrayList<>(prescriptionList.medicineList);
     }
 
     /**
@@ -31,7 +31,7 @@ public class MedicineList {
      * @param med
      *            The medication to add.
      */
-    public void add(Medicine med) {
+    public void add(Prescription med) {
         medicineList.add(med);
     }
 
@@ -41,14 +41,14 @@ public class MedicineList {
      * @param med
      *            The medication to remove.
      */
-    public void remove(Medicine med) {
+    public void remove(Prescription med) {
         medicineList.remove(med);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (Medicine m : medicineList) {
+        for (Prescription m : medicineList) {
             sb.append(m.toString()).append("\n");
         }
 
@@ -61,8 +61,8 @@ public class MedicineList {
             return true;
         }
 
-        if (o instanceof MedicineList) {
-            MedicineList ml = (MedicineList) o;
+        if (o instanceof PrescriptionList) {
+            PrescriptionList ml = (PrescriptionList) o;
             return medicineList.containsAll(ml.medicineList);
         }
 

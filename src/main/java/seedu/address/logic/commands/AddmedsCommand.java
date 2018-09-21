@@ -14,8 +14,8 @@ import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.medicine.Medicine;
-import seedu.address.model.medicine.MedicineList;
+import seedu.address.model.medicine.Prescription;
+import seedu.address.model.medicine.PrescriptionList;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -40,13 +40,13 @@ public class AddmedsCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Medication added for patient: %1$s";
     public static final String MESSAGE_NO_SUCH_PATIENT = "No such patient exists.";
 
-    private final Medicine med;
+    private final Prescription med;
     private final Nric patientNric;
 
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
-    public AddmedsCommand(Nric patientNric, Medicine med) {
+    public AddmedsCommand(Nric patientNric, Prescription med) {
         this.patientNric = patientNric;
         this.med = med;
     }
@@ -85,10 +85,10 @@ public class AddmedsCommand extends Command {
      * @param m The medicine to update with.
      * @return An updated patient with the appropriate medicine added.
      */
-    private static Person addMedicineForPerson(Person personToEdit, Medicine m) {
+    private static Person addMedicineForPerson(Person personToEdit, Prescription m) {
         assert personToEdit != null;
 
-        MedicineList updatedMedicineList = new MedicineList(personToEdit.getMedicineList());
+        PrescriptionList updatedMedicineList = new PrescriptionList(personToEdit.getMedicineList());
         updatedMedicineList.add(m);
 
         Nric nric = personToEdit.getNric();

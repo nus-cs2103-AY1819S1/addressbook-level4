@@ -14,7 +14,7 @@ import seedu.address.logic.commands.AddmedsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.medicine.Dose;
 import seedu.address.model.medicine.Duration;
-import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.Prescription;
 import seedu.address.model.person.Nric;
 
 //@@author snajef
@@ -49,7 +49,7 @@ public class AddmedsCommandParser implements Parser<AddmedsCommand> {
         Duration duration = ParserUtil.parseDuration(Integer.parseInt(argMultimap.getValue(PREFIX_DURATION).get()));
 
         Nric nric = new Nric(patientNric);
-        Medicine med = new Medicine(drugName, dose, duration);
+        Prescription med = new Prescription(drugName, dose, duration);
 
         return new AddmedsCommand(nric, med);
     }
