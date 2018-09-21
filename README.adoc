@@ -34,6 +34,7 @@ endif::[]
 == Planned Changes
 
 We plan to convert this into a management style app for managers and employees. Stay tuned!
+Update should occur soon.
 
 == Acknowledgements
 
