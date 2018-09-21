@@ -885,6 +885,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 4. Receptionist (User) will make referral for patient (if needed)
 5. Receptionist (User) will remove patient from done set when finished.
 
+[discrete]
+== Use Case: Receptionist wants to check medicine stock levels
+1. Receptionist (User) views complete list of medicine.
+2. Receptionist (User) filters list for medicine that are low on stock levels.
+
 [appendix]
 == Non Functional Requirements
 
@@ -918,19 +923,20 @@ Community Health Assistance Scheme
 [appendix]
 == Product Survey
 
-*Product Name*
+*CLInic*
 
-Author: ...
+Author: CS2103T Group 16-4
 
 Pros:
 
-* ...
-* ...
+* User-friendly, minimal tutorial needed
+* Can view all needed details in one screen
+* Easy registering of patients
 
 Cons:
 
-* ...
-* ...
+* Basic use of XML document as database
+* No security for stored patient information
 
 [appendix]
 == Instructions for Manual Testing
@@ -974,6 +980,7 @@ _{ more test cases ... }_
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Test case: Delete the patient data file manually before starting the application +
+.. Expected: The application will start with the sample contact list.
 
 _{ more test cases ... }_
