@@ -65,16 +65,6 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedAddressBook.hasPerson(person);
     }
 
-    /**
-     * Check if a event already exists in a versionedAddressBook
-     * @param event
-     * @return true if versionAddressBook already has this event.
-     */
-    public boolean hasEvent(Event event) {
-        requireNonNull(event);
-        return versionedAddressBook.hasEvent(event);
-    }
-
     @Override
     public void deletePerson(Person target) {
         versionedAddressBook.removePerson(target);
@@ -89,18 +79,29 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void updatePerson(Person target, Person editedPerson) {
+        requireAllNonNull(target, editedPerson);
+
+        versionedAddressBook.updatePerson(target, editedPerson);
+        indicateAddressBookChanged();
+    }
+
+    //===========Events ======================================================================================
+    @Override
     public void addEvent(Event event) {
         versionedAddressBook.addEvent(event);
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         indicateAddressBookChanged();
     }
 
-    @Override
-    public void updatePerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        versionedAddressBook.updatePerson(target, editedPerson);
-        indicateAddressBookChanged();
+    /**
+     * Check if an event already exists in a versionedAddressBook
+     * @param event
+     * @return true if versionAddressBook already has this event.
+     */
+    public boolean hasEvent(Event event) {
+        requireNonNull(event);
+        return versionedAddressBook.hasEvent(event);
     }
 
     //=========== Filtered Person List Accessors =============================================================

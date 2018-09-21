@@ -3,8 +3,10 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.text.SimpleDateFormat;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -93,6 +95,24 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_EMAIL_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String date} into an {@code Date}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static Date parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        try {
+            Date newDate = format.parse(trimmedDate);
+            return newDate;
+        } catch (java.text.ParseException e) {
+            throw new ParseException("Date format is incorrect.");
+        }
     }
 
     /**

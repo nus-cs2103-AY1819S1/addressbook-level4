@@ -3,6 +3,7 @@ package seedu.address.model.event;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -19,19 +20,27 @@ public class Event {
 
     // Identity fields
     private final Name name;
+    private final int id;
+    private static int currID = 0;
 
     // Data fields
     private final Address location;
+    private Date date;
     private final Set<Tag> tags = new HashSet<>();
+
+    private final HashSet<Poll> polls;
 
     /**
      * Every field must be present and not null.
      */
     public Event(Name name, Address address, Set<Tag> tags) {
         requireAllNonNull(name, address, tags);
+        this.id = currID;
+        currID++;
         this.name = name;
         this.location = address;
         this.tags.addAll(tags);
+        polls = new HashSet<>();
     }
 
     public Name getName() {
@@ -40,6 +49,19 @@ public class Event {
 
     public Address getLocation() {
         return location;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void addPoll(String pollName) {
+        Poll poll = new Poll(pollName);
+        polls.add(poll);
     }
 
     /**

@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.AddEventCommand;
+import seedu.address.logic.commands.eventCommands.AddEventCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
@@ -21,6 +21,9 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 
+import seedu.address.logic.commands.eventCommands.SetDateCommand;
+import seedu.address.logic.parser.eventParsers.AddEventCommandParser;
+import seedu.address.logic.parser.eventParsers.SetDateCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -51,6 +54,9 @@ public class AddressBookParser {
         switch (commandWord) {
         case AddEventCommand.COMMAND_WORD:
             return new AddEventCommandParser().parse(arguments);
+
+        case SetDateCommand.COMMAND_WORD:
+            return new SetDateCommandParser().parse(arguments);
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
