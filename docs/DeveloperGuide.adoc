@@ -815,13 +815,13 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to manage savings for a significant number of items to buy
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage savings faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -833,15 +833,37 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add a new wish |keep track of the things I want to purchase
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |add savings to selected wishes | make faster progress towards certain wishes
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |delete a wish |remove items that I no longer need
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |find a wish by name |locate details of a wish without having to go through the entire list
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |view all fulfilled wishes | so I can keep track of items I have bought
+
+|`* * *` |user |view all past savings for my wishes | have a better idea of my saving habits in general
+
+|`* * *` |user |view all my wishes | monitor the progress I have made in all my wishes
+
+|`* * *` |user |undo past commands | reverse wrong commands
+
+|`* *` |user |distribute a saving to a few wishes | make equal progress to a few of my wishes
+
+|`* *` |user |rank my wishes | prioritise certain wishes over others so that money can be allocated accordingly
+
+|`* *` |user |transfer money from one wish to another | progress towards other wishes faster
+
+|`* *` |user |withdraw from savings | spend the money if need be
+
+|`* *` |user |reorder the priority of a wish | fulfil the specified wish faster
+
+|`* *` |user |save money without a wish | allocate my savings to a wish later
+
+|`*` |user |receive email reminders about wishes that are due |be more mindful of my savings to fulfil wishes
+
+|`*` |user |view all past savings for a particular wish |have a better idea of my saving habits for a wish
 |=======================================================================
 
 _{More to be added}_
@@ -849,17 +871,45 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Spare` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add wish
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  *Actor* enters a wish with Name, Date, Price, Index (Optional).
+2.  *System* adds wish to the wish list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. *Actor* fails to specify Name/Price.
++
+[none]
+** 2a1. *System* shows Add command usage.
++
+Use case ends.
+
+* 2b. *Actor* enters incorrectly formatted arguments.
++
+[none]
+** 2b1. *System* shows Add command usage.
+** 2b2. *Actor* is prompted to enter a valid argument.
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete wish
+
+*MSS*
+
+1.  *Actor* requests to list wishes.
+2.  *System* shows a list of wishes.
+3.  *Actor* requests to delete a specific wish in the list.
+4.  *System* deletes the wish.
 +
 Use case ends.
 
@@ -873,9 +923,206 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. *System* shows an error message.
 +
 Use case resumes at step 2.
+** 3b1. Wish requested to be deleted has a non-zero savings amount.
+** 3b2. *System* displays warning to user that wish to be deleted has a non-zero savings amount.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Edit wish
+
+*MSS*
+
+1.  *Actor* requests to edit wish.
+2.  *System* updates wish and shows updated wish to *Actor*.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. *System* has no recorded wishes.
++
+[none]
+** 1a1. *Actor* is prompted to add a wish.
++
+Use case ends.
+
+* 1b. *Actor* enters invalid arguments
++
+[none]
+** 1b1. *System* shows Edit command usage.
+** 1b2. *Actor* is prompted to enter a valid argument.
++
+Use case ends.
+
+[discrete]
+=== Use case: Find wishes
+
+*MSS*
+
+1.  *Actor* specifies the search predicate.
+2.  *System* shows all wishes matching the given search predicate.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. *System* has no recorded wishes.
++
+[none]
+** 1a1. *Actor* is prompted to add a wish.
++
+Use case ends.
+
+* 1b. *Actor* enters invalid arguments
++
+[none]
+** 1b1. *System* shows Find command usage.
+** 1b2. *Actor* is prompted to enter a valid argument.
++
+Use case ends.
+
+* 1c. *System* unable to find any matching wishes.
++
+[none]
+** 1c1. *System* shows dialog notifying *Actor* that no relevant results can be found.
++
+Use case ends.
+
+[discrete]
+=== Use case: Rank wishes
+
+*MSS*
+
+1.  *Actor* species the wish field to rank the wishes by.
+2.  *System* ranks the wishes in specified order and displays the new order.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. *Actor* enters invalid wish field.
++
+[none]
+** 1a1. *System* shows Rank command usage.
++
+Use case ends.
+
+* 2a. There are no wishes in the wish list.
++
+Use case ends.
+
+[discrete]
+=== Use case: Save money for a wish
+
+*MSS*
+
+1.  *Actor* enters [underline]#X# amount of money to be saved.
+2.  *System* transfers [underline]#X# from the bank to the wish that has the earliest due date.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. *Actor* specifies a wish to allocate the money to.
++
+[none]
+** 1a1. *System* adds [underline]#X# to the specified wish.
++
+Use case ends.
+
+* 1b. *System* has no recorded wishes.
++
+[none]
+** 1b1. *Actor* is prompted to add a wish.
++
+Use case ends.
+
+* 1c. *Actor* enters an invalid value of money to be saved.
++
+[none]
+** 1c1. *Actor* is prompted to enter a valid value.
++
+Use case ends.
+
+[discrete]
+=== Use case: Reorder wishes
+
+*MSS*
+
+1.  *Actor* specifies indices of wishes to swap.
+2.  *System* swaps wishes belonging to the specified indices.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. *Actor* enters invalid indexes.
++
+[none]
+** 1a1. *System* shows Reorder command usage.
++
+Use case ends.
+
+* 1b. *System* has less than 2 wishes.
++
+[none]
+** 1b1. *System* shows Reorder command usage.
++
+Use case ends.
+
+[discrete]
+=== Use case: View past wishes
+
+*MSS*
+
+1.  *Actor* requests to view past wishes.
+2.  *System* shows all past wishes.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. *System* has no recorded wishes.
++
+[none]
+** 1a1. User is prompted to add a wish.
++
+Use case ends.
+
+* 1b. *System* has no past wishes.
++
+[none]
+** 1b1. *System* shows dialog notifying *Actor* that there are no such wishes.
++
+Use case ends.
+
+[discrete]
+=== Use case: View wish list
+
+*MSS*
+
+1.  *Actor* requests to list wishes.
+2.  *System* shows a list of wishes.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. List is empty.
++
+Use case ends.
+
 
 _{More to be added}_
 
@@ -883,8 +1130,16 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 wishes without user experiencing a drop in application performance.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. User data can be transferred across different machines (of different platforms).
+. The software should not use a DBMS (Database Management System) to store data.
+. User data is stored locally.
+. User data is human readable and can be edited.
+. Friendly towards color-blind users.
+. Command Line Interface (CLI) is the primary mode of input. GUI is used mainly for visual feedback rather than to collect input. Usage of mouse should be minimized.
+. The software should follow the Object-Oriented Paradigm.
+. The software should work without requiring an installer.
 
 _{More to be added}_
 
@@ -892,10 +1147,16 @@ _{More to be added}_
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+Windows, Linux, Unix, OS-X.
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[index]] Index::
+Order of priority of a wish.
+
+[[wish]] Wish::
+Something the user wants to save up money for.
+
+[[wishlist]] Wishlist::
+A record of all wishes added by the user.
 
 [appendix]
 == Product Survey
