@@ -843,7 +843,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |tag an event |categorize my events by its nature, subject or purpose
 
-|`* *` |user |set a reminder for an event|be reminded of it and forget the event
+|`* *` |user |set a reminder for an event|be reminded of it and not forget the event
 
 |`*` |user |synchronise this calendar with other online calendars|have the flexibility of having multiple calendar applications without doing double work of maintaining two separately
 
