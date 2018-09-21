@@ -65,7 +65,7 @@ public class TypicalPersons {
     public static TaskManager getTypicalAddressBook() {
         TaskManager ab = new TaskManager();
         for (Task person : getTypicalPersons()) {
-            ab.addPerson(person);
+            ab.addTask(person);
         }
         return ab;
     }

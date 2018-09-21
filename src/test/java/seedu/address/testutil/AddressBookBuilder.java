@@ -24,7 +24,7 @@ public class AddressBookBuilder {
      * Adds a new {@code Task} to the {@code TaskManager} that we are building.
      */
     public AddressBookBuilder withPerson(Task person) {
-        addressBook.addPerson(person);
+        addressBook.addTask(person);
         return this;
     }
 

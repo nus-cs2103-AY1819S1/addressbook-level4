@@ -43,7 +43,7 @@ public class SampleDataUtil {
     public static ReadOnlyTaskManager getSampleAddressBook() {
         TaskManager sampleAb = new TaskManager();
         for (Task samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
+            sampleAb.addTask(samplePerson);
         }
         return sampleAb;
     }

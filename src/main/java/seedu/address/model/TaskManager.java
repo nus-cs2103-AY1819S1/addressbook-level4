@@ -9,12 +9,12 @@ import seedu.address.model.person.Task;
 import seedu.address.model.person.UniqueTaskList;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the task-manager level
  * Duplicates are not allowed (by .isSameTask comparison)
  */
 public class TaskManager implements ReadOnlyTaskManager {
 
-    private final UniqueTaskList persons;
+    private final UniqueTaskList tasks;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -24,13 +24,13 @@ public class TaskManager implements ReadOnlyTaskManager {
      *   among constructors.
      */
     {
-        persons = new UniqueTaskList();
+        tasks = new UniqueTaskList();
     }
 
     public TaskManager() {}
 
     /**
-     * Creates an TaskManager using the Persons in the {@code toBeCopied}
+     * Creates an TaskManager using the Tasks in the {@code toBeCopied}
      */
     public TaskManager(ReadOnlyTaskManager toBeCopied) {
         this();
@@ -40,11 +40,11 @@ public class TaskManager implements ReadOnlyTaskManager {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the task list with {@code tasks}.
+     * {@code tasks} must not contain duplicate tasks.
      */
-    public void setPersons(List<Task> persons) {
-        this.persons.setTasks(persons);
+    public void setTasks(List<Task> tasks) {
+        this.tasks.setTasks(tasks);
     }
 
     /**
@@ -53,68 +53,68 @@ public class TaskManager implements ReadOnlyTaskManager {
     public void resetData(ReadOnlyTaskManager newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getTaskList());
+        setTasks(newData.getTaskList());
     }
 
-    //// person-level operations
+    //// task-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a task with the same identity as {@code task} exists in the task manager.
      */
-    public boolean hasPerson(Task person) {
-        requireNonNull(person);
-        return persons.contains(person);
-    }
-
-    /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
-     */
-    public void addPerson(Task p) {
-        persons.add(p);
+    public boolean hasTask(Task task) {
+        requireNonNull(task);
+        return tasks.contains(task);
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Adds a task to the task manager.
+     * The task must not already exist in the task manager.
      */
-    public void updatePerson(Task target, Task editedPerson) {
-        requireNonNull(editedPerson);
+    public void addTask(Task p) {
+        tasks.add(p);
+    }
 
-        persons.setTask(target, editedPerson);
+    /**
+     * Replaces the given task {@code target} in the list with {@code editedTask}.
+     * {@code target} must exist in the task manager.
+     * The task identity of {@code editedTask} must not be the same as another existing person in the task manager.
+     */
+    public void updateTask(Task target, Task editedTask) {
+        requireNonNull(editedTask);
+
+        tasks.setTask(target, editedTask);
     }
 
     /**
      * Removes {@code key} from this {@code TaskManager}.
-     * {@code key} must exist in the address book.
+     * {@code key} must exist in the task manager.
      */
-    public void removePerson(Task key) {
-        persons.remove(key);
+    public void removeTask(Task key) {
+        tasks.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return tasks.asUnmodifiableObservableList().size() + " persons";
         // TODO: refine later
     }
 
     @Override
     public ObservableList<Task> getTaskList() {
-        return persons.asUnmodifiableObservableList();
+        return tasks.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskManager // instanceof handles nulls
-                && persons.equals(((TaskManager) other).persons));
+                && tasks.equals(((TaskManager) other).tasks));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return tasks.hashCode();
     }
 }

@@ -59,18 +59,18 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public boolean hasPerson(Task person) {
         requireNonNull(person);
-        return versionedAddressBook.hasPerson(person);
+        return versionedAddressBook.hasTask(person);
     }
 
     @Override
     public void deletePerson(Task target) {
-        versionedAddressBook.removePerson(target);
+        versionedAddressBook.removeTask(target);
         indicateAddressBookChanged();
     }
 
     @Override
     public void addPerson(Task person) {
-        versionedAddressBook.addPerson(person);
+        versionedAddressBook.addTask(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
@@ -79,7 +79,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updatePerson(Task target, Task editedPerson) {
         requireAllNonNull(target, editedPerson);
 
-        versionedAddressBook.updatePerson(target, editedPerson);
+        versionedAddressBook.updateTask(target, editedPerson);
         indicateAddressBookChanged();
     }
 

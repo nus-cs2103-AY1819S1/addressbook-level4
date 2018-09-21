@@ -49,10 +49,10 @@ public class XmlSerializableAddressBook {
         TaskManager addressBook = new TaskManager();
         for (XmlAdaptedPerson p : persons) {
             Task person = p.toModelType();
-            if (addressBook.hasPerson(person)) {
+            if (addressBook.hasTask(person)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addPerson(person);
+            addressBook.addTask(person);
         }
         return addressBook;
     }
