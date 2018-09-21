@@ -75,31 +75,31 @@ public class EditCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit, editTaskDescriptor);
+        Person TaskToEdit = lastShownList.get(index.getZeroBased());
+        Person editedTask = createEditedPerson(TaskToEdit, editTaskDescriptor);
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
+        if (!TaskToEdit.isSamePerson(editedTask) && model.hasPerson(editedTask)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.updatePerson(personToEdit, editedPerson);
+        model.updatePerson(TaskToEdit, editedTask);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedTask));
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
+     * Creates and returns a {@code Person} with the details of {@code taskToEdit}
      * edited with {@code editTaskDescriptor}.
      */
-    private static Person createEditedPerson(Person personToEdit, EditTaskDescriptor editTaskDescriptor) {
-        assert personToEdit != null;
+    private static Person createEditedPerson(Person taskToEdit, EditTaskDescriptor editTaskDescriptor) {
+        assert taskToEdit != null;
 
-        Name updatedName = editTaskDescriptor.getName().orElse(personToEdit.getName());
-        Phone updatedPhone = editTaskDescriptor.getPhone().orElse(personToEdit.getPhone());
-        Email updatedEmail = editTaskDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Address updatedAddress = editTaskDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Set<Tag> updatedTags = editTaskDescriptor.getTags().orElse(personToEdit.getTags());
+        Name updatedName = editTaskDescriptor.getName().orElse(taskToEdit.getName());
+        Phone updatedPhone = editTaskDescriptor.getPhone().orElse(taskToEdit.getPhone());
+        Email updatedEmail = editTaskDescriptor.getEmail().orElse(taskToEdit.getEmail());
+        Address updatedAddress = editTaskDescriptor.getAddress().orElse(taskToEdit.getAddress());
+        Set<Tag> updatedTags = editTaskDescriptor.getTags().orElse(taskToEdit.getTags());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
@@ -123,8 +123,8 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Stores the details to edit the task with. Each non-empty field value will replace the
+     * corresponding field value of the task.
      */
     public static class EditTaskDescriptor {
         private Name name;
