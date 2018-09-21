@@ -36,15 +36,6 @@ Responsibilities: Queue management
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: UI
-
-'''
-
 === Sophia Simangan
 image::gingivitiss.png[width="150", align="left"]
 {empty}[https://github.com/gingivitiss[github]] [<<johndoe#, portfolio>>]
