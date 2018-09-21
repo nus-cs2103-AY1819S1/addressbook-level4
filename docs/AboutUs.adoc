@@ -37,7 +37,7 @@ Role: Group Member
 '''
 
 === Daniel Koh
-image::danielkoh.jpg[width="200", align="left"]
+image::danielkoh.jpg[width="160", align="left"]
 {empty}[https://github.com/danielkoh94[github]]
 
 Role: Group Member
