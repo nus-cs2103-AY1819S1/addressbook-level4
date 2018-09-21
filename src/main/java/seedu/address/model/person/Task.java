@@ -10,10 +10,10 @@ import java.util.Set;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Task in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person {
+public class Task {
 
     // Identity fields
     private final Name name;
@@ -27,7 +27,7 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Task(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
@@ -40,7 +40,7 @@ public class Person {
         return name;
     }
 
-    public Phone getPhone() {
+    public Phone getDueDate() {
         return phone;
     }
 
@@ -48,7 +48,7 @@ public class Person {
         return email;
     }
 
-    public Address getAddress() {
+    public Address getDescription() {
         return address;
     }
 
@@ -56,7 +56,7 @@ public class Person {
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<Tag> getTags() {
+    public Set<Tag> getLabels() {
         return Collections.unmodifiableSet(tags);
     }
 
@@ -64,14 +64,14 @@ public class Person {
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
+    public boolean isSameTask(Task othertask) {
+        if (othertask == this) {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+        return othertask != null
+                && othertask.getName().equals(getName())
+                && (othertask.getDueDate().equals(getDueDate()) || othertask.getEmail().equals(getEmail()));
     }
 
     /**
@@ -84,16 +84,16 @@ public class Person {
             return true;
         }
 
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Task)) {
             return false;
         }
 
-        Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+        Task othertask = (Task) other;
+        return othertask.getName().equals(getName())
+                && othertask.getDueDate().equals(getDueDate())
+                && othertask.getEmail().equals(getEmail())
+                && othertask.getDescription().equals(getDescription())
+                && othertask.getLabels().equals(getLabels());
     }
 
     @Override
@@ -107,13 +107,13 @@ public class Person {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append(" Phone: ")
-                .append(getPhone())
+                .append(getDueDate())
                 .append(" Email: ")
                 .append(getEmail())
                 .append(" Address: ")
-                .append(getAddress())
+                .append(getDescription())
                 .append(" Tags: ");
-        getTags().forEach(builder::append);
+        getLabels().forEach(builder::append);
         return builder.toString();
     }
 
