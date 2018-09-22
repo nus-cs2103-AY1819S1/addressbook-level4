@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W10-03`      Since: `Jun 2016`      Licence: `MIT`
 
 == Setting up
 
@@ -852,15 +852,19 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *`|Event Organiser|Have a specialised platform to post events aimed at a tech-savvy audience.| Promote my event to an audience that I am interested in.
 
-|`* * *`|User|Visualise the event location on Google maps.| Find out exactly how to get to that location.
+|`* * *`|Busy User|Have a platform to search for all the events that are near the place I stay.| Go to an event without the trouble of travelling long distances.
 
-|`* * *`| Busy User|Have a platform to search for all the events that are near my house.| Go to an event without the trouble of travelling long distances.
+|`* * *`|Busy User|Have a platform to search for all the events that occur during my free time.| Easily find a event that I have time to go for.
+
+|`* * *`|Tech-savvy User| Have a platform that supports CLI| Easily write scripts to automatic the task that I want to accomplish on a regular basis.
 
 |`* * *`|User|Keep track of all the events that I can gone to.| Have a record of the events that I have been to.
 
-|`* * *`| Busy User|Have a platform to search for all the events that occur during my free time.| Easily find a event that I have time to go for.
+|`* * *`|User|Visualise the event location on Google maps.| Find out exactly how to get to that location.
 
-|`* * *`| NUS student |Have a platform that utilises NUSMODS's schedules.| Conveniently update my schedule using NUSMODS's schedule.
+|`* * *`|NUS student|Have a platform that utilises NUSMODS's schedule.| Conveniently update my schedule using NUSMODS's schedule.
+
+|`* * *`|NUS student|Have a platform that can facilitate the task of finding the ideal time and location for project group meet-ups| Easily organise project group meet-ups instead of asking each individual group mates one by one.
 
 |`* *`|Event Organiser|Find people who live close to a specific location and people who are available at a specific time.| Find people who are at least able to attend the event.
 
