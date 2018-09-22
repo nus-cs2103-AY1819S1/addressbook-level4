@@ -849,11 +849,255 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+//(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
-[discrete]
-=== Use case: Delete person
 
+*Software System: EventOrganiser*
+
+*Use case: U01 - Create new user*
+
+*Actor: New user*
+
+*MSS:*
+
+1.	User creates new user profile by specifying his/her contact detail, address, weekly schedule, interest, people they know, their relationship to that person, and affiliate groups.
+2.	System checks that the details are valid.
+3.	System informs the user that the profile has been successfully created.
+
++
+Use case ends.
+
+*Extensions:*
+
+* 2a. User enters invalid detail.
++
+** 2a1. System will prompt user to re-enter their details.
++
+** 2a2. User enters profile details again.
++
+Steps 2a1 - 2a2 are repeated until the details entered are valid.
++
+Use case resumes from step 3.
+
+*Software System: EventOrganiser*
+
+*Use case: U02 – Delete a user*
+
+*Actor: User*
+
+*MSS:*
+
+1.	User chooses to delete his/her user profile.
+2.	System checks that the profile that will be deleted corresponds to the profile of the current user.
+3.	System informs the user that the profile has been successfully deleted.
+4.	System deletes the user profile within its storage.
+
++
+Use case ends.
+
+*Extensions:*
+
+* 2a. The profile to be deleted does not correspond to the profile of the current user.
++
+** 2a1. System informs user that the profile cannot be deleted.
++
+** 2a2. User either change his profile or change the profile that he/she wants to delete.
++
+Steps 2a1 – 2a2 are repeated until the current user and the user profile that will be deleted matches.
++
+Use case resumes from step 3.
+
+*Software System: EventOrganiser*
+
+*Use case: U03 – Create new event*
+
+*Actor: User*
+
+*Precondition: User has identified himself/herself*
+
+*MSS:*
+
+1.	User creates a new event by specifying the details of the event.
+2.	System checks that the details are valid.
+3.	System informs the user that the event has been successfully created.
+
++
+Use case ends.
+
+*Extensions:*
+
+* 2a. User enters invalid details.
++
+** 2a1. System will prompt user to re-enter the event details.
++
+** 2a2. User enters event details again.
++
+Steps 2a1 - 2a2 are repeated until the details entered are valid.
++
+Use case resumes from step 3.
+
+*Software System: EventOrganiser*
+
+*Use case: U04 – Delete an event*
+
+*Actor: User*
+
+*Precondition: User has identified himself/herself*
+
+*MSS:*
+
+1.	User chooses to delete an event.
+2.	System checks that the event belongs to the user.
+3.	System informs the user that the event has been successfully deleted.
+
++
+Use case ends.
+
+*Extensions:*
+
+* 2a. The event that will be deleted does not belong to the user.
++
+** 2a1. System will inform the user that the event cannot be deleted.
++
+** 2a2. User either change his profile or change the event that he/she wants to delete.
++
+** Steps 2a1 – 2a2 are repeated until the event belongs to the current user.
++
+Use case resumes from step 3.
+
+*Software System: EventOrganiser*
+
+*Use case: U05 - User joins an event*
+
+*Actor: User*
+
+*Precondition: User has identified himself*
+
+*MSS:*
+
+1.	User searches for available events.
+2.	System shows user all the events that are available.
+3.	User chooses an event that he wants to join.
+4.	System informs the user that he/she has been successfully joined the event.
+
++
+Use case ends.
+
+*Extensions:*
+
+* 1a. User may specify extra details to filter out search results.
++
+Use case resumes at step 2.
+
+*Software System: EventOrganiser*
+
+*Use case: U06 – User invites other to join him/her event*
+
+*Actor: Event organiser, another user that will be invited to join the event organiser’s event*
+
+*Precondition: All the relevant users have identified themselves*
+
+*MSS:*
+
+1.	Event organiser searches for other users.
+2.	System shows user all the other users.
+3.	User chooses a user that he/she wants to invite
+4.	System informs the event organiser that an invitation has been sent to the user
+5.	System informs the user of an invitation to join an event
+6.	User being invited choose to accept the event invitation
+7.	System informs the user that he/she has successfully joined the event.
+8.	System informs the event organiser that a new user has joined his/her event
+
++
+Use case ends.
+
+Use
+*Extensions:*
+
+* 1a. Event organiser may specify extra details to filter search results
++
+Use case resumes at step 2.
+
+* 6a. User being invited may choose to deny the event invitation
++
+** 6a1. System informs the user that he/she has rejected the event invitation
++
+Use case ends.
+
+*Software System: EventOrganiser*
+
+*Use case: U07 – User who is keen on joining an event chooses their preferred date, time and location for the event, given that the event organiser has created a polling session for this event*
+
+*Actor: Event organiser, user who is keen to join an event*
+
+*Precondition: All relevant User has identified himself*
+
+*MSS:*
+
+1.	User searches for the event that he wants to join.
+2.	System shows all the possible date, time, and location options that the event organiser has allocated for this event.
+3.	User chooses his/her preferred date, time, and locations.
+4.	System informs the user’s options has been successfully updated.
+5.	System updates polling information in its storage.
+
++
+Use case ends.
+
+*Software System: EventOrganiser*
+
+*Use case: U08 – Event organiser gets the recommended date, time and location for his event from the system’s algorithm and the polling session. Thereafter, chooses the date, time and location for his event*
+
+*Actor: Event organiser*
+
+*Precondition: Event organiser has identified himself and has created an event*
+
+*MSS:*
+
+1.	Event organiser asks the systems to recommend the date and time for the event based on the schedules of the current users that have indicated that they are going.
+2.	System shows a few recommendations for the date and time.
+3.	Event organiser checks the polling result for the date and time
+4.	System shows the top choices for the date and time from the polling session.
+5.	Event organiser chooses the date time for his date and time for the event.
+6.	System informs user that the date and time has been successfully updated.
+7.	System updates the date and time for the event
+8.	Event organiser Event organiser asks the systems to recommend the date and time for the event on the address of the current users that have indicated that they are going.
+9.	System shows a few recommendations for the location.
+10.	Event organiser checks the polling result for the date and time
+11.	System shows the top choices for location from the polling session.
+12.	Event organiser chooses the location for the event.
+13.	System informs the location has been successfully updated.
+
++
+Use case ends.
+
+*Extension:*
+
+* 1a. Event organiser asks for recommendations when the event does not have any users that has indicated that they are going.
++
+** 1a1. The system will recommend time and date based on the schedule of the event organiser.
++
+Use case resumes from step 3.
+
+* 3a. Event organiser checks the polling result when more than 1 option has the highest votes.
++
+** 3a1. System will show all the options that have the highest votes only.
++
+Use case resumes from step 5.
+
+* 8a. Event organiser ask for recommendations when the event does not have any users that has indicated that they are going.
++
+** 8a1. The system will recommend the location based on the address of the event organiser.
++
+Use case resumes from step 10.
+
+* 10a. Event organiser checks the polling result when more than 1 option has the
+highest votes.
++
+** 10a1. System will show all the options that have the highest votes only.
++
+Use case resumes from step 12.
+
+////
 *MSS*
 
 1.  User requests to list persons
@@ -878,28 +1122,50 @@ Use case ends.
 Use case resumes at step 2.
 
 _{More to be added}_
-
+////
 [appendix]
 == Non Functional Requirements
-
+////
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
+////
+. Commands should be intuitive for users to pick up easily.
 
 [appendix]
 == Glossary
+[[user]] User::
+Refers to a person who uses EventOrganiser.
+
+[[profile]] Profile::
+Refers to an account that is recorded in EventOrganiser.
+
+[[new-user]] New User::
+Refers to a person who does not own a user profile in EventOrganiser.
+
+[[current-user]] Current User::
+Refers to the user currently identified by the system.
+
+[[event-organiser]] Event Organiser::
+Refers to a user who has created an event.
+
+[[attendee]] Attendee::
+Refers to a user who has indicated in EventOrganiser that they will attend the event.
+
+////
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
+////
 
 [appendix]
 == Product Survey
-
+////
 *Product Name*
 
 Author: ...
@@ -913,6 +1179,8 @@ Cons:
 
 * ...
 * ...
+////
+* NIL
 
 [appendix]
 == Instructions for Manual Testing
