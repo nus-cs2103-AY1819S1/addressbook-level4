@@ -25,7 +25,9 @@ public class Event {
 
     // Data fields
     private final Address location;
+
     private Date date;
+
     private final Set<Tag> tags = new HashSet<>();
 
     private final HashSet<Poll> polls;
