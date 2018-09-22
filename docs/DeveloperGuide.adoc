@@ -836,6 +836,37 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 * How value proposition is delivered: The event organiser app provides a large database of all the contacts and information of NUS students, which allows the organizers to search by name, availability, interests etc.
 
+[Discrete]
+=== Feature
+
+==== Division of work
+
+#### Keng Ji : Add event feature and search for participants
+
+- [ ] v1.1: able to create a basic event
+- [ ] v1.2: able to add basic event details, and filter users by various criteria
+- [ ] v1.3: enable voting feature for location and time
+
+#### Yao Feng : Add scheduling and recommend best time feature
+- [ ] v1.1: able to input user schedule and preferred timings
+- [ ] v1.2: able to rank most popular timings for an event
+- [ ] v1.3:
+
+#### Zhang Cheng :
+- [ ] V1.1: Able to specify friendships with other people
+- [ ] V1.2: Able to form groups and find mutual friends
+- [ ] V1.3: Able to visualise groups
+
+#### Adeel :
+- [ ] V1.1: Implement voting for meetup places, choose most popular place from votes
+- [ ] V1.2: Implement Google maps visualisation
+- [ ] V1.3: Implement recommendation of best meetup location via MRT lines
+
+#### Jason : Event Management/Recommendation
+- [ ] V1.1: Implement Event management Tab / Allow Event Data Storage
+- [ ] V1.2: Pull schedule from NUS Mods and create union of multiple schedules
+- [ ] V1.3: Visualize the most popular threading event criteria
+
 [appendix]
 == User Stories
 
@@ -861,6 +892,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *`|User|Keep track of all the events that I can gone to.| Have a record of the events that I have been to.
 
 |`* * *`|User|Visualise the event location on Google maps.| Find out exactly how to get to that location.
+
+|`* * *`|User|A social media kind of platform which specialises on organising events| Know the events that my friends are going to and let my friends know about the events that I am going to.
 
 |`* * *`|NUS student|Have a platform that utilises NUSMODS's schedule.| Conveniently update my schedule using NUSMODS's schedule.
 
