@@ -3,6 +3,7 @@ package guitests.guihandles;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import seedu.address.logic.commands.ClearCommand;
 
 /**
  * A handle to the {@code CommandBox} in the GUI.
@@ -31,6 +32,12 @@ public class CommandBoxHandle extends NodeHandle<TextField> {
         guiRobot.pauseForHuman();
 
         guiRobot.type(KeyCode.ENTER);
+
+        //Verify password for the clear command
+        if(command.equals(ClearCommand.COMMAND_WORD)) {
+            guiRobot.write(ClearCommand.ADMIN_PASSWORD);
+            guiRobot.type(KeyCode.ENTER);
+        }
     }
 
     /**
