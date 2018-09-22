@@ -136,16 +136,6 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Input text to screen followed by ENTER key
-     * Quick hack to input text in dialog box for now
-     */
-    protected void inputTextAndEnter(String text) {
-        GuiRobot guiRobot = new GuiRobot();
-        guiRobot.write(text);
-        guiRobot.type(KeyCode.ENTER);
-    }
-
-    /**
      * Displays all persons in the address book.
      */
     protected void showAllPersons() {
@@ -174,7 +164,6 @@ public abstract class AddressBookSystemTest {
      */
     protected void deleteAllPersons() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        inputTextAndEnter(ClearCommand.ADMIN_PASSWORD);
         assertEquals(0, getModel().getAddressBook().getPersonList().size());
     }
 
