@@ -28,12 +28,12 @@ Responsibilities: Code quality, Logic, IntelliJ expert
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== NG, Daniel, S. Y.
+image::daniel.jpg[width="150", align="left"]
+{empty}[http://github.com/HEARTOFAL1ON[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
+Roles: Deliverables and deadlines + Scheduling and tracking +
+Responsibilities: Testing, Logic and IntelliJ expert
 
 '''
 
