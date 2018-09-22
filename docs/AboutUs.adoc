@@ -4,53 +4,44 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+ResuMaker was developed by the https://github.com/CS2103-AY1819S1-W17-1[CS2103-W-17-1] team. +
+
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Anubhav
+image::anubh-v.jpg[width="150", align="left"]
+{empty}[https://github.com/anubh-v[github]] [<<johndoe#, portfolio>>]
 
-Role: Project Advisor
-
+Role: SoC Awareness
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Jiang Hengyuan
+image::jhengy.jpeg[width="150", align="left"]
+{empty}[https://github.com/jhengy[github]] [<<johndoe#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: UI
-
+Role: Data Management
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Marvin Tan Xu Dong
+image::marvintxd.png[width="150", align="left"]
+{empty}[http://github.com/marvintxd[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
-
+Role: Resume Configuration Management
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Ong Shu Peng
+image::ongspxm.jpeg[width="150", align="left"]
+{empty}[http://github.com/ongspxm[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Dev Ops + Threading
-
+Role: Data Filtering
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Gu Wangfan
+image::scalarmotion.png[width="150", align="left"]
+{empty}[http://github.com/scalarmotion[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
-
+Role: Resume Generation
 '''
