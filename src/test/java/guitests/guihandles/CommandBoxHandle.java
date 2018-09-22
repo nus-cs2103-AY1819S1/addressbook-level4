@@ -33,8 +33,9 @@ public class CommandBoxHandle extends NodeHandle<TextField> {
 
         guiRobot.type(KeyCode.ENTER);
 
+
         //Verify password for the clear command
-        if(command.equals(ClearCommand.COMMAND_WORD)) {
+        if(command.trim().startsWith("clear") || command.trim().startsWith("clear ")) {
             guiRobot.write(ClearCommand.ADMIN_PASSWORD);
             guiRobot.type(KeyCode.ENTER);
         }
