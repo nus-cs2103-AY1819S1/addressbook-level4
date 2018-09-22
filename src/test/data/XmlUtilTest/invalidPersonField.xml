@@ -2,8 +2,12 @@
 <!-- Patient with an invalid phone field -->
 <patient>
     <name>Hans Muster</name>
+    <icNumber>S1234567X</icNumber>
     <phone>9482asf424</phone>
     <email>hans@example</email>
     <address>4th street</address>
     <tagged>friends</tagged>
+    <medicalRecord>
+        <bloodType>A+</bloodType>
+    </medicalRecord>
 </patient>
