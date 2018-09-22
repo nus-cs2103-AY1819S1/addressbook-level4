@@ -29,8 +29,8 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_IC_BOB = "S7764839L";
-    public static final String VALID_IC_AMY = "S9964439H";
+    public static final String VALID_ICNUMBER_AMY = "S1234567X";
+    public static final String VALID_ICNUMBER_BOB = "S1234567X";
     public static final String VALID_PHONE_AMY = "11111111";
     public static final String VALID_PHONE_BOB = "22222222";
     public static final String VALID_EMAIL_AMY = "amy@example.com";
@@ -42,8 +42,8 @@ public class CommandTestUtil {
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
-    public static final String IC_DESC_BOB = " " + PREFIX_ICNUMBER + VALID_IC_BOB;
-    public static final String IC_DESC_AMY = " " + PREFIX_ICNUMBER + VALID_IC_AMY;
+    public static final String ICNUMBER_DESC_AMY = " " + PREFIX_ICNUMBER + VALID_ICNUMBER_AMY;
+    public static final String ICNUMBER_DESC_BOB = " " + PREFIX_ICNUMBER + VALID_ICNUMBER_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
     public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
     public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
