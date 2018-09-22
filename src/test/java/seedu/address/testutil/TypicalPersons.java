@@ -48,7 +48,7 @@ public class TypicalPersons {
             .withEmail("anna@example.com").withAddress("4th street").withMedicalRecord("A+").build();
 
     // Manually added
-    public static final Patient HOON = new PersonBuilder().withName("Hoon Meier").withIcNumber("S1234567X").withPhone("8482424")
+    public static final Patient     HOON = new PersonBuilder().withName("Hoon Meier").withIcNumber("S1234567X").withPhone("8482424")
             .withEmail("stefan@example.com").withAddress("little india").build();
     public static final Patient IDA = new PersonBuilder().withName("Ida Mueller").withIcNumber("S1234567X").withPhone("8482131")
             .withEmail("hans@example.com").withAddress("chicago ave").build();
