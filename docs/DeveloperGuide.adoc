@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W10-03`      Since: `Aug 2018`      Licence: `MIT`
 
 == Setting up
 
@@ -535,7 +535,7 @@ b. Require developers to download those libraries manually (this creates extra w
 [[GetStartedProgramming]]
 [appendix]
 == Suggested Programming Tasks to Get Started
-
+////
 Suggested path for new programmers:
 
 1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in <<GetStartedProgramming-EachComponent>>.
@@ -809,19 +809,63 @@ We now have everything set up... but we still can't modify the remarks. Let's fi
 ==== Full Solution
 
 See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
+////
+
 
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Busy NUS students.
+* Need to organise group project meetings.
+*  Need to organise interest group meet-ups and encourage new participants to attend.
+*  Need to find the best time and location based on the schedules of participants and addresses.
+*  Some level of tech-savviness to appreciate CLI apps.
+*  Have a schedule that works on a weekly basis.
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
+
+* Key concept: Semi-automate the coordination of meeting time/venue based on participant’s schedule.
+
+* What customers want: Students want to organize all kinds of meetups in a fast and efficient way, eg project meetups, interests groups etc.
+
+* Limitations of what customers can do now: Hard to coordinate the meetups as they are unable to locate people of available time slots or contact people with similar interests. They have to resort to use platforms such as WhatsApp to advertise their events through friends, and coordinate similar time slots through very manual means such as Google Docs and Doodle.
+
+* Benefits customers seek to achieve: Students want to do all the scheduling, inviting and finalizing of a meetup in a fast and effective way.
+
+* How value proposition is delivered: The event organiser app provides a large database of all the contacts and information of NUS students, which allows the organizers to search by name, availability, interests etc.
+
+[Discrete]
+=== Feature
+
+==== Division of work
+
+#### Keng Ji : Add event feature and search for participants
+
+- [ ] v1.1: able to create a basic event
+- [ ] v1.2: able to add basic event details, and filter users by various criteria
+- [ ] v1.3: enable voting feature for location and time
+
+#### Yao Feng : Add scheduling and recommend best time feature
+- [ ] v1.1: able to input user schedule and preferred timings
+- [ ] v1.2: able to rank most popular timings for an event
+- [ ] v1.3:
+
+#### Zhang Cheng :
+- [ ] V1.1: Able to specify friendships with other people
+- [ ] V1.2: Able to form groups and find mutual friends
+- [ ] V1.3: Able to visualise groups
+
+#### Adeel :
+- [ ] V1.1: Implement voting for meetup places, choose most popular place from votes
+- [ ] V1.2: Implement Google maps visualisation
+- [ ] V1.3: Implement recommendation of best meetup location via MRT lines
+
+#### Jason : Event Management/Recommendation
+- [ ] V1.1: Implement Event management Tab / Allow Event Data Storage
+- [ ] V1.2: Pull schedule from NUS Mods and create union of multiple schedules
+- [ ] V1.3: Visualize the most popular threading event criteria
 
 [appendix]
 == User Stories
@@ -831,30 +875,46 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *`|Event Organiser|Find people that might be interested in the event that I am organising.| Find potentially interested individuals to join my event.
 
-|`* * *` |user |add a new person |
+|`* * *`|Event Organiser|Allow my participants to vote for their most preferred time and location.| Organise an event at a time and location based on popular vote.
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *`|Event Organiser|Automate the task of sieving through the schedules of all my participants for the ideal meet-up location and meet-up time.| Do not have to worry about the hassle of finding the best time and location for my event.
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *`|Event Organiser|Have a specialised platform to post events aimed at a tech-savvy audience.| Promote my event to an audience that I am interested in.
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *`|Busy User|Have a platform to search for all the events that are near the place I stay.| Go to an event without the trouble of travelling long distances.
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *`|Busy User|Have a platform to search for all the events that occur during my free time.| Easily find a event that I have time to go for.
+
+|`* * *`|Tech-savvy User| Have a platform that supports CLI| Easily write scripts to automatic the task that I want to accomplish on a regular basis.
+
+|`* * *`|User|Keep track of all the events that I can gone to.| Have a record of the events that I have been to.
+
+|`* * *`|User|Visualise the event location on Google maps.| Find out exactly how to get to that location.
+
+|`* * *`|User|A social media kind of platform which specialises on organising events| Know the events that my friends are going to and let my friends know about the events that I am going to.
+
+|`* * *`|NUS student|Have a platform that utilises NUSMODS's schedule.| Conveniently update my schedule using NUSMODS's schedule.
+
+|`* * *`|NUS student|Have a platform that can facilitate the task of finding the ideal time and location for project group meet-ups| Easily organise project group meet-ups instead of asking each individual group mates one by one.
+
+|`* *`|Event Organiser|Find people who live close to a specific location and people who are available at a specific time.| Find people who are at least able to attend the event.
+
+|`* *`|User|Find mutual friends in among my social circle and people with similar interests as me.|I can widen my social circle and meet like minded people.
+
+|`*`|User|Visualise my social network and the groups I am a part of.| See how I am connected with another person.
+
+
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
-
 //(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `EventOrganiser`, unless specified otherwise)
 
-
-*Software System: EventOrganiser*
-
-*Use case: U01 - Create new user*
+[discrete]
+=== Use case: U01 - Create new user
 
 *Actor: New user*
 
@@ -879,9 +939,8 @@ Steps 2a1 - 2a2 are repeated until the details entered are valid.
 +
 Use case resumes from step 3.
 
-*Software System: EventOrganiser*
-
-*Use case: U02 – Delete a user*
+[discrete]
+=== Use case: U02 – Delete a user
 
 *Actor: User*
 
@@ -907,9 +966,8 @@ Steps 2a1 – 2a2 are repeated until the current user and the user profile that 
 +
 Use case resumes from step 3.
 
-*Software System: EventOrganiser*
-
-*Use case: U03 – Create new event*
+[discrete]
+=== Use case: U03 – Create new event
 
 *Actor: User*
 
@@ -936,9 +994,8 @@ Steps 2a1 - 2a2 are repeated until the details entered are valid.
 +
 Use case resumes from step 3.
 
-*Software System: EventOrganiser*
-
-*Use case: U04 – Delete an event*
+[discrete]
+=== Use case: U04 – Delete an event
 
 *Actor: User*
 
@@ -965,9 +1022,8 @@ Use case ends.
 +
 Use case resumes from step 3.
 
-*Software System: EventOrganiser*
-
-*Use case: U05 - User joins an event*
+[discrete]
+=== Use case: U05 - User joins an event
 
 *Actor: User*
 
@@ -989,9 +1045,8 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-*Software System: EventOrganiser*
-
-*Use case: U06 – User invites other to join him/her event*
+[discrete]
+=== Use case: U06 – User invites other to join him/her event
 
 *Actor: Event organiser, another user that will be invited to join the event organiser’s event*
 
@@ -1024,9 +1079,8 @@ Use case resumes at step 2.
 +
 Use case ends.
 
-*Software System: EventOrganiser*
-
-*Use case: U07 – User who is keen on joining an event chooses their preferred date, time and location for the event, given that the event organiser has created a polling session for this event*
+[discrete]
+=== Use case: U07 – User who is keen on joining an event chooses their preferred date, time and location for the event, given that the event organiser has created a polling session for this event
 
 *Actor: Event organiser, user who is keen to join an event*
 
@@ -1043,9 +1097,8 @@ Use case ends.
 +
 Use case ends.
 
-*Software System: EventOrganiser*
-
-*Use case: U08 – Event organiser gets the recommended date, time and location for his event from the system’s algorithm and the polling session. Thereafter, chooses the date, time and location for his event*
+[discrete]
+=== Use case: U08 – Event organiser gets the recommended date, time and location for his event from the system’s algorithm and the polling session. Thereafter, chooses the date, time and location for his event
 
 *Actor: Event organiser*
 
@@ -1139,7 +1192,7 @@ _{More to be added}_
 [[user]] User::
 Refers to a person who uses EventOrganiser.
 
-[[profile]] Profile::
+[[user-profile]] User Profile::
 Refers to an account that is recorded in EventOrganiser.
 
 [[new-user]] New User::
