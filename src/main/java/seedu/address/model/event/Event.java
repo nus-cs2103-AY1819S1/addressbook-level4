@@ -19,9 +19,9 @@ import seedu.address.model.tag.Tag;
 public class Event {
 
     // Identity fields
+    private static int currID = 0;
     private final Name name;
     private final int id;
-    private static int currID = 0;
 
     // Data fields
     private final Address location;
@@ -59,6 +59,9 @@ public class Event {
         this.date = date;
     }
 
+    /**
+     * Adds a new poll to the event.
+     */
     public void addPoll(String pollName) {
         Poll poll = new Poll(pollName);
         polls.add(poll);

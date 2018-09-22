@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.eventCommands;
+package seedu.address.logic.commands.eventcommands;
 
 import static java.util.Objects.requireNonNull;
 
@@ -21,8 +21,8 @@ public class SetDateCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD;
     public static final String MESSAGE_SUCCESS = "Date set: %1$s";
 
-    public final Date date;
-    public Event event;
+    private final Date date;
+    private Event event;
 
     /**
      * Creates an AddCommand to add the specified {@code Event}
@@ -30,6 +30,10 @@ public class SetDateCommand extends Command {
     public SetDateCommand(Date date) {
         requireNonNull(date);
         this.date = date;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
 
     @Override
