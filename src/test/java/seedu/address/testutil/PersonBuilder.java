@@ -105,6 +105,10 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code MedicalRecord} of the {@code Patient} that we are building.
+     * @param bloodType
+     */
     public PersonBuilder withMedicalRecord(String bloodType) {
         this.medicalRecord = new MedicalRecord(new BloodType(bloodType));
         return this;

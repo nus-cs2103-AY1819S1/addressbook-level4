@@ -12,7 +12,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.GridPane;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.AddressBook;
@@ -39,8 +38,9 @@ public class ClearCommand extends Command {
         // Create the custom dialog.
         Dialog<String> dialog = new Dialog<>();
         dialog.setTitle("Clear all entries");
-        dialog.setHeaderText("Are you sure you want to clear all entries?" + "\n" +
-                "Please enter admin password to confirm.");
+        dialog.setHeaderText("Are you sure you want to clear all entries?"
+                + "\n"
+                + "Please enter admin password to confirm.");
 
         // Set the button types.
         ButtonType loginButtonType = new ButtonType("Clear", ButtonBar.ButtonData.OK_DONE);
