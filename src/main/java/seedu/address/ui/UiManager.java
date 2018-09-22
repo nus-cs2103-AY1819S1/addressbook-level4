@@ -8,6 +8,7 @@ import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.commons.core.ComponentManager;
@@ -50,7 +51,11 @@ public class UiManager extends ComponentManager implements Ui {
 
         //Set the application icon.
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
-
+        
+        //Set full screen in exclusive mode
+        primaryStage.setFullScreen(true);
+        primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        
         try {
             mainWindow = new MainWindow(primaryStage, config, prefs, logic);
             mainWindow.show(); //This should be called before creating other UI parts
