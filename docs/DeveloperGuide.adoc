@@ -941,7 +941,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-===Use case: Find person
+=== Use case: Find person
 
 *MSS*
 
@@ -1119,7 +1119,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-===Use case: Add CCA
+=== Use case: Add CCA
 
 *MSS*
 
@@ -1148,7 +1148,7 @@ Use case resumes at step 2.
 Use case resumes at step 2.
 
 [discrete]
-===Use case: Modify CCA
+=== Use case: Modify CCA
 
 *MSS*
 
@@ -1190,7 +1190,7 @@ Use case resumes at step 2.
 Use case resumes at step 2.
 
 [discrete]
-===Use case: Delete CCA
+=== Use case: Delete CCA
 
 *MSS*
 
@@ -1248,7 +1248,7 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-===Use case: List all CCAs
+=== Use case: List all CCAs
 
 *MSS*
 
@@ -1258,7 +1258,7 @@ Use case resumes at step 2.
 Use Case ends.
 
 [discrete]
-===Use case: Add CCA Transaction
+=== Use case: Add CCA Transaction
 
 *MSS*
 
