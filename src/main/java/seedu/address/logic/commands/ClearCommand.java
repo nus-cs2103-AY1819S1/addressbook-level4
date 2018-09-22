@@ -28,7 +28,9 @@ public class ClearCommand extends Command {
     public static final String MESSAGE_FAIL_WRONG_PASSWORD = "Wrong admin password, address book not cleared!";
     public static final String MESSAGE_FAIL_CANCEL = "Cancelled clear command";
 
-    private static final String ADMIN_PASSWORD = "admin";
+    public static final String ADMIN_PASSWORD = "admin";
+
+    private PasswordField passwordField;
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
