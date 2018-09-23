@@ -7,7 +7,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
 /**
- * Lists all persons in the address book to the user.
+ * Composes email and writes it to hard disk
  */
 public class ComposeCommand extends Command {
 
