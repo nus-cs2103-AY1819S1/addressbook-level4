@@ -2,7 +2,7 @@ package seedu.address.logic.commands.eventcommands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 import seedu.address.logic.CommandHistory;
@@ -13,24 +13,24 @@ import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 
 /**
- * Sets the date of an event.
+ * Sets the time of an event.
  */
-public class SetDateCommand extends Command {
+public class SetTimeCommand extends Command {
 
-    public static final String COMMAND_WORD = "setDate";
+    public static final String COMMAND_WORD = "setTime";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD;
-    public static final String MESSAGE_SUCCESS = "Date %1$s set for %2$s";
+    public static final String MESSAGE_SUCCESS = "Time %1$s set for %2$s";
 
-    private final LocalDate date;
+    private final LocalTime time;
     private Event event;
 
     /**
      * Creates an AddCommand to add the specified {@code Event}
      */
-    public SetDateCommand(LocalDate date) {
-        requireNonNull(date);
-        this.date = date;
+    public SetTimeCommand(LocalTime time) {
+        requireNonNull(time);
+        this.time = time;
     }
 
     public void setEvent(Event event) {
@@ -40,9 +40,9 @@ public class SetDateCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         event = history.getSelectedEvent();
-        event.setDate(date);
+        event.setTime(time);
         model.commitAddressBook();
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        return new CommandResult(String.format(MESSAGE_SUCCESS, date.format(dateFormat), event));
+        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
+        return new CommandResult(String.format(MESSAGE_SUCCESS, time.format(timeFormat), event));
     }
 }

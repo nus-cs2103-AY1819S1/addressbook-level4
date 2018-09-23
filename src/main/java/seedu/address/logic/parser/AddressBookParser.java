@@ -20,11 +20,8 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 
-
-import seedu.address.logic.commands.eventcommands.AddEventCommand;
-import seedu.address.logic.commands.eventcommands.SetDateCommand;
-import seedu.address.logic.parser.eventparsers.AddEventCommandParser;
-import seedu.address.logic.parser.eventparsers.SetDateCommandParser;
+import seedu.address.logic.commands.eventcommands.*;
+import seedu.address.logic.parser.eventparsers.*;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -56,8 +53,17 @@ public class AddressBookParser {
         case AddEventCommand.COMMAND_WORD:
             return new AddEventCommandParser().parse(arguments);
 
+        case DeleteEventCommand.COMMAND_WORD:
+            return new DeleteEventCommandParser().parse(arguments);
+
+        case SelectEventCommand.COMMAND_WORD:
+            return new SelectEventCommandParser().parse(arguments);
+
         case SetDateCommand.COMMAND_WORD:
             return new SetDateCommandParser().parse(arguments);
+
+        case SetTimeCommand.COMMAND_WORD:
+            return new SetTimeCommandParser().parse(arguments);
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);

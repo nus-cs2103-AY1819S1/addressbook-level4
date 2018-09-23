@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
@@ -94,6 +95,12 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public void deleteEvent(Event target) {
+        versionedAddressBook.removeEvent(target);
+        indicateAddressBookChanged();
+    }
+
     /**
      * Check if an event already exists in a versionedAddressBook
      * @param event
@@ -102,6 +109,10 @@ public class ModelManager extends ComponentManager implements Model {
     public boolean hasEvent(Event event) {
         requireNonNull(event);
         return versionedAddressBook.hasEvent(event);
+    }
+
+    public Event getEvent(Index targetIndex) {
+        return filteredEvents.get(targetIndex.getZeroBased());
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -125,7 +136,6 @@ public class ModelManager extends ComponentManager implements Model {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
-
 
     private void updateFilteredEventList(Predicate<Event> predicate) {
         requireNonNull(predicate);

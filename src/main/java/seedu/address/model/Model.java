@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 
@@ -86,4 +87,8 @@ public interface Model {
     void commitAddressBook();
 
     void addEvent(Event toAdd);
+
+    void deleteEvent(Event target);
+
+    Event getEvent(Index targetIndex);
 }

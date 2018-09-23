@@ -12,11 +12,11 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.EventPanelSelectionChangedEvent;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.commons.events.ui.JumpToEventListRequestEvent;
 import seedu.address.model.event.Event;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of events.
  */
 public class EventListPanel extends UiPart<Region> {
     private static final String FXML = "EventListPanel.fxml";
@@ -58,7 +58,7 @@ public class EventListPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
+    private void handleJumpToEventListRequestEvent(JumpToEventListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         scrollTo(event.targetIndex);
     }
@@ -68,14 +68,14 @@ public class EventListPanel extends UiPart<Region> {
      */
     class EventListViewCell extends ListCell<Event> {
         @Override
-        protected void updateItem(Event person, boolean empty) {
-            super.updateItem(person, empty);
+        protected void updateItem(Event event, boolean empty) {
+            super.updateItem(event, empty);
 
-            if (empty || person == null) {
+            if (empty || event == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new EventCard(person, getIndex() + 1).getRoot());
+                setGraphic(new EventCard(event, getIndex() + 1).getRoot());
             }
         }
     }
