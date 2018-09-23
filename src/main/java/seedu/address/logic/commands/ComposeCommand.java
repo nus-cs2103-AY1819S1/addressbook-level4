@@ -13,8 +13,10 @@ public class ComposeCommand extends Command {
 
     public static final String COMMAND_WORD = "compose";
 
-    public static final String MESSAGE_SUCCESS = "Listed all persons";
+    public static final String MESSAGE_SUCCESS = "Email composed";
 
+    public ComposeCommand() {
+    }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
