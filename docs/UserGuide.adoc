@@ -242,12 +242,12 @@ Finds the details of the medicine tagged with the serial number 1001.
 
 === Check the stocks of all medicine that are low in supply : `checkStock`
 
-List all medicines that are low in stock.
+List all medicines that are low in stock. +
 Format: `checkStock`
 
 === Register Patient to Queue : `register`
 
-Register a new patient that comes to the clinic.
+Register a new patient that comes to the clinic. +
 Format: `register <INDEX>`
 
 Example:
@@ -257,12 +257,12 @@ Register the patient into the 3rd index.
 
 === Serve the first patient in the queue : `serve`
 
-Serve the patient first in queue.
+Serve the patient first in queue. +
 Format: `serve`
 
 === Remove a patient from queue : `dequeue`
 
-Remove someone from the queue if he/she leaves before being served.
+Remove someone from the queue if he/she leaves before being served. +
 Format: `dequeue <INDEX>` or `dequeue <IC Number>`
 
 Examples:
@@ -274,7 +274,7 @@ Dequeues the patient with that IC Number.
 
 === Insert a patient to queue : `insert`
 
-Insert a patient at specified position in the queue.
+Insert a patient at specified position in the queue. +
 Format: `insert <INDEX> <POSITION>` or `insert <IC Number> <POSITION>`
 
 Examples:
@@ -387,28 +387,28 @@ e.g. `find James Jake`
 * *Select* : `select INDEX` +
 e.g.`select 2`
 * *Generate MC* : `mc <INDEX> d/<DATE>-<DATE>` +
-e.g. mc 1 d/02-09-2018-04-09-2018
+e.g. `mc 1 d/02-09-2018-04-09-2018`
 * *Generate receipt* : `receipt INDEX` +
 e.g. `receipt 5`
 * *Generate referral letter* : `refer <INDEX> h/<HOSPITAL> d/<DEPARTMENT> r/<REASON> n/<NOTES>` +
 e.g. `refer 3 h/NUH d/Surgery r/Internal bleeding n/Patient complains heart is in pain`
 * *AddMedicalRecord* : `addMedicalRecord <INDEX> <RELEVANT PARAMETERS>` +
-e.g. addMedicalRecord 5 b/A+ d/Paracetamol p/Diabetes
+e.g. `addMedicalRecord 5 b/A+ d/Paracetamol p/Diabetes`
 * *AddNoteToMedicalRecord* : `addNoteToMedicalRecord <INDEX> m/<MESSAGE>` + 
-e.g. addNoteToMedicalRecord 5 m/Patient is recovering well from his flu. Needs to rest for another few days.
+e.g. `addNoteToMedicalRecord 5 m/Patient is recovering well from his flu. Needs to rest for another few days.`
 * *AddMedicine* : `addMedicine sn/<SERIAL NUMBER> n/<NAME> s/<CURRENT STOCK> p/<PRICE PER PIECE> min/<MINIMUM STOCK QUANTITY>` +
-e.g. addMedicine sn/1000 n/panadol s/500 p/0.50 min/50
+e.g. `addMedicine sn/1000 n/panadol s/500 p/0.50 min/50`
 * *ListStock* : `listStock`
 * *FindStock* : `findStock <SERIAL NUMBER>` +
-e.g. findStock 1001
+e.g. `findStock 1001`
 * *CheckStock* : `checkStock`
-* *register* : `register <INDEX>` +\
-e.g. register 3
+* *register* : `register <INDEX>` +
+e.g. `register 3`
 * *Serve* : `serve`
 * *Dequeue* : `dequeue <INDEX>` +
-e.g. dequeue 5
+e.g. `dequeue 5`
 * *Insert* : `insert <INDEX> <POSITION>` +
-e.g. insert 4 5
+e.g. `insert 4 5`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
