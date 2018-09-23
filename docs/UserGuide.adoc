@@ -135,8 +135,6 @@ Examples:
 Switches to the event context
 * `switch -v` +
 Switches to the volunteers context
-* `switch -assign` +
-Switches to the assigning roles context
 
 
 === Volunteer Management
@@ -236,8 +234,76 @@ Format: `delete INDEX`
 
 Examples:
 
-* `delete 1+
+* `delete 1` +
 Deletes the details of the event specified at index 1
+
+=== Record Management
+
+==== View event's volunteer records: `manage`
+
+Switches context to event and display volunteers at the side bar. Can only be executed in event context. +
+Format: `manage EVENT_INDEX`
+
+Examples:
+
+* `manage 1` +
+View the list of volunteers assigned to event at index 1
+
+==== Add volunteer to event: `add`
+
+Adds a volunteer to the event that is currently being managed. +
+Format: `add [h\HOURS] VOLUNTEER_INDEX...`
+
+****
+* This command is executed after the 'manage' command.
+* VOLUNTEER_INDEX comes from the global pool of volunteers.
+****
+
+Examples:
+
+* `add 1` +
+Adds a volunteer at index 1 to the event with 0 hours
+* `add 1 2 3` +
+Adds a volunteer at index 1, 2 and 3 to the event with 0 hours
+* `add h\5 3` +
+Adds a volunteer at index 3 to the event with 5 hours
+* `add h\5 1 2 3` +
+Adds a volunteer at index 1, 2 and 3 to the event with 5 hours
+
+==== Update volunteer hours: `edit`
+
+Update number of hours for volunteer in the event that is currently being managed. +
+Format: `edit [-a] h\HOURS [VOLUNTEER_INDEX]...`
+
+****
+* This command is executed after the 'manage' command.
+* VOLUNTEER_INDEX comes from the table view of existing volunteers.
+* VOLUNTEER_INDEX is only optional when '-a' is entered.
+****
+
+Examples:
+
+* `edit -a h\5` +
+Updates amount of hours volunteered for all existing volunteers in the event to 5 hours
+* `edit h\5 3` +
+Updates amount of hours volunteered for volunteer at index 3 to 5 hours
+* `edit h\5 1 2 3` +
+Updates amount of hours volunteered for volunteer at index 1, 2 and 3 to 5 hours
+
+==== Delete volunteer record from event: `delete`
+
+Deletes the volunteer record from the event that is currently being managed. +
+Format: `delete VOLUNTEER_INDEX`
+
+****
+* This command is executed after the 'manage' command.
+* VOLUNTEER_INDEX comes from the table view of existing volunteers.
+****
+
+Examples:
+
+* `delete 1` +
+Deletes the volunteer record of the volunteer at index 1.
 
 === Miscellaneous
 
@@ -289,4 +355,13 @@ e.g. `edit 2 n/Fundraiser`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
 
+=== Record Management
+* *Manage* `manage EVENT_INDEX` +
+e.g. `manage 1`
+* *Add* `add [h\HOURS] VOLUNTEER_INDEX...` +
+e.g. `add h\5 1 2 3`
+* *Edit* `edit [-a] h\HOURS [VOLUNTEER_INDEX]...` +
+e.g. `edit h\5 1 2 3`
+* *Delete* `delete VOLUNTEER_INDEX` +
+e.g. `delete 1`
 
