@@ -8,7 +8,7 @@ import seedu.address.model.tag.Tag;
 /**
  * JAXB-friendly adapted version of the Tag.
  */
-public class XmlAdaptedTag {
+public class XmlAdaptedLabel {
 
     @XmlValue
     private String tagName;
@@ -17,12 +17,12 @@ public class XmlAdaptedTag {
      * Constructs an XmlAdaptedTag.
      * This is the no-arg constructor that is required by JAXB.
      */
-    public XmlAdaptedTag() {}
+    public XmlAdaptedLabel() {}
 
     /**
      * Constructs a {@code XmlAdaptedTag} with the given {@code tagName}.
      */
-    public XmlAdaptedTag(String tagName) {
+    public XmlAdaptedLabel(String tagName) {
         this.tagName = tagName;
     }
 
@@ -31,7 +31,7 @@ public class XmlAdaptedTag {
      *
      * @param source future changes to this will not affect the created
      */
-    public XmlAdaptedTag(Tag source) {
+    public XmlAdaptedLabel(Tag source) {
         tagName = source.tagName;
     }
 
@@ -53,10 +53,10 @@ public class XmlAdaptedTag {
             return true;
         }
 
-        if (!(other instanceof XmlAdaptedTag)) {
+        if (!(other instanceof XmlAdaptedLabel)) {
             return false;
         }
 
-        return tagName.equals(((XmlAdaptedTag) other).tagName);
+        return tagName.equals(((XmlAdaptedLabel) other).tagName);
     }
 }
