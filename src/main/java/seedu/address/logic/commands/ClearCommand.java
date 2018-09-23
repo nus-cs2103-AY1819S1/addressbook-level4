@@ -35,6 +35,19 @@ public class ClearCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
 
+        model.resetData(new AddressBook());
+        model.commitAddressBook();
+        return new CommandResult(MESSAGE_SUCCESS);
+
+        // return createPasswordDialog(model);
+    }
+
+    /**
+     * Creates the password pop-up dialog and returns the command result.
+     * @param model
+     * @return command result
+     */
+    private CommandResult createPasswordDialog(Model model) {
         // Create the custom dialog.
         Dialog<String> dialog = new Dialog<>();
         dialog.setTitle("Clear all entries");
@@ -90,6 +103,5 @@ public class ClearCommand extends Command {
                 return new CommandResult(MESSAGE_FAIL_WRONG_PASSWORD);
             }
         }).orElse(new CommandResult(MESSAGE_FAIL_CANCEL));
-
     }
 }
