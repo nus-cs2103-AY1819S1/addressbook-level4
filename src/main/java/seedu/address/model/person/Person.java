@@ -21,18 +21,22 @@ public class Person {
     private final Email email;
 
     // Data fields
-    private final Address address;
+    private final School school;
+    private final Room room;
+    private final Block block;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, Block block, Room room, School school, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, room, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
+        this.block = block;
+        this.room = room;
+        this.school = school;
         this.tags.addAll(tags);
     }
 
@@ -48,8 +52,16 @@ public class Person {
         return email;
     }
 
-    public Address getAddress() {
-        return address;
+    public Room getRoom() {
+        return room;
+    }
+
+    public Block getBlock() {
+        return block;
+    }
+
+    public School getSchool() {
+        return school;
     }
 
     /**
@@ -92,14 +104,14 @@ public class Person {
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
+                && otherPerson.getRoom().equals(getRoom())
                 && otherPerson.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, room, tags);
     }
 
     @Override
@@ -110,8 +122,12 @@ public class Person {
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" Block: ")
+                .append(getBlock())
+                .append(" Room ")
+                .append(getRoom())
+                .append( " School: ")
+                .append(getSchool())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

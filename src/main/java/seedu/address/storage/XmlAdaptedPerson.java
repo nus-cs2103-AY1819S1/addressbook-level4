@@ -10,7 +10,9 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Address;
+import seedu.address.model.person.Block;
+import seedu.address.model.person.Room;
+import seedu.address.model.person.School;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -31,7 +33,11 @@ public class XmlAdaptedPerson {
     @XmlElement(required = true)
     private String email;
     @XmlElement(required = true)
-    private String address;
+    private String block;
+    @XmlElement(required = true)
+    private String room;
+    @XmlElement(required = true)
+    private String school;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -45,11 +51,13 @@ public class XmlAdaptedPerson {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
-    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedPerson(String name, String phone, String email, String block, String room, String school, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
+        this.block = block;
+        this.room = room;
+        this.school = school;
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
@@ -64,7 +72,9 @@ public class XmlAdaptedPerson {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
-        address = source.getAddress().value;
+        block = source.getBlock().value;
+        room = source.getRoom().roomNumber;
+        school = source.getSchool().schoolName;
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
@@ -105,16 +115,32 @@ public class XmlAdaptedPerson {
         }
         final Email modelEmail = new Email(email);
 
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+        if (block == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Block.class.getSimpleName()));
         }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
+        if (!Block.isValidBlock(block)) {
+            throw new IllegalValueException(Block.MESSAGE_BLOCK_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
+        final Block modelBlock = new Block(block);
+
+        if (room == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Room.class.getSimpleName()));
+        }
+        if (!Room.isValidRoom(room)) {
+            throw new IllegalValueException(Room.MESSAGE_ROOM_CONSTRAINTS);
+        }
+        final Room modelRoom = new Room(room);
+
+        if (school == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, School.class.getSimpleName()));
+        }
+        if (!School.isValidSchool(school)) {
+            throw new IllegalValueException(School.MESSAGE_SCHOOL_CONSTRAINTS);
+        }
+        final School modelSchool = new School(school);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Person(modelName, modelPhone, modelEmail, modelBlock, modelRoom, modelSchool, modelTags);
     }
 
     @Override
@@ -131,7 +157,9 @@ public class XmlAdaptedPerson {
         return Objects.equals(name, otherPerson.name)
                 && Objects.equals(phone, otherPerson.phone)
                 && Objects.equals(email, otherPerson.email)
-                && Objects.equals(address, otherPerson.address)
+                && Objects.equals(block, otherPerson.block)
+                && Objects.equals(room, otherPerson.room)
+                && Objects.equals(school, otherPerson.school)
                 && tagged.equals(otherPerson.tagged);
     }
 }
