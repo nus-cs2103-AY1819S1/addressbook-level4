@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -166,7 +167,17 @@ public class AddCommandTest {
 
         @Override
         public void addEvent(Event toAdd) {
+            throw new AssertionError("This method should not be called.");
+        }
 
+        @Override
+        public Event getEvent(Index targetIndex) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteEvent(Event event) {
+            throw new AssertionError("This method should not be called.");
         }
     }
 
