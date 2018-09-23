@@ -10,13 +10,15 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.medicalrecord.BloodType;
 import seedu.address.model.person.medicalrecord.Disease;
 import seedu.address.model.person.medicalrecord.DrugAllergy;
 import seedu.address.model.person.medicalrecord.MedicalRecord;
 import seedu.address.model.person.medicalrecord.Note;
 
+/**
+ * JAXB-friendly adapted version of the MedicalRecord
+ */
 public class XmlAdaptedMedicalRecord {
 
     @XmlElement(required = true)
@@ -57,9 +59,15 @@ public class XmlAdaptedMedicalRecord {
         bloodType = source.getBloodType().value;
     }
 
+    /**
+     * Converts this jaxb-friendly adapted MedicalRecord object into the model's MedicalRecord object.
+     * @return MedicalRecord object
+     * @throws IllegalValueException
+     */
     public MedicalRecord toModelType() throws IllegalValueException {
         if (bloodType == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, BloodType.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    BloodType.class.getSimpleName()));
         }
         if (!BloodType.isValidBloodType(bloodType)) {
             throw new IllegalValueException(BloodType.MESSAGE_BLOODTYPE_CONSTRAINTS);
