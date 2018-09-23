@@ -15,7 +15,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::barkhyehyeon.jpg[width="150", align="left"]
 {empty}[http://github.com/barkhyehyeon[github]]
 
-Role: Developer +
+Role: Developer, Integration, Documentation +
 Responsibilities: Ingredient Management
 
 '''
@@ -24,7 +24,7 @@ Responsibilities: Ingredient Management
 image::benntayguobin.jpg[width="150", align="left"]
 {empty}[http://github.com/benntay[github]]
 
-Role: Developer +
+Role: Developer, Testing, Code Quality +
 Responsibilities: Meal Planner
 
 '''
@@ -33,8 +33,17 @@ Responsibilities: Meal Planner
 image::m133225.jpg[width="150", align="left"]
 {empty}[http://github.com/m133225[github]]
 
-Role: Developer +
+Role: Developer, Documentation, Deliverables and deadlines +
 Responsibilities: Dev Ops + Threading
+
+'''
+
+=== Ng Zhen Wei Alec
+image::m133225.jpg[width="150", align="left"]
+{empty}[http://github.com/m133225[github]]
+
+Role: Developer, Integration, Code Quality +
+Responsibilities: Health Management
 
 '''
 
@@ -42,7 +51,7 @@ Responsibilities: Dev Ops + Threading
 image::junrong09.jpg[width="150", align="left"]
 {empty}[http://github.com/junrong09[github]]
 
-Role: Developer +
+Role: Team lead, Scheduling and tracking, Developer +
 Responsibilities: Recipes Management and cook-mode
 
 '''
