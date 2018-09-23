@@ -3,6 +3,9 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Object class representing an IC Number of a patient.
+ */
 public class IcNumber {
     public static final String MESSAGE_ICNUMBER_CONSTRAINTS =
             "IC Numbers should contain a letter followed by 7 digits, followed by another letter";

@@ -5,6 +5,9 @@ import javax.xml.bind.annotation.XmlValue;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.medicalrecord.Disease;
 
+/**
+ * JAXB-friendly adapted version of the Disease.
+ */
 public class XmlAdaptedDisease {
 
     @XmlValue

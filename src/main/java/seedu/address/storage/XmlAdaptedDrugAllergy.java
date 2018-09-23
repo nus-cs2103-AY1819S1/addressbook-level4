@@ -4,8 +4,10 @@ import javax.xml.bind.annotation.XmlValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.medicalrecord.DrugAllergy;
-import seedu.address.model.tag.Tag;
 
+/**
+ * JAXB-friendly adapted version of the DrugAllergy.
+ */
 public class XmlAdaptedDrugAllergy {
 
     @XmlValue
