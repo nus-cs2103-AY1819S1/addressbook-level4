@@ -1137,6 +1137,7 @@ Use case ends.
 +
 Use case resumes at 2.
 
+[discrete]
 ==== Use case: Edit plan
 
 *MSS*
@@ -1164,6 +1165,7 @@ Use case ends.
 +
 Use case returns to 4.
 
+[discrete]
 ==== Use case: Delete plan
 
 *MSS*
@@ -1178,12 +1180,12 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a. No pre-exisiting plan
+* 2a. No pre-existing plan
 +
 Use case ends.
 
+[discrete]
 ==== Use case: Enter dietary intakes for the day
-
 
 *MSS*
 
@@ -1208,6 +1210,7 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
 ==== Use case: Remove an recipe from the dietary intakes for the day
 
 *MSS*
@@ -1226,6 +1229,7 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
 ==== Use case: View nutritional Intake
 
 *MSS*
@@ -1241,7 +1245,7 @@ Use case ends.
 +
 Use case ends.
 
-
+[discrete]
 ==== Use case: Compare actual intake against target
 
 *MSS*
