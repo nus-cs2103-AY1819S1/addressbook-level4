@@ -39,11 +39,11 @@ Responsibilities: Dev Ops + Threading
 '''
 
 === Ng Zhen Wei Alec
-image::alec.jpg[width="150", align="left"]
+image::AlecNgZW.jpg[width="150", align="left"]
 {empty}[http://github.com/AlecNgZW[github]]
 
 Role: Developer, Integration, Code Quality +
-Responsibilities: Health management
+Responsibilities: Health Management
 
 '''
 
