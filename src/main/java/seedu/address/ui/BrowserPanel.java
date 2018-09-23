@@ -46,7 +46,7 @@ public class BrowserPanel extends UiPart<Region> {
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
 
-//        loadDefaultPage();
+        // loadDefaultPage();
         registerAsAnEventHandler(this);
     }
 
@@ -76,7 +76,7 @@ public class BrowserPanel extends UiPart<Region> {
     @Subscribe
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-//        loadPersonPage(event.getNewSelection());
+        // loadPersonPage(event.getNewSelection());
 
         System.out.println("clicked: " + event.getNewSelection());
 
@@ -87,7 +87,7 @@ public class BrowserPanel extends UiPart<Region> {
         TreeItem<String> root = new TreeItem<>();
         root.setExpanded(true);
 
-        makeBranch("Name: "  + patientClicked.getName().fullName, root);
+        makeBranch("Name: " + patientClicked.getName().fullName, root);
         makeBranch("IC: " + patientClicked.getIcNumber().value, root);
         makeBranch("Address: " + patientClicked.getAddress().value, root);
         makeBranch("Phone: " + patientClicked.getPhone().value, root);
@@ -123,6 +123,12 @@ public class BrowserPanel extends UiPart<Region> {
 
     }
 
+    /**
+     * Creates a branch in the tree item, returning the child item.
+     * @param title
+     * @param parent
+     * @return the child TreeItem after branching out.
+     */
     private TreeItem<String> makeBranch(String title, TreeItem<String> parent) {
         TreeItem<String> child = new TreeItem<>(title);
         child.setExpanded(true);

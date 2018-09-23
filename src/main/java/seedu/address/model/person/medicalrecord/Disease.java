@@ -3,6 +3,9 @@ package seedu.address.model.person.medicalrecord;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a patient's disease.
+ */
 public class Disease {
 
     public static final String MESSAGE_DISEASE_CONSTRAINTS =

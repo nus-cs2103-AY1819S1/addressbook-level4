@@ -12,7 +12,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.GridPane;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.AddressBook;
@@ -36,11 +35,25 @@ public class ClearCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
 
+        model.resetData(new AddressBook());
+        model.commitAddressBook();
+        return new CommandResult(MESSAGE_SUCCESS);
+
+        // return createPasswordDialog(model);
+    }
+
+    /**
+     * Creates the password pop-up dialog and returns the command result.
+     * @param model
+     * @return command result
+     */
+    private CommandResult createPasswordDialog(Model model) {
         // Create the custom dialog.
         Dialog<String> dialog = new Dialog<>();
         dialog.setTitle("Clear all entries");
-        dialog.setHeaderText("Are you sure you want to clear all entries?" + "\n" +
-                "Please enter admin password to confirm.");
+        dialog.setHeaderText("Are you sure you want to clear all entries?"
+                + "\n"
+                + "Please enter admin password to confirm.");
 
         // Set the button types.
         ButtonType loginButtonType = new ButtonType("Clear", ButtonBar.ButtonData.OK_DONE);
@@ -90,6 +103,5 @@ public class ClearCommand extends Command {
                 return new CommandResult(MESSAGE_FAIL_WRONG_PASSWORD);
             }
         }).orElse(new CommandResult(MESSAGE_FAIL_CANCEL));
-
     }
 }

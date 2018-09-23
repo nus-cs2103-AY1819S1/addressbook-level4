@@ -10,12 +10,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
-import seedu.address.model.person.medicalrecord.MedicalRecord;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A patient is considered unique by comparing using {@code Patient#isSamePerson(Patient)}. As such, adding and updating of
- * persons uses Patient#isSamePerson(Patient) for equality so as to ensure that the patient being added or updated is
+ * A patient is considered unique by comparing using {@code Patient#isSamePerson(Patient)}. As such, adding and updating
+ * of persons uses Patient#isSamePerson(Patient) for equality so as to ensure that the patient being added or updated is
  * unique in terms of identity in the UniquePersonList. However, the removal of a patient uses Patient#equals(Object) so
  * as to ensure that the patient with exactly the same fields will be removed.
  *
