@@ -36,10 +36,12 @@ public class CommandBoxHandle extends NodeHandle<TextField> {
 
         //Verify password for the clear command
         if(command.trim().startsWith("clear") || command.trim().startsWith("clear ")) {
-            guiRobot.write(ClearCommand.ADMIN_PASSWORD);
-            guiRobot.type(KeyCode.ENTER);
+                guiRobot.pauseForHuman();
+                guiRobot.write(ClearCommand.ADMIN_PASSWORD);
+                guiRobot.type(KeyCode.ENTER);
         }
     }
+
 
     /**
      * Returns the list of style classes present in the command box.
