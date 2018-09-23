@@ -26,7 +26,7 @@ endif::[]
 * <<ContactUs#, Contact Us>>
 
 == Acknowledgements
-
+* This application is built upon addressbook-level4, given by https://github.com/nus-cs2103-AY1819S1 [source code] by the 2018/19 CS2103T teaching staff, without which this project would not have been possible.
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://github.com/TestFX/TestFX[TextFX], https://bitbucket.org/controlsfx/controlsfx/[ControlsFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]
