@@ -18,8 +18,12 @@ By: `CS2103-AY1819S1-W14-2`      Since: `Sep 2018`      Licence: `MIT`
 
 == Introduction
 
-ThanePark is for those who *prefer to use a desktop app for managing the rides in your theme park!*. More importantly, ThanePark is
-*optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ThanePark can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+ThanePark is for those who *prefer to use a desktop app for managing the rides in
+your theme park!*. More importantly, ThanePark is *optimized for those who prefer
+to work with a Command Line Interface* (CLI) while still having the benefits of a
+Graphical User Interface (GUI). If you can type fast, ThanePark can get your
+contact management tasks done faster than traditional GUI apps. Interested? Jump
+to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
