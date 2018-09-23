@@ -19,6 +19,7 @@ public class Person {
     private final Name name;
     private final Phone phone;
     private final Email email;
+    private final Rating rating;
 
     // Data fields
     private final Address address;
@@ -27,12 +28,13 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, Address address, Rating rating, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, rating, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.rating = rating;
         this.tags.addAll(tags);
     }
 
@@ -51,6 +53,8 @@ public class Person {
     public Address getAddress() {
         return address;
     }
+
+    public Rating getRating() { return rating; }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -112,6 +116,8 @@ public class Person {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" Rating: ")
+                .append(getRating())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
