@@ -20,8 +20,16 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 
-import seedu.address.logic.commands.eventcommands.*;
-import seedu.address.logic.parser.eventparsers.*;
+import seedu.address.logic.commands.eventcommands.AddEventCommand;
+import seedu.address.logic.commands.eventcommands.DeleteEventCommand;
+import seedu.address.logic.commands.eventcommands.SelectEventCommand;
+import seedu.address.logic.commands.eventcommands.SetDateCommand;
+import seedu.address.logic.commands.eventcommands.SetTimeCommand;
+import seedu.address.logic.parser.eventparsers.AddEventCommandParser;
+import seedu.address.logic.parser.eventparsers.DeleteEventCommandParser;
+import seedu.address.logic.parser.eventparsers.SelectEventCommandParser;
+import seedu.address.logic.parser.eventparsers.SetDateCommandParser;
+import seedu.address.logic.parser.eventparsers.SetTimeCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
