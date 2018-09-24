@@ -15,31 +15,31 @@ public interface TaskManagerStorage {
     /**
      * Returns the file path of the data file.
      */
-    Path getAddressBookFilePath();
+    Path getTaskManagerFilePath();
 
     /**
-     * Returns AddressBook data as a {@link ReadOnlyAddressBook}.
+     * Returns TaskManager data as a {@link ReadOnlyAddressBook}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyAddressBook> readTaskManager() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getTaskManagerFilePath()
      */
-    Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyAddressBook> readTaskManager(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyAddressBook} to the storage.
-     * @param addressBook cannot be null.
+     * @param taskManager cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveTaskManager(ReadOnlyAddressBook taskManager) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyAddressBook)
+     * @see #saveTaskManager(ReadOnlyAddressBook)
      */
-    void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException;
+    void saveTaskManager(ReadOnlyAddressBook taskManager, Path filePath) throws IOException;
 
 }
