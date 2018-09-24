@@ -6,16 +6,16 @@ import java.util.List;
 /**
  * {@code TaskManager} that keeps track of its own history.
  */
-public class VersionedAddressBook extends TaskManager {
+public class VersionedTaskManager extends TaskManager {
 
-    private final List<ReadOnlyTaskManager> addressBookStateList;
+    private final List<ReadOnlyTaskManager> taskManagerStateList;
     private int currentStatePointer;
 
-    public VersionedAddressBook(ReadOnlyTaskManager initialState) {
+    public VersionedTaskManager(ReadOnlyTaskManager initialState) {
         super(initialState);
 
-        addressBookStateList = new ArrayList<>();
-        addressBookStateList.add(new TaskManager(initialState));
+        taskManagerStateList = new ArrayList<>();
+        taskManagerStateList.add(new TaskManager(initialState));
         currentStatePointer = 0;
     }
 
@@ -25,48 +25,48 @@ public class VersionedAddressBook extends TaskManager {
      */
     public void commit() {
         removeStatesAfterCurrentPointer();
-        addressBookStateList.add(new TaskManager(this));
+        taskManagerStateList.add(new TaskManager(this));
         currentStatePointer++;
     }
 
     private void removeStatesAfterCurrentPointer() {
-        addressBookStateList.subList(currentStatePointer + 1, addressBookStateList.size()).clear();
+        taskManagerStateList.subList(currentStatePointer + 1, taskManagerStateList.size()).clear();
     }
 
     /**
-     * Restores the address book to its previous state.
+     * Restores the task manager to its previous state.
      */
     public void undo() {
         if (!canUndo()) {
             throw new NoUndoableStateException();
         }
         currentStatePointer--;
-        resetData(addressBookStateList.get(currentStatePointer));
+        resetData(taskManagerStateList.get(currentStatePointer));
     }
 
     /**
-     * Restores the address book to its previously undone state.
+     * Restores the task manager to its previously undone state.
      */
     public void redo() {
         if (!canRedo()) {
             throw new NoRedoableStateException();
         }
         currentStatePointer++;
-        resetData(addressBookStateList.get(currentStatePointer));
+        resetData(taskManagerStateList.get(currentStatePointer));
     }
 
     /**
-     * Returns true if {@code undo()} has address book states to undo.
+     * Returns true if {@code undo()} has task manager states to undo.
      */
     public boolean canUndo() {
         return currentStatePointer > 0;
     }
 
     /**
-     * Returns true if {@code redo()} has address book states to redo.
+     * Returns true if {@code redo()} has task manager states to redo.
      */
     public boolean canRedo() {
-        return currentStatePointer < addressBookStateList.size() - 1;
+        return currentStatePointer < taskManagerStateList.size() - 1;
     }
 
     @Override
@@ -77,16 +77,16 @@ public class VersionedAddressBook extends TaskManager {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof VersionedAddressBook)) {
+        if (!(other instanceof VersionedTaskManager)) {
             return false;
         }
 
-        VersionedAddressBook otherVersionedAddressBook = (VersionedAddressBook) other;
+        VersionedTaskManager otherVersionedTaskManager = (VersionedTaskManager) other;
 
         // state check
-        return super.equals(otherVersionedAddressBook)
-                && addressBookStateList.equals(otherVersionedAddressBook.addressBookStateList)
-                && currentStatePointer == otherVersionedAddressBook.currentStatePointer;
+        return super.equals(otherVersionedTaskManager)
+                && taskManagerStateList.equals(otherVersionedTaskManager.taskManagerStateList)
+                && currentStatePointer == otherVersionedTaskManager.currentStatePointer;
     }
 
     /**
@@ -94,7 +94,7 @@ public class VersionedAddressBook extends TaskManager {
      */
     public static class NoUndoableStateException extends RuntimeException {
         private NoUndoableStateException() {
-            super("Current state pointer at start of addressBookState list, unable to undo.");
+            super("Current state pointer at start of taskManagerState list, unable to undo.");
         }
     }
 
@@ -103,7 +103,7 @@ public class VersionedAddressBook extends TaskManager {
      */
     public static class NoRedoableStateException extends RuntimeException {
         private NoRedoableStateException() {
-            super("Current state pointer at end of addressBookState list, unable to redo.");
+            super("Current state pointer at end of taskManagerState list, unable to redo.");
         }
     }
 }
