@@ -4,6 +4,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.model.tag.Tag;
 
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 /**
@@ -11,6 +12,7 @@ import java.util.function.Predicate;
  */
 public class ContactContainsTagPredicate implements Predicate<Person> {
     private final List<String> keywords;
+    private Set<Tag> tags;
 
     public ContactContainsTagPredicate(List<String> keywords) {
         this.keywords = keywords;
