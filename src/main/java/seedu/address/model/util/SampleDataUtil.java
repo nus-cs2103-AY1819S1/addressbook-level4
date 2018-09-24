@@ -25,7 +25,7 @@ public class SampleDataUtil {
             new Task(new Name("Bernice Yu"), new DueDate("99272758"), new PriorityValue("berniceyu@example.com"),
                 new Description("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
                 getLabelSet("colleagues", "friends")),
-            new Task(new Name("Charlotte Oliveiro"), new DueDate("93210283"), 
+            new Task(new Name("Charlotte Oliveiro"), new DueDate("93210283"),
                 new PriorityValue("charlotte@example.com"),
                 new Description("Blk 11 Ang Mo Kio Street 74, #11-04"),
                 getLabelSet("neighbours")),

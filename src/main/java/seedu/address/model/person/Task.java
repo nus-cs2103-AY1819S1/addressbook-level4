@@ -71,7 +71,7 @@ public class Task {
 
         return othertask != null
                 && othertask.getName().equals(getName())
-                && (othertask.getDueDate().equals(getDueDate()) 
+                && (othertask.getDueDate().equals(getDueDate())
                 || othertask.getPriorityValue().equals(getPriorityValue()));
     }
 
