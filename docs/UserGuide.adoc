@@ -257,7 +257,7 @@ View the list of volunteers assigned to event at index 1
 ==== Add volunteer to event: `add`
 
 Adds a volunteer to the event that is currently being managed. +
-Format: `add [h\HOURS] VOLUNTEER_INDEX... [r\REMARKS]`
+Format: `add VOLUNTEER_INDEX... [h/HOURS] [r/REMARKS]`
 
 ****
 * This command is executed after the 'manage' command.
@@ -272,15 +272,15 @@ Adds a volunteer at index 1 to the event with 0 hours
 Adds a volunteer at index 1, 2 and 3 to the event with 0 hours
 * `add 1 r\Vegetarian` +
 Adds a volunteer at index 1 to the event with 0 hours with remarks of 'Vegetarian'
-* `add h\5 3` +
+* `add 3 h\5` +
 Adds a volunteer at index 3 to the event with 5 hours
-* `add h\5 1 2 3 r\Help to deliver food` +
+* `add 1 2 3 h\5 r\Help to deliver food` +
 Adds a volunteer at index 1, 2 and 3 to the event with 5 hours with remarks of 'Help to deliver food'
 
 ==== Update volunteer hours: `edit`
 
 Update number of hours for volunteer in the event that is currently being managed. +
-Format: `edit [-a] h\HOURS [VOLUNTEER_INDEX]... [r\REMARKS]`
+Format: `edit [-a] [VOLUNTEER_INDEX]... h\HOURS [r\REMARKS]`
 
 ****
 * This command is executed after the 'manage' command.
@@ -293,9 +293,9 @@ Examples:
 
 * `edit -a h\5` +
 Updates amount of hours volunteered for all existing volunteers in the event to 5 hours
-* `edit h\5 3 r\Emcee` +
+* `edit 3 h\5 r\Emcee` +
 Updates amount of hours volunteered for volunteer at index 3 to 5 hours with remarks of 'Emcee'
-* `edit h\5 1 2 3` +
+* `edit 1 2 3 h\5` +
 Updates amount of hours volunteered for volunteer at index 1, 2 and 3 to 5 hours
 
 ==== Delete volunteer record from event: `delete`
