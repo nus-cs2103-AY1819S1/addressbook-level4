@@ -35,11 +35,13 @@ public class RecordTest {
         assertFalse(R1.isSameRecord(null));
 
         // different eventId and volunteerId -> returns false
-        Record editedRecord = new RecordBuilder(R1).withEventId(VALID_EVENTID_E2).withVolunteerId(VALID_VOLUNTEERID_V2).build();
+        Record editedRecord = new RecordBuilder(R1).withEventId(VALID_EVENTID_E2)
+                .withVolunteerId(VALID_VOLUNTEERID_V2).build();
         assertFalse(R1.isSameRecord(editedRecord));
 
         // same eventId, same volunteerId -> returns true
-        editedRecord = new RecordBuilder(R1).withEventId(VALID_EVENTID_E1).withVolunteerId(VALID_VOLUNTEERID_V1).build();
+        editedRecord = new RecordBuilder(R1).withEventId(VALID_EVENTID_E1)
+                .withVolunteerId(VALID_VOLUNTEERID_V1).build();
         assertTrue(R1.isSameRecord(editedRecord));
 
         // same eventId, same volunteerId, different attributes -> returns true
