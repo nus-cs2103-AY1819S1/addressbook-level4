@@ -9,7 +9,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.exceptions.DuplicateTaskException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.person.exceptions.TaskNotFoundException;
 
 /**
  * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
@@ -56,7 +56,7 @@ public class UniqueTaskList implements Iterable<Task> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new TaskNotFoundException();
         }
 
         if (!target.isSameTask(editedTask) && contains(editedTask)) {
@@ -73,7 +73,7 @@ public class UniqueTaskList implements Iterable<Task> {
     public void remove(Task toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
+            throw new TaskNotFoundException();
         }
     }
 
