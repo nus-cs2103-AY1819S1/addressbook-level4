@@ -21,7 +21,7 @@ By: `Team W16-2`      Since: `Sept 2018`      Licence: `MIT`
 
 SocialCare morphs the given AB4 application into a volunteer management system that allows Social Welfare Organisations to better manage their volunteers & events, and gain further statistical insights from the data. +
 
-SocialCare is for organizations which *prefer to use a desktop app for managing their volunteers *. More importantly, SocialCare is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, SocialCare can get your volunteer and event management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+SocialCare is for organizations which *prefer to use a desktop app for managing their volunteers.* More importantly, SocialCare is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, SocialCare can get your volunteer and event management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -129,6 +129,11 @@ Format: `exit`
 Switches context to volunteers or events +
 Format: `switch`
 
+****
+* A context refers to the management screen that users will see.
+* Switch would switch the data view and allow the user to switch between two distinct entities: volunteers and events.
+****
+
 Examples:
 
 * `switch -e` +
@@ -184,7 +189,7 @@ Format: `delete INDEX`
 
 Examples:
 
-* `delete 1 +
+* `delete 1` +
 Deletes the details of the volunteer specified at index 1
 
 === Event Management
@@ -252,7 +257,7 @@ View the list of volunteers assigned to event at index 1
 ==== Add volunteer to event: `add`
 
 Adds a volunteer to the event that is currently being managed. +
-Format: `add [h\HOURS] VOLUNTEER_INDEX...`
+Format: `add VOLUNTEER_INDEX... [h/HOURS] [r/REMARKS]`
 
 ****
 * This command is executed after the 'manage' command.
@@ -265,29 +270,32 @@ Examples:
 Adds a volunteer at index 1 to the event with 0 hours
 * `add 1 2 3` +
 Adds a volunteer at index 1, 2 and 3 to the event with 0 hours
-* `add h\5 3` +
+* `add 1 r\Vegetarian` +
+Adds a volunteer at index 1 to the event with 0 hours with remarks of 'Vegetarian'
+* `add 3 h\5` +
 Adds a volunteer at index 3 to the event with 5 hours
-* `add h\5 1 2 3` +
-Adds a volunteer at index 1, 2 and 3 to the event with 5 hours
+* `add 1 2 3 h\5 r\Help to deliver food` +
+Adds a volunteer at index 1, 2 and 3 to the event with 5 hours with remarks of 'Help to deliver food'
 
 ==== Update volunteer hours: `edit`
 
 Update number of hours for volunteer in the event that is currently being managed. +
-Format: `edit [-a] h\HOURS [VOLUNTEER_INDEX]...`
+Format: `edit [-a] [VOLUNTEER_INDEX]... h\HOURS [r\REMARKS]`
 
 ****
 * This command is executed after the 'manage' command.
 * VOLUNTEER_INDEX comes from the table view of existing volunteers.
 * VOLUNTEER_INDEX is only optional when '-a' is entered.
+* Entering just `r\` would result in remarks being deleted.
 ****
 
 Examples:
 
 * `edit -a h\5` +
 Updates amount of hours volunteered for all existing volunteers in the event to 5 hours
-* `edit h\5 3` +
-Updates amount of hours volunteered for volunteer at index 3 to 5 hours
-* `edit h\5 1 2 3` +
+* `edit 3 h\5 r\Emcee` +
+Updates amount of hours volunteered for volunteer at index 3 to 5 hours with remarks of 'Emcee'
+* `edit 1 2 3 h\5` +
 Updates amount of hours volunteered for volunteer at index 1, 2 and 3 to 5 hours
 
 ==== Delete volunteer record from event: `delete`
