@@ -8,8 +8,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Room {
     public static final String MESSAGE_ROOM_CONSTRAINTS =
-            "Room numbers should only contain numbers, at it should be only 3 digits long";
-    public static final String ROOM_VALIDATION_REGEX = "\\d{3,}";
+            "Room numbers should only be alphanumeric, and the first character should be an alphabet,"
+            + "followed by 3 digits.";
+    public static final String ROOM_VALIDATION_REGEX = "\\d{4,}";
     public final String roomNumber;
 
     /**
