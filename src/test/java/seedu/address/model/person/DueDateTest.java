@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import seedu.address.testutil.Assert;
 
-public class PhoneTest {
+public class DueDateTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -15,17 +15,17 @@ public class PhoneTest {
     }
 
     @Test
-    public void constructor_invalidPhone_throwsIllegalArgumentException() {
-        String invalidPhone = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new DueDate(invalidPhone));
+    public void constructor_invalidDueDate_throwsIllegalArgumentException() {
+        String invalidDueDate = "";
+        Assert.assertThrows(IllegalArgumentException.class, () -> new DueDate(invalidDueDate));
     }
 
     @Test
-    public void isValidPhone() {
-        // null phone number
+    public void isValidDueDate() {
+        // null due date
         Assert.assertThrows(NullPointerException.class, () -> DueDate.isValidDueDate(null));
 
-        // invalid phone numbers
+        // invalid due date
         assertFalse(DueDate.isValidDueDate("")); // empty string
         assertFalse(DueDate.isValidDueDate(" ")); // spaces only
         assertFalse(DueDate.isValidDueDate("91")); // less than 3 numbers
@@ -33,9 +33,9 @@ public class PhoneTest {
         assertFalse(DueDate.isValidDueDate("9011p041")); // alphabets within digits
         assertFalse(DueDate.isValidDueDate("9312 1534")); // spaces within digits
 
-        // valid phone numbers
+        // valid due date
         assertTrue(DueDate.isValidDueDate("911")); // exactly 3 numbers
         assertTrue(DueDate.isValidDueDate("93121534"));
-        assertTrue(DueDate.isValidDueDate("124293842033123")); // long phone numbers
+        assertTrue(DueDate.isValidDueDate("124293842033123")); // long due date
     }
 }

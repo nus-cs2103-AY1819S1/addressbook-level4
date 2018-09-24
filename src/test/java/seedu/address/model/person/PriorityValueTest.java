@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import seedu.address.testutil.Assert;
 
-public class EmailTest {
+public class PriorityValueTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -15,17 +15,17 @@ public class EmailTest {
     }
 
     @Test
-    public void constructor_invalidEmail_throwsIllegalArgumentException() {
-        String invalidEmail = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new PriorityValue(invalidEmail));
+    public void constructor_invalidPriorityValue_throwsIllegalArgumentException() {
+        String invalidPriorityValue = "";
+        Assert.assertThrows(IllegalArgumentException.class, () -> new PriorityValue(invalidPriorityValue));
     }
 
     @Test
-    public void isValidEmail() {
-        // null email
+    public void isValidPriorityValue() {
+        // null priority value
         Assert.assertThrows(NullPointerException.class, () -> PriorityValue.isValidPriorityValue(null));
 
-        // blank email
+        // blank priority value
         assertFalse(PriorityValue.isValidPriorityValue("")); // empty string
         assertFalse(PriorityValue.isValidPriorityValue(" ")); // spaces only
 
@@ -49,7 +49,7 @@ public class EmailTest {
         assertFalse(PriorityValue.isValidPriorityValue("peterjack@-example.com")); // domain name starts with a hyphen
         assertFalse(PriorityValue.isValidPriorityValue("peterjack@example.com-")); // domain name ends with a hyphen
 
-        // valid email
+        // valid priority value
         assertTrue(PriorityValue.isValidPriorityValue("PeterJack_1190@example.com"));
         assertTrue(PriorityValue.isValidPriorityValue("a@bc")); // minimal
         assertTrue(PriorityValue.isValidPriorityValue("test@localhost")); // alphabets only
