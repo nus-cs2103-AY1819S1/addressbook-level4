@@ -1,15 +1,18 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.RemarkCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Remark;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
-
-public class RemarkCommandParser implements Parser<RemarkCommand>{
+/**
+ * Parses input arguments and creates a new RemarkCommand object
+ */
+public class RemarkCommandParser implements Parser<RemarkCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the RemarkCommand
@@ -20,7 +23,7 @@ public class RemarkCommandParser implements Parser<RemarkCommand>{
         requireNonNull(args);
 
         ArgumentMultimap argumentMultimap =
-                ArgumentTokenizer.tokenize(args,PREFIX_REMARK);
+                ArgumentTokenizer.tokenize(args, PREFIX_REMARK);
 
         if (!isRemarkPrefixPresent(argumentMultimap) || argumentMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemarkCommand.MESSAGE_USAGE));
@@ -35,7 +38,7 @@ public class RemarkCommandParser implements Parser<RemarkCommand>{
 
         String remarkString = argumentMultimap.getValue(PREFIX_REMARK).get();
         Remark remark = new Remark(remarkString);
-        return new RemarkCommand(index,remark);
+        return new RemarkCommand(index, remark);
     }
 
     /**

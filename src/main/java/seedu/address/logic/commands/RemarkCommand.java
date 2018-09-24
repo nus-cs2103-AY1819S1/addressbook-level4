@@ -1,4 +1,6 @@
 package seedu.address.logic.commands;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -10,10 +12,10 @@ import seedu.address.model.person.Remark;
 
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.commands.EditCommand.MESSAGE_EDIT_PERSON_SUCCESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 
+/**
+ * Adds remark to existing person in addressbook.
+ */
 public class RemarkCommand extends Command {
     public static final String COMMAND_WORD = "remark";
 
@@ -42,7 +44,7 @@ public class RemarkCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         List<Person> lastShownList = model.getFilteredPersonList();
 
-        if(index.getZeroBased() >= lastShownList.size()) {
+        if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
@@ -52,7 +54,7 @@ public class RemarkCommand extends Command {
         model.updatePerson(personToEdit,updatedRemarkPerson);
         model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_REMARK_ADD_SUCCESS,updatedRemarkPerson));
+        return new CommandResult(String.format(MESSAGE_REMARK_ADD_SUCCESS, updatedRemarkPerson));
     }
 
     /**
@@ -66,17 +68,16 @@ public class RemarkCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        if(other == this) {
+        if (other == this) {
             return true;
         }
 
-        if(!(other instanceof RemarkCommand)) {
+        if (!(other instanceof RemarkCommand)) {
             return false;
         }
 
-        if(((RemarkCommand) other).remark.equals(this.remark) &&
-                ((RemarkCommand) other).index.equals(index)
-        ) {
+        if (((RemarkCommand) other).remark.equals(this.remark)
+                && ((RemarkCommand) other).index.equals(index)) {
             return true;
         }
 

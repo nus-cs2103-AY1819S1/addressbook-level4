@@ -9,7 +9,7 @@ public class Remark {
     public static final String MESSAGE_REMARK_CONSTRAINTS =
             "Remarks can take any values, and they can be blank";
 
-    public String value;
+    public final String value;
 
     /**
      * Constructs a {@code Remark}.
@@ -33,4 +33,5 @@ public class Remark {
 
     @Override
     public int hashCode() { return value.hashCode(); }
+
 }
