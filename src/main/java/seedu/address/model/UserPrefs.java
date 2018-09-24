@@ -13,7 +13,6 @@ public class UserPrefs {
 
     private GuiSettings guiSettings;
     private Path addressBookFilePath = Paths.get("data" , "addressbook.xml");
-    private Path eventListFilePath = Paths.get("data", "eventlist.xml");
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);
@@ -35,16 +34,8 @@ public class UserPrefs {
         return addressBookFilePath;
     }
 
-    public Path getEventListFilePath() {
-        return eventListFilePath;
-    }
-
     public void setAddressBookFilePath(Path addressBookFilePath) {
         this.addressBookFilePath = addressBookFilePath;
-    }
-
-    public void setEventListFilePath(Path eventListFilePath) {
-        this.eventListFilePath = eventListFilePath;
     }
 
     @Override
@@ -59,13 +50,12 @@ public class UserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return Objects.equals(guiSettings, o.guiSettings)
-                && Objects.equals(addressBookFilePath, o.addressBookFilePath)
-                && Objects.equals(eventListFilePath, o.eventListFilePath);
+                && Objects.equals(addressBookFilePath, o.addressBookFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath, eventListFilePath);
+        return Objects.hash(guiSettings, addressBookFilePath);
     }
 
     @Override
@@ -73,7 +63,6 @@ public class UserPrefs {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings.toString());
         sb.append("\nLocal data file location : " + addressBookFilePath);
-        sb.append("\nLocal event list data file location " + eventListFilePath);
         return sb.toString();
     }
 
