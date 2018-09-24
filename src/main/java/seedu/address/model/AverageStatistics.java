@@ -1,7 +1,5 @@
 package seedu.address.model;
 
-import java.util.HashMap;
-
 public class AverageStatistics extends Statistics {
 
     public static final String STATISTICS_TYPE = "Average";
