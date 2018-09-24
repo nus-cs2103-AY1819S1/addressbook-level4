@@ -21,7 +21,7 @@ By: `Team W16-2`      Since: `Sept 2018`      Licence: `MIT`
 
 SocialCare morphs the given AB4 application into a volunteer management system that allows Social Welfare Organisations to better manage their volunteers & events, and gain further statistical insights from the data. +
 
-SocialCare is for organizations which *prefer to use a desktop app for managing their volunteers *. More importantly, SocialCare is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, SocialCare can get your volunteer and event management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+SocialCare is for organizations which *prefer to use a desktop app for managing their volunteers.* More importantly, SocialCare is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, SocialCare can get your volunteer and event management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -129,6 +129,11 @@ Format: `exit`
 Switches context to volunteers or events +
 Format: `switch`
 
+****
+* A context refers to the management screen that users will see.
+* Switch would switch the data view and allow the user to switch between two distinct entities: volunteers and events.
+****
+
 Examples:
 
 * `switch -e` +
@@ -184,7 +189,7 @@ Format: `delete INDEX`
 
 Examples:
 
-* `delete 1 +
+* `delete 1` +
 Deletes the details of the volunteer specified at index 1
 
 === Event Management
