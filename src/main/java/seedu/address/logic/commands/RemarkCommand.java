@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 
+import java.util.List;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -9,9 +11,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Remark;
-
-import java.util.List;
-
 
 /**
  * Adds remark to existing person in addressbook.
@@ -51,7 +50,7 @@ public class RemarkCommand extends Command {
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person updatedRemarkPerson = createUpdatedRemarkPerson(personToEdit, this.remark);
 
-        model.updatePerson(personToEdit,updatedRemarkPerson);
+        model.updatePerson(personToEdit, updatedRemarkPerson);
         model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_REMARK_ADD_SUCCESS, updatedRemarkPerson));
