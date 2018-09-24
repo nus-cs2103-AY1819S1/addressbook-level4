@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.person.exceptions.ContactContainsTagPredicate;
+import seedu.address.model.person.ContactContainsTagPredicate;
 
 /**
  * Clears the address book.
@@ -13,6 +13,11 @@ import seedu.address.model.person.exceptions.ContactContainsTagPredicate;
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Clears all persons tagged with or under "
+            + "the specified keywords(case-insensitive) or clears all persons for keyword 'all'.\n"
+            + "Parameters: KEYWORD\n"
+            + "Example: " + COMMAND_WORD + " all"
+            + "Example: " + COMMAND_WORD + " basketball";
     public static final String MESSAGE_CLEAR_ALL_SUCCESS = "Hallper has been cleared!";
     public static final String MESSAGE_CLEAR_SPECIFIC_SUCCESS = "Cleared contacts under %1$s in Hallper";
 
