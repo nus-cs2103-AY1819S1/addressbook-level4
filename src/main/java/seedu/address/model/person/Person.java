@@ -73,7 +73,7 @@ public class Person {
         return address;
     }
 
-    public PrescriptionList getMedicineList() {
+    public PrescriptionList getPrescriptionList() {
         return prescriptionList;
     }
 

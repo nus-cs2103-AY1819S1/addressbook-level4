@@ -13,6 +13,14 @@ public class Dose {
     private String doseUnit;
     private int dosesPerDay;
 
+    /**
+     * C'tor for the Dose object.
+     * All fields must be non-null.
+     *
+     * @param d The dose to give per instance.
+     * @param ds The dosage unit e.g. tablets, drops
+     * @param dpd The number of doses per day.
+     */
     public Dose(int d, String ds, int dpd) {
         Objects.requireNonNull(ds);
 

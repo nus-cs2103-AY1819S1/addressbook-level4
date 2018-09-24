@@ -39,6 +39,7 @@ public class AddmedsCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Medication added for patient: %1$s";
     public static final String MESSAGE_NO_SUCH_PATIENT = "No such patient exists.";
+    public static final String MESSAGE_MULTIPLE_PATIENTS = "Multiple such patients exist. Please contact the system administrator.";
 
     private final Prescription med;
     private final Nric patientNric;
@@ -47,8 +48,8 @@ public class AddmedsCommand extends Command {
      * Creates an AddCommand to add the specified {@code Person}
      */
     public AddmedsCommand(Nric patientNric, Prescription med) {
-        this.patientNric = patientNric;
-        this.med = med;
+        this.patientNric = requireNonNull(patientNric);
+        this.med = requireNonNull(med);;
     }
 
     @Override
@@ -56,10 +57,14 @@ public class AddmedsCommand extends Command {
         requireNonNull(model);
 
         ObservableList<Person> filteredByNric = model.getFilteredPersonList()
-                .filtered(p -> p.getNric().equals(patientNric));
+                .filtered(p -> patientNric.equals(p.getNric()));
 
         if (filteredByNric.size() < 1) {
             throw new CommandException(MESSAGE_NO_SUCH_PATIENT);
+        }
+
+        if (filteredByNric.size() > 1) {
+            throw new CommandException(MESSAGE_MULTIPLE_PATIENTS);
         }
 
         Person patientToUpdate = filteredByNric.get(0);
@@ -88,7 +93,7 @@ public class AddmedsCommand extends Command {
     private static Person addMedicineForPerson(Person personToEdit, Prescription m) {
         assert personToEdit != null;
 
-        PrescriptionList updatedMedicineList = new PrescriptionList(personToEdit.getMedicineList());
+        PrescriptionList updatedMedicineList = new PrescriptionList(personToEdit.getPrescriptionList());
         updatedMedicineList.add(m);
 
         Nric nric = personToEdit.getNric();
