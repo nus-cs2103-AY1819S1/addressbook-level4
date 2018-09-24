@@ -109,7 +109,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// record-level operations
 
     /**
-     * Returns true if a record with the same identity as {@code record} exists in the address book.
+     * Returns true if a record with the same identity as {@code record} exists in the database.
      */
     public boolean hasRecord(Record record) {
         requireNonNull(record);
@@ -118,7 +118,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Adds a record to the address book.
-     * The record must not already exist in the address book.
+     * The record must not already exist in the database
      */
     public void addRecord(Record r) {
         records.add(r);
@@ -126,8 +126,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Replaces the given record {@code target} in the list with {@code editedRecord}.
-     * {@code target} must exist in the address book.
-     * The record identity of {@code editedRecord} must not be the same as another existing record in the address book.
+     * {@code target} must exist in the database.
+     * The record identity of {@code editedRecord} must not be the same as another existing record in the database.
      */
     public void updateRecord(Record target, Record editedRecord) {
         requireNonNull(editedRecord);
@@ -137,7 +137,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * {@code key} must exist in the database.
      */
     public void removeRecord(Record key) {
         records.remove(key);
