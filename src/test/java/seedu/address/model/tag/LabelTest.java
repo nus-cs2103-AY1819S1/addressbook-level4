@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import seedu.address.testutil.Assert;
 
-public class TagTest {
+public class LabelTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -12,14 +12,14 @@ public class TagTest {
     }
 
     @Test
-    public void constructor_invalidTagName_throwsIllegalArgumentException() {
-        String invalidTagName = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Label(invalidTagName));
+    public void constructor_invalidLabelName_throwsIllegalArgumentException() {
+        String invalidLabelName = "";
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Label(invalidLabelName));
     }
 
     @Test
-    public void isValidTagName() {
-        // null tag name
+    public void isValidLabelName() {
+        // null label name
         Assert.assertThrows(NullPointerException.class, () -> Label.isValidLabelName(null));
     }
 

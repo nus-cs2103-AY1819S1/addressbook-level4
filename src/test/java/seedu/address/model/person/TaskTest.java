@@ -16,26 +16,26 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.testutil.PersonBuilder;
 
-public class PersonTest {
+public class TaskTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        Task person = new PersonBuilder().build();
+        Task task = new PersonBuilder().build();
         thrown.expect(UnsupportedOperationException.class);
-        person.getLabels().remove(0);
+        task.getLabels().remove(0);
     }
 
     @Test
-    public void isSamePerson() {
+    public void isSameTask() {
         // same object -> returns true
         assertTrue(ALICE.isSameTask(ALICE));
 
         // null -> returns false
         assertFalse(ALICE.isSameTask(null));
 
-        // different phone and email -> returns false
+        // different due date and priority value -> returns false
         Task editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
         assertFalse(ALICE.isSameTask(editedAlice));
 
@@ -43,17 +43,17 @@ public class PersonTest {
         editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.isSameTask(editedAlice));
 
-        // same name, same phone, different attributes -> returns true
+        // same name, same due date, different attributes -> returns true
         editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameTask(editedAlice));
 
-        // same name, same email, different attributes -> returns true
+        // same name, same priority value, different attributes -> returns true
         editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameTask(editedAlice));
 
-        // same name, same phone, same email, different attributes -> returns true
+        // same name, same due date, same priority value, different attributes -> returns true
         editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameTask(editedAlice));
     }
@@ -73,26 +73,26 @@ public class PersonTest {
         // different type -> returns false
         assertFalse(ALICE.equals(5));
 
-        // different person -> returns false
+        // different task -> returns false
         assertFalse(ALICE.equals(BOB));
 
         // different name -> returns false
         Task editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different phone -> returns false
+        // different due date -> returns false
         editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different email -> returns false
+        // different priority value -> returns false
         editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different address -> returns false
+        // different description -> returns false
         editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different tags -> returns false
+        // different labels -> returns false
         editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(ALICE.equals(editedAlice));
     }
