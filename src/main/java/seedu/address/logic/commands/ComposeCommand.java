@@ -31,7 +31,7 @@ public class ComposeCommand extends Command {
             + PREFIX_SUBJECT + "Meeting this Friday "
             + PREFIX_CONTENT + "Hey there's a meeting this friday. ";
 
-    public static final String MESSAGE_SUCCESS = "Email composed";
+    public static final String MESSAGE_SUCCESS = "Email composed:";
 
     private final Email toCompose;
 
@@ -42,8 +42,6 @@ public class ComposeCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
-        requireNonNull(model);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toCompose.getSubject()));
     }
 }
