@@ -15,25 +15,25 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.person.Task;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the task manager data.
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedTaskManager versionedAddressBook;
-    private final FilteredList<Task> filteredPersons;
+    private final VersionedTaskManager versionedTaskManager;
+    private final FilteredList<Task> filteredTasks;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given taskManager and userPrefs.
      */
-    public ModelManager(ReadOnlyTaskManager addressBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyTaskManager taskManager, UserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(taskManager, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with task manager: " + taskManager + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedTaskManager(addressBook);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getTaskList());
+        versionedTaskManager = new VersionedTaskManager(taskManager);
+        filteredTasks = new FilteredList<>(versionedTaskManager.getTaskList());
     }
 
     public ModelManager() {
@@ -42,91 +42,91 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void resetData(ReadOnlyTaskManager newData) {
-        versionedAddressBook.resetData(newData);
-        indicateAddressBookChanged();
+        versionedTaskManager.resetData(newData);
+        indicateTaskManagerChanged();
     }
 
     @Override
     public ReadOnlyTaskManager getTaskManager() {
-        return versionedAddressBook;
+        return versionedTaskManager;
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(versionedAddressBook));
+    private void indicateTaskManagerChanged() {
+        raise(new AddressBookChangedEvent(versionedTaskManager));
     }
 
     @Override
     public boolean hasTask(Task task) {
         requireNonNull(task);
-        return versionedAddressBook.hasTask(task);
+        return versionedTaskManager.hasTask(task);
     }
 
     @Override
     public void deleteTask(Task target) {
-        versionedAddressBook.removeTask(target);
-        indicateAddressBookChanged();
+        versionedTaskManager.removeTask(target);
+        indicateTaskManagerChanged();
     }
 
     @Override
     public void addTask(Task task) {
-        versionedAddressBook.addTask(task);
+        versionedTaskManager.addTask(task);
         updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
-        indicateAddressBookChanged();
+        indicateTaskManagerChanged();
     }
 
     @Override
     public void updateTask(Task target, Task editedTask) {
         requireAllNonNull(target, editedTask);
 
-        versionedAddressBook.updateTask(target, editedTask);
-        indicateAddressBookChanged();
+        versionedTaskManager.updateTask(target, editedTask);
+        indicateTaskManagerChanged();
     }
 
     //=========== Filtered Task List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Task} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedTaskManager}
      */
     @Override
     public ObservableList<Task> getFilteredTaskList() {
-        return FXCollections.unmodifiableObservableList(filteredPersons);
+        return FXCollections.unmodifiableObservableList(filteredTasks);
     }
 
     @Override
     public void updateFilteredTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredTasks.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
 
     @Override
     public boolean canUndoTaskManager() {
-        return versionedAddressBook.canUndo();
+        return versionedTaskManager.canUndo();
     }
 
     @Override
     public boolean canRedoTaskManager() {
-        return versionedAddressBook.canRedo();
+        return versionedTaskManager.canRedo();
     }
 
     @Override
     public void undoTaskManager() {
-        versionedAddressBook.undo();
-        indicateAddressBookChanged();
+        versionedTaskManager.undo();
+        indicateTaskManagerChanged();
     }
 
     @Override
     public void redoTaskManager() {
-        versionedAddressBook.redo();
-        indicateAddressBookChanged();
+        versionedTaskManager.redo();
+        indicateTaskManagerChanged();
     }
 
     @Override
     public void commitTaskManager() {
-        versionedAddressBook.commit();
+        versionedTaskManager.commit();
     }
 
     @Override
@@ -143,8 +143,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
-                && filteredPersons.equals(other.filteredPersons);
+        return versionedTaskManager.equals(other.versionedTaskManager)
+                && filteredTasks.equals(other.filteredTasks);
     }
 
 }

@@ -58,7 +58,7 @@ public class PersonBuilder {
      * Parses the {@code tags} into a {@code Set<Label>} and set it to the {@code Task} that we are building.
      */
     public PersonBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
+        this.tags = SampleDataUtil.getLabelSet(tags);
         return this;
     }
 
