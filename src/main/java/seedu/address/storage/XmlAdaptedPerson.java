@@ -12,8 +12,8 @@ import javax.xml.bind.annotation.XmlElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.DueDate;
-import seedu.address.model.person.PriorityValue;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.PriorityValue;
 import seedu.address.model.person.Task;
 import seedu.address.model.tag.Label;
 
@@ -98,7 +98,8 @@ public class XmlAdaptedPerson {
         final DueDate modelPhone = new DueDate(phone);
 
         if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, PriorityValue.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    PriorityValue.class.getSimpleName()));
         }
         if (!PriorityValue.isValidPriorityValue(email)) {
             throw new IllegalValueException(PriorityValue.MESSAGE_PRIORITYVALUE_CONSTRAINTS);
@@ -106,7 +107,8 @@ public class XmlAdaptedPerson {
         final PriorityValue modelEmail = new PriorityValue(email);
 
         if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Description.class.getSimpleName()));
         }
         if (!Description.isValidDescription(address)) {
             throw new IllegalValueException(Description.MESSAGE_DESCRIPTION_CONSTRAINTS);

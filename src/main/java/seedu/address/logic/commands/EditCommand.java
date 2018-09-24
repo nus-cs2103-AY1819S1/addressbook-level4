@@ -21,10 +21,10 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Description;
-import seedu.address.model.person.PriorityValue;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Task;
 import seedu.address.model.person.DueDate;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.PriorityValue;
+import seedu.address.model.person.Task;
 import seedu.address.model.tag.Label;
 
 /**
