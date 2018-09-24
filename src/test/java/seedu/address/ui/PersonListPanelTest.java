@@ -32,7 +32,7 @@ public class PersonListPanelTest extends GuiUnitTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "sandbox");
 
-    private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 50000000;
+    private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
 
     private PersonListPanelHandle personListPanelHandle;
 
@@ -81,8 +81,7 @@ public class PersonListPanelTest extends GuiUnitTest {
      */
     private ObservableList<Person> createBackingList(int personCount) throws Exception {
         Path xmlFile = createXmlFileWithPersons(personCount);
-        XmlSerializableAddressBook xmlAddressBook =
-                XmlUtil.getDataFromFile(xmlFile, XmlSerializableAddressBook.class);
+        XmlSerializableAddressBook xmlAddressBook = XmlUtil.getDataFromFile(xmlFile, XmlSerializableAddressBook.class);
         return FXCollections.observableArrayList(xmlAddressBook.toModelType().getPersonList());
     }
 
@@ -99,6 +98,7 @@ public class PersonListPanelTest extends GuiUnitTest {
             builder.append("<phone>000</phone>\n");
             builder.append("<email>a@aa</email>\n");
             builder.append("<address>a</address>\n");
+            builder.append("<remark>aa</remark>\n");
             builder.append("</persons>\n");
         }
         builder.append("</addressbook>\n");
