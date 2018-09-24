@@ -1,31 +1,30 @@
 package seedu.address.logic.parser;
 
-import org.junit.Test;
-import seedu.address.logic.commands.RemarkCommand;
-import seedu.address.model.person.Remark;
-
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.*;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import org.junit.Test;
+
+import seedu.address.logic.commands.RemarkCommand;
 
 public class RemarkCommandParserTest {
-    RemarkCommand expectedCommand = new RemarkCommand(INDEX_FIRST_PERSON, SAMPLE_REMARK_1);
-    private RemarkCommandParser parser = new RemarkCommandParser();
-
     private static final String MESSAGE_INVALID_FORMAT = String.format(
             MESSAGE_INVALID_COMMAND_FORMAT, RemarkCommand.MESSAGE_USAGE);
+
+    private RemarkCommand expectedCommand = new RemarkCommand(INDEX_FIRST_PERSON, SAMPLE_REMARK_1);
+    private RemarkCommandParser parser = new RemarkCommandParser();
+
     @Test
     public void parse_allFieldsPresent_success() {
         // empty remark
-        assertParseSuccess(parser,INDEX_FIRST_PERSON.getOneBased() + REMARK_DESC_EMPTY,
+        assertParseSuccess(parser, INDEX_FIRST_PERSON.getOneBased() + REMARK_DESC_EMPTY,
                 new RemarkCommand(INDEX_FIRST_PERSON,SAMPLE_REMARK_EMPTY));
 
         // no empty fields
-        assertParseSuccess(parser,INDEX_FIRST_PERSON.getOneBased() + REMARK_DESC_SAMPLE_1,
+        assertParseSuccess(parser, INDEX_FIRST_PERSON.getOneBased() + REMARK_DESC_SAMPLE_1,
                 expectedCommand);
     }
 
@@ -47,7 +46,7 @@ public class RemarkCommandParserTest {
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
         // remark is repeated twice -> second remark is taken
-        assertParseSuccess(parser,INDEX_FIRST_PERSON.getOneBased()
+        assertParseSuccess(parser, INDEX_FIRST_PERSON.getOneBased()
                 + REMARK_DESC_SAMPLE_2 + REMARK_DESC_SAMPLE_1, expectedCommand);
     }
 

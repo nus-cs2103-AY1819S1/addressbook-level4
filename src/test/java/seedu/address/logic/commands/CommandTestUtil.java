@@ -2,7 +2,12 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,7 +39,7 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
     public static final Remark SAMPLE_REMARK_1 = new Remark("test remark");
-    public static final Remark SAMPLE_REMARK_1b = new Remark("test remark");
+    public static final Remark SAMPLE_REMARK_1B = new Remark("test remark");
     public static final Remark SAMPLE_REMARK_2 = new Remark("test remark 2");
     public static final Remark SAMPLE_REMARK_EMPTY = new Remark("");
 
@@ -50,7 +55,7 @@ public class CommandTestUtil {
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
     public static final String REMARK_DESC_SAMPLE_1 = " " + PREFIX_REMARK + SAMPLE_REMARK_1;
     public static final String REMARK_DESC_SAMPLE_2 = " " + PREFIX_REMARK + SAMPLE_REMARK_2;
-    public static final String REMARK_DESC_EMPTY = " "+PREFIX_REMARK;
+    public static final String REMARK_DESC_EMPTY = " " + PREFIX_REMARK;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
@@ -66,7 +71,7 @@ public class CommandTestUtil {
 
 
 
-     static {
+    static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
                 .withTags(VALID_TAG_FRIEND).build();
