@@ -38,7 +38,8 @@ public class Event {
     /**
      * Every field must be present and not null.
      */
-    public Event(Id id, Name name, Location location, Date startDate, Date endDate,
+    //Id to be added to constructor
+    public Event(Name name, Location location, Date startDate, Date endDate,
                  Time startTime, Time endTime, Description description, Set<Tag> tags) {
         //requireAllNonNull(id, name, location, startDate, endDate, description, tags);
         requireAllNonNull(name, location, startDate, endDate, description, tags);
