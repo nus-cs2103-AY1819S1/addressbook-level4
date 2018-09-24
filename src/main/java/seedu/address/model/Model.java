@@ -41,13 +41,19 @@ public interface Model {
     void addPerson(Person person);
 
 
-
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
     void updatePerson(Person target, Person editedPerson);
+
+    /**
+     * Replaces the given event {@code target} with {@code editedEvent).
+     * {@code target} must exist in the address book.
+     * The identity of {@code editedEvent} must not be the same as another existing event in the address book.
+     */
+    void updateEvent(Event target, Event editedEvent);
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
@@ -91,4 +97,6 @@ public interface Model {
     void deleteEvent(Event target);
 
     Event getEvent(Index targetIndex);
+
+    Person getPerson(Index targetIndex);
 }
