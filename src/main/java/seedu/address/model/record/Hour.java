@@ -8,8 +8,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; hour is valid as declared in {@link #isValidHour(String)}
  */
 public class Hour {
-    public static final String MESSAGE_TAG_CONSTRAINTS = "Hour can take in numerals only.";
-    public static final String REMARK_VALIDATION_REGEX = "\\p{Digit}+";
+    public static final String MESSAGE_HOUR_CONSTRAINTS = "Hour can take in numerals only.";
+    public static final String HOUR_VALIDATION_REGEX = "\\p{Digit}+";
 
     public final String value;
 
@@ -20,7 +20,7 @@ public class Hour {
      */
     public Hour(String hour) {
         requireNonNull(hour);
-        checkArgument(isValidHour(hour), MESSAGE_TAG_CONSTRAINTS);
+        checkArgument(isValidHour(hour), MESSAGE_HOUR_CONSTRAINTS);
         this.value = hour;
     }
 
@@ -28,7 +28,7 @@ public class Hour {
      * Returns true if a given string is a valid remark.
      */
     public static boolean isValidHour(String test) {
-        return test.matches(REMARK_VALIDATION_REGEX);
+        return test.matches(HOUR_VALIDATION_REGEX);
     }
 
     @Override

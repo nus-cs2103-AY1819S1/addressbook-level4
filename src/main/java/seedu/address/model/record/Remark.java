@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Remark {
 
-    public static final String MESSAGE_TAG_CONSTRAINTS = "Remarks can take any values, and it should not be blank";
+    public static final String MESSAGE_REMARK_CONSTRAINTS = "Remarks can take any values, and it should not be blank";
     public static final String REMARK_VALIDATION_REGEX = "[^\\s].*";
 
     public final String value;
@@ -21,7 +21,7 @@ public class Remark {
      */
     public Remark(String remark) {
         requireNonNull(remark);
-        checkArgument(isValidRemark(remark), MESSAGE_TAG_CONSTRAINTS);
+        checkArgument(isValidRemark(remark), MESSAGE_REMARK_CONSTRAINTS);
         this.value = remark;
     }
 
