@@ -7,7 +7,7 @@ package seedu.address.model.record;
 public class EventId {
     public final String value;
 
-    public EventId(String id){
+    public EventId(String id) {
         this.value = id;
     }
 
