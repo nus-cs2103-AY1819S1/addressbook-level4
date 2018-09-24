@@ -18,7 +18,7 @@ import seedu.address.model.person.Person;
 @XmlRootElement(name = "taskmanager")
 public class XmlSerializableTaskManager {
 
-    public static final String MESSAGE_DUPLICATE_TASK = "Tasks list contains duplicate task(s).";
+    public static final String MESSAGE_DUPLICATE_PERSON = "Tasks list contains duplicate task(s).";
 
     @XmlElement
     private List<XmlAdaptedTask> tasks;
@@ -50,7 +50,7 @@ public class XmlSerializableTaskManager {
         for (XmlAdaptedTask p : tasks) {
             Person task = p.toModelType();
             if (taskManager.hasPerson(task)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_TASK);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
             taskManager.addPerson(task);
         }
