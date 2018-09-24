@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import seedu.address.testutil.Assert;
 
-public class AddressTest {
+public class DescriptionTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -16,12 +16,12 @@ public class AddressTest {
 
     @Test
     public void constructor_invalidAddress_throwsIllegalArgumentException() {
-        String invalidAddress = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Description(invalidAddress));
+        String invalidDescription = "";
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Description(invalidDescription));
     }
 
     @Test
-    public void isValidAddress() {
+    public void isValidDescription() {
         // null address
         Assert.assertThrows(NullPointerException.class, () -> Description.isValidDescription(null));
 
