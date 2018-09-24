@@ -17,33 +17,33 @@ import seedu.address.testutil.TypicalPersons;
 public class XmlSerializableAddressBookTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlSerializableAddressBookTest");
-    private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalPersonsAddressBook.xml");
-    private static final Path INVALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("invalidPersonAddressBook.xml");
-    private static final Path DUPLICATE_PERSON_FILE = TEST_DATA_FOLDER.resolve("duplicatePersonAddressBook.xml");
+    private static final Path TYPICAL_TASKS_FILE = TEST_DATA_FOLDER.resolve("typicalPersonsAddressBook.xml");
+    private static final Path INVALID_TASK_FILE = TEST_DATA_FOLDER.resolve("invalidPersonAddressBook.xml");
+    private static final Path DUPLICATE_TASK_FILE = TEST_DATA_FOLDER.resolve("duplicatePersonAddressBook.xml");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void toModelType_typicalPersonsFile_success() throws Exception {
-        XmlSerializableTaskManager dataFromFile = XmlUtil.getDataFromFile(TYPICAL_PERSONS_FILE,
+    public void toModelType_typicalTasksFile_success() throws Exception {
+        XmlSerializableTaskManager dataFromFile = XmlUtil.getDataFromFile(TYPICAL_TASKS_FILE,
                 XmlSerializableTaskManager.class);
-        AddressBook addressBookFromFile = dataFromFile.toModelType();
+        AddressBook taskManagerFromFile = dataFromFile.toModelType();
         AddressBook typicalPersonsAddressBook = TypicalPersons.getTypicalAddressBook();
-        assertEquals(addressBookFromFile, typicalPersonsAddressBook);
+        assertEquals(taskManagerFromFile, typicalPersonsAddressBook);
     }
 
     @Test
-    public void toModelType_invalidPersonFile_throwsIllegalValueException() throws Exception {
-        XmlSerializableTaskManager dataFromFile = XmlUtil.getDataFromFile(INVALID_PERSON_FILE,
+    public void toModelType_invalidTaskFile_throwsIllegalValueException() throws Exception {
+        XmlSerializableTaskManager dataFromFile = XmlUtil.getDataFromFile(INVALID_TASK_FILE,
                 XmlSerializableTaskManager.class);
         thrown.expect(IllegalValueException.class);
         dataFromFile.toModelType();
     }
 
     @Test
-    public void toModelType_duplicatePersons_throwsIllegalValueException() throws Exception {
-        XmlSerializableTaskManager dataFromFile = XmlUtil.getDataFromFile(DUPLICATE_PERSON_FILE,
+    public void toModelType_duplicateTasks_throwsIllegalValueException() throws Exception {
+        XmlSerializableTaskManager dataFromFile = XmlUtil.getDataFromFile(DUPLICATE_TASK_FILE,
                 XmlSerializableTaskManager.class);
         thrown.expect(IllegalValueException.class);
         thrown.expectMessage(XmlSerializableTaskManager.MESSAGE_DUPLICATE_PERSON);
