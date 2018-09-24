@@ -5,17 +5,17 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents an Event's description in the application.
- * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}
  */
 public class Description {
     public static final String MESSAGE_DESCRIPTION_CONSTRAINTS =
-            "Descriptions should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Descriptions can take any values, and it should not be blank";
 
     /*
      * The first character of the name must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String DESCRIPTION_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String DESCRIPTION_VALIDATION_REGEX = "[^\\s].*";
 
     public final String description;
 
