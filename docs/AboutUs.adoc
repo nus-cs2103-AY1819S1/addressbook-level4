@@ -11,9 +11,9 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== Afiq Latiff
-image::damithc.jpg[width="150", align="left"]
-{empty}[https://github.com/afiqlattif[github]] [<<afiqlatiff#, portfolio>>]
+=== Afiq Lattif
+image::afiqlattif.jpg[width="150", align="left"]
+{empty}[https://github.com/afiqlattif[github]] [<<afiqlattif#, portfolio>>]
 
 Role: Developer +
 Responsibilities: -
