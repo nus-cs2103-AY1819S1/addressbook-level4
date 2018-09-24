@@ -47,13 +47,13 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
         requireNonNull(filePath);
 
         if (!Files.exists(filePath)) {
-            logger.info("AddressBook file " + filePath + " not found");
+            logger.info("TaskManager file " + filePath + " not found");
             return Optional.empty();
         }
 
-        XmlSerializableTaskManager xmlAddressBook = XmlFileStorage.loadDataFromSaveFile(filePath);
+        XmlSerializableTaskManager xmlTaskManager = XmlFileStorage.loadDataFromSaveFile(filePath);
         try {
-            return Optional.of(xmlAddressBook.toModelType());
+            return Optional.of(xmlTaskManager.toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -61,20 +61,20 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
     }
 
     @Override
-    public void saveTaskManager(ReadOnlyAddressBook addressBook) throws IOException {
-        saveTaskManager(addressBook, filePath);
+    public void saveTaskManager(ReadOnlyAddressBook taskManager) throws IOException {
+        saveTaskManager(taskManager, filePath);
     }
 
     /**
      * Similar to {@link #saveTaskManager(ReadOnlyAddressBook)}
      * @param filePath location of the data. Cannot be null
      */
-    public void saveTaskManager(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveTaskManager(ReadOnlyAddressBook taskManager, Path filePath) throws IOException {
+        requireNonNull(taskManager);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        XmlFileStorage.saveDataToFile(filePath, new XmlSerializableTaskManager(addressBook));
+        XmlFileStorage.saveDataToFile(filePath, new XmlSerializableTaskManager(taskManager));
     }
 
 }
