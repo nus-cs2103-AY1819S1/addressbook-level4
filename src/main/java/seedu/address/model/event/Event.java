@@ -38,7 +38,7 @@ public class Event {
     /**
      * Every field must be present and not null.
      */
-    //Id to be added to constructor
+    //EventId to be added to constructor
     public Event(Name name, Location location, Date startDate, Date endDate,
                  Time startTime, Time endTime, Description description, Set<Tag> tags) {
         //requireAllNonNull(id, name, location, startDate, endDate, description, tags);
@@ -73,10 +73,6 @@ public class Event {
     public static boolean isValidStartAndEndTime(Time startTime, Time endTime) {
         return startTime.isLessThanOrEqualTo(endTime);
     }
-
-    /*public Id getId() {
-        return id;
-    }*/
 
     public Name getName() {
         return name;
