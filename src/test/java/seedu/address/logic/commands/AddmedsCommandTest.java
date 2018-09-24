@@ -33,6 +33,12 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 
+//@@author snajef
+/**
+ * Test driver class for AddmedsCommand.
+ * @author Darien Chong
+ *
+ */
 public class AddmedsCommandTest {
     private String validNric;
     private String drugName;

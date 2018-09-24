@@ -39,7 +39,8 @@ public class AddmedsCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Medication added for patient: %1$s";
     public static final String MESSAGE_NO_SUCH_PATIENT = "No such patient exists.";
-    public static final String MESSAGE_MULTIPLE_PATIENTS = "Multiple such patients exist. Please contact the system administrator.";
+    public static final String MESSAGE_MULTIPLE_PATIENTS = "Multiple such patients exist. "
+            + "Please contact the system administrator.";
 
     private final Prescription med;
     private final Nric patientNric;
