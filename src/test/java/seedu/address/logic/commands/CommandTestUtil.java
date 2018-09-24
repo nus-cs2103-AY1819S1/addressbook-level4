@@ -38,7 +38,7 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
 
     public static final String VALID_NAME_YOUTH = "Youth Humanitarian Challenge";
-    public static final String VALID_LOCATION_YOUTH = "Block 123, Youth Street 4";
+    public static final String VALID_LOCATION_YOUTH = "29 Havelock Road";
     public static final String VALID_START_DATE_YOUTH = "28-09-2018";
     public static final String VALID_END_DATE_YOUTH = "28-09-2018";
     public static final String VALID_START_TIME_YOUTH = "10:00";
