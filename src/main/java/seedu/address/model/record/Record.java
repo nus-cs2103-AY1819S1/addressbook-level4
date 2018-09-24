@@ -42,6 +42,20 @@ public class Record {
     }
 
     /**
+     * Returns true if both records have the same eventId and volunteerId
+     * This defines a weaker notion of equality between two records.
+     */
+    public boolean isSameRecord(Record otherRecord) {
+        if (otherRecord == this) {
+            return true;
+        }
+
+        return otherRecord != null
+                && otherRecord.getEventId().equals(getEventId())
+                && otherRecord.getVolunteerId().equals(getVolunteerId());
+    }
+
+    /**
      * Returns true if both records have the same identity and data fields.
      * This defines a stronger notion of equality between two records.
      */
