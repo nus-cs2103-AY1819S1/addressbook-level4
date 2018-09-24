@@ -6,7 +6,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ReceiptCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-public class ReceiptCommandParser {
+public class ReceiptCommandParser implements Parser<ReceiptCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
