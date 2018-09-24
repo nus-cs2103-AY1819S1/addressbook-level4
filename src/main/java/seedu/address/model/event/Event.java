@@ -161,18 +161,12 @@ public class Event {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Location: ")
-                .append(getLocation())
-                .append(" Start Date: ")
-                .append(getStartDate())
-                .append(" End Date: ")
-                .append(getEndDate())
-                .append(" Start Time.java: ")
-                .append(getStartTime())
-                .append(" End Time.java: ")
-                .append(getEndTime())
-                .append(" Description: ")
-                .append(getDescription())
+                .append(" Location: ").append(getLocation())
+                .append(" Start Date: ").append(getStartDate())
+                .append(" End Date: ").append(getEndDate())
+                .append(" Start Time.java: ").append(getStartTime())
+                .append(" End Time.java: ").append(getEndTime())
+                .append(" Description: ").append(getDescription())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
