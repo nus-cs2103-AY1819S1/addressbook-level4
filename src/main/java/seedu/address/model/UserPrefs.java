@@ -12,7 +12,7 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs {
 
     private GuiSettings guiSettings;
-    private Path taskManagerFilePath = Paths.get("data" , "taskmanager.xml");
+    private Path taskManagerFilePath = Paths.get("data", "taskmanager.xml");
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);

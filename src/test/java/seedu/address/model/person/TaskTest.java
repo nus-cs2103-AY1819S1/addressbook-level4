@@ -36,7 +36,8 @@ public class TaskTest {
         assertFalse(ALICE.isSameTask(null));
 
         // different due date and priority value -> returns false
-        Task editedAlice = new TaskBuilder(ALICE).withDueDate(VALID_PHONE_BOB).withPriorityValue(VALID_EMAIL_BOB).build();
+        Task editedAlice = new TaskBuilder(ALICE).withDueDate(VALID_PHONE_BOB).withPriorityValue(VALID_EMAIL_BOB)
+                .build();
         assertFalse(ALICE.isSameTask(editedAlice));
 
         // different name -> returns false

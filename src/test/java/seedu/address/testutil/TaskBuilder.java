@@ -5,8 +5,8 @@ import java.util.Set;
 
 import seedu.address.model.person.Description;
 import seedu.address.model.person.DueDate;
-import seedu.address.model.person.PriorityValue;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.PriorityValue;
 import seedu.address.model.person.Task;
 import seedu.address.model.tag.Label;
 import seedu.address.model.util.SampleDataUtil;
@@ -57,7 +57,7 @@ public class TaskBuilder {
     /**
      * Parses the {@code labels} into a {@code Set<Label>} and set it to the {@code Task} that we are building.
      */
-    public TaskBuilder withLabels(String ... labels) {
+    public TaskBuilder withLabels(String... labels) {
         this.labels = SampleDataUtil.getLabelSet(labels);
         return this;
     }

@@ -37,9 +37,9 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.person.Description;
-import seedu.address.model.person.PriorityValue;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.DueDate;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.PriorityValue;
 import seedu.address.model.tag.Label;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
@@ -83,8 +83,10 @@ public class EditCommandParserTest {
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_NAME_CONSTRAINTS); // invalid name
         assertParseFailure(parser, "1" + INVALID_PHONE_DESC, DueDate.MESSAGE_DUEDATE_CONSTRAINTS); // invalid phone
-        assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, PriorityValue.MESSAGE_PRIORITYVALUE_CONSTRAINTS); // invalid email
-        assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Description.MESSAGE_DESCRIPTION_CONSTRAINTS); // invalid address
+        assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, PriorityValue.MESSAGE_PRIORITYVALUE_CONSTRAINTS); // 
+        // invalid email
+        assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Description.MESSAGE_DESCRIPTION_CONSTRAINTS); // 
+        // invalid address
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Label.MESSAGE_LABEL_CONSTRAINTS); // invalid tag
 
         // invalid phone followed by valid email
@@ -96,9 +98,12 @@ public class EditCommandParserTest {
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Task} being edited,
         // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY, Label.MESSAGE_LABEL_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, Label.MESSAGE_LABEL_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Label.MESSAGE_LABEL_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY, Label
+                .MESSAGE_LABEL_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, Label
+                .MESSAGE_LABEL_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Label
+                .MESSAGE_LABEL_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY + VALID_PHONE_AMY,

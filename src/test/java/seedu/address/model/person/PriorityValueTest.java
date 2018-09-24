@@ -53,10 +53,13 @@ public class PriorityValueTest {
         assertTrue(PriorityValue.isValidPriorityValue("PeterJack_1190@example.com"));
         assertTrue(PriorityValue.isValidPriorityValue("a@bc")); // minimal
         assertTrue(PriorityValue.isValidPriorityValue("test@localhost")); // alphabets only
-        assertTrue(PriorityValue.isValidPriorityValue("!#$%&'*+/=?`{|}~^.-@example.org")); // special characters local part
+        assertTrue(PriorityValue.isValidPriorityValue("!#$%&'*+/=?`{|}~^.-@example.org")); // special characters 
+        // local part
         assertTrue(PriorityValue.isValidPriorityValue("123@145")); // numeric local part and domain name
-        assertTrue(PriorityValue.isValidPriorityValue("a1+be!@example1.com")); // mixture of alphanumeric and special characters
-        assertTrue(PriorityValue.isValidPriorityValue("peter_jack@very-very-very-long-example.com")); // long domain name
+        assertTrue(PriorityValue.isValidPriorityValue("a1+be!@example1.com")); // mixture of alphanumeric and special
+        // characters
+        assertTrue(PriorityValue.isValidPriorityValue("peter_jack@very-very-very-long-example.com")); // long domain 
+        // name
         assertTrue(PriorityValue.isValidPriorityValue("if.you.dream.it_you.can.do.it@example.com")); // long local part
     }
 }

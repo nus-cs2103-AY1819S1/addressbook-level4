@@ -52,12 +52,14 @@ public class TypicalTasks {
     public static final Task AMY = new TaskBuilder().withName(VALID_NAME_AMY).withDueDate(VALID_PHONE_AMY)
             .withPriorityValue(VALID_EMAIL_AMY).withDescription(VALID_ADDRESS_AMY).withLabels(VALID_TAG_FRIEND).build();
     public static final Task BOB = new TaskBuilder().withName(VALID_NAME_BOB).withDueDate(VALID_PHONE_BOB)
-            .withPriorityValue(VALID_EMAIL_BOB).withDescription(VALID_ADDRESS_BOB).withLabels(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+            .withPriorityValue(VALID_EMAIL_BOB).withDescription(VALID_ADDRESS_BOB).withLabels(VALID_TAG_HUSBAND,
+                    VALID_TAG_FRIEND)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalTasks() {} // prevents instantiation
+    private TypicalTasks() {
+    } // prevents instantiation
 
     /**
      * Returns an {@code TaskManager} with all the typical persons.

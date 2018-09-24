@@ -43,7 +43,7 @@ public class XmlSerializableAddressBook {
      * Converts this addressbook into the model's {@code TaskManager} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
-     * {@code XmlAdaptedPerson}.
+     *                               {@code XmlAdaptedPerson}.
      */
     public TaskManager toModelType() throws IllegalValueException {
         TaskManager addressBook = new TaskManager();

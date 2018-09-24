@@ -34,8 +34,8 @@ import org.junit.Test;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.DueDate;
-import seedu.address.model.person.PriorityValue;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.PriorityValue;
 import seedu.address.model.person.Task;
 import seedu.address.model.tag.Label;
 import seedu.address.testutil.TaskBuilder;
@@ -135,7 +135,7 @@ public class AddCommandParserTest {
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
+                        + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 }

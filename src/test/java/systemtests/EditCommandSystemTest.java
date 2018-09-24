@@ -41,12 +41,12 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.DueDate;
-import seedu.address.model.person.PriorityValue;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.PriorityValue;
 import seedu.address.model.person.Task;
 import seedu.address.model.tag.Label;
-import seedu.address.testutil.TaskBuilder;
 import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.TaskBuilder;
 
 public class EditCommandSystemTest extends AddressBookSystemTest {
 
@@ -216,6 +216,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Index, Task, Index)} except that
      * the browser url and selected card remain unchanged.
+     *
      * @param toEdit the index of the current model's filtered list
      * @see EditCommandSystemTest#assertCommandSuccess(String, Index, Task, Index)
      */
@@ -228,11 +229,12 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * 1. Asserts that result display box displays the success message of executing {@code EditCommand}.<br>
      * 2. Asserts that the model related components are updated to reflect the person at index {@code toEdit} being
      * updated to values specified {@code editedPerson}.<br>
+     *
      * @param toEdit the index of the current model's filtered list.
      * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
      */
     private void assertCommandSuccess(String command, Index toEdit, Task editedPerson,
-            Index expectedSelectedCardIndex) {
+                                      Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
         expectedModel.updateTask(expectedModel.getFilteredTaskList().get(toEdit.getZeroBased()), editedPerson);
         expectedModel.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
@@ -244,6 +246,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} except that the
      * browser url and selected card remain unchanged.
+     *
      * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
@@ -260,11 +263,12 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * 5. Asserts that the command box has the default style class.<br>
      * Verifications 1 and 2 are performed by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     *
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
-            Index expectedSelectedCardIndex) {
+                                      Index expectedSelectedCardIndex) {
         executeCommand(command);
         expectedModel.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
@@ -285,6 +289,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * 4. Asserts that the command box has the error style.<br>
      * Verifications 1 and 2 are performed by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     *
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {

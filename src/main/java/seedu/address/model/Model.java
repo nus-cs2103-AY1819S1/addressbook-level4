@@ -9,13 +9,19 @@ import seedu.address.model.person.Task;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
 
-    /** Clears existing backing model and replaces with the provided new data. */
+    /**
+     * Clears existing backing model and replaces with the provided new data.
+     */
     void resetData(ReadOnlyTaskManager newData);
 
-    /** Returns the TaskManager */
+    /**
+     * Returns the TaskManager
+     */
     ReadOnlyTaskManager getTaskManager();
 
     /**
@@ -42,11 +48,14 @@ public interface Model {
      */
     void updateTask(Task target, Task editedTask);
 
-    /** Returns an unmodifiable view of the filtered task list */
+    /**
+     * Returns an unmodifiable view of the filtered task list
+     */
     ObservableList<Task> getFilteredTaskList();
 
     /**
      * Updates the filter of the filtered task list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredTaskList(Predicate<Task> predicate);
