@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_LOCATION_YOUTH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_YOUTH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_START_DATE_YOUTH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_START_TIME_YOUTH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PUBLIC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPETITION;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,7 +30,7 @@ public class TypicalEvents {
     public static final Event YOUTH = new EventBuilder().withName(VALID_NAME_YOUTH)
             .withLocation(VALID_LOCATION_YOUTH).withStartDate(VALID_START_DATE_YOUTH).withEndDate(VALID_END_DATE_YOUTH)
             .withStartTime(VALID_START_TIME_YOUTH).withEndTime(VALID_END_TIME_YOUTH)
-            .withDescription(VALID_DESCRIPTION_YOUTH).withTags(VALID_TAG_PUBLIC).build();
+            .withDescription(VALID_DESCRIPTION_YOUTH).withTags(VALID_TAG_COMPETITION).build();
 
     private TypicalEvents() {} // prevents instantiation
 
