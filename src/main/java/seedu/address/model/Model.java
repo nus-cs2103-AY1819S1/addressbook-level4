@@ -86,7 +86,6 @@ public interface Model {
      */
     void updateFilteredRecordList(Predicate<Record> predicate);
 
-
     /**
      * Returns true if the model has previous address book states to restore.
      */
