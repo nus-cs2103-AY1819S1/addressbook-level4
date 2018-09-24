@@ -7,6 +7,8 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.ContactContainsTagPredicate;
 
+import java.util.List;
+
 /**
  * Clears the address book.
  */
@@ -23,17 +25,25 @@ public class ClearCommand extends Command {
 
     private final ContactContainsTagPredicate predicate;
 
-    private final String target;
+    private final List<String> target;
+    private boolean deleteAll;
 
-    public ClearCommand(String target, ContactContainsTagPredicate predicate) {
+    public ClearCommand(List<String> target, ContactContainsTagPredicate predicate) {
         this.target = target;
         this.predicate = predicate;
+        this.deleteAll = false;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        if (target.toLowerCase().equals("all")) {
+        for (String s : target) {
+            if (s.toLowerCase().equals("all")) {
+                this.deleteAll = true;
+                break;
+            }
+        }
+        if (deleteAll) {
             model.resetData(new AddressBook());
             model.commitAddressBook();
             return new CommandResult(MESSAGE_CLEAR_ALL_SUCCESS);

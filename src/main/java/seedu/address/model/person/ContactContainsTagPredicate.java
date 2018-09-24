@@ -19,7 +19,7 @@ public class ContactContainsTagPredicate implements Predicate<Person> {
     @Override
     public boolean test(Person person) {
         return keywords.stream()
-                .anyMatch(keyword -> person.getTags().stream().anyMatch(key -> keyword.equals(key.toString())));
+                .noneMatch(keyword -> person.getTags().stream().noneMatch(key -> keyword.equals(key.toString())));
     }
 
     @Override
