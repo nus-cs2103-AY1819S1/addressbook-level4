@@ -50,7 +50,7 @@ public class Time {
         int minute = Integer.parseInt(timeParts[1]);
         int hour = Integer.parseInt(timeParts[0]);
 
-        String[] otherTimeParts = otherTime.toString().split("-");
+        String[] otherTimeParts = otherTime.toString().split(":");
         int otherMinute = Integer.parseInt(otherTimeParts[1]);
         int otherHour = Integer.parseInt(otherTimeParts[0]);
 
