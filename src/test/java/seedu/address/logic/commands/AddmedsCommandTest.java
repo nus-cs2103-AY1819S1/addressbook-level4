@@ -36,33 +36,30 @@ import seedu.address.testutil.PersonBuilder;
 //@@author snajef
 /**
  * Test driver class for AddmedsCommand.
+ *
  * @author Darien Chong
  *
  */
 public class AddmedsCommandTest {
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
     private String validNric;
     private String drugName;
     private Dose dose;
     private Duration duration;
     private Prescription prescription;
     private Person patient;
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
     private CommandHistory commandHistory = new CommandHistory();
 
     @Before
     public void setup() {
-        /** Valid NRIC here must be something other than PersonBuilder's default NRIC. */
+        /**
+         * Valid NRIC here must be something other than PersonBuilder's default NRIC.
+         */
         validNric = "S9999999Z";
-        patient = new Person(
-                new Nric(validNric),
-                new Name("Addmeds Test"),
-                new Phone("92345678"),
-                new Email("addmedstest@mail.com"),
-                new Address("42 Addmeds Ave, #00-00"),
-                new HashSet<Tag>());
+        patient = new Person(new Nric(validNric), new Name("Addmeds Test"), new Phone("92345678"),
+                new Email("addmedstest@mail.com"), new Address("42 Addmeds Ave, #00-00"), new HashSet<Tag>());
 
         drugName = "Paracetamol";
         dose = new Dose(2, "tablets", 4);
@@ -78,7 +75,8 @@ public class AddmedsCommandTest {
     @Test
     public void execute_addmedsToExistingPatient_addmedsSuccessful() throws CommandException {
         ModelStubAcceptingAddmeds modelStub = new ModelStubAcceptingAddmeds(patient);
-        CommandResult commandResult = new AddmedsCommand(patient.getNric(), prescription).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddmedsCommand(patient.getNric(), prescription).execute(modelStub,
+                commandHistory);
         assertEquals(String.format(AddmedsCommand.MESSAGE_SUCCESS, patient.getNric()), commandResult.feedbackToUser);
     }
 
@@ -198,7 +196,7 @@ public class AddmedsCommandTest {
      * A Model stub that always accepts addmeds commands for a single person.
      */
     private class ModelStubAcceptingAddmeds extends ModelStub {
-        Person patient;
+        private Person patient;
 
         public ModelStubAcceptingAddmeds(Person patient) {
             this.patient = patient;
