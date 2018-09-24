@@ -47,7 +47,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public ReadOnlyTaskManager getAddressBook() {
+    public ReadOnlyTaskManager getTaskManager() {
         return versionedAddressBook;
     }
 
@@ -57,29 +57,29 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Task person) {
-        requireNonNull(person);
-        return versionedAddressBook.hasTask(person);
+    public boolean hasTask(Task task) {
+        requireNonNull(task);
+        return versionedAddressBook.hasTask(task);
     }
 
     @Override
-    public void deletePerson(Task target) {
+    public void deleteTask(Task target) {
         versionedAddressBook.removeTask(target);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void addPerson(Task person) {
-        versionedAddressBook.addTask(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addTask(Task task) {
+        versionedAddressBook.addTask(task);
+        updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void updatePerson(Task target, Task editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void updateTask(Task target, Task editedTask) {
+        requireAllNonNull(target, editedTask);
 
-        versionedAddressBook.updateTask(target, editedPerson);
+        versionedAddressBook.updateTask(target, editedTask);
         indicateAddressBookChanged();
     }
 
@@ -90,12 +90,12 @@ public class ModelManager extends ComponentManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Task> getFilteredPersonList() {
+    public ObservableList<Task> getFilteredTaskList() {
         return FXCollections.unmodifiableObservableList(filteredPersons);
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Task> predicate) {
+    public void updateFilteredTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
@@ -103,29 +103,29 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
+    public boolean canUndoTaskManager() {
         return versionedAddressBook.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
+    public boolean canRedoTaskManager() {
         return versionedAddressBook.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
+    public void undoTaskManager() {
         versionedAddressBook.undo();
         indicateAddressBookChanged();
     }
 
     @Override
-    public void redoAddressBook() {
+    public void redoTaskManager() {
         versionedAddressBook.redo();
         indicateAddressBookChanged();
     }
 
     @Override
-    public void commitAddressBook() {
+    public void commitTaskManager() {
         versionedAddressBook.commit();
     }
 

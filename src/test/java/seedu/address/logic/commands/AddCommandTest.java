@@ -89,7 +89,7 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public void addPerson(Task person) {
+        public void addTask(Task task) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -99,57 +99,57 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyTaskManager getAddressBook() {
+        public ReadOnlyTaskManager getTaskManager() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasPerson(Task person) {
+        public boolean hasTask(Task task) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Task target) {
+        public void deleteTask(Task target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updatePerson(Task target, Task editedPerson) {
+        public void updateTask(Task target, Task editedTask) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Task> getFilteredPersonList() {
+        public ObservableList<Task> getFilteredTaskList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Task> predicate) {
+        public void updateFilteredTaskList(Predicate<Task> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canUndoAddressBook() {
+        public boolean canUndoTaskManager() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canRedoAddressBook() {
+        public boolean canRedoTaskManager() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void undoAddressBook() {
+        public void undoTaskManager() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoAddressBook() {
+        public void redoTaskManager() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitTaskManager() {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -166,9 +166,9 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Task person) {
-            requireNonNull(person);
-            return this.person.isSameTask(person);
+        public boolean hasTask(Task task) {
+            requireNonNull(task);
+            return this.person.isSameTask(task);
         }
     }
 
@@ -179,24 +179,24 @@ public class AddCommandTest {
         final ArrayList<Task> personsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Task person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSameTask);
+        public boolean hasTask(Task task) {
+            requireNonNull(task);
+            return personsAdded.stream().anyMatch(task::isSameTask);
         }
 
         @Override
-        public void addPerson(Task person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addTask(Task task) {
+            requireNonNull(task);
+            personsAdded.add(task);
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitTaskManager() {
             // called by {@code AddCommand#execute()}
         }
 
         @Override
-        public ReadOnlyTaskManager getAddressBook() {
+        public ReadOnlyTaskManager getTaskManager() {
             return new TaskManager();
         }
     }

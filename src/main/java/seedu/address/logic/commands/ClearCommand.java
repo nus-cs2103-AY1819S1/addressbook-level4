@@ -19,7 +19,7 @@ public class ClearCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.resetData(new TaskManager());
-        model.commitAddressBook();
+        model.commitTaskManager();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
