@@ -97,7 +97,7 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     @Override
     public String toString() {
-        return tasks.asUnmodifiableObservableList().size() + " persons";
+        return tasks.asUnmodifiableObservableList().size() + " tasks";
         // TODO: refine later
     }
 
