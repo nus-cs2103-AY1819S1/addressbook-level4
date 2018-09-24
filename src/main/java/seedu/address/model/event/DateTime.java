@@ -5,12 +5,12 @@ import static java.util.Objects.requireNonNull;
 import java.time.LocalDateTime;
 
 /**
- * Represents a Event's date and time in the scheduler.
+ * Represents an Event's date and time in the scheduler.
  * Guarantees: immutable; is valid
  */
 public class DateTime implements Comparable<DateTime> {
 
-    public final LocalDateTime dateTime;
+    public final LocalDateTime value;
 
     /**
      * Constructs a {@code DateTime}.
@@ -19,28 +19,28 @@ public class DateTime implements Comparable<DateTime> {
      */
     public DateTime(LocalDateTime formmatedDateTime) {
         requireNonNull(formmatedDateTime);
-        dateTime = formmatedDateTime;
+        value = formmatedDateTime;
     }
 
     @Override
     public String toString() {
-        return dateTime.toString();
+        return value.toString();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DateTime // instanceof handles nulls
-                && dateTime.equals(((DateTime) other).dateTime)); // state check
+                && value.equals(((DateTime) other).value)); // state check
     }
 
     @Override
     public int hashCode() {
-        return dateTime.hashCode();
+        return value.hashCode();
     }
 
     @Override
     public int compareTo(DateTime otherDateTime) {
-        return dateTime.compareTo(otherDateTime.dateTime);
+        return value.compareTo(otherDateTime.value);
     }
 }

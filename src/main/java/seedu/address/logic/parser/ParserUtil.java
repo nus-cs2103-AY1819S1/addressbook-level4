@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Collection;
@@ -20,6 +19,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.DateTime;
 import seedu.address.model.event.Description;
 import seedu.address.model.event.EventName;
+import seedu.address.model.event.Priority;
+import seedu.address.model.event.RepeatType;
+import seedu.address.model.event.Venue;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -34,6 +36,8 @@ public class ParserUtil {
     public static final Parser NATTY_PARSER = new Parser();
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_FAILED_DATE_TIME_PARSE = "Natural language date time parsing failed";
+    public static final String MESSAGE_FAILED_REPEAT_TYPE_PARSE = "Repeat type is not valid";
+    public static final String MESSAGE_FAILED_PRIORITY_PARSE = "Priority is not valid";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -161,6 +165,37 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String priority} into a {@code Priority}.
+     *
+     * @throws ParseException if the given {@code priority} is invalid.
+     */
+    public static Priority parsePriority(String priority) throws ParseException {
+        requireNonNull(priority);
+        String trimmedPriority = priority.trim();
+        if (trimmedPriority.isEmpty()) {
+            return Priority.NONE;
+        } else if (trimmedPriority.equalsIgnoreCase(Priority.LOW.name())) {
+            return Priority.LOW;
+        } else if (trimmedPriority.equalsIgnoreCase(Priority.MEDIUM.name())) {
+            return Priority.MEDIUM;
+        } else if (trimmedPriority.equalsIgnoreCase(Priority.HIGH.name())) {
+            return Priority.HIGH;
+        } else {
+            throw new ParseException(String.format(MESSAGE_FAILED_PRIORITY_PARSE, priority));
+        }
+    }
+
+    /**
+     * Parses a {@code String venue} into a {@code Venue}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static Venue parseVenue(String venue) {
+        requireNonNull(venue);
+        String trimmedVenue = venue.trim();
+        return new Venue(trimmedVenue);
+    }
+
+    /**
      * Parses a {@code String eventName} into a {@code EventName}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -178,5 +213,26 @@ public class ParserUtil {
         }
         LocalDateTime formmatedDateTime = dates.get(0).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
         return new DateTime(formmatedDateTime);
+    }
+
+    /**
+     * Parses a {@code String repeatType} into a {@code RepeatType}.
+     *
+     * @throws ParseException if the given {@code repeatType} is invalid.
+     */
+    public static RepeatType parseRepeatType(String repeatType) throws ParseException {
+        requireNonNull(repeatType);
+        String trimmedRepeatType = repeatType.trim();
+        if (trimmedRepeatType.isEmpty()) {
+            return RepeatType.NONE;
+        } else if (trimmedRepeatType.equalsIgnoreCase(RepeatType.DAILY.name())) {
+            return RepeatType.DAILY;
+        } else if (trimmedRepeatType.equalsIgnoreCase(RepeatType.WEEKLY.name())) {
+            return RepeatType.WEEKLY;
+        } else if (trimmedRepeatType.equalsIgnoreCase(RepeatType.MONTHLY.name())) {
+            return RepeatType.MONTHLY;
+        } else {
+            throw new ParseException(String.format(MESSAGE_FAILED_REPEAT_TYPE_PARSE, repeatType));
+        }
     }
 }

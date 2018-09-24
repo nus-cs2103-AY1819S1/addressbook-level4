@@ -18,7 +18,7 @@ public class EventName {
      */
     public static final String EVENT_NAME_VALIDATION_REGEX = "[^\\s].*";
 
-    public final String eventName;
+    public final String value;
 
     /**
      * Constructs a {@code EventName}.
@@ -28,7 +28,7 @@ public class EventName {
     public EventName(String name) {
         requireNonNull(name);
         checkArgument(isValidEventName(name), MESSAGE_EVENT_NAME_CONSTRAINTS);
-        eventName = name;
+        value = name;
     }
 
     /**
@@ -41,19 +41,19 @@ public class EventName {
 
     @Override
     public String toString() {
-        return eventName;
+        return value;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof EventName // instanceof handles nulls
-                && eventName.equals(((EventName) other).eventName)); // state check
+                && value.equals(((EventName) other).value)); // state check
     }
 
     @Override
     public int hashCode() {
-        return eventName.hashCode();
+        return value.hashCode();
     }
 
 }

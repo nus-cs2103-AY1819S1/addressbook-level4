@@ -13,6 +13,7 @@ public class UserPrefs {
 
     private GuiSettings guiSettings;
     private Path addressBookFilePath = Paths.get("data" , "addressbook.xml");
+    private Path schedulerFilePath = Paths.get("data", "scheduler.xml");
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);
@@ -36,6 +37,14 @@ public class UserPrefs {
 
     public void setAddressBookFilePath(Path addressBookFilePath) {
         this.addressBookFilePath = addressBookFilePath;
+    }
+
+    public Path getSchedulerFilePath() {
+        return schedulerFilePath;
+    }
+
+    public void setSchedulerFilePath(Path schedulerFilePath) {
+        this.schedulerFilePath = schedulerFilePath;
     }
 
     @Override

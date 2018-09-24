@@ -7,17 +7,19 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_START_DATE_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 
 /**
- * Adds a person to the address book.
+ * Adds an event to the scheduler.
  */
 public class AddEventCommand extends Command {
 
-    public static final String COMMAND_WORD = "addEvent";
+    public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event to the scheduler. "
             + "Parameters: "
@@ -35,28 +37,25 @@ public class AddEventCommand extends Command {
             + PREFIX_TAG + "ad-hoc";
 
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
-    private final Event toAdd;
+    private final List<Event> toAdd = new ArrayList<>();
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code Event}
      */
     public AddEventCommand(Event event) {
         requireNonNull(event);
-        toAdd = event;
+        toAdd.addAll(Event.generateAllRepeatedEvents(event));
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
 
-//        if (model.hasPerson(toAdd)) {
-//            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-//        }
-//
-//        model.addPerson(toAdd);
-        model.commitAddressBook();
+        for (Event e :toAdd) {
+            model.addEvent(e);
+        }
+        model.commitScheduler();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

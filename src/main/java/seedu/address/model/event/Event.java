@@ -1,10 +1,14 @@
 package seedu.address.model.event;
 
-import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 /**
  * Represents an Event in the scheduler.
@@ -16,22 +20,39 @@ public class Event {
             "Event's start date and time should be before event's end date and time";
 
     // Identity fields
+    private final UUID uuid;
     private final EventName eventName;
     private final DateTime startDateTime;
     private final DateTime endDateTime;
 
     // Data fields
     private final Description description;
+    private final Priority priority;
+    private final Venue venue;
+    private final RepeatType repeatType;
+    private final DateTime repeatUntilDateTime;
 
     /**
      * Every field must be present and not null.
      */
-    public Event(EventName eventName, DateTime startDateTime, DateTime endDateTime, Description description) {
-        requireAllNonNull(eventName, startDateTime, endDateTime, description);
+    public Event(UUID uuid, EventName eventName, DateTime startDateTime, DateTime endDateTime,
+                 Description description, Priority priority, Venue venue,
+                 RepeatType repeatType, DateTime repeatUntilDateTime) {
+        requireAllNonNull(uuid, eventName, startDateTime, endDateTime, description,
+                priority, venue, repeatType, repeatUntilDateTime);
+        this.uuid = uuid;
         this.eventName = eventName;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
         this.description = description;
+        this.priority = priority;
+        this.venue = venue;
+        this.repeatType = repeatType;
+        this.repeatUntilDateTime = repeatUntilDateTime;
+    }
+
+    public UUID getUuid() {
+        return uuid;
     }
 
     public EventName getEventName() {
@@ -50,15 +71,101 @@ public class Event {
         return description;
     }
 
+    public Priority getPriority() {
+        return priority;
+    }
+
+    public Venue getVenue() {
+        return venue;
+    }
+
+    public RepeatType getRepeatType() {
+        return repeatType;
+    }
+
+    public DateTime getRepeatUntilDateTime() {
+        return repeatUntilDateTime;
+    }
+
     /**
-     * Returns true end datetime is not before start datetime
+     * Returns true if end datetime is after start datetime
      */
     public static boolean isValidEventDateTime(DateTime startDateTime, DateTime endDateTime) {
         return startDateTime.compareTo(endDateTime) <= 0;
     }
 
     /**
-     * Returns true if both events of the same name have the same startDateTime and endDateTime.
+     * Generate all repeated events from {@code targetEvent} according to its repeat type.
+     * {@code targetEvent} must have a valid event repeat type.
+     * Returns an unmodifable list of repeated events.
+     */
+    public static List<Event> generateAllRepeatedEvents(Event targetEvent) {
+        switch(targetEvent.getRepeatType()) {
+        case DAILY:
+            return Collections.unmodifiableList(generateDailyRepeatEvents(targetEvent));
+        case WEEKLY:
+            return Collections.unmodifiableList(generateWeeklyRepeatEvents(targetEvent));
+        default:
+            return List.of(targetEvent);
+        }
+    }
+
+    /**
+     * Generate all events that are repeated daily from {@code targetEvent}.
+     * Returns a list of events that are repeated daily.
+     */
+    private static List<Event> generateDailyRepeatEvents(Event targetEvent) {
+        List<Event> repeatedEventList = new ArrayList<>();
+        LocalDateTime repeatStartDateTime = targetEvent.getStartDateTime().value;
+        LocalDateTime repeatUntilDateTime = targetEvent.getRepeatUntilDateTime().value;
+        Duration durationDiff = Duration.between(targetEvent.getStartDateTime().value,
+                targetEvent.getEndDateTime().value);
+        while (repeatStartDateTime.isBefore(repeatUntilDateTime)) {
+            repeatedEventList.add(new Event(
+                    targetEvent.getUuid(),
+                    targetEvent.getEventName(),
+                    new DateTime(repeatStartDateTime),
+                    new DateTime(repeatStartDateTime.plus(durationDiff)),
+                    targetEvent.getDescription(),
+                    targetEvent.getPriority(),
+                    targetEvent.getVenue(),
+                    targetEvent.getRepeatType(),
+                    targetEvent.getRepeatUntilDateTime()
+            ));
+            repeatStartDateTime = repeatStartDateTime.plusDays(1);
+        }
+        return repeatedEventList;
+    }
+
+    /**
+     * Generate all events that are repeated weekly from {@code targetEvent}.
+     * Returns a list of events that are repeated weekly.
+     */
+    private static List<Event> generateWeeklyRepeatEvents(Event targetEvent) {
+        List<Event> repeatedEventList = new ArrayList<>();
+        LocalDateTime repeatStartDateTime = targetEvent.getStartDateTime().value;
+        LocalDateTime repeatUntilDateTime = targetEvent.getRepeatUntilDateTime().value;
+        Duration durationDiff = Duration.between(targetEvent.getStartDateTime().value,
+                targetEvent.getEndDateTime().value);
+        while (repeatStartDateTime.isBefore(repeatUntilDateTime)) {
+            repeatedEventList.add(new Event(
+                    targetEvent.getUuid(),
+                    targetEvent.getEventName(),
+                    new DateTime(repeatStartDateTime),
+                    new DateTime(repeatStartDateTime.plus(durationDiff)),
+                    targetEvent.getDescription(),
+                    targetEvent.getPriority(),
+                    targetEvent.getVenue(),
+                    targetEvent.getRepeatType(),
+                    targetEvent.getRepeatUntilDateTime()
+            ));
+            repeatStartDateTime = repeatStartDateTime.plusWeeks(1);
+        }
+        return repeatedEventList;
+    }
+
+    /**
+     * Returns true if both event have the same uuid.
      * This defines a weaker notion of equality between two events.
      */
     public boolean isSameEvent(Event otherEvent) {
@@ -67,14 +174,12 @@ public class Event {
         }
 
         return otherEvent != null
-                && otherEvent.getEventName().equals(getEventName())
-                && (otherEvent.getStartDateTime().equals(getStartDateTime())
-                || otherEvent.getEndDateTime().equals(getEndDateTime()));
+                && otherEvent.getUuid().equals(getUuid());
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both events have the same identity and data fields.
+     * This defines a stronger notion of equality between two events.
      */
     @Override
     public boolean equals(Object other) {
@@ -87,16 +192,22 @@ public class Event {
         }
 
         Event otherEvent = (Event) other;
-        return otherEvent.getEventName().equals(getEventName())
+        return otherEvent.getUuid().equals(getUuid())
+                && otherEvent.getEventName().equals(getEventName())
                 && otherEvent.getStartDateTime().equals(getStartDateTime())
                 && otherEvent.getEndDateTime().equals(getEndDateTime())
-                && otherEvent.getDescription().equals(getDescription());
+                && otherEvent.getDescription().equals(getDescription())
+                && otherEvent.getPriority().equals(getPriority())
+                && otherEvent.getVenue().equals(getVenue())
+                && otherEvent.getRepeatType().equals(getRepeatType())
+                && otherEvent.getRepeatUntilDateTime().equals(getRepeatUntilDateTime());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing our own
-        return Objects.hash(eventName, startDateTime, endDateTime, description);
+        return Objects.hash(eventName, startDateTime, endDateTime, description,
+                priority, venue, repeatType, repeatUntilDateTime);
     }
 
     @Override
@@ -108,7 +219,11 @@ public class Event {
                 .append(" endDateTime: ")
                 .append(getEndDateTime())
                 .append(" description: ")
-                .append(getDescription());
+                .append(getDescription())
+                .append(" recurring type: ")
+                .append(getRepeatType())
+                .append(" repeat until: ")
+                .append(getRepeatUntilDateTime());
         return builder.toString();
     }
 

@@ -3,21 +3,21 @@ package seedu.address.model.event;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents an Event's description in the scheduler.
+ * Represents an Event's venue in the scheduler.
  * Guarantees: immutable.
  */
-public class Description {
+public class Venue {
 
     public final String value;
 
     /**
-     * Constructs a {@code Description}.
+     * Constructs a {@code Venue}.
      *
-     * @param description A valid event description.
+     * @param venue A valid event venue.
      */
-    public Description(String description) {
-        requireNonNull(description);
-        value = description;
+    public Venue(String venue) {
+        requireNonNull(venue);
+        value = venue;
     }
 
     @Override
@@ -28,8 +28,8 @@ public class Description {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Description // instanceof handles nulls
-                && value.equals(((Description) other).value)); // state check
+                || (other instanceof Venue // instanceof handles nulls
+                && value.equals(((Venue) other).value)); // state check
     }
 
     @Override
