@@ -1,5 +1,7 @@
 package seedu.address.logic.commands.eventcommands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
@@ -9,8 +11,6 @@ import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.Poll;
 import seedu.address.model.person.Person;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Command adds a vote to the specified poll and option.

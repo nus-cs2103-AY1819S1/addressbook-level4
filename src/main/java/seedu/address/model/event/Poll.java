@@ -24,10 +24,6 @@ public class Poll {
         pollData = new HashMap<>();
     }
 
-    public Poll() {
-
-    }
-
     /**
      * Creates a new poll object with the poll data.
      */
@@ -89,7 +85,7 @@ public class Poll {
      * Returns a string representation of the poll
      */
     public String displayPoll() {
-        String title  = String.format("Poll %1$s: %2$s", Integer.toString(id), pollName);
+        String title = String.format("Poll %1$s: %2$s", Integer.toString(id), pollName);
         String mostPopularEntries = "Most popular options: " + getHighest().toString();
         String data = pollData.toString();
         return title + "\n" + mostPopularEntries + "\n" + data;

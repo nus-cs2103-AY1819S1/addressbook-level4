@@ -1,15 +1,19 @@
 package seedu.address.storage;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Person;
-
-import javax.xml.bind.annotation.XmlElement;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import javax.xml.bind.annotation.XmlElement;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.person.Person;
+
+/**
+ * JAXB-friendly version of a single poll entry.
+ */
 public class XmlAdaptedPollEntry {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Poll option's %s field is missing!";
 
@@ -20,13 +24,13 @@ public class XmlAdaptedPollEntry {
     private List<XmlAdaptedPerson> personList = new ArrayList<>();
 
     /**
-     * Constructs an XmlAdaptedPerson.
+     * Constructs an XmlAdaptedPollEntry.
      * This is the no-arg constructor that is required by JAXB.
      */
     public XmlAdaptedPollEntry() {}
 
     /**
-     * Constructs an {@code XmlAdaptedPoll} with the given poll details.
+     * Constructs an {@code XmlAdaptedPollEntry} with the given poll entry details.
      */
     public XmlAdaptedPollEntry(String name, LinkedList<Person> personList) {
         this.name = name;

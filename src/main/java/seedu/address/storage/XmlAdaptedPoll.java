@@ -1,10 +1,5 @@
 package seedu.address.storage;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.event.Poll;
-import seedu.address.model.person.Person;
-
-import javax.xml.bind.annotation.XmlElement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -12,6 +7,15 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import javax.xml.bind.annotation.XmlElement;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.event.Poll;
+import seedu.address.model.person.Person;
+
+/**
+ * JAXB-friendly version of the Poll.
+ */
 public class XmlAdaptedPoll {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Poll's %s field is missing!";
 
