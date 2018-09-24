@@ -988,13 +988,15 @@ Use case ends.
 *Extensions*
 
 * 1a. The system cannot find the requested patient's record.
-	1a.1 System displays an error message. "No record found."
-	1a.2 System displays prompt to add patient
-	1a.3 Actor adds patient records
-	1a.4 Use case: Add patient record.
-	1a.5 Repeat MSS
+	** 1a.1 System displays an error message. "No record found."
+	** 1a.2 System displays prompt to add patient
+	** 1a.3 Actor adds patient records
+	** 1a.4 Use case: Add patient record.
+	** 1a.5 Repeat MSS
 +
 Use case ends.
++
+* 2a. All queues are full.
 
 [appendix]
 == Non Functional Requirements
