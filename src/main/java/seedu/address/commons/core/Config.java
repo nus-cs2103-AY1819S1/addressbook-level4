@@ -16,7 +16,6 @@ public class Config {
     private String appTitle = "Address App";
     private Level logLevel = Level.INFO;
     private Path userPrefsFilePath = Paths.get("preferences.json");
-    private Path emailPath = Paths.get("/email");
 
     public String getAppTitle() {
         return appTitle;
@@ -42,10 +41,6 @@ public class Config {
         this.userPrefsFilePath = userPrefsFilePath;
     }
 
-    public Path getEmailPath() { return emailPath; }
-
-    public void setEmailPath(Path emailPath) { this.emailPath = emailPath; }
-
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -59,13 +54,12 @@ public class Config {
 
         return Objects.equals(appTitle, o.appTitle)
                 && Objects.equals(logLevel, o.logLevel)
-                && Objects.equals(userPrefsFilePath, o.userPrefsFilePath)
-                && Objects.equals(emailPath, o.emailPath);
+                && Objects.equals(userPrefsFilePath, o.userPrefsFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(appTitle, logLevel, userPrefsFilePath, emailPath);
+        return Objects.hash(appTitle, logLevel, userPrefsFilePath);
     }
 
     @Override
@@ -74,7 +68,6 @@ public class Config {
         sb.append("App title : " + appTitle);
         sb.append("\nCurrent log level : " + logLevel);
         sb.append("\nPreference file Location : " + userPrefsFilePath);
-        sb.append("\nEmail folder Location : " + emailPath);
         return sb.toString();
     }
 
