@@ -57,10 +57,6 @@ public class Person {
         return nric;
     }
 
-    public Nric getNric() {
-        return nric;
-    }
-
     public Name getName() {
         return name;
     }
