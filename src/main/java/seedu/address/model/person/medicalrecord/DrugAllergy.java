@@ -3,6 +3,9 @@ package seedu.address.model.person.medicalrecord;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a patient's drug allergy.
+ */
 public class DrugAllergy {
 
     public static final String MESSAGE_DRUGALLERGY_CONSTRAINTS =

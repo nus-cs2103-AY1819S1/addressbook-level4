@@ -33,7 +33,8 @@ public class MedicalRecord {
         this.notes = new ArrayList<>();
     }
 
-    public MedicalRecord(BloodType bloodType, List<DrugAllergy> drugAllergies, List<Disease> diseaseHistory, List<Note> notes) {
+    public MedicalRecord(BloodType bloodType, List<DrugAllergy> drugAllergies, List<Disease> diseaseHistory,
+                         List<Note> notes) {
         this.bloodType = bloodType;
         this.drugAllergies = drugAllergies;
         this.diseaseHistory = diseaseHistory;
@@ -75,6 +76,12 @@ public class MedicalRecord {
         this.notes.add(note);
     }
 
+    /**
+     * Combines 2 medical records into one.
+     * @param record1
+     * @param record2
+     * @return a single MedicalRecord object which is a combination of the two provided.
+     */
     public static MedicalRecord combineMedicalRecords(MedicalRecord record1, MedicalRecord record2) {
 
         BloodType newBloodType = record1.getBloodType();

@@ -3,6 +3,9 @@ package seedu.address.model.person.medicalrecord;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a note object belonging to a patient.
+ */
 public class Note {
 
     public static final String MESSAGE_NOTE_CONSTRAINTS =

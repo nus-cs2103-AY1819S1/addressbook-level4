@@ -104,7 +104,8 @@ public class XmlAdaptedPerson {
         final Name modelName = new Name(name);
 
         if (icNumber == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, IcNumber.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    IcNumber.class.getSimpleName()));
         }
         if (!IcNumber.isValidIcNumber(icNumber)) {
             throw new IllegalValueException(IcNumber.MESSAGE_ICNUMBER_CONSTRAINTS);
@@ -136,12 +137,14 @@ public class XmlAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         if (medicalRecord == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, MedicalRecord.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    MedicalRecord.class.getSimpleName()));
         }
         final MedicalRecord modelMedicalRecord = new MedicalRecord(medicalRecord.toModelType());
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Patient(modelName, modelIcNumber, modelPhone, modelEmail, modelAddress, modelTags, modelMedicalRecord);
+        return new Patient(modelName, modelIcNumber, modelPhone, modelEmail, modelAddress, modelTags,
+                modelMedicalRecord);
     }
 
     @Override
