@@ -3,6 +3,8 @@ package seedu.address.model;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.testutil.TypicalEvents.BLOOD;
+import static seedu.address.testutil.TypicalEvents.YOUTH;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
@@ -40,14 +42,39 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasEvent_nullEvent_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.hasEvent(null);
+    }
+
+    @Test
+    public void hasEvent_personNotInAddressBook_returnsFalse() {
+        assertFalse(modelManager.hasEvent(BLOOD));
+    }
+
+    @Test
+    public void hasEvent_personInAddressBook_returnsTrue() {
+        modelManager.addEvent(BLOOD);
+        assertTrue(modelManager.hasEvent(BLOOD));
+    }
+
+    @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getFilteredPersonList().remove(0);
     }
 
     @Test
+    public void getFilteredEventList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getFilteredEventList().remove(0);
+    }
+
+    @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        AddressBook addressBook = new AddressBookBuilder()
+                .withPerson(ALICE).withPerson(BENSON)
+                .withEvent(BLOOD).withEvent(YOUTH).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
 
