@@ -17,10 +17,6 @@ endif::[]
 
 * This is a desktop Clinic Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * It is a Java application intended for use of clinics to store patient information, medicine stock levels and to manage patient queues.
-* What's different from https://github.com/se-edu/addressbook-level3[level 3]:
-** A more sophisticated GUI that includes a list  panel and an in-built Browser.
-** More test cases, including automated GUI testing.
-** Support for _Build Automation_ using Gradle and for _Continuous Integration_ using Travis CI.
 
 == Site Map
 
@@ -30,7 +26,7 @@ endif::[]
 * <<ContactUs#, Contact Us>>
 
 == Acknowledgements
-
+* This application is built upon addressbook-level4, given by https://github.com/nus-cs2103-AY1819S1 [source code] by the 2018/19 CS2103T teaching staff, without which this project would not have been possible.
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://github.com/TestFX/TestFX[TextFX], https://bitbucket.org/controlsfx/controlsfx/[ControlsFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]

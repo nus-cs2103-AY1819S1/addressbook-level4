@@ -2,35 +2,27 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BLOODTYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DIESEASE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DRUGALLERGY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddMedicalRecordCommand;
-import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.medicalrecord.BloodType;
 import seedu.address.model.person.medicalrecord.Disease;
 import seedu.address.model.person.medicalrecord.DrugAllergy;
 import seedu.address.model.person.medicalrecord.MedicalRecord;
 import seedu.address.model.person.medicalrecord.Note;
-import seedu.address.model.tag.Tag;
 
+/**
+ * Parses input arguments and creates a new AddMedicalRecordCommand object
+ */
 public class AddMedicalRecordCommandParser implements Parser<AddMedicalRecordCommand> {
 
     /**
@@ -48,7 +40,8 @@ public class AddMedicalRecordCommandParser implements Parser<AddMedicalRecordCom
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMedicalRecordCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddMedicalRecordCommand.MESSAGE_USAGE), pe);
         }
 
         BloodType bloodType = null;
@@ -84,7 +77,11 @@ public class AddMedicalRecordCommandParser implements Parser<AddMedicalRecordCom
         return new AddMedicalRecordCommand(index, medicalRecord);
     }
 
-
+    /**
+     * Parses list of Disease objects from raw string.
+     * @param diseaseRawString
+     * @return list of Diseases
+     */
     private static List<Disease> parseDiseaseForAddMedicalCommand(String diseaseRawString) {
         List<String> diseasesAsString = new ArrayList<>(Arrays.asList(diseaseRawString.split("\\s*,\\s*")));
 
@@ -97,6 +94,11 @@ public class AddMedicalRecordCommandParser implements Parser<AddMedicalRecordCom
         return diseases;
     }
 
+    /**
+     * Parses list of DrugAllergy objects from raw string.
+     * @param drugAllergyRawString
+     * @return list of DrugAllergies
+     */
     private static List<DrugAllergy> parseDrugAllergiesForAddMedicalCommand(String drugAllergyRawString) {
         List<String> drugAllergiesAsString = new ArrayList<>(Arrays.asList(drugAllergyRawString.split("\\s*,\\s*")));
 

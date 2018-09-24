@@ -1,16 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BLOODTYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DIESEASE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DRUGALLERGY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ICNUMBER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
@@ -30,7 +24,8 @@ public class AddMedicalRecordCommand extends Command {
 
     public static final String COMMAND_WORD = "addMedicalRecord";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new medical record, or adds data to existing "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Creates a new medical record, or adds data to existing "
             + "medical record of specified patient to the address book. \n"
             + "Parameters: "
             + PREFIX_BLOODTYPE + "BLOODTYPE "
@@ -77,7 +72,8 @@ public class AddMedicalRecordCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
-    private static Patient createNewPatientWithUpdatedMedicalRecord(Patient patientToAddMedicalRecord, MedicalRecord medicalRecordToAdd) {
+    private static Patient createNewPatientWithUpdatedMedicalRecord(Patient patientToAddMedicalRecord,
+                                                                    MedicalRecord medicalRecordToAdd) {
         return new Patient(patientToAddMedicalRecord, medicalRecordToAdd);
     }
 

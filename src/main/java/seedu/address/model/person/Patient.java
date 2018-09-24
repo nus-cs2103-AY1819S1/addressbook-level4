@@ -44,7 +44,8 @@ public class Patient {
         this.medicalRecord = new MedicalRecord();
     }
 
-    public Patient(Name name, IcNumber icNumber, Phone phone, Email email, Address address, Set<Tag> tags, MedicalRecord medicalRecord) {
+    public Patient(Name name, IcNumber icNumber, Phone phone, Email email, Address address,
+                   Set<Tag> tags, MedicalRecord medicalRecord) {
         requireAllNonNull(name, icNumber, phone, email, address, tags, medicalRecord);
         this.name = name;
         this.icNumber = icNumber;
@@ -68,16 +69,18 @@ public class Patient {
         this.email = patient.getEmail();
         this.address = patient.getAddress();
         this.tags.addAll(patient.getTags()); // Dunno if this works? Cuz .getTags() is returning unmodifiable set,
-        this.medicalRecord = patient.getMedicalRecord() == null ?
-                medicalRecord :
-                MedicalRecord.combineMedicalRecords(patient.getMedicalRecord(), medicalRecord);
+        this.medicalRecord = patient.getMedicalRecord() == null
+                ? medicalRecord
+                : MedicalRecord.combineMedicalRecords(patient.getMedicalRecord(), medicalRecord);
     }
 
     public Name getName() {
         return name;
     }
 
-    public IcNumber getIcNumber() { return icNumber; }
+    public IcNumber getIcNumber() {
+        return icNumber;
+    }
 
     public Phone getPhone() {
         return phone;
@@ -91,7 +94,9 @@ public class Patient {
         return address;
     }
 
-    public MedicalRecord getMedicalRecord() { return medicalRecord; }
+    public MedicalRecord getMedicalRecord() {
+        return medicalRecord;
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}

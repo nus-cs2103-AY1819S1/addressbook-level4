@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <patient>
     <name>Hans Muster</name>
+    <icNumber>S1234567X</icNumber>
     <phone>9482424</phone>
     <email>hans@example</email>
     <address>4th street</address>
     <tagged>friends</tagged>
+    <medicalRecord>
+        <bloodType>A+</bloodType>
+    </medicalRecord>
 </patient>

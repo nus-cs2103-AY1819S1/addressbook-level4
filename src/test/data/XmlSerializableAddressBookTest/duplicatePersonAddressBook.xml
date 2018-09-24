@@ -3,18 +3,26 @@
 
     <patients>
         <name>Alice Pauline</name>
+        <icNumber>S1234567X</icNumber>
         <phone>94351253</phone>
         <email>alice@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
         <tagged>friends</tagged>
+        <medicalRecord>
+            <bloodType>A+</bloodType>
+        </medicalRecord>
     </patients>
 
     <!-- Patient with same identity as Alice Pauline -->
     <patients>
         <name>Alice Pauline</name>
+        <icNumber>S1234567X</icNumber>
         <phone>94351253</phone>
         <email>pauline@example.com</email>
         <address>4th street</address>
+        <medicalRecord>
+            <bloodType>A+</bloodType>
+        </medicalRecord>
     </patients>
 
 </addressbook>

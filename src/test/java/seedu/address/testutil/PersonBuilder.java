@@ -9,6 +9,8 @@ import seedu.address.model.person.IcNumber;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.medicalrecord.BloodType;
+import seedu.address.model.person.medicalrecord.MedicalRecord;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -22,6 +24,7 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_BLOODTYPE = "A+";
 
     private Name name;
     private IcNumber icNumber;
@@ -29,6 +32,7 @@ public class PersonBuilder {
     private Email email;
     private Address address;
     private Set<Tag> tags;
+    private MedicalRecord medicalRecord;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -37,6 +41,7 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
+        medicalRecord = new MedicalRecord(new BloodType(DEFAULT_BLOODTYPE));
     }
 
     /**
@@ -49,6 +54,7 @@ public class PersonBuilder {
         email = patientToCopy.getEmail();
         address = patientToCopy.getAddress();
         tags = new HashSet<>(patientToCopy.getTags());
+        medicalRecord = patientToCopy.getMedicalRecord();
     }
 
     /**
@@ -99,8 +105,17 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code MedicalRecord} of the {@code Patient} that we are building.
+     * @param bloodType
+     */
+    public PersonBuilder withMedicalRecord(String bloodType) {
+        this.medicalRecord = new MedicalRecord(new BloodType(bloodType));
+        return this;
+    }
+
     public Patient build() {
-        return new Patient(name, icNumber, phone, email, address, tags);
+        return new Patient(name, icNumber, phone, email, address, tags, medicalRecord);
     }
 
 }

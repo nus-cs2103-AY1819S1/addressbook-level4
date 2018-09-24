@@ -59,7 +59,7 @@ Format: `help`
 === Adding a patient: `add`
 
 Adds a patient to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Format: `add n/NAME ic/IC_NUMBER p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
 [TIP]
 A patient can have any number of tags (including 0)

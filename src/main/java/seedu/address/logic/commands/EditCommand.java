@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ICNUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -40,6 +41,7 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
+            + "[" + PREFIX_ICNUMBER + "ICNUMBER] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
@@ -155,7 +157,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, icNumber, phone, email, address, tags);
         }
 
         public void setName(Name name) {
@@ -166,9 +168,13 @@ public class EditCommand extends Command {
             return Optional.ofNullable(name);
         }
 
-        public void setIcNumber(IcNumber icNumber) { this.icNumber = icNumber; }
+        public void setIcNumber(IcNumber icNumber) {
+            this.icNumber = icNumber;
+        }
 
-        public Optional<IcNumber> getIcNumber() { return Optional.ofNullable(icNumber); }
+        public Optional<IcNumber> getIcNumber() {
+            return Optional.ofNullable(icNumber);
+        }
 
         public void setPhone(Phone phone) {
             this.phone = phone;

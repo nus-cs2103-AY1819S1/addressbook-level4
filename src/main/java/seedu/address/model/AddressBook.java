@@ -7,7 +7,6 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.person.medicalrecord.MedicalRecord;
 
 /**
  * Wraps all data at the address-book level
@@ -78,7 +77,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Replaces the given patient {@code target} in the list with {@code editedPatient}.
      * {@code target} must exist in the address book.
-     * The patient identity of {@code editedPatient} must not be the same as another existing patient in the address book.
+     * The patient identity of {@code editedPatient} must not be the same as another existing
+     * patient in the address book.
      */
     public void updatePerson(Patient target, Patient editedPatient) {
         requireNonNull(editedPatient);
