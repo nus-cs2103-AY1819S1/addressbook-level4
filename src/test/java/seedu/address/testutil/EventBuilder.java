@@ -12,7 +12,9 @@ import seedu.address.model.event.Time;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
-
+/**
+ * A utility class to help with building Event objects.
+ */
 public class EventBuilder {
     public static final String DEFAULT_NAME = "Blood Donation Drive 2018";
     public static final String DEFAULT_LOCATION = "750E, Chai Chee Road, #08-111";

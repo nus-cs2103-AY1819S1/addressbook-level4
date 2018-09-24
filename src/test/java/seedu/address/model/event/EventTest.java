@@ -2,17 +2,17 @@ package seedu.address.model.event;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_YOUTH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_LOCATION_YOUTH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_START_DATE_YOUTH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_END_DATE_YOUTH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_START_TIME_YOUTH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_END_TIME_YOUTH;
+
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_YOUTH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_END_DATE_YOUTH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_END_TIME_YOUTH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LOCATION_YOUTH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_YOUTH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_START_DATE_YOUTH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_START_TIME_YOUTH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMPETITION;
 import static seedu.address.testutil.TypicalEvents.BLOOD;
 import static seedu.address.testutil.TypicalEvents.YOUTH;
-
 
 import org.junit.Rule;
 import org.junit.Test;

@@ -1,12 +1,12 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_YOUTH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_LOCATION_YOUTH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_START_DATE_YOUTH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_END_DATE_YOUTH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_START_TIME_YOUTH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_END_TIME_YOUTH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_YOUTH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_END_DATE_YOUTH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_END_TIME_YOUTH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LOCATION_YOUTH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_YOUTH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_START_DATE_YOUTH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_START_TIME_YOUTH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PUBLIC;
 
 import java.util.ArrayList;
@@ -16,6 +16,9 @@ import java.util.List;
 import seedu.address.model.AddressBook;
 import seedu.address.model.event.Event;
 
+/**
+ * A utility class containing a list of {@code Event} objects to be used in tests.
+ */
 public class TypicalEvents {
 
     public static final Event BLOOD = new EventBuilder().withName("Blood Donation Drive 2018")
