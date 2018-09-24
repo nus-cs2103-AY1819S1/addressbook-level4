@@ -14,17 +14,17 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103-AY1819S1-F11-1`      Since: `Sep 2018`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+iScheduler Xs Max is for those who *prefer to use a desktop app for scheduling personal events*. More importantly, this version is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, we can get your event scheduling tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `iScheduler Xs Max.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your iScheduler Xs Max.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,9 +33,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`list`* : lists all events
+* **`add`**`add n/CompanyAInterview s/22 September 2018 9am p/high` : adds an Event named `CompanyAInterview` to the Event Scheduler.
+* **`delete`**`3` : deletes the 3rd event shown in the current event
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -56,18 +56,23 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding an event
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds an event to the scheduler +
+Format: `add event n/EVENT_NAME [s/EVENT_START_DATE_TIME] [e/EVENT_END_DATE_TIME] [d/DESCRIPTION] [p/PRIORIY] [v/VENUE] [rs/EVENT_RECURRING_STATUS] [ru/EVENT_RECURRING_UNTIL_DATE_TIME] [t/TAG]…​`
 
 [TIP]
-A person can have any number of tags (including 0)
+An event can have any number of tags (including 0)
+
+* `DATE_TIME` expressions should be expressed in ENGLISH
+* `PRIORIY` should be chosen from the list of priority. Priority can be expressed as an integer(index) or in English
+* `TAG` should be chosen from the list of tags. Tags can be expressed as an integer(index) or in English
+* `EVENT_RECURRING_STATUS` should be chosen from either DAILY, WEEKLY OR MONTHlY.
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/Study With Yoko s/tomorrow at 3pm d/Study again and again p/high rs/MONTHLY ru/ next friday 3pm tag/ad-hoc`
+* `add n/CS2103 Lecture s/23 September 2018 6pm e/ 24 September 2018 p/low rs/WEEKLY ru/ next monday tag/timetable`
 
 === Listing all persons : `list`
 
@@ -242,8 +247,8 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add event* `add event n/EVENT_NAME [s/EVENT_START_DATE_TIME] [e/EVENT_END_DATE_TIME] [d/DESCRIPTION] [p/PRIORIY] [v/VENUE] [rs/EVENT_RECURRING_STATUS] [ru/EVENT_RECURRING_UNTIL_DATE_TIME] [t/TAG]…​` +
+e.g. `add n/Study With Yoko s/tomorrow at 3pm d/Study again and again p/high r/MONTHLY tag/ad-hoc`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
