@@ -256,22 +256,22 @@ Proceed to next instruction. +
 Format: +
 Hit `Enter` key
 
-==== Previous Instruction: `b`/`back`
+==== Previous Instruction: `b`
 Revert to previous instruction. +
 Format: +
 `b`/`back`
 
-==== Start timer: `s`/`start`
+==== Start timer: `s`
 Begin countdown timer. +
 Format: +
 `s`/`start`
 
-==== Pause timer: `p`/`pause`
+==== Pause timer: `p`
 Pause countdown timer. +
 Format: +
 `p`/`pause`
 
-==== End/Reset timer: `e`/`end`
+==== End/Reset timer: `e`
 End/Reset countdown timer. +
 Format: +
 `e`/`end`
@@ -288,7 +288,8 @@ Format: +
 
 == Command Summary
 
-=== Universal Commands
+*Universal Commands*
+
 * View help: `-help [local]`
 * Navigate pages: `-back [TIMES]`/ `-forward [TIMES]`
 * Search and display recipes: `-search KEYWORD... [xx KEYWORD...]`
@@ -300,16 +301,19 @@ Format: +
 * Add a recipe: `-add n/NAME t/TIME i/INSTRUCTION... [t/TAG...] end`
 * Exit application: `-exit`
 
-=== Recipes/Favourite List
+*Recipes/Favourite List*
+
 * Display recipe details: `INDEX`
 * Activate cook-mode: `cook INDEX`
 
-=== Recipe Details Commands
+*Recipe Details Commands*
+
 * Add recipe to favourite: `favourite`
 * Add to meal plan: `plan DATE TIME`
 * Active cook-mode: `cook`
 
-=== Ingredient Manager Commands
+*Ingredient Manager Commands*
+
 * Add an ingredient: `add NAME AMOUNT DATE`
 * List all ingredients: `list`
 * Edit ingredient info:`edit NAME FIELD_NAME NEW_INFO (FIELD_NAME NEW_INFO)… end`
@@ -317,6 +321,16 @@ Format: +
 * Delete ingredient: `delete NAME`
 * Search recipes based on ingredients manager availability: `select [NUMBER_OF_SERVINGS] KEYWORD… optional KEYWORD… end`
 
-=== Meal Planner Commands
+*Meal Planner Commands*
+
 * Delete recipe: `delete DATE TIME`
 * Clear planner: `clearall`
+
+*Cook-Mode Commands*
+
+* Next Instruction: Hit `Enter` key
+* Previous Instruction: `b`
+* Start timer: `s`
+* Pause timer: `p`
+* End/Reset timer: `e`
+* End cook-mode: `end`
