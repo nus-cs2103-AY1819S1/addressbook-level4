@@ -5,8 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalTasks.ALICE;
+import static seedu.address.testutil.TypicalTasks.getTypicalTaskManager;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -21,7 +21,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Task;
 import seedu.address.model.person.exceptions.DuplicateTaskException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TaskBuilder;
 
 public class TaskManagerTest {
 
@@ -43,7 +43,7 @@ public class TaskManagerTest {
 
     @Test
     public void resetData_withValidReadOnlyTaskManager_replacesData() {
-        TaskManager newData = getTypicalAddressBook();
+        TaskManager newData = getTypicalTaskManager();
         taskManager.resetData(newData);
         assertEquals(newData, taskManager);
     }
@@ -51,7 +51,7 @@ public class TaskManagerTest {
     @Test
     public void resetData_withDuplicateTasks_throwsDuplicateTaskException() {
         // Two tasks with the same identity fields
-        Task editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Task editedAlice = new TaskBuilder(ALICE).withDescription(VALID_ADDRESS_BOB).withLabels(VALID_TAG_HUSBAND)
                 .build();
         List<Task> newTasks = Arrays.asList(ALICE, editedAlice);
         TaskManagerStub newData = new TaskManagerStub(newTasks);
@@ -80,7 +80,7 @@ public class TaskManagerTest {
     @Test
     public void hasTask_taskWithSameIdentityFieldsInTaskManager_returnsTrue() {
         taskManager.addTask(ALICE);
-        Task editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Task editedAlice = new TaskBuilder(ALICE).withDescription(VALID_ADDRESS_BOB).withLabels(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(taskManager.hasTask(editedAlice));
     }

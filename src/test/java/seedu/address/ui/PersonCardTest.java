@@ -9,20 +9,20 @@ import org.junit.Test;
 
 import guitests.guihandles.PersonCardHandle;
 import seedu.address.model.person.Task;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TaskBuilder;
 
 public class PersonCardTest extends GuiUnitTest {
 
     @Test
     public void display() {
         // no tags
-        Task personWithNoTags = new PersonBuilder().withTags(new String[0]).build();
+        Task personWithNoTags = new TaskBuilder().withLabels(new String[0]).build();
         PersonCard personCard = new PersonCard(personWithNoTags, 1);
         uiPartRule.setUiPart(personCard);
         assertCardDisplay(personCard, personWithNoTags, 1);
 
         // with tags
-        Task personWithTags = new PersonBuilder().build();
+        Task personWithTags = new TaskBuilder().build();
         personCard = new PersonCard(personWithTags, 2);
         uiPartRule.setUiPart(personCard);
         assertCardDisplay(personCard, personWithTags, 2);
@@ -30,7 +30,7 @@ public class PersonCardTest extends GuiUnitTest {
 
     @Test
     public void equals() {
-        Task person = new PersonBuilder().build();
+        Task person = new TaskBuilder().build();
         PersonCard personCard = new PersonCard(person, 0);
 
         // same person, same index -> returns true
@@ -47,7 +47,7 @@ public class PersonCardTest extends GuiUnitTest {
         assertFalse(personCard.equals(0));
 
         // different person, same index -> returns false
-        Task differentPerson = new PersonBuilder().withName("differentName").build();
+        Task differentPerson = new TaskBuilder().withName("differentName").build();
         assertFalse(personCard.equals(new PersonCard(differentPerson, 0)));
 
         // same person, different index -> returns false

@@ -3,8 +3,8 @@ package seedu.address.model;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalTasks.ALICE;
+import static seedu.address.testutil.TypicalTasks.BENSON;
 
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -14,7 +14,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.TaskManagerBuilder;
 
 public class ModelManagerTest {
     @Rule
@@ -47,7 +47,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        TaskManager taskManager = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        TaskManager taskManager = new TaskManagerBuilder().withTask(ALICE).withTask(BENSON).build();
         TaskManager differentTaskManager = new TaskManager();
         UserPrefs userPrefs = new UserPrefs();
 
