@@ -815,13 +815,20 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Is a receptionist at a medical clinic currently
+* Non-tech savvy
+* Prefer desktops apps over other types
+* Can type fast
+* Prefer typing over mouse input
+* Reasonably comfortable using CLI apps
+* Able to handle multiple doctors
+* (more to be added)
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
+
+* Allow users to focus on attending to patients and provide a better experience.
+* Avoid critical errors stemming from inaccurate or incomplete paper records.
+* Improve visibility of a clinic's patient record and patient management process.
 
 [appendix]
 == User Stories
