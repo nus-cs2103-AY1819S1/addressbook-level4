@@ -86,6 +86,9 @@ public class AddmedsCommandTest {
         AddmedsCommand addmedsCommand = new AddmedsCommand(patientNotInModel.getNric(), prescription);
         ModelStub modelStub = new ModelStubAcceptingAddmeds(patient);
 
+        // It appears that we can't use the expected parameter in the @Test annotation
+        // if we want to expect a certain message as well.
+        // Hence the choice of thrown.expect(Exception) over the @Test(expected=Exception) annotation.
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddmedsCommand.MESSAGE_NO_SUCH_PATIENT);
         addmedsCommand.execute(modelStub, commandHistory);
