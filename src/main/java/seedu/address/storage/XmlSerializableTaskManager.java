@@ -13,22 +13,22 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 
 /**
- * An Immutable AddressBook that is serializable to XML format
+ * An Immutable TaskManager that is serializable to XML format
  */
-@XmlRootElement(name = "addressbook")
+@XmlRootElement(name = "taskmanager")
 public class XmlSerializableTaskManager {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_TASK = "Tasks list contains duplicate task(s).";
 
     @XmlElement
-    private List<XmlAdaptedTask> persons;
+    private List<XmlAdaptedTask> tasks;
 
     /**
-     * Creates an empty XmlSerializableAddressBook.
+     * Creates an empty XmlSerializableTaskManager.
      * This empty constructor is required for marshalling.
      */
     public XmlSerializableTaskManager() {
-        persons = new ArrayList<>();
+        tasks = new ArrayList<>();
     }
 
     /**
@@ -36,25 +36,25 @@ public class XmlSerializableTaskManager {
      */
     public XmlSerializableTaskManager(ReadOnlyAddressBook src) {
         this();
-        persons.addAll(src.getPersonList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+        tasks.addAll(src.getPersonList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this addressbook into the model's {@code AddressBook} object.
+     * Converts this taskmanager into the model's {@code TaskManager} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
-     * {@code XmlAdaptedPerson}.
+     * {@code XmlAdaptedTask}.
      */
     public AddressBook toModelType() throws IllegalValueException {
-        AddressBook addressBook = new AddressBook();
-        for (XmlAdaptedTask p : persons) {
-            Person person = p.toModelType();
-            if (addressBook.hasPerson(person)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+        AddressBook taskManager = new AddressBook();
+        for (XmlAdaptedTask p : tasks) {
+            Person task = p.toModelType();
+            if (taskManager.hasPerson(task)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_TASK);
             }
-            addressBook.addPerson(person);
+            taskManager.addPerson(task);
         }
-        return addressBook;
+        return taskManager;
     }
 
     @Override
@@ -66,6 +66,6 @@ public class XmlSerializableTaskManager {
         if (!(other instanceof XmlSerializableTaskManager)) {
             return false;
         }
-        return persons.equals(((XmlSerializableTaskManager) other).persons);
+        return tasks.equals(((XmlSerializableTaskManager) other).tasks);
     }
 }
