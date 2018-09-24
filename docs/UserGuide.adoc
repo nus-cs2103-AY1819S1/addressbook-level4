@@ -158,14 +158,14 @@ Add a recipe in their favourites list. +
 Format: +
 `favourite`
 
-==== Add a meal plan: `plan DAY TIME`
+==== Add a meal plan: `plan DATE TIME`
 Add a specified recipe to meal plan. +
 ****
-* The range of acceptable values for `TIME` (*breakfast, lunch, dinner*).
-* The range of acceptable values for `DAY` (*mon, tue, wed, thu, fri, sat, sun*).
+* DATE should be entered in the format *yyyy-mm-dd*.
+* TIME can be specified with the following keywords: *breakfast*, *lunch*, *dinner*.
 ****
 Format: +
-`plan DAY TIME`
+`plan DATE TIME`
 
 ==== Active cook-mode: `cook`
 A cook mode that provides step-by-step guidance to aid real-time cooking. +
@@ -241,28 +241,21 @@ Format: +
 
 === Meal Planner Command
 ****
-* DAY denotes the day of the week (Monday to Sunday), while MEAL denotes the meal of the day (breakfast, lunch, dinner)
-* DAY can be specified with the following keywords: *mon* (Monday), *tue* (Tuesday), *wed* (Wednesday), *thu* (Thursday), *fri* (Friday), *sat* (Saturday), *sun* (Sunday)
-* MEAL can be specified with the following keywords: *m1* (breakfast), *m2* (lunch), *m3* (dinner)
+* DATE should be entered in the format *yyyy-mm-dd*
+* TIME can be specified with the following keywords: *breakfast*, *lunch*, *dinner*
 ****
 
-==== View full meal plan: `view plan`
+==== Delete recipe: `delete`
 
-Displays the current full meal plan for the week
+After displaying the meal planner, deletes the recipe at the specified meal slot.
 
-Format: `view plan`
+Format: `delete DATE TIME`
 
-==== Add recipes: `add`
+==== Clear planner: `clearall`
 
-After listing all available recipes with `list`, adds the recipe at the specified index to the specified meal slot of the meal planner
+Clears all the meal slots of the meal planner.
 
-Format: `add INDEX DAY MEAL`
-
-==== Delete recipes: `delete`
-
-After displaying the meal planner, deletes the recipe at the specified meal slot
-
-Format: `delete DAY MEAL`
+Format: `clearall`
 
 === Cook-Mode Command
 ==== Next Instruction
