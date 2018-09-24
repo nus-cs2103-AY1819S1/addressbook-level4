@@ -72,12 +72,14 @@ public class Date {
         int otherMonth = Integer.parseInt(otherDateParts[1]);
         int otherDay = Integer.parseInt(otherDateParts[0]);
 
-        if (year > otherYear) { //start year is more than end year
+        if (year > otherYear) {
+            //start year is more than end year
             return false;
-        } else if (year == otherYear && month > otherMonth) { //same year but start month is more than end month
+        } else if (year == otherYear && month > otherMonth) {
+            //same year but start month is more than end month
             return false;
-        } else if (year == otherYear && month == otherMonth && day > otherDay) { //same year, same month but start
-                                                                                // day is more than end day
+        } else if (year == otherYear && month == otherMonth && day > otherDay) {
+            //same year, same month but start day is more than end day
             return false;
         }
 
