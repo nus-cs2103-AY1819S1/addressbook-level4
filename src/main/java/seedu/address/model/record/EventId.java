@@ -10,4 +10,11 @@ public class EventId {
     public EventId(String id){
         this.value = id;
     }
+
+    /**
+     * Format state as text for viewing.
+     */
+    public String toString() {
+        return value;
+    }
 }

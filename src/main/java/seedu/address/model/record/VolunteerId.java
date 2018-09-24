@@ -10,4 +10,11 @@ public class VolunteerId {
     public VolunteerId(String id) {
         this.value = id;
     }
+
+    /**
+     * Format state as text for viewing.
+     */
+    public String toString() {
+        return value;
+    }
 }
