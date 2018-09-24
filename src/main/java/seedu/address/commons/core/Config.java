@@ -16,7 +16,7 @@ public class Config {
     private String appTitle = "Address App";
     private Level logLevel = Level.INFO;
     private Path userPrefsFilePath = Paths.get("preferences.json");
-    private Path emailPath = Paths.get("/email/");
+    private Path emailPath = Paths.get("/email");
 
     public String getAppTitle() {
         return appTitle;
