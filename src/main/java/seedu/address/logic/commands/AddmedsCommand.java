@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSES;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSES_PER_DAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSE_UNIT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DRUGNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
@@ -30,12 +30,20 @@ import seedu.address.model.tag.Tag;
 public class AddmedsCommand extends Command {
     public static final String COMMAND_WORD = "addmeds";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds medication for a patient. " + "Parameters: "
-            + PREFIX_NRIC + "NRIC, followed by drug details as follows: " + PREFIX_DRUGNAME + "DRUG_NAME "
-            + PREFIX_QUANTITY + "QUANTITY_PER_DOSE " + PREFIX_DOSE_UNIT + "DOSAGE_UNIT " + PREFIX_DOSES
-            + "DOSES_PER_DAY " + PREFIX_DURATION + "DURATION_IN_DAYS\n" + "Example: " + COMMAND_WORD + " " + PREFIX_NRIC
-            + "S1234567A\n" + PREFIX_DRUGNAME + "Paracetamol " + PREFIX_QUANTITY + "2 " + PREFIX_DOSE_UNIT + "tablets "
-            + PREFIX_DOSES + "4 " + PREFIX_DURATION + "14";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds medication for a patient. "
+            + "Parameters: "
+            + PREFIX_NRIC + "NRIC, followed by drug details as follows: "
+            + PREFIX_DRUGNAME + "DRUG_NAME "
+            + PREFIX_QUANTITY + "QUANTITY_PER_DOSE "
+            + PREFIX_DOSE_UNIT + "DOSAGE_UNIT "
+            + PREFIX_DOSES_PER_DAY + "DOSES_PER_DAY "
+            + PREFIX_DURATION + "DURATION_IN_DAYS\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_NRIC + "S1234567A\n"
+            + PREFIX_DRUGNAME + "Paracetamol "
+            + PREFIX_QUANTITY + "2 "
+            + PREFIX_DOSE_UNIT + "tablets "
+            + PREFIX_DOSES_PER_DAY + "4 " + PREFIX_DURATION + "14";
 
     public static final String MESSAGE_SUCCESS = "Medication added for patient: %1$s";
     public static final String MESSAGE_NO_SUCH_PATIENT = "No such patient exists.";

@@ -125,7 +125,9 @@ public class Duration {
         }
 
         if (o instanceof Duration) {
-            return startDate.equals(((Duration) o).startDate) && endDate.equals(((Duration) o).endDate);
+            Duration d = (Duration) o;
+            return startDate.get(Calendar.DAY_OF_YEAR) == d.startDate.get(Calendar.DAY_OF_YEAR)
+                    && endDate.get(Calendar.YEAR) == d.endDate.get(Calendar.YEAR);
         }
 
         return false;

@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSES;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSES_PER_DAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSE_UNIT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DRUGNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
@@ -33,10 +33,10 @@ public class AddmedsCommandParser implements Parser<AddmedsCommand> {
     @Override
     public AddmedsCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NRIC, PREFIX_DRUGNAME, PREFIX_QUANTITY,
-                PREFIX_DOSE_UNIT, PREFIX_DOSES, PREFIX_DURATION);
+                PREFIX_DOSE_UNIT, PREFIX_DOSES_PER_DAY, PREFIX_DURATION);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NRIC, PREFIX_DRUGNAME, PREFIX_QUANTITY, PREFIX_DOSE_UNIT,
-                PREFIX_DOSES, PREFIX_DURATION) || !argMultimap.getPreamble().isEmpty()) {
+                PREFIX_DOSES_PER_DAY, PREFIX_DURATION) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddmedsCommand.MESSAGE_USAGE));
         }
 
@@ -45,7 +45,7 @@ public class AddmedsCommandParser implements Parser<AddmedsCommand> {
         String drugName = argMultimap.getValue(PREFIX_DRUGNAME).get();
         Dose dose = ParserUtil.parseDose(Integer.parseInt(argMultimap.getValue(PREFIX_QUANTITY).get()),
                 argMultimap.getValue(PREFIX_DOSE_UNIT).get(),
-                Integer.parseInt(argMultimap.getValue(PREFIX_DOSES).get()));
+                Integer.parseInt(argMultimap.getValue(PREFIX_DOSES_PER_DAY).get()));
         Duration duration = ParserUtil.parseDuration(Integer.parseInt(argMultimap.getValue(PREFIX_DURATION).get()));
 
         Nric nric = new Nric(patientNric);
