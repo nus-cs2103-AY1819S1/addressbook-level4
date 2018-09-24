@@ -21,7 +21,7 @@ public class AddEventCommand extends Command {
     public final Event toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Event}
+     * Creates an AddUserCommand to add the specified {@code Event}
      */
     public AddEventCommand(Event event) {
         requireNonNull(event);
