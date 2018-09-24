@@ -49,5 +49,4 @@ public class XmlSerializableAddressBookTest {
         thrown.expectMessage(XmlSerializableAddressBook.MESSAGE_DUPLICATE_PERSON);
         dataFromFile.toModelType();
     }
-
 }
