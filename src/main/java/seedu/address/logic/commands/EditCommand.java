@@ -34,24 +34,23 @@ public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the task " +
-        "identified "
-            + "by the index number used in the displayed task list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+        + ": Edits the details of the task identified "
+        + "by the index number used in the displayed task list. "
+        + "Existing values will be overwritten by the input values.\n"
+        + "Parameters: INDEX (must be a positive integer) "
+        + "[" + PREFIX_NAME + "NAME] "
+        + "[" + PREFIX_PHONE + "PHONE] "
+        + "[" + PREFIX_EMAIL + "EMAIL] "
+        + "[" + PREFIX_ADDRESS + "ADDRESS] "
+        + "[" + PREFIX_TAG + "TAG]...\n"
+        + "Example: " + COMMAND_WORD + " 1 "
+        + PREFIX_PHONE + "91234567 "
+        + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the " +
-        "address book.";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book.";
 
     private final Index index;
     private final EditTaskDescriptor editTaskDescriptor;
@@ -77,14 +76,14 @@ public class EditCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person TaskToEdit = lastShownList.get(index.getZeroBased());
-        Person editedTask = createEditedTask(TaskToEdit, editTaskDescriptor);
+        Person taskToEdit = lastShownList.get(index.getZeroBased());
+        Person editedTask = createEditedTask(taskToEdit, editTaskDescriptor);
 
-        if (!TaskToEdit.isSamePerson(editedTask) && model.hasPerson(editedTask)) {
+        if (!taskToEdit.isSamePerson(editedTask) && model.hasPerson(editedTask)) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
 
-        model.updatePerson(TaskToEdit, editedTask);
+        model.updatePerson(taskToEdit, editedTask);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask));
