@@ -23,87 +23,87 @@ import seedu.address.model.person.Task;
 import seedu.address.model.person.exceptions.DuplicateTaskException;
 import seedu.address.testutil.PersonBuilder;
 
-public class AddressBookTest {
+public class TaskManagerTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final TaskManager addressBook = new TaskManager();
+    private final TaskManager taskManager = new TaskManager();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getTaskList());
+        assertEquals(Collections.emptyList(), taskManager.getTaskList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.resetData(null);
+        taskManager.resetData(null);
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
+    public void resetData_withValidReadOnlyTaskManager_replacesData() {
         TaskManager newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+        taskManager.resetData(newData);
+        assertEquals(newData, taskManager);
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two persons with the same identity fields
+    public void resetData_withDuplicateTasks_throwsDuplicateTaskException() {
+        // Two tasks with the same identity fields
         Task editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        List<Task> newPersons = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newPersons);
+        List<Task> newTasks = Arrays.asList(ALICE, editedAlice);
+        TaskManagerStub newData = new TaskManagerStub(newTasks);
 
         thrown.expect(DuplicateTaskException.class);
-        addressBook.resetData(newData);
+        taskManager.resetData(newData);
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasTask_nullTask_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.hasTask(null);
+        taskManager.hasTask(null);
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasTask(ALICE));
+    public void hasTask_taskNotInTaskManager_returnsFalse() {
+        assertFalse(taskManager.hasTask(ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addTask(ALICE);
-        assertTrue(addressBook.hasTask(ALICE));
+    public void hasTask_personInTaskManager_returnsTrue() {
+        taskManager.addTask(ALICE);
+        assertTrue(taskManager.hasTask(ALICE));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addTask(ALICE);
+    public void hasTask_taskWithSameIdentityFieldsInTaskManager_returnsTrue() {
+        taskManager.addTask(ALICE);
         Task editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasTask(editedAlice));
+        assertTrue(taskManager.hasTask(editedAlice));
     }
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getTaskList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getTaskList().remove(0);
+        taskManager.getTaskList().remove(0);
     }
 
     /**
-     * A stub ReadOnlyTaskManager whose persons list can violate interface constraints.
+     * A stub ReadOnlyTaskManager whose tasks list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyTaskManager {
-        private final ObservableList<Task> persons = FXCollections.observableArrayList();
+    private static class TaskManagerStub implements ReadOnlyTaskManager {
+        private final ObservableList<Task> tasks = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Task> persons) {
-            this.persons.setAll(persons);
+        TaskManagerStub(Collection<Task> persons) {
+            this.tasks.setAll(persons);
         }
 
         @Override
         public ObservableList<Task> getTaskList() {
-            return persons;
+            return tasks;
         }
     }
 
