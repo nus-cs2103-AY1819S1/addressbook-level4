@@ -54,9 +54,9 @@ public class Time {
         int otherMinute = Integer.parseInt(otherTimeParts[1]);
         int otherHour = Integer.parseInt(otherTimeParts[0]);
 
-        if (hour > otherHour) {
+        if (hour > otherHour) { //start hour is more than end hour
             return false;
-        } else if (minute > otherMinute) {
+        } else if (hour == otherHour && minute > otherMinute) { //same hour but start min is later than end min
             return false;
         }
 

@@ -149,7 +149,7 @@ public class Event {
                 && otherEvent.getLocation().equals(getLocation())
                 && otherEvent.getStartDate().equals(getStartDate())
                 && otherEvent.getEndDate().equals(getEndDate())
-                && otherEvent.getStartTime().equals(getEndTime())
+                && otherEvent.getStartTime().equals(getStartTime())
                 && otherEvent.getEndTime().equals(getEndTime())
                 && otherEvent.getDescription().equals(getDescription())
                 && otherEvent.getTags().equals(getTags());
