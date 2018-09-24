@@ -13,10 +13,11 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents the in-memory model of the address book data.
- * All changes to any model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -58,19 +59,19 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized boolean hasPerson(Person person) {
+    public boolean hasPerson(Person person) {
         requireNonNull(person);
         return versionedAddressBook.hasPerson(person);
     }
 
     @Override
-    public synchronized void deletePerson(Person target) {
+    public void deletePerson(Person target) {
         versionedAddressBook.removePerson(target);
         indicateAddressBookChanged();
     }
 
     @Override
-    public synchronized void addPerson(Person person) {
+    public void addPerson(Person person) {
         versionedAddressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
@@ -81,6 +82,16 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         versionedAddressBook.updatePerson(target, editedPerson);
+        indicateAddressBookChanged();
+    }
+
+    /**
+     * Removes {@code tag} from all {@code person}s in this {@code AddressBook}.
+     * @throws DuplicatePersonException if there's a duplicate {@code Person} in this {@code AddressBook}.
+     */
+    public void deleteTag(Tag tag) throws DuplicatePersonException {
+
+        versionedAddressBook.removeTagFromAll(tag);
         indicateAddressBookChanged();
     }
 

@@ -52,7 +52,7 @@ public class RemarkCommandTest {
      */
     private RemarkCommand prepareCommand(Index index, Remark remark) {
         RemarkCommand remarkCommand = new RemarkCommand(index, remark);
-        remarkCommand.setData(model, new CommandHistory());
+        //remarkCommand.setData(model, new CommandHistory());
         return remarkCommand;
     }
 }

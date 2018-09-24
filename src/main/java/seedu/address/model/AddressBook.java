@@ -2,11 +2,16 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.tag.Tag;
+
 
 /**
  * Wraps all data at the address-book level
@@ -93,6 +98,29 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    /**
+     * Removes {@code tag} from all {@code person}s in this {@code AddressBook}.
+     * @throws DuplicatePersonException if there's a duplicate {@code Person} in this {@code AddressBook}.
+     */
+    public void removeTagFromAll(Tag tag) throws DuplicatePersonException {
+        ArrayList<Person> modifiedPersons = new ArrayList<>();
+
+        for (Person person: persons.asUnmodifiableObservableList()) {
+            Set<Tag> modifiedTags = person.getTags();
+            modifiedTags.removeIf(t -> t == tag);
+
+            Person modifiedPerson = new Person(person.getName(),
+                    person.getPhone(),
+                    person.getEmail(),
+                    person.getAddress(),
+                    person.getRemark(),
+                    modifiedTags);
+
+            modifiedPersons.add(modifiedPerson);
+        }
+        persons.setPersons(modifiedPersons);
+    }
+
     //// util methods
 
     @Override
@@ -110,7 +138,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && this.persons.equals(((AddressBook) other).persons));
+                && persons.equals(((AddressBook) other).persons));
     }
 
     @Override

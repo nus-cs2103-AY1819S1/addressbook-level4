@@ -73,8 +73,8 @@ public class Person {
         }
 
         return otherPerson != null
-                && otherPerson.getName().equals(this.getName())
-                && (otherPerson.getPhone().equals(this.getPhone()) || otherPerson.getEmail().equals(this.getEmail()));
+                && otherPerson.getName().equals(getName())
+                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
     }
 
     /**
@@ -92,11 +92,11 @@ public class Person {
         }
 
         Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(this.getName())
-                && otherPerson.getPhone().equals(this.getPhone())
-                && otherPerson.getEmail().equals(this.getEmail())
-                && otherPerson.getAddress().equals(this.getAddress())
-                && otherPerson.getTags().equals(this.getTags());
+        return otherPerson.getName().equals(getName())
+                && otherPerson.getPhone().equals(getPhone())
+                && otherPerson.getEmail().equals(getEmail())
+                && otherPerson.getAddress().equals(getAddress())
+                && otherPerson.getTags().equals(getTags());
     }
 
     @Override
