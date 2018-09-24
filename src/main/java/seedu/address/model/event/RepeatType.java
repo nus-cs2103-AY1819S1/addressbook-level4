@@ -7,5 +7,6 @@ public enum RepeatType {
     NONE,
     DAILY,
     WEEKLY,
-    MONTHLY
+    MONTHLY,
+    YEARLY
 }

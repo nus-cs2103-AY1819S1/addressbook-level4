@@ -231,6 +231,8 @@ public class ParserUtil {
             return RepeatType.WEEKLY;
         } else if (trimmedRepeatType.equalsIgnoreCase(RepeatType.MONTHLY.name())) {
             return RepeatType.MONTHLY;
+        } else if (trimmedRepeatType.equalsIgnoreCase(RepeatType.YEARLY.name())) {
+            return RepeatType.YEARLY;
         } else {
             throw new ParseException(String.format(MESSAGE_FAILED_REPEAT_TYPE_PARSE, repeatType));
         }

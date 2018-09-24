@@ -2,8 +2,11 @@ package seedu.address.model.event;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.DateTimeException;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoField;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -105,6 +108,10 @@ public class Event {
             return Collections.unmodifiableList(generateDailyRepeatEvents(targetEvent));
         case WEEKLY:
             return Collections.unmodifiableList(generateWeeklyRepeatEvents(targetEvent));
+        case MONTHLY:
+            return Collections.unmodifiableList(generateMonthlyRepeatEvents(targetEvent));
+        case YEARLY:
+            return Collections.unmodifiableList(generateYearlyRepeatEvents(targetEvent));
         default:
             return List.of(targetEvent);
         }
@@ -160,6 +167,82 @@ public class Event {
                     targetEvent.getRepeatUntilDateTime()
             ));
             repeatStartDateTime = repeatStartDateTime.plusWeeks(1);
+        }
+        return repeatedEventList;
+    }
+
+    /**
+     * Generate all events that are repeated monthly from {@code targetEvent}.
+     * Returns a list of events that are repeated monthly.
+     */
+    private static List<Event> generateMonthlyRepeatEvents(Event targetEvent) {
+        List<Event> repeatedEventList = new ArrayList<>();
+        LocalDateTime repeatStartDateTime = targetEvent.getStartDateTime().value;
+        LocalDateTime repeatUntilDateTime = targetEvent.getRepeatUntilDateTime().value;
+        Duration durationDiff = Duration.between(targetEvent.getStartDateTime().value,
+                targetEvent.getEndDateTime().value);
+        while (repeatStartDateTime.isBefore(repeatUntilDateTime)) {
+            repeatedEventList.add(new Event(
+                    targetEvent.getUuid(),
+                    targetEvent.getEventName(),
+                    new DateTime(repeatStartDateTime),
+                    new DateTime(repeatStartDateTime.plus(durationDiff)),
+                    targetEvent.getDescription(),
+                    targetEvent.getPriority(),
+                    targetEvent.getVenue(),
+                    targetEvent.getRepeatType(),
+                    targetEvent.getRepeatUntilDateTime()
+            ));
+            repeatStartDateTime = repeatStartDateTime.with((temporal) -> {
+                do {
+                    try {
+                        temporal = temporal.plus(1, ChronoUnit.MONTHS).with(ChronoField.DAY_OF_MONTH,
+                                targetEvent.getStartDateTime().value.getDayOfMonth());
+                    } catch (DateTimeException e) {
+                        temporal = temporal.plus(1, ChronoUnit.MONTHS);
+                    }
+                } while (temporal.get(ChronoField.DAY_OF_MONTH)
+                        != targetEvent.getStartDateTime().value.getDayOfMonth());
+                return temporal;
+            });
+        }
+        return repeatedEventList;
+    }
+
+    /**
+     * Generate all events that are repeated yearly from {@code targetEvent}.
+     * Returns a list of events that are repeated yearly.
+     */
+    private static List<Event> generateYearlyRepeatEvents(Event targetEvent) {
+        List<Event> repeatedEventList = new ArrayList<>();
+        LocalDateTime repeatStartDateTime = targetEvent.getStartDateTime().value;
+        LocalDateTime repeatUntilDateTime = targetEvent.getRepeatUntilDateTime().value;
+        Duration durationDiff = Duration.between(targetEvent.getStartDateTime().value,
+                targetEvent.getEndDateTime().value);
+        while (repeatStartDateTime.isBefore(repeatUntilDateTime)) {
+            repeatedEventList.add(new Event(
+                    targetEvent.getUuid(),
+                    targetEvent.getEventName(),
+                    new DateTime(repeatStartDateTime),
+                    new DateTime(repeatStartDateTime.plus(durationDiff)),
+                    targetEvent.getDescription(),
+                    targetEvent.getPriority(),
+                    targetEvent.getVenue(),
+                    targetEvent.getRepeatType(),
+                    targetEvent.getRepeatUntilDateTime()
+            ));
+            repeatStartDateTime = repeatStartDateTime.with((temporal) -> {
+                do {
+                    try {
+                        temporal = temporal.plus(1, ChronoUnit.YEARS).with(ChronoField.DAY_OF_MONTH,
+                                targetEvent.getStartDateTime().value.getDayOfMonth());
+                    } catch (DateTimeException e) {
+                        temporal = temporal.plus(1, ChronoUnit.YEARS);
+                    }
+                } while (temporal.get(ChronoField.DAY_OF_MONTH)
+                        != targetEvent.getStartDateTime().value.getDayOfMonth());
+                return temporal;
+            });
         }
         return repeatedEventList;
     }
