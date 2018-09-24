@@ -113,6 +113,7 @@ public class AddressBook implements ReadOnlyAddressBook {
                     person.getPhone(),
                     person.getEmail(),
                     person.getAddress(),
+                    person.getRemark(),
                     modifiedTags);
 
             modifiedPersons.add(modifiedPerson);
