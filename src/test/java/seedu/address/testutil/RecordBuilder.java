@@ -69,6 +69,10 @@ public class RecordBuilder {
         return this;
     }
 
+    /**
+     * Rubbish
+     * @return record
+     */
     public Record build() {
         return new Record(eventId, volunteerId, hour, remark);
     }

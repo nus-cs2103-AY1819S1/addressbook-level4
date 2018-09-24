@@ -22,11 +22,6 @@ public class RecordTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        thrown.expect(UnsupportedOperationException.class);
-    }
-
-    @Test
     public void isSameRecord() {
         // same object -> returns true
         assertTrue(R1.isSameRecord(R1));
