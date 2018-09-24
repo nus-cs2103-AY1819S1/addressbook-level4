@@ -1,7 +1,11 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.commands.CommandTestUtil.REMARK_DESC_EMPTY;
+import static seedu.address.logic.commands.CommandTestUtil.REMARK_DESC_SAMPLE_1;
+import static seedu.address.logic.commands.CommandTestUtil.REMARK_DESC_SAMPLE_2;
+import static seedu.address.logic.commands.CommandTestUtil.SAMPLE_REMARK_1;
+import static seedu.address.logic.commands.CommandTestUtil.SAMPLE_REMARK_EMPTY;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -21,7 +25,7 @@ public class RemarkCommandParserTest {
     public void parse_allFieldsPresent_success() {
         // empty remark
         assertParseSuccess(parser, INDEX_FIRST_PERSON.getOneBased() + REMARK_DESC_EMPTY,
-                new RemarkCommand(INDEX_FIRST_PERSON,SAMPLE_REMARK_EMPTY));
+                new RemarkCommand(INDEX_FIRST_PERSON, SAMPLE_REMARK_EMPTY));
 
         // no empty fields
         assertParseSuccess(parser, INDEX_FIRST_PERSON.getOneBased() + REMARK_DESC_SAMPLE_1,
@@ -40,7 +44,7 @@ public class RemarkCommandParserTest {
         assertParseFailure(parser, "0" + REMARK_DESC_SAMPLE_1, MESSAGE_INVALID_FORMAT);
 
         // invalid arguments being parsed as preamble
-        assertParseFailure(parser,"5 random string" + REMARK_DESC_SAMPLE_1, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "5 random string" + REMARK_DESC_SAMPLE_1, MESSAGE_INVALID_FORMAT);
     }
 
     @Test

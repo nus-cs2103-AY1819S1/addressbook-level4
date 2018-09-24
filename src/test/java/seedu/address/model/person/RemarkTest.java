@@ -6,9 +6,8 @@ import static seedu.address.logic.commands.CommandTestUtil.SAMPLE_REMARK_1B;
 import static seedu.address.logic.commands.CommandTestUtil.SAMPLE_REMARK_2;
 
 import org.junit.Test;
+
 import seedu.address.testutil.Assert;
-
-
 
 public class RemarkTest {
 

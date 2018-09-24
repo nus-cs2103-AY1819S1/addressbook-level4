@@ -12,8 +12,8 @@ import org.junit.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.person.Remark;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Remark;
 import seedu.address.testutil.TypicalPersons;
 
 public class RemarkCommandTest {
