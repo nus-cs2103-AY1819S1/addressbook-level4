@@ -16,7 +16,7 @@ image::ericyjw.jpeg[width="150", align="left"]
 {empty}[https://github.com/ericyjw[github]]
 
 Role: Developer +
-Responsibilities: [To be filled up]
+Responsibilities: In charge of budgeting feature
 
 '''
 
@@ -25,7 +25,7 @@ image::javenseow.jpeg[width="150", align="left"]
 {empty}[https://github.com/javenseow[github]]
 
 Role: Developer +
-Responsibilities: [#To be filled up#]
+Responsibilities: In charge of profile view GUI feature & email feature
 
 '''
 
@@ -34,7 +34,7 @@ image::eatorbeeaten.jpeg[width="150", align="left"]
 {empty}[https://github.com/eatorbeeaten[github]]
 
 Role: Developer +
-Responsibilities: [#To be filled up#]
+Responsibilities: In charge of email feature
 
 '''
 
@@ -43,7 +43,7 @@ image::kengwoon.jpeg[width="150", align="left"]
 {empty}[https://github.com/kengwoon[github]]
 
 Role: Developer +
-Responsibilities: [#To be filled up#]
+Responsibilities: In charge of import and filter feature
 
 '''
 
@@ -53,6 +53,6 @@ image::gilgameshtc.jpeg[width="150", align="left"]
 
 
 Role: Developer  +
-Responsibilities: [#To be filled up#]
+Responsibilities: In charge of calendar feature
 
 '''
