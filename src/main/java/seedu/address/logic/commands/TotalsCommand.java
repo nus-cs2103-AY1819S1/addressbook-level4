@@ -1,8 +1,9 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.model.Analytics;
 import seedu.address.model.Model;
 import seedu.address.model.TotalStatistics;
 
@@ -17,8 +18,8 @@ public class TotalsCommand extends Command {
             + "Example: " + COMMAND_WORD;
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
-        requireNonNull(model);
-        return new CommandResult(String.format("", " "));
+    public CommandResult execute(Model model, CommandHistory history, Analytics analytics) {
+        requireAllNonNull(model, analytics);
+        return new CommandResult(String.format(analytics.getTotalStatistics()));
     }
 }
