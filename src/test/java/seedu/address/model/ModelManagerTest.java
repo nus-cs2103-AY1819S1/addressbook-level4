@@ -58,12 +58,12 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasEvent_personNotInAddressBook_returnsFalse() {
+    public void hasEvent_eventNotInAddressBook_returnsFalse() {
         assertFalse(modelManager.hasEvent(BLOOD));
     }
 
     @Test
-    public void hasEvent_personInAddressBook_returnsTrue() {
+    public void hasEvent_eventInAddressBook_returnsTrue() {
         modelManager.addEvent(BLOOD);
         assertTrue(modelManager.hasEvent(BLOOD));
     }
