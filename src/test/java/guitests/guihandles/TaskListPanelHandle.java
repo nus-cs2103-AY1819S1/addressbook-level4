@@ -11,14 +11,14 @@ import seedu.address.model.person.Person;
 /**
  * Provides a handle for {@code TaskListPanel} containing the list of {@code TaskCard}.
  */
-public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
-    public static final String PERSON_LIST_VIEW_ID = "#personListView";
+public class TaskListPanelHandle extends NodeHandle<ListView<Person>> {
+    public static final String TASK_LIST_VIEW_ID = "#personListView";
 
     private static final String CARD_PANE_ID = "#cardPane";
 
-    private Optional<Person> lastRememberedSelectedPersonCard;
+    private Optional<Person> lastRememberedSelectedTaskCard;
 
-    public PersonListPanelHandle(ListView<Person> personListPanelNode) {
+    public TaskListPanelHandle(ListView<Person> personListPanelNode) {
         super(personListPanelNode);
     }
 
@@ -125,28 +125,28 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
     /**
      * Remembers the selected {@code TaskCard} in the list.
      */
-    public void rememberSelectedPersonCard() {
+    public void rememberSelectedTaskCard() {
         List<Person> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {
-            lastRememberedSelectedPersonCard = Optional.empty();
+            lastRememberedSelectedTaskCard = Optional.empty();
         } else {
-            lastRememberedSelectedPersonCard = Optional.of(selectedItems.get(0));
+            lastRememberedSelectedTaskCard = Optional.of(selectedItems.get(0));
         }
     }
 
     /**
      * Returns true if the selected {@code TaskCard} is different from the value remembered by the most recent
-     * {@code rememberSelectedPersonCard()} call.
+     * {@code rememberSelectedTaskCard()} call.
      */
-    public boolean isSelectedPersonCardChanged() {
+    public boolean isSelectedTaskCardChanged() {
         List<Person> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {
-            return lastRememberedSelectedPersonCard.isPresent();
+            return lastRememberedSelectedTaskCard.isPresent();
         } else {
-            return !lastRememberedSelectedPersonCard.isPresent()
-                    || !lastRememberedSelectedPersonCard.get().equals(selectedItems.get(0));
+            return !lastRememberedSelectedTaskCard.isPresent()
+                    || !lastRememberedSelectedTaskCard.get().equals(selectedItems.get(0));
         }
     }
 
