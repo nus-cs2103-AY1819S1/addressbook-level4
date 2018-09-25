@@ -11,27 +11,27 @@ public class AddressTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new Address(null));
+        Assert.assertThrows(NullPointerException.class, () -> new Cost(null));
     }
 
     @Test
     public void constructor_invalidAddress_throwsIllegalArgumentException() {
-        String invalidAddress = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Address(invalidAddress));
+        String invalidCost = "";
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Cost(invalidCost));
     }
 
     @Test
-    public void isValidAddress() {
+    public void isValidCost() {
         // null address
-        Assert.assertThrows(NullPointerException.class, () -> Address.isValidAddress(null));
+        Assert.assertThrows(NullPointerException.class, () -> Cost.isValidCost(null));
 
         // invalid addresses
-        assertFalse(Address.isValidAddress("")); // empty string
-        assertFalse(Address.isValidAddress(" ")); // spaces only
+        assertFalse(Cost.isValidCost("")); // empty string
+        assertFalse(Cost.isValidCost(" ")); // spaces only
 
         // valid addresses
-        assertTrue(Address.isValidAddress("Blk 456, Den Road, #01-355"));
-        assertTrue(Address.isValidAddress("-")); // one character
-        assertTrue(Address.isValidAddress("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long address
+        assertTrue(Cost.isValidCost("Blk 456, Den Road, #01-355"));
+        assertTrue(Cost.isValidCost("-")); // one character
+        assertTrue(Cost.isValidCost("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long address
     }
 }
