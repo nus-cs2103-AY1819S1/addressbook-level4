@@ -48,7 +48,8 @@ public class XmlAdaptedPersonTest {
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        XmlAdaptedTask person = new XmlAdaptedTask(null, VALID_DUE_DATE, VALID_PRIORITY_VALUE, VALID_DESCRIPTION, VALID_LABELS);
+        XmlAdaptedTask person = new XmlAdaptedTask(null, VALID_DUE_DATE, VALID_PRIORITY_VALUE,
+                VALID_DESCRIPTION, VALID_LABELS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -63,7 +64,8 @@ public class XmlAdaptedPersonTest {
 
     @Test
     public void toModelType_nullPhone_throwsIllegalValueException() {
-        XmlAdaptedTask person = new XmlAdaptedTask(VALID_NAME, null, VALID_PRIORITY_VALUE, VALID_DESCRIPTION, VALID_LABELS);
+        XmlAdaptedTask person = new XmlAdaptedTask(VALID_NAME, null, VALID_PRIORITY_VALUE,
+                VALID_DESCRIPTION, VALID_LABELS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, DueDate.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
