@@ -14,6 +14,6 @@ public class TaskManagerChangedEvent extends BaseEvent {
 
     @Override
     public String toString() {
-        return "number of persons " + data.getPersonList().size();
+        return "number of tasks " + data.getPersonList().size();
     }
 }
