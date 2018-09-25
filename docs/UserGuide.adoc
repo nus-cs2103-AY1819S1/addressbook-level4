@@ -56,6 +56,152 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
+=== Listing all playlists : `playlist list`
+
+Shows a list of all persons in the address book. +
+Format: `playlist list`
+
+=== Searching for a playlist : `playlist search`
+
+Searches for playlists by names. +
+Format: `playlist search q/QUERY`
+
+****
+* `QUERY` is a string to be searched from the names of the playlists, which doesn’t need to be an exact match.
+****
+
+Examples:
+
+* `playlist search q/Fav` +
+Searches for playlists that has Fav in their names.
+
+=== Creating a playlist : `playlist new`
+
+Creates a new empty playlist and saves it into the library. +
+Format: `playlist new p/PLAYLIST`
+
+****
+* `PLAYLIST` refers to the playlist’s name.
+****
+
+Examples:
+
+* `playlist new p/Favourites` +
+Creates a new playlist with the name Favourites.
+
+=== Deleting a playlist : `playlist del`
+
+Removes an existing playlist from the library. If the playlist is currently playing, it will stop and the playlist will be removed. +
+Format: `playlist del p/PLAYLIST`
+
+****
+* `PLAYLIST` refers to the playlist’s name.
+****
+
+Examples:
+
+* `playlist del p/Favourites` +
+Deletes the playlist named "Favourites" if it exists.
+
+=== Adding a track into a playlist : `track add`
+
+Adds a track into a playlist. The command will update the PLAYLIST even if it is currently playing. So the added track will be played after its previous track finishes playing. +
+Format: `track add p/PLAYLIST t/TRACK`
+
+****
+* `PLAYLIST` refers to an existing playlist’s name.
+* `TRACK` refers to the name of an existing track in the library folder.
+****
+
+Examples:
+
+* `track add p/Favourites t/Some Song.mp3` +
+Adds the track named "Some Song.mp3" to the "Favourites" playlist.
+
+=== Deleting a track from a playlist : `track del`
+
+Removes a track from a playlist. The command will update the PLAYLIST even if it is currently playing. So the deleted track will not be played after its previous track finishes playing. +
+Format: `track del p/PLAYLIST i/INDEX`
+
+****
+* `PLAYLIST` refers to an existing playlist’s name.
+* `INDEX` refers to the index of the track in the `PLAYLIST`.
+****
+
+Examples:
+
+* `track del p/Favourites i/3` +
+Deletes the 3rd track in "Favourites" playlist.
+
+=== Playing a track : `play t/`
+
+Plays a track. If there is a playlist or track playing, it will be stopped and the track will be played. +
+Format: `play t/[TRACK]`
+
+****
+* `TRACK` is an optional parameter, referring to the name of an existing track in the library folder.
+* If `TRACK` is not specified, the first track in the library folder sorted by file name will be played.
+****
+
+Examples:
+
+* `play t/` +
+Plays the first track in the library folder sorted by file name if there is any.
+* `play t/Some Song.mp3` +
+Plays the track named "Some Song.mp3" if it exists in the library folder.
+
+=== Playing a playlist : `play p/`
+
+Plays a playlist. Similarly to playing a track, if there is a playlist or track playing, it will be stopped and the playlist will be played. +
+Format: `play p/[PLAYLIST]`
+
+****
+* `PLAYLIST` is an optional parameter, referring to the name of an existing playlist in the library folder.
+* If `PLAYLIST` is not specified, the first playlist in the library sorted by name will be played.
+****
+
+Examples:
+
+* `play p/` +
+Plays the first playlist in the library folder if there is any.
+* `play p/Favourites` +
+Plays the playlist named "Favourites" if it exists in the library folder.
+
+=== Pausing a playing track : `pause`
+
+Pauses a playing track. +
+Format: `pause`
+
+Examples:
+
+* `play t/Some Song.mp3` +
+`pause` +
+The track is paused.
+
+=== Continuing a paused track : `play`
+
+Continues a paused track. +
+Format: `play`
+
+Examples:
+
+* `play t/Some Song.mp3` +
+`pause` +
+`play` +
+"Some Song" will continue playing from where it is paused.
+
+=== Stopping a play : `stop`
+
+Stops the track from playing. +
+Format: `stop`
+
+Examples:
+
+* `play t/Some Song.mp3` +
+`stop` +
+`play` +
+The playlist stops playing and replays from the first track.
+
 === Adding a person: `add`
 
 Adds a person to the address book +
