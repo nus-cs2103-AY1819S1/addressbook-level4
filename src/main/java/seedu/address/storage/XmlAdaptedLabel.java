@@ -14,7 +14,7 @@ public class XmlAdaptedLabel {
     private String tagName;
 
     /**
-     * Constructs an XmlAdaptedTag.
+     * Constructs an XmlAdaptedLabel.
      * This is the no-arg constructor that is required by JAXB.
      */
     public XmlAdaptedLabel() {}
@@ -27,7 +27,7 @@ public class XmlAdaptedLabel {
     }
 
     /**
-     * Converts a given Tag into this class for JAXB use.
+     * Converts a given Label into this class for JAXB use.
      *
      * @param source future changes to this will not affect the created
      */
@@ -36,7 +36,7 @@ public class XmlAdaptedLabel {
     }
 
     /**
-     * Converts this jaxb-friendly adapted tag object into the model's Tag object.
+     * Converts this jaxb-friendly adapted label object into the model's Label object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
