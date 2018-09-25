@@ -102,6 +102,22 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        //=========== Context Methods =============================================================
+        @Override
+        public void setCurrentContext(String contextId) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String getContextId() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String getContextName() {
+            throw new AssertionError("This method should not be called.");
+        }
+
         //=========== Person Methods =============================================================
         @Override
         public void addPerson(Person person) {
