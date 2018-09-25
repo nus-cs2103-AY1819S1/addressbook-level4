@@ -33,10 +33,10 @@ public class EditTaskDescriptorBuilder {
     public EditTaskDescriptorBuilder(Task task) {
         descriptor = new EditTaskDescriptor();
         descriptor.setName(task.getName());
-        descriptor.setPhone(task.getDueDate());
-        descriptor.setEmail(task.getPriorityValue());
-        descriptor.setAddress(task.getDescription());
-        descriptor.setTags(task.getLabels());
+        descriptor.setDueDate(task.getDueDate());
+        descriptor.setPriorityValue(task.getPriorityValue());
+        descriptor.setDescription(task.getDescription());
+        descriptor.setLabels(task.getLabels());
     }
 
     /**
@@ -51,7 +51,7 @@ public class EditTaskDescriptorBuilder {
      * Sets the {@code Phone} of the {@code EditTaskDescriptor} that we are building.
      */
     public EditTaskDescriptorBuilder withPhone(String phone) {
-        descriptor.setPhone(new DueDate(phone));
+        descriptor.setDueDate(new DueDate(phone));
         return this;
     }
 
@@ -59,7 +59,7 @@ public class EditTaskDescriptorBuilder {
      * Sets the {@code Email} of the {@code EditTaskDescriptor} that we are building.
      */
     public EditTaskDescriptorBuilder withEmail(String email) {
-        descriptor.setEmail(new PriorityValue(email));
+        descriptor.setPriorityValue(new PriorityValue(email));
         return this;
     }
 
@@ -67,7 +67,7 @@ public class EditTaskDescriptorBuilder {
      * Sets the {@code Address} of the {@code EditTaskDescriptor} that we are building.
      */
     public EditTaskDescriptorBuilder withAddress(String address) {
-        descriptor.setAddress(new Description(address));
+        descriptor.setDescription(new Description(address));
         return this;
     }
 
@@ -77,7 +77,7 @@ public class EditTaskDescriptorBuilder {
      */
     public EditTaskDescriptorBuilder withTags(String... tags) {
         Set<Label> tagSet = Stream.of(tags).map(Label::new).collect(Collectors.toSet());
-        descriptor.setTags(tagSet);
+        descriptor.setLabels(tagSet);
         return this;
     }
 

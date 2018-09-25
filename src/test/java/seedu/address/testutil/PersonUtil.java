@@ -1,10 +1,10 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY_VALUE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DUE_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LABEL;
 
 import java.util.Set;
 
@@ -31,11 +31,11 @@ public class PersonUtil {
     public static String getPersonDetails(Task person) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + person.getName().fullName + " ");
-        sb.append(PREFIX_PHONE + person.getDueDate().value + " ");
-        sb.append(PREFIX_EMAIL + person.getPriorityValue().value + " ");
-        sb.append(PREFIX_ADDRESS + person.getDescription().value + " ");
+        sb.append(PREFIX_DUE_DATE + person.getDueDate().value + " ");
+        sb.append(PREFIX_PRIORITY_VALUE + person.getPriorityValue().value + " ");
+        sb.append(PREFIX_DESCRIPTION + person.getDescription().value + " ");
         person.getLabels().stream().forEach(
-            s -> sb.append(PREFIX_TAG + s.labelName + " ")
+            s -> sb.append(PREFIX_LABEL + s.labelName + " ")
         );
         return sb.toString();
     }
@@ -46,15 +46,15 @@ public class PersonUtil {
     public static String getEditPersonDescriptorDetails(EditCommand.EditTaskDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
-        descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
-        descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
-        descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
-        if (descriptor.getTags().isPresent()) {
-            Set<Label> tags = descriptor.getTags().get();
+        descriptor.getDueDate().ifPresent(phone -> sb.append(PREFIX_DUE_DATE).append(phone.value).append(" "));
+        descriptor.getPriorityValue().ifPresent(email -> sb.append(PREFIX_PRIORITY_VALUE).append(email.value).append(" "));
+        descriptor.getDescription().ifPresent(address -> sb.append(PREFIX_DESCRIPTION).append(address.value).append(" "));
+        if (descriptor.getLabels().isPresent()) {
+            Set<Label> tags = descriptor.getLabels().get();
             if (tags.isEmpty()) {
-                sb.append(PREFIX_TAG);
+                sb.append(PREFIX_LABEL);
             } else {
-                tags.forEach(s -> sb.append(PREFIX_TAG).append(s.labelName).append(" "));
+                tags.forEach(s -> sb.append(PREFIX_LABEL).append(s.labelName).append(" "));
             }
         }
         return sb.toString();

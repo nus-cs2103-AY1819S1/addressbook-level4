@@ -1,11 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY_VALUE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DUE_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LABEL;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
 import java.util.Collections;
@@ -28,7 +28,7 @@ import seedu.address.model.person.Task;
 import seedu.address.model.tag.Label;
 
 /**
- * Edits the details of an existing task in the address book.
+ * Edits the details of an existing task in the description book.
  */
 public class EditCommand extends Command {
 
@@ -40,17 +40,17 @@ public class EditCommand extends Command {
         + "Existing values will be overwritten by the input values.\n"
         + "Parameters: INDEX (must be a positive integer) "
         + "[" + PREFIX_NAME + "NAME] "
-        + "[" + PREFIX_PHONE + "PHONE] "
-        + "[" + PREFIX_EMAIL + "EMAIL] "
-        + "[" + PREFIX_ADDRESS + "ADDRESS] "
-        + "[" + PREFIX_TAG + "TAG]...\n"
+        + "[" + PREFIX_DUE_DATE + "DUE_DATE] "
+        + "[" + PREFIX_PRIORITY_VALUE + "PRIORITY_VALUE] "
+        + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
+        + "[" + PREFIX_LABEL + "TAG]...\n"
         + "Example: " + COMMAND_WORD + " 1 "
-        + PREFIX_PHONE + "91234567 "
-        + PREFIX_EMAIL + "johndoe@example.com";
+        + PREFIX_DUE_DATE + "91234567 "
+        + PREFIX_PRIORITY_VALUE + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the description book.";
 
     private final Index index;
     private final EditTaskDescriptor editTaskDescriptor;
@@ -98,12 +98,12 @@ public class EditCommand extends Command {
         assert taskToEdit != null;
 
         Name updatedName = editTaskDescriptor.getName().orElse(taskToEdit.getName());
-        DueDate updatedPhone = editTaskDescriptor.getPhone().orElse(taskToEdit.getDueDate());
-        PriorityValue updatedEmail = editTaskDescriptor.getEmail().orElse(taskToEdit.getPriorityValue());
-        Description updatedAddress = editTaskDescriptor.getAddress().orElse(taskToEdit.getDescription());
-        Set<Label> updatedTags = editTaskDescriptor.getTags().orElse(taskToEdit.getLabels());
+        DueDate updatedDueDate = editTaskDescriptor.getDueDate().orElse(taskToEdit.getDueDate());
+        PriorityValue updatedPriorityValue = editTaskDescriptor.getPriorityValue().orElse(taskToEdit.getPriorityValue());
+        Description updatedDescription = editTaskDescriptor.getDescription().orElse(taskToEdit.getDescription());
+        Set<Label> updatedLabels = editTaskDescriptor.getLabels().orElse(taskToEdit.getLabels());
 
-        return new Task(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Task(updatedName, updatedDueDate, updatedPriorityValue, updatedDescription, updatedLabels);
     }
 
     @Override
@@ -130,30 +130,30 @@ public class EditCommand extends Command {
      */
     public static class EditTaskDescriptor {
         private Name name;
-        private DueDate phone;
-        private PriorityValue email;
-        private Description address;
-        private Set<Label> tags;
+        private DueDate dueDate;
+        private PriorityValue priorityValue;
+        private Description description;
+        private Set<Label> labels;
 
         public EditTaskDescriptor() {}
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
+         * A defensive copy of {@code labels} is used internally.
          */
         public EditTaskDescriptor(EditTaskDescriptor toCopy) {
             setName(toCopy.name);
-            setPhone(toCopy.phone);
-            setEmail(toCopy.email);
-            setAddress(toCopy.address);
-            setTags(toCopy.tags);
+            setDueDate(toCopy.dueDate);
+            setPriorityValue(toCopy.priorityValue);
+            setDescription(toCopy.description);
+            setLabels(toCopy.labels);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, dueDate, priorityValue, description, labels);
         }
 
         public void setName(Name name) {
@@ -164,45 +164,45 @@ public class EditCommand extends Command {
             return Optional.ofNullable(name);
         }
 
-        public void setPhone(DueDate phone) {
-            this.phone = phone;
+        public void setDueDate(DueDate dueDate) {
+            this.dueDate = dueDate;
         }
 
-        public Optional<DueDate> getPhone() {
-            return Optional.ofNullable(phone);
+        public Optional<DueDate> getDueDate() {
+            return Optional.ofNullable(dueDate);
         }
 
-        public void setEmail(PriorityValue email) {
-            this.email = email;
+        public void setPriorityValue(PriorityValue priorityValue) {
+            this.priorityValue = priorityValue;
         }
 
-        public Optional<PriorityValue> getEmail() {
-            return Optional.ofNullable(email);
+        public Optional<PriorityValue> getPriorityValue() {
+            return Optional.ofNullable(priorityValue);
         }
 
-        public void setAddress(Description address) {
-            this.address = address;
+        public void setDescription(Description description) {
+            this.description = description;
         }
 
-        public Optional<Description> getAddress() {
-            return Optional.ofNullable(address);
+        public Optional<Description> getDescription() {
+            return Optional.ofNullable(description);
         }
 
         /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
+         * Sets {@code labels} to this object's {@code labels}.
+         * A defensive copy of {@code labels} is used internally.
          */
-        public void setTags(Set<Label> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        public void setLabels(Set<Label> labels) {
+            this.labels = (labels != null) ? new HashSet<>(labels) : null;
         }
 
         /**
          * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
+         * Returns {@code Optional#empty()} if {@code labels} is null.
          */
-        public Optional<Set<Label>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        public Optional<Set<Label>> getLabels() {
+            return (labels != null) ? Optional.of(Collections.unmodifiableSet(labels)) : Optional.empty();
         }
 
         @Override
@@ -221,10 +221,10 @@ public class EditCommand extends Command {
             EditTaskDescriptor e = (EditTaskDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
-                    && getTags().equals(e.getTags());
+                    && getDueDate().equals(e.getDueDate())
+                    && getPriorityValue().equals(e.getPriorityValue())
+                    && getDescription().equals(e.getDescription())
+                    && getLabels().equals(e.getLabels());
         }
     }
 }
