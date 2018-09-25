@@ -3,11 +3,15 @@ package seedu.address.storage;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Path;
+
 import net.fortuna.ical4j.data.CalendarOutputter;
 import net.fortuna.ical4j.model.Calendar;
 
 //@@author GilgameshTC
-public class IcsCalendarStorage implements CalendarStorage{
+/**
+ * A class to access Calendars stored in the hard disk as a ics file
+ */
+public class IcsCalendarStorage implements CalendarStorage {
     private Path dirPath;
 
     public IcsCalendarStorage(Path dirPath) {

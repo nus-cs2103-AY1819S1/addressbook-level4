@@ -7,12 +7,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.calendar.Month;
+import seedu.address.model.calendar.Year;
 
 //@@author GilgameshTC
 /**
  * Creates a Calendar with a specified month, year and writes it to hard disk.
  */
-public class CreateCalendarCommand extends Command{
+public class CreateCalendarCommand extends Command {
 
     public static final String COMMAND_WORD = "create_calendar";
 
@@ -26,10 +28,10 @@ public class CreateCalendarCommand extends Command{
 
     public static final String MESSAGE_SUCCESS = "Calendar created: ";
 
-    private final String month;
-    private final String year;
+    private final Month month;
+    private final Year year;
 
-    public CreateCalendarCommand(String month, String year) {
+    public CreateCalendarCommand(Month month, Year year) {
         this.month = month;
         this.year = year;
     }

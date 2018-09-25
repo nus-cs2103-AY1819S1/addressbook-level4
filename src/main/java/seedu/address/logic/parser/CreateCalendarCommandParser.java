@@ -8,12 +8,14 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.CreateCalendarCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.calendar.Month;
+import seedu.address.model.calendar.Year;
 
 //@@author GilgameshTC
 /**
  * Parses input arguments and creates a new CreateCalendarCommand object.
  */
-public class CreateCalendarCommandParser implements Parser<CreateCalendarCommand>{
+public class CreateCalendarCommandParser implements Parser<CreateCalendarCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the CreateCalendarCommand
@@ -26,11 +28,12 @@ public class CreateCalendarCommandParser implements Parser<CreateCalendarCommand
 
         if (!arePrefixesPresent(argMultimap, PREFIX_MONTH, PREFIX_YEAR)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateCalendarCommand.MESSAGE_USAGE));
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateCalendarCommand.MESSAGE_USAGE));
         }
 
-        String month = argMultimap.getValue(PREFIX_MONTH).get();
-        String year = argMultimap.getValue(PREFIX_YEAR).get();
+        Month month = ParserUtil.parseMonth(argMultimap.getValue(PREFIX_MONTH).get());
+        Year year = ParserUtil.parseYear(argMultimap.getValue(PREFIX_YEAR).get());
 
         return new CreateCalendarCommand(month, year);
     }
