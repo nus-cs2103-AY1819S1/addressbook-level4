@@ -880,7 +880,7 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a. The playlist is not found. 
+* 2a. The playlist is not found.
 +
 [none]
 ** 2a1. System displays an error message.
@@ -975,12 +975,12 @@ Use case ends.
 * 4a. There is no list matches the name.
 +
 [none]
-** 4a1. System displays "not found" message. 
+** 4a1. System displays "not found" message.
 +
 Use case ends.
 
 [discrete]
-=== Use case: Switch playing modes 
+=== Use case: Switch playing modes
 
 *MSS*
 
