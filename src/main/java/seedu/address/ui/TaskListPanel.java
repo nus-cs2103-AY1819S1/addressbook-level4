@@ -13,7 +13,7 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Task;
 
 /**
  * Panel containing the list of tasks.
@@ -23,15 +23,15 @@ public class TaskListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
 
     @FXML
-    private ListView<Person> personListView;
+    private ListView<Task> personListView;
 
-    public TaskListPanel(ObservableList<Person> taskList) {
+    public TaskListPanel(ObservableList<Task> taskList) {
         super(FXML);
         setConnections(taskList);
         registerAsAnEventHandler(this);
     }
 
-    private void setConnections(ObservableList<Person> taskList) {
+    private void setConnections(ObservableList<Task> taskList) {
         personListView.setItems(taskList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
         setEventHandlerForSelectionChangeEvent();
@@ -64,11 +64,11 @@ public class TaskListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code TaskCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Task} using a {@code TaskCard}.
      */
-    class PersonListViewCell extends ListCell<Person> {
+    class PersonListViewCell extends ListCell<Task> {
         @Override
-        protected void updateItem(Person task, boolean empty) {
+        protected void updateItem(Task task, boolean empty) {
             super.updateItem(task, empty);
 
             if (empty || task == null) {

@@ -3,76 +3,85 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Task;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-
-    /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyAddressBook newData);
-
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
-
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * {@code Predicate} that always evaluate to true
      */
-    boolean hasPerson(Person person);
+    Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Clears existing backing model and replaces with the provided new data.
      */
-    void deletePerson(Person target);
+    void resetData(ReadOnlyTaskManager newData);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Returns the TaskManager
      */
-    void addPerson(Person person);
+    ReadOnlyTaskManager getTaskManager();
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Returns true if a task with the same identity as {@code task} exists in the task manager.
      */
-    void updatePerson(Person target, Person editedPerson);
-
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    boolean hasTask(Task task);
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Deletes the given task.
+     * The task must exist in the task manager.
+     */
+    void deleteTask(Task target);
+
+    /**
+     * Adds the given task.
+     * {@code task} must not already exist in the task manager.
+     */
+    void addTask(Task task);
+
+    /**
+     * Replaces the given task {@code target} with {@code editedTask}.
+     * {@code target} must exist in the task manager.
+     * The task identity of {@code editedTask} must not be the same as another existing task in the task manager.
+     */
+    void updateTask(Task target, Task editedTask);
+
+    /**
+     * Returns an unmodifiable view of the filtered task list
+     */
+    ObservableList<Task> getFilteredTaskList();
+
+    /**
+     * Updates the filter of the filtered task list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredTaskList(Predicate<Task> predicate);
 
     /**
-     * Returns true if the model has previous address book states to restore.
+     * Returns true if the model has previous task manager states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndoTaskManager();
 
     /**
-     * Returns true if the model has undone address book states to restore.
+     * Returns true if the model has undone task manager states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canRedoTaskManager();
 
     /**
-     * Restores the model's address book to its previous state.
+     * Restores the model's task manager to its previous state.
      */
-    void undoAddressBook();
+    void undoTaskManager();
 
     /**
-     * Restores the model's address book to its previously undone state.
+     * Restores the model's task manager to its previously undone state.
      */
-    void redoAddressBook();
+    void redoTaskManager();
 
     /**
-     * Saves the current address book state for undo/redo.
+     * Saves the current task manager state for undo/redo.
      */
-    void commitAddressBook();
+    void commitTaskManager();
 }

@@ -5,7 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Task;
 
 /**
  * An UI component that displays information of a {@code Task}.
@@ -19,10 +19,10 @@ public class TaskCard extends UiPart<Region> {
      * As a consequence, UI elements' variable names cannot be set to such keywords
      * or an exception will be thrown by JavaFX during runtime.
      *
-     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
+     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on TaskManager level 4</a>
      */
 
-    public final Person task;
+    public final Task task;
 
     @FXML
     private HBox cardPane;
@@ -39,15 +39,15 @@ public class TaskCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public TaskCard(Person task, int displayedIndex) {
+    public TaskCard(Task task, int displayedIndex) {
         super(FXML);
         this.task = task;
         id.setText(displayedIndex + ". ");
         name.setText(task.getName().fullName);
-        phone.setText(task.getPhone().value);
-        address.setText(task.getAddress().value);
-        email.setText(task.getEmail().value);
-        task.getTags().forEach(label -> tags.getChildren().add(new Label(label.tagName)));
+        phone.setText(task.getDueDate().value);
+        address.setText(task.getDescription().value);
+        email.setText(task.getPriorityValue().value);
+        task.getLabels().forEach(tag -> tags.getChildren().add(new Label(tag.labelName)));
     }
 
     @Override

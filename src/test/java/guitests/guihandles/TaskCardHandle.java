@@ -8,7 +8,7 @@ import com.google.common.collect.ImmutableMultiset;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Task;
 
 /**
  * Provides a handle to a task card in the task list panel.
@@ -75,13 +75,13 @@ public class TaskCardHandle extends NodeHandle<Node> {
     /**
      * Returns true if this handle contains {@code task}.
      */
-    public boolean equals(Person task) {
+    public boolean equals(Task task) {
         return getName().equals(task.getName().fullName)
-                && getAddress().equals(task.getAddress().value)
-                && getPhone().equals(task.getPhone().value)
-                && getEmail().equals(task.getEmail().value)
-                && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(task.getTags().stream()
-                        .map(tag -> tag.tagName)
+                && getAddress().equals(task.getDescription().value)
+                && getPhone().equals(task.getDueDate().value)
+                && getEmail().equals(task.getPriorityValue().value)
+                && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(task.getLabels().stream()
+                        .map(tag -> tag.labelName)
                         .collect(Collectors.toList())));
     }
 }

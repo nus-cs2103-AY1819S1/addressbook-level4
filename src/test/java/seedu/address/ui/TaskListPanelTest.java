@@ -22,11 +22,11 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Task;
 import seedu.address.storage.XmlSerializableAddressBook;
 
 public class TaskListPanelTest extends GuiUnitTest {
-    private static final ObservableList<Person> TYPICAL_TASKS =
+    private static final ObservableList<Task> TYPICAL_TASKS =
             FXCollections.observableList(getTypicalTasks());
 
     private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_TASK);
@@ -43,7 +43,7 @@ public class TaskListPanelTest extends GuiUnitTest {
 
         for (int i = 0; i < TYPICAL_TASKS.size(); i++) {
             taskListPanelHandle.navigateToCard(TYPICAL_TASKS.get(i));
-            Person expectedPerson = TYPICAL_TASKS.get(i);
+            Task expectedPerson = TYPICAL_TASKS.get(i);
             TaskCardHandle actualCard = taskListPanelHandle.getTaskCardHandle(i);
 
             assertCardDisplaysTask(expectedPerson, actualCard);
@@ -68,7 +68,7 @@ public class TaskListPanelTest extends GuiUnitTest {
      */
     @Test
     public void performanceTest() throws Exception {
-        ObservableList<Person> backingList = createBackingList(10000);
+        ObservableList<Task> backingList = createBackingList(10000);
 
         assertTimeoutPreemptively(ofMillis(CARD_CREATION_AND_DELETION_TIMEOUT), () -> {
             initUi(backingList);
@@ -80,11 +80,11 @@ public class TaskListPanelTest extends GuiUnitTest {
      * Returns a list of tasks containing {@code taskCount} tasks that is used to populate the
      * {@code TaskListPanel}.
      */
-    private ObservableList<Person> createBackingList(int taskCount) throws Exception {
+    private ObservableList<Task> createBackingList(int taskCount) throws Exception {
         Path xmlFile = createXmlFileWithTasks(taskCount);
         XmlSerializableAddressBook xmlAddressBook =
                 XmlUtil.getDataFromFile(xmlFile, XmlSerializableAddressBook.class);
-        return FXCollections.observableArrayList(xmlAddressBook.toModelType().getPersonList());
+        return FXCollections.observableArrayList(xmlAddressBook.toModelType().getTaskList());
     }
 
     /**
@@ -115,7 +115,7 @@ public class TaskListPanelTest extends GuiUnitTest {
      * Initializes {@code taskListPanelHandle} with a {@code TaskListPanel} backed by {@code backingList}.
      * Also shows the {@code Stage} that displays only {@code TaskListPanel}.
      */
-    private void initUi(ObservableList<Person> backingList) {
+    private void initUi(ObservableList<Task> backingList) {
         TaskListPanel taskListPanel = new TaskListPanel(backingList);
         uiPartRule.setUiPart(taskListPanel);
 

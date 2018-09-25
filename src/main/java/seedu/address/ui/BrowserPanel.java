@@ -13,7 +13,7 @@ import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Task;
 
 /**
  * The Browser Panel of the App.
@@ -41,7 +41,7 @@ public class BrowserPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
-    private void loadTaskPage(Person task) {
+    private void loadTaskPage(Task task) {
         loadPage(SEARCH_PAGE_URL + task.getName().fullName);
     }
 

@@ -6,33 +6,34 @@ import java.util.Set;
 
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Task;
 
 /**
  * Provides a handle for {@code TaskListPanel} containing the list of {@code TaskCard}.
  */
-public class TaskListPanelHandle extends NodeHandle<ListView<Person>> {
+public class TaskListPanelHandle extends NodeHandle<ListView<Task>> {
     public static final String TASK_LIST_VIEW_ID = "#personListView";
 
     private static final String CARD_PANE_ID = "#cardPane";
 
-    private Optional<Person> lastRememberedSelectedTaskCard;
+    private Optional<Task> lastRememberedSelectedTaskCard;
 
-    public TaskListPanelHandle(ListView<Person> taskListPanelNode) {
+    public TaskListPanelHandle(ListView<Task> taskListPanelNode) {
         super(taskListPanelNode);
     }
 
     /**
      * Returns a handle to the selected {@code TaskCardHandle}.
      * A maximum of 1 item can be selected at any time.
-     * @throws AssertionError if no card is selected, or more than 1 card is selected.
+     *
+     * @throws AssertionError        if no card is selected, or more than 1 card is selected.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
     public TaskCardHandle getHandleToSelectedCard() {
-        List<Person> selectedTaskList = getRootNode().getSelectionModel().getSelectedItems();
+        List<Task> selectedTaskList = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedTaskList.size() != 1) {
-            throw new AssertionError("Person list size expected 1.");
+            throw new AssertionError("Task list size expected 1.");
         }
 
         return getAllCardNodes().stream()
@@ -53,7 +54,7 @@ public class TaskListPanelHandle extends NodeHandle<ListView<Person>> {
      * Returns true if a card is currently selected.
      */
     public boolean isAnyCardSelected() {
-        List<Person> selectedCardsList = getRootNode().getSelectionModel().getSelectedItems();
+        List<Task> selectedCardsList = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedCardsList.size() > 1) {
             throw new AssertionError("Card list size expected 0 or 1.");
@@ -65,9 +66,9 @@ public class TaskListPanelHandle extends NodeHandle<ListView<Person>> {
     /**
      * Navigates the listview to display {@code task}.
      */
-    public void navigateToCard(Person task) {
+    public void navigateToCard(Task task) {
         if (!getRootNode().getItems().contains(task)) {
-            throw new IllegalArgumentException("Person does not exist.");
+            throw new IllegalArgumentException("Task does not exist.");
         }
 
         guiRobot.interact(() -> {
@@ -109,7 +110,7 @@ public class TaskListPanelHandle extends NodeHandle<ListView<Person>> {
                 .orElseThrow(IllegalStateException::new);
     }
 
-    private Person getPerson(int index) {
+    private Task getPerson(int index) {
         return getRootNode().getItems().get(index);
     }
 
@@ -126,7 +127,7 @@ public class TaskListPanelHandle extends NodeHandle<ListView<Person>> {
      * Remembers the selected {@code TaskCard} in the list.
      */
     public void rememberSelectedTaskCard() {
-        List<Person> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
+        List<Task> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {
             lastRememberedSelectedTaskCard = Optional.empty();
@@ -140,7 +141,7 @@ public class TaskListPanelHandle extends NodeHandle<ListView<Person>> {
      * {@code rememberSelectedTaskCard()} call.
      */
     public boolean isSelectedTaskCardChanged() {
-        List<Person> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
+        List<Task> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {
             return lastRememberedSelectedTaskCard.isPresent();
