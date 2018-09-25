@@ -10,7 +10,7 @@ public class Room {
     public static final String MESSAGE_ROOM_CONSTRAINTS =
             "Room numbers should only be alphanumeric, and the first character should be an alphabet,"
             + "followed by 3 digits.";
-    public static final String ROOM_VALIDATION_REGEX = "\\d{4,}";
+    public static final String ROOM_VALIDATION_REGEX = "\\D\\d{3,}";
     public final String roomNumber;
 
     /**
