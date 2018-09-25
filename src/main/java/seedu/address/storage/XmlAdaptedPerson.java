@@ -34,7 +34,7 @@ public class XmlAdaptedPerson {
     @XmlElement(required = true)
     private String address;
     @XmlElement(required = true)
-    private int[][] schedule;
+    private String schedule;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -69,7 +69,7 @@ public class XmlAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
-        schedule = source.getSchedule().value;
+        schedule = source.getSchedule().valueToString();
         tagged = source.getTags().stream()
             .map(XmlAdaptedTag::new)
             .collect(Collectors.toList());
@@ -119,10 +119,16 @@ public class XmlAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
-        final Schedule modelSchedule = new Schedule(schedule);
+        final Schedule modelSchedule;
+        if (schedule == null) {
+            modelSchedule = new Schedule();
+        } else {
+            modelSchedule = new Schedule(schedule);
+        }
+
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelSchedule);
     }
 
     @Override

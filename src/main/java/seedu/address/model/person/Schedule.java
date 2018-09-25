@@ -5,6 +5,7 @@ package seedu.address.model.person;
  */
 public class Schedule {
 
+    public static final String MESSAGE_SCHEDULE_CONSTRAINTS = "Schedule should be in 0 or 1s";
     /**
      * Example
      * 0 0 0 0 0 0 0 0 1 1 0 0 1 1 1 1 1 1 0 0 0 0 0 0
@@ -24,8 +25,22 @@ public class Schedule {
         value = new int[7][24];
     }
 
-    public Schedule(int[][] value) {
-        this.value = value;
+    public Schedule(String schedule) {
+        value = new int[7][24];
+        int counter = 0;
+        int totalcount = 7 * 24;
+        assert (schedule.length() == totalcount);
+
+        for (int i = 0; i < value.length; i++) {
+            for (int j = 0; j < value[i].length; j++) {
+                value[i][j] = Integer.parseInt(schedule.charAt(counter) + "");
+                counter += 1;
+            }
+        }
+    }
+
+    public static boolean isValidSchedule(String trimmedSchedule) {
+        return true;
     }
 
     /**
@@ -97,5 +112,19 @@ public class Schedule {
             break;
         }
         return dayNum;
+    }
+
+
+    /** Allow schedule array to be stored as a string
+     * @return
+     */
+    public String valueToString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < value.length; i++) {
+            for (int j = 0; j < value[i].length; j++) {
+                sb.append(value[i][j]);
+            }
+        }
+        return sb.toString();
     }
 }

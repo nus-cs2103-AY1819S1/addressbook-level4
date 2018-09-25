@@ -51,6 +51,15 @@ public class TimeTableUtil {
 
 
     /**
+     *
+     * @param url
+     * @return
+     * @throws ParseException
+     */
+    public static TimeTable parseUrl(String url) throws ParseException {
+        return parseLongUrl(parseShortUrl(url));
+    }
+    /**
      * @param urlString
      * @return
      * @throws ParseException
