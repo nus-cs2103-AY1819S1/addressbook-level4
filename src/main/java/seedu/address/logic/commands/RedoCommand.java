@@ -27,7 +27,7 @@ public class RedoCommand extends Command {
         }
 
         model.redoWishBook();
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredWishList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

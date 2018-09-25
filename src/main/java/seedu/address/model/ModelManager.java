@@ -12,18 +12,18 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.WishBookChangedEvent;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.wish.Wish;
+import seedu.address.model.wish.exceptions.DuplicateWishException;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the wish book data.
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final VersionedWishBook versionedWishBook;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Wish> filteredWishes;
 
     /**
      * Initializes a ModelManager with the given wishBook and userPrefs.
@@ -32,10 +32,10 @@ public class ModelManager extends ComponentManager implements Model {
         super();
         requireAllNonNull(wishBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + wishBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with wish book: " + wishBook + " and user prefs " + userPrefs);
 
         versionedWishBook = new VersionedWishBook(wishBook);
-        filteredPersons = new FilteredList<>(versionedWishBook.getWishList());
+        filteredWishes = new FilteredList<>(versionedWishBook.getWishList());
     }
 
     public ModelManager() {
@@ -45,7 +45,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void resetData(ReadOnlyWishBook newData) {
         versionedWishBook.resetData(newData);
-        indicateAddressBookChanged();
+        indicateWishBookChanged();
     }
 
     @Override
@@ -54,45 +54,45 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
+    private void indicateWishBookChanged() {
         raise(new WishBookChangedEvent(versionedWishBook));
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return versionedWishBook.hasPerson(person);
+    public boolean hasWish(Wish wish) {
+        requireNonNull(wish);
+        return versionedWishBook.hasWish(wish);
     }
 
     @Override
-    public void deletePerson(Person target) {
-        versionedWishBook.removePerson(target);
-        indicateAddressBookChanged();
+    public void deleteWish(Wish target) {
+        versionedWishBook.removeWish(target);
+        indicateWishBookChanged();
     }
 
     @Override
-    public void addPerson(Person person) {
-        versionedWishBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        indicateAddressBookChanged();
+    public void addWish(Wish wish) {
+        versionedWishBook.addWish(wish);
+        updateFilteredWishList(PREDICATE_SHOW_ALL_PERSONS);
+        indicateWishBookChanged();
     }
 
     @Override
-    public void updatePerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void updateWish(Wish target, Wish editedWish) {
+        requireAllNonNull(target, editedWish);
 
-        versionedWishBook.updatePerson(target, editedPerson);
-        indicateAddressBookChanged();
+        versionedWishBook.updateWish(target, editedWish);
+        indicateWishBookChanged();
     }
 
     /**
-     * Removes {@code tag} from all {@code person}s in this {@code WishBook}.
-     * @throws DuplicatePersonException if there's a duplicate {@code Person} in this {@code WishBook}.
+     * Removes {@code tag} from all {@code wish}s in this {@code WishBook}.
+     * @throws DuplicateWishException if there's a duplicate {@code Person} in this {@code WishBook}.
      */
-    public void deleteTag(Tag tag) throws DuplicatePersonException {
+    public void deleteTag(Tag tag) throws DuplicateWishException {
 
         versionedWishBook.removeTagFromAll(tag);
-        indicateAddressBookChanged();
+        indicateWishBookChanged();
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -102,14 +102,14 @@ public class ModelManager extends ComponentManager implements Model {
      * {@code versionedWishBook}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return FXCollections.unmodifiableObservableList(filteredPersons);
+    public ObservableList<Wish> getFilteredWishList() {
+        return FXCollections.unmodifiableObservableList(filteredWishes);
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredWishList(Predicate<Wish> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredWishes.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -127,13 +127,13 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void undoWishBook() {
         versionedWishBook.undo();
-        indicateAddressBookChanged();
+        indicateWishBookChanged();
     }
 
     @Override
     public void redoWishBook() {
         versionedWishBook.redo();
-        indicateAddressBookChanged();
+        indicateWishBookChanged();
     }
 
     @Override
@@ -156,7 +156,7 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedWishBook.equals(other.versionedWishBook)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredWishes.equals(other.filteredWishes);
     }
 
 }

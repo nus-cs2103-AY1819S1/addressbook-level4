@@ -27,7 +27,7 @@ import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
-import guitests.guihandles.PersonListPanelHandle;
+import guitests.guihandles.WishListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.MainApp;
@@ -40,7 +40,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.WishBook;
 import seedu.address.model.Model;
-import seedu.address.testutil.TypicalPersons;
+import seedu.address.testutil.TypicalWishes;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
 
@@ -86,7 +86,7 @@ public abstract class WishBookSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected WishBook getInitialData() {
-        return TypicalPersons.getTypicalWishBook();
+        return TypicalWishes.getTypicalWishBook();
     }
 
     /**
@@ -104,8 +104,8 @@ public abstract class WishBookSystemTest {
         return mainWindowHandle.getCommandBox();
     }
 
-    public PersonListPanelHandle getPersonListPanel() {
-        return mainWindowHandle.getPersonListPanel();
+    public WishListPanelHandle getWishListPanel() {
+        return mainWindowHandle.getWishListPanel();
     }
 
     public MainMenuHandle getMainMenu() {
@@ -140,41 +140,41 @@ public abstract class WishBookSystemTest {
     }
 
     /**
-     * Displays all persons in the address book.
+     * Displays all wishes in the address book.
      */
-    protected void showAllPersons() {
+    protected void showAllWishes() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getWishBook().getWishList().size(), getModel().getFilteredPersonList().size());
+        assertEquals(getModel().getWishBook().getWishList().size(), getModel().getFilteredWishList().size());
     }
 
     /**
-     * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
+     * Displays all wishes with any parts of their names matching {@code keyword} (case-insensitive).
      */
-    protected void showPersonsWithName(String keyword) {
+    protected void showWishesWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredPersonList().size() < getModel().getWishBook().getWishList().size());
+        assertTrue(getModel().getFilteredWishList().size() < getModel().getWishBook().getWishList().size());
     }
 
     /**
-     * Selects the person at {@code index} of the displayed list.
+     * Selects the wish at {@code index} of the displayed list.
      */
-    protected void selectPerson(Index index) {
+    protected void selectWish(Index index) {
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
-        assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        assertEquals(index.getZeroBased(), getWishListPanel().getSelectedCardIndex());
     }
 
     /**
-     * Deletes all persons in the address book.
+     * Deletes all wishes in the address book.
      */
-    protected void deleteAllPersons() {
+    protected void deleteAllWishes() {
         executeCommand(ClearCommand.COMMAND_WORD);
         assertEquals(0, getModel().getWishBook().getWishList().size());
     }
 
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
-     * {@code expectedResultMessage}, the storage contains the same person objects as {@code expectedModel}
-     * and the person list panel displays the persons in the model correctly.
+     * {@code expectedResultMessage}, the storage contains the same wish objects as {@code expectedModel}
+     * and the wish list panel displays the wishes in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
             Model expectedModel) {
@@ -182,7 +182,7 @@ public abstract class WishBookSystemTest {
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new WishBook(expectedModel.getWishBook()),
                 testApp.readStorageWishBook());
-        assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
+        assertListMatching(getWishListPanel(), expectedModel.getFilteredWishList());
     }
 
     /**
@@ -194,28 +194,28 @@ public abstract class WishBookSystemTest {
         getBrowserPanel().rememberUrl();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
-        getPersonListPanel().rememberSelectedPersonCard();
+        getWishListPanel().rememberSelectedWishCard();
     }
 
     /**
      * Asserts that the previously selected card is now deselected and the browser's url remains displaying the details
-     * of the previously selected person.
+     * of the previously selected wish.
      * @see BrowserPanelHandle#isUrlChanged()
      */
     protected void assertSelectedCardDeselected() {
         assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getPersonListPanel().isAnyCardSelected());
+        assertFalse(getWishListPanel().isAnyCardSelected());
     }
 
     /**
-     * Asserts that the browser's url is changed to display the details of the person in the person list panel at
+     * Asserts that the browser's url is changed to display the details of the wish in the wish list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      * @see BrowserPanelHandle#isUrlChanged()
-     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
+     * @see WishListPanelHandle#isSelectedWishCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
-        getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
-        String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
+        getWishListPanel().navigateToCard(getWishListPanel().getSelectedCardIndex());
+        String selectedCardName = getWishListPanel().getHandleToSelectedCard().getName();
         URL expectedUrl;
         try {
             expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
@@ -224,17 +224,17 @@ public abstract class WishBookSystemTest {
         }
         assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
-        assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        assertEquals(expectedSelectedCardIndex.getZeroBased(), getWishListPanel().getSelectedCardIndex());
     }
 
     /**
-     * Asserts that the browser's url and the selected card in the person list panel remain unchanged.
+     * Asserts that the browser's url and the selected card in the wish list panel remain unchanged.
      * @see BrowserPanelHandle#isUrlChanged()
-     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
+     * @see WishListPanelHandle#isSelectedWishCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
         assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
+        assertFalse(getWishListPanel().isSelectedWishCardChanged());
     }
 
     /**
@@ -278,7 +278,7 @@ public abstract class WishBookSystemTest {
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
+        assertListMatching(getWishListPanel(), getModel().getFilteredWishList());
         assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());

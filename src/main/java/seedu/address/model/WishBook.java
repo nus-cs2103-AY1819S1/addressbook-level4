@@ -7,19 +7,19 @@ import java.util.List;
 import java.util.Set;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.wish.Wish;
+import seedu.address.model.wish.UniqueWishList;
+import seedu.address.model.wish.exceptions.DuplicateWishException;
 import seedu.address.model.tag.Tag;
 
 
 /**
  * Wraps all data at the wish book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSameWish comparison)
  */
 public class WishBook implements ReadOnlyWishBook {
 
-    private final UniquePersonList persons;
+    private final UniqueWishList wishes;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -29,7 +29,7 @@ public class WishBook implements ReadOnlyWishBook {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        wishes = new UniqueWishList();
     }
 
     public WishBook() {}
@@ -45,11 +45,11 @@ public class WishBook implements ReadOnlyWishBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the wish list with {@code wishes}.
+     * {@code wishes} must not contain duplicate wishes.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+    public void setWishes(List<Wish> wishes) {
+        this.wishes.setWishes(wishes);
     }
 
     /**
@@ -58,91 +58,91 @@ public class WishBook implements ReadOnlyWishBook {
     public void resetData(ReadOnlyWishBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getWishList());
+        setWishes(newData.getWishList());
     }
 
-    //// person-level operations
+    //// wish-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a wish with the same identity as {@code wish} exists in the address book.
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
+    public boolean hasWish(Wish wish) {
+        requireNonNull(wish);
+        return wishes.contains(wish);
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a wish to the address book.
+     * The wish must not already exist in the address book.
      */
-    public void addPerson(Person p) {
-        persons.add(p);
+    public void addWish(Wish p) {
+        wishes.add(p);
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given wish {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The wish identity of {@code editedPerson} must not be the same as another existing wish in the address book.
      */
-    public void updatePerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
+    public void updateWish(Wish target, Wish editedWish) {
+        requireNonNull(editedWish);
 
-        persons.setPerson(target, editedPerson);
+        wishes.setWish(target, editedWish);
     }
 
     /**
      * Removes {@code key} from this {@code WishBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Person key) {
-        persons.remove(key);
+    public void removeWish(Wish key) {
+        wishes.remove(key);
     }
 
     /**
-     * Removes {@code tag} from all {@code person}s in this {@code WishBook}.
-     * @throws DuplicatePersonException if there's a duplicate {@code Person} in this {@code WishBook}.
+     * Removes {@code tag} from all {@code wish}s in this {@code WishBook}.
+     * @throws DuplicateWishException if there's a duplicate {@code Person} in this {@code WishBook}.
      */
-    public void removeTagFromAll(Tag tag) throws DuplicatePersonException {
-        ArrayList<Person> modifiedPersons = new ArrayList<>();
+    public void removeTagFromAll(Tag tag) throws DuplicateWishException {
+        ArrayList<Wish> modifiedWishes = new ArrayList<>();
 
-        for (Person person: persons.asUnmodifiableObservableList()) {
-            Set<Tag> modifiedTags = person.getTags();
+        for (Wish wish : wishes.asUnmodifiableObservableList()) {
+            Set<Tag> modifiedTags = wish.getTags();
             modifiedTags.removeIf(t -> t == tag);
 
-            Person modifiedPerson = new Person(person.getName(),
-                    person.getPhone(),
-                    person.getEmail(),
-                    person.getAddress(),
-                    person.getRemark(),
+            Wish modifiedWish = new Wish(wish.getName(),
+                    wish.getPhone(),
+                    wish.getEmail(),
+                    wish.getAddress(),
+                    wish.getRemark(),
                     modifiedTags);
 
-            modifiedPersons.add(modifiedPerson);
+            modifiedWishes.add(modifiedWish);
         }
-        persons.setPersons(modifiedPersons);
+        wishes.setWishes(modifiedWishes);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return wishes.asUnmodifiableObservableList().size() + " wishes";
         // TODO: refine later
     }
 
     @Override
-    public ObservableList<Person> getWishList() {
-        return persons.asUnmodifiableObservableList();
+    public ObservableList<Wish> getWishList() {
+        return wishes.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof WishBook // instanceof handles nulls
-                && persons.equals(((WishBook) other).persons));
+                && wishes.equals(((WishBook) other).wishes));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return wishes.hashCode();
     }
 }

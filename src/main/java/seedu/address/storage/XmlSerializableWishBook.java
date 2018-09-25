@@ -10,25 +10,25 @@ import javax.xml.bind.annotation.XmlRootElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyWishBook;
 import seedu.address.model.WishBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.wish.Wish;
 
 /**
  * An Immutable WishBook that is serializable to XML format
  */
-@XmlRootElement(name = "addressbook")
+@XmlRootElement(name = "wishbook")
 public class XmlSerializableWishBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_WISH = "Wish list contains duplicate wish(s).";
 
     @XmlElement
-    private List<XmlAdaptedPerson> persons;
+    private List<XmlAdaptedWish> wishes;
 
     /**
      * Creates an empty XmlSerializableWishBook.
      * This empty constructor is required for marshalling.
      */
     public XmlSerializableWishBook() {
-        persons = new ArrayList<>();
+        wishes = new ArrayList<>();
     }
 
     /**
@@ -36,23 +36,23 @@ public class XmlSerializableWishBook {
      */
     public XmlSerializableWishBook(ReadOnlyWishBook src) {
         this();
-        persons.addAll(src.getWishList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+        wishes.addAll(src.getWishList().stream().map(XmlAdaptedWish::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this addressbook into the model's {@code WishBook} object.
+     * Converts this wishBook into the model's {@code WishBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
      * {@code XmlAdaptedPerson}.
      */
     public WishBook toModelType() throws IllegalValueException {
         WishBook wishBook = new WishBook();
-        for (XmlAdaptedPerson p : persons) {
-            Person person = p.toModelType();
-            if (wishBook.hasPerson(person)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+        for (XmlAdaptedWish p : wishes) {
+            Wish wish = p.toModelType();
+            if (wishBook.hasWish(wish)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_WISH);
             }
-            wishBook.addPerson(person);
+            wishBook.addWish(wish);
         }
         return wishBook;
     }
@@ -66,6 +66,6 @@ public class XmlSerializableWishBook {
         if (!(other instanceof XmlSerializableWishBook)) {
             return false;
         }
-        return persons.equals(((XmlSerializableWishBook) other).persons);
+        return wishes.equals(((XmlSerializableWishBook) other).wishes);
     }
 }

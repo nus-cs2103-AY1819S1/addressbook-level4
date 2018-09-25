@@ -1,7 +1,7 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalWishes.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
@@ -36,15 +36,15 @@ public class ClearCommandSystemTest extends WishBookSystemTest {
         assertCommandSuccess(command, expectedResultMessage, new ModelManager());
         assertSelectedCardUnchanged();
 
-        /* Case: selects first card in person list and clears wish book -> cleared and no card selected */
+        /* Case: selects first card in wish list and clears wish book -> cleared and no card selected */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original wish book
-        selectPerson(Index.fromOneBased(1));
+        selectWish(Index.fromOneBased(1));
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardDeselected();
 
-        /* Case: filters the person list before clearing -> entire wish book cleared */
+        /* Case: filters the wish list before clearing -> entire wish book cleared */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original wish book
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showWishesWithName(KEYWORD_MATCHING_MEIER);
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 

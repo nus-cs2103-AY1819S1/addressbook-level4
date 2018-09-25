@@ -9,24 +9,24 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Remark;
+import seedu.address.model.wish.Wish;
+import seedu.address.model.wish.Remark;
 
 /**
- * Adds remark to existing person in wish book.
+ * Adds remark to existing wish in wish book.
  */
 public class RemarkCommand extends Command {
     public static final String COMMAND_WORD = "remark";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the remark of the wish identified "
-            + "by the index number used in the displayed person list. "
+            + "by the index number used in the displayed wish list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_REMARK + "NAME]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_REMARK + "random remark";
 
-    public static final String MESSAGE_REMARK_ADD_SUCCESS = "Added remark to Person: ";
+    public static final String MESSAGE_REMARK_ADD_SUCCESS = "Added remark to Wish: ";
 
     private final Index index;
     private final Remark remark;
@@ -41,28 +41,28 @@ public class RemarkCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Wish> lastShownList = model.getFilteredWishList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_WISH_DISPLAYED_INDEX);
         }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person updatedRemarkPerson = createUpdatedRemarkPerson(personToEdit, this.remark);
+        Wish wishToEdit = lastShownList.get(index.getZeroBased());
+        Wish updatedRemarkWish = createUpdatedRemarkWish(wishToEdit, this.remark);
 
-        model.updatePerson(personToEdit, updatedRemarkPerson);
-        model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
+        model.updateWish(wishToEdit, updatedRemarkWish);
+        model.updateFilteredWishList(Model.PREDICATE_SHOW_ALL_PERSONS);
         model.commitWishBook();
-        return new CommandResult(String.format(MESSAGE_REMARK_ADD_SUCCESS, updatedRemarkPerson));
+        return new CommandResult(String.format(MESSAGE_REMARK_ADD_SUCCESS, updatedRemarkWish));
     }
 
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * with updated Remark.
      */
-    private static Person createUpdatedRemarkPerson(Person personToEdit, Remark remark) {
-        return new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                personToEdit.getAddress(), remark, personToEdit.getTags());
+    private static Wish createUpdatedRemarkWish(Wish wishToEdit, Remark remark) {
+        return new Wish(wishToEdit.getName(), wishToEdit.getPhone(), wishToEdit.getEmail(),
+                wishToEdit.getAddress(), remark, wishToEdit.getTags());
     }
 
     @Override

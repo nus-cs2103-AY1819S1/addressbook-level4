@@ -2,10 +2,10 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.HOON;
-import static seedu.address.testutil.TypicalPersons.IDA;
-import static seedu.address.testutil.TypicalPersons.getTypicalWishBook;
+import static seedu.address.testutil.TypicalWishes.ALICE;
+import static seedu.address.testutil.TypicalWishes.HOON;
+import static seedu.address.testutil.TypicalWishes.IDA;
+import static seedu.address.testutil.TypicalWishes.getTypicalWishBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -30,12 +30,12 @@ public class XmlWishBookStorageTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
-    public void readAddressBook_nullFilePath_throwsNullPointerException() throws Exception {
+    public void readWishBook_nullFilePath_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        readAddressBook(null);
+        readWishBook(null);
     }
 
-    private java.util.Optional<ReadOnlyWishBook> readAddressBook(String filePath) throws Exception {
+    private java.util.Optional<ReadOnlyWishBook> readWishBook(String filePath) throws Exception {
         return new XmlWishBookStorage(Paths.get(filePath)).readWishBook(addToTestDataPathIfNotNull(filePath));
     }
 
@@ -47,14 +47,14 @@ public class XmlWishBookStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.xml").isPresent());
+        assertFalse(readWishBook("NonExistentFile.xml").isPresent());
     }
 
     @Test
     public void read_notXmlFormat_exceptionThrown() throws Exception {
 
         thrown.expect(DataConversionException.class);
-        readAddressBook("NotXmlFormatWishBook.xml");
+        readWishBook("NotXmlFormatWishBook.xml");
 
         /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
          * That means you should not have more than one exception test in one method
@@ -64,13 +64,13 @@ public class XmlWishBookStorageTest {
     @Test
     public void readAddressBook_invalidPersonAddressBook_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidPersonWishBook.xml");
+        readWishBook("invalidWishWishBook.xml");
     }
 
     @Test
     public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidAndValidPersonWishBook.xml");
+        readWishBook("invalidAndValidWishWishBook.xml");
     }
 
     @Test
@@ -85,14 +85,14 @@ public class XmlWishBookStorageTest {
         assertEquals(original, new WishBook(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addPerson(HOON);
-        original.removePerson(ALICE);
+        original.addWish(HOON);
+        original.removeWish(ALICE);
         xmlAddressBookStorage.saveWishBook(original, filePath);
         readBack = xmlAddressBookStorage.readWishBook(filePath).get();
         assertEquals(original, new WishBook(readBack));
 
         //Save and read without specifying file path
-        original.addPerson(IDA);
+        original.addWish(IDA);
         xmlAddressBookStorage.saveWishBook(original); //file path not specified
         readBack = xmlAddressBookStorage.readWishBook().get(); //file path not specified
         assertEquals(original, new WishBook(readBack));

@@ -4,9 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BOB;
-import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.TypicalWishes.AMY;
+import static seedu.address.testutil.TypicalWishes.BOB;
+import static seedu.address.testutil.TypicalWishes.CARL;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,9 +18,9 @@ import seedu.address.testutil.WishBookBuilder;
 
 public class VersionedWishBookTest {
 
-    private final ReadOnlyWishBook wishBookWithAmy = new WishBookBuilder().withPerson(AMY).build();
-    private final ReadOnlyWishBook wishBookWithBob = new WishBookBuilder().withPerson(BOB).build();
-    private final ReadOnlyWishBook wishBookWithCarl = new WishBookBuilder().withPerson(CARL).build();
+    private final ReadOnlyWishBook wishBookWithAmy = new WishBookBuilder().withWish(AMY).build();
+    private final ReadOnlyWishBook wishBookWithBob = new WishBookBuilder().withWish(BOB).build();
+    private final ReadOnlyWishBook wishBookWithCarl = new WishBookBuilder().withWish(CARL).build();
     private final ReadOnlyWishBook emptyWishBook = new WishBookBuilder().build();
 
     @Test

@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.getTypicalWishBook;
+import static seedu.address.testutil.TypicalWishes.getTypicalWishBook;
 
 import org.junit.Test;
 

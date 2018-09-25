@@ -21,16 +21,16 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 import seedu.address.model.Model;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Remark;
+import seedu.address.model.wish.Address;
+import seedu.address.model.wish.Email;
+import seedu.address.model.wish.Name;
+import seedu.address.model.wish.Wish;
+import seedu.address.model.wish.Phone;
+import seedu.address.model.wish.Remark;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing wish in the address book.
  */
 public class EditCommand extends Command {
 
@@ -50,62 +50,62 @@ public class EditCommand extends Command {
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Wish: %1$s";
+    public static final String MESSAGE_EDIT_WISH_SUCCESS = "Edited Wish: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This wish already exists in the wish book.";
+    public static final String MESSAGE_DUPLICATE_WISH = "This wish already exists in the wish book.";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final EditWishDescriptor editWishDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
-     * @param editPersonDescriptor details to edit the person with
+     * @param index of the wish in the filtered wish list to edit
+     * @param editWishDescriptor details to edit the wish with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditWishDescriptor editWishDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(editWishDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editWishDescriptor = new EditWishDescriptor(editWishDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Wish> lastShownList = model.getFilteredWishList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_WISH_DISPLAYED_INDEX);
         }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        Wish wishToEdit = lastShownList.get(index.getZeroBased());
+        Wish editedWish = createEditedPerson(wishToEdit, editWishDescriptor);
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (!wishToEdit.isSameWish(editedWish) && model.hasWish(editedWish)) {
+            throw new CommandException(MESSAGE_DUPLICATE_WISH);
         }
 
-        model.updatePerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateWish(wishToEdit, editedWish);
+        model.updateFilteredWishList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitWishBook();
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+        return new CommandResult(String.format(MESSAGE_EDIT_WISH_SUCCESS, editedWish));
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code Person} with the details of {@code wishToEdit}
+     * edited with {@code editWishDescriptor}.
      */
-    private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
-        assert personToEdit != null;
+    private static Wish createEditedPerson(Wish wishToEdit, EditWishDescriptor editWishDescriptor) {
+        assert wishToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Remark remark = personToEdit.getRemark(); // cannot modify remark with edit command
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        Name updatedName = editWishDescriptor.getName().orElse(wishToEdit.getName());
+        Phone updatedPhone = editWishDescriptor.getPhone().orElse(wishToEdit.getPhone());
+        Email updatedEmail = editWishDescriptor.getEmail().orElse(wishToEdit.getEmail());
+        Address updatedAddress = editWishDescriptor.getAddress().orElse(wishToEdit.getAddress());
+        Remark remark = wishToEdit.getRemark(); // cannot modify remark with edit command
+        Set<Tag> updatedTags = editWishDescriptor.getTags().orElse(wishToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, remark, updatedTags);
+        return new Wish(updatedName, updatedPhone, updatedEmail, updatedAddress, remark, updatedTags);
     }
 
     @Override
@@ -123,27 +123,27 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+                && editWishDescriptor.equals(e.editWishDescriptor);
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Stores the details to edit the wish with. Each non-empty field value will replace the
+     * corresponding field value of the wish.
      */
-    public static class EditPersonDescriptor {
+    public static class EditWishDescriptor {
         private Name name;
         private Phone phone;
         private Email email;
         private Address address;
         private Set<Tag> tags;
 
-        public EditPersonDescriptor() {}
+        public EditWishDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
+        public EditWishDescriptor(EditWishDescriptor toCopy) {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
@@ -215,12 +215,12 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof EditWishDescriptor)) {
                 return false;
             }
 
             // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            EditWishDescriptor e = (EditWishDescriptor) other;
 
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())

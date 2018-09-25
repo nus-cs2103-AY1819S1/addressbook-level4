@@ -1,12 +1,12 @@
 package seedu.address.testutil;
 
 import seedu.address.model.WishBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.wish.Wish;
 
 /**
- * A utility class to help with building Addressbook objects.
+ * A utility class to help with building WishBook objects.
  * Example usage: <br>
- *     {@code WishBook ab = new WishBookBuilder().withPerson("John", "Doe").build();}
+ *     {@code WishBook ab = new WishBookBuilder().withWish("John", "Doe").build();}
  */
 public class WishBookBuilder {
 
@@ -21,10 +21,10 @@ public class WishBookBuilder {
     }
 
     /**
-     * Adds a new {@code Person} to the {@code WishBook} that we are building.
+     * Adds a new {@code Wish} to the {@code WishBook} that we are building.
      */
-    public WishBookBuilder withPerson(Person person) {
-        wishBook.addPerson(person);
+    public WishBookBuilder withWish(Wish wish) {
+        wishBook.addWish(wish);
         return this;
     }
 

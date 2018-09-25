@@ -1,12 +1,12 @@
 package systemtests;
 
 import static org.junit.Assert.assertFalse;
-import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
+import static seedu.address.commons.core.Messages.MESSAGE_WISHES_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalPersons.CARL;
-import static seedu.address.testutil.TypicalPersons.DANIEL;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalWishes.BENSON;
+import static seedu.address.testutil.TypicalWishes.CARL;
+import static seedu.address.testutil.TypicalWishes.DANIEL;
+import static seedu.address.testutil.TypicalWishes.KEYWORD_MATCHING_MEIER;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +25,8 @@ public class FindCommandSystemTest extends WishBookSystemTest {
 
     @Test
     public void find() {
-        /* Case: find multiple persons in wish book, command with leading spaces and trailing spaces
-         * -> 2 persons found
+        /* Case: find multiple wishes in wish book, command with leading spaces and trailing spaces
+         * -> 2 wishes found
          */
         String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER + "   ";
         Model expectedModel = getModel();
@@ -34,37 +34,37 @@ public class FindCommandSystemTest extends WishBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: repeat previous find command where person list is displaying the persons we are finding
-         * -> 2 persons found
+        /* Case: repeat previous find command where wish list is displaying the wishes we are finding
+         * -> 2 wishes found
          */
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find person where person list is not displaying the person we are finding -> 1 person found */
+        /* Case: find wish where wish list is not displaying the wish we are finding -> 1 wish found */
         command = FindCommand.COMMAND_WORD + " Carl";
         ModelHelper.setFilteredList(expectedModel, CARL);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple persons in wish book, 2 keywords -> 2 persons found */
+        /* Case: find multiple wishes in wish book, 2 keywords -> 2 wishes found */
         command = FindCommand.COMMAND_WORD + " Benson Daniel";
         ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple persons in wish book, 2 keywords in reversed order -> 2 persons found */
+        /* Case: find multiple wishes in wish book, 2 keywords in reversed order -> 2 wishes found */
         command = FindCommand.COMMAND_WORD + " Daniel Benson";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple persons in wish book, 2 keywords with 1 repeat -> 2 persons found */
+        /* Case: find multiple wishes in wish book, 2 keywords with 1 repeat -> 2 wishes found */
         command = FindCommand.COMMAND_WORD + " Daniel Benson Daniel";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple persons in wish book, 2 matching keywords and 1 non-matching keyword
-         * -> 2 persons found
+        /* Case: find multiple wishes in wish book, 2 matching keywords and 1 non-matching keyword
+         * -> 2 wishes found
          */
         command = FindCommand.COMMAND_WORD + " Daniel Benson NonMatchingKeyWord";
         assertCommandSuccess(command, expectedModel);
@@ -80,7 +80,7 @@ public class FindCommandSystemTest extends WishBookSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
 
-        /* Case: find same persons in wish book after deleting 1 of them -> 1 person found */
+        /* Case: find same wishes in wish book after deleting 1 of them -> 1 wish found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
         assertFalse(getModel().getWishBook().getWishList().contains(BENSON));
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
@@ -89,60 +89,60 @@ public class FindCommandSystemTest extends WishBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find person in wish book, keyword is same as name but of different case -> 1 person found */
+        /* Case: find wish in wish book, keyword is same as name but of different case -> 1 wish found */
         command = FindCommand.COMMAND_WORD + " MeIeR";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find person in wish book, keyword is substring of name -> 0 persons found */
+        /* Case: find wish in wish book, keyword is substring of name -> 0 wishes found */
         command = FindCommand.COMMAND_WORD + " Mei";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find person in wish book, name is substring of keyword -> 0 persons found */
+        /* Case: find wish in wish book, name is substring of keyword -> 0 wishes found */
         command = FindCommand.COMMAND_WORD + " Meiers";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find person not in wish book -> 0 persons found */
+        /* Case: find wish not in wish book -> 0 wishes found */
         command = FindCommand.COMMAND_WORD + " Mark";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find phone number of person in wish book -> 0 persons found */
+        /* Case: find phone number of wish in wish book -> 0 wishes found */
         command = FindCommand.COMMAND_WORD + " " + DANIEL.getPhone().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find wish of person in wish book -> 0 persons found */
+        /* Case: find wish of wish in wish book -> 0 wishes found */
         command = FindCommand.COMMAND_WORD + " " + DANIEL.getAddress().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find email of person in wish book -> 0 persons found */
+        /* Case: find email of wish in wish book -> 0 wishes found */
         command = FindCommand.COMMAND_WORD + " " + DANIEL.getEmail().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find tags of person in wish book -> 0 persons found */
+        /* Case: find tags of wish in wish book -> 0 wishes found */
         List<Tag> tags = new ArrayList<>(DANIEL.getTags());
         command = FindCommand.COMMAND_WORD + " " + tags.get(0).tagName;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find while a person is selected -> selected card deselected */
-        showAllPersons();
-        selectPerson(Index.fromOneBased(1));
-        assertFalse(getPersonListPanel().getHandleToSelectedCard().getName().equals(DANIEL.getName().fullName));
+        /* Case: find while a wish is selected -> selected card deselected */
+        showAllWishes();
+        selectWish(Index.fromOneBased(1));
+        assertFalse(getWishListPanel().getHandleToSelectedCard().getName().equals(DANIEL.getName().fullName));
         command = FindCommand.COMMAND_WORD + " Daniel";
         ModelHelper.setFilteredList(expectedModel, DANIEL);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardDeselected();
 
-        /* Case: find person in empty wish book -> 0 persons found */
-        deleteAllPersons();
+        /* Case: find wish in empty wish book -> 0 wishes found */
+        deleteAllWishes();
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, DANIEL);
@@ -156,7 +156,7 @@ public class FindCommandSystemTest extends WishBookSystemTest {
 
     /**
      * Executes {@code command} and verifies that the command box displays an empty string, the result display
-     * box displays {@code Messages#MESSAGE_PERSONS_LISTED_OVERVIEW} with the number of people in the filtered list,
+     * box displays {@code Messages#MESSAGE_WISHES_LISTED_OVERVIEW} with the number of people in the filtered list,
      * and the model related components equal to {@code expectedModel}.
      * These verifications are done by
      * {@code WishBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
@@ -166,7 +166,7 @@ public class FindCommandSystemTest extends WishBookSystemTest {
      */
     private void assertCommandSuccess(String command, Model expectedModel) {
         String expectedResultMessage = String.format(
-                MESSAGE_PERSONS_LISTED_OVERVIEW, expectedModel.getFilteredPersonList().size());
+                MESSAGE_WISHES_LISTED_OVERVIEW, expectedModel.getFilteredWishList().size());
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);

@@ -16,11 +16,11 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.WishBook;
-import seedu.address.storage.XmlAdaptedPerson;
+import seedu.address.storage.XmlAdaptedWish;
 import seedu.address.storage.XmlAdaptedTag;
 import seedu.address.storage.XmlSerializableWishBook;
 import seedu.address.testutil.WishBookBuilder;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.WishBuilder;
 import seedu.address.testutil.TestUtil;
 
 public class XmlUtilTest {
@@ -28,11 +28,11 @@ public class XmlUtilTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlUtilTest");
     private static final Path EMPTY_FILE = TEST_DATA_FOLDER.resolve("empty.xml");
     private static final Path MISSING_FILE = TEST_DATA_FOLDER.resolve("missing.xml");
-    private static final Path VALID_FILE = TEST_DATA_FOLDER.resolve("validAddressBook.xml");
-    private static final Path MISSING_PERSON_FIELD_FILE = TEST_DATA_FOLDER.resolve("missingPersonField.xml");
-    private static final Path INVALID_PERSON_FIELD_FILE = TEST_DATA_FOLDER.resolve("invalidPersonField.xml");
-    private static final Path VALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("validPerson.xml");
-    private static final Path TEMP_FILE = TestUtil.getFilePathInSandboxFolder("tempAddressBook.xml");
+    private static final Path VALID_FILE = TEST_DATA_FOLDER.resolve("validWishBook.xml");
+    private static final Path MISSING_WISH_FIELD_FILE = TEST_DATA_FOLDER.resolve("missingWishField.xml");
+    private static final Path INVALID_WISH_FIELD_FILE = TEST_DATA_FOLDER.resolve("invalidWishField.xml");
+    private static final Path VALID_WISH_FILE = TEST_DATA_FOLDER.resolve("validWish.xml");
+    private static final Path TEMP_FILE = TestUtil.getFilePathInSandboxFolder("tempWishBook.xml");
 
     private static final String INVALID_PHONE = "9482asf424";
 
@@ -76,30 +76,30 @@ public class XmlUtilTest {
     }
 
     @Test
-    public void xmlAdaptedPersonFromFile_fileWithMissingPersonField_validResult() throws Exception {
-        XmlAdaptedPerson actualPerson = XmlUtil.getDataFromFile(
-                MISSING_PERSON_FIELD_FILE, XmlAdaptedPersonWithRootElement.class);
-        XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
+    public void xmlAdaptedWishFromFile_fileWithMissingWishField_validResult() throws Exception {
+        XmlAdaptedWish actualWish = XmlUtil.getDataFromFile(
+                MISSING_WISH_FIELD_FILE, XmlAdaptedWishWithRootElement.class);
+        XmlAdaptedWish expectedWish = new XmlAdaptedWish(
                 null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        assertEquals(expectedPerson, actualPerson);
+        assertEquals(expectedWish, actualWish);
     }
 
     @Test
-    public void xmlAdaptedPersonFromFile_fileWithInvalidPersonField_validResult() throws Exception {
-        XmlAdaptedPerson actualPerson = XmlUtil.getDataFromFile(
-                INVALID_PERSON_FIELD_FILE, XmlAdaptedPersonWithRootElement.class);
-        XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
+    public void xmlAdaptedWishFromFile_fileWithInvalidWishField_validResult() throws Exception {
+        XmlAdaptedWish actualWish = XmlUtil.getDataFromFile(
+                INVALID_WISH_FIELD_FILE, XmlAdaptedWishWithRootElement.class);
+        XmlAdaptedWish expectedWish = new XmlAdaptedWish(
                 VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        assertEquals(expectedPerson, actualPerson);
+        assertEquals(expectedWish, actualWish);
     }
 
     @Test
-    public void xmlAdaptedPersonFromFile_fileWithValidPerson_validResult() throws Exception {
-        XmlAdaptedPerson actualPerson = XmlUtil.getDataFromFile(
-                VALID_PERSON_FILE, XmlAdaptedPersonWithRootElement.class);
-        XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
+    public void xmlAdaptedWishFromFile_fileWithValidWish_validResult() throws Exception {
+        XmlAdaptedWish actualWish = XmlUtil.getDataFromFile(
+                VALID_WISH_FILE, XmlAdaptedWishWithRootElement.class);
+        XmlAdaptedWish expectedWish = new XmlAdaptedWish(
                 VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        assertEquals(expectedPerson, actualPerson);
+        assertEquals(expectedWish, actualWish);
     }
 
     @Test
@@ -130,7 +130,7 @@ public class XmlUtilTest {
 
         WishBookBuilder builder = new WishBookBuilder(new WishBook());
         dataToWrite = new XmlSerializableWishBook(
-                builder.withPerson(new PersonBuilder().build()).build());
+                builder.withWish(new WishBuilder().build()).build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableWishBook.class);
@@ -138,9 +138,9 @@ public class XmlUtilTest {
     }
 
     /**
-     * Test class annotated with {@code XmlRootElement} to allow unmarshalling of .xml data to {@code XmlAdaptedPerson}
+     * Test class annotated with {@code XmlRootElement} to allow unmarshalling of .xml data to {@code XmlAdaptedWish}
      * objects.
      */
-    @XmlRootElement(name = "person")
-    private static class XmlAdaptedPersonWithRootElement extends XmlAdaptedPerson {}
+    @XmlRootElement(name = "wish")
+    private static class XmlAdaptedWishWithRootElement extends XmlAdaptedWish {}
 }

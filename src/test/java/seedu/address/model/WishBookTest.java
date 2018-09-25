@@ -5,8 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalWishBook;
+import static seedu.address.testutil.TypicalWishes.ALICE;
+import static seedu.address.testutil.TypicalWishes.getTypicalWishBook;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -19,9 +19,9 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.wish.Wish;
+import seedu.address.model.wish.exceptions.DuplicateWishException;
+import seedu.address.testutil.WishBuilder;
 
 public class WishBookTest {
 
@@ -42,51 +42,51 @@ public class WishBookTest {
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
+    public void resetData_withValidReadOnlyWishBook_replacesData() {
         WishBook newData = getTypicalWishBook();
         wishBook.resetData(newData);
         assertEquals(newData, wishBook);
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
+    public void resetData_withDuplicateWishes_throwsDuplicateWishException() {
         // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Wish editedAlice = new WishBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        WishBookStub newData = new WishBookStub(newPersons);
+        List<Wish> newWishes = Arrays.asList(ALICE, editedAlice);
+        WishBookStub newData = new WishBookStub(newWishes);
 
-        thrown.expect(DuplicatePersonException.class);
+        thrown.expect(DuplicateWishException.class);
         wishBook.resetData(newData);
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasPerson_nullWish_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        wishBook.hasPerson(null);
+        wishBook.hasWish(null);
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(wishBook.hasPerson(ALICE));
+    public void hasWish_wishNotInWishBook_returnsFalse() {
+        assertFalse(wishBook.hasWish(ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        wishBook.addPerson(ALICE);
-        assertTrue(wishBook.hasPerson(ALICE));
+    public void hasWish_wishInWishBook_returnsTrue() {
+        wishBook.addWish(ALICE);
+        assertTrue(wishBook.hasWish(ALICE));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        wishBook.addPerson(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+    public void hasWish_wishWithSameIdentityFieldsInWishBook_returnsTrue() {
+        wishBook.addWish(ALICE);
+        Wish editedAlice = new WishBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(wishBook.hasPerson(editedAlice));
+        assertTrue(wishBook.hasWish(editedAlice));
     }
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getWishList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         wishBook.getWishList().remove(0);
     }
@@ -95,15 +95,15 @@ public class WishBookTest {
      * A stub ReadOnlyWishBook whose persons list can violate interface constraints.
      */
     private static class WishBookStub implements ReadOnlyWishBook {
-        private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Wish> wishes = FXCollections.observableArrayList();
 
-        WishBookStub(Collection<Person> persons) {
-            this.persons.setAll(persons);
+        WishBookStub(Collection<Wish> wishes) {
+            this.wishes.setAll(wishes);
         }
 
         @Override
-        public ObservableList<Person> getWishList() {
-            return persons;
+        public ObservableList<Wish> getWishList() {
+            return wishes;
         }
     }
 
