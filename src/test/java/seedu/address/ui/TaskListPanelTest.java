@@ -56,9 +56,9 @@ public class TaskListPanelTest extends GuiUnitTest {
         postNow(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 
-        TaskCardHandle expectedPerson = taskListPanelHandle.getTaskCardHandle(INDEX_SECOND_PERSON.getZeroBased());
-        TaskCardHandle selectedPerson = taskListPanelHandle.getHandleToSelectedCard();
-        assertCardEquals(expectedPerson, selectedPerson);
+        TaskCardHandle expectedTask = taskListPanelHandle.getTaskCardHandle(INDEX_SECOND_PERSON.getZeroBased());
+        TaskCardHandle selectedTask = taskListPanelHandle.getHandleToSelectedCard();
+        assertCardEquals(expectedTask, selectedTask);
     }
 
     /**
@@ -76,24 +76,24 @@ public class TaskListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Returns a list of persons containing {@code personCount} persons that is used to populate the
+     * Returns a list of tasks containing {@code taskCount} persons that is used to populate the
      * {@code TaskListPanel}.
      */
-    private ObservableList<Person> createBackingList(int personCount) throws Exception {
-        Path xmlFile = createXmlFileWithPersons(personCount);
+    private ObservableList<Person> createBackingList(int taskCount) throws Exception {
+        Path xmlFile = createXmlFileWithTasks(taskCount);
         XmlSerializableAddressBook xmlAddressBook =
                 XmlUtil.getDataFromFile(xmlFile, XmlSerializableAddressBook.class);
         return FXCollections.observableArrayList(xmlAddressBook.toModelType().getPersonList());
     }
 
     /**
-     * Returns a .xml file containing {@code personCount} persons. This file will be deleted when the JVM terminates.
+     * Returns a .xml file containing {@code taskCount} persons. This file will be deleted when the JVM terminates.
      */
-    private Path createXmlFileWithPersons(int personCount) throws Exception {
+    private Path createXmlFileWithTasks(int taskCount) throws Exception {
         StringBuilder builder = new StringBuilder();
         builder.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
         builder.append("<addressbook>\n");
-        for (int i = 0; i < personCount; i++) {
+        for (int i = 0; i < taskCount; i++) {
             builder.append("<persons>\n");
             builder.append("<name>").append(i).append("a</name>\n");
             builder.append("<phone>000</phone>\n");
@@ -115,10 +115,10 @@ public class TaskListPanelTest extends GuiUnitTest {
      * Also shows the {@code Stage} that displays only {@code TaskListPanel}.
      */
     private void initUi(ObservableList<Person> backingList) {
-        TaskListPanel personListPanel = new TaskListPanel(backingList);
-        uiPartRule.setUiPart(personListPanel);
+        TaskListPanel taskListPanel = new TaskListPanel(backingList);
+        uiPartRule.setUiPart(taskListPanel);
 
-        taskListPanelHandle = new TaskListPanelHandle(getChildNode(personListPanel.getRoot(),
+        taskListPanelHandle = new TaskListPanelHandle(getChildNode(taskListPanel.getRoot(),
                 TaskListPanelHandle.TASK_LIST_VIEW_ID));
     }
 }
