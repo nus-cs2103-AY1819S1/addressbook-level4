@@ -15,6 +15,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Schedule;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -32,6 +33,8 @@ public class XmlAdaptedPerson {
     private String email;
     @XmlElement(required = true)
     private String address;
+    @XmlElement(required = true)
+    private int[][] schedule;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -40,7 +43,8 @@ public class XmlAdaptedPerson {
      * Constructs an XmlAdaptedPerson.
      * This is the no-arg constructor that is required by JAXB.
      */
-    public XmlAdaptedPerson() {}
+    public XmlAdaptedPerson() {
+    }
 
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
@@ -65,9 +69,11 @@ public class XmlAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+        schedule = source.getSchedule().value;
         tagged = source.getTags().stream()
-                .map(XmlAdaptedTag::new)
-                .collect(Collectors.toList());
+            .map(XmlAdaptedTag::new)
+            .collect(Collectors.toList());
+
     }
 
     /**
@@ -113,6 +119,8 @@ public class XmlAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
+        final Schedule modelSchedule = new Schedule(schedule);
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
     }
@@ -129,9 +137,9 @@ public class XmlAdaptedPerson {
 
         XmlAdaptedPerson otherPerson = (XmlAdaptedPerson) other;
         return Objects.equals(name, otherPerson.name)
-                && Objects.equals(phone, otherPerson.phone)
-                && Objects.equals(email, otherPerson.email)
-                && Objects.equals(address, otherPerson.address)
-                && tagged.equals(otherPerson.tagged);
+            && Objects.equals(phone, otherPerson.phone)
+            && Objects.equals(email, otherPerson.email)
+            && Objects.equals(address, otherPerson.address)
+            && tagged.equals(otherPerson.tagged);
     }
 }
