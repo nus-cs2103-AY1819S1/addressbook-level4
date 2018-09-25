@@ -13,6 +13,7 @@ public class UserPrefs {
 
     private GuiSettings guiSettings;
     private Path addressBookFilePath = Paths.get("data" , "addressbook.xml");
+    private Path calendarPath = Paths.get("calendar");
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);
@@ -38,6 +39,14 @@ public class UserPrefs {
         this.addressBookFilePath = addressBookFilePath;
     }
 
+    public Path getCalendarPath() {
+        return calendarPath;
+    }
+
+    public void setCalendarPath(Path calendarPath) {
+        this.calendarPath = calendarPath;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -50,12 +59,13 @@ public class UserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return Objects.equals(guiSettings, o.guiSettings)
-                && Objects.equals(addressBookFilePath, o.addressBookFilePath);
+                && Objects.equals(addressBookFilePath, o.addressBookFilePath)
+                && Objects.equals(calendarPath, o.calendarPath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath);
+        return Objects.hash(guiSettings, addressBookFilePath, calendarPath);
     }
 
     @Override
@@ -63,6 +73,7 @@ public class UserPrefs {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings.toString());
         sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nCalendar directory location : " + calendarPath);
         return sb.toString();
     }
 
