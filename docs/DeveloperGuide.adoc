@@ -887,7 +887,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |delete an entire group |remove inactive groups without affecting my contact list
 
-|`* * *` |user |add events to the app |keep track of my schedule and upcoming events
+|`* * *` |university student |add events to the app |keep track of my schedule and upcoming events
 
 |`* *` |busy university student |save my timetable in the app |tell easily when any events clash with my timetable
 
