@@ -127,6 +127,20 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    /**
+     * Check if an event already exists in a versionedAddressBook
+     * @param event
+     * @return true if versionAddressBook already has this event.
+     */
+    public boolean hasEvent(Event event) {
+        requireNonNull(event);
+        return versionedAddressBook.hasEvent(event);
+    }
+
+    public Event getEvent(Index targetIndex) {
+        return filteredEvents.get(targetIndex.getZeroBased());
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
