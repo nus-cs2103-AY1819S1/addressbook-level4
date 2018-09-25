@@ -131,7 +131,7 @@ public class Event {
             this.polls.add(poll);
         }
     }
-  
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
