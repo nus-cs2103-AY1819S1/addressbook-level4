@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+    <!-- Event with invalid start date field -->
+    <events>
+        <name>Blood Donation Drive 2018</name>
+        <location>750E Chai Chee Road</location>
+        <startDate>1234</startDate>
+        <endDate>05-10-2018</endDate>
+        <startTime>11:30</startTime>
+        <endTime>17:30</endTime>
+        <description>Donation drive for blood.</description>
+        <tagged>Donation</tagged>
+        <tagged>Public</tagged>
+    </events>
+</addressbook>
