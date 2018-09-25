@@ -6,8 +6,10 @@ import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.person.ContactContainsRoomPredicate;
 import seedu.address.model.person.ContactContainsTagPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Room;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,11 +34,13 @@ public class ClearCommand extends Command {
     private ArrayList<Person> toClear;
     private List<Person> fullList;
     private boolean clearAll;
+    private boolean clearRoom;
 
     public ClearCommand(List<String> target, ContactContainsTagPredicate predicate) {
         this.target = target;
         this.predicate = predicate;
         this.clearAll = false;
+        this.clearRoom = false;
         this.toClear = new ArrayList<>();
         this.fullList = new ArrayList<>();
     }
@@ -49,22 +53,36 @@ public class ClearCommand extends Command {
                 this.clearAll = true;
                 break;
             }
-        }
-        if (clearAll) {
-            model.resetData(new AddressBook());
-            model.commitAddressBook();
-            return new CommandResult(MESSAGE_CLEAR_ALL_SUCCESS);
-        } else {
-            toClear.clear();
-            fullList = model.getAddressBook().getPersonList();
-            for (Person p : fullList) {
-                if (new ContactContainsTagPredicate(target).test(p)) {
-                    toClear.add(p);
-                }
+            if (Room.isValidRoom(s)) {
+                this.clearRoom = true;
+                break;
             }
-            model.clearMultiplePersons(toClear);
-            model.commitAddressBook();
-            return new CommandResult(String.format(MESSAGE_CLEAR_SPECIFIC_SUCCESS, target));
         }
+
+        if (clearAll) {
+            return clearAll(model);
+        } else {
+            return clearSpecific(model);
+        }
+    }
+
+    private CommandResult clearAll(Model model) {
+        model.resetData(new AddressBook());
+        model.commitAddressBook();
+        return new CommandResult(MESSAGE_CLEAR_ALL_SUCCESS);
+    }
+
+
+    private CommandResult clearSpecific(Model model) {
+        toClear.clear();
+        fullList = model.getAddressBook().getPersonList();
+        for (Person p : fullList) {
+            if (clearRoom ? new ContactContainsRoomPredicate(target).test(p): new ContactContainsTagPredicate(target).test(p)) {
+                toClear.add(p);
+            }
+        }
+        model.clearMultiplePersons(toClear);
+        model.commitAddressBook();
+        return new CommandResult(String.format(MESSAGE_CLEAR_SPECIFIC_SUCCESS, target));
     }
 }
