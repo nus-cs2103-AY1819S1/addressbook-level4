@@ -893,7 +893,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |university student |check if an event clashes with my schedule |better decide if I can set up an appointment at that time slot
 
-|`* * *` |busy university student |generate a meeting time that is convenient for all contacts in a group |find a convenient time for meetups
+|`* * *` |considerate  university student |generate a meeting time that is convenient for all contacts in a group
+|find a convenient time for meetups
 
 |`* * *` |considerate university student |generate a meeting location that is convenient for all contacts in a group (based on faculty) |find a convenient location for meetups
 
