@@ -1,7 +1,7 @@
 package seedu.address.model;
 
 /**
- * Receipt for patients.
+ * Receipt class for patients.
  */
 public class Receipt {
 
