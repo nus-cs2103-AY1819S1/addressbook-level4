@@ -893,10 +893,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |university student |check if an event clashes with my schedule |better decide if I can set up an appointment at that time slot
 
-|`* * *` |considerate  university student |generate a meeting time that is convenient for all contacts in a group
+|`* * *` |considerate  university student |obtain a meeting time that is convenient for all contacts in a group
 |find a convenient time for meetups
 
-|`* * *` |considerate university student |generate a meeting location that is convenient for all contacts in a group (based on faculty) |find a convenient location for meetups
+|`* * *` |considerate university student |obtain a meeting location that is convenient for all contacts in a group
+(based on faculty) |find a convenient location for meetups
 
 |`* * *` |university student |view my events for a particular week |gauge my availability for that week
 
