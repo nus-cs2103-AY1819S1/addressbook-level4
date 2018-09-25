@@ -10,13 +10,13 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Cost {
 
     public static final String MESSAGE_ADDRESS_CONSTRAINTS =
-            "Addresses can take any values, and it should not be blank";
+            "Cost should only take values in the following format: {int}.{digit}{digit}";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String ADDRESS_VALIDATION_REGEX = "[^\\s].*";
+    public static final String COST_VALIDATION_REGEX = "(\\d+).(\\d)(\\d)";
 
     public final String value;
 
@@ -35,7 +35,7 @@ public class Cost {
      * Returns true if a given string is a valid email.
      */
     public static boolean isValidCost(String test) {
-        return test.matches(ADDRESS_VALIDATION_REGEX);
+        return test.matches(COST_VALIDATION_REGEX);
     }
 
     @Override

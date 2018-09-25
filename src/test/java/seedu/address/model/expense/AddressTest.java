@@ -25,13 +25,14 @@ public class AddressTest {
         // null address
         Assert.assertThrows(NullPointerException.class, () -> Cost.isValidCost(null));
 
-        // invalid addresses
+        // invalid costs
         assertFalse(Cost.isValidCost("")); // empty string
         assertFalse(Cost.isValidCost(" ")); // spaces only
+        assertFalse(Cost.isValidCost("200")); // number only
 
-        // valid addresses
-        assertTrue(Cost.isValidCost("Blk 456, Den Road, #01-355"));
-        assertTrue(Cost.isValidCost("-")); // one character
-        assertTrue(Cost.isValidCost("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long address
+        // valid costs
+        assertTrue(Cost.isValidCost("255.00"));
+        assertTrue(Cost.isValidCost("1.00")); // one dollar
+        assertTrue(Cost.isValidCost("231231232131231.00")); // long cost
     }
 }

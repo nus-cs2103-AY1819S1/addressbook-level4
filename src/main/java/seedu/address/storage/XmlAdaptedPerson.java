@@ -10,8 +10,11 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.expense.*;
 import seedu.address.model.expense.Cost;
+import seedu.address.model.expense.Email;
+import seedu.address.model.expense.Name;
+import seedu.address.model.expense.Person;
+import seedu.address.model.expense.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -42,11 +45,11 @@ public class XmlAdaptedPerson {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
-    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedPerson(String name, String phone, String email, String cost, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.cost = address;
+        this.cost = cost;
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
@@ -106,6 +109,7 @@ public class XmlAdaptedPerson {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Cost.class.getSimpleName()));
         }
         if (!Cost.isValidCost(cost)) {
+
             throw new IllegalValueException(Cost.MESSAGE_ADDRESS_CONSTRAINTS);
         }
         final Cost modelCost = new Cost(cost);

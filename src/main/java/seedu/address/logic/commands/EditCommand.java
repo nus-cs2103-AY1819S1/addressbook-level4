@@ -20,8 +20,11 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.expense.*;
 import seedu.address.model.expense.Cost;
+import seedu.address.model.expense.Email;
+import seedu.address.model.expense.Name;
+import seedu.address.model.expense.Person;
+import seedu.address.model.expense.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
