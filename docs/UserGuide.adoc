@@ -39,8 +39,8 @@ image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`-help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
 
+.  Some example commands you can try:
 * *`-search KEYWORD... [xx KEYWORD...]`* : search for recipes related and excluded from the keywords
 * *`-favorite`* : display personal favorited recipes
 * *`-plannerlist`* : display personal meal schedule
@@ -57,9 +57,9 @@ e.g. typing *`-help`* and pressing kbd:[Enter] will open the help window.
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/Chicken Rice`.
 * Items in square brackets are optional e.g `-search KEYWORD... [xx KEYWORD...]` can be used as `-search Japanese xx Dairy` or as `-search Japanese`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/Japanese`, `t/Halal t/Seafood` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+
 ====
-=== Universal Command
+=== Universal Commands
 ==== View help: `-help [local]`
 To view the help menu containing all the universal commands. +
 `local` flag display local commands unique to an application page. +
@@ -102,12 +102,12 @@ Format: +
 Display a random recipe for the user who wants to try something bold
 and new but has no idea what they want. +
 Format: +
-`-suggest`
+`-surprise`
 
-==== Display favorites: `-favorite`
-List all the bookmarked favorite recipes of the user. +
+==== Display favorites: `-favourite`
+List all the bookmarked favourite recipes of the user. +
 Format: +
-`-favorite`
+`-favourite`
 
 ==== Display ingredient manager: `-ingredientmanager`
 Ingredient manager is an inventory manager that helps stock
@@ -139,7 +139,7 @@ Format: +
 `-exit`
 
 
-=== Recipes/Favorite List Command
+=== Recipes/Favourite List Commands
 ==== Display recipe details: `INDEX`
 View a recipe and its details from the list. +
 ****
@@ -156,26 +156,20 @@ A cook mode that provides step-by-step guidance to aid real-time cooking. +
 Format: +
 `cook INDEX`
 
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-
-
-=== Recipe Details Command
+=== Recipe Details Commands
 ==== Add recipe to favourite: `favourite`
 Add a recipe in their favourites list. +
 Format: +
 `favourite`
 
-==== Add a meal plan: `plan DAY TIME`
+==== Add to meal plan: `plan DATE TIME`
 Add a specified recipe to meal plan. +
 ****
-* The range of acceptable values for `TIME` (*breakfast, lunch, dinner*).
-* The range of acceptable values for `DAY` (*mon, tue, wed, thu, fri, sat, sun*).
+* DATE should be entered in the format *yyyy-mm-dd*.
+* TIME can be specified with the following keywords: *breakfast*, *lunch*, *dinner*.
 ****
 Format: +
-`plan DAY TIME`
+`plan DATE TIME`
 
 ==== Active cook-mode: `cook`
 A cook mode that provides step-by-step guidance to aid real-time cooking. +
@@ -191,35 +185,35 @@ Add comment and rating to current recipe. +
 Format: +
 `review [Comment] RATING`
 
-=== Ingredient Manager Command
+=== Ingredient Manager Commands
 
-==== Add an ingredient
+==== Add an ingredient: `add`
 
 Adds an ingredient to the ingredient manager.
 Format: +
-'add NAME AMOUNT DATE'
+`add NAME AMOUNT DATE`
 
 ****
 * If there are more than 1 words for name, ‘_’ is used to separate words
 * Amount: follows the recipe book's standard
 * Expiry Date: mm-dd-yyyy
 ****
-=== List all ingredients
+==== List all ingredients: `list`
 
 Shows a list of user’s ingredients.
 Format: +
-`List`
+`list`
 
-=== Edit ingredient info
+==== Edit ingredient info: `edit`
 
 Edit an existing ingredient in the ingredient manager. +
 Format: +
-`Edit NAME FIELD_NAME NEW_INFO (FIELD_NAME NEW_INFO)… end`
+`edit NAME FIELD_NAME NEW_INFO (FIELD_NAME NEW_INFO)… end`
 
 ****
 * Can be used to define compound ingredient name e.g. Spring_Onion
 ****
-==== Search ingredient
+==== Search ingredient: `find`
 
 Find ingredients whose name contains any of the given keywords.
 Format: +
@@ -231,17 +225,17 @@ Format: +
 * Match only full words
 ****
 
-=== Delete ingredient
+==== Delete ingredient: `delete`
 
 Delete ingredient(s) added by user.
 Format: +
 `delete NAME`
 
-=== Search recipes based on ingredients manager availability
+==== Search recipes based on ingredients manager availability: `select`
 
 Search for recipes based on ingredients stored in manager. User can add additional parameters to widen search result.
 Format: +
-`Select [NUMBER_OF_SERVINGS] KEYWORD… optional KEYWORD… end`
+`select [NUMBER_OF_SERVINGS] KEYWORD… optional KEYWORD… end`
 
 ****
 * Multi-line command that ends with end.
@@ -249,56 +243,49 @@ Format: +
 * Search result that aligns with keywords after “optional” are placed higher in order.
 ****
 
-=== Meal Planner Command
+=== Meal Planner Commands
 ****
-* DAY denotes the day of the week (Monday to Sunday), while MEAL denotes the meal of the day (breakfast, lunch, dinner)
-* DAY can be specified with the following keywords: *mon* (Monday), *tue* (Tuesday), *wed* (Wednesday), *thu* (Thursday), *fri* (Friday), *sat* (Saturday), *sun* (Sunday)
-* MEAL can be specified with the following keywords: *m1* (breakfast), *m2* (lunch), *m3* (dinner)
+* DATE should be entered in the format *yyyy-mm-dd*
+* TIME can be specified with the following keywords: *breakfast*, *lunch*, *dinner*
 ****
 
-==== View full meal plan: `view plan`
+==== Delete recipe: `delete`
 
-Displays the current full meal plan for the week
+After displaying the meal planner, deletes the recipe at the specified meal slot.
 
-Format: `view plan`
+Format: `delete DATE TIME`
 
-==== Add recipes: `add`
+==== Clear planner: `clearall`
 
-After listing all available recipes with `list`, adds the recipe at the specified index to the specified meal slot of the meal planner
+Clears all the meal slots of the meal planner.
 
-Format: `add INDEX DAY MEAL`
+Format: `clearall`
 
-==== Delete recipes: `delete`
-
-After displaying the meal planner, deletes the recipe at the specified meal slot
-
-Format: `delete DAY MEAL`
-
-=== Cook-Mode Command
+=== Cook-Mode Commands
 ==== Next Instruction
 Proceed to next instruction. +
 Format: +
-Hit `Enter` key
+Hit kbd:[Enter] key
 
-==== Previous Instruction: `b`/`back`
+==== Previous Instruction: `b`
 Revert to previous instruction. +
 Format: +
 `b`/`back`
 
-==== Start timer: `s`/`start`
+==== Start timer: `s`
 Begin countdown timer. +
 Format: +
 `s`/`start`
 
-==== Pause timer: `p`/`pause`
+==== Pause timer: `p`
 Pause countdown timer. +
 Format: +
 `p`/`pause`
 
-==== End/Reset timer: `e`/`end`
+==== Reset timer: `r`
 End/Reset countdown timer. +
 Format: +
-`e`/`end`
+`r`/`reset`
 
 ==== End cook-mode: `end`
 To end step-by-step instruction of cook-mode. +
@@ -375,19 +362,49 @@ Format: +
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
+*Universal Commands*
+
+* View help: `-help [local]`
+* Navigate pages: `-back [TIMES]`/ `-forward [TIMES]`
+* Search and display recipes: `-search KEYWORD... [xx KEYWORD...]`
+* Display recipe suggestion: `-suggest`
+* Display new recipe: `-surprise`
+* Display favorites: `-favourite`
+* Display ingredient manager: `-ingredientmanager`
+* Display meal planner: `-plannerlist`
+* Add a recipe: `-add n/NAME t/TIME i/INSTRUCTION... [t/TAG...] end`
+* Exit application: `-exit`
+
+*Recipes/Favourite List*
+
+* Display recipe details: `INDEX`
+* Activate cook-mode: `cook INDEX`
+
+*Recipe Details Commands*
+
+* Add recipe to favourite: `favourite`
+* Add to meal plan: `plan DATE TIME`
+* Active cook-mode: `cook`
+
+*Ingredient Manager Commands*
+
+* Add an ingredient: `add NAME AMOUNT DATE`
+* List all ingredients: `list`
+* Edit ingredient info:`edit NAME FIELD_NAME NEW_INFO (FIELD_NAME NEW_INFO)… end`
+* Search ingredient: `find KEYWORD…`
+* Delete ingredient: `delete NAME`
+* Search recipes based on ingredients manager availability: `select [NUMBER_OF_SERVINGS] KEYWORD… optional KEYWORD… end`
+
+*Meal Planner Commands*
+
+* Delete recipe: `delete DATE TIME`
+* Clear planner: `clearall`
+
+*Cook-Mode Commands*
+
+* Next Instruction: Hit kbd:[Enter] key
+* Previous Instruction: `b`
+* Start timer: `s`
+* Pause timer: `p`
+* Reset timer: `r`
+* End cook-mode: `end`
