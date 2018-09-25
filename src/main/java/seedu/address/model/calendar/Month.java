@@ -20,19 +20,19 @@ public class Month {
     public static final String MONTH_VALIDATION_REGEX = "^[a-zA-Z]{3}$";
 
     // List of strings that represent valid months
-    public static final String[] validMonths = {
-            "JAN",
-            "FEB",
-            "MAR",
-            "APR",
-            "MAY",
-            "JUN",
-            "JUL",
-            "AUG",
-            "SEP",
-            "OCT",
-            "NOV",
-            "DEC"
+    public static final String[] VALID_MONTHS = {
+        "JAN",
+        "FEB",
+        "MAR",
+        "APR",
+        "MAY",
+        "JUN",
+        "JUL",
+        "AUG",
+        "SEP",
+        "OCT",
+        "NOV",
+        "DEC"
     };
 
     public final String month;
@@ -62,7 +62,7 @@ public class Month {
      */
     public static boolean isValidMonth(String test) {
         boolean isValid = false;
-        for (String monthName : validMonths) {
+        for (String monthName : VALID_MONTHS) {
             if (test.compareTo(monthName) == 0) {
                 isValid = true;
                 break;
@@ -76,7 +76,7 @@ public class Month {
      */
     public static String listValidMonths() {
         StringBuilder sb = new StringBuilder();
-        for (String month : validMonths) {
+        for (String month : VALID_MONTHS) {
             sb.append("\n" + month);
         }
         return sb.toString();
