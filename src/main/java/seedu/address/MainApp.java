@@ -19,7 +19,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
-import seedu.address.logic.LogicManager;
+import seedu.address.logic.LogicManagerLoggedIn;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -70,7 +70,7 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-        logic = new LogicManager(model);
+        logic = new LogicManagerLoggedIn(model);
 
         ui = new UiManager(logic, config, userPrefs);
 
