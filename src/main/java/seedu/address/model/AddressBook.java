@@ -7,6 +7,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 
+import seedu.address.model.expense.Category;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Person;
 import seedu.address.model.expense.UniquePersonList;
@@ -18,7 +19,7 @@ import seedu.address.model.expense.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
-    private final ArrayList<Expense> expenseList;
+    private final CategoryList categoryList;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -29,8 +30,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
-        expenseList = new ArrayList<>();
-        expenseList.clear();
+        categoryList = new CategoryList();
     }
 
     public AddressBook() {}
@@ -78,6 +78,18 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addPerson(Person p) {
         persons.add(p);
+    }
+
+    /**
+     * Add an expense to the expense tracker.
+     * If the category of the expense doesn't exist, the category will be created.
+     * */
+    public void addExpense(Expense e) {
+        Category category = e.getCategory();
+        if (!categoryList.hasCategory(category)) {
+            categoryList.addCategory(category);
+        }
+        categoryList.addExpense(category, e);
     }
 
     /**
