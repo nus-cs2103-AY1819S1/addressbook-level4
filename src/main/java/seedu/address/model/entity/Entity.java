@@ -2,6 +2,9 @@ package seedu.address.model.entity;
 
 import seedu.address.model.tag.Tag;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**

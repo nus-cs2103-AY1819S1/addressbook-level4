@@ -1,6 +1,5 @@
 package seedu.address.model.module;
 
-
 import seedu.address.model.inanimate.Inanimate;
 
 /**
