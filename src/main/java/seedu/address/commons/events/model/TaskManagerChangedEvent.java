@@ -1,19 +1,21 @@
 package seedu.address.commons.events.model;
 
 import seedu.address.commons.events.BaseEvent;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyTaskManager;
 
-/** Indicates the TaskManager in the model has changed*/
+/**
+ * Indicates the TaskManager in the model has changed
+ */
 public class TaskManagerChangedEvent extends BaseEvent {
 
-    public final ReadOnlyAddressBook data;
+    public final ReadOnlyTaskManager data;
 
-    public TaskManagerChangedEvent(ReadOnlyAddressBook data) {
+    public TaskManagerChangedEvent(ReadOnlyTaskManager data) {
         this.data = data;
     }
 
     @Override
     public String toString() {
-        return "number of tasks " + data.getPersonList().size();
+        return "number of tasks " + data.getTaskList().size();
     }
 }

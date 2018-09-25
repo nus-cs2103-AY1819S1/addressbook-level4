@@ -3,10 +3,10 @@ package seedu.address.storage;
 import javax.xml.bind.annotation.XmlValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.Label;
 
 /**
- * JAXB-friendly adapted version of the Tag.
+ * JAXB-friendly adapted version of the Label.
  */
 public class XmlAdaptedTag {
 
@@ -17,34 +17,35 @@ public class XmlAdaptedTag {
      * Constructs an XmlAdaptedTag.
      * This is the no-arg constructor that is required by JAXB.
      */
-    public XmlAdaptedTag() {}
+    public XmlAdaptedTag() {
+    }
 
     /**
-     * Constructs a {@code XmlAdaptedTag} with the given {@code tagName}.
+     * Constructs a {@code XmlAdaptedTag} with the given {@code labelName}.
      */
     public XmlAdaptedTag(String tagName) {
         this.tagName = tagName;
     }
 
     /**
-     * Converts a given Tag into this class for JAXB use.
+     * Converts a given Label into this class for JAXB use.
      *
      * @param source future changes to this will not affect the created
      */
-    public XmlAdaptedTag(Tag source) {
-        tagName = source.tagName;
+    public XmlAdaptedTag(Label source) {
+        tagName = source.labelName;
     }
 
     /**
-     * Converts this jaxb-friendly adapted tag object into the model's Tag object.
+     * Converts this jaxb-friendly adapted tag object into the model's Label object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
-    public Tag toModelType() throws IllegalValueException {
-        if (!Tag.isValidTagName(tagName)) {
-            throw new IllegalValueException(Tag.MESSAGE_TAG_CONSTRAINTS);
+    public Label toModelType() throws IllegalValueException {
+        if (!Label.isValidLabelName(tagName)) {
+            throw new IllegalValueException(Label.MESSAGE_LABEL_CONSTRAINTS);
         }
-        return new Tag(tagName);
+        return new Label(tagName);
     }
 
     @Override
