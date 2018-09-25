@@ -831,20 +831,55 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |medical clinic receptionist |view all patients record |see medical details of all patients
 
-|`* * *` |user |add a new person |
+|`* * *` |medical clinic receptionist |view a patient record |carry out tasks which require a patient's details
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |medical clinic receptionist |find a patient record |register patients for appointments
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |medical clinic receptionist |add a patient record |store patient details to make future tasks more convenient
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |medical clinic receptionist |edit a patient record |ensure a patient's details are up to date
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
-|=======================================================================
+|`* * *` |medical clinic receptionist |delete a patient record |ensure records of only active patients are kept
 
-_{More to be added}_
+|`* * *` |medical clinic receptionist |assign a patient to a queue for any room |patients can begin consultation quickly
+
+|`* * *` |medical clinic receptionist |assign a patient with specific request to an individual queue for a room |patients can begin consultation quickly
+
+|`* * *` |medical clinic receptionist |view current patient number in the respective rooms |estimate the waiting for remaining patients
+
+|`* * *` |medical clinic receptionist |view the current waiting queue |be informed of the number of waiting patients and report as necessary
+
+|`* * *` |medical clinic receptionist |remove a patient from waiting queue |update the estimated waiting time for remaining patients
+
+|`* * *` |new user |see the app's tutorial |refer to instructions in case I am unsure of how to do something
+
+|`* * *` |medical clinic receptionist |export patient records in a human readable format |report this data to doctors or management
+
+|`* * *` |medical clinic receptionist |register a patient |assign patient to the waiting queue to consult a doctor
+
+|`*` |doctor |receive patient specific alerts upon their registration |be informed about the patient
+
+|`* * *` |medical clinic receptionist |view analytics |improve inefficiencies in the clinic's processes
+
+|`*` |medical clinic receptionist |alert patients via email |send them appointment reminders
+
+|`*` |medical clinic receptionist |patient medical information to the respective doctor |inform a doctor of their patient's medical history
+
+|`* * *` |medical clinic receptionist |create an appointment  |book patients for consultations in advance
+
+|`*` |medical clinic receptionist |prioritize doctors based on patient preference |enable patients to feel comfortable
+
+|`* * *` |medical clinic receptionist |update the drug inventory |ensure it is updated
+
+|`*` |medical clinic receptionist |group patients based on their diagnosis |analyze patient trends
+
+|`* *` |medical clinic receptionist |record medications prescribed to patients |keep track of a patient's drug history
+
+|`* *` |careless user |undo any command |revert any mistakes
+
+|`* * *` |medical clinic receptionist |request for a specific doctor for consultation |enable patients to feel comfortable
 
 [appendix]
 == Use Cases
