@@ -49,6 +49,7 @@ public class XmlAdaptedEvent {
     /**
      * Constructs an {@code XmlAdaptedEvent} with the given event details.
      */
+
     public XmlAdaptedEvent(String name, String address, String date, String time,
                            List<XmlAdaptedTag> tagged, List<XmlAdaptedPoll> polls) {
         this.name = name;

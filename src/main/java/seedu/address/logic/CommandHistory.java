@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import seedu.address.model.event.Event;
+
 import seedu.address.model.person.Person;
 
 /**

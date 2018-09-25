@@ -24,7 +24,9 @@ import seedu.address.model.tag.Tag;
 public class Event {
 
     // Identity fields
+    private static int currID = 0;
     private final Name name;
+    private final int id;
 
     // Data fields
     private final Address location;
@@ -41,6 +43,8 @@ public class Event {
      */
     public Event(Name name, Address address, Set<Tag> tags) {
         requireAllNonNull(name, address, tags);
+        this.id = currID;
+        currID++;
         this.name = name;
         this.location = address;
         this.tags.addAll(tags);
@@ -127,7 +131,7 @@ public class Event {
             this.polls.add(poll);
         }
     }
-
+  
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
