@@ -22,6 +22,7 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.record.Record;
@@ -62,7 +63,7 @@ public class AddressBookTest {
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newPersons, null);
+        AddressBookStub newData = new AddressBookStub(newPersons, null, null);
 
         thrown.expect(DuplicatePersonException.class);
         addressBook.resetData(newData);
@@ -107,7 +108,7 @@ public class AddressBookTest {
         Record editedRecord = new RecordBuilder(R1).withHour(VALID_HOUR_H2).withRemark(VALID_REMARK_R2)
                 .build();
         List<Record> newRecords = Arrays.asList(R1, editedRecord);
-        AddressBookStub newData = new AddressBookStub(null, newRecords);
+        AddressBookStub newData = new AddressBookStub(null, null, newRecords);
 
         thrown.expect(DuplicateRecordException.class);
         addressBook.resetData(newData);
@@ -149,11 +150,15 @@ public class AddressBookTest {
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Event> events = FXCollections.observableArrayList();
         private final ObservableList<Record> records = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Person> persons, Collection<Record> records) {
+        AddressBookStub(Collection<Person> persons, Collection<Event> events, Collection<Record> records) {
             if (persons != null) {
                 this.persons.setAll(persons);
+            }
+            if (events != null) {
+                this.events.setAll(events);
             }
             if (records != null) {
                 this.records.setAll(records);
@@ -166,9 +171,13 @@ public class AddressBookTest {
         }
 
         @Override
+        public ObservableList<Event> getEventList() {
+            return events;
+        }
+
+        @Override
         public ObservableList<Record> getRecordList() {
             return records;
         }
     }
-
 }

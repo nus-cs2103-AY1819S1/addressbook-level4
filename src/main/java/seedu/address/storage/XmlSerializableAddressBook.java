@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 
@@ -20,10 +21,13 @@ import seedu.address.model.record.Record;
 public class XmlSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_EVENT = "Events list contains duplicate event(s).";
     public static final String MESSAGE_DUPLICATE_RECORD = "Record list contains duplicate record(s).";
 
     @XmlElement
     private List<XmlAdaptedPerson> persons;
+    @XmlElement
+    private List<XmlAdaptedEvent> events;
     @XmlElement
     private List<XmlAdaptedRecord> records;
 
@@ -33,6 +37,7 @@ public class XmlSerializableAddressBook {
      */
     public XmlSerializableAddressBook() {
         persons = new ArrayList<>();
+        events = new ArrayList<>();
         records = new ArrayList<>();
     }
 
@@ -42,6 +47,7 @@ public class XmlSerializableAddressBook {
     public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
         this();
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+        events.addAll(src.getEventList().stream().map(XmlAdaptedEvent::new).collect(Collectors.toList()));
         records.addAll(src.getRecordList().stream().map(XmlAdaptedRecord::new).collect(Collectors.toList()));
     }
 
@@ -60,6 +66,13 @@ public class XmlSerializableAddressBook {
             }
             addressBook.addPerson(person);
         }
+        for (XmlAdaptedEvent e : events) {
+            Event event = e.toModelType();
+            if (addressBook.hasEvent(event)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_EVENT);
+            }
+            addressBook.addEvent(event);
+        }
         for (XmlAdaptedRecord r : records) {
             Record record = r.toModelType();
             if (addressBook.hasRecord(record)) {
@@ -67,6 +80,7 @@ public class XmlSerializableAddressBook {
             }
             addressBook.addRecord(record);
         }
+
         return addressBook;
     }
 
@@ -80,6 +94,7 @@ public class XmlSerializableAddressBook {
             return false;
         }
         return persons.equals(((XmlSerializableAddressBook) other).persons)
+                && events.equals(((XmlSerializableAddressBook) other).events)
                 && records.equals(((XmlSerializableAddressBook) other).records);
     }
 }
