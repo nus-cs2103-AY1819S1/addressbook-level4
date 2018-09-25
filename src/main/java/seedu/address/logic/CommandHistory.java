@@ -5,11 +5,15 @@ import static java.util.Objects.requireNonNull;
 import java.util.LinkedList;
 import java.util.List;
 
+import seedu.address.model.event.Event;
+
 /**
  * Stores the history of commands executed.
  */
 public class CommandHistory {
     private LinkedList<String> userInputHistory;
+
+    private Event selectedEvent;
 
     public CommandHistory() {
         userInputHistory = new LinkedList<>();
@@ -25,6 +29,14 @@ public class CommandHistory {
     public void add(String userInput) {
         requireNonNull(userInput);
         userInputHistory.add(userInput);
+    }
+
+    public void setSelectedEvent(Event event) {
+        selectedEvent = event;
+    }
+
+    public Event getSelectedEvent() {
+        return selectedEvent;
     }
 
     /**

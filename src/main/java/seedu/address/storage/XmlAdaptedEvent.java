@@ -26,6 +26,10 @@ public class XmlAdaptedEvent {
     private String name;
     @XmlElement(required = true)
     private String address;
+    @XmlElement(required = false)
+    private String time;
+    @XmlElement(required = false)
+    private String date;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -39,9 +43,11 @@ public class XmlAdaptedEvent {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
-    public XmlAdaptedEvent(String name, String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedEvent(String name, String address, String date, String time, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.address = address;
+        this.date = date;
+        this.time = time;
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }

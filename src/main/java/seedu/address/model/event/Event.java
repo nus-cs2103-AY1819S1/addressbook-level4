@@ -2,6 +2,9 @@ package seedu.address.model.event;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -18,20 +21,31 @@ import seedu.address.model.tag.Tag;
 public class Event {
 
     // Identity fields
+    private static int currID = 0;
     private final Name name;
+    private final int id;
 
     // Data fields
     private final Address location;
+
+    private LocalDate date;
+    private LocalTime time;
+
     private final Set<Tag> tags = new HashSet<>();
+
+    private final HashSet<Poll> polls;
 
     /**
      * Every field must be present and not null.
      */
     public Event(Name name, Address address, Set<Tag> tags) {
         requireAllNonNull(name, address, tags);
+        this.id = currID;
+        currID++;
         this.name = name;
         this.location = address;
         this.tags.addAll(tags);
+        polls = new HashSet<>();
     }
 
     public Name getName() {
@@ -40,6 +54,54 @@ public class Event {
 
     public Address getLocation() {
         return location;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    /**
+     * Returns the date as a string.
+     */
+    public String getDateString() {
+        if (date != null) {
+            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            return date.format(dateFormat);
+        } else {
+            return "";
+        }
+    }
+
+    /**
+     * Returns the time as a string.
+     */
+    public String getTimeString() {
+        if (time != null) {
+            DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
+            return time.format(timeFormat);
+        } else {
+            return "";
+        }
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
+    }
+
+    /**
+     * Adds a new poll to the event.
+     */
+    public void addPoll(String pollName) {
+        Poll poll = new Poll(pollName);
+        polls.add(poll);
     }
 
     /**
@@ -51,8 +113,8 @@ public class Event {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both events of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two events.
      */
     public boolean isSameEvent(Event otherEvent) {
         if (otherEvent == this) {
@@ -64,8 +126,8 @@ public class Event {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both events have the same identity and data fields.
+     * This defines a stronger notion of equality between two events.
      */
     @Override
     public boolean equals(Object other) {
@@ -77,10 +139,10 @@ public class Event {
             return false;
         }
 
-        Event otherPerson = (seedu.address.model.event.Event) other;
-        return otherPerson.getName().equals(getName())
-                && otherPerson.getLocation().equals(getLocation())
-                && otherPerson.getTags().equals(getTags());
+        Event otherEvent = (seedu.address.model.event.Event) other;
+        return otherEvent.getName().equals(getName())
+                && otherEvent.getLocation().equals(getLocation())
+                && otherEvent.getTags().equals(getTags());
     }
 
     @Override
