@@ -15,9 +15,9 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* Love games? Hate work? 
+* Love games? Hate work?
 
-* Let *WatchOver* whisk away your daily drudgery, by turning your life into a game! 
+* Let *WatchOver* whisk away your daily drudgery, by turning your life into a game!
 * Assign bounties to your daily tasks and complete them to receive rewards!
 * Grow your character over time as you consistently meet your goals
 * Complete achievements and become the greatest force of productivity in the virtual world!
