@@ -29,9 +29,9 @@ public class XmlUtilTest {
     private static final Path EMPTY_FILE = TEST_DATA_FOLDER.resolve("empty.xml");
     private static final Path MISSING_FILE = TEST_DATA_FOLDER.resolve("missing.xml");
     private static final Path VALID_FILE = TEST_DATA_FOLDER.resolve("validTaskManager.xml");
-    private static final Path MISSING_PERSON_FIELD_FILE = TEST_DATA_FOLDER.resolve("missingTaskField.xml");
-    private static final Path INVALID_PERSON_FIELD_FILE = TEST_DATA_FOLDER.resolve("invalidTaskField.xml");
-    private static final Path VALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("validTask.xml");
+    private static final Path MISSING_TASK_FIELD_FILE = TEST_DATA_FOLDER.resolve("missingTaskField.xml");
+    private static final Path INVALID_TASK_FIELD_FILE = TEST_DATA_FOLDER.resolve("invalidTaskField.xml");
+    private static final Path VALID_TASK_FILE = TEST_DATA_FOLDER.resolve("validTask.xml");
     private static final Path TEMP_FILE = TestUtil.getFilePathInSandboxFolder("tempTaskManager.xml");
 
     private static final String INVALID_PHONE = "9482asf424";
@@ -76,30 +76,30 @@ public class XmlUtilTest {
     }
 
     @Test
-    public void xmlAdaptedPersonFromFile_fileWithMissingPersonField_validResult() throws Exception {
-        XmlAdaptedTask actualPerson = XmlUtil.getDataFromFile(
-                MISSING_PERSON_FIELD_FILE, XmlAdaptedPersonWithRootElement.class);
-        XmlAdaptedTask expectedPerson = new XmlAdaptedTask(
+    public void xmlAdaptedTaskFromFile_fileWithMissingTaskField_validResult() throws Exception {
+        XmlAdaptedTask actualTask = XmlUtil.getDataFromFile(
+                MISSING_TASK_FIELD_FILE, XmlAdaptedTaskWithRootElement.class);
+        XmlAdaptedTask expectedTask = new XmlAdaptedTask(
                 null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        assertEquals(expectedPerson, actualPerson);
+        assertEquals(expectedTask, actualTask);
     }
 
     @Test
-    public void xmlAdaptedPersonFromFile_fileWithInvalidPersonField_validResult() throws Exception {
-        XmlAdaptedTask actualPerson = XmlUtil.getDataFromFile(
-                INVALID_PERSON_FIELD_FILE, XmlAdaptedPersonWithRootElement.class);
-        XmlAdaptedTask expectedPerson = new XmlAdaptedTask(
+    public void xmlAdaptedTaskFromFile_fileWithInvalidTaskField_validResult() throws Exception {
+        XmlAdaptedTask actualTask = XmlUtil.getDataFromFile(
+                INVALID_TASK_FIELD_FILE, XmlAdaptedTaskWithRootElement.class);
+        XmlAdaptedTask expectedTask = new XmlAdaptedTask(
                 VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        assertEquals(expectedPerson, actualPerson);
+        assertEquals(expectedTask, actualTask);
     }
 
     @Test
-    public void xmlAdaptedPersonFromFile_fileWithValidPerson_validResult() throws Exception {
-        XmlAdaptedTask actualPerson = XmlUtil.getDataFromFile(
-                VALID_PERSON_FILE, XmlAdaptedPersonWithRootElement.class);
-        XmlAdaptedTask expectedPerson = new XmlAdaptedTask(
+    public void xmlAdaptedTaskFromFile_fileWithValidTask_validResult() throws Exception {
+        XmlAdaptedTask actualTask = XmlUtil.getDataFromFile(
+                VALID_TASK_FILE, XmlAdaptedTaskWithRootElement.class);
+        XmlAdaptedTask expectedTask = new XmlAdaptedTask(
                 VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        assertEquals(expectedPerson, actualPerson);
+        assertEquals(expectedTask, actualTask);
     }
 
     @Test
@@ -142,5 +142,5 @@ public class XmlUtilTest {
      * objects.
      */
     @XmlRootElement(name = "task")
-    private static class XmlAdaptedPersonWithRootElement extends XmlAdaptedTask {}
+    private static class XmlAdaptedTaskWithRootElement extends XmlAdaptedTask {}
 }
