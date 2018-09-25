@@ -16,8 +16,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.AddressBook;
-import seedu.address.storage.XmlAdaptedTask;
 import seedu.address.storage.XmlAdaptedLabel;
+import seedu.address.storage.XmlAdaptedTask;
 import seedu.address.storage.XmlSerializableTaskManager;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
