@@ -43,6 +43,7 @@ public class AddressBookParser {
      */
     public Command parseCommand(String userInput, String contextId) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
@@ -52,54 +53,53 @@ public class AddressBookParser {
 
         // Shared Commands
         switch (commandWord) {
-            case SwitchCommand.COMMAND_WORD:
-                return new SwitchCommandParser().parse(arguments);
-            // Shared methods are below
-            case HistoryCommand.COMMAND_WORD:
-                return new HistoryCommand();
+        case SwitchCommand.COMMAND_WORD:
+            return new SwitchCommandParser().parse(arguments);
+        case HistoryCommand.COMMAND_WORD:
+            return new HistoryCommand();
 
-            case ExitCommand.COMMAND_WORD:
-                return new ExitCommand();
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
 
-            case HelpCommand.COMMAND_WORD:
-                return new HelpCommand();
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
 
-            case UndoCommand.COMMAND_WORD:
-                return new UndoCommand();
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
 
-            case RedoCommand.COMMAND_WORD:
-                return new RedoCommand();
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
 
-            default:
-                break;
+        default:
+            break;
         }
 
         // Executes commands for events
         if (contextId.equals(Context.EVENT_CONTEXT_ID)) {
             // Replace all these commands
             switch (commandWord) {
-                case AddCommand.COMMAND_WORD:
-                    return new AddCommandParser().parse(arguments);
+            case AddCommand.COMMAND_WORD:
+                return new AddCommandParser().parse(arguments);
 
-                case EditCommand.COMMAND_WORD:
-                    return new EditCommandParser().parse(arguments);
+            case EditCommand.COMMAND_WORD:
+                return new EditCommandParser().parse(arguments);
 
-                case SelectCommand.COMMAND_WORD:
-                    return new SelectCommandParser().parse(arguments);
+            case SelectCommand.COMMAND_WORD:
+                return new SelectCommandParser().parse(arguments);
 
-                case DeleteCommand.COMMAND_WORD:
-                    return new DeleteCommandParser().parse(arguments);
+            case DeleteCommand.COMMAND_WORD:
+                return new DeleteCommandParser().parse(arguments);
 
-                case ClearCommand.COMMAND_WORD:
-                    return new ClearCommand();
+            case ClearCommand.COMMAND_WORD:
+                return new ClearCommand();
 
-                case FindCommand.COMMAND_WORD:
-                    return new FindCommandParser().parse(arguments);
+            case FindCommand.COMMAND_WORD:
+                return new FindCommandParser().parse(arguments);
 
-                case ListCommand.COMMAND_WORD:
-                    return new ListCommand();
-                default:
-                    throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            case ListCommand.COMMAND_WORD:
+                return new ListCommand();
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
             }
         }
 
@@ -107,36 +107,36 @@ public class AddressBookParser {
         if (contextId.equals(Context.VOLUNTEER_CONTEXT_ID)) {
             // Replace all these commands
             switch (commandWord) {
-                case AddCommand.COMMAND_WORD:
-                    return new AddCommandParser().parse(arguments);
+            case AddCommand.COMMAND_WORD:
+                return new AddCommandParser().parse(arguments);
 
-                case EditCommand.COMMAND_WORD:
-                    return new EditCommandParser().parse(arguments);
+            case EditCommand.COMMAND_WORD:
+                return new EditCommandParser().parse(arguments);
 
-                case SelectCommand.COMMAND_WORD:
-                    return new SelectCommandParser().parse(arguments);
+            case SelectCommand.COMMAND_WORD:
+                return new SelectCommandParser().parse(arguments);
 
-                case DeleteCommand.COMMAND_WORD:
-                    return new DeleteCommandParser().parse(arguments);
+            case DeleteCommand.COMMAND_WORD:
+                return new DeleteCommandParser().parse(arguments);
 
-                case ClearCommand.COMMAND_WORD:
-                    return new ClearCommand();
+            case ClearCommand.COMMAND_WORD:
+                return new ClearCommand();
 
-                case FindCommand.COMMAND_WORD:
-                    return new FindCommandParser().parse(arguments);
+            case FindCommand.COMMAND_WORD:
+                return new FindCommandParser().parse(arguments);
 
-                case ListCommand.COMMAND_WORD:
-                    return new ListCommand();
-                default:
-                    throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            case ListCommand.COMMAND_WORD:
+                return new ListCommand();
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
             }
         }
 
         // Execute commands for records
         if (contextId.equals(Context.RECORD_CONTEXT_ID)) {
             switch (commandWord) {
-                default:
-                    throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
             }
         }
 
