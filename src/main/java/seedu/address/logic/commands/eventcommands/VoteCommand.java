@@ -2,6 +2,7 @@ package seedu.address.logic.commands.eventcommands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
@@ -38,6 +39,10 @@ public class VoteCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         event = history.getSelectedEvent();
+        if (event == null) {
+            throw new CommandException(Messages.MESSAGE_NO_EVENT_SELECTED);
+        }
+
         try {
             Poll poll = event.getPoll(pollIndex);
             Person person = history.getSelectedPerson();

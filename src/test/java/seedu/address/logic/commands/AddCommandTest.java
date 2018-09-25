@@ -96,6 +96,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public Person getPerson(Index index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void resetData(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -177,6 +182,11 @@ public class AddCommandTest {
 
         @Override
         public void deleteEvent(Event event) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateEvent(Event event, Event editedEvent) {
             throw new AssertionError("This method should not be called.");
         }
     }

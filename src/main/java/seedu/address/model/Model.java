@@ -47,11 +47,6 @@ public interface Model {
      */
     void updatePerson(Person target, Person editedPerson);
 
-    /**
-     * Replaces the given event {@code target} with {@code editedEvent).
-     * {@code target} must exist in the address book.
-     * The identity of {@code editedEvent} must not be the same as another existing event in the address book.
-     */
     void updateEvent(Event target, Event editedEvent);
 
     /** Returns an unmodifiable view of the filtered person list */

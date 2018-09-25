@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -40,8 +41,12 @@ public class SetTimeCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         event = history.getSelectedEvent();
+        if (event == null) {
+            throw new CommandException(Messages.MESSAGE_NO_EVENT_SELECTED);
+        }
         event.setTime(time);
         model.commitAddressBook();
+        model.updateEvent(event, event);
         DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
         return new CommandResult(String.format(MESSAGE_SUCCESS, time.format(timeFormat), event));
     }

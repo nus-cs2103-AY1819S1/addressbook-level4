@@ -4,10 +4,9 @@ import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.event.Event;
 
 /**
- * Represents a selection change in the Person List Panel
+ * Represents a selection change in the Event List Panel
  */
 public class EventPanelSelectionChangedEvent extends BaseEvent {
-
 
     private final Event newSelection;
 

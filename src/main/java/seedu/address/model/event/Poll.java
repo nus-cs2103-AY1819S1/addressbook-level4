@@ -86,7 +86,10 @@ public class Poll {
      */
     public String displayPoll() {
         String title = String.format("Poll %1$s: %2$s", Integer.toString(id), pollName);
-        String mostPopularEntries = "Most popular options: " + getHighest().toString();
+        String mostPopularEntries = "";
+        if (!pollData.isEmpty()) {
+            mostPopularEntries = "Most popular options: " + getHighest().toString();
+        }
         String data = pollData.toString();
         return title + "\n" + mostPopularEntries + "\n" + data;
     }
