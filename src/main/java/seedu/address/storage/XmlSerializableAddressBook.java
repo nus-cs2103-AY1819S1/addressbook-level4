@@ -65,6 +65,7 @@ public class XmlSerializableAddressBook {
             if (addressBook.hasRecord(record)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_RECORD);
             }
+            addressBook.addRecord(record);
         }
         return addressBook;
     }
