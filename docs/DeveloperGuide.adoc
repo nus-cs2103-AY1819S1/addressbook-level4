@@ -867,97 +867,6 @@ _{More to be added}_
 Use case ends.
 
 [discrete]
-=== Use case: Play a playlist
-
-*MSS*
-
-1.  User requests to play tracks in a playlist.
-2.  System searches for the playlist.
-3.  System plays the tracks of the playlist.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The playlist is not found.
-+
-[none]
-** 2a1. System displays an error message.
-+
-Use case ends.
-
-* 3a. The playlist is empty.
-+
-Use case ends.
-
-[discrete]
-=== Use case: Navigate playlist
-
-*MSS*
-
-1.  User enters commands to skip the next/previous track.
-2.	System goes to the next/previous track and play the track.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The next/previous track does not exist.
-+
-[none]
-** 2a1. If "repeat playlist" function is on, system goes to the beginning/ending track of the playlist and plays the track.
-+
-Use case ends.
-+
-2a2. If "repeat playlist" is off, system pauses current playing.
-+
-Use case ends.
-
-[discrete]
-=== Use case: Play a track
-
-*MSS*
-
-1.  User requests to play.
-2.	System plays the current track.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. No track in current playlist.
-+
-[none]
-** 2a1. System goes back to the status before step 1.
-+
-Use case ends.
-
-[discrete]
-=== Use case: Pause the playing of track
-
-*MSS*
-
-1.  User requests to pause the playing of track.
-2.	System pauses the playing.
-3.	User requests to resume the playing of track.
-4. 	System plays the track from the point it was paused.
-+
-Use case ends.
-
-[discrete]
-=== Use case: Stop the playing of track
-
-*MSS*
-
-1.  User requests to stop the playing of track
-2.	System exits the playing of track.
-+
-Use case ends.
-
-[discrete]
 === Use case: Search for a playlist
 
 *MSS*
@@ -976,100 +885,6 @@ Use case ends.
 +
 [none]
 ** 4a1. System displays "not found" message.
-+
-Use case ends.
-
-[discrete]
-=== Use case: Switch playing modes
-
-*MSS*
-
-1.  User requests to repeat track.
-2.	System changes to "repeat track" mode and current track will be played repeatly.
-3.	User requests to repeat playlist.
-4.	System changes to "repeat playlist" mode and the current playlist will start over after playing all tracks.
-5.	User enters the repeat off command.
-6.	System changes to "repeat off" mode and the playlist will stop after playing all the tracks.
-+
-Use case ends.
-
-[discrete]
-=== Use case: Add a track into playlist
-
-*MSS*
-
-1.  User enters commands to add a track into a playlist.
-2.	System searches for the track.
-3. 	System searches for the playlist.
-4. 	System adds the track to the playlist.
-5. 	System displays successful message.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The track does not exist.
-+
-[none]
-** 2a1. System displays error message.
-+
-Use case ends.
-
-* 3a. The playlist does not exist.
-+
-[none]
-** 3a1. System displays error message.
-+
-Use case ends.
-
-[discrete]
-=== Use case: Seek time point in a track
-
-*MSS*
-
-1.  User requests to seek the play timeline to a certain point.
-2.  System jumps to the point and play from the point.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The time point is outside the range of timeline.
-+
-[none]
-** 2a1. System displays an error message and pauses current playing.
-+
-Use case ends.
-
-[discrete]
-=== Use case: Step forward/backward in a track
-
-*MSS*
-
-1.  User requests to step forward/backwards a range of time in the playing of current track.
-2.  System jumps to the point and plays from the point.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The time point is outside the range of timeline.
-+
-[none]
-** 2a1. System displays an error message and pauses current playing.
-+
-Use case ends.
-
-[discrete]
-=== Use case: Shuffle playlist
-
-*MSS*
-
-1.  User requests shuffle the playlist.
-2.  System randomly reorders the sequence of tracks inside the playlist.
 +
 Use case ends.
 
@@ -1121,6 +936,163 @@ Use case ends.
 Use case ends.
 
 [discrete]
+=== Use case: Add a track into playlist
+
+*MSS*
+
+1.  User enters commands to add a track into a playlist.
+2.	System searches for the track.
+3. 	System searches for the playlist.
+4. 	System adds the track to the playlist.
+5. 	System displays successful message.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The track does not exist.
++
+[none]
+** 2a1. System displays error message.
++
+Use case ends.
+
+* 3a. The playlist does not exist.
++
+[none]
+** 3a1. System displays error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete a track from playlist
+
+*MSS*
+
+1.  User enters commands to delete a track from a playlist.
+2. 	System deletes the track.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The track does not exist.
++
+[none]
+** 2a1. System displays error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Play a track
+
+*MSS*
+
+1.  User requests to play.
+2.	System plays the current track.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. No track in current playlist.
++
+[none]
+** 2a1. System goes back to the status before step 1.
++
+Use case ends.
+
+[discrete]
+=== Use case: Play a playlist
+
+*MSS*
+
+1.  User requests to play tracks in a playlist.
+2.  System searches for the playlist.
+3.  System plays the tracks of the playlist.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The playlist is not found.
++
+[none]
+** 2a1. System displays an error message.
++
+Use case ends.
+
+* 3a. The playlist is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: Pause the playing of track and resume the play
+
+*MSS*
+
+1.  User requests to pause the playing of track.
+2.	System pauses the playing.
+3.	User requests to resume the playing of track.
+4. 	System plays the track from the point it was paused.
++
+Use case ends.
+
+[discrete]
+=== Use case: Stop the playing of track
+
+*MSS*
+
+1.  User requests to stop the playing of track
+2.	System exits the playing of track.
++
+Use case ends.
+
+[discrete]
+=== Use case: Seek time point in a track
+
+*MSS*
+
+1.  User requests to seek the play timeline to a certain point.
+2.  System jumps to the point and play from the point.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The time point is outside the range of timeline.
++
+[none]
+** 2a1. System displays an error message and pauses current playing.
++
+Use case ends.
+
+[discrete]
+=== Use case: Step forward/backward in a track
+
+*MSS*
+
+1.  User requests to step forward/backwards a range of time in the playing of current track.
+2.  System jumps to the point and plays from the point.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The time point is outside the range of timeline.
++
+[none]
+** 2a1. System displays an error message and pauses current playing.
++
+Use case ends.
+
+[discrete]
 === Use case: Replay a track
 
 *MSS*
@@ -1130,7 +1102,54 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
+=== Use case: Navigate playlist
+
+*MSS*
+
+1.  User enters commands to skip the next/previous track.
+2.	System goes to the next/previous track and play the track.
++
+Use case ends.
+
 *Extensions*
+
+[none]
+* 2a. The next/previous track does not exist.
++
+[none]
+** 2a1. If "repeat playlist" function is on, system goes to the beginning/ending track of the playlist and plays the track.
++
+Use case ends.
++
+2a2. If "repeat playlist" is off, system pauses current playing.
++
+Use case ends.
+
+
+[discrete]
+=== Use case: Switch playing modes
+
+*MSS*
+
+1.  User requests to repeat track.
+2.	System changes to "repeat track" mode and current track will be played repeatly.
+3.	User requests to repeat playlist.
+4.	System changes to "repeat playlist" mode and the current playlist will start over after playing all tracks.
+5.	User enters the repeat off command.
+6.	System changes to "repeat off" mode and the playlist will stop after playing all the tracks.
++
+Use case ends.
+
+[discrete]
+=== Use case: Shuffle playlist
+
+*MSS*
+
+1.  User requests shuffle the playlist.
+2.  System randomly reorders the sequence of tracks inside the playlist.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
