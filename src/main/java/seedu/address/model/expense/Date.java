@@ -17,7 +17,7 @@ public class Date {
             "Date should be valid, only contain numbers and slashes, and it should not be blank";
 
     public static final String DATE_VALIDATION_REGEX = "(\\d{1,2})(\\-)(\\d{1,2})(\\-)(\\d{4})";
-    public final Calendar fullDate = new GregorianCalendar();
+    public final Calendar fullDate = Calendar.getInstance();
 
 
     /**
@@ -34,6 +34,11 @@ public class Date {
                 Integer.parseInt(parsedDate[0]));
     }
 
+    /**
+     * Constructs a {@code Date} with current date.
+     *
+     */
+    public Date() {}
 
     /**
      * return true is the given date is in the valid format.
