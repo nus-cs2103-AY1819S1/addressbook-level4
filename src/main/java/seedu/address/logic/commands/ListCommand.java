@@ -7,7 +7,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
 /**
- * Lists all tasks in the address book to the user.
+ * Lists all tasks in the task manager to the user.
  */
 public class ListCommand extends Command {
 

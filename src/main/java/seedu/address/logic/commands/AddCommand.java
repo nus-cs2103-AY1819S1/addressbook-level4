@@ -13,7 +13,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Task;
 
 /**
- * Adds a task to the address book.
+ * Adds a task to the task manager.
  */
 public class AddCommand extends Command {
 

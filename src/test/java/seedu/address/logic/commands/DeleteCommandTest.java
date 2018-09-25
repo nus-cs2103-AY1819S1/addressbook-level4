@@ -73,7 +73,7 @@ public class DeleteCommandTest {
         showTaskAtIndex(model, INDEX_FIRST_PERSON);
 
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of task manager list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getTaskManager().getTaskList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
@@ -106,10 +106,10 @@ public class DeleteCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTaskList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        // execution failed -> address book state not added into model
+        // execution failed -> task manager state not added into model
         assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
-        // single address book state in model -> undoCommand and redoCommand fail
+        // single task manager state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
