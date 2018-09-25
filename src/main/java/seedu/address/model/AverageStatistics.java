@@ -3,6 +3,7 @@ package seedu.address.model;
 public class AverageStatistics extends Statistics {
 
     public static final String STATISTICS_TYPE = "Average";
+    public static final int NUMBER_STATISTICS = 4;
     private static final String AVERAGE_TYPE_DAY = "per day";
     private static final String AVERAGE_TYPE_PATIENT = "per patient";
 
@@ -13,7 +14,7 @@ public class AverageStatistics extends Statistics {
 
     public AverageStatistics() {
         super();
-        this.statistics.put(NUMBER_MEDICINES_DAY, 0);
+        this.statistics.put(NUMBER_PATIENTS_DAY, 0);
         this.statistics.put(TIME_WAITING_PATIENT, 0);
         this.statistics.put(NUMBER_MEDICINES_DAY, 0);
         this.statistics.put(NUMBER_MEDICINES_PATIENT, 0);
