@@ -1,10 +1,15 @@
 package seedu.address.model.expense;
 
-import java.util.ArrayList;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.ArrayList;
+
+
+/**
+ * Represent a category of expenses.
+ * Guarantee: details are present and not null, filed values are validated, immutable.
+ */
 public class Category {
     public static final String MESSAGE_CATEGORY_CONSTRAINTS =
             "Category can take any values, and it should not be blank";
@@ -33,9 +38,13 @@ public class Category {
     /**
      * Returns true if a given string is a valid category.
      */
-    public static boolean isValidCategory(String test) { return test.matches(CATEGORY_VALIDATION_REGEX); }
+    public static boolean isValidCategory(String test) {
+        return test.matches(CATEGORY_VALIDATION_REGEX);
+    }
 
-    public void addIntoCategory(Expense expense) { expenseList.add(expense); }
+    public void addIntoCategory(Expense expense) {
+        expenseList.add(expense);
+    }
 
     @Override
     public String toString() {
