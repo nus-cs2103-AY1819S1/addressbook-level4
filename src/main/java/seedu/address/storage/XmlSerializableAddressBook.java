@@ -49,7 +49,7 @@ public class XmlSerializableAddressBook {
      * Converts this addressbook into the model's {@code AddressBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates
-     *                               in the {@code XmlAdaptedPerson}, {@code XmlAdaptedRecord}.
+     *                               in the {@code XmlAdaptedPerson} or {@code XmlAdaptedRecord}.
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
