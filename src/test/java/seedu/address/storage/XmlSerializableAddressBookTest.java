@@ -30,7 +30,7 @@ public class XmlSerializableAddressBookTest {
                 XmlSerializableTaskManager.class);
         TaskManager taskManagerFromFile = dataFromFile.toModelType();
         TaskManager typicalPersonsAddressBook = TypicalTasks.getTypicalTaskManager();
-        assertEquals(addressBookFromFile, typicalPersonsAddressBook);
+        assertEquals(taskManagerFromFile, typicalPersonsAddressBook);
     }
 
     @Test

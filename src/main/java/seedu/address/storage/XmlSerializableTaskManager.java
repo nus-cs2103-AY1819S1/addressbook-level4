@@ -8,9 +8,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.TaskManager;
+import seedu.address.model.ReadOnlyTaskManager;
+import seedu.address.model.person.Task;
 
 /**
  * An Immutable TaskManager that is serializable to XML format
@@ -34,9 +34,9 @@ public class XmlSerializableTaskManager {
     /**
      * Conversion
      */
-    public XmlSerializableTaskManager(ReadOnlyAddressBook src) {
+    public XmlSerializableTaskManager(ReadOnlyTaskManager src) {
         this();
-        tasks.addAll(src.getPersonList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+        tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
     }
 
     /**
@@ -45,14 +45,14 @@ public class XmlSerializableTaskManager {
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
      * {@code XmlAdaptedTask}.
      */
-    public AddressBook toModelType() throws IllegalValueException {
-        AddressBook taskManager = new AddressBook();
+    public TaskManager toModelType() throws IllegalValueException {
+        TaskManager taskManager = new TaskManager();
         for (XmlAdaptedTask p : tasks) {
-            Person task = p.toModelType();
-            if (taskManager.hasPerson(task)) {
+            Task task = p.toModelType();
+            if (taskManager.hasTask(task)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TASK);
             }
-            taskManager.addPerson(task);
+            taskManager.addTask(task);
         }
         return taskManager;
     }

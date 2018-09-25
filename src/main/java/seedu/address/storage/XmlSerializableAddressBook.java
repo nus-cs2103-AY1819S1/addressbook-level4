@@ -21,14 +21,14 @@ public class XmlSerializableAddressBook {
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
 
     @XmlElement
-    private List<XmlAdaptedPerson> persons;
+    private List<XmlAdaptedTask> tasks;
 
     /**
      * Creates an empty XmlSerializableAddressBook.
      * This empty constructor is required for marshalling.
      */
     public XmlSerializableAddressBook() {
-        persons = new ArrayList<>();
+        tasks = new ArrayList<>();
     }
 
     /**
@@ -36,7 +36,7 @@ public class XmlSerializableAddressBook {
      */
     public XmlSerializableAddressBook(ReadOnlyTaskManager src) {
         this();
-        persons.addAll(src.getTaskList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+        tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,12 +47,12 @@ public class XmlSerializableAddressBook {
      */
     public TaskManager toModelType() throws IllegalValueException {
         TaskManager addressBook = new TaskManager();
-        for (XmlAdaptedPerson p : persons) {
-            Task person = p.toModelType();
-            if (addressBook.hasTask(person)) {
+        for (XmlAdaptedTask t : tasks) {
+            Task task = t.toModelType();
+            if (addressBook.hasTask(task)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addTask(person);
+            addressBook.addTask(task);
         }
         return addressBook;
     }
@@ -66,6 +66,6 @@ public class XmlSerializableAddressBook {
         if (!(other instanceof XmlSerializableAddressBook)) {
             return false;
         }
-        return persons.equals(((XmlSerializableAddressBook) other).persons);
+        return tasks.equals(((XmlSerializableAddressBook) other).tasks);
     }
 }

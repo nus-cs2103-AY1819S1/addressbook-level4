@@ -64,7 +64,7 @@ public class StorageManagerTest {
          * More extensive testing of UserPref saving/reading is done in {@link XmlTaskManagerStorageTest} class.
          */
         TaskManager original = getTypicalTaskManager();
-        storageManager.saveAddressBook(original);
+        storageManager.saveTaskManager(original);
         ReadOnlyTaskManager retrieved = storageManager.readTaskManager().get();
         assertEquals(original, new TaskManager(retrieved));
     }

@@ -60,12 +60,12 @@ public class XmlAdaptedTask {
      *
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
-    public XmlAdaptedTask(Person source) {
+    public XmlAdaptedTask(Task source) {
         name = source.getName().fullName;
-        phone = source.getPhone().value;
-        email = source.getEmail().value;
-        address = source.getAddress().value;
-        labelled = source.getTags().stream()
+        phone = source.getDueDate().value;
+        email = source.getPriorityValue().value;
+        address = source.getDescription().value;
+        labelled = source.getLabels().stream()
                 .map(XmlAdaptedLabel::new)
                 .collect(Collectors.toList());
     }

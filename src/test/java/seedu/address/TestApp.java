@@ -73,7 +73,7 @@ public class TestApp extends MainApp {
      */
     public TaskManager readStorageAddressBook() {
         try {
-            return new TaskManager(storage.readAddressBook().get());
+            return new TaskManager(storage.readTaskManager().get());
         } catch (DataConversionException dce) {
             throw new AssertionError("Data is not in the TaskManager format.", dce);
         } catch (IOException ioe) {
