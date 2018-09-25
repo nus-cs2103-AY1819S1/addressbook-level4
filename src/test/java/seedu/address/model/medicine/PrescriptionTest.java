@@ -8,6 +8,7 @@ import java.util.Calendar;
 import org.junit.Before;
 import org.junit.Test;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.testutil.Assert;
 
 //@@author snajef
@@ -24,7 +25,7 @@ public class PrescriptionTest {
     private Calendar fiveDaysFromNow;
 
     @Before
-    public void setUp() {
+    public void setUp() throws IllegalValueException {
         name = "Paracetamol";
         dose = new Dose(2, "tablets", 4);
         duration = new Duration(Duration.DAYS_PER_WEEK * 2);
@@ -73,7 +74,7 @@ public class PrescriptionTest {
     }
 
     @Test
-    public void equals_differentDose_true() {
+    public void equals_differentDose_true() throws IllegalValueException {
         Prescription p1 = new Prescription(name, dose, duration);
 
         Dose differentDose = new Dose(3, "tablets", 1);

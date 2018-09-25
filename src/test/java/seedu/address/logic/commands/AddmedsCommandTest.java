@@ -17,6 +17,7 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -53,7 +54,7 @@ public class AddmedsCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Before
-    public void setup() {
+    public void setup() throws IllegalValueException {
         /**
          * Valid NRIC here must be something other than PersonBuilder's default NRIC.
          */

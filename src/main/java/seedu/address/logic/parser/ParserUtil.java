@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.medicine.Dose;
@@ -147,7 +148,7 @@ public class ParserUtil {
      *
      * @return a Dose object with the parsed parameters as members.
      */
-    public static Dose parseDose(int dose, String doseUnit, int dosePerDay) {
+    public static Dose parseDose(double dose, String doseUnit, int dosePerDay) throws IllegalValueException {
         requireNonNull(doseUnit);
         return new Dose(dose, doseUnit, dosePerDay);
     }

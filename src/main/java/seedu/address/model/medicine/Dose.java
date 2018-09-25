@@ -2,6 +2,8 @@ package seedu.address.model.medicine;
 
 import java.util.Objects;
 
+import seedu.address.commons.exceptions.IllegalValueException;
+
 //@@author snajef
 /**
  * POJO class for medicine dosage.
@@ -9,7 +11,11 @@ import java.util.Objects;
  *
  */
 public class Dose {
-    private int dose;
+    public static final String MESSAGE_DOSAGE_MUST_BE_POSITIVE = "Dosage must be a positive number!";
+    public static final String MESSAGE_DOSES_PER_DAY_MUST_BE_POSITIVE_INTEGER = "Doses per day "
+            + "must be a positive integer!";
+
+    private double dose;
     private String doseUnit;
     private int dosesPerDay;
 
@@ -20,9 +26,18 @@ public class Dose {
      * @param d The dose to give per instance.
      * @param ds The dosage unit e.g. tablets, drops
      * @param dpd The number of doses per day.
+     * @throws IllegalValueException when a non-positive dosage is passed to the c'tor.
      */
-    public Dose(int d, String ds, int dpd) {
+    public Dose(double d, String ds, int dpd) throws IllegalValueException {
         Objects.requireNonNull(ds);
+
+        if (d <= 0) {
+            throw new IllegalValueException(MESSAGE_DOSAGE_MUST_BE_POSITIVE);
+        }
+
+        if (dpd <= 0) {
+            throw new IllegalValueException(MESSAGE_DOSES_PER_DAY_MUST_BE_POSITIVE_INTEGER);
+        }
 
         dose = d;
         doseUnit = ds;
@@ -31,7 +46,7 @@ public class Dose {
 
     @Override
     public String toString() {
-        return Integer.toString(dose) + " " + doseUnit + " " + fuzzyStringRepresentation(dosesPerDay);
+        return Double.toString(dose) + " " + doseUnit + " " + fuzzyStringRepresentation(dosesPerDay);
     }
 
     /**

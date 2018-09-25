@@ -21,6 +21,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import org.junit.Before;
 import org.junit.Test;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddmedsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.medicine.Dose;
@@ -34,7 +35,7 @@ public class AddmedsCommandParserTest {
     private Prescription prescription;
 
     @Before
-    public void setUp() {
+    public void setUp() throws IllegalValueException {
         parser = new AddmedsCommandParser();
         patientNric = new Nric(VALID_NRIC_BOB);
         Dose dose = new Dose(VALID_DOSE, VALID_DOSE_UNIT, VALID_DOSES_PER_DAY);
