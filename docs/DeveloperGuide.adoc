@@ -854,35 +854,283 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `JxMusic` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: List all playlists
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list all the playlists.
+2.  System displays names of all playlists in the library.
++
+Use case ends.
+
+[discrete]
+=== Use case: Play a playlist
+
+*MSS*
+
+1.  User requests to play tracks in a playlist.
+2.  System searches for the playlist.
+3.  System plays the tracks of the playlist.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a. The playlist is not found. 
++
+[none]
+** 2a1. System displays an error message.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. The playlist is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: Navigate playlist
+
+*MSS*
+
+1.  User enters commands to skip the next/previous track.
+2.	System goes to the next/previous track and play the track.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The next/previous track does not exist.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 2a1. If "repeat playlist" function is on, system goes to the beginning/ending track of the playlist and plays the track.
 +
-Use case resumes at step 2.
+Use case ends.
++
+2a2. If "repeat playlist" is off, system pauses current playing.
++
+Use case ends.
 
-_{More to be added}_
+[discrete]
+=== Use case: Play a track
+
+*MSS*
+
+1.  User requests to play.
+2.	System plays the current track.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. No track in current playlist.
++
+[none]
+** 2a1. System goes back to the status before step 1.
++
+Use case ends.
+
+[discrete]
+=== Use case: Pause the playing of track
+
+*MSS*
+
+1.  User requests to pause the playing of track.
+2.	System pauses the playing.
+3.	User requests to resume the playing of track.
+4. 	System plays the track from the point it was paused.
++
+Use case ends.
+
+[discrete]
+=== Use case: Stop the playing of track
+
+*MSS*
+
+1.  User requests to stop the playing of track
+2.	System exits the playing of track.
++
+Use case ends.
+
+[discrete]
+=== Use case: Search for a playlist
+
+*MSS*
+
+1.  User enters the command "search".
+2.	System displays "Enter playlist name:".
+3.	User enters a sequence of characters.
+4.	System displays all playlists that include the sequence of characters, in lexicographical order.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 4a. There is no list matches the name.
++
+[none]
+** 4a1. System displays "not found" message. 
++
+Use case ends.
+
+[discrete]
+=== Use case: Switch playing modes 
+
+*MSS*
+
+1.  User requests to repeat track.
+2.	System changes to "repeat track" mode and current track will be played repeatly.
+3.	User requests to repeat playlist.
+4.	System changes to "repeat playlist" mode and the current playlist will start over after playing all tracks.
+5.	User enters the repeat off command.
+6.	System changes to "repeat off" mode and the playlist will stop after playing all the tracks.
++
+Use case ends.
+
+[discrete]
+=== Use case: Add a track into playlist
+
+*MSS*
+
+1.  User enters commands to add a track into a playlist.
+2.	System searches for the track.
+3. 	System searches for the playlist.
+4. 	System adds the track to the playlist.
+5. 	System displays successful message.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The track does not exist.
++
+[none]
+** 2a1. System displays error message.
++
+Use case ends.
+
+* 3a. The playlist does not exist.
++
+[none]
+** 3a1. System displays error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Seek time point in a track
+
+*MSS*
+
+1.  User requests to seek the play timeline to a certain point.
+2.  System jumps to the point and play from the point.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The time point is outside the range of timeline.
++
+[none]
+** 2a1. System displays an error message and pauses current playing.
++
+Use case ends.
+
+[discrete]
+=== Use case: Step forward/backward in a track
+
+*MSS*
+
+1.  User requests to step forward/backwards a range of time in the playing of current track.
+2.  System jumps to the point and plays from the point.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The time point is outside the range of timeline.
++
+[none]
+** 2a1. System displays an error message and pauses current playing.
++
+Use case ends.
+
+[discrete]
+=== Use case: Shuffle playlist
+
+*MSS*
+
+1.  User requests shuffle the playlist.
+2.  System randomly reorders the sequence of tracks inside the playlist.
++
+Use case ends.
+
+[discrete]
+=== Use case: Create a playlist
+
+*MSS*
+
+1.  User requests to create a new playlist.
+2.  System creates a new playlist and saves it to libaray.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The name of the playlist has existed.
++
+[none]
+** 2a1. System displays an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete a playlist
+
+*MSS*
+
+1.  User requests delete a playlist.
+2.  System deletes the playlist.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Playlist not found.
++
+[none]
+** 2a1. System displays an error message.
++
+Use case ends.
+
+* 2b. Playlist is currently being played.
++
+[none]
+** 2a1. System stops the playing and deletes the playlist.
++
+Use case ends.
+
+[discrete]
+=== Use case: Replay a track
+
+*MSS*
+
+1.  User requests to replay the track.
+2.  System plays the track from the beginning.
++
+Use case ends.
+
+*Extensions*
 
 [appendix]
 == Non Functional Requirements
