@@ -28,7 +28,7 @@ public class SwitchCommandParser implements Parser<SwitchCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SwitchCommand.MESSAGE_USAGE));
         }
 
-        String contextName = ParserUtil.parseCommandName(argMultimap.getValue(PREFIX_SWITCH).get());
+        String contextName = ParserUtil.parseCommandId(argMultimap.getValue(PREFIX_SWITCH).get());
 
         return new SwitchCommand(contextName);
     }

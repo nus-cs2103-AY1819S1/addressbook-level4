@@ -7,7 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SWITCH;
 
 /**
  * Represents a Context in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidContext(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidContextId(String)}
  */
 public class Context {
     public static final String EVENT_CONTEXT_ID = "e";
@@ -31,7 +31,7 @@ public class Context {
      */
     public Context(String contextId, String contextName) {
         requireNonNull(contextId);
-        checkArgument(isValidContext(contextId), MESSAGE_CONTEXT_CONSTRAINTS);
+        checkArgument(isValidContextId(contextId), MESSAGE_CONTEXT_CONSTRAINTS);
         this.contextId = contextId;
         this.contextName = contextName;
 
@@ -42,7 +42,7 @@ public class Context {
      */
     public void setContextValue(String contextId) {
         requireNonNull(contextId);
-        checkArgument(isValidContext(contextId), MESSAGE_CONTEXT_CONSTRAINTS);
+        checkArgument(isValidContextId(contextId), MESSAGE_CONTEXT_CONSTRAINTS);
         this.contextId = contextId;
         if (contextId.equals(EVENT_CONTEXT_ID)) {
             contextName = EVENT_CONTEXT_NAME;
@@ -77,7 +77,7 @@ public class Context {
     /**
      * Returns true if a given contextId is a valid contextId.
      */
-    public static boolean isValidContext(String test) {
+    public static boolean isValidContextId(String test) {
         if (test.equals(EVENT_CONTEXT_ID) || test.equals(VOLUNTEER_CONTEXT_ID)) {
             return true;
         }

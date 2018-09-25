@@ -42,13 +42,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code commandName} is invalid.
      */
-    public static String parseCommandName(String commandName) throws ParseException {
-        requireNonNull(commandName);
+    public static String parseCommandId(String commandId) throws ParseException {
+        requireNonNull(commandId);
 
-        if (!Context.isValidContext(commandName)) {
+        if (!Context.isValidContextId(commandId)) {
             throw new ParseException(Context.MESSAGE_CONTEXT_CONSTRAINTS);
         }
-        return commandName;
+        return commandId;
     }
 
     /**
