@@ -835,7 +835,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |add a new person |store more contacts in the app
 
-|`*` |university student on multiple social media platforms |import contacts from other sources (Facebook, Linkedin, etc.) |synchronize my contacts with other applications
+|`*` |university student on multiple platforms (including social media) |import contacts from other sources (Facebook, Linkedin, etc.) |synchronize my contacts with other applications
 
 |`* *` |forgetful user |attach a picture to every contact |remember how the person looks like
 
