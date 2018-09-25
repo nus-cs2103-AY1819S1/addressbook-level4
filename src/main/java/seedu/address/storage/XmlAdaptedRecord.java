@@ -24,7 +24,7 @@ public class XmlAdaptedRecord {
     private String volunteerId;
     @XmlElement(required = true)
     private String hour;
-    @XmlElement
+    @XmlElement(required = true)
     private String remark;
 
     /**
@@ -41,9 +41,7 @@ public class XmlAdaptedRecord {
         this.eventId = eventId;
         this.volunteerId = volunteerId;
         this.hour = hour;
-        if (!remark.equals("")) {
-            this.remark = remark;
-        }
+        this.remark = remark;
     }
 
     /**
@@ -67,14 +65,18 @@ public class XmlAdaptedRecord {
         if (eventId == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, EventId.class.getSimpleName()));
         }
-        // TODO: To add the validation for eventId once class is replaced and replace EventId with valid class
+        if (!EventId.isValidEventId(eventId)) {
+            throw new IllegalValueException(EventId.MESSAGE_EVENTID_CONSTRAINTS);
+        }
         final EventId modelEventId = new EventId(eventId);
 
         if (volunteerId == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, VolunteerId.class
                     .getSimpleName()));
         }
-        // TODO: To add the validation for volunteerId once class is replaced and replace EventId with valid class
+        if (!VolunteerId.isValidVolunteerId(volunteerId)) {
+            throw new IllegalValueException(VolunteerId.MESSAGE_VOLUNTEERID_CONSTRAINTS);
+        }
         final VolunteerId modelVolunteerId = new VolunteerId(volunteerId);
 
         if (hour == null) {

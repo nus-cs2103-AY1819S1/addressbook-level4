@@ -25,7 +25,7 @@ public class Hour {
     }
 
     /**
-     * Returns true if a given string is a valid remark.
+     * Returns true if a given string is a valid hour.
      */
     public static boolean isValidHour(String test) {
         return test.matches(HOUR_VALIDATION_REGEX);

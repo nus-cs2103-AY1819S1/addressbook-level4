@@ -15,10 +15,10 @@ public class Record {
     private final Remark remark;
 
     /**
-     * Only remarks can be null.
+     * Every field must be present and not null.
      */
     public Record(EventId eventId, VolunteerId volunteerId, Hour hour, Remark remark) {
-        requireAllNonNull(eventId, volunteerId, hour);
+        requireAllNonNull(eventId, volunteerId, hour, remark);
         this.eventId = eventId;
         this.volunteerId = volunteerId;
         this.hour = hour;
