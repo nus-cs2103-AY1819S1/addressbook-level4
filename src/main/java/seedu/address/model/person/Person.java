@@ -76,8 +76,10 @@ public class Person {
             return true;
         }
 
-        return otherPerson != null && otherPerson.getNric().equals(getNric()) && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+        return otherPerson != null && otherPerson.getNric().equals(getNric())
+                && otherPerson.getName().equals(getName())
+                && (otherPerson.getPhone().equals(getPhone())
+                        || otherPerson.getEmail().equals(getEmail()));
     }
 
     /**
@@ -95,9 +97,12 @@ public class Person {
         }
 
         Person otherPerson = (Person) other;
-        return otherPerson.getNric().equals(getNric()) && otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone()) && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress()) && otherPerson.getTags().equals(getTags());
+        return otherPerson.getNric().equals(getNric())
+                && otherPerson.getName().equals(getName())
+                && otherPerson.getPhone().equals(getPhone())
+                && otherPerson.getEmail().equals(getEmail())
+                && otherPerson.getAddress().equals(getAddress())
+                && otherPerson.getTags().equals(getTags());
     }
 
     @Override
@@ -109,8 +114,16 @@ public class Person {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getNric()).append(" Name: ").append(getName()).append(" Phone: ").append(getPhone())
-        .append(" Email: ").append(getEmail()).append(" Address: ").append(getAddress()).append(" Tags: ");
+        builder.append(getNric())
+               .append(" Name: ")
+               .append(getName())
+               .append(" Phone: ")
+               .append(getPhone())
+               .append(" Email: ")
+               .append(getEmail())
+               .append(" Address: ")
+               .append(getAddress())
+               .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
