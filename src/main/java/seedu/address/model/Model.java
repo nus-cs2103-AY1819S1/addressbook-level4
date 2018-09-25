@@ -5,6 +5,8 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 
+import org.simplejavamail.email.Email;
+
 /**
  * The API of the Model component.
  */
@@ -79,5 +81,5 @@ public interface Model {
     /**
      * Saves the email to hard disk
      */
-    void saveEmail();
+    void saveEmail(Email email);
 }

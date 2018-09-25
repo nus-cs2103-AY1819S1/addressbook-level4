@@ -14,6 +14,8 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.person.Person;
 
+import org.simplejavamail.email.Email;
+
 /**
  * Represents the in-memory model of the address book data.
  */
@@ -23,6 +25,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
     private final UserPrefs userPrefs;
+    private final EmailModel emailModel;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -36,6 +39,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         this.userPrefs = userPrefs;
+        this.emailModel = new EmailModel();
     }
 
     public ModelManager() {
@@ -152,7 +156,7 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Compose email =================================================================================
 
     @Override
-    public void saveEmail() {
-
+    public void saveEmail(Email email) {
+        emailModel.saveEmail(email);
     }
 }

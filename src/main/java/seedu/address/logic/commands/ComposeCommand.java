@@ -22,8 +22,8 @@ public class ComposeCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Composes an email. "
             + "Parameters: "
-            + PREFIX_FROM + "NAME EMAIL"
-            + PREFIX_TO + "NAME EMAIL "
+            + PREFIX_FROM + "EMAIL "
+            + PREFIX_TO + "EMAIL "
             + PREFIX_SUBJECT + "SUBJECT "
             + PREFIX_CONTENT + "CONTENT\n"
             + "Example: " + COMMAND_WORD + " "
@@ -43,7 +43,7 @@ public class ComposeCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
-        EmailStorage.saveEmail(toCompose);
+        model.saveEmail(toCompose);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toCompose.getSubject()));
     }
 }
