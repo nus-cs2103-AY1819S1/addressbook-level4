@@ -1,3 +1,4 @@
+//@@author EatOrBeEaten
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
@@ -5,12 +6,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FROM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TO;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+
+import org.simplejavamail.email.Email;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-
-import org.simplejavamail.email.Email;
+import seedu.address.storage.EmailStorage;
 
 /**
  * Composes email and writes it to hard disk
@@ -42,6 +43,7 @@ public class ComposeCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
+        EmailStorage.saveEmail(toCompose);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toCompose.getSubject()));
     }
 }
