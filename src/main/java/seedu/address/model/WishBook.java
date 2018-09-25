@@ -14,10 +14,10 @@ import seedu.address.model.tag.Tag;
 
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the wish book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class WishBook implements ReadOnlyWishBook {
 
     private final UniquePersonList persons;
 
@@ -32,12 +32,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons = new UniquePersonList();
     }
 
-    public AddressBook() {}
+    public WishBook() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an WishBook using the Persons in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public WishBook(ReadOnlyWishBook toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -53,12 +53,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code WishBook} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyWishBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setPersons(newData.getWishList());
     }
 
     //// person-level operations
@@ -91,7 +91,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code WishBook}.
      * {@code key} must exist in the address book.
      */
     public void removePerson(Person key) {
@@ -99,8 +99,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code tag} from all {@code person}s in this {@code AddressBook}.
-     * @throws DuplicatePersonException if there's a duplicate {@code Person} in this {@code AddressBook}.
+     * Removes {@code tag} from all {@code person}s in this {@code WishBook}.
+     * @throws DuplicatePersonException if there's a duplicate {@code Person} in this {@code WishBook}.
      */
     public void removeTagFromAll(Tag tag) throws DuplicatePersonException {
         ArrayList<Person> modifiedPersons = new ArrayList<>();
@@ -130,15 +130,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
+    public ObservableList<Person> getWishList() {
         return persons.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                || (other instanceof WishBook // instanceof handles nulls
+                && persons.equals(((WishBook) other).persons));
     }
 
     @Override

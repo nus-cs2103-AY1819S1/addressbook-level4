@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.WishBook;
+import seedu.address.model.ReadOnlyWishBook;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -15,7 +15,7 @@ import seedu.address.model.person.Remark;
 import seedu.address.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code WishBook} with sample data.
  */
 public class SampleDataUtil {
     public static final Remark SAMPLE_REMARK_EMPTY = new Remark("");
@@ -42,12 +42,12 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyWishBook getSampleWishBook() {
+        WishBook sampleWb = new WishBook();
         for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
+            sampleWb.addPerson(samplePerson);
         }
-        return sampleAb;
+        return sampleWb;
     }
 
     /**

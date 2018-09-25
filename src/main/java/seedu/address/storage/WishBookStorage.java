@@ -5,42 +5,43 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyWishBook;
+import seedu.address.model.WishBook;
 
 /**
- * Represents a storage for {@link seedu.address.model.AddressBook}.
+ * Represents a storage for {@link WishBook}.
  */
-public interface AddressBookStorage {
+public interface WishBookStorage {
 
     /**
      * Returns the file path of the data file.
      */
-    Path getAddressBookFilePath();
+    Path getWishBookFilePath();
 
     /**
-     * Returns AddressBook data as a {@link ReadOnlyAddressBook}.
+     * Returns WishBook data as a {@link ReadOnlyWishBook}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyWishBook> readWishBook() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getWishBookFilePath()
      */
-    Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyWishBook> readWishBook(Path filePath) throws DataConversionException, IOException;
 
     /**
-     * Saves the given {@link ReadOnlyAddressBook} to the storage.
+     * Saves the given {@link ReadOnlyWishBook} to the storage.
      * @param addressBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveWishBook(ReadOnlyWishBook addressBook) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyAddressBook)
+     * @see #saveWishBook(ReadOnlyWishBook)
      */
-    void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException;
+    void saveWishBook(ReadOnlyWishBook addressBook, Path filePath) throws IOException;
 
     /**
      * @see #saveBackup(Path)
@@ -54,14 +55,14 @@ public interface AddressBookStorage {
     void saveBackup(Path path) throws IOException, DataConversionException;
 
     /**
-     * Backs up the given {@link ReadOnlyAddressBook} to local storage.
+     * Backs up the given {@link ReadOnlyWishBook} to local storage.
      * @param addressBook addressBook cannot be null.
      * @throws IOException if there was any problem writing to the file
      */
-    void backupAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    void backupWishBook(ReadOnlyWishBook addressBook) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyAddressBook)
+     * @see #saveWishBook(ReadOnlyWishBook)
      */
-    void backupAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException;
+    void backupWishBook(ReadOnlyWishBook addressBook, Path filePath) throws IOException;
 }

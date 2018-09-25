@@ -13,12 +13,12 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Remark;
 
 /**
- * Adds remark to existing person in addressbook.
+ * Adds remark to existing person in wish book.
  */
 public class RemarkCommand extends Command {
     public static final String COMMAND_WORD = "remark";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the remark of the person identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the remark of the wish identified "
             + "by the index number used in the displayed person list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
@@ -52,7 +52,7 @@ public class RemarkCommand extends Command {
 
         model.updatePerson(personToEdit, updatedRemarkPerson);
         model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
-        model.commitAddressBook();
+        model.commitWishBook();
         return new CommandResult(String.format(MESSAGE_REMARK_ADD_SUCCESS, updatedRemarkPerson));
     }
 

@@ -17,7 +17,7 @@ import seedu.address.model.person.Remark;
 import seedu.address.testutil.TypicalPersons;
 
 public class RemarkCommandTest {
-    private Model model = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(TypicalPersons.getTypicalWishBook(), new UserPrefs());
 
     @Test
     public void equals() {
