@@ -7,6 +7,8 @@ import static seedu.address.testutil.TypicalEvents.BLOOD;
 import static seedu.address.testutil.TypicalEvents.YOUTH;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalRecords.R1;
+import static seedu.address.testutil.TypicalRecords.R2;
 
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -24,6 +26,7 @@ public class ModelManagerTest {
 
     private ModelManager modelManager = new ModelManager();
 
+    //// Test person
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
@@ -42,6 +45,13 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getFilteredPersonList().remove(0);
+    }
+
+    //// Test event
+    @Test
     public void hasEvent_nullEvent_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         modelManager.hasEvent(null);
@@ -59,22 +69,40 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        thrown.expect(UnsupportedOperationException.class);
-        modelManager.getFilteredPersonList().remove(0);
-    }
-
-    @Test
     public void getFilteredEventList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getFilteredEventList().remove(0);
     }
 
+    //// Test Record
+    @Test
+    public void hasRecord_nullRecord_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.hasRecord(null);
+    }
+
+    @Test
+    public void hasRecord_recordNotInAddressBook_returnsFalse() {
+        assertFalse(modelManager.hasRecord(R1));
+    }
+
+    @Test
+    public void hasRecord_recordInAddressBook_returnsTrue() {
+        modelManager.addRecord(R1);
+        assertTrue(modelManager.hasRecord(R1));
+    }
+
+    @Test
+    public void getFilteredRecordList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getFilteredRecordList().remove(0);
+    }
+
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder()
-                .withPerson(ALICE).withPerson(BENSON)
-                .withEvent(BLOOD).withEvent(YOUTH).build();
+        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON)
+                .withEvent(BLOOD).withEvent(YOUTH)
+                .withRecord(R1).withRecord(R2).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
 

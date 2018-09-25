@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- AddressBook save file which contains the same Record values as in TypicalRecords#getTypicalAddressBook() -->
+<addressbook>
+    <records>
+        <eventId>1</eventId>
+        <volunteerId>1</volunteerId>
+        <hour>1</hour>
+        <remark>Emcee</remark>
+    </records>
+    <records>
+        <eventId>2</eventId>
+        <volunteerId>2</volunteerId>
+        <hour>2</hour>
+        <remark>Delivery man</remark>
+    </records>
+    <records>
+        <eventId>2</eventId>
+        <volunteerId>1</volunteerId>
+        <hour>2</hour>
+        <remark>Food delivery</remark>
+    </records>
+</addressbook>

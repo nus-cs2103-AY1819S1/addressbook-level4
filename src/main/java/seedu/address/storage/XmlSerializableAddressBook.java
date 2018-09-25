@@ -12,6 +12,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.record.Record;
 
 /**
  * An Immutable AddressBook that is serializable to XML format
@@ -20,14 +21,15 @@ import seedu.address.model.person.Person;
 public class XmlSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
-
-    public static final String MESSAGE_DUPLICATE_EVENT = "Events list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_EVENT = "Events list contains duplicate event(s).";
+    public static final String MESSAGE_DUPLICATE_RECORD = "Record list contains duplicate record(s).";
 
     @XmlElement
     private List<XmlAdaptedPerson> persons;
-
     @XmlElement
     private List<XmlAdaptedEvent> events;
+    @XmlElement
+    private List<XmlAdaptedRecord> records;
 
     /**
      * Creates an empty XmlSerializableAddressBook.
@@ -36,6 +38,7 @@ public class XmlSerializableAddressBook {
     public XmlSerializableAddressBook() {
         persons = new ArrayList<>();
         events = new ArrayList<>();
+        records = new ArrayList<>();
     }
 
     /**
@@ -45,13 +48,14 @@ public class XmlSerializableAddressBook {
         this();
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
         events.addAll(src.getEventList().stream().map(XmlAdaptedEvent::new).collect(Collectors.toList()));
+        records.addAll(src.getRecordList().stream().map(XmlAdaptedRecord::new).collect(Collectors.toList()));
     }
 
     /**
      * Converts this addressbook into the model's {@code AddressBook} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated or duplicates in the
-     * {@code XmlAdaptedPerson}.
+     * @throws IllegalValueException if there were any data constraints violated or duplicates
+     *                               in the {@code XmlAdaptedPerson} or {@code XmlAdaptedRecord}.
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
@@ -62,13 +66,19 @@ public class XmlSerializableAddressBook {
             }
             addressBook.addPerson(person);
         }
-
         for (XmlAdaptedEvent e : events) {
             Event event = e.toModelType();
             if (addressBook.hasEvent(event)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_EVENT);
             }
             addressBook.addEvent(event);
+        }
+        for (XmlAdaptedRecord r : records) {
+            Record record = r.toModelType();
+            if (addressBook.hasRecord(record)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_RECORD);
+            }
+            addressBook.addRecord(record);
         }
 
         return addressBook;
@@ -84,6 +94,7 @@ public class XmlSerializableAddressBook {
             return false;
         }
         return persons.equals(((XmlSerializableAddressBook) other).persons)
-                && events.equals(((XmlSerializableAddressBook) other).events);
+                && events.equals(((XmlSerializableAddressBook) other).events)
+                && records.equals(((XmlSerializableAddressBook) other).records);
     }
 }

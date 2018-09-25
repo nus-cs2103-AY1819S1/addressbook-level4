@@ -3,11 +3,12 @@ package seedu.address.testutil;
 import seedu.address.model.AddressBook;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.record.Record;
 
 /**
  * A utility class to help with building Addressbook objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
+ * {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
  */
 public class AddressBookBuilder {
 
@@ -34,6 +35,14 @@ public class AddressBookBuilder {
      */
     public AddressBookBuilder withEvent(Event event) {
         addressBook.addEvent(event);
+        return this;
+    }
+
+    /**
+     * Adds a new {@code Record} to the {@code AddressBook} that we are building.
+     */
+    public AddressBookBuilder withRecord(Record record) {
+        addressBook.addRecord(record);
         return this;
     }
 

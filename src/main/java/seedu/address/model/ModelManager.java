@@ -14,6 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.record.Record;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -24,6 +25,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Event> filteredEvents;
+    private final FilteredList<Record> filteredRecords;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -37,6 +39,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredEvents = new FilteredList<>(versionedAddressBook.getEventList());
+        filteredRecords = new FilteredList<>(versionedAddressBook.getRecordList());
     }
 
     public ModelManager() {
@@ -54,11 +57,14 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedAddressBook;
     }
 
-    /** Raises an event to indicate the model has changed */
+    /**
+     * Raises an event to indicate the model has changed
+     */
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(versionedAddressBook));
     }
 
+    //===========  Person List Methods =============================================================
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
@@ -86,6 +92,25 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //=========== Filtered Person Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Person> getFilteredPersonList() {
+        return FXCollections.unmodifiableObservableList(filteredPersons);
+    }
+
+    @Override
+    public void updateFilteredPersonList(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filteredPersons.setPredicate(predicate);
+    }
+
+
+    //===========  Event List Methods =============================================================
     @Override
     public boolean hasEvent(Event event) {
         requireNonNull(event);
@@ -113,22 +138,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
-    //=========== Filtered Person and Event List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return FXCollections.unmodifiableObservableList(filteredPersons);
-    }
-
-    @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
-    }
+    //=========== Filtered Event List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Event} backed by the internal list of
@@ -143,6 +153,51 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredEventList(Predicate<Event> predicate) {
         requireNonNull(predicate);
         filteredEvents.setPredicate(predicate);
+    }
+
+    //===========  Record List Methods =============================================================
+    @Override
+    public boolean hasRecord(Record record) {
+        requireNonNull(record);
+        return versionedAddressBook.hasRecord(record);
+    }
+
+    @Override
+    public void deleteRecord(Record target) {
+        versionedAddressBook.removeRecord(target);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void addRecord(Record record) {
+        versionedAddressBook.addRecord(record);
+        updateFilteredRecordList(PREDICATE_SHOW_ALL_RECORDS);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void updateRecord(Record target, Record editedRecord) {
+        requireAllNonNull(target, editedRecord);
+
+        versionedAddressBook.updateRecord(target, editedRecord);
+        indicateAddressBookChanged();
+    }
+
+    //=========== Filtered Record List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Record} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Record> getFilteredRecordList() {
+        return FXCollections.unmodifiableObservableList(filteredRecords);
+    }
+
+    @Override
+    public void updateFilteredRecordList(Predicate<Record> predicate) {
+        requireNonNull(predicate);
+        filteredRecords.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================

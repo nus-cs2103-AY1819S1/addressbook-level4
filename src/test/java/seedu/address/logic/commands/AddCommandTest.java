@@ -21,6 +21,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.record.Record;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -89,10 +90,7 @@ public class AddCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
-        @Override
-        public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
+
 
         @Override
         public void resetData(ReadOnlyAddressBook newData) {
@@ -101,6 +99,12 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlyAddressBook getAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        //=========== Person Methods =============================================================
+        @Override
+        public void addPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -119,6 +123,17 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public ObservableList<Person> getFilteredPersonList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        //=========== Event Methods =============================================================
         @Override
         public boolean hasEvent(Event event) {
             throw new AssertionError("This method should not be called.");
@@ -140,16 +155,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public ObservableList<Event> getFilteredEventList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -159,6 +164,40 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        //=========== Record Methods =============================================================
+        @Override
+        public boolean hasRecord(Record record) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+
+        @Override
+        public void deleteRecord(Record target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addRecord(Record record) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateRecord(Record target, Record editedRecord) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Record> getFilteredRecordList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredRecordList(Predicate<Record> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+
+        //=========== Undo/Redo Methods =============================================================
         @Override
         public boolean canUndoAddressBook() {
             throw new AssertionError("This method should not be called.");

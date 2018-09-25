@@ -10,15 +10,18 @@ import seedu.address.model.event.Event;
 import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.record.Record;
+import seedu.address.model.record.UniqueRecordList;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSamePerson and .isSameRecord comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     private final UniqueEventList events;
+    private final UniqueRecordList records;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -30,9 +33,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         events = new UniqueEventList();
+        records = new UniqueRecordList();
     }
 
-    public AddressBook() {}
+    public AddressBook() {
+    }
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
@@ -52,12 +57,21 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.persons.setPersons(persons);
     }
 
+
     /**
      * Replaces the contents of the event list with {@code events}.
      * {@code events} must not contain duplicate events.
      */
     public void setEvents(List<Event> events) {
         this.events.setEvents(events);
+    }
+
+    /**
+     * Replaces the contents of the record list with {@code records}.
+     * {@code records} must not contain duplicate records.
+     */
+    public void setRecords(List<Record> records) {
+        this.records.setRecords(records);
     }
 
     /**
@@ -68,6 +82,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setPersons(newData.getPersonList());
         setEvents(newData.getEventList());
+        setRecords(newData.getRecordList());
     }
 
     //// person-level operations
@@ -81,27 +96,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Returns true if an event with the same identity as {@code event} exists in the address book.
-     */
-    public boolean hasEvent(Event event) {
-        requireNonNull(event);
-        return events.contains(event);
-    }
-
-    /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
     public void addPerson(Person p) {
         persons.add(p);
-    }
-
-    /**
-     * Adds an event to the address book.
-     * The event must not already exist in the address book.
-     */
-    public void addEvent(Event e) {
-        events.add(e);
     }
 
     /**
@@ -113,6 +112,33 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedPerson);
 
         persons.setPerson(target, editedPerson);
+    }
+
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removePerson(Person key) {
+        persons.remove(key);
+    }
+
+    //// event-level operations
+
+    /**
+     * Returns true if an event with the same identity as {@code event} exists in the address book.
+     */
+    public boolean hasEvent(Event event) {
+        requireNonNull(event);
+        return events.contains(event);
+    }
+
+    /**
+     * Adds an event to the address book.
+     * The event must not already exist in the address book.
+     */
+    public void addEvent(Event e) {
+        events.add(e);
     }
 
     /**
@@ -130,25 +156,54 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Person key) {
-        persons.remove(key);
-    }
-
-    /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
-     */
     public void removeEvent(Event key) {
         events.remove(key);
     }
 
-    //// util methods
+    //// record-level operations
 
+    /**
+     * Returns true if a record with the same identity as {@code record} exists in the database.
+     */
+    public boolean hasRecord(Record record) {
+        requireNonNull(record);
+        return records.contains(record);
+    }
+
+    /**
+     * Adds a record to the address book.
+     * The record must not already exist in the database
+     */
+    public void addRecord(Record r) {
+        records.add(r);
+    }
+
+    /**
+     * Replaces the given record {@code target} in the list with {@code editedRecord}.
+     * {@code target} must exist in the database.
+     * The record identity of {@code editedRecord} must not be the same as another existing record in the database.
+     */
+    public void updateRecord(Record target, Record editedRecord) {
+        requireNonNull(editedRecord);
+
+        records.setRecord(target, editedRecord);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the database.
+     */
+    public void removeRecord(Record key) {
+        records.remove(key);
+    }
+
+
+    //// util methods
     @Override
     public String toString() {
         return persons.asUnmodifiableObservableList().size() + " persons. "
-                + events.asUnmodifiableObservableList().size() + " events.";
-        // TODO: refine later
+                + events.asUnmodifiableObservableList().size() + " events. "
+                + records.asUnmodifiableObservableList() + " records. ";
     }
 
     @Override
@@ -162,16 +217,21 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<Record> getRecordList() {
+        return records.asUnmodifiableObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
                 && persons.equals(((AddressBook) other).persons)
-                && events.equals(((AddressBook) other).events));
+                && events.equals(((AddressBook) other).events))
+                && records.equals((((AddressBook) other).records));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(persons, events);
-        // TODO: Improve way to hashCode AddressBook with multiple lists
+        return Objects.hash(persons, events, records);
     }
 }
