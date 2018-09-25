@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -20,12 +20,12 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
+import seedu.address.model.person.Description;
+import seedu.address.model.person.DueDate;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.person.PriorityValue;
+import seedu.address.model.person.Task;
+import seedu.address.model.tag.Label;
 
 /**
  * Edits the details of an existing task in the address book.
@@ -70,39 +70,40 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Task> lastShownList = model.getFilteredTaskList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person taskToEdit = lastShownList.get(index.getZeroBased());
-        Person editedTask = createEditedTask(taskToEdit, editTaskDescriptor);
+        Task taskToEdit = lastShownList.get(index.getZeroBased());
+        Task editedTask = createEditedTask(taskToEdit, editTaskDescriptor);
 
-        if (!taskToEdit.isSamePerson(editedTask) && model.hasPerson(editedTask)) {
+        if (!taskToEdit.isSameTask(editedTask) && model.hasTask(editedTask)) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
 
-        model.updatePerson(taskToEdit, editedTask);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        model.commitAddressBook();
+        model.updateTask(taskToEdit, editedTask);
+        model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+        model.commitTaskManager();
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask));
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code taskToEdit}
+     * Creates and returns a {@code Task} with the details of {@code taskToEdit}
      * edited with {@code editTaskDescriptor}.
      */
-    private static Person createEditedTask(Person taskToEdit, EditTaskDescriptor editTaskDescriptor) {
+
+    private static Task createEditedTask(Task taskToEdit, EditTaskDescriptor editTaskDescriptor) {
         assert taskToEdit != null;
 
         Name updatedName = editTaskDescriptor.getName().orElse(taskToEdit.getName());
-        Phone updatedPhone = editTaskDescriptor.getPhone().orElse(taskToEdit.getPhone());
-        Email updatedEmail = editTaskDescriptor.getEmail().orElse(taskToEdit.getEmail());
-        Address updatedAddress = editTaskDescriptor.getAddress().orElse(taskToEdit.getAddress());
-        Set<Tag> updatedTags = editTaskDescriptor.getTags().orElse(taskToEdit.getTags());
+        DueDate updatedPhone = editTaskDescriptor.getPhone().orElse(taskToEdit.getDueDate());
+        PriorityValue updatedEmail = editTaskDescriptor.getEmail().orElse(taskToEdit.getPriorityValue());
+        Description updatedAddress = editTaskDescriptor.getAddress().orElse(taskToEdit.getDescription());
+        Set<Label> updatedTags = editTaskDescriptor.getTags().orElse(taskToEdit.getLabels());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Task(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
 
     @Override
@@ -129,10 +130,10 @@ public class EditCommand extends Command {
      */
     public static class EditTaskDescriptor {
         private Name name;
-        private Phone phone;
-        private Email email;
-        private Address address;
-        private Set<Tag> tags;
+        private DueDate phone;
+        private PriorityValue email;
+        private Description address;
+        private Set<Label> tags;
 
         public EditTaskDescriptor() {}
 
@@ -163,27 +164,27 @@ public class EditCommand extends Command {
             return Optional.ofNullable(name);
         }
 
-        public void setPhone(Phone phone) {
+        public void setPhone(DueDate phone) {
             this.phone = phone;
         }
 
-        public Optional<Phone> getPhone() {
+        public Optional<DueDate> getPhone() {
             return Optional.ofNullable(phone);
         }
 
-        public void setEmail(Email email) {
+        public void setEmail(PriorityValue email) {
             this.email = email;
         }
 
-        public Optional<Email> getEmail() {
+        public Optional<PriorityValue> getEmail() {
             return Optional.ofNullable(email);
         }
 
-        public void setAddress(Address address) {
+        public void setAddress(Description address) {
             this.address = address;
         }
 
-        public Optional<Address> getAddress() {
+        public Optional<Description> getAddress() {
             return Optional.ofNullable(address);
         }
 
@@ -191,7 +192,7 @@ public class EditCommand extends Command {
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
          */
-        public void setTags(Set<Tag> tags) {
+        public void setTags(Set<Label> tags) {
             this.tags = (tags != null) ? new HashSet<>(tags) : null;
         }
 
@@ -200,7 +201,7 @@ public class EditCommand extends Command {
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code tags} is null.
          */
-        public Optional<Set<Tag>> getTags() {
+        public Optional<Set<Label>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
 

@@ -16,11 +16,11 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.ReadOnlyTaskManager;
+import seedu.address.model.TaskManager;
+import seedu.address.model.person.Task;
+import seedu.address.testutil.TaskBuilder;
 
 public class AddCommandTest {
 
@@ -40,7 +40,7 @@ public class AddCommandTest {
     @Test
     public void execute_taskAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingTaskAdded modelStub = new ModelStubAcceptingTaskAdded();
-        Person validTask = new PersonBuilder().build();
+        Task validTask = new TaskBuilder().build();
 
         CommandResult commandResult = new AddCommand(validTask).execute(modelStub, commandHistory);
 
@@ -51,7 +51,7 @@ public class AddCommandTest {
 
     @Test
     public void execute_duplicateTask_throwsCommandException() throws Exception {
-        Person validTask = new PersonBuilder().build();
+        Task validTask = new TaskBuilder().build();
         AddCommand addCommand = new AddCommand(validTask);
         ModelStub modelStub = new ModelStubWithTask(validTask);
 
@@ -62,8 +62,8 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
+        Task alice = new TaskBuilder().withName("Alice").build();
+        Task bob = new TaskBuilder().withName("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 
@@ -89,67 +89,67 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public void addPerson(Person task) {
+        public void addTask(Task task) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void resetData(ReadOnlyAddressBook newData) {
+        public void resetData(ReadOnlyTaskManager newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyTaskManager getTaskManager() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasPerson(Person task) {
+        public boolean hasTask(Task task) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Person target) {
+        public void deleteTask(Task target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updatePerson(Person target, Person editedTask) {
+        public void updateTask(Task target, Task editedTask) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Person> getFilteredPersonList() {
+        public ObservableList<Task> getFilteredTaskList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
+        public void updateFilteredTaskList(Predicate<Task> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canUndoAddressBook() {
+        public boolean canUndoTaskManager() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canRedoAddressBook() {
+        public boolean canRedoTaskManager() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void undoAddressBook() {
+        public void undoTaskManager() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoAddressBook() {
+        public void redoTaskManager() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitTaskManager() {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -158,17 +158,17 @@ public class AddCommandTest {
      * A Model stub that contains a single task.
      */
     private class ModelStubWithTask extends ModelStub {
-        private final Person task;
+        private final Task task;
 
-        ModelStubWithTask(Person task) {
+        ModelStubWithTask(Task task) {
             requireNonNull(task);
             this.task = task;
         }
 
         @Override
-        public boolean hasPerson(Person task) {
+        public boolean hasTask(Task task) {
             requireNonNull(task);
-            return this.task.isSamePerson(task);
+            return this.task.isSameTask(task);
         }
     }
 
@@ -176,28 +176,28 @@ public class AddCommandTest {
      * A Model stub that always accept the task being added.
      */
     private class ModelStubAcceptingTaskAdded extends ModelStub {
-        final ArrayList<Person> tasksAdded = new ArrayList<>();
+        final ArrayList<Task> tasksAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person task) {
+        public boolean hasTask(Task task) {
             requireNonNull(task);
-            return tasksAdded.stream().anyMatch(task::isSamePerson);
+            return tasksAdded.stream().anyMatch(task::isSameTask);
         }
 
         @Override
-        public void addPerson(Person task) {
+        public void addTask(Task task) {
             requireNonNull(task);
             tasksAdded.add(task);
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitTaskManager() {
             // called by {@code AddCommand#execute()}
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyTaskManager getTaskManager() {
+            return new TaskManager();
         }
     }
 

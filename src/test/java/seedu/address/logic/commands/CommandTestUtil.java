@@ -15,10 +15,10 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.TaskManager;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Task;
 import seedu.address.testutil.EditTaskDescriptorBuilder;
 
 /**
@@ -76,7 +76,7 @@ public class CommandTestUtil {
      * - the {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            String expectedMessage, Model expectedModel) {
+                                            String expectedMessage, Model expectedModel) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
             CommandResult result = command.execute(actualModel, actualCommandHistory);
@@ -97,11 +97,11 @@ public class CommandTestUtil {
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            String expectedMessage) {
+                                            String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
-        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        TaskManager expectedAddressBook = new TaskManager(actualModel.getTaskManager());
+        List<Task> expectedFilteredList = new ArrayList<>(actualModel.getFilteredTaskList());
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -110,8 +110,8 @@ public class CommandTestUtil {
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedAddressBook, actualModel.getAddressBook());
-            assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+            assertEquals(expectedAddressBook, actualModel.getTaskManager());
+            assertEquals(expectedFilteredList, actualModel.getFilteredTaskList());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }
@@ -122,22 +122,22 @@ public class CommandTestUtil {
      * {@code model}'s address book.
      */
     public static void showTaskAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredTaskList().size());
 
-        Person task = model.getFilteredPersonList().get(targetIndex.getZeroBased());
+        Task task = model.getFilteredTaskList().get(targetIndex.getZeroBased());
         final String[] splitName = task.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredTaskList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(1, model.getFilteredTaskList().size());
     }
 
     /**
      * Deletes the first task in {@code model}'s filtered list from {@code model}'s address book.
      */
     public static void deleteFirstTask(Model model) {
-        Person firstTask = model.getFilteredPersonList().get(0);
-        model.deletePerson(firstTask);
-        model.commitAddressBook();
+        Task firstTask = model.getFilteredTaskList().get(0);
+        model.deleteTask(firstTask);
+        model.commitTaskManager();
     }
 
 }
