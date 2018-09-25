@@ -2,6 +2,7 @@
 <addressbook>
     <persons>
         <id>1</id>
+        <nric>S1234567A</nric>
         <firstName>John</firstName>
         <lastName>Doe</lastName>
         <githubUsername></githubUsername>
