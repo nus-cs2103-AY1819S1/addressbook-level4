@@ -4,8 +4,6 @@ package seedu.address.model.person;
  * @author adjscent
  */
 public class Schedule {
-
-    public static final String MESSAGE_SCHEDULE_CONSTRAINTS = "Schedule should be in 0 or 1s";
     /**
      * Example
      * 0 0 0 0 0 0 0 0 1 1 0 0 1 1 1 1 1 1 0 0 0 0 0 0
@@ -17,21 +15,23 @@ public class Schedule {
      * 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
      */
 
+    public static final String MESSAGE_SCHEDULE_CONSTRAINTS = "Schedule should be in 0 or 1s";
+    private static final int DAY = 7;
+    private static final int HOUR = 48;
+    private static final int TOTAL = DAY * HOUR;
 
-    // 7 days 24 hours
+    // 7 days 24 hours - 48 30mins
     public final int[][] value;
 
     public Schedule() {
-        value = new int[7][24];
+        value = new int[DAY][HOUR];
     }
 
     public Schedule(String schedule) {
-        value = new int[7][24];
-        int counter = 0;
-        int totalcount = 7 * 24;
-        assert (schedule.length() == totalcount);
+        assert (schedule.length() == TOTAL);
+        value = new int[DAY][HOUR];
 
-        for (int i = 0; i < value.length; i++) {
+        for (int i = 0, counter = 0; i < value.length; i++) {
             for (int j = 0; j < value[i].length; j++) {
                 value[i][j] = Integer.parseInt(schedule.charAt(counter) + "");
                 counter += 1;
@@ -40,7 +40,7 @@ public class Schedule {
     }
 
     public static boolean isValidSchedule(String trimmedSchedule) {
-        return true;
+        return trimmedSchedule.length() == TOTAL;
     }
 
     /**
@@ -56,12 +56,20 @@ public class Schedule {
         int dayNum = -1;
         dayNum = getDayNum(day, dayNum);
 
-        int timeNum = -1;
 
-        timeNum = Integer.parseInt(time.substring(0, 1));
+        int hourNum = Integer.parseInt(time.substring(0, 2));
+
+        int minNum = Integer.parseInt(time.substring(2, 4));
+
+        int timeNum = hourNum * 2;
+
+        if (minNum >= 30) {
+            return value[dayNum][timeNum + 1] == 1 ? true : false;
+        } else {
+            return value[dayNum][timeNum] == 1 ? true : false;
+        }
 
 
-        return value[dayNum][timeNum] == 1 ? true : false;
     }
 
     /**
@@ -79,10 +87,16 @@ public class Schedule {
 
         int timeNum = -1;
 
-        timeNum = Integer.parseInt(time.substring(0, 2));
+        timeNum = Integer.parseInt(time.substring(0, 2)) * 2;
 
+        int minNum = Integer.parseInt(time.substring(2, 4));
 
-        value[dayNum][timeNum] = occupied ? 1 : 0;
+        if (minNum >= 30) {
+            value[dayNum][timeNum + 1] = occupied ? 1 : 0;
+        } else {
+            value[dayNum][timeNum] = occupied ? 1 : 0;
+        }
+
     }
 
     private int getDayNum(String day, int dayNum) {
@@ -115,7 +129,9 @@ public class Schedule {
     }
 
 
-    /** Allow schedule array to be stored as a string
+    /**
+     * Allow schedule array to be stored as a string
+     *
      * @return
      */
     public String valueToString() {

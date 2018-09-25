@@ -46,13 +46,17 @@ public class TimeTable {
             int duration = lesson.getDuration();
 
             while (duration > 0) {
-                String startime;
+                String startime1;
+                String startime2;
                 if (start > 9) {
-                    startime = start + "00";
+                    startime1 = start + "00";
+                    startime2 = start + "30";
                 } else {
-                    startime = "0" + start + "00";
+                    startime1 = "0" + start + "00";
+                    startime2 = "0" + start + "30";
                 }
-                schedule.setTimeDay(lesson.getDayText(), startime, true);
+                schedule.setTimeDay(lesson.getDayText(), startime1, true);
+                schedule.setTimeDay(lesson.getDayText(), startime2, true);
                 start++;
                 duration--;
             }
