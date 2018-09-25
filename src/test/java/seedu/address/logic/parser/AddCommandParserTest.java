@@ -32,8 +32,11 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 import org.junit.Test;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.model.expense.*;
 import seedu.address.model.expense.Cost;
+import seedu.address.model.expense.Email;
+import seedu.address.model.expense.Name;
+import seedu.address.model.expense.Person;
+import seedu.address.model.expense.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 
