@@ -5,9 +5,9 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.TaskCardHandle;
 import guitests.guihandles.TaskListPanelHandle;
-import guitests.guihandles.ResultDisplayHandle;
 import seedu.address.model.person.Person;
 
 /**
@@ -39,22 +39,22 @@ public class GuiTestAssert {
     }
 
     /**
-     * Asserts that the list in {@code taskListPanelHandle} displays the details of {@code persons} correctly and
+     * Asserts that the list in {@code taskListPanelHandle} displays the details of {@code tasks} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(TaskListPanelHandle taskListPanelHandle, Person... persons) {
-        for (int i = 0; i < persons.length; i++) {
+    public static void assertListMatching(TaskListPanelHandle taskListPanelHandle, Person... tasks) {
+        for (int i = 0; i < tasks.length; i++) {
             taskListPanelHandle.navigateToCard(i);
-            assertCardDisplaysTask(persons[i], taskListPanelHandle.getTaskCardHandle(i));
+            assertCardDisplaysTask(tasks[i], taskListPanelHandle.getTaskCardHandle(i));
         }
     }
 
     /**
-     * Asserts that the list in {@code taskListPanelHandle} displays the details of {@code persons} correctly and
+     * Asserts that the list in {@code taskListPanelHandle} displays the details of {@code tasks} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(TaskListPanelHandle taskListPanelHandle, List<Person> persons) {
-        assertListMatching(taskListPanelHandle, persons.toArray(new Person[0]));
+    public static void assertListMatching(TaskListPanelHandle taskListPanelHandle, List<Person> tasks) {
+        assertListMatching(taskListPanelHandle, tasks.toArray(new Person[0]));
     }
 
     /**

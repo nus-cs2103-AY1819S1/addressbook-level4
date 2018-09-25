@@ -4,17 +4,18 @@ import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.EventsUtil.postNow;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TASK;
+import static seedu.address.testutil.TypicalTasks.getTypicalTasks;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysTask;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.junit.Test;
+
 import guitests.guihandles.TaskCardHandle;
 import guitests.guihandles.TaskListPanelHandle;
-import org.junit.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,10 +26,10 @@ import seedu.address.model.person.Person;
 import seedu.address.storage.XmlSerializableAddressBook;
 
 public class TaskListPanelTest extends GuiUnitTest {
-    private static final ObservableList<Person> TYPICAL_PERSONS =
-            FXCollections.observableList(getTypicalPersons());
+    private static final ObservableList<Person> TYPICAL_TASKS =
+            FXCollections.observableList(getTypicalTasks());
 
-    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_PERSON);
+    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_TASK);
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "sandbox");
 
@@ -38,11 +39,11 @@ public class TaskListPanelTest extends GuiUnitTest {
 
     @Test
     public void display() {
-        initUi(TYPICAL_PERSONS);
+        initUi(TYPICAL_TASKS);
 
-        for (int i = 0; i < TYPICAL_PERSONS.size(); i++) {
-            taskListPanelHandle.navigateToCard(TYPICAL_PERSONS.get(i));
-            Person expectedPerson = TYPICAL_PERSONS.get(i);
+        for (int i = 0; i < TYPICAL_TASKS.size(); i++) {
+            taskListPanelHandle.navigateToCard(TYPICAL_TASKS.get(i));
+            Person expectedPerson = TYPICAL_TASKS.get(i);
             TaskCardHandle actualCard = taskListPanelHandle.getTaskCardHandle(i);
 
             assertCardDisplaysTask(expectedPerson, actualCard);
@@ -52,17 +53,17 @@ public class TaskListPanelTest extends GuiUnitTest {
 
     @Test
     public void handleJumpToListRequestEvent() {
-        initUi(TYPICAL_PERSONS);
+        initUi(TYPICAL_TASKS);
         postNow(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 
-        TaskCardHandle expectedTask = taskListPanelHandle.getTaskCardHandle(INDEX_SECOND_PERSON.getZeroBased());
+        TaskCardHandle expectedTask = taskListPanelHandle.getTaskCardHandle(INDEX_SECOND_TASK.getZeroBased());
         TaskCardHandle selectedTask = taskListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedTask, selectedTask);
     }
 
     /**
-     * Verifies that creating and deleting large number of persons in {@code TaskListPanel} requires lesser than
+     * Verifies that creating and deleting large number of tasks in {@code TaskListPanel} requires lesser than
      * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
     @Test
@@ -76,7 +77,7 @@ public class TaskListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Returns a list of tasks containing {@code taskCount} persons that is used to populate the
+     * Returns a list of tasks containing {@code taskCount} tasks that is used to populate the
      * {@code TaskListPanel}.
      */
     private ObservableList<Person> createBackingList(int taskCount) throws Exception {
@@ -87,7 +88,7 @@ public class TaskListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Returns a .xml file containing {@code taskCount} persons. This file will be deleted when the JVM terminates.
+     * Returns a .xml file containing {@code taskCount} tasks. This file will be deleted when the JVM terminates.
      */
     private Path createXmlFileWithTasks(int taskCount) throws Exception {
         StringBuilder builder = new StringBuilder();
