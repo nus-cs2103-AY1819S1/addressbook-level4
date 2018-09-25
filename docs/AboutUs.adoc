@@ -5,7 +5,7 @@
 :stylesDir: stylesheets
 
 Hallper was developed by https://cs2103-ay1819s1-w16-1.github.io/main/[TEAM W16-1].  +
-+
+
 {empty} +
 We are a TEAM W16-1 based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
@@ -13,8 +13,7 @@ We are a TEAM W16-1 based in the http://www.comp.nus.edu.sg[School of Computing,
 
 === ERIC YANG JIA WEI
 image::ericyjw.jpeg[width="150", align="left"]
-{empty}[https://github.com/ericyjw[github]] [<<ericjyw#, portfolio>>] +
-_{#To add in portfolio#}_ +
+{empty}[https://github.com/ericyjw[github]]
 
 Role: Developer +
 Responsibilities: [To be filled up]
@@ -23,8 +22,7 @@ Responsibilities: [To be filled up]
 
 === JAVEN SEOW YU BIN
 image::javenseow.jpeg[width="150", align="left"]
-{empty}[https://github.com/javenseow[github]] [<<javenseow#, portfolio>>] +
-_{#To add in portfolio#}_
+{empty}[https://github.com/javenseow[github]]
 
 Role: Developer +
 Responsibilities: [#To be filled up#]
@@ -33,8 +31,7 @@ Responsibilities: [#To be filled up#]
 
 === KOK YUAN
 image::eatorbeeaten.jpeg[width="150", align="left"]
-{empty}[https://github.com/eatorbeeaten[github]] [<<eatorbeeaten#, portfolio>>] +
-_{#To add in portfolio#}_
+{empty}[https://github.com/eatorbeeaten[github]]
 
 Role: Developer +
 Responsibilities: [#To be filled up#]
@@ -43,8 +40,7 @@ Responsibilities: [#To be filled up#]
 
 === SHANNA LIM KENG WOON
 image::kengwoon.jpeg[width="150", align="left"]
-{empty}[https://github.com/kengwoon[github]] [<<kengwoon#, portfolio>>] +
-_{#To add in portfolio#}_
+{empty}[https://github.com/kengwoon[github]]
 
 Role: Developer +
 Responsibilities: [#To be filled up#]
@@ -53,12 +49,10 @@ Responsibilities: [#To be filled up#]
 
 === TRAVIS CHING JIA YEA
 image::gilgameshtc.jpeg[width="150", align="left"]
-{empty}[https://github.com/gilgameshtc[github]] [<<gilgameshtc#, portfolio>>] +
-_{#To add in portfolio#}_
+{empty}[https://github.com/gilgameshtc[github]]
+
 
 Role: Developer  +
 Responsibilities: [#To be filled up#]
 
 '''
-
-_{Examples of responsibilities: UI, Data, Dev Ops, Threading, UI}_
