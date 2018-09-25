@@ -5,7 +5,7 @@ package seedu.address.logic.parser;
  */
 public class CliSyntax {
     /* Switch Prefix definitions */
-    public static final Prefix PREFIX_SWITCH= new Prefix("-");
+    public static final Prefix PREFIX_SWITCH = new Prefix("-");
 
     /* Person Prefix definitions */
     public static final Prefix PREFIX_NAME = new Prefix("n/");
