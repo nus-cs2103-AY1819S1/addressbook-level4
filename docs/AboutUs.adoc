@@ -4,53 +4,61 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+Hallper was developed by https://cs2103-ay1819s1-w16-1.github.io/main/[TEAM W16-1].  +
++
 {empty} +
-We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+We are a TEAM W16-1 based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
-
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
-
-'''
-
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== ERIC YANG JIA WEI
+image::ericyjw.jpeg[width="150", align="left"]
+{empty}[https://github.com/ericyjw[github]] [<<ericjyw#, portfolio>>] +
+_{#To add in portfolio#}_ +
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: [To be filled up]
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== JAVEN SEOW YU BIN
+image::javenseow.jpeg[width="150", align="left"]
+{empty}[https://github.com/javenseow[github]] [<<javenseow#, portfolio>>] +
+_{#To add in portfolio#}_
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: [#To be filled up#]
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== KOK YUAN
+image::eatorbeeaten.jpeg[width="150", align="left"]
+{empty}[https://github.com/eatorbeeaten[github]] [<<eatorbeeaten#, portfolio>>] +
+_{#To add in portfolio#}_
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: [#To be filled up#]
 
 '''
+
+=== SHANNA LIM KENG WOON
+image::kengwoon.jpeg[width="150", align="left"]
+{empty}[https://github.com/kengwoon[github]] [<<kengwoon#, portfolio>>] +
+_{#To add in portfolio#}_
+
+Role: Developer +
+Responsibilities: [#To be filled up#]
+
+'''
+
+=== TRAVIS CHING JIA YEA
+image::gilgameshtc.jpeg[width="150", align="left"]
+{empty}[https://github.com/gilgameshtc[github]] [<<gilgameshtc#, portfolio>>] +
+_{#To add in portfolio#}_
+
+Role: Developer  +
+Responsibilities: [#To be filled up#]
+
+'''
+
+_{Examples of responsibilities: UI, Data, Dev Ops, Threading, UI}_
