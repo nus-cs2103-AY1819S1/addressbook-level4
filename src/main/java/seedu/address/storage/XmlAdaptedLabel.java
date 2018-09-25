@@ -3,15 +3,15 @@ package seedu.address.storage;
 import javax.xml.bind.annotation.XmlValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.Label;
 
 /**
- * JAXB-friendly adapted version of the Tag.
+ * JAXB-friendly adapted version of the Label.
  */
 public class XmlAdaptedLabel {
 
     @XmlValue
-    private String tagName;
+    private String labelName;
 
     /**
      * Constructs an XmlAdaptedLabel.
@@ -20,10 +20,10 @@ public class XmlAdaptedLabel {
     public XmlAdaptedLabel() {}
 
     /**
-     * Constructs a {@code XmlAdaptedTag} with the given {@code tagName}.
+     * Constructs a {@code XmlAdaptedTag} with the given {@code labelName}.
      */
-    public XmlAdaptedLabel(String tagName) {
-        this.tagName = tagName;
+    public XmlAdaptedLabel(String labelName) {
+        this.labelName = labelName;
     }
 
     /**
@@ -31,8 +31,8 @@ public class XmlAdaptedLabel {
      *
      * @param source future changes to this will not affect the created
      */
-    public XmlAdaptedLabel(Tag source) {
-        tagName = source.tagName;
+    public XmlAdaptedLabel(Label source) {
+        labelName = source.labelName;
     }
 
     /**
@@ -40,11 +40,11 @@ public class XmlAdaptedLabel {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
-    public Tag toModelType() throws IllegalValueException {
-        if (!Tag.isValidTagName(tagName)) {
-            throw new IllegalValueException(Tag.MESSAGE_TAG_CONSTRAINTS);
+    public Label toModelType() throws IllegalValueException {
+        if (!Label.isValidLabelName(labelName)) {
+            throw new IllegalValueException(Label.MESSAGE_LABEL_CONSTRAINTS);
         }
-        return new Tag(tagName);
+        return new Label(labelName);
     }
 
     @Override
@@ -57,6 +57,6 @@ public class XmlAdaptedLabel {
             return false;
         }
 
-        return tagName.equals(((XmlAdaptedLabel) other).tagName);
+        return labelName.equals(((XmlAdaptedLabel) other).labelName);
     }
 }

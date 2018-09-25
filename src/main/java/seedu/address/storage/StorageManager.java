@@ -12,11 +12,11 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.model.UserPrefs;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of TaskManager data in local storage.
  */
 public class StorageManager extends ComponentManager implements Storage {
 
@@ -49,7 +49,7 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ TaskManager methods ==============================
 
     @Override
     public Path getTaskManagerFilePath() {
@@ -57,23 +57,23 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readTaskManager() throws DataConversionException, IOException {
+    public Optional<ReadOnlyTaskManager> readTaskManager() throws DataConversionException, IOException {
         return readTaskManager(addressBookStorage.getTaskManagerFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readTaskManager(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyTaskManager> readTaskManager(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return addressBookStorage.readTaskManager(filePath);
     }
 
     @Override
-    public void saveTaskManager(ReadOnlyAddressBook addressBook) throws IOException {
+    public void saveTaskManager(ReadOnlyTaskManager addressBook) throws IOException {
         saveTaskManager(addressBook, addressBookStorage.getTaskManagerFilePath());
     }
 
     @Override
-    public void saveTaskManager(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveTaskManager(ReadOnlyTaskManager addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         addressBookStorage.saveTaskManager(addressBook, filePath);
     }

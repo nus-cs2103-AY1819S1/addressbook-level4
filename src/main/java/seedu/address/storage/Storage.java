@@ -7,7 +7,7 @@ import java.util.Optional;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.model.UserPrefs;
 
 /**
@@ -25,10 +25,10 @@ public interface Storage extends TaskManagerStorage, UserPrefsStorage {
     Path getTaskManagerFilePath();
 
     @Override
-    Optional<ReadOnlyAddressBook> readTaskManager() throws DataConversionException, IOException;
+    Optional<ReadOnlyTaskManager> readTaskManager() throws DataConversionException, IOException;
 
     @Override
-    void saveTaskManager(ReadOnlyAddressBook taskManager) throws IOException;
+    void saveTaskManager(ReadOnlyTaskManager taskManager) throws IOException;
 
     /**
      * Saves the current version of the Task Manager to the hard disk.

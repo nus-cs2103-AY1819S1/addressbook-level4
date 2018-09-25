@@ -11,8 +11,8 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.XmlUtil;
-import seedu.address.model.AddressBook;
-import seedu.address.testutil.TypicalPersons;
+import seedu.address.model.TaskManager;
+import seedu.address.testutil.TypicalTasks;
 
 public class XmlSerializableAddressBookTest {
 
@@ -28,9 +28,9 @@ public class XmlSerializableAddressBookTest {
     public void toModelType_typicalTasksFile_success() throws Exception {
         XmlSerializableTaskManager dataFromFile = XmlUtil.getDataFromFile(TYPICAL_TASKS_FILE,
                 XmlSerializableTaskManager.class);
-        AddressBook taskManagerFromFile = dataFromFile.toModelType();
-        AddressBook typicalPersonsAddressBook = TypicalPersons.getTypicalAddressBook();
-        assertEquals(taskManagerFromFile, typicalPersonsAddressBook);
+        TaskManager taskManagerFromFile = dataFromFile.toModelType();
+        TaskManager typicalPersonsAddressBook = TypicalTasks.getTypicalTaskManager();
+        assertEquals(addressBookFromFile, typicalPersonsAddressBook);
     }
 
     @Test

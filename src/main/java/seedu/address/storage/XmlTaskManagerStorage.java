@@ -13,10 +13,10 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyTaskManager;
 
 /**
- * A class to access AddressBook data stored as an xml file on the hard disk.
+ * A class to access TaskManager data stored as an xml file on the hard disk.
  */
 public class XmlTaskManagerStorage implements TaskManagerStorage {
 
@@ -33,7 +33,7 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readTaskManager() throws DataConversionException, IOException {
+    public Optional<ReadOnlyTaskManager> readTaskManager() throws DataConversionException, IOException {
         return readTaskManager(filePath);
     }
 
@@ -42,7 +42,7 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyAddressBook> readTaskManager(Path filePath) throws DataConversionException,
+    public Optional<ReadOnlyTaskManager> readTaskManager(Path filePath) throws DataConversionException,
                                                                                  FileNotFoundException {
         requireNonNull(filePath);
 
@@ -61,15 +61,15 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
     }
 
     @Override
-    public void saveTaskManager(ReadOnlyAddressBook taskManager) throws IOException {
+    public void saveTaskManager(ReadOnlyTaskManager taskManager) throws IOException {
         saveTaskManager(taskManager, filePath);
     }
 
     /**
-     * Similar to {@link #saveTaskManager(ReadOnlyAddressBook)}
+     * Similar to {@link #saveTaskManager(ReadOnlyTaskManager)}
      * @param filePath location of the data. Cannot be null
      */
-    public void saveTaskManager(ReadOnlyAddressBook taskManager, Path filePath) throws IOException {
+    public void saveTaskManager(ReadOnlyTaskManager taskManager, Path filePath) throws IOException {
         requireNonNull(taskManager);
         requireNonNull(filePath);
 

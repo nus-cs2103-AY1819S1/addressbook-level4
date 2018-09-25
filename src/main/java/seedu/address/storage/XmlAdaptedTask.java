@@ -10,13 +10,12 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
+import seedu.address.model.person.Description;
+import seedu.address.model.person.DueDate;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-/* TODO use Label */
-import seedu.address.model.tag.Tag;
+import seedu.address.model.person.PriorityValue;
+import seedu.address.model.person.Task;
+import seedu.address.model.tag.Label;
 
 /**
  * JAXB-friendly version of the Task.
@@ -38,13 +37,13 @@ public class XmlAdaptedTask {
     private List<XmlAdaptedLabel> labelled = new ArrayList<>();
 
     /**
-     * Constructs an XmlAdaptedPerson.
+     * Constructs an XmlAdaptedTask.
      * This is the no-arg constructor that is required by JAXB.
      */
     public XmlAdaptedTask() {}
 
     /**
-     * Constructs an {@code XmlAdaptedPerson} with the given person details.
+     * Constructs an {@code XmlAdaptedTask} with the given person details.
      */
     public XmlAdaptedTask(String name, String phone, String email, String address, List<XmlAdaptedLabel> labelled) {
         this.name = name;
@@ -76,8 +75,8 @@ public class XmlAdaptedTask {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
-    public Person toModelType() throws IllegalValueException {
-        final List<Tag> taskLabels = new ArrayList<>();
+    public Task toModelType() throws IllegalValueException {
+        final List<Label> taskLabels = new ArrayList<>();
         for (XmlAdaptedLabel label : labelled) {
             taskLabels.add(label.toModelType());
         }
@@ -91,31 +90,33 @@ public class XmlAdaptedTask {
         final Name modelName = new Name(name);
 
         if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, DueDate.class.getSimpleName()));
         }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_PHONE_CONSTRAINTS);
+        if (!DueDate.isValidDueDate(phone)) {
+            throw new IllegalValueException(DueDate.MESSAGE_DUEDATE_CONSTRAINTS);
         }
-        final Phone modelPhone = new Phone(phone);
+        final DueDate modelPhone = new DueDate(phone);
 
         if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    PriorityValue.class.getSimpleName()));
         }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_EMAIL_CONSTRAINTS);
+        if (!PriorityValue.isValidPriorityValue(email)) {
+            throw new IllegalValueException(PriorityValue.MESSAGE_PRIORITYVALUE_CONSTRAINTS);
         }
-        final Email modelEmail = new Email(email);
+        final PriorityValue modelEmail = new PriorityValue(email);
 
         if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Description.class.getSimpleName()));
         }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
+        if (!Description.isValidDescription(address)) {
+            throw new IllegalValueException(Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
+        final Description modelAddress = new Description(address);
 
-        final Set<Tag> modelLabels = new HashSet<>(taskLabels);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelLabels);
+        final Set<Label> modelLabels = new HashSet<>(taskLabels);
+        return new Task(modelName, modelPhone, modelEmail, modelAddress, modelLabels);
     }
 
     @Override
