@@ -5,7 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.ArrayList;
 
-
+//@@author Jiang Chen
 /**
  * Represent a category of expenses.
  * Guarantee: details are present and not null, filed values are validated, immutable.
@@ -14,14 +14,12 @@ public class Category {
     public static final String MESSAGE_CATEGORY_CONSTRAINTS =
             "Category can take any values, and it should not be blank";
 
-    /*
-     * The first character of the category must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
-    public static final String CATEGORY_VALIDATION_REGEX = "[^\\s].*";
+    public static final String CATEGORY_VALIDATION_REGEX = "\\p{Alnum}";
+
 
     public final String categoryName;
-    public final ArrayList<Expense> expenseList;
+
+    public final ArrayList<Expense> expenseList = new ArrayList<>();
 
     /**
      * Constructs an {@code Category}.
@@ -32,7 +30,14 @@ public class Category {
         requireNonNull(category);
         checkArgument(isValidCategory(category), MESSAGE_CATEGORY_CONSTRAINTS);
         categoryName = category;
-        expenseList = new ArrayList<>();
+    }
+
+    /**
+     * Constructor for an empty {@code Category}
+     * If the user didn't enter the name of category, the expense will be put under "Default" category.
+     */
+    public Category() {
+        categoryName = "Default";
     }
 
     /**
@@ -48,6 +53,10 @@ public class Category {
 
     @Override
     public String toString() {
+        String categoryString = "";
+        for (Expense i : expenseList){
+            categoryString += i;
+        }
         return categoryName;
     }
 
