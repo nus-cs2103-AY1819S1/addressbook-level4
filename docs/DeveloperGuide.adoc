@@ -861,7 +861,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |view contacts by tags |locate contacts in my different social circles easily
 
-|`* *` |user |receive a toast for every action |be assured of the changes made
+|`* * *` |user |receive a toast for every action |be assured of the changes made
 
 |`* *` |user |choose what notifications I would like to receive |minimize distractions from the app
 
