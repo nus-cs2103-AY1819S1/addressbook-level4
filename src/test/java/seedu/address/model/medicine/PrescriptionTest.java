@@ -1,5 +1,6 @@
 package seedu.address.model.medicine;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -81,5 +82,11 @@ public class PrescriptionTest {
         Prescription p2 = new Prescription(name, differentDose, duration);
 
         assertFalse(p1.equals(p2));
+    }
+
+    @Test
+    public void toStringTest() {
+        Prescription p1 = new Prescription(name, dose, duration);
+        assertEquals(name + " | " + dose.toString() + " | " + duration.toString(), p1.toString());
     }
 }

@@ -2,6 +2,7 @@ package seedu.address.model.medicine;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 //@@author snajef
 /**
@@ -18,11 +19,13 @@ public class PrescriptionList {
     }
 
     public PrescriptionList(List<Prescription> medicineList) {
+        Objects.requireNonNull(medicineList);
         this.medicineList = new ArrayList<>(medicineList);
     }
 
     public PrescriptionList(PrescriptionList prescriptionList) {
-        this.medicineList = new ArrayList<>(prescriptionList.medicineList);
+        Objects.requireNonNull(prescriptionList);
+        this.medicineList = new ArrayList<>(Objects.requireNonNull(prescriptionList.medicineList));
     }
 
     /**
@@ -45,6 +48,20 @@ public class PrescriptionList {
         medicineList.remove(med);
     }
 
+    /**
+     * Checks if a given medication exists in the list.
+     * @param med The prescription to check against.
+     * @return true iff the prescription is contained in the list, false otherwise.
+     */
+    public boolean contains(Prescription med) {
+        for (Prescription p : medicineList) {
+            if (p.equals(med)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -63,7 +80,8 @@ public class PrescriptionList {
 
         if (o instanceof PrescriptionList) {
             PrescriptionList ml = (PrescriptionList) o;
-            return medicineList.containsAll(ml.medicineList);
+            return medicineList.size() == ml.medicineList.size()
+                    && medicineList.containsAll(ml.medicineList);
         }
 
         return false;

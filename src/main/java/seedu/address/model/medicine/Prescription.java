@@ -31,8 +31,7 @@ public class Prescription {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append(medName).append(DIVIDER).append(dose.toString()).append(DIVIDER).append(duration.toString())
-        .append(DIVIDER);
+        sb.append(medName).append(DIVIDER).append(dose.toString()).append(DIVIDER).append(duration.toString());
 
         return sb.toString();
     }
@@ -49,5 +48,26 @@ public class Prescription {
         }
 
         return false;
+    }
+
+    /**
+     * Getter method for the drug name.
+     */
+    public String getDrugName() {
+        return medName;
+    }
+
+    /**
+     * Getter method for the Dose.
+     */
+    public Dose getDose() {
+        return dose;
+    }
+
+    /**
+     * Getter method for the Duration.
+     */
+    public Duration getDuration() {
+        return duration;
     }
 }

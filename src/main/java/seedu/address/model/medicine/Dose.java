@@ -44,6 +44,16 @@ public class Dose {
         dosesPerDay = dpd;
     }
 
+    /**
+     * Defensive copy c'tor.
+     * @param d The Dose object to defensively copy.
+     */
+    public Dose(Dose d) {
+        dose = d.dose;
+        doseUnit = d.doseUnit;
+        dosesPerDay = d.dosesPerDay;
+    }
+
     @Override
     public String toString() {
         return Double.toString(dose) + " " + doseUnit + " " + fuzzyStringRepresentation(dosesPerDay);
@@ -70,6 +80,18 @@ public class Dose {
         default:
             return dpd + " times a day.";
         }
+    }
+
+    public double getDose() {
+        return dose;
+    }
+
+    public String getDoseUnit() {
+        return doseUnit;
+    }
+
+    public int getDosesPerDay() {
+        return dosesPerDay;
     }
 
     @Override
