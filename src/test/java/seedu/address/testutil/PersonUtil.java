@@ -1,10 +1,10 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY_VALUE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DUE_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LABEL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY_VALUE;
 
 import java.util.Set;
 
@@ -47,8 +47,10 @@ public class PersonUtil {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getDueDate().ifPresent(phone -> sb.append(PREFIX_DUE_DATE).append(phone.value).append(" "));
-        descriptor.getPriorityValue().ifPresent(email -> sb.append(PREFIX_PRIORITY_VALUE).append(email.value).append(" "));
-        descriptor.getDescription().ifPresent(address -> sb.append(PREFIX_DESCRIPTION).append(address.value).append(" "));
+        descriptor.getPriorityValue().ifPresent(email -> sb.append(PREFIX_PRIORITY_VALUE)
+            .append(email.value).append(" "));
+        descriptor.getDescription().ifPresent(address -> sb.append(PREFIX_DESCRIPTION)
+            .append(address.value).append(" "));
         if (descriptor.getLabels().isPresent()) {
             Set<Label> tags = descriptor.getLabels().get();
             if (tags.isEmpty()) {

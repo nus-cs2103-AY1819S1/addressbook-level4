@@ -3,10 +3,10 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY_VALUE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DUE_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LABEL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY_VALUE;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -32,7 +32,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DUE_DATE, PREFIX_PRIORITY_VALUE, PREFIX_DESCRIPTION, PREFIX_LABEL);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DUE_DATE,
+                    PREFIX_PRIORITY_VALUE, PREFIX_DESCRIPTION, PREFIX_LABEL);
 
         Index index;
 
@@ -50,7 +51,8 @@ public class EditCommandParser implements Parser<EditCommand> {
             editTaskDescriptor.setDueDate(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_DUE_DATE).get()));
         }
         if (argMultimap.getValue(PREFIX_PRIORITY_VALUE).isPresent()) {
-            editTaskDescriptor.setPriorityValue(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_PRIORITY_VALUE).get()));
+            editTaskDescriptor.setPriorityValue(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_PRIORITY_VALUE)
+                .get()));
         }
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
             editTaskDescriptor.setDescription(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
