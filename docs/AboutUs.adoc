@@ -1,7 +1,7 @@
 = About Us
 :site-section: AboutUs
 :relfileprefix: team/
-:imagesDir: images/team-members
+:imagesDir: images
 :stylesDir: stylesheets
 
 address-book Team! +
@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Bobbie Ramadhani Soedirgo
-image::dan-delion.jpeg[width="150", align="left"]
+image::dan-delion.png[width="150", align="left"]
 {empty}[https://github.com/dan-delion[github]] [<<dan-delion#, portfolio>>]
 
 '''
@@ -29,7 +29,7 @@ image::kevvvinn.png[width="150", align="left"]
 '''
 
 === Lim Yu Xi
-image::swiftkage.jpeg[width="150", align="left"]
+image::swiftkage.png[width="150", align="left"]
 {empty}[https://github.com/swiftkage[github]] [<<swiftkage#, portfolio>>]
 
 '''
