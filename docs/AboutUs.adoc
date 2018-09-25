@@ -25,7 +25,7 @@ image::kaiting.jpg[width="150", align="left"]
 {empty}[http://github.com/kaitingpeck[github]]
 
 Role: Developer +
-Responsibilities: Scheduling and Tracking, Documentation +
+Responsibilities: Scheduling and Tracking, Documentation, Set up Travis, Coveralls & Appveyor +
 Component: Logic
 
 '''
@@ -55,7 +55,7 @@ image::ryan.jpg[width="150", align="left"]
 {empty}[http://github.com/ryantanwk[github]]
 
 Role: Developer +
-Responsibilities: Integration, Testing +
+Responsibilities: Integration, Testing, Set up team org and repo +
 Component: Logic
 
 '''
