@@ -11,8 +11,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class EmailAddress {
 
     private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";
-    public static final String MESSAGE_EMAIL_CONSTRAINTS = "Emails should be of the format local-part@domain "
-            + "and adhere to the following constraints:\n"
+    public static final String MESSAGE_EMAIL_ADDRESS_CONSTRAINTS = "Email addresses should be of the format "
+            + "local-part@domain and adhere to the following constraints:\n"
             + "1. The local-part should only contain alphanumeric characters and these special characters, excluding "
             + "the parentheses, (" + SPECIAL_CHARACTERS + ") .\n"
             + "2. This is followed by a '@' and then a domain name. "
@@ -25,7 +25,7 @@ public class EmailAddress {
     private static final String DOMAIN_FIRST_CHARACTER_REGEX = "[^\\W_]"; // alphanumeric characters except underscore
     private static final String DOMAIN_MIDDLE_REGEX = "[a-zA-Z0-9.-]*"; // alphanumeric, period and hyphen
     private static final String DOMAIN_LAST_CHARACTER_REGEX = "[^\\W_]$";
-    public static final String EMAIL_VALIDATION_REGEX = LOCAL_PART_REGEX + "@"
+    public static final String EMAIL_ADDRESS_VALIDATION_REGEX = LOCAL_PART_REGEX + "@"
             + DOMAIN_FIRST_CHARACTER_REGEX + DOMAIN_MIDDLE_REGEX + DOMAIN_LAST_CHARACTER_REGEX;
 
     public final String value;
@@ -37,7 +37,7 @@ public class EmailAddress {
      */
     public EmailAddress(String emailAddress) {
         requireNonNull(emailAddress);
-        checkArgument(isValidEmailAddress(emailAddress), MESSAGE_EMAIL_CONSTRAINTS);
+        checkArgument(isValidEmailAddress(emailAddress), MESSAGE_EMAIL_ADDRESS_CONSTRAINTS);
         value = emailAddress;
     }
 
@@ -45,7 +45,7 @@ public class EmailAddress {
      * Returns if a given string is a valid email.
      */
     public static boolean isValidEmailAddress(String test) {
-        return test.matches(EMAIL_VALIDATION_REGEX);
+        return test.matches(EMAIL_ADDRESS_VALIDATION_REGEX);
     }
 
     @Override

@@ -14,7 +14,7 @@ public class Subject {
             "Subject can take any values, and it should not be blank";
 
     /*
-     * The first character of the address must not be a whitespace,
+     * The first character of the subject must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String SUBJECT_VALIDATION_REGEX = "[^\\s].*";
