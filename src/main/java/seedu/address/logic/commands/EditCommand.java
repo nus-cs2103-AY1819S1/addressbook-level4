@@ -124,7 +124,8 @@ public class EditCommand extends Command {
 
         // state check
         EditCommand e = (EditCommand) other;
-        return index.equals(e.index) && editPersonDescriptor.equals(e.editPersonDescriptor);
+        return index.equals(e.index)
+                && editPersonDescriptor.equals(e.editPersonDescriptor);
     }
 
     /**
@@ -139,8 +140,7 @@ public class EditCommand extends Command {
         private Address address;
         private Set<Tag> tags;
 
-        public EditPersonDescriptor() {
-        }
+        public EditPersonDescriptor() {}
 
         /**
          * Copy constructor. A defensive copy of {@code tags} is used internally.
@@ -236,8 +236,11 @@ public class EditCommand extends Command {
             // state check
             EditPersonDescriptor e = (EditPersonDescriptor) other;
 
-            return getNric().equals(e.getNric()) && getName().equals(e.getName()) && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail()) && getAddress().equals(e.getAddress())
+            return getNric().equals(e.getNric())
+                    && getName().equals(e.getName())
+                    && getPhone().equals(e.getPhone())
+                    && getEmail().equals(e.getEmail())
+                    && getAddress().equals(e.getAddress())
                     && getTags().equals(e.getTags());
         }
     }
