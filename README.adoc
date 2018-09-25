@@ -1,21 +1,18 @@
 = Sous Chef
-:imagesDir: docs/images/
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-https://travis-ci.org/se-edu/addressbook-level4[image:https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master[Build Status]]
-https://ci.appveyor.com/project/damithc/addressbook-level4[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
-https://coveralls.io/github/se-edu/addressbook-level4?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master[Coverage Status]]
-https://www.codacy.com/app/damith/addressbook-level4?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level4&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
-https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
+https://travis-ci.org/CS2103-AY1819S1-W10-4/main[image:https://travis-ci.org/CS2103-AY1819S1-W10-4/main.svg?branch=master[Build Status]]
+https://ci.appveyor.com/project/junrong09/main/[image:https://ci.appveyor.com/api/projects/status/q6diymp0j7s1jwe6?svg=true[Build status]]
+https://coveralls.io/github/CS2103-AY1819S1-W10-4/main?branch=master[image:https://coveralls.io/repos/github/CS2103-AY1819S1-W10-4/main/badge.svg?branch=master[Coverage Status]]
+https://www.codacy.com/app/junrong09/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CS2103-AY1819S1-W10-4/main&amp;utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/b07a7090a6e949a1a700c5926da3f564[Codacy Badge]]
 
-//ifdef::env-github[]
-//image::docs/images/Ui.png[width="600"]
-//endif::[]
-//
-//ifndef::env-github[]
-//image::images/Ui.png[width="600"]
-//endif::[]
-image::title.png[width="700", align="left"]
+ifdef::env-github[]
+image::docs/images/title.png[width="700", align="left"]
+endif::[]
+
+ifndef::env-github[]
+image::images/title.png[width="700", align="left"]
+endif::[]
 == About
 Souschef is your smart cooking sidekick, offering personalised guidance every step of the way.
 From recipe recommendations just for you, to meal planning and inventory management,
@@ -36,7 +33,13 @@ Cooking at home can never be easier.
 Schedule a recipe at exactly the time you want and we will plan the cook time for
 you. Sous Chef keeps the worries at the back of your mind.
 
-image::ui.png[width="700", align="left"]
+ifdef::env-github[]
+image::docs/images/Ui.png[width="700", align="left"]
+endif::[]
+
+ifndef::env-github[]
+image::images/Ui.png[width="700", align="left"]
+endif::[]
 == User-oriented
 The application works with a Command Line Interface (CLI) for speedy provision
 of recipe choices, management of your cooking plan while guiding you through the
@@ -47,7 +50,6 @@ keep cooking as simple as ABC.
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 

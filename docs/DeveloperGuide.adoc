@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= Sous Chef - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,9 +13,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-W10-4/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W10-4`      Since: `Sep 2018`      Licence: `MIT`
 
 == Setting up
 
@@ -901,22 +901,22 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 === Ingredient Management
 [discrete]
-=== Use case: List Ingredient
+=== Use case: UC11 – List Ingredient
 
 *MSS*
 
-1. User requests to list ingredients
-2. System shows list of ingredients
+1. User requests to list ingredients.
+2. System shows list of ingredients.
 +
 Use case ends.
 
 [discrete]
-=== Use case: Add Ingredient
+=== Use case: UC12 – Add Ingredient
 
 *MSS*
 
-1. User requests to add an ingredient
-2. System adds the ingredient at the rear of the list and shows the list
+1. User requests to add an ingredient.
+2. System adds the ingredient at the rear of the list and shows the list.
 +
 Use case ends.
 
@@ -931,12 +931,12 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Edit Ingredient
+=== Use case: UC13 – Edit Ingredient
 
 *MSS*
 
-1. User requests to edit an ingredient
-2. System reflects the change to the list and show the list
+1. User requests to edit an ingredient.
+2. System reflects the change to the list and show the list.
 +
 Use case ends.
 
@@ -951,12 +951,12 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Delete Ingredient
+=== Use case: UC14 – Delete Ingredient
 
 *MSS*
 
-1. User requests to delete an ingredient
-2. System deletes the ingredient and shows the list
+1. User requests to delete an ingredient.
+2. System deletes the ingredient and shows the list.
 +
 Use case ends.
 
@@ -971,71 +971,71 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Find Ingredient
+=== Use case: UC15 – Find Ingredient
 
 *MSS*
 
-1. User requests to find ingredients
-2. System show the list of ingredients that contains the keywords
+1. User requests to find ingredients.
+2. System show the list of ingredients that contains the keywords.
 +
 Use case ends.
 
 [discrete]
-=== Use case: Search recipes based on ingredients manager availability
+=== Use case: UC16 – Search recipes based on ingredients manager availability
 
 *MSS*
 
-1. User list ingredients (UC11)
-2. System shows the list of recipes in order of most number of ingredients in IM included
-3. User selects both mandatory and desirable ingredients for the search
-4. System shows the list of recipes in order of most number of ingredients selected
-5. User selects a recipe
-6. System shows recipe specifying missing ingredients and its amount, calculated according to number of servings
+1. User +++<u>list ingredients (UC11)</u>+++.
+2. System shows the list of recipes in order of most number of ingredients in IM included.
+3. User selects both mandatory and desirable ingredients for the search.
+4. System shows the list of recipes in order of most number of ingredients selected.
+5. User selects a recipe.
+6. System shows recipe specifying missing ingredients and its amount, calculated according to number of servings.
 +
 Use case ends.
 
 === Meal Planner
 [discrete]
-=== Use case: Add recipe to meal planner
+=== Use case: UC21 – Add recipe to meal planner
 
 *MSS*
 
-1. User requests to list available recipes
-2. System shows list of available recipes
+1. User requests to list available recipes.
+2. System shows list of available recipes.
 3. User selects desired recipe and adds it to the desired meal slot.
 4. System shows the recipe listed under the indicated meal slot.
 +
 Use case ends.
 
 [discrete]
-=== Use case: Delete recipe from meal planner
+=== Use case: UC22 – Delete recipe from meal planner
 
 *MSS*
 
-1. User requests to view current meal plan
-2. System shows current meal plan
-3. User requests to delete unwanted recipe
-4. System shows specified meal slot as empty
+1. User requests to view current meal plan.
+2. System shows current meal plan.
+3. User requests to delete unwanted recipe.
+4. System shows specified meal slot as empty.
 +
 Use case ends.
 
 [discrete]
-=== Use case: View meal plan
+=== Use case: UC23 – View meal plan
 
 *MSS*
 
-1. User requests to view current meal plan
-2. System shows current full meal plan
+1. User requests to view current meal plan.
+2. System shows current full meal plan.
 +
 Use case ends.
 
 [discrete]
-=== Use case: View meal recipe
+=== Use case: UC24 – View meal recipe
 
 *MSS*
 
-1. User requests to view recipe for a specific meal slot
-2. System shows the full recipe of the specified meal slot
+1. User requests to view recipe for a specific meal slot.
+2. System shows the full recipe of the specified meal slot.
 +
 Use case ends.
 
@@ -1043,34 +1043,34 @@ Use case ends.
 
 === Recipes Management and cook-mode
 [discrete]
-==== Use case: UC01 – Search for Recipe
+==== Use case: UC41 – Search for Recipe
 *MSS*
 
 1.	User chooses to search for recipe.
 2.	System requests for details.
 3.	User enters keywords.
 4.	System displays recipes.
-5.	System suggests ways to refine result
+5.	System suggests ways to refine result.
 +
 Steps 3 – 5 are repeated until search result becomes too narrow or user choose to look at existing result.
 +
 Use case ends.
 
 [discrete]
-==== Use case: UC02 – View Recipe
+==== Use case: UC42 – View Recipe
 *MSS*
 
-1.	User +++<u>searches for recipe (UC01)</u>+++.
+1.	User +++<u>searches for recipe (UC41)</u>+++.
 2.	User chooses a recipe.
 3.	System displays recipe details.
 +
 Use case ends.
 
 [discrete]
-==== Use case: UC04 – Navigate Recipe
+==== Use case: UC44 – Navigate Recipe
 *MSS*
 
-1.	User +++<u>views recipe (UC02)</u>+++.
+1.	User +++<u>views recipe (UC42)</u>+++.
 2.	User chooses to enter navigation mode.
 3.	System displays instruction.
 4.	User chooses next instruction.
@@ -1096,7 +1096,7 @@ Use case resumes at step 3.
 Use case resumes at step 3.
 
 [discrete]
-==== Use case: UC05 – Add Recipe
+==== Use case: UC45 – Add Recipe
 *MSS*
 
 1.	User chooses to add recipe.
@@ -1117,13 +1117,13 @@ Use case ends.
 
 === Health planner
 [discrete]
-==== Use case: Create plan
+==== Use case: UC51 – Create plan
 
 *MSS*
 
-1. User requests to create a plan
-2. User enters details for the plan
-3. AddressBook creates the plan
+1. User requests to create a plan.
+2. User enters details for the plan.
+3. AddressBook creates the plan.
 +
 Use case ends.
 
@@ -1138,14 +1138,14 @@ Use case ends.
 Use case resumes at 2.
 
 [discrete]
-==== Use case: Edit plan
+==== Use case: UC52 – Edit plan
 
 *MSS*
 
-1. User requests to edit a plan
-2. AddressBook retrieves the list of plans by user
-3. User select the plan to edit
-4. User enters the new details to the plan
+1. User requests to edit a plan.
+2. AddressBook retrieves the list of plans by user.
+3. User select the plan to edit.
+4. User enters the new details to the plan.
 5. AddressBook updates the details.
 +
 Use case ends.
@@ -1153,48 +1153,48 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a. No prior plan
+* 2a. No prior plan.
 +
 Use case ends.
 
 [none]
-* 4a. Invalid details
+* 4a. Invalid details.
 +
 [none]
-** 4a1. AddressBook shows an error message
+** 4a1. AddressBook shows an error message.
 +
 Use case returns to 4.
 
 [discrete]
-==== Use case: Delete plan
+==== Use case: UC53 – Delete plan
 
 *MSS*
 
-1. User requests to delete plan
-2. AddressBook shows list of plans
-3. User selects plan to delete
-4. AddressBook deletes the selected plan
+1. User requests to delete plan.
+2. AddressBook shows list of plans.
+3. User selects plan to delete.
+4. AddressBook deletes the selected plan.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. No pre-existing plan
+* 2a. No pre-existing plan.
 +
 Use case ends.
 
 [discrete]
-==== Use case: Enter dietary intakes for the day
+==== Use case: UC54 – Enter dietary intakes for the day
 
 *MSS*
 
-1. User request to enter intake
-2. AddressBook shows list of plans
-3. User selects plan from list
-4. AddressBook shows list of recipes to select
-5. User selects recipe to add into list
-6. AddressBook adds the recipe to list
+1. User request to enter intake.
+2. AddressBook shows list of plans.
+3. User selects plan from list.
+4. AddressBook shows list of recipes to select.
+5. User selects recipe to add into list.
+6. AddressBook adds the recipe to list.
 +
 Use case ends.
 
@@ -1206,18 +1206,18 @@ Use case ends.
 Use case ends.
 
 [none]
-* 4a. No recipe to show
+* 4a. No recipe to show.
 +
 Use case ends.
 
 [discrete]
-==== Use case: Remove an recipe from the dietary intakes for the day
+==== Use case: UC55 – Remove an recipe from the dietary intakes for the day
 
 *MSS*
 
-1. User request to remove recipe from intake list
-2. AddressBook shows list of recipes
-3. User selects recipe from the list
+1. User request to remove recipe from intake list.
+2. AddressBook shows list of recipes.
+3. User selects recipe from the list.
 4. AddressBook removes the selected recipe from the list.
 +
 Use case ends.
@@ -1225,28 +1225,28 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a. No prior ingredient
+* 2a. No prior ingredient.
 +
 Use case ends.
 
 [discrete]
-==== Use case: View nutritional Intake
+==== Use case: UC56 – View nutritional Intake
 
 *MSS*
 
-1. User requests to view nutritional intake entered
-2. AddressBook retrieves the list of intakes to show the user
+1. User requests to view nutritional intake entered.
+2. AddressBook retrieves the list of intakes to show the user.
 3. AddressBook retrieves the nutritional facts based on the recipes in the list to show the user.
 
 *Extensions*
 
 [none]
-* 2a. No data entered previously
+* 2a. No data entered previously.
 +
 Use case ends.
 
 [discrete]
-==== Use case: Compare actual intake against target
+==== Use case: UC57 – Compare actual intake against target
 
 *MSS*
 
@@ -1256,12 +1256,6 @@ Use case ends.
 4. AddressBook calculates the difference in the 2 scores and shows the user the percentage difference(positive or negative) from set target.
 +
 Use case ends.
-
-
-
-
-
-_{More to be added}_
 
 [appendix]
 == Non Functional Requirements
