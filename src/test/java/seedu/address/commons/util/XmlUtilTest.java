@@ -138,9 +138,9 @@ public class XmlUtilTest {
     }
 
     /**
-     * Test class annotated with {@code XmlRootElement} to allow unmarshalling of .xml data to {@code XmlAdaptedPerson}
+     * Test class annotated with {@code XmlRootElement} to allow unmarshalling of .xml data to {@code XmlAdaptedTask}
      * objects.
      */
-    @XmlRootElement(name = "person")
+    @XmlRootElement(name = "task")
     private static class XmlAdaptedPersonWithRootElement extends XmlAdaptedTask {}
 }
