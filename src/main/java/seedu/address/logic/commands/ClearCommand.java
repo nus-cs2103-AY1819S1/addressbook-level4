@@ -2,12 +2,14 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.ContactContainsTagPredicate;
 import seedu.address.model.person.Person;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,13 +29,16 @@ public class ClearCommand extends Command {
     private final ContactContainsTagPredicate predicate;
 
     private final List<String> target;
-    private List<Person> toClear;
+    private ArrayList<Person> toClear;
+    private List<Person> fullList;
     private boolean clearAll;
 
     public ClearCommand(List<String> target, ContactContainsTagPredicate predicate) {
         this.target = target;
         this.predicate = predicate;
         this.clearAll = false;
+        this.toClear = new ArrayList<>();
+        this.fullList = new ArrayList<>();
     }
 
     @Override
@@ -50,10 +55,11 @@ public class ClearCommand extends Command {
             model.commitAddressBook();
             return new CommandResult(MESSAGE_CLEAR_ALL_SUCCESS);
         } else {
-            toClear = model.getAddressBook().getPersonList();
-            for (Person p : toClear) {
+            toClear.clear();
+            fullList = model.getAddressBook().getPersonList();
+            for (Person p : fullList) {
                 if (new ContactContainsTagPredicate(target).test(p)) {
-                    toClear.remove(p);
+                    toClear.add(p);
                 }
             }
             model.clearMultiplePersons(toClear);

@@ -20,8 +20,15 @@ public class ContactContainsTagPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
-        return keywords.stream()
-                .noneMatch(keyword -> person.getTags().stream().noneMatch(key -> keyword.equals(key.toString())));
+        Set<Tag> tags = person.getTags();
+        for (String s : keywords) {
+            for (Tag t : tags) {
+                if (s.equals(t.toStringOnly())) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     @Override
