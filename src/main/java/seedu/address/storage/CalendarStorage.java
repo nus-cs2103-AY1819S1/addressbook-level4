@@ -18,8 +18,9 @@ public interface CalendarStorage {
     /**
      * Creates the given Calendar to the storage.
      * @param calendar cannot be null.
+     * @param calendarName the name of the calendar to be created.
      * @throws IOException if there was any problem writing to the file.
      */
-    void createCalendar(Calendar calendar) throws IOException;
+    void createCalendar(Calendar calendar, String calendarName) throws IOException;
 
 }
