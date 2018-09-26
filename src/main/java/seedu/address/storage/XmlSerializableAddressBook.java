@@ -49,10 +49,10 @@ public class XmlSerializableAddressBook {
         AddressBook addressBook = new AddressBook();
         for (XmlAdaptedRecipe p : recipes) {
             Recipe recipe = p.toModelType();
-            if (addressBook.hasPerson(recipe)) {
+            if (addressBook.hasRecipe(recipe)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addPerson(recipe);
+            addressBook.addRecipe(recipe);
         }
         return addressBook;
     }
