@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.event.Event;
+import seedu.address.model.person.CurrentUser;
 import seedu.address.model.person.Person;
 
 /**
@@ -91,4 +92,6 @@ public interface Model {
     void deleteEvent(Event target);
 
     Event getEvent(Index targetIndex);
+
+    void setCurrentUser(CurrentUser currentUser);
 }
