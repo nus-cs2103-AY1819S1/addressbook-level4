@@ -11,7 +11,7 @@ public class Username {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    private static final String USERNAME_VALIDATION_REGEX = "[_a-zA-Z0-9\\-\\.]+";
+    private static final String USERNAME_VALIDATION_REGEX = "[_a-zA-Z0-9\\-. ]+";
 
     public final String name;
 
