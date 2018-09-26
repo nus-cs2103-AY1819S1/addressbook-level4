@@ -3,6 +3,8 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -12,6 +14,9 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.UserLoggedInEvent;
+import seedu.address.model.exceptions.NoUserSelectedException;
+import seedu.address.model.exceptions.NonExistantUserException;
 import seedu.address.model.expense.Person;
 
 /**
@@ -20,8 +25,23 @@ import seedu.address.model.expense.Person;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAddressBook versionedAddressBook;
-    private final FilteredList<Person> filteredPersons;
+    private VersionedAddressBook versionedAddressBook;
+    private FilteredList<Person> filteredPersons;
+    private String username;
+    private final Map<String, ReadOnlyAddressBook> addressBooks;
+
+    /**
+     * Initializes a ModelManager with the given addressBooks and userPrefs.
+     */
+    public ModelManager(Map<String, ReadOnlyAddressBook> addressBooks, UserPrefs userPrefs) {
+        super();
+        requireAllNonNull(addressBooks, userPrefs);
+        this.addressBooks = addressBooks;
+        logger.fine("Initializing with address book: " + addressBooks + " and user prefs " + userPrefs);
+        username = null;
+        versionedAddressBook = null;
+        filteredPersons = null;
+    }
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -32,51 +52,62 @@ public class ModelManager extends ComponentManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
+        this.addressBooks = null;
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
     }
 
+
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new HashMap<>(), new UserPrefs());
     }
 
     @Override
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyAddressBook newData) throws NoUserSelectedException {
         versionedAddressBook.resetData(newData);
         indicateAddressBookChanged();
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyAddressBook getAddressBook() throws NoUserSelectedException {
+        if (versionedAddressBook == null) {
+            throw new NoUserSelectedException();
+        }
         return versionedAddressBook;
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
+    private void indicateAddressBookChanged() throws NoUserSelectedException {
+        if (versionedAddressBook == null) {
+            throw new NoUserSelectedException();
+        }
         raise(new AddressBookChangedEvent(versionedAddressBook));
     }
 
     @Override
-    public boolean hasPerson(Person person) {
+    public boolean hasPerson(Person person) throws NoUserSelectedException {
         requireNonNull(person);
+        if (versionedAddressBook == null) {
+            throw new NoUserSelectedException();
+        }
         return versionedAddressBook.hasPerson(person);
     }
 
     @Override
-    public void deletePerson(Person target) {
+    public void deletePerson(Person target) throws NoUserSelectedException {
         versionedAddressBook.removePerson(target);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void addPerson(Person person) {
+    public void addPerson(Person person) throws NoUserSelectedException {
         versionedAddressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void updatePerson(Person target, Person editedPerson) {
+    public void updatePerson(Person target, Person editedPerson) throws NoUserSelectedException {
         requireAllNonNull(target, editedPerson);
 
         versionedAddressBook.updatePerson(target, editedPerson);
@@ -90,20 +121,29 @@ public class ModelManager extends ComponentManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
+    public ObservableList<Person> getFilteredPersonList() throws NoUserSelectedException {
+        if (versionedAddressBook == null) {
+            throw new NoUserSelectedException();
+        }
         return FXCollections.unmodifiableObservableList(filteredPersons);
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredPersonList(Predicate<Person> predicate) throws NoUserSelectedException {
         requireNonNull(predicate);
+        if (versionedAddressBook == null) {
+            throw new NoUserSelectedException();
+        }
         filteredPersons.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
+    public boolean canUndoAddressBook() throws NoUserSelectedException {
+        if (versionedAddressBook == null) {
+            throw new NoUserSelectedException();
+        }
         return versionedAddressBook.canUndo();
     }
 
@@ -113,20 +153,54 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void undoAddressBook() {
+    public void undoAddressBook() throws NoUserSelectedException {
         versionedAddressBook.undo();
         indicateAddressBookChanged();
     }
 
     @Override
-    public void redoAddressBook() {
+    public void redoAddressBook() throws NoUserSelectedException {
         versionedAddressBook.redo();
         indicateAddressBookChanged();
     }
 
     @Override
-    public void commitAddressBook() {
+    public void commitAddressBook() throws NoUserSelectedException {
+        if (versionedAddressBook == null) {
+            throw new NoUserSelectedException();
+        }
         versionedAddressBook.commit();
+    }
+
+    //=========== Login =================================================================================
+    @Override
+    public void loadUserData(String username) {
+        if (!isUserExists(username)) {
+            throw new NonExistantUserException();
+        }
+        versionedAddressBook = new VersionedAddressBook(addressBooks.get(username));
+        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        this.username = username;
+        try {
+            indicateUserLoggedIn();
+            indicateAddressBookChanged();
+        } catch (NoUserSelectedException nuse) {
+            //TODO: fix
+            throw new IllegalStateException();
+        }
+    }
+
+    @Override
+    public boolean isUserExists(String toCheck) {
+        return addressBooks.containsKey(toCheck);
+    }
+
+    /** Raises an event to indicate the user has logged in and has been processed by the model*/
+    private void indicateUserLoggedIn() throws NoUserSelectedException {
+        if (this.username == null) {
+            throw new NoUserSelectedException();
+        }
+        raise(new UserLoggedInEvent(this.username));
     }
 
     @Override
