@@ -5,8 +5,9 @@ package seedu.address.model.tag.exceptions;
  * identity).
  */
 public class DuplicateTagException extends RuntimeException {
-	public DuplicateTagException() {
-		super("Operation would result in duplicate tags"); }
+    public DuplicateTagException() {
+        super("Operation would result in duplicate tags");
+    }
 }
 
 
