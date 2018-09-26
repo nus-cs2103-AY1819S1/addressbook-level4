@@ -16,23 +16,21 @@ public class IdTest {
     
     @Test
     public void isValidId() {
-        // null id
-        Assert.assertThrows(NullPointerException.class, () -> Id.isValidId(null));
 
-        //invalid id
-        assertFalse(Id.isValidId("-1"));
-        assertFalse(Id.isValidId("0-120"));
-        assertFalse(Id.isValidId("a"));
-        assertFalse(Id.isValidId("b12"));
-        assertFalse(Id.isValidId("1c2asd"));
-        assertFalse(Id.isValidId("_12casd"));
+        //Invalid id (less than or equal to 0)
+        assertFalse(Id.isValidId(0)); //Zero
+        assertFalse(Id.isValidId(-1)); //Negative
+        assertFalse(Id.isValidId(-9478));
+        assertFalse(Id.isValidId(-120 * 102));
+        assertFalse(Id.isValidId((int)Math.pow(2, 32) + 1)); //More than 2 ^ 32
      
         //valid id
-        assertTrue(Id.isValidId("1"));
-        assertTrue(Id.isValidId("20"));
-        assertTrue(Id.isValidId("015"));
-        assertTrue(Id.isValidId("00204"));
-        assertTrue(Id.isValidId("10274"));
-        assertTrue(Id.isValidId("350274"));
+        assertTrue(Id.isValidId(1)); // One
+        assertTrue(Id.isValidId(20));
+        assertTrue(Id.isValidId(015)); //Leading zeros.
+        assertTrue(Id.isValidId(00204));
+        assertTrue(Id.isValidId(10274));
+        assertTrue(Id.isValidId(350274));
+        assertTrue(Id.isValidId((int)Math.pow(2, 32))); //Very large number
     }
 }

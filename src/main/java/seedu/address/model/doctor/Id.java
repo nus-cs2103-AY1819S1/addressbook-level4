@@ -6,14 +6,13 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Doctor's id in the ClinicIO.
- * Guarantees: immutable; is valid as declared in {@link #isValidId(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidId(int)}
  */
 public class Id {
 
     public static final String MESSAGE_NAME_CONSTRAINTS =
             "ID should only contain numbers, and it should more than 1";
 
-    public static final String ID_VALIDATION_REGEX = "[\\p{Digit}]*";
     public final int id;
     
     /**
@@ -22,15 +21,15 @@ public class Id {
      * @param doctorId A valid doctor id.
      */
     public Id(int doctorId) {
-        checkArgument(isValidId(String.valueOf(doctorId)), MESSAGE_NAME_CONSTRAINTS);
+        checkArgument(isValidId(doctorId), MESSAGE_NAME_CONSTRAINTS);
         id = doctorId;
     }
 
     /**
-     * Returns true if a given string is a valid doctor id.
+     * Returns true if a given integer is a valid doctor id (more than 0).
      */
-    public static boolean isValidId(String test) {
-        return test.matches(ID_VALIDATION_REGEX);
+    public static boolean isValidId(int test) {
+        return test > 0;
     }
     
     @Override
