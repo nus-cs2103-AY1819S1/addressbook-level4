@@ -96,13 +96,17 @@ public class Poll {
         return title + "\n" + mostPopularEntries + "\n" + data;
     }
 
+    /**
+     * Returns the poll data as a string identifying people by their names.
+     * @return
+     */
     public String displayPollData() {
         HashMap<String, List<String>> displayData = new HashMap<>();
         pollData.forEach((k, v) -> {
-                List<String> nameList = v.stream()
-                        .map(person -> person.getName().toString())
-                        .collect(Collectors.toList());
-                displayData.put(k, nameList);
+            List<String> nameList = v.stream()
+                    .map(person -> person.getName().toString())
+                    .collect(Collectors.toList());
+            displayData.put(k, nameList);
         });
         return displayData.toString();
     }
