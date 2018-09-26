@@ -13,10 +13,10 @@ public class Password {
             "Password should only contain alphanumeric characters, and it should not be blank";
 
     /*
-     * The first character of the address must not be a whitespace,
+     * The first character of the password must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String PASSWORD_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String PASSWORD_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]{8}";
 
     public final String password;
 
