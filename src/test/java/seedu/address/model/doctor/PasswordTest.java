@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import seedu.address.testutil.Assert;
 
+//@@author jjlee050
 public class PasswordTest {
 
     @Test
