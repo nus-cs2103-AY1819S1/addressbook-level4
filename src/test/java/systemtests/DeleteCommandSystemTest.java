@@ -6,7 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_RECIPE_SUCCESS;
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TestUtil.getPerson;
+import static seedu.address.testutil.TestUtil.getRecipe;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
 import static seedu.address.testutil.TypicalRecipes.KEYWORD_MATCHING_MEIER;
 
@@ -116,7 +116,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * @return the removed recipe
      */
     private Recipe removePerson(Model model, Index index) {
-        Recipe targetRecipe = getPerson(model, index);
+        Recipe targetRecipe = getRecipe(model, index);
         model.deleteRecipe(targetRecipe);
         return targetRecipe;
     }
