@@ -21,13 +21,13 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BOB;
-import static seedu.address.testutil.TypicalPersons.CARL;
-import static seedu.address.testutil.TypicalPersons.HOON;
-import static seedu.address.testutil.TypicalPersons.IDA;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalRecipes.ALICE;
+import static seedu.address.testutil.TypicalRecipes.AMY;
+import static seedu.address.testutil.TypicalRecipes.BOB;
+import static seedu.address.testutil.TypicalRecipes.CARL;
+import static seedu.address.testutil.TypicalRecipes.HOON;
+import static seedu.address.testutil.TypicalRecipes.IDA;
+import static seedu.address.testutil.TypicalRecipes.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
@@ -44,7 +44,7 @@ import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.RecipeBuilder;
-import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.RecipeUtil;
 
 public class AddCommandSystemTest extends AddressBookSystemTest {
 
@@ -83,7 +83,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
          * -> added
          */
         toAdd = new RecipeBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        command = RecipeUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty address book -> added */
@@ -114,26 +114,26 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
         /* Case: add a duplicate recipe -> rejected */
-        command = PersonUtil.getAddCommand(HOON);
+        command = RecipeUtil.getAddCommand(HOON);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_RECIPE);
 
         /* Case: add a duplicate recipe except with different phone -> rejected */
         toAdd = new RecipeBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        command = RecipeUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_RECIPE);
 
         /* Case: add a duplicate recipe except with different email -> rejected */
         toAdd = new RecipeBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        command = RecipeUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_RECIPE);
 
         /* Case: add a duplicate recipe except with different address -> rejected */
         toAdd = new RecipeBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        command = RecipeUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_RECIPE);
 
         /* Case: add a duplicate recipe except with different tags -> rejected */
-        command = PersonUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
+        command = RecipeUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_RECIPE);
 
         /* Case: missing name -> rejected */
@@ -153,7 +153,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
-        command = "adds " + PersonUtil.getPersonDetails(toAdd);
+        command = "adds " + RecipeUtil.getRecipeDetails(toAdd);
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
@@ -193,7 +193,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(Recipe toAdd) {
-        assertCommandSuccess(PersonUtil.getAddCommand(toAdd), toAdd);
+        assertCommandSuccess(RecipeUtil.getAddCommand(toAdd), toAdd);
     }
 
     /**
