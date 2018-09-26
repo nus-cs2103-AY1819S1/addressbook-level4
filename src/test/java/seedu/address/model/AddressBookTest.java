@@ -5,8 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalRecipes.ALICE;
+import static seedu.address.testutil.TypicalRecipes.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -49,7 +49,7 @@ public class AddressBookTest {
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
+    public void resetData_withDuplicateRecipes_throwsDuplicateRecipeException() {
         // Two recipes with the same identity fields
         Recipe editedAlice = new RecipeBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
@@ -61,24 +61,24 @@ public class AddressBookTest {
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasRecipe_nullRecipe_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         addressBook.hasRecipe(null);
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasRecipe_recipeNotInAddressBook_returnsFalse() {
         assertFalse(addressBook.hasRecipe(ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasrecipe_recipeInAddressBook_returnsTrue() {
         addressBook.addRecipe(ALICE);
         assertTrue(addressBook.hasRecipe(ALICE));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
+    public void hasRecipe_recipeWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addRecipe(ALICE);
         Recipe editedAlice = new RecipeBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
@@ -86,7 +86,7 @@ public class AddressBookTest {
     }
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getRecipeList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         addressBook.getRecipeList().remove(0);
     }

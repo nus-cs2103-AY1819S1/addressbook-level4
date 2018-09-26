@@ -3,8 +3,8 @@ package seedu.address.model;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECIPES;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalRecipes.ALICE;
+import static seedu.address.testutil.TypicalRecipes.BENSON;
 
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -23,24 +23,24 @@ public class ModelManagerTest {
     private ModelManager modelManager = new ModelManager();
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasRecipe_nullRecipe_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         modelManager.hasRecipe(null);
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasRecipe_recipeNotInAddressBook_returnsFalse() {
         assertFalse(modelManager.hasRecipe(ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasRecipe_recipeInAddressBook_returnsTrue() {
         modelManager.addRecipe(ALICE);
         assertTrue(modelManager.hasRecipe(ALICE));
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredRecipeList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getFilteredRecipeList().remove(0);
     }

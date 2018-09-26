@@ -7,8 +7,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalRecipes.ALICE;
+import static seedu.address.testutil.TypicalRecipes.BOB;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -28,7 +28,7 @@ public class RecipeTest {
     }
 
     @Test
-    public void isSamePerson() {
+    public void isSameRecipe() {
         // same object -> returns true
         assertTrue(ALICE.isSameRecipe(ALICE));
 
