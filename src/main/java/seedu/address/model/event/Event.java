@@ -5,11 +5,14 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
@@ -33,7 +36,7 @@ public class Event {
 
     private final Set<Tag> tags = new HashSet<>();
 
-    private final HashSet<Poll> polls;
+    private final ArrayList<Poll> polls;
 
     /**
      * Every field must be present and not null.
@@ -45,7 +48,7 @@ public class Event {
         this.name = name;
         this.location = address;
         this.tags.addAll(tags);
-        polls = new HashSet<>();
+        polls = new ArrayList<>();
     }
 
     public Name getName() {
@@ -100,8 +103,33 @@ public class Event {
      * Adds a new poll to the event.
      */
     public void addPoll(String pollName) {
-        Poll poll = new Poll(pollName);
+        int id = polls.size() + 1;
+        Poll poll = new Poll(id, pollName);
         polls.add(poll);
+    }
+
+    /**
+     * Gets a poll at the specified index
+     */
+    public Poll getPoll(Index index) throws IndexOutOfBoundsException {
+        try {
+            return polls.get(index.getZeroBased());
+        } catch (IndexOutOfBoundsException e) {
+            throw e;
+        }
+    }
+
+    public ArrayList<Poll> getPolls() {
+        return polls;
+    }
+
+    /**
+     * Adds polls into the poll list.
+     */
+    public void setPolls(ArrayList<Poll> polls) {
+        for (Poll poll : polls) {
+            this.polls.add(poll);
+        }
     }
 
     /**

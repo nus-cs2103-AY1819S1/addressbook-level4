@@ -7,6 +7,8 @@ import java.util.List;
 
 import seedu.address.model.event.Event;
 
+import seedu.address.model.person.Person;
+
 /**
  * Stores the history of commands executed.
  */
@@ -14,6 +16,8 @@ public class CommandHistory {
     private LinkedList<String> userInputHistory;
 
     private Event selectedEvent;
+
+    private Person selectedPerson;
 
     public CommandHistory() {
         userInputHistory = new LinkedList<>();
@@ -66,5 +70,13 @@ public class CommandHistory {
     @Override
     public int hashCode() {
         return userInputHistory.hashCode();
+    }
+
+    public Person getSelectedPerson() {
+        return selectedPerson;
+    }
+
+    public void setSelectedPerson(Person selectedPerson) {
+        this.selectedPerson = selectedPerson;
     }
 }
