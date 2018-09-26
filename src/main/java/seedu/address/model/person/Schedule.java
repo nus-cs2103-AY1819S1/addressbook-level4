@@ -151,7 +151,11 @@ public class Schedule {
         return sb.toString();
     }
 
-    public static Schedule maxSchedule(Schedule ... schedules ) {
+    /** Maxs all possible schedules supplied as parameter
+     * @param schedules
+     * @return
+     */
+    public static Schedule maxSchedule(Schedule ... schedules) {
         Schedule newSchedule = new Schedule();
 
         // using for each loop to display contents of a
