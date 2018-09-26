@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= iScheduler Xs Max - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,9 +13,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-F11-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103-AY1819S1-F11-1`      Since: `Sep 2018`      Licence: `MIT`
 
 == Setting up
 
@@ -836,20 +836,76 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |university student |add time and event for an venue |locate my classroom at specific timings(s)
 
-|`* * *` |user |add a new person |
+|`* * *` |university student |search for an event |see the details for that specific event
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |university student |create repeated events |schedule repeated events easily
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |university student |see my academic timetable |know what modules I am taking and plan accordingly
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |organised university student |classify events into different categories |identify which event belongs to which category
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |busy university student |know what task I need to complete by a certain date |plan my schedule in an efficient manner
+
+|`* * *` |university student |create a new event |keep track of all my events
+
+|`* * *` |university student |delete an event |remove a cancelled event
+
+|`* * *` |university student |update the event details |update the event if there is a change in event details
+
+|`* * *` |busy university student |type fewer words when I enter a command |save some time
+
+|`* *` |forgetful university student |receive email reminders for my events |be reminded of events even if I do not check the scheduler
+
+|`* *` |disorganised university student |notified if I create events that have a time conflict |know if my events have time clashes
+
+|`* *` |university student |view a filtered list of my events |prepare for my upcoming events according to the filter criteria
+
+|`* *` |disorganised university student |mark events which I attended or did not attend |keep track of my attended and unattended events
+
+|`* *` |university student |see attended events |keep track of events I attended
+
+|`* *` |university student |monitor and track deadlines |keep track of my upcoming deadlines
+
+|`* *` |popular university student |know my friends' contact |can contact them whenever I want
+
+|`* *` |organised university student |send event details to my friends |plan events with together with my friends
+
+|`*` |goal oriented university student |view statistics of my attended events |know how many events I attended
+
+|`*` |university student |see all the public holidays |avoid planning certain events on a public holiday
+
+|`*` |university student |customise my profile |keep track of my profile and view it whenever I want
+
+|`*` |university student |obtain details of the teaching staff |clarify my questions with the teaching staff
+
+|`*` |university student |obtain details of a speaker easily |view their credentials
+
+|`*` |university student with private events |encrypt certain events |prevent others from obtaining details of certain events
+
+|`*` |busy university student |get shortest path from current location to next |reduce my travelling time
+
+|`*` |university student who love to control things remotely |add events using email |schedule my events even when I am not using the application
+
+|`*` |university student who has a bad sense of direction |display the location of event on a map |locate the venue of my event and not be lost
+
+|`*` |sleep deprived university student |record my estimated sleeping hours |monitor the number of hours I sleep at night
+
+|`*` |unmotivated university student |shown a random cat video |keep myself motivated to study
+
+|`*` |university student who likes to exercise |sync my fitness trackers to the application |monitor the number of steps I take
+
+|`*` |lazy university student |interact with scheduler using syntax closer to natural language |feel more interactive when using the application
+
+|`*` |university student |sync events with social media |share with my acquaintance about my events
+
+|`*` |university student who has poor eyesight |add events by voice |reduce reading and typing
+
+|`*` |university student who has poor eyesight |be able to hear events being read out |reduce my reliance on what is being displayed on screen
+
+|`*` |university student who is used to the google ecosystem |sync my scheduler with google calendar |be in sync with google calendar
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -898,9 +954,6 @@ _{More to be added}_
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
 
 [appendix]
 == Product Survey
