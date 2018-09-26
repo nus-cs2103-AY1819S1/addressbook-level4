@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import com.sun.xml.bind.v2.TODO;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.expense.Category;
@@ -83,7 +84,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Add an expense to the expense tracker.
      * If the category of the expense doesn't exist, the category will be created.
      * */
-    public void addExpense(Expense e) {
+    public void addExpense(Expense e) { //TODO: Refine this once other attributes are ready
         Category category = e.getCategory();
         if (!this.categoryList.hasCategory(category)) {
             this.categoryList.addCategory(category);
