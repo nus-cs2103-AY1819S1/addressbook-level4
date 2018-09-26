@@ -11,46 +11,61 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Joel Lee
+image::leeyjjoel.jpg[width="150", align="left"]
+{empty}[http://github.com/leeyjjoel[github]] [<<leeyjjoel#, portfolio>>]
 
-Role: Project Advisor
+Role: Team Lead
 
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
+.Responsibilities:
+- Project Management
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Foo Guo Wei
+image::tomforge.jpg[width="150", align="left"]
+{empty} [https://github.com/tomforge[github]] [<<tomforge#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
+Role: Developer
 
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+.Responsibilities:
+- Git expert
+- In charge of Model
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Tay Yu Jia
+image::yujiatay.jpg[width="150", align="left"]
+{empty}[http://github.com/yujiatay[github]] [<<yujiatay#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+Role: Developer
+
+.Responsibilities:
+- IntelliJ expert
+- In charge of UI
+
+'''
+
+=== David Goh
+image::lessthanfree.jpg[width="150", align="left"]
+{empty}[http://github.com/lessthanfree[github]] [<<lessthanfree#, portfolio>>]
+
+Role: Developer
+
+.Responsibilities:
+- Documentation
+- Project Management
+
+'''
+
+=== Nguyen Trong Truong Thanh
+image::truongthanh.jpg[width="150", align="left"]
+{empty}[https://github.com/truongthanh2606[github]] [<<truongthanh2606#, portfolio>>]
+
+Role: Developer
+
+.Responsibilities:
+- Quality Assurance
+- Testing
 
 '''
