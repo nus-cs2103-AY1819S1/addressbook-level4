@@ -24,7 +24,7 @@ public class ClearCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Clears all persons tagged with or under "
             + "the specified keywords(case-insensitive) or clears all persons for keyword 'all'.\n"
             + "Parameters: KEYWORD\n"
-            + "Example: " + COMMAND_WORD + " all"
+            + "Example: " + COMMAND_WORD + " all\n"
             + "Example: " + COMMAND_WORD + " basketball";
     public static final String MESSAGE_CLEAR_ALL_SUCCESS = "Hallper has been cleared!";
     public static final String MESSAGE_CLEAR_SPECIFIC_SUCCESS = "Cleared persons under %1$s in Hallper";

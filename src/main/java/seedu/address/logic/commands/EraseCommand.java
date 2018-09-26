@@ -63,9 +63,11 @@ public class EraseCommand extends Command {
         for (Person p : toErase) {
             tags.clear();
             for (Tag t : p.getTags()) {
+                tags.add(t);
                 for (String tag : target) {
-                    if (!t.toStringOnly().equals(tag)) {
-                        tags.add(new Tag(tag));
+                    if (t.toStringOnly().equals(tag)) {
+                        tags.remove(t);
+                        break;
                     }
                 }
             }
