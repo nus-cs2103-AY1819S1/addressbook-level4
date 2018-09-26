@@ -29,7 +29,7 @@ public class PrescriptionTest {
     public void setUp() throws IllegalValueException {
         name = "Paracetamol";
         dose = new Dose(2, "tablets", 4);
-        duration = new Duration(Duration.DAYS_PER_WEEK * 2);
+        duration = new Duration(Duration.MILLISECONDS_IN_A_DAY * Duration.DAYS_PER_WEEK * 2);
 
         fiveDaysFromNow = Calendar.getInstance();
         fiveDaysFromNow.add(Calendar.DAY_OF_MONTH, 5);
