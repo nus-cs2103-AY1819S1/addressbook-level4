@@ -25,7 +25,7 @@ public class MainWindowHandle extends StageHandle {
         browserPanel = new BrowserPanelHandle(getChildNode(BrowserPanelHandle.BROWSER_ID));
     }
 
-    public RecipeListPanelHandle getPersonListPanel() {
+    public RecipeListPanelHandle getRecipeListPanel() {
         return personListPanel;
     }
 
