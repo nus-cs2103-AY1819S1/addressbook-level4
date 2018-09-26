@@ -8,7 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.CurrentUser;
+import seedu.address.model.person.Person;
 
 /**
  * Allow a person to login to the address book.
@@ -30,12 +30,12 @@ public class LoginCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Welcome back %1$s!";
     public static final String MESSAGE_PERSON_DOES_NOT_EXIST = "This person does not exist in the address book";
 
-    private final CurrentUser toLogin;
+    private Person toLogin;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an LoginCommand to log in the specified {@code CurrentUser}
      */
-    public LoginCommand(CurrentUser person) {
+    public LoginCommand(Person person) {
         requireNonNull(person);
         toLogin = person;
     }

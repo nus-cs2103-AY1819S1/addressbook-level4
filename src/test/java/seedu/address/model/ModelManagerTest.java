@@ -1,7 +1,6 @@
 package seedu.address.model;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
@@ -38,6 +37,30 @@ public class ModelManagerTest {
         modelManager.addPerson(ALICE);
         assertTrue(modelManager.hasPerson(ALICE));
     }
+
+    @Test
+    public void hasSetCurrentUser_currentUserHasBeenSet_returnsTrue() {
+        modelManager.setCurrentUser(ALICE);
+        assertTrue(modelManager.hasSetCurrentUser());
+    }
+
+    @Test
+    public void hasSetCurrentUser_currentUserHasNotBeenSet_returnsFalse() {
+        assertFalse(modelManager.hasSetCurrentUser());
+    }
+
+    @Test
+    public void getCurrentUser_currentUserHasBeenSet() {
+        modelManager.setCurrentUser(ALICE);
+        assertEquals(ALICE, modelManager.getCurrentUser());
+    }
+
+    @Test
+    public void getCurrentUser_currentUserHasNotBeenSet() {
+        assertNull(modelManager.getCurrentUser());
+    }
+
+
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {

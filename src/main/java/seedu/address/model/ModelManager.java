@@ -14,7 +14,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.event.Event;
-import seedu.address.model.person.CurrentUser;
 import seedu.address.model.person.Person;
 
 /**
@@ -26,7 +25,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Event> filteredEvents;
-    private CurrentUser currentUser;
+    private Person currentUser;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -47,8 +46,16 @@ public class ModelManager extends ComponentManager implements Model {
         this(new AddressBook(), new UserPrefs());
     }
 
-    public void setCurrentUser(CurrentUser currentUser) {
+    public void setCurrentUser(Person currentUser) {
         this.currentUser = currentUser;
+    }
+
+    public boolean hasSetCurrentUser() {
+        return (currentUser != null);
+    }
+
+    public Person getCurrentUser() {
+        return currentUser;
     }
 
     @Override
