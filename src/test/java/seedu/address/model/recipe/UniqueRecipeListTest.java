@@ -33,7 +33,7 @@ public class UniqueRecipeListTest {
     }
 
     @Test
-    public void contains_RecipeNotInList_returnsFalse() {
+    public void contains_recipeNotInList_returnsFalse() {
         assertFalse(uniqueRecipeList.contains(ALICE));
     }
 

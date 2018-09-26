@@ -18,7 +18,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import guitests.guihandles.RecipeListPanelHandle;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -43,6 +42,8 @@ import seedu.address.model.Model;
 import seedu.address.testutil.TypicalRecipes;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
+
+import guitests.guihandles.RecipeListPanelHandle;
 
 /**
  * A system test class for AddressBook, which provides access to handles of GUI components and helper methods

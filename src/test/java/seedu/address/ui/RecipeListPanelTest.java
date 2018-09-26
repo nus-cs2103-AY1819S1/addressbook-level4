@@ -12,7 +12,6 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import guitests.guihandles.RecipeCardHandle;
 import org.junit.Test;
 
 import guitests.guihandles.RecipeListPanelHandle;
@@ -23,6 +22,8 @@ import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.storage.XmlSerializableAddressBook;
+
+import guitests.guihandles.RecipeCardHandle;
 
 public class RecipeListPanelTest extends GuiUnitTest {
     private static final ObservableList<Recipe> TYPICAL_RECIPES =
