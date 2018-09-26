@@ -36,11 +36,11 @@ import org.junit.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditWishDescriptor;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.wish.Address;
 import seedu.address.model.wish.Email;
 import seedu.address.model.wish.Name;
 import seedu.address.model.wish.Phone;
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditWishDescriptorBuilder;
 
 public class EditCommandParserTest {
