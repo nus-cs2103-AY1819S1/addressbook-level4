@@ -27,11 +27,11 @@ public class XmlAdaptedTask {
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
-    private String phone;
+    private String dueDate;
     @XmlElement(required = true)
-    private String email;
+    private String priorityValue;
     @XmlElement(required = true)
-    private String address;
+    private String description;
 
     @XmlElement
     private List<XmlAdaptedLabel> labelled = new ArrayList<>();
@@ -45,11 +45,12 @@ public class XmlAdaptedTask {
     /**
      * Constructs an {@code XmlAdaptedTask} with the given person details.
      */
-    public XmlAdaptedTask(String name, String phone, String email, String address, List<XmlAdaptedLabel> labelled) {
+    public XmlAdaptedTask(String name, String dueDate, String priorityValue,
+                          String description, List<XmlAdaptedLabel> labelled) {
         this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
+        this.dueDate = dueDate;
+        this.priorityValue = priorityValue;
+        this.description = description;
         if (labelled != null) {
             this.labelled = new ArrayList<>(labelled);
         }
@@ -62,9 +63,9 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(Task source) {
         name = source.getName().fullName;
-        phone = source.getDueDate().value;
-        email = source.getPriorityValue().value;
-        address = source.getDescription().value;
+        dueDate = source.getDueDate().value;
+        priorityValue = source.getPriorityValue().value;
+        description = source.getDescription().value;
         labelled = source.getLabels().stream()
                 .map(XmlAdaptedLabel::new)
                 .collect(Collectors.toList());
@@ -89,31 +90,31 @@ public class XmlAdaptedTask {
         }
         final Name modelName = new Name(name);
 
-        if (phone == null) {
+        if (dueDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, DueDate.class.getSimpleName()));
         }
-        if (!DueDate.isValidDueDate(phone)) {
+        if (!DueDate.isValidDueDate(dueDate)) {
             throw new IllegalValueException(DueDate.MESSAGE_DUEDATE_CONSTRAINTS);
         }
-        final DueDate modelPhone = new DueDate(phone);
+        final DueDate modelPhone = new DueDate(dueDate);
 
-        if (email == null) {
+        if (priorityValue == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     PriorityValue.class.getSimpleName()));
         }
-        if (!PriorityValue.isValidPriorityValue(email)) {
+        if (!PriorityValue.isValidPriorityValue(priorityValue)) {
             throw new IllegalValueException(PriorityValue.MESSAGE_PRIORITYVALUE_CONSTRAINTS);
         }
-        final PriorityValue modelEmail = new PriorityValue(email);
+        final PriorityValue modelEmail = new PriorityValue(priorityValue);
 
-        if (address == null) {
+        if (description == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Description.class.getSimpleName()));
         }
-        if (!Description.isValidDescription(address)) {
+        if (!Description.isValidDescription(description)) {
             throw new IllegalValueException(Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
         }
-        final Description modelAddress = new Description(address);
+        final Description modelAddress = new Description(description);
 
         final Set<Label> modelLabels = new HashSet<>(taskLabels);
         return new Task(modelName, modelPhone, modelEmail, modelAddress, modelLabels);
@@ -131,9 +132,9 @@ public class XmlAdaptedTask {
 
         XmlAdaptedTask otherTask = (XmlAdaptedTask) other;
         return Objects.equals(name, otherTask.name)
-                && Objects.equals(phone, otherTask.phone)
-                && Objects.equals(email, otherTask.email)
-                && Objects.equals(address, otherTask.address)
+                && Objects.equals(dueDate, otherTask.dueDate)
+                && Objects.equals(priorityValue, otherTask.priorityValue)
+                && Objects.equals(description, otherTask.description)
                 && labelled.equals(otherTask.labelled);
     }
 }
