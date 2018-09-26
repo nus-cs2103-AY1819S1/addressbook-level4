@@ -7,6 +7,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
 
+import com.sun.xml.bind.XmlAccessorFactory;
+
 /**
  * An UI component that displays information of a {@code Person}.
  */
@@ -43,7 +45,6 @@ public class PersonCard extends UiPart<Region> {
 
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
-        System.out.println(person);
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);

@@ -7,6 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 /**
  * Represents a Person's room number in the address book.
  */
+//@@author javenseow
 public class Room {
     public static final String MESSAGE_ROOM_CONSTRAINTS =
             "Room numbers should only be alphanumeric, and the first character should be an alphabet,"

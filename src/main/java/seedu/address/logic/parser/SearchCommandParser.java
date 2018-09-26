@@ -1,4 +1,3 @@
-//@@author javenseow
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -12,6 +11,7 @@ import seedu.address.model.person.TagContainsKeywordsPredicate;
 /**
  * Parses input arguments and creates a new SearchCommand object.
  */
+//@@author javenseow
 public class SearchCommandParser implements Parser<SearchCommand> {
 
     /**

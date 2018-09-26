@@ -11,6 +11,7 @@ import seedu.address.model.person.TagContainsKeywordsPredicate;
  * Finds and lists all persons in address book whose data fields match any of the argument keyword.
  * Keyword matching is case insensitive.
  */
+// @@author javenseow
 public class SearchCommand extends Command{
     public static final String COMMAND_WORD = "search";
 
