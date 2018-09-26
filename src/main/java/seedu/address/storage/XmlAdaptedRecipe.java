@@ -76,9 +76,9 @@ public class XmlAdaptedRecipe {
      * @throws IllegalValueException if there were any data constraints violated in the adapted recipe
      */
     public Recipe toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+        final List<Tag> recipeTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+            recipeTags.add(tag.toModelType());
         }
 
         if (name == null) {
@@ -113,7 +113,7 @@ public class XmlAdaptedRecipe {
         }
         final Address modelAddress = new Address(address);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
+        final Set<Tag> modelTags = new HashSet<>(recipeTags);
         return new Recipe(modelName, modelPhone, modelEmail, modelAddress, modelTags);
     }
 
@@ -127,11 +127,11 @@ public class XmlAdaptedRecipe {
             return false;
         }
 
-        XmlAdaptedRecipe otherPerson = (XmlAdaptedRecipe) other;
-        return Objects.equals(name, otherPerson.name)
-                && Objects.equals(phone, otherPerson.phone)
-                && Objects.equals(email, otherPerson.email)
-                && Objects.equals(address, otherPerson.address)
-                && tagged.equals(otherPerson.tagged);
+        XmlAdaptedRecipe otherRecipe = (XmlAdaptedRecipe) other;
+        return Objects.equals(name, otherRecipe.name)
+                && Objects.equals(phone, otherRecipe.phone)
+                && Objects.equals(email, otherRecipe.email)
+                && Objects.equals(address, otherRecipe.address)
+                && tagged.equals(otherRecipe.tagged);
     }
 }

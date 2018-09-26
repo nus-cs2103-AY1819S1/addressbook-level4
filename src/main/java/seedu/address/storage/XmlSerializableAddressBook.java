@@ -18,7 +18,7 @@ import seedu.address.model.recipe.Recipe;
 @XmlRootElement(name = "addressbook")
 public class XmlSerializableAddressBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate recipe(s).";
+    public static final String MESSAGE_DUPLICATE_RECIPE = "Recipes list contains duplicate recipe(s).";
 
     @XmlElement
     private List<XmlAdaptedRecipe> recipes;
@@ -50,7 +50,7 @@ public class XmlSerializableAddressBook {
         for (XmlAdaptedRecipe p : recipes) {
             Recipe recipe = p.toModelType();
             if (addressBook.hasRecipe(recipe)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_RECIPE);
             }
             addressBook.addRecipe(recipe);
         }
