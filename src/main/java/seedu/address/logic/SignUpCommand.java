@@ -7,7 +7,7 @@ import seedu.address.model.user.Username;
 
 import static java.util.Objects.requireNonNull;
 
-public class SignupCommand extends Command {
+public class SignUpCommand extends Command {
     public static final String COMMAND_WORD = "signup";
     public static final String COMMAND_ALIAS = "su";
 
@@ -16,11 +16,11 @@ public class SignupCommand extends Command {
             + "Parameters: USERNAME\n"
             + "Example: " + COMMAND_WORD + " examplename";
 
-    private static final String MESSAGE_SIGNUP_SUCCESS = "User \"%1$s\" has successfully been created.";
+    private static final String MESSAGE_SIGN_UP_SUCCESS = "User \"%1$s\" has successfully been created.";
 
     private final Username username;
 
-    public SignupCommand(Username username) {
+    public SignUpCommand(Username username) {
         requireNonNull(username);
         this.username = username;
     }
@@ -29,13 +29,13 @@ public class SignupCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.loadUserData(this.username);
-        return new CommandResult(String.format(MESSAGE_SIGNUP_SUCCESS, this.username.toString()));
+        return new CommandResult(String.format(MESSAGE_SIGN_UP_SUCCESS, this.username.toString()));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof SignupCommand // instanceof handles nulls
-                && username.equals(((SignupCommand) other).username)); // state check
+                || (other instanceof SignUpCommand // instanceof handles nulls
+                && username.equals(((SignUpCommand) other).username)); // state check
     }
 }
