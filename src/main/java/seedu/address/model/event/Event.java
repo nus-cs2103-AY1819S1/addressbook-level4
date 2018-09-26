@@ -9,10 +9,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.Address;
@@ -40,9 +38,7 @@ public class Event {
     private LocalTime time;
 
     private final Set<Tag> tags = new HashSet<>();
-
     private final ArrayList<Poll> polls;
-  
     private final UniquePersonList personList;
 
     /**
