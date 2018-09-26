@@ -1,7 +1,12 @@
 package seedu.address.storage;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -14,6 +19,8 @@ import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
+
+import javax.activation.DataContentHandler;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -65,6 +72,21 @@ public class StorageManager extends ComponentManager implements Storage {
     public Optional<ReadOnlyAddressBook> readExpenses(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return expensesStorage.readExpenses(filePath);
+    }
+
+    public Map<String, ReadOnlyAddressBook> readAllExpenses(Path dirPath) throws DataConversionException, IOException {
+        File dir = new File(dirPath.toString());
+        final Map<String, ReadOnlyAddressBook> books = new HashMap<>();
+        File[] directoryListing = dir.listFiles();
+        if (!dir.mkdir()) {
+            if (directoryListing != null) {
+                for (File child : directoryListing) {
+                    readExpenses(Paths.get(child.getPath())).ifPresent(addressBook -> books.put(child.getName().replace(
+                            ".xml", ""), addressBook));
+                }
+            }
+        }
+        return books;
     }
 
     @Override
