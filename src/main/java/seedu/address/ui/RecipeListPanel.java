@@ -16,16 +16,16 @@ import seedu.address.commons.events.ui.RecipePanelSelectionChangedEvent;
 import seedu.address.model.recipe.Recipe;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of recipes.
  */
-public class PersonListPanel extends UiPart<Region> {
+public class RecipeListPanel extends UiPart<Region> {
     private static final String FXML = "RecipeListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(RecipeListPanel.class);
 
     @FXML
     private ListView<Recipe> personListView;
 
-    public PersonListPanel(ObservableList<Recipe> recipeList) {
+    public RecipeListPanel(ObservableList<Recipe> recipeList) {
         super(FXML);
         setConnections(recipeList);
         registerAsAnEventHandler(this);
@@ -33,7 +33,7 @@ public class PersonListPanel extends UiPart<Region> {
 
     private void setConnections(ObservableList<Recipe> recipeList) {
         personListView.setItems(recipeList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        personListView.setCellFactory(listView -> new RecipeListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
@@ -66,7 +66,7 @@ public class PersonListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Recipe} using a {@code RecipeCard}.
      */
-    class PersonListViewCell extends ListCell<Recipe> {
+    class RecipeListViewCell extends ListCell<Recipe> {
         @Override
         protected void updateItem(Recipe recipe, boolean empty) {
             super.updateItem(recipe, empty);
