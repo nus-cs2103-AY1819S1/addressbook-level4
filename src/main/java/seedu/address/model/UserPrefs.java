@@ -1,15 +1,11 @@
 package seedu.address.model;
 
-import java.lang.reflect.Type;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import com.google.common.reflect.TypeToken;
-import com.google.gson.Gson;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.calendar.Month;
@@ -23,7 +19,7 @@ public class UserPrefs {
     private GuiSettings guiSettings;
     private Path addressBookFilePath = Paths.get("data" , "addressbook.xml");
     private Path calendarPath = Paths.get("calendar");
-    private String existingCalendar;
+    private Map<Year, Set<Month>> existingCalendar;
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);
@@ -59,15 +55,12 @@ public class UserPrefs {
         this.calendarPath = calendarPath;
     }
 
-    public Map<Year, Set<Month>> getExistingCalendarMap() {
-        Type type = new TypeToken<Map<Year, Set<Month>>>(){}.getType();
-        Gson gson = new Gson();
-        return gson.fromJson(existingCalendar, type);
+    public Map<Year, Set<Month>> getExistingCalendar() {
+        return existingCalendar;
     }
 
     public void setExistingCalendar(Map<Year, Set<Month>> existingCalendar) {
-        Gson gson = new Gson();
-        this.existingCalendar = gson.toJson(existingCalendar);
+        this.existingCalendar = existingCalendar;
     }
 
     //@@author

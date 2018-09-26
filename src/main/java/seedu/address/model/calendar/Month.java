@@ -48,6 +48,12 @@ public class Month {
         this.month = month;
     }
 
+    public Month() {
+        // default create a JAN month obj
+        // For Json parsing, have to have a default constructor
+        this("JAN");
+    }
+
     /**
      * Returns true if a given string follows the correct month regex.
      */

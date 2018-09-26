@@ -28,6 +28,11 @@ public class Year {
         this.year = year;
     }
 
+    public Year() {
+        // default create a 2018 year obj
+        // For Json parsing, have to have a default constructor
+        this("2018");
+    }
     /**
      * Returns true if a given string is a valid year.
      */

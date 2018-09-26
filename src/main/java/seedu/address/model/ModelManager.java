@@ -45,7 +45,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         this.userPrefs = userPrefs;
-        this.calendarModel = new CalendarModel(calendarStorage, userPrefs.getExistingCalendarMap());
+        this.calendarModel = new CalendarModel(calendarStorage, userPrefs.getExistingCalendar());
     }
 
     /**
@@ -61,7 +61,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         this.userPrefs = userPrefs;
         CalendarStorage calendarStorage = new IcsCalendarStorage(userPrefs.getCalendarPath());
-        this.calendarModel = new CalendarModel(calendarStorage, userPrefs.getExistingCalendarMap());
+        this.calendarModel = new CalendarModel(calendarStorage, userPrefs.getExistingCalendar());
     }
 
     public ModelManager() {
@@ -79,7 +79,6 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedAddressBook;
     }
 
-    @Override
     public UserPrefs getUserPrefs() {
         return userPrefs;
     }
