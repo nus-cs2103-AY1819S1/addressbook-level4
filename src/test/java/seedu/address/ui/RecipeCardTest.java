@@ -7,7 +7,7 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 
 import org.junit.Test;
 
-import guitests.guihandles.PersonCardHandle;
+import guitests.guihandles.RecipeCardHandle;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.testutil.PersonBuilder;
 
@@ -61,12 +61,12 @@ public class RecipeCardTest extends GuiUnitTest {
     private void assertCardDisplay(RecipeCard recipeCard, Recipe expectedRecipe, int expectedId) {
         guiRobot.pauseForHuman();
 
-        PersonCardHandle personCardHandle = new PersonCardHandle(recipeCard.getRoot());
+        RecipeCardHandle recipeCardHandle = new RecipeCardHandle(recipeCard.getRoot());
 
         // verify id is displayed correctly
-        assertEquals(Integer.toString(expectedId) + ". ", personCardHandle.getId());
+        assertEquals(Integer.toString(expectedId) + ". ", recipeCardHandle.getId());
 
         // verify recipe details are displayed correctly
-        assertCardDisplaysPerson(expectedRecipe, personCardHandle);
+        assertCardDisplaysPerson(expectedRecipe, recipeCardHandle);
     }
 }

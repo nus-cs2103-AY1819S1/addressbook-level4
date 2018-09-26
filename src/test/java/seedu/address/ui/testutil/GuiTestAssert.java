@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import guitests.guihandles.PersonCardHandle;
+import guitests.guihandles.RecipeCardHandle;
 import guitests.guihandles.RecipeListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import seedu.address.model.recipe.Recipe;
@@ -17,7 +17,7 @@ public class GuiTestAssert {
     /**
      * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
      */
-    public static void assertCardEquals(PersonCardHandle expectedCard, PersonCardHandle actualCard) {
+    public static void assertCardEquals(RecipeCardHandle expectedCard, RecipeCardHandle actualCard) {
         assertEquals(expectedCard.getId(), actualCard.getId());
         assertEquals(expectedCard.getAddress(), actualCard.getAddress());
         assertEquals(expectedCard.getEmail(), actualCard.getEmail());
@@ -29,7 +29,7 @@ public class GuiTestAssert {
     /**
      * Asserts that {@code actualCard} displays the details of {@code expectedRecipe}.
      */
-    public static void assertCardDisplaysPerson(Recipe expectedRecipe, PersonCardHandle actualCard) {
+    public static void assertCardDisplaysPerson(Recipe expectedRecipe, RecipeCardHandle actualCard) {
         assertEquals(expectedRecipe.getName().fullName, actualCard.getName());
         assertEquals(expectedRecipe.getPhone().value, actualCard.getPhone());
         assertEquals(expectedRecipe.getEmail().value, actualCard.getEmail());
@@ -45,7 +45,7 @@ public class GuiTestAssert {
     public static void assertListMatching(RecipeListPanelHandle recipeListPanelHandle, Recipe... recipes) {
         for (int i = 0; i < recipes.length; i++) {
             recipeListPanelHandle.navigateToCard(i);
-            assertCardDisplaysPerson(recipes[i], recipeListPanelHandle.getPersonCardHandle(i));
+            assertCardDisplaysPerson(recipes[i], recipeListPanelHandle.getRecipeCardHandle(i));
         }
     }
 

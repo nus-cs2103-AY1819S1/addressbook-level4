@@ -12,9 +12,9 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import guitests.guihandles.RecipeCardHandle;
 import org.junit.Test;
 
-import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.RecipeListPanelHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -43,7 +43,7 @@ public class RecipeListPanelTest extends GuiUnitTest {
         for (int i = 0; i < TYPICAL_RECIPES.size(); i++) {
             recipeListPanelHandle.navigateToCard(TYPICAL_RECIPES.get(i));
             Recipe expectedRecipe = TYPICAL_RECIPES.get(i);
-            PersonCardHandle actualCard = recipeListPanelHandle.getPersonCardHandle(i);
+            RecipeCardHandle actualCard = recipeListPanelHandle.getRecipeCardHandle(i);
 
             assertCardDisplaysPerson(expectedRecipe, actualCard);
             assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
@@ -56,8 +56,8 @@ public class RecipeListPanelTest extends GuiUnitTest {
         postNow(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 
-        PersonCardHandle expectedPerson = recipeListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
-        PersonCardHandle selectedPerson = recipeListPanelHandle.getHandleToSelectedCard();
+        RecipeCardHandle expectedPerson = recipeListPanelHandle.getRecipeCardHandle(INDEX_SECOND_PERSON.getZeroBased());
+        RecipeCardHandle selectedPerson = recipeListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedPerson, selectedPerson);
     }
 
