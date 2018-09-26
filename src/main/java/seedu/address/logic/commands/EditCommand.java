@@ -20,7 +20,10 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.ride.*;
+import seedu.address.model.ride.Address;
+import seedu.address.model.ride.Email;
+import seedu.address.model.ride.Name;
+import seedu.address.model.ride.Phone;
 import seedu.address.model.ride.Ride;
 import seedu.address.model.tag.Tag;
 
