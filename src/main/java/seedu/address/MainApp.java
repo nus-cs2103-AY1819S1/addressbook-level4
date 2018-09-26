@@ -1,12 +1,6 @@
 package seedu.address;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Optional;
-import java.util.logging.Logger;
-
 import com.google.common.eventbus.Subscribe;
-
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -20,13 +14,11 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
-
 import seedu.address.storage.ExpensesStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
@@ -35,6 +27,14 @@ import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.XmlExpensesStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.logging.Logger;
 
 /**
  * The main entry point to the application.
@@ -83,23 +83,20 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Map<String, ReadOnlyAddressBook> addressBooks;
         try {
-            addressBookOptional = storage.readExpenses();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            addressBooks = storage.readAllExpenses(Paths.get("data"));
+            if (addressBooks.isEmpty()) {
+                addressBooks.put("default", SampleDataUtil.getSampleAddressBook());
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Data files are not in the correct format. Will be starting with no accounts.");
+            addressBooks = new HashMap<>();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Problem while reading from the files. Will be starting with no accounts");
+            addressBooks = new HashMap<>();
         }
-
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(addressBooks, userPrefs);
     }
 
     private void initLogging(Config config) {
