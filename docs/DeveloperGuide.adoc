@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= EventsPlus+ - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S1-W13-2/main/tree/master
 
-By: `Team W13-2`      Since: `Sept 2017`      Licence: `MIT`
+By: `Team W13-2`      Since: `Sept 2018`      Licence: `MIT`
 
 == Setting up
 
