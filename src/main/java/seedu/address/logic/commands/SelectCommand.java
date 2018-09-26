@@ -25,7 +25,7 @@ public class SelectCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Recipe: %1$s";
+    public static final String MESSAGE_SELECT_RECIPE_SUCCESS = "Selected Recipe: %1$s";
 
     private final Index targetIndex;
 
@@ -37,14 +37,14 @@ public class SelectCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        List<Recipe> filteredRecipeList = model.getFilteredPersonList();
+        List<Recipe> filteredRecipeList = model.getFilteredRecipeList();
 
         if (targetIndex.getZeroBased() >= filteredRecipeList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
         }
 
         EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
-        return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));
+        return new CommandResult(String.format(MESSAGE_SELECT_RECIPE_SUCCESS, targetIndex.getOneBased()));
 
     }
 

@@ -32,7 +32,7 @@ public class AddCommandIntegrationTest {
         Recipe validRecipe = new PersonBuilder().build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addPerson(validRecipe);
+        expectedModel.addRecipe(validRecipe);
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(new AddCommand(validRecipe), model, commandHistory,
@@ -43,7 +43,7 @@ public class AddCommandIntegrationTest {
     public void execute_duplicatePerson_throwsCommandException() {
         Recipe recipeInList = model.getAddressBook().getRecipeList().get(0);
         assertCommandFailure(new AddCommand(recipeInList), model, commandHistory,
-                AddCommand.MESSAGE_DUPLICATE_PERSON);
+                AddCommand.MESSAGE_DUPLICATE_RECIPE);
     }
 
 }
