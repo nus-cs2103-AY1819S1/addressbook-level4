@@ -65,7 +65,7 @@ public class TypicalPersons {
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
         for (Recipe recipe : getTypicalPersons()) {
-            ab.addPerson(recipe);
+            ab.addRecipe(recipe);
         }
         return ab;
     }

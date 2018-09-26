@@ -24,7 +24,7 @@ public class AddressBookBuilder {
      * Adds a new {@code Recipe} to the {@code AddressBook} that we are building.
      */
     public AddressBookBuilder withPerson(Recipe recipe) {
-        addressBook.addPerson(recipe);
+        addressBook.addRecipe(recipe);
         return this;
     }
 
