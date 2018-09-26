@@ -8,8 +8,8 @@ import seedu.address.model.user.Username;
 import static java.util.Objects.requireNonNull;
 
 public class SignupCommand extends Command {
-    public static final String COMMAND_WORD = "login";
-    public static final String COMMAND_ALIAS = "li";
+    public static final String COMMAND_WORD = "signup";
+    public static final String COMMAND_ALIAS = "su";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Creates a user with the given USERNAME.\n"
