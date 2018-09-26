@@ -43,11 +43,11 @@ public class Username {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Username // instanceof handles nulls
-                && name.equals(((Username) other).name)); // state check
+                && name.equalsIgnoreCase(((Username) other).name)); // state check
     }
 
     @Override
     public int hashCode() {
-        return name.hashCode();
+        return name.toLowerCase().hashCode();
     }
 }

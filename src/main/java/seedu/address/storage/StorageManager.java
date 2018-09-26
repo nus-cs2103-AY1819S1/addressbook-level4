@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -75,7 +76,7 @@ public class StorageManager extends ComponentManager implements Storage {
     @Override
     public Map<Username, ReadOnlyAddressBook> readAllExpenses(Path dirPath) throws DataConversionException, IOException {
         File dir = new File(dirPath.toString());
-        final Map<Username, ReadOnlyAddressBook> books = new HashMap<>();
+        final Map<Username, ReadOnlyAddressBook> books = new TreeMap<>();
         File[] directoryListing = dir.listFiles();
         if (!dir.mkdir()) {
             if (directoryListing != null) {
