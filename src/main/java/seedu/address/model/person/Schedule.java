@@ -13,6 +13,13 @@ public class Schedule {
      * 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0
      * 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
      * 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+     * 0 0 0 0 0 0 0 0 1 1 0 0 1 1 1 1 1 1 0 0 0 0 0 0
+     * 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0
+     * 0 0 0 0 0 0 0 0 1 1 1 0 0 1 1 1 0 0 0 0 0 0 0 0
+     * 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0
+     * 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0
+     * 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+     * 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
      */
 
     public static final String MESSAGE_SCHEDULE_CONSTRAINTS = "Schedule should be in 0 or 1s";
@@ -143,4 +150,40 @@ public class Schedule {
         }
         return sb.toString();
     }
+
+    public static Schedule maxSchedule(Schedule ... schedules ) {
+        Schedule newSchedule = new Schedule();
+
+        // using for each loop to display contents of a
+        for (Schedule s: schedules) {
+            newSchedule.union(s);
+        }
+
+        return newSchedule;
+    }
+
+
+    /** ORs the Schedules
+     * @param schedule
+     */
+    private void union(Schedule schedule) {
+        for (int i = 0; i < value.length; i++) {
+            for (int j = 0; j < value[i].length; j++) {
+                this.value[i][j] = (this.value[i][j] | schedule.value[i][j]);
+            }
+        }
+    }
+
+
+    /** Get the negate of the schedule
+     *
+     */
+    private void negate() {
+        for (int i = 0; i < value.length; i++) {
+            for (int j = 0; j < value[i].length; j++) {
+                this.value[i][j] = ~(this.value[i][j]);
+            }
+        }
+    }
+
 }
