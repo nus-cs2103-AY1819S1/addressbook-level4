@@ -1,8 +1,9 @@
 package seedu.address.commons.util;
 
+import java.text.ParseException;
+
 import org.junit.Test;
 
-import java.text.ParseException;
 
 public class TimeTableUtilTest {
 
@@ -31,6 +32,7 @@ public class TimeTableUtilTest {
 
     @Test
     public void convertToSchedule() throws ParseException {
-       assert(TimeTableUtil.parseUrl(shortlink).convertToSchedule().valueToString().equals(scheduleString));
+        assert TimeTableUtil.parseUrl(shortlink).convertToSchedule()
+               .valueToString().equals(scheduleString);
     }
 }
