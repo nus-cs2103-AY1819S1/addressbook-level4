@@ -21,15 +21,23 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 
 import seedu.address.logic.commands.eventcommands.AddEventCommand;
+import seedu.address.logic.commands.eventcommands.AddPollCommand;
+import seedu.address.logic.commands.eventcommands.AddPollOptionCommand;
 import seedu.address.logic.commands.eventcommands.DeleteEventCommand;
+import seedu.address.logic.commands.eventcommands.DisplayPollCommand;
 import seedu.address.logic.commands.eventcommands.SelectEventCommand;
 import seedu.address.logic.commands.eventcommands.SetDateCommand;
 import seedu.address.logic.commands.eventcommands.SetTimeCommand;
+import seedu.address.logic.commands.eventcommands.VoteCommand;
 import seedu.address.logic.parser.eventparsers.AddEventCommandParser;
+import seedu.address.logic.parser.eventparsers.AddPollCommandParser;
+import seedu.address.logic.parser.eventparsers.AddPollOptionCommandParser;
 import seedu.address.logic.parser.eventparsers.DeleteEventCommandParser;
+import seedu.address.logic.parser.eventparsers.DisplayPollCommandParser;
 import seedu.address.logic.parser.eventparsers.SelectEventCommandParser;
 import seedu.address.logic.parser.eventparsers.SetDateCommandParser;
 import seedu.address.logic.parser.eventparsers.SetTimeCommandParser;
+import seedu.address.logic.parser.eventparsers.VoteCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -72,6 +80,18 @@ public class AddressBookParser {
 
         case SetTimeCommand.COMMAND_WORD:
             return new SetTimeCommandParser().parse(arguments);
+
+        case AddPollCommand.COMMAND_WORD:
+            return new AddPollCommandParser().parse(arguments);
+
+        case AddPollOptionCommand.COMMAND_WORD:
+            return new AddPollOptionCommandParser().parse(arguments);
+
+        case DisplayPollCommand.COMMAND_WORD:
+            return new DisplayPollCommandParser().parse(arguments);
+
+        case VoteCommand.COMMAND_WORD:
+            return new VoteCommandParser().parse(arguments);
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
