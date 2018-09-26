@@ -19,6 +19,7 @@ import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.testutil.ModelUtil;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
 public class StorageManagerTest {
@@ -70,8 +71,8 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getExpensesFilePath());
+    public void getAddressBookDirPath() {
+        assertNotNull(storageManager.getExpensesDirPath());
     }
 
     @Test
@@ -79,7 +80,7 @@ public class StorageManagerTest {
         // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
         Storage storage = new StorageManager(new XmlExpensesStorageExceptionThrowingStub(Paths.get("dummy")),
                                              new JsonUserPrefsStorage(Paths.get("dummy")));
-        storage.handleAddressBookChangedEvent(new AddressBookChangedEvent(new AddressBook()));
+        storage.handleAddressBookChangedEvent(new AddressBookChangedEvent(new AddressBook(ModelUtil.TEST_USERNAME)));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }
 

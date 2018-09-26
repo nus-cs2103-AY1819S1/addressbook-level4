@@ -9,46 +9,65 @@ import static seedu.address.testutil.TypicalPersons.BENSON;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.expense.NameContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.ModelUtil;
 
 public class ModelManagerTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private ModelManager modelManager = new ModelManager();
+    private ModelManager modelManager = (ModelManager) ModelUtil.modelWithTestUser();
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        modelManager.hasPerson(null);
+        try {
+            modelManager.hasPerson(null);
+        } catch (NoUserSelectedException e) {
+            Assert.fail("Model has no user selected.");
+        }
     }
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasPerson(ALICE));
+        try {
+            assertFalse(modelManager.hasPerson(ALICE));
+        } catch (NoUserSelectedException e) {
+            Assert.fail("Model has no user selected.");
+        }
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        modelManager.addPerson(ALICE);
-        assertTrue(modelManager.hasPerson(ALICE));
+        try {
+            modelManager.addPerson(ALICE);
+            assertTrue(modelManager.hasPerson(ALICE));
+        } catch (NoUserSelectedException e) {
+            Assert.fail("Model has no user selected.");
+        }
     }
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        thrown.expect(UnsupportedOperationException.class);
-        modelManager.getFilteredPersonList().remove(0);
+        try {
+            thrown.expect(UnsupportedOperationException.class);
+            modelManager.getFilteredPersonList().remove(0);
+        } catch (NoUserSelectedException e) {
+            Assert.fail("Model has no user selected.");
+        }
     }
 
     @Test
     public void equals() {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        AddressBook differentAddressBook = new AddressBook();
+        AddressBook differentAddressBook = new AddressBook(ModelUtil.TEST_USERNAME);
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
@@ -67,14 +86,17 @@ public class ModelManagerTest {
 
         // different addressBook -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+        try {
+            // different filteredList -> returns false
+            String[] keywords = ALICE.getName().fullName.split("\\s+");
+            modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+            assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 
-        // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
-
-        // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+            // resets modelManager to initial state for upcoming tests
+            modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        } catch (NoUserSelectedException e) {
+            Assert.fail("Model has no user selected.");
+        }
 
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();

@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -19,7 +20,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.exceptions.NonExistentUserException;
+import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.expense.Person;
+import seedu.address.model.user.Username;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -152,6 +156,31 @@ public class AddCommandTest {
         public void commitAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void loadUserData(Username username) throws NonExistentUserException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isUserExists(Username username) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addUser(Username username) throws UserAlreadyExistsException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasSelectedUser() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Map<Username, ReadOnlyAddressBook> getAddressBooks() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
@@ -197,7 +226,7 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+            return new AddressBook(new Username("aa"));
         }
     }
 

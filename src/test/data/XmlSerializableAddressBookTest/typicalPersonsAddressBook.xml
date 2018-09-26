@@ -47,4 +47,5 @@
         <email>anna@example.com</email>
         <address>4th street</address>
     </persons>
+    <username>typicalPersonsAddressBook</username>
 </addressbook>

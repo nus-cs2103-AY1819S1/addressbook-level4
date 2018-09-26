@@ -5,6 +5,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.deleteFirstPerson;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,6 +13,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.exceptions.NoUserSelectedException;
 
 public class UndoCommandTest {
 
@@ -32,14 +34,18 @@ public class UndoCommandTest {
     @Test
     public void execute() {
         // multiple undoable states in model
-        expectedModel.undoAddressBook();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        try {
+            expectedModel.undoAddressBook();
+            assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        // single undoable state in model
-        expectedModel.undoAddressBook();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+            // single undoable state in model
+            expectedModel.undoAddressBook();
+            assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        // no undoable states in model
-        assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
+            // no undoable states in model
+            assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
+        } catch (NoUserSelectedException e) {
+            Assert.fail(e.getMessage());
+        }
     }
 }

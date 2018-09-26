@@ -7,4 +7,5 @@
         <email isPrivate="false">hans@example.com</email>
         <address isPrivate="false">4th street</address>
     </persons>
+    <username>invalidPersonAddressBook</username>
 </addressbook>

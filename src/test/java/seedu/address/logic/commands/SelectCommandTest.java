@@ -1,5 +1,18 @@
 package seedu.address.logic.commands;
 
+import org.junit.Assert;
+import org.junit.Rule;
+import org.junit.Test;
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.logic.CommandHistory;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.exceptions.NoUserSelectedException;
+import seedu.address.ui.testutil.EventsCollectorRule;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -10,18 +23,6 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-
-import org.junit.Rule;
-import org.junit.Test;
-
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.ui.testutil.EventsCollectorRule;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
@@ -36,18 +37,25 @@ public class SelectCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Index lastPersonIndex = Index.fromOneBased(model.getFilteredPersonList().size());
-
-        assertExecutionSuccess(INDEX_FIRST_PERSON);
-        assertExecutionSuccess(INDEX_THIRD_PERSON);
-        assertExecutionSuccess(lastPersonIndex);
+        try {
+            Index lastPersonIndex = Index.fromOneBased(model.getFilteredPersonList().size());
+            assertExecutionSuccess(INDEX_FIRST_PERSON);
+            assertExecutionSuccess(INDEX_THIRD_PERSON);
+            assertExecutionSuccess(lastPersonIndex);
+        } catch (NoUserSelectedException e) {
+            Assert.fail(e.getMessage());
+        }
     }
 
     @Test
     public void execute_invalidIndexUnfilteredList_failure() {
-        Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        try {
+            Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
 
-        assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        } catch (NoUserSelectedException e) {
+            Assert.fail(e.getMessage());
+        }
     }
 
     @Test
@@ -65,7 +73,11 @@ public class SelectCommandTest {
 
         Index outOfBoundsIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        try {
+            assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        } catch (NoUserSelectedException e) {
+            Assert.fail(e.getMessage());
+        }
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }

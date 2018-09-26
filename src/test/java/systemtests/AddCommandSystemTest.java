@@ -29,6 +29,7 @@ import static seedu.address.testutil.TypicalPersons.HOON;
 import static seedu.address.testutil.TypicalPersons.IDA;
 import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
@@ -37,6 +38,7 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
+import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.expense.Address;
 import seedu.address.model.expense.Email;
 import seedu.address.model.expense.Name;
@@ -69,7 +71,11 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: redo adding Amy to the list -> Amy added again */
         command = RedoCommand.COMMAND_WORD;
-        model.addPerson(toAdd);
+        try {
+            model.addPerson(toAdd);
+        } catch (NoUserSelectedException e) {
+            Assert.fail(e.getMessage());
+        }
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
@@ -203,7 +209,11 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      */
     private void assertCommandSuccess(String command, Person toAdd) {
         Model expectedModel = getModel();
-        expectedModel.addPerson(toAdd);
+        try {
+            expectedModel.addPerson(toAdd);
+        } catch (NoUserSelectedException e) {
+            Assert.fail(e.getMessage());
+        }
         String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, toAdd);
 
         assertCommandSuccess(command, expectedModel, expectedResultMessage);

@@ -19,6 +19,7 @@ import org.junit.rules.TemporaryFolder;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.testutil.ModelUtil;
 
 public class XmlExpensesStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlExpensesStorageTest");
@@ -120,7 +121,7 @@ public class XmlExpensesStorageTest {
     @Test
     public void saveAddressBook_nullFilePath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(new AddressBook(), null);
+        saveAddressBook(new AddressBook(ModelUtil.TEST_USERNAME), null);
     }
 
 

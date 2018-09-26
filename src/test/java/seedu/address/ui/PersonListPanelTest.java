@@ -102,6 +102,7 @@ public class PersonListPanelTest extends GuiUnitTest {
             builder.append("</persons>\n");
         }
         builder.append("</addressbook>\n");
+        builder.append("<username>manyPersons</username>");
 
         Path manyPersonsFile = Paths.get(TEST_DATA_FOLDER + "manyPersons.xml");
         FileUtil.createFile(manyPersonsFile);

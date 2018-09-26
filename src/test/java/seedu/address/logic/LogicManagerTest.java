@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -16,6 +17,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.exceptions.NoUserSelectedException;
+import seedu.address.model.exceptions.NonExistentUserException;
+import seedu.address.model.exceptions.UserAlreadyExistsException;
 
 
 public class LogicManagerTest {
@@ -49,7 +53,11 @@ public class LogicManagerTest {
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        logic.getFilteredPersonList().remove(0);
+        try {
+            logic.getFilteredPersonList().remove(0);
+        } catch (NoUserSelectedException e) {
+            Assert.fail(e.getMessage());
+        }
     }
 
     /**
@@ -82,8 +90,12 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(Class, String, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
+        try {
+            Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+            assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
+        } catch (NoUserSelectedException e) {
+            Assert.fail(e.getMessage());
+        }
     }
 
     /**
@@ -99,7 +111,8 @@ public class LogicManagerTest {
             CommandResult result = logic.execute(inputCommand);
             assertEquals(expectedException, null);
             assertEquals(expectedMessage, result.feedbackToUser);
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | ParseException | NoUserSelectedException | NonExistentUserException |
+                UserAlreadyExistsException e) {
             assertEquals(expectedException, e.getClass());
             assertEquals(expectedMessage, e.getMessage());
         }
@@ -117,7 +130,8 @@ public class LogicManagerTest {
             String expectedMessage = String.format(
                     HistoryCommand.MESSAGE_SUCCESS, String.join("\n", expectedCommands));
             assertEquals(expectedMessage, result.feedbackToUser);
-        } catch (ParseException | CommandException e) {
+        } catch (ParseException | CommandException | NoUserSelectedException | NonExistentUserException |
+                UserAlreadyExistsException e) {
             throw new AssertionError("Parsing and execution of HistoryCommand.COMMAND_WORD should succeed.", e);
         }
     }

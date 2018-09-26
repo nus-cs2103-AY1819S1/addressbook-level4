@@ -4,6 +4,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,6 +12,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.expense.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -30,20 +32,27 @@ public class AddCommandIntegrationTest {
     @Test
     public void execute_newPerson_success() {
         Person validPerson = new PersonBuilder().build();
+        try {
+            Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+            expectedModel.addPerson(validPerson);
+            expectedModel.commitAddressBook();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addPerson(validPerson);
-        expectedModel.commitAddressBook();
-
-        assertCommandSuccess(new AddCommand(validPerson), model, commandHistory,
-                String.format(AddCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
+            assertCommandSuccess(new AddCommand(validPerson), model, commandHistory,
+                    String.format(AddCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
+        } catch (NoUserSelectedException e) {
+            Assert.fail(e.getMessage());
+        }
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Person personInList = model.getAddressBook().getPersonList().get(0);
-        assertCommandFailure(new AddCommand(personInList), model, commandHistory,
-                AddCommand.MESSAGE_DUPLICATE_PERSON);
+        try {
+            Person personInList = model.getAddressBook().getPersonList().get(0);
+            assertCommandFailure(new AddCommand(personInList), model, commandHistory,
+                    AddCommand.MESSAGE_DUPLICATE_PERSON);
+        } catch (NoUserSelectedException e) {
+            Assert.fail(e.getMessage());
+        }
     }
 
 }

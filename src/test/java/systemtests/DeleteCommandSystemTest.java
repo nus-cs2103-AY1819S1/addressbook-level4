@@ -10,6 +10,7 @@ import static seedu.address.testutil.TestUtil.getPerson;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
@@ -18,6 +19,7 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
+import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.expense.Person;
 
 public class DeleteCommandSystemTest extends AddressBookSystemTest {
@@ -27,88 +29,92 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void delete() {
-        /* ----------------- Performing delete operation while an unfiltered list is being shown -------------------- */
+        try {
+            /* ----------------- Performing delete operation while an unfiltered list is being shown -------------------- */
 
-        /* Case: delete the first person in the list, command with leading spaces and trailing spaces -> deleted */
-        Model expectedModel = getModel();
-        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_PERSON.getOneBased() + "       ";
-        Person deletedPerson = removePerson(expectedModel, INDEX_FIRST_PERSON);
-        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
-        assertCommandSuccess(command, expectedModel, expectedResultMessage);
+            /* Case: delete the first person in the list, command with leading spaces and trailing spaces -> deleted */
+            Model expectedModel = getModel();
+            String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_PERSON.getOneBased() + "       ";
+            Person deletedPerson = removePerson(expectedModel, INDEX_FIRST_PERSON);
+            String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
+            assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
-        /* Case: delete the last person in the list -> deleted */
-        Model modelBeforeDeletingLast = getModel();
-        Index lastPersonIndex = getLastIndex(modelBeforeDeletingLast);
-        assertCommandSuccess(lastPersonIndex);
+            /* Case: delete the last person in the list -> deleted */
+            Model modelBeforeDeletingLast = getModel();
+            Index lastPersonIndex = getLastIndex(modelBeforeDeletingLast);
+            assertCommandSuccess(lastPersonIndex);
 
-        /* Case: undo deleting the last person in the list -> last person restored */
-        command = UndoCommand.COMMAND_WORD;
-        expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
+            /* Case: undo deleting the last person in the list -> last person restored */
+            command = UndoCommand.COMMAND_WORD;
+            expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
+            assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
 
-        /* Case: redo deleting the last person in the list -> last person deleted again */
-        command = RedoCommand.COMMAND_WORD;
-        removePerson(modelBeforeDeletingLast, lastPersonIndex);
-        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
+            /* Case: redo deleting the last person in the list -> last person deleted again */
+            command = RedoCommand.COMMAND_WORD;
+            removePerson(modelBeforeDeletingLast, lastPersonIndex);
+            expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
+            assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
 
-        /* Case: delete the middle person in the list -> deleted */
-        Index middlePersonIndex = getMidIndex(getModel());
-        assertCommandSuccess(middlePersonIndex);
+            /* Case: delete the middle person in the list -> deleted */
+            Index middlePersonIndex = getMidIndex(getModel());
+            assertCommandSuccess(middlePersonIndex);
 
-        /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
+            /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
-        /* Case: filtered person list, delete index within bounds of address book and person list -> deleted */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        Index index = INDEX_FIRST_PERSON;
-        assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
-        assertCommandSuccess(index);
+            /* Case: filtered person list, delete index within bounds of address book and person list -> deleted */
+            showPersonsWithName(KEYWORD_MATCHING_MEIER);
+            Index index = INDEX_FIRST_PERSON;
+            assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
+            assertCommandSuccess(index);
 
-        /* Case: filtered person list, delete index within bounds of address book but out of bounds of person list
-         * -> rejected
-         */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAddressBook().getPersonList().size();
-        command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
-        assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            /* Case: filtered person list, delete index within bounds of address book but out of bounds of person list
+             * -> rejected
+             */
+            showPersonsWithName(KEYWORD_MATCHING_MEIER);
+            int invalidIndex = getModel().getAddressBook().getPersonList().size();
+            command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
+            assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
-        /* --------------------- Performing delete operation while a person card is selected ------------------------ */
+            /* --------------------- Performing delete operation while a person card is selected ------------------------ */
 
-        /* Case: delete the selected person -> person list panel selects the person before the deleted person */
-        showAllPersons();
-        expectedModel = getModel();
-        Index selectedIndex = getLastIndex(expectedModel);
-        Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);
-        selectPerson(selectedIndex);
-        command = DeleteCommand.COMMAND_WORD + " " + selectedIndex.getOneBased();
-        deletedPerson = removePerson(expectedModel, selectedIndex);
-        expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
-        assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
+            /* Case: delete the selected person -> person list panel selects the person before the deleted person */
+            showAllPersons();
+            expectedModel = getModel();
+            Index selectedIndex = getLastIndex(expectedModel);
+            Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);
+            selectPerson(selectedIndex);
+            command = DeleteCommand.COMMAND_WORD + " " + selectedIndex.getOneBased();
+            deletedPerson = removePerson(expectedModel, selectedIndex);
+            expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
+            assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
 
-        /* --------------------------------- Performing invalid delete operation ------------------------------------ */
+            /* --------------------------------- Performing invalid delete operation ------------------------------------ */
 
-        /* Case: invalid index (0) -> rejected */
-        command = DeleteCommand.COMMAND_WORD + " 0";
-        assertCommandFailure(command, MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
+            /* Case: invalid index (0) -> rejected */
+            command = DeleteCommand.COMMAND_WORD + " 0";
+            assertCommandFailure(command, MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
 
-        /* Case: invalid index (-1) -> rejected */
-        command = DeleteCommand.COMMAND_WORD + " -1";
-        assertCommandFailure(command, MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
+            /* Case: invalid index (-1) -> rejected */
+            command = DeleteCommand.COMMAND_WORD + " -1";
+            assertCommandFailure(command, MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
 
-        /* Case: invalid index (size + 1) -> rejected */
-        Index outOfBoundsIndex = Index.fromOneBased(
-                getModel().getAddressBook().getPersonList().size() + 1);
-        command = DeleteCommand.COMMAND_WORD + " " + outOfBoundsIndex.getOneBased();
-        assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            /* Case: invalid index (size + 1) -> rejected */
+            Index outOfBoundsIndex = Index.fromOneBased(
+                    getModel().getAddressBook().getPersonList().size() + 1);
+            command = DeleteCommand.COMMAND_WORD + " " + outOfBoundsIndex.getOneBased();
+            assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
-        /* Case: invalid arguments (alphabets) -> rejected */
-        assertCommandFailure(DeleteCommand.COMMAND_WORD + " abc", MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
+            /* Case: invalid arguments (alphabets) -> rejected */
+            assertCommandFailure(DeleteCommand.COMMAND_WORD + " abc", MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
 
-        /* Case: invalid arguments (extra argument) -> rejected */
-        assertCommandFailure(DeleteCommand.COMMAND_WORD + " 1 abc", MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
+            /* Case: invalid arguments (extra argument) -> rejected */
+            assertCommandFailure(DeleteCommand.COMMAND_WORD + " 1 abc", MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
 
-        /* Case: mixed case command word -> rejected */
-        assertCommandFailure("DelETE 1", MESSAGE_UNKNOWN_COMMAND);
+            /* Case: mixed case command word -> rejected */
+            assertCommandFailure("DelETE 1", MESSAGE_UNKNOWN_COMMAND);
+        } catch (NoUserSelectedException e) {
+            Assert.fail(e.getMessage());
+        }
     }
 
     /**
@@ -117,7 +123,11 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      */
     private Person removePerson(Model model, Index index) {
         Person targetPerson = getPerson(model, index);
-        model.deletePerson(targetPerson);
+        try {
+            model.deletePerson(targetPerson);
+        } catch (NoUserSelectedException e) {
+            Assert.fail(e.getMessage());
+        }
         return targetPerson;
     }
 

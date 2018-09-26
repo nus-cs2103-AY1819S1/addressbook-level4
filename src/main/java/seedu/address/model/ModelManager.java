@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -45,20 +46,22 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons = null;
     }
 
-    /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
-     */
     public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
-
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
-
-        this.addressBooks = null;
-        versionedAddressBook = new VersionedAddressBook(addressBook);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        Map<Username, ReadOnlyAddressBook> addressBooks = new TreeMap<>();
+        logger.fine("Initializing with address book: " + addressBooks + " and user prefs " + userPrefs);
+        this.addressBooks = addressBooks;
+        addressBooks.put(addressBook.getUsername(), addressBook);
+        username = addressBook.getUsername();
+        versionedAddressBook = null;
+        filteredPersons = null;
+        try {
+            loadUserData(addressBook.getUsername());
+        } catch (NonExistentUserException e) {
+            throw new IllegalStateException();
+        }
     }
-
 
     public ModelManager() {
         this(new HashMap<>(), new UserPrefs());
@@ -76,6 +79,11 @@ public class ModelManager extends ComponentManager implements Model {
             throw new NoUserSelectedException();
         }
         return versionedAddressBook;
+    }
+
+    @Override
+    public Map<Username, ReadOnlyAddressBook> getAddressBooks() {
+        return addressBooks;
     }
 
     /** Raises an event to indicate the model has changed */

@@ -54,4 +54,5 @@
         <email isPrivate="false">hans@example.com</email>
         <address isPrivate="false">chicago ave</address>
     </persons>
+    <username>validAddressBook</username>
 </addressbook>

@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
@@ -40,6 +41,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
@@ -143,7 +145,11 @@ public abstract class AddressBookSystemTest {
      */
     protected void showAllPersons() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredPersonList().size());
+        try {
+            assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredPersonList().size());
+        } catch (NoUserSelectedException e) {
+            Assert.fail(e.getMessage());
+        }
     }
 
     /**
@@ -151,7 +157,11 @@ public abstract class AddressBookSystemTest {
      */
     protected void showPersonsWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size());
+        try {
+            assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size());
+        } catch (NoUserSelectedException e) {
+            Assert.fail(e.getMessage());
+        }
     }
 
     /**
@@ -167,7 +177,11 @@ public abstract class AddressBookSystemTest {
      */
     protected void deleteAllPersons() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getAddressBook().getPersonList().size());
+        try {
+            assertEquals(0, getModel().getAddressBook().getPersonList().size());
+        } catch (NoUserSelectedException e) {
+            Assert.fail(e.getMessage());
+        }
     }
 
     /**
@@ -179,8 +193,12 @@ public abstract class AddressBookSystemTest {
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
-        assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
+        try {
+            assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
+            assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
+        } catch (NoUserSelectedException e) {
+            Assert.fail(e.getMessage());
+        }
     }
 
     /**
@@ -276,7 +294,11 @@ public abstract class AddressBookSystemTest {
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
+        try {
+            assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
+        } catch (NoUserSelectedException e) {
+            Assert.fail(e.getMessage());
+        }
         assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());

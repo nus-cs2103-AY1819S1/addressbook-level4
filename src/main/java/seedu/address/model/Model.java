@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.util.Map;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -100,4 +101,10 @@ public interface Model {
      * Returns true if a user has been selected to be used. i.e Already logged in
      */
     boolean hasSelectedUser();
+
+    /**
+     * Returns the address books.
+     * @return the address books
+     */
+    Map<Username, ReadOnlyAddressBook> getAddressBooks();
 }

@@ -21,6 +21,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.expense.Person;
 import seedu.address.model.expense.exceptions.DuplicatePersonException;
+import seedu.address.model.user.Username;
+import seedu.address.testutil.ModelUtil;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddressBookTest {
@@ -28,7 +30,7 @@ public class AddressBookTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBook addressBook = new AddressBook();
+    private final AddressBook addressBook = new AddressBook(ModelUtil.TEST_USERNAME);
 
     @Test
     public void constructor() {
@@ -104,6 +106,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<Person> getPersonList() {
             return persons;
+        }
+
+        @Override
+        public Username getUsername() {
+            return ModelUtil.TEST_USERNAME;
         }
     }
 

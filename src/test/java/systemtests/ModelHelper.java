@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+import org.junit.Assert;
 import seedu.address.model.Model;
+import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.expense.Person;
 
 /**
@@ -20,7 +22,11 @@ public class ModelHelper {
     public static void setFilteredList(Model model, List<Person> toDisplay) {
         Optional<Predicate<Person>> predicate =
                 toDisplay.stream().map(ModelHelper::getPredicateMatching).reduce(Predicate::or);
-        model.updateFilteredPersonList(predicate.orElse(PREDICATE_MATCHING_NO_PERSONS));
+        try {
+            model.updateFilteredPersonList(predicate.orElse(PREDICATE_MATCHING_NO_PERSONS));
+        } catch (NoUserSelectedException e) {
+            Assert.fail(e.getMessage());
+        }
     }
 
     /**
