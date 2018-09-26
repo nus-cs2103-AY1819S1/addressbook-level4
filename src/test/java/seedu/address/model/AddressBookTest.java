@@ -110,7 +110,7 @@ public class AddressBookTest {
     public String getTargetExpenseList(String name, String category) {
         Expense e = new Expense(new Name(name), new Category(category));
         addressBook.addExpense(e);
-        return addressBook.getCategoryList().getExpenseList(e.getCategory()).toString();
+        return addressBook.getCategoryList().getCategory(category).getExpenseList().toString();
     }
 
     @Test

@@ -19,16 +19,16 @@ public class Expense {
     }
 
     public Name getName() {
-        return name;
+        return this.name;
     }
 
     public Category getCategory() {
-        return category;
+        return this.category;
     }
 
     @Override
     public String toString() {
-        return name.expenseName;
+        return this.name.expenseName;
     }
 
 }

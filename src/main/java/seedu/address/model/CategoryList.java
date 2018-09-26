@@ -1,6 +1,5 @@
 package seedu.address.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import seedu.address.model.expense.Category;
@@ -13,49 +12,53 @@ import seedu.address.model.expense.Expense;
  * Duplicate is not allowed.
  * */
 public class CategoryList {
-    public final HashMap<Category, ArrayList<Expense>> categoryList;
+    private final HashMap<String, Category> list;
 
     /**
-     * Create a HashMap of {@code Category}. The key is Category itself and the value is {@code expenseList}
+     * Create a HashMap of {@code Category}.
+     * The key is name of {@code Category} and the value is {@code Category} itself.
      * */
     public CategoryList() {
-        this.categoryList = new HashMap<>();
+        this.list = new HashMap<>();
     }
 
     /**
      * Add a new {@code Category} into CategoryList.
      * */
     public void addCategory(Category category) {
-        ArrayList<Expense> newExpenseList = new ArrayList<>();
-        categoryList.put(category, newExpenseList);
+        this.list.put(category.getName(), category);
     }
 
     /**
-     * This is a tentative method. It is used for testing categorization.
+     * add {@code Expense} into an existed {@code Category}.
      * */
     public void addExpense(Category category, Expense expense) {
-        ArrayList<Expense> currentList = categoryList.get(category);
-        currentList.add(expense);
+        Category currentCate = this.list.get(category.getName());
+        currentCate.addIntoCategory(expense);
     }
 
-    public ArrayList<Expense> getExpenseList(Category key) {
-        return categoryList.get(key);
+    public Category getCategory(String key) {
+        return this.list.get(key);
+    }
+
+    public HashMap<String, Category> getList() {
+        return this.list;
     }
 
     /**
      * Returns true if a category with the same identity as {@code category} exists in the address book.
      */
     public boolean hasCategory(Category category) {
-        return categoryList.containsKey(category);
+        return this.list.containsKey(category.getName());
     }
 
     @Override
     public String toString() {
         String categoryString = "";
-        for (Category i : categoryList.keySet()) {
+        for (String i : this.list.keySet()) {
             categoryString += i;
             categoryString += " ";
-            for (Expense e : categoryList.get(i)) {
+            for (Expense e : this.list.get(i).getExpenseList()) {
                 categoryString += e;
             }
             categoryString += " ";
@@ -65,7 +68,7 @@ public class CategoryList {
 
     @Override
     public int hashCode() {
-        return categoryList.hashCode();
+        return this.list.hashCode();
     }
 
 

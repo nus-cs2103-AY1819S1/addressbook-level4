@@ -68,7 +68,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public boolean hasPerson(Person person) {
         requireNonNull(person);
-        return persons.contains(person);
+        return this.persons.contains(person);
     }
 
     /**
@@ -76,7 +76,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The person must not already exist in the address book.
      */
     public void addPerson(Person p) {
-        persons.add(p);
+        this.persons.add(p);
     }
 
     /**
@@ -85,14 +85,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      * */
     public void addExpense(Expense e) {
         Category category = e.getCategory();
-        if (!categoryList.hasCategory(category)) {
-            categoryList.addCategory(category);
+        if (!this.categoryList.hasCategory(category)) {
+            this.categoryList.addCategory(category);
         }
-        categoryList.addExpense(category, e);
+        this.categoryList.addExpense(category, e);
     }
 
     public CategoryList getCategoryList() {
-        return categoryList;
+        return this.categoryList;
     }
 
     /**

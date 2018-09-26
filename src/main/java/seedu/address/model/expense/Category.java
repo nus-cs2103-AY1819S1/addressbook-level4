@@ -17,9 +17,9 @@ public class Category {
     public static final String CATEGORY_VALIDATION_REGEX = "\\p{Alnum}+";
 
 
-    public final String categoryName;
+    private final String categoryName;
 
-    public final ArrayList<Expense> expenseList = new ArrayList<>();
+    private final ArrayList<Expense> expenseList = new ArrayList<>();
 
     /**
      * Constructs an {@code Category}.
@@ -29,7 +29,7 @@ public class Category {
     public Category(String category) {
         requireNonNull(category);
         checkArgument(isValidCategory(category), MESSAGE_CATEGORY_CONSTRAINTS);
-        categoryName = category;
+        this.categoryName = category;
     }
 
     /**
@@ -39,25 +39,36 @@ public class Category {
         return test.matches(CATEGORY_VALIDATION_REGEX);
     }
 
+    /**
+     * Add an Expense into the {@code expenseList} in Category.
+     * */
     public void addIntoCategory(Expense expense) {
-        expenseList.add(expense);
+        this.expenseList.add(expense);
+    }
+
+    public ArrayList<Expense> getExpenseList() {
+        return this.expenseList;
+    }
+
+    public String getName() {
+        return this.categoryName;
     }
 
     @Override
     public String toString() {
-        return categoryName;
+        return this.categoryName;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Category // instanceof handles nulls
-                && categoryName.equals(((Category) other).categoryName)); // state check
+                && this.categoryName.equals(((Category) other).categoryName)); // state check
     }
 
     @Override
     public int hashCode() {
-        return categoryName.hashCode();
+        return this.categoryName.hashCode();
     }
 
 }
