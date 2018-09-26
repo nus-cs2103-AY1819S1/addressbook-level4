@@ -10,8 +10,8 @@ import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditWishDescriptor;
-import seedu.address.model.wish.Wish;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.wish.Wish;
 
 /**
  * A utility class for Wish.
