@@ -202,163 +202,217 @@ Examples:
 `play` +
 The playlist stops playing and replays from the first track.
 
-=== Adding a person: `add`
+=== Seeking time point : `seek`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-
-[TIP]
-A person can have any number of tags (including 0)
-
-Examples:
-
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Steps to the specified time point of the current track. +
+Format: `seek t/TIME`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* `TIME` is in the format of `[[h ]m ]s` each of which represents a unit of time that will be summed up to get the time point.
+* Examples of valid `TIME`:
+** `10` (10 sec)
+** `1 59` (1 min 59 sec)
+** `100` (100 sec = 1 min 40 sec)
+** `1 100` (1 min + 100 sec = 2 min 40 sec)
+** `1 99 99` (1 hr + 99 min + 99 sec = 2 hr 40 min 39 sec)
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `play t/Some Song.mp3` +
+`seek t/100` +
+The track seeks to the 1 min 40 sec point and starts from there.
+* `play t/Some Song.mp3` +
+`seek t/200000` +
+If `TIME` is longer than the song duration, the seek command fails.
 
-=== Locating persons by name: `find`
+=== Stepping a track : `step`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Steps forward by default 10 seconds or specified time in seconds. +
+Format: `step [s/SECONDS]`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* `SECONDS` is the number of seconds to step forward.
+* If `SECONDS` is negative, the command behaves similar to `stepback`.
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `play t/Some Song.mp3` +
+`step` +
+The track moves forward to 10 seconds later of the track and keeps playing.
+* `play t/Some Song.mp3` +
+`step s/100` +
+Stepping forward 100 seconds.
+* `play t/Some Song.mp3` +
+`stop s/-100` +
+Using negative value for `SECONDS` will apply the same behaviour as `stepback`. The track steps backward 100 seconds.
 
-=== Selecting a person : `select`
+=== Stepping back : `stepback`
 
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
+Steps back by default 10 seconds or specified time in seconds. +
+Format: `stepback [s/SECONDS]`
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
+* `SECONDS` is the number of seconds to step backward.
+* If `SECONDS` is negative, the command behaves similar to `step`.
 ****
 
 Examples:
 
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
+* `play t/Some Song.mp3` +
+`stepback` +
+The track moves backward 10 seconds earlier of the track and keeps playing. If the track has just played for less than 10 seconds, the track replays.
+* `play t/Some Song.mp3` +
+`stepback s/100` +
+Stepping back 100 seconds.
+* `play t/Some Song.mp3` +
+`stepback s/-100` +
+Using negative value for `SECONDS` will apply the same behaviour as `step`. The track steps forward 100 seconds.
 
-=== Listing entered commands : `history`
+=== Replay a track : `replay`
 
-Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
-
-[NOTE]
-====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
-
-// tag::undoredo[]
-=== Undoing previous command : `undo`
-
-Restores the address book to the state before the previous _undoable_ command was executed. +
-Format: `undo`
-
-[NOTE]
-====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
-====
+Replays a track before the track ends to start from the beginning. +
+Format: `replay`
 
 Examples:
 
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
+* `play t/Some Song.mp3` +
+`seek t/100` +
+`replay` +
+The track plays from the beginning.
 
-* `select 1` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
+=== Skipping to the next track : `next`
 
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-
-=== Redoing the previously undone command : `redo`
-
-Reverses the most recent `undo` command. +
-Format: `redo`
+Plays the next track. +
+Format: `next`
 
 Examples:
 
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+* `play p/Favourites` +
+`next` +
+If the last track is being played, the playlist ends and stops.
+* `play t/Some Song.mp3` +
+`repeat track` +
+`next` +
+“Some Song.mp3” will replay.
+* `play p/Favourites` +
+`repeat playlist` +
+`next` +
+Go to the next track. Since `repeat playlist` is on, if it is the last track of the playlist playing, the first track of the playlist will play.
+* `play p/Favourites` +
+`shuffle` +
+`repeat playlist` +
+`next` +
+Go to the next track. Since `shuffle` and `repeat playlist` are on, if it is the last track playing, the next shuffled repeat will play.
 
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
+=== Skipping to the previous track : `prev`
 
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
+Plays the previous track. +
+Format: `prev`
+
+Examples:
+
+* `play p/Favourites` +
+`prev` +
+Plays the previous track. If the current track is first track in playlist, replays the same track since there is no previous track.
+* `play t/Some Song.mp3` +
+`repeat track` +
+`prev` +
+“Some Song.mp3” will replay.
+* `play p/Favourites` +
+`repeat playlist` +
+`prev` +
+Go to the previous track. Since `repeat playlist` is on, if it is the first track of the playlist playing, the last track of the playlist will play.
+* `play p/Favourites` +
+`shuffle` +
+`repeat playlist` +
+`prev` +
+Go to the previous track. Since `shuffle` and `repeat playlist` are on, if it is the first track playing and there was no previous track, the same track repeats.
+
+=== Repeatedly playing a track : `repeat track`
+
+Switches the repeat mode to repeatedly play a single track. The command works even without any track playing. Upon running this command, any subsequent track will be played on repeat. +
+Format: `repeat track`
+
+Examples:
+
+* `play p/Favourites` +
+`repeat playlist` +
+`repeat track` +
+Switches to repeat track mode. The currently playing track will be on repeat.
+* `repeat track` +
+`play t/Some Song.mp3` +
+“Some Song.mp3” will play on repeat.
+* `repeat track` +
+`play p/Favourites` +
+The first track of the “Favourites” playlist will play on repeat.
+
+=== Repeatedly playing a playlist : `repeat playlist`
+
+Switches the repeat mode to repeatedly play a single playlist. The command works even without any playlist playing. Upon running this command, any subsequent playlist will be played on repeat. +
+Format: `repeat playlist`
+
+Examples:
+
+* `play p/Favourites` +
+`repeat track` +
+`repeat playlist` +
+Switches to repeat playlist mode. “Favourites” will play on repeat.
+* `repeat playlist` +
+`play p/Favourites` +
+“Favourites” will play on repeat.
+* `repeat playlist` +
+`play t/Some Song.mp3` +
+“Some Song” will play on repeat.
+
+=== Turning off repeat mode : `repeat off`
+
+Turns off the repeat mode +
+Format: `repeat off`
+
+Examples:
+
+* `play p/Favourites` +
+`repeat playlist` +
+`repeat off` +
+Switches off repeating mode.
+
+=== Shuffling a playlist : `shuffle`
+
+Switches on shuffle mode to play tracks in random order. +
+Format: `shuffle`
+
+****
+* When a playlist is in playback (either playing or paused), `shuffle` will put the rest of the playlist into random order.
+* `shuffle` will have no effect when track repeating mode is on.
+****
+
+Examples:
+
+* `shuffle` +
+`play p/Favourites` +
+“Favourites” will play in random order.
+* `play p/Favourites` +
+`repeat playlist` +
+`shuffle` +
+Subsequent tracks will be played in random order. When all the tracks in the playlist has been played, the next repeat will be shuffled.
+* `play p/Favourites` +
+`repeat track` +
+`shuffle` +
+The track being repeated will continue to play until `repeat off` only then subsequent tracks will play in random order from the remaining unplayed tracks in the playlist.
+
+=== Turning off shuffle mode : `shuffle off`
+
+Turns off the shuffle mode +
+Format: `shuffle off`
+
+Examples:
+
+* `play p/Favourites` +
+`shuffle` +
+`shuffle off` +
+Switches off shuffling mode.
 
 === Clearing all entries : `clear`
 
@@ -369,17 +423,6 @@ Format: `clear`
 
 Exits the program. +
 Format: `exit`
-
-=== Saving the data
-
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 
