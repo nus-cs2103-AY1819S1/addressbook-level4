@@ -192,7 +192,7 @@ public abstract class AddressBookSystemTest {
         getBrowserPanel().rememberUrl();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
-        getPersonListPanel().rememberSelectedPersonCard();
+        getPersonListPanel().rememberSelectedRecipeCard();
     }
 
     /**
@@ -209,7 +209,7 @@ public abstract class AddressBookSystemTest {
      * Asserts that the browser's url is changed to display the details of the recipe in the recipe list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      * @see BrowserPanelHandle#isUrlChanged()
-     * @see RecipeListPanelHandle#isSelectedPersonCardChanged()
+     * @see RecipeListPanelHandle#isSelectedRecipeCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
@@ -228,11 +228,11 @@ public abstract class AddressBookSystemTest {
     /**
      * Asserts that the browser's url and the selected card in the recipe list panel remain unchanged.
      * @see BrowserPanelHandle#isUrlChanged()
-     * @see RecipeListPanelHandle#isSelectedPersonCardChanged()
+     * @see RecipeListPanelHandle#isSelectedRecipeCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
         assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
+        assertFalse(getPersonListPanel().isSelectedRecipeCardChanged());
     }
 
     /**
