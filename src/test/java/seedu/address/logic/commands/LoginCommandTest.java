@@ -13,6 +13,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -41,7 +42,7 @@ public class LoginCommandTest {
     }
 
     @Test
-    public void execute_validPersonLogin_loginSuccessful() throws Exception{
+    public void execute_validPersonLogin_loginSuccessful() throws Exception {
         Person validPerson = new PersonBuilder(ALICE).build();
         ModelStubAcceptingPersonLogin modelStub = new ModelStubAcceptingPersonLogin(validPerson);
         CommandResult commandResult = new LoginCommand(validPerson).execute(modelStub, commandHistory);
@@ -52,7 +53,8 @@ public class LoginCommandTest {
     public void execute_invalidPersonLogin_loginUnsuccessful() {
         Person invalidPerson = new PersonBuilder(BOB).build();
         ModelStubAcceptingPersonLogin modelStub = new ModelStubAcceptingPersonLogin(null);
-        Assert.assertThrows(CommandException.class, () -> new LoginCommand(invalidPerson).execute(modelStub, commandHistory));
+        Assert.assertThrows(CommandException.class,
+                () -> new LoginCommand(invalidPerson).execute(modelStub, commandHistory));
     }
 
     @Test
