@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import guitests.guihandles.PersonCardHandle;
-import guitests.guihandles.PersonListPanelHandle;
+import guitests.guihandles.RecipeListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import seedu.address.model.recipe.Recipe;
 
@@ -39,29 +39,29 @@ public class GuiTestAssert {
     }
 
     /**
-     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code recipes} correctly and
+     * Asserts that the list in {@code recipeListPanelHandle} displays the details of {@code recipes} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(PersonListPanelHandle personListPanelHandle, Recipe... recipes) {
+    public static void assertListMatching(RecipeListPanelHandle recipeListPanelHandle, Recipe... recipes) {
         for (int i = 0; i < recipes.length; i++) {
-            personListPanelHandle.navigateToCard(i);
-            assertCardDisplaysPerson(recipes[i], personListPanelHandle.getPersonCardHandle(i));
+            recipeListPanelHandle.navigateToCard(i);
+            assertCardDisplaysPerson(recipes[i], recipeListPanelHandle.getPersonCardHandle(i));
         }
     }
 
     /**
-     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code recipes} correctly and
+     * Asserts that the list in {@code recipeListPanelHandle} displays the details of {@code recipes} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(PersonListPanelHandle personListPanelHandle, List<Recipe> recipes) {
-        assertListMatching(personListPanelHandle, recipes.toArray(new Recipe[0]));
+    public static void assertListMatching(RecipeListPanelHandle recipeListPanelHandle, List<Recipe> recipes) {
+        assertListMatching(recipeListPanelHandle, recipes.toArray(new Recipe[0]));
     }
 
     /**
-     * Asserts the size of the list in {@code personListPanelHandle} equals to {@code size}.
+     * Asserts the size of the list in {@code recipeListPanelHandle} equals to {@code size}.
      */
-    public static void assertListSize(PersonListPanelHandle personListPanelHandle, int size) {
-        int numberOfPeople = personListPanelHandle.getListSize();
+    public static void assertListSize(RecipeListPanelHandle recipeListPanelHandle, int size) {
+        int numberOfPeople = recipeListPanelHandle.getListSize();
         assertEquals(size, numberOfPeople);
     }
 

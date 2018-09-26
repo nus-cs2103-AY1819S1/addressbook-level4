@@ -15,7 +15,7 @@ import java.nio.file.Paths;
 import org.junit.Test;
 
 import guitests.guihandles.PersonCardHandle;
-import guitests.guihandles.PersonListPanelHandle;
+import guitests.guihandles.RecipeListPanelHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
@@ -34,16 +34,16 @@ public class RecipeListPanelTest extends GuiUnitTest {
 
     private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
 
-    private PersonListPanelHandle personListPanelHandle;
+    private RecipeListPanelHandle recipeListPanelHandle;
 
     @Test
     public void display() {
         initUi(TYPICAL_RECIPES);
 
         for (int i = 0; i < TYPICAL_RECIPES.size(); i++) {
-            personListPanelHandle.navigateToCard(TYPICAL_RECIPES.get(i));
+            recipeListPanelHandle.navigateToCard(TYPICAL_RECIPES.get(i));
             Recipe expectedRecipe = TYPICAL_RECIPES.get(i);
-            PersonCardHandle actualCard = personListPanelHandle.getPersonCardHandle(i);
+            PersonCardHandle actualCard = recipeListPanelHandle.getPersonCardHandle(i);
 
             assertCardDisplaysPerson(expectedRecipe, actualCard);
             assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
@@ -56,8 +56,8 @@ public class RecipeListPanelTest extends GuiUnitTest {
         postNow(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 
-        PersonCardHandle expectedPerson = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
-        PersonCardHandle selectedPerson = personListPanelHandle.getHandleToSelectedCard();
+        PersonCardHandle expectedPerson = recipeListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
+        PersonCardHandle selectedPerson = recipeListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedPerson, selectedPerson);
     }
 
@@ -111,14 +111,14 @@ public class RecipeListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Initializes {@code personListPanelHandle} with a {@code RecipeListPanel} backed by {@code backingList}.
+     * Initializes {@code recipeListPanelHandle} with a {@code RecipeListPanel} backed by {@code backingList}.
      * Also shows the {@code Stage} that displays only {@code RecipeListPanel}.
      */
     private void initUi(ObservableList<Recipe> backingList) {
         RecipeListPanel recipeListPanel = new RecipeListPanel(backingList);
         uiPartRule.setUiPart(recipeListPanel);
 
-        personListPanelHandle = new PersonListPanelHandle(getChildNode(recipeListPanel.getRoot(),
-                PersonListPanelHandle.PERSON_LIST_VIEW_ID));
+        recipeListPanelHandle = new RecipeListPanelHandle(getChildNode(recipeListPanel.getRoot(),
+                RecipeListPanelHandle.PERSON_LIST_VIEW_ID));
     }
 }
