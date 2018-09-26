@@ -1,4 +1,6 @@
 = EventOrganiser
+
+image:https://api.codacy.com/project/badge/Grade/01c802ce6ee64426a7c9cf316a511792[link="https://app.codacy.com/app/yao-feng/main?utm_source=github.com&utm_medium=referral&utm_content=yao-feng/main&utm_campaign=Badge_Grade_Dashboard"]
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/se-edu/addressbook-level4[image:https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master[Build Status]]
