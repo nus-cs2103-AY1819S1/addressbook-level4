@@ -51,8 +51,8 @@ public class SelectCommandTest {
     public void execute_invalidIndexUnfilteredList_failure() {
         try {
             Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-
-            assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            SelectCommand selectCommand = new SelectCommand(outOfBoundsIndex);
+            assertCommandFailure(selectCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         } catch (NoUserSelectedException e) {
             Assert.fail(e.getMessage());
         }
@@ -125,6 +125,5 @@ public class SelectCommandTest {
     private void assertExecutionFailure(Index index, String expectedMessage) {
         SelectCommand selectCommand = new SelectCommand(index);
         assertCommandFailure(selectCommand, model, commandHistory, expectedMessage);
-        assertTrue(eventsCollectorRule.eventsCollector.isEmpty());
     }
 }

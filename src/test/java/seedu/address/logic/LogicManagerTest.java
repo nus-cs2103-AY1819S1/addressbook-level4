@@ -20,13 +20,14 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
+import seedu.address.testutil.ModelUtil;
 
 
 public class LogicManagerTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private Model model = new ModelManager();
+    private Model model = ModelUtil.modelWithTestUser();
     private Logic logic = new LogicManager(model);
 
     @Test

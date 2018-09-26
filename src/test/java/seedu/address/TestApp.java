@@ -7,14 +7,21 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
+import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.storage.ExpensesStorage;
+import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.XmlExpensesStorage;
 import seedu.address.storage.XmlSerializableAddressBook;
+import seedu.address.testutil.ModelUtil;
 import seedu.address.testutil.TestUtil;
+import seedu.address.ui.UiManager;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -115,5 +122,30 @@ public class TestApp extends MainApp {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void init() throws Exception {
+        super.init();
+
+        AppParameters appParameters = AppParameters.parse(getParameters());
+        config = initConfig(appParameters.getConfigPath());
+
+        UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
+        userPrefs = initPrefs(userPrefsStorage);
+        ExpensesStorage expensesStorage = new XmlExpensesStorage(userPrefs.getAddressBookDirPath());
+        storage = new StorageManager(expensesStorage, userPrefsStorage);
+
+        initLogging(config);
+
+        model = ModelUtil.modelWithTestUser();
+
+        logic = new LogicManager(model);
+
+        ui = new UiManager(logic, config, userPrefs);
+
+        initEventsCenter();
+
+        model.loadUserData(ModelUtil.TEST_USERNAME);
     }
 }
