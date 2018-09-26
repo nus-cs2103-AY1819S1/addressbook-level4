@@ -109,7 +109,7 @@ public class Event {
     public void addPerson(Person person) throws DuplicatePersonException {
         try {
             personList.add(person);
-        } catch (DuplicatePersonException e){
+        } catch (DuplicatePersonException e) {
             throw e;
         }
     }
