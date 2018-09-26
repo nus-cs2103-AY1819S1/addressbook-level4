@@ -1,8 +1,8 @@
 package systemtests;
 
 import static org.junit.Assert.assertFalse;
-import static seedu.address.commons.core.Messages.MESSAGE_WISHES_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.commons.core.Messages.MESSAGE_WISHES_LISTED_OVERVIEW;
 import static seedu.address.testutil.TypicalWishes.BENSON;
 import static seedu.address.testutil.TypicalWishes.CARL;
 import static seedu.address.testutil.TypicalWishes.DANIEL;
