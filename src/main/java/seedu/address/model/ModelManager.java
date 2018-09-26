@@ -208,7 +208,6 @@ public class ModelManager extends ComponentManager implements Model {
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
                 && filteredPersons.equals(other.filteredPersons)
-                && userPrefs.equals(other.userPrefs)
                 && calendarModel.equals(other.calendarModel);
     }
 

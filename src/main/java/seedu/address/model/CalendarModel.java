@@ -108,8 +108,8 @@ public class CalendarModel {
 
         CalendarModel o = (CalendarModel) other;
 
-        return Objects.equals(calendarStorage, o.calendarStorage)
-                && Objects.equals(existingCalendar, o.existingCalendar);
+        return calendarStorage.equals(o.calendarStorage)
+                && existingCalendar.equals(o.existingCalendar);
     }
 
     @Override
