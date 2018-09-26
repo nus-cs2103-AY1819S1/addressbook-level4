@@ -29,8 +29,8 @@ public class XmlSerializableAddressBookTest {
         XmlSerializableTaskManager dataFromFile = XmlUtil.getDataFromFile(TYPICAL_TASKS_FILE,
                 XmlSerializableTaskManager.class);
         TaskManager taskManagerFromFile = dataFromFile.toModelType();
-        TaskManager typicalPersonsAddressBook = TypicalTasks.getTypicalTaskManager();
-        assertEquals(taskManagerFromFile, typicalPersonsAddressBook);
+        TaskManager typicalTasksTaskManager = TypicalTasks.getTypicalTaskManager();
+        assertEquals(taskManagerFromFile, typicalTasksTaskManager);
     }
 
     @Test
