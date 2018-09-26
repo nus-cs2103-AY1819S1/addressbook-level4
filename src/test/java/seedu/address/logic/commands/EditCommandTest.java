@@ -12,7 +12,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showTaskAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TASK;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskManager;
 
 import org.junit.Test;
@@ -109,7 +109,7 @@ public class EditCommandTest {
     public void execute_duplicateTaskUnfilteredList_failure() {
         Task firstTask = model.getFilteredTaskList().get(INDEX_FIRST_PERSON.getZeroBased());
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder(firstTask).build();
-        EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
+        EditCommand editCommand = new EditCommand(INDEX_SECOND_TASK, descriptor);
 
         assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_TASK);
     }
@@ -119,7 +119,7 @@ public class EditCommandTest {
         showTaskAtIndex(model, INDEX_FIRST_PERSON);
 
         // edit task in filtered list into a duplicate in task manager
-        Task taskInList = model.getTaskManager().getTaskList().get(INDEX_SECOND_PERSON.getZeroBased());
+        Task taskInList = model.getTaskManager().getTaskList().get(INDEX_SECOND_TASK.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditTaskDescriptorBuilder(taskInList).build());
 
@@ -142,7 +142,7 @@ public class EditCommandTest {
     @Test
     public void execute_invalidTaskIndexFilteredList_failure() {
         showTaskAtIndex(model, INDEX_FIRST_PERSON);
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+        Index outOfBoundIndex = INDEX_SECOND_TASK;
         // ensures that outOfBoundIndex is still in bounds of task manager list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getTaskManager().getTaskList().size());
 
@@ -203,7 +203,7 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
         Model expectedModel = new ModelManager(new TaskManager(model.getTaskManager()), new UserPrefs());
 
-        showTaskAtIndex(model, INDEX_SECOND_PERSON);
+        showTaskAtIndex(model, INDEX_SECOND_TASK);
         Task taskToEdit = model.getFilteredTaskList().get(INDEX_FIRST_PERSON.getZeroBased());
         expectedModel.updateTask(taskToEdit, editedTask);
         expectedModel.commitTaskManager();
@@ -241,7 +241,7 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_PERSON, DESC_AMY)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_TASK, DESC_AMY)));
 
         // different descriptor -> returns false
         assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_PERSON, DESC_BOB)));

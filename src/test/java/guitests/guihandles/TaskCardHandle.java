@@ -11,9 +11,9 @@ import javafx.scene.layout.Region;
 import seedu.address.model.person.Task;
 
 /**
- * Provides a handle to a person card in the person list panel.
+ * Provides a handle to a task card in the task list panel.
  */
-public class PersonCardHandle extends NodeHandle<Node> {
+public class TaskCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String NAME_FIELD_ID = "#name";
     private static final String ADDRESS_FIELD_ID = "#address";
@@ -28,7 +28,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
     private final Label emailLabel;
     private final List<Label> tagLabels;
 
-    public PersonCardHandle(Node cardNode) {
+    public TaskCardHandle(Node cardNode) {
         super(cardNode);
 
         idLabel = getChildNode(ID_FIELD_ID);
@@ -73,15 +73,15 @@ public class PersonCardHandle extends NodeHandle<Node> {
     }
 
     /**
-     * Returns true if this handle contains {@code person}.
+     * Returns true if this handle contains {@code task}.
      */
-    public boolean equals(Task person) {
-        return getName().equals(person.getName().fullName)
-                && getAddress().equals(person.getDescription().value)
-                && getPhone().equals(person.getDueDate().value)
-                && getEmail().equals(person.getPriorityValue().value)
-                && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(person.getLabels().stream()
-                .map(tag -> tag.labelName)
-                .collect(Collectors.toList())));
+    public boolean equals(Task task) {
+        return getName().equals(task.getName().fullName)
+                && getAddress().equals(task.getDescription().value)
+                && getPhone().equals(task.getDueDate().value)
+                && getEmail().equals(task.getPriorityValue().value)
+                && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(task.getLabels().stream()
+                        .map(tag -> tag.labelName)
+                        .collect(Collectors.toList())));
     }
 }

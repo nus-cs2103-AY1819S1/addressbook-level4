@@ -10,7 +10,7 @@ import seedu.address.model.person.Task;
 /**
  * An UI component that displays information of a {@code Task}.
  */
-public class PersonCard extends UiPart<Region> {
+public class TaskCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
 
@@ -22,7 +22,7 @@ public class PersonCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on TaskManager level 4</a>
      */
 
-    public final Task person;
+    public final Task task;
 
     @FXML
     private HBox cardPane;
@@ -39,15 +39,15 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public PersonCard(Task person, int displayedIndex) {
+    public TaskCard(Task task, int displayedIndex) {
         super(FXML);
-        this.person = person;
+        this.task = task;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
-        phone.setText(person.getDueDate().value);
-        address.setText(person.getDescription().value);
-        email.setText(person.getPriorityValue().value);
-        person.getLabels().forEach(tag -> tags.getChildren().add(new Label(tag.labelName)));
+        name.setText(task.getName().fullName);
+        phone.setText(task.getDueDate().value);
+        address.setText(task.getDescription().value);
+        email.setText(task.getPriorityValue().value);
+        task.getLabels().forEach(tag -> tags.getChildren().add(new Label(tag.labelName)));
     }
 
     @Override
@@ -58,13 +58,13 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof TaskCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        TaskCard card = (TaskCard) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+                && task.equals(card.task);
     }
 }
