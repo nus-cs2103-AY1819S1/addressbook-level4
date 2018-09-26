@@ -12,7 +12,7 @@ import seedu.address.model.recipe.Recipe;
  * Provides a handle for {@code RecipeListPanel} containing the list of {@code RecipeCard}.
  */
 public class RecipeListPanelHandle extends NodeHandle<ListView<Recipe>> {
-    public static final String PERSON_LIST_VIEW_ID = "#personListView";
+    public static final String RECIPE_LIST_VIEW_ID = "#personListView";
 
     private static final String CARD_PANE_ID = "#cardPane";
 
