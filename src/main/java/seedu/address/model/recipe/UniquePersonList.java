@@ -13,14 +13,14 @@ import seedu.address.model.recipe.exceptions.PersonNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A recipe is considered unique by comparing using {@code Recipe#isSamePerson(Recipe)}. As such, adding and updating of
- * persons uses Recipe#isSamePerson(Recipe) for equality so as to ensure that the recipe being added or updated is
+ * A recipe is considered unique by comparing using {@code Recipe#isSameRecipe(Recipe)}. As such, adding and updating of
+ * persons uses Recipe#isSameRecipe(Recipe) for equality so as to ensure that the recipe being added or updated is
  * unique in terms of identity in the UniquePersonList. However, the removal of a recipe uses Recipe#equals(Object) so
  * as to ensure that the recipe with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
- * @see Recipe#isSamePerson(Recipe)
+ * @see Recipe#isSameRecipe(Recipe)
  */
 public class UniquePersonList implements Iterable<Recipe> {
 
@@ -31,7 +31,7 @@ public class UniquePersonList implements Iterable<Recipe> {
      */
     public boolean contains(Recipe toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSamePerson);
+        return internalList.stream().anyMatch(toCheck::isSameRecipe);
     }
 
     /**
@@ -59,7 +59,7 @@ public class UniquePersonList implements Iterable<Recipe> {
             throw new PersonNotFoundException();
         }
 
-        if (!target.isSamePerson(editedRecipe) && contains(editedRecipe)) {
+        if (!target.isSameRecipe(editedRecipe) && contains(editedRecipe)) {
             throw new DuplicatePersonException();
         }
 
@@ -125,7 +125,7 @@ public class UniquePersonList implements Iterable<Recipe> {
     private boolean personsAreUnique(List<Recipe> recipes) {
         for (int i = 0; i < recipes.size() - 1; i++) {
             for (int j = i + 1; j < recipes.size(); j++) {
-                if (recipes.get(i).isSamePerson(recipes.get(j))) {
+                if (recipes.get(i).isSameRecipe(recipes.get(j))) {
                     return false;
                 }
             }
