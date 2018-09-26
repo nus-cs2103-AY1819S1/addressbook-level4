@@ -45,11 +45,7 @@ public class Category {
 
     @Override
     public String toString() {
-        String categoryString = "";
-        for (Expense i : expenseList) {
-            categoryString += i;
-        }
-        return categoryString;
+        return categoryName;
     }
 
     @Override
