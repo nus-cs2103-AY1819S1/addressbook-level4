@@ -11,7 +11,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class AcademicYear {
     public static final String MESSAGE_ACADEMICYEAR_CONSTRAINTS =
-            "Academic Year should be a 4 digit number, with the first and last 2 digits representing the calendar year.";
+            "Academic Year should be a 4 digit number,"
+            + " with the first and last 2 digits representing the calendar year.";
 
     public final Integer yearNumber;
 
