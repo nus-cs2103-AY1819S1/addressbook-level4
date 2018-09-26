@@ -18,9 +18,13 @@ public class Expense {
         this.category = category;
     }
 
-    public Name getName() { return name; }
+    public Name getName() {
+        return name;
+    }
 
-    public Category getCategory() { return category; }
+    public Category getCategory() {
+        return category;
+    }
 
     @Override
     public String toString() {

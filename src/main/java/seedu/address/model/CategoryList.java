@@ -1,10 +1,12 @@
 package seedu.address.model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import seedu.address.model.expense.Category;
 import seedu.address.model.expense.Expense;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+
 //@@author Jiang Chen
 /**
  * Manage all Category class created during addition of expense.
@@ -28,12 +30,17 @@ public class CategoryList {
         categoryList.put(category, newExpenseList);
     }
 
+    /**
+     * This is a tentative method. It is used for testing categorization.
+     * */
     public void addExpense(Category category, Expense expense) {
         ArrayList<Expense> currentList = categoryList.get(category);
         currentList.add(expense);
     }
 
-    public ArrayList<Expense> getExpenseList(Category key) { return categoryList.get(key); }
+    public ArrayList<Expense> getExpenseList(Category key) {
+        return categoryList.get(key);
+    }
 
     /**
      * Returns true if a category with the same identity as {@code category} exists in the address book.
@@ -45,7 +52,7 @@ public class CategoryList {
     @Override
     public String toString() {
         String categoryString = "";
-        for (Category i : categoryList.keySet()){
+        for (Category i : categoryList.keySet()) {
             categoryString += i;
             categoryString += " ";
             for (Expense e : categoryList.get(i)) {

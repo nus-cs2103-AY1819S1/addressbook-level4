@@ -46,10 +46,10 @@ public class Category {
     @Override
     public String toString() {
         String categoryString = "";
-        for (Expense i : expenseList){
+        for (Expense i : expenseList) {
             categoryString += i;
         }
-        return categoryName;
+        return categoryString;
     }
 
     @Override
