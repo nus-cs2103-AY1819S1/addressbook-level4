@@ -19,6 +19,9 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.expense.Category;
+import seedu.address.model.expense.Expense;
+import seedu.address.model.expense.Name;
 import seedu.address.model.expense.Person;
 import seedu.address.model.expense.exceptions.DuplicatePersonException;
 import seedu.address.testutil.PersonBuilder;
@@ -92,6 +95,42 @@ public class AddressBookTest {
     }
 
     /**
+     * @return the string which consists of category and expense under the category.
+     * The order is unexpected as the string is converted from HashMap.
+     * */
+    public String testAddExpense(Expense e) {
+        addressBook.addExpense(e);
+        String result = addressBook.getCategoryList().toString();
+        return result;
+    }
+
+    /**
+     * @return the string of a expense list under a particular category.
+     * */
+    public String getTargetExpenseList(String name, String category) {
+        Expense e = new Expense(new Name(name), new Category(category));
+        addressBook.addExpense(e);
+        return addressBook.getCategoryList().getCategory(category).getExpenseList().toString();
+    }
+
+    @Test
+    public void addExpense_categoryNotExist() {
+        Expense e = new Expense(new Name("firstExpense"), new Category("Test"));
+        assertEquals("Test firstExpense ", testAddExpense(e));
+
+        assertEquals("[secondExpense]", getTargetExpenseList("secondExpense", "secondTest"));
+        assertEquals("[thirdExpense]", getTargetExpenseList("thirdExpense", "thirdTest"));
+    }
+
+    @Test
+    public void addExpense_categoryExit() {
+        assertEquals("[first]", getTargetExpenseList("first", "Test1"));
+        assertEquals("[first, second]", getTargetExpenseList("second", "Test1"));
+        assertEquals("[first, second, third]", getTargetExpenseList("third", "Test1"));
+    }
+
+
+    /**
      * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
@@ -106,5 +145,7 @@ public class AddressBookTest {
             return persons;
         }
     }
+
+
 
 }
