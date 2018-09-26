@@ -1,4 +1,5 @@
 //@@author EatOrBeEaten
+
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -34,10 +35,10 @@ public class ComposeCommandParser implements Parser<ComposeCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ComposeCommand.MESSAGE_USAGE));
         }
 
-        String from = argMultimap.getValue(PREFIX_FROM).get();
-        String to = argMultimap.getValue(PREFIX_TO).get();
-        String subject = argMultimap.getValue(PREFIX_SUBJECT).get();
-        String content = argMultimap.getValue(PREFIX_CONTENT).get();
+        String from = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_FROM).get()).toString();
+        String to = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_TO).get()).toString();
+        String subject = ParserUtil.parseSubject(argMultimap.getValue(PREFIX_SUBJECT).get()).toString();
+        String content = ParserUtil.parseContent(argMultimap.getValue(PREFIX_CONTENT).get()).toString();
 
         Email email = EmailBuilder.startingBlank()
                 .from(from)

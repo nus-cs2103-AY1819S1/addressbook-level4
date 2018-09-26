@@ -1,4 +1,5 @@
 //@@author EatOrBeEaten
+
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
@@ -11,7 +12,6 @@ import org.simplejavamail.email.Email;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.storage.EmailStorage;
 
 /**
  * Composes email and writes it to hard disk
