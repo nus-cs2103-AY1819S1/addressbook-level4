@@ -8,8 +8,8 @@ import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.ride.Address;
 import seedu.address.model.ride.Email;
 import seedu.address.model.ride.Name;
-import seedu.address.model.ride.Ride;
 import seedu.address.model.ride.Phone;
+import seedu.address.model.ride.Ride;
 import seedu.address.model.tag.Tag;
 
 /**
