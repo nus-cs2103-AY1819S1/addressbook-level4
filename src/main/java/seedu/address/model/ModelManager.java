@@ -18,6 +18,7 @@ import seedu.address.commons.events.model.UserLoggedInEvent;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistantUserException;
 import seedu.address.model.expense.Person;
+import seedu.address.model.user.Username;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -27,13 +28,13 @@ public class ModelManager extends ComponentManager implements Model {
 
     private VersionedAddressBook versionedAddressBook;
     private FilteredList<Person> filteredPersons;
-    private String username;
-    private final Map<String, ReadOnlyAddressBook> addressBooks;
+    private Username username;
+    private final Map<Username, ReadOnlyAddressBook> addressBooks;
 
     /**
      * Initializes a ModelManager with the given addressBooks and userPrefs.
      */
-    public ModelManager(Map<String, ReadOnlyAddressBook> addressBooks, UserPrefs userPrefs) {
+    public ModelManager(Map<Username, ReadOnlyAddressBook> addressBooks, UserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBooks, userPrefs);
         this.addressBooks = addressBooks;
@@ -174,7 +175,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Login =================================================================================
     @Override
-    public void loadUserData(String username) {
+    public void loadUserData(Username username) {
         if (!isUserExists(username)) {
             throw new NonExistantUserException();
         }
@@ -191,7 +192,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public boolean isUserExists(String toCheck) {
+    public boolean isUserExists(Username toCheck) {
         return addressBooks.containsKey(toCheck);
     }
 

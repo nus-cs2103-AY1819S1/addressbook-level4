@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistantUserException;
 import seedu.address.model.expense.Person;
+import seedu.address.model.user.Username;
 
 /**
  * The API of the Model component.
@@ -81,10 +82,10 @@ public interface Model {
     /**
      * Selects the AddressBook of the user with the input username to be used.
      */
-    void loadUserData(String username) throws NonExistantUserException;
+    void loadUserData(Username username) throws NonExistantUserException;
 
     /**
      * Returns true if there is a user with the input username in memory.
      */
-    boolean isUserExists(String username);
+    boolean isUserExists(Username username);
 }

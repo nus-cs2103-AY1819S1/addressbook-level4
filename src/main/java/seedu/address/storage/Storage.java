@@ -10,6 +10,7 @@ import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.user.Username;
 
 /**
  * API of the Storage component
@@ -36,7 +37,7 @@ public interface Storage extends ExpensesStorage, UserPrefsStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Map<String, ReadOnlyAddressBook> readAllExpenses(Path dirPath) throws DataConversionException, IOException;
+    Map<Username, ReadOnlyAddressBook> readAllExpenses(Path dirPath) throws DataConversionException, IOException;
 
     @Override
     void saveExpenses(ReadOnlyAddressBook addressBook) throws IOException;
