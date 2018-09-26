@@ -16,7 +16,7 @@ public class Password {
      * The first character of the password must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String PASSWORD_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]{8}";
+    public static final String PASSWORD_VALIDATION_REGEX = "[\\p{Alnum}]{6,12}";
 
     public final String password;
 
