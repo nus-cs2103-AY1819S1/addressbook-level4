@@ -5,13 +5,19 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -32,8 +38,8 @@ public class Event {
     private LocalTime time;
 
     private final Set<Tag> tags = new HashSet<>();
-
-    private final HashSet<Poll> polls;
+    private final ArrayList<Poll> polls;
+    private final UniquePersonList personList;
 
     /**
      * Every field must be present and not null.
@@ -45,7 +51,8 @@ public class Event {
         this.name = name;
         this.location = address;
         this.tags.addAll(tags);
-        polls = new HashSet<>();
+        polls = new ArrayList<>();
+        personList = new UniquePersonList();
     }
 
     public Name getName() {
@@ -97,11 +104,67 @@ public class Event {
     }
 
     /**
+     * Adds a new person to the event.
+     */
+    public void addPerson(Person person) throws DuplicatePersonException {
+        try {
+            personList.add(person);
+        } catch (DuplicatePersonException e) {
+            throw e;
+        }
+    }
+
+    public UniquePersonList getPersonList() {
+        return personList;
+    }
+
+    /**
+     * Adds list of persons into the person list.
+     */
+    public void setPersonList(ArrayList<Person> personList) {
+        for (Person person : personList) {
+            this.personList.add(person);
+        }
+    }
+
+    /**
+     * Returns the name list of the people attending as a string.
+     */
+    public String getNameList() {
+        return personList.getNameList();
+    }
+
+    /**
      * Adds a new poll to the event.
      */
     public void addPoll(String pollName) {
-        Poll poll = new Poll(pollName);
+        int id = polls.size() + 1;
+        Poll poll = new Poll(id, pollName);
         polls.add(poll);
+    }
+
+    /**
+     * Gets a poll at the specified index
+     */
+    public Poll getPoll(Index index) throws IndexOutOfBoundsException {
+        try {
+            return polls.get(index.getZeroBased());
+        } catch (IndexOutOfBoundsException e) {
+            throw e;
+        }
+    }
+
+    public ArrayList<Poll> getPolls() {
+        return polls;
+    }
+
+    /**
+     * Adds polls into the poll list.
+     */
+    public void setPolls(ArrayList<Poll> polls) {
+        for (Poll poll : polls) {
+            this.polls.add(poll);
+        }
     }
 
     /**

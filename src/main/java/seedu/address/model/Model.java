@@ -40,8 +40,6 @@ public interface Model {
      */
     void addPerson(Person person);
 
-
-
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
@@ -49,17 +47,24 @@ public interface Model {
      */
     void updatePerson(Person target, Person editedPerson);
 
+    void updateEvent(Event target, Event editedEvent);
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
     ObservableList<Event> getFilteredEventList();
-
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Updates the filter of the filtered event list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredEventList(Predicate<Event> predicate);
 
     /**
      * Returns true if the model has previous address book states to restore.
@@ -91,4 +96,6 @@ public interface Model {
     void deleteEvent(Event target);
 
     Event getEvent(Index targetIndex);
+
+    Person getPerson(Index targetIndex);
 }

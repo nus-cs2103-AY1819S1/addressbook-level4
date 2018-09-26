@@ -87,6 +87,10 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    public Person getPerson(Index targetIndex) {
+        return filteredPersons.get(targetIndex.getZeroBased());
+    }
+
     //===========Events ======================================================================================
     @Override
     public void addEvent(Event event) {
@@ -115,6 +119,14 @@ public class ModelManager extends ComponentManager implements Model {
         return filteredEvents.get(targetIndex.getZeroBased());
     }
 
+    @Override
+    public void updateEvent(Event target, Event editedPerson) {
+        requireAllNonNull(target, editedPerson);
+
+        versionedAddressBook.updateEvent(target, editedPerson);
+        indicateAddressBookChanged();
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -137,7 +149,8 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
-    private void updateFilteredEventList(Predicate<Event> predicate) {
+    @Override
+    public void updateFilteredEventList(Predicate<Event> predicate) {
         requireNonNull(predicate);
         filteredEvents.setPredicate(predicate);
     }
