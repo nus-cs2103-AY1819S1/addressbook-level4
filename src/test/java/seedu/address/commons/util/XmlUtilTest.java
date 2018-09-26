@@ -20,7 +20,7 @@ import seedu.address.storage.XmlAdaptedRecipe;
 import seedu.address.storage.XmlAdaptedTag;
 import seedu.address.storage.XmlSerializableAddressBook;
 import seedu.address.testutil.AddressBookBuilder;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.RecipeBuilder;
 import seedu.address.testutil.TestUtil;
 
 public class XmlUtilTest {
@@ -29,9 +29,9 @@ public class XmlUtilTest {
     private static final Path EMPTY_FILE = TEST_DATA_FOLDER.resolve("empty.xml");
     private static final Path MISSING_FILE = TEST_DATA_FOLDER.resolve("missing.xml");
     private static final Path VALID_FILE = TEST_DATA_FOLDER.resolve("validAddressBook.xml");
-    private static final Path MISSING_PERSON_FIELD_FILE = TEST_DATA_FOLDER.resolve("missingRecipeField.xml");
-    private static final Path INVALID_PERSON_FIELD_FILE = TEST_DATA_FOLDER.resolve("invalidRecipeField.xml");
-    private static final Path VALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("validRecipe.xml");
+    private static final Path MISSING_RECIPE_FIELD_FILE = TEST_DATA_FOLDER.resolve("missingRecipeField.xml");
+    private static final Path INVALID_RECIPE_FIELD_FILE = TEST_DATA_FOLDER.resolve("invalidRecipeField.xml");
+    private static final Path VALID_RECIPE_FILE = TEST_DATA_FOLDER.resolve("validRecipe.xml");
     private static final Path TEMP_FILE = TestUtil.getFilePathInSandboxFolder("tempAddressBook.xml");
 
     private static final String INVALID_PHONE = "9482asf424";
@@ -76,30 +76,30 @@ public class XmlUtilTest {
     }
 
     @Test
-    public void xmlAdaptedPersonFromFile_fileWithMissingPersonField_validResult() throws Exception {
-        XmlAdaptedRecipe actualPerson = XmlUtil.getDataFromFile(
-                MISSING_PERSON_FIELD_FILE, XmlAdaptedRecipeWithRootElement.class);
-        XmlAdaptedRecipe expectedPerson = new XmlAdaptedRecipe(
+    public void xmlAdaptedRecipeFromFile_fileWithMissingRecipeField_validResult() throws Exception {
+        XmlAdaptedRecipe actualRecipe = XmlUtil.getDataFromFile(
+                MISSING_RECIPE_FIELD_FILE, XmlAdaptedRecipeWithRootElement.class);
+        XmlAdaptedRecipe expectedRecipe = new XmlAdaptedRecipe(
                 null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        assertEquals(expectedPerson, actualPerson);
+        assertEquals(expectedRecipe, actualRecipe);
     }
 
     @Test
-    public void xmlAdaptedPersonFromFile_fileWithInvalidPersonField_validResult() throws Exception {
-        XmlAdaptedRecipe actualPerson = XmlUtil.getDataFromFile(
-                INVALID_PERSON_FIELD_FILE, XmlAdaptedRecipeWithRootElement.class);
-        XmlAdaptedRecipe expectedPerson = new XmlAdaptedRecipe(
+    public void xmlAdaptedRecipeFromFile_fileWithInvalidRecipeField_validResult() throws Exception {
+        XmlAdaptedRecipe actualRecipe = XmlUtil.getDataFromFile(
+                INVALID_RECIPE_FIELD_FILE, XmlAdaptedRecipeWithRootElement.class);
+        XmlAdaptedRecipe expectedRecipe = new XmlAdaptedRecipe(
                 VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        assertEquals(expectedPerson, actualPerson);
+        assertEquals(expectedRecipe, actualRecipe);
     }
 
     @Test
-    public void xmlAdaptedPersonFromFile_fileWithValidPerson_validResult() throws Exception {
-        XmlAdaptedRecipe actualPerson = XmlUtil.getDataFromFile(
-                VALID_PERSON_FILE, XmlAdaptedRecipeWithRootElement.class);
-        XmlAdaptedRecipe expectedPerson = new XmlAdaptedRecipe(
+    public void xmlAdaptedRecipeFromFile_fileWithValidRecipe_validResult() throws Exception {
+        XmlAdaptedRecipe actualRecipe = XmlUtil.getDataFromFile(
+                VALID_RECIPE_FILE, XmlAdaptedRecipeWithRootElement.class);
+        XmlAdaptedRecipe expectedRecipe = new XmlAdaptedRecipe(
                 VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        assertEquals(expectedPerson, actualPerson);
+        assertEquals(expectedRecipe, actualRecipe);
     }
 
     @Test
@@ -130,7 +130,7 @@ public class XmlUtilTest {
 
         AddressBookBuilder builder = new AddressBookBuilder(new AddressBook());
         dataToWrite = new XmlSerializableAddressBook(
-                builder.withPerson(new PersonBuilder().build()).build());
+                builder.withRecipe(new RecipeBuilder().build()).build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
