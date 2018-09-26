@@ -72,16 +72,17 @@ public class Duration {
         endDate.add(Calendar.MILLISECOND, (int) this.getDurationInMilliseconds());
     }
 
-    @Override
-    public String toString() {
-        StringBuilder fromTo = new StringBuilder();
+    public String getStartDateAsString() {
+        return new SimpleDateFormat("dd-MM-yyyy").format(startDate.getTime());
+    }
+
+    public String getEndDateAsString() {
+        return new SimpleDateFormat("dd-MM-yyyy").format(endDate.getTime());
+    }
+
+    public String getDuration() {
         StringBuilder duration = new StringBuilder();
         double d = durationInMilliseconds;
-
-        String formattedStartDate = new SimpleDateFormat("dd-MM-yyyy").format(startDate.getTime());
-        String formattedEndDate = new SimpleDateFormat("dd-MM-yyyy").format(endDate.getTime());
-
-        fromTo.append("from ").append(formattedStartDate).append(" to ").append(formattedEndDate);
 
         assert d >= 0;
 
@@ -114,8 +115,17 @@ public class Duration {
         // Remove trailing comma
         String result = duration.toString().trim();
         result = result.substring(0, result.length() - 1);
+        return result;
+    }
 
-        return fromTo.toString() + " [" + result + "]";
+    @Override
+    public String toString() {
+        StringBuilder fromTo = new StringBuilder();
+        String formattedStartDate = getStartDateAsString();
+        String formattedEndDate = getEndDateAsString();
+        fromTo.append("from ").append(formattedStartDate).append(" to ").append(formattedEndDate);
+
+        return fromTo.toString() + " [" + getDuration() + "]";
     }
 
     @Override

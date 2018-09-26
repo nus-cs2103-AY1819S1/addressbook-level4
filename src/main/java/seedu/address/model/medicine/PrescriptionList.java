@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 //@@author snajef
 /**
  * Wrapper class to hold all medication for a given patient.
@@ -85,5 +88,12 @@ public class PrescriptionList {
         }
 
         return false;
+    }
+
+    /**
+     * Returns an unmodifiable ObservableList of the prescriptions contained within.
+     */
+    public ObservableList<Prescription> getReadOnlyList() {
+        return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(medicineList));
     }
 }
