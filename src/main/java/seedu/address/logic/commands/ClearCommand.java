@@ -27,7 +27,8 @@ public class ClearCommand extends Command {
             + "Example: " + COMMAND_WORD + " all"
             + "Example: " + COMMAND_WORD + " basketball";
     public static final String MESSAGE_CLEAR_ALL_SUCCESS = "Hallper has been cleared!";
-    public static final String MESSAGE_CLEAR_SPECIFIC_SUCCESS = "Cleared contacts under %1$s in Hallper";
+    public static final String MESSAGE_CLEAR_SPECIFIC_SUCCESS = "Cleared persons under %1$s in Hallper";
+    public static final String MESSAGE_CLEAR_NOTHING = "No persons found under %1$s in Hallper";
 
     private final ContactContainsTagPredicate predicate;
 
@@ -82,6 +83,11 @@ public class ClearCommand extends Command {
                 toClear.add(p);
             }
         }
+
+        if (toClear.isEmpty()) {
+            return new CommandResult(String.format(MESSAGE_CLEAR_NOTHING, target));
+        }
+
         model.clearMultiplePersons(toClear);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_CLEAR_SPECIFIC_SUCCESS, target));
