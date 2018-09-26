@@ -1,3 +1,4 @@
+//@@author javenseow
 package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
@@ -41,5 +42,10 @@ public class School {
         return other == this // short circuit if same object
                 || (other instanceof School // instanceof handles nulls
                 && schoolName.equals(((School) other).schoolName));
+    }
+
+    @Override
+    public int hashCode() {
+        return schoolName.hashCode();
     }
 }

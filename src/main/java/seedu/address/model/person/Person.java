@@ -116,7 +116,7 @@ public class Person {
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
-                .append(" Room ")
+                .append(" Room: ")
                 .append(getRoom())
                 .append( " School: ")
                 .append(getSchool())
