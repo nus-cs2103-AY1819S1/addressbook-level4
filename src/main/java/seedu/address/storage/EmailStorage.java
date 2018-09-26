@@ -1,9 +1,11 @@
+//@@author EatOrBeEaten
+
 package seedu.address.storage;
 
 import java.io.IOException;
 import java.nio.file.Path;
 
-import org.simplejavamail.email.Email;
+import seedu.address.model.EmailModel;
 
 /**
  * Represents a storage for Email.
@@ -20,6 +22,6 @@ public interface EmailStorage {
      * @param email cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveEmail(Email email) throws IOException;
+    void saveEmail(EmailModel email) throws IOException;
 
 }

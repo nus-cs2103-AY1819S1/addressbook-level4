@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
-import org.simplejavamail.email.Email;
-
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.EmailSavedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.EmailModel;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 
@@ -36,7 +36,7 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, EmailStor
     Path getEmailPath();
 
     @Override
-    void saveEmail(Email email) throws IOException;
+    void saveEmail(EmailModel email) throws IOException;
 
     /**
      * Saves the current version of the Address Book to the hard disk.
@@ -44,4 +44,11 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, EmailStor
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
     void handleAddressBookChangedEvent(AddressBookChangedEvent abce);
+
+    /**
+     * Saves the current Email in EmailModel to the hard disk.
+     *   Creates the data file if it is missing.
+     * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
+     */
+    void handleEmailSavedEvent(EmailSavedEvent abce);
 }

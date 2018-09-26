@@ -5,15 +5,15 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import org.simplejavamail.email.Email;
-
 import com.google.common.eventbus.Subscribe;
 
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.EmailSavedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.EmailModel;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 
@@ -96,6 +96,7 @@ public class StorageManager extends ComponentManager implements Storage {
         }
     }
 
+    //@@author EatOrBeEaten
     // ================ Email methods ==============================
 
     @Override
@@ -104,7 +105,18 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public void saveEmail(Email email) throws IOException {
+    public void saveEmail(EmailModel email) throws IOException {
         emailStorage.saveEmail(email);
+    }
+
+    @Override
+    @Subscribe
+    public void handleEmailSavedEvent(EmailSavedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
+        try {
+            saveEmail(event.data);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
     }
 }

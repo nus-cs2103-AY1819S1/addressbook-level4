@@ -6,6 +6,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import org.simplejavamail.email.Email;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -15,7 +17,6 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.EmailSavedEvent;
 import seedu.address.model.person.Person;
 
-import org.simplejavamail.email.Email;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -25,7 +26,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
-    private final UserPrefs userPrefs;
     private final EmailModel emailModel;
 
     /**
@@ -39,7 +39,6 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
-        this.userPrefs = userPrefs;
         this.emailModel = new EmailModel();
     }
 
@@ -154,6 +153,7 @@ public class ModelManager extends ComponentManager implements Model {
                 && filteredPersons.equals(other.filteredPersons);
     }
 
+    //@@author EatOrBeEaten
     //=========== Compose email =================================================================================
 
     @Override

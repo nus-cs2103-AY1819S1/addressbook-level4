@@ -1,6 +1,6 @@
-package seedu.address.commons.events.model;
+//@@author EatOrBeEaten
 
-import org.simplejavamail.email.Email;
+package seedu.address.commons.events.model;
 
 import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.EmailModel;
@@ -20,4 +20,5 @@ public class EmailSavedEvent extends BaseEvent {
     public String toString() {
         return data.getEmail().getSubject();
     }
+
 }
