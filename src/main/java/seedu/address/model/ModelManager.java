@@ -59,18 +59,18 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public boolean hasRecipe(Recipe recipe) {
         requireNonNull(recipe);
-        return versionedAddressBook.hasPerson(recipe);
+        return versionedAddressBook.hasRecipe(recipe);
     }
 
     @Override
     public void deleteRecipe(Recipe target) {
-        versionedAddressBook.removePerson(target);
+        versionedAddressBook.removeRecipe(target);
         indicateAddressBookChanged();
     }
 
     @Override
     public void addRecipe(Recipe recipe) {
-        versionedAddressBook.addPerson(recipe);
+        versionedAddressBook.addRecipe(recipe);
         updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
         indicateAddressBookChanged();
     }
@@ -79,7 +79,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateRecipe(Recipe target, Recipe editedRecipe) {
         requireAllNonNull(target, editedRecipe);
 
-        versionedAddressBook.updatePerson(target, editedRecipe);
+        versionedAddressBook.updateRecipe(target, editedRecipe);
         indicateAddressBookChanged();
     }
 
