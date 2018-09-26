@@ -3,48 +3,48 @@
 <taskmanager>
     <tasks>
         <name>Alice Pauline</name>
-        <phone>94351253</phone>
-        <email>alice@example.com</email>
-        <address>123, Jurong West Ave 6, #08-111</address>
+        <dueDate>94351253</dueDate>
+        <priorityValue>alice@example.com</priorityValue>
+        <description>123, Jurong West Ave 6, #08-111</description>
         <labelled>friends</labelled>
     </tasks>
     <tasks>
         <name>Benson Meier</name>
-        <phone>98765432</phone>
-        <email>johnd@example.com</email>
-        <address>311, Clementi Ave 2, #02-25</address>
+        <dueDate>98765432</dueDate>
+        <priorityValue>johnd@example.com</priorityValue>
+        <description>311, Clementi Ave 2, #02-25</description>
         <labelled>owesMoney</labelled>
         <labelled>friends</labelled>
     </tasks>
     <tasks>
         <name>Carl Kurz</name>
-        <phone>95352563</phone>
-        <email>heinz@example.com</email>
-        <address>wall street</address>
+        <dueDate>95352563</dueDate>
+        <priorityValue>heinz@example.com</priorityValue>
+        <description>wall street</description>
     </tasks>
     <tasks>
         <name>Daniel Meier</name>
-        <phone>87652533</phone>
-        <email>cornelia@example.com</email>
-        <address>10th street</address>
+        <dueDate>87652533</dueDate>
+        <priorityValue>cornelia@example.com</priorityValue>
+        <description>10th street</description>
         <labelled>friends</labelled>
     </tasks>
     <tasks>
         <name>Elle Meyer</name>
-        <phone>9482224</phone>
-        <email>werner@example.com</email>
-        <address>michegan ave</address>
+        <dueDate>9482224</dueDate>
+        <priorityValue>werner@example.com</priorityValue>
+        <description>michegan ave</description>
     </tasks>
     <tasks>
         <name>Fiona Kunz</name>
-        <phone>9482427</phone>
-        <email>lydia@example.com</email>
-        <address>little tokyo</address>
+        <dueDate>9482427</dueDate>
+        <priorityValue>lydia@example.com</priorityValue>
+        <description>little tokyo</description>
     </tasks>
     <tasks>
         <name>George Best</name>
-        <phone>9482442</phone>
-        <email>anna@example.com</email>
-        <address>4th street</address>
+        <dueDate>9482442</dueDate>
+        <priorityValue>anna@example.com</priorityValue>
+        <description>4th street</description>
     </tasks>
 </taskmanager>

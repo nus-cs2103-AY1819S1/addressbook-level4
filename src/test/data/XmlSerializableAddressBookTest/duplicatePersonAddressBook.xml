@@ -3,18 +3,18 @@
 
     <tasks>
         <name>Alice Pauline</name>
-        <phone>94351253</phone>
-        <email>alice@example.com</email>
-        <address>123, Jurong West Ave 6, #08-111</address>
+        <dueDate>94351253</dueDate>
+        <priorityValue>alice@example.com</priorityValue>
+        <description>123, Jurong West Ave 6, #08-111</description>
         <tagged>friends</tagged>
     </tasks>
 
     <!-- Person with same identity as Alice Pauline -->
     <tasks>
         <name>Alice Pauline</name>
-        <phone>94351253</phone>
-        <email>pauline@example.com</email>
-        <address>4th street</address>
+        <dueDate>94351253</dueDate>
+        <priorityValue>pauline@example.com</priorityValue>
+        <description>4th street</description>
     </tasks>
 
 </taskmanager>

@@ -3,15 +3,15 @@
     <!-- Valid Task -->
     <persons>
         <name>Hans Muster</name>
-        <phone isPrivate="false">9482424</phone>
-        <email isPrivate="false">hans@example.com</email>
-        <address isPrivate="false">4th street</address>
+        <dueDate isPrivate="false">9482424</dueDate>
+        <priorityValue isPrivate="false">hans@example.com</priorityValue>
+        <description isPrivate="false">4th street</description>
     </persons>
-    <!-- Task with invalid phone field -->
+    <!-- Task with invalid dueDate field -->
     <persons>
         <name>Hans Muster</name>
-        <phone isPrivate="false">948asdf2424</phone>
-        <email isPrivate="false">hans@example.com</email>
-        <address isPrivate="false">4th street</address>
+        <dueDate isPrivate="false">948asdf2424</dueDate>
+        <priorityValue isPrivate="false">hans@example.com</priorityValue>
+        <description isPrivate="false">4th street</description>
     </persons>
 </addressbook>
