@@ -18,6 +18,7 @@ import seedu.address.model.medicine.Prescription;
 import seedu.address.model.medicine.PrescriptionList;
 import seedu.address.model.person.Person;
 
+//@@author snajef
 /**
  * The Medication Panel (maybe more in the future?) of the App.
  */
@@ -27,28 +28,28 @@ public class BrowserPanel extends UiPart<Region> {
 
     // Remember to set the fx:id of the elements in the .fxml file!
     @javafx.fxml.FXML
-    TableView<Prescription> prescriptionTableView;
+    private TableView<Prescription> prescriptionTableView;
 
     @javafx.fxml.FXML
-    TableColumn<Prescription, String> drugNameCol;
+    private TableColumn<Prescription, String> drugNameCol;
 
     @javafx.fxml.FXML
-    TableColumn<Prescription, String> dosageCol;
+    private TableColumn<Prescription, String> dosageCol;
 
     @javafx.fxml.FXML
-    TableColumn<Prescription, String> dosageUnitCol;
+    private TableColumn<Prescription, String> dosageUnitCol;
 
     @javafx.fxml.FXML
-    TableColumn<Prescription, String> dosesPerDayCol;
+    private TableColumn<Prescription, String> dosesPerDayCol;
 
     @javafx.fxml.FXML
-    TableColumn<Prescription, String> startDateCol;
+    private TableColumn<Prescription, String> startDateCol;
 
     @javafx.fxml.FXML
-    TableColumn<Prescription, String> endDateCol;
+    private TableColumn<Prescription, String> endDateCol;
 
     @javafx.fxml.FXML
-    TableColumn<Prescription, String> durationCol;
+    private TableColumn<Prescription, String> durationCol;
 
     public BrowserPanel() {
         super(FXML);
@@ -58,7 +59,10 @@ public class BrowserPanel extends UiPart<Region> {
     @Subscribe
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        logger.info("PRESCRIPTIONLIST: " + event.getNewSelection().getPrescriptionList().getReadOnlyList().toString());
+        logger.info("PRESCRIPTIONLIST: " + event.getNewSelection()
+                                                .getPrescriptionList()
+                                                .getReadOnlyList()
+                                                .toString());
         resetTableView(event.getNewSelection());
     }
 
@@ -72,53 +76,72 @@ public class BrowserPanel extends UiPart<Region> {
         ObservableList<Prescription> pxs = prescriptionList.getReadOnlyList();
         prescriptionTableView.setItems(pxs);
 
-        drugNameCol.setCellValueFactory(new Callback<CellDataFeatures<Prescription, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(CellDataFeatures<Prescription, String> param) {
-                return new SimpleStringProperty(param.getValue().getDrugName().toString());
-            }
-        });
+        drugNameCol.setCellValueFactory(
+                new Callback<CellDataFeatures<Prescription, String>, ObservableValue<String>>() {
+                    @Override
+                    public ObservableValue<String> call(CellDataFeatures<Prescription, String> param) {
+                        return new SimpleStringProperty(param.getValue()
+                                                             .getDrugName()
+                                                             .toString());
+                    }
+                });
 
         dosageCol.setCellValueFactory(new Callback<CellDataFeatures<Prescription, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(CellDataFeatures<Prescription, String> param) {
-                return new SimpleStringProperty(Double.toString(param.getValue().getDose().getDose()));
+                return new SimpleStringProperty(Double.toString(param.getValue()
+                                                                     .getDose()
+                                                                     .getDose()));
             }
         });
 
-        dosageUnitCol.setCellValueFactory(new Callback<CellDataFeatures<Prescription, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(CellDataFeatures<Prescription, String> param) {
-                return new SimpleStringProperty(param.getValue().getDose().getDoseUnit());
-            }
-        });
+        dosageUnitCol.setCellValueFactory(
+                new Callback<CellDataFeatures<Prescription, String>, ObservableValue<String>>() {
+                    @Override
+                    public ObservableValue<String> call(CellDataFeatures<Prescription, String> param) {
+                        return new SimpleStringProperty(param.getValue()
+                                                             .getDose()
+                                                             .getDoseUnit());
+                    }
+                });
 
-        dosesPerDayCol.setCellValueFactory(new Callback<CellDataFeatures<Prescription, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(CellDataFeatures<Prescription, String> param) {
-                return new SimpleStringProperty(Integer.toString(param.getValue().getDose().getDosesPerDay()));
-            }
-        });
+        dosesPerDayCol.setCellValueFactory(
+                new Callback<CellDataFeatures<Prescription, String>, ObservableValue<String>>() {
+                    @Override
+                    public ObservableValue<String> call(CellDataFeatures<Prescription, String> param) {
+                        return new SimpleStringProperty(Integer.toString(param.getValue()
+                                                                              .getDose()
+                                                                              .getDosesPerDay()));
+                    }
+                });
 
-        startDateCol.setCellValueFactory(new Callback<CellDataFeatures<Prescription, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(CellDataFeatures<Prescription, String> param) {
-                return new SimpleStringProperty(param.getValue().getDuration().getStartDateAsString());
-            }
-        });
+        startDateCol.setCellValueFactory(
+                new Callback<CellDataFeatures<Prescription, String>, ObservableValue<String>>() {
+                    @Override
+                    public ObservableValue<String> call(CellDataFeatures<Prescription, String> param) {
+                        return new SimpleStringProperty(param.getValue()
+                                                             .getDuration()
+                                                             .getStartDateAsString());
+                    }
+                });
 
         endDateCol.setCellValueFactory(new Callback<CellDataFeatures<Prescription, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(CellDataFeatures<Prescription, String> param) {
-                return new SimpleStringProperty(param.getValue().getDuration().getEndDateAsString());
+                return new SimpleStringProperty(param.getValue()
+                                                     .getDuration()
+                                                     .getEndDateAsString());
             }
         });
 
-        durationCol.setCellValueFactory(new Callback<CellDataFeatures<Prescription, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(CellDataFeatures<Prescription, String> param) {
-                return new SimpleStringProperty(param.getValue().getDuration().getDuration());
-            }
-        });
+        durationCol.setCellValueFactory(
+                new Callback<CellDataFeatures<Prescription, String>, ObservableValue<String>>() {
+                    @Override
+                    public ObservableValue<String> call(CellDataFeatures<Prescription, String> param) {
+                        return new SimpleStringProperty(param.getValue()
+                                                             .getDuration()
+                                                             .getDuration());
+                    }
+                });
     }
 }
