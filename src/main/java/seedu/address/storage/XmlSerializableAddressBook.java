@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Recipe;
+import seedu.address.model.recipe.Recipe;
 
 /**
  * An Immutable AddressBook that is serializable to XML format
@@ -36,7 +36,7 @@ public class XmlSerializableAddressBook {
      */
     public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
         this();
-        recipes.addAll(src.getPersonList().stream().map(XmlAdaptedRecipe::new).collect(Collectors.toList()));
+        recipes.addAll(src.getRecipeList().stream().map(XmlAdaptedRecipe::new).collect(Collectors.toList()));
     }
 
     /**
