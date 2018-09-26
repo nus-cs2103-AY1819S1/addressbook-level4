@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.simplejavamail.converter.EmailConverter;
 
@@ -24,10 +25,10 @@ public class EmailDirStorage implements EmailStorage {
 
     @Override
     public void saveEmail(EmailModel email) throws IOException {
-        String fileName = email.getEmail().getSubject().concat(Integer.toString(email.hashCode())).concat(".eml");
+        Path fileName = Paths.get(dirPath.toString(), email.getEmail().getSubject().concat(".eml"));
         String toSave = EmailConverter.emailToEML(email.getEmail());
-        dirPath.resolve(fileName);
-        FileUtil.writeToFile(dirPath, toSave);
+        FileUtil.createIfMissing(fileName);
+        FileUtil.writeToFile(fileName, toSave);
     }
 
 }
