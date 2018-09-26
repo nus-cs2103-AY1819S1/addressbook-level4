@@ -32,11 +32,11 @@ import static seedu.address.testutil.TypicalWishes.BOB;
 import org.junit.Test;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.wish.Address;
 import seedu.address.model.wish.Email;
 import seedu.address.model.wish.Name;
 import seedu.address.model.wish.Phone;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.wish.Wish;
 import seedu.address.testutil.WishBuilder;
 
