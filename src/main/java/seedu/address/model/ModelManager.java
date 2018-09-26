@@ -12,7 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.model.person.Recipe;
+import seedu.address.model.recipe.Recipe;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -33,7 +33,7 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
-        filteredRecipes = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredRecipes = new FilteredList<>(versionedAddressBook.getRecipeList());
     }
 
     public ModelManager() {

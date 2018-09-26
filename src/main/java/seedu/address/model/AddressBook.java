@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Recipe;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.recipe.Recipe;
+import seedu.address.model.recipe.UniquePersonList;
 
 /**
  * Wraps all data at the address-book level
@@ -53,7 +53,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setPersons(newData.getRecipeList());
     }
 
     //// recipe-level operations
@@ -102,7 +102,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Recipe> getPersonList() {
+    public ObservableList<Recipe> getRecipeList() {
         return persons.asUnmodifiableObservableList();
     }
 
