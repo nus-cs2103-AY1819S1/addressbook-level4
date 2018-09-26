@@ -17,8 +17,8 @@ import org.junit.rules.TemporaryFolder;
 import seedu.address.commons.events.model.WishBookChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.model.ReadOnlyWishBook;
-import seedu.address.model.WishBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.WishBook;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
 public class StorageManagerTest {
