@@ -3,6 +3,7 @@ package seedu.address.logic;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
+import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.user.Username;
 
 import static java.util.Objects.requireNonNull;
@@ -26,7 +27,7 @@ public class SignUpCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) throws UserAlreadyExistsException {
         requireNonNull(model);
         model.addUser(this.username);
         return new CommandResult(String.format(MESSAGE_SIGN_UP_SUCCESS, this.username.toString()));

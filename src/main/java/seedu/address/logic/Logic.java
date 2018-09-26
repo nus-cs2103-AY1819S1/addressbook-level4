@@ -5,6 +5,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.exceptions.NoUserSelectedException;
+import seedu.address.model.exceptions.NonExistentUserException;
+import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.expense.Person;
 
 /**
@@ -18,7 +20,7 @@ public interface Logic {
      * @throws CommandException If an error occurs during command execution.
      * @throws ParseException If an error occurs during parsing.
      */
-    CommandResult execute(String commandText) throws CommandException, ParseException, NoUserSelectedException;
+    CommandResult execute(String commandText) throws CommandException, ParseException, NoUserSelectedException, UserAlreadyExistsException, NonExistentUserException;
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList() throws NoUserSelectedException;

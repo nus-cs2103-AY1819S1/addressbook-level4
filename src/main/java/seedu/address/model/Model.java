@@ -4,7 +4,8 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.exceptions.NoUserSelectedException;
-import seedu.address.model.exceptions.NonExistantUserException;
+import seedu.address.model.exceptions.NonExistentUserException;
+import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.expense.Person;
 import seedu.address.model.user.Username;
 
@@ -82,10 +83,16 @@ public interface Model {
     /**
      * Selects the AddressBook of the user with the input username to be used.
      */
-    void loadUserData(Username username) throws NonExistantUserException;
+    void loadUserData(Username username) throws NonExistentUserException;
 
     /**
      * Returns true if there is a user with the input username in memory.
      */
     boolean isUserExists(Username username);
+
+    /**
+     * Adds a user with the given username and gives him/her an empty AddressBook.
+     * @throws UserAlreadyExistsException if a user with the given username already exists
+     */
+    void addUser(Username username) throws UserAlreadyExistsException;
 }

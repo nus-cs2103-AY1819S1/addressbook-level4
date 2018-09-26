@@ -15,6 +15,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.exceptions.NoUserSelectedException;
+import seedu.address.model.exceptions.NonExistentUserException;
+import seedu.address.model.exceptions.UserAlreadyExistsException;
 
 /**
  * The UI component that is responsible for receiving user command inputs.
@@ -118,8 +120,14 @@ public class CommandBox extends UiPart<Region> {
         } catch (NoUserSelectedException nuse) {
             initHistory();
             setStyleToIndicateCommandFailure();
-            logger.info("Not logged in yet: " + commandTextField.getText());
+            logger.info("Not logged in yet");
             raise(new NewResultAvailableEvent(nuse.getMessage()));
+        } catch (UserAlreadyExistsException | NonExistentUserException e) {
+            initHistory();
+            // handle command failure
+            setStyleToIndicateCommandFailure();
+            logger.info(e.getMessage());
+            raise(new NewResultAvailableEvent(e.getMessage()));
         }
     }
 

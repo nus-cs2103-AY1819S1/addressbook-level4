@@ -12,6 +12,8 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.NoUserSelectedException;
+import seedu.address.model.exceptions.NonExistentUserException;
+import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.expense.Person;
 
 /**
@@ -31,7 +33,8 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException, NoUserSelectedException {
+    public CommandResult execute(String commandText) throws CommandException, ParseException, NoUserSelectedException,
+            UserAlreadyExistsException, NonExistentUserException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
             Command command = addressBookParser.parseCommand(commandText);

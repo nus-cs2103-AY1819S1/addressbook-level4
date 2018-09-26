@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
+import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.user.Username;
 
 import static java.util.Objects.requireNonNull;
@@ -25,7 +26,7 @@ public class LoginCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) throws NonExistentUserException {
         requireNonNull(model);
         model.loadUserData(this.username);
         return new CommandResult(String.format(MESSAGE_LOGIN_SUCCESS, this.username.toString()));

@@ -16,7 +16,8 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.UserLoggedInEvent;
 import seedu.address.model.exceptions.NoUserSelectedException;
-import seedu.address.model.exceptions.NonExistantUserException;
+import seedu.address.model.exceptions.NonExistentUserException;
+import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.expense.Person;
 import seedu.address.model.user.Username;
 
@@ -175,9 +176,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Login =================================================================================
     @Override
-    public void loadUserData(Username username) {
+    public void loadUserData(Username username) throws NonExistentUserException {
         if (!isUserExists(username)) {
-            throw new NonExistantUserException();
+            throw new NonExistentUserException(username);
         }
         versionedAddressBook = new VersionedAddressBook(addressBooks.get(username));
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
@@ -202,6 +203,13 @@ public class ModelManager extends ComponentManager implements Model {
             throw new NoUserSelectedException();
         }
         raise(new UserLoggedInEvent(this.username));
+    }
+
+    @Override
+    public void addUser(Username newUsername) throws UserAlreadyExistsException {
+        if (addressBooks.putIfAbsent(newUsername, new AddressBook())  != null) {
+            throw new UserAlreadyExistsException(newUsername);
+        }
     }
 
     @Override
