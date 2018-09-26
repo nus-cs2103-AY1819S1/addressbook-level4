@@ -26,7 +26,7 @@ public class CreateCalendarCommand extends Command {
             + PREFIX_MONTH + "OCT "
             + PREFIX_YEAR + "2018 ";
 
-    public static final String MESSAGE_SUCCESS = "Calendar created: %s" ;
+    public static final String MESSAGE_SUCCESS = "Calendar created: %s";
     public static final String MESSAGE_EXISTING_CALENDAR = "This calendar already exists in Hallper";
 
     private final Month month;

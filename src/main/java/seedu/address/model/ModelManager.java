@@ -80,7 +80,9 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public UserPrefs getUserPrefs() { return userPrefs; }
+    public UserPrefs getUserPrefs() {
+        return userPrefs;
+    }
 
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
