@@ -103,8 +103,8 @@ public abstract class AddressBookSystemTest {
         return mainWindowHandle.getCommandBox();
     }
 
-    public RecipeListPanelHandle getPersonListPanel() {
-        return mainWindowHandle.getPersonListPanel();
+    public RecipeListPanelHandle getRecipeListPanel() {
+        return mainWindowHandle.getRecipeListPanel();
     }
 
     public MainMenuHandle getMainMenu() {
@@ -139,17 +139,17 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Displays all persons in the address book.
+     * Displays all recipes in the address book.
      */
-    protected void showAllPersons() {
+    protected void showAllRecipes() {
         executeCommand(ListCommand.COMMAND_WORD);
         assertEquals(getModel().getAddressBook().getRecipeList().size(), getModel().getFilteredRecipeList().size());
     }
 
     /**
-     * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
+     * Displays all recipes with any parts of their names matching {@code keyword} (case-insensitive).
      */
-    protected void showPersonsWithName(String keyword) {
+    protected void showRecipesWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
         assertTrue(getModel().getFilteredRecipeList().size() < getModel().getAddressBook().getRecipeList().size());
     }
@@ -157,15 +157,15 @@ public abstract class AddressBookSystemTest {
     /**
      * Selects the recipe at {@code index} of the displayed list.
      */
-    protected void selectPerson(Index index) {
+    protected void selectRecipe(Index index) {
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
-        assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        assertEquals(index.getZeroBased(), getRecipeListPanel().getSelectedCardIndex());
     }
 
     /**
-     * Deletes all persons in the address book.
+     * Deletes all recipes in the address book.
      */
-    protected void deleteAllPersons() {
+    protected void deleteAllRecipes() {
         executeCommand(ClearCommand.COMMAND_WORD);
         assertEquals(0, getModel().getAddressBook().getRecipeList().size());
     }
@@ -173,14 +173,14 @@ public abstract class AddressBookSystemTest {
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
      * {@code expectedResultMessage}, the storage contains the same recipe objects as {@code expectedModel}
-     * and the recipe list panel displays the persons in the model correctly.
+     * and the recipe list panel displays the recipes in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
-        assertListMatching(getPersonListPanel(), expectedModel.getFilteredRecipeList());
+        assertListMatching(getRecipeListPanel(), expectedModel.getFilteredRecipeList());
     }
 
     /**
@@ -192,7 +192,7 @@ public abstract class AddressBookSystemTest {
         getBrowserPanel().rememberUrl();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
-        getPersonListPanel().rememberSelectedRecipeCard();
+        getRecipeListPanel().rememberSelectedRecipeCard();
     }
 
     /**
@@ -202,7 +202,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void assertSelectedCardDeselected() {
         assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getPersonListPanel().isAnyCardSelected());
+        assertFalse(getRecipeListPanel().isAnyCardSelected());
     }
 
     /**
@@ -212,8 +212,8 @@ public abstract class AddressBookSystemTest {
      * @see RecipeListPanelHandle#isSelectedRecipeCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
-        getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
-        String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
+        getRecipeListPanel().navigateToCard(getRecipeListPanel().getSelectedCardIndex());
+        String selectedCardName = getRecipeListPanel().getHandleToSelectedCard().getName();
         URL expectedUrl;
         try {
             expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
@@ -222,7 +222,7 @@ public abstract class AddressBookSystemTest {
         }
         assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
-        assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        assertEquals(expectedSelectedCardIndex.getZeroBased(), getRecipeListPanel().getSelectedCardIndex());
     }
 
     /**
@@ -232,7 +232,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void assertSelectedCardUnchanged() {
         assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getPersonListPanel().isSelectedRecipeCardChanged());
+        assertFalse(getRecipeListPanel().isSelectedRecipeCardChanged());
     }
 
     /**
@@ -276,7 +276,7 @@ public abstract class AddressBookSystemTest {
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        assertListMatching(getPersonListPanel(), getModel().getFilteredRecipeList());
+        assertListMatching(getRecipeListPanel(), getModel().getFilteredRecipeList());
         assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());

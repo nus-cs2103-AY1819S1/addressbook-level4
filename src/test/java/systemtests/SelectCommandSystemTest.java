@@ -30,9 +30,9 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, INDEX_FIRST_RECIPE);
 
         /* Case: select the last card in the recipe list -> selected */
-        Index personCount = getLastIndex(getModel());
-        command = SelectCommand.COMMAND_WORD + " " + personCount.getOneBased();
-        assertCommandSuccess(command, personCount);
+        Index recipeCount = getLastIndex(getModel());
+        command = SelectCommand.COMMAND_WORD + " " + recipeCount.getOneBased();
+        assertCommandSuccess(command, recipeCount);
 
         /* Case: undo previous selection -> rejected */
         command = UndoCommand.COMMAND_WORD;
@@ -57,7 +57,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         /* Case: filtered recipe list, select index within bounds of address book but out of bounds of recipe list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showRecipesWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getAddressBook().getRecipeList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
 
@@ -93,7 +93,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure("SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: select from empty address book -> rejected */
-        deleteAllPersons();
+        deleteAllRecipes();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_RECIPE.getOneBased(),
                 MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
     }
@@ -116,7 +116,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         Model expectedModel = getModel();
         String expectedResultMessage = String.format(
                 MESSAGE_SELECT_RECIPE_SUCCESS, expectedSelectedCardIndex.getOneBased());
-        int preExecutionSelectedCardIndex = getPersonListPanel().getSelectedCardIndex();
+        int preExecutionSelectedCardIndex = getRecipeListPanel().getSelectedCardIndex();
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);

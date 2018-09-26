@@ -32,14 +32,14 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         /* Case: delete the first recipe in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
         String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_RECIPE.getOneBased() + "       ";
-        Recipe deletedRecipe = removePerson(expectedModel, INDEX_FIRST_RECIPE);
+        Recipe deletedRecipe = removeRecipe(expectedModel, INDEX_FIRST_RECIPE);
         String expectedResultMessage = String.format(MESSAGE_DELETE_RECIPE_SUCCESS, deletedRecipe);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
         /* Case: delete the last recipe in the list -> deleted */
         Model modelBeforeDeletingLast = getModel();
-        Index lastPersonIndex = getLastIndex(modelBeforeDeletingLast);
-        assertCommandSuccess(lastPersonIndex);
+        Index lastRecipeIndex = getLastIndex(modelBeforeDeletingLast);
+        assertCommandSuccess(lastRecipeIndex);
 
         /* Case: undo deleting the last recipe in the list -> last recipe restored */
         command = UndoCommand.COMMAND_WORD;
@@ -48,18 +48,18 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: redo deleting the last recipe in the list -> last recipe deleted again */
         command = RedoCommand.COMMAND_WORD;
-        removePerson(modelBeforeDeletingLast, lastPersonIndex);
+        removeRecipe(modelBeforeDeletingLast, lastRecipeIndex);
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
 
         /* Case: delete the middle recipe in the list -> deleted */
-        Index middlePersonIndex = getMidIndex(getModel());
-        assertCommandSuccess(middlePersonIndex);
+        Index middleRecipeIndex = getMidIndex(getModel());
+        assertCommandSuccess(middleRecipeIndex);
 
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
         /* Case: filtered recipe list, delete index within bounds of address book and recipe list -> deleted */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showRecipesWithName(KEYWORD_MATCHING_MEIER);
         Index index = INDEX_FIRST_RECIPE;
         assertTrue(index.getZeroBased() < getModel().getFilteredRecipeList().size());
         assertCommandSuccess(index);
@@ -67,7 +67,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         /* Case: filtered recipe list, delete index within bounds of address book but out of bounds of recipe list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showRecipesWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getAddressBook().getRecipeList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
@@ -75,13 +75,13 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         /* --------------------- Performing delete operation while a recipe card is selected ------------------------ */
 
         /* Case: delete the selected recipe -> recipe list panel selects the recipe before the deleted recipe */
-        showAllPersons();
+        showAllRecipes();
         expectedModel = getModel();
         Index selectedIndex = getLastIndex(expectedModel);
         Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);
-        selectPerson(selectedIndex);
+        selectRecipe(selectedIndex);
         command = DeleteCommand.COMMAND_WORD + " " + selectedIndex.getOneBased();
-        deletedRecipe = removePerson(expectedModel, selectedIndex);
+        deletedRecipe = removeRecipe(expectedModel, selectedIndex);
         expectedResultMessage = String.format(MESSAGE_DELETE_RECIPE_SUCCESS, deletedRecipe);
         assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
 
@@ -115,7 +115,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * Removes the {@code Recipe} at the specified {@code index} in {@code model}'s address book.
      * @return the removed recipe
      */
-    private Recipe removePerson(Model model, Index index) {
+    private Recipe removeRecipe(Model model, Index index) {
         Recipe targetRecipe = getRecipe(model, index);
         model.deleteRecipe(targetRecipe);
         return targetRecipe;
@@ -128,7 +128,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      */
     private void assertCommandSuccess(Index toDelete) {
         Model expectedModel = getModel();
-        Recipe deletedRecipe = removePerson(expectedModel, toDelete);
+        Recipe deletedRecipe = removeRecipe(expectedModel, toDelete);
         String expectedResultMessage = String.format(MESSAGE_DELETE_RECIPE_SUCCESS, deletedRecipe);
 
         assertCommandSuccess(

@@ -110,7 +110,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
         /* Case: filtered recipe list, edit index within bounds of address book and recipe list -> edited */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showRecipesWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_RECIPE;
         assertTrue(index.getZeroBased() < getModel().getFilteredRecipeList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
@@ -121,7 +121,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         /* Case: filtered recipe list, edit index within bounds of address book but out of bounds of recipe list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showRecipesWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getAddressBook().getRecipeList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
@@ -131,9 +131,9 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         /* Case: selects first card in the recipe list, edit a recipe -> edited, card selection remains unchanged but
          * browser url changes
          */
-        showAllPersons();
+        showAllRecipes();
         index = INDEX_FIRST_RECIPE;
-        selectPerson(index);
+        selectRecipe(index);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
         // this can be misleading: card selection actually remains unchanged but the
