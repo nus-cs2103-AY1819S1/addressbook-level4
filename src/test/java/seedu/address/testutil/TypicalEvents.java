@@ -11,13 +11,13 @@ import seedu.address.model.event.Event;
  * A utility class containing a list of {@code Event} objects to be used in tests.
  */
 public class TypicalEvents {
-    public static final Event Tutorial = new EventBuilder().withName("Tutorial")
+    public static final Event TUTORIAL = new EventBuilder().withName("Tutorial")
             .withAddress("NUS UTown")
             .withTags("friends").build();
-    public static final Event Meeting = new EventBuilder().withName("Meeting")
+    public static final Event MEETING = new EventBuilder().withName("Meeting")
             .withAddress("SOC Canteen")
             .withTags("friends").build();
-    public static final Event Dinner = new EventBuilder().withName("Dinner")
+    public static final Event DINNER = new EventBuilder().withName("Dinner")
             .withAddress("Arts Canteen")
             .withTags("friends").build();
 
@@ -33,6 +33,6 @@ public class TypicalEvents {
     }
 
     public static List<Event> getTypicalEvents() {
-        return new ArrayList<>(Arrays.asList(Tutorial, Meeting, Dinner));
+        return new ArrayList<>(Arrays.asList(TUTORIAL, MEETING, DINNER));
     }
 }

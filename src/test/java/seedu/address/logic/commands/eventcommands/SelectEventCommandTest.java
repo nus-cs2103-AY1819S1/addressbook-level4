@@ -6,10 +6,10 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showEventAtIndex;
+import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD;
-import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -90,8 +90,8 @@ public class SelectEventCommandTest {
     }
 
     /**
-     * Executes a {@code SelectEventCommand} with the given {@code index}, and checks that {@code JumpToEventListRequestEvent}
-     * is raised with the correct index.
+     * Executes a {@code SelectEventCommand} with the given {@code index}, and checks that
+     * {@code JumpToEventListRequestEvent} is raised with the correct index.
      */
     private void assertExecutionSuccess(Index index) {
         SelectEventCommand selectCommand = new SelectEventCommand(index);
@@ -99,7 +99,8 @@ public class SelectEventCommandTest {
 
         assertCommandSuccess(selectCommand, model, commandHistory, expectedMessage, expectedModel);
 
-        JumpToEventListRequestEvent lastEvent = (JumpToEventListRequestEvent) eventsCollectorRule.eventsCollector.getMostRecent();
+        JumpToEventListRequestEvent lastEvent = (JumpToEventListRequestEvent)
+                eventsCollectorRule.eventsCollector.getMostRecent();
         assertEquals(index, Index.fromZeroBased(lastEvent.targetIndex));
     }
 

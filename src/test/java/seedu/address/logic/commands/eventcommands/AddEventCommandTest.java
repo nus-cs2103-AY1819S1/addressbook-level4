@@ -41,7 +41,8 @@ public class AddEventCommandTest {
 
     @Test
     public void execute_eventAcceptedByModel_addSuccessful() throws Exception {
-        AddEventCommandTest.ModelStubAcceptingEventAdded modelStub = new AddEventCommandTest.ModelStubAcceptingEventAdded();
+        AddEventCommandTest.ModelStubAcceptingEventAdded modelStub = new
+                AddEventCommandTest.ModelStubAcceptingEventAdded();
         Event validEvent = new EventBuilder().build();
 
         CommandResult commandResult = new AddEventCommand(validEvent).execute(modelStub, commandHistory);
