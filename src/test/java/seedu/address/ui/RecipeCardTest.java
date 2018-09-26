@@ -9,20 +9,20 @@ import org.junit.Test;
 
 import guitests.guihandles.RecipeCardHandle;
 import seedu.address.model.recipe.Recipe;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.RecipeBuilder;
 
 public class RecipeCardTest extends GuiUnitTest {
 
     @Test
     public void display() {
         // no tags
-        Recipe recipeWithNoTags = new PersonBuilder().withTags(new String[0]).build();
+        Recipe recipeWithNoTags = new RecipeBuilder().withTags(new String[0]).build();
         RecipeCard recipeCard = new RecipeCard(recipeWithNoTags, 1);
         uiPartRule.setUiPart(recipeCard);
         assertCardDisplay(recipeCard, recipeWithNoTags, 1);
 
         // with tags
-        Recipe recipeWithTags = new PersonBuilder().build();
+        Recipe recipeWithTags = new RecipeBuilder().build();
         recipeCard = new RecipeCard(recipeWithTags, 2);
         uiPartRule.setUiPart(recipeCard);
         assertCardDisplay(recipeCard, recipeWithTags, 2);
@@ -30,7 +30,7 @@ public class RecipeCardTest extends GuiUnitTest {
 
     @Test
     public void equals() {
-        Recipe recipe = new PersonBuilder().build();
+        Recipe recipe = new RecipeBuilder().build();
         RecipeCard recipeCard = new RecipeCard(recipe, 0);
 
         // same recipe, same index -> returns true
@@ -47,7 +47,7 @@ public class RecipeCardTest extends GuiUnitTest {
         assertFalse(recipeCard.equals(0));
 
         // different recipe, same index -> returns false
-        Recipe differentRecipe = new PersonBuilder().withName("differentName").build();
+        Recipe differentRecipe = new RecipeBuilder().withName("differentName").build();
         assertFalse(recipeCard.equals(new RecipeCard(differentRecipe, 0)));
 
         // same recipe, different index -> returns false
