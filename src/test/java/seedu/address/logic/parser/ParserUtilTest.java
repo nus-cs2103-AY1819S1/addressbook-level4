@@ -24,12 +24,14 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 
 public class ParserUtilTest {
+    private static final String INVALID_CONTEXTID = "3";
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
 
+    private static final String VALID_CONTEXTID = "e";
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
@@ -41,6 +43,21 @@ public class ParserUtilTest {
 
     @Rule
     public final ExpectedException thrown = ExpectedException.none();
+
+    @Test
+    public void parseCommandId_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseCommandId(null));
+    }
+
+    @Test
+    public void parseCommandId_invalidContext_throwsNullPointerException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseCommandId(INVALID_CONTEXTID));
+    }
+
+    @Test
+    public void parseCommandId_validContext_throwsNullPointerException() throws Exception {
+        assertEquals(VALID_CONTEXTID, ParserUtil.parseCommandId(VALID_CONTEXTID));
+    }
 
     @Test
     public void parseIndex_invalidInput_throwsParseException() throws Exception {

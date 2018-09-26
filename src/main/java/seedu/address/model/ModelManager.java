@@ -23,6 +23,9 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final VersionedAddressBook versionedAddressBook;
+
+    private final Context context;
+
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Event> filteredEvents;
     private final FilteredList<Record> filteredRecords;
@@ -37,6 +40,9 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
+
+        context = new Context(Context.EVENT_CONTEXT_ID, Context.EVENT_CONTEXT_NAME);
+
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredEvents = new FilteredList<>(versionedAddressBook.getEventList());
         filteredRecords = new FilteredList<>(versionedAddressBook.getRecordList());
@@ -62,6 +68,23 @@ public class ModelManager extends ComponentManager implements Model {
      */
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(versionedAddressBook));
+    }
+
+    //===========  Context Switching Methods =============================================================
+    @Override
+    public void setCurrentContext(String contextId) {
+        requireAllNonNull(contextId);
+        context.setContextValue(contextId);
+    }
+
+    @Override
+    public String getContextId() {
+        return context.getContextId();
+    }
+
+    @Override
+    public String getContextName() {
+        return context.getContextName();
     }
 
     //===========  Person List Methods =============================================================
