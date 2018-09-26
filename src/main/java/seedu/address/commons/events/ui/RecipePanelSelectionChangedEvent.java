@@ -1,17 +1,17 @@
 package seedu.address.commons.events.ui;
 
 import seedu.address.commons.events.BaseEvent;
-import seedu.address.model.person.Recipe;
+import seedu.address.model.recipe.Recipe;
 
 /**
  * Represents a selection change in the Recipe List Panel
  */
-public class PersonPanelSelectionChangedEvent extends BaseEvent {
+public class RecipePanelSelectionChangedEvent extends BaseEvent {
 
 
     private final Recipe newSelection;
 
-    public PersonPanelSelectionChangedEvent(Recipe newSelection) {
+    public RecipePanelSelectionChangedEvent(Recipe newSelection) {
         this.newSelection = newSelection;
     }
 
