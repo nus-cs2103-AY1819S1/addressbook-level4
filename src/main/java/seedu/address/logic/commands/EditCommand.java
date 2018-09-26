@@ -24,8 +24,8 @@ import seedu.address.model.Model;
 import seedu.address.model.wish.Address;
 import seedu.address.model.wish.Email;
 import seedu.address.model.wish.Name;
-import seedu.address.model.wish.Wish;
 import seedu.address.model.wish.Phone;
+import seedu.address.model.wish.Wish;
 import seedu.address.model.wish.Remark;
 import seedu.address.model.tag.Tag;
 
