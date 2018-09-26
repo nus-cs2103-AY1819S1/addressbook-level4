@@ -79,18 +79,17 @@ public class XmlAdaptedPrescriptionTest {
     @Test
     public void toModelType_invalidDurationInMs_throwsIllegalValueException() throws IllegalValueException {
         String expectedMessage = Duration.MESSAGE_DURATION_MUST_BE_POSITIVE;
-        Assert.assertThrows(IllegalValueException.class, expectedMessage,
-                () -> new XmlAdaptedPrescription(VALID_DRUGNAME, VALID_DOSAGE,
-                        VALID_DOSE_UNIT, VALID_DOSES_PER_DAY, VALID_START_DATE, VALID_END_DATE,
-                        INVALID_DURATION_IN_MS));
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, () -> new XmlAdaptedPrescription(
+                VALID_DRUGNAME, VALID_DOSAGE, VALID_DOSE_UNIT, VALID_DOSES_PER_DAY, VALID_START_DATE, VALID_END_DATE,
+                INVALID_DURATION_IN_MS));
     }
 
     @Test
     public void toModelType_endDateBeforeStartDate_throwsIllegalValueException() throws IllegalValueException {
         String expectedMessage = XmlAdaptedPrescription.MESSAGE_END_DATE_MUST_BE_AFTER_START_DATE;
-        Assert.assertThrows(IllegalValueException.class, expectedMessage,
-                () -> new XmlAdaptedPrescription(VALID_DRUGNAME, VALID_DOSAGE,
-                        VALID_DOSE_UNIT, VALID_DOSES_PER_DAY, VALID_END_DATE, VALID_START_DATE, VALID_DURATION_IN_MS));
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, () -> new XmlAdaptedPrescription(
+                VALID_DRUGNAME, VALID_DOSAGE, VALID_DOSE_UNIT, VALID_DOSES_PER_DAY, VALID_END_DATE, VALID_START_DATE,
+                VALID_DURATION_IN_MS));
     }
 
     @Test
@@ -111,7 +110,8 @@ public class XmlAdaptedPrescriptionTest {
     public void equals_originalAndCopyOfModelType_returnsTrue() throws IllegalValueException {
         XmlAdaptedPrescription xmlAdaptedPrescription = new XmlAdaptedPrescription(VALID_DRUGNAME, VALID_DOSAGE,
                 VALID_DOSE_UNIT, VALID_DOSES_PER_DAY, VALID_START_DATE, VALID_END_DATE, VALID_DURATION_IN_MS);
-        XmlAdaptedPrescription anotherXmlAdaptedPrescription = new XmlAdaptedPrescription(xmlAdaptedPrescription.toModelType());
+        XmlAdaptedPrescription anotherXmlAdaptedPrescription = new XmlAdaptedPrescription(
+                xmlAdaptedPrescription.toModelType());
         assertTrue(xmlAdaptedPrescription.equals(anotherXmlAdaptedPrescription));
     }
 

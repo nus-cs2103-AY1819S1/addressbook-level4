@@ -118,7 +118,7 @@ public class XmlAdaptedPerson {
             personTags.add(tag.toModelType());
         }
 
-        for(XmlAdaptedPrescription prescription : this.prescriptions.getPrescription()) {
+        for (XmlAdaptedPrescription prescription : this.prescriptions.getPrescription()) {
             prescriptions.add(prescription.toModelType());
         }
 

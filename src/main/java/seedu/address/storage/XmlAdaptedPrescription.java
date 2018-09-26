@@ -19,6 +19,8 @@ import seedu.address.model.medicine.Prescription;
 
 @XmlRootElement
 public class XmlAdaptedPrescription {
+    public static final String MESSAGE_END_DATE_MUST_BE_AFTER_START_DATE = "End date must be after start date!";
+
     @XmlElement
     private String drugName;
 
@@ -39,8 +41,6 @@ public class XmlAdaptedPrescription {
 
     @XmlElement
     private double durationInMilliseconds;
-
-    public static final String MESSAGE_END_DATE_MUST_BE_AFTER_START_DATE = "End date must be after start date!";
 
     /**
      * Constructs an XmlAdaptedPrescription.

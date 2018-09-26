@@ -87,13 +87,13 @@ public class DurationTest {
     }
 
     @Test
-    public void constructor_takesDouble_negativeDuration_throwsIllegalValueException() {
+    public void constructor_negativeDoubleDuration_throwsIllegalValueException() {
         seedu.address.testutil.Assert.assertThrows(IllegalValueException.class,
                 Duration.MESSAGE_DURATION_MUST_BE_POSITIVE, () -> new Duration(-1.0));
     }
 
     @Test
-    public void constructor_takesInteger_negativeDuration_throwsIllegalValueException() {
+    public void constructor_negativeIntegerDuration_throwsIllegalValueException() {
         seedu.address.testutil.Assert.assertThrows(IllegalValueException.class,
                 Duration.MESSAGE_DURATION_MUST_BE_POSITIVE, () -> new Duration(-1));
     }

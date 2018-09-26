@@ -157,6 +157,12 @@ public class Duration {
         return false;
     }
 
+    /**
+     * Helper method to test if two Calendar dates are equal.
+     * @param date to test
+     * @param anotherDate to test
+     * @return true iff the dates are the same on the Calendar (i.e. same day, month, year)
+     */
     public static boolean areDatesEqual(Calendar date, Calendar anotherDate) {
         return date == anotherDate || (date.get(Calendar.DAY_OF_YEAR) == anotherDate.get(Calendar.DAY_OF_YEAR)
                 && date.get(Calendar.YEAR) == anotherDate.get(Calendar.YEAR));

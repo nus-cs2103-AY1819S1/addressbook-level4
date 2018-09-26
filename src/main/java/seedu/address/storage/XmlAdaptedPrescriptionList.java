@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class XmlAdaptedPrescriptionList {
     @XmlElement
-    public List<XmlAdaptedPrescription> prescription;
+    private List<XmlAdaptedPrescription> prescription;
 
     public XmlAdaptedPrescriptionList() {
         prescription = new ArrayList<>();
