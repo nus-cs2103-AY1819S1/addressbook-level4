@@ -104,7 +104,7 @@ public abstract class AddressBookSystemTest {
     }
 
     public TaskListPanelHandle getPersonListPanel() {
-        return mainWindowHandle.getPersonListPanel();
+        return mainWindowHandle.getTaskListPanel();
     }
 
     public MainMenuHandle getMainMenu() {
