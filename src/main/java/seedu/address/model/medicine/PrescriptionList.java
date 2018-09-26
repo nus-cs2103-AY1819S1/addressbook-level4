@@ -3,6 +3,7 @@ package seedu.address.model.medicine;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 //@@author snajef
 /**
@@ -85,5 +86,10 @@ public class PrescriptionList {
         }
 
         return false;
+    }
+
+    /** Wrapper method for List::stream */
+    public Stream<Prescription> stream() {
+        return medicineList.stream();
     }
 }

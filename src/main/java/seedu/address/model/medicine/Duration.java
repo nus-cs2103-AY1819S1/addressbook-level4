@@ -14,6 +14,7 @@ public class Duration {
     public static final double DAYS_PER_WEEK = 7;
     public static final double AVERAGE_DAYS_PER_MONTH = 30.4;
     public static final double AVERAGE_DAYS_PER_YEAR = 365.25;
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
 
     private static final double MILLISECONDS_IN_A_DAY = 8.64 * Math.pow(10, 7);
     private static final double MILLISECONDS_IN_A_WEEK = DAYS_PER_WEEK * MILLISECONDS_IN_A_DAY;
@@ -72,16 +73,17 @@ public class Duration {
         endDate.add(Calendar.MILLISECOND, (int) this.getDurationInMilliseconds());
     }
 
-    @Override
-    public String toString() {
-        StringBuilder fromTo = new StringBuilder();
+    public String getStartDateAsString() {
+        return DATE_FORMAT.format(startDate.getTime());
+    }
+
+    public String getEndDateAsString() {
+        return DATE_FORMAT.format(endDate.getTime());
+    }
+
+    public String getDurationAsString() {
         StringBuilder duration = new StringBuilder();
         double d = durationInMilliseconds;
-
-        String formattedStartDate = new SimpleDateFormat("dd-MM-yyyy").format(startDate.getTime());
-        String formattedEndDate = new SimpleDateFormat("dd-MM-yyyy").format(endDate.getTime());
-
-        fromTo.append("from ").append(formattedStartDate).append(" to ").append(formattedEndDate);
 
         assert d >= 0;
 
@@ -114,8 +116,15 @@ public class Duration {
         // Remove trailing comma
         String result = duration.toString().trim();
         result = result.substring(0, result.length() - 1);
+        return result;
+    }
 
-        return fromTo.toString() + " [" + result + "]";
+    @Override
+    public String toString() {
+        StringBuilder fromTo = new StringBuilder();
+        fromTo.append("from ").append(getStartDateAsString()).append(" to ").append(getEndDateAsString());
+
+        return fromTo.toString() + " [" + getDurationAsString() + "]";
     }
 
     @Override
