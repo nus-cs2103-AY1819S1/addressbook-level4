@@ -16,9 +16,9 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyWishBook;
 import seedu.address.model.WishBook;
-import seedu.address.model.Model;
 import seedu.address.model.wish.Wish;
 import seedu.address.testutil.WishBuilder;
 
