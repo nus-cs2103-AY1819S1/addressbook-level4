@@ -60,17 +60,17 @@ public class TypicalRecipes {
     private TypicalRecipes() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code AddressBook} with all the typical recipes.
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
-        for (Recipe recipe : getTypicalPersons()) {
+        for (Recipe recipe : getTypicalRecipes()) {
             ab.addRecipe(recipe);
         }
         return ab;
     }
 
-    public static List<Recipe> getTypicalPersons() {
+    public static List<Recipe> getTypicalRecipes() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 }
