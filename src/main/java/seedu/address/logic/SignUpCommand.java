@@ -28,7 +28,7 @@ public class SignUpCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.loadUserData(this.username);
+        model.addUser(this.username);
         return new CommandResult(String.format(MESSAGE_SIGN_UP_SUCCESS, this.username.toString()));
     }
 
