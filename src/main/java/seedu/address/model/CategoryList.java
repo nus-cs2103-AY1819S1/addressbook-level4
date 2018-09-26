@@ -40,7 +40,6 @@ public class CategoryList {
     public Category getCategory(String key) {
         return this.list.get(key);
     }
-    
 
     /**
      * Returns true if a category with the same identity as {@code category} exists in the address book.
