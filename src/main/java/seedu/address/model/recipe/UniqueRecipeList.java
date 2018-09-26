@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.recipe.exceptions.DuplicatePersonException;
-import seedu.address.model.recipe.exceptions.PersonNotFoundException;
+import seedu.address.model.recipe.exceptions.DuplicateRecipeException;
+import seedu.address.model.recipe.exceptions.RecipeNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
@@ -41,7 +41,7 @@ public class UniquePersonList implements Iterable<Recipe> {
     public void add(Recipe toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateRecipeException();
         }
         internalList.add(toAdd);
     }
@@ -56,11 +56,11 @@ public class UniquePersonList implements Iterable<Recipe> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new RecipeNotFoundException();
         }
 
         if (!target.isSameRecipe(editedRecipe) && contains(editedRecipe)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateRecipeException();
         }
 
         internalList.set(index, editedRecipe);
@@ -73,7 +73,7 @@ public class UniquePersonList implements Iterable<Recipe> {
     public void remove(Recipe toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
+            throw new RecipeNotFoundException();
         }
     }
 
@@ -89,7 +89,7 @@ public class UniquePersonList implements Iterable<Recipe> {
     public void setPersons(List<Recipe> recipes) {
         requireAllNonNull(recipes);
         if (!personsAreUnique(recipes)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateRecipeException();
         }
 
         internalList.setAll(recipes);
