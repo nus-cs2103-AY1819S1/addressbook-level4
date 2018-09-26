@@ -1002,7 +1002,7 @@ Use case ends.
 
 . User requests to add event.
 . AddressBook records and displays event.
-. AddressBook <u>notifies user (UC18)</u> one day before the event.
+. AddressBook [underline]#notifies user (UC18)# one day before the event.
 
 *Extensions*
 
