@@ -14,7 +14,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Task;
 
 /**
- * Selects a task identified using it's displayed index from the task manager.
+ * Selects a task identified using it's displayed index from the address book.
  */
 public class SelectCommand extends Command {
 
@@ -25,7 +25,11 @@ public class SelectCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
+<<<<<<< HEAD
     public static final String MESSAGE_SELECT_TASK_SUCCESS = "Selected Task: %1$s";
+=======
+    public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Task: %1$s";
+>>>>>>> master
 
     private final Index targetIndex;
 
@@ -37,7 +41,11 @@ public class SelectCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        List<Task> filteredTaskList = model.getFilteredTaskList();
+<<<<<<< HEAD
+        List<Person> filteredTaskList = model.getFilteredPersonList();
+=======
+        List<Task> filteredPersonList = model.getFilteredTaskList();
+>>>>>>> master
 
         if (targetIndex.getZeroBased() >= filteredTaskList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);

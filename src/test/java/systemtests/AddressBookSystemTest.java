@@ -139,7 +139,7 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Displays all persons in the address book.
+     * Displays all persons in the task manager.
      */
     protected void showAllPersons() {
         executeCommand(ListCommand.COMMAND_WORD);
@@ -163,7 +163,7 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Deletes all persons in the address book.
+     * Deletes all persons in the task manager.
      */
     protected void deleteAllPersons() {
         executeCommand(ClearCommand.COMMAND_WORD);

@@ -38,9 +38,15 @@ public class AddCommandTest {
     }
 
     @Test
+<<<<<<< HEAD
     public void execute_taskAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingTaskAdded modelStub = new ModelStubAcceptingTaskAdded();
-        Task validTask = new TaskBuilder().build();
+        Person validTask = new PersonBuilder().build();
+=======
+    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        Task validPerson = new TaskBuilder().build();
+>>>>>>> master
 
         CommandResult commandResult = new AddCommand(validTask).execute(modelStub, commandHistory);
 
@@ -50,10 +56,17 @@ public class AddCommandTest {
     }
 
     @Test
+<<<<<<< HEAD
     public void execute_duplicateTask_throwsCommandException() throws Exception {
-        Task validTask = new TaskBuilder().build();
+        Person validTask = new PersonBuilder().build();
         AddCommand addCommand = new AddCommand(validTask);
         ModelStub modelStub = new ModelStubWithTask(validTask);
+=======
+    public void execute_duplicatePerson_throwsCommandException() throws Exception {
+        Task validPerson = new TaskBuilder().build();
+        AddCommand addCommand = new AddCommand(validPerson);
+        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+>>>>>>> master
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
@@ -89,7 +102,11 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
+<<<<<<< HEAD
+        public void addPerson(Person task) {
+=======
         public void addTask(Task task) {
+>>>>>>> master
             throw new AssertionError("This method should not be called.");
         }
 
@@ -104,7 +121,11 @@ public class AddCommandTest {
         }
 
         @Override
+<<<<<<< HEAD
+        public boolean hasPerson(Person task) {
+=======
         public boolean hasTask(Task task) {
+>>>>>>> master
             throw new AssertionError("This method should not be called.");
         }
 
@@ -114,7 +135,11 @@ public class AddCommandTest {
         }
 
         @Override
+<<<<<<< HEAD
+        public void updatePerson(Person target, Person editedTask) {
+=======
         public void updateTask(Task target, Task editedTask) {
+>>>>>>> master
             throw new AssertionError("This method should not be called.");
         }
 
@@ -157,37 +182,68 @@ public class AddCommandTest {
     /**
      * A Model stub that contains a single task.
      */
+<<<<<<< HEAD
     private class ModelStubWithTask extends ModelStub {
-        private final Task task;
+        private final Person task;
 
-        ModelStubWithTask(Task task) {
+        ModelStubWithTask(Person task) {
             requireNonNull(task);
             this.task = task;
         }
 
         @Override
+        public boolean hasPerson(Person task) {
+            requireNonNull(task);
+            return this.task.isSamePerson(task);
+=======
+    private class ModelStubWithPerson extends ModelStub {
+        private final Task person;
+
+        ModelStubWithPerson(Task person) {
+            requireNonNull(person);
+            this.person = person;
+        }
+
+        @Override
         public boolean hasTask(Task task) {
             requireNonNull(task);
-            return this.task.isSameTask(task);
+            return this.person.isSameTask(task);
+>>>>>>> master
         }
     }
 
     /**
      * A Model stub that always accept the task being added.
      */
+<<<<<<< HEAD
     private class ModelStubAcceptingTaskAdded extends ModelStub {
-        final ArrayList<Task> tasksAdded = new ArrayList<>();
+        final ArrayList<Person> tasksAdded = new ArrayList<>();
+
+        @Override
+        public boolean hasPerson(Person task) {
+            requireNonNull(task);
+            return tasksAdded.stream().anyMatch(task::isSamePerson);
+        }
+
+        @Override
+        public void addPerson(Person task) {
+            requireNonNull(task);
+            tasksAdded.add(task);
+=======
+    private class ModelStubAcceptingPersonAdded extends ModelStub {
+        final ArrayList<Task> personsAdded = new ArrayList<>();
 
         @Override
         public boolean hasTask(Task task) {
             requireNonNull(task);
-            return tasksAdded.stream().anyMatch(task::isSameTask);
+            return personsAdded.stream().anyMatch(task::isSameTask);
         }
 
         @Override
         public void addTask(Task task) {
             requireNonNull(task);
-            tasksAdded.add(task);
+            personsAdded.add(task);
+>>>>>>> master
         }
 
         @Override
