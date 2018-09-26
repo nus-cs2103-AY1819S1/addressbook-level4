@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -25,6 +26,24 @@ public class ModelManagerTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private ModelManager modelManager = new ModelManager();
+
+    //// Test switch
+    @Test
+    public void setCurrentContext_nullContextId_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.setCurrentContext(null);
+    }
+
+    @Test
+    public void setCurrentContext_validContextId_assertTrue() {
+        modelManager.setCurrentContext(Context.EVENT_CONTEXT_ID);
+        assertEquals(modelManager.getContextId(), Context.EVENT_CONTEXT_ID);
+        assertEquals(modelManager.getContextName(), Context.EVENT_CONTEXT_NAME);
+
+        modelManager.setCurrentContext(Context.VOLUNTEER_CONTEXT_ID);
+        assertEquals(modelManager.getContextId(), Context.VOLUNTEER_CONTEXT_ID);
+        assertEquals(modelManager.getContextName(), Context.VOLUNTEER_CONTEXT_NAME);
+    }
 
     //// Test person
     @Test

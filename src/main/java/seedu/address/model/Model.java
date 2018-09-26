@@ -11,18 +11,45 @@ import seedu.address.model.record.Record;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Record> PREDICATE_SHOW_ALL_RECORDS = unused -> true;
 
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
 
-    /** Clears existing backing model and replaces with the provided new data. */
+    /**
+     * Clears existing backing model and replaces with the provided new data.
+     */
     void resetData(ReadOnlyAddressBook newData);
 
-    /** Returns the AddressBook */
+    /**
+     * Returns the AddressBook
+     */
     ReadOnlyAddressBook getAddressBook();
+
+    //===========  Context Switching Methods =============================================================
+
+    /**
+     * Sets the context
+     */
+    void setCurrentContext(String contextId);
+
+    /***
+     * Returns the context Id
+     */
+    String getContextId();
+
+    /**
+     * Returns context name
+     */
+    String getContextName();
+
+    //===========  Person Methods =============================================================
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
@@ -49,6 +76,20 @@ public interface Model {
     void updatePerson(Person target, Person editedPerson);
 
     /**
+     * Returns an unmodifiable view of the filtered person list
+     */
+    ObservableList<Person> getFilteredPersonList();
+
+    /**
+     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredPersonList(Predicate<Person> predicate);
+
+    //===========  Event Methods =============================================================
+
+    /**
      * Returns true if an event with the same identity as {@code event} exists in the address book.
      */
     boolean hasEvent(Event event);
@@ -72,23 +113,19 @@ public interface Model {
      */
     void updateEvent(Event target, Event editedEvent);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
-
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
+     * Returns an unmodifiable view of the filtered event list
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
-
-    /** Returns an unmodifiable view of the filtered event list */
     ObservableList<Event> getFilteredEventList();
 
     /**
      * Updates the filter of the filtered event list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredEventList(Predicate<Event> predicate);
+
+    //===========  Record Methods =============================================================
 
     /**
      * Returns true if a record with the same identity as {@code record} exists in the database.
@@ -114,14 +151,19 @@ public interface Model {
      */
     void updateRecord(Record target, Record editedRecord);
 
-    /** Returns an unmodifiable view of the filtered record list */
+    /**
+     * Returns an unmodifiable view of the filtered record list
+     */
     ObservableList<Record> getFilteredRecordList();
 
     /**
      * Updates the filter of the filtered record list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredRecordList(Predicate<Record> predicate);
+
+    //===========  Undo/Redo Methods =============================================================
 
     /**
      * Returns true if the model has previous address book states to restore.

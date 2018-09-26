@@ -70,7 +70,6 @@ public class RecordBuilder {
     }
 
     /**
-     * Rubbish
      * @return record
      */
     public Record build() {
