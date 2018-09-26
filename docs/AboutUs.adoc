@@ -4,9 +4,17 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by team W13-2 of CS2103 AY18/19 Semester 1. +
+EventsPlus+ was developed by team W13-2 of CS2103 AY18/19 Semester 1. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Lecturer
+
+=== Damith C. Rajapakse
+image::damithc.jpg[width="150", align="left"]
+{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]]
+
+Role: Lecturer
 
 == Project Team
 
@@ -25,7 +33,7 @@ image::kaiting.jpg[width="150", align="left"]
 {empty}[http://github.com/kaitingpeck[github]]
 
 Role: Developer +
-Responsibilities: Scheduling and Tracking, Documentation +
+Responsibilities: Scheduling and Tracking, Documentation, Set up Travis, Coveralls & Appveyor +
 Component: Logic
 
 '''
@@ -55,7 +63,7 @@ image::ryan.jpg[width="150", align="left"]
 {empty}[http://github.com/ryantanwk[github]]
 
 Role: Developer +
-Responsibilities: Integration, Testing +
+Responsibilities: Integration, Testing, Set up team org and repo +
 Component: Logic
 
 '''
