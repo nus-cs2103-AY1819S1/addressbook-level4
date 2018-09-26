@@ -29,7 +29,7 @@ public class GuiTestAssert {
     /**
      * Asserts that {@code actualCard} displays the details of {@code expectedRecipe}.
      */
-    public static void assertCardDisplaysPerson(Recipe expectedRecipe, RecipeCardHandle actualCard) {
+    public static void assertCardDisplaysRecipe(Recipe expectedRecipe, RecipeCardHandle actualCard) {
         assertEquals(expectedRecipe.getName().fullName, actualCard.getName());
         assertEquals(expectedRecipe.getPhone().value, actualCard.getPhone());
         assertEquals(expectedRecipe.getEmail().value, actualCard.getEmail());
@@ -45,7 +45,7 @@ public class GuiTestAssert {
     public static void assertListMatching(RecipeListPanelHandle recipeListPanelHandle, Recipe... recipes) {
         for (int i = 0; i < recipes.length; i++) {
             recipeListPanelHandle.navigateToCard(i);
-            assertCardDisplaysPerson(recipes[i], recipeListPanelHandle.getRecipeCardHandle(i));
+            assertCardDisplaysRecipe(recipes[i], recipeListPanelHandle.getRecipeCardHandle(i));
         }
     }
 

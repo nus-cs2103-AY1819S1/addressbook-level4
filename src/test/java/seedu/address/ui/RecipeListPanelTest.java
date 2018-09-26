@@ -5,8 +5,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_RECIPE;
-import static seedu.address.testutil.TypicalRecipes.getTypicalPersons;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
+import static seedu.address.testutil.TypicalRecipes.getTypicalRecipes;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysRecipe;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.nio.file.Path;
@@ -26,7 +26,7 @@ import seedu.address.storage.XmlSerializableAddressBook;
 
 public class RecipeListPanelTest extends GuiUnitTest {
     private static final ObservableList<Recipe> TYPICAL_RECIPES =
-            FXCollections.observableList(getTypicalPersons());
+            FXCollections.observableList(getTypicalRecipes());
 
     private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_RECIPE);
 
@@ -45,7 +45,7 @@ public class RecipeListPanelTest extends GuiUnitTest {
             Recipe expectedRecipe = TYPICAL_RECIPES.get(i);
             RecipeCardHandle actualCard = recipeListPanelHandle.getRecipeCardHandle(i);
 
-            assertCardDisplaysPerson(expectedRecipe, actualCard);
+            assertCardDisplaysRecipe(expectedRecipe, actualCard);
             assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
         }
     }
@@ -56,13 +56,13 @@ public class RecipeListPanelTest extends GuiUnitTest {
         postNow(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 
-        RecipeCardHandle expectedPerson = recipeListPanelHandle.getRecipeCardHandle(INDEX_SECOND_RECIPE.getZeroBased());
-        RecipeCardHandle selectedPerson = recipeListPanelHandle.getHandleToSelectedCard();
-        assertCardEquals(expectedPerson, selectedPerson);
+        RecipeCardHandle expectedRecipe = recipeListPanelHandle.getRecipeCardHandle(INDEX_SECOND_RECIPE.getZeroBased());
+        RecipeCardHandle selectedRecipe = recipeListPanelHandle.getHandleToSelectedCard();
+        assertCardEquals(expectedRecipe, selectedRecipe);
     }
 
     /**
-     * Verifies that creating and deleting large number of persons in {@code RecipeListPanel} requires lesser than
+     * Verifies that creating and deleting large number of recipes in {@code RecipeListPanel} requires lesser than
      * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
     @Test
@@ -76,38 +76,38 @@ public class RecipeListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Returns a list of persons containing {@code personCount} persons that is used to populate the
+     * Returns a list of recipes containing {@code recipeCount} recipes that is used to populate the
      * {@code RecipeListPanel}.
      */
-    private ObservableList<Recipe> createBackingList(int personCount) throws Exception {
-        Path xmlFile = createXmlFileWithPersons(personCount);
+    private ObservableList<Recipe> createBackingList(int recipeCount) throws Exception {
+        Path xmlFile = createXmlFileWithRecipes(recipeCount);
         XmlSerializableAddressBook xmlAddressBook =
                 XmlUtil.getDataFromFile(xmlFile, XmlSerializableAddressBook.class);
         return FXCollections.observableArrayList(xmlAddressBook.toModelType().getRecipeList());
     }
 
     /**
-     * Returns a .xml file containing {@code personCount} persons. This file will be deleted when the JVM terminates.
+     * Returns a .xml file containing {@code recipeCount} recipes. This file will be deleted when the JVM terminates.
      */
-    private Path createXmlFileWithPersons(int personCount) throws Exception {
+    private Path createXmlFileWithRecipes(int recipeCount) throws Exception {
         StringBuilder builder = new StringBuilder();
         builder.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
         builder.append("<addressbook>\n");
-        for (int i = 0; i < personCount; i++) {
-            builder.append("<persons>\n");
+        for (int i = 0; i < recipeCount; i++) {
+            builder.append("<recipes>\n");
             builder.append("<name>").append(i).append("a</name>\n");
             builder.append("<phone>000</phone>\n");
             builder.append("<email>a@aa</email>\n");
             builder.append("<address>a</address>\n");
-            builder.append("</persons>\n");
+            builder.append("</recipes>\n");
         }
         builder.append("</addressbook>\n");
 
-        Path manyPersonsFile = Paths.get(TEST_DATA_FOLDER + "manyPersons.xml");
-        FileUtil.createFile(manyPersonsFile);
-        FileUtil.writeToFile(manyPersonsFile, builder.toString());
-        manyPersonsFile.toFile().deleteOnExit();
-        return manyPersonsFile;
+        Path manyRecipesFile = Paths.get(TEST_DATA_FOLDER + "manyRecipes.xml");
+        FileUtil.createFile(manyRecipesFile);
+        FileUtil.writeToFile(manyRecipesFile, builder.toString());
+        manyRecipesFile.toFile().deleteOnExit();
+        return manyRecipesFile;
     }
 
     /**
@@ -119,6 +119,6 @@ public class RecipeListPanelTest extends GuiUnitTest {
         uiPartRule.setUiPart(recipeListPanel);
 
         recipeListPanelHandle = new RecipeListPanelHandle(getChildNode(recipeListPanel.getRoot(),
-                RecipeListPanelHandle.PERSON_LIST_VIEW_ID));
+                RecipeListPanelHandle.RECIPE_LIST_VIEW_ID));
     }
 }
