@@ -37,6 +37,12 @@ public interface Model {
     void clearMultiplePersons(List<Person> target);
 
     /**
+     * Removes tag(s) from given persons.
+     * The persons must exist in the address book.
+     */
+    void removeTagsFromPersons(List<Person> target, List<Person> original);
+
+    /**
      * Adds the given person.
      * {@code person} must not already exist in the address book.
      */

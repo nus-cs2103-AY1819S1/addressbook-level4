@@ -14,6 +14,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -73,6 +74,15 @@ public class ModelManager extends ComponentManager implements Model {
     public void clearMultiplePersons(List<Person> target) {
         for (Person p : target) {
           versionedAddressBook.removePerson(p);
+        }
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void removeTagsFromPersons(List<Person> target, List<Person> original) {
+        for (int i=0; i<target.size(); i++) {
+            deletePerson(original.get(i));
+            addPerson(target.get(i));
         }
         indicateAddressBookChanged();
     }
