@@ -74,6 +74,7 @@ public class StorageManager extends ComponentManager implements Storage {
         return expensesStorage.readExpenses(filePath);
     }
 
+    @Override
     public Map<String, ReadOnlyAddressBook> readAllExpenses(Path dirPath) throws DataConversionException, IOException {
         File dir = new File(dirPath.toString());
         final Map<String, ReadOnlyAddressBook> books = new HashMap<>();
