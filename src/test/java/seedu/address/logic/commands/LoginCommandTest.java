@@ -15,7 +15,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -25,9 +28,6 @@ import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.Assert;
 import seedu.address.testutil.PersonBuilder;
-
-import javafx.collections.FXCollections;
-import javafx.collections.transformation.FilteredList;
 
 public class LoginCommandTest {
     @Rule
@@ -53,8 +53,8 @@ public class LoginCommandTest {
     public void execute_invalidPersonLogin_loginUnsuccessful() {
         Person invalidPerson = new PersonBuilder(BOB).build();
         ModelStubAcceptingPersonLogin modelStub = new ModelStubAcceptingPersonLogin(null);
-        Assert.assertThrows(CommandException.class,
-           () -> new LoginCommand(invalidPerson).execute(modelStub, commandHistory));
+        Assert.assertThrows(CommandException.class, () -> new LoginCommand(invalidPerson)
+            .execute(modelStub, commandHistory));
     }
 
     @Test
