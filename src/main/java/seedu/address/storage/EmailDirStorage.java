@@ -21,7 +21,9 @@ public class EmailDirStorage implements EmailStorage {
     }
 
     @Override
-    public Path getEmailPath() { return dirPath; }
+    public Path getEmailPath() {
+        return dirPath;
+    }
 
     @Override
     public void saveEmail(EmailModel email) throws IOException {

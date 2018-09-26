@@ -39,9 +39,13 @@ public class UserPrefs {
         this.addressBookFilePath = addressBookFilePath;
     }
 
-    public Path getEmailPath() { return emailPath; }
+    public Path getEmailPath() {
+        return emailPath;
+    }
 
-    public void setEmailPath(Path emailPath) { this.emailPath = emailPath; }
+    public void setEmailPath(Path emailPath) {
+        this.emailPath = emailPath;
+    }
 
     @Override
     public boolean equals(Object other) {

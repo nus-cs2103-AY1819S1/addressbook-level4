@@ -12,6 +12,7 @@ import java.util.function.Predicate;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.simplejavamail.email.Email;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
@@ -150,6 +151,11 @@ public class AddCommandTest {
 
         @Override
         public void commitAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void saveEmail(Email email) {
             throw new AssertionError("This method should not be called.");
         }
     }

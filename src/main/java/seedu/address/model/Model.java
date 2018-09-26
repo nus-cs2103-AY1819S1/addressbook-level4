@@ -2,10 +2,10 @@ package seedu.address.model;
 
 import java.util.function.Predicate;
 
+import org.simplejavamail.email.Email;
+
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
-
-import org.simplejavamail.email.Email;
 
 /**
  * The API of the Model component.
