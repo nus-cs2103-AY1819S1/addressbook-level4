@@ -52,7 +52,12 @@ public class AddmedsCommandParser implements Parser<AddmedsCommand> {
         } catch (NumberFormatException | IllegalValueException e) {
             throw new ParseException("Exception while parsing dosage.", e);
         }
-        Duration duration = ParserUtil.parseDuration(Integer.parseInt(argMultimap.getValue(PREFIX_DURATION).get()));
+        Duration duration;
+        try {
+            duration = ParserUtil.parseDuration(Double.parseDouble(argMultimap.getValue(PREFIX_DURATION).get()));
+        } catch (NumberFormatException | IllegalValueException e) {
+            throw new ParseException("Exception while parsing duration.", e);
+        }
 
         Nric nric = new Nric(patientNric);
         Prescription med = new Prescription(drugName, dose, duration);

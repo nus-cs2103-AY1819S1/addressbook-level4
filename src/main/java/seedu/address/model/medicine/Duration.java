@@ -3,6 +3,8 @@ package seedu.address.model.medicine;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import seedu.address.commons.exceptions.IllegalValueException;
+
 //@@author snajef
 /**
  * POJO class to hold durations.
@@ -15,17 +17,31 @@ public class Duration {
     public static final double AVERAGE_DAYS_PER_MONTH = 30.4;
     public static final double AVERAGE_DAYS_PER_YEAR = 365.25;
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+    public static final String MESSAGE_DURATION_MUST_BE_POSITIVE = "Duration must be a positive value!";
 
-    private static final double MILLISECONDS_IN_A_DAY = 8.64 * Math.pow(10, 7);
-    private static final double MILLISECONDS_IN_A_WEEK = DAYS_PER_WEEK * MILLISECONDS_IN_A_DAY;
-    private static final double MILLISECONDS_IN_A_MONTH = AVERAGE_DAYS_PER_MONTH * MILLISECONDS_IN_A_DAY;
-    private static final double MILLISECONDS_IN_A_YEAR = AVERAGE_DAYS_PER_YEAR * MILLISECONDS_IN_A_DAY;
+    public static final double MILLISECONDS_IN_A_DAY = 8.64 * Math.pow(10, 7);
+    public static final double MILLISECONDS_IN_A_WEEK = DAYS_PER_WEEK * MILLISECONDS_IN_A_DAY;
+    public static final double MILLISECONDS_IN_A_MONTH = AVERAGE_DAYS_PER_MONTH * MILLISECONDS_IN_A_DAY;
+    public static final double MILLISECONDS_IN_A_YEAR = AVERAGE_DAYS_PER_YEAR * MILLISECONDS_IN_A_DAY;
 
     private double durationInMilliseconds;
     private Calendar startDate;
     private Calendar endDate;
 
-    public Duration(double days) {
+    public Duration(double ms) throws IllegalValueException {
+        if (ms <= 0) {
+            throw new IllegalValueException(MESSAGE_DURATION_MUST_BE_POSITIVE);
+        }
+        durationInMilliseconds = ms;
+        startDate = Calendar.getInstance();
+        endDate = Calendar.getInstance();
+        endDate.add(Calendar.MILLISECOND, (int) durationInMilliseconds);
+    }
+
+    public Duration(int days) throws IllegalValueException {
+        if (days <= 0) {
+            throw new IllegalValueException(MESSAGE_DURATION_MUST_BE_POSITIVE);
+        }
         durationInMilliseconds = MILLISECONDS_IN_A_DAY * days;
         startDate = Calendar.getInstance();
         endDate = Calendar.getInstance();
@@ -61,15 +77,14 @@ public class Duration {
     }
 
     /**
-     * Shifts the date range of the duration. Maintains the saame duration in
+     * Shifts the date range of the duration. Maintains the same duration in
      * milliseconds.
      *
-     * @param newStartDate
-     *            The new start date to use.
+     * @param newStartDate The new start date to use.
      */
     public void shiftDateRange(Calendar newStartDate) {
         startDate = (Calendar) newStartDate.clone();
-        endDate = Calendar.getInstance();
+        endDate = (Calendar) newStartDate.clone();
         endDate.add(Calendar.MILLISECOND, (int) this.getDurationInMilliseconds());
     }
 
@@ -140,5 +155,10 @@ public class Duration {
         }
 
         return false;
+    }
+
+    public static boolean areDatesEqual(Calendar date, Calendar anotherDate) {
+        return date == anotherDate || (date.get(Calendar.DAY_OF_YEAR) == anotherDate.get(Calendar.DAY_OF_YEAR)
+                && date.get(Calendar.YEAR) == anotherDate.get(Calendar.YEAR));
     }
 }
