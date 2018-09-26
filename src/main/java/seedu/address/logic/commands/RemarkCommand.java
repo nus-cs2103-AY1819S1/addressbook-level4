@@ -9,8 +9,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.wish.Wish;
 import seedu.address.model.wish.Remark;
+import seedu.address.model.wish.Wish;
 
 /**
  * Adds remark to existing wish in wish book.
