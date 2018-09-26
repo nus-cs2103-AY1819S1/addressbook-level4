@@ -21,14 +21,14 @@ public class XmlSerializableAddressBook {
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate recipe(s).";
 
     @XmlElement
-    private List<XmlAdaptedRecipe> persons;
+    private List<XmlAdaptedRecipe> recipes;
 
     /**
      * Creates an empty XmlSerializableAddressBook.
      * This empty constructor is required for marshalling.
      */
     public XmlSerializableAddressBook() {
-        persons = new ArrayList<>();
+        recipes = new ArrayList<>();
     }
 
     /**
@@ -36,7 +36,7 @@ public class XmlSerializableAddressBook {
      */
     public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
         this();
-        persons.addAll(src.getPersonList().stream().map(XmlAdaptedRecipe::new).collect(Collectors.toList()));
+        recipes.addAll(src.getPersonList().stream().map(XmlAdaptedRecipe::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,7 +47,7 @@ public class XmlSerializableAddressBook {
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
-        for (XmlAdaptedRecipe p : persons) {
+        for (XmlAdaptedRecipe p : recipes) {
             Recipe recipe = p.toModelType();
             if (addressBook.hasPerson(recipe)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
@@ -66,6 +66,6 @@ public class XmlSerializableAddressBook {
         if (!(other instanceof XmlSerializableAddressBook)) {
             return false;
         }
-        return persons.equals(((XmlSerializableAddressBook) other).persons);
+        return recipes.equals(((XmlSerializableAddressBook) other).recipes);
     }
 }
