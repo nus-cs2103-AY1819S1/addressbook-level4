@@ -2,6 +2,9 @@ package seedu.address.logic.commands;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -9,7 +12,6 @@ import seedu.address.model.person.ContactContainsRoomPredicate;
 import seedu.address.model.person.ContactContainsTagPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Room;
-import static java.util.Objects.requireNonNull;
 
 //@@author kengwoon
 /**

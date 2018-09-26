@@ -1,11 +1,11 @@
 package seedu.address.logic.commands;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Set;
-import java.util.HashSet;
-
 import static java.util.Objects.requireNonNull;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
