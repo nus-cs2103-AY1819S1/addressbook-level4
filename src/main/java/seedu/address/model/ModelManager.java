@@ -70,6 +70,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author kengwoon
     @Override
     public void clearMultiplePersons(List<Person> target) {
         for (Person p : target) {
@@ -78,11 +79,11 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author kengwoon
     @Override
     public void removeTagsFromPersons(List<Person> target, List<Person> original) {
         for (int i=0; i<target.size(); i++) {
-            deletePerson(original.get(i));
-            addPerson(target.get(i));
+            updatePerson(original.get(i), target.get(i));
         }
         indicateAddressBookChanged();
     }

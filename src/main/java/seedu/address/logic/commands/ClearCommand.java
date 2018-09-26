@@ -14,6 +14,7 @@ import seedu.address.model.person.Room;
 import java.util.ArrayList;
 import java.util.List;
 
+//@@author kengwoon
 /**
  * Clears the address book.
  */
