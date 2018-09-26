@@ -26,7 +26,8 @@ public class CreateCalendarCommand extends Command {
             + PREFIX_MONTH + "OCT "
             + PREFIX_YEAR + "2018 ";
 
-    public static final String MESSAGE_SUCCESS = "Calendar created: ";
+    public static final String MESSAGE_SUCCESS = "Calendar created: %s" ;
+    public static final String MESSAGE_EXISTING_CALENDAR = "This calendar already exists in Hallper";
 
     private final Month month;
     private final Year year;
@@ -39,10 +40,13 @@ public class CreateCalendarCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        // TODO
-        // Require implementation of new Model classes
 
-        return new CommandResult("dummy feedback");
+        if (model.isExistingCalendar(year, month)) {
+            throw new CommandException(MESSAGE_EXISTING_CALENDAR);
+        }
+
+        model.createCalendar(year, month);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, month + "-" + year + ".ics"));
     }
 
     @Override

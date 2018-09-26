@@ -58,6 +58,7 @@ dependencies {
     String testFxVersion = '4.0.12-alpha'
     String jUnitVersion = '5.1.0'
 
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.5'
     implementation group: 'org.mnode.ical4j', name: 'ical4j', version: '3.0.1'
     implementation group: 'org.controlsfx', name: 'controlsfx', version: '8.40.11'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'

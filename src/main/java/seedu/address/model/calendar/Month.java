@@ -13,9 +13,7 @@ public class Month {
 
     public static final String MESSAGE_MONTH_CONSTRAINTS =
             "Months should only be three characters long, and a valid month in the calendar. "
-            + "It should also not be blank.\n"
-            + "Valid months: "
-            + listValidMonths();
+            + "It should also not be blank.";
 
     public static final String MONTH_VALIDATION_REGEX = "^[a-zA-Z]{3}$";
 
