@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Set;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.wish.Wish;
 import seedu.address.model.wish.UniqueWishList;
-import seedu.address.model.wish.exceptions.DuplicateWishException;
+import seedu.address.model.wish.Wish;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.wish.exceptions.DuplicateWishException;
 
 
 /**
