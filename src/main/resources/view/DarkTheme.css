@@ -170,6 +170,10 @@
     -fx-text-fill: black;
 }
 
+.poll-display .label {
+    -fx-text-fill: black !important;
+}
+
 .status-bar .label {
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
@@ -327,7 +331,6 @@
     -fx-background-color: transparent;
     -fx-border-width: 0;
 }
-
 
 #commandTypeLabel {
     -fx-font-size: 11px;
