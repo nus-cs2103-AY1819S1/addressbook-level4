@@ -1,20 +1,17 @@
 package seedu.address.logic.commands;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.person.ContactContainsRoomPredicate;
-import seedu.address.model.person.ContactContainsTagPredicate;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Room;
-import seedu.address.model.tag.Tag;
-
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Set;
+import java.util.HashSet;
 
 import static java.util.Objects.requireNonNull;
+
+import seedu.address.logic.CommandHistory;
+import seedu.address.model.Model;
+import seedu.address.model.person.ContactContainsTagPredicate;
+import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 //@@author kengwoon
 /**

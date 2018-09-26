@@ -1,8 +1,7 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-
-import javafx.collections.ObservableList;
+import java.util.ArrayList;
+import java.util.List;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -10,9 +9,7 @@ import seedu.address.model.person.ContactContainsRoomPredicate;
 import seedu.address.model.person.ContactContainsTagPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Room;
-
-import java.util.ArrayList;
-import java.util.List;
+import static java.util.Objects.requireNonNull;
 
 //@@author kengwoon
 /**
@@ -68,18 +65,28 @@ public class ClearCommand extends Command {
         }
     }
 
+    /**
+     * Clears data in entire address book.
+     * @param model model component
+     * @return CommandResult
+     */
     private CommandResult clearAll(Model model) {
         model.resetData(new AddressBook());
         model.commitAddressBook();
         return new CommandResult(MESSAGE_CLEAR_ALL_SUCCESS);
     }
 
-
+    /**
+     * Clears data of specific tags.
+     * @param model model component
+     * @return CommandResult
+     */
     private CommandResult clearSpecific(Model model) {
         toClear.clear();
         fullList = model.getAddressBook().getPersonList();
         for (Person p : fullList) {
-            if (clearRoom ? new ContactContainsRoomPredicate(target).test(p): new ContactContainsTagPredicate(target).test(p)) {
+            if (clearRoom ? new ContactContainsRoomPredicate(target).test(p)
+                    : new ContactContainsTagPredicate(target).test(p)) {
                 toClear.add(p);
             }
         }

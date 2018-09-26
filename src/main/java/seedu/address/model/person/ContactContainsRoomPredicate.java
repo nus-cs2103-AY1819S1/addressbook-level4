@@ -1,9 +1,6 @@
 package seedu.address.model.person;
 
-import seedu.address.model.tag.Tag;
-
 import java.util.List;
-import java.util.Set;
 import java.util.function.Predicate;
 
 //@@author kengwoon

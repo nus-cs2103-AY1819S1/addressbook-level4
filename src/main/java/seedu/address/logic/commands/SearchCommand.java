@@ -9,7 +9,7 @@ import seedu.address.model.person.SchoolContainsKeywordPredicate;
  * Finds and lists all persons in address book whose data fields match any of the argument keyword.
  * Keyword matching is case insensitive.
  */
-public class SearchCommand extends Command{
+public class SearchCommand extends Command {
     public static final String COMMAND_WORD = "search";
     public static final String SEARCH_DISPLAYED = "Found!";
 
@@ -20,7 +20,7 @@ public class SearchCommand extends Command{
 
     private final SchoolContainsKeywordPredicate predicate;
 
-    public SearchCommand(SchoolContainsKeywordPredicate p){
+    public SearchCommand(SchoolContainsKeywordPredicate p) {
         this.predicate = p;
     }
 
