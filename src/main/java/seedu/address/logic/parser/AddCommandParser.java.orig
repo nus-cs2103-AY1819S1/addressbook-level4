@@ -1,11 +1,11 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DUE_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LABEL;
+import static PREFIX_DESCRIPTION;
+import static PREFIX_PRIORITYVALUE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY_VALUE;
+import static PREFIX_DUEDATE;
+import static PREFIX_LABEL;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -32,21 +32,24 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DUE_DATE,
-                    PREFIX_PRIORITY_VALUE, PREFIX_DESCRIPTION, PREFIX_LABEL);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_DESCRIPTION, PREFIX_DUE_DATE, PREFIX_PRIORITY_VALUE)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        DueDate phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_DUE_DATE).get());
-        PriorityValue email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_PRIORITY_VALUE).get());
-        Description address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_DESCRIPTION).get());
-        Set<Label> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_LABEL));
+        DueDate phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+        PriorityValue email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
+        Description address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        Set<Label> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Task task = new Task(name, phone, email, address, tagList);
+<<<<<<< HEAD
+        Person task = new Person(name, phone, email, address, tagList);
+=======
+        Task person = new Task(name, phone, email, address, tagList);
+>>>>>>> master
 
         return new AddCommand(task);
     }

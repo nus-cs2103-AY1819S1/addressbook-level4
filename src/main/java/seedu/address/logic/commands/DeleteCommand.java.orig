@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Task;
 
 /**
- * Deletes a task identified using it's displayed index from the task manager.
+ * Deletes a task identified using it's displayed index from the address book.
  */
 public class DeleteCommand extends Command {
 
@@ -40,10 +40,17 @@ public class DeleteCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Task taskToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteTask(taskToDelete);
-        model.commitTaskManager();
+<<<<<<< HEAD
+        Person taskToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.deletePerson(taskToDelete);
+        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, taskToDelete));
+=======
+        Task personToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.deleteTask(personToDelete);
+        model.commitTaskManager();
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+>>>>>>> master
     }
 
     @Override

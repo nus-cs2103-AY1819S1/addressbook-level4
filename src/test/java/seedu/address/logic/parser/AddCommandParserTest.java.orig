@@ -45,7 +45,11 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Task expectedTask = new TaskBuilder(BOB).withLabels(VALID_TAG_FRIEND).build();
+<<<<<<< HEAD
+        Person expectedTask = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+=======
+        Task expectedPerson = new TaskBuilder(BOB).withLabels(VALID_TAG_FRIEND).build();
+>>>>>>> master
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
@@ -68,7 +72,11 @@ public class AddCommandParserTest {
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedTask));
 
         // multiple tags - all accepted
-        Task expectedTaskMultipleTags = new TaskBuilder(BOB).withLabels(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+<<<<<<< HEAD
+        Person expectedTaskMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+=======
+        Task expectedPersonMultipleTags = new TaskBuilder(BOB).withLabels(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+>>>>>>> master
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedTaskMultipleTags));
@@ -77,7 +85,11 @@ public class AddCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Task expectedTask = new TaskBuilder(AMY).withLabels().build();
+<<<<<<< HEAD
+        Person expectedTask = new PersonBuilder(AMY).withTags().build();
+=======
+        Task expectedPerson = new TaskBuilder(AMY).withLabels().build();
+>>>>>>> master
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
                 new AddCommand(expectedTask));
     }
