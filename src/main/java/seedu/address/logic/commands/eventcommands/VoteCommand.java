@@ -21,11 +21,12 @@ import seedu.address.model.person.Person;
 public class VoteCommand extends Command {
 
     public static final String COMMAND_WORD = "voteOption";
-
+  
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": User adds vote to the option of the specified poll"
             + "Parameters: "
             + PREFIX_INDEX + "INDEX"
             + PREFIX_NAME + "NAME ";
+
     public static final String MESSAGE_SUCCESS = "Voted for option '%1$s' of poll %2$s.";
 
     private final Index pollIndex;

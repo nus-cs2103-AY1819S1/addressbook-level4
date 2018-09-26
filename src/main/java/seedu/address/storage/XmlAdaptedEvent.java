@@ -145,7 +145,6 @@ public class XmlAdaptedEvent {
             modelPersonList.add(person.toModelType());
         }
         event.setPersonList(modelPersonList);
-
         return event;
     }
 

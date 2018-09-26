@@ -42,7 +42,7 @@ public class Event {
     private final Set<Tag> tags = new HashSet<>();
 
     private final ArrayList<Poll> polls;
-
+  
     private final UniquePersonList personList;
 
     /**

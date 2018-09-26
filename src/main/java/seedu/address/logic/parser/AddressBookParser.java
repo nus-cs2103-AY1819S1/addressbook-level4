@@ -85,7 +85,7 @@ public class AddressBookParser {
 
         case JoinEventCommand.COMMAND_WORD:
             return new JoinEventCommandParser().parse(arguments);
-
+            
         case AddPollCommand.COMMAND_WORD:
             return new AddPollCommandParser().parse(arguments);
 
