@@ -16,7 +16,6 @@ public class IdTest {
     
     @Test
     public void isValidId() {
-
         //Invalid id (less than or equal to 0)
         assertFalse(Id.isValidId(0)); //Zero
         assertFalse(Id.isValidId(-1)); //Negative
@@ -28,9 +27,9 @@ public class IdTest {
         assertTrue(Id.isValidId(1)); // One
         assertTrue(Id.isValidId(20));
         assertTrue(Id.isValidId(015)); //Leading zeros.
-        assertTrue(Id.isValidId(00204));
-        assertTrue(Id.isValidId(10274));
+        assertTrue(Id.isValidId(002040));
         assertTrue(Id.isValidId(350274));
+        assertTrue(Id.isValidId((int) Math.pow(2, 16)));
         assertTrue(Id.isValidId((int)Math.pow(2, 32))); //Very large number
     }
 }

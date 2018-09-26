@@ -57,7 +57,8 @@ public class Doctor {
 
         return otherDoctor != null
                 && otherDoctor.getId().equals(getId())
-                && otherDoctor.getName().equals(getName());
+                && otherDoctor.getName().equals(getName())
+                && otherDoctor.getPassword().equals(getPassword());
     }
 
     /**
@@ -76,7 +77,8 @@ public class Doctor {
 
         Doctor otherDoctor = (Doctor) other;
         return otherDoctor.getId().equals(getId())
-                && otherDoctor.getName().equals(getName());
+                && otherDoctor.getName().equals(getName())
+                && otherDoctor.getPassword().equals(getPassword());
     }
 
     @Override
@@ -90,7 +92,9 @@ public class Doctor {
         final StringBuilder builder = new StringBuilder();
         builder.append(getId())
                 .append(" Name: ")
-                .append(getName());
+                .append(getName())
+                .append(" Password: ")
+                .append(getPassword());
         return builder.toString();
     }
     
