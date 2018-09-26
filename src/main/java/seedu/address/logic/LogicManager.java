@@ -14,16 +14,16 @@ import seedu.address.model.Model;
 import seedu.address.model.expense.Person;
 
 /**
- * The LogicManager of the app that manages logic after the user is logged in.
+ * The main LogicManager of the app.
  */
-public class LogicManagerLoggedIn extends ComponentManager implements Logic {
-    private final Logger logger = LogsCenter.getLogger(LogicManagerLoggedIn.class);
+public class LogicManager extends ComponentManager implements Logic {
+    private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
     private final CommandHistory history;
     private final AddressBookParser addressBookParser;
 
-    public LogicManagerLoggedIn(Model model) {
+    public LogicManager(Model model) {
         this.model = model;
         history = new CommandHistory();
         addressBookParser = new AddressBookParser();
