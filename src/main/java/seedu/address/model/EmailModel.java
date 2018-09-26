@@ -12,4 +12,8 @@ public class EmailModel {
     public void saveEmail(Email email) {
         this.email = email;
     }
+
+    public Email getEmail() {
+        return email;
+    }
 }

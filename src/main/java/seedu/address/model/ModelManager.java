@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.EmailSavedEvent;
 import seedu.address.model.person.Person;
 
 import org.simplejavamail.email.Email;
@@ -158,5 +159,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void saveEmail(Email email) {
         emailModel.saveEmail(email);
+        indicateEmailSaved();
+    }
+
+    /** Raises an event to indicate the model has changed */
+    private void indicateEmailSaved() {
+        raise(new EmailSavedEvent(emailModel));
     }
 }
