@@ -95,4 +95,9 @@ public interface Model {
      * @throws UserAlreadyExistsException if a user with the given username already exists
      */
     void addUser(Username username) throws UserAlreadyExistsException;
+
+    /**
+     * Returns true if a user has been selected to be used. i.e Already logged in
+     */
+    boolean hasSelectedUser();
 }

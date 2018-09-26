@@ -64,7 +64,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        ExpensesStorage expensesStorage = new XmlExpensesStorage(userPrefs.getAddressBookFilePath());
+        ExpensesStorage expensesStorage = new XmlExpensesStorage(userPrefs.getAddressBookDirPath());
         storage = new StorageManager(expensesStorage, userPrefsStorage);
 
         initLogging(config);
@@ -86,7 +86,7 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Map<Username, ReadOnlyAddressBook> addressBooks;
         try {
-            addressBooks = storage.readAllExpenses(Paths.get("data"));
+            addressBooks = storage.readAllExpenses(userPrefs.getAddressBookDirPath());
             if (addressBooks.isEmpty()) {
                 addressBooks.put(new Username("default"), SampleDataUtil.getSampleAddressBook());
             }
@@ -187,7 +187,9 @@ public class MainApp extends Application {
         logger.info("============================ [ Stopping Address Book ] =============================");
         ui.stop();
         try {
-            storage.saveUserPrefs(userPrefs);
+            if (model.hasSelectedUser()) {
+                storage.saveUserPrefs(userPrefs);
+            }
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }

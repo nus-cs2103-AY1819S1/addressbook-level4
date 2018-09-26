@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
@@ -58,13 +57,13 @@ public class StorageManager extends ComponentManager implements Storage {
     // ================ AddressBook methods ==============================
 
     @Override
-    public Path getExpensesFilePath() {
-        return expensesStorage.getExpensesFilePath();
+    public Path getExpensesDirPath() {
+        return expensesStorage.getExpensesDirPath();
     }
 
     @Override
     public Optional<ReadOnlyAddressBook> readExpenses() throws DataConversionException, IOException {
-        return readExpenses(expensesStorage.getExpensesFilePath());
+        return readExpenses(expensesStorage.getExpensesDirPath());
     }
 
     @Override
@@ -95,7 +94,8 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public void saveExpenses(ReadOnlyAddressBook addressBook) throws IOException {
-        saveExpenses(addressBook, expensesStorage.getExpensesFilePath());
+        saveExpenses(addressBook, Paths.get(expensesStorage.getExpensesDirPath().toString(),
+                addressBook.getUsername().toString() + ".xml"));
     }
 
     @Override
@@ -106,7 +106,7 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public void backupExpenses(ReadOnlyAddressBook addressBook) throws IOException {
-        backupExpenses(addressBook, expensesStorage.getExpensesFilePath());
+        backupExpenses(addressBook, expensesStorage.getExpensesDirPath());
     }
 
     @Override

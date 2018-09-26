@@ -3,17 +3,17 @@ package seedu.address.model.user;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-public class Username {
+public class Username implements Comparable<Username> {
     public static final String MESSAGE_NAME_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Names cannot contain any of these characters: \" > < : \\ / | ? *";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    private static final String USERNAME_VALIDATION_REGEX = "[_a-zA-Z0-9\\-. ]+";
+    private static final String USERNAME_VALIDATION_REGEX = ".*[/\\\\:*?\"<>|].*";
 
-    public final String name;
+    private final String name;
 
     /**
      * Constructs a {@code Name}.
@@ -29,8 +29,8 @@ public class Username {
     /**
      * Returns true if a given string is a valid name.
      */
-    private static boolean isValidName(String test) {
-        return !test.isEmpty() && test.matches(USERNAME_VALIDATION_REGEX);
+    public static boolean isValidName(String test) {
+        return !test.isEmpty() && !test.matches(USERNAME_VALIDATION_REGEX);
     }
 
 
@@ -49,5 +49,10 @@ public class Username {
     @Override
     public int hashCode() {
         return name.toLowerCase().hashCode();
+    }
+
+    @Override
+    public int compareTo(Username o) {
+        return String.CASE_INSENSITIVE_ORDER.compare(this.name, o.name);
     }
 }

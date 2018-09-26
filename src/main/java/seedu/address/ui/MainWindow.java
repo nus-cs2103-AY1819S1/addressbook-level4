@@ -140,16 +140,20 @@ public class MainWindow extends UiPart<Stage> {
 
     private void hideLoggedInUI() {
         splitPane.setManaged(false);
+        splitPane.setVisible(false);
         getPrimaryStage().setHeight(225);
         getPrimaryStage().setMaxHeight(225);
         getPrimaryStage().setMinHeight(225);
+        statusbarPlaceholder.setManaged(false);
     }
 
     private void showLoggedInUI() {
         splitPane.setManaged(true);
-        getPrimaryStage().setHeight(600);
+        splitPane.setVisible(true);
         getPrimaryStage().setMaxHeight(Integer.MAX_VALUE);
         getPrimaryStage().setMinHeight(600);
+        setWindowDefaultSize(prefs);
+        statusbarPlaceholder.setManaged(true);
     }
 
     void hide() {
@@ -227,7 +231,7 @@ public class MainWindow extends UiPart<Stage> {
             throw new IllegalStateException();
         }
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookDirPath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
         showLoggedInUI();
     }

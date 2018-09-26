@@ -207,9 +207,14 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void addUser(Username newUsername) throws UserAlreadyExistsException {
-        if (addressBooks.putIfAbsent(newUsername, new AddressBook())  != null) {
+        if (addressBooks.putIfAbsent(newUsername, new AddressBook(newUsername))  != null) {
             throw new UserAlreadyExistsException(newUsername);
         }
+    }
+
+    @Override
+    public boolean hasSelectedUser() {
+        return versionedAddressBook != null && filteredPersons != null && username != null;
     }
 
     @Override
