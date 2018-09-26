@@ -12,8 +12,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
-import seedu.address.model.person.Recipe;
+import seedu.address.commons.events.ui.RecipePanelSelectionChangedEvent;
+import seedu.address.model.recipe.Recipe;
 
 /**
  * Panel containing the list of persons.
@@ -42,7 +42,7 @@ public class PersonListPanel extends UiPart<Region> {
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
                         logger.fine("Selection in recipe list panel changed to : '" + newValue + "'");
-                        raise(new PersonPanelSelectionChangedEvent(newValue));
+                        raise(new RecipePanelSelectionChangedEvent(newValue));
                     }
                 });
     }

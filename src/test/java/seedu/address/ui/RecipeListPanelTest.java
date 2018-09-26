@@ -21,7 +21,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
-import seedu.address.model.person.Recipe;
+import seedu.address.model.recipe.Recipe;
 import seedu.address.storage.XmlSerializableAddressBook;
 
 public class RecipeListPanelTest extends GuiUnitTest {
@@ -83,7 +83,7 @@ public class RecipeListPanelTest extends GuiUnitTest {
         Path xmlFile = createXmlFileWithPersons(personCount);
         XmlSerializableAddressBook xmlAddressBook =
                 XmlUtil.getDataFromFile(xmlFile, XmlSerializableAddressBook.class);
-        return FXCollections.observableArrayList(xmlAddressBook.toModelType().getPersonList());
+        return FXCollections.observableArrayList(xmlAddressBook.toModelType().getRecipeList());
     }
 
     /**
