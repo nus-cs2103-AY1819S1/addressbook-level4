@@ -81,9 +81,9 @@ public class PersonListPanelTest extends GuiUnitTest {
      */
     private ObservableList<Task> createBackingList(int personCount) throws Exception {
         Path xmlFile = createXmlFileWithPersons(personCount);
-        XmlSerializableTaskManager xmlAddressBook =
+        XmlSerializableTaskManager xmlTaskManager =
                 XmlUtil.getDataFromFile(xmlFile, XmlSerializableTaskManager.class);
-        return FXCollections.observableArrayList(xmlAddressBook.toModelType().getTaskList());
+        return FXCollections.observableArrayList(xmlTaskManager.toModelType().getTaskList());
     }
 
     /**
