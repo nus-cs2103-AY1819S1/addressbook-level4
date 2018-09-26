@@ -207,7 +207,7 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level4',
+        'site-name': 'EventsPlus+',
         'site-githuburl': 'https://github.com/CS2103-AY1819S1-W13-2/main'
     ]
 
