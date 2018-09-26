@@ -15,6 +15,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 
 /**
  * Current user joins an event identified using its displayed index from the address book.
@@ -50,7 +51,13 @@ public class JoinEventCommand extends Command {
         history.setSelectedEvent(event);
 
         Person person = history.getSelectedPerson();
-        event.addPerson(person);
+        try {
+            event.addPerson(person);
+        } catch (DuplicatePersonException e) {
+            throw new CommandException(Messages.MESSAGE_ALREADY_JOINED);
+        } catch (NullPointerException e) {
+            throw new CommandException(Messages.MESSAGE_NO_USER_SELECTED);
+        }
 
         model.commitAddressBook();
         model.updateEvent(event, event);

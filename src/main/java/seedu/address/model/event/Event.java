@@ -18,6 +18,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -41,7 +43,7 @@ public class Event {
 
     private final ArrayList<Poll> polls;
 
-    private final ArrayList<Person> personList;
+    private final UniquePersonList personList;
 
     /**
      * Every field must be present and not null.
@@ -54,7 +56,7 @@ public class Event {
         this.location = address;
         this.tags.addAll(tags);
         polls = new ArrayList<>();
-        personList = new ArrayList<>();
+        personList = new UniquePersonList();
     }
 
     public Name getName() {
@@ -108,21 +110,15 @@ public class Event {
     /**
      * Adds a new person to the event.
      */
-    public void addPerson(Person person) {
-        personList.add(person);
+    public void addPerson(Person person) throws DuplicatePersonException {
+        try {
+            personList.add(person);
+        } catch (DuplicatePersonException e){
+            throw e;
+        }
     }
 
-    /**
-     * Returns the list of names of people who joined the event in a string.
-     */
-    public String getNameList() {
-        List<String> names = personList.stream()
-                .map(p -> p.getName().toString())
-                .collect(Collectors.toList());
-        return names.toString();
-    }
-
-    public ArrayList<Person> getPersonList() {
+    public UniquePersonList getPersonList() {
         return personList;
     }
 
@@ -133,6 +129,13 @@ public class Event {
         for (Person person : personList) {
             this.personList.add(person);
         }
+    }
+
+    /**
+     * Returns the name list of the people attending as a string.
+     */
+    public String getNameList() {
+        return personList.getNameList();
     }
 
     /**

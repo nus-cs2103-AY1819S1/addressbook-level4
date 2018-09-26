@@ -88,6 +88,7 @@ public class XmlAdaptedEvent {
                 .map(XmlAdaptedPoll::new)
                 .collect(Collectors.toList());
         personList = source.getPersonList()
+                .asUnmodifiableObservableList()
                 .stream()
                 .map(XmlAdaptedPerson::new)
                 .collect(Collectors.toList());
