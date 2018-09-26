@@ -16,19 +16,19 @@ public class RecipeListPanelHandle extends NodeHandle<ListView<Recipe>> {
 
     private static final String CARD_PANE_ID = "#cardPane";
 
-    private Optional<Recipe> lastRememberedSelectedPersonCard;
+    private Optional<Recipe> lastRememberedSelectedRecipeCard;
 
     public RecipeListPanelHandle(ListView<Recipe> personListPanelNode) {
         super(personListPanelNode);
     }
 
     /**
-     * Returns a handle to the selected {@code PersonCardHandle}.
+     * Returns a handle to the selected {@code RecipeCardHandle}.
      * A maximum of 1 item can be selected at any time.
      * @throws AssertionError if no card is selected, or more than 1 card is selected.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
-    public PersonCardHandle getHandleToSelectedCard() {
+    public RecipeCardHandle getHandleToSelectedCard() {
         List<Recipe> selectedRecipeList = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedRecipeList.size() != 1) {
@@ -36,7 +36,7 @@ public class RecipeListPanelHandle extends NodeHandle<ListView<Recipe>> {
         }
 
         return getAllCardNodes().stream()
-                .map(PersonCardHandle::new)
+                .map(RecipeCardHandle::new)
                 .filter(handle -> handle.equals(selectedRecipeList.get(0)))
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);
@@ -101,15 +101,15 @@ public class RecipeListPanelHandle extends NodeHandle<ListView<Recipe>> {
      * Returns the recipe card handle of a recipe associated with the {@code index} in the list.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
-    public PersonCardHandle getPersonCardHandle(int index) {
+    public RecipeCardHandle getRecipeCardHandle(int index) {
         return getAllCardNodes().stream()
-                .map(PersonCardHandle::new)
-                .filter(handle -> handle.equals(getPerson(index)))
+                .map(RecipeCardHandle::new)
+                .filter(handle -> handle.equals(getRecipe(index)))
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);
     }
 
-    private Recipe getPerson(int index) {
+    private Recipe getRecipe(int index) {
         return getRootNode().getItems().get(index);
     }
 
@@ -125,28 +125,28 @@ public class RecipeListPanelHandle extends NodeHandle<ListView<Recipe>> {
     /**
      * Remembers the selected {@code RecipeCard} in the list.
      */
-    public void rememberSelectedPersonCard() {
+    public void rememberSelectedRecipeCard() {
         List<Recipe> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {
-            lastRememberedSelectedPersonCard = Optional.empty();
+            lastRememberedSelectedRecipeCard = Optional.empty();
         } else {
-            lastRememberedSelectedPersonCard = Optional.of(selectedItems.get(0));
+            lastRememberedSelectedRecipeCard = Optional.of(selectedItems.get(0));
         }
     }
 
     /**
      * Returns true if the selected {@code RecipeCard} is different from the value remembered by the most recent
-     * {@code rememberSelectedPersonCard()} call.
+     * {@code rememberSelectedRecipeCard()} call.
      */
-    public boolean isSelectedPersonCardChanged() {
+    public boolean isSelectedRecipeCardChanged() {
         List<Recipe> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {
-            return lastRememberedSelectedPersonCard.isPresent();
+            return lastRememberedSelectedRecipeCard.isPresent();
         } else {
-            return !lastRememberedSelectedPersonCard.isPresent()
-                    || !lastRememberedSelectedPersonCard.get().equals(selectedItems.get(0));
+            return !lastRememberedSelectedRecipeCard.isPresent()
+                    || !lastRememberedSelectedRecipeCard.get().equals(selectedItems.get(0));
         }
     }
 
