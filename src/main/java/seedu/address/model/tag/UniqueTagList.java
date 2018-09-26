@@ -72,7 +72,7 @@ public class UniqueTagList implements Iterable<Tag> {
 		requireNonNull(replacement);
 		internalTagList.setAll(replacement.internalTagList);
 	}
-	
+
 	/**
 	 * Replaces the contents of this list with {@code tags}.
 	 * {@code tags} must not contain duplicate tags.
@@ -82,7 +82,7 @@ public class UniqueTagList implements Iterable<Tag> {
 		if (!tagsAreUnique(tags)) {
 			throw new DuplicateTagException();
 		}
-		
+
 		internalTagList.setAll(tags);
 	}
 
