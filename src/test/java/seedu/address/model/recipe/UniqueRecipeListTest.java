@@ -18,7 +18,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.model.recipe.exceptions.DuplicateRecipeException;
 import seedu.address.model.recipe.exceptions.RecipeNotFoundException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.RecipeBuilder;
 
 public class UniqueRecipeListTest {
     @Rule
@@ -46,7 +46,7 @@ public class UniqueRecipeListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniqueRecipeList.add(ALICE);
-        Recipe editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Recipe editedAlice = new RecipeBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(uniqueRecipeList.contains(editedAlice));
     }
@@ -94,7 +94,7 @@ public class UniqueRecipeListTest {
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
         uniqueRecipeList.add(ALICE);
-        Recipe editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Recipe editedAlice = new RecipeBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         uniqueRecipeList.setRecipe(ALICE, editedAlice);
         UniqueRecipeList expectedUniqueRecipeList = new UniqueRecipeList();
