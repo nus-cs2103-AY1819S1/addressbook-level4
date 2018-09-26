@@ -11,14 +11,14 @@ import seedu.address.model.recipe.Recipe;
 /**
  * Provides a handle for {@code RecipeListPanel} containing the list of {@code RecipeCard}.
  */
-public class PersonListPanelHandle extends NodeHandle<ListView<Recipe>> {
+public class RecipeListPanelHandle extends NodeHandle<ListView<Recipe>> {
     public static final String PERSON_LIST_VIEW_ID = "#personListView";
 
     private static final String CARD_PANE_ID = "#cardPane";
 
     private Optional<Recipe> lastRememberedSelectedPersonCard;
 
-    public PersonListPanelHandle(ListView<Recipe> personListPanelNode) {
+    public RecipeListPanelHandle(ListView<Recipe> personListPanelNode) {
         super(personListPanelNode);
     }
 
