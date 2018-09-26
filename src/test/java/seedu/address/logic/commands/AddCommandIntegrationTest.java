@@ -11,7 +11,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Recipe;
+import seedu.address.model.recipe.Recipe;
 import seedu.address.testutil.PersonBuilder;
 
 /**
@@ -41,7 +41,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Recipe recipeInList = model.getAddressBook().getPersonList().get(0);
+        Recipe recipeInList = model.getAddressBook().getRecipeList().get(0);
         assertCommandFailure(new AddCommand(recipeInList), model, commandHistory,
                 AddCommand.MESSAGE_DUPLICATE_PERSON);
     }

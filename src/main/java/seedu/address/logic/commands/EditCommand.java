@@ -20,11 +20,11 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Recipe;
-import seedu.address.model.person.Phone;
+import seedu.address.model.recipe.Address;
+import seedu.address.model.recipe.Email;
+import seedu.address.model.recipe.Name;
+import seedu.address.model.recipe.Recipe;
+import seedu.address.model.recipe.Phone;
 import seedu.address.model.tag.Tag;
 
 /**

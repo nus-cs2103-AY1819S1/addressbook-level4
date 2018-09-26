@@ -17,8 +17,8 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Recipe;
+import seedu.address.model.recipe.NameContainsKeywordsPredicate;
+import seedu.address.model.recipe.Recipe;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
