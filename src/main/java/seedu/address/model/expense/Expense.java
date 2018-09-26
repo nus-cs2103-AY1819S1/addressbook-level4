@@ -18,10 +18,6 @@ public class Expense {
         this.category = category;
     }
 
-    public Name getName() {
-        return this.name;
-    }
-
     public Category getCategory() {
         return this.category;
     }
