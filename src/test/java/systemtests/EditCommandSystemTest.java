@@ -39,12 +39,12 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.wish.Address;
 import seedu.address.model.wish.Email;
 import seedu.address.model.wish.Name;
-import seedu.address.model.wish.Wish;
 import seedu.address.model.wish.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.wish.Wish;
 import seedu.address.testutil.WishBuilder;
 import seedu.address.testutil.WishUtil;
 
