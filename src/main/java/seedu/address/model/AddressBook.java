@@ -92,6 +92,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         categoryList.addExpense(category, e);
     }
 
+    public CategoryList getCategoryList() {
+        return categoryList;
+    }
+
     /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.

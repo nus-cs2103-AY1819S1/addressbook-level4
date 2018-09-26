@@ -33,6 +33,8 @@ public class CategoryList {
         currentList.add(expense);
     }
 
+    public ArrayList<Expense> getExpenseList(Category key) { return categoryList.get(key); }
+
     /**
      * Returns true if a category with the same identity as {@code category} exists in the address book.
      */
@@ -45,6 +47,11 @@ public class CategoryList {
         String categoryString = "";
         for (Category i : categoryList.keySet()){
             categoryString += i;
+            categoryString += " ";
+            for (Expense e : categoryList.get(i)) {
+                categoryString += e;
+            }
+            categoryString += " ";
         }
         return categoryString;
     }

@@ -14,7 +14,7 @@ public class Category {
     public static final String MESSAGE_CATEGORY_CONSTRAINTS =
             "Category can take any values, and it should not be blank";
 
-    public static final String CATEGORY_VALIDATION_REGEX = "\\p{Alnum}";
+    public static final String CATEGORY_VALIDATION_REGEX = "\\p{Alnum}+";
 
 
     public final String categoryName;
@@ -30,14 +30,6 @@ public class Category {
         requireNonNull(category);
         checkArgument(isValidCategory(category), MESSAGE_CATEGORY_CONSTRAINTS);
         categoryName = category;
-    }
-
-    /**
-     * Constructor for an empty {@code Category}
-     * If the user didn't enter the name of category, the expense will be put under "Default" category.
-     */
-    public Category() {
-        categoryName = "Default";
     }
 
     /**
