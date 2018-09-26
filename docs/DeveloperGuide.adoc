@@ -886,7 +886,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |careless user |undo any command |revert any mistakes
 
 |`* * *` |medical clinic receptionist |request for a specific doctor for consultation |enable patients to feel comfortable
-| =======================================================================
+|=======================================================================
 
 [appendix]
 == Use Cases
