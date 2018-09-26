@@ -61,8 +61,8 @@ public class Recipe {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both recipes of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two recipes.
      */
     public boolean isSameRecipe(Recipe otherRecipe) {
         if (otherRecipe == this) {
@@ -75,8 +75,8 @@ public class Recipe {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both recipes have the same identity and data fields.
+     * This defines a stronger notion of equality between two recipes.
      */
     @Override
     public boolean equals(Object other) {

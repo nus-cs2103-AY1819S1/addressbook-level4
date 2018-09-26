@@ -3,4 +3,4 @@ package seedu.address.model.recipe.exceptions;
 /**
  * Signals that the operation is unable to find the specified recipe.
  */
-public class PersonNotFoundException extends RuntimeException {}
+public class RecipeNotFoundException extends RuntimeException {}
