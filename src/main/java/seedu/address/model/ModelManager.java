@@ -79,7 +79,8 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.removePerson(target);
         indicateAddressBookChanged();
     }
-
+    
+    //@@author jjlee050
     @Override
     public void deleteDoctor(Doctor target) {
         versionedAddressBook.removeDoctor(target);
@@ -92,7 +93,8 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
-
+    
+    //@@author jjlee050
     @Override
     public void addDoctor(Doctor doctor) {
         versionedAddressBook.addDoctor(doctor);
@@ -106,7 +108,8 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.updatePerson(target, editedPerson);
         indicateAddressBookChanged();
     }
-
+    
+    //@@author jjlee050
     @Override
     public void updateDoctor(Doctor target, Doctor editedDoctor) {
         requireAllNonNull(target, editedDoctor);
@@ -132,7 +135,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     //=========== Filtered Doctor List Accessors =============================================================
-
+    
+    //@@author jjlee050
     /**
      * Returns an unmodifiable view of the list of {@code Doctor} backed by the internal list of
      * {@code versionedAddressBook}
@@ -141,7 +145,8 @@ public class ModelManager extends ComponentManager implements Model {
     public ObservableList<Doctor> getFilteredDoctorList() {
         return FXCollections.unmodifiableObservableList(filteredDoctors);
     }
-
+    
+    //@@author jjlee050
     @Override
     public void updateFilteredDoctorList(Predicate<Doctor> predicate) {
         requireNonNull(predicate);
@@ -191,6 +196,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
+        //@@author jjlee050
         return versionedAddressBook.equals(other.versionedAddressBook)
                 && filteredPersons.equals(other.filteredPersons)
                 && filteredDoctors.equals(other.filteredDoctors);
