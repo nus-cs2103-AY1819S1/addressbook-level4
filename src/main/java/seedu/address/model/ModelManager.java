@@ -182,7 +182,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void loadUserData(Username username) throws NonExistentUserException {
         if (!isUserExists(username)) {
-            throw new NonExistentUserException(username);
+            throw new NonExistentUserException(username, addressBooks.size());
         }
         versionedAddressBook = new VersionedAddressBook(addressBooks.get(username));
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());

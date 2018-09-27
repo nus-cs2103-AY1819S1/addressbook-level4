@@ -6,7 +6,7 @@ import seedu.address.model.user.Username;
  * Represents an error where a user with the given username does not exist in the model is encountered.
  */
 public class NonExistentUserException extends Exception {
-    public NonExistentUserException(Username username) {
-        super("The user \"" + username + "\" does not exist.");
+    public NonExistentUserException(Username username, int numUsers) {
+        super("The user \"" + username + "\" does not exist. Num of users: " + numUsers);
     }
 }

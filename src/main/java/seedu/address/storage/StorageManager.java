@@ -78,7 +78,6 @@ public class StorageManager extends ComponentManager implements Storage {
         File dir = new File(dirPath.toString());
         final Map<Username, ReadOnlyAddressBook> books = new TreeMap<>();
         File[] directoryListing = dir.listFiles();
-        System.out.println(directoryListing);
         if (!dir.mkdir()) {
             if (directoryListing != null) {
                 for (File child : directoryListing) {
