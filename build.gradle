@@ -8,6 +8,7 @@ plugins {
     id 'java'
     id 'jacoco'
     id 'checkstyle'
+    id 'pmd'
     id 'com.github.kt3k.coveralls' version '2.4.0'
     id 'com.github.johnrengelman.shadow' version '2.0.3'
     id 'org.asciidoctor.convert' version '1.5.6'
@@ -40,6 +41,29 @@ repositories {
 
 checkstyle {
     toolVersion = '8.1'
+}
+
+
+pmd {
+    ignoreFailures = true
+    pmdTest.enabled=false
+    ruleSets = [
+            'java-basic',
+            'java-braces',
+            'java-clone',
+            'java-codesize',
+            'java-comments',
+            'java-controversial',
+            'java-design',
+            'java-empty',
+            'java-finalizers',
+            'java-imports',
+            'java-optimizations',
+            'java-strictexception',
+            'java-strings',
+            'java-typeresolution',
+            'java-unnecessary'
+    ]
 }
 
 jacocoTestReport {
@@ -244,4 +268,4 @@ task copyDummySearchPage(type: Copy) {
 deployOfflineDocs.dependsOn asciidoctor
 processResources.dependsOn deployOfflineDocs
 
-defaultTasks 'clean', 'headless', 'checkstyleMain', 'allTests', 'coverage', 'asciidoctor'
+defaultTasks 'clean', 'headless','pmdMain', 'checkstyleMain', 'allTests', 'coverage', 'asciidoctor'
