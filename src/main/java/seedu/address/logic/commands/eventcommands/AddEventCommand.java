@@ -41,11 +41,11 @@ public class AddEventCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         try {
-            Person user = history.getSelectedPerson();
-            toAdd.setOrganiser(user);
             if (model.hasEvent(toAdd)) {
                 throw new CommandException(MESSAGE_DUPLICATE_EVENT);
             }
+            Person user = history.getSelectedPerson();
+            toAdd.setOrganiser(user);
             model.addEvent(toAdd);
             model.commitAddressBook();
             history.setSelectedEvent(toAdd);
