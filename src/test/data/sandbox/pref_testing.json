@@ -7,5 +7,5 @@
       "y" : 0
     }
   },
-  "addressBookDirPath" : "src\\test\\data\\sandbox\\data"
+  "addressBookDirPath" : "data"
 }

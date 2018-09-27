@@ -21,8 +21,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.NoUserSelectedException;
-import seedu.address.model.expense.Address;
-import seedu.address.model.expense.Cost
+import seedu.address.model.expense.Cost;
 import seedu.address.model.expense.Email;
 import seedu.address.model.expense.Name;
 import seedu.address.model.expense.Person;

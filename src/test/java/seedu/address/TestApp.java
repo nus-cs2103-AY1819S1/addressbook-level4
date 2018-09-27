@@ -2,6 +2,8 @@ package seedu.address;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.function.Supplier;
 
 import javafx.stage.Screen;
@@ -14,13 +16,16 @@ import seedu.address.commons.util.XmlUtil;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.user.Username;
+import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.ExpensesStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.XmlExpensesStorage;
@@ -156,5 +161,23 @@ public class TestApp extends MainApp {
         this.ui = new UiManager(this.logic, this.config, this.userPrefs);
 
         initEventsCenter();
+    }
+
+    @Override
+    protected Model initModelManager(Storage storage, UserPrefs userPrefs) {
+        Map<Username, ReadOnlyAddressBook> addressBooks;
+        try {
+            addressBooks =
+                    storage.readAllExpenses(TestUtil.getFilePathInSandboxFolder(
+                            userPrefs.getAddressBookDirPath().toString()));
+            if (addressBooks.isEmpty()) {
+                addressBooks.put(new Username("default"), SampleDataUtil.getSampleAddressBook());
+            }
+        } catch (DataConversionException e) {
+            addressBooks = new TreeMap<>();
+        } catch (IOException e) {
+            addressBooks = new TreeMap<>();
+        }
+        return new ModelManager(addressBooks, userPrefs);
     }
 }
