@@ -86,6 +86,11 @@ public interface Model {
     void loadUserData(Username username) throws NonExistentUserException;
 
     /**
+     * Logs out the user in the model.
+     */
+    void unloadUserData();
+
+    /**
      * Returns true if there is a user with the input username in memory.
      */
     boolean isUserExists(Username username);

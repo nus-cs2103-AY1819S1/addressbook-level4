@@ -161,6 +161,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void unloadUserData() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean isUserExists(Username username) {
             throw new AssertionError("This method should not be called.");
         }

@@ -184,8 +184,8 @@ public class ModelManager extends ComponentManager implements Model {
         if (!isUserExists(username)) {
             throw new NonExistentUserException(username, addressBooks.size());
         }
-        versionedAddressBook = new VersionedAddressBook(addressBooks.get(username));
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        this.versionedAddressBook = new VersionedAddressBook(addressBooks.get(username));
+        this.filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         this.username = username;
         addressBooks.replace(this.username, this.versionedAddressBook);
         try {
@@ -194,6 +194,13 @@ public class ModelManager extends ComponentManager implements Model {
         } catch (NoUserSelectedException nuse) {
             throw new IllegalStateException(nuse.getMessage());
         }
+    }
+
+    @Override
+    public void unloadUserData() {
+        this.versionedAddressBook = null;
+        this.filteredPersons = null;
+        this.username = null;
     }
 
     @Override

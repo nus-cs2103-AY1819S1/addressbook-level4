@@ -117,17 +117,11 @@ public class CommandBox extends UiPart<Region> {
             setStyleToIndicateCommandFailure();
             logger.info("Invalid command: " + commandTextField.getText());
             raise(new NewResultAvailableEvent(e.getMessage()));
-        } catch (NoUserSelectedException nuse) {
+        } catch (NoUserSelectedException | UserAlreadyExistsException | NonExistentUserException nuse) {
             initHistory();
             setStyleToIndicateCommandFailure();
-            logger.info("Not logged in yet");
+            logger.info(nuse.getMessage());
             raise(new NewResultAvailableEvent(nuse.getMessage()));
-        } catch (UserAlreadyExistsException | NonExistentUserException e) {
-            initHistory();
-            // handle command failure
-            setStyleToIndicateCommandFailure();
-            logger.info(e.getMessage());
-            raise(new NewResultAvailableEvent(e.getMessage()));
         }
     }
 
