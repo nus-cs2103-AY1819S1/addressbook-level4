@@ -160,7 +160,7 @@ public class ParserUtil {
      * @return a parsed Duration object.
      * @throws IllegalValueException If the duration in days is not a positive integer.
      */
-    public static Duration parseDuration(double durationInDays) throws IllegalValueException {
+    public static Duration parseDuration(int durationInDays) throws IllegalValueException {
         return new Duration(durationInDays);
     }
 
