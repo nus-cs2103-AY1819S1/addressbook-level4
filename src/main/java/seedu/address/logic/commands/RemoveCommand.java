@@ -16,8 +16,8 @@ import seedu.address.model.PatientQueue;
 public class RemoveCommand extends QueueCommand {
     public static final String COMMAND_WORD = "remove";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes a patient from the queue at the specified" +
-            " index.";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes a patient from the queue at the specified"
+            + "index.";
 
     public static final String MESSAGE_SUCCESS = "Removed ";
     public static final String MESSAGE_EMPTY_QUEUE = "Patient Queue is empty!";
@@ -41,6 +41,6 @@ public class RemoveCommand extends QueueCommand {
         }
 
         String patient = patientQueue.removeAtIndex(targetIndex.getZeroBased());
-        return new CommandResult(MESSAGE_SUCCESS + patient + " from Queue." );
+        return new CommandResult(MESSAGE_SUCCESS + patient + " from Queue.");
     }
 }
