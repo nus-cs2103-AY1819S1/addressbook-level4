@@ -74,7 +74,8 @@ public class TestApp extends MainApp {
     @Override
     protected UserPrefs initPrefs(UserPrefsStorage storage) {
         UserPrefs userPrefs = super.initPrefs(storage);
-        userPrefs.setAddressBookDirPath(TestUtil.getFilePathInSandboxFolder(userPrefs.getAddressBookDirPath().toString()));
+        userPrefs.setAddressBookDirPath(
+                TestUtil.getFilePathInSandboxFolder(userPrefs.getAddressBookDirPath().toString()));
         double x = Screen.getPrimary().getVisualBounds().getMinX();
         double y = Screen.getPrimary().getVisualBounds().getMinY();
         userPrefs.updateLastUsedGuiSetting(new GuiSettings(600.0, 600.0, (int) x, (int) y));
