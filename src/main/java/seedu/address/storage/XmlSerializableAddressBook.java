@@ -8,12 +8,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyThanePark;
+import seedu.address.model.ThanePark;
 import seedu.address.model.ride.Ride;
 
 /**
- * An Immutable AddressBook that is serializable to XML format
+ * An Immutable ThanePark that is serializable to XML format
  */
 @XmlRootElement(name = "addressbook")
 public class XmlSerializableAddressBook {
@@ -34,19 +34,19 @@ public class XmlSerializableAddressBook {
     /**
      * Conversion
      */
-    public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
+    public XmlSerializableAddressBook(ReadOnlyThanePark src) {
         this();
         rides.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this addressbook into the model's {@code AddressBook} object.
+     * Converts this addressbook into the model's {@code ThanePark} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
      * {@code XmlAdaptedPerson}.
      */
-    public AddressBook toModelType() throws IllegalValueException {
-        AddressBook addressBook = new AddressBook();
+    public ThanePark toModelType() throws IllegalValueException {
+        ThanePark addressBook = new ThanePark();
         for (XmlAdaptedPerson p : rides) {
             Ride ride = p.toModelType();
             if (addressBook.hasPerson(ride)) {

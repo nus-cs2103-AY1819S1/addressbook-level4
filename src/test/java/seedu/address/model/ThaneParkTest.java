@@ -23,29 +23,29 @@ import seedu.address.model.ride.Ride;
 import seedu.address.model.ride.exceptions.DuplicatePersonException;
 import seedu.address.testutil.PersonBuilder;
 
-public class AddressBookTest {
+public class ThaneParkTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBook addressBook = new AddressBook();
+    private final ThanePark thanePark = new ThanePark();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), thanePark.getPersonList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.resetData(null);
+        thanePark.resetData(null);
     }
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+        ThanePark newData = getTypicalAddressBook();
+        thanePark.resetData(newData);
+        assertEquals(newData, thanePark);
     }
 
     @Test
@@ -54,50 +54,50 @@ public class AddressBookTest {
         Ride editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Ride> newRides = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newRides);
+        ThaneParkStub newData = new ThaneParkStub(newRides);
 
         thrown.expect(DuplicatePersonException.class);
-        addressBook.resetData(newData);
+        thanePark.resetData(newData);
     }
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.hasPerson(null);
+        thanePark.hasPerson(null);
     }
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasPerson(ALICE));
+        assertFalse(thanePark.hasPerson(ALICE));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        assertTrue(addressBook.hasPerson(ALICE));
+        thanePark.addPerson(ALICE);
+        assertTrue(thanePark.hasPerson(ALICE));
     }
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
+        thanePark.addPerson(ALICE);
         Ride editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasPerson(editedAlice));
+        assertTrue(thanePark.hasPerson(editedAlice));
     }
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getPersonList().remove(0);
+        thanePark.getPersonList().remove(0);
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose rides list can violate interface constraints.
+     * A stub ReadOnlyThanePark whose rides list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class ThaneParkStub implements ReadOnlyThanePark {
         private final ObservableList<Ride> rides = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Ride> rides) {
+        ThaneParkStub(Collection<Ride> rides) {
             this.rides.setAll(rides);
         }
 
