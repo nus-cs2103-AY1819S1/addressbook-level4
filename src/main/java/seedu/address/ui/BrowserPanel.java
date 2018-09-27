@@ -13,6 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.Region;
 import javafx.util.Callback;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.medicine.Prescription;
 import seedu.address.model.medicine.PrescriptionList;
@@ -51,18 +52,33 @@ public class BrowserPanel extends UiPart<Region> {
     @javafx.fxml.FXML
     private TableColumn<Prescription, String> durationCol;
 
-    public BrowserPanel() {
+    private Person currentSelection;
+    private ObservableList<Person> persons;
+
+    public BrowserPanel(ObservableList<Person> persons) {
         super(FXML);
+        this.persons = persons;
         registerAsAnEventHandler(this);
     }
 
     @Subscribe
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        resetTableView(event.getNewSelection());
+        logger.info("[seedu.address.ui.BrowserPanel]: " + LogsCenter.getEventHandlingLogMessage(event));
+        currentSelection = event.getNewSelection();
+        resetTableView(currentSelection);
     }
 
-    /** Resets the table view. */
+    @Subscribe
+    private void handleNewResultAvailableEvent(NewResultAvailableEvent event) {
+        logger.info("[seedu.address.ui.BrowserPanel]: " + LogsCenter.getEventHandlingLogMessage(event));
+
+        // Our current pointer is outdated, so we have to find our new Person object and update our table to point
+        // to his medication list.
+        currentSelection = persons.filtered(person -> currentSelection.isSamePerson(person)).get(0);
+        resetTableView(currentSelection);
+    }
+
+    /** Resets the table view given a Person */
     private void resetTableView(Person person) {
         resetTable(person.getPrescriptionList());
     }
@@ -77,8 +93,8 @@ public class BrowserPanel extends UiPart<Region> {
                     @Override
                     public ObservableValue<String> call(CellDataFeatures<Prescription, String> param) {
                         return new SimpleStringProperty(param.getValue()
-                                                             .getDrugName()
-                                                             .toString());
+                                .getDrugName()
+                                .toString());
                     }
                 });
 
@@ -86,8 +102,8 @@ public class BrowserPanel extends UiPart<Region> {
             @Override
             public ObservableValue<String> call(CellDataFeatures<Prescription, String> param) {
                 return new SimpleStringProperty(Double.toString(param.getValue()
-                                                                     .getDose()
-                                                                     .getDose()));
+                        .getDose()
+                        .getDose()));
             }
         });
 
@@ -96,8 +112,8 @@ public class BrowserPanel extends UiPart<Region> {
                     @Override
                     public ObservableValue<String> call(CellDataFeatures<Prescription, String> param) {
                         return new SimpleStringProperty(param.getValue()
-                                                             .getDose()
-                                                             .getDoseUnit());
+                                .getDose()
+                                .getDoseUnit());
                     }
                 });
 
@@ -106,8 +122,8 @@ public class BrowserPanel extends UiPart<Region> {
                     @Override
                     public ObservableValue<String> call(CellDataFeatures<Prescription, String> param) {
                         return new SimpleStringProperty(Integer.toString(param.getValue()
-                                                                              .getDose()
-                                                                              .getDosesPerDay()));
+                                .getDose()
+                                .getDosesPerDay()));
                     }
                 });
 
@@ -116,8 +132,8 @@ public class BrowserPanel extends UiPart<Region> {
                     @Override
                     public ObservableValue<String> call(CellDataFeatures<Prescription, String> param) {
                         return new SimpleStringProperty(param.getValue()
-                                                             .getDuration()
-                                                             .getStartDateAsString());
+                                .getDuration()
+                                .getStartDateAsString());
                     }
                 });
 
@@ -125,8 +141,8 @@ public class BrowserPanel extends UiPart<Region> {
             @Override
             public ObservableValue<String> call(CellDataFeatures<Prescription, String> param) {
                 return new SimpleStringProperty(param.getValue()
-                                                     .getDuration()
-                                                     .getEndDateAsString());
+                        .getDuration()
+                        .getEndDateAsString());
             }
         });
 
@@ -135,8 +151,8 @@ public class BrowserPanel extends UiPart<Region> {
                     @Override
                     public ObservableValue<String> call(CellDataFeatures<Prescription, String> param) {
                         return new SimpleStringProperty(param.getValue()
-                                                             .getDuration()
-                                                             .getDurationAsString());
+                                .getDuration()
+                                .getDurationAsString());
                     }
                 });
     }

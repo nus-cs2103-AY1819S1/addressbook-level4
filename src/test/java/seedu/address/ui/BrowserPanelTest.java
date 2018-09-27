@@ -1,27 +1,21 @@
 package seedu.address.ui;
 
-import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
 
-import org.junit.Before;
-import org.junit.Test;
-
+import guitests.guihandles.PersonListPanelHandle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.model.person.Person;
+
 
 public class BrowserPanelTest extends GuiUnitTest {
     private PersonPanelSelectionChangedEvent selectionChangedEventStub;
 
     private BrowserPanel browserPanel;
 
-    @Before
-    public void setUp() {
-        selectionChangedEventStub = new PersonPanelSelectionChangedEvent(ALICE);
+    private static final ObservableList<Person> TYPICAL_PERSONS =
+            FXCollections.observableList(getTypicalPersons());
 
-        guiRobot.interact(() -> browserPanel = new BrowserPanel());
-        uiPartRule.setUiPart(browserPanel);
-    }
-
-    @Test
-    public void display() throws Exception {
-        // TODO
-    }
+    private PersonListPanelHandle personListPanelHandle;
 }
