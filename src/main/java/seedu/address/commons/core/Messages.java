@@ -13,4 +13,5 @@ public class Messages {
     public static final String MESSAGE_NO_EVENT_SELECTED = "There is no event selected.";
     public static final String MESSAGE_ALREADY_JOINED = "You have already joined this event.";
     public static final String MESSAGE_NO_USER_LOGGED_IN = "There is no user logged-in.";
+    public static final String MESSAGE_NOT_EVENT_ORGANISER = "You are not the organiser of this event.";
 }

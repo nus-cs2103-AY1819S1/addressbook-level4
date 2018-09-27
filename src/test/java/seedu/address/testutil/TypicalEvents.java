@@ -13,13 +13,19 @@ import seedu.address.model.event.Event;
 public class TypicalEvents {
     public static final Event TUTORIAL = new EventBuilder().withName("Tutorial")
             .withAddress("NUS UTown")
-            .withTags("friends").build();
+            .withTags("friends")
+            .withOrganiser(new PersonBuilder().build())
+            .build();
     public static final Event MEETING = new EventBuilder().withName("Meeting")
             .withAddress("SOC Canteen")
-            .withTags("friends").build();
+            .withTags("friends")
+            .withOrganiser(new PersonBuilder().build())
+            .build();
     public static final Event DINNER = new EventBuilder().withName("Dinner")
             .withAddress("Arts Canteen")
-            .withTags("friends").build();
+            .withTags("friends")
+            .withOrganiser(new PersonBuilder().build())
+            .build();
 
     /**
      * Returns an {@code AddressBook} with all the typical events.

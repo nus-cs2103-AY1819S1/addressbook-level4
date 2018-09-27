@@ -10,8 +10,10 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
+import seedu.address.model.person.Person;
 
 /**
  * Sets the time of an event.
@@ -44,6 +46,16 @@ public class SetTimeCommand extends Command {
         if (event == null) {
             throw new CommandException(Messages.MESSAGE_NO_EVENT_SELECTED);
         }
+
+        try {
+            Person person = history.getSelectedPerson();
+            if (!person.equals(event.getOrganiser())) {
+                throw new CommandException(Messages.MESSAGE_NOT_EVENT_ORGANISER);
+            }
+        } catch (NoUserLoggedInException e){
+            throw new CommandException(Messages.MESSAGE_NO_USER_LOGGED_IN);
+        }
+
         event.setTime(time);
         model.commitAddressBook();
         model.updateEvent(event, event);
