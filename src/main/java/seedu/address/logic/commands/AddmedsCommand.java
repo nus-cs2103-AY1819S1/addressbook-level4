@@ -39,11 +39,12 @@ public class AddmedsCommand extends Command {
             + PREFIX_DOSES_PER_DAY + "DOSES_PER_DAY "
             + PREFIX_DURATION + "DURATION_IN_DAYS\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NRIC + "S1234567A\n"
+            + PREFIX_NRIC + "S1234567A "
             + PREFIX_DRUGNAME + "Paracetamol "
             + PREFIX_QUANTITY + "2 "
             + PREFIX_DOSE_UNIT + "tablets "
-            + PREFIX_DOSES_PER_DAY + "4 " + PREFIX_DURATION + "14";
+            + PREFIX_DOSES_PER_DAY + "4 "
+            + PREFIX_DURATION + "14";
 
     public static final String MESSAGE_SUCCESS = "Medication added for patient: %1$s";
     public static final String MESSAGE_NO_SUCH_PATIENT = "No such patient exists.";
