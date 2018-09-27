@@ -7,13 +7,11 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.PatientQueue;
 
-
-
 /**
  * Registers a patient to the end of the current queue.
  */
 public class RegisterCommand extends QueueCommand {
-    public static final String COMMAND_WORD = "enqueue";
+    public static final String COMMAND_WORD = "register";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enqueue a patient into the queue. "
             + "Parameters: "

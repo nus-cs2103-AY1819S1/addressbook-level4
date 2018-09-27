@@ -5,6 +5,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import seedu.address.logic.commands.RegisterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses input arguments and creates a new RegisterCommand object
+ */
 public class RegisterCommandParser implements Parser<RegisterCommand> {
 
     /**
@@ -14,7 +17,7 @@ public class RegisterCommandParser implements Parser<RegisterCommand> {
      */
     public RegisterCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
-        if(trimmedArgs.isEmpty()) {
+        if (trimmedArgs.isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, RegisterCommand.MESSAGE_USAGE));
         }
