@@ -26,6 +26,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.doctor.exceptions.DuplicateDoctorException;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 
 import seedu.address.testutil.DoctorBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -58,7 +59,7 @@ public class AddressBookTest {
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicateDoctorException() {
+    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two persons with the same identity fields
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
@@ -66,7 +67,7 @@ public class AddressBookTest {
         //@@author jjlee050
         AddressBookStub newData = new AddressBookStub(newPersons, new ArrayList<>());
 
-        thrown.expect(DuplicateDoctorException.class);
+        thrown.expect(DuplicatePersonException.class);
         addressBook.resetData(newData);
     }
 

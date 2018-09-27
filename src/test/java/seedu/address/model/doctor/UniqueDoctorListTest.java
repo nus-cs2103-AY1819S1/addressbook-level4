@@ -136,8 +136,8 @@ public class UniqueDoctorListTest {
     public void remove_existingDoctor_removesDoctor() {
         uniqueDoctorList.add(ADAM);
         uniqueDoctorList.remove(ADAM);
-        UniquePersonList expectedUniquePersonList = new UniquePersonList();
-        assertEquals(expectedUniquePersonList, uniqueDoctorList);
+        UniqueDoctorList expectedUniqueDoctorList = new UniqueDoctorList();
+        assertEquals(expectedUniqueDoctorList, uniqueDoctorList);
     }
 
     @Test
