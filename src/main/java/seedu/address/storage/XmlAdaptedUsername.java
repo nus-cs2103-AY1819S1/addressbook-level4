@@ -20,6 +20,13 @@ public class XmlAdaptedUsername {
     }
 
     /**
+     * Constructs a {@code XmlAdaptedUsername} with the given {@code userName}.
+     */
+    public XmlAdaptedUsername(String userName) {
+        this.userName = userName;
+    }
+
+    /**
      * Converts a given Username into this class for JAXB use.
      *
      * @param source future changes to this will not affect the created
@@ -50,6 +57,6 @@ public class XmlAdaptedUsername {
             return false;
         }
 
-        return userName.equals(((XmlAdaptedUsername) other).userName);
+        return userName.equalsIgnoreCase(((XmlAdaptedUsername) other).userName);
     }
 }
