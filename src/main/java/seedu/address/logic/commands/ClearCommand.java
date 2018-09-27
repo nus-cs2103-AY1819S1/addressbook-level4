@@ -88,7 +88,7 @@ public class ClearCommand extends Command {
         fullList = model.getAddressBook().getPersonList();
         for (Person p : fullList) {
             if (clearRoom ? new ContactContainsRoomPredicate(target).test(p)
-                    : new ContactContainsTagPredicate(target).test(p)) {
+                    : predicate.test(p)) {
                 toClear.add(p);
             }
         }
