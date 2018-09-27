@@ -20,8 +20,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueEventList events;
 
-
-
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -94,10 +92,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.add(p);
     }
 
-    public void addEvent(Event p) {
-        events.add(p);
-    }
-
     /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
@@ -115,6 +109,29 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
+    }
+
+    public void addEvent(Event p) {
+        events.add(p);
+    }
+
+    /**
+     * Replaces the given event {@code target} in the list with {@code editedEvent}.
+     * {@code target} must exist in the address book.
+     * The identity of {@code editedEvent} must not be the same as another existing event in the address book.
+     */
+    public void updateEvent(Event target, Event editedEvent) {
+        requireNonNull(editedEvent);
+
+        events.setEvent(target, editedEvent);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeEvent(Event key) {
+        events.remove(key);
     }
 
     //// util methods

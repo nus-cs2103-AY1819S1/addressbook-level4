@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
@@ -65,16 +66,6 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedAddressBook.hasPerson(person);
     }
 
-    /**
-     * Check if a event already exists in a versionedAddressBook
-     * @param event
-     * @return true if versionAddressBook already has this event.
-     */
-    public boolean hasEvent(Event event) {
-        requireNonNull(event);
-        return versionedAddressBook.hasEvent(event);
-    }
-
     @Override
     public void deletePerson(Person target) {
         versionedAddressBook.removePerson(target);
@@ -89,6 +80,19 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void updatePerson(Person target, Person editedPerson) {
+        requireAllNonNull(target, editedPerson);
+
+        versionedAddressBook.updatePerson(target, editedPerson);
+        indicateAddressBookChanged();
+    }
+
+    public Person getPerson(Index targetIndex) {
+        return filteredPersons.get(targetIndex.getZeroBased());
+    }
+
+    //===========Events ======================================================================================
+    @Override
     public void addEvent(Event event) {
         versionedAddressBook.addEvent(event);
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
@@ -96,10 +100,30 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updatePerson(Person target, Person editedPerson) {
+    public void deleteEvent(Event target) {
+        versionedAddressBook.removeEvent(target);
+        indicateAddressBookChanged();
+    }
+
+    /**
+     * Check if an event already exists in a versionedAddressBook
+     * @param event
+     * @return true if versionAddressBook already has this event.
+     */
+    public boolean hasEvent(Event event) {
+        requireNonNull(event);
+        return versionedAddressBook.hasEvent(event);
+    }
+
+    public Event getEvent(Index targetIndex) {
+        return filteredEvents.get(targetIndex.getZeroBased());
+    }
+
+    @Override
+    public void updateEvent(Event target, Event editedPerson) {
         requireAllNonNull(target, editedPerson);
 
-        versionedAddressBook.updatePerson(target, editedPerson);
+        versionedAddressBook.updateEvent(target, editedPerson);
         indicateAddressBookChanged();
     }
 
@@ -125,8 +149,8 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
-
-    private void updateFilteredEventList(Predicate<Event> predicate) {
+    @Override
+    public void updateFilteredEventList(Predicate<Event> predicate) {
         requireNonNull(predicate);
         filteredEvents.setPredicate(predicate);
     }

@@ -29,7 +29,7 @@ public class UniqueEventList implements Iterable<Event> {
     private final ObservableList<Event> internalList = FXCollections.observableArrayList();
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent event as the given argument.
      */
     public boolean contains(Event toCheck) {
         requireNonNull(toCheck);
@@ -37,8 +37,8 @@ public class UniqueEventList implements Iterable<Event> {
     }
 
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
+     * Adds a event to the list.
+     * The event must not already exist in the list.
      */
     public void add(Event toAdd) {
         requireNonNull(toAdd);
@@ -49,27 +49,27 @@ public class UniqueEventList implements Iterable<Event> {
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * Replaces the event {@code target} in the list with {@code editedEvent}.
      * {@code target} must exist in the list.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
+     * The event identity of {@code editedEvent} must not be the same as another existing event in the list.
      */
-    public void setEvent(Event target, Event editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void setEvent(Event target, Event editedEvent) {
+        requireAllNonNull(target, editedEvent);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new PersonNotFoundException();
         }
 
-        if (!target.isSameEvent(editedPerson) && contains(editedPerson)) {
+        if (!target.isSameEvent(editedEvent) && contains(editedEvent)) {
             throw new DuplicatePersonException();
         }
 
-        internalList.set(index, editedPerson);
+        internalList.set(index, editedEvent);
     }
 
     /**
-     * Removes the equivalent person from the list.
+     * Removes the equivalent event from the list.
      * The person must exist in the list.
      */
     public void remove(Event toRemove) {
@@ -81,8 +81,8 @@ public class UniqueEventList implements Iterable<Event> {
 
 
     /**
-     * Replaces the contents of this list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of this list with {@code events}.
+     * {@code persons} must not contain duplicate events.
      */
     public void setEvents(List<Event> events) {
         requireAllNonNull(events);

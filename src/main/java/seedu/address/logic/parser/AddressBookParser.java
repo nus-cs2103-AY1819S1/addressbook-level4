@@ -7,7 +7,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddUserCommand;
-import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
@@ -21,6 +20,26 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 
+import seedu.address.logic.commands.eventcommands.AddEventCommand;
+import seedu.address.logic.commands.eventcommands.AddPollCommand;
+import seedu.address.logic.commands.eventcommands.AddPollOptionCommand;
+import seedu.address.logic.commands.eventcommands.DeleteEventCommand;
+import seedu.address.logic.commands.eventcommands.DisplayPollCommand;
+import seedu.address.logic.commands.eventcommands.JoinEventCommand;
+import seedu.address.logic.commands.eventcommands.SelectEventCommand;
+import seedu.address.logic.commands.eventcommands.SetDateCommand;
+import seedu.address.logic.commands.eventcommands.SetTimeCommand;
+import seedu.address.logic.commands.eventcommands.VoteCommand;
+import seedu.address.logic.parser.eventparsers.AddEventCommandParser;
+import seedu.address.logic.parser.eventparsers.AddPollCommandParser;
+import seedu.address.logic.parser.eventparsers.AddPollOptionCommandParser;
+import seedu.address.logic.parser.eventparsers.DeleteEventCommandParser;
+import seedu.address.logic.parser.eventparsers.DisplayPollCommandParser;
+import seedu.address.logic.parser.eventparsers.JoinEventCommandParser;
+import seedu.address.logic.parser.eventparsers.SelectEventCommandParser;
+import seedu.address.logic.parser.eventparsers.SetDateCommandParser;
+import seedu.address.logic.parser.eventparsers.SetTimeCommandParser;
+import seedu.address.logic.parser.eventparsers.VoteCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -54,6 +73,33 @@ public class AddressBookParser {
 
         case AddUserCommand.COMMAND_WORD:
             return new AddUserCommandParser().parse(arguments);
+
+        case DeleteEventCommand.COMMAND_WORD:
+            return new DeleteEventCommandParser().parse(arguments);
+
+        case SelectEventCommand.COMMAND_WORD:
+            return new SelectEventCommandParser().parse(arguments);
+
+        case SetDateCommand.COMMAND_WORD:
+            return new SetDateCommandParser().parse(arguments);
+
+        case SetTimeCommand.COMMAND_WORD:
+            return new SetTimeCommandParser().parse(arguments);
+
+        case JoinEventCommand.COMMAND_WORD:
+            return new JoinEventCommandParser().parse(arguments);
+
+        case AddPollCommand.COMMAND_WORD:
+            return new AddPollCommandParser().parse(arguments);
+
+        case AddPollOptionCommand.COMMAND_WORD:
+            return new AddPollOptionCommandParser().parse(arguments);
+
+        case DisplayPollCommand.COMMAND_WORD:
+            return new DisplayPollCommandParser().parse(arguments);
+
+        case VoteCommand.COMMAND_WORD:
+            return new VoteCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);

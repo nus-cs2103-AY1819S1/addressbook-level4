@@ -14,7 +14,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Selects a person identified using it's displayed index from the address book.
+ * Selects a person identified using its displayed index from the address book.
  */
 public class SelectCommand extends Command {
 
@@ -43,9 +43,12 @@ public class SelectCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
+        //to be changed to login feature
+        Person person = model.getPerson(targetIndex);
+        history.setSelectedPerson(person);
+
         EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
         return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));
-
     }
 
     @Override

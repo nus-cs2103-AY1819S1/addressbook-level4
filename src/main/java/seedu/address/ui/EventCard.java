@@ -22,7 +22,7 @@ public class EventCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Event person;
+    public final Event event;
 
     @FXML
     private HBox eventCardPane;
@@ -33,15 +33,22 @@ public class EventCard extends UiPart<Region> {
     @FXML
     private Label address;
     @FXML
+    private Label time;
+    @FXML
+    private Label date;
+    @FXML
     private FlowPane tags;
 
-    public EventCard(Event person, int displayedIndex) {
+    public EventCard(Event event, int displayedIndex) {
         super(FXML);
-        this.person = person;
+        this.event = event;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
-        address.setText(person.getLocation().value);
-        person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        name.setText(event.getName().fullName);
+        address.setText(event.getLocation().value);
+        time.setText(event.getTimeString());
+        date.setText(event.getDateString());
+
+        event.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override
@@ -59,6 +66,6 @@ public class EventCard extends UiPart<Region> {
         // state check
         EventCard card = (EventCard) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+                && event.equals(card.event);
     }
 }

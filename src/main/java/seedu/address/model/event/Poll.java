@@ -2,7 +2,9 @@ package seedu.address.model.event;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 import seedu.address.model.person.Person;
 
@@ -10,6 +12,7 @@ import seedu.address.model.person.Person;
  * Represents a poll associated with an event.
  */
 public class Poll {
+    private int id;
     private String pollName;
     private HashMap<String, LinkedList<Person>> pollData;
 
@@ -17,9 +20,31 @@ public class Poll {
      * Creates a new Poll object
      * @param pollName The name of the poll
      */
-    public Poll(String pollName) {
+    public Poll(int id, String pollName) {
+        this.id = id;
         this.pollName = pollName;
         pollData = new HashMap<>();
+    }
+
+    /**
+     * Creates a new poll object with the poll data.
+     */
+    public Poll(int id, String pollName, HashMap<String, LinkedList<Person>> pollData) {
+        this.id = id;
+        this.pollName = pollName;
+        this.pollData = pollData;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getPollName() {
+        return pollName;
+    }
+
+    public HashMap<String, LinkedList<Person>> getPollData() {
+        return pollData;
     }
 
     /**
@@ -34,7 +59,10 @@ public class Poll {
     /**
      * Adds the vote of a user into an option
      */
-    public void addVote(String option, Person person) {
+    public void addVote(String option, Person person) throws IllegalArgumentException {
+        if (!pollData.containsKey(option)) {
+            throw new IllegalArgumentException();
+        }
         pollData.get(option).add(person);
     }
 
@@ -53,5 +81,33 @@ public class Poll {
             }
         });
         return frequency.lastEntry().getValue();
+    }
+
+    /**
+     * Returns a string representation of the poll
+     */
+    public String displayPoll() {
+        String title = String.format("Poll %1$s: %2$s", Integer.toString(id), pollName);
+        String mostPopularEntries = "";
+        if (!pollData.isEmpty()) {
+            mostPopularEntries = "Most popular options: " + getHighest().toString();
+        }
+        String data = displayPollData();
+        return title + "\n" + mostPopularEntries + "\n" + data;
+    }
+
+    /**
+     * Returns the poll data as a string identifying people by their names.
+     * @return
+     */
+    public String displayPollData() {
+        HashMap<String, List<String>> displayData = new HashMap<>();
+        pollData.forEach((k, v) -> {
+            List<String> nameList = v.stream()
+                    .map(person -> person.getName().toString())
+                    .collect(Collectors.toList());
+            displayData.put(k, nameList);
+        });
+        return displayData.toString();
     }
 }

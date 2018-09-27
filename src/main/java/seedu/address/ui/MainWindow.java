@@ -37,6 +37,7 @@ public class MainWindow extends UiPart<Stage> {
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
     private EventListPanel eventListPanel;
+    private PollDisplayPanel pollDisplayPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
@@ -55,6 +56,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane eventListPanelPlaceholder;
+
+    @FXML
+    private StackPane pollDisplayPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -133,6 +137,9 @@ public class MainWindow extends UiPart<Stage> {
 
         eventListPanel = new EventListPanel(logic.getFilteredEventList());
         eventListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
+
+        pollDisplayPanel = new PollDisplayPanel();
+        pollDisplayPanelPlaceholder.getChildren().add(pollDisplayPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
