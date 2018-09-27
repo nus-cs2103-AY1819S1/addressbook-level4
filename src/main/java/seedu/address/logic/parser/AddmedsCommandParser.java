@@ -46,7 +46,7 @@ public class AddmedsCommandParser implements Parser<AddmedsCommand> {
         String drugName = argMultimap.getValue(PREFIX_DRUGNAME).get();
         Dose dose;
         try {
-            dose = ParserUtil.parseDose(Integer.parseInt(argMultimap.getValue(PREFIX_QUANTITY).get()),
+            dose = ParserUtil.parseDose(Double.parseDouble(argMultimap.getValue(PREFIX_QUANTITY).get()),
                     argMultimap.getValue(PREFIX_DOSE_UNIT).get(),
                     Integer.parseInt(argMultimap.getValue(PREFIX_DOSES_PER_DAY).get()));
         } catch (NumberFormatException | IllegalValueException e) {
@@ -54,7 +54,7 @@ public class AddmedsCommandParser implements Parser<AddmedsCommand> {
         }
         Duration duration;
         try {
-            duration = ParserUtil.parseDuration(Double.parseDouble(argMultimap.getValue(PREFIX_DURATION).get()));
+            duration = ParserUtil.parseDuration(Integer.parseInt(argMultimap.getValue(PREFIX_DURATION).get()));
         } catch (NumberFormatException | IllegalValueException e) {
             throw new ParseException("Exception while parsing duration.", e);
         }
