@@ -74,6 +74,9 @@ public class EventBuilder {
         return this;
     }
 
+    /**
+     * Builds an event.
+     */
     public Event build() {
         Event event = new Event(name, address, tags);
         event.setOrganiser(organiser);

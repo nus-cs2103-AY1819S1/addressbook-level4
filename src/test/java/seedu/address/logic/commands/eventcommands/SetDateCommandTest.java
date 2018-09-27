@@ -23,7 +23,7 @@ public class SetDateCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
-    private LocalDate date = LocalDate.of(2018,1, 1);
+    private LocalDate date = LocalDate.of(2018, 1, 1);
 
     @Test
     public void execute_dateAcceptedSetDate() {
@@ -51,7 +51,7 @@ public class SetDateCommandTest {
     }
 
     @Test
-    public void execute_NoEventSetDate() {
+    public void execute_noEventSetDate() {
         SetDateCommand command = new SetDateCommand(date);
         String expectedMessage = String.format(Messages.MESSAGE_NO_EVENT_SELECTED);
         assertCommandFailure(command, model, commandHistory, expectedMessage);
