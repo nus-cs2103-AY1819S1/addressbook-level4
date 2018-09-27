@@ -33,7 +33,7 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         versionedAddressBook = new VersionedThanePark(addressBook);
-        filteredRides = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredRides = new FilteredList<>(versionedAddressBook.getRideList());
     }
 
     public ModelManager() {
@@ -59,18 +59,18 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public boolean hasPerson(Ride ride) {
         requireNonNull(ride);
-        return versionedAddressBook.hasPerson(ride);
+        return versionedAddressBook.hasRide(ride);
     }
 
     @Override
     public void deletePerson(Ride target) {
-        versionedAddressBook.removePerson(target);
+        versionedAddressBook.removeRide(target);
         indicateAddressBookChanged();
     }
 
     @Override
     public void addPerson(Ride ride) {
-        versionedAddressBook.addPerson(ride);
+        versionedAddressBook.addRide(ride);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
@@ -79,7 +79,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updatePerson(Ride target, Ride editedRide) {
         requireAllNonNull(target, editedRide);
 
-        versionedAddressBook.updatePerson(target, editedRide);
+        versionedAddressBook.updateRide(target, editedRide);
         indicateAddressBookChanged();
     }
 

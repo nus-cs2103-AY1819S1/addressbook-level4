@@ -43,7 +43,7 @@ public class SampleDataUtil {
     public static ReadOnlyThanePark getSampleAddressBook() {
         ThanePark sampleAb = new ThanePark();
         for (Ride sampleRide : getSamplePersons()) {
-            sampleAb.addPerson(sampleRide);
+            sampleAb.addRide(sampleRide);
         }
         return sampleAb;
     }

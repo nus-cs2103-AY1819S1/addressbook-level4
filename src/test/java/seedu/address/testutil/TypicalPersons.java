@@ -66,7 +66,7 @@ public class TypicalPersons {
     public static ThanePark getTypicalAddressBook() {
         ThanePark ab = new ThanePark();
         for (Ride ride : getTypicalPersons()) {
-            ab.addPerson(ride);
+            ab.addRide(ride);
         }
         return ab;
     }

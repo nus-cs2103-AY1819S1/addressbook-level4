@@ -21,7 +21,7 @@ public class XmlSerializableAddressBook {
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate ride(s).";
 
     @XmlElement
-    private List<XmlAdaptedPerson> rides;
+    private List<XmlAdaptedRide> rides;
 
     /**
      * Creates an empty XmlSerializableAddressBook.
@@ -36,23 +36,23 @@ public class XmlSerializableAddressBook {
      */
     public XmlSerializableAddressBook(ReadOnlyThanePark src) {
         this();
-        rides.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+        rides.addAll(src.getRideList().stream().map(XmlAdaptedRide::new).collect(Collectors.toList()));
     }
 
     /**
      * Converts this addressbook into the model's {@code ThanePark} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
-     * {@code XmlAdaptedPerson}.
+     * {@code XmlAdaptedRide}.
      */
     public ThanePark toModelType() throws IllegalValueException {
         ThanePark addressBook = new ThanePark();
-        for (XmlAdaptedPerson p : rides) {
+        for (XmlAdaptedRide p : rides) {
             Ride ride = p.toModelType();
-            if (addressBook.hasPerson(ride)) {
+            if (addressBook.hasRide(ride)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addPerson(ride);
+            addressBook.addRide(ride);
         }
         return addressBook;
     }

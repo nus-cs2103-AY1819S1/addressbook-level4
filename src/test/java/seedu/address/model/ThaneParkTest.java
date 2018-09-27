@@ -32,7 +32,7 @@ public class ThaneParkTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), thanePark.getPersonList());
+        assertEquals(Collections.emptyList(), thanePark.getRideList());
     }
 
     @Test
@@ -63,32 +63,32 @@ public class ThaneParkTest {
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        thanePark.hasPerson(null);
+        thanePark.hasRide(null);
     }
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(thanePark.hasPerson(ALICE));
+        assertFalse(thanePark.hasRide(ALICE));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        thanePark.addPerson(ALICE);
-        assertTrue(thanePark.hasPerson(ALICE));
+        thanePark.addRide(ALICE);
+        assertTrue(thanePark.hasRide(ALICE));
     }
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        thanePark.addPerson(ALICE);
+        thanePark.addRide(ALICE);
         Ride editedAlice = new RideBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(thanePark.hasPerson(editedAlice));
+        assertTrue(thanePark.hasRide(editedAlice));
     }
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        thanePark.getPersonList().remove(0);
+        thanePark.getRideList().remove(0);
     }
 
     /**
@@ -102,7 +102,7 @@ public class ThaneParkTest {
         }
 
         @Override
-        public ObservableList<Ride> getPersonList() {
+        public ObservableList<Ride> getRideList() {
             return rides;
         }
     }

@@ -24,7 +24,7 @@ public class AddressBookBuilder {
      * Adds a new {@code Ride} to the {@code ThanePark} that we are building.
      */
     public AddressBookBuilder withPerson(Ride ride) {
-        addressBook.addPerson(ride);
+        addressBook.addRide(ride);
         return this;
     }
 

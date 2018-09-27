@@ -14,7 +14,7 @@ import seedu.address.model.ride.UniqueRideList;
  */
 public class ThanePark implements ReadOnlyThanePark {
 
-    private final UniqueRideList persons;
+    private final UniqueRideList rides;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -24,7 +24,7 @@ public class ThanePark implements ReadOnlyThanePark {
      *   among constructors.
      */
     {
-        persons = new UniqueRideList();
+        rides = new UniqueRideList();
     }
 
     public ThanePark() {}
@@ -43,8 +43,8 @@ public class ThanePark implements ReadOnlyThanePark {
      * Replaces the contents of the ride list with {@code rides}.
      * {@code rides} must not contain duplicate rides.
      */
-    public void setPersons(List<Ride> rides) {
-        this.persons.setRides(rides);
+    public void setRides(List<Ride> rides) {
+        this.rides.setRides(rides);
     }
 
     /**
@@ -53,7 +53,7 @@ public class ThanePark implements ReadOnlyThanePark {
     public void resetData(ReadOnlyThanePark newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setRides(newData.getRideList());
     }
 
     //// ride-level operations
@@ -61,17 +61,17 @@ public class ThanePark implements ReadOnlyThanePark {
     /**
      * Returns true if a ride with the same identity as {@code ride} exists in the address book.
      */
-    public boolean hasPerson(Ride ride) {
+    public boolean hasRide(Ride ride) {
         requireNonNull(ride);
-        return persons.contains(ride);
+        return rides.contains(ride);
     }
 
     /**
      * Adds a ride to the address book.
      * The ride must not already exist in the address book.
      */
-    public void addPerson(Ride p) {
-        persons.add(p);
+    public void addRide(Ride p) {
+        rides.add(p);
     }
 
     /**
@@ -79,42 +79,42 @@ public class ThanePark implements ReadOnlyThanePark {
      * {@code target} must exist in the address book.
      * The ride identity of {@code editedRide} must not be the same as another existing ride in the address book.
      */
-    public void updatePerson(Ride target, Ride editedRide) {
+    public void updateRide(Ride target, Ride editedRide) {
         requireNonNull(editedRide);
 
-        persons.setRide(target, editedRide);
+        rides.setRide(target, editedRide);
     }
 
     /**
      * Removes {@code key} from this {@code ThanePark}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Ride key) {
-        persons.remove(key);
+    public void removeRide(Ride key) {
+        rides.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return rides.asUnmodifiableObservableList().size() + " rides";
         // TODO: refine later
     }
 
     @Override
-    public ObservableList<Ride> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+    public ObservableList<Ride> getRideList() {
+        return rides.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ThanePark // instanceof handles nulls
-                && persons.equals(((ThanePark) other).persons));
+                && rides.equals(((ThanePark) other).rides));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return rides.hashCode();
     }
 }
