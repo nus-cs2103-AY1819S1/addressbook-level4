@@ -32,10 +32,11 @@ public class AddEventCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the event organiser";
 
-    private Event toAdd;
     public final Name name;
     public final Address address;
     public final Set<Tag> tags;
+
+    private Event toAdd;
 
     /**
      * Creates an AddEventCommand to add the specified {@code Event}
@@ -44,8 +45,8 @@ public class AddEventCommand extends Command {
         requireNonNull(name);
         requireNonNull(address);
         requireNonNull(tags);
-        this.address = address;
         this.name = name;
+        this.address = address;
         this.tags = tags;
     }
 
