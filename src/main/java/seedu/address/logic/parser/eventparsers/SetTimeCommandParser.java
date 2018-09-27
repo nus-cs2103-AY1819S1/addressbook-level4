@@ -1,7 +1,8 @@
 package seedu.address.logic.parser.eventparsers;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME_END;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME_START;
 
 import java.time.LocalTime;
 
@@ -24,15 +25,15 @@ public class SetTimeCommandParser implements Parser<SetTimeCommand> {
      */
     public SetTimeCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TIME);
+                ArgumentTokenizer.tokenize(args, PREFIX_TIME_START, PREFIX_TIME_END);
 
-        if (!argMultimap.getValue(PREFIX_TIME).isPresent()
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!argMultimap.getValue(PREFIX_TIME_START).isPresent() ||
+                !argMultimap.getValue(PREFIX_TIME_END).isPresent() || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetTimeCommand.MESSAGE_USAGE));
         }
 
-        LocalTime time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get());
-
-        return new SetTimeCommand(time);
+        LocalTime startTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME_START).get());
+        LocalTime endTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME_END).get());
+        return new SetTimeCommand(startTime, endTime);
     }
 }

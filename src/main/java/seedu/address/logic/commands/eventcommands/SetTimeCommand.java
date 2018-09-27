@@ -23,17 +23,20 @@ public class SetTimeCommand extends Command {
     public static final String COMMAND_WORD = "setTime";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Confirms the time for the pre-selected event.";
-    public static final String MESSAGE_SUCCESS = "Time %1$s set for %2$s";
+    public static final String MESSAGE_SUCCESS = "Time from %1$s to $2$s set for %3$s";
 
-    private final LocalTime time;
+    private final LocalTime startTime;
+    private final LocalTime endTime;
     private Event event;
 
     /**
      * Creates an AddCommand to add the specified {@code Event}
      */
-    public SetTimeCommand(LocalTime time) {
-        requireNonNull(time);
-        this.time = time;
+    public SetTimeCommand(LocalTime startTime, LocalTime endTime) {
+        requireNonNull(startTime);
+        requireNonNull(endTime);
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     public void setEvent(Event event) {
@@ -56,10 +59,12 @@ public class SetTimeCommand extends Command {
             throw new CommandException(Messages.MESSAGE_NO_USER_LOGGED_IN);
         }
 
-        event.setTime(time);
+        event.setStartTime(startTime);
+        event.setEndTime(endTime);
         model.commitAddressBook();
         model.updateEvent(event, event);
         DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
-        return new CommandResult(String.format(MESSAGE_SUCCESS, time.format(timeFormat), event));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, startTime.format(timeFormat),
+                endTime.format(timeFormat), event));
     }
 }
