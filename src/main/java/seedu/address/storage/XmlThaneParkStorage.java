@@ -18,13 +18,13 @@ import seedu.address.model.ReadOnlyThanePark;
 /**
  * A class to access ThanePark data stored as an xml file on the hard disk.
  */
-public class XmlAddressBookStorage implements AddressBookStorage {
+public class XmlThaneParkStorage implements ThaneParkStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(XmlAddressBookStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(XmlThaneParkStorage.class);
 
     private Path filePath;
 
-    public XmlAddressBookStorage(Path filePath) {
+    public XmlThaneParkStorage(Path filePath) {
         this.filePath = filePath;
     }
 

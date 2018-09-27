@@ -11,7 +11,7 @@ import seedu.address.model.ThanePark;
 /**
  * Represents a storage for {@link ThanePark}.
  */
-public interface AddressBookStorage {
+public interface ThaneParkStorage {
 
     /**
      * Returns the file path of the data file.

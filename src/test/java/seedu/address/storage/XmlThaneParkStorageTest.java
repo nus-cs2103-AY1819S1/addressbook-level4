@@ -20,8 +20,8 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyThanePark;
 import seedu.address.model.ThanePark;
 
-public class XmlAddressBookStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlAddressBookStorageTest");
+public class XmlThaneParkStorageTest {
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlThaneParkStorageTest");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -36,7 +36,7 @@ public class XmlAddressBookStorageTest {
     }
 
     private java.util.Optional<ReadOnlyThanePark> readAddressBook(String filePath) throws Exception {
-        return new XmlAddressBookStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
+        return new XmlThaneParkStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -77,7 +77,7 @@ public class XmlAddressBookStorageTest {
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.xml");
         ThanePark original = getTypicalAddressBook();
-        XmlAddressBookStorage xmlAddressBookStorage = new XmlAddressBookStorage(filePath);
+        XmlThaneParkStorage xmlAddressBookStorage = new XmlThaneParkStorage(filePath);
 
         //Save in new file and read back
         xmlAddressBookStorage.saveAddressBook(original, filePath);
@@ -110,7 +110,7 @@ public class XmlAddressBookStorageTest {
      */
     private void saveAddressBook(ReadOnlyThanePark addressBook, String filePath) {
         try {
-            new XmlAddressBookStorage(Paths.get(filePath))
+            new XmlThaneParkStorage(Paths.get(filePath))
                     .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
