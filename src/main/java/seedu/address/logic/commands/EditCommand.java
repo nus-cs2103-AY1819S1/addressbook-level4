@@ -96,7 +96,8 @@ public class EditCommand extends Command {
         assert rideToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(rideToEdit.getName());
-        Maintenance updatedMaintenance = editPersonDescriptor.getMaintenance().orElse(rideToEdit.getDaysSinceMaintenance());
+        Maintenance updatedMaintenance =
+                editPersonDescriptor.getMaintenance().orElse(rideToEdit.getDaysSinceMaintenance());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(rideToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(rideToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(rideToEdit.getTags());

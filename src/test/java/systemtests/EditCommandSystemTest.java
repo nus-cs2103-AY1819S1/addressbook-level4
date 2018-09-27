@@ -26,8 +26,8 @@ import seedu.address.model.ride.Name;
 import seedu.address.model.ride.Maintenance;
 import seedu.address.model.ride.Ride;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.RideBuilder;
 import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.RideBuilder;
 
 public class EditCommandSystemTest extends AddressBookSystemTest {
 

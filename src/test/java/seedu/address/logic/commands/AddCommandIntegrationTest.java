@@ -40,7 +40,7 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_duplicateRide_sameName_throwsCommandException() {
+    public void execute_duplicateRideSameName_throwsCommandException() {
         Ride sameNameRide = new RideBuilder().build();
         assertCommandFailure(new AddCommand(sameNameRide), model, commandHistory,
                 AddCommand.MESSAGE_DUPLICATE_PERSON);

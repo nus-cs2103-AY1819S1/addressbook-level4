@@ -45,7 +45,8 @@ public class XmlAdaptedPerson {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given ride details.
      */
-    public XmlAdaptedPerson(String name, String daysSinceMaintenanceString, String email, String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedPerson(String name, String daysSinceMaintenanceString, String email, String address,
+                            List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.daysSinceMaintenanceString = daysSinceMaintenanceString;
         this.email = email;
@@ -90,7 +91,8 @@ public class XmlAdaptedPerson {
         final Name modelName = new Name(name);
 
         if (daysSinceMaintenanceString == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Maintenance.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Maintenance.class.getSimpleName()));
         }
         if (!Maintenance.isValidMaintenance(daysSinceMaintenanceString)) {
             throw new IllegalValueException(Maintenance.MESSAGE_MAINTENANCE_CONSTRAINTS);
