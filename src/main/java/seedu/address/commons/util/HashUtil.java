@@ -1,5 +1,7 @@
 package seedu.address.commons.util;
 
+import static java.util.Objects.requireNonNull;
+
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import at.favre.lib.crypto.bcrypt.BCrypt.Hasher;
 import at.favre.lib.crypto.bcrypt.BCrypt.Result;
@@ -11,7 +13,7 @@ import at.favre.lib.crypto.bcrypt.BCrypt.Version;
  * Helper functions to maintain hashing password.
  */
 public class HashUtil {
-    private static final int COST = 12;
+    private static final int COST = 8;
     
     /**
      * Return the Bcrypt hashing version.
@@ -25,6 +27,7 @@ public class HashUtil {
      * @param password A valid password
      */
     public static String hashToString(String password) {
+        requireNonNull(password);
         return getVersion().hashToString(COST, password.toCharArray());
     }
 
@@ -34,6 +37,7 @@ public class HashUtil {
      * @param passwordHashString The hashed password
      */
     public static boolean verifyPassword(String password, String passwordHashString) {
+        requireNonNull(password, passwordHashString);
         Verifyer verifyer = BCrypt.verifyer();
         Result result = verifyer.verify(password.toCharArray(), passwordHashString);
         return result.verified;
