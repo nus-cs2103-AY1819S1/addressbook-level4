@@ -3,9 +3,6 @@ package seedu.address.model.doctor;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
-import at.favre.lib.crypto.bcrypt.BCrypt.Result;
-import at.favre.lib.crypto.bcrypt.BCrypt.Verifyer;
 import seedu.address.commons.util.HashUtil;
 
 //@@author jjlee050
