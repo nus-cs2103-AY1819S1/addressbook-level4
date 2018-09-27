@@ -12,9 +12,9 @@ import java.util.List;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import seedu.address.model.doctor.exceptions.DoctorNotFoundException;
+import seedu.address.model.doctor.exceptions.DuplicateDoctorException;
 import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.DoctorBuilder;
 
 //@@author jjlee050
@@ -56,9 +56,9 @@ public class UniqueDoctorListTest {
     }
 
     @Test
-    public void add_duplicateDoctor_throwsDuplicatePersonException() {
+    public void add_duplicateDoctor_throwsDuplicateDoctorException() {
         uniqueDoctorList.add(ADAM);
-        thrown.expect(DuplicatePersonException.class);
+        thrown.expect(DuplicateDoctorException.class);
         uniqueDoctorList.add(ADAM);
     }
 
@@ -75,8 +75,8 @@ public class UniqueDoctorListTest {
     }
 
     @Test
-    public void setDoctor_targetDoctorNotInList_throwsPersonNotFoundException() {
-        thrown.expect(PersonNotFoundException.class);
+    public void setDoctor_targetDoctorNotInList_throwsDoctorNotFoundException() {
+        thrown.expect(DoctorNotFoundException.class);
         uniqueDoctorList.setDoctor(ADAM, ADAM);
     }
 
@@ -110,10 +110,10 @@ public class UniqueDoctorListTest {
     }
 
     @Test
-    public void setDoctor_editedDoctorHasNonUniqueIdentity_throwsDuplicatePersonException() {
+    public void setDoctor_editedDoctorHasNonUniqueIdentity_throwsDuplicateDoctorException() {
         uniqueDoctorList.add(ADAM);
         uniqueDoctorList.add(BEN);
-        thrown.expect(DuplicatePersonException.class);
+        thrown.expect(DuplicateDoctorException.class);
         uniqueDoctorList.setDoctor(ADAM, BEN);
     }
 
@@ -124,8 +124,8 @@ public class UniqueDoctorListTest {
     }
 
     @Test
-    public void remove_doctorDoesNotExist_throwsPersonNotFoundException() {
-        thrown.expect(PersonNotFoundException.class);
+    public void remove_doctorDoesNotExist_throwsDoctorNotFoundException() {
+        thrown.expect(DoctorNotFoundException.class);
         uniqueDoctorList.remove(ADAM);
     }
 
@@ -169,9 +169,9 @@ public class UniqueDoctorListTest {
     }
 
     @Test
-    public void setDoctors_listWithDuplicateDoctors_throwsDuplicatePersonException() {
+    public void setDoctors_listWithDuplicateDoctors_throwsDuplicateDoctorException() {
         List<Doctor> listWithDuplicatePersons = Arrays.asList(ADAM, ADAM);
-        thrown.expect(DuplicatePersonException.class);
+        thrown.expect(DuplicateDoctorException.class);
         uniqueDoctorList.setDoctors(listWithDuplicatePersons);
     }
 

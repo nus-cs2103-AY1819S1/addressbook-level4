@@ -7,8 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.doctor.exceptions.DoctorNotFoundException;
+import seedu.address.model.doctor.exceptions.DuplicateDoctorException;
 
 //@@author jjlee050
 /**
@@ -41,7 +41,7 @@ public class UniqueDoctorList implements Iterable<Doctor> {
     public void add(Doctor toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateDoctorException();
         }
         internalList.add(toAdd);
     }
@@ -56,11 +56,11 @@ public class UniqueDoctorList implements Iterable<Doctor> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new DoctorNotFoundException();
         }
 
         if (!target.isSameDoctor(editedDoctor) && contains(editedDoctor)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateDoctorException();
         }
 
         internalList.set(index, editedDoctor);
@@ -73,7 +73,7 @@ public class UniqueDoctorList implements Iterable<Doctor> {
     public void remove(Doctor toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
+            throw new DoctorNotFoundException();
         }
     }
 
@@ -89,7 +89,7 @@ public class UniqueDoctorList implements Iterable<Doctor> {
     public void setDoctors(List<Doctor> doctors) {
         requireAllNonNull(doctors);
         if (!doctorsAreUnique(doctors)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateDoctorException();
         }
 
         internalList.setAll(doctors);

@@ -23,6 +23,7 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.doctor.Doctor;
+import seedu.address.model.doctor.exceptions.DuplicateDoctorException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.DoctorBuilder;
@@ -56,7 +57,7 @@ public class AddressBookTest {
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
+    public void resetData_withDuplicatePersons_throwsDuplicateDoctorException() {
         // Two persons with the same identity fields
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
@@ -64,19 +65,19 @@ public class AddressBookTest {
         //@@author jjlee050
         AddressBookStub newData = new AddressBookStub(newPersons, new ArrayList<>());
 
-        thrown.expect(DuplicatePersonException.class);
+        thrown.expect(DuplicateDoctorException.class);
         addressBook.resetData(newData);
     }
 
     //@@author jjlee050
     @Test
-    public void resetData_withDuplicateDoctors_throwsDuplicatePersonException() {
+    public void resetData_withDuplicateDoctors_throwsDuplicateDoctorException() {
         // Two doctors with the same identity fields
         Doctor editedAdam = new DoctorBuilder(ADAM).withName("Adam Bell").build();
         List<Doctor> newDoctors = Arrays.asList(ADAM, editedAdam);
         AddressBookStub newData = new AddressBookStub(new ArrayList<>(), newDoctors);
 
-        thrown.expect(DuplicatePersonException.class);
+        thrown.expect(DuplicateDoctorException.class);
         addressBook.resetData(newData);
     }
 
