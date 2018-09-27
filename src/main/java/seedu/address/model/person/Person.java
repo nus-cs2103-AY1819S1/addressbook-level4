@@ -36,6 +36,18 @@ public class Person {
         this.tags.addAll(tags);
     }
 
+    /**
+     * (Overload) Every field must be present and not null.
+     */
+    public Person(Name name, Maintenance daysSinceMaintenance, Email email, Address address, Set<Tag> tags) {
+        requireAllNonNull(name, daysSinceMaintenance, email, address, tags);
+        this.name = name;
+        this.phone = null;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+    }
+
     public Name getName() {
         return name;
     }
