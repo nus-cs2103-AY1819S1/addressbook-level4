@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import java.util.Objects;
 import javafx.collections.ObservableList;
+import javax.print.Doc;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.doctor.UniqueDoctorList;
 import seedu.address.model.person.Person;
@@ -130,15 +132,24 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.asUnmodifiableObservableList();
     }
 
+    //@@author jjlee050
+    @Override
+    public ObservableList<Doctor> getDoctorList() {
+        return doctors.asUnmodifiableObservableList();
+    }
+    
+    //@@author jjlee050
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                && persons.equals(((AddressBook) other).persons)
+                && doctors.equals(((AddressBook) other).doctors));
     }
 
+    //@@author jjlee050
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return Objects.hash(persons.hashCode(), doctors.hashCode());
     }
 }
