@@ -20,13 +20,6 @@ public class XmlAdaptedUsername {
     }
 
     /**
-     * Constructs a {@code XmlAdaptedUsername} with the given {@code userName}.
-     */
-    public XmlAdaptedUsername(String userName) {
-        this.userName = userName;
-    }
-
-    /**
      * Converts a given Username into this class for JAXB use.
      *
      * @param source future changes to this will not affect the created
@@ -53,7 +46,7 @@ public class XmlAdaptedUsername {
             return true;
         }
 
-        if (!(other instanceof XmlAdaptedTag)) {
+        if (!(other instanceof XmlAdaptedUsername)) {
             return false;
         }
 
