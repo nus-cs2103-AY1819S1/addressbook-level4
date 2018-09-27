@@ -21,7 +21,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniquePersonList persons;
     //@@author jjlee050
     private final UniqueDoctorList doctors;
-    
+
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -82,7 +82,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(person);
         return persons.contains(person);
     }
-    
+
     //@@author jjlee050
     /**
      * Returns true if a doctor with the same identity as {@code doctor} exists in the address book.
@@ -148,7 +148,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public ObservableList<Doctor> getDoctorList() {
         return doctors.asUnmodifiableObservableList();
     }
-    
+
     @Override
     public boolean equals(Object other) {
         //@@author jjlee050
