@@ -24,9 +24,10 @@ public class XmlSerializableAddressBook {
 
     @XmlElement
     private List<XmlAdaptedPerson> persons;
-    
+
     @XmlElement
     private List<XmlAdaptedDoctor> doctors;
+    
     /**
      * Creates an empty XmlSerializableAddressBook.
      * This empty constructor is required for marshalling.

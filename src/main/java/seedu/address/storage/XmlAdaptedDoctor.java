@@ -71,7 +71,6 @@ public class XmlAdaptedDoctor {
             throw new IllegalValueException(Id.MESSAGE_ID_CONSTRAINTS);
         }
         final Id modelId = new Id(id);
-
         
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
@@ -88,7 +87,7 @@ public class XmlAdaptedDoctor {
             throw new IllegalValueException(Email.MESSAGE_EMAIL_CONSTRAINTS);
         }
         final Password modelPassword = new Password(password);
-        
+
         return new Doctor(modelId, modelName, modelPassword);
     }
 
