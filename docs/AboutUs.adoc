@@ -12,8 +12,8 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Chua Chenlu
-image::damithc.jpg[width="150", align="left"]
-{empty}[https://github.com/chenlu[github]] [<<johndoe#, portfolio>>]
+image::ccl.jpg[width="150", align="left"]
+{empty}[https://github.com/chenlu-chua[github]] [<<johndoe#, portfolio>>]
 
 Role: Team lead + Testing
 
