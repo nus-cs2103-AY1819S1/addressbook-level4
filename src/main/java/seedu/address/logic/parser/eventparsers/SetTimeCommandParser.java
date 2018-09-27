@@ -27,8 +27,8 @@ public class SetTimeCommandParser implements Parser<SetTimeCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TIME_START, PREFIX_TIME_END);
 
-        if (!argMultimap.getValue(PREFIX_TIME_START).isPresent() ||
-                !argMultimap.getValue(PREFIX_TIME_END).isPresent() || !argMultimap.getPreamble().isEmpty()) {
+        if (!argMultimap.getValue(PREFIX_TIME_START).isPresent()
+                || !argMultimap.getValue(PREFIX_TIME_END).isPresent() || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetTimeCommand.MESSAGE_USAGE));
         }
 
