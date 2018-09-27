@@ -72,6 +72,14 @@ public class Ride {
         return email;
     }
 
+    public Maintenance getDaysSinceMaintenance() {
+        return daysSinceMaintenance;
+    }
+
+    public WaitTime getWaitingTime() {
+        return waitingTime;
+    }
+
     public Address getAddress() {
         return address;
     }
@@ -84,6 +92,13 @@ public class Ride {
         return Collections.unmodifiableSet(tags);
     }
 
+    public void setDaysSinceMaintenance(int value) {
+        this.daysSinceMaintenance.setValue(value);
+    }
+
+    public void setWaitingTime(int value) {
+        this.waitingTime.setValue(value);
+    }
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.

@@ -5,7 +5,6 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Ride's days since last maintenance in the park management app.
- * Guarantees: immutable; is valid as declared in {@link #isValidMaintenance(String)}
  */
 public class Maintenance {
 
@@ -13,7 +12,7 @@ public class Maintenance {
     public static final String MESSAGE_MAINTENANCE_CONSTRAINTS =
             "Maintenance should only contain numbers with at least 1 digit long.";
     public static final String MAINTENANCE_VALIDATION_REGEX = "\\d+";
-    public final int value;
+    private int value;
 
     /**
      * Constructs a {@code Maintenance}.
@@ -24,6 +23,14 @@ public class Maintenance {
         requireNonNull(daysSinceLastMaintenance);
         checkArgument(isValidMaintenance(daysSinceLastMaintenance), MESSAGE_MAINTENANCE_CONSTRAINTS);
         value = Integer.parseInt(daysSinceLastMaintenance);
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 
     /**

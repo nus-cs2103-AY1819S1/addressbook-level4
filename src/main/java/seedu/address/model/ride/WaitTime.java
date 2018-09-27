@@ -5,7 +5,6 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Ride's current waiting time, in minutes, in the park management app.
- * Guarantees: immutable; is valid as declared in {@link #isValidWaitTime(String)}
  */
 public class WaitTime {
 
@@ -13,7 +12,7 @@ public class WaitTime {
     public static final String MESSAGE_WAITTIME_CONSTRAINTS =
             "Maintenance should only contain numbers with at least 1 digit long.";
     public static final String WAITTIME_VALIDATION_REGEX = "\\d+";
-    public final int value;
+    private int value;
 
     /**
      * Constructs a {@code WaitTime}.
@@ -24,6 +23,14 @@ public class WaitTime {
         requireNonNull(waitingTime);
         checkArgument(isValidWaitTime(waitingTime), MESSAGE_WAITTIME_CONSTRAINTS);
         value = Integer.parseInt(waitingTime);
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 
     /**
