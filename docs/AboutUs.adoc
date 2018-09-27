@@ -34,7 +34,7 @@ Responsibilities: Storage
 '''
 
 === Wang Yaofeng
-image::YaoFeng.jpg[width="150", align="left"]
+image::yaofeng.png[width="150", align="left"]
 {empty}[https://github.com/yao-feng[github]] [<<johndoe#, portfolio>>]
 
 Responsibilities: Model (User)
