@@ -15,6 +15,7 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
@@ -43,7 +44,9 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        return new AddEventCommand(name, address, tagList);
+        Event event = new Event(name, address, tagList);
+
+        return new AddEventCommand(event);
     }
 
     /**

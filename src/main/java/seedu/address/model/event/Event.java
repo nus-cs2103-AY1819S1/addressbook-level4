@@ -43,11 +43,10 @@ public class Event {
     /**
      * Every field must be present and not null.
      */
-    public Event(Name name, Address address, Person organiser, Set<Tag> tags) {
+    public Event(Name name, Address address, Set<Tag> tags) {
         requireAllNonNull(name, address, tags);
         this.name = name;
         this.location = address;
-        this.organiser = organiser;
         this.tags.addAll(tags);
         polls = new ArrayList<>();
         personList = new UniquePersonList();
@@ -63,6 +62,10 @@ public class Event {
 
     public Person getOrganiser() {
         return organiser;
+    }
+
+    public void setOrganiser(Person person) {
+        organiser = person;
     }
 
     public LocalDate getDate() {

@@ -128,7 +128,8 @@ public class XmlAdaptedEvent {
 
         final Person modelOrganiser = organiser.toModelType();
 
-        Event event = new Event(modelName, modelAddress, modelOrganiser, modelTags);
+        Event event = new Event(modelName, modelAddress, modelTags);
+        event.setOrganiser(modelOrganiser);
 
         if (!date.isEmpty()) {
             LocalDate modelDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
