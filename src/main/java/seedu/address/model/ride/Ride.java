@@ -28,7 +28,7 @@ public class Ride {
     private Status status;
 
     /**
-     * Every field must be present and not null.
+     * Every field must be present and not null. Default value of status is SHUTDOWN
      */
     public Ride(Name name, Maintenance daysSinceMaintenance, WaitTime waitingTime, Address address, Set<Tag> tags) {
         requireAllNonNull(name, daysSinceMaintenance, waitingTime, address, tags);
@@ -37,6 +37,8 @@ public class Ride {
         this.waitingTime = waitingTime;
         this.address = address;
         this.tags.addAll(tags);
+
+        this.status = Status.SHUTDOWN;
     }
 
     public Name getName() {
