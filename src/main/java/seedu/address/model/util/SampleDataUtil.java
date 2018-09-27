@@ -57,7 +57,7 @@ public class SampleDataUtil {
         }
         //@@author jjlee050
         for (Doctor sampleDoctor: getSampleDoctors()) {
-            //sampleAb.add
+            sampleAb.addDoctor(sampleDoctor);
         }
         return sampleAb;
     }
