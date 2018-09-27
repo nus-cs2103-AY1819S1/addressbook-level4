@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import org.junit.Test;
+import seedu.address.commons.util.HashUtil;
 import seedu.address.testutil.Assert;
 
 //@@author jjlee050
@@ -55,14 +56,13 @@ public class PasswordTest {
         Assert.assertThrows(IllegalArgumentException.class, () -> Password.isSameAsHashPassword(password, ""));
         
         //invalid password
-        assertFalse(Password.isSameAsHashPassword("peter13",BCrypt.withDefaults().hashToString(12, password.toCharArray())));
-        assertFalse(Password.isSameAsHashPassword("peter13",BCrypt.withDefaults().hashToString(6, password.toCharArray())));
+        assertFalse(Password.isSameAsHashPassword("peter13", HashUtil.hashToString(password)));
+        assertFalse(Password.isSameAsHashPassword("peter13", HashUtil.hashToString(password)));
         assertFalse(Password.isSameAsHashPassword("peter12"," ")); //Only spaces password hash string
         assertFalse(Password.isSameAsHashPassword(""," ")); //Empty string and only spaces password hash string
         
         //valid password
-        assertTrue(Password.isSameAsHashPassword(password, BCrypt.withDefaults().hashToString(12, password.toCharArray())));
-        assertTrue(Password.isSameAsHashPassword(password, BCrypt.withDefaults().hashToString(6, password.toCharArray()))); //Change cost
+        assertTrue(Password.isSameAsHashPassword(password, HashUtil.hashToString(password)));
 
     }
 }
