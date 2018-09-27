@@ -45,7 +45,8 @@ public class SampleDataUtil {
     }
     
     public static List<Doctor> getSampleDoctors() {
-        return List.of(new Doctor(new Id(1), new Name("Adam Bell"), new Password("doctor1")));
+        return List.of(new Doctor(new Id(1), new Name("Adam Bell"), new Password("doctor1")),
+                new Doctor(new Id(2), new Name("Chip Dale"), new Password("doctor2")));
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
