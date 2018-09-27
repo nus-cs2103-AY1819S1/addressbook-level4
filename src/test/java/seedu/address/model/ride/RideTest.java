@@ -3,7 +3,7 @@ package seedu.address.model.ride;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_WAIT_TIME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MAINTENANCE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
@@ -38,7 +38,7 @@ public class RideTest {
         // different phone and email but same name -> returns true
         Ride editedAlice = new RideBuilder(ALICE)
                 .withMaintenance(VALID_MAINTENANCE_BOB)
-                .withEmail(VALID_EMAIL_BOB)
+                .withWaitTime(VALID_WAIT_TIME_BOB)
                 .build();
         assertTrue(ALICE.isSameRide(editedAlice));
 
@@ -47,7 +47,7 @@ public class RideTest {
         assertFalse(ALICE.isSameRide(editedAlice));
 
         // same name, same phone, different attributes -> returns true
-        editedAlice = new RideBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+        editedAlice = new RideBuilder(ALICE).withWaitTime(VALID_WAIT_TIME_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameRide(editedAlice));
 
@@ -88,7 +88,7 @@ public class RideTest {
         assertFalse(ALICE.equals(editedAlice));
 
         // different email -> returns false
-        editedAlice = new RideBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        editedAlice = new RideBuilder(ALICE).withWaitTime(VALID_WAIT_TIME_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different address -> returns false

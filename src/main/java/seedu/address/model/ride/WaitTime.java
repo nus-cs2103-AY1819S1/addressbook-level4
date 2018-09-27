@@ -9,9 +9,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class WaitTime {
 
 
-    public static final String MESSAGE_WAITTIME_CONSTRAINTS =
-            "Maintenance should only contain numbers with at least 1 digit long.";
-    public static final String WAITTIME_VALIDATION_REGEX = "\\d+";
+    public static final String MESSAGE_WAIT_TIME_CONSTRAINTS =
+            "Waiting time should only contain numbers with at least 1 digit long.";
+    public static final String WAIT_TIME_VALIDATION_REGEX = "\\d+";
     private int value;
 
     /**
@@ -21,7 +21,7 @@ public class WaitTime {
      */
     public WaitTime(String waitingTime) {
         requireNonNull(waitingTime);
-        checkArgument(isValidWaitTime(waitingTime), MESSAGE_WAITTIME_CONSTRAINTS);
+        checkArgument(isValidWaitTime(waitingTime), MESSAGE_WAIT_TIME_CONSTRAINTS);
         value = Integer.parseInt(waitingTime);
     }
 
@@ -37,7 +37,7 @@ public class WaitTime {
      * Returns true if a given string is a valid days since last maintenance.
      */
     public static boolean isValidWaitTime(String test) {
-        return test.matches(WAITTIME_VALIDATION_REGEX);
+        return test.matches(WAIT_TIME_VALIDATION_REGEX);
     }
 
     @Override

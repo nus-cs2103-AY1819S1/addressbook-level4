@@ -35,7 +35,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label address;
     @FXML
-    private Label email;
+    private Label waitingTimeString;
     @FXML
     private FlowPane tags;
 
@@ -46,7 +46,7 @@ public class PersonCard extends UiPart<Region> {
         name.setText(ride.getName().fullName);
         daysSinceMaintenanceString.setText(String.valueOf(ride.getDaysSinceMaintenance().getValue()));
         address.setText(ride.getAddress().value);
-        email.setText(ride.getEmail().value);
+        waitingTimeString.setText(ride.getWaitingTime().toString());
         ride.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 

@@ -4,7 +4,7 @@
     <rides>
         <name>Alice Pauline</name>
         <daysSinceMaintenanceString>94351253</daysSinceMaintenanceString>
-        <email>alice@example.com</email>
+        <waitingTimeString>1</waitingTimeString>
         <address>123, Jurong West Ave 6, #08-111</address>
         <tagged>friends</tagged>
     </rides>
@@ -13,7 +13,7 @@
     <rides>
         <name>Alice Pauline</name>
         <daysSinceMaintenanceString>94351253</daysSinceMaintenanceString>
-        <email>pauline@example.com</email>
+        <waitingTimeString>19</waitingTimeString>
         <address>4th street</address>
     </rides>
 

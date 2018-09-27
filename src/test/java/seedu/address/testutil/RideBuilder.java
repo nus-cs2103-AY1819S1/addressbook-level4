@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.ride.Address;
-import seedu.address.model.ride.Email;
+import seedu.address.model.ride.WaitTime;
 import seedu.address.model.ride.Maintenance;
 import seedu.address.model.ride.Name;
 import seedu.address.model.ride.Ride;
@@ -18,13 +18,13 @@ public class RideBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_MAINTENANCE = "85355255";
-    public static final String DEFAULT_EMAIL = "alice@gmail.com";
+    public static final String DEFAULT_WAIT_TIME = "1";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
-    public static final String DEFAULT_DIFFERENTNAME = "Alice";
+    public static final String DEFAULT_DIFFERENT_NAME = "Alice";
 
     private Name name;
     private Maintenance maintenance;
-    private Email email;
+    private WaitTime waitingTime;
     private Address address;
     private Set<Tag> tags;
     private Name differentName;
@@ -32,10 +32,10 @@ public class RideBuilder {
     public RideBuilder() {
         name = new Name(DEFAULT_NAME);
         maintenance = new Maintenance(DEFAULT_MAINTENANCE);
-        email = new Email(DEFAULT_EMAIL);
+        waitingTime = new WaitTime(DEFAULT_WAIT_TIME);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
-        differentName = new Name(DEFAULT_DIFFERENTNAME);
+        differentName = new Name(DEFAULT_DIFFERENT_NAME);
     }
 
     /**
@@ -44,7 +44,7 @@ public class RideBuilder {
     public RideBuilder(Ride rideToCopy) {
         name = rideToCopy.getName();
         maintenance = rideToCopy.getDaysSinceMaintenance();
-        email = rideToCopy.getEmail();
+        waitingTime = rideToCopy.getWaitingTime();
         address = rideToCopy.getAddress();
         tags = new HashSet<>(rideToCopy.getTags());
     }
@@ -82,19 +82,19 @@ public class RideBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code Ride} that we are building.
+     * Sets the {@code WaitTime} of the {@code Ride} that we are building.
      */
-    public RideBuilder withEmail(String email) {
-        this.email = new Email(email);
+    public RideBuilder withWaitTime(String waitingTime) {
+        this.waitingTime = new WaitTime(waitingTime);
         return this;
     }
 
     public Ride build() {
-        return new Ride(name, maintenance, email, address, tags);
+        return new Ride(name, maintenance, waitingTime, address, tags);
     }
 
     public Ride buildDifferent() {
-        return new Ride(differentName, maintenance, email, address, tags);
+        return new Ride(differentName, maintenance, waitingTime, address, tags);
     }
 
 }

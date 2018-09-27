@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_WAITING_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MAINTENANCE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -21,7 +21,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ride.Address;
-import seedu.address.model.ride.Email;
+import seedu.address.model.ride.WaitTime;
 import seedu.address.model.ride.Maintenance;
 import seedu.address.model.ride.Name;
 import seedu.address.model.ride.Ride;
@@ -40,12 +40,12 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_MAINTENANCE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
+            + "[" + PREFIX_WAITING_TIME + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_MAINTENANCE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_WAITING_TIME + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Ride: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -98,11 +98,11 @@ public class EditCommand extends Command {
         Name updatedName = editPersonDescriptor.getName().orElse(rideToEdit.getName());
         Maintenance updatedMaintenance =
                 editPersonDescriptor.getMaintenance().orElse(rideToEdit.getDaysSinceMaintenance());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(rideToEdit.getEmail());
+        WaitTime updatedWaitTime = editPersonDescriptor.getWaitTime().orElse(rideToEdit.getWaitingTime());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(rideToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(rideToEdit.getTags());
 
-        return new Ride(updatedName, updatedMaintenance, updatedEmail, updatedAddress, updatedTags);
+        return new Ride(updatedName, updatedMaintenance, updatedWaitTime, updatedAddress, updatedTags);
     }
 
     @Override
@@ -130,7 +130,7 @@ public class EditCommand extends Command {
     public static class EditPersonDescriptor {
         private Name name;
         private Maintenance maintenance;
-        private Email email;
+        private WaitTime waitTime;
         private Address address;
         private Set<Tag> tags;
 
@@ -143,7 +143,7 @@ public class EditCommand extends Command {
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setName(toCopy.name);
             setMaintenance(toCopy.maintenance);
-            setEmail(toCopy.email);
+            setWaitTime(toCopy.waitTime);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
         }
@@ -152,7 +152,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, maintenance, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, maintenance, waitTime, address, tags);
         }
 
         public void setName(Name name) {
@@ -171,12 +171,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(maintenance);
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
+        public void setWaitTime(WaitTime waitTime) {
+            this.waitTime = waitTime;
         }
 
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
+        public Optional<WaitTime> getWaitTime() {
+            return Optional.ofNullable(waitTime);
         }
 
         public void setAddress(Address address) {
@@ -221,7 +221,7 @@ public class EditCommand extends Command {
 
             return getName().equals(e.getName())
                     && getMaintenance().equals(e.getMaintenance())
-                    && getEmail().equals(e.getEmail())
+                    && getWaitTime().equals(e.getWaitTime())
                     && getAddress().equals(e.getAddress())
                     && getTags().equals(e.getTags());
         }

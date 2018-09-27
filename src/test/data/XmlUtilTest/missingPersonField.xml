@@ -2,7 +2,7 @@
 <!-- Ride with missing name field -->
 <ride>
     <daysSinceMaintenanceString>9482424</daysSinceMaintenanceString>
-    <email>hans@example</email>
+    <waitingTimeString>13</waitingTimeString>
     <address>4th street</address>
     <tagged>friends</tagged>
 </ride>

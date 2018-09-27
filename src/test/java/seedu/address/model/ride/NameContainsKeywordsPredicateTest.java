@@ -67,9 +67,9 @@ public class NameContainsKeywordsPredicateTest {
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("Carol"));
         assertFalse(predicate.test(new RideBuilder().withName("Alice Bob").build()));
 
-        // Keywords match phone, email and address, but does not match name
+        // Keywords match days since last maintenance, current waiting time and address, but does not match name
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
         assertFalse(predicate.test(new RideBuilder().withName("Alice").withMaintenance("12345")
-                .withEmail("alice@email.com").withAddress("Main Street").build()));
+                .withWaitTime("1").withAddress("Main Street").build()));
     }
 }

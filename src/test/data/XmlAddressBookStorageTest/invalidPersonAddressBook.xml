@@ -4,7 +4,7 @@
     <rides>
         <name>Ha!ns Mu@ster</name>
         <maintenance isPrivate="false">9482424</maintenance>
-        <email isPrivate="false">hans@example.com</email>
+        <waitingTime isPrivate="false">hans@example.com</waitingTime>
         <address isPrivate="false">4th street</address>
     </rides>
 </addressbook>

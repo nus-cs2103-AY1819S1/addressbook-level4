@@ -18,7 +18,6 @@ public class Ride {
     // Identity fields
     private final Name name;
     private final Maintenance daysSinceMaintenance;
-    private final Email email;
     private final WaitTime waitingTime;
 
     // Data fields
@@ -31,46 +30,25 @@ public class Ride {
     /**
      * Every field must be present and not null.
      */
-    public Ride(Name name, Maintenance daysSinceMaintenance, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, daysSinceMaintenance, email, address, tags);
-        this.name = name;
-        this.daysSinceMaintenance = daysSinceMaintenance;
-        this.email = email;
-        this.address = address;
-        this.tags.addAll(tags);
-
-        this.waitingTime = null;
-    }
-
-    /**
-     * (Overload) Every field must be present and not null. Starts in SHUTDOWN status.
-     */
     public Ride(Name name, Maintenance daysSinceMaintenance, WaitTime waitingTime, Address address, Set<Tag> tags) {
         requireAllNonNull(name, daysSinceMaintenance, waitingTime, address, tags);
         this.name = name;
         this.daysSinceMaintenance = daysSinceMaintenance;
         this.waitingTime = waitingTime;
         this.address = address;
-        this.status = Status.SHUTDOWN;
         this.tags.addAll(tags);
-
-        this.email = null;
     }
 
     public Name getName() {
         return name;
     }
 
-    public Email getEmail() {
-        return email;
+    public WaitTime getWaitingTime() {
+        return waitingTime;
     }
 
     public Maintenance getDaysSinceMaintenance() {
         return daysSinceMaintenance;
-    }
-
-    public WaitTime getWaitingTime() {
-        return waitingTime;
     }
 
     public Status getStatus() {
@@ -127,7 +105,7 @@ public class Ride {
         Ride otherRide = (Ride) other;
         return otherRide.getName().equals(getName())
                 && otherRide.getDaysSinceMaintenance().equals(getDaysSinceMaintenance())
-                && otherRide.getEmail().equals(getEmail())
+                && otherRide.getWaitingTime().equals(getWaitingTime())
                 && otherRide.getAddress().equals(getAddress())
                 && otherRide.getStatus() == getStatus()
                 && otherRide.getTags().equals(getTags());
@@ -145,8 +123,8 @@ public class Ride {
         builder.append(getName())
                 .append(" Maintenance: ")
                 .append(getDaysSinceMaintenance())
-                .append(" Email: ")
-                .append(getEmail())
+                .append(" WaitTime: ")
+                .append(getWaitingTime())
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Tags: ");
