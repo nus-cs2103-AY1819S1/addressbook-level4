@@ -8,10 +8,10 @@ import com.google.common.collect.ImmutableMultiset;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Person;
+import seedu.address.model.ride.Ride;
 
 /**
- * Provides a handle to a person card in the person list panel.
+ * Provides a handle to a ride card in the ride list panel.
  */
 public class PersonCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
@@ -73,14 +73,14 @@ public class PersonCardHandle extends NodeHandle<Node> {
     }
 
     /**
-     * Returns true if this handle contains {@code person}.
+     * Returns true if this handle contains {@code ride}.
      */
-    public boolean equals(Person person) {
-        return getName().equals(person.getName().fullName)
-                && getAddress().equals(person.getAddress().value)
-                && getPhone().equals(person.getPhone().value)
-                && getEmail().equals(person.getEmail().value)
-                && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(person.getTags().stream()
+    public boolean equals(Ride ride) {
+        return getName().equals(ride.getName().fullName)
+                && getAddress().equals(ride.getAddress().value)
+                && getPhone().equals(ride.getPhone().value)
+                && getEmail().equals(ride.getEmail().value)
+                && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(ride.getTags().stream()
                         .map(tag -> tag.tagName)
                         .collect(Collectors.toList())));
     }
