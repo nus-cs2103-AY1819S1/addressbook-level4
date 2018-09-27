@@ -7,6 +7,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.tag.TagContainsKeywordPredicate;
 
 
 /**
@@ -23,16 +24,16 @@ public class BudgetCommand extends Command {
     public static final String MESSAGE_SUCCESS_OVERALL = "The overall budget is: %1$s";
     public static final String MESSAGE_SUCCESS_CCA = PREFIX_TAG + " budget is: %1$s";
 
-    private final NameContainsKeywordsPredicate predicate;
+    private final TagContainsKeywordPredicate predicate;
 
-    public BudgetCommand(NameContainsKeywordsPredicate predicate) {
+    public BudgetCommand(TagContainsKeywordPredicate predicate) {
         this.predicate = predicate;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.updateFilteredPersonList(predicate);
+        model.updateFilteredBudgetList(predicate);
         return new CommandResult(
             String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
     }

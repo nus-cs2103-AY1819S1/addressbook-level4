@@ -5,7 +5,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.BudgetBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyBudgetBook;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -40,12 +42,28 @@ public class SampleDataUtil {
         };
     }
 
+    private static Tag[] getSampleTags() {
+        return new Tag[] {
+            new Tag("Basketball"),
+            new Tag("Floorball"),
+            new Tag("Handball")
+        };
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }
         return sampleAb;
+    }
+
+    public static ReadOnlyBudgetBook getSampleBudgetBook() {
+        BudgetBook sampleBb = new BudgetBook();
+        for (Tag sampleTag : getSampleTags()) {
+            sampleBb.addTag(sampleTag);
+        }
+        return sampleBb;
     }
 
     /**
@@ -56,5 +74,4 @@ public class SampleDataUtil {
                 .map(Tag::new)
                 .collect(Collectors.toSet());
     }
-
 }

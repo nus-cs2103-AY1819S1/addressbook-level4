@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import seedu.address.logic.commands.BudgetCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.tag.TagContainsKeywordPredicate;
 
 
 /**
@@ -27,8 +27,8 @@ public class BudgetCommandParser implements Parser<BudgetCommand> {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, BudgetCommand.MESSAGE_USAGE));
         }
 
-        String[] nameKeywords = trimmedArgs.split("\\s+");
+        String[] tagKeywords = trimmedArgs.split("\\s+");
 
-        return new BudgetCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        return new BudgetCommand(new TagContainsKeywordPredicate(Arrays.asList(tagKeywords)));
     }
 }

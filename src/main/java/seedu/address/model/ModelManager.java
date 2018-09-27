@@ -13,6 +13,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -21,23 +22,27 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final VersionedAddressBook versionedAddressBook;
+    private final VersionedBudgetBook versionedBudgetBook;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Tag> filteredTags;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyBudgetBook budgetbook, UserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
+        versionedBudgetBook = new VersionedBudgetBook(budgetbook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredTags = new FilteredList<>(versionedBudgetBook.getCcaTagList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new BudgetBook(), new UserPrefs());
     }
 
     @Override
@@ -98,6 +103,12 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredBudgetList(Predicate<Tag> predicate) {
+        requireNonNull(predicate);
+        filteredTags.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================

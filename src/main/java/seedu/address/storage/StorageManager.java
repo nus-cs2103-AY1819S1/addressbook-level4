@@ -13,6 +13,7 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyBudgetBook;
 import seedu.address.model.UserPrefs;
 
 /**
@@ -23,11 +24,14 @@ public class StorageManager extends ComponentManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
+    private BudgetBookStorage budgetBookStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage,
+                          BudgetBookStorage budgetBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
+        this.budgetBookStorage = budgetBookStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -59,6 +63,33 @@ public class StorageManager extends ComponentManager implements Storage {
     @Override
     public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
         return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    }
+
+    @Override
+    public Path getBudgetBookFilePath() {
+        return budgetBookStorage.getBudgetBookFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyBudgetBook> readBudgetBook() throws DataConversionException, IOException {
+        return readBudgetBook(budgetBookStorage.getBudgetBookFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyBudgetBook> readBudgetBook(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return budgetBookStorage.readBudgetBook(filePath);
+    }
+
+    @Override
+    public void saveBudgetBook(ReadOnlyBudgetBook budgetBook) throws IOException {
+        saveBudgetBook(budgetBook, budgetBookStorage.getBudgetBookFilePath());
+    }
+
+    @Override
+    public void saveBudgetBook(ReadOnlyBudgetBook budgetBook, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        budgetBookStorage.saveBudgetBook(budgetBook, filePath);
     }
 
     @Override
