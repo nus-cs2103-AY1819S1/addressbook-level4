@@ -8,8 +8,8 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ride.Address;
 import seedu.address.model.ride.Email;
-import seedu.address.model.ride.Name;
 import seedu.address.model.ride.Maintenance;
+import seedu.address.model.ride.Name;
 import seedu.address.model.ride.Ride;
 import seedu.address.model.tag.Tag;
 
