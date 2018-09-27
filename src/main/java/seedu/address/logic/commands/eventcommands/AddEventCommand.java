@@ -3,6 +3,8 @@ package seedu.address.logic.commands.eventcommands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
+import java.util.Set;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
@@ -15,8 +17,6 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
-
-import java.util.Set;
 
 /**
  * Adds an event to the event organiser.
@@ -32,7 +32,7 @@ public class AddEventCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the event organiser";
 
-    public Event toAdd;
+    private Event toAdd;
     public final Name name;
     public final Address address;
     public final Set<Tag> tags;
