@@ -94,10 +94,23 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void addDoctor(Doctor doctor) {
+        versionedAddressBook.addDoctor(doctor);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        indicateAddressBookChanged();
+    }
+    
+    @Override
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
-
         versionedAddressBook.updatePerson(target, editedPerson);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void updateDoctor(Doctor target, Doctor editedDoctor) {
+        requireAllNonNull(target, editedDoctor);
+        versionedAddressBook.updateDoctor(target, editedDoctor);
         indicateAddressBookChanged();
     }
 
@@ -116,6 +129,23 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Filtered Doctor List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Doctor} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Doctor> getFilteredDoctorList() {
+        return FXCollections.unmodifiableObservableList(filteredDoctors);
+    }
+
+    @Override
+    public void updateFilteredDoctorList(Predicate<Doctor> predicate) {
+        requireNonNull(predicate);
+        filteredDoctors.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -162,7 +192,8 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredPersons.equals(other.filteredPersons)
+                && filteredDoctors.equals(other.filteredDoctors);
     }
 
 }
