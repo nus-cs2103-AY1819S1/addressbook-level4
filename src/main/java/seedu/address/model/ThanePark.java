@@ -6,15 +6,15 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.ride.Ride;
-import seedu.address.model.ride.UniquePersonList;
+import seedu.address.model.ride.UniqueRideList;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSameRide comparison)
  */
 public class ThanePark implements ReadOnlyThanePark {
 
-    private final UniquePersonList persons;
+    private final UniqueRideList persons;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -24,7 +24,7 @@ public class ThanePark implements ReadOnlyThanePark {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        persons = new UniqueRideList();
     }
 
     public ThanePark() {}
@@ -44,7 +44,7 @@ public class ThanePark implements ReadOnlyThanePark {
      * {@code rides} must not contain duplicate rides.
      */
     public void setPersons(List<Ride> rides) {
-        this.persons.setPersons(rides);
+        this.persons.setRides(rides);
     }
 
     /**
@@ -82,7 +82,7 @@ public class ThanePark implements ReadOnlyThanePark {
     public void updatePerson(Ride target, Ride editedRide) {
         requireNonNull(editedRide);
 
-        persons.setPerson(target, editedRide);
+        persons.setRide(target, editedRide);
     }
 
     /**

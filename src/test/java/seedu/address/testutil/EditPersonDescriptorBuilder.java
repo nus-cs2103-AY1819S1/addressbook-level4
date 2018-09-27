@@ -6,10 +6,10 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.ride.Address;
-import seedu.address.model.ride.Email;
+import seedu.address.model.ride.Maintenance;
 import seedu.address.model.ride.Name;
-import seedu.address.model.ride.Phone;
 import seedu.address.model.ride.Ride;
+import seedu.address.model.ride.WaitTime;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -33,8 +33,8 @@ public class EditPersonDescriptorBuilder {
     public EditPersonDescriptorBuilder(Ride ride) {
         descriptor = new EditPersonDescriptor();
         descriptor.setName(ride.getName());
-        descriptor.setPhone(ride.getPhone());
-        descriptor.setEmail(ride.getEmail());
+        descriptor.setMaintenance(ride.getDaysSinceMaintenance());
+        descriptor.setWaitTime(ride.getWaitingTime());
         descriptor.setAddress(ride.getAddress());
         descriptor.setTags(ride.getTags());
     }
@@ -48,18 +48,18 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Maintenance} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withPhone(String phone) {
-        descriptor.setPhone(new Phone(phone));
+    public EditPersonDescriptorBuilder withMaintenance(String daysSinceMaintenanceString) {
+        descriptor.setMaintenance(new Maintenance(daysSinceMaintenanceString));
         return this;
     }
 
     /**
-     * Sets the {@code Email} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code WaitTime} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withEmail(String email) {
-        descriptor.setEmail(new Email(email));
+    public EditPersonDescriptorBuilder withWaitTime(String email) {
+        descriptor.setWaitTime(new WaitTime(email));
         return this;
     }
 
