@@ -925,10 +925,10 @@ Use case ends
 [none]
 ** 1a1. Dummy variables are created for missing attributes.
 
-* \1a*. Phone number of student already exist in the address book.
+* 1a*. Phone number of student already exist in the address book.
 +
 [none]
-** \1a*1. System display student already exists in address book message.
+** 1a*1. System display student already exists in address book message.
 
 * 2a. User chooses to cancel the addition.
 +
@@ -960,10 +960,10 @@ Use case ends
 +
 ** 1a2. System request for the index of the student to be edited.
 
-* \1a*. No student with such name is found.
+* 1a*. No student with such name is found.
 +
 [none]
-** \1a*1. System displays no such student found message.
+** 1a*1. System displays no such student found message.
 
 * 2a. User chooses to cancel the modification.
 +
@@ -1015,7 +1015,7 @@ Use case ends.
 * 1b. System is unable to find the record satisfying the requirement
 +
 [none]
-** 1b1. System print a \“unable to find” warning
+** 1b1. System print a “unable to find” warning
 +
 Use case ends.
 
@@ -1045,7 +1045,7 @@ Use case ends.
 *** 1a2a. User choose a wrong number of exam.
 +
 [none]
-**** 1a2a1. System print a warning of \“wrong input”.
+**** 1a2a1. System print a warning of “wrong input”.
 +
 Use case ends.
 
@@ -1074,7 +1074,7 @@ Use case ends.
 
 *** 1a2a. User choose a wrong number of student.
 +
-**** 1a2a1. System print a warning of \“wrong input”.
+**** 1a2a1. System print a warning of “wrong input”.
 +
 Use case ends.
 
