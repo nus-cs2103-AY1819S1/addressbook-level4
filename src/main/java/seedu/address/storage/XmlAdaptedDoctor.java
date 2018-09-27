@@ -76,10 +76,10 @@ public class XmlAdaptedDoctor {
         final Name modelName = new Name(name);
 
         if (password == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Password.class.getSimpleName()));
         }
         if (!Password.isValidPassword(password)) {
-            throw new IllegalValueException(Email.MESSAGE_EMAIL_CONSTRAINTS);
+            throw new IllegalValueException(Password.MESSAGE_PASSWORD_CONSTRAINTS);
         }
         final Password modelPassword = new Password(password);
 
