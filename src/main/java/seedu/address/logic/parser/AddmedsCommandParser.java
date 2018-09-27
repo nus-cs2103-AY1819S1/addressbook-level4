@@ -54,7 +54,7 @@ public class AddmedsCommandParser implements Parser<AddmedsCommand> {
         }
         Duration duration;
         try {
-            duration = ParserUtil.parseDuration(Double.parseDouble(argMultimap.getValue(PREFIX_DURATION).get()));
+            duration = ParserUtil.parseDuration(Integer.parseInt(argMultimap.getValue(PREFIX_DURATION).get()));
         } catch (NumberFormatException | IllegalValueException e) {
             throw new ParseException("Exception while parsing duration.", e);
         }
