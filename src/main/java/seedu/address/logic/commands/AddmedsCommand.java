@@ -32,7 +32,7 @@ public class AddmedsCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds medication for a patient. "
             + "Parameters: "
-            + PREFIX_NRIC + "NRIC, followed by drug details as follows: "
+            + PREFIX_NRIC + "NRIC "
             + PREFIX_DRUGNAME + "DRUG_NAME "
             + PREFIX_QUANTITY + "QUANTITY_PER_DOSE "
             + PREFIX_DOSE_UNIT + "DOSAGE_UNIT "
