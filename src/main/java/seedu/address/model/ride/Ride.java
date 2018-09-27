@@ -17,35 +17,44 @@ public class Ride {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
-    private final Email email;
+    private final Maintenance daysSinceMaintenance;
+    private final WaitTime waitingTime;
 
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
+    //Current state
+    private Status status;
+
     /**
-     * Every field must be present and not null.
+     * Every field must be present and not null. Default value of status is SHUTDOWN
      */
-    public Ride(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Ride(Name name, Maintenance daysSinceMaintenance, WaitTime waitingTime, Address address, Set<Tag> tags) {
+        requireAllNonNull(name, daysSinceMaintenance, waitingTime, address, tags);
         this.name = name;
-        this.phone = phone;
-        this.email = email;
+        this.daysSinceMaintenance = daysSinceMaintenance;
+        this.waitingTime = waitingTime;
         this.address = address;
         this.tags.addAll(tags);
+
+        this.status = Status.SHUTDOWN;
     }
 
     public Name getName() {
         return name;
     }
 
-    public Phone getPhone() {
-        return phone;
+    public WaitTime getWaitingTime() {
+        return waitingTime;
     }
 
-    public Email getEmail() {
-        return email;
+    public Maintenance getDaysSinceMaintenance() {
+        return daysSinceMaintenance;
+    }
+
+    public Status getStatus() {
+        return status;
     }
 
     public Address getAddress() {
@@ -60,23 +69,30 @@ public class Ride {
         return Collections.unmodifiableSet(tags);
     }
 
+    public void setDaysSinceMaintenance(int value) {
+        this.daysSinceMaintenance.setValue(value);
+    }
+
+    public void setWaitingTime(int value) {
+        this.waitingTime.setValue(value);
+    }
+
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both rides have the same name.
+     * This defines a weaker notion of equality between two rides.
      */
-    public boolean isSamePerson(Ride otherRide) {
+    public boolean isSameRide(Ride otherRide) {
         if (otherRide == this) {
             return true;
         }
 
         return otherRide != null
-                && otherRide.getName().equals(getName())
-                && (otherRide.getPhone().equals(getPhone()) || otherRide.getEmail().equals(getEmail()));
+                && otherRide.getName().equals(getName());
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both rides have the same identity and data fields.
+     * This defines a stronger notion of equality between two rides.
      */
     @Override
     public boolean equals(Object other) {
@@ -90,26 +106,27 @@ public class Ride {
 
         Ride otherRide = (Ride) other;
         return otherRide.getName().equals(getName())
-                && otherRide.getPhone().equals(getPhone())
-                && otherRide.getEmail().equals(getEmail())
+                && otherRide.getDaysSinceMaintenance().equals(getDaysSinceMaintenance())
+                && otherRide.getWaitingTime().equals(getWaitingTime())
                 && otherRide.getAddress().equals(getAddress())
+                && otherRide.getStatus() == getStatus()
                 && otherRide.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, daysSinceMaintenance, waitingTime, address, status, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
+                .append(" Maintenance: ")
+                .append(getDaysSinceMaintenance())
+                .append(" WaitTime: ")
+                .append(getWaitingTime())
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Tags: ");

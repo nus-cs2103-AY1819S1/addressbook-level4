@@ -3,15 +3,15 @@
     <!-- Valid Ride -->
     <rides>
         <name>Hans Muster</name>
-        <phone isPrivate="false">9482424</phone>
-        <email isPrivate="false">hans@example.com</email>
+        <maintenance isPrivate="false">9482424</maintenance>
+        <waitingTime isPrivate="false">hans@example.com</waitingTime>
         <address isPrivate="false">4th street</address>
     </rides>
-    <!-- Ride with invalid phone field -->
+    <!-- Ride with invalid maintenance field -->
     <rides>
         <name>Hans Muster</name>
-        <phone isPrivate="false">948asdf2424</phone>
-        <email isPrivate="false">hans@example.com</email>
+        <maintenance isPrivate="false">948asdf2424</maintenance>
+        <waitingTime isPrivate="false">hans@example.com</waitingTime>
         <address isPrivate="false">4th street</address>
     </rides>
 </addressbook>

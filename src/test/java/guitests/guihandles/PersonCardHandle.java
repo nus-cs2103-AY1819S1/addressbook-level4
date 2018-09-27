@@ -17,15 +17,15 @@ public class PersonCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String NAME_FIELD_ID = "#name";
     private static final String ADDRESS_FIELD_ID = "#address";
-    private static final String PHONE_FIELD_ID = "#phone";
-    private static final String EMAIL_FIELD_ID = "#email";
+    private static final String MAINTENANCE_FIELD_ID = "#daysSinceMaintenanceString";
+    private static final String WAIT_TIME_FIELD_ID = "#waitingTimeString";
     private static final String TAGS_FIELD_ID = "#tags";
 
     private final Label idLabel;
     private final Label nameLabel;
     private final Label addressLabel;
-    private final Label phoneLabel;
-    private final Label emailLabel;
+    private final Label maintenanceLabel;
+    private final Label waitTimeLabel;
     private final List<Label> tagLabels;
 
     public PersonCardHandle(Node cardNode) {
@@ -34,8 +34,8 @@ public class PersonCardHandle extends NodeHandle<Node> {
         idLabel = getChildNode(ID_FIELD_ID);
         nameLabel = getChildNode(NAME_FIELD_ID);
         addressLabel = getChildNode(ADDRESS_FIELD_ID);
-        phoneLabel = getChildNode(PHONE_FIELD_ID);
-        emailLabel = getChildNode(EMAIL_FIELD_ID);
+        maintenanceLabel = getChildNode(MAINTENANCE_FIELD_ID);
+        waitTimeLabel = getChildNode(WAIT_TIME_FIELD_ID);
 
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
         tagLabels = tagsContainer
@@ -57,12 +57,12 @@ public class PersonCardHandle extends NodeHandle<Node> {
         return addressLabel.getText();
     }
 
-    public String getPhone() {
-        return phoneLabel.getText();
+    public String getMaintenance() {
+        return maintenanceLabel.getText();
     }
 
-    public String getEmail() {
-        return emailLabel.getText();
+    public String getWaitingTime() {
+        return waitTimeLabel.getText();
     }
 
     public List<String> getTags() {
@@ -78,8 +78,8 @@ public class PersonCardHandle extends NodeHandle<Node> {
     public boolean equals(Ride ride) {
         return getName().equals(ride.getName().fullName)
                 && getAddress().equals(ride.getAddress().value)
-                && getPhone().equals(ride.getPhone().value)
-                && getEmail().equals(ride.getEmail().value)
+                && getMaintenance().equals(ride.getDaysSinceMaintenance().toString())
+                && getWaitingTime().equals(ride.getWaitingTime().toString())
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(ride.getTags().stream()
                         .map(tag -> tag.tagName)
                         .collect(Collectors.toList())));
