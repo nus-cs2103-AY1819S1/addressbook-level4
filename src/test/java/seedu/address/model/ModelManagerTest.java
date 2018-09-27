@@ -86,6 +86,7 @@ public class ModelManagerTest {
 
         // different addressBook -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+
         try {
             // different filteredList -> returns false
             String[] keywords = ALICE.getName().fullName.split("\\s+");

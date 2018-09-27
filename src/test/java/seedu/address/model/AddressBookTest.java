@@ -19,6 +19,9 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.expense.Category;
+import seedu.address.model.expense.Expense;
+import seedu.address.model.expense.Name;
 import seedu.address.model.expense.Person;
 import seedu.address.model.expense.exceptions.DuplicatePersonException;
 import seedu.address.model.user.Username;
@@ -53,7 +56,7 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Person editedAlice = new PersonBuilder(ALICE).withCost(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newPersons);
@@ -82,7 +85,7 @@ public class AddressBookTest {
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addPerson(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Person editedAlice = new PersonBuilder(ALICE).withCost(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(addressBook.hasPerson(editedAlice));
     }
@@ -92,6 +95,42 @@ public class AddressBookTest {
         thrown.expect(UnsupportedOperationException.class);
         addressBook.getPersonList().remove(0);
     }
+
+    /**
+     * @return the string which consists of category and expense under the category.
+     * The order is unexpected as the string is converted from HashMap.
+     * */
+    public String testAddExpense(Expense e) {
+        addressBook.addExpense(e);
+        String result = addressBook.getCategoryList().toString();
+        return result;
+    }
+
+    /**
+     * @return the string of a expense list under a particular category.
+     * */
+    public String getTargetExpenseList(String name, String category) {
+        Expense e = new Expense(new Name(name), new Category(category));
+        addressBook.addExpense(e);
+        return addressBook.getCategoryList().getCategory(category).getExpenseList().toString();
+    }
+
+    @Test
+    public void addExpense_categoryNotExist() {
+        Expense e = new Expense(new Name("firstExpense"), new Category("Test"));
+        assertEquals("Test firstExpense ", testAddExpense(e));
+
+        assertEquals("[secondExpense]", getTargetExpenseList("secondExpense", "secondTest"));
+        assertEquals("[thirdExpense]", getTargetExpenseList("thirdExpense", "thirdTest"));
+    }
+
+    @Test
+    public void addExpense_categoryExit() {
+        assertEquals("[first]", getTargetExpenseList("first", "Test1"));
+        assertEquals("[first, second]", getTargetExpenseList("second", "Test1"));
+        assertEquals("[first, second, third]", getTargetExpenseList("third", "Test1"));
+    }
+
 
     /**
      * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
@@ -113,5 +152,7 @@ public class AddressBookTest {
             return ModelUtil.TEST_USERNAME;
         }
     }
+
+
 
 }

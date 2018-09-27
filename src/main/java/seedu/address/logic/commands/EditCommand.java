@@ -22,6 +22,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.expense.Address;
+import seedu.address.model.expense.Cost
 import seedu.address.model.expense.Email;
 import seedu.address.model.expense.Name;
 import seedu.address.model.expense.Person;
@@ -100,10 +101,10 @@ public class EditCommand extends Command {
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
+        Cost updatedCost = editPersonDescriptor.getCost().orElse(personToEdit.getCost());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedCost, updatedTags);
     }
 
     @Override
@@ -132,7 +133,7 @@ public class EditCommand extends Command {
         private Name name;
         private Phone phone;
         private Email email;
-        private Address address;
+        private Cost cost;
         private Set<Tag> tags;
 
         public EditPersonDescriptor() {}
@@ -145,7 +146,7 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
-            setAddress(toCopy.address);
+            setCost(toCopy.cost);
             setTags(toCopy.tags);
         }
 
@@ -153,7 +154,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, cost, tags);
         }
 
         public void setName(Name name) {
@@ -180,12 +181,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(email);
         }
 
-        public void setAddress(Address address) {
-            this.address = address;
+        public void setCost(Cost cost) {
+            this.cost = cost;
         }
 
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
+        public Optional<Cost> getCost() {
+            return Optional.ofNullable(cost);
         }
 
         /**
@@ -223,7 +224,7 @@ public class EditCommand extends Command {
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
+                    && getCost().equals(e.getCost())
                     && getTags().equals(e.getTags());
         }
     }
