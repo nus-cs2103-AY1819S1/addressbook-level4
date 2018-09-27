@@ -144,25 +144,4 @@ public class TestApp extends MainApp {
             throw new RuntimeException(e);
         }
     }
-
-    @Override
-    public void init() throws Exception {
-        AppParameters appParameters = AppParameters.parse(getParameters());
-        config = initConfig(appParameters.getConfigPath());
-
-        UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
-        userPrefs = initPrefs(userPrefsStorage);
-        ExpensesStorage expensesStorage = new XmlExpensesStorage(userPrefs.getAddressBookDirPath());
-        this.storage = new StorageManager(expensesStorage, userPrefsStorage);
-
-        initLogging(config);
-
-        this.model = initModelManager(this.storage, this.userPrefs);
-
-        this.logic = new LogicManager(this.model);
-
-        this.ui = new UiManager(this.logic, this.config, this.userPrefs);
-
-        initEventsCenter();
-    }
 }
