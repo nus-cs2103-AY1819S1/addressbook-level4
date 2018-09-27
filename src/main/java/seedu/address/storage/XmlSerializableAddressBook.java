@@ -50,7 +50,7 @@ public class XmlSerializableAddressBook {
      * Converts this addressbook into the model's {@code AddressBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
-     * {@code XmlAdaptedPerson}.
+     * {@code XmlAdaptedPerson} & {@code XmlAdaptedDoctor}.
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
@@ -61,6 +61,7 @@ public class XmlSerializableAddressBook {
             }
             addressBook.addPerson(person);
         }
+        //@@author jjlee050
         for (XmlAdaptedDoctor d : doctors) {
             Doctor doctor = d.toModelType();
             if (addressBook.hasDoctor(doctor)) {
