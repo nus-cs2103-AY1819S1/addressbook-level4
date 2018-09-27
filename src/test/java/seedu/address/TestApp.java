@@ -74,6 +74,7 @@ public class TestApp extends MainApp {
     @Override
     protected UserPrefs initPrefs(UserPrefsStorage storage) {
         UserPrefs userPrefs = super.initPrefs(storage);
+        userPrefs.setAddressBookDirPath(TestUtil.getFilePathInSandboxFolder(userPrefs.getAddressBookDirPath().toString()));
         double x = Screen.getPrimary().getVisualBounds().getMinX();
         double y = Screen.getPrimary().getVisualBounds().getMinY();
         userPrefs.updateLastUsedGuiSetting(new GuiSettings(600.0, 600.0, (int) x, (int) y));
@@ -168,8 +169,7 @@ public class TestApp extends MainApp {
         Map<Username, ReadOnlyAddressBook> addressBooks;
         try {
             addressBooks =
-                    storage.readAllExpenses(TestUtil.getFilePathInSandboxFolder(
-                            userPrefs.getAddressBookDirPath().toString()));
+                    storage.readAllExpenses(userPrefs.getAddressBookDirPath());
             if (addressBooks.isEmpty()) {
                 addressBooks.put(new Username("default"), SampleDataUtil.getSampleAddressBook());
             }
