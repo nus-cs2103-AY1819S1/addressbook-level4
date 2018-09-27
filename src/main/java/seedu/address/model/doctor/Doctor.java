@@ -51,7 +51,7 @@ public class Doctor {
      * Returns true if both doctors of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two doctor.
      */
-    public boolean isSamePerson(Doctor otherDoctor) {
+    public boolean isSameDoctor(Doctor otherDoctor) {
         if (otherDoctor == this) {
             return true;
         }

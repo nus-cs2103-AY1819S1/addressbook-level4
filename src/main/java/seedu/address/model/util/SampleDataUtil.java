@@ -44,6 +44,7 @@ public class SampleDataUtil {
         };
     }
     
+    //@@author jjlee050
     public static List<Doctor> getSampleDoctors() {
         return List.of(new Doctor(new Id(1), new Name("Adam Bell"), new Password("doctor1")),
                 new Doctor(new Id(2), new Name("Chip Dale"), new Password("doctor2")));
@@ -54,6 +55,7 @@ public class SampleDataUtil {
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }
+        //@@author jjlee050
         for (Doctor sampleDoctor: getSampleDoctors()) {
             //sampleAb.add
         }
