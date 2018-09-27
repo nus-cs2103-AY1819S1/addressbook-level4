@@ -19,10 +19,15 @@ public class Ride {
     private final Name name;
     private final Phone phone;
     private final Email email;
+    private final Maintenance daysSinceMaintenance;
+    private final WaitTime waitingTime;
 
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+
+    //Current state
+    private Status status;
 
     /**
      * Every field must be present and not null.
@@ -34,18 +39,25 @@ public class Ride {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+
+        this.daysSinceMaintenance = null;
+        this.waitingTime = null;
     }
 
     /**
-     * (Overload) Every field must be present and not null.
+     * (Overload) Every field must be present and not null. Starts in SHUTDOWN status.
      */
     public Ride(Name name, Maintenance daysSinceMaintenance, WaitTime waitingTime, Address address, Set<Tag> tags) {
         requireAllNonNull(name, daysSinceMaintenance, waitingTime, address, tags);
         this.name = name;
+        this.daysSinceMaintenance = daysSinceMaintenance;
+        this.waitingTime = waitingTime;
+        this.address = address;
+        this.status = Status.SHUTDOWN;
+        this.tags.addAll(tags);
+
         this.phone = null;
         this.email = null;
-        this.address = address;
-        this.tags.addAll(tags);
     }
 
     public Name getName() {
