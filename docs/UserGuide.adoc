@@ -158,18 +158,14 @@ Examples:
 * `adddiet S1234567A`
 ** `d/halal d/kosher d/babyfood`
 
-=== View patient’s medication: `viewmeds`
+=== View patient’s medication: UI functionality
 View a patient’s medication history.
 
 ****
-WARNING: You must have the appropriate permissions to invoke this command.
+WARNING: You must have the appropriate permissions to invoke this functionality.
 ****
 
-Format: `viewmeds NRIC`​
-
-Examples:
-
-* `viewmeds S1234567A`
+Simply click on the person's card and the panel on the right will display his prescribed medication.
 
 === Add patient medication: `addmeds`
 Add to a patient’s medication history.
