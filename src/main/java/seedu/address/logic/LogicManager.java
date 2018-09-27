@@ -11,6 +11,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.PatientQueue;
+import seedu.address.model.PatientQueueManager;
 import seedu.address.model.person.Patient;
 
 /**
@@ -22,11 +24,13 @@ public class LogicManager extends ComponentManager implements Logic {
     private final Model model;
     private final CommandHistory history;
     private final AddressBookParser addressBookParser;
+    private final PatientQueue patientQueue;
 
     public LogicManager(Model model) {
         this.model = model;
         history = new CommandHistory();
         addressBookParser = new AddressBookParser();
+        patientQueue = new PatientQueueManager();
     }
 
     @Override
