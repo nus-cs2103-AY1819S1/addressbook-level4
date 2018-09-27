@@ -21,7 +21,7 @@ Role: Team Lead
 
 === Giam Ju Xian
 image::giamjuxian.png[width="150", align="left"]
-{empty}[http://github.com/giamjuxian[github]] 
+{empty}[http://github.com/giamjuxian[github]]
 
 Role: Developer and Testing +
 Responsibilities: Ensures the testing of the project is done properly and on time.
