@@ -3,15 +3,18 @@ package seedu.address.model.doctor;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 import static seedu.address.testutil.TypicalPersons.ADAM;
 import static seedu.address.testutil.TypicalPersons.BEN;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 import seedu.address.model.doctor.exceptions.DoctorNotFoundException;
 import seedu.address.model.doctor.exceptions.DuplicateDoctorException;
 import seedu.address.model.person.UniquePersonList;
