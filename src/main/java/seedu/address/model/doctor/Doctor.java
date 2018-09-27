@@ -3,6 +3,7 @@ package seedu.address.model.doctor;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
+import seedu.address.model.person.Name;
 
 //@@author jjlee050
 /**
@@ -91,7 +92,7 @@ public class Doctor {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getId())
-                .append(" Name: ")
+                .append(" DoctorName: ")
                 .append(getName())
                 .append(" Password: ")
                 .append(getPassword());

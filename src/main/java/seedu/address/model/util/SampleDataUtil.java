@@ -1,11 +1,15 @@
 package seedu.address.model.util;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.doctor.Doctor;
+import seedu.address.model.doctor.Id;
+import seedu.address.model.doctor.Password;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -39,11 +43,18 @@ public class SampleDataUtil {
                 getTagSet("colleagues"))
         };
     }
+    
+    public static List<Doctor> getSampleDoctors() {
+        return List.of(new Doctor(new Id(1), new Name("Adam Bell"), new Password("doctor1")));
+    }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
+        }
+        for (Doctor sampleDoctor: getSampleDoctors()) {
+            //sampleAb.add
         }
         return sampleAb;
     }
