@@ -13,6 +13,7 @@ import seedu.address.TestApp;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.user.Username;
+import seedu.address.testutil.TypicalPersons;
 
 /**
  * Contains helper methods that system tests require.
@@ -54,7 +55,7 @@ public class SystemTestSetupHelper {
         try {
             FxToolkit.setupFixture(() -> {
                 try {
-                    testApp.getActualModel().loadUserData(new Username("sampleData"));
+                    testApp.getActualModel().loadUserData(TypicalPersons.SAMPLE_USERNAME);
                 } catch (NonExistentUserException e) {
                     Assert.fail(e.getMessage());
                 }

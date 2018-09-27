@@ -31,6 +31,7 @@ import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.XmlExpensesStorage;
 import seedu.address.storage.XmlSerializableAddressBook;
 import seedu.address.testutil.TestUtil;
+import seedu.address.testutil.TypicalPersons;
 import seedu.address.ui.UiManager;
 import systemtests.ModelHelper;
 
@@ -88,7 +89,7 @@ public class TestApp extends MainApp {
     public AddressBook readStorageAddressBook() {
         try {
             return new AddressBook(storage.readAllExpenses(userPrefs.getAddressBookDirPath()).get(
-                    new Username("sampleData")));
+                    TypicalPersons.SAMPLE_USERNAME));
         } catch (DataConversionException dce) {
             throw new AssertionError("Data is not in the AddressBook format.", dce);
         } catch (IOException ioe) {

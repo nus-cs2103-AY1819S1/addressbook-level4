@@ -23,6 +23,7 @@ import seedu.address.model.user.Username;
  * A utility class containing a list of {@code Person} objects to be used in tests.
  */
 public class TypicalPersons {
+    public static final Username SAMPLE_USERNAME = new Username("sampleData");
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
             .withCost("3.00").withEmail("alice@example.com")
@@ -64,7 +65,7 @@ public class TypicalPersons {
      * Returns an {@code AddressBook} with all the typical persons.
      */
     public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook(new Username("sampleData"));
+        AddressBook ab = new AddressBook(SAMPLE_USERNAME);
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
         }

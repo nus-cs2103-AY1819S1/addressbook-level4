@@ -1,24 +1,25 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
 import static seedu.address.model.user.UsernameTest.VALID_USERNAME_STRING;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.user.Username;
+import seedu.address.model.user.UsernameTest;
 import seedu.address.testutil.TypicalPersons;
 
-public class SignUpCommandTest {
+public class LoginCommandTest {
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
     @Rule
@@ -30,23 +31,23 @@ public class SignUpCommandTest {
     @Test
     public void constructor_nullUsername_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new SignUpCommand(null);
+        new LoginCommand(null);
     }
 
     @Test
-    public void execute_userAcceptedByModel_signUpSuccessful() throws Exception {
-        CommandResult commandResult = new SignUpCommand(new Username(VALID_USERNAME_STRING))
+    public void execute_userAcceptedByModel_loginSuccessful() throws Exception {
+        CommandResult commandResult = new LoginCommand(TypicalPersons.SAMPLE_USERNAME)
                 .execute(model, commandHistory);
-        assertEquals(String.format(SignUpCommand.MESSAGE_SIGN_UP_SUCCESS, VALID_USERNAME_STRING),
+        assertEquals(String.format(LoginCommand.MESSAGE_LOGIN_SUCCESS, TypicalPersons.SAMPLE_USERNAME.toString()),
                 commandResult.feedbackToUser);
-        assertTrue(model.isUserExists(new Username(VALID_USERNAME_STRING)));
+        assertTrue(model.hasSelectedUser());
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
-    public void execute_duplicateRejectedByModel_signUpFailed() throws Exception {
-        assertTrue(model.isUserExists(TypicalPersons.SAMPLE_USERNAME));
-        thrown.expect(UserAlreadyExistsException.class);
-        new SignUpCommand(TypicalPersons.SAMPLE_USERNAME).execute(model, commandHistory);
+    public void execute_nonExistantUser_loginFailed() throws Exception {
+        assertFalse(model.isUserExists(new Username(UsernameTest.VALID_USERNAME_STRING)));
+        thrown.expect(NonExistentUserException.class);
+        new LoginCommand(new Username(UsernameTest.VALID_USERNAME_STRING)).execute(model, commandHistory);
     }
 }
