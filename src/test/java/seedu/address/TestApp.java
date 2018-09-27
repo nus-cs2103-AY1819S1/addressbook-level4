@@ -165,21 +165,4 @@ public class TestApp extends MainApp {
 
         initEventsCenter();
     }
-
-    @Override
-    protected Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Map<Username, ReadOnlyAddressBook> addressBooks;
-        try {
-            addressBooks =
-                    storage.readAllExpenses(userPrefs.getAddressBookDirPath());
-            if (addressBooks.isEmpty()) {
-                addressBooks.put(new Username("default"), SampleDataUtil.getSampleAddressBook());
-            }
-        } catch (DataConversionException e) {
-            addressBooks = new TreeMap<>();
-        } catch (IOException e) {
-            addressBooks = new TreeMap<>();
-        }
-        return new ModelManager(addressBooks, userPrefs);
-    }
 }
