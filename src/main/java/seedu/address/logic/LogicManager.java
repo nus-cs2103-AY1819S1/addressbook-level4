@@ -16,8 +16,7 @@ import seedu.address.model.person.Person;
 /**
  * The main LogicManager of the app.
  */
-public class
-LogicManager extends ComponentManager implements Logic {
+public class LogicManager extends ComponentManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
