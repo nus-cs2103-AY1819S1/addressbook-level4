@@ -112,7 +112,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find phone number of ride in address book -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " " + String.valueOf(DANIEL.getDaysSinceMaintenance().getValue());
+        command = FindCommand.COMMAND_WORD + " " + DANIEL.getDaysSinceMaintenance().toString();
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 

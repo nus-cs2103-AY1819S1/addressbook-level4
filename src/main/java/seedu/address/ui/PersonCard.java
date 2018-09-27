@@ -44,7 +44,7 @@ public class PersonCard extends UiPart<Region> {
         this.ride = ride;
         id.setText(displayedIndex + ". ");
         name.setText(ride.getName().fullName);
-        daysSinceMaintenanceString.setText(String.valueOf(ride.getDaysSinceMaintenance().getValue()));
+        daysSinceMaintenanceString.setText(ride.getDaysSinceMaintenance().toString());
         address.setText(ride.getAddress().value);
         waitingTimeString.setText(ride.getWaitingTime().toString());
         ride.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

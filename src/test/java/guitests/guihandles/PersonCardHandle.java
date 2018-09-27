@@ -78,7 +78,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
     public boolean equals(Ride ride) {
         return getName().equals(ride.getName().fullName)
                 && getAddress().equals(ride.getAddress().value)
-                && getMaintenance().equals(String.valueOf(ride.getDaysSinceMaintenance().getValue()))
+                && getMaintenance().equals(ride.getDaysSinceMaintenance().toString())
                 && getWaitingTime().equals(ride.getWaitingTime().toString())
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(ride.getTags().stream()
                         .map(tag -> tag.tagName)

@@ -31,7 +31,7 @@ public class PersonUtil {
     public static String getPersonDetails(Ride ride) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + ride.getName().fullName + " ");
-        sb.append(PREFIX_MAINTENANCE + String.valueOf(ride.getDaysSinceMaintenance().getValue()) + " ");
+        sb.append(PREFIX_MAINTENANCE + ride.getDaysSinceMaintenance().toString() + " ");
         sb.append(PREFIX_WAITING_TIME + ride.getWaitingTime().toString() + " ");
         sb.append(PREFIX_ADDRESS + ride.getAddress().value + " ");
         ride.getTags().stream().forEach(

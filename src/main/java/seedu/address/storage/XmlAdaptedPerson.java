@@ -63,7 +63,7 @@ public class XmlAdaptedPerson {
      */
     public XmlAdaptedPerson(Ride source) {
         name = source.getName().fullName;
-        daysSinceMaintenanceString = String.valueOf(source.getDaysSinceMaintenance().getValue());
+        daysSinceMaintenanceString = source.getDaysSinceMaintenance().toString();
         waitingTimeString = source.getWaitingTime().toString();
         address = source.getAddress().value;
         tagged = source.getTags().stream()
