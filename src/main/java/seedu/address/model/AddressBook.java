@@ -83,6 +83,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.contains(person);
     }
     
+    //@@author jjlee050
     /**
      * Returns true if a doctor with the same identity as {@code doctor} exists in the address book.
      */
