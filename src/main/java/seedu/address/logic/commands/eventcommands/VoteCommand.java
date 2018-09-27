@@ -4,8 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.DisplayPollEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -55,7 +57,8 @@ public class VoteCommand extends Command {
             model.commitAddressBook();
             model.updateEvent(event, event);
             String result = String.format(MESSAGE_SUCCESS, optionName, pollIndex.getOneBased());
-            result += '\n' + poll.displayPoll();
+            String pollDisplayResult = poll.displayPoll();
+            EventsCenter.getInstance().post(new DisplayPollEvent(pollDisplayResult));
             return new CommandResult(result);
         } catch (IndexOutOfBoundsException e) {
             throw new CommandException("No poll exists at this index.");
