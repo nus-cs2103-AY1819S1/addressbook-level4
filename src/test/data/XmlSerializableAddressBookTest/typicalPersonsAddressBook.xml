@@ -3,14 +3,14 @@
 <addressbook>
     <rides>
         <name>Alice Pauline</name>
-        <phone>94351253</phone>
+        <daysSinceMaintenanceString>94351253</daysSinceMaintenanceString>
         <email>alice@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
         <tagged>friends</tagged>
     </rides>
     <rides>
         <name>Benson Meier</name>
-        <phone>98765432</phone>
+        <daysSinceMaintenanceString>98765432</daysSinceMaintenanceString>
         <email>johnd@example.com</email>
         <address>311, Clementi Ave 2, #02-25</address>
         <tagged>owesMoney</tagged>
@@ -18,32 +18,32 @@
     </rides>
     <rides>
         <name>Carl Kurz</name>
-        <phone>95352563</phone>
+        <daysSinceMaintenanceString>95352563</daysSinceMaintenanceString>
         <email>heinz@example.com</email>
         <address>wall street</address>
     </rides>
     <rides>
         <name>Daniel Meier</name>
-        <phone>87652533</phone>
+        <daysSinceMaintenanceString>87652533</daysSinceMaintenanceString>
         <email>cornelia@example.com</email>
         <address>10th street</address>
         <tagged>friends</tagged>
     </rides>
     <rides>
         <name>Elle Meyer</name>
-        <phone>9482224</phone>
+        <daysSinceMaintenanceString>9482224</daysSinceMaintenanceString>
         <email>werner@example.com</email>
         <address>michegan ave</address>
     </rides>
     <rides>
         <name>Fiona Kunz</name>
-        <phone>9482427</phone>
+        <daysSinceMaintenanceString>9482427</daysSinceMaintenanceString>
         <email>lydia@example.com</email>
         <address>little tokyo</address>
     </rides>
     <rides>
         <name>George Best</name>
-        <phone>9482442</phone>
+        <daysSinceMaintenanceString>9482442</daysSinceMaintenanceString>
         <email>anna@example.com</email>
         <address>4th street</address>
     </rides>

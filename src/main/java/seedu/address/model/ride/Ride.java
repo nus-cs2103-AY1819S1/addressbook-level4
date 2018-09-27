@@ -17,9 +17,8 @@ public class Ride {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
-    private final Email email;
     private final Maintenance daysSinceMaintenance;
+    private final Email email;
     private final WaitTime waitingTime;
 
     // Data fields
@@ -32,15 +31,14 @@ public class Ride {
     /**
      * Every field must be present and not null.
      */
-    public Ride(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Ride(Name name, Maintenance daysSinceMaintenance, Email email, Address address, Set<Tag> tags) {
+        requireAllNonNull(name, daysSinceMaintenance, email, address, tags);
         this.name = name;
-        this.phone = phone;
+        this.daysSinceMaintenance = daysSinceMaintenance;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
 
-        this.daysSinceMaintenance = null;
         this.waitingTime = null;
     }
 
@@ -56,16 +54,11 @@ public class Ride {
         this.status = Status.SHUTDOWN;
         this.tags.addAll(tags);
 
-        this.phone = null;
         this.email = null;
     }
 
     public Name getName() {
         return name;
-    }
-
-    public Phone getPhone() {
-        return phone;
     }
 
     public Email getEmail() {
@@ -133,7 +126,7 @@ public class Ride {
 
         Ride otherRide = (Ride) other;
         return otherRide.getName().equals(getName())
-                && otherRide.getPhone().equals(getPhone())
+                && otherRide.getDaysSinceMaintenance().equals(getDaysSinceMaintenance())
                 && otherRide.getEmail().equals(getEmail())
                 && otherRide.getAddress().equals(getAddress())
                 && otherRide.getStatus() == getStatus()
@@ -150,8 +143,8 @@ public class Ride {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
+                .append(" Maintenance: ")
+                .append(getDaysSinceMaintenance())
                 .append(" Email: ")
                 .append(getEmail())
                 .append(" Address: ")

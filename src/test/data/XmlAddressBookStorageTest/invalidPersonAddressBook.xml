@@ -3,7 +3,7 @@
     <!-- Ride with invalid name field -->
     <rides>
         <name>Ha!ns Mu@ster</name>
-        <phone isPrivate="false">9482424</phone>
+        <maintenance isPrivate="false">9482424</maintenance>
         <email isPrivate="false">hans@example.com</email>
         <address isPrivate="false">4th street</address>
     </rides>

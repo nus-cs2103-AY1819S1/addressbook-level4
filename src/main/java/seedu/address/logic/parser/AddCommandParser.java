@@ -14,8 +14,8 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ride.Address;
 import seedu.address.model.ride.Email;
+import seedu.address.model.ride.Maintenance;
 import seedu.address.model.ride.Name;
-import seedu.address.model.ride.Phone;
 import seedu.address.model.ride.Ride;
 import seedu.address.model.tag.Tag;
 
@@ -39,12 +39,12 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+        Maintenance maintenance = ParserUtil.parseMaintenance(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Ride ride = new Ride(name, phone, email, address, tagList);
+        Ride ride = new Ride(name, maintenance, email, address, tagList);
 
         return new AddCommand(ride);
     }

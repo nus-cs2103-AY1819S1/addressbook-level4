@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!-- Ride with an invalid phone field -->
+<!-- Ride with an invalid maintenance field -->
 <ride>
     <name>Hans Muster</name>
-    <phone>9482asf424</phone>
+    <daysSinceMaintenanceString>9482asf424</daysSinceMaintenanceString>
     <email>hans@example</email>
     <address>4th street</address>
     <tagged>friends</tagged>

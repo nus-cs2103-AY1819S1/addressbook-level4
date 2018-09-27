@@ -6,7 +6,7 @@ import java.util.Set;
 import seedu.address.model.ride.Address;
 import seedu.address.model.ride.Email;
 import seedu.address.model.ride.Name;
-import seedu.address.model.ride.Phone;
+import seedu.address.model.ride.Maintenance;
 import seedu.address.model.ride.Ride;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -17,13 +17,13 @@ import seedu.address.model.util.SampleDataUtil;
 public class RideBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_PHONE = "85355255";
+    public static final String DEFAULT_MAINTENANCE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_DIFFERENTNAME = "Alice";
 
     private Name name;
-    private Phone phone;
+    private Maintenance maintenance;
     private Email email;
     private Address address;
     private Set<Tag> tags;
@@ -31,7 +31,7 @@ public class RideBuilder {
 
     public RideBuilder() {
         name = new Name(DEFAULT_NAME);
-        phone = new Phone(DEFAULT_PHONE);
+        maintenance = new Maintenance(DEFAULT_MAINTENANCE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
@@ -43,7 +43,7 @@ public class RideBuilder {
      */
     public RideBuilder(Ride rideToCopy) {
         name = rideToCopy.getName();
-        phone = rideToCopy.getPhone();
+        maintenance = rideToCopy.getDaysSinceMaintenance();
         email = rideToCopy.getEmail();
         address = rideToCopy.getAddress();
         tags = new HashSet<>(rideToCopy.getTags());
@@ -74,10 +74,10 @@ public class RideBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Ride} that we are building.
+     * Sets the {@code Maintenance} of the {@code Ride} that we are building.
      */
-    public RideBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
+    public RideBuilder withMaintenance(String daysSinceLastMaintenanceString) {
+        this.maintenance = new Maintenance(daysSinceLastMaintenanceString);
         return this;
     }
 
@@ -90,11 +90,11 @@ public class RideBuilder {
     }
 
     public Ride build() {
-        return new Ride(name, phone, email, address, tags);
+        return new Ride(name, maintenance, email, address, tags);
     }
 
     public Ride buildDifferent() {
-        return new Ride(differentName, phone, email, address, tags);
+        return new Ride(differentName, maintenance, email, address, tags);
     }
 
 }

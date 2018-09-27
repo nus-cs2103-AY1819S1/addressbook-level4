@@ -12,8 +12,8 @@ import javax.xml.bind.annotation.XmlElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ride.Address;
 import seedu.address.model.ride.Email;
+import seedu.address.model.ride.Maintenance;
 import seedu.address.model.ride.Name;
-import seedu.address.model.ride.Phone;
 import seedu.address.model.ride.Ride;
 import seedu.address.model.tag.Tag;
 
@@ -27,7 +27,7 @@ public class XmlAdaptedPerson {
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
-    private String phone;
+    private String daysSinceMaintenanceString;
     @XmlElement(required = true)
     private String email;
     @XmlElement(required = true)
@@ -45,9 +45,9 @@ public class XmlAdaptedPerson {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given ride details.
      */
-    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedPerson(String name, String daysSinceMaintenanceString, String email, String address, List<XmlAdaptedTag> tagged) {
         this.name = name;
-        this.phone = phone;
+        this.daysSinceMaintenanceString = daysSinceMaintenanceString;
         this.email = email;
         this.address = address;
         if (tagged != null) {
@@ -62,7 +62,7 @@ public class XmlAdaptedPerson {
      */
     public XmlAdaptedPerson(Ride source) {
         name = source.getName().fullName;
-        phone = source.getPhone().value;
+        daysSinceMaintenanceString = String.valueOf(source.getDaysSinceMaintenance().getValue());
         email = source.getEmail().value;
         address = source.getAddress().value;
         tagged = source.getTags().stream()
@@ -89,13 +89,13 @@ public class XmlAdaptedPerson {
         }
         final Name modelName = new Name(name);
 
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+        if (daysSinceMaintenanceString == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Maintenance.class.getSimpleName()));
         }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_PHONE_CONSTRAINTS);
+        if (!Maintenance.isValidMaintenance(daysSinceMaintenanceString)) {
+            throw new IllegalValueException(Maintenance.MESSAGE_MAINTENANCE_CONSTRAINTS);
         }
-        final Phone modelPhone = new Phone(phone);
+        final Maintenance modelMaintenance = new Maintenance(daysSinceMaintenanceString);
 
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
@@ -114,7 +114,7 @@ public class XmlAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Ride(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Ride(modelName, modelMaintenance, modelEmail, modelAddress, modelTags);
     }
 
     @Override
@@ -129,7 +129,7 @@ public class XmlAdaptedPerson {
 
         XmlAdaptedPerson otherPerson = (XmlAdaptedPerson) other;
         return Objects.equals(name, otherPerson.name)
-                && Objects.equals(phone, otherPerson.phone)
+                && Objects.equals(daysSinceMaintenanceString, otherPerson.daysSinceMaintenanceString)
                 && Objects.equals(email, otherPerson.email)
                 && Objects.equals(address, otherPerson.address)
                 && tagged.equals(otherPerson.tagged);

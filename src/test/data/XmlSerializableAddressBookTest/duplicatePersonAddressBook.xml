@@ -3,7 +3,7 @@
 
     <rides>
         <name>Alice Pauline</name>
-        <phone>94351253</phone>
+        <daysSinceMaintenanceString>94351253</daysSinceMaintenanceString>
         <email>alice@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
         <tagged>friends</tagged>
@@ -12,7 +12,7 @@
     <!-- Ride with same identity as Alice Pauline -->
     <rides>
         <name>Alice Pauline</name>
-        <phone>94351253</phone>
+        <daysSinceMaintenanceString>94351253</daysSinceMaintenanceString>
         <email>pauline@example.com</email>
         <address>4th street</address>
     </rides>

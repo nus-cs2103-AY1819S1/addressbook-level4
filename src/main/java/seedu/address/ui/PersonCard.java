@@ -31,7 +31,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label daysSinceMaintenanceString;
     @FXML
     private Label address;
     @FXML
@@ -44,7 +44,7 @@ public class PersonCard extends UiPart<Region> {
         this.ride = ride;
         id.setText(displayedIndex + ". ");
         name.setText(ride.getName().fullName);
-        phone.setText(ride.getPhone().value);
+        daysSinceMaintenanceString.setText(String.valueOf(ride.getDaysSinceMaintenance().getValue()));
         address.setText(ride.getAddress().value);
         email.setText(ride.getEmail().value);
         ride.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

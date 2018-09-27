@@ -17,12 +17,16 @@ public class Maintenance {
     /**
      * Constructs a {@code Maintenance}.
      *
-     * @param daysSinceLastMaintenance Days since last maintenance.
+     * @param daysSinceMaintenanceString Days since last maintenance.
      */
-    public Maintenance(String daysSinceLastMaintenance) {
-        requireNonNull(daysSinceLastMaintenance);
-        checkArgument(isValidMaintenance(daysSinceLastMaintenance), MESSAGE_MAINTENANCE_CONSTRAINTS);
-        value = Integer.parseInt(daysSinceLastMaintenance);
+    public Maintenance(String daysSinceMaintenanceString) {
+        requireNonNull(daysSinceMaintenanceString);
+        checkArgument(isValidMaintenance(daysSinceMaintenanceString), MESSAGE_MAINTENANCE_CONSTRAINTS);
+        value = Integer.parseInt(daysSinceMaintenanceString);
+    }
+
+    public Maintenance(int daysSinceMaintenance) {
+        value = daysSinceMaintenance;
     }
 
     public int getValue() {
