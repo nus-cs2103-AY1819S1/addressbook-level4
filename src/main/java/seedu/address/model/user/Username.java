@@ -3,6 +3,10 @@ package seedu.address.model.user;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents the Username of a user.
+ * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ */
 public class Username implements Comparable<Username> {
     public static final String MESSAGE_NAME_CONSTRAINTS =
             "Names cannot contain any of these characters: \" > < : \\ / | ? *";

@@ -12,7 +12,7 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs {
 
     private GuiSettings guiSettings;
-    private Path addressBookDirPath = Paths.get("data" );
+    private Path addressBookDirPath = Paths.get("data");
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);

@@ -1,0 +1,11 @@
+{
+  "guiSettings" : {
+    "windowWidth" : 948.0,
+    "windowHeight" : 600.0,
+    "windowCoordinates" : {
+      "x" : 272,
+      "y" : 92
+    }
+  },
+  "addressBookDirPath" : "data"
+}

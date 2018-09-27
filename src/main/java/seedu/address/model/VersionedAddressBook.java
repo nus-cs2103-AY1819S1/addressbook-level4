@@ -1,7 +1,5 @@
 package seedu.address.model;
 
-import seedu.address.model.user.Username;
-
 import java.util.ArrayList;
 import java.util.List;
 

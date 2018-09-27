@@ -70,6 +70,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void resetData(ReadOnlyAddressBook newData) throws NoUserSelectedException {
         versionedAddressBook.resetData(newData);
+        addressBooks.replace(this.username, this.versionedAddressBook);
         indicateAddressBookChanged();
     }
 
@@ -79,11 +80,6 @@ public class ModelManager extends ComponentManager implements Model {
             throw new NoUserSelectedException();
         }
         return versionedAddressBook;
-    }
-
-    @Override
-    public Map<Username, ReadOnlyAddressBook> getAddressBooks() {
-        return addressBooks;
     }
 
     /** Raises an event to indicate the model has changed */
@@ -132,7 +128,7 @@ public class ModelManager extends ComponentManager implements Model {
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() throws NoUserSelectedException {
-        if (versionedAddressBook == null) {
+        if (filteredPersons == null) {
             throw new NoUserSelectedException();
         }
         return FXCollections.unmodifiableObservableList(filteredPersons);
@@ -141,7 +137,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) throws NoUserSelectedException {
         requireNonNull(predicate);
-        if (versionedAddressBook == null) {
+        if (filteredPersons == null) {
             throw new NoUserSelectedException();
         }
         filteredPersons.setPredicate(predicate);
@@ -191,12 +187,12 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook = new VersionedAddressBook(addressBooks.get(username));
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         this.username = username;
+        addressBooks.replace(this.username, this.versionedAddressBook);
         try {
             indicateUserLoggedIn();
             indicateAddressBookChanged();
         } catch (NoUserSelectedException nuse) {
-            //TODO: fix
-            throw new IllegalStateException();
+            throw new IllegalStateException(nuse.getMessage());
         }
     }
 
@@ -214,8 +210,18 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public Model copy(UserPrefs userPrefs) throws NonExistentUserException, NoUserSelectedException {
+        ModelManager copy = new ModelManager(addressBooks, userPrefs);
+        //copy.loadUserData(this.username);
+        copy.versionedAddressBook = new VersionedAddressBook(this.getAddressBook());
+        copy.filteredPersons = new FilteredList<>(copy.versionedAddressBook.getPersonList());
+        copy.username = this.username;
+        return copy;
+    }
+
+    @Override
     public void addUser(Username newUsername) throws UserAlreadyExistsException {
-        if (addressBooks.putIfAbsent(newUsername, new AddressBook(newUsername))  != null) {
+        if (addressBooks.putIfAbsent(newUsername, new AddressBook(newUsername)) != null) {
             throw new UserAlreadyExistsException(newUsername);
         }
     }

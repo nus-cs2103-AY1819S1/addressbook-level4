@@ -1,13 +1,15 @@
-package seedu.address.logic;
+package seedu.address.logic.commands;
 
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CommandResult;
+import static java.util.Objects.requireNonNull;
+
+import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.user.Username;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Adds a user to the address book.
+ */
 public class SignUpCommand extends Command {
     public static final String COMMAND_WORD = "signup";
     public static final String COMMAND_ALIAS = "su";

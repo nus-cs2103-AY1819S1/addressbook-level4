@@ -1,6 +1,9 @@
 package seedu.address.ui;
 
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -10,6 +13,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -19,8 +23,6 @@ import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.exceptions.NoUserSelectedException;
-
-import java.util.logging.Logger;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -135,10 +137,13 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        hideLoggedInUI();
+        hideLoggedInUi();
     }
 
-    private void hideLoggedInUI() {
+    /**
+     * Hides the bottom part of the UI which shows entries in the AddressBook and sync information.
+     */
+    private void hideLoggedInUi() {
         splitPane.setManaged(false);
         splitPane.setVisible(false);
         getPrimaryStage().setHeight(225);
@@ -147,7 +152,10 @@ public class MainWindow extends UiPart<Stage> {
         statusbarPlaceholder.setManaged(false);
     }
 
-    private void showLoggedInUI() {
+    /**
+     * Shows the bottom part of the UI which shows entries in the AddressBook and sync information.
+     */
+    private void showLoggedInUi() {
         splitPane.setManaged(true);
         splitPane.setVisible(true);
         getPrimaryStage().setMaxHeight(Integer.MAX_VALUE);
@@ -227,12 +235,11 @@ public class MainWindow extends UiPart<Stage> {
         try {
             personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         } catch (NoUserSelectedException e) {
-            //TODO fix
-            throw new IllegalStateException();
+            throw new IllegalStateException(e.getMessage());
         }
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookDirPath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-        showLoggedInUI();
+        showLoggedInUi();
     }
 }

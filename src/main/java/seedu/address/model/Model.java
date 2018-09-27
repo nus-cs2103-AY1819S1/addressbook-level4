@@ -1,6 +1,5 @@
 package seedu.address.model;
 
-import java.util.Map;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -103,8 +102,7 @@ public interface Model {
     boolean hasSelectedUser();
 
     /**
-     * Returns the address books.
-     * @return the address books
+     * Returns a copy of this model.
      */
-    Map<Username, ReadOnlyAddressBook> getAddressBooks();
+    Model copy(UserPrefs userPrefs) throws NonExistentUserException, NoUserSelectedException;
 }

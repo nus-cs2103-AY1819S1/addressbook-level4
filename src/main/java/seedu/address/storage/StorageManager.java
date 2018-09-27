@@ -73,7 +73,8 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public Map<Username, ReadOnlyAddressBook> readAllExpenses(Path dirPath) throws DataConversionException, IOException {
+    public Map<Username, ReadOnlyAddressBook> readAllExpenses(Path dirPath) throws DataConversionException,
+            IOException {
         File dir = new File(dirPath.toString());
         final Map<Username, ReadOnlyAddressBook> books = new TreeMap<>();
         File[] directoryListing = dir.listFiles();
@@ -81,11 +82,8 @@ public class StorageManager extends ComponentManager implements Storage {
             if (directoryListing != null) {
                 for (File child : directoryListing) {
                     readExpenses(Paths.get(child.getPath())).ifPresent(
-                            addressBook -> books.put(
-                                    new Username(child
-                                    .getName()
-                                    .replace(".xml", "")),
-                                    addressBook));
+                        addressBook -> books.put(new Username(child.getName().replace(".xml", "")),
+                                addressBook));
                 }
             }
         }
@@ -94,8 +92,9 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public void saveExpenses(ReadOnlyAddressBook addressBook) throws IOException {
-        saveExpenses(addressBook, Paths.get(expensesStorage.getExpensesDirPath().toString(),
-                addressBook.getUsername().toString() + ".xml"));
+        Path path = Paths.get(expensesStorage.getExpensesDirPath().toString(),
+                addressBook.getUsername().toString() + ".xml");
+        saveExpenses(addressBook, path);
     }
 
     @Override
@@ -122,6 +121,7 @@ public class StorageManager extends ComponentManager implements Storage {
         try {
             saveExpenses(event.data);
         } catch (IOException e) {
+            e.printStackTrace();
             raise(new DataSavingExceptionEvent(e));
         }
     }

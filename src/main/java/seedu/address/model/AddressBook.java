@@ -18,9 +18,9 @@ import seedu.address.model.user.Username;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
+    protected final Username username;
     private final UniquePersonList persons;
     private final ArrayList<Expense> expenseList;
-    protected final Username username;
 
     public AddressBook(Username username) {
         this.username = username;
