@@ -16,7 +16,7 @@ endif::[]
 
 By: `W14-1`      Since: `Sept 2018`      Licence: `MIT`
 
-== Setting up
+== Setting uphel
 
 === Prerequisites
 

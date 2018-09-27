@@ -78,7 +78,7 @@ public interface Model {
 
     /**
      * Enqueues the given person.
-     * May need to be more specific in future - patient, doc or receptionist
+     * May need to be more specific in future - patient, doc or receptionist.
      */
     void enqueue(Person target);
 }
