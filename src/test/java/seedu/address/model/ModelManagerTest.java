@@ -24,6 +24,7 @@ public class ModelManagerTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private ModelManager modelManager = (ModelManager) ModelUtil.modelWithTestUser();
+    private ModelManager modelManagerLoggedOut = new ModelManager();
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
@@ -62,6 +63,54 @@ public class ModelManagerTest {
         } catch (NoUserSelectedException e) {
             Assert.fail("Model has no user selected.");
         }
+    }
+
+    @Test
+    public void getAddessBook_noUserSelected_throwsNoUserSelectedException() throws Exception {
+        thrown.expect(NoUserSelectedException.class);
+        modelManagerLoggedOut.getAddressBook();
+    }
+
+    @Test
+    public void indicateAddressBookChanged_noUserSelected_throwsNoUserSelectedException() throws Exception {
+        thrown.expect(NoUserSelectedException.class);
+        modelManagerLoggedOut.indicateAddressBookChanged();
+    }
+
+    @Test
+    public void hasPerson_noUserSelected_throwsNoUserSelectedException() throws Exception {
+        thrown.expect(NoUserSelectedException.class);
+        modelManagerLoggedOut.hasPerson(ALICE);
+    }
+
+    @Test
+    public void getFilteredPersonList_noUserSelected_throwsNoUserSelectedException() throws Exception {
+        thrown.expect(NoUserSelectedException.class);
+        modelManagerLoggedOut.getFilteredPersonList();
+    }
+
+    @Test
+    public void updateFilteredPersonList_noUserSelected_throwsNoUserSelectedException() throws Exception {
+        thrown.expect(NoUserSelectedException.class);
+        modelManagerLoggedOut.updateFilteredPersonList(unused -> true);
+    }
+
+    @Test
+    public void canUndoAddressBook_noUserSelected_throwsNoUserSelectedException() throws Exception {
+        thrown.expect(NoUserSelectedException.class);
+        modelManagerLoggedOut.canUndoAddressBook();
+    }
+
+    @Test
+    public void commitAddressBook_noUserSelected_throwsNoUserSelectedException() throws Exception {
+        thrown.expect(NoUserSelectedException.class);
+        modelManagerLoggedOut.commitAddressBook();
+    }
+
+    @Test
+    public void indicateUserLoggedIn_noUserSelected_throwsNoUserSelectedException() throws Exception {
+        thrown.expect(NoUserSelectedException.class);
+        modelManagerLoggedOut.indicateUserLoggedIn();
     }
 
     @Test

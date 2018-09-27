@@ -83,7 +83,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() throws NoUserSelectedException {
+    protected void indicateAddressBookChanged() throws NoUserSelectedException {
         if (versionedAddressBook == null) {
             throw new NoUserSelectedException();
         }
@@ -202,7 +202,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /** Raises an event to indicate the user has logged in and has been processed by the model*/
-    private void indicateUserLoggedIn() throws NoUserSelectedException {
+    protected void indicateUserLoggedIn() throws NoUserSelectedException {
         if (this.username == null) {
             throw new NoUserSelectedException();
         }
