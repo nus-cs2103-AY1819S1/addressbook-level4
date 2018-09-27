@@ -13,7 +13,7 @@ public class Id {
             "Id should only contain numbers, and it should more than 0";
 
     public final int id;
-    
+
     /**
      * Constructs a {@code Id}.
      *
@@ -30,7 +30,7 @@ public class Id {
     public static boolean isValidId(int test) {
         return test > 0;
     }
-    
+
     @Override
     public String toString() {
         return String.valueOf(id);

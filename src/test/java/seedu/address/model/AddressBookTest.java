@@ -86,7 +86,7 @@ public class AddressBookTest {
         thrown.expect(NullPointerException.class);
         addressBook.hasPerson(null);
     }
-    
+
     //@@author jjlee050
     @Test
     public void hasDoctor_nullDoctor_throwsNullPointerException() {
@@ -104,7 +104,7 @@ public class AddressBookTest {
     public void hasDoctor_doctorNotInAddressBook_returnsFalse() {
         assertFalse(addressBook.hasDoctor(ADAM));
     }
-    
+
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
         addressBook.addPerson(ALICE);
@@ -164,7 +164,7 @@ public class AddressBookTest {
         public ObservableList<Person> getPersonList() {
             return persons;
         }
-        
+
         //@@author jjlee050
         @Override
         public ObservableList<Doctor> getDoctorList() {

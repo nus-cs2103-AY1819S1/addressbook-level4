@@ -11,15 +11,15 @@ import seedu.address.model.person.Name;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Doctor {
-    
+
     // Identity fields
     private final Id id;
     private final Name name;
     private final Password password;
-    
+
     //Data fields
     //private final Shift shift;
-    
+
     /**
      * Every field must be present and not null.
      */
@@ -34,11 +34,11 @@ public class Doctor {
     public Id getId() {
         return id;
     }
-    
+
     public Name getName() {
         return name;
     }
-    
+
     public Password getPassword() {
         return password;
     }
@@ -46,7 +46,7 @@ public class Doctor {
     /*public Shift getShift() {
         return shift;
     }*/
-    
+
     /**
      * Returns true if both doctors of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two doctor.
@@ -87,7 +87,7 @@ public class Doctor {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(id, name, password);
     }
-    
+
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
@@ -98,5 +98,5 @@ public class Doctor {
                 .append(getPassword());
         return builder.toString();
     }
-    
+
 }

@@ -58,7 +58,7 @@ public class TypicalPersons {
 
     public static final Doctor ADAM = new DoctorBuilder().withId(1).withName("Adam Bell").withPassword("doctor1").build();
     public static final Doctor BEN = new DoctorBuilder().withId(2).withName("Ben Hill").withPassword("doctor2").build();
-    
+
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalPersons() {} // prevents instantiation
@@ -80,7 +80,7 @@ public class TypicalPersons {
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
-    
+
     public static List<Doctor> getTypicalDoctors() {
         return new ArrayList<>(Arrays.asList(ADAM, BEN));
     }

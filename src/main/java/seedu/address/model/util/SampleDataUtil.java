@@ -44,7 +44,7 @@ public class SampleDataUtil {
                 getTagSet("colleagues"))
         };
     }
-    
+
     //@@author jjlee050
     public static List<Doctor> getSampleDoctors() {
         return new ArrayList<>(Arrays.asList(new Doctor(new Id(1), new Name("Adam Bell"), new Password("doctor1")),

@@ -14,11 +14,11 @@ public class DoctorBuilder {
     public static final int DEFAULT_ID = 1;
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PASSWORD = "alicepaul";
-    
+
     private Id id;
     private Name name;
     private Password password;
-    
+
     public DoctorBuilder() {
         id = new Id(DEFAULT_ID);
         name = new Name(DEFAULT_NAME);
@@ -49,7 +49,7 @@ public class DoctorBuilder {
         this.name = new Name(name);
         return this;
     }
-    
+
     /**
      * Sets the {@code Password} of the {@code Doctor} that we are building.
      */

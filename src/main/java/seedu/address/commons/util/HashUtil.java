@@ -14,7 +14,7 @@ import at.favre.lib.crypto.bcrypt.BCrypt.Version;
  */
 public class HashUtil {
     private static final int COST = 8;
-    
+
     /**
      * Return the Bcrypt hashing version.
      */

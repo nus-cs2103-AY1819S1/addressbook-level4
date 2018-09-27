@@ -137,7 +137,7 @@ public class AddCommandTest {
         public void updatePerson(Person target, Person editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
-        
+
         //@@author jjlee050
         @Override
         public void updateDoctor(Doctor target, Doctor editedDoctor) {
@@ -148,7 +148,7 @@ public class AddCommandTest {
         public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
-        
+
         //@@author jjlee050
         @Override
         public ObservableList<Doctor> getFilteredDoctorList() {

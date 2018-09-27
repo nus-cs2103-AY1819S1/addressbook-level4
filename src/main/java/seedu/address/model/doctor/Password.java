@@ -31,8 +31,8 @@ public class Password {
         requireNonNull(password);
         checkArgument(isValidPassword(password), MESSAGE_PASSWORD_CONSTRAINTS);
         this.password = password;
-    }    
-    
+    }
+
     /**
      * Returns true if a given string is a valid password.
      */
@@ -48,7 +48,7 @@ public class Password {
     public static boolean isSameAsHashPassword(String password, String passwordHashString) {
         return HashUtil.verifyPassword(password, passwordHashString);
     }
-    
+
     @Override
     public String toString() {
         return password;

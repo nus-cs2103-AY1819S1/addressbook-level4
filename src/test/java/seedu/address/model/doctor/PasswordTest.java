@@ -43,7 +43,7 @@ public class PasswordTest {
         assertTrue(Password.isValidPassword("123456789012")); // 12 numbers only
         assertTrue(Password.isValidPassword("CapitalTan")); // mix of upper and lower case alphabets
         assertTrue(Password.isValidPassword("Capital123")); // alphanuemic characters only
-        
+
     }
 
     @Test
@@ -51,16 +51,16 @@ public class PasswordTest {
         String password = "peter12";
         //null password
         Assert.assertThrows(NullPointerException.class, () -> Password.isSameAsHashPassword(password, null));
-        
+
         //empty string
         Assert.assertThrows(IllegalArgumentException.class, () -> Password.isSameAsHashPassword(password, ""));
-        
+
         //invalid password
         assertFalse(Password.isSameAsHashPassword("peter13", HashUtil.hashToString(password)));
         assertFalse(Password.isSameAsHashPassword("peter13", HashUtil.hashToString(password)));
         assertFalse(Password.isSameAsHashPassword("peter12"," ")); //Only spaces password hash string
         assertFalse(Password.isSameAsHashPassword(""," ")); //Empty string and only spaces password hash string
-        
+
         //valid password
         assertTrue(Password.isSameAsHashPassword(password, HashUtil.hashToString(password)));
 

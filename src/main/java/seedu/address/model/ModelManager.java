@@ -66,7 +66,7 @@ public class ModelManager extends ComponentManager implements Model {
         requireNonNull(person);
         return versionedAddressBook.hasPerson(person);
     }
-    
+
     //@@author jjlee050
     @Override
     public boolean hasDoctor(Doctor doctor) {
@@ -79,7 +79,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.removePerson(target);
         indicateAddressBookChanged();
     }
-    
+
     //@@author jjlee050
     @Override
     public void deleteDoctor(Doctor target) {
@@ -93,7 +93,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
-    
+
     //@@author jjlee050
     @Override
     public void addDoctor(Doctor doctor) {
@@ -101,14 +101,14 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
-    
+
     @Override
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
         versionedAddressBook.updatePerson(target, editedPerson);
         indicateAddressBookChanged();
     }
-    
+
     //@@author jjlee050
     @Override
     public void updateDoctor(Doctor target, Doctor editedDoctor) {
@@ -135,7 +135,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     //=========== Filtered Doctor List Accessors =============================================================
-    
+
     //@@author jjlee050
     /**
      * Returns an unmodifiable view of the list of {@code Doctor} backed by the internal list of
@@ -145,7 +145,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ObservableList<Doctor> getFilteredDoctorList() {
         return FXCollections.unmodifiableObservableList(filteredDoctors);
     }
-    
+
     //@@author jjlee050
     @Override
     public void updateFilteredDoctorList(Predicate<Doctor> predicate) {
