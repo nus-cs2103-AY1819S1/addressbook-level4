@@ -176,6 +176,12 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void show() {
+
+        //@@author jjlee050
+        //Set full screen in exclusive mode
+        primaryStage.setFullScreen(true);
+        primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+
         primaryStage.show();
     }
 
