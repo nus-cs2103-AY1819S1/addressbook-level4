@@ -54,7 +54,7 @@ test {
     useJUnitPlatform()
     testLogging {
         events "failed"
-        exceptionFormat "long"
+        exceptionFormat "full"
     }
 }
 
