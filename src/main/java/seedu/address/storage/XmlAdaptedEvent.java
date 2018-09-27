@@ -31,6 +31,8 @@ public class XmlAdaptedEvent {
     private String name;
     @XmlElement(required = true)
     private String address;
+    @XmlElement(required = true)
+    private XmlAdaptedPerson organiser;
     @XmlElement(required = false)
     private String time = "";
     @XmlElement(required = false)
@@ -53,11 +55,12 @@ public class XmlAdaptedEvent {
      * Constructs an {@code XmlAdaptedEvent} with the given event details.
      */
 
-    public XmlAdaptedEvent(String name, String address, String date, String time,
+    public XmlAdaptedEvent(String name, String address, XmlAdaptedPerson organiser, String date, String time,
                            List<XmlAdaptedTag> tagged, List<XmlAdaptedPoll> polls,
                            List<XmlAdaptedPerson> personList) {
         this.name = name;
         this.address = address;
+        this.organiser = organiser;
         this.date = date;
         this.time = time;
         if (tagged != null) {
@@ -79,6 +82,7 @@ public class XmlAdaptedEvent {
     public XmlAdaptedEvent(Event source) {
         name = source.getName().fullName;
         address = source.getLocation().value;
+        organiser = new XmlAdaptedPerson(source.getOrganiser());
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
@@ -122,7 +126,10 @@ public class XmlAdaptedEvent {
         }
         final Address modelAddress = new Address(address);
 
+        final Person modelOrganiser = organiser.toModelType();
+
         Event event = new Event(modelName, modelAddress, modelTags);
+        event.setOrganiser(modelOrganiser);
 
         if (!date.isEmpty()) {
             LocalDate modelDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("dd-MM-yyyy"));

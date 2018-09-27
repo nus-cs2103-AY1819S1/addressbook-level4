@@ -4,12 +4,15 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.DisplayPollEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.Poll;
@@ -47,7 +50,6 @@ public class VoteCommand extends Command {
         if (event == null) {
             throw new CommandException(Messages.MESSAGE_NO_EVENT_SELECTED);
         }
-
         try {
             Poll poll = event.getPoll(pollIndex);
             Person person = history.getSelectedPerson();
@@ -55,12 +57,15 @@ public class VoteCommand extends Command {
             model.commitAddressBook();
             model.updateEvent(event, event);
             String result = String.format(MESSAGE_SUCCESS, optionName, pollIndex.getOneBased());
-            result += '\n' + poll.displayPoll();
+            String pollDisplayResult = poll.displayPoll();
+            EventsCenter.getInstance().post(new DisplayPollEvent(pollDisplayResult));
             return new CommandResult(result);
         } catch (IndexOutOfBoundsException e) {
             throw new CommandException("No poll exists at this index.");
         } catch (IllegalArgumentException e) {
             throw new CommandException("No such option exists in this poll.");
+        } catch (NoUserLoggedInException e) {
+            throw new CommandException(Messages.MESSAGE_NO_USER_LOGGED_IN);
         }
     }
 

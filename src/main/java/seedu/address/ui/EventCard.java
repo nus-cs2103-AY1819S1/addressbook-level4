@@ -8,7 +8,7 @@ import javafx.scene.layout.Region;
 import seedu.address.model.event.Event;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Event}.
  */
 public class EventCard extends UiPart<Region> {
 
@@ -33,6 +33,8 @@ public class EventCard extends UiPart<Region> {
     @FXML
     private Label address;
     @FXML
+    private Label organiser;
+    @FXML
     private Label time;
     @FXML
     private Label date;
@@ -45,6 +47,7 @@ public class EventCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(event.getName().fullName);
         address.setText(event.getLocation().value);
+        organiser.setText(event.getOrganiser().getName().toString());
         time.setText(event.getTimeString());
         date.setText(event.getDateString());
 

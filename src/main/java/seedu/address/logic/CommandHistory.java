@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.LinkedList;
 import java.util.List;
 
+import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.event.Event;
 
 import seedu.address.model.person.Person;
@@ -72,7 +73,10 @@ public class CommandHistory {
         return userInputHistory.hashCode();
     }
 
-    public Person getSelectedPerson() {
+    public Person getSelectedPerson() throws NoUserLoggedInException {
+        if (selectedPerson == null) {
+            throw new NoUserLoggedInException();
+        }
         return selectedPerson;
     }
 
