@@ -111,7 +111,7 @@ public class XmlAdaptedPerson {
             personTags.add(tag.toModelType());
         }
 
-        for (XmlAdaptedPrescription prescription : this.prescriptions.getPrescription()) {
+        for (XmlAdaptedPrescription prescription : this.prescriptions) {
             prescriptions.add(prescription.toModelType());
         }
 
@@ -177,6 +177,6 @@ public class XmlAdaptedPerson {
                 && Objects.equals(email, otherPerson.email)
                 && Objects.equals(address, otherPerson.address)
                 && tagged.equals(otherPerson.tagged)
-                && prescriptions.getPrescription().equals(otherPerson.prescriptions.getPrescription());
+                && prescriptions.equals(otherPerson.prescriptions);
     }
 }

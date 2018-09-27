@@ -22,16 +22,11 @@ public class XmlAdaptedPrescriptionListTest {
     }
 
     @Test
-    public void getPrescription() {
-        assertTrue(xmlAdaptedPrescriptionList.getPrescription().equals(new ArrayList<XmlAdaptedPrescription>()));
-    }
-
-    @Test
     public void setPrescription() {
         List<XmlAdaptedPrescription> newList = new ArrayList<>();
         newList.add(xmlAdaptedPrescription);
 
         xmlAdaptedPrescriptionList.setPrescription(newList);
-        assertTrue(xmlAdaptedPrescriptionList.getPrescription().equals(newList));
+        assertTrue(xmlAdaptedPrescriptionList.equals(new XmlAdaptedPrescriptionList(newList)));
     }
 }
