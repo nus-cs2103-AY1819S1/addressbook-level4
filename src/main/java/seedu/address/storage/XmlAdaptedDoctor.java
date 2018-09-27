@@ -9,11 +9,11 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.doctor.Id;
 import seedu.address.model.doctor.Password;
-import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 
 //@@author jjlee050
+
 /**
  * JAXB-friendly version of the Doctor.
  */
@@ -27,11 +27,12 @@ public class XmlAdaptedDoctor {
     private String name;
     @XmlElement(required = true)
     private String password;
+
     /**
-     * Constructs an XmlAdaptedDoctor.
-     * This is the no-arg constructor that is required by JAXB.
+     * Constructs an XmlAdaptedDoctor. This is the no-arg constructor that is required by JAXB.
      */
-    public XmlAdaptedDoctor() {}
+    public XmlAdaptedDoctor() {
+    }
 
     /**
      * Constructs an {@code XmlAdaptedDoctor} with the given doctor details.
@@ -60,7 +61,8 @@ public class XmlAdaptedDoctor {
      */
     public Doctor toModelType() throws IllegalValueException {
         if (id < 1) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
         }
         if (!Id.isValidId(id)) {
             throw new IllegalValueException(Id.MESSAGE_ID_CONSTRAINTS);
@@ -68,7 +70,8 @@ public class XmlAdaptedDoctor {
         final Id modelId = new Id(id);
 
         if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
         if (!Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
@@ -76,7 +79,8 @@ public class XmlAdaptedDoctor {
         final Name modelName = new Name(name);
 
         if (password == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Password.class.getSimpleName()));
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Password.class.getSimpleName()));
         }
         if (!Password.isValidPassword(password)) {
             throw new IllegalValueException(Password.MESSAGE_PASSWORD_CONSTRAINTS);
