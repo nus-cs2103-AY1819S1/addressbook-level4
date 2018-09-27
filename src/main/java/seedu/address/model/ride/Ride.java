@@ -39,11 +39,11 @@ public class Ride {
     /**
      * (Overload) Every field must be present and not null.
      */
-    public Person(Name name, Maintenance daysSinceMaintenance, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, daysSinceMaintenance, email, address, tags);
+    public Ride(Name name, Maintenance daysSinceMaintenance, WaitTime waitingTime, Address address, Set<Tag> tags) {
+        requireAllNonNull(name, daysSinceMaintenance, waitingTime, address, tags);
         this.name = name;
         this.phone = null;
-        this.email = email;
+        this.email = null;
         this.address = address;
         this.tags.addAll(tags);
     }
