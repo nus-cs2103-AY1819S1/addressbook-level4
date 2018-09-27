@@ -20,7 +20,7 @@ public class SignUpCommand extends Command {
             + "USERNAME cannot contain any of these characters: \" > < : \\ / | ? *"
             + "Example: " + COMMAND_WORD + " examplename";
 
-    private static final String MESSAGE_SIGN_UP_SUCCESS = "User \"%1$s\" has successfully been created.";
+    public static final String MESSAGE_SIGN_UP_SUCCESS = "User \"%1$s\" has successfully been created.";
 
     private final Username username;
 
