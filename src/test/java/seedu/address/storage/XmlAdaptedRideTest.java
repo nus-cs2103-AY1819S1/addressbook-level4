@@ -13,8 +13,8 @@ import org.junit.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ride.Address;
 import seedu.address.model.ride.Email;
-import seedu.address.model.ride.Name;
 import seedu.address.model.ride.Maintenance;
+import seedu.address.model.ride.Name;
 import seedu.address.testutil.Assert;
 
 public class XmlAdaptedRideTest {
