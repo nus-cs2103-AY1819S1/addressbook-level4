@@ -8,7 +8,7 @@ import seedu.address.model.PatientQueue;
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
  */
-public abstract class QueueCommand extends Command{
+public abstract class QueueCommand extends Command {
 
     /**
      * Executes the command and returns the result message.

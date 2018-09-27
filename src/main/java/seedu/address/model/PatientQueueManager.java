@@ -1,10 +1,13 @@
 package seedu.address.model;
 
-import seedu.address.commons.core.LogsCenter;
-
 import java.util.LinkedList;
 import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
+
+/**
+ * Represents the current patient queue during runtime.
+ */
 public class PatientQueueManager implements PatientQueue {
     private static final Logger logger = LogsCenter.getLogger(PatientQueueManager.class);
 
