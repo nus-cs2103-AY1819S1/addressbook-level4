@@ -12,11 +12,11 @@ import seedu.address.model.medicine.Prescription;
 public class PrescriptionBuilder {
     private static final String DEFAULT_DRUGNAME = "Paracetamol";
 
-    /** We don't construct a default Dose object here because of the IllegalValueException. */
+    /** We don't construct a default Dose/Duration object here because of the IllegalValueException. */
     private static final double DEFAULT_DOSAGE = 2;
     private static final String DEFAULT_DOSE_UNIT = "tablets";
     private static final int DEFAULT_DOSES_PER_DAY = 4;
-    private static final Duration DEFAULT_DURATION = new Duration(14);
+    private static final int DEFAULT_DURATION_IN_DAYS = 14;
 
     private String drugName;
     private Dose dose;
@@ -25,7 +25,7 @@ public class PrescriptionBuilder {
     public PrescriptionBuilder() throws IllegalValueException {
         drugName = DEFAULT_DRUGNAME;
         dose = new Dose(DEFAULT_DOSAGE, DEFAULT_DOSE_UNIT, DEFAULT_DOSES_PER_DAY);
-        duration = DEFAULT_DURATION;
+        duration = new Duration(DEFAULT_DURATION_IN_DAYS);
     }
 
     /** Copy constructor. */

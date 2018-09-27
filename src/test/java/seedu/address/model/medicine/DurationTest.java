@@ -1,10 +1,15 @@
 package seedu.address.model.medicine;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import seedu.address.commons.exceptions.IllegalValueException;
 
 //@@author snajef
 /**
@@ -36,8 +41,8 @@ public class DurationTest {
     private Duration tenYears;
 
     @Before
-    public void setUp() {
-        double oneDay = 1;
+    public void setUp() throws IllegalValueException {
+        double oneDay = Duration.MILLISECONDS_IN_A_DAY;
         double oneWeek = Duration.DAYS_PER_WEEK * oneDay;
         double oneMonth = Duration.AVERAGE_DAYS_PER_MONTH * oneDay;
         double oneYear = Duration.AVERAGE_DAYS_PER_YEAR * oneDay;
@@ -82,6 +87,33 @@ public class DurationTest {
     }
 
     @Test
+    public void constructor_negativeDoubleDuration_throwsIllegalValueException() {
+        seedu.address.testutil.Assert.assertThrows(IllegalValueException.class,
+                Duration.MESSAGE_DURATION_MUST_BE_POSITIVE, () -> new Duration(-1.0));
+    }
+
+    @Test
+    public void constructor_negativeIntegerDuration_throwsIllegalValueException() {
+        seedu.address.testutil.Assert.assertThrows(IllegalValueException.class,
+                Duration.MESSAGE_DURATION_MUST_BE_POSITIVE, () -> new Duration(-1));
+    }
+
+    @Test
+    public void equals_objectAndItself_returnsTrue() {
+        assertTrue(oneDay.equals(oneDay));
+    }
+
+    @Test
+    public void equals_durationAndDefensiveCopy_returnsTrue() {
+        assertTrue(oneDay.equals(new Duration(oneDay)));
+    }
+
+    @Test
+    public void equals_differentTypes_returnsTrue() {
+        assertFalse(oneDay.equals(1));
+    }
+
+    @Test
     public void isCorrectStringRepresentDuration() {
         org.junit.Assert.assertEquals(periodToString(startDate, oneDayEndDate) + " [1 day(s)]", oneDay.toString());
         org.junit.Assert.assertEquals(periodToString(startDate, twoDaysEndDate) + " [2 day(s)]", twoDays.toString());
@@ -100,7 +132,42 @@ public class DurationTest {
                 + " [1 year(s), 10 month(s), 2 week(s), 1 day(s)]", oneYearTenMonthsTwoWeeksOneDay.toString());
         org.junit.Assert.assertEquals(periodToString(startDate, tenYearsEndDate) + " [10 year(s)]",
                 tenYears.toString());
+    }
 
+    @Test
+    public void areDatesEqual_objectAndItself_returnsTrue() {
+        Calendar date = Calendar.getInstance();
+        assertTrue(Duration.areDatesEqual(date, date));
+    }
+
+    @Test
+    public void areDatesEqual_objectAndSameDay_returnsTrue() {
+        Calendar date = Calendar.getInstance();
+        Calendar anotherDate = Calendar.getInstance();
+        assertTrue(Duration.areDatesEqual(date, anotherDate));
+    }
+
+    @Test
+    public void areDatesEqual_differentDays_returnsTrue() {
+        Calendar date = Calendar.getInstance();
+        Calendar anotherDate = Calendar.getInstance();
+        anotherDate.add(Calendar.DAY_OF_YEAR, 1);
+        assertFalse(Duration.areDatesEqual(date, anotherDate));
+    }
+
+    @Test
+    public void shiftDateRange_startAndEndDatesAreCorrectlyShifted() {
+        Duration aCopyOfOneDay = new Duration(oneDay);
+        Calendar oneDayIntoFuture = Calendar.getInstance();
+        Calendar twoDaysIntoFuture = Calendar.getInstance();
+        oneDayIntoFuture.add(Calendar.DAY_OF_YEAR, 1);
+        twoDaysIntoFuture.add(Calendar.DAY_OF_YEAR, 2);
+        aCopyOfOneDay.shiftDateRange(oneDayIntoFuture);
+
+        assertTrue(aCopyOfOneDay.getStartDateAsString()
+                .equals(Duration.DATE_FORMAT.format(oneDayIntoFuture.getTime())));
+        assertTrue(aCopyOfOneDay.getEndDateAsString()
+                .equals(Duration.DATE_FORMAT.format(twoDaysIntoFuture.getTime())));
     }
 
     private void calibrateEndDate(Duration d, Calendar endDate) {

@@ -3,6 +3,7 @@ package seedu.address.model.medicine;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -90,9 +91,12 @@ public class PrescriptionList {
         return false;
     }
 
-    /**
-     * Returns an unmodifiable ObservableList of the prescriptions contained within.
-     */
+    /** Wrapper method for List::stream */
+    public Stream<Prescription> stream() {
+        return medicineList.stream();
+    }
+
+    /** Helper method to return an unmodifiable view of the medication list. */
     public ObservableList<Prescription> getReadOnlyList() {
         return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(medicineList));
     }

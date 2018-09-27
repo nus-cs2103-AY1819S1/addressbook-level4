@@ -59,10 +59,6 @@ public class BrowserPanel extends UiPart<Region> {
     @Subscribe
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        logger.info("PRESCRIPTIONLIST: " + event.getNewSelection()
-                                                .getPrescriptionList()
-                                                .getReadOnlyList()
-                                                .toString());
         resetTableView(event.getNewSelection());
     }
 
@@ -140,7 +136,7 @@ public class BrowserPanel extends UiPart<Region> {
                     public ObservableValue<String> call(CellDataFeatures<Prescription, String> param) {
                         return new SimpleStringProperty(param.getValue()
                                                              .getDuration()
-                                                             .getDuration());
+                                                             .getDurationAsString());
                     }
                 });
     }
