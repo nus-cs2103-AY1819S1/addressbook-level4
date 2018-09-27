@@ -141,6 +141,11 @@ public class LoginCommandTest {
         }
 
         @Override
+        public void updateFilteredEventList(Predicate<Event> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean canUndoAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
