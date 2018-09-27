@@ -38,7 +38,8 @@ public class Password {
         return test.matches(PASSWORD_VALIDATION_REGEX);
     }
 
-    
+    public void encrypt(String password) {
+    }
     
     @Override
     public String toString() {
