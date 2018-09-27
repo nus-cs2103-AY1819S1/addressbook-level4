@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import at.favre.lib.crypto.bcrypt.BCrypt.Result;
+import at.favre.lib.crypto.bcrypt.BCrypt.Verifyer;
 
 //@@author jjlee050
 /**
@@ -45,9 +47,9 @@ public class Password {
     /**
      * Returns true if the given hashed password match the user hash password.
      */
-    public boolean isSameAsHashPassword(String password) {
-        String bcryptHashString = BCrypt.withDefaults().hashToString(12, password.toCharArray());
-        BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), bcryptHashString);
+    public static boolean isSameAsHashPassword(String password, String passwordHashString) {
+        Verifyer verifyer = BCrypt.verifyer();
+        Result result = verifyer.verify(password.toCharArray(), passwordHashString);
         return result.verified;
         
     }
