@@ -40,8 +40,16 @@ public class Password {
         return test.matches(PASSWORD_VALIDATION_REGEX);
     }
 
-    public void encrypt(String password) {
+    //@@author jjlee050-reused
+    //Reused from https://github.com/patrickfav/bcrypt with minor modifications
+    /**
+     * Returns true if the given hashed password match the user hash password.
+     */
+    public boolean isSameAsHashPassword(String password) {
         String bcryptHashString = BCrypt.withDefaults().hashToString(12, password.toCharArray());
+        BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), bcryptHashString);
+        return result.verified;
+        
     }
     
     @Override
