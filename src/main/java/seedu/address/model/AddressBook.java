@@ -153,7 +153,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public String toString() {
         //@@author jjlee050
         return persons.asUnmodifiableObservableList().size() + " persons & "
-                + doctors.asUnmodifiableObservableList().size() + "doctors";
+                + doctors.asUnmodifiableObservableList().size() + " doctors";
         // TODO: refine later
     }
 
