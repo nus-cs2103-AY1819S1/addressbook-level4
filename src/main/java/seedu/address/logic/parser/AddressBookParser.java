@@ -78,9 +78,11 @@ public class AddressBookParser {
         case ReceiptCommand.COMMAND_WORD:
             return new ReceiptCommandParser().parse(arguments);
 
-        case QueueCommand.COMMAND_WORD:
-            return new QueueCommand();
+        case DisplayQueueCommand.COMMAND_WORD:
+            return new DisplayQueueCommand();
 
+        case EnqueueCommand.COMMAND_WORD:
+            return new EnqueueCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

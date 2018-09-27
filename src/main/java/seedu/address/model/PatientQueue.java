@@ -44,4 +44,16 @@ public interface PatientQueue {
      * @return Length of the current queue.
      */
     int getQueueLength();
+
+    /**
+     * Checks whether the queue is empty.
+     * @return true if queue is empty.
+     */
+    boolean isEmpty();
+
+    /**
+     * Checks whether queue contains specified patient.
+     * @return true if queue contains patient.
+     */
+    boolean contains(String patientName);
 }

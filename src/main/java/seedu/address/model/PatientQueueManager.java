@@ -13,16 +13,16 @@ public class PatientQueueManager implements PatientQueue {
     @Override
     public String displayQueue() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Queue: ");
+        sb.append(getQueueLength() + " Patient(s) in queue: ");
         patientQueue.stream()
                     .forEach(x -> sb.append(x + ", "));
-        return sb.toString();
+        return sb.substring(0, sb.length() - 2);
     }
 
     @Override
     public int enqueue(String patient) {
         patientQueue.add(patient);
-        return patientQueue.size() - 1;
+        return getQueueLength();
     }
 
     @Override
@@ -51,4 +51,13 @@ public class PatientQueueManager implements PatientQueue {
         return patientQueue.size();
     }
 
+    @Override
+    public boolean isEmpty() {
+        return patientQueue.isEmpty();
+    }
+
+    @Override
+    public boolean contains(String patient) {
+        return patientQueue.contains(patient);
+    }
 }
