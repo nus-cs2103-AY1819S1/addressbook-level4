@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+
 import seedu.address.model.expense.Person;
 import seedu.address.model.util.SampleDataUtil;
 
