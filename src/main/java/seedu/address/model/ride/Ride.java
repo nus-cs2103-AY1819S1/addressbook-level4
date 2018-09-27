@@ -80,6 +80,10 @@ public class Ride {
         return waitingTime;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
     public Address getAddress() {
         return address;
     }
@@ -99,6 +103,7 @@ public class Ride {
     public void setWaitingTime(int value) {
         this.waitingTime.setValue(value);
     }
+
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
@@ -114,8 +119,21 @@ public class Ride {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both rides have the same name.
+     * This defines a weaker notion of equality between two rides.
+     */
+    public boolean isSameRide(Ride otherRide) {
+        if (otherRide == this) {
+            return true;
+        }
+
+        return otherRide != null
+                && otherRide.getName().equals(getName());
+    }
+
+    /**
+     * Returns true if both rides have the same identity and data fields.
+     * This defines a stronger notion of equality between two rides.
      */
     @Override
     public boolean equals(Object other) {
@@ -129,16 +147,17 @@ public class Ride {
 
         Ride otherRide = (Ride) other;
         return otherRide.getName().equals(getName())
-                && otherRide.getPhone().equals(getPhone())
-                && otherRide.getEmail().equals(getEmail())
+                && otherRide.getDaysSinceMaintenance().equals(getDaysSinceMaintenance())
+                && otherRide.getWaitingTime().equals(getWaitingTime())
                 && otherRide.getAddress().equals(getAddress())
+                && otherRide.getStatus() == getStatus()
                 && otherRide.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, daysSinceMaintenance, waitingTime, address, status, tags);
     }
 
     @Override
