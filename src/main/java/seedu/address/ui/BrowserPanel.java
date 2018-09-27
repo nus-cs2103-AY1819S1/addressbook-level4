@@ -72,6 +72,11 @@ public class BrowserPanel extends UiPart<Region> {
     private void handleNewResultAvailableEvent(NewResultAvailableEvent event) {
         logger.info("[seedu.address.ui.BrowserPanel]: " + LogsCenter.getEventHandlingLogMessage(event));
 
+        // If we're not looking at anything, there's no need to update.
+        if (currentSelection == null) {
+            return;
+        }
+
         // Our current pointer is outdated, so we have to find our new Person object and update our table to point
         // to his medication list.
         currentSelection = persons.filtered(person -> currentSelection.isSamePerson(person)).get(0);
@@ -156,4 +161,18 @@ public class BrowserPanel extends UiPart<Region> {
                     }
                 });
     }
+
+    // The getter/setter methods here should only be used for TESTING PURPOSES!!
+    /** Getter method to return the currently selected person. */
+    public Person getCurrentSelection() {
+        return currentSelection;
+    }
+
+    /** Setter method to fix the currently selected person.
+     *  Will only work if the current selection is null.
+     */
+    public void setCurrentSelection(Person p) {
+        currentSelection = (currentSelection == null ? p : currentSelection);
+    }
+
 }

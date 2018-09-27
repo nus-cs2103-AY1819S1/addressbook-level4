@@ -1,8 +1,10 @@
 package seedu.address.testutil;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import seedu.address.model.medicine.Prescription;
 import seedu.address.model.medicine.PrescriptionList;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -103,8 +105,16 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Email} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withPrescriptionList(List<Prescription> prescriptionList) {
+        this.prescriptionList = new PrescriptionList(prescriptionList);
+        return this;
+    }
+
     public Person build() {
-        return new Person(nric, name, phone, email, address, tags);
+        return new Person(nric, name, phone, email, address, tags, prescriptionList);
     }
 
 }
