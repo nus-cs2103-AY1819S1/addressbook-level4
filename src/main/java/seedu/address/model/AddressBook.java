@@ -123,7 +123,9 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        //@@author jjlee050
+        return persons.asUnmodifiableObservableList().size() + " persons & "
+                + doctors.asUnmodifiableObservableList().size() + "doctors";
         // TODO: refine later
     }
 
@@ -132,24 +134,24 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.asUnmodifiableObservableList();
     }
 
-    //@@author jjlee050
     @Override
     public ObservableList<Doctor> getDoctorList() {
+        //@@author jjlee050
         return doctors.asUnmodifiableObservableList();
     }
     
-    //@@author jjlee050
     @Override
     public boolean equals(Object other) {
+        //@@author jjlee050
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
                 && persons.equals(((AddressBook) other).persons)
                 && doctors.equals(((AddressBook) other).doctors));
     }
 
-    //@@author jjlee050
     @Override
     public int hashCode() {
+        //@@author jjlee050
         return Objects.hash(persons.hashCode(), doctors.hashCode());
     }
 }
