@@ -71,6 +71,9 @@ public class TypicalPersons {
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
         }
+        for (Doctor doctor : getTypicalDoctors()) {
+            ab.addDoctor(doctor);
+        }
         return ab;
     }
 
