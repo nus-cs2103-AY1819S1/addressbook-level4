@@ -27,15 +27,14 @@ import seedu.address.model.tag.Tag;
 public class Event {
 
     // Identity fields
-    private static int currID = 0;
     private final Name name;
-    private final int id;
 
     // Data fields
     private final Address location;
 
     private LocalDate date;
     private LocalTime time;
+    private Person organiser;
 
     private final Set<Tag> tags = new HashSet<>();
     private final ArrayList<Poll> polls;
@@ -44,12 +43,11 @@ public class Event {
     /**
      * Every field must be present and not null.
      */
-    public Event(Name name, Address address, Set<Tag> tags) {
+    public Event(Name name, Address address, Person organiser, Set<Tag> tags) {
         requireAllNonNull(name, address, tags);
-        this.id = currID;
-        currID++;
         this.name = name;
         this.location = address;
+        this.organiser = organiser;
         this.tags.addAll(tags);
         polls = new ArrayList<>();
         personList = new UniquePersonList();
@@ -61,6 +59,10 @@ public class Event {
 
     public Address getLocation() {
         return location;
+    }
+
+    public Person getOrganiser() {
+        return organiser;
     }
 
     public LocalDate getDate() {

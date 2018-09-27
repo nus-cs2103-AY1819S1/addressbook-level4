@@ -10,6 +10,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.Poll;
@@ -47,7 +48,6 @@ public class VoteCommand extends Command {
         if (event == null) {
             throw new CommandException(Messages.MESSAGE_NO_EVENT_SELECTED);
         }
-
         try {
             Poll poll = event.getPoll(pollIndex);
             Person person = history.getSelectedPerson();
@@ -61,6 +61,8 @@ public class VoteCommand extends Command {
             throw new CommandException("No poll exists at this index.");
         } catch (IllegalArgumentException e) {
             throw new CommandException("No such option exists in this poll.");
+        } catch (NoUserLoggedInException e) {
+            throw new CommandException(Messages.MESSAGE_NO_USER_LOGGED_IN);
         }
     }
 
