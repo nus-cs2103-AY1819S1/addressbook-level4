@@ -82,7 +82,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /* Case: add a ride with all fields same as another ride in the address book except phone and email
          * -> added
          */
-        toAdd = new RideBuilder(AMY).withMaintenance(VALID_MAINTENANCE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        toAdd = new RideBuilder(AMY).withName("Different")
+                .withMaintenance(VALID_MAINTENANCE_BOB).withEmail(VALID_EMAIL_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 

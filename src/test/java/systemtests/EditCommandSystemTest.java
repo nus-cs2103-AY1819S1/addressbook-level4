@@ -23,6 +23,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_MAINTENANCE_AMY
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -97,10 +98,12 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
          * -> edited
          */
         index = INDEX_SECOND_PERSON;
+        String editedName = "Different";
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased()
-                + NAME_DESC_BOB + MAINTENANCE_DESC_AMY + EMAIL_DESC_AMY
+                + " " + PREFIX_NAME + editedName + MAINTENANCE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedRide = new RideBuilder(BOB).withMaintenance(VALID_MAINTENANCE_AMY).withEmail(VALID_EMAIL_AMY).build();
+        editedRide = new RideBuilder(BOB).withName(editedName)
+                .withMaintenance(VALID_MAINTENANCE_AMY).withEmail(VALID_EMAIL_AMY).build();
         assertCommandSuccess(command, index, editedRide);
 
         /* Case: clear tags -> cleared */
@@ -115,10 +118,11 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         /* Case: filtered ride list, edit index within bounds of address book and ride list -> edited */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_PERSON;
+        editedName = "Another name";
         assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_NAME + editedName;
         rideToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
-        editedRide = new RideBuilder(rideToEdit).withName(VALID_NAME_BOB).build();
+        editedRide = new RideBuilder(rideToEdit).withName(editedName).build();
         assertCommandSuccess(command, index, editedRide);
 
         /* Case: filtered ride list, edit index within bounds of address book but out of bounds of ride list
