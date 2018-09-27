@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.LinkedList;
 import java.util.List;
 
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.event.Event;
 

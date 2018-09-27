@@ -52,7 +52,7 @@ public class SetTimeCommand extends Command {
             if (!person.equals(event.getOrganiser())) {
                 throw new CommandException(Messages.MESSAGE_NOT_EVENT_ORGANISER);
             }
-        } catch (NoUserLoggedInException e){
+        } catch (NoUserLoggedInException e) {
             throw new CommandException(Messages.MESSAGE_NO_USER_LOGGED_IN);
         }
 
