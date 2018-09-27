@@ -9,7 +9,7 @@ import seedu.address.model.util.SampleDataUtil;
 public class SampleDataUtilTest {
     @Test
     public void testGetSamplePersons() {
-        Assert.assertEquals(SampleDataUtil.getSamplePersons().length, 7);
+        Assert.assertEquals(SampleDataUtil.getSamplePersons().length, 6);
     }
 
     @Test
