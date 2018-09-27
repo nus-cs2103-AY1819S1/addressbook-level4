@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.awt.Paint;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -11,7 +12,10 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -176,15 +180,18 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void show() {
-
-        //@@author jjlee050
-        //Set full screen in exclusive mode
-        primaryStage.setFullScreen(true);
-        primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-
         primaryStage.show();
     }
-
+    
+    //@@author jjlee050
+    /**
+     * Set full screen in exclusive mode.
+     */
+    void viewInFullScreen() {
+        primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        primaryStage.setFullScreen(true);
+    }
+    
     /**
      * Closes the application.
      */
