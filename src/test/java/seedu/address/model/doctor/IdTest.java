@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+
 import seedu.address.testutil.Assert;
 
 //@@author jjlee050
@@ -22,7 +23,7 @@ public class IdTest {
         assertFalse(Id.isValidId(-1)); //Negative
         assertFalse(Id.isValidId(-9478));
         assertFalse(Id.isValidId(-120 * 102));
-        assertFalse(Id.isValidId((int)Math.pow(2, 32) + 1)); //More than 2 ^ 32
+        assertFalse(Id.isValidId((int) Math.pow(2, 32) + 1)); //More than 2 ^ 32
 
         //valid id
         assertTrue(Id.isValidId(1)); // One
@@ -31,6 +32,6 @@ public class IdTest {
         assertTrue(Id.isValidId(002040));
         assertTrue(Id.isValidId(350274));
         assertTrue(Id.isValidId((int) Math.pow(2, 16)));
-        assertTrue(Id.isValidId((int)Math.pow(2, 32))); //Very large number
+        assertTrue(Id.isValidId((int) Math.pow(2, 32))); //Very large number
     }
 }

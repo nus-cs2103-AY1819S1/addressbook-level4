@@ -53,15 +53,19 @@ public class TypicalPersons {
     public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
             .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
     public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-            .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+            .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+            .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
-    public static final Doctor ADAM = new DoctorBuilder().withId(1).withName("Adam Bell").withPassword("doctor1").build();
-    public static final Doctor BEN = new DoctorBuilder().withId(2).withName("Ben Hill").withPassword("doctor2").build();
+    public static final Doctor ADAM = new DoctorBuilder().withId(1).withName("Adam Bell")
+            .withPassword("doctor1").build();
+    public static final Doctor BEN = new DoctorBuilder().withId(2).withName("Ben Hill")
+            .withPassword("doctor2").build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalPersons() {} // prevents instantiation
+    private TypicalPersons() {
+    } // prevents instantiation
 
     /**
      * Returns an {@code AddressBook} with all the typical persons.

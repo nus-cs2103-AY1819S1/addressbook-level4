@@ -3,6 +3,7 @@ package seedu.address.commons.util;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
+
 import seedu.address.testutil.Assert;
 
 public class HashUtilTest {

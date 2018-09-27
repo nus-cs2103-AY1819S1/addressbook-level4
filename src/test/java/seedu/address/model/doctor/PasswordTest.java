@@ -3,8 +3,8 @@ package seedu.address.model.doctor;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
 import org.junit.Test;
+
 import seedu.address.commons.util.HashUtil;
 import seedu.address.testutil.Assert;
 
@@ -58,8 +58,8 @@ public class PasswordTest {
         //invalid password
         assertFalse(Password.isSameAsHashPassword("peter13", HashUtil.hashToString(password)));
         assertFalse(Password.isSameAsHashPassword("peter13", HashUtil.hashToString(password)));
-        assertFalse(Password.isSameAsHashPassword("peter12"," ")); //Only spaces password hash string
-        assertFalse(Password.isSameAsHashPassword(""," ")); //Empty string and only spaces password hash string
+        assertFalse(Password.isSameAsHashPassword("peter12", " ")); //Only spaces password hash string
+        assertFalse(Password.isSameAsHashPassword("", " ")); //Empty string and only spaces password hash string
 
         //valid password
         assertTrue(Password.isSameAsHashPassword(password, HashUtil.hashToString(password)));
