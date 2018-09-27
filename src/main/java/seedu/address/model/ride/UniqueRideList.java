@@ -13,16 +13,16 @@ import seedu.address.model.ride.exceptions.PersonNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A ride is considered unique by comparing using {@code Ride#isSamePerson(Ride)}. As such, adding and updating of
- * persons uses Ride#isSamePerson(Ride) for equality so as to ensure that the ride being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a ride uses Ride#equals(Object) so
+ * A ride is considered unique by comparing using {@code Ride#isSameRide(Ride)}. As such, adding and updating of
+ * persons uses Ride#isSameRide(Ride) for equality so as to ensure that the ride being added or updated is
+ * unique in terms of identity in the UniqueRideList. However, the removal of a ride uses Ride#equals(Object) so
  * as to ensure that the ride with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
- * @see Ride#isSamePerson(Ride)
+ * @see Ride#isSameRide(Ride)
  */
-public class UniquePersonList implements Iterable<Ride> {
+public class UniqueRideList implements Iterable<Ride> {
 
     private final ObservableList<Ride> internalList = FXCollections.observableArrayList();
 
@@ -31,7 +31,7 @@ public class UniquePersonList implements Iterable<Ride> {
      */
     public boolean contains(Ride toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSamePerson);
+        return internalList.stream().anyMatch(toCheck::isSameRide);
     }
 
     /**
@@ -51,7 +51,7 @@ public class UniquePersonList implements Iterable<Ride> {
      * {@code target} must exist in the list.
      * The ride identity of {@code editedRide} must not be the same as another existing ride in the list.
      */
-    public void setPerson(Ride target, Ride editedRide) {
+    public void setRide(Ride target, Ride editedRide) {
         requireAllNonNull(target, editedRide);
 
         int index = internalList.indexOf(target);
@@ -59,7 +59,7 @@ public class UniquePersonList implements Iterable<Ride> {
             throw new PersonNotFoundException();
         }
 
-        if (!target.isSamePerson(editedRide) && contains(editedRide)) {
+        if (!target.isSameRide(editedRide) && contains(editedRide)) {
             throw new DuplicatePersonException();
         }
 
@@ -77,7 +77,7 @@ public class UniquePersonList implements Iterable<Ride> {
         }
     }
 
-    public void setPersons(UniquePersonList replacement) {
+    public void setRides(UniqueRideList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -86,9 +86,9 @@ public class UniquePersonList implements Iterable<Ride> {
      * Replaces the contents of this list with {@code rides}.
      * {@code rides} must not contain duplicate rides.
      */
-    public void setPersons(List<Ride> rides) {
+    public void setRides(List<Ride> rides) {
         requireAllNonNull(rides);
-        if (!personsAreUnique(rides)) {
+        if (!ridesAreUnique(rides)) {
             throw new DuplicatePersonException();
         }
 
@@ -110,8 +110,8 @@ public class UniquePersonList implements Iterable<Ride> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniquePersonList // instanceof handles nulls
-                        && internalList.equals(((UniquePersonList) other).internalList));
+                || (other instanceof UniqueRideList // instanceof handles nulls
+                        && internalList.equals(((UniqueRideList) other).internalList));
     }
 
     @Override
@@ -122,10 +122,10 @@ public class UniquePersonList implements Iterable<Ride> {
     /**
      * Returns true if {@code rides} contains only unique rides.
      */
-    private boolean personsAreUnique(List<Ride> rides) {
+    private boolean ridesAreUnique(List<Ride> rides) {
         for (int i = 0; i < rides.size() - 1; i++) {
             for (int j = i + 1; j < rides.size(); j++) {
-                if (rides.get(i).isSamePerson(rides.get(j))) {
+                if (rides.get(i).isSameRide(rides.get(j))) {
                     return false;
                 }
             }

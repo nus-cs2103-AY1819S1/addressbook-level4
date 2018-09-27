@@ -14,31 +14,34 @@ import seedu.address.model.util.SampleDataUtil;
 /**
  * A utility class to help with building Ride objects.
  */
-public class PersonBuilder {
+public class RideBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_DIFFERENTNAME = "Alice";
 
     private Name name;
     private Phone phone;
     private Email email;
     private Address address;
     private Set<Tag> tags;
+    private Name differentName;
 
-    public PersonBuilder() {
+    public RideBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
+        differentName = new Name(DEFAULT_DIFFERENTNAME);
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code rideToCopy}.
+     * Initializes the RideBuilder with the data of {@code rideToCopy}.
      */
-    public PersonBuilder(Ride rideToCopy) {
+    public RideBuilder(Ride rideToCopy) {
         name = rideToCopy.getName();
         phone = rideToCopy.getPhone();
         email = rideToCopy.getEmail();
@@ -49,7 +52,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Name} of the {@code Ride} that we are building.
      */
-    public PersonBuilder withName(String name) {
+    public RideBuilder withName(String name) {
         this.name = new Name(name);
         return this;
     }
@@ -57,7 +60,7 @@ public class PersonBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Ride} that we are building.
      */
-    public PersonBuilder withTags(String ... tags) {
+    public RideBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
@@ -65,7 +68,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Address} of the {@code Ride} that we are building.
      */
-    public PersonBuilder withAddress(String address) {
+    public RideBuilder withAddress(String address) {
         this.address = new Address(address);
         return this;
     }
@@ -73,7 +76,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Phone} of the {@code Ride} that we are building.
      */
-    public PersonBuilder withPhone(String phone) {
+    public RideBuilder withPhone(String phone) {
         this.phone = new Phone(phone);
         return this;
     }
@@ -81,13 +84,17 @@ public class PersonBuilder {
     /**
      * Sets the {@code Email} of the {@code Ride} that we are building.
      */
-    public PersonBuilder withEmail(String email) {
+    public RideBuilder withEmail(String email) {
         this.email = new Email(email);
         return this;
     }
 
     public Ride build() {
         return new Ride(name, phone, email, address, tags);
+    }
+
+    public Ride buildDifferent() {
+        return new Ride(differentName, phone, email, address, tags);
     }
 
 }

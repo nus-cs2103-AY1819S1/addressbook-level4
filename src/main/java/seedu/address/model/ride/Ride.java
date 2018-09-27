@@ -105,20 +105,6 @@ public class Ride {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
-     */
-    public boolean isSamePerson(Ride otherRide) {
-        if (otherRide == this) {
-            return true;
-        }
-
-        return otherRide != null
-                && otherRide.getName().equals(getName())
-                && (otherRide.getPhone().equals(getPhone()) || otherRide.getEmail().equals(getEmail()));
-    }
-
-    /**
      * Returns true if both rides have the same name.
      * This defines a weaker notion of equality between two rides.
      */
@@ -147,8 +133,8 @@ public class Ride {
 
         Ride otherRide = (Ride) other;
         return otherRide.getName().equals(getName())
-                && otherRide.getDaysSinceMaintenance().equals(getDaysSinceMaintenance())
-                && otherRide.getWaitingTime().equals(getWaitingTime())
+                && otherRide.getPhone().equals(getPhone())
+                && otherRide.getEmail().equals(getEmail())
                 && otherRide.getAddress().equals(getAddress())
                 && otherRide.getStatus() == getStatus()
                 && otherRide.getTags().equals(getTags());

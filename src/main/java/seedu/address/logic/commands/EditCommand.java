@@ -78,7 +78,7 @@ public class EditCommand extends Command {
         Ride rideToEdit = lastShownList.get(index.getZeroBased());
         Ride editedRide = createEditedPerson(rideToEdit, editPersonDescriptor);
 
-        if (!rideToEdit.isSamePerson(editedRide) && model.hasPerson(editedRide)) {
+        if (!rideToEdit.isSameRide(editedRide) && model.hasPerson(editedRide)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 

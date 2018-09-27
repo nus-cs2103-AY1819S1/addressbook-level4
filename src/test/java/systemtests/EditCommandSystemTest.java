@@ -45,7 +45,7 @@ import seedu.address.model.ride.Name;
 import seedu.address.model.ride.Phone;
 import seedu.address.model.ride.Ride;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.RideBuilder;
 import seedu.address.testutil.PersonUtil;
 
 public class EditCommandSystemTest extends AddressBookSystemTest {
@@ -62,7 +62,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         Index index = INDEX_FIRST_PERSON;
         String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
                 + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
-        Ride editedRide = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
+        Ride editedRide = new RideBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
         assertCommandSuccess(command, index, editedRide);
 
         /* Case: undo editing the last ride in the list -> last ride restored */
@@ -88,7 +88,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), BOB);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedRide = new PersonBuilder(BOB).withName(VALID_NAME_AMY).build();
+        editedRide = new RideBuilder(BOB).withName(VALID_NAME_AMY).build();
         assertCommandSuccess(command, index, editedRide);
 
         /* Case: edit a ride with new values same as another ride's values but with different phone and email
@@ -97,14 +97,14 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         index = INDEX_SECOND_PERSON;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedRide = new PersonBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
+        editedRide = new RideBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
         assertCommandSuccess(command, index, editedRide);
 
         /* Case: clear tags -> cleared */
         index = INDEX_FIRST_PERSON;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
         Ride rideToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
-        editedRide = new PersonBuilder(rideToEdit).withTags().build();
+        editedRide = new RideBuilder(rideToEdit).withTags().build();
         assertCommandSuccess(command, index, editedRide);
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
@@ -115,7 +115,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
         rideToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
-        editedRide = new PersonBuilder(rideToEdit).withName(VALID_NAME_BOB).build();
+        editedRide = new RideBuilder(rideToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedRide);
 
         /* Case: filtered ride list, edit index within bounds of address book but out of bounds of ride list
