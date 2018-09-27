@@ -1,5 +1,6 @@
 package seedu.address.model.util;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -46,8 +47,8 @@ public class SampleDataUtil {
     
     //@@author jjlee050
     public static List<Doctor> getSampleDoctors() {
-        return List.of(new Doctor(new Id(1), new Name("Adam Bell"), new Password("doctor1")),
-                new Doctor(new Id(2), new Name("Chip Dale"), new Password("doctor2")));
+        return new ArrayList<>(Arrays.asList(new Doctor(new Id(1), new Name("Adam Bell"), new Password("doctor1")),
+                new Doctor(new Id(2), new Name("Chip Dale"), new Password("doctor2"))));
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
