@@ -19,11 +19,11 @@ import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAIT_TIME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MAINTENANCE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_WAIT_TIME_BOB;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalPersons.AMY;
@@ -33,10 +33,10 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.ride.Address;
-import seedu.address.model.ride.WaitTime;
 import seedu.address.model.ride.Maintenance;
 import seedu.address.model.ride.Name;
 import seedu.address.model.ride.Ride;
+import seedu.address.model.ride.WaitTime;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.RideBuilder;
 

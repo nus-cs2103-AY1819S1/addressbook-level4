@@ -1,10 +1,10 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_WAITING_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MAINTENANCE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_WAITING_TIME;
 
 import java.util.Set;
 
@@ -48,7 +48,8 @@ public class PersonUtil {
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getMaintenance().ifPresent(
             phone -> sb.append(PREFIX_MAINTENANCE).append(phone.getValue()).append(" "));
-        descriptor.getWaitTime().ifPresent(email -> sb.append(PREFIX_WAITING_TIME).append(email.getValue()).append(" "));
+        descriptor.getWaitTime().ifPresent(
+            email-> sb.append(PREFIX_WAITING_TIME).append(email.getValue()).append(" "));
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();

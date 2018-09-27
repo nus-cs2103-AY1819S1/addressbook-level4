@@ -11,10 +11,10 @@ import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ride.Address;
-import seedu.address.model.ride.WaitTime;
 import seedu.address.model.ride.Maintenance;
 import seedu.address.model.ride.Name;
 import seedu.address.model.ride.Ride;
+import seedu.address.model.ride.WaitTime;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -100,7 +100,8 @@ public class XmlAdaptedPerson {
         final Maintenance modelMaintenance = new Maintenance(daysSinceMaintenanceString);
 
         if (waitingTimeString == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, WaitTime.class.getSimpleName()));
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, WaitTime.class.getSimpleName()));
         }
         if (!WaitTime.isValidWaitTime(waitingTimeString)) {
             throw new IllegalValueException(WaitTime.MESSAGE_WAIT_TIME_CONSTRAINTS);

@@ -17,13 +17,13 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAIT_TIME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAIT_TIME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MAINTENANCE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MAINTENANCE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_WAIT_TIME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_WAIT_TIME_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -37,9 +37,9 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.ride.Address;
-import seedu.address.model.ride.WaitTime;
 import seedu.address.model.ride.Maintenance;
 import seedu.address.model.ride.Name;
+import seedu.address.model.ride.WaitTime;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
@@ -124,7 +124,7 @@ public class EditCommandParserTest {
                 + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND;
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withMaintenance(VALID_MAINTENANCE_BOB).withEmail(VALID_WAIT_TIME_AMY).withAddress(VALID_ADDRESS_AMY)
+                .withMaintenance(VALID_MAINTENANCE_BOB).withWaitTime(VALID_WAIT_TIME_AMY).withAddress(VALID_ADDRESS_AMY)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -137,7 +137,7 @@ public class EditCommandParserTest {
         String userInput = targetIndex.getOneBased() + MAINTENANCE_DESC_BOB + EMAIL_DESC_AMY;
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withMaintenance(VALID_MAINTENANCE_BOB)
-                .withEmail(VALID_WAIT_TIME_AMY).build();
+                .withWaitTime(VALID_WAIT_TIME_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -160,7 +160,7 @@ public class EditCommandParserTest {
 
         // email
         userInput = targetIndex.getOneBased() + EMAIL_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withEmail(VALID_WAIT_TIME_AMY).build();
+        descriptor = new EditPersonDescriptorBuilder().withWaitTime(VALID_WAIT_TIME_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -185,7 +185,8 @@ public class EditCommandParserTest {
                 + MAINTENANCE_DESC_BOB + ADDRESS_DESC_BOB + EMAIL_DESC_BOB + TAG_DESC_HUSBAND;
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withMaintenance(VALID_MAINTENANCE_BOB)
-                .withEmail(VALID_WAIT_TIME_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+                .withWaitTime(VALID_WAIT_TIME_BOB)
+                .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -205,7 +206,8 @@ public class EditCommandParserTest {
         // other valid values specified
         userInput = targetIndex.getOneBased() + EMAIL_DESC_BOB + INVALID_MAINTENANCE_DESC + ADDRESS_DESC_BOB
                 + MAINTENANCE_DESC_BOB;
-        descriptor = new EditPersonDescriptorBuilder().withMaintenance(VALID_MAINTENANCE_BOB).withEmail(VALID_WAIT_TIME_BOB)
+        descriptor = new EditPersonDescriptorBuilder()
+                .withMaintenance(VALID_MAINTENANCE_BOB).withWaitTime(VALID_WAIT_TIME_BOB)
                 .withAddress(VALID_ADDRESS_BOB).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);

@@ -3,10 +3,10 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_WAITING_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MAINTENANCE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_WAITING_TIME;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -63,10 +63,10 @@ public class CommandTestUtil {
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withMaintenance(VALID_MAINTENANCE_AMY).withEmail(VALID_WAIT_TIME_AMY).withAddress(VALID_ADDRESS_AMY)
+                .withMaintenance(VALID_MAINTENANCE_AMY).withWaitTime(VALID_WAIT_TIME_AMY).withAddress(VALID_ADDRESS_AMY)
                 .withTags(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withMaintenance(VALID_MAINTENANCE_BOB).withEmail(VALID_WAIT_TIME_BOB).withAddress(VALID_ADDRESS_BOB)
+                .withMaintenance(VALID_MAINTENANCE_BOB).withWaitTime(VALID_WAIT_TIME_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 

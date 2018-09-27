@@ -6,10 +6,10 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.ride.Address;
-import seedu.address.model.ride.WaitTime;
 import seedu.address.model.ride.Maintenance;
 import seedu.address.model.ride.Name;
 import seedu.address.model.ride.Ride;
+import seedu.address.model.ride.WaitTime;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -58,7 +58,7 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the {@code WaitTime} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withEmail(String email) {
+    public EditPersonDescriptorBuilder withWaitTime(String email) {
         descriptor.setWaitTime(new WaitTime(email));
         return this;
     }

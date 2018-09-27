@@ -17,9 +17,9 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ride.Address;
-import seedu.address.model.ride.WaitTime;
 import seedu.address.model.ride.Maintenance;
 import seedu.address.model.ride.Name;
+import seedu.address.model.ride.WaitTime;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 

@@ -12,9 +12,9 @@ import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ride.Address;
-import seedu.address.model.ride.WaitTime;
 import seedu.address.model.ride.Maintenance;
 import seedu.address.model.ride.Name;
+import seedu.address.model.ride.WaitTime;
 import seedu.address.testutil.Assert;
 
 public class XmlAdaptedRideTest {
@@ -48,7 +48,8 @@ public class XmlAdaptedRideTest {
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        XmlAdaptedPerson person = new XmlAdaptedPerson(null, VALID_MAINTENANCE, VALID_WAIT_TIME, VALID_ADDRESS, VALID_TAGS);
+        XmlAdaptedPerson person = new XmlAdaptedPerson(null,
+                VALID_MAINTENANCE, VALID_WAIT_TIME, VALID_ADDRESS, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -93,7 +94,8 @@ public class XmlAdaptedRideTest {
 
     @Test
     public void toModelType_nullAddress_throwsIllegalValueException() {
-        XmlAdaptedPerson person = new XmlAdaptedPerson(VALID_NAME, VALID_MAINTENANCE, VALID_WAIT_TIME, null, VALID_TAGS);
+        XmlAdaptedPerson person = new XmlAdaptedPerson(VALID_NAME,
+                VALID_MAINTENANCE, VALID_WAIT_TIME, null, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }

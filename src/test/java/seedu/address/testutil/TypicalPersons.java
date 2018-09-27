@@ -2,14 +2,14 @@ package seedu.address.testutil;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAIT_TIME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAIT_TIME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MAINTENANCE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MAINTENANCE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_WAIT_TIME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_WAIT_TIME_BOB;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,7 +52,8 @@ public class TypicalPersons {
     public static final Ride AMY = new RideBuilder().withName(VALID_NAME_AMY).withMaintenance(VALID_MAINTENANCE_AMY)
             .withWaitTime(VALID_WAIT_TIME_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
     public static final Ride BOB = new RideBuilder().withName(VALID_NAME_BOB).withMaintenance(VALID_MAINTENANCE_BOB)
-            .withWaitTime(VALID_WAIT_TIME_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+            .withWaitTime(VALID_WAIT_TIME_BOB)
+            .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
