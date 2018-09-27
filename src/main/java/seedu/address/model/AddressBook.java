@@ -3,10 +3,10 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
-
 import java.util.Objects;
+
 import javafx.collections.ObservableList;
-import javax.print.Doc;
+
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.doctor.UniqueDoctorList;
 import seedu.address.model.person.Person;
