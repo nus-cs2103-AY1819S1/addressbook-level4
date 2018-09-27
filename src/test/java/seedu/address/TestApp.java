@@ -1,5 +1,9 @@
 package seedu.address;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.function.Supplier;
+
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
@@ -10,22 +14,20 @@ import seedu.address.commons.util.XmlUtil;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.exceptions.NoUserSelectedException;
+import seedu.address.model.exceptions.NonExistentUserException;
+import seedu.address.model.user.Username;
 import seedu.address.storage.ExpensesStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.XmlExpensesStorage;
 import seedu.address.storage.XmlSerializableAddressBook;
-import seedu.address.testutil.ModelUtil;
 import seedu.address.testutil.TestUtil;
 import seedu.address.ui.UiManager;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.function.Supplier;
+import systemtests.ModelHelper;
 
 /**
  * This class is meant to override some properties of MainApp so that it will be suited for
@@ -33,7 +35,7 @@ import java.util.function.Supplier;
  */
 public class TestApp extends MainApp {
 
-    public static final Path SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
+    public static final Path SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("data\\sampleData.xml");
     public static final String APP_TITLE = "Test App";
 
     protected static final Path DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
@@ -70,7 +72,6 @@ public class TestApp extends MainApp {
         double x = Screen.getPrimary().getVisualBounds().getMinX();
         double y = Screen.getPrimary().getVisualBounds().getMinY();
         userPrefs.updateLastUsedGuiSetting(new GuiSettings(600.0, 600.0, (int) x, (int) y));
-        userPrefs.setAddressBookDirPath(saveFileLocation);
         return userPrefs;
     }
 
@@ -79,7 +80,8 @@ public class TestApp extends MainApp {
      */
     public AddressBook readStorageAddressBook() {
         try {
-            return new AddressBook(storage.readExpenses().get());
+            return new AddressBook(storage.readAllExpenses(userPrefs.getAddressBookDirPath()).get(
+                    new Username("sampleData")));
         } catch (DataConversionException dce) {
             throw new AssertionError("Data is not in the AddressBook format.", dce);
         } catch (IOException ioe) {
@@ -98,9 +100,20 @@ public class TestApp extends MainApp {
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
-        //TODO: Make defensive
-        Model copy = new ModelManager(model.getAddressBooks(), new UserPrefs());
-        return copy;
+        try {
+            Model copy = model.copy(userPrefs);
+            ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
+            return copy;
+        } catch (NonExistentUserException | NoUserSelectedException e) {
+            throw new AssertionError(e.getMessage());
+        }
+    }
+
+    /**
+     * Returns the model.
+     */
+    public Model getActualModel() {
+        return model;
     }
 
     @Override
@@ -126,26 +139,22 @@ public class TestApp extends MainApp {
 
     @Override
     public void init() throws Exception {
-        super.init();
-
         AppParameters appParameters = AppParameters.parse(getParameters());
         config = initConfig(appParameters.getConfigPath());
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
         ExpensesStorage expensesStorage = new XmlExpensesStorage(userPrefs.getAddressBookDirPath());
-        storage = new StorageManager(expensesStorage, userPrefsStorage);
+        this.storage = new StorageManager(expensesStorage, userPrefsStorage);
 
         initLogging(config);
 
-        model = ModelUtil.modelWithTestUser();
+        this.model = initModelManager(this.storage, this.userPrefs);
 
-        logic = new LogicManager(model);
+        this.logic = new LogicManager(this.model);
 
-        ui = new UiManager(logic, config, userPrefs);
+        this.ui = new UiManager(this.logic, this.config, this.userPrefs);
 
         initEventsCenter();
-
-        model.loadUserData(ModelUtil.TEST_USERNAME);
     }
 }

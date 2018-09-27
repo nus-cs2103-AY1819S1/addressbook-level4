@@ -7,7 +7,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Map;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -20,8 +19,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.exceptions.NonExistentUserException;
-import seedu.address.model.exceptions.UserAlreadyExistsException;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.expense.Person;
 import seedu.address.model.user.Username;
 import seedu.address.testutil.PersonBuilder;
@@ -158,7 +156,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void loadUserData(Username username) throws NonExistentUserException {
+        public void loadUserData(Username username) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -168,7 +166,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addUser(Username username) throws UserAlreadyExistsException {
+        public void addUser(Username username) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -178,7 +176,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public Map<Username, ReadOnlyAddressBook> getAddressBooks() {
+        public Model copy(UserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }
     }

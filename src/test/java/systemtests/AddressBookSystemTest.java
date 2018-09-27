@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
@@ -58,10 +57,10 @@ public abstract class AddressBookSystemTest {
     private static final List<String> COMMAND_BOX_ERROR_STYLE =
             Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
 
-    private MainWindowHandle mainWindowHandle;
-    private TestApp testApp;
-    private SystemTestSetupHelper setupHelper;
+    protected TestApp testApp;
 
+    private MainWindowHandle mainWindowHandle;
+    private SystemTestSetupHelper setupHelper;
     @BeforeClass
     public static void setupBeforeClass() {
         SystemTestSetupHelper.initialize();
@@ -158,7 +157,8 @@ public abstract class AddressBookSystemTest {
     protected void showPersonsWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
         try {
-            assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size());
+            assertTrue(testApp.getActualModel().getFilteredPersonList().size()
+                    < getModel().getAddressBook().getPersonList().size());
         } catch (NoUserSelectedException e) {
             Assert.fail(e.getMessage());
         }
@@ -302,11 +302,10 @@ public abstract class AddressBookSystemTest {
         assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());
-        assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 
     /**
-     * Returns a defensive copy of the current model.
+     * Returns a copy of the current model.
      */
     protected Model getModel() {
         return testApp.getModel();

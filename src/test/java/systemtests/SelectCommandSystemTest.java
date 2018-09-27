@@ -24,7 +24,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
     @Test
     public void select() {
         try {
-            /* ------------------------ Perform select operations on the shown unfiltered list -------------------------- */
+            /* --------------------- Perform select operations on the shown unfiltered list ----------------------- */
 
             /* Case: select the first card in the person list, command with leading spaces and trailing spaces
              * -> selected
@@ -55,14 +55,15 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
             /* Case: select the current selected card -> selected */
             assertCommandSuccess(command, middleIndex);
 
-            /* ------------------------ Perform select operations on the shown filtered list ---------------------------- */
+            /* --------------------- Perform select operations on the shown filtered list ------------------------- */
 
             /* Case: filtered person list, select index within bounds of address book but out of bounds of person list
              * -> rejected
              */
             showPersonsWithName(KEYWORD_MATCHING_MEIER);
             int invalidIndex = getModel().getAddressBook().getPersonList().size();
-            assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex,
+                    MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
             /* Case: filtered person list, select index within bounds of address book and person list -> selected */
             Index validIndex = Index.fromOneBased(1);
@@ -70,7 +71,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
             command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();
             assertCommandSuccess(command, validIndex);
 
-            /* ----------------------------------- Perform invalid select operations ------------------------------------ */
+            /* -------------------------------- Perform invalid select operations --------------------------------- */
 
             /* Case: invalid index (0) -> rejected */
             assertCommandFailure(SelectCommand.COMMAND_WORD + " " + 0,
@@ -82,7 +83,8 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
 
             /* Case: invalid index (size + 1) -> rejected */
             invalidIndex = getModel().getFilteredPersonList().size() + 1;
-            assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex,
+                    MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
             /* Case: invalid arguments (alphabets) -> rejected */
             assertCommandFailure(SelectCommand.COMMAND_WORD + " abc",

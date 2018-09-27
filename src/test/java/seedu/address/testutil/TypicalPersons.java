@@ -64,7 +64,7 @@ public class TypicalPersons {
      * Returns an {@code AddressBook} with all the typical persons.
      */
     public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook(new Username("typicalPersonsAddressBook"));
+        AddressBook ab = new AddressBook(new Username("sampleData"));
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
         }

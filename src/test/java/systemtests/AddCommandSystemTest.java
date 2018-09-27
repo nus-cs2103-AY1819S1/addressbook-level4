@@ -45,7 +45,6 @@ import seedu.address.model.expense.Name;
 import seedu.address.model.expense.Person;
 import seedu.address.model.expense.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.ModelUtil;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
@@ -53,7 +52,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void add() {
-        Model model = ModelUtil.modelWithTestUser();
+        Model model = testApp.getActualModel();
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 

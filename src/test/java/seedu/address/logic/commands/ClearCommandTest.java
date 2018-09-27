@@ -12,8 +12,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.exceptions.NoUserSelectedException;
-import seedu.address.model.exceptions.NonExistentUserException;
-import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.user.Username;
 import seedu.address.testutil.ModelUtil;
 
@@ -28,7 +26,8 @@ public class ClearCommandTest {
             Model expectedModel = ModelUtil.modelWithTestUser();
             expectedModel.commitAddressBook();
 
-            assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+            assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS,
+                    expectedModel);
         } catch (NoUserSelectedException e) {
             Assert.fail("Error committing, No user selected in model.");
         }

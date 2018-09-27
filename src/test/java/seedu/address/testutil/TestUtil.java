@@ -1,14 +1,14 @@
 package seedu.address.testutil;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.model.Model;
-import seedu.address.model.exceptions.NoUserSelectedException;
-import seedu.address.model.expense.Person;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import seedu.address.commons.core.index.Index;
+import seedu.address.model.Model;
+import seedu.address.model.exceptions.NoUserSelectedException;
+import seedu.address.model.expense.Person;
 
 /**
  * A utility class for test cases.
