@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 import seedu.address.TestApp;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.exceptions.NonExistentUserException;
-import seedu.address.model.user.Username;
 import seedu.address.testutil.TypicalPersons;
 
 /**
