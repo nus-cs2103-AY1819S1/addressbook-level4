@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.interest.Interest;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -37,6 +38,8 @@ public class XmlAdaptedPerson {
     private String schedule;
 
     @XmlElement
+    private List<XmlAdaptedInterest> interests = new ArrayList<>();
+    @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -49,11 +52,14 @@ public class XmlAdaptedPerson {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
-    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedInterest> interests, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        if (interests != null) {
+            this.interests = new ArrayList<>(interests);
+        }
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
@@ -70,6 +76,9 @@ public class XmlAdaptedPerson {
         email = source.getEmail().value;
         address = source.getAddress().value;
         schedule = source.getSchedule().valueToString();
+        interests = source.getInterests().stream()
+                .map(XmlAdaptedInterest::new)
+                .collect(Collectors.toList());
         tagged = source.getTags().stream()
             .map(XmlAdaptedTag::new)
             .collect(Collectors.toList());
@@ -82,7 +91,11 @@ public class XmlAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Person toModelType() throws IllegalValueException {
+        final List<Interest> personInterests = new ArrayList<>();
         final List<Tag> personTags = new ArrayList<>();
+        for (XmlAdaptedInterest interest : interests) {
+            personInterests.add(interest.toModelType());
+        }
         for (XmlAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
         }
@@ -126,9 +139,9 @@ public class XmlAdaptedPerson {
             modelSchedule = new Schedule(schedule);
         }
 
-
+        final Set<Interest> modelInterests = new HashSet<>(personInterests);
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelSchedule);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelInterests, modelTags, modelSchedule);
     }
 
     @Override
@@ -146,6 +159,7 @@ public class XmlAdaptedPerson {
             && Objects.equals(phone, otherPerson.phone)
             && Objects.equals(email, otherPerson.email)
             && Objects.equals(address, otherPerson.address)
+            && interests.equals(otherPerson.interests)
             && tagged.equals(otherPerson.tagged);
     }
 }

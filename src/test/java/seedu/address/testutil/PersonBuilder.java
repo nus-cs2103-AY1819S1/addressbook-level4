@@ -3,6 +3,7 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.model.interest.Interest;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -25,6 +26,7 @@ public class PersonBuilder {
     private Phone phone;
     private Email email;
     private Address address;
+    private Set<Interest> interests;
     private Set<Tag> tags;
 
     public PersonBuilder() {
@@ -32,6 +34,7 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
+        interests = new HashSet<>();
         tags = new HashSet<>();
     }
 
@@ -43,6 +46,7 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
+        interests = new HashSet<>(personToCopy.getInterests());
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -51,6 +55,14 @@ public class PersonBuilder {
      */
     public PersonBuilder withName(String name) {
         this.name = new Name(name);
+        return this;
+    }
+
+    /**
+     * Parses the {@code interests} into a {@code Set<Interest>} and set it to the {@code Person} that we are building.
+     */
+    public PersonBuilder withInterests(String ... interests) {
+        this.interests = SampleDataUtil.getInterestSet(interests);
         return this;
     }
 
@@ -87,7 +99,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, address, tags);
+        return new Person(name, phone, email, address, interests, tags);
     }
 
 }

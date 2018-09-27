@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.interest.Interest;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -23,17 +24,19 @@ public class Person {
     // Data fields
     private final Address address;
     private final Schedule schedule;
+    private final Set<Interest> interests = new HashSet<>();
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, Address address, Set<Interest> interests, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, interests, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.interests.addAll(interests);
         this.tags.addAll(tags);
         this.schedule = new Schedule();
     }
@@ -41,12 +44,13 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Schedule schedule) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, Address address, Set<Interest> interests, Set<Tag> tags, Schedule schedule) {
+        requireAllNonNull(name, phone, email, address, interests, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.interests.addAll(interests);
         this.tags.addAll(tags);
         this.schedule = schedule;
     }
@@ -69,6 +73,14 @@ public class Person {
 
     public Schedule getSchedule() {
         return schedule;
+    }
+
+    /**
+     * Returns an immutable interest set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Interest> getInterests() {
+        return Collections.unmodifiableSet(interests);
     }
 
     /**
@@ -112,6 +124,7 @@ public class Person {
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
+                && otherPerson.getInterests().equals(getInterests())
                 && otherPerson.getTags().equals(getTags());
     }
 
@@ -131,7 +144,9 @@ public class Person {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
-                .append(" Tags: ");
+                .append(" Interests: ");
+        getInterests().forEach(builder::append);
+        builder.append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
