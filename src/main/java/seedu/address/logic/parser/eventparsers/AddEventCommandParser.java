@@ -20,13 +20,13 @@ import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new AddUserCommand object
  */
 public class AddEventCommandParser implements Parser<AddEventCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddUserCommand
+     * and returns an AddUserCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */
