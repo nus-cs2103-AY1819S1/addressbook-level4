@@ -3,6 +3,8 @@ package seedu.address.model.doctor;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
+
 //@@author jjlee050
 /**
  * Represents a Doctor's password in the ClinicIO.
@@ -39,6 +41,7 @@ public class Password {
     }
 
     public void encrypt(String password) {
+        String bcryptHashString = BCrypt.withDefaults().hashToString(12, password.toCharArray());
     }
     
     @Override
