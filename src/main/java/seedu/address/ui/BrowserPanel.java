@@ -162,14 +162,10 @@ public class BrowserPanel extends UiPart<Region> {
                 });
     }
 
-    // The getter/setter methods here should only be used for TESTING PURPOSES!!
-    /** Getter method to return the currently selected person. */
-    public Person getCurrentSelection() {
-        return currentSelection;
-    }
-
-    /** Setter method to fix the currently selected person.
-     *  Will only work if the current selection is null.
+    /**
+     * Setter method to fix the currently selected person.
+     * Should only be used for testing purposes.
+     * Will only work if the current selection is null.
      */
     public void setCurrentSelection(Person p) {
         currentSelection = (currentSelection == null ? p : currentSelection);
