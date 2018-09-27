@@ -52,7 +52,6 @@ public class SystemTestSetupHelper {
      */
     public MainWindowHandle setupMainWindowHandle() {
         try {
-            Thread.sleep(5000);
             FxToolkit.setupFixture(() -> {
                 try {
                     testApp.getActualModel().loadUserData(new Username("sampleData"));
@@ -60,8 +59,7 @@ public class SystemTestSetupHelper {
                     Assert.fail(e.getMessage());
                 }
             });
-            Thread.sleep(5000);
-        } catch (TimeoutException | InterruptedException e) {
+        } catch (TimeoutException e) {
             Assert.fail(e.getMessage());
         }
         try {
