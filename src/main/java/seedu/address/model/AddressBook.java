@@ -142,10 +142,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
     }
-
+    
+    //@@author jjlee050
     @Override
     public ObservableList<Doctor> getDoctorList() {
-        //@@author jjlee050
         return doctors.asUnmodifiableObservableList();
     }
     
