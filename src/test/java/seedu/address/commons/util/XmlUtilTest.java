@@ -34,13 +34,13 @@ public class XmlUtilTest {
     private static final Path VALID_TASK_FILE = TEST_DATA_FOLDER.resolve("validTask.xml");
     private static final Path TEMP_FILE = TestUtil.getFilePathInSandboxFolder("tempTaskManager.xml");
 
-    private static final String INVALID_PHONE = "9482asf424";
+    private static final String INVALID_DUE_DATE = "9482asf424";
 
     private static final String VALID_NAME = "Hans Muster";
-    private static final String VALID_PHONE = "9482424";
-    private static final String VALID_EMAIL = "hans@example";
-    private static final String VALID_ADDRESS = "4th street";
-    private static final List<XmlAdaptedLabel> VALID_TAGS = Collections.singletonList(new XmlAdaptedLabel("friends"));
+    private static final String VALID_DUE_DATE = "9482424";
+    private static final String VALID_PRIORITY_VAlUE = "hans@example";
+    private static final String VALID_DESCRIPTION = "4th street";
+    private static final List<XmlAdaptedLabel> VALID_LABELS = Collections.singletonList(new XmlAdaptedLabel("friends"));
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -80,7 +80,7 @@ public class XmlUtilTest {
         XmlAdaptedTask actualTask = XmlUtil.getDataFromFile(
                 MISSING_TASK_FIELD_FILE, XmlAdaptedTaskWithRootElement.class);
         XmlAdaptedTask expectedTask = new XmlAdaptedTask(
-                null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+                null, VALID_DUE_DATE, VALID_PRIORITY_VAlUE, VALID_DESCRIPTION, VALID_LABELS);
         assertEquals(expectedTask, actualTask);
     }
 
@@ -89,7 +89,7 @@ public class XmlUtilTest {
         XmlAdaptedTask actualTask = XmlUtil.getDataFromFile(
                 INVALID_TASK_FIELD_FILE, XmlAdaptedTaskWithRootElement.class);
         XmlAdaptedTask expectedTask = new XmlAdaptedTask(
-                VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+                VALID_NAME, INVALID_DUE_DATE, VALID_PRIORITY_VAlUE, VALID_DESCRIPTION, VALID_LABELS);
         assertEquals(expectedTask, actualTask);
     }
 
@@ -98,7 +98,7 @@ public class XmlUtilTest {
         XmlAdaptedTask actualTask = XmlUtil.getDataFromFile(
                 VALID_TASK_FILE, XmlAdaptedTaskWithRootElement.class);
         XmlAdaptedTask expectedTask = new XmlAdaptedTask(
-                VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+                VALID_NAME, VALID_DUE_DATE, VALID_PRIORITY_VAlUE, VALID_DESCRIPTION, VALID_LABELS);
         assertEquals(expectedTask, actualTask);
     }
 
