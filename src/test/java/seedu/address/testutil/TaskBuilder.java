@@ -24,14 +24,14 @@ public class TaskBuilder {
     private Name name;
     private DueDate dueDate;
     private PriorityValue priorityValue;
-    private Description address;
+    private Description description;
     private Set<Label> labels;
 
     public TaskBuilder() {
         name = new Name(DEFAULT_NAME);
         dueDate = new DueDate(DEFAULT_DUEDATE);
         priorityValue = new PriorityValue(DEFAULT_PRIORITYVALUE);
-        address = new Description(DEFAULT_DESCRIPTION);
+        description = new Description(DEFAULT_DESCRIPTION);
         labels = new HashSet<>();
     }
 
@@ -42,7 +42,7 @@ public class TaskBuilder {
         name = personToCopy.getName();
         dueDate = personToCopy.getDueDate();
         priorityValue = personToCopy.getPriorityValue();
-        address = personToCopy.getDescription();
+        description = personToCopy.getDescription();
         labels = new HashSet<>(personToCopy.getLabels());
     }
 
@@ -66,7 +66,7 @@ public class TaskBuilder {
      * Sets the {@code Description} of the {@code Task} that we are building.
      */
     public TaskBuilder withDescription(String description) {
-        this.address = new Description(description);
+        this.description = new Description(description);
         return this;
     }
 
@@ -87,7 +87,7 @@ public class TaskBuilder {
     }
 
     public Task build() {
-        return new Task(name, dueDate, priorityValue, address, labels);
+        return new Task(name, dueDate, priorityValue, description, labels);
     }
 
 }
