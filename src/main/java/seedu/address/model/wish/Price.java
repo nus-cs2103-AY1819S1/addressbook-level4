@@ -13,7 +13,7 @@ public class Price {
     public static final String MESSAGE_PHONE_CONSTRAINTS =
             "Phone numbers should only contain numbers, and it should be at least 3 digits long";
     public static final String PHONE_VALIDATION_REGEX = "\\d{3,}";
-    public final double value;
+    public final Double value;
 
     /**
      * Constructs a {@code Phone}.
@@ -23,7 +23,7 @@ public class Price {
     public Price(String phone) {
         requireNonNull(phone);
         checkArgument(isValidPhone(phone), MESSAGE_PHONE_CONSTRAINTS);
-        value = Double.parseDouble(phone);
+        value = Double.parseDouble(phone); // TO-DO: check before allowing.
     }
 
     /**
