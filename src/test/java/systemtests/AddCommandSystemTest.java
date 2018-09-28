@@ -22,12 +22,12 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LABEL;
 import static seedu.address.testutil.TypicalTasks.A_TASK;
-import static seedu.address.testutil.TypicalTasks.Y_TASK;
-import static seedu.address.testutil.TypicalTasks.Z_TASK;
 import static seedu.address.testutil.TypicalTasks.C_TASK;
 import static seedu.address.testutil.TypicalTasks.H_TASK;
 import static seedu.address.testutil.TypicalTasks.I_TASK;
 import static seedu.address.testutil.TypicalTasks.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalTasks.Y_TASK;
+import static seedu.address.testutil.TypicalTasks.Z_TASK;
 
 import org.junit.Test;
 

@@ -27,9 +27,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_LABEL;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TASK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TASK;
+import static seedu.address.testutil.TypicalTasks.KEYWORD_MATCHING_MEIER;
 import static seedu.address.testutil.TypicalTasks.Y_TASK;
 import static seedu.address.testutil.TypicalTasks.Z_TASK;
-import static seedu.address.testutil.TypicalTasks.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
