@@ -4,6 +4,7 @@
     <wishes>
         <name>Alice Pauline</name>
         <price>94.35</price>
+        <savedAmount>0.00</savedAmount>
         <email>alice@example.com</email>
         <url>https://www.lazada.sg/products/ps4-092-hori-real-arcade-pron-hayabusaps4ps3pc-i223784444-s340908955.html</url>
         <tagged>friends</tagged>
@@ -12,6 +13,7 @@
     <wishes>
         <name>Benson Meier</name>
         <price>98.76</price>
+        <savedAmount>0.00</savedAmount>
         <email>johnd@example.com</email>
         <url>https://www.amazon.com/Apple-iPhone-Fully-Unlocked-32GB/dp/B0731HBTZ7</url>
         <tagged>owesMoney</tagged>
@@ -21,6 +23,7 @@
     <wishes>
         <name>Carl Kurz</name>
         <price>98.76</price>
+        <savedAmount>0.00</savedAmount>
         <email>heinz@example.com</email>
         <url>https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV</url>
         <remark></remark>
@@ -28,6 +31,7 @@
     <wishes>
         <name>Daniel Meier</name>
         <price>87.65</price>
+        <savedAmount>0.00</savedAmount>
         <email>cornelia@example.com</email>
         <url>https://www.amazon.com/Logitech-Mechanical-Keyboard-Romer-Switches/dp/B071VHYZ62</url>
         <tagged>friends</tagged>
@@ -36,6 +40,7 @@
     <wishes>
         <name>Elle Meyer</name>
         <price>94.82</price>
+        <savedAmount>0.00</savedAmount>
         <email>werner@example.com</email>
         <url>https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV</url>
         <remark></remark>
@@ -43,6 +48,7 @@
     <wishes>
         <name>Fiona Kunz</name>
         <price>94.82</price>
+        <savedAmount>0.00</savedAmount>
         <email>lydia@example.com</email>
         <url>https://www.lazada.sg/products/nintendo-switch-neon-console-1-year-local-warranty-best-seller-i180040203-s230048296.html</url>
         <remark></remark>
@@ -50,6 +56,7 @@
     <wishes>
         <name>George Best</name>
         <price>94.82</price>
+        <savedAmount>0.00</savedAmount>
         <email>anna@example.com</email>
         <url>https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV</url>
         <remark></remark>
