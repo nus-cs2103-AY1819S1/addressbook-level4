@@ -6,10 +6,10 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditWishDescriptor;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.wish.Url;
 import seedu.address.model.wish.Email;
 import seedu.address.model.wish.Name;
 import seedu.address.model.wish.Price;
+import seedu.address.model.wish.Url;
 import seedu.address.model.wish.Wish;
 
 /**
