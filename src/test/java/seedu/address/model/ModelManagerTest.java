@@ -13,7 +13,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.model.ride.NameContainsKeywordsPredicate;
+import seedu.address.model.ride.RideContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
 
 public class ModelManagerTest {
@@ -70,7 +70,7 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = ACCELERATOR.getName().fullName.split("\\s+");
-        modelManager.updateFilteredRideList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        modelManager.updateFilteredRideList(new RideContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests

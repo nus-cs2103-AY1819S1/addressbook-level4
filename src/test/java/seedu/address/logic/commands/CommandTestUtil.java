@@ -17,8 +17,8 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ThanePark;
-import seedu.address.model.ride.NameContainsKeywordsPredicate;
 import seedu.address.model.ride.Ride;
+import seedu.address.model.ride.RideContainsKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -125,7 +125,7 @@ public class CommandTestUtil {
 
         Ride ride = model.getFilteredRideList().get(targetIndex.getZeroBased());
         final String[] splitName = ride.getName().fullName.split("\\s+");
-        model.updateFilteredRideList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredRideList(new RideContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredRideList().size());
     }
