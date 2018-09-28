@@ -43,7 +43,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.wish.Url;
 import seedu.address.model.wish.Email;
 import seedu.address.model.wish.Name;
-import seedu.address.model.wish.Phone;
+import seedu.address.model.wish.Price;
 import seedu.address.model.wish.Wish;
 import seedu.address.testutil.WishBuilder;
 import seedu.address.testutil.WishUtil;
@@ -169,7 +169,7 @@ public class EditCommandSystemTest extends WishBookSystemTest {
 
         /* Case: invalid phone -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_WISH.getOneBased() + INVALID_PHONE_DESC,
-                Phone.MESSAGE_PHONE_CONSTRAINTS);
+                Price.MESSAGE_PHONE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_WISH.getOneBased() + INVALID_EMAIL_DESC,

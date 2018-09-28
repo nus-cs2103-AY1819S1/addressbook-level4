@@ -7,23 +7,23 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Person's phone number in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
  */
-public class Phone {
+public class Price {
 
 
     public static final String MESSAGE_PHONE_CONSTRAINTS =
             "Phone numbers should only contain numbers, and it should be at least 3 digits long";
     public static final String PHONE_VALIDATION_REGEX = "\\d{3,}";
-    public final String value;
+    public final double value;
 
     /**
      * Constructs a {@code Phone}.
      *
      * @param phone A valid phone number.
      */
-    public Phone(String phone) {
+    public Price(String phone) {
         requireNonNull(phone);
         checkArgument(isValidPhone(phone), MESSAGE_PHONE_CONSTRAINTS);
-        value = phone;
+        value = Double.parseDouble(phone);
     }
 
     /**
@@ -35,14 +35,14 @@ public class Phone {
 
     @Override
     public String toString() {
-        return value;
+        return String.format("%.2f,", value);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Phone // instanceof handles nulls
-                && value.equals(((Phone) other).value)); // state check
+                || (other instanceof Price // instanceof handles nulls
+                && value.equals(((Price) other).value)); // state check
     }
 
     @Override

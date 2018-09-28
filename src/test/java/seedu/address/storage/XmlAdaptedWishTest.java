@@ -14,7 +14,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.wish.Url;
 import seedu.address.model.wish.Email;
 import seedu.address.model.wish.Name;
-import seedu.address.model.wish.Phone;
+import seedu.address.model.wish.Price;
 import seedu.address.testutil.Assert;
 
 public class XmlAdaptedWishTest {
@@ -25,7 +25,7 @@ public class XmlAdaptedWishTest {
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = BENSON.getName().toString();
-    private static final String VALID_PHONE = BENSON.getPhone().toString();
+    private static final String VALID_PHONE = BENSON.getPrice().toString();
     private static final String VALID_EMAIL = BENSON.getEmail().toString();
     private static final String VALID_ADDRESS = BENSON.getUrl().toString();
     private static final List<XmlAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
@@ -57,14 +57,14 @@ public class XmlAdaptedWishTest {
     public void toModelType_invalidPhone_throwsIllegalValueException() {
         XmlAdaptedWish wish =
                 new XmlAdaptedWish(VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = Phone.MESSAGE_PHONE_CONSTRAINTS;
+        String expectedMessage = Price.MESSAGE_PHONE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, wish::toModelType);
     }
 
     @Test
     public void toModelType_nullPhone_throwsIllegalValueException() {
         XmlAdaptedWish wish = new XmlAdaptedWish(VALID_NAME, null, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Price.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, wish::toModelType);
     }
 

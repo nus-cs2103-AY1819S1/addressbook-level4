@@ -8,7 +8,7 @@ import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.wish.Url;
 import seedu.address.model.wish.Email;
 import seedu.address.model.wish.Name;
-import seedu.address.model.wish.Phone;
+import seedu.address.model.wish.Price;
 import seedu.address.model.wish.Remark;
 import seedu.address.model.wish.Wish;
 
@@ -24,7 +24,7 @@ public class WishBuilder {
     public static final String DEFAULT_REMARK = "";
 
     private Name name;
-    private Phone phone;
+    private Price price;
     private Email email;
     private Url url;
     private Remark remark;
@@ -32,7 +32,7 @@ public class WishBuilder {
 
     public WishBuilder() {
         name = new Name(DEFAULT_NAME);
-        phone = new Phone(DEFAULT_PHONE);
+        price = new Price(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         url = new Url(DEFAULT_URL);
         remark = new Remark(DEFAULT_REMARK);
@@ -44,7 +44,7 @@ public class WishBuilder {
      */
     public WishBuilder(Wish wishToCopy) {
         name = wishToCopy.getName();
-        phone = wishToCopy.getPhone();
+        price = wishToCopy.getPrice();
         email = wishToCopy.getEmail();
         url = wishToCopy.getUrl();
         remark = wishToCopy.getRemark();
@@ -79,7 +79,7 @@ public class WishBuilder {
      * Sets the {@code Phone} of the {@code Wish} that we are building.
      */
     public WishBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
+        this.price = new Price(phone);
         return this;
     }
 
@@ -100,7 +100,7 @@ public class WishBuilder {
     }
 
     public Wish build() {
-        return new Wish(name, phone, email, url, remark, tags);
+        return new Wish(name, price, email, url, remark, tags);
     }
 
 }

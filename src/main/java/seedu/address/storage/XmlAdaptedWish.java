@@ -13,7 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.wish.Email;
 import seedu.address.model.wish.Name;
-import seedu.address.model.wish.Phone;
+import seedu.address.model.wish.Price;
 import seedu.address.model.wish.Remark;
 import seedu.address.model.wish.Url;
 import seedu.address.model.wish.Wish;
@@ -66,7 +66,7 @@ public class XmlAdaptedWish {
      */
     public XmlAdaptedWish(Wish source) {
         name = source.getName().fullName;
-        phone = source.getPhone().value;
+        phone = source.getPrice().value;
         email = source.getEmail().value;
         url = source.getUrl().value;
         remark = source.getRemark().value;
@@ -95,12 +95,12 @@ public class XmlAdaptedWish {
         final Name modelName = new Name(name);
 
         if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Price.class.getSimpleName()));
         }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_PHONE_CONSTRAINTS);
+        if (!Price.isValidPhone(phone)) {
+            throw new IllegalValueException(Price.MESSAGE_PHONE_CONSTRAINTS);
         }
-        final Phone modelPhone = new Phone(phone);
+        final Price modelPrice = new Price(phone);
 
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
@@ -124,7 +124,7 @@ public class XmlAdaptedWish {
         final Remark modelRemark = new Remark(this.remark);
 
         final Set<Tag> modelTags = new HashSet<>(wishTags);
-        return new Wish(modelName, modelPhone, modelEmail, modelUrl, modelRemark, modelTags);
+        return new Wish(modelName, modelPrice, modelEmail, modelUrl, modelRemark, modelTags);
     }
 
     @Override

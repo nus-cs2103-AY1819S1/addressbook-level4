@@ -9,7 +9,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.wish.Url;
 import seedu.address.model.wish.Email;
 import seedu.address.model.wish.Name;
-import seedu.address.model.wish.Phone;
+import seedu.address.model.wish.Price;
 import seedu.address.model.wish.Wish;
 
 /**
@@ -33,7 +33,7 @@ public class EditWishDescriptorBuilder {
     public EditWishDescriptorBuilder(Wish wish) {
         descriptor = new EditWishDescriptor();
         descriptor.setName(wish.getName());
-        descriptor.setPhone(wish.getPhone());
+        descriptor.setPrice(wish.getPrice());
         descriptor.setEmail(wish.getEmail());
         descriptor.setUrl(wish.getUrl());
         descriptor.setTags(wish.getTags());
@@ -51,7 +51,7 @@ public class EditWishDescriptorBuilder {
      * Sets the {@code Phone} of the {@code EditPersonDescriptor} that we are building.
      */
     public EditWishDescriptorBuilder withPhone(String phone) {
-        descriptor.setPhone(new Phone(phone));
+        descriptor.setPrice(new Price(phone));
         return this;
     }
 

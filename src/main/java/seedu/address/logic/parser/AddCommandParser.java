@@ -16,7 +16,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.wish.Url;
 import seedu.address.model.wish.Email;
 import seedu.address.model.wish.Name;
-import seedu.address.model.wish.Phone;
+import seedu.address.model.wish.Price;
 import seedu.address.model.wish.Remark;
 import seedu.address.model.wish.Wish;
 
@@ -41,14 +41,14 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+        Price price = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Url url = ParserUtil.parseUrl(argMultimap.getValue(PREFIX_URL).get());
         Remark remark = new Remark(""); // remark cannot be added manually by add command
 
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Wish wish = new Wish(name, phone, email, url, remark, tagList);
+        Wish wish = new Wish(name, price, email, url, remark, tagList);
 
         return new AddCommand(wish);
     }

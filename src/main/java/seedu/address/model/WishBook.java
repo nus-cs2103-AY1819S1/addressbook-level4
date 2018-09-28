@@ -110,7 +110,7 @@ public class WishBook implements ReadOnlyWishBook {
             modifiedTags.removeIf(t -> t == tag);
 
             Wish modifiedWish = new Wish(wish.getName(),
-                    wish.getPhone(),
+                    wish.getPrice(),
                     wish.getEmail(),
                     wish.getUrl(),
                     wish.getRemark(),

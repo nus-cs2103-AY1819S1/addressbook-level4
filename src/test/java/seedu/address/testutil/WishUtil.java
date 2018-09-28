@@ -31,7 +31,7 @@ public class WishUtil {
     public static String getWishDetails(Wish wish) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + wish.getName().fullName + " ");
-        sb.append(PREFIX_PHONE + wish.getPhone().value + " ");
+        sb.append(PREFIX_PHONE + wish.getPrice().value + " ");
         sb.append(PREFIX_EMAIL + wish.getEmail().value + " ");
         sb.append(PREFIX_URL + wish.getUrl().value + " ");
         wish.getTags().stream().forEach(
@@ -46,7 +46,7 @@ public class WishUtil {
     public static String getEditWishDescriptorDetails(EditWishDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
-        descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
+        descriptor.getPrice().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getUrl().ifPresent(url -> sb.append(PREFIX_URL).append(url.value).append(" "));
         if (descriptor.getTags().isPresent()) {

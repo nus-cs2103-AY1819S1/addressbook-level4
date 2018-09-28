@@ -24,7 +24,7 @@ import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.wish.Email;
 import seedu.address.model.wish.Name;
-import seedu.address.model.wish.Phone;
+import seedu.address.model.wish.Price;
 import seedu.address.model.wish.Remark;
 import seedu.address.model.wish.Url;
 import seedu.address.model.wish.Wish;
@@ -99,13 +99,13 @@ public class EditCommand extends Command {
         assert wishToEdit != null;
 
         Name updatedName = editWishDescriptor.getName().orElse(wishToEdit.getName());
-        Phone updatedPhone = editWishDescriptor.getPhone().orElse(wishToEdit.getPhone());
+        Price updatedPrice = editWishDescriptor.getPrice().orElse(wishToEdit.getPrice());
         Email updatedEmail = editWishDescriptor.getEmail().orElse(wishToEdit.getEmail());
         Url updatedUrl = editWishDescriptor.getUrl().orElse(wishToEdit.getUrl());
         Remark remark = wishToEdit.getRemark(); // cannot modify remark with edit command
         Set<Tag> updatedTags = editWishDescriptor.getTags().orElse(wishToEdit.getTags());
 
-        return new Wish(updatedName, updatedPhone, updatedEmail, updatedUrl, remark, updatedTags);
+        return new Wish(updatedName, updatedPrice, updatedEmail, updatedUrl, remark, updatedTags);
     }
 
     @Override
@@ -132,7 +132,7 @@ public class EditCommand extends Command {
      */
     public static class EditWishDescriptor {
         private Name name;
-        private Phone phone;
+        private Price price;
         private Email email;
         private Url url;
         private Set<Tag> tags;
@@ -145,7 +145,7 @@ public class EditCommand extends Command {
          */
         public EditWishDescriptor(EditWishDescriptor toCopy) {
             setName(toCopy.name);
-            setPhone(toCopy.phone);
+            setPrice(toCopy.price);
             setEmail(toCopy.email);
             setUrl(toCopy.url);
             setTags(toCopy.tags);
@@ -155,7 +155,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, url, tags);
+            return CollectionUtil.isAnyNonNull(name, price, email, url, tags);
         }
 
         public void setName(Name name) {
@@ -166,12 +166,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(name);
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public void setPrice(Price price) {
+            this.price = price;
         }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
+        public Optional<Price> getPrice() {
+            return Optional.ofNullable(price);
         }
 
         public void setEmail(Email email) {
@@ -223,7 +223,7 @@ public class EditCommand extends Command {
             EditWishDescriptor e = (EditWishDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
+                    && getPrice().equals(e.getPrice())
                     && getEmail().equals(e.getEmail())
                     && getUrl().equals(e.getUrl())
                     && getTags().equals(e.getTags());
