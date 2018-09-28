@@ -31,7 +31,7 @@ public class WishUtil {
     public static String getWishDetails(Wish wish) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + wish.getName().fullName + " ");
-        sb.append(PREFIX_PRICE + wish.getPrice().value + " ");
+        sb.append(PREFIX_PRICE + wish.getPrice().toString() + " ");
         sb.append(PREFIX_EMAIL + wish.getEmail().value + " ");
         sb.append(PREFIX_URL + wish.getUrl().value + " ");
         wish.getTags().stream().forEach(
