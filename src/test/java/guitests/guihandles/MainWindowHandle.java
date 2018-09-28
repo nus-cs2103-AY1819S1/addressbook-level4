@@ -7,7 +7,7 @@ import javafx.stage.Stage;
  */
 public class MainWindowHandle extends StageHandle {
 
-    private final RecipeListPanelHandle personListPanel;
+    private final RecipeListPanelHandle recipeListPanel;
     private final ResultDisplayHandle resultDisplay;
     private final CommandBoxHandle commandBox;
     private final StatusBarFooterHandle statusBarFooter;
@@ -17,7 +17,7 @@ public class MainWindowHandle extends StageHandle {
     public MainWindowHandle(Stage stage) {
         super(stage);
 
-        personListPanel = new RecipeListPanelHandle(getChildNode(RecipeListPanelHandle.RECIPE_LIST_VIEW_ID));
+        recipeListPanel = new RecipeListPanelHandle(getChildNode(RecipeListPanelHandle.RECIPE_LIST_VIEW_ID));
         resultDisplay = new ResultDisplayHandle(getChildNode(ResultDisplayHandle.RESULT_DISPLAY_ID));
         commandBox = new CommandBoxHandle(getChildNode(CommandBoxHandle.COMMAND_INPUT_FIELD_ID));
         statusBarFooter = new StatusBarFooterHandle(getChildNode(StatusBarFooterHandle.STATUS_BAR_PLACEHOLDER));
@@ -26,7 +26,7 @@ public class MainWindowHandle extends StageHandle {
     }
 
     public RecipeListPanelHandle getRecipeListPanel() {
-        return personListPanel;
+        return recipeListPanel;
     }
 
     public ResultDisplayHandle getResultDisplay() {
