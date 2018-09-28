@@ -24,31 +24,47 @@ import seedu.address.model.wish.Wish;
 public class TypicalWishes {
 
     public static final Wish ALICE = new WishBuilder().withName("Alice Pauline")
-            .withUrl("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
+            .withUrl("https://www.lazada.sg/products/ps4-092-hori-real-arcade-pron-hayabusaps4ps3pc-i223784444-s340908955.html")
+            .withEmail("alice@example.com")
             .withPhone("94351253")
             .withTags("friends")
             .build();
     public static final Wish BENSON = new WishBuilder().withName("Benson Meier")
-            .withUrl("311, Clementi Ave 2, #02-25")
+            .withUrl("https://www.amazon.com/Apple-iPhone-Fully-Unlocked-32GB/dp/B0731HBTZ7")
             .withEmail("johnd@example.com").withPhone("98765432")
             .withTags("owesMoney", "friends")
             .build();
-    public static final Wish CARL = new WishBuilder().withName("Carl Kurz").withPhone("95352563")
-            .withEmail("heinz@example.com").withUrl("wall street").build();
-    public static final Wish DANIEL = new WishBuilder().withName("Daniel Meier").withPhone("87652533")
-            .withEmail("cornelia@example.com").withUrl("10th street").withTags("friends").build();
-    public static final Wish ELLE = new WishBuilder().withName("Elle Meyer").withPhone("9482224")
-            .withEmail("werner@example.com").withUrl("michegan ave").build();
-    public static final Wish FIONA = new WishBuilder().withName("Fiona Kunz").withPhone("9482427")
-            .withEmail("lydia@example.com").withUrl("little tokyo").build();
-    public static final Wish GEORGE = new WishBuilder().withName("George Best").withPhone("9482442")
+    public static final Wish CARL = new WishBuilder().withName("Carl Kurz")
+            .withPhone("95352563")
+            .withEmail("heinz@example.com")
+            .withUrl("https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV").build();
+    public static final Wish DANIEL = new WishBuilder().withName("Daniel Meier")
+            .withPhone("87652533")
+            .withEmail("cornelia@example.com")
+            .withUrl("https://www.amazon.com/Logitech-Mechanical-Keyboard-Romer-Switches/dp/B071VHYZ62")
+            .withTags("friends").build();
+    public static final Wish ELLE = new WishBuilder().withName("Elle Meyer")
+            .withPhone("9482224")
+            .withEmail("werner@example.com")
+            .withUrl("https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV")
+            .build();
+    public static final Wish FIONA = new WishBuilder().withName("Fiona Kunz")
+            .withPhone("9482427")
+            .withEmail("lydia@example.com")
+            .withUrl("https://www.lazada.sg/products/nintendo-switch-neon-console-1-year-local-warranty-best-seller-i180040203-s230048296.html").build();
+    public static final Wish GEORGE = new WishBuilder().withName("George Best")
+            .withPhone("9482442")
             .withEmail("anna@example.com").withUrl("4th street").build();
 
     // Manually added
-    public static final Wish HOON = new WishBuilder().withName("Hoon Meier").withPhone("8482424")
-            .withEmail("stefan@example.com").withUrl("little india").build();
-    public static final Wish IDA = new WishBuilder().withName("Ida Mueller").withPhone("8482131")
-            .withEmail("hans@example.com").withUrl("chicago ave").build();
+    public static final Wish HOON = new WishBuilder().withName("Hoon Meier")
+            .withPhone("8482424")
+            .withEmail("stefan@example.com")
+            .withUrl("https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV").build();
+    public static final Wish IDA = new WishBuilder().withName("Ida Mueller")
+            .withPhone("8482131")
+            .withEmail("hans@example.com")
+            .withUrl("https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV").build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Wish AMY = new WishBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
