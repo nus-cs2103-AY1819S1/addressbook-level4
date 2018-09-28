@@ -17,7 +17,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.PriorityValue;
 import seedu.address.testutil.Assert;
 
-public class XmlAdaptedPersonTest {
+public class XmlAdaptedTaskTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_DUE_DATE = "+651234";
     private static final String INVALID_DESCRIPTION = " ";
