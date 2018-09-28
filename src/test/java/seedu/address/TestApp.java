@@ -69,9 +69,9 @@ public class TestApp extends MainApp {
     }
 
     /**
-     * Returns a defensive copy of the address book data stored inside the storage file.
+     * Returns a defensive copy of the task manager data stored inside the storage file.
      */
-    public TaskManager readStorageAddressBook() {
+    public TaskManager readStorageTaskManager() {
         try {
             return new TaskManager(storage.readTaskManager().get());
         } catch (DataConversionException dce) {

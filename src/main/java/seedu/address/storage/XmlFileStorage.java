@@ -26,7 +26,6 @@ public class XmlFileStorage {
 
     /**
      * Returns task manager in the file or an empty task manager
-     *
      */
     public static XmlSerializableTaskManager loadDataFromSaveFile(Path file) throws DataConversionException,
                                                                             FileNotFoundException {
