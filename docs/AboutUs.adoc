@@ -55,7 +55,7 @@ Responsibilities: UI
 '''
 
 === Jian Yu
-image::KokJianYu.png[width="150", align="left"]
+image::kokjianyu.png[width="150", align="left"]
 {empty}[http://github.com/KokJianYu[github]]
 
 Role: Developer +
