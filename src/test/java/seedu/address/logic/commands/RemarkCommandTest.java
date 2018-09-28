@@ -4,8 +4,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.SAMPLE_REMARK_1;
 import static seedu.address.logic.commands.CommandTestUtil.SAMPLE_REMARK_2;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_WISH;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_WISH;
 
 import org.junit.Test;
 
@@ -13,16 +13,16 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Remark;
-import seedu.address.testutil.TypicalPersons;
+import seedu.address.model.wish.Remark;
+import seedu.address.testutil.TypicalWishes;
 
 public class RemarkCommandTest {
-    private Model model = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(TypicalWishes.getTypicalWishBook(), new UserPrefs());
 
     @Test
     public void equals() {
-        final RemarkCommand standardCommand = new RemarkCommand(INDEX_FIRST_PERSON, SAMPLE_REMARK_1);
-        final RemarkCommand commandWithSameValues = new RemarkCommand(INDEX_FIRST_PERSON, SAMPLE_REMARK_1);
+        final RemarkCommand standardCommand = new RemarkCommand(INDEX_FIRST_WISH, SAMPLE_REMARK_1);
+        final RemarkCommand commandWithSameValues = new RemarkCommand(INDEX_FIRST_WISH, SAMPLE_REMARK_1);
 
         // same values -> returns true
         assertTrue(standardCommand.equals(commandWithSameValues));
@@ -37,10 +37,10 @@ public class RemarkCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(prepareCommand(INDEX_SECOND_PERSON, SAMPLE_REMARK_1)));
+        assertFalse(standardCommand.equals(prepareCommand(INDEX_SECOND_WISH, SAMPLE_REMARK_1)));
 
         // different remark -> returns false
-        assertFalse(standardCommand.equals(prepareCommand(INDEX_FIRST_PERSON, SAMPLE_REMARK_2)));
+        assertFalse(standardCommand.equals(prepareCommand(INDEX_FIRST_WISH, SAMPLE_REMARK_2)));
     }
 
     /**
