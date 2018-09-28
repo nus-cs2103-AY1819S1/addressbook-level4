@@ -38,7 +38,7 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.wish.Address;
+import seedu.address.model.wish.Url;
 import seedu.address.model.wish.Email;
 import seedu.address.model.wish.Name;
 import seedu.address.model.wish.Phone;
@@ -171,7 +171,7 @@ public class AddCommandSystemTest extends WishBookSystemTest {
 
         /* Case: invalid wish -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + INVALID_ADDRESS_DESC;
-        assertCommandFailure(command, Address.MESSAGE_ADDRESS_CONSTRAINTS);
+        assertCommandFailure(command, Url.MESSAGE_ADDRESS_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY

@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.wish.Address;
+import seedu.address.model.wish.Url;
 import seedu.address.model.wish.Email;
 import seedu.address.model.wish.Name;
 import seedu.address.model.wish.Phone;
@@ -68,7 +68,7 @@ public class XmlAdaptedWish {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
-        address = source.getAddress().value;
+        address = source.getUrl().value;
         remark = source.getRemark().value;
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
@@ -111,12 +111,12 @@ public class XmlAdaptedWish {
         final Email modelEmail = new Email(email);
 
         if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Url.class.getSimpleName()));
         }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
+        if (!Url.isValidAddress(address)) {
+            throw new IllegalValueException(Url.MESSAGE_ADDRESS_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
+        final Url modelUrl = new Url(address);
 
         if (this.remark == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Remark.class.getSimpleName()));
@@ -124,7 +124,7 @@ public class XmlAdaptedWish {
         final Remark modelRemark = new Remark(this.remark);
 
         final Set<Tag> modelTags = new HashSet<>(wishTags);
-        return new Wish(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags);
+        return new Wish(modelName, modelPhone, modelEmail, modelUrl, modelRemark, modelTags);
     }
 
     @Override

@@ -33,7 +33,7 @@ public class WishUtil {
         sb.append(PREFIX_NAME + wish.getName().fullName + " ");
         sb.append(PREFIX_PHONE + wish.getPhone().value + " ");
         sb.append(PREFIX_EMAIL + wish.getEmail().value + " ");
-        sb.append(PREFIX_ADDRESS + wish.getAddress().value + " ");
+        sb.append(PREFIX_ADDRESS + wish.getUrl().value + " ");
         wish.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
@@ -48,7 +48,7 @@ public class WishUtil {
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
-        descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
+        descriptor.getUrl().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

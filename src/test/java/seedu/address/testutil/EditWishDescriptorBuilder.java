@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditWishDescriptor;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.wish.Address;
+import seedu.address.model.wish.Url;
 import seedu.address.model.wish.Email;
 import seedu.address.model.wish.Name;
 import seedu.address.model.wish.Phone;
@@ -35,7 +35,7 @@ public class EditWishDescriptorBuilder {
         descriptor.setName(wish.getName());
         descriptor.setPhone(wish.getPhone());
         descriptor.setEmail(wish.getEmail());
-        descriptor.setAddress(wish.getAddress());
+        descriptor.setUrl(wish.getUrl());
         descriptor.setTags(wish.getTags());
     }
 
@@ -67,7 +67,7 @@ public class EditWishDescriptorBuilder {
      * Sets the {@code Address} of the {@code EditPersonDescriptor} that we are building.
      */
     public EditWishDescriptorBuilder withAddress(String address) {
-        descriptor.setAddress(new Address(address));
+        descriptor.setUrl(new Url(address));
         return this;
     }
 

@@ -84,7 +84,7 @@ public class WishCardHandle extends NodeHandle<Node> {
      */
     public boolean equals(Wish wish) {
         return getName().equals(wish.getName().fullName)
-                && getAddress().equals(wish.getAddress().value)
+                && getAddress().equals(wish.getUrl().value)
                 && getPhone().equals(wish.getPhone().value)
                 && getEmail().equals(wish.getEmail().value)
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(wish.getTags().stream()

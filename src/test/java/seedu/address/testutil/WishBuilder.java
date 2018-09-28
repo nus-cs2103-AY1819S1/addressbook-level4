@@ -5,7 +5,7 @@ import java.util.Set;
 
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.model.wish.Address;
+import seedu.address.model.wish.Url;
 import seedu.address.model.wish.Email;
 import seedu.address.model.wish.Name;
 import seedu.address.model.wish.Phone;
@@ -26,7 +26,7 @@ public class WishBuilder {
     private Name name;
     private Phone phone;
     private Email email;
-    private Address address;
+    private Url url;
     private Remark remark;
     private Set<Tag> tags;
 
@@ -34,7 +34,7 @@ public class WishBuilder {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
-        address = new Address(DEFAULT_ADDRESS);
+        url = new Url(DEFAULT_ADDRESS);
         remark = new Remark(DEFAULT_REMARK);
         tags = new HashSet<>();
     }
@@ -46,7 +46,7 @@ public class WishBuilder {
         name = wishToCopy.getName();
         phone = wishToCopy.getPhone();
         email = wishToCopy.getEmail();
-        address = wishToCopy.getAddress();
+        url = wishToCopy.getUrl();
         remark = wishToCopy.getRemark();
         tags = new HashSet<>(wishToCopy.getTags());
     }
@@ -71,7 +71,7 @@ public class WishBuilder {
      * Sets the {@code Address} of the {@code Wish} that we are building.
      */
     public WishBuilder withAddress(String address) {
-        this.address = new Address(address);
+        this.url = new Url(address);
         return this;
     }
 
@@ -100,7 +100,7 @@ public class WishBuilder {
     }
 
     public Wish build() {
-        return new Wish(name, phone, email, address, remark, tags);
+        return new Wish(name, phone, email, url, remark, tags);
     }
 
 }

@@ -7,10 +7,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Person's address in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
  */
-public class Address {
+public class Url {
 
     public static final String MESSAGE_ADDRESS_CONSTRAINTS =
-            "Addresses can take any values, and it should not be blank";
+            "URL cannot have whitespaces";
 
     /*
      * The first character of the address must not be a whitespace,
@@ -25,7 +25,7 @@ public class Address {
      *
      * @param address A valid address.
      */
-    public Address(String address) {
+    public Url(String address) {
         requireNonNull(address);
         checkArgument(isValidAddress(address), MESSAGE_ADDRESS_CONSTRAINTS);
         value = address;
@@ -46,8 +46,8 @@ public class Address {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Address // instanceof handles nulls
-                && value.equals(((Address) other).value)); // state check
+                || (other instanceof Url // instanceof handles nulls
+                && value.equals(((Url) other).value)); // state check
     }
 
     @Override

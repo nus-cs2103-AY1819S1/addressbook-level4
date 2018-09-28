@@ -112,7 +112,7 @@ public class WishBook implements ReadOnlyWishBook {
             Wish modifiedWish = new Wish(wish.getName(),
                     wish.getPhone(),
                     wish.getEmail(),
-                    wish.getAddress(),
+                    wish.getUrl(),
                     wish.getRemark(),
                     modifiedTags);
 

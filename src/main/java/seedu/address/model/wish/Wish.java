@@ -21,19 +21,19 @@ public class Wish {
     private final Email email;
 
     // Data fields
-    private final Address address;
+    private final Url url;
     private final Remark remark;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Wish(Name name, Phone phone, Email email, Address address, Remark remark, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Wish(Name name, Phone phone, Email email, Url url, Remark remark, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, url, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
+        this.url = url;
         this.tags.addAll(tags);
         this.remark = remark;
     }
@@ -50,8 +50,8 @@ public class Wish {
         return email;
     }
 
-    public Address getAddress() {
-        return address;
+    public Url getUrl() {
+        return url;
     }
 
     public Remark getRemark() {
@@ -98,14 +98,14 @@ public class Wish {
         return otherWish.getName().equals(getName())
                 && otherWish.getPhone().equals(getPhone())
                 && otherWish.getEmail().equals(getEmail())
-                && otherWish.getAddress().equals(getAddress())
+                && otherWish.getUrl().equals(getUrl())
                 && otherWish.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, url, tags);
     }
 
     @Override
@@ -117,7 +117,7 @@ public class Wish {
                 .append(" Email: ")
                 .append(getEmail())
                 .append(" Address: ")
-                .append(getAddress())
+                .append(getUrl())
                 .append(" Remark: ")
                 .append(getRemark())
                 .append(" Tags: ");
