@@ -16,7 +16,7 @@ import seedu.address.model.ride.Ride;
  * An Immutable ThanePark that is serializable to XML format
  */
 @XmlRootElement(name = "addressbook")
-public class XmlSerializableAddressBook {
+public class XmlSerializableThanePark {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate ride(s).";
 
@@ -24,17 +24,17 @@ public class XmlSerializableAddressBook {
     private List<XmlAdaptedRide> rides;
 
     /**
-     * Creates an empty XmlSerializableAddressBook.
+     * Creates an empty XmlSerializableThanePark.
      * This empty constructor is required for marshalling.
      */
-    public XmlSerializableAddressBook() {
+    public XmlSerializableThanePark() {
         rides = new ArrayList<>();
     }
 
     /**
      * Conversion
      */
-    public XmlSerializableAddressBook(ReadOnlyThanePark src) {
+    public XmlSerializableThanePark(ReadOnlyThanePark src) {
         this();
         rides.addAll(src.getRideList().stream().map(XmlAdaptedRide::new).collect(Collectors.toList()));
     }
@@ -63,9 +63,9 @@ public class XmlSerializableAddressBook {
             return true;
         }
 
-        if (!(other instanceof XmlSerializableAddressBook)) {
+        if (!(other instanceof XmlSerializableThanePark)) {
             return false;
         }
-        return rides.equals(((XmlSerializableAddressBook) other).rides);
+        return rides.equals(((XmlSerializableThanePark) other).rides);
     }
 }

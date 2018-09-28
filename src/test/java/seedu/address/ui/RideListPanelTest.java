@@ -22,7 +22,7 @@ import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.ride.Ride;
-import seedu.address.storage.XmlSerializableAddressBook;
+import seedu.address.storage.XmlSerializableThanePark;
 
 public class RideListPanelTest extends GuiUnitTest {
     private static final ObservableList<Ride> TYPICAL_RIDES =
@@ -81,8 +81,8 @@ public class RideListPanelTest extends GuiUnitTest {
      */
     private ObservableList<Ride> createBackingList(int personCount) throws Exception {
         Path xmlFile = createXmlFileWithPersons(personCount);
-        XmlSerializableAddressBook xmlAddressBook =
-                XmlUtil.getDataFromFile(xmlFile, XmlSerializableAddressBook.class);
+        XmlSerializableThanePark xmlAddressBook =
+                XmlUtil.getDataFromFile(xmlFile, XmlSerializableThanePark.class);
         return FXCollections.observableArrayList(xmlAddressBook.toModelType().getRideList());
     }
 

@@ -18,7 +18,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.model.ThanePark;
 import seedu.address.storage.XmlAdaptedRide;
 import seedu.address.storage.XmlAdaptedTag;
-import seedu.address.storage.XmlSerializableAddressBook;
+import seedu.address.storage.XmlSerializableThanePark;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.RideBuilder;
 import seedu.address.testutil.TestUtil;
@@ -71,7 +71,7 @@ public class XmlUtilTest {
 
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
-        ThanePark dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableAddressBook.class).toModelType();
+        ThanePark dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableThanePark.class).toModelType();
         assertEquals(9, dataFromFile.getRideList().size());
     }
 
@@ -123,17 +123,17 @@ public class XmlUtilTest {
     @Test
     public void saveDataToFile_validFile_dataSaved() throws Exception {
         FileUtil.createFile(TEMP_FILE);
-        XmlSerializableAddressBook dataToWrite = new XmlSerializableAddressBook(new ThanePark());
+        XmlSerializableThanePark dataToWrite = new XmlSerializableThanePark(new ThanePark());
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
+        XmlSerializableThanePark dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableThanePark.class);
         assertEquals(dataToWrite, dataFromFile);
 
         AddressBookBuilder builder = new AddressBookBuilder(new ThanePark());
-        dataToWrite = new XmlSerializableAddressBook(
+        dataToWrite = new XmlSerializableThanePark(
                 builder.withPerson(new RideBuilder().build()).build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-        dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
+        dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableThanePark.class);
         assertEquals(dataToWrite, dataFromFile);
     }
 
