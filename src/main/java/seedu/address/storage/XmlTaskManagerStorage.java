@@ -43,7 +43,7 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
      * @throws DataConversionException if the file is not in the correct format.
      */
     public Optional<ReadOnlyTaskManager> readTaskManager(Path filePath) throws DataConversionException,
-                                                                                 FileNotFoundException {
+            FileNotFoundException {
         requireNonNull(filePath);
 
         if (!Files.exists(filePath)) {

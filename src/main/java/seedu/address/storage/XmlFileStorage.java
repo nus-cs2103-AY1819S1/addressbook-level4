@@ -25,7 +25,8 @@ public class XmlFileStorage {
     }
 
     /**
-     * Returns address book in the file or an empty address book
+     * Returns task manager in the file or an empty task manager
+     *
      */
     public static XmlSerializableTaskManager loadDataFromSaveFile(Path file) throws DataConversionException,
                                                                             FileNotFoundException {

@@ -46,15 +46,15 @@ public class XmlSerializableAddressBook {
      *                               {@code XmlAdaptedPerson}.
      */
     public TaskManager toModelType() throws IllegalValueException {
-        TaskManager addressBook = new TaskManager();
+        TaskManager taskManager = new TaskManager();
         for (XmlAdaptedTask t : tasks) {
             Task task = t.toModelType();
-            if (addressBook.hasTask(task)) {
+            if (taskManager.hasTask(task)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addTask(task);
+            taskManager.addTask(task);
         }
-        return addressBook;
+        return taskManager;
     }
 
     @Override

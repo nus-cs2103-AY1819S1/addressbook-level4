@@ -25,9 +25,9 @@ public class StorageManager extends ComponentManager implements Storage {
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(TaskManagerStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(TaskManagerStorage taskManagerStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.addressBookStorage = taskManagerStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -68,8 +68,8 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public void saveTaskManager(ReadOnlyTaskManager addressBook) throws IOException {
-        saveTaskManager(addressBook, addressBookStorage.getTaskManagerFilePath());
+    public void saveTaskManager(ReadOnlyTaskManager taskManager) throws IOException {
+        saveTaskManager(taskManager, addressBookStorage.getTaskManagerFilePath());
     }
 
     @Override

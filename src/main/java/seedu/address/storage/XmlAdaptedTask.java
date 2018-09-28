@@ -96,7 +96,7 @@ public class XmlAdaptedTask {
         if (!DueDate.isValidDueDate(dueDate)) {
             throw new IllegalValueException(DueDate.MESSAGE_DUEDATE_CONSTRAINTS);
         }
-        final DueDate modelPhone = new DueDate(dueDate);
+        final DueDate modelDueDate = new DueDate(dueDate);
 
         if (priorityValue == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -105,7 +105,7 @@ public class XmlAdaptedTask {
         if (!PriorityValue.isValidPriorityValue(priorityValue)) {
             throw new IllegalValueException(PriorityValue.MESSAGE_PRIORITYVALUE_CONSTRAINTS);
         }
-        final PriorityValue modelEmail = new PriorityValue(priorityValue);
+        final PriorityValue modelPriorityValue = new PriorityValue(priorityValue);
 
         if (description == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -114,10 +114,10 @@ public class XmlAdaptedTask {
         if (!Description.isValidDescription(description)) {
             throw new IllegalValueException(Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
         }
-        final Description modelAddress = new Description(description);
+        final Description modelDescription = new Description(description);
 
         final Set<Label> modelLabels = new HashSet<>(taskLabels);
-        return new Task(modelName, modelPhone, modelEmail, modelAddress, modelLabels);
+        return new Task(modelName, modelDueDate, modelPriorityValue, modelDescription, modelLabels);
     }
 
     @Override
