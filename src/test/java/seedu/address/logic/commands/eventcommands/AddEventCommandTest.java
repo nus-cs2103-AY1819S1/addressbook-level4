@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
@@ -24,6 +25,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EventBuilder;
+import seedu.address.testutil.PersonBuilder;
 
 public class AddEventCommandTest {
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
@@ -44,12 +46,12 @@ public class AddEventCommandTest {
         AddEventCommandTest.ModelStubAcceptingEventAdded modelStub = new
                 AddEventCommandTest.ModelStubAcceptingEventAdded();
         Event validEvent = new EventBuilder().build();
+        commandHistory.setSelectedPerson(new PersonBuilder().build());
 
         CommandResult commandResult = new AddEventCommand(validEvent).execute(modelStub, commandHistory);
 
         assertEquals(String.format(AddEventCommand.MESSAGE_SUCCESS, validEvent), commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validEvent), modelStub.eventsAdded);
-        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
@@ -61,6 +63,18 @@ public class AddEventCommandTest {
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddEventCommand.MESSAGE_DUPLICATE_EVENT);
         addEventCommand.execute(modelStub, commandHistory);
+    }
+
+    @Test
+    public void execute_noUser_throwsCommandException() throws Exception {
+        AddEventCommandTest.ModelStubAcceptingEventAdded modelStub = new
+                AddEventCommandTest.ModelStubAcceptingEventAdded();
+        Event validEvent = new EventBuilder().build();
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(Messages.MESSAGE_NO_USER_LOGGED_IN);
+
+        new AddEventCommand(validEvent).execute(modelStub, commandHistory);
     }
 
     @Test

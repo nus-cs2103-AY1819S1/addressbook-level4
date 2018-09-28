@@ -12,6 +12,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
@@ -50,13 +51,13 @@ public class JoinEventCommand extends Command {
         Event event = model.getEvent(targetIndex);
         history.setSelectedEvent(event);
 
-        Person person = history.getSelectedPerson();
         try {
+            Person person = history.getSelectedPerson();
             event.addPerson(person);
         } catch (DuplicatePersonException e) {
             throw new CommandException(Messages.MESSAGE_ALREADY_JOINED);
-        } catch (NullPointerException e) {
-            throw new CommandException(Messages.MESSAGE_NO_USER_SELECTED);
+        } catch (NoUserLoggedInException e) {
+            throw new CommandException(Messages.MESSAGE_NO_USER_LOGGED_IN);
         }
 
         model.commitAddressBook();

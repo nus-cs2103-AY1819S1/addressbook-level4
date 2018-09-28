@@ -43,8 +43,8 @@ public class DisplayPollCommand extends Command {
         try {
             Poll poll = event.getPoll(targetIndex);
             String result = String.format(MESSAGE_SUCCESS, targetIndex.getOneBased());
-            result += '\n' + poll.displayPoll();
-            EventsCenter.getInstance().post(new DisplayPollEvent(result));
+            String pollDisplayResult = poll.displayPoll();
+            EventsCenter.getInstance().post(new DisplayPollEvent(pollDisplayResult));
             return new CommandResult(result);
         } catch (IndexOutOfBoundsException e) {
             throw new CommandException("No poll exists at this index.");
