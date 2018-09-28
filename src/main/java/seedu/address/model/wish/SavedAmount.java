@@ -11,7 +11,7 @@ public class SavedAmount {
 
     public static final String MESSAGE_PRICE_CONSTRAINTS =
             "Saved Amount numbers should only contain numbers, and at most two numbers after the decimal point.";
-    public static final String SAVED_AMOUNT_VALIDATION_REGEX = "[0-9]+([,.][0-9]{1,2})?";
+    public static final String SAVED_AMOUNT_VALIDATION_REGEX = "[+-]?[0-9]+([,.][0-9]{1,2})?";
     public final Double value;
 
     /**
