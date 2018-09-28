@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.eventcommands.AddPollOptionCommand;
 import seedu.address.logic.commands.eventcommands.VoteCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
