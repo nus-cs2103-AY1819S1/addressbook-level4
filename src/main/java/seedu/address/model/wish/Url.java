@@ -16,7 +16,7 @@ public class Url {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String URL_VALIDATION_REGEX = "[^\\s].*";
+    public static final String URL_VALIDATION_REGEX = "\\S*";
 
     public final String value;
 
