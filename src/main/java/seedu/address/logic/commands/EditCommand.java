@@ -22,7 +22,13 @@ import seedu.address.logic.commands.exceptions.CommandException;
 
 import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.wish.*;
+import seedu.address.model.wish.Email;
+import seedu.address.model.wish.Name;
+import seedu.address.model.wish.Price;
+import seedu.address.model.wish.Remark;
+import seedu.address.model.wish.SavedAmount;
+import seedu.address.model.wish.Url;
+import seedu.address.model.wish.Wish;
 
 /**
  * Edits the details of an existing wish in the address book.
