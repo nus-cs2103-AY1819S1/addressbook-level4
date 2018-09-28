@@ -13,7 +13,7 @@ import seedu.address.model.Model;
  */
 public class SuggestCommand extends Command {
 
-    public static final String[] commandWords = {AddCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD,
+    public static final String[] COMMAND_WORDS = {AddCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD,
             DeleteCommand.COMMAND_WORD, EditCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD, FindCommand.COMMAND_WORD,
             HelpCommand.COMMAND_WORD, HistoryCommand.COMMAND_WORD, ListCommand.COMMAND_WORD, RedoCommand.COMMAND_WORD,
             SelectCommand.COMMAND_WORD, UndoCommand.COMMAND_WORD};
@@ -25,7 +25,8 @@ public class SuggestCommand extends Command {
             suggestions = new String[0];
             return;
         }
-        suggestions = Arrays.stream(commandWords).filter(s -> s.matches("^" + prefix)).toArray(String[]::new);
+        suggestions = Arrays.stream(COMMAND_WORDS).filter(s
+            -> s.matches("^" + prefix + ".*")).toArray(String[]::new);
     }
 
     public boolean isPrefixValid() {
@@ -36,7 +37,7 @@ public class SuggestCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         //guaranteed at least one commandWord in commandWords, otherwise exception raised by parser
         StringBuilder builder = new StringBuilder("Do you mean the following commands:\n");
-        for(String s : commandWords) {
+        for(String s : suggestions) {
             builder.append(s);
             builder.append(", ");
         }
@@ -44,7 +45,7 @@ public class SuggestCommand extends Command {
         builder.deleteCharAt(builder.length() - 1);
         builder.deleteCharAt(builder.length() - 1);
 
-        EventsCenter.getInstance().post(new SuggestCommandEvent(commandWords));
+        EventsCenter.getInstance().post(new SuggestCommandEvent(suggestions));
         return new CommandResult(builder.toString());
     }
 }
