@@ -76,10 +76,10 @@ public class WishBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Wish} that we are building.
+     * Sets the {@code Price} of the {@code Wish} that we are building.
      */
-    public WishBuilder withPhone(String phone) {
-        this.price = new Price(phone);
+    public WishBuilder withPhone(String price) {
+        this.price = new Price(price);
         return this;
     }
 
