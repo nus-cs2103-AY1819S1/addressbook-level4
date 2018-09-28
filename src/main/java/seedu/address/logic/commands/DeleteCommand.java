@@ -42,7 +42,7 @@ public class DeleteCommand extends Command {
 
         Recipe recipeToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteRecipe(recipeToDelete);
-        model.commitAddressBook();
+        model.commitAppContent();
         return new CommandResult(String.format(MESSAGE_DELETE_RECIPE_SUCCESS, recipeToDelete));
     }
 

@@ -59,7 +59,7 @@ public class AppContent implements ReadOnlyAppContent {
     //// recipe-level operations
 
     /**
-     * Returns true if a recipe with the same identity as {@code recipe} exists in the address book.
+     * Returns true if a recipe with the same identity as {@code recipe} exists in the application content.
      */
     public boolean hasRecipe(Recipe recipe) {
         requireNonNull(recipe);
@@ -67,8 +67,8 @@ public class AppContent implements ReadOnlyAppContent {
     }
 
     /**
-     * Adds a recipe to the address book.
-     * The recipe must not already exist in the address book.
+     * Adds a recipe to the application content.
+     * The recipe must not already exist in the application content.
      */
     public void addRecipe(Recipe p) {
         recipes.add(p);
@@ -76,8 +76,9 @@ public class AppContent implements ReadOnlyAppContent {
 
     /**
      * Replaces the given recipe {@code target} in the list with {@code editedRecipe}.
-     * {@code target} must exist in the address book.
-     * The recipe identity of {@code editedRecipe} must not be the same as another existing recipe in the address book.
+     * {@code target} must exist in the application content.
+     * The recipe identity of {@code editedRecipe} must not be the same as another existing recipe in the application
+     * content.
      */
     public void updateRecipe(Recipe target, Recipe editedRecipe) {
         requireNonNull(editedRecipe);
@@ -87,7 +88,7 @@ public class AppContent implements ReadOnlyAppContent {
 
     /**
      * Removes {@code key} from this {@code AppContent}.
-     * {@code key} must exist in the address book.
+     * {@code key} must exist in the application content.
      */
     public void removeRecipe(Recipe key) {
         recipes.remove(key);

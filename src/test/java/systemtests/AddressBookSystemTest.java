@@ -143,7 +143,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showAllRecipes() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getAddressBook().getRecipeList().size(), getModel().getFilteredRecipeList().size());
+        assertEquals(getModel().getAppContent().getRecipeList().size(), getModel().getFilteredRecipeList().size());
     }
 
     /**
@@ -151,7 +151,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showRecipesWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredRecipeList().size() < getModel().getAddressBook().getRecipeList().size());
+        assertTrue(getModel().getFilteredRecipeList().size() < getModel().getAppContent().getRecipeList().size());
     }
 
     /**
@@ -167,7 +167,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void deleteAllRecipes() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getAddressBook().getRecipeList().size());
+        assertEquals(0, getModel().getAppContent().getRecipeList().size());
     }
 
     /**
@@ -179,7 +179,7 @@ public abstract class AddressBookSystemTest {
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new AppContent(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
+        assertEquals(new AppContent(expectedModel.getAppContent()), testApp.readStorageAddressBook());
         assertListMatching(getRecipeListPanel(), expectedModel.getFilteredRecipeList());
     }
 

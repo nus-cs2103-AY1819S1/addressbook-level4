@@ -56,7 +56,7 @@ public class AddCommand extends Command {
         }
 
         model.addRecipe(toAdd);
-        model.commitAddressBook();
+        model.commitAppContent();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

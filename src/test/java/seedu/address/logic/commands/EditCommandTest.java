@@ -45,9 +45,9 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
-        Model expectedModel = new ModelManager(new AppContent(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AppContent(model.getAppContent()), new UserPrefs());
         expectedModel.updateRecipe(model.getFilteredRecipeList().get(0), editedRecipe);
-        expectedModel.commitAddressBook();
+        expectedModel.commitAppContent();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -67,9 +67,9 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
-        Model expectedModel = new ModelManager(new AppContent(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AppContent(model.getAppContent()), new UserPrefs());
         expectedModel.updateRecipe(lastRecipe, editedRecipe);
-        expectedModel.commitAddressBook();
+        expectedModel.commitAppContent();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -81,8 +81,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
-        Model expectedModel = new ModelManager(new AppContent(model.getAddressBook()), new UserPrefs());
-        expectedModel.commitAddressBook();
+        Model expectedModel = new ModelManager(new AppContent(model.getAppContent()), new UserPrefs());
+        expectedModel.commitAppContent();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -98,9 +98,9 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
-        Model expectedModel = new ModelManager(new AppContent(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AppContent(model.getAppContent()), new UserPrefs());
         expectedModel.updateRecipe(model.getFilteredRecipeList().get(0), editedRecipe);
-        expectedModel.commitAddressBook();
+        expectedModel.commitAppContent();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -119,7 +119,7 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_RECIPE);
 
         // edit recipe in filtered list into a duplicate in address book
-        Recipe recipeInList = model.getAddressBook().getRecipeList().get(INDEX_SECOND_RECIPE.getZeroBased());
+        Recipe recipeInList = model.getAppContent().getRecipeList().get(INDEX_SECOND_RECIPE.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_RECIPE,
                 new EditRecipeDescriptorBuilder(recipeInList).build());
 
@@ -144,7 +144,7 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_RECIPE);
         Index outOfBoundIndex = INDEX_SECOND_RECIPE;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getRecipeList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getAppContent().getRecipeList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditRecipeDescriptorBuilder().withName(VALID_NAME_BOB).build());
@@ -158,19 +158,19 @@ public class EditCommandTest {
         Recipe recipeToEdit = model.getFilteredRecipeList().get(INDEX_FIRST_RECIPE.getZeroBased());
         EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder(editedRecipe).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_RECIPE, descriptor);
-        Model expectedModel = new ModelManager(new AppContent(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AppContent(model.getAppContent()), new UserPrefs());
         expectedModel.updateRecipe(recipeToEdit, editedRecipe);
-        expectedModel.commitAddressBook();
+        expectedModel.commitAppContent();
 
         // edit -> first recipe edited
         editCommand.execute(model, commandHistory);
 
         // undo -> reverts addressbook back to previous state and filtered recipe list to show all persons
-        expectedModel.undoAddressBook();
+        expectedModel.undoAppContent();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first recipe edited again
-        expectedModel.redoAddressBook();
+        expectedModel.redoAppContent();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
@@ -200,23 +200,23 @@ public class EditCommandTest {
         Recipe editedRecipe = new RecipeBuilder().build();
         EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder(editedRecipe).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_RECIPE, descriptor);
-        Model expectedModel = new ModelManager(new AppContent(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AppContent(model.getAppContent()), new UserPrefs());
 
         showPersonAtIndex(model, INDEX_SECOND_RECIPE);
         Recipe recipeToEdit = model.getFilteredRecipeList().get(INDEX_FIRST_RECIPE.getZeroBased());
         expectedModel.updateRecipe(recipeToEdit, editedRecipe);
-        expectedModel.commitAddressBook();
+        expectedModel.commitAppContent();
 
         // edit -> edits second recipe in unfiltered recipe list / first recipe in filtered recipe list
         editCommand.execute(model, commandHistory);
 
         // undo -> reverts addressbook back to previous state and filtered recipe list to show all persons
-        expectedModel.undoAddressBook();
+        expectedModel.undoAppContent();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         assertNotEquals(model.getFilteredRecipeList().get(INDEX_FIRST_RECIPE.getZeroBased()), recipeToEdit);
         // redo -> edits same second recipe in unfiltered recipe list
-        expectedModel.redoAddressBook();
+        expectedModel.redoAppContent();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 

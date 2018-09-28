@@ -99,7 +99,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAppContent getAddressBook() {
+        public ReadOnlyAppContent getAppContent() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -129,27 +129,27 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean canUndoAddressBook() {
+        public boolean canUndoAppContent() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canRedoAddressBook() {
+        public boolean canRedoAppContent() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void undoAddressBook() {
+        public void undoAppContent() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoAddressBook() {
+        public void redoAppContent() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitAppContent() {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -191,12 +191,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitAppContent() {
             // called by {@code AddCommand#execute()}
         }
 
         @Override
-        public ReadOnlyAppContent getAddressBook() {
+        public ReadOnlyAppContent getAppContent() {
             return new AppContent();
         }
     }
