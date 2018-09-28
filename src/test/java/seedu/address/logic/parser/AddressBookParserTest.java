@@ -86,7 +86,25 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
-        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
+
+        try {
+            parser.parseCommand(HelpCommand.COMMAND_WORD + " 3");
+            throw new AssertionError("The expected ParseException was not thrown.");
+        } catch (ParseException pe) {
+            assertEquals(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), pe.getMessage());
+        }
+    }
+
+    @Test
+    public void parseCommand_help_more() throws Exception {
+        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " more") instanceof HelpCommand);
+
+        try {
+            parser.parseCommand(HelpCommand.COMMAND_WORD + " more 3");
+            throw new AssertionError("The expected ParseException was not thrown.");
+        } catch (ParseException pe) {
+            assertEquals(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), pe.getMessage());
+        }
     }
 
     @Test
