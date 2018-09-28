@@ -15,7 +15,7 @@ public class Price {
     public final Double value;
 
     /**
-     * Constructs a {@code Phone}.
+     * Constructs a {@code Price}.
      *
      * @param phone A valid phone number.
      */
