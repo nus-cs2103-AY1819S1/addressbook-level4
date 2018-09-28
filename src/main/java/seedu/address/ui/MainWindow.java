@@ -169,7 +169,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     public void handleHelp(ShowHelpRequestEvent event) {
         if (event.isSummarized) {
-            String userGuideUrl = getClass().getResource(HelpWindow.USERGUIDE_FILE_PATH).toString();
+            String userGuideUrl = getClass().getResource(HelpWindow.SHORT_HELP_FILE_PATH).toString();
             browserPanel.loadPage(userGuideUrl);
         } else {
             showHelpWindow();

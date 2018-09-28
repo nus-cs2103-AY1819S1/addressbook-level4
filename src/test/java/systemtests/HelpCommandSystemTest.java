@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
+import guitests.guihandles.BrowserPanelHandle;
 import org.junit.Test;
 
 import guitests.GuiRobot;
@@ -52,11 +53,11 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         assertHelpWindowOpen();
 
         //use command box
-        executeCommand(HelpCommand.COMMAND_WORD);
+        executeCommand(HelpCommand.COMMAND_WORD + " more");
         assertHelpWindowOpen();
 
         // open help window and give it focus
-        executeCommand(HelpCommand.COMMAND_WORD);
+        executeCommand(HelpCommand.COMMAND_WORD + " more");
         getMainWindowHandle().focus();
 
         // assert that while the help window is open the UI updates correctly for a command execution
@@ -74,6 +75,17 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
     }
 
     @Test
+    public void openHelpSummary() {
+        //use command box
+        executeCommand(HelpCommand.COMMAND_WORD);
+        assertShortHelpDisplayed();
+
+        //select something
+        executeCommand(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertShortHelpNotDisplayed();
+    }
+
+    @Test
     public void help_multipleCommands_onlyOneHelpWindowOpen() {
         getMainMenu().openHelpWindowUsingMenu();
 
@@ -81,7 +93,7 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         getMainMenu().openHelpWindowUsingAccelerator();
 
         getMainWindowHandle().focus();
-        executeCommand(HelpCommand.COMMAND_WORD);
+        executeCommand(HelpCommand.COMMAND_WORD + " more");
 
         assertEquals(1, guiRobot.getNumberOfWindowsShown(HelpWindowHandle.HELP_WINDOW_TITLE));
     }
@@ -104,4 +116,19 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         assertFalse(ERROR_MESSAGE, HelpWindowHandle.isWindowPresent());
     }
 
+    /**
+     * Asserts that the browser's url is changed to display the short help
+     * @see BrowserPanelHandle#isHelpUrl()
+     */
+    protected void assertShortHelpDisplayed() {
+        assertTrue(getMainWindowHandle().getBrowserPanel().isHelpUrl());
+    }
+
+    /**
+     * Asserts that the browser's url is not displaying the short help
+     * @see BrowserPanelHandle#isHelpUrl()
+     */
+    protected void assertShortHelpNotDisplayed() {
+        assertFalse(getMainWindowHandle().getBrowserPanel().isHelpUrl());
+    }
 }
