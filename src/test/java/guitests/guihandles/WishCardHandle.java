@@ -17,7 +17,7 @@ public class WishCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String NAME_FIELD_ID = "#name";
     private static final String URL_FIELD_ID = "#url";
-    private static final String PHONE_FIELD_ID = "#phone";
+    private static final String PRICE_FIELD_ID = "#price";
     private static final String EMAIL_FIELD_ID = "#email";
     private static final String TAGS_FIELD_ID = "#tags";
     private static final String REMARK_FIELD_ID = "#remark";
@@ -25,7 +25,7 @@ public class WishCardHandle extends NodeHandle<Node> {
     private final Label idLabel;
     private final Label nameLabel;
     private final Label urlLabel;
-    private final Label phoneLabel;
+    private final Label priceLabel;
     private final Label emailLabel;
     private final List<Label> tagLabels;
     private final Label remarkLabel;
@@ -36,7 +36,7 @@ public class WishCardHandle extends NodeHandle<Node> {
         idLabel = getChildNode(ID_FIELD_ID);
         nameLabel = getChildNode(NAME_FIELD_ID);
         urlLabel = getChildNode(URL_FIELD_ID);
-        phoneLabel = getChildNode(PHONE_FIELD_ID);
+        priceLabel = getChildNode(PRICE_FIELD_ID);
         emailLabel = getChildNode(EMAIL_FIELD_ID);
         remarkLabel = getChildNode(REMARK_FIELD_ID);
 
@@ -60,8 +60,8 @@ public class WishCardHandle extends NodeHandle<Node> {
         return urlLabel.getText();
     }
 
-    public String getPhone() {
-        return phoneLabel.getText();
+    public String getPrice() {
+        return priceLabel.getText();
     }
 
     public String getEmail() {
@@ -85,7 +85,7 @@ public class WishCardHandle extends NodeHandle<Node> {
     public boolean equals(Wish wish) {
         return getName().equals(wish.getName().fullName)
                 && getAddress().equals(wish.getUrl().value)
-                && getPhone().equals(wish.getPrice().value)
+                && getPrice().equals(wish.getPrice().value)
                 && getEmail().equals(wish.getEmail().value)
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(wish.getTags().stream()
                         .map(tag -> tag.tagName)
