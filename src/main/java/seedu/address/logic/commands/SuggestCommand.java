@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import java.util.Arrays;
 
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.ui.SuggestCommandEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
