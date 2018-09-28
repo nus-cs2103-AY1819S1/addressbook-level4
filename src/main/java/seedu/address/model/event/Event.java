@@ -33,7 +33,9 @@ public class Event {
     private final Address location;
 
     private LocalDate date;
-    private LocalTime time;
+    private LocalTime startTime;
+    private LocalTime endTime;
+
     private Person organiser;
 
     private final Set<Tag> tags = new HashSet<>();
@@ -89,23 +91,35 @@ public class Event {
     }
 
     /**
-     * Returns the time as a string.
+     * Returns the start and end time as a string.
      */
     public String getTimeString() {
-        if (time != null) {
+        String result = "";
+        if (startTime != null) {
             DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
-            return time.format(timeFormat);
-        } else {
-            return "";
+            result += startTime.format(timeFormat) + " - ";
         }
+        if (endTime != null) {
+            DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
+            result += endTime.format(timeFormat);
+        }
+        return result;
     }
 
-    public LocalTime getTime() {
-        return time;
+    public LocalTime getStartTime() {
+        return startTime;
     }
 
-    public void setTime(LocalTime time) {
-        this.time = time;
+    public void setStartTime(LocalTime time) {
+        this.startTime = time;
+    }
+
+    public LocalTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalTime time) {
+        this.endTime = time;
     }
 
     /**
