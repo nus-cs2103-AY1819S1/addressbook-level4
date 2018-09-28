@@ -15,13 +15,13 @@ public class PriceTest {
     }
 
     @Test
-    public void constructor_invalidPhone_throwsIllegalArgumentException() {
-        String invalidPhone = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Price(invalidPhone));
+    public void constructor_invalidPrice_throwsIllegalArgumentException() {
+        String invalidPrice = "";
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Price(invalidPrice));
     }
 
     @Test
-    public void isValidPhone() {
+    public void isValidPrice() {
         // null phone number
         Assert.assertThrows(NullPointerException.class, () -> Price.isValidPrice(null));
 
