@@ -1,7 +1,5 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_URL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_URL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
@@ -10,6 +8,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_URL_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_URL_BOB;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,7 +24,8 @@ import seedu.address.model.wish.Wish;
 public class TypicalWishes {
 
     public static final Wish ALICE = new WishBuilder().withName("Alice Pauline")
-            .withUrl("https://www.lazada.sg/products/ps4-092-hori-real-arcade-pron-hayabusaps4ps3pc-i223784444-s340908955.html")
+            .withUrl("https://www.lazada.sg/products/"
+                    + "ps4-092-hori-real-arcade-pron-hayabusaps4ps3pc-i223784444-s340908955.html")
             .withEmail("alice@example.com")
             .withPrice("94.35")
             .withTags("friends")
@@ -59,7 +60,8 @@ public class TypicalWishes {
     public static final Wish FIONA = new WishBuilder().withName("Fiona Kunz")
             .withPrice("94.82")
             .withEmail("lydia@example.com")
-            .withUrl("https://www.lazada.sg/products/nintendo-switch-neon-console-1-year-local-warranty-best-seller-i180040203-s230048296.html")
+            .withUrl("https://www.lazada.sg/products/"
+                    + "nintendo-switch-neon-console-1-year-local-warranty-best-seller-i180040203-s230048296.html")
             .withSavedAmount("0.00")
             .build();
     public static final Wish GEORGE = new WishBuilder().withName("George Best")
@@ -85,9 +87,11 @@ public class TypicalWishes {
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Wish AMY = new WishBuilder().withName(VALID_NAME_AMY).withPrice(VALID_PRICE_AMY)
-            .withEmail(VALID_EMAIL_AMY).withUrl(VALID_URL_AMY).withTags(VALID_TAG_FRIEND).withSavedAmount("0.00").build();
+            .withEmail(VALID_EMAIL_AMY).withUrl(VALID_URL_AMY).withTags(VALID_TAG_FRIEND)
+            .withSavedAmount("0.00").build();
     public static final Wish BOB = new WishBuilder().withName(VALID_NAME_BOB).withPrice(VALID_PRICE_BOB)
-            .withEmail(VALID_EMAIL_BOB).withUrl(VALID_URL_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).withSavedAmount("0.00")
+            .withEmail(VALID_EMAIL_BOB).withUrl(VALID_URL_BOB)
+            .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).withSavedAmount("0.00")
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
