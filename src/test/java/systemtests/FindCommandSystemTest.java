@@ -3,10 +3,13 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.commons.core.Messages.MESSAGE_RIDES_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalPersons.*;
+import static seedu.address.testutil.TypicalPersons.BIG;
+import static seedu.address.testutil.TypicalPersons.CASTLE;
+import static seedu.address.testutil.TypicalPersons.DUMBO;
+import static seedu.address.testutil.TypicalPersons.GALAXY;
+import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
 import java.util.ArrayList;
-import java.util.DuplicateFormatFlagsException;
 import java.util.List;
 
 import org.junit.Test;
@@ -115,11 +118,10 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find address of ride in address book -> 3 rides found */
-        command = FindCommand.COMMAND_WORD + " " + DUMBO.
-                getAddress().value;
+        command = FindCommand.COMMAND_WORD + " " + DUMBO.getAddress().value;
         ModelHelper.setFilteredList(expectedModel, DUMBO, GALAXY, CASTLE);
         assertCommandSuccess(command, expectedModel);
-//        assertSelectedCardUnchanged();
+        // assertSelectedCardUnchanged();
 
         /* Case: find waiting time of ride in address book -> 0 rides found */
         command = FindCommand.COMMAND_WORD + " " + DUMBO.getWaitingTime().toString();
