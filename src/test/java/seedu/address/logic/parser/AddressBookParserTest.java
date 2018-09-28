@@ -31,7 +31,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Task;
 import seedu.address.testutil.EditTaskDescriptorBuilder;
-import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.TaskUtil;
 import seedu.address.testutil.TaskBuilder;
 
 public class AddressBookParserTest {
@@ -43,7 +43,7 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Task task = new TaskBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(task));
+        AddCommand command = (AddCommand) parser.parseCommand(TaskUtil.getAddCommand(task));
         assertEquals(new AddCommand(task), command);
     }
 
@@ -65,7 +65,7 @@ public class AddressBookParserTest {
         Task task = new TaskBuilder().build();
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder(task).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_TASK.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
+                + INDEX_FIRST_TASK.getOneBased() + " " + TaskUtil.getEditTaskDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_TASK, descriptor), command);
     }
 

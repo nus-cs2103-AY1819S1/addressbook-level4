@@ -45,7 +45,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.PriorityValue;
 import seedu.address.model.person.Task;
 import seedu.address.model.tag.Label;
-import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.TaskUtil;
 import seedu.address.testutil.TaskBuilder;
 
 public class EditCommandSystemTest extends AddressBookSystemTest {
@@ -184,7 +184,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 Label.MESSAGE_LABEL_CONSTRAINTS);
 
         /* Case: edit a person with new values same as another person's values -> rejected */
-        executeCommand(PersonUtil.getAddCommand(BOB));
+        executeCommand(TaskUtil.getAddCommand(BOB));
         assertTrue(getModel().getTaskManager().getTaskList().contains(BOB));
         index = INDEX_FIRST_TASK;
         assertFalse(getModel().getFilteredTaskList().get(index.getZeroBased()).equals(BOB));

@@ -16,25 +16,25 @@ import seedu.address.model.tag.Label;
 /**
  * A utility class for Task.
  */
-public class PersonUtil {
+public class TaskUtil {
 
     /**
-     * Returns an add command string for adding the {@code person}.
+     * Returns an add command string for adding the {@code task}.
      */
-    public static String getAddCommand(Task person) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(person);
+    public static String getAddCommand(Task task) {
+        return AddCommand.COMMAND_WORD + " " + getPersonDetails(task);
     }
 
     /**
-     * Returns the part of command string for the given {@code person}'s details.
+     * Returns the part of command string for the given {@code task}'s details.
      */
-    public static String getPersonDetails(Task person) {
+    public static String getPersonDetails(Task task) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NAME + person.getName().fullName + " ");
-        sb.append(PREFIX_DUE_DATE + person.getDueDate().value + " ");
-        sb.append(PREFIX_PRIORITY_VALUE + person.getPriorityValue().value + " ");
-        sb.append(PREFIX_DESCRIPTION + person.getDescription().value + " ");
-        person.getLabels().stream().forEach(
+        sb.append(PREFIX_NAME + task.getName().fullName + " ");
+        sb.append(PREFIX_DUE_DATE + task.getDueDate().value + " ");
+        sb.append(PREFIX_PRIORITY_VALUE + task.getPriorityValue().value + " ");
+        sb.append(PREFIX_DESCRIPTION + task.getDescription().value + " ");
+        task.getLabels().stream().forEach(
             s -> sb.append(PREFIX_LABEL + s.labelName + " ")
         );
         return sb.toString();
@@ -43,7 +43,7 @@ public class PersonUtil {
     /**
      * Returns the part of command string for the given {@code EditTaskDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditCommand.EditTaskDescriptor descriptor) {
+    public static String getEditTaskDescriptorDetails(EditCommand.EditTaskDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getDueDate().ifPresent(phone -> sb.append(PREFIX_DUE_DATE).append(phone.value).append(" "));

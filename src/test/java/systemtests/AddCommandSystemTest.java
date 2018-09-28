@@ -43,7 +43,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.PriorityValue;
 import seedu.address.model.person.Task;
 import seedu.address.model.tag.Label;
-import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.TaskUtil;
 import seedu.address.testutil.TaskBuilder;
 
 public class AddCommandSystemTest extends AddressBookSystemTest {
@@ -83,7 +83,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
          * -> added
          */
         toAdd = new TaskBuilder(AMY).withDueDate(VALID_PHONE_BOB).withPriorityValue(VALID_EMAIL_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        command = TaskUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty task manager -> added */
@@ -114,26 +114,26 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
         /* Case: add a duplicate person -> rejected */
-        command = PersonUtil.getAddCommand(HOON);
+        command = TaskUtil.getAddCommand(HOON);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
 
         /* Case: add a duplicate person except with different phone -> rejected */
         toAdd = new TaskBuilder(HOON).withDueDate(VALID_PHONE_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        command = TaskUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
 
         /* Case: add a duplicate person except with different email -> rejected */
         toAdd = new TaskBuilder(HOON).withPriorityValue(VALID_EMAIL_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        command = TaskUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
 
         /* Case: add a duplicate person except with different address -> rejected */
         toAdd = new TaskBuilder(HOON).withDescription(VALID_ADDRESS_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        command = TaskUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
 
         /* Case: add a duplicate person except with different tags -> rejected */
-        command = PersonUtil.getAddCommand(HOON) + " " + PREFIX_LABEL.getPrefix() + "friends";
+        command = TaskUtil.getAddCommand(HOON) + " " + PREFIX_LABEL.getPrefix() + "friends";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
 
         /* Case: missing name -> rejected */
@@ -153,7 +153,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
-        command = "adds " + PersonUtil.getPersonDetails(toAdd);
+        command = "adds " + TaskUtil.getPersonDetails(toAdd);
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
@@ -194,7 +194,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(Task toAdd) {
-        assertCommandSuccess(PersonUtil.getAddCommand(toAdd), toAdd);
+        assertCommandSuccess(TaskUtil.getAddCommand(toAdd), toAdd);
     }
 
     /**
