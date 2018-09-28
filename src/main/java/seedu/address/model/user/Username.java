@@ -3,6 +3,7 @@ package seedu.address.model.user;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+//@@author JasonChong96
 /**
  * Represents the Username of a user.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}

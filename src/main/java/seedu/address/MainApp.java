@@ -81,8 +81,8 @@ public class MainApp extends Application {
 
     /**
      * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * A user "default" with a sample AddressBook will be added if the folder does not exist or is empty,
+     * or no users will be used instead if errors occur when reading {@code storage}'s address book.
      */
     protected Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Map<Username, ReadOnlyAddressBook> addressBooks;
@@ -187,12 +187,12 @@ public class MainApp extends Application {
     public void stop() {
         logger.info("============================ [ Stopping AddressBook ] =============================");
         ui.stop();
-        try {
-            if (model.hasSelectedUser()) {
+        if (model.hasSelectedUser()) {
+            try {
                 storage.saveUserPrefs(userPrefs);
+            } catch (IOException e) {
+                logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
             }
-        } catch (IOException e) {
-            logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }
         Platform.exit();
         System.exit(0);

@@ -121,7 +121,6 @@ public class StorageManager extends ComponentManager implements Storage {
         try {
             saveExpenses(event.data);
         } catch (IOException e) {
-            e.printStackTrace();
             raise(new DataSavingExceptionEvent(e));
         }
     }

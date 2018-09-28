@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -28,6 +27,9 @@ public class LogicManagerTest {
 
     private Model model = ModelUtil.modelWithTestUser();
     private Logic logic = new LogicManager(model);
+
+    public LogicManagerTest() throws UserAlreadyExistsException, NonExistentUserException {
+    }
 
     @Test
     public void execute_invalidCommandFormat_throwsParseException() throws NoUserSelectedException {

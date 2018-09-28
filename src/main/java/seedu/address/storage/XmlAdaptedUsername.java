@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.XmlValue;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.user.Username;
 
+//@@author JasonChong96
 /**
  * JAXB-friendly adapted version of the Username.
  */

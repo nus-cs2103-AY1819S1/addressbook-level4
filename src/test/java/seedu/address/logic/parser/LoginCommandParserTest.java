@@ -10,6 +10,7 @@ import seedu.address.logic.commands.LoginCommand;
 import seedu.address.model.user.Username;
 import seedu.address.model.user.UsernameTest;
 
+//@@author JasonChong96
 public class LoginCommandParserTest {
     private LoginCommandParser parser = new LoginCommandParser();
 

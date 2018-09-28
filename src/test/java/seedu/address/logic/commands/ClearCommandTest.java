@@ -11,6 +11,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.exceptions.NoUserSelectedException;
+import seedu.address.model.exceptions.NonExistentUserException;
+import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.user.Username;
 import seedu.address.testutil.ModelUtil;
 
@@ -19,7 +21,8 @@ public class ClearCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_emptyAddressBook_success() throws NoUserSelectedException {
+    public void execute_emptyAddressBook_success() throws NoUserSelectedException, UserAlreadyExistsException,
+            NonExistentUserException {
         Model model = ModelUtil.modelWithTestUser();
         Model expectedModel = ModelUtil.modelWithTestUser();
         expectedModel.commitAddressBook();

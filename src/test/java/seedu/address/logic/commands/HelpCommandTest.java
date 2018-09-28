@@ -11,6 +11,8 @@ import org.junit.Test;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
+import seedu.address.model.exceptions.NonExistentUserException;
+import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.testutil.ModelUtil;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
@@ -21,6 +23,9 @@ public class HelpCommandTest {
     private Model model = ModelUtil.modelWithTestUser();
     private Model expectedModel = ModelUtil.modelWithTestUser();
     private CommandHistory commandHistory = new CommandHistory();
+
+    public HelpCommandTest() throws UserAlreadyExistsException, NonExistentUserException {
+    }
 
     @Test
     public void execute_help_success() {

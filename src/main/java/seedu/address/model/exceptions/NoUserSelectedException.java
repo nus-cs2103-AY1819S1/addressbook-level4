@@ -1,5 +1,6 @@
 package seedu.address.model.exceptions;
 
+//@@author JasonChong96
 /**
  * Represents an error where no user is logged in is encountered by the model.
  */

@@ -2,6 +2,7 @@ package seedu.address.model.exceptions;
 
 import seedu.address.model.user.Username;
 
+//@@author JasonChong96
 /**
  * Represents an error where a user with the given username does not exist in the model is encountered.
  */

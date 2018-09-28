@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import seedu.address.testutil.Assert;
 
+//@@author JasonChong96
 public class UsernameTest {
     public static final String INVALID_USERNAME_STRING = "*";
     public static final String VALID_USERNAME_STRING = "AAA";

@@ -1,13 +1,12 @@
 package seedu.address.testutil;
 
-import org.junit.Assert;
-
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.user.Username;
 
+//@@author JasonChong96
 /**
  * Helper methods related to models.
  */

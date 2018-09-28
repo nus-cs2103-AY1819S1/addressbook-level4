@@ -7,6 +7,7 @@ import seedu.address.model.Model;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.user.Username;
 
+//@@author JasonChong96
 /**
  * Adds a user to the address book.
  */

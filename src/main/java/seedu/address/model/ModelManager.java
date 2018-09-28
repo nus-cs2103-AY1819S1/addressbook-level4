@@ -41,9 +41,9 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(addressBooks, userPrefs);
         this.addressBooks = addressBooks;
         logger.fine("Initializing with address book: " + addressBooks + " and user prefs " + userPrefs);
-        username = null;
-        versionedAddressBook = null;
-        filteredPersons = null;
+        this.username = null;
+        this.versionedAddressBook = null;
+        this.filteredPersons = null;
     }
 
     public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
@@ -52,10 +52,10 @@ public class ModelManager extends ComponentManager implements Model {
         Map<Username, ReadOnlyAddressBook> addressBooks = new TreeMap<>();
         logger.fine("Initializing with address book: " + addressBooks + " and user prefs " + userPrefs);
         this.addressBooks = addressBooks;
-        addressBooks.put(addressBook.getUsername(), addressBook);
-        username = addressBook.getUsername();
-        versionedAddressBook = null;
-        filteredPersons = null;
+        this.addressBooks.put(addressBook.getUsername(), addressBook);
+        this.username = addressBook.getUsername();
+        this.versionedAddressBook = null;
+        this.filteredPersons = null;
         try {
             loadUserData(addressBook.getUsername());
         } catch (NonExistentUserException e) {
@@ -217,9 +217,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public Model copy(UserPrefs userPrefs) throws NonExistentUserException, NoUserSelectedException {
+    public Model copy(UserPrefs userPrefs) throws NoUserSelectedException {
         ModelManager copy = new ModelManager(addressBooks, userPrefs);
-        //copy.loadUserData(this.username);
         copy.versionedAddressBook = new VersionedAddressBook(this.getAddressBook());
         copy.filteredPersons = new FilteredList<>(copy.versionedAddressBook.getPersonList());
         copy.username = this.username;

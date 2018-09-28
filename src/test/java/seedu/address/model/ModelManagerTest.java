@@ -9,12 +9,13 @@ import static seedu.address.testutil.TypicalPersons.BENSON;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
-import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.exceptions.NoUserSelectedException;
+import seedu.address.model.exceptions.NonExistentUserException;
+import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.expense.NameContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.ModelUtil;
@@ -25,6 +26,9 @@ public class ModelManagerTest {
 
     private ModelManager modelManager = (ModelManager) ModelUtil.modelWithTestUser();
     private ModelManager modelManagerLoggedOut = new ModelManager();
+
+    public ModelManagerTest() throws UserAlreadyExistsException, NonExistentUserException {
+    }
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() throws NoUserSelectedException {

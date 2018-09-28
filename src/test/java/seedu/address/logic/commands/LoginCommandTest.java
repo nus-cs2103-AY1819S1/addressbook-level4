@@ -18,6 +18,7 @@ import seedu.address.model.user.Username;
 import seedu.address.model.user.UsernameTest;
 import seedu.address.testutil.TypicalPersons;
 
+//@@author JasonChong96
 public class LoginCommandTest {
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 

@@ -10,6 +10,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.user.UsernameTest;
 
+//@@author JasonChong96
 public class XmlAdaptedUsernameTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();

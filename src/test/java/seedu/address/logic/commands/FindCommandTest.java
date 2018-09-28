@@ -13,7 +13,6 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import java.util.Arrays;
 import java.util.Collections;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
