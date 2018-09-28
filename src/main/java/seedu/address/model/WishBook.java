@@ -113,8 +113,8 @@ public class WishBook implements ReadOnlyWishBook {
                     wish.getPrice(),
                     wish.getEmail(),
                     wish.getUrl(),
-                    wish.getRemark(),
-                    modifiedTags);
+                    wish.getSavedAmount(),
+                    wish.getRemark(), modifiedTags);
 
             modifiedWishes.add(modifiedWish);
         }

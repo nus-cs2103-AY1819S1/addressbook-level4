@@ -22,12 +22,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 
 import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.wish.Email;
-import seedu.address.model.wish.Name;
-import seedu.address.model.wish.Price;
-import seedu.address.model.wish.Remark;
-import seedu.address.model.wish.Url;
-import seedu.address.model.wish.Wish;
+import seedu.address.model.wish.*;
 
 /**
  * Edits the details of an existing wish in the address book.
@@ -102,10 +97,11 @@ public class EditCommand extends Command {
         Price updatedPrice = editWishDescriptor.getPrice().orElse(wishToEdit.getPrice());
         Email updatedEmail = editWishDescriptor.getEmail().orElse(wishToEdit.getEmail());
         Url updatedUrl = editWishDescriptor.getUrl().orElse(wishToEdit.getUrl());
+        SavedAmount savedAmount = wishToEdit.getSavedAmount();
         Remark remark = wishToEdit.getRemark(); // cannot modify remark with edit command
         Set<Tag> updatedTags = editWishDescriptor.getTags().orElse(wishToEdit.getTags());
 
-        return new Wish(updatedName, updatedPrice, updatedEmail, updatedUrl, remark, updatedTags);
+        return new Wish(updatedName, updatedPrice, updatedEmail, updatedUrl, savedAmount, remark, updatedTags);
     }
 
     @Override

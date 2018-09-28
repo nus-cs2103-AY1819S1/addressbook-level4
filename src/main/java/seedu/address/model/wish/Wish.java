@@ -29,7 +29,7 @@ public class Wish {
     /**
      * Every field must be present and not null.
      */
-    public Wish(Name name, Price price, Email email, Url url, Remark remark, Set<Tag> tags) {
+    public Wish(Name name, Price price, Email email, Url url, SavedAmount savedAmount, Remark remark, Set<Tag> tags) {
         requireAllNonNull(name, price, email, url, tags);
         this.name = name;
         this.price = price;
@@ -37,7 +37,7 @@ public class Wish {
         this.url = url;
         this.tags.addAll(tags);
         this.remark = remark;
-        this.savedAmount = new SavedAmount("0.0");
+        this.savedAmount = savedAmount;
     }
 
     public Name getName() {

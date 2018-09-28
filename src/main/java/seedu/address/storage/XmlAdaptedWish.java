@@ -11,12 +11,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.wish.Email;
-import seedu.address.model.wish.Name;
-import seedu.address.model.wish.Price;
-import seedu.address.model.wish.Remark;
-import seedu.address.model.wish.Url;
-import seedu.address.model.wish.Wish;
+import seedu.address.model.wish.*;
 
 /**
  * JAXB-friendly version of the Wish.
@@ -29,6 +24,8 @@ public class XmlAdaptedWish {
     private String name;
     @XmlElement(required = true)
     private String price;
+    @XmlElement(required = true)
+    private String savedAmount;
     @XmlElement(required = true)
     private String email;
     @XmlElement(required = true)
@@ -53,6 +50,7 @@ public class XmlAdaptedWish {
         this.price = price;
         this.email = email;
         this.url = url;
+        this.savedAmount = "0.00";
         this.remark = "";
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
@@ -69,6 +67,7 @@ public class XmlAdaptedWish {
         price = source.getPrice().toString();
         email = source.getEmail().value;
         url = source.getUrl().value;
+        savedAmount = source.getSavedAmount().toString();
         remark = source.getRemark().value;
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
@@ -123,8 +122,13 @@ public class XmlAdaptedWish {
         }
         final Remark modelRemark = new Remark(this.remark);
 
+        if (this.savedAmount == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, SavedAmount.class.getSimpleName()));
+        }
+        final SavedAmount modelSavedAmount = new SavedAmount(this.savedAmount);
+
         final Set<Tag> modelTags = new HashSet<>(wishTags);
-        return new Wish(modelName, modelPrice, modelEmail, modelUrl, modelRemark, modelTags);
+        return new Wish(modelName, modelPrice, modelEmail, modelUrl, modelSavedAmount, modelRemark, modelTags);
     }
 
     @Override

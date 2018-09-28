@@ -13,12 +13,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.wish.Url;
-import seedu.address.model.wish.Email;
-import seedu.address.model.wish.Name;
-import seedu.address.model.wish.Price;
-import seedu.address.model.wish.Remark;
-import seedu.address.model.wish.Wish;
+import seedu.address.model.wish.*;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -44,11 +39,12 @@ public class AddCommandParser implements Parser<AddCommand> {
         Price price = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Url url = ParserUtil.parseUrl(argMultimap.getValue(PREFIX_URL).get());
+        SavedAmount savedAmount = new SavedAmount("0.0");
         Remark remark = new Remark(""); // remark cannot be added manually by add command
 
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Wish wish = new Wish(name, price, email, url, remark, tagList);
+        Wish wish = new Wish(name, price, email, url, savedAmount, remark, tagList);
 
         return new AddCommand(wish);
     }

@@ -107,7 +107,7 @@ public class WishBuilder {
     }
 
     public Wish build() {
-        return new Wish(name, price, email, url, remark, tags);
+        return new Wish(name, price, email, url, savedAmount, remark, tags);
     }
 
 }

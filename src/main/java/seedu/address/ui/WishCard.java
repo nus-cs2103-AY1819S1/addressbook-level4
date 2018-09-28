@@ -50,6 +50,7 @@ public class WishCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(wish.getName().fullName);
         price.setText(wish.getPrice().toString());
+        savedAmount.setText(wish.getSavedAmount().toString());
         url.setText(wish.getUrl().value);
         email.setText(wish.getEmail().value);
         remark.setText(wish.getRemark().value);
