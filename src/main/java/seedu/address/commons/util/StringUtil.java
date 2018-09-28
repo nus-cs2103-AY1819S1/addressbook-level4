@@ -76,7 +76,7 @@ public class StringUtil {
      * @param word cannot be null, cannot be empty and must be a single word
      */
     //@@author javenseow
-    public static boolean containsTagIgnoreCase(Set<Tag> tags, String word) {
+    public static boolean containsFieldIgnoreCase(String tags, String word) {
         requireNonNull(tags);
         requireNonNull(word);
 
@@ -84,13 +84,13 @@ public class StringUtil {
         checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
         checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single word");
 
-        Tag preppedTag = new Tag(word);
-
-        for (Tag tag: tags){
-            if (tag.equals(preppedTag)) {
-                return true;
-            }
+        String preppedTags = tags;
+        String[] wordsInTagsSentence = preppedTags.split(",");
+        for (int i = 0; i < wordsInTagsSentence.length; i++) {
+            wordsInTagsSentence[i] = wordsInTagsSentence[i].trim();
         }
-        return false;
+
+        return Arrays.stream(wordsInTagsSentence)
+                .anyMatch(preppedWord::equalsIgnoreCase);
     }
 }

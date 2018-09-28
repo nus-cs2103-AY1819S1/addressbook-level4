@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.person.TagContainsKeywordsPredicate;
+import seedu.address.model.person.FieldsContainsKeywordsPredicate;
 
 /**
  * Finds and lists all persons in address book whose data fields match any of the argument keyword.
@@ -20,9 +20,9 @@ public class SearchCommand extends Command{
             + "Parameters: KEYWORD\n"
             + "Example: " + COMMAND_WORD + " soccer";
 
-    private final TagContainsKeywordsPredicate predicate;
+    private final FieldsContainsKeywordsPredicate predicate;
 
-    public SearchCommand(TagContainsKeywordsPredicate predicate) {
+    public SearchCommand(FieldsContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 

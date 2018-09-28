@@ -10,23 +10,25 @@ import seedu.address.commons.util.StringUtil;
  * Tests that a {@code Person}'s {@code Tag} matches the keyword given.
  */
 //@@author javenseow
-public class TagContainsKeywordsPredicate implements Predicate<Person> {
+public class FieldsContainsKeywordsPredicate implements Predicate<Person> {
     private final List<String> keywords;
 
-    public TagContainsKeywordsPredicate(List<String> keywords) {
+    public FieldsContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
     }
 
     @Override
     public boolean test(Person person) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsTagIgnoreCase(person.getTags(), keyword));
+                .anyMatch(keyword -> StringUtil.containsFieldIgnoreCase
+                        (person.getFields().toString().replaceAll("\\[", "").replaceAll("]", "")
+                        , keyword));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof TagContainsKeywordsPredicate //instanceof handles null
-            && keywords.equals(((TagContainsKeywordsPredicate) other).keywords)); //state check
+            || (other instanceof FieldsContainsKeywordsPredicate //instanceof handles null
+            && keywords.equals(((FieldsContainsKeywordsPredicate) other).keywords)); //state check
     }
 }
