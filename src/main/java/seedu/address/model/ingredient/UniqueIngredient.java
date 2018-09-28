@@ -1,6 +1,10 @@
 package seedu.address.model.ingredient;
 
-public class UniqueIngredient{
+/**
+ * Represents an unique ingredient in the address book.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
+public class UniqueIngredient {
     /**
      * Every field must be present and not null.
      */

@@ -3,9 +3,13 @@ package seedu.address.model.ingredient;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * Represents an ingredient in the address book.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class Ingredient {
     // Identity fields
-    private  String name;
+    private String name;
 
     // Data fields
     private double amount;
@@ -19,18 +23,26 @@ public class Ingredient {
         this.date = date;
     }
 
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 
     public double getAmount() {
         return amount;
     }
 
-    public ServingUnit getUnit() { return unit; }
+    public ServingUnit getUnit() {
+        return unit;
+    }
 
     public Date getDate() {
         return date;
     }
 
+    /**
+     * Returns true if both ingredients of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two recipes.
+     */
     public boolean isSameIngredient(Ingredient otherIngredient) {
         if (otherIngredient == this) {
             return true;

@@ -13,10 +13,12 @@ import seedu.address.model.ingredient.exceptions.UniqueIngredientNotFoundExcepti
 
 /**
  * A list of unique ingredients that enforces uniqueness between its elements and does not allow nulls.
- * An unique ingredient is considered unique by comparing using {@code UniqueIngredient#equals(Object)}. As such, adding and updating of
- * unique ingredients uses UniqueIngredient#equals(Object) for equality so as to ensure that the unique ingredient being added or updated is
- * unique in terms of identity in the UniqueIngredientList. However, the removal of an unique ingredient uses UniqueIngredient#equals(Object) so
- * as to ensure that the unique ingredient with exactly the same fields will be removed.
+ * An unique ingredient is considered unique by comparing using {@code UniqueIngredient#equals(Object)}.
+ * As such, adding and updating of unique ingredients uses UniqueIngredient#equals(Object) for equality
+ * so as to ensure that the unique ingredient being added or updated is unique
+ * in terms of identity in the UniqueIngredientList.
+ * However, the removal of an unique ingredient uses UniqueIngredient#equals(Object)
+ * so as to ensure that the unique ingredient with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
@@ -48,7 +50,8 @@ public class UniqueIngredientList implements Iterable<UniqueIngredient> {
     /**
      * Replaces the uniqueIngredient {@code target} in the list with {@code editedUniqueIngredient}.
      * {@code target} must exist in the list.
-     * The uniqueIngredient identity of {@code editedUniqueIngredient} must not be the same as another existing uniqueIngredient in the list.
+     * The uniqueIngredient identity of {@code editedUniqueIngredient} must not be the same
+     * as another existing uniqueIngredient in the list.
      */
     public void setUniqueIngredient(UniqueIngredient target, UniqueIngredient editedUniqueIngredient) {
         requireAllNonNull(target, editedUniqueIngredient);
