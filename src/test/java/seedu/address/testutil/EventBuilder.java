@@ -17,7 +17,6 @@ import seedu.address.model.util.SampleDataUtil;
  * A utility class to help with building Event objects.
  */
 public class EventBuilder {
-
     public static final String DEFAULT_NAME = "Tutorial";
     public static final String DEFAULT_ADDRESS = "NUS UTown";
     public static final String DEFAULT_TAG = "friends";
@@ -84,6 +83,9 @@ public class EventBuilder {
         return this;
     }
 
+    /**
+     * Adds a {@code poll} to the {@code Event} that we are building.
+     */
     public EventBuilder withPoll() {
         polls.add(new Poll(polls.size(), DEFAULT_POLL));
         return this;

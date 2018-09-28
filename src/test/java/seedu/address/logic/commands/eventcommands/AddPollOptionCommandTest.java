@@ -1,6 +1,11 @@
 package seedu.address.logic.commands.eventcommands;
 
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
+
 import org.junit.Test;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -10,13 +15,9 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.event.Event;
 import seedu.address.testutil.EventBuilder;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
-
 public class AddPollOptionCommandTest {
-    private static Index INDEX = Index.fromOneBased(1);
-    private static String OPTION_NAME = "Generic option";
+    private static final Index INDEX = Index.fromOneBased(1);
+    private static final String OPTION_NAME = "Generic option";
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());

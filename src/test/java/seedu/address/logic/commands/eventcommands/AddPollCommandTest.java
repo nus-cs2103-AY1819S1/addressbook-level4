@@ -5,6 +5,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
 
 import org.junit.Test;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
@@ -16,7 +17,7 @@ import seedu.address.testutil.EventBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddPollCommandTest {
-    private static String POLLNAME = "Generic Poll";
+    private static final String POLLNAME = "Generic Poll";
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
