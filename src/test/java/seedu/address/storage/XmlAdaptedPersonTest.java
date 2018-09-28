@@ -34,8 +34,8 @@ public class XmlAdaptedPersonTest {
 
     @Test
     public void toModelType_validPersonDetails_returnsPerson() throws Exception {
-        XmlAdaptedTask person = new XmlAdaptedTask(BENSON);
-        assertEquals(BENSON, person.toModelType());
+        XmlAdaptedTask task = new XmlAdaptedTask(BENSON);
+        assertEquals(BENSON, task.toModelType());
     }
 
     @Test
