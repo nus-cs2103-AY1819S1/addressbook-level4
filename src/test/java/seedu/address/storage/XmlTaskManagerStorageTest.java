@@ -20,8 +20,8 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.model.TaskManager;
 
-public class XmlAddressBookStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlAddressBookStorageTest");
+public class XmlTaskManagerStorageTest {
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlTaskManagerStorageTest");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
