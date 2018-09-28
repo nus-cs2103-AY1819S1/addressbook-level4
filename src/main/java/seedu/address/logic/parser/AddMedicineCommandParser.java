@@ -7,11 +7,17 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE_PER_UNIT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STOCK;
 
+import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddMedicineCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-
+import seedu.address.model.medicine.PricePerUnit;
+import seedu.address.model.medicine.MinimumStockQuantity;
+import seedu.address.model.medicine.SerialNumber;
+import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.MedicineName;
+import seedu.address.model.medicine.Stock;
 
 public class AddMedicineCommandParser implements Parser<AddMedicineCommand> {
     @Override
@@ -26,16 +32,15 @@ public class AddMedicineCommandParser implements Parser<AddMedicineCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMedicineCommand.MESSAGE_USAGE));
         }
 
-        MedicineName name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        IcNumber icNumber = ParserUtil.parseIcNumber(argMultimap.getValue(PREFIX_ICNUMBER).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        MedicineName name = ParserUtil.parseMedicineName(argMultimap.getValue(PREFIX_MEDICINE_NAME).get());
+        MinimumStockQuantity minimumStockQuantity = ParserUtil.parseMinimumStockQuantity(argMultimap.getValue(PREFIX_MINIMUM_STOCK_QUANTITY).get());
+        PricePerUnit pricePerUnit = ParserUtil.parsePricePerUnit(argMultimap.getValue(PREFIX_PRICE_PER_UNIT).get());
+        SerialNumber serialNumber = ParserUtil.parseSerialNumber(argMultimap.getValue(PREFIX_SERIAL_NUMBER).get());
+        Stock stock = ParserUtil.parseStock(argMultimap.getValue(PREFIX_STOCK).get());
 
-        Patient patient = new Patient(name, icNumber, phone, email, address, tagList);
+        Medicine medicine = new Medicine(name, minimumStockQuantity, pricePerUnit, serialNumber, stock);
 
-        return new AddCommand(patient);
+        return new AddMedicineCommand(medicine);
     }
 
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {

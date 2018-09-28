@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.person.Patient;
 
 /**
@@ -76,4 +77,15 @@ public interface Model {
      * Saves the current address book state for undo/redo.
      */
     void commitAddressBook();
+
+    /**
+     * Returns true if a medicine {@code medicine} exists in the records.
+     */
+    boolean hasMedicine(Medicine medicine);
+
+    /**
+     * Adds the given medicine.
+     * {@code medicine} must not already exist in the records.
+     */
+    void addMedicine(Medicine medicine);
 }
