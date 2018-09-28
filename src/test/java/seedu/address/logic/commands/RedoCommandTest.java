@@ -12,6 +12,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.exceptions.NoUserSelectedException;
 
 public class RedoCommandTest {
 
@@ -20,7 +21,7 @@ public class RedoCommandTest {
     private final CommandHistory commandHistory = new CommandHistory();
 
     @Before
-    public void setUp() {
+    public void setUp() throws NoUserSelectedException {
         // set up of both models' undo/redo history
         deleteFirstPerson(model);
         deleteFirstPerson(model);
@@ -34,7 +35,7 @@ public class RedoCommandTest {
     }
 
     @Test
-    public void execute() {
+    public void execute() throws NoUserSelectedException {
         // multiple redoable states in model
         expectedModel.redoAddressBook();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);

@@ -54,4 +54,5 @@
         <email isPrivate="false">hans@example.com</email>
         <cost isPrivate="false">123.00</cost>
     </persons>
+    <username>validAddressBook</username>
 </addressbook>

@@ -10,6 +10,7 @@ import seedu.address.model.expense.Category;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Person;
 import seedu.address.model.expense.UniquePersonList;
+import seedu.address.model.user.Username;
 
 /**
  * Wraps all data at the address-book level
@@ -17,28 +18,21 @@ import seedu.address.model.expense.UniquePersonList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
+    protected final Username username;
     private final UniquePersonList persons;
     private final CategoryList categoryList;
 
-    /*
-     * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
-     */
-    {
+    public AddressBook(Username username) {
+        this.username = username;
         persons = new UniquePersonList();
         categoryList = new CategoryList();
     }
-
-    public AddressBook() {}
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
-        this();
+        this(toBeCopied.getUsername());
         resetData(toBeCopied);
     }
 
@@ -114,6 +108,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    public Username getUsername() {
+        return username;
+    }
     //// util methods
 
     @Override

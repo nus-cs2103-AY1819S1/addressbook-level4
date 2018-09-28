@@ -12,11 +12,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.Assert;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.exceptions.NoUserSelectedException;
+import seedu.address.model.exceptions.NonExistentUserException;
+import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.expense.NameContainsKeywordsPredicate;
 import seedu.address.model.expense.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -83,7 +88,7 @@ public class CommandTestUtil {
             assertEquals(expectedMessage, result.feedbackToUser);
             assertEquals(expectedModel, actualModel);
             assertEquals(expectedCommandHistory, actualCommandHistory);
-        } catch (CommandException ce) {
+        } catch (Exception ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
     }
@@ -99,19 +104,23 @@ public class CommandTestUtil {
             String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
-        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
-
-        CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
-
         try {
-            command.execute(actualModel, actualCommandHistory);
-            throw new AssertionError("The expected CommandException was not thrown.");
-        } catch (CommandException e) {
-            assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedAddressBook, actualModel.getAddressBook());
-            assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
-            assertEquals(expectedCommandHistory, actualCommandHistory);
+            AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+            List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+
+            CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
+
+            try {
+                command.execute(actualModel, actualCommandHistory);
+                throw new AssertionError("The expected CommandException was not thrown.");
+            } catch (CommandException e) {
+                assertEquals(expectedMessage, e.getMessage());
+                assertEquals(expectedAddressBook, actualModel.getAddressBook());
+                assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+                assertEquals(expectedCommandHistory, actualCommandHistory);
+            }
+        } catch (NoUserSelectedException | NonExistentUserException | UserAlreadyExistsException e) {
+            Assert.fail("Command threw error : " + e.getMessage());
         }
     }
 
@@ -119,7 +128,7 @@ public class CommandTestUtil {
      * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
+    public static void showPersonAtIndex(Model model, Index targetIndex) throws NoUserSelectedException {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
 
         Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
@@ -132,7 +141,7 @@ public class CommandTestUtil {
     /**
      * Deletes the first person in {@code model}'s filtered list from {@code model}'s address book.
      */
-    public static void deleteFirstPerson(Model model) {
+    public static void deleteFirstPerson(Model model) throws NoUserSelectedException {
         Person firstPerson = model.getFilteredPersonList().get(0);
         model.deletePerson(firstPerson);
         model.commitAddressBook();

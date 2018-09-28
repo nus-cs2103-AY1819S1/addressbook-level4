@@ -14,6 +14,7 @@ import guitests.guihandles.HelpWindowHandle;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.StatusBarFooter;
 
@@ -29,7 +30,7 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
     private final GuiRobot guiRobot = new GuiRobot();
 
     @Test
-    public void openHelpWindow() {
+    public void openHelpWindow() throws NoUserSelectedException {
         //use accelerator
         getCommandBox().click();
         getMainMenu().openHelpWindowUsingAccelerator();
