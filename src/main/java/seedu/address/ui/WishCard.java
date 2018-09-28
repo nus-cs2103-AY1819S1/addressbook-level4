@@ -34,7 +34,7 @@ public class WishCard extends UiPart<Region> {
     @FXML
     private Label phone;
     @FXML
-    private Label address;
+    private Label url;
     @FXML
     private Label email;
     @FXML
@@ -48,7 +48,7 @@ public class WishCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(wish.getName().fullName);
         phone.setText(wish.getPhone().value);
-        address.setText(wish.getUrl().value);
+        url.setText(wish.getUrl().value);
         email.setText(wish.getEmail().value);
         remark.setText(wish.getRemark().value);
         initTags(wish);
