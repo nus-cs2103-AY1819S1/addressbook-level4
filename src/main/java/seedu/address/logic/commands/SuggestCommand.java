@@ -37,7 +37,7 @@ public class SuggestCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         //guaranteed at least one commandWord in commandWords, otherwise exception raised by parser
         StringBuilder builder = new StringBuilder("Do you mean the following commands:\n");
-        for(String s : suggestions) {
+        for (String s : suggestions) {
             builder.append(s);
             builder.append(", ");
         }
