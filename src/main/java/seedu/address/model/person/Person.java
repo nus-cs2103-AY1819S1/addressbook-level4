@@ -6,18 +6,20 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.Optional;
 
 import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Person in the address book.
- * Guarantees: details are present and not null, field values are validated, immutable.
+ * Guarantees: details are present and not null, but details other than name are optional, field values are
+ * validated, immutable.
  */
 public class Person {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
+    private final Optional<Phone> phone;
     private final Email email;
 
     // Data fields
@@ -27,7 +29,7 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Person(Name name, Optional<Phone> phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
@@ -40,7 +42,7 @@ public class Person {
         return name;
     }
 
-    public Phone getPhone() {
+    public Optional<Phone> getPhone() {
         return phone;
     }
 
@@ -106,9 +108,10 @@ public class Person {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
+                .append(" Phone: ");
+        getPhone().ifPresentOrElse(builder::append,
+                () -> builder.append("None"));
+        builder.append(" Email: ")
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
