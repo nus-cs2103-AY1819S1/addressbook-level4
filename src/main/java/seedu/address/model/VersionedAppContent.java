@@ -8,14 +8,14 @@ import java.util.List;
  */
 public class VersionedAppContent extends AppContent {
 
-    private final List<ReadOnlyAppContent> addressBookStateList;
+    private final List<ReadOnlyAppContent> appContentStateList;
     private int currentStatePointer;
 
     public VersionedAppContent(ReadOnlyAppContent initialState) {
         super(initialState);
 
-        addressBookStateList = new ArrayList<>();
-        addressBookStateList.add(new AppContent(initialState));
+        appContentStateList = new ArrayList<>();
+        appContentStateList.add(new AppContent(initialState));
         currentStatePointer = 0;
     }
 
@@ -25,48 +25,48 @@ public class VersionedAppContent extends AppContent {
      */
     public void commit() {
         removeStatesAfterCurrentPointer();
-        addressBookStateList.add(new AppContent(this));
+        appContentStateList.add(new AppContent(this));
         currentStatePointer++;
     }
 
     private void removeStatesAfterCurrentPointer() {
-        addressBookStateList.subList(currentStatePointer + 1, addressBookStateList.size()).clear();
+        appContentStateList.subList(currentStatePointer + 1, appContentStateList.size()).clear();
     }
 
     /**
-     * Restores the address book to its previous state.
+     * Restores the application content to its previous state.
      */
     public void undo() {
         if (!canUndo()) {
             throw new NoUndoableStateException();
         }
         currentStatePointer--;
-        resetData(addressBookStateList.get(currentStatePointer));
+        resetData(appContentStateList.get(currentStatePointer));
     }
 
     /**
-     * Restores the address book to its previously undone state.
+     * Restores the application content to its previously undone state.
      */
     public void redo() {
         if (!canRedo()) {
             throw new NoRedoableStateException();
         }
         currentStatePointer++;
-        resetData(addressBookStateList.get(currentStatePointer));
+        resetData(appContentStateList.get(currentStatePointer));
     }
 
     /**
-     * Returns true if {@code undo()} has address book states to undo.
+     * Returns true if {@code undo()} has application content states to undo.
      */
     public boolean canUndo() {
         return currentStatePointer > 0;
     }
 
     /**
-     * Returns true if {@code redo()} has address book states to redo.
+     * Returns true if {@code redo()} has application content states to redo.
      */
     public boolean canRedo() {
-        return currentStatePointer < addressBookStateList.size() - 1;
+        return currentStatePointer < appContentStateList.size() - 1;
     }
 
     @Override
@@ -81,12 +81,12 @@ public class VersionedAppContent extends AppContent {
             return false;
         }
 
-        VersionedAppContent otherVersionedAddressBook = (VersionedAppContent) other;
+        VersionedAppContent otherVersionedAppContent = (VersionedAppContent) other;
 
         // state check
-        return super.equals(otherVersionedAddressBook)
-                && addressBookStateList.equals(otherVersionedAddressBook.addressBookStateList)
-                && currentStatePointer == otherVersionedAddressBook.currentStatePointer;
+        return super.equals(otherVersionedAppContent)
+                && appContentStateList.equals(otherVersionedAppContent.appContentStateList)
+                && currentStatePointer == otherVersionedAppContent.currentStatePointer;
     }
 
     /**
@@ -94,7 +94,7 @@ public class VersionedAppContent extends AppContent {
      */
     public static class NoUndoableStateException extends RuntimeException {
         private NoUndoableStateException() {
-            super("Current state pointer at start of addressBookState list, unable to undo.");
+            super("Current state pointer at start of appContentState list, unable to undo.");
         }
     }
 
@@ -103,7 +103,7 @@ public class VersionedAppContent extends AppContent {
      */
     public static class NoRedoableStateException extends RuntimeException {
         private NoRedoableStateException() {
-            super("Current state pointer at end of addressBookState list, unable to redo.");
+            super("Current state pointer at end of appContentState list, unable to redo.");
         }
     }
 }
