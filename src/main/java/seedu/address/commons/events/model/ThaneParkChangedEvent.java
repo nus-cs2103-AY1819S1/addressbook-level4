@@ -4,11 +4,11 @@ import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.ReadOnlyThanePark;
 
 /** Indicates the ThanePark in the model has changed*/
-public class AddressBookChangedEvent extends BaseEvent {
+public class ThaneParkChangedEvent extends BaseEvent {
 
     public final ReadOnlyThanePark data;
 
-    public AddressBookChangedEvent(ReadOnlyThanePark data) {
+    public ThaneParkChangedEvent(ReadOnlyThanePark data) {
         this.data = data;
     }
 

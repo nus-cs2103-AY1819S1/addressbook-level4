@@ -16,8 +16,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.model.ride.exceptions.DuplicatePersonException;
-import seedu.address.model.ride.exceptions.PersonNotFoundException;
+import seedu.address.model.ride.exceptions.DuplicateRideException;
+import seedu.address.model.ride.exceptions.RideNotFoundException;
 import seedu.address.testutil.RideBuilder;
 
 public class UniqueRideListTest {
@@ -60,7 +60,7 @@ public class UniqueRideListTest {
     @Test
     public void add_duplicatePerson_throwsDuplicatePersonException() {
         uniqueRideList.add(ALICE);
-        thrown.expect(DuplicatePersonException.class);
+        thrown.expect(DuplicateRideException.class);
         uniqueRideList.add(ALICE);
     }
 
@@ -78,7 +78,7 @@ public class UniqueRideListTest {
 
     @Test
     public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
-        thrown.expect(PersonNotFoundException.class);
+        thrown.expect(RideNotFoundException.class);
         uniqueRideList.setRide(ALICE, ALICE);
     }
 
@@ -115,7 +115,7 @@ public class UniqueRideListTest {
     public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
         uniqueRideList.add(ALICE);
         uniqueRideList.add(BOB);
-        thrown.expect(DuplicatePersonException.class);
+        thrown.expect(DuplicateRideException.class);
         uniqueRideList.setRide(ALICE, BOB);
     }
 
@@ -127,7 +127,7 @@ public class UniqueRideListTest {
 
     @Test
     public void remove_personDoesNotExist_throwsPersonNotFoundException() {
-        thrown.expect(PersonNotFoundException.class);
+        thrown.expect(RideNotFoundException.class);
         uniqueRideList.remove(ALICE);
     }
 
@@ -173,7 +173,7 @@ public class UniqueRideListTest {
     @Test
     public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
         List<Ride> listWithDuplicateRides = Arrays.asList(ALICE, ALICE);
-        thrown.expect(DuplicatePersonException.class);
+        thrown.expect(DuplicateRideException.class);
         uniqueRideList.setRides(listWithDuplicateRides);
     }
 

@@ -20,7 +20,7 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.ride.Ride;
-import seedu.address.model.ride.exceptions.DuplicatePersonException;
+import seedu.address.model.ride.exceptions.DuplicateRideException;
 import seedu.address.testutil.RideBuilder;
 
 public class ThaneParkTest {
@@ -56,7 +56,7 @@ public class ThaneParkTest {
         List<Ride> newRides = Arrays.asList(ALICE, editedAlice);
         ThaneParkStub newData = new ThaneParkStub(newRides);
 
-        thrown.expect(DuplicatePersonException.class);
+        thrown.expect(DuplicateRideException.class);
         thanePark.resetData(newData);
     }
 
