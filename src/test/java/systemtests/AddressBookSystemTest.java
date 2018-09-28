@@ -43,6 +43,7 @@ import seedu.address.model.Model;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
+import seedu.address.ui.HelpWindow;
 
 /**
  * A system test class for AddressBook, which provides access to handles of GUI components and helper methods
@@ -277,7 +278,7 @@ public abstract class AddressBookSystemTest {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
-        assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
+        assertEquals(getClass().getResource(HelpWindow.SHORT_HELP_FILE_PATH), getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());

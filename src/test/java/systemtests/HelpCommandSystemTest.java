@@ -76,13 +76,16 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void openHelpSummary() {
-        //use command box
-        executeCommand(HelpCommand.COMMAND_WORD);
+        //already open on startup
         assertShortHelpDisplayed();
 
         //select something
         executeCommand(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertShortHelpNotDisplayed();
+
+        //use command box
+        executeCommand(HelpCommand.COMMAND_WORD);
+        assertShortHelpDisplayed();
     }
 
     @Test
