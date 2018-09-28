@@ -53,7 +53,7 @@ public class Wish {
     }
 
     public SavedAmount getSavedAmount() {
-        return getSavedAmount();
+        return savedAmount;
     }
 
     public Url getUrl() {
