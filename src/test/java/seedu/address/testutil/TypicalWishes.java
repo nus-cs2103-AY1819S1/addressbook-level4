@@ -54,7 +54,8 @@ public class TypicalWishes {
             .withUrl("https://www.lazada.sg/products/nintendo-switch-neon-console-1-year-local-warranty-best-seller-i180040203-s230048296.html").build();
     public static final Wish GEORGE = new WishBuilder().withName("George Best")
             .withPhone("9482442")
-            .withEmail("anna@example.com").withUrl("4th street").build();
+            .withEmail("anna@example.com")
+            .withUrl("https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV").build();
 
     // Manually added
     public static final Wish HOON = new WishBuilder().withName("Hoon Meier")
