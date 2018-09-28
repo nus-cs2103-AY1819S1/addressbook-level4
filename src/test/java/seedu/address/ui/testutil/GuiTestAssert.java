@@ -4,12 +4,14 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 import seedu.address.ui.PersonCard;
 
 /**
@@ -37,11 +39,23 @@ public class GuiTestAssert {
      */
     public static void assertCardDisplaysPerson(Person expectedPerson, PersonCardHandle actualCard) {
         assertEquals(expectedPerson.getName().fullName, actualCard.getName());
-        assertEquals(expectedPerson.getPhone().value, actualCard.getPhone());
+        assertPhoneFieldAccurate(expectedPerson.getPhone(), actualCard.getPhone());
         assertEquals(expectedPerson.getEmail().value, actualCard.getEmail());
         assertEquals(expectedPerson.getAddress().value, actualCard.getAddress());
 
         assertTagsEqual(expectedPerson, actualCard);
+    }
+
+    /**
+     * Asserts that {@code actualPhoneField} displays the correct phone number of {@code phone} if it exists,
+     * and the correct message otherwise.
+     * @param phone The Optional phone that belongs to the person.
+     * @param actualPhoneField The string displayed in the Card's phone field.
+     */
+    private static void assertPhoneFieldAccurate(Optional<Phone> phone, String actualPhoneField) {
+        phone.ifPresentOrElse(
+                p -> assertEquals(p.value, actualPhoneField),
+                () -> assertEquals(actualPhoneField, PersonCard.NO_PHONE_NUMBER));
     }
 
     /**

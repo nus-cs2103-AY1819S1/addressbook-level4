@@ -19,6 +19,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
+import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 public class FindCommandSystemTest extends AddressBookSystemTest {
@@ -112,7 +113,8 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find phone number of person in address book -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getPhone().value;
+        assert (DANIEL.getPhone().isPresent()); // DANIEL can have no phone number, so this must be handled
+        command = FindCommand.COMMAND_WORD + " " + DANIEL.getPhone().get().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 

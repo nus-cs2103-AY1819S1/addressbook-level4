@@ -15,6 +15,7 @@ public class PersonCard extends UiPart<Region> {
     private static final String FXML = "PersonListCard.fxml";
     private static final String[] TAG_COLOR_STYLES = { "teal", "red", "yellow", "blue",
         "orange", "brown", "green", "pink", "black", "grey"};
+    public static final String NO_PHONE_NUMBER = "No Phone Number";
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
      * As a consequence, UI elements' variable names cannot be set to such keywords
@@ -48,7 +49,7 @@ public class PersonCard extends UiPart<Region> {
         person.getPhone()
                 .ifPresentOrElse(p -> {
                     phone.setText(p.value);
-                }, () -> phone.setText("No Phone Number"));
+                }, () -> phone.setText(NO_PHONE_NUMBER));
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
         initTags(person);

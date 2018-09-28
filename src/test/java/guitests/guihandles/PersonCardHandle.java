@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
+import seedu.address.ui.PersonCard;
 
 /**
  * Provides a handle to a person card in the person list panel.
@@ -87,7 +88,9 @@ public class PersonCardHandle extends NodeHandle<Node> {
     public boolean equals(Person person) {
         return getName().equals(person.getName().fullName)
                 && getAddress().equals(person.getAddress().value)
-                && getPhone().equals(person.getPhone().value)
+                && getPhone().equals(person.getPhone().isPresent()
+                        ? person.getPhone().get().value
+                        : PersonCard.NO_PHONE_NUMBER)
                 && getEmail().equals(person.getEmail().value)
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(person.getTags().stream()
                 .map(tag -> tag.tagName)
