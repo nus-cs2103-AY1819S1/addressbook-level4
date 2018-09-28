@@ -53,7 +53,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             editWishDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
         }
         if (argMultimap.getValue(PREFIX_URL).isPresent()) {
-            editWishDescriptor.setUrl(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_URL).get()));
+            editWishDescriptor.setUrl(ParserUtil.parseUrl(argMultimap.getValue(PREFIX_URL).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editWishDescriptor::setTags);
 

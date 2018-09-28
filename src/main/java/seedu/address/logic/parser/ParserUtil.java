@@ -10,10 +10,10 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.wish.Url;
 import seedu.address.model.wish.Email;
 import seedu.address.model.wish.Name;
 import seedu.address.model.wish.Phone;
+import seedu.address.model.wish.Url;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -66,18 +66,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}.
+     * Parses a {@code String url} into an {@code Url}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code address} is invalid.
+     * @throws ParseException if the given {@code url} is invalid.
      */
-    public static Url parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Url.isValidUrl(trimmedAddress)) {
+    public static Url parseUrl(String url) throws ParseException {
+        requireNonNull(url);
+        String trimmedUrl = url.trim();
+        if (!Url.isValidUrl(trimmedUrl)) {
             throw new ParseException(Url.MESSAGE_URL_CONSTRAINTS);
         }
-        return new Url(trimmedAddress);
+        return new Url(trimmedUrl);
     }
 
     /**
