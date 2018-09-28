@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
 
 /**
@@ -22,6 +23,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
+    //@@author jjlee050
+    private final FilteredList<Doctor> filteredDoctors;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -34,6 +37,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        //@@author jjlee050
+        filteredDoctors = new FilteredList<>(versionedAddressBook.getDoctorList());
     }
 
     public ModelManager() {
@@ -62,9 +67,23 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedAddressBook.hasPerson(person);
     }
 
+    //@@author jjlee050
+    @Override
+    public boolean hasDoctor(Doctor doctor) {
+        requireNonNull(doctor);
+        return versionedAddressBook.hasDoctor(doctor);
+    }
+
     @Override
     public void deletePerson(Person target) {
         versionedAddressBook.removePerson(target);
+        indicateAddressBookChanged();
+    }
+
+    //@@author jjlee050
+    @Override
+    public void deleteDoctor(Doctor target) {
+        versionedAddressBook.removeDoctor(target);
         indicateAddressBookChanged();
     }
 
@@ -75,11 +94,26 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author jjlee050
+    @Override
+    public void addDoctor(Doctor doctor) {
+        versionedAddressBook.addDoctor(doctor);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        indicateAddressBookChanged();
+    }
+
     @Override
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
-
         versionedAddressBook.updatePerson(target, editedPerson);
+        indicateAddressBookChanged();
+    }
+
+    //@@author jjlee050
+    @Override
+    public void updateDoctor(Doctor target, Doctor editedDoctor) {
+        requireAllNonNull(target, editedDoctor);
+        versionedAddressBook.updateDoctor(target, editedDoctor);
         indicateAddressBookChanged();
     }
 
@@ -98,6 +132,25 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Filtered Doctor List Accessors =============================================================
+
+    //@@author jjlee050
+    /**
+     * Returns an unmodifiable view of the list of {@code Doctor} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Doctor> getFilteredDoctorList() {
+        return FXCollections.unmodifiableObservableList(filteredDoctors);
+    }
+
+    //@@author jjlee050
+    @Override
+    public void updateFilteredDoctorList(Predicate<Doctor> predicate) {
+        requireNonNull(predicate);
+        filteredDoctors.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -143,8 +196,10 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
+        //@@author jjlee050
         return versionedAddressBook.equals(other.versionedAddressBook)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredPersons.equals(other.filteredPersons)
+                && filteredDoctors.equals(other.filteredDoctors);
     }
 
 }

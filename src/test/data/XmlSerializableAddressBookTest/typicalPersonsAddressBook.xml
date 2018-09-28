@@ -47,4 +47,14 @@
         <email>anna@example.com</email>
         <address>4th street</address>
     </persons>
+    <doctors>
+        <id>1</id>
+        <name>Adam Bell</name>
+        <password>doctor1</password>
+    </doctors>
+    <doctors>
+        <id>2</id>
+        <name>Ben Hill</name>
+        <password>doctor2</password>
+    </doctors>
 </addressbook>
