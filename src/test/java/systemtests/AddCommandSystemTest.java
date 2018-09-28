@@ -163,7 +163,7 @@ public class AddCommandSystemTest extends WishBookSystemTest {
 
         /* Case: invalid phone -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY + URL_DESC_AMY;
-        assertCommandFailure(command, Price.MESSAGE_PHONE_CONSTRAINTS);
+        assertCommandFailure(command, Price.MESSAGE_PRICE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC + URL_DESC_AMY;

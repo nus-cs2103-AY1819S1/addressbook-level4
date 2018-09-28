@@ -169,7 +169,7 @@ public class EditCommandSystemTest extends WishBookSystemTest {
 
         /* Case: invalid phone -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_WISH.getOneBased() + INVALID_PHONE_DESC,
-                Price.MESSAGE_PHONE_CONSTRAINTS);
+                Price.MESSAGE_PRICE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_WISH.getOneBased() + INVALID_EMAIL_DESC,

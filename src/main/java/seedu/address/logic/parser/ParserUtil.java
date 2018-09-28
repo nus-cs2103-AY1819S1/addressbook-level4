@@ -60,7 +60,7 @@ public class ParserUtil {
         requireNonNull(phone);
         String trimmedPhone = phone.trim();
         if (!Price.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Price.MESSAGE_PHONE_CONSTRAINTS);
+            throw new ParseException(Price.MESSAGE_PRICE_CONSTRAINTS);
         }
         return new Price(trimmedPhone);
     }

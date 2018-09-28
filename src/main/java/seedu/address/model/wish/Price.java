@@ -9,10 +9,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Price {
 
-
-    public static final String MESSAGE_PHONE_CONSTRAINTS =
+    public static final String MESSAGE_PRICE_CONSTRAINTS =
             "Phone numbers should only contain numbers, and it should be at least 3 digits long";
-    public static final String PHONE_VALIDATION_REGEX = "\\d{3,}";
+    public static final String PRICE_VALIDATION_REGEX = "[0-9]+([,.][0-9]{1,2})?";
     public final Double value;
 
     /**
@@ -22,7 +21,7 @@ public class Price {
      */
     public Price(String phone) {
         requireNonNull(phone);
-        checkArgument(isValidPhone(phone), MESSAGE_PHONE_CONSTRAINTS);
+        checkArgument(isValidPhone(phone), MESSAGE_PRICE_CONSTRAINTS);
         value = Double.parseDouble(phone); // TO-DO: check before allowing.
     }
 
@@ -30,12 +29,12 @@ public class Price {
      * Returns true if a given string is a valid phone number.
      */
     public static boolean isValidPhone(String test) {
-        return test.matches(PHONE_VALIDATION_REGEX);
+        return test.matches(PRICE_VALIDATION_REGEX);
     }
 
     @Override
     public String toString() {
-        return String.format("%.2f,", value);
+        return String.format("%.2f", value);
     }
 
     @Override
