@@ -82,7 +82,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: find same persons in address book after deleting 1 of them -> 1 ride found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
-        assertFalse(getModel().getAddressBook().getPersonList().contains(BENSON));
+        assertFalse(getModel().getAddressBook().getRideList().contains(BENSON));
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, DANIEL);
@@ -112,7 +112,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find phone number of ride in address book -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getPhone().value;
+        command = FindCommand.COMMAND_WORD + " " + DANIEL.getDaysSinceMaintenance().toString();
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -121,8 +121,8 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find email of ride in address book -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getEmail().value;
+        /* Case: find waiting time of ride in address book -> 0 persons found */
+        command = FindCommand.COMMAND_WORD + " " + DANIEL.getWaitingTime().toString();
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 

@@ -2,10 +2,10 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MAINTENANCE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_WAITING_TIME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -21,10 +21,10 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ride.Address;
-import seedu.address.model.ride.Email;
+import seedu.address.model.ride.Maintenance;
 import seedu.address.model.ride.Name;
-import seedu.address.model.ride.Phone;
 import seedu.address.model.ride.Ride;
+import seedu.address.model.ride.WaitTime;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -39,13 +39,13 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
+            + "[" + PREFIX_MAINTENANCE + "PHONE] "
+            + "[" + PREFIX_WAITING_TIME + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_MAINTENANCE + "91234567 "
+            + PREFIX_WAITING_TIME + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Ride: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -78,7 +78,7 @@ public class EditCommand extends Command {
         Ride rideToEdit = lastShownList.get(index.getZeroBased());
         Ride editedRide = createEditedPerson(rideToEdit, editPersonDescriptor);
 
-        if (!rideToEdit.isSamePerson(editedRide) && model.hasPerson(editedRide)) {
+        if (!rideToEdit.isSameRide(editedRide) && model.hasPerson(editedRide)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
@@ -96,12 +96,13 @@ public class EditCommand extends Command {
         assert rideToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(rideToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(rideToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(rideToEdit.getEmail());
+        Maintenance updatedMaintenance =
+                editPersonDescriptor.getMaintenance().orElse(rideToEdit.getDaysSinceMaintenance());
+        WaitTime updatedWaitTime = editPersonDescriptor.getWaitTime().orElse(rideToEdit.getWaitingTime());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(rideToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(rideToEdit.getTags());
 
-        return new Ride(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Ride(updatedName, updatedMaintenance, updatedWaitTime, updatedAddress, updatedTags);
     }
 
     @Override
@@ -128,8 +129,8 @@ public class EditCommand extends Command {
      */
     public static class EditPersonDescriptor {
         private Name name;
-        private Phone phone;
-        private Email email;
+        private Maintenance maintenance;
+        private WaitTime waitTime;
         private Address address;
         private Set<Tag> tags;
 
@@ -141,8 +142,8 @@ public class EditCommand extends Command {
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setName(toCopy.name);
-            setPhone(toCopy.phone);
-            setEmail(toCopy.email);
+            setMaintenance(toCopy.maintenance);
+            setWaitTime(toCopy.waitTime);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
         }
@@ -151,7 +152,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, maintenance, waitTime, address, tags);
         }
 
         public void setName(Name name) {
@@ -162,20 +163,20 @@ public class EditCommand extends Command {
             return Optional.ofNullable(name);
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public void setMaintenance(Maintenance maintenance) {
+            this.maintenance = maintenance;
         }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
+        public Optional<Maintenance> getMaintenance() {
+            return Optional.ofNullable(maintenance);
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
+        public void setWaitTime(WaitTime waitTime) {
+            this.waitTime = waitTime;
         }
 
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
+        public Optional<WaitTime> getWaitTime() {
+            return Optional.ofNullable(waitTime);
         }
 
         public void setAddress(Address address) {
@@ -219,8 +220,8 @@ public class EditCommand extends Command {
             EditPersonDescriptor e = (EditPersonDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
+                    && getMaintenance().equals(e.getMaintenance())
+                    && getWaitTime().equals(e.getWaitTime())
                     && getAddress().equals(e.getAddress())
                     && getTags().equals(e.getTags());
         }

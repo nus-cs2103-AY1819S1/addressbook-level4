@@ -22,7 +22,7 @@ import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.ride.Ride;
-import seedu.address.storage.XmlSerializableAddressBook;
+import seedu.address.storage.XmlSerializableThanePark;
 
 public class RideListPanelTest extends GuiUnitTest {
     private static final ObservableList<Ride> TYPICAL_RIDES =
@@ -81,9 +81,9 @@ public class RideListPanelTest extends GuiUnitTest {
      */
     private ObservableList<Ride> createBackingList(int personCount) throws Exception {
         Path xmlFile = createXmlFileWithPersons(personCount);
-        XmlSerializableAddressBook xmlAddressBook =
-                XmlUtil.getDataFromFile(xmlFile, XmlSerializableAddressBook.class);
-        return FXCollections.observableArrayList(xmlAddressBook.toModelType().getPersonList());
+        XmlSerializableThanePark xmlAddressBook =
+                XmlUtil.getDataFromFile(xmlFile, XmlSerializableThanePark.class);
+        return FXCollections.observableArrayList(xmlAddressBook.toModelType().getRideList());
     }
 
     /**
@@ -92,16 +92,16 @@ public class RideListPanelTest extends GuiUnitTest {
     private Path createXmlFileWithPersons(int personCount) throws Exception {
         StringBuilder builder = new StringBuilder();
         builder.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
-        builder.append("<addressbook>\n");
+        builder.append("<thanepark>\n");
         for (int i = 0; i < personCount; i++) {
-            builder.append("<persons>\n");
+            builder.append("<rides>\n");
             builder.append("<name>").append(i).append("a</name>\n");
-            builder.append("<phone>000</phone>\n");
-            builder.append("<email>a@aa</email>\n");
+            builder.append("<daysSinceMaintenanceString>000</daysSinceMaintenanceString>\n");
+            builder.append("<waitingTimeString>123</waitingTimeString>\n");
             builder.append("<address>a</address>\n");
-            builder.append("</persons>\n");
+            builder.append("</rides>\n");
         }
-        builder.append("</addressbook>\n");
+        builder.append("</thanepark>\n");
 
         Path manyPersonsFile = Paths.get(TEST_DATA_FOLDER + "manyPersons.xml");
         FileUtil.createFile(manyPersonsFile);

@@ -9,20 +9,20 @@ import org.junit.Test;
 
 import guitests.guihandles.PersonCardHandle;
 import seedu.address.model.ride.Ride;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.RideBuilder;
 
 public class RideCardTest extends GuiUnitTest {
 
     @Test
     public void display() {
         // no tags
-        Ride rideWithNoTags = new PersonBuilder().withTags(new String[0]).build();
+        Ride rideWithNoTags = new RideBuilder().withTags(new String[0]).build();
         PersonCard personCard = new PersonCard(rideWithNoTags, 1);
         uiPartRule.setUiPart(personCard);
         assertCardDisplay(personCard, rideWithNoTags, 1);
 
         // with tags
-        Ride rideWithTags = new PersonBuilder().build();
+        Ride rideWithTags = new RideBuilder().build();
         personCard = new PersonCard(rideWithTags, 2);
         uiPartRule.setUiPart(personCard);
         assertCardDisplay(personCard, rideWithTags, 2);
@@ -30,7 +30,7 @@ public class RideCardTest extends GuiUnitTest {
 
     @Test
     public void equals() {
-        Ride ride = new PersonBuilder().build();
+        Ride ride = new RideBuilder().build();
         PersonCard personCard = new PersonCard(ride, 0);
 
         // same ride, same index -> returns true
@@ -47,7 +47,7 @@ public class RideCardTest extends GuiUnitTest {
         assertFalse(personCard.equals(0));
 
         // different ride, same index -> returns false
-        Ride differentRide = new PersonBuilder().withName("differentName").build();
+        Ride differentRide = new RideBuilder().withName("differentName").build();
         assertFalse(personCard.equals(new PersonCard(differentRide, 0)));
 
         // same ride, different index -> returns false

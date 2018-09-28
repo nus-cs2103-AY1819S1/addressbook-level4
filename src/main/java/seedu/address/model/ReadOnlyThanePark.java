@@ -6,12 +6,12 @@ import seedu.address.model.ride.Ride;
 /**
  * Unmodifiable view of an address book
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyThanePark {
 
     /**
      * Returns an unmodifiable view of the persons list.
      * This list will not contain any duplicate persons.
      */
-    ObservableList<Ride> getPersonList();
+    ObservableList<Ride> getRideList();
 
 }

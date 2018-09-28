@@ -6,15 +6,15 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.ride.Ride;
-import seedu.address.model.ride.UniquePersonList;
+import seedu.address.model.ride.UniqueRideList;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSameRide comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class ThanePark implements ReadOnlyThanePark {
 
-    private final UniquePersonList persons;
+    private final UniqueRideList rides;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -24,15 +24,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        rides = new UniqueRideList();
     }
 
-    public AddressBook() {}
+    public ThanePark() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an ThanePark using the Persons in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public ThanePark(ReadOnlyThanePark toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -43,17 +43,17 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the ride list with {@code rides}.
      * {@code rides} must not contain duplicate rides.
      */
-    public void setPersons(List<Ride> rides) {
-        this.persons.setPersons(rides);
+    public void setRides(List<Ride> rides) {
+        this.rides.setRides(rides);
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code ThanePark} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyThanePark newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setRides(newData.getRideList());
     }
 
     //// ride-level operations
@@ -61,17 +61,17 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if a ride with the same identity as {@code ride} exists in the address book.
      */
-    public boolean hasPerson(Ride ride) {
+    public boolean hasRide(Ride ride) {
         requireNonNull(ride);
-        return persons.contains(ride);
+        return rides.contains(ride);
     }
 
     /**
      * Adds a ride to the address book.
      * The ride must not already exist in the address book.
      */
-    public void addPerson(Ride p) {
-        persons.add(p);
+    public void addRide(Ride p) {
+        rides.add(p);
     }
 
     /**
@@ -79,42 +79,42 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code target} must exist in the address book.
      * The ride identity of {@code editedRide} must not be the same as another existing ride in the address book.
      */
-    public void updatePerson(Ride target, Ride editedRide) {
+    public void updateRide(Ride target, Ride editedRide) {
         requireNonNull(editedRide);
 
-        persons.setPerson(target, editedRide);
+        rides.setRide(target, editedRide);
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code ThanePark}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Ride key) {
-        persons.remove(key);
+    public void removeRide(Ride key) {
+        rides.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return rides.asUnmodifiableObservableList().size() + " rides";
         // TODO: refine later
     }
 
     @Override
-    public ObservableList<Ride> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+    public ObservableList<Ride> getRideList() {
+        return rides.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                || (other instanceof ThanePark // instanceof handles nulls
+                && rides.equals(((ThanePark) other).rides));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return rides.hashCode();
     }
 }

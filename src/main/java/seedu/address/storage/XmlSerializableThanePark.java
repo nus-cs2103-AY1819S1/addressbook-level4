@@ -8,51 +8,51 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyThanePark;
+import seedu.address.model.ThanePark;
 import seedu.address.model.ride.Ride;
 
 /**
- * An Immutable AddressBook that is serializable to XML format
+ * An Immutable ThanePark that is serializable to XML format
  */
-@XmlRootElement(name = "addressbook")
-public class XmlSerializableAddressBook {
+@XmlRootElement(name = "thanepark")
+public class XmlSerializableThanePark {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate ride(s).";
 
     @XmlElement
-    private List<XmlAdaptedPerson> rides;
+    private List<XmlAdaptedRide> rides;
 
     /**
-     * Creates an empty XmlSerializableAddressBook.
+     * Creates an empty XmlSerializableThanePark.
      * This empty constructor is required for marshalling.
      */
-    public XmlSerializableAddressBook() {
+    public XmlSerializableThanePark() {
         rides = new ArrayList<>();
     }
 
     /**
      * Conversion
      */
-    public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
+    public XmlSerializableThanePark(ReadOnlyThanePark src) {
         this();
-        rides.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+        rides.addAll(src.getRideList().stream().map(XmlAdaptedRide::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this addressbook into the model's {@code AddressBook} object.
+     * Converts this addressbook into the model's {@code ThanePark} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
-     * {@code XmlAdaptedPerson}.
+     * {@code XmlAdaptedRide}.
      */
-    public AddressBook toModelType() throws IllegalValueException {
-        AddressBook addressBook = new AddressBook();
-        for (XmlAdaptedPerson p : rides) {
+    public ThanePark toModelType() throws IllegalValueException {
+        ThanePark addressBook = new ThanePark();
+        for (XmlAdaptedRide p : rides) {
             Ride ride = p.toModelType();
-            if (addressBook.hasPerson(ride)) {
+            if (addressBook.hasRide(ride)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addPerson(ride);
+            addressBook.addRide(ride);
         }
         return addressBook;
     }
@@ -63,9 +63,9 @@ public class XmlSerializableAddressBook {
             return true;
         }
 
-        if (!(other instanceof XmlSerializableAddressBook)) {
+        if (!(other instanceof XmlSerializableThanePark)) {
             return false;
         }
-        return rides.equals(((XmlSerializableAddressBook) other).rides);
+        return rides.equals(((XmlSerializableThanePark) other).rides);
     }
 }

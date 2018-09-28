@@ -19,7 +19,7 @@ public class PersonCard extends UiPart<Region> {
      * As a consequence, UI elements' variable names cannot be set to such keywords
      * or an exception will be thrown by JavaFX during runtime.
      *
-     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
+     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on ThanePark level 4</a>
      */
 
     public final Ride ride;
@@ -31,11 +31,11 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label daysSinceMaintenanceString;
     @FXML
     private Label address;
     @FXML
-    private Label email;
+    private Label waitingTimeString;
     @FXML
     private FlowPane tags;
 
@@ -44,9 +44,9 @@ public class PersonCard extends UiPart<Region> {
         this.ride = ride;
         id.setText(displayedIndex + ". ");
         name.setText(ride.getName().fullName);
-        phone.setText(ride.getPhone().value);
+        daysSinceMaintenanceString.setText(ride.getDaysSinceMaintenance().toString());
         address.setText(ride.getAddress().value);
-        email.setText(ride.getEmail().value);
+        waitingTimeString.setText(ride.getWaitingTime().toString());
         ride.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 

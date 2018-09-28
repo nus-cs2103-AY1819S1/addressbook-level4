@@ -16,11 +16,11 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyThanePark;
+import seedu.address.model.ThanePark;
 import seedu.address.model.ride.Ride;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.RideBuilder;
 
 public class AddCommandTest {
 
@@ -40,7 +40,7 @@ public class AddCommandTest {
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Ride validRide = new PersonBuilder().build();
+        Ride validRide = new RideBuilder().build();
 
         CommandResult commandResult = new AddCommand(validRide).execute(modelStub, commandHistory);
 
@@ -51,7 +51,7 @@ public class AddCommandTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        Ride validRide = new PersonBuilder().build();
+        Ride validRide = new RideBuilder().build();
         AddCommand addCommand = new AddCommand(validRide);
         ModelStub modelStub = new ModelStubWithPerson(validRide);
 
@@ -62,8 +62,8 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Ride alice = new PersonBuilder().withName("Alice").build();
-        Ride bob = new PersonBuilder().withName("Bob").build();
+        Ride alice = new RideBuilder().withName("Alice").build();
+        Ride bob = new RideBuilder().withName("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 
@@ -94,12 +94,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void resetData(ReadOnlyAddressBook newData) {
+        public void resetData(ReadOnlyThanePark newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyThanePark getAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -168,7 +168,7 @@ public class AddCommandTest {
         @Override
         public boolean hasPerson(Ride ride) {
             requireNonNull(ride);
-            return this.ride.isSamePerson(ride);
+            return this.ride.isSameRide(ride);
         }
     }
 
@@ -181,7 +181,7 @@ public class AddCommandTest {
         @Override
         public boolean hasPerson(Ride ride) {
             requireNonNull(ride);
-            return personsAdded.stream().anyMatch(ride::isSamePerson);
+            return personsAdded.stream().anyMatch(ride::isSameRide);
         }
 
         @Override
@@ -196,8 +196,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyThanePark getAddressBook() {
+            return new ThanePark();
         }
     }
 

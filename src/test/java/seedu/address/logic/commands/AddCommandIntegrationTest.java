@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.ride.Ride;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.RideBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -29,7 +29,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_newPerson_success() {
-        Ride validRide = new PersonBuilder().build();
+        Ride validRide = new RideBuilder().buildDifferent();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.addPerson(validRide);
@@ -40,8 +40,15 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
+    public void execute_duplicateRideSameName_throwsCommandException() {
+        Ride sameNameRide = new RideBuilder().build();
+        assertCommandFailure(new AddCommand(sameNameRide), model, commandHistory,
+                AddCommand.MESSAGE_DUPLICATE_PERSON);
+    }
+
+    @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Ride rideInList = model.getAddressBook().getPersonList().get(0);
+        Ride rideInList = model.getAddressBook().getRideList().get(0);
         assertCommandFailure(new AddCommand(rideInList), model, commandHistory,
                 AddCommand.MESSAGE_DUPLICATE_PERSON);
     }
