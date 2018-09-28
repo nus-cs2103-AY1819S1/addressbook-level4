@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.testutil.TypicalPersons.ACCELERATOR;
 
-
 import java.net.URL;
 
 import org.junit.Before;
