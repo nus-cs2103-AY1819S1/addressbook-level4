@@ -22,7 +22,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
-    private final PatientQueue patientQueue;
+    private final PatientQueue<Person> patientQueue;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -87,9 +87,13 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void enqueue(Person target) {
-        PatientQueue<Person> queue = new PatientQueue();
-        queue.add(target);
+        patientQueue.add(target);
         return;
+    }
+
+    @Override
+    public boolean hasPatientInPatientQueue() {
+        return patientQueue.hasPatient();
     }
 
 

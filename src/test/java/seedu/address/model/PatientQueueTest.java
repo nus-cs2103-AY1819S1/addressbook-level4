@@ -9,14 +9,15 @@ import org.junit.Test;
 import seedu.address.model.person.Person;
 
 public class PatientQueueTest {
+    private ModelManager modelManager = new ModelManager();
     private PatientQueue<Person> patientQueue = new PatientQueue<>();
     @Test
     public void hasPatient_patientNotInQueue_returnsFalse() {
-        assertFalse(patientQueue.hasPatient());
+        assertFalse(modelManager.hasPatientInPatientQueue());
     }
     @Test
     public void hasPatient_patientInQueue_returnTrue() {
-        patientQueue.add(ALICE);
-        assertTrue(patientQueue.hasPatient());
+        modelManager.enqueue(ALICE);
+        assertTrue(modelManager.hasPatientInPatientQueue());
     }
 }
