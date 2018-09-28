@@ -34,6 +34,8 @@ public class WishCard extends UiPart<Region> {
     @FXML
     private Label price;
     @FXML
+    private Label savedAmount;
+    @FXML
     private Label url;
     @FXML
     private Label email;
