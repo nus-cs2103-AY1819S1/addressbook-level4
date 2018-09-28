@@ -5,7 +5,7 @@
 <?import javafx.scene.image.Image?>
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Help" maximized="true">
+         title="Budget" maximized="true">
     <icons>
         <Image url="@/images/budget_icon.png"/>
     </icons>

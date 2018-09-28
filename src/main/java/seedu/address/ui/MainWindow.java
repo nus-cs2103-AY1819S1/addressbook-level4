@@ -16,6 +16,7 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.events.ui.ShowBudgetViewEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
@@ -39,6 +40,7 @@ public class MainWindow extends UiPart<Stage> {
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
+    private BudgetWindow budgetWindow;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -48,6 +50,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private MenuItem helpMenuItem;
+
+    @FXML
+    private MenuItem budgetMenuItem;
 
     @FXML
     private StackPane personListPanelPlaceholder;
@@ -75,6 +80,7 @@ public class MainWindow extends UiPart<Stage> {
         registerAsAnEventHandler(this);
 
         helpWindow = new HelpWindow();
+        budgetWindow = new BudgetWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -175,6 +181,18 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the budget window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleBudget() {
+        if (!budgetWindow.isShowing()) {
+            budgetWindow.show();
+        } else {
+            budgetWindow.focus();
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -199,5 +217,11 @@ public class MainWindow extends UiPart<Stage> {
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+    @Subscribe
+    private void handleShowBudgetEvent(ShowBudgetViewEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        handleBudget();
     }
 }
