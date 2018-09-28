@@ -19,8 +19,8 @@ public class RideContainsKeywordsPredicate implements Predicate<Ride> {
     public boolean test(Ride ride) {
         return keywords.stream()
                 .anyMatch(keyword -> {
-                    boolean result = StringUtil.containsWordIgnoreCase(ride.getName().fullName, keyword) ||
-                            StringUtil.containsWordIgnoreCase(ride.getAddress().toString(), keyword);
+                    boolean result = StringUtil.containsWordIgnoreCase(ride.getName().fullName, keyword)
+                            || StringUtil.containsWordIgnoreCase(ride.getAddress().toString(), keyword);
                     return result;
                 });
     }
