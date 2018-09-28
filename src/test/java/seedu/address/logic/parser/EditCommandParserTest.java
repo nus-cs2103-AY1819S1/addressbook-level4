@@ -8,11 +8,11 @@ import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_URL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_PRICE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_URL_AMY;
@@ -82,17 +82,17 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_NAME_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, "1" + INVALID_PHONE_DESC, Price.MESSAGE_PRICE_CONSTRAINTS); // invalid phone
+        assertParseFailure(parser, "1" + INVALID_PRICE_DESC, Price.MESSAGE_PRICE_CONSTRAINTS); // invalid phone
         assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_EMAIL_CONSTRAINTS); // invalid email
         assertParseFailure(parser, "1" + INVALID_URL_DESC, Url.MESSAGE_URL_CONSTRAINTS); // invalid url
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS); // invalid tag
 
         // invalid phone followed by valid email
-        assertParseFailure(parser, "1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY, Price.MESSAGE_PRICE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_PRICE_DESC + EMAIL_DESC_AMY, Price.MESSAGE_PRICE_CONSTRAINTS);
 
         // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, "1" + PHONE_DESC_BOB + INVALID_PHONE_DESC, Price.MESSAGE_PRICE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + PRICE_DESC_BOB + INVALID_PRICE_DESC, Price.MESSAGE_PRICE_CONSTRAINTS);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Person} being edited,
         // parsing it together with a valid tag results in error
@@ -108,7 +108,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_WISH;
-        String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + TAG_DESC_HUSBAND
+        String userInput = targetIndex.getOneBased() + PRICE_DESC_BOB + TAG_DESC_HUSBAND
                 + EMAIL_DESC_AMY + URL_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND;
 
         EditWishDescriptor descriptor = new EditWishDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -122,7 +122,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_someFieldsSpecified_success() {
         Index targetIndex = INDEX_FIRST_WISH;
-        String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + EMAIL_DESC_AMY;
+        String userInput = targetIndex.getOneBased() + PRICE_DESC_BOB + EMAIL_DESC_AMY;
 
         EditWishDescriptor descriptor = new EditWishDescriptorBuilder().withPhone(VALID_PHONE_BOB)
                 .withEmail(VALID_EMAIL_AMY).build();
@@ -141,7 +141,7 @@ public class EditCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // phone
-        userInput = targetIndex.getOneBased() + PHONE_DESC_AMY;
+        userInput = targetIndex.getOneBased() + PRICE_DESC_AMY;
         descriptor = new EditWishDescriptorBuilder().withPhone(VALID_PHONE_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -168,9 +168,9 @@ public class EditCommandParserTest {
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_WISH;
-        String userInput = targetIndex.getOneBased() + PHONE_DESC_AMY + URL_DESC_AMY + EMAIL_DESC_AMY
-                + TAG_DESC_FRIEND + PHONE_DESC_AMY + URL_DESC_AMY + EMAIL_DESC_AMY + TAG_DESC_FRIEND
-                + PHONE_DESC_BOB + URL_DESC_BOB + EMAIL_DESC_BOB + TAG_DESC_HUSBAND;
+        String userInput = targetIndex.getOneBased() + PRICE_DESC_AMY + URL_DESC_AMY + EMAIL_DESC_AMY
+                + TAG_DESC_FRIEND + PRICE_DESC_AMY + URL_DESC_AMY + EMAIL_DESC_AMY + TAG_DESC_FRIEND
+                + PRICE_DESC_BOB + URL_DESC_BOB + EMAIL_DESC_BOB + TAG_DESC_HUSBAND;
 
         EditWishDescriptor descriptor = new EditWishDescriptorBuilder().withPhone(VALID_PHONE_BOB)
                 .withEmail(VALID_EMAIL_BOB).withAddress(VALID_URL_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
@@ -184,14 +184,14 @@ public class EditCommandParserTest {
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_WISH;
-        String userInput = targetIndex.getOneBased() + INVALID_PHONE_DESC + PHONE_DESC_BOB;
+        String userInput = targetIndex.getOneBased() + INVALID_PRICE_DESC + PRICE_DESC_BOB;
         EditWishDescriptor descriptor = new EditWishDescriptorBuilder().withPhone(VALID_PHONE_BOB).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
-        userInput = targetIndex.getOneBased() + EMAIL_DESC_BOB + INVALID_PHONE_DESC + URL_DESC_BOB
-                + PHONE_DESC_BOB;
+        userInput = targetIndex.getOneBased() + EMAIL_DESC_BOB + INVALID_PRICE_DESC + URL_DESC_BOB
+                + PRICE_DESC_BOB;
         descriptor = new EditWishDescriptorBuilder().withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
                 .withAddress(VALID_URL_BOB).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);

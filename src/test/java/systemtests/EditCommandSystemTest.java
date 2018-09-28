@@ -10,12 +10,12 @@ import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_URL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_PRICE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
@@ -61,7 +61,7 @@ public class EditCommandSystemTest extends WishBookSystemTest {
          */
         Index index = INDEX_FIRST_WISH;
         String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
-                + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + URL_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
+                + PRICE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + URL_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
         Wish editedWish = new WishBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
         assertCommandSuccess(command, index, editedWish);
 
@@ -78,7 +78,7 @@ public class EditCommandSystemTest extends WishBookSystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: edit a wish with new values same as existing values -> edited */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PRICE_DESC_BOB + EMAIL_DESC_BOB
                 + URL_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandSuccess(command, index, BOB);
 
@@ -86,7 +86,7 @@ public class EditCommandSystemTest extends WishBookSystemTest {
         assertTrue(getModel().getWishBook().getWishList().contains(BOB));
         index = INDEX_SECOND_WISH;
         assertNotEquals(getModel().getFilteredWishList().get(index.getZeroBased()), BOB);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PRICE_DESC_BOB + EMAIL_DESC_BOB
                 + URL_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedWish = new WishBuilder(BOB).withName(VALID_NAME_AMY).build();
         assertCommandSuccess(command, index, editedWish);
@@ -95,7 +95,7 @@ public class EditCommandSystemTest extends WishBookSystemTest {
          * -> edited
          */
         index = INDEX_SECOND_WISH;
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PRICE_DESC_AMY + EMAIL_DESC_AMY
                 + URL_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedWish = new WishBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
         assertCommandSuccess(command, index, editedWish);
@@ -134,7 +134,7 @@ public class EditCommandSystemTest extends WishBookSystemTest {
         showAllWishes();
         index = INDEX_FIRST_WISH;
         selectWish(index);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PRICE_DESC_AMY + EMAIL_DESC_AMY
                 + URL_DESC_AMY + TAG_DESC_FRIEND;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new wish's name
@@ -168,7 +168,7 @@ public class EditCommandSystemTest extends WishBookSystemTest {
                 Name.MESSAGE_NAME_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_WISH.getOneBased() + INVALID_PHONE_DESC,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_WISH.getOneBased() + INVALID_PRICE_DESC,
                 Price.MESSAGE_PRICE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
@@ -188,27 +188,27 @@ public class EditCommandSystemTest extends WishBookSystemTest {
         assertTrue(getModel().getWishBook().getWishList().contains(BOB));
         index = INDEX_FIRST_WISH;
         assertFalse(getModel().getFilteredWishList().get(index.getZeroBased()).equals(BOB));
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PRICE_DESC_BOB + EMAIL_DESC_BOB
                 + URL_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_WISH);
 
         /* Case: edit a wish with new values same as another wish's values but with different tags -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PRICE_DESC_BOB + EMAIL_DESC_BOB
                 + URL_DESC_BOB + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_WISH);
 
         /* Case: edit a wish with new values same as another wish's values but with different wish -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PRICE_DESC_BOB + EMAIL_DESC_BOB
                 + URL_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_WISH);
 
         /* Case: edit a wish with new values same as another wish's values but with different phone -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_BOB
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PRICE_DESC_AMY + EMAIL_DESC_BOB
                 + URL_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_WISH);
 
         /* Case: edit a wish with new values same as another wish's values but with different email -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PRICE_DESC_BOB + EMAIL_DESC_AMY
                 + URL_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_WISH);
     }

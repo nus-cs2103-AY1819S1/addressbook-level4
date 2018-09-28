@@ -30,8 +30,8 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_PHONE_AMY = "11111111";
-    public static final String VALID_PHONE_BOB = "22222222";
+    public static final String VALID_PHONE_AMY = "11.11";
+    public static final String VALID_PHONE_BOB = "22.20";
     public static final String VALID_EMAIL_AMY = "amy@example.com";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_URL_AMY = "https://www.lazada.sg/products/ps4-055-hori-real-arcade-prov-hayabusa-ps4ps3-i223784442-s340908953.html";
@@ -45,8 +45,8 @@ public class CommandTestUtil {
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
-    public static final String PHONE_DESC_AMY = " " + PREFIX_PRICE + VALID_PHONE_AMY;
-    public static final String PHONE_DESC_BOB = " " + PREFIX_PRICE + VALID_PHONE_BOB;
+    public static final String PRICE_DESC_AMY = " " + PREFIX_PRICE + VALID_PHONE_AMY;
+    public static final String PRICE_DESC_BOB = " " + PREFIX_PRICE + VALID_PHONE_BOB;
     public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
     public static final String URL_DESC_AMY = " " + PREFIX_URL + VALID_URL_AMY;
@@ -58,7 +58,7 @@ public class CommandTestUtil {
     public static final String REMARK_DESC_EMPTY = " " + PREFIX_REMARK;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_PHONE_DESC = " " + PREFIX_PRICE + "911a"; // 'a' not allowed in phones
+    public static final String INVALID_PRICE_DESC = " " + PREFIX_PRICE + "9..2"; // two decimal points not allowed
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_URL_DESC = " " + PREFIX_URL + " asd asd"; // whitespace not allowed for urls
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
