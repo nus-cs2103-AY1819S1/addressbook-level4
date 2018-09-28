@@ -18,8 +18,8 @@ public class RecipeListPanelHandle extends NodeHandle<ListView<Recipe>> {
 
     private Optional<Recipe> lastRememberedSelectedRecipeCard;
 
-    public RecipeListPanelHandle(ListView<Recipe> personListPanelNode) {
-        super(personListPanelNode);
+    public RecipeListPanelHandle(ListView<Recipe> recipeListPanelNode) {
+        super(recipeListPanelNode);
     }
 
     /**
