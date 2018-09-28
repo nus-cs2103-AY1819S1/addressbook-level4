@@ -5,7 +5,7 @@
         <name>Hans Muster</name>
         <phone isPrivate="false">9482424</phone>
         <email isPrivate="false">hans@example.com</email>
-        <url isPrivate="false">4th street</url>
+        <url isPrivate="false">https://www.amazon.com/gp/product/B07D998212</url>
         <remark>test remark</remark>
     </wishes>
     <!-- Person with invalid phone field -->
@@ -13,7 +13,7 @@
         <name>Hans Muster</name>
         <phone isPrivate="false">948asdf2424</phone>
         <email isPrivate="false">hans@example.com</email>
-        <url isPrivate="false">4th street</url>
+        <url isPrivate="false">https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV</url>
         <remark>test remark</remark>
     </wishes>
 </wishbook>
