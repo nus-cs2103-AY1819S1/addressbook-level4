@@ -37,12 +37,14 @@ public class TypicalWishes {
     public static final Wish CARL = new WishBuilder().withName("Carl Kurz")
             .withPhone("95352563")
             .withEmail("heinz@example.com")
-            .withUrl("https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV").build();
+            .withUrl("https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV")
+            .build();
     public static final Wish DANIEL = new WishBuilder().withName("Daniel Meier")
             .withPhone("87652533")
             .withEmail("cornelia@example.com")
             .withUrl("https://www.amazon.com/Logitech-Mechanical-Keyboard-Romer-Switches/dp/B071VHYZ62")
-            .withTags("friends").build();
+            .withTags("friends")
+            .build();
     public static final Wish ELLE = new WishBuilder().withName("Elle Meyer")
             .withPhone("9482224")
             .withEmail("werner@example.com")

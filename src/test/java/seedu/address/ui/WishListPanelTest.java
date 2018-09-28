@@ -97,7 +97,7 @@ public class WishListPanelTest extends GuiUnitTest {
             builder.append("<name>").append(i).append("a</name>\n");
             builder.append("<phone>000</phone>\n");
             builder.append("<email>a@aa</email>\n");
-            builder.append("<address>a</address>\n");
+            builder.append("<url>a</url>\n");
             builder.append("<remark>aa</remark>\n");
             builder.append("</wishes>\n");
         }

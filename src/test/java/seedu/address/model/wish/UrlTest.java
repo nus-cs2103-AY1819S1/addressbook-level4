@@ -16,7 +16,7 @@ public class UrlTest {
 
     @Test
     public void constructor_invalidAddress_throwsIllegalArgumentException() {
-        String invalidAddress = "";
+        String invalidAddress = "w w";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Url(invalidAddress));
     }
 
@@ -26,12 +26,11 @@ public class UrlTest {
         Assert.assertThrows(NullPointerException.class, () -> Url.isValidUrl(null));
 
         // invalid addresses
-        assertFalse(Url.isValidUrl("")); // empty string
+        assertFalse(Url.isValidUrl("w w")); // empty string
         assertFalse(Url.isValidUrl(" ")); // spaces only
 
         // valid addresses
-        assertTrue(Url.isValidUrl("Blk 456, Den Road, #01-355"));
+        assertTrue(Url.isValidUrl("https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV"));
         assertTrue(Url.isValidUrl("-")); // one character
-        assertTrue(Url.isValidUrl("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long address
     }
 }
