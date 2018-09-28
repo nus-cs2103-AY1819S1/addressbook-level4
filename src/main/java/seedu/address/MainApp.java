@@ -62,8 +62,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        TaskManagerStorage addressBookStorage = new XmlTaskManagerStorage(userPrefs.getTaskManagerFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        TaskManagerStorage taskManagerStorage = new XmlTaskManagerStorage(userPrefs.getTaskManagerFilePath());
+        storage = new StorageManager(taskManagerStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -82,14 +82,14 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyTaskManager> addressBookOptional;
+        Optional<ReadOnlyTaskManager> taskManagerOptional;
         ReadOnlyTaskManager initialData;
         try {
-            addressBookOptional = storage.readTaskManager();
-            if (!addressBookOptional.isPresent()) {
+            taskManagerOptional = storage.readTaskManager();
+            if (!taskManagerOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample TaskManager");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleTaskManager);
+            initialData = taskManagerOptional.orElseGet(SampleDataUtil::getSampleTaskManager);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty TaskManager");
             initialData = new TaskManager();
