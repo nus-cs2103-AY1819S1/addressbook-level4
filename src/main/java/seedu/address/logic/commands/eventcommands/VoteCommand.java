@@ -61,9 +61,9 @@ public class VoteCommand extends Command {
             EventsCenter.getInstance().post(new DisplayPollEvent(pollDisplayResult));
             return new CommandResult(result);
         } catch (IndexOutOfBoundsException e) {
-            throw new CommandException("No poll exists at this index.");
+            throw new CommandException(Messages.MESSAGE_NO_POLL_AT_INDEX);
         } catch (IllegalArgumentException e) {
-            throw new CommandException("No such option exists in this poll.");
+            throw new CommandException(Messages.MESSAGE_NO_SUCH_OPTION);
         } catch (NoUserLoggedInException e) {
             throw new CommandException(Messages.MESSAGE_NO_USER_LOGGED_IN);
         }
