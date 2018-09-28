@@ -4,11 +4,11 @@ import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.ReadOnlyAppContent;
 
 /** Indicates the AppContent in the model has changed*/
-public class AddressBookChangedEvent extends BaseEvent {
+public class AppContentChangedEvent extends BaseEvent {
 
     public final ReadOnlyAppContent data;
 
-    public AddressBookChangedEvent(ReadOnlyAppContent data) {
+    public AppContentChangedEvent(ReadOnlyAppContent data) {
         this.data = data;
     }
 
