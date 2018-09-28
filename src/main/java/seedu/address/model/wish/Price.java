@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Price {
 
     public static final String MESSAGE_PRICE_CONSTRAINTS =
-            "Phone numbers should only contain numbers, and it should be at least 3 digits long";
+            "Phone numbers should only contain numbers, and at most two numbers after the decimal point.";
     public static final String PRICE_VALIDATION_REGEX = "[0-9]+([,.][0-9]{1,2})?";
     public final Double value;
 
