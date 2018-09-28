@@ -43,7 +43,7 @@ public class XmlAdaptedTask {
     public XmlAdaptedTask() {}
 
     /**
-     * Constructs an {@code XmlAdaptedTask} with the given person details.
+     * Constructs an {@code XmlAdaptedTask} with the given task details.
      */
     public XmlAdaptedTask(String name, String dueDate, String priorityValue,
                           String description, List<XmlAdaptedLabel> labelled) {
