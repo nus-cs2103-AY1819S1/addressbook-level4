@@ -47,7 +47,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             editWishDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_PRICE).isPresent()) {
-            editWishDescriptor.setPrice(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PRICE).get()));
+            editWishDescriptor.setPrice(ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get()));
         }
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
             editWishDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));

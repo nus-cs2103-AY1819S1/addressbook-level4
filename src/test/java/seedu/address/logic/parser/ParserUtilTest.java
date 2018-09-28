@@ -89,25 +89,25 @@ public class ParserUtilTest {
 
     @Test
     public void parsePhone_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parsePhone((String) null));
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parsePrice((String) null));
     }
 
     @Test
     public void parsePhone_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE));
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parsePrice(INVALID_PHONE));
     }
 
     @Test
     public void parsePhone_validValueWithoutWhitespace_returnsPhone() throws Exception {
         Price expectedPrice = new Price(VALID_PHONE);
-        assertEquals(expectedPrice, ParserUtil.parsePhone(VALID_PHONE));
+        assertEquals(expectedPrice, ParserUtil.parsePrice(VALID_PHONE));
     }
 
     @Test
     public void parsePhone_validValueWithWhitespace_returnsTrimmedPhone() throws Exception {
         String phoneWithWhitespace = WHITESPACE + VALID_PHONE + WHITESPACE;
         Price expectedPrice = new Price(VALID_PHONE);
-        assertEquals(expectedPrice, ParserUtil.parsePhone(phoneWithWhitespace));
+        assertEquals(expectedPrice, ParserUtil.parsePrice(phoneWithWhitespace));
     }
 
     @Test

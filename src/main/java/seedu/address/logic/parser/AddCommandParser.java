@@ -41,7 +41,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Price price = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PRICE).get());
+        Price price = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Url url = ParserUtil.parseUrl(argMultimap.getValue(PREFIX_URL).get());
         Remark remark = new Remark(""); // remark cannot be added manually by add command

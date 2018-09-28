@@ -56,13 +56,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code phone} is invalid.
      */
-    public static Price parsePhone(String phone) throws ParseException {
+    public static Price parsePrice(String phone) throws ParseException {
         requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Price.isValidPrice(trimmedPhone)) {
+        String trimmedPrice = phone.trim();
+        if (!Price.isValidPrice(trimmedPrice)) {
             throw new ParseException(Price.MESSAGE_PRICE_CONSTRAINTS);
         }
-        return new Price(trimmedPhone);
+        return new Price(trimmedPrice);
     }
 
     /**
