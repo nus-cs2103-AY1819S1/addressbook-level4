@@ -4,6 +4,7 @@
     <wishes>
         <name>Hans Muster</name>
         <price isPrivate="false">9482424</price>
+        <savedAmount>0.00</savedAmount>
         <email isPrivate="false">hans@example.com</email>
         <url isPrivate="false">https://www.amazon.com/gp/product/B07D998212</url>
         <remark>test remark</remark>
@@ -12,6 +13,7 @@
     <wishes>
         <name>Hans Muster</name>
         <price isPrivate="false">948asdf2424</price>
+        <savedAmount>0.00</savedAmount>
         <email isPrivate="false">hans@example.com</email>
         <url isPrivate="false">https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV</url>
         <remark>test remark</remark>

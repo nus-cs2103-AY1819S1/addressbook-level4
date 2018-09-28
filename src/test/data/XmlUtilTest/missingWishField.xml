@@ -2,6 +2,7 @@
 <!-- Person with missing name field -->
 <wish>
     <price>9482424</price>
+    <savedAmount>0.00</savedAmount>
     <email>hans@example</email>
     <url>https://www.amazon.com/gp/product/B07D998212</url>
     <tagged>friends</tagged>

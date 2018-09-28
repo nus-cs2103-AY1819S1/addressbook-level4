@@ -4,6 +4,7 @@
     <wishes>
         <name>Ha!ns Mu@ster</name>
         <price isPrivate="false">9482424</price>
+        <savedAmount>0.00</savedAmount>
         <email isPrivate="false">hans@example.com</email>
         <url isPrivate="false">https://www.amazon.com/gp/product/B07D998212</url>
         <remark></remark>
