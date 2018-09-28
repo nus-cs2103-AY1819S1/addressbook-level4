@@ -4,7 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://github.com/CS2103-AY1819S1-W13-1[W13-1] team. +
+InsuRen was developed by the https://github.com/CS2103-AY1819S1-W13-1[W13-1] team. +
 
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
@@ -15,7 +15,7 @@ image::sean.jpeg[width="150", align="left"]
 {empty}[https://github.com/A19Sean[github]]
 
 Role: Developer +
-Responsibilities: Documentation and Code Quality
+Responsibilities: Documentation and Code Quality, UI Component
 
 '''
 
@@ -24,7 +24,7 @@ image::ayush.jpeg[width="150", align="left"]
 {empty}[https://github.com/AyushChatto[github]]
 
 Role: Developer +
-Responsibilities: Workflow, Git, and Github
+Responsibilities: Workflow, Git, and Github, Logic Component
 
 '''
 
@@ -33,7 +33,7 @@ image::alex.jpeg[width="150", align="left"]
 {empty}[https://github.com/chantca95[github]]
 
 Role: Developer +
-Responsibilities: Testing
+Responsibilities: Testing, UI Component
 
 '''
 
@@ -42,7 +42,7 @@ image::denzel.jpg[width="150", align="left"]
 {empty}[https://github.com/denzelchung[github]]
 
 Role: Developer +
-Responsibilities: Integration
+Responsibilities: Integration, Storage Component
 
 '''
 
@@ -51,6 +51,6 @@ image::louiz.jpeg[width="150", align="left"]
 {empty}[https://github.com/zioul123[github]]
 
 Role: Team lead +
-Responsibilities: Deliverables and deadlines
+Responsibilities: Deliverables and deadlines, Model Component
 
 '''
