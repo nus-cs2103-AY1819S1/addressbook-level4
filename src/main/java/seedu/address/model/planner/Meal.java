@@ -38,11 +38,7 @@ public enum Meal {
    * @return true if no recipe is present, false if a recipe is present.
    */
   public boolean isEmpty() {
-    if (!this.recipe.isPresent()) {
-      return true;
-    } else {
-      return false;
-    }
+    return !this.recipe.isPresent();
   }
 
   /**
