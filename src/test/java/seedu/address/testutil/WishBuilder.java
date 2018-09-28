@@ -5,7 +5,13 @@ import java.util.Set;
 
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.model.wish.*;
+import seedu.address.model.wish.Email;
+import seedu.address.model.wish.Name;
+import seedu.address.model.wish.Price;
+import seedu.address.model.wish.Remark;
+import seedu.address.model.wish.SavedAmount;
+import seedu.address.model.wish.Url;
+import seedu.address.model.wish.Wish;
 
 /**
  * A utility class to help with building Wish objects.
@@ -16,7 +22,8 @@ public class WishBuilder {
     public static final String DEFAULT_PRICE = "85.53";
     public static final String DEFAULT_SAVED_AMOUNT = "0.00";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
-    public static final String DEFAULT_URL = "https://www.lazada.sg/products/ps4-092-hori-real-arcade-pron-hayabusaps4ps3pc-i223784444-s340908955.html";
+    public static final String DEFAULT_URL = "https://www.lazada.sg/products/"
+            + "ps4-092-hori-real-arcade-pron-hayabusaps4ps3pc-i223784444-s340908955.html";
     public static final String DEFAULT_REMARK = "";
 
     private Name name;
