@@ -21,7 +21,7 @@ public class UrlTest {
     }
 
     @Test
-    public void isValidAddress() {
+    public void isValidUrl() {
         // null address
         Assert.assertThrows(NullPointerException.class, () -> Url.isValidUrl(null));
 
