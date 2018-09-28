@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
@@ -20,30 +19,22 @@ public class ClearCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_emptyAddressBook_success() {
-        try {
-            Model model = ModelUtil.modelWithTestUser();
-            Model expectedModel = ModelUtil.modelWithTestUser();
-            expectedModel.commitAddressBook();
+    public void execute_emptyAddressBook_success() throws NoUserSelectedException {
+        Model model = ModelUtil.modelWithTestUser();
+        Model expectedModel = ModelUtil.modelWithTestUser();
+        expectedModel.commitAddressBook();
 
-            assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS,
-                    expectedModel);
-        } catch (NoUserSelectedException e) {
-            Assert.fail("Error committing, No user selected in model.");
-        }
+        assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS,
+                expectedModel);
     }
 
     @Test
-    public void execute_nonEmptyAddressBook_success() {
+    public void execute_nonEmptyAddressBook_success() throws NoUserSelectedException {
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        try {
-            expectedModel.resetData(new AddressBook(new Username("typicalAddressBook")));
-            expectedModel.commitAddressBook();
-        } catch (NoUserSelectedException e) {
-            Assert.fail("Error committing, No user selected in model.");
-        }
+        expectedModel.resetData(new AddressBook(new Username("typicalAddressBook")));
+        expectedModel.commitAddressBook();
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }

@@ -25,13 +25,9 @@ public class ListCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Before
-    public void setUp() {
+    public void setUp() throws NoUserSelectedException {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        try {
-            expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        } catch (NoUserSelectedException e) {
-            Assert.fail(e.getMessage());
-        }
+        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
     }
 
     @Test
@@ -40,7 +36,7 @@ public class ListCommandTest {
     }
 
     @Test
-    public void execute_listIsFiltered_showsEverything() {
+    public void execute_listIsFiltered_showsEverything() throws NoUserSelectedException {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         assertCommandSuccess(new ListCommand(), model, commandHistory, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }

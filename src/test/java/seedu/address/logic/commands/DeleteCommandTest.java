@@ -32,66 +32,50 @@ public class DeleteCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_validIndexUnfilteredList_success() {
-        try {
-            Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-            DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+    public void execute_validIndexUnfilteredList_success() throws NoUserSelectedException {
+        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
 
-            String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
-            ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-            expectedModel.deletePerson(personToDelete);
-            expectedModel.commitAddressBook();
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.deletePerson(personToDelete);
+        expectedModel.commitAddressBook();
 
-            assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
-        } catch (NoUserSelectedException e) {
-            Assert.fail(e.getMessage());
-        }
+        assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-        try {
-            Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-            DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+    public void execute_invalidIndexUnfilteredList_throwsCommandException() throws NoUserSelectedException {
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-            assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        } catch (NoUserSelectedException e) {
-            Assert.fail(e.getMessage());
-        }
+        assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
-    public void execute_validIndexFilteredList_success() {
+    public void execute_validIndexFilteredList_success() throws NoUserSelectedException {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        try {
-            Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-            DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
 
-            String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
-            Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-            expectedModel.deletePerson(personToDelete);
-            expectedModel.commitAddressBook();
-            showNoPerson(expectedModel);
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.deletePerson(personToDelete);
+        expectedModel.commitAddressBook();
+        showNoPerson(expectedModel);
 
-            assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
-        } catch (NoUserSelectedException e) {
-            Assert.fail(e.getMessage());
-        }
+        assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_invalidIndexFilteredList_throwsCommandException() {
+    public void execute_invalidIndexFilteredList_throwsCommandException() throws NoUserSelectedException {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
-        try {
-            // ensures that outOfBoundIndex is still in bounds of address book list
-            assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
-        } catch (NoUserSelectedException e) {
-            Assert.fail(e.getMessage());
-        }
+        // ensures that outOfBoundIndex is still in bounds of address book list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
@@ -119,20 +103,16 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
-        try {
-            Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-            DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+    public void executeUndoRedo_invalidIndexUnfilteredList_failure() throws NoUserSelectedException {
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-            // execution failed -> address book state not added into model
-            assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        // execution failed -> address book state not added into model
+        assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
-            // single address book state in model -> undoCommand and redoCommand fail
-            assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
-            assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
-        } catch (NoUserSelectedException e) {
-            Assert.fail(e.getMessage());
-        }
+        // single address book state in model -> undoCommand and redoCommand fail
+        assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
+        assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
 
     /**
@@ -190,13 +170,9 @@ public class DeleteCommandTest {
     /**
      * Updates {@code model}'s filtered list to show no one.
      */
-    private void showNoPerson(Model model) {
-        try {
-            model.updateFilteredPersonList(p -> false);
+    private void showNoPerson(Model model) throws NoUserSelectedException {
+        model.updateFilteredPersonList(p -> false);
 
-            assertTrue(model.getFilteredPersonList().isEmpty());
-        } catch (NoUserSelectedException e) {
-            Assert.fail(e.getMessage());
-        }
+        assertTrue(model.getFilteredPersonList().isEmpty());
     }
 }

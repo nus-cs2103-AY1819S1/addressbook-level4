@@ -30,29 +30,21 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_newPerson_success() {
+    public void execute_newPerson_success() throws NoUserSelectedException {
         Person validPerson = new PersonBuilder().build();
-        try {
-            Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-            expectedModel.addPerson(validPerson);
-            expectedModel.commitAddressBook();
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.addPerson(validPerson);
+        expectedModel.commitAddressBook();
 
-            assertCommandSuccess(new AddCommand(validPerson), model, commandHistory,
-                    String.format(AddCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
-        } catch (NoUserSelectedException e) {
-            Assert.fail(e.getMessage());
-        }
+        assertCommandSuccess(new AddCommand(validPerson), model, commandHistory,
+                String.format(AddCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        try {
-            Person personInList = model.getAddressBook().getPersonList().get(0);
-            assertCommandFailure(new AddCommand(personInList), model, commandHistory,
-                    AddCommand.MESSAGE_DUPLICATE_PERSON);
-        } catch (NoUserSelectedException e) {
-            Assert.fail(e.getMessage());
-        }
+    public void execute_duplicatePerson_throwsCommandException() throws NoUserSelectedException {
+        Person personInList = model.getAddressBook().getPersonList().get(0);
+        assertCommandFailure(new AddCommand(personInList), model, commandHistory,
+                AddCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
 }

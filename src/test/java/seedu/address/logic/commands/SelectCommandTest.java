@@ -37,30 +37,22 @@ public class SelectCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_validIndexUnfilteredList_success() {
-        try {
-            Index lastPersonIndex = Index.fromOneBased(model.getFilteredPersonList().size());
-            assertExecutionSuccess(INDEX_FIRST_PERSON);
-            assertExecutionSuccess(INDEX_THIRD_PERSON);
-            assertExecutionSuccess(lastPersonIndex);
-        } catch (NoUserSelectedException e) {
-            Assert.fail(e.getMessage());
-        }
+    public void execute_validIndexUnfilteredList_success() throws NoUserSelectedException {
+        Index lastPersonIndex = Index.fromOneBased(model.getFilteredPersonList().size());
+        assertExecutionSuccess(INDEX_FIRST_PERSON);
+        assertExecutionSuccess(INDEX_THIRD_PERSON);
+        assertExecutionSuccess(lastPersonIndex);
     }
 
     @Test
-    public void execute_invalidIndexUnfilteredList_failure() {
-        try {
-            Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-            SelectCommand selectCommand = new SelectCommand(outOfBoundsIndex);
-            assertCommandFailure(selectCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        } catch (NoUserSelectedException e) {
-            Assert.fail(e.getMessage());
-        }
+    public void execute_invalidIndexUnfilteredList_failure() throws NoUserSelectedException {
+        Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        SelectCommand selectCommand = new SelectCommand(outOfBoundsIndex);
+        assertCommandFailure(selectCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
-    public void execute_validIndexFilteredList_success() {
+    public void execute_validIndexFilteredList_success() throws NoUserSelectedException {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
 
@@ -68,17 +60,13 @@ public class SelectCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexFilteredList_failure() {
+    public void execute_invalidIndexFilteredList_failure() throws NoUserSelectedException {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
 
         Index outOfBoundsIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        try {
-            assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
-        } catch (NoUserSelectedException e) {
-            Assert.fail(e.getMessage());
-        }
+        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }

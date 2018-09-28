@@ -22,88 +22,84 @@ import seedu.address.model.exceptions.NoUserSelectedException;
 
 public class SelectCommandSystemTest extends AddressBookSystemTest {
     @Test
-    public void select() {
-        try {
-            /* --------------------- Perform select operations on the shown unfiltered list ----------------------- */
+    public void select() throws NoUserSelectedException {
+        /* --------------------- Perform select operations on the shown unfiltered list ----------------------- */
 
-            /* Case: select the first card in the person list, command with leading spaces and trailing spaces
-             * -> selected
-             */
-            String command = "   " + SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + "   ";
-            assertCommandSuccess(command, INDEX_FIRST_PERSON);
+        /* Case: select the first card in the person list, command with leading spaces and trailing spaces
+         * -> selected
+         */
+        String command = "   " + SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + "   ";
+        assertCommandSuccess(command, INDEX_FIRST_PERSON);
 
-            /* Case: select the last card in the person list -> selected */
-            Index personCount = getLastIndex(getModel());
-            command = SelectCommand.COMMAND_WORD + " " + personCount.getOneBased();
-            assertCommandSuccess(command, personCount);
+        /* Case: select the last card in the person list -> selected */
+        Index personCount = getLastIndex(getModel());
+        command = SelectCommand.COMMAND_WORD + " " + personCount.getOneBased();
+        assertCommandSuccess(command, personCount);
 
-            /* Case: undo previous selection -> rejected */
-            command = UndoCommand.COMMAND_WORD;
-            String expectedResultMessage = UndoCommand.MESSAGE_FAILURE;
-            assertCommandFailure(command, expectedResultMessage);
+        /* Case: undo previous selection -> rejected */
+        command = UndoCommand.COMMAND_WORD;
+        String expectedResultMessage = UndoCommand.MESSAGE_FAILURE;
+        assertCommandFailure(command, expectedResultMessage);
 
-            /* Case: redo selecting last card in the list -> rejected */
-            command = RedoCommand.COMMAND_WORD;
-            expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
-            assertCommandFailure(command, expectedResultMessage);
+        /* Case: redo selecting last card in the list -> rejected */
+        command = RedoCommand.COMMAND_WORD;
+        expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
+        assertCommandFailure(command, expectedResultMessage);
 
-            /* Case: select the middle card in the person list -> selected */
-            Index middleIndex = getMidIndex(getModel());
-            command = SelectCommand.COMMAND_WORD + " " + middleIndex.getOneBased();
-            assertCommandSuccess(command, middleIndex);
+        /* Case: select the middle card in the person list -> selected */
+        Index middleIndex = getMidIndex(getModel());
+        command = SelectCommand.COMMAND_WORD + " " + middleIndex.getOneBased();
+        assertCommandSuccess(command, middleIndex);
 
-            /* Case: select the current selected card -> selected */
-            assertCommandSuccess(command, middleIndex);
+        /* Case: select the current selected card -> selected */
+        assertCommandSuccess(command, middleIndex);
 
-            /* --------------------- Perform select operations on the shown filtered list ------------------------- */
+        /* --------------------- Perform select operations on the shown filtered list ------------------------- */
 
-            /* Case: filtered person list, select index within bounds of address book but out of bounds of person list
-             * -> rejected
-             */
-            showPersonsWithName(KEYWORD_MATCHING_MEIER);
-            int invalidIndex = getModel().getAddressBook().getPersonList().size();
-            assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex,
-                    MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        /* Case: filtered person list, select index within bounds of address book but out of bounds of person list
+         * -> rejected
+         */
+        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        int invalidIndex = getModel().getAddressBook().getPersonList().size();
+        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex,
+                MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
-            /* Case: filtered person list, select index within bounds of address book and person list -> selected */
-            Index validIndex = Index.fromOneBased(1);
-            assertTrue(validIndex.getZeroBased() < getModel().getFilteredPersonList().size());
-            command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();
-            assertCommandSuccess(command, validIndex);
+        /* Case: filtered person list, select index within bounds of address book and person list -> selected */
+        Index validIndex = Index.fromOneBased(1);
+        assertTrue(validIndex.getZeroBased() < getModel().getFilteredPersonList().size());
+        command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();
+        assertCommandSuccess(command, validIndex);
 
-            /* -------------------------------- Perform invalid select operations --------------------------------- */
+        /* -------------------------------- Perform invalid select operations --------------------------------- */
 
-            /* Case: invalid index (0) -> rejected */
-            assertCommandFailure(SelectCommand.COMMAND_WORD + " " + 0,
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+        /* Case: invalid index (0) -> rejected */
+        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + 0,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
 
-            /* Case: invalid index (-1) -> rejected */
-            assertCommandFailure(SelectCommand.COMMAND_WORD + " " + -1,
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+        /* Case: invalid index (-1) -> rejected */
+        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + -1,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
 
-            /* Case: invalid index (size + 1) -> rejected */
-            invalidIndex = getModel().getFilteredPersonList().size() + 1;
-            assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex,
-                    MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        /* Case: invalid index (size + 1) -> rejected */
+        invalidIndex = getModel().getFilteredPersonList().size() + 1;
+        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex,
+                MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
-            /* Case: invalid arguments (alphabets) -> rejected */
-            assertCommandFailure(SelectCommand.COMMAND_WORD + " abc",
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+        /* Case: invalid arguments (alphabets) -> rejected */
+        assertCommandFailure(SelectCommand.COMMAND_WORD + " abc",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
 
-            /* Case: invalid arguments (extra argument) -> rejected */
-            assertCommandFailure(SelectCommand.COMMAND_WORD + " 1 abc",
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+        /* Case: invalid arguments (extra argument) -> rejected */
+        assertCommandFailure(SelectCommand.COMMAND_WORD + " 1 abc",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
 
-            /* Case: mixed case command word -> rejected */
-            assertCommandFailure("SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
+        /* Case: mixed case command word -> rejected */
+        assertCommandFailure("SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
 
-            /* Case: select from empty address book -> rejected */
-            deleteAllPersons();
-            assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
-                    MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        } catch (NoUserSelectedException e) {
-            Assert.fail(e.getMessage());
-        }
+        /* Case: select from empty address book -> rejected */
+        deleteAllPersons();
+        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
+                MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     /**

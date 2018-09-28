@@ -30,14 +30,14 @@ public class LogicManagerTest {
     private Logic logic = new LogicManager(model);
 
     @Test
-    public void execute_invalidCommandFormat_throwsParseException() {
+    public void execute_invalidCommandFormat_throwsParseException() throws NoUserSelectedException {
         String invalidCommand = "uicfhmowqewca";
         assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
         assertHistoryCorrect(invalidCommand);
     }
 
     @Test
-    public void execute_commandExecutionError_throwsCommandException() {
+    public void execute_commandExecutionError_throwsCommandException() throws NoUserSelectedException {
         String deleteCommand = "delete 9";
         assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         assertHistoryCorrect(deleteCommand);
@@ -51,13 +51,9 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() throws NoUserSelectedException {
         thrown.expect(UnsupportedOperationException.class);
-        try {
-            logic.getFilteredPersonList().remove(0);
-        } catch (NoUserSelectedException e) {
-            Assert.fail(e.getMessage());
-        }
+        logic.getFilteredPersonList().remove(0);
     }
 
     /**
@@ -75,7 +71,7 @@ public class LogicManagerTest {
      *
      * @see #assertCommandBehavior(Class, String, String, Model)
      */
-    private void assertParseException(String inputCommand, String expectedMessage) {
+    private void assertParseException(String inputCommand, String expectedMessage) throws NoUserSelectedException {
         assertCommandFailure(inputCommand, ParseException.class, expectedMessage);
     }
 
@@ -84,7 +80,7 @@ public class LogicManagerTest {
      *
      * @see #assertCommandBehavior(Class, String, String, Model)
      */
-    private void assertCommandException(String inputCommand, String expectedMessage) {
+    private void assertCommandException(String inputCommand, String expectedMessage) throws NoUserSelectedException {
         assertCommandFailure(inputCommand, CommandException.class, expectedMessage);
     }
 
@@ -93,13 +89,10 @@ public class LogicManagerTest {
      *
      * @see #assertCommandBehavior(Class, String, String, Model)
      */
-    private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
-        try {
-            Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-            assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
-        } catch (NoUserSelectedException e) {
-            Assert.fail(e.getMessage());
-        }
+    private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage)
+            throws NoUserSelectedException {
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
 
     /**

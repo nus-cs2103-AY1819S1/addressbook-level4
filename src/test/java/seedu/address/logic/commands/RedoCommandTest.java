@@ -22,38 +22,30 @@ public class RedoCommandTest {
     private final CommandHistory commandHistory = new CommandHistory();
 
     @Before
-    public void setUp() {
+    public void setUp() throws NoUserSelectedException {
         // set up of both models' undo/redo history
-        try {
-            deleteFirstPerson(model);
-            deleteFirstPerson(model);
-            model.undoAddressBook();
-            model.undoAddressBook();
+        deleteFirstPerson(model);
+        deleteFirstPerson(model);
+        model.undoAddressBook();
+        model.undoAddressBook();
 
-            deleteFirstPerson(expectedModel);
-            deleteFirstPerson(expectedModel);
-            expectedModel.undoAddressBook();
-            expectedModel.undoAddressBook();
-        } catch (NoUserSelectedException e) {
-            Assert.fail(e.getMessage());
-        }
+        deleteFirstPerson(expectedModel);
+        deleteFirstPerson(expectedModel);
+        expectedModel.undoAddressBook();
+        expectedModel.undoAddressBook();
     }
 
     @Test
-    public void execute() {
-        try {
-            // multiple redoable states in model
-            expectedModel.redoAddressBook();
-            assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+    public void execute() throws NoUserSelectedException {
+        // multiple redoable states in model
+        expectedModel.redoAddressBook();
+        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
-            // single redoable state in model
-            expectedModel.redoAddressBook();
-            assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        // single redoable state in model
+        expectedModel.redoAddressBook();
+        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
-            // no redoable state in model
-            assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
-        } catch (NoUserSelectedException e) {
-            Assert.fail(e.getMessage());
-        }
+        // no redoable state in model
+        assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
 }

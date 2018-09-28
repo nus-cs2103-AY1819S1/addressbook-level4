@@ -19,16 +19,10 @@ public class ModelUtil {
      * empty.
      * @return a model logged in with a test user
      */
-    public static Model modelWithTestUser() {
+    public static Model modelWithTestUser() throws NonExistentUserException, UserAlreadyExistsException {
         Model model = new ModelManager();
-        try {
-            model.addUser(TEST_USERNAME);
-            model.loadUserData(TEST_USERNAME);
-        } catch (UserAlreadyExistsException uaee) {
-            org.junit.Assert.fail("User already exists in newly created model.");
-        } catch (NonExistentUserException e) {
-            Assert.fail("Error loading user data, user was not added to model.");
-        }
+        model.addUser(TEST_USERNAME);
+        model.loadUserData(TEST_USERNAME);
         return model;
     }
 }

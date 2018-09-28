@@ -22,7 +22,7 @@ public class UndoCommandTest {
     private final CommandHistory commandHistory = new CommandHistory();
 
     @Before
-    public void setUp() {
+    public void setUp() throws NoUserSelectedException {
         // set up of models' undo/redo history
         deleteFirstPerson(model);
         deleteFirstPerson(model);
@@ -32,20 +32,16 @@ public class UndoCommandTest {
     }
 
     @Test
-    public void execute() {
+    public void execute() throws NoUserSelectedException {
         // multiple undoable states in model
-        try {
-            expectedModel.undoAddressBook();
-            assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        expectedModel.undoAddressBook();
+        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-            // single undoable state in model
-            expectedModel.undoAddressBook();
-            assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        // single undoable state in model
+        expectedModel.undoAddressBook();
+        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-            // no undoable states in model
-            assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
-        } catch (NoUserSelectedException e) {
-            Assert.fail(e.getMessage());
-        }
+        // no undoable states in model
+        assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
     }
 }

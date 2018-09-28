@@ -128,31 +128,23 @@ public class CommandTestUtil {
      * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
-        try {
-            assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+    public static void showPersonAtIndex(Model model, Index targetIndex) throws NoUserSelectedException {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
 
-            Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
-            final String[] splitName = person.getName().expenseName.split("\\s+");
-            model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
+        final String[] splitName = person.getName().expenseName.split("\\s+");
+        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-            assertEquals(1, model.getFilteredPersonList().size());
-        } catch (NoUserSelectedException e) {
-            Assert.fail(e.getMessage());
-        }
+        assertEquals(1, model.getFilteredPersonList().size());
     }
 
     /**
      * Deletes the first person in {@code model}'s filtered list from {@code model}'s address book.
      */
-    public static void deleteFirstPerson(Model model) {
-        try {
-            Person firstPerson = model.getFilteredPersonList().get(0);
-            model.deletePerson(firstPerson);
-            model.commitAddressBook();
-        } catch (NoUserSelectedException e) {
-            Assert.fail(e.getMessage());
-        }
+    public static void deleteFirstPerson(Model model) throws NoUserSelectedException {
+        Person firstPerson = model.getFilteredPersonList().get(0);
+        model.deletePerson(firstPerson);
+        model.commitAddressBook();
     }
 
 }

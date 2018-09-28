@@ -52,7 +52,7 @@ import seedu.address.testutil.PersonUtil;
 public class AddCommandSystemTest extends AddressBookSystemTest {
 
     @Test
-    public void add() {
+    public void add() throws NoUserSelectedException {
         Model model = testApp.getActualModel();
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
@@ -72,11 +72,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: redo adding Amy to the list -> Amy added again */
         command = RedoCommand.COMMAND_WORD;
-        try {
-            model.addPerson(toAdd);
-        } catch (NoUserSelectedException e) {
-            Assert.fail(e.getMessage());
-        }
+        model.addPerson(toAdd);
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
@@ -206,7 +202,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandSuccess(Person toAdd) {
+    private void assertCommandSuccess(Person toAdd) throws NoUserSelectedException {
         assertCommandSuccess(PersonUtil.getAddCommand(toAdd), toAdd);
     }
 
@@ -215,13 +211,9 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * instead.
      * @see AddCommandSystemTest#assertCommandSuccess(Person)
      */
-    private void assertCommandSuccess(String command, Person toAdd) {
+    private void assertCommandSuccess(String command, Person toAdd) throws NoUserSelectedException {
         Model expectedModel = getModel();
-        try {
-            expectedModel.addPerson(toAdd);
-        } catch (NoUserSelectedException e) {
-            Assert.fail(e.getMessage());
-        }
+        expectedModel.addPerson(toAdd);
         String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, toAdd);
 
         assertCommandSuccess(command, expectedModel, expectedResultMessage);

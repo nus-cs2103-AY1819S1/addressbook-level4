@@ -59,31 +59,23 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_zeroKeywords_noPersonFound() {
+    public void execute_zeroKeywords_noPersonFound() throws NoUserSelectedException {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
-        try {
-            expectedModel.updateFilteredPersonList(predicate);
-            assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-            assertEquals(Collections.emptyList(), model.getFilteredPersonList());
-        } catch (NoUserSelectedException e) {
-            Assert.fail(e.getMessage());
-        }
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
+    public void execute_multipleKeywords_multiplePersonsFound() throws NoUserSelectedException {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindCommand command = new FindCommand(predicate);
-        try {
-            expectedModel.updateFilteredPersonList(predicate);
-            assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-            assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredPersonList());
-        } catch (NoUserSelectedException e) {
-            Assert.fail(e.getMessage());
-        }
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredPersonList());
     }
 
     /**
