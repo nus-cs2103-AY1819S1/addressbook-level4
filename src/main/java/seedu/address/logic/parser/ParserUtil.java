@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -114,7 +115,7 @@ public class ParserUtil {
             LocalDate newDate = LocalDate.parse(trimmedDate, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
             return newDate;
         } catch (DateTimeParseException e) {
-            throw new ParseException("Date format is incorrect.");
+            throw new ParseException(Messages.MESSAGE_WRONG_DATE_FORMAT);
         }
     }
 
@@ -131,7 +132,7 @@ public class ParserUtil {
             LocalTime newTime = LocalTime.parse(trimmedTime, DateTimeFormatter.ofPattern("HH:mm"));
             return newTime;
         } catch (DateTimeParseException e) {
-            throw new ParseException("Time format is incorrect.");
+            throw new ParseException(Messages.MESSAGE_WRONG_TIME_FORMAT);
         }
     }
 

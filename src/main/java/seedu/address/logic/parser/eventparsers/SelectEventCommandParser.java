@@ -25,7 +25,7 @@ public class SelectEventCommandParser implements Parser<SelectEventCommand> {
             return new SelectEventCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectEventCommand.MESSAGE_USAGE), pe);
         }
     }
 }

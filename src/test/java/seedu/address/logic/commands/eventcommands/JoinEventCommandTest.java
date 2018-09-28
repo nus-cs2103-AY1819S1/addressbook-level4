@@ -16,10 +16,10 @@ import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EventBuilder;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TypicalIndexes;
 import seedu.address.testutil.TypicalPersons;
 
 public class JoinEventCommandTest {
-    private static final Index INDEX = Index.fromOneBased(1);
     private static final Index INVALID_INDEX = Index.fromOneBased(100);
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -28,10 +28,10 @@ public class JoinEventCommandTest {
 
     @Test
     public void execute_acceptedJoinEvent() {
-        JoinEventCommand command = new JoinEventCommand(INDEX);
+        JoinEventCommand command = new JoinEventCommand(TypicalIndexes.INDEX_FIRST);
         Person user = TypicalPersons.BENSON;
         commandHistory.setSelectedPerson(user);
-        Event event = model.getEvent(INDEX);
+        Event event = model.getEvent(TypicalIndexes.INDEX_FIRST);
         String expectedMessage = String.format(command.MESSAGE_SUCCESS, event);
         expectedMessage += "\n" + "People attending: [Alice Pauline, Benson Meier]";
         expectedModel.commitAddressBook();
@@ -49,7 +49,7 @@ public class JoinEventCommandTest {
 
     @Test
     public void execute_noUserJoinEvent() {
-        JoinEventCommand command = new JoinEventCommand(INDEX);
+        JoinEventCommand command = new JoinEventCommand(TypicalIndexes.INDEX_FIRST);
         Event event = new EventBuilder().build();
         commandHistory.setSelectedEvent(event);
         String expectedMessage = String.format(Messages.MESSAGE_NO_USER_LOGGED_IN);
@@ -58,10 +58,10 @@ public class JoinEventCommandTest {
 
     @Test
     public void execute_alreadyJoinedJoinEvent() {
-        JoinEventCommand command = new JoinEventCommand(INDEX);
+        JoinEventCommand command = new JoinEventCommand(TypicalIndexes.INDEX_FIRST);
         Person user = new PersonBuilder().build();
         commandHistory.setSelectedPerson(user);
-        model.getEvent(INDEX).addPerson(user);
+        model.getEvent(TypicalIndexes.INDEX_FIRST).addPerson(user);
         String expectedMessage = String.format(Messages.MESSAGE_ALREADY_JOINED);
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }

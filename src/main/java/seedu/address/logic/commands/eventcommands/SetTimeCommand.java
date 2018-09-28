@@ -67,4 +67,12 @@ public class SetTimeCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, startTime.format(timeFormat),
                 endTime.format(timeFormat), event));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SetTimeCommand // instanceof handles nulls
+                && startTime.equals(((SetTimeCommand) other).startTime)
+                && endTime.equals(((SetTimeCommand) other).endTime)); // state check
+    }
 }

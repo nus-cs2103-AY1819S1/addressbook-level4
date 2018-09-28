@@ -50,4 +50,11 @@ public class DisplayPollCommand extends Command {
             throw new CommandException(Messages.MESSAGE_NO_POLL_AT_INDEX);
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof DisplayPollCommand // instanceof handles nulls
+                && targetIndex.equals(((DisplayPollCommand) other).targetIndex)); // state check
+    }
 }

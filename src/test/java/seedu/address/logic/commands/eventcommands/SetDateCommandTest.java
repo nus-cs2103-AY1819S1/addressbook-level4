@@ -1,5 +1,7 @@
 package seedu.address.logic.commands.eventcommands;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
@@ -69,5 +71,29 @@ public class SetDateCommandTest {
         commandHistory.setSelectedEvent(event);
         String expectedMessage = String.format(Messages.MESSAGE_NOT_EVENT_ORGANISER);
         assertCommandFailure(command, model, commandHistory, expectedMessage);
+    }
+
+    @Test
+    public void equals() {
+        LocalDate dateOne = LocalDate.of(2018, 1, 1);
+        LocalDate dateTwo = LocalDate.of(2018, 2, 2);
+        SetDateCommand setDateOneCommand = new SetDateCommand(dateOne);
+        SetDateCommand setDateTwoCommand = new SetDateCommand(dateTwo);
+
+        // same object -> returns true
+        assertTrue(setDateOneCommand.equals(setDateOneCommand));
+
+        // same values -> returns true
+        SetDateCommand setDateOneCommandCopy = new SetDateCommand(dateOne);
+        assertTrue(setDateOneCommand.equals(setDateOneCommandCopy));
+
+        // different types -> returns false
+        assertFalse(setDateOneCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(setDateOneCommand.equals(null));
+
+        // different date -> returns false
+        assertFalse(setDateOneCommand.equals(setDateTwoCommand));
     }
 }

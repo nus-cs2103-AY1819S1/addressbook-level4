@@ -5,13 +5,14 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.eventcommands.DeleteEventCommand;
 import seedu.address.logic.commands.eventcommands.DisplayPollCommand;
+import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses inputs arguments and creates a new DisplayPollCommand object.
  */
-public class DisplayPollCommandParser {
+public class DisplayPollCommandParser implements Parser<DisplayPollCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the
      * and returns an DeleteCommand object for execution.
@@ -23,7 +24,7 @@ public class DisplayPollCommandParser {
             return new DisplayPollCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteEventCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DisplayPollCommand.MESSAGE_USAGE), pe);
         }
     }
 }

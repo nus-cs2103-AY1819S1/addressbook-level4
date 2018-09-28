@@ -16,4 +16,7 @@ public class Messages {
     public static final String MESSAGE_NOT_EVENT_ORGANISER = "You are not the organiser of this event.";
     public static final String MESSAGE_NO_POLL_AT_INDEX = "No poll exists at this index.";
     public static final String MESSAGE_NO_SUCH_OPTION = "No such option exists for this poll.";
+    public static final String MESSAGE_WRONG_DATE_FORMAT = "The date format is incorrect.";
+    public static final String MESSAGE_WRONG_TIME_FORMAT = "The time format is incorrect.";
+
 }
