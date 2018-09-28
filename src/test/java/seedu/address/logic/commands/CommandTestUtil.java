@@ -2,12 +2,12 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_URL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_URL;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,8 +34,10 @@ public class CommandTestUtil {
     public static final String VALID_PRICE_BOB = "22.20";
     public static final String VALID_EMAIL_AMY = "amy@example.com";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
-    public static final String VALID_URL_AMY = "https://www.lazada.sg/products/ps4-055-hori-real-arcade-prov-hayabusa-ps4ps3-i223784442-s340908953.html";
-    public static final String VALID_URL_BOB = "https://www.lazada.sg/products/ps4-090-hori-real-arcade-prov-silent-hayabusaps4ps3-ps4-090-i223784443-s340908954.html";
+    public static final String VALID_URL_AMY = "https://www.lazada.sg/products/"
+            + "ps4-055-hori-real-arcade-prov-hayabusa-ps4ps3-i223784442-s340908953.html";
+    public static final String VALID_URL_BOB = "https://www.lazada.sg/products/"
+            + "ps4-090-hori-real-arcade-prov-silent-hayabusaps4ps3-ps4-090-i223784443-s340908954.html";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_SAVED_AMOUNT = "-11.11";
@@ -89,7 +91,7 @@ public class CommandTestUtil {
      * - the {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            String expectedMessage, Model expectedModel) {
+                                            String expectedMessage, Model expectedModel) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
             CommandResult result = command.execute(actualModel, actualCommandHistory);
@@ -109,7 +111,7 @@ public class CommandTestUtil {
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            String expectedMessage) {
+                                            String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         WishBook expectedWishBook = new WishBook(actualModel.getWishBook());
