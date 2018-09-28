@@ -3,9 +3,9 @@ package seedu.address;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -93,10 +93,10 @@ public class MainApp extends Application {
             }
         } catch (DataConversionException e) {
             logger.warning("Data files are not in the correct format. Will be starting with no accounts.");
-            addressBooks = new HashMap<>();
+            addressBooks = new TreeMap<>();
         } catch (IOException e) {
             logger.warning("Problem while reading from the files. Will be starting with no accounts");
-            addressBooks = new HashMap<>();
+            addressBooks = new TreeMap<>();
         }
         return new ModelManager(addressBooks, userPrefs);
     }
