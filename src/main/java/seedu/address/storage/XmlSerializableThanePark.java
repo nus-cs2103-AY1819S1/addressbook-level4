@@ -15,7 +15,7 @@ import seedu.address.model.ride.Ride;
 /**
  * An Immutable ThanePark that is serializable to XML format
  */
-@XmlRootElement(name = "addressbook")
+@XmlRootElement(name = "thanepark")
 public class XmlSerializableThanePark {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate ride(s).";

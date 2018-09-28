@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addressbook>
+<thanepark>
     <!-- Ride with invalid waitingTime field -->
     <rides>
         <name>Hans Muster</name>
@@ -7,4 +7,4 @@
         <waitingTimeString isPrivate="false">hans@exam!32ple</waitingTimeString>
         <address isPrivate="false">4th street</address>
     </rides>
-</addressbook>
+</thanepark>

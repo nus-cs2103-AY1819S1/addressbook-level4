@@ -13,7 +13,7 @@ import seedu.address.commons.util.XmlUtil;
  */
 public class XmlFileStorage {
     /**
-     * Saves the given addressbook data to the specified file.
+     * Saves the given thanepark data to the specified file.
      */
     public static void saveDataToFile(Path file, XmlSerializableThanePark addressBook)
             throws FileNotFoundException {
