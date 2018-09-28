@@ -18,6 +18,7 @@ public class Wish {
     // Identity fields
     private final Name name;
     private final Price price;
+    private final SavedAmount savedAmount;
     private final Email email;
 
     // Data fields
@@ -36,6 +37,7 @@ public class Wish {
         this.url = url;
         this.tags.addAll(tags);
         this.remark = remark;
+        this.savedAmount = new SavedAmount("0.0");
     }
 
     public Name getName() {
@@ -48,6 +50,10 @@ public class Wish {
 
     public Email getEmail() {
         return email;
+    }
+
+    public SavedAmount getSavedAmount() {
+        return getSavedAmount();
     }
 
     public Url getUrl() {
