@@ -18,7 +18,7 @@ public class WishCardHandle extends NodeHandle<Node> {
     private static final String NAME_FIELD_ID = "#name";
     private static final String URL_FIELD_ID = "#url";
     private static final String PRICE_FIELD_ID = "#price";
-    private static final String SAVED_AMOUNT_FIELD_ID = "#savedamount";
+    private static final String SAVED_AMOUNT_FIELD_ID = "#savedAmount";
     private static final String EMAIL_FIELD_ID = "#email";
     private static final String TAGS_FIELD_ID = "#tags";
     private static final String REMARK_FIELD_ID = "#remark";

@@ -27,20 +27,28 @@ public class WishCard extends UiPart<Region> {
 
     @FXML
     private HBox cardPane;
+
     @FXML
     private Label name;
+
     @FXML
     private Label id;
+
     @FXML
     private Label price;
+
     @FXML
     private Label savedAmount;
+
     @FXML
     private Label url;
+
     @FXML
     private Label email;
+
     @FXML
     private Label remark;
+
     @FXML
     private FlowPane tags;
 
