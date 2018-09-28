@@ -11,11 +11,11 @@ import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.wish.Url;
 import seedu.address.model.wish.Email;
 import seedu.address.model.wish.Name;
 import seedu.address.model.wish.Phone;
 import seedu.address.model.wish.Remark;
+import seedu.address.model.wish.Url;
 import seedu.address.model.wish.Wish;
 
 /**
@@ -32,7 +32,7 @@ public class XmlAdaptedWish {
     @XmlElement(required = true)
     private String email;
     @XmlElement(required = true)
-    private String address;
+    private String url;
     @XmlElement(required = true)
     private String remark;
 
@@ -48,11 +48,11 @@ public class XmlAdaptedWish {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given wish details.
      */
-    public XmlAdaptedWish(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedWish(String name, String phone, String email, String url, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
+        this.url = url;
         this.remark = "";
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
@@ -68,7 +68,7 @@ public class XmlAdaptedWish {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
-        address = source.getUrl().value;
+        url = source.getUrl().value;
         remark = source.getRemark().value;
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
@@ -110,13 +110,13 @@ public class XmlAdaptedWish {
         }
         final Email modelEmail = new Email(email);
 
-        if (address == null) {
+        if (url == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Url.class.getSimpleName()));
         }
-        if (!Url.isValidUrl(address)) {
+        if (!Url.isValidUrl(url)) {
             throw new IllegalValueException(Url.MESSAGE_URL_CONSTRAINTS);
         }
-        final Url modelUrl = new Url(address);
+        final Url modelUrl = new Url(url);
 
         if (this.remark == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Remark.class.getSimpleName()));
@@ -141,7 +141,7 @@ public class XmlAdaptedWish {
         return Objects.equals(name, otherWish.name)
                 && Objects.equals(phone, otherWish.phone)
                 && Objects.equals(email, otherWish.email)
-                && Objects.equals(address, otherWish.address)
+                && Objects.equals(url, otherWish.url)
                 && Objects.equals(remark, otherWish.remark)
                 && tagged.equals(otherWish.tagged);
     }
