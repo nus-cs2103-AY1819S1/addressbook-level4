@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.ExitAppRequestEvent;
 
 /**
  * Controller for a help page
@@ -28,8 +29,8 @@ public class BudgetWindow extends UiPart<Stage> {
     public BudgetWindow(Stage root) {
         super(FXML, root);
 
-        String userGuideUrl = getClass().getResource(USERGUIDE_FILE_PATH).toString();
-        browser.getEngine().load(userGuideUrl);
+//        String userGuideUrl = getClass().getResource(USERGUIDE_FILE_PATH).toString();
+//        browser.getEngine().load(userGuideUrl);
     }
 
     /**
@@ -37,6 +38,14 @@ public class BudgetWindow extends UiPart<Stage> {
      */
     public BudgetWindow() {
         this(new Stage());
+    }
+
+    /**
+     * Closes the application.
+     */
+    @FXML
+    private void handleExit() {
+        raise(new ExitAppRequestEvent());
     }
 
     /**
