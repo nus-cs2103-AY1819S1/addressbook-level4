@@ -129,7 +129,7 @@ public class AddCommandSystemTest extends WishBookSystemTest {
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_WISH);
 
         /* Case: add a duplicate wish except with different wish -> rejected */
-        toAdd = new WishBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
+        toAdd = new WishBuilder(HOON).withUrl(VALID_ADDRESS_BOB).build();
         command = WishUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_WISH);
 

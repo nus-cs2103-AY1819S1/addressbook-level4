@@ -20,7 +20,7 @@ public class WishBuilder {
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_URL = "https://www.lazada.sg/products/ps4-092-hori-real-arcade-pron-hayabusaps4ps3pc-i223784444-s340908955.html";
     public static final String DEFAULT_REMARK = "";
 
     private Name name;
@@ -34,7 +34,7 @@ public class WishBuilder {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
-        url = new Url(DEFAULT_ADDRESS);
+        url = new Url(DEFAULT_URL);
         remark = new Remark(DEFAULT_REMARK);
         tags = new HashSet<>();
     }
@@ -68,10 +68,10 @@ public class WishBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code Wish} that we are building.
+     * Sets the {@code Url} of the {@code Wish} that we are building.
      */
-    public WishBuilder withAddress(String address) {
-        this.url = new Url(address);
+    public WishBuilder withUrl(String url) {
+        this.url = new Url(url);
         return this;
     }
 

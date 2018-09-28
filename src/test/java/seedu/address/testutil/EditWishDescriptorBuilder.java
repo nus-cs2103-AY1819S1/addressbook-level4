@@ -64,10 +64,10 @@ public class EditWishDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Url} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditWishDescriptorBuilder withAddress(String address) {
-        descriptor.setUrl(new Url(address));
+    public EditWishDescriptorBuilder withAddress(String url) {
+        descriptor.setUrl(new Url(url));
         return this;
     }
 

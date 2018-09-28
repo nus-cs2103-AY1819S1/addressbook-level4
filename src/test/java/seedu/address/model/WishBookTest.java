@@ -51,7 +51,7 @@ public class WishBookTest {
     @Test
     public void resetData_withDuplicateWishes_throwsDuplicateWishException() {
         // Two persons with the same identity fields
-        Wish editedAlice = new WishBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Wish editedAlice = new WishBuilder(ALICE).withUrl(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Wish> newWishes = Arrays.asList(ALICE, editedAlice);
         WishBookStub newData = new WishBookStub(newWishes);
@@ -80,7 +80,7 @@ public class WishBookTest {
     @Test
     public void hasWish_wishWithSameIdentityFieldsInWishBook_returnsTrue() {
         wishBook.addWish(ALICE);
-        Wish editedAlice = new WishBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Wish editedAlice = new WishBuilder(ALICE).withUrl(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(wishBook.hasWish(editedAlice));
     }

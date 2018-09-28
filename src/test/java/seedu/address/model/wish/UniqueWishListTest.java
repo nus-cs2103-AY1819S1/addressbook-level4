@@ -46,7 +46,7 @@ public class UniqueWishListTest {
     @Test
     public void contains_wishWithSameIdentityFieldsInList_returnsTrue() {
         uniqueWishList.add(ALICE);
-        Wish editedAlice = new WishBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Wish editedAlice = new WishBuilder(ALICE).withUrl(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(uniqueWishList.contains(editedAlice));
     }
@@ -94,7 +94,7 @@ public class UniqueWishListTest {
     @Test
     public void setWish_editedWishHasSameIdentity_success() {
         uniqueWishList.add(ALICE);
-        Wish editedAlice = new WishBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Wish editedAlice = new WishBuilder(ALICE).withUrl(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         uniqueWishList.setWish(ALICE, editedAlice);
         UniqueWishList expectedUniqueWishList = new UniqueWishList();
