@@ -15,25 +15,25 @@ import seedu.address.commons.events.model.AppContentChangedEvent;
 import seedu.address.model.recipe.Recipe;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the application content data.
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAppContent versionedAddressBook;
+    private final VersionedAppContent versionedAppContent;
     private final FilteredList<Recipe> filteredRecipes;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given appContent and userPrefs.
      */
-    public ModelManager(ReadOnlyAppContent addressBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAppContent appContent, UserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(appContent, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with application content: " + appContent + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedAppContent(addressBook);
-        filteredRecipes = new FilteredList<>(versionedAddressBook.getRecipeList());
+        versionedAppContent = new VersionedAppContent(appContent);
+        filteredRecipes = new FilteredList<>(versionedAppContent.getRecipeList());
     }
 
     public ModelManager() {
@@ -42,52 +42,52 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void resetData(ReadOnlyAppContent newData) {
-        versionedAddressBook.resetData(newData);
-        indicateAddressBookChanged();
+        versionedAppContent.resetData(newData);
+        indicateAppContentChanged();
     }
 
     @Override
     public ReadOnlyAppContent getAppContent() {
-        return versionedAddressBook;
+        return versionedAppContent;
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
-        raise(new AppContentChangedEvent(versionedAddressBook));
+    private void indicateAppContentChanged() {
+        raise(new AppContentChangedEvent(versionedAppContent));
     }
 
     @Override
     public boolean hasRecipe(Recipe recipe) {
         requireNonNull(recipe);
-        return versionedAddressBook.hasRecipe(recipe);
+        return versionedAppContent.hasRecipe(recipe);
     }
 
     @Override
     public void deleteRecipe(Recipe target) {
-        versionedAddressBook.removeRecipe(target);
-        indicateAddressBookChanged();
+        versionedAppContent.removeRecipe(target);
+        indicateAppContentChanged();
     }
 
     @Override
     public void addRecipe(Recipe recipe) {
-        versionedAddressBook.addRecipe(recipe);
+        versionedAppContent.addRecipe(recipe);
         updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
-        indicateAddressBookChanged();
+        indicateAppContentChanged();
     }
 
     @Override
     public void updateRecipe(Recipe target, Recipe editedRecipe) {
         requireAllNonNull(target, editedRecipe);
 
-        versionedAddressBook.updateRecipe(target, editedRecipe);
-        indicateAddressBookChanged();
+        versionedAppContent.updateRecipe(target, editedRecipe);
+        indicateAppContentChanged();
     }
 
     //=========== Filtered Recipe List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Recipe} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedAppContent}
      */
     @Override
     public ObservableList<Recipe> getFilteredRecipeList() {
@@ -104,29 +104,29 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public boolean canUndoAppContent() {
-        return versionedAddressBook.canUndo();
+        return versionedAppContent.canUndo();
     }
 
     @Override
     public boolean canRedoAppContent() {
-        return versionedAddressBook.canRedo();
+        return versionedAppContent.canRedo();
     }
 
     @Override
     public void undoAppContent() {
-        versionedAddressBook.undo();
-        indicateAddressBookChanged();
+        versionedAppContent.undo();
+        indicateAppContentChanged();
     }
 
     @Override
     public void redoAppContent() {
-        versionedAddressBook.redo();
-        indicateAddressBookChanged();
+        versionedAppContent.redo();
+        indicateAppContentChanged();
     }
 
     @Override
     public void commitAppContent() {
-        versionedAddressBook.commit();
+        versionedAppContent.commit();
     }
 
     @Override
@@ -143,7 +143,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
+        return versionedAppContent.equals(other.versionedAppContent)
                 && filteredRecipes.equals(other.filteredRecipes);
     }
 
