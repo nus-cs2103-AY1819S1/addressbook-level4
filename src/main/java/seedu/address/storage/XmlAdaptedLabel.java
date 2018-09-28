@@ -8,23 +8,22 @@ import seedu.address.model.tag.Label;
 /**
  * JAXB-friendly adapted version of the Label.
  */
-public class XmlAdaptedTag {
+public class XmlAdaptedLabel {
 
     @XmlValue
-    private String tagName;
+    private String labelName;
 
     /**
-     * Constructs an XmlAdaptedTag.
+     * Constructs an XmlAdaptedLabel.
      * This is the no-arg constructor that is required by JAXB.
      */
-    public XmlAdaptedTag() {
-    }
+    public XmlAdaptedLabel() {}
 
     /**
      * Constructs a {@code XmlAdaptedTag} with the given {@code labelName}.
      */
-    public XmlAdaptedTag(String tagName) {
-        this.tagName = tagName;
+    public XmlAdaptedLabel(String labelName) {
+        this.labelName = labelName;
     }
 
     /**
@@ -32,20 +31,20 @@ public class XmlAdaptedTag {
      *
      * @param source future changes to this will not affect the created
      */
-    public XmlAdaptedTag(Label source) {
-        tagName = source.labelName;
+    public XmlAdaptedLabel(Label source) {
+        labelName = source.labelName;
     }
 
     /**
-     * Converts this jaxb-friendly adapted tag object into the model's Label object.
+     * Converts this jaxb-friendly adapted label object into the model's Label object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Label toModelType() throws IllegalValueException {
-        if (!Label.isValidLabelName(tagName)) {
+        if (!Label.isValidLabelName(labelName)) {
             throw new IllegalValueException(Label.MESSAGE_LABEL_CONSTRAINTS);
         }
-        return new Label(tagName);
+        return new Label(labelName);
     }
 
     @Override
@@ -54,10 +53,10 @@ public class XmlAdaptedTag {
             return true;
         }
 
-        if (!(other instanceof XmlAdaptedTag)) {
+        if (!(other instanceof XmlAdaptedLabel)) {
             return false;
         }
 
-        return tagName.equals(((XmlAdaptedTag) other).tagName);
+        return labelName.equals(((XmlAdaptedLabel) other).labelName);
     }
 }

@@ -20,66 +20,66 @@ import seedu.address.model.tag.Label;
 /**
  * JAXB-friendly version of the Task.
  */
-public class XmlAdaptedPerson {
+public class XmlAdaptedTask {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Task's %s field is missing!";
 
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
-    private String phone;
+    private String dueDate;
     @XmlElement(required = true)
-    private String email;
+    private String priorityValue;
     @XmlElement(required = true)
-    private String address;
+    private String description;
 
     @XmlElement
-    private List<XmlAdaptedTag> tagged = new ArrayList<>();
+    private List<XmlAdaptedLabel> labelled = new ArrayList<>();
 
     /**
-     * Constructs an XmlAdaptedPerson.
+     * Constructs an XmlAdaptedTask.
      * This is the no-arg constructor that is required by JAXB.
      */
-    public XmlAdaptedPerson() {
-    }
+    public XmlAdaptedTask() {}
 
     /**
-     * Constructs an {@code XmlAdaptedPerson} with the given person details.
+     * Constructs an {@code XmlAdaptedTask} with the given task details.
      */
-    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedTask(String name, String dueDate, String priorityValue,
+                          String description, List<XmlAdaptedLabel> labelled) {
         this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        if (tagged != null) {
-            this.tagged = new ArrayList<>(tagged);
+        this.dueDate = dueDate;
+        this.priorityValue = priorityValue;
+        this.description = description;
+        if (labelled != null) {
+            this.labelled = new ArrayList<>(labelled);
         }
     }
 
     /**
      * Converts a given Task into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedPerson
+     * @param source future changes to this will not affect the created XmlAdaptedTask
      */
-    public XmlAdaptedPerson(Task source) {
+    public XmlAdaptedTask(Task source) {
         name = source.getName().fullName;
-        phone = source.getDueDate().value;
-        email = source.getPriorityValue().value;
-        address = source.getDescription().value;
-        tagged = source.getLabels().stream()
-                .map(XmlAdaptedTag::new)
+        dueDate = source.getDueDate().value;
+        priorityValue = source.getPriorityValue().value;
+        description = source.getDescription().value;
+        labelled = source.getLabels().stream()
+                .map(XmlAdaptedLabel::new)
                 .collect(Collectors.toList());
     }
 
     /**
-     * Converts this jaxb-friendly adapted person object into the model's Task object.
+     * Converts this jaxb-friendly adapted task object into the model's Task object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Task toModelType() throws IllegalValueException {
-        final List<Label> personTags = new ArrayList<>();
-        for (XmlAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+        final List<Label> taskLabels = new ArrayList<>();
+        for (XmlAdaptedLabel label : labelled) {
+            taskLabels.add(label.toModelType());
         }
 
         if (name == null) {
@@ -90,34 +90,34 @@ public class XmlAdaptedPerson {
         }
         final Name modelName = new Name(name);
 
-        if (phone == null) {
+        if (dueDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, DueDate.class.getSimpleName()));
         }
-        if (!DueDate.isValidDueDate(phone)) {
+        if (!DueDate.isValidDueDate(dueDate)) {
             throw new IllegalValueException(DueDate.MESSAGE_DUEDATE_CONSTRAINTS);
         }
-        final DueDate modelPhone = new DueDate(phone);
+        final DueDate modelDueDate = new DueDate(dueDate);
 
-        if (email == null) {
+        if (priorityValue == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     PriorityValue.class.getSimpleName()));
         }
-        if (!PriorityValue.isValidPriorityValue(email)) {
+        if (!PriorityValue.isValidPriorityValue(priorityValue)) {
             throw new IllegalValueException(PriorityValue.MESSAGE_PRIORITYVALUE_CONSTRAINTS);
         }
-        final PriorityValue modelEmail = new PriorityValue(email);
+        final PriorityValue modelPriorityValue = new PriorityValue(priorityValue);
 
-        if (address == null) {
+        if (description == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Description.class.getSimpleName()));
         }
-        if (!Description.isValidDescription(address)) {
+        if (!Description.isValidDescription(description)) {
             throw new IllegalValueException(Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
         }
-        final Description modelAddress = new Description(address);
+        final Description modelDescription = new Description(description);
 
-        final Set<Label> modelTags = new HashSet<>(personTags);
-        return new Task(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        final Set<Label> modelLabels = new HashSet<>(taskLabels);
+        return new Task(modelName, modelDueDate, modelPriorityValue, modelDescription, modelLabels);
     }
 
     @Override
@@ -126,15 +126,15 @@ public class XmlAdaptedPerson {
             return true;
         }
 
-        if (!(other instanceof XmlAdaptedPerson)) {
+        if (!(other instanceof XmlAdaptedTask)) {
             return false;
         }
 
-        XmlAdaptedPerson otherPerson = (XmlAdaptedPerson) other;
-        return Objects.equals(name, otherPerson.name)
-                && Objects.equals(phone, otherPerson.phone)
-                && Objects.equals(email, otherPerson.email)
-                && Objects.equals(address, otherPerson.address)
-                && tagged.equals(otherPerson.tagged);
+        XmlAdaptedTask otherTask = (XmlAdaptedTask) other;
+        return Objects.equals(name, otherTask.name)
+                && Objects.equals(dueDate, otherTask.dueDate)
+                && Objects.equals(priorityValue, otherTask.priorityValue)
+                && Objects.equals(description, otherTask.description)
+                && labelled.equals(otherTask.labelled);
     }
 }

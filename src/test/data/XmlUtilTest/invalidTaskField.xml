@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Task with an invalid dueDate field -->
+<task>
+    <name>Hans Muster</name>
+    <dueDate>9482asf424</dueDate>
+    <priorityValue>hans@example</priorityValue>
+    <description>4th street</description>
+    <labelled>friends</labelled>
+</task>

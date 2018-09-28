@@ -23,7 +23,7 @@ import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.person.Task;
-import seedu.address.storage.XmlSerializableAddressBook;
+import seedu.address.storage.XmlSerializableTaskManager;
 
 public class TaskListPanelTest extends GuiUnitTest {
     private static final ObservableList<Task> TYPICAL_TASKS =
@@ -82,9 +82,9 @@ public class TaskListPanelTest extends GuiUnitTest {
      */
     private ObservableList<Task> createBackingList(int taskCount) throws Exception {
         Path xmlFile = createXmlFileWithTasks(taskCount);
-        XmlSerializableAddressBook xmlAddressBook =
-                XmlUtil.getDataFromFile(xmlFile, XmlSerializableAddressBook.class);
-        return FXCollections.observableArrayList(xmlAddressBook.toModelType().getTaskList());
+        XmlSerializableTaskManager xmlTaskManager =
+                XmlUtil.getDataFromFile(xmlFile, XmlSerializableTaskManager.class);
+        return FXCollections.observableArrayList(xmlTaskManager.toModelType().getTaskList());
     }
 
     /**
@@ -93,16 +93,16 @@ public class TaskListPanelTest extends GuiUnitTest {
     private Path createXmlFileWithTasks(int taskCount) throws Exception {
         StringBuilder builder = new StringBuilder();
         builder.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
-        builder.append("<addressbook>\n");
+        builder.append("<taskmanager>\n");
         for (int i = 0; i < taskCount; i++) {
-            builder.append("<persons>\n");
+            builder.append("<tasks>\n");
             builder.append("<name>").append(i).append("a</name>\n");
-            builder.append("<phone>000</phone>\n");
-            builder.append("<email>a@aa</email>\n");
-            builder.append("<address>a</address>\n");
-            builder.append("</persons>\n");
+            builder.append("<dueDate>000</dueDate>\n");
+            builder.append("<priorityValue>a@aa</priorityValue>\n");
+            builder.append("<description>a</description>\n");
+            builder.append("</tasks>\n");
         }
-        builder.append("</addressbook>\n");
+        builder.append("</taskmanager>\n");
 
         Path manyPersonsFile = Paths.get(TEST_DATA_FOLDER + "manyPersons.xml");
         FileUtil.createFile(manyPersonsFile);

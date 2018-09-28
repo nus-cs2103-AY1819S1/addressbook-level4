@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<taskmanager>
+    <!-- Task with invalid name field -->
+    <tasks>
+        <name>Ha!ns Mu@ster</name>
+        <dueDate isPrivate="false">9482424</dueDate>
+        <priorityValue isPrivate="false">hans@example.com</priorityValue>
+        <description isPrivate="false">4th street</description>
+    </tasks>
+</taskmanager>
