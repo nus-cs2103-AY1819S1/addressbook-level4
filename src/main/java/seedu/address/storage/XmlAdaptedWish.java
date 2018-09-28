@@ -11,7 +11,13 @@ import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.wish.*;
+import seedu.address.model.wish.Email;
+import seedu.address.model.wish.Name;
+import seedu.address.model.wish.Price;
+import seedu.address.model.wish.Remark;
+import seedu.address.model.wish.SavedAmount;
+import seedu.address.model.wish.Url;
+import seedu.address.model.wish.Wish;
 
 /**
  * JAXB-friendly version of the Wish.
@@ -123,7 +129,8 @@ public class XmlAdaptedWish {
         final Remark modelRemark = new Remark(this.remark);
 
         if (this.savedAmount == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, SavedAmount.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    SavedAmount.class.getSimpleName()));
         }
         final SavedAmount modelSavedAmount = new SavedAmount(this.savedAmount);
 
