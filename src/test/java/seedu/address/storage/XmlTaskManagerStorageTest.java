@@ -64,13 +64,13 @@ public class XmlTaskManagerStorageTest {
     @Test
     public void readTaskManager_invalidTaskTaskManager_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readTaskManager("invalidPersonAddressBook.xml");
+        readTaskManager("invalidTaskManager.xml");
     }
 
     @Test
     public void readTaskManager_invalidAndValidTaskTaskManager_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readTaskManager("invalidAndValidPersonAddressBook.xml");
+        readTaskManager("invalidAndValidTaskTaskManager.xml");
     }
 
     @Test

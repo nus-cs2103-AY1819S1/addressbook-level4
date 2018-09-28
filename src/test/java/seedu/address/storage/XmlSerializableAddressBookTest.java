@@ -17,9 +17,9 @@ import seedu.address.testutil.TypicalTasks;
 public class XmlSerializableAddressBookTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlSerializableAddressBookTest");
-    private static final Path TYPICAL_TASKS_FILE = TEST_DATA_FOLDER.resolve("typicalPersonsAddressBook.xml");
-    private static final Path INVALID_TASK_FILE = TEST_DATA_FOLDER.resolve("invalidPersonAddressBook.xml");
-    private static final Path DUPLICATE_TASK_FILE = TEST_DATA_FOLDER.resolve("duplicatePersonAddressBook.xml");
+    private static final Path TYPICAL_TASKS_FILE = TEST_DATA_FOLDER.resolve("typicalTasksTaskManager.xml");
+    private static final Path INVALID_TASK_FILE = TEST_DATA_FOLDER.resolve("invalidTaskManager.xml");
+    private static final Path DUPLICATE_TASK_FILE = TEST_DATA_FOLDER.resolve("duplicateTaskTaskManager.xml");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
