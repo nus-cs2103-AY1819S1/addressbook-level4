@@ -58,4 +58,18 @@ public class SetTimeCommandTest {
         String expectedMessage = String.format(Messages.MESSAGE_NO_EVENT_SELECTED);
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
+
+    @Test
+    public void execute_notEventOrganiserSetTime() {
+        SetTimeCommand command = new SetTimeCommand(startTime, endTime);
+        Person user = new PersonBuilder().build();
+        commandHistory.setSelectedPerson(user);
+        Person anotherUser = new PersonBuilder(user).withName("Bob").build();
+        EventBuilder eventBuilder = new EventBuilder();
+        eventBuilder.withOrganiser(anotherUser);
+        Event event = eventBuilder.build();
+        commandHistory.setSelectedEvent(event);
+        String expectedMessage = String.format(Messages.MESSAGE_NOT_EVENT_ORGANISER);
+        assertCommandFailure(command, model, commandHistory, expectedMessage);
+    }
 }
