@@ -18,7 +18,7 @@ public class PatientQueue<E> {
     }
 
     public boolean hasPatient() {
-        return list.isEmpty();
+        return !list.isEmpty();
     }
 
 }
