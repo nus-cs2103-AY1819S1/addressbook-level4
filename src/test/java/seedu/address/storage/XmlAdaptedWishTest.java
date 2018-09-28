@@ -87,7 +87,7 @@ public class XmlAdaptedWishTest {
     public void toModelType_invalidAddress_throwsIllegalValueException() {
         XmlAdaptedWish wish =
                 new XmlAdaptedWish(VALID_NAME, VALID_PHONE, VALID_EMAIL, INVALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = Url.MESSAGE_ADDRESS_CONSTRAINTS;
+        String expectedMessage = Url.MESSAGE_URL_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, wish::toModelType);
     }
 

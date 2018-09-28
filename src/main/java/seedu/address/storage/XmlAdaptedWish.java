@@ -113,8 +113,8 @@ public class XmlAdaptedWish {
         if (address == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Url.class.getSimpleName()));
         }
-        if (!Url.isValidAddress(address)) {
-            throw new IllegalValueException(Url.MESSAGE_ADDRESS_CONSTRAINTS);
+        if (!Url.isValidUrl(address)) {
+            throw new IllegalValueException(Url.MESSAGE_URL_CONSTRAINTS);
         }
         final Url modelUrl = new Url(address);
 

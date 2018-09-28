@@ -74,8 +74,8 @@ public class ParserUtil {
     public static Url parseAddress(String address) throws ParseException {
         requireNonNull(address);
         String trimmedAddress = address.trim();
-        if (!Url.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Url.MESSAGE_ADDRESS_CONSTRAINTS);
+        if (!Url.isValidUrl(trimmedAddress)) {
+            throw new ParseException(Url.MESSAGE_URL_CONSTRAINTS);
         }
         return new Url(trimmedAddress);
     }

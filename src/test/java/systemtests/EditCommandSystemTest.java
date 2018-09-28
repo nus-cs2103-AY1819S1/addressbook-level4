@@ -177,7 +177,7 @@ public class EditCommandSystemTest extends WishBookSystemTest {
 
         /* Case: invalid wish -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_WISH.getOneBased() + INVALID_ADDRESS_DESC,
-                Url.MESSAGE_ADDRESS_CONSTRAINTS);
+                Url.MESSAGE_URL_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_WISH.getOneBased() + INVALID_TAG_DESC,
