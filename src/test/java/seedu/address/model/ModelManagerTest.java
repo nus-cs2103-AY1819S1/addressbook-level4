@@ -47,8 +47,8 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withRecipe(ALICE).withRecipe(BENSON).build();
-        AddressBook differentAddressBook = new AddressBook();
+        AppContent addressBook = new AddressBookBuilder().withRecipe(ALICE).withRecipe(BENSON).build();
+        AppContent differentAddressBook = new AppContent();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true

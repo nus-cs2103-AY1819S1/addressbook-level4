@@ -33,11 +33,11 @@ import seedu.address.testutil.EditRecipeDescriptorBuilder;
 import seedu.address.testutil.RecipeBuilder;
 import seedu.address.testutil.RecipeUtil;
 
-public class AddressBookParserTest {
+public class AppContentParserTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final AppContentParser parser = new AppContentParser();
 
     @Test
     public void parseCommand_add() throws Exception {

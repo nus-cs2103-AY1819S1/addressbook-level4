@@ -4,9 +4,9 @@ import javafx.collections.ObservableList;
 import seedu.address.model.recipe.Recipe;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of an application content
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyAppContent {
 
     /**
      * Returns an unmodifiable view of the recipes list.
