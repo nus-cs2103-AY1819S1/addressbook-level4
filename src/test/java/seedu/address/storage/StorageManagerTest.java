@@ -32,9 +32,9 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        XmlAddressBookStorage addressBookStorage = new XmlAddressBookStorage(getTempFilePath("ab"));
+        XmlTaskManagerStorage taskManagerStorage = new XmlTaskManagerStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(taskManagerStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -57,29 +57,29 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void taskManagerReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link XmlAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link XmlAddressBookStorageTest} class.
+         * {@link XmlTaskManagerStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link XmlTaskManagerStorageTest} class.
          */
         TaskManager original = getTypicalTaskManager();
-        storageManager.saveAddressBook(original);
-        ReadOnlyTaskManager retrieved = storageManager.readAddressBook().get();
+        storageManager.saveTaskManager(original);
+        ReadOnlyTaskManager retrieved = storageManager.readTaskManager().get();
         assertEquals(original, new TaskManager(retrieved));
     }
 
     @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+    public void getTaskManagerFilePath() {
+        assertNotNull(storageManager.getTaskManagerFilePath());
     }
 
     @Test
-    public void handleAddressBookChangedEvent_exceptionThrown_eventRaised() {
+    public void handleTaskManagerChangedEvent_exceptionThrown_eventRaised() {
         // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
-        Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub(Paths.get("dummy")),
+        Storage storage = new StorageManager(new XmlTaskManagerStorageExceptionThrowingStub(Paths.get("dummy")),
                 new JsonUserPrefsStorage(Paths.get("dummy")));
-        storage.handleAddressBookChangedEvent(new AddressBookChangedEvent(new TaskManager()));
+        storage.handleTaskManagerChangedEvent(new AddressBookChangedEvent(new TaskManager()));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }
 
@@ -87,17 +87,15 @@ public class StorageManagerTest {
     /**
      * A Stub class to throw an exception when the save method is called
      */
-    class XmlAddressBookStorageExceptionThrowingStub extends XmlAddressBookStorage {
+    class XmlTaskManagerStorageExceptionThrowingStub extends XmlTaskManagerStorage {
 
-        public XmlAddressBookStorageExceptionThrowingStub(Path filePath) {
+        public XmlTaskManagerStorageExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyTaskManager addressBook, Path filePath) throws IOException {
+        public void saveTaskManager(ReadOnlyTaskManager taskManager, Path filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }
-
-
 }
