@@ -45,41 +45,41 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Task expectedPerson = new TaskBuilder(BOB).withLabels(VALID_TAG_FRIEND).build();
+        Task expectedTask = new TaskBuilder(BOB).withLabels(VALID_TAG_FRIEND).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedTask));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedTask));
 
         // multiple phones - last phone accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedTask));
 
         // multiple emails - last email accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedTask));
 
         // multiple addresses - last address accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_AMY
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedTask));
 
         // multiple tags - all accepted
-        Task expectedPersonMultipleTags = new TaskBuilder(BOB).withLabels(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+        Task expectedTaskMultipleTags = new TaskBuilder(BOB).withLabels(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedPersonMultipleTags));
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedTaskMultipleTags));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Task expectedPerson = new TaskBuilder(AMY).withLabels().build();
+        Task expectedTask = new TaskBuilder(AMY).withLabels().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
-                new AddCommand(expectedPerson));
+                new AddCommand(expectedTask));
     }
 
     @Test

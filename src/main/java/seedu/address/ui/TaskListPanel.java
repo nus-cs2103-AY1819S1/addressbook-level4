@@ -16,23 +16,23 @@ import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.address.model.person.Task;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of tasks.
  */
-public class PersonListPanel extends UiPart<Region> {
+public class TaskListPanel extends UiPart<Region> {
     private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
 
     @FXML
     private ListView<Task> personListView;
 
-    public PersonListPanel(ObservableList<Task> personList) {
+    public TaskListPanel(ObservableList<Task> taskList) {
         super(FXML);
-        setConnections(personList);
+        setConnections(taskList);
         registerAsAnEventHandler(this);
     }
 
-    private void setConnections(ObservableList<Task> personList) {
-        personListView.setItems(personList);
+    private void setConnections(ObservableList<Task> taskList) {
+        personListView.setItems(taskList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
@@ -41,14 +41,14 @@ public class PersonListPanel extends UiPart<Region> {
         personListView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
-                        logger.fine("Selection in person list panel changed to : '" + newValue + "'");
+                        logger.fine("Selection in task list panel changed to : '" + newValue + "'");
                         raise(new TaskPanelSelectionChangedEvent(newValue));
                     }
                 });
     }
 
     /**
-     * Scrolls to the {@code PersonCard} at the {@code index} and selects it.
+     * Scrolls to the {@code TaskCard} at the {@code index} and selects it.
      */
     private void scrollTo(int index) {
         Platform.runLater(() -> {
@@ -64,18 +64,18 @@ public class PersonListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Task} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Task} using a {@code TaskCard}.
      */
     class PersonListViewCell extends ListCell<Task> {
         @Override
-        protected void updateItem(Task person, boolean empty) {
-            super.updateItem(person, empty);
+        protected void updateItem(Task task, boolean empty) {
+            super.updateItem(task, empty);
 
-            if (empty || person == null) {
+            if (empty || task == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+                setGraphic(new TaskCard(task, getIndex() + 1).getRoot());
             }
         }
     }

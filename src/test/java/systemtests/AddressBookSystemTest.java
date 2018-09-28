@@ -27,9 +27,10 @@ import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
-import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
+import guitests.guihandles.TaskListPanelHandle;
+
 import seedu.address.MainApp;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
@@ -43,7 +44,6 @@ import seedu.address.model.TaskManager;
 import seedu.address.testutil.TypicalTasks;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
-
 /**
  * A system test class for TaskManager, which provides access to handles of GUI components and helper methods
  * for test verification.
@@ -103,8 +103,8 @@ public abstract class AddressBookSystemTest {
         return mainWindowHandle.getCommandBox();
     }
 
-    public PersonListPanelHandle getPersonListPanel() {
-        return mainWindowHandle.getPersonListPanel();
+    public TaskListPanelHandle getPersonListPanel() {
+        return mainWindowHandle.getTaskListPanel();
     }
 
     public MainMenuHandle getMainMenu() {
@@ -139,7 +139,7 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Displays all persons in the address book.
+     * Displays all persons in the task manager.
      */
     protected void showAllPersons() {
         executeCommand(ListCommand.COMMAND_WORD);
@@ -163,7 +163,7 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Deletes all persons in the address book.
+     * Deletes all persons in the task manager.
      */
     protected void deleteAllPersons() {
         executeCommand(ClearCommand.COMMAND_WORD);
@@ -179,12 +179,12 @@ public abstract class AddressBookSystemTest {
                                                      Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new TaskManager(expectedModel.getTaskManager()), testApp.readStorageAddressBook());
+        assertEquals(new TaskManager(expectedModel.getTaskManager()), testApp.readStorageTaskManager());
         assertListMatching(getPersonListPanel(), expectedModel.getFilteredTaskList());
     }
 
     /**
-     * Calls {@code BrowserPanelHandle}, {@code PersonListPanelHandle} and {@code StatusBarFooterHandle} to remember
+     * Calls {@code BrowserPanelHandle}, {@code TaskListPanelHandle} and {@code StatusBarFooterHandle} to remember
      * their current state.
      */
     private void rememberStates() {
@@ -192,7 +192,7 @@ public abstract class AddressBookSystemTest {
         getBrowserPanel().rememberUrl();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
-        getPersonListPanel().rememberSelectedPersonCard();
+        getPersonListPanel().rememberSelectedTaskCard();
     }
 
     /**
@@ -211,7 +211,7 @@ public abstract class AddressBookSystemTest {
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      *
      * @see BrowserPanelHandle#isUrlChanged()
-     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
+     * @see TaskListPanelHandle#isSelectedTaskCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
@@ -231,11 +231,11 @@ public abstract class AddressBookSystemTest {
      * Asserts that the browser's url and the selected card in the person list panel remain unchanged.
      *
      * @see BrowserPanelHandle#isUrlChanged()
-     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
+     * @see TaskListPanelHandle#isSelectedTaskCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
         assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
+        assertFalse(getPersonListPanel().isSelectedTaskCardChanged());
     }
 
     /**
