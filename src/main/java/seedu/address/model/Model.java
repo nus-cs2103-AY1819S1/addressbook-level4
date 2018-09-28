@@ -13,10 +13,10 @@ public interface Model {
     Predicate<Recipe> PREDICATE_SHOW_ALL_RECIPES = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyAddressBook newData);
+    void resetData(ReadOnlyAppContent newData);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the AppContent */
+    ReadOnlyAppContent getAddressBook();
 
     /**
      * Returns true if a recipe with the same identity as {@code recipe} exists in the address book.

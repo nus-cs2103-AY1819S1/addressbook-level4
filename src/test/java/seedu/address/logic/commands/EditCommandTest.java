@@ -21,7 +21,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.EditCommand.EditRecipeDescriptor;
-import seedu.address.model.AddressBook;
+import seedu.address.model.AppContent;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -45,7 +45,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AppContent(model.getAddressBook()), new UserPrefs());
         expectedModel.updateRecipe(model.getFilteredRecipeList().get(0), editedRecipe);
         expectedModel.commitAddressBook();
 
@@ -67,7 +67,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AppContent(model.getAddressBook()), new UserPrefs());
         expectedModel.updateRecipe(lastRecipe, editedRecipe);
         expectedModel.commitAddressBook();
 
@@ -81,7 +81,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AppContent(model.getAddressBook()), new UserPrefs());
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -98,7 +98,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AppContent(model.getAddressBook()), new UserPrefs());
         expectedModel.updateRecipe(model.getFilteredRecipeList().get(0), editedRecipe);
         expectedModel.commitAddressBook();
 
@@ -158,7 +158,7 @@ public class EditCommandTest {
         Recipe recipeToEdit = model.getFilteredRecipeList().get(INDEX_FIRST_RECIPE.getZeroBased());
         EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder(editedRecipe).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_RECIPE, descriptor);
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AppContent(model.getAddressBook()), new UserPrefs());
         expectedModel.updateRecipe(recipeToEdit, editedRecipe);
         expectedModel.commitAddressBook();
 
@@ -200,7 +200,7 @@ public class EditCommandTest {
         Recipe editedRecipe = new RecipeBuilder().build();
         EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder(editedRecipe).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_RECIPE, descriptor);
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AppContent(model.getAddressBook()), new UserPrefs());
 
         showPersonAtIndex(model, INDEX_SECOND_RECIPE);
         Recipe recipeToEdit = model.getFilteredRecipeList().get(INDEX_FIRST_RECIPE.getZeroBased());

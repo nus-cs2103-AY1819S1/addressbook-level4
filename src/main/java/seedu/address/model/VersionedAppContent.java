@@ -4,28 +4,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * {@code AddressBook} that keeps track of its own history.
+ * {@code AppContent} that keeps track of its own history.
  */
-public class VersionedAddressBook extends AddressBook {
+public class VersionedAppContent extends AppContent {
 
-    private final List<ReadOnlyAddressBook> addressBookStateList;
+    private final List<ReadOnlyAppContent> addressBookStateList;
     private int currentStatePointer;
 
-    public VersionedAddressBook(ReadOnlyAddressBook initialState) {
+    public VersionedAppContent(ReadOnlyAppContent initialState) {
         super(initialState);
 
         addressBookStateList = new ArrayList<>();
-        addressBookStateList.add(new AddressBook(initialState));
+        addressBookStateList.add(new AppContent(initialState));
         currentStatePointer = 0;
     }
 
     /**
-     * Saves a copy of the current {@code AddressBook} state at the end of the state list.
+     * Saves a copy of the current {@code AppContent} state at the end of the state list.
      * Undone states are removed from the state list.
      */
     public void commit() {
         removeStatesAfterCurrentPointer();
-        addressBookStateList.add(new AddressBook(this));
+        addressBookStateList.add(new AppContent(this));
         currentStatePointer++;
     }
 
@@ -77,11 +77,11 @@ public class VersionedAddressBook extends AddressBook {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof VersionedAddressBook)) {
+        if (!(other instanceof VersionedAppContent)) {
             return false;
         }
 
-        VersionedAddressBook otherVersionedAddressBook = (VersionedAddressBook) other;
+        VersionedAppContent otherVersionedAddressBook = (VersionedAppContent) other;
 
         // state check
         return super.equals(otherVersionedAddressBook)

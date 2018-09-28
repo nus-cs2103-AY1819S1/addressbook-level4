@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.AppContent;
 import seedu.address.model.recipe.Recipe;
 
 /**
@@ -60,10 +60,10 @@ public class TypicalRecipes {
     private TypicalRecipes() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical recipes.
+     * Returns an {@code AppContent} with all the typical recipes.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static AppContent getTypicalAddressBook() {
+        AppContent ab = new AppContent();
         for (Recipe recipe : getTypicalRecipes()) {
             ab.addRecipe(recipe);
         }

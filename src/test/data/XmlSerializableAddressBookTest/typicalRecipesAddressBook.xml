@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!-- AddressBook save file which contains the same Recipe values as in TypicalPersons#getTypicalAddressBook() -->
+<!-- AppContent save file which contains the same Recipe values as in TypicalPersons#getTypicalAddressBook() -->
 <addressbook>
     <recipes>
         <name>Alice Pauline</name>
