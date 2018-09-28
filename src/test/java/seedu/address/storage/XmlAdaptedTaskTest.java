@@ -80,7 +80,8 @@ public class XmlAdaptedTaskTest {
 
     @Test
     public void toModelType_nullPriorityValue_throwsIllegalValueException() {
-        XmlAdaptedTask priorityValue = new XmlAdaptedTask(VALID_NAME, VALID_DUE_DATE, null, VALID_DESCRIPTION, VALID_LABELS);
+        XmlAdaptedTask priorityValue = new XmlAdaptedTask(VALID_NAME, VALID_DUE_DATE,
+                null, VALID_DESCRIPTION, VALID_LABELS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, PriorityValue.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, priorityValue::toModelType);
     }
