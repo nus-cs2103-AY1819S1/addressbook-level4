@@ -73,10 +73,10 @@ public class CommandTestUtil {
 
     static {
         DESC_AMY = new EditWishDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_URL_AMY)
+                .withPrice(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_URL_AMY)
                 .withTags(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditWishDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_URL_BOB)
+                .withPrice(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_URL_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 

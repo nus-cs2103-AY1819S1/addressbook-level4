@@ -62,7 +62,7 @@ public class EditCommandTest {
                 .withTags(VALID_TAG_HUSBAND).build();
 
         EditWishDescriptor descriptor = new EditWishDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
+                .withPrice(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastWish, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_WISH_SUCCESS, editedWish);

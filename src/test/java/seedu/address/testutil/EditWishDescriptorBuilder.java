@@ -48,10 +48,10 @@ public class EditWishDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Price} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditWishDescriptorBuilder withPhone(String phone) {
-        descriptor.setPrice(new Price(phone));
+    public EditWishDescriptorBuilder withPrice(String price) {
+        descriptor.setPrice(new Price(price));
         return this;
     }
 
