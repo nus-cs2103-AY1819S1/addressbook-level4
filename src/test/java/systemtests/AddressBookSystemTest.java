@@ -143,7 +143,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showAllPersons() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getAddressBook().getRideList().size(), getModel().getFilteredPersonList().size());
+        assertEquals(getModel().getAddressBook().getRideList().size(), getModel().getFilteredRideList().size());
     }
 
     /**
@@ -151,7 +151,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showPersonsWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getRideList().size());
+        assertTrue(getModel().getFilteredRideList().size() < getModel().getAddressBook().getRideList().size());
     }
 
     /**
@@ -180,7 +180,7 @@ public abstract class AddressBookSystemTest {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new ThanePark(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
-        assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
+        assertListMatching(getPersonListPanel(), expectedModel.getFilteredRideList());
     }
 
     /**
@@ -276,7 +276,7 @@ public abstract class AddressBookSystemTest {
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
+        assertListMatching(getPersonListPanel(), getModel().getFilteredRideList());
         assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());

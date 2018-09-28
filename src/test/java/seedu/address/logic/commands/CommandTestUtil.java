@@ -101,7 +101,7 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         ThanePark expectedAddressBook = new ThanePark(actualModel.getAddressBook());
-        List<Ride> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        List<Ride> expectedFilteredList = new ArrayList<>(actualModel.getFilteredRideList());
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -111,7 +111,7 @@ public class CommandTestUtil {
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedAddressBook, actualModel.getAddressBook());
-            assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+            assertEquals(expectedFilteredList, actualModel.getFilteredRideList());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }
@@ -121,20 +121,20 @@ public class CommandTestUtil {
      * {@code model}'s address book.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredRideList().size());
 
-        Ride ride = model.getFilteredPersonList().get(targetIndex.getZeroBased());
+        Ride ride = model.getFilteredRideList().get(targetIndex.getZeroBased());
         final String[] splitName = ride.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredRideList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(1, model.getFilteredRideList().size());
     }
 
     /**
      * Deletes the first ride in {@code model}'s filtered list from {@code model}'s address book.
      */
     public static void deleteFirstPerson(Model model) {
-        Ride firstRide = model.getFilteredPersonList().get(0);
+        Ride firstRide = model.getFilteredRideList().get(0);
         model.deletePerson(firstRide);
         model.commitAddressBook();
     }

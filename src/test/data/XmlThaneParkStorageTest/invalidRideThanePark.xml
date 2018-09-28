@@ -2,7 +2,7 @@
 <thanepark>
     <!-- Ride with invalid name field -->
     <rides>
-        <name>Ha!ns Mu@ster</name>
+        <name>It's a Sm@ll World</name>
         <maintenance isPrivate="false">9482424</maintenance>
         <waitingTime isPrivate="false">hans@example.com</waitingTime>
         <address isPrivate="false">4th street</address>

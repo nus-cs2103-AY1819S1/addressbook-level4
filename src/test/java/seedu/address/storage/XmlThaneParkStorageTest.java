@@ -54,7 +54,7 @@ public class XmlThaneParkStorageTest {
     public void read_notXmlFormat_exceptionThrown() throws Exception {
 
         thrown.expect(DataConversionException.class);
-        readAddressBook("NotXmlFormatAddressBook.xml");
+        readAddressBook("NotXmlFormatThanePark.xml");
 
         /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
          * That means you should not have more than one exception test in one method
@@ -64,13 +64,13 @@ public class XmlThaneParkStorageTest {
     @Test
     public void readAddressBook_invalidPersonAddressBook_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidPersonAddressBook.xml");
+        readAddressBook("invalidRideThanePark.xml");
     }
 
     @Test
     public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidAndValidPersonAddressBook.xml");
+        readAddressBook("invalidAndValidRideThanePark.xml");
     }
 
     @Test

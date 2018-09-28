@@ -17,9 +17,9 @@ import seedu.address.testutil.TypicalPersons;
 public class XmlSerializableThaneParkTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlSerializableThaneParkTest");
-    private static final Path TYPICAL_RIDES_FILE = TEST_DATA_FOLDER.resolve("typicalPersonsAddressBook.xml");
-    private static final Path INVALID_RIDE_FILE = TEST_DATA_FOLDER.resolve("invalidPersonAddressBook.xml");
-    private static final Path DUPLICATE_RIDE_FILE = TEST_DATA_FOLDER.resolve("duplicatePersonAddressBook.xml");
+    private static final Path TYPICAL_RIDES_FILE = TEST_DATA_FOLDER.resolve("typicalRideThanePark.xml");
+    private static final Path INVALID_RIDE_FILE = TEST_DATA_FOLDER.resolve("invalidRideThanePark.xml");
+    private static final Path DUPLICATE_RIDE_FILE = TEST_DATA_FOLDER.resolve("duplicateRideThanePark.xml");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();

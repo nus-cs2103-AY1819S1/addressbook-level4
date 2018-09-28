@@ -119,12 +119,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<Ride> getFilteredPersonList() {
+        public ObservableList<Ride> getFilteredRideList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Ride> predicate) {
+        public void updateFilteredRideList(Predicate<Ride> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
