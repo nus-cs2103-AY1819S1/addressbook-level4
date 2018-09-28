@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.ThaneParkChangedEvent;
 import seedu.address.model.ride.Ride;
 
 /**
@@ -20,57 +20,57 @@ import seedu.address.model.ride.Ride;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAddressBook versionedAddressBook;
+    private final VersionedThanePark versionedAddressBook;
     private final FilteredList<Ride> filteredRides;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyThanePark addressBook, UserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedAddressBook(addressBook);
-        filteredRides = new FilteredList<>(versionedAddressBook.getPersonList());
+        versionedAddressBook = new VersionedThanePark(addressBook);
+        filteredRides = new FilteredList<>(versionedAddressBook.getRideList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new ThanePark(), new UserPrefs());
     }
 
     @Override
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyThanePark newData) {
         versionedAddressBook.resetData(newData);
         indicateAddressBookChanged();
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyThanePark getAddressBook() {
         return versionedAddressBook;
     }
 
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(versionedAddressBook));
+        raise(new ThaneParkChangedEvent(versionedAddressBook));
     }
 
     @Override
     public boolean hasPerson(Ride ride) {
         requireNonNull(ride);
-        return versionedAddressBook.hasPerson(ride);
+        return versionedAddressBook.hasRide(ride);
     }
 
     @Override
     public void deletePerson(Ride target) {
-        versionedAddressBook.removePerson(target);
+        versionedAddressBook.removeRide(target);
         indicateAddressBookChanged();
     }
 
     @Override
     public void addPerson(Ride ride) {
-        versionedAddressBook.addPerson(ride);
+        versionedAddressBook.addRide(ride);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
@@ -79,7 +79,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updatePerson(Ride target, Ride editedRide) {
         requireAllNonNull(target, editedRide);
 
-        versionedAddressBook.updatePerson(target, editedRide);
+        versionedAddressBook.updateRide(target, editedRide);
         indicateAddressBookChanged();
     }
 

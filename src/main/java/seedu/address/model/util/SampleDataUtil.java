@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyThanePark;
+import seedu.address.model.ThanePark;
 import seedu.address.model.ride.Address;
 import seedu.address.model.ride.Maintenance;
 import seedu.address.model.ride.Name;
@@ -14,7 +14,7 @@ import seedu.address.model.ride.WaitTime;
 import seedu.address.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code ThanePark} with sample data.
  */
 public class SampleDataUtil {
     public static Ride[] getSamplePersons() {
@@ -40,10 +40,10 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyThanePark getSampleAddressBook() {
+        ThanePark sampleAb = new ThanePark();
         for (Ride sampleRide : getSamplePersons()) {
-            sampleAb.addPerson(sampleRide);
+            sampleAb.addRide(sampleRide);
         }
         return sampleAb;
     }

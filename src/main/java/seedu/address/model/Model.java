@@ -13,10 +13,10 @@ public interface Model {
     Predicate<Ride> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyAddressBook newData);
+    void resetData(ReadOnlyThanePark newData);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the ThanePark */
+    ReadOnlyThanePark getAddressBook();
 
     /**
      * Returns true if a ride with the same identity as {@code ride} exists in the address book.

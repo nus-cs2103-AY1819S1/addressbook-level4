@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.ride.exceptions.DuplicatePersonException;
-import seedu.address.model.ride.exceptions.PersonNotFoundException;
+import seedu.address.model.ride.exceptions.DuplicateRideException;
+import seedu.address.model.ride.exceptions.RideNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
@@ -41,7 +41,7 @@ public class UniqueRideList implements Iterable<Ride> {
     public void add(Ride toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateRideException();
         }
         internalList.add(toAdd);
     }
@@ -56,11 +56,11 @@ public class UniqueRideList implements Iterable<Ride> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new RideNotFoundException();
         }
 
         if (!target.isSameRide(editedRide) && contains(editedRide)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateRideException();
         }
 
         internalList.set(index, editedRide);
@@ -73,7 +73,7 @@ public class UniqueRideList implements Iterable<Ride> {
     public void remove(Ride toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
+            throw new RideNotFoundException();
         }
     }
 
@@ -89,7 +89,7 @@ public class UniqueRideList implements Iterable<Ride> {
     public void setRides(List<Ride> rides) {
         requireAllNonNull(rides);
         if (!ridesAreUnique(rides)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateRideException();
         }
 
         internalList.setAll(rides);

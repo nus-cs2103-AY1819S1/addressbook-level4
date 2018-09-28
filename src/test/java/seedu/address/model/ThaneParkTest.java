@@ -20,32 +20,32 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.ride.Ride;
-import seedu.address.model.ride.exceptions.DuplicatePersonException;
+import seedu.address.model.ride.exceptions.DuplicateRideException;
 import seedu.address.testutil.RideBuilder;
 
-public class AddressBookTest {
+public class ThaneParkTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBook addressBook = new AddressBook();
+    private final ThanePark thanePark = new ThanePark();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), thanePark.getRideList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.resetData(null);
+        thanePark.resetData(null);
     }
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+        ThanePark newData = getTypicalAddressBook();
+        thanePark.resetData(newData);
+        assertEquals(newData, thanePark);
     }
 
     @Test
@@ -54,55 +54,55 @@ public class AddressBookTest {
         Ride editedAlice = new RideBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Ride> newRides = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newRides);
+        ThaneParkStub newData = new ThaneParkStub(newRides);
 
-        thrown.expect(DuplicatePersonException.class);
-        addressBook.resetData(newData);
+        thrown.expect(DuplicateRideException.class);
+        thanePark.resetData(newData);
     }
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.hasPerson(null);
+        thanePark.hasRide(null);
     }
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasPerson(ALICE));
+        assertFalse(thanePark.hasRide(ALICE));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        assertTrue(addressBook.hasPerson(ALICE));
+        thanePark.addRide(ALICE);
+        assertTrue(thanePark.hasRide(ALICE));
     }
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
+        thanePark.addRide(ALICE);
         Ride editedAlice = new RideBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasPerson(editedAlice));
+        assertTrue(thanePark.hasRide(editedAlice));
     }
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getPersonList().remove(0);
+        thanePark.getRideList().remove(0);
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose rides list can violate interface constraints.
+     * A stub ReadOnlyThanePark whose rides list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class ThaneParkStub implements ReadOnlyThanePark {
         private final ObservableList<Ride> rides = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Ride> rides) {
+        ThaneParkStub(Collection<Ride> rides) {
             this.rides.setAll(rides);
         }
 
         @Override
-        public ObservableList<Ride> getPersonList() {
+        public ObservableList<Ride> getRideList() {
             return rides;
         }
     }
