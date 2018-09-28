@@ -66,7 +66,7 @@ public class XmlAdaptedWish {
      */
     public XmlAdaptedWish(Wish source) {
         name = source.getName().fullName;
-        price = source.getPrice().value;
+        price = source.getPrice().toString();
         email = source.getEmail().value;
         url = source.getUrl().value;
         remark = source.getRemark().value;
