@@ -5,7 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.ACCELERATOR;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -51,9 +51,9 @@ public class ThaneParkTest {
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two rides with the same identity fields
-        Ride editedAlice = new RideBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Ride editedAlice = new RideBuilder(ACCELERATOR).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        List<Ride> newRides = Arrays.asList(ALICE, editedAlice);
+        List<Ride> newRides = Arrays.asList(ACCELERATOR, editedAlice);
         ThaneParkStub newData = new ThaneParkStub(newRides);
 
         thrown.expect(DuplicateRideException.class);
@@ -68,19 +68,19 @@ public class ThaneParkTest {
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(thanePark.hasRide(ALICE));
+        assertFalse(thanePark.hasRide(ACCELERATOR));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        thanePark.addRide(ALICE);
-        assertTrue(thanePark.hasRide(ALICE));
+        thanePark.addRide(ACCELERATOR);
+        assertTrue(thanePark.hasRide(ACCELERATOR));
     }
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        thanePark.addRide(ALICE);
-        Ride editedAlice = new RideBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        thanePark.addRide(ACCELERATOR);
+        Ride editedAlice = new RideBuilder(ACCELERATOR).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(thanePark.hasRide(editedAlice));
     }

@@ -9,7 +9,7 @@
         <tagged>friends</tagged>
     </rides>
     <rides>
-        <name>Big Thunder Mountain</name>
+        <name>Big Thunder Mountain Meier</name>
         <daysSinceMaintenanceString>98765432</daysSinceMaintenanceString>
         <waitingTimeString>16</waitingTimeString>
         <address>311, Clementi Ave 2, #02-25</address>
@@ -23,7 +23,7 @@
         <address>wall street</address>
     </rides>
     <rides>
-        <name>Dumbo The Flying Elephant</name>
+        <name>Dumbo The Flying Elephant Meier</name>
         <daysSinceMaintenanceString>87652533</daysSinceMaintenanceString>
         <waitingTimeString>3</waitingTimeString>
         <address>10th street</address>

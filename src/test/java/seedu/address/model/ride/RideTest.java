@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_MAINTENANCE_BOB
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_WAIT_TIME_BOB;
-import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.ACCELERATOR;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.Rule;
@@ -30,73 +30,73 @@ public class RideTest {
     @Test
     public void isSamePerson() {
         // same object -> returns true
-        assertTrue(ALICE.isSameRide(ALICE));
+        assertTrue(ACCELERATOR.isSameRide(ACCELERATOR));
 
         // null -> returns false
-        assertFalse(ALICE.isSameRide(null));
+        assertFalse(ACCELERATOR.isSameRide(null));
 
         // different phone and email but same name -> returns true
-        Ride editedAlice = new RideBuilder(ALICE)
+        Ride editedAlice = new RideBuilder(ACCELERATOR)
                 .withMaintenance(VALID_MAINTENANCE_BOB)
                 .withWaitTime(VALID_WAIT_TIME_BOB)
                 .build();
-        assertTrue(ALICE.isSameRide(editedAlice));
+        assertTrue(ACCELERATOR.isSameRide(editedAlice));
 
         // different name -> returns false
-        editedAlice = new RideBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSameRide(editedAlice));
+        editedAlice = new RideBuilder(ACCELERATOR).withName(VALID_NAME_BOB).build();
+        assertFalse(ACCELERATOR.isSameRide(editedAlice));
 
         // same name, same phone, different attributes -> returns true
-        editedAlice = new RideBuilder(ALICE).withWaitTime(VALID_WAIT_TIME_BOB).withAddress(VALID_ADDRESS_BOB)
+        editedAlice = new RideBuilder(ACCELERATOR).withWaitTime(VALID_WAIT_TIME_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameRide(editedAlice));
+        assertTrue(ACCELERATOR.isSameRide(editedAlice));
 
         // same name, same email, different attributes -> returns true
-        editedAlice = new RideBuilder(ALICE).withMaintenance(VALID_MAINTENANCE_BOB).withAddress(VALID_ADDRESS_BOB)
+        editedAlice = new RideBuilder(ACCELERATOR).withMaintenance(VALID_MAINTENANCE_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameRide(editedAlice));
+        assertTrue(ACCELERATOR.isSameRide(editedAlice));
 
         // same name, same phone, same email, different attributes -> returns true
-        editedAlice = new RideBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameRide(editedAlice));
+        editedAlice = new RideBuilder(ACCELERATOR).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        assertTrue(ACCELERATOR.isSameRide(editedAlice));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Ride aliceCopy = new RideBuilder(ALICE).build();
-        assertTrue(ALICE.equals(aliceCopy));
+        Ride aliceCopy = new RideBuilder(ACCELERATOR).build();
+        assertTrue(ACCELERATOR.equals(aliceCopy));
 
         // same object -> returns true
-        assertTrue(ALICE.equals(ALICE));
+        assertTrue(ACCELERATOR.equals(ACCELERATOR));
 
         // null -> returns false
-        assertFalse(ALICE.equals(null));
+        assertFalse(ACCELERATOR.equals(null));
 
         // different type -> returns false
-        assertFalse(ALICE.equals(5));
+        assertFalse(ACCELERATOR.equals(5));
 
         // different ride -> returns false
-        assertFalse(ALICE.equals(BOB));
+        assertFalse(ACCELERATOR.equals(BOB));
 
         // different name -> returns false
-        Ride editedAlice = new RideBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        Ride editedAlice = new RideBuilder(ACCELERATOR).withName(VALID_NAME_BOB).build();
+        assertFalse(ACCELERATOR.equals(editedAlice));
 
         // different phone -> returns false
-        editedAlice = new RideBuilder(ALICE).withMaintenance(VALID_MAINTENANCE_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedAlice = new RideBuilder(ACCELERATOR).withMaintenance(VALID_MAINTENANCE_BOB).build();
+        assertFalse(ACCELERATOR.equals(editedAlice));
 
         // different email -> returns false
-        editedAlice = new RideBuilder(ALICE).withWaitTime(VALID_WAIT_TIME_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedAlice = new RideBuilder(ACCELERATOR).withWaitTime(VALID_WAIT_TIME_BOB).build();
+        assertFalse(ACCELERATOR.equals(editedAlice));
 
         // different address -> returns false
-        editedAlice = new RideBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedAlice = new RideBuilder(ACCELERATOR).withAddress(VALID_ADDRESS_BOB).build();
+        assertFalse(ACCELERATOR.equals(editedAlice));
 
         // different tags -> returns false
-        editedAlice = new RideBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedAlice = new RideBuilder(ACCELERATOR).withTags(VALID_TAG_HUSBAND).build();
+        assertFalse(ACCELERATOR.equals(editedAlice));
     }
 }
