@@ -101,6 +101,7 @@ arguments. If invalid arguments are passed, the error handling will be
 done by `find`. +
 Format: `history |find| [findargs...]`
 
+// tag::undoredo[]
 ==== Undoing commands: `undo`
 
 Undo previous command during current session. +
