@@ -99,6 +99,11 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Build a new person from PersonBuilder
+     *
+     * @return The new person
+     */
     public Person build() {
         Person person = new Person(name, phone, email, address, tags);
         if (!groupTags.isEmpty()) {
