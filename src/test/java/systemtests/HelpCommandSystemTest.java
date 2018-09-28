@@ -7,10 +7,10 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
-import guitests.guihandles.BrowserPanelHandle;
 import org.junit.Test;
 
 import guitests.GuiRobot;
+import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.HelpWindowHandle;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.HelpCommand;

@@ -32,11 +32,12 @@ public class HelpCommandTest {
         BaseEvent recentEvent = eventsCollectorRule.eventsCollector.getMostRecent();
         assertTrue(recentEvent instanceof ShowHelpRequestEvent);
         assertTrue(((ShowHelpRequestEvent) recentEvent).isSummarized);
-        assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);
+        assertTrue(eventsCollectorRule
+                .eventsCollector.getSize() == 1);
     }
 
     @Test
-    public void execute_help_more_success() {
+    public void execute_helpmore_success() {
         String[] args = {" more"};
         assertCommandSuccess(new HelpCommand(args), model, commandHistory, SHOWING_HELP_MESSAGE, expectedModel);
 
