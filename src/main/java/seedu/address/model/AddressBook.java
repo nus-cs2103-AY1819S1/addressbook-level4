@@ -6,7 +6,9 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Patient;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.medicine.UniqueMedicineList;
 
 /**
  * Wraps all data at the address-book level
@@ -15,6 +17,7 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueMedicineList medicines;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +28,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        medicines = new UniqueMedicineList();
     }
 
     public AddressBook() {}
@@ -94,6 +98,23 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    //// medicine-level operations
+
+    /**
+     * Returns true if a medicine with the same identity as {@code medicine} exists in the records.
+     */
+    public boolean hasMedicine(Medicine medicine) {
+        requireNonNull(medicine);
+        return medicines.contains(medicine);
+    }
+
+    /**
+     * Adds a medicine to the records.
+     * The medicine must not already exist in the record.
+     */
+    public void addMedicine(Medicine m) {
+        medicines.add(m);
+    }
 
     //// util methods
 
@@ -106,6 +127,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Patient> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Medicine> getMedicineList() {
+        return medicines.asUnmodifiableObservableList();
     }
 
     @Override

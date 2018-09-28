@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Stock {
     public static final String MESSAGE_STOCK_CONSTRAINTS =
             "Stock should only contain numbers";
-    public static final String STOCK_VALIDATION_REGEX = "\\d";
+    public static final String STOCK_VALIDATION_REGEX = "\\d{0,}";
     public final String value;
 
     /**
