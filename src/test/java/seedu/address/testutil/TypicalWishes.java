@@ -79,7 +79,7 @@ public class TypicalWishes {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalWishes() {} // prevents instantiation
+    private TypicalWishes() {} // prevents instantiation1
 
     /**
      * Returns an {@code WishBook} with all the typical persons.

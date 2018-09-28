@@ -83,7 +83,7 @@ public class AddCommandSystemTest extends WishBookSystemTest {
         /* Case: add a wish with all fields same as another wish in the wish book except phone and email
          * -> added
          */
-        toAdd = new WishBuilder(AMY).withPhone(VALID_PRICE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        toAdd = new WishBuilder(AMY).withPrice(VALID_PRICE_BOB).withEmail(VALID_EMAIL_BOB).build();
         command = WishUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
@@ -119,7 +119,7 @@ public class AddCommandSystemTest extends WishBookSystemTest {
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_WISH);
 
         /* Case: add a duplicate wish except with different phone -> rejected */
-        toAdd = new WishBuilder(HOON).withPhone(VALID_PRICE_BOB).build();
+        toAdd = new WishBuilder(HOON).withPrice(VALID_PRICE_BOB).build();
         command = WishUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_WISH);
 

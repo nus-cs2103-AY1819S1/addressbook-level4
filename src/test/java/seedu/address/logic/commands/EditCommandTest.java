@@ -58,7 +58,7 @@ public class EditCommandTest {
         Wish lastWish = model.getFilteredWishList().get(indexLastWish.getZeroBased());
 
         WishBuilder wishInList = new WishBuilder(lastWish);
-        Wish editedWish = wishInList.withName(VALID_NAME_BOB).withPhone(VALID_PRICE_BOB)
+        Wish editedWish = wishInList.withName(VALID_NAME_BOB).withPrice(VALID_PRICE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
         EditWishDescriptor descriptor = new EditWishDescriptorBuilder().withName(VALID_NAME_BOB)

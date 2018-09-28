@@ -97,7 +97,7 @@ public class EditCommandSystemTest extends WishBookSystemTest {
         index = INDEX_SECOND_WISH;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PRICE_DESC_AMY + EMAIL_DESC_AMY
                 + URL_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedWish = new WishBuilder(BOB).withPhone(VALID_PRICE_AMY).withEmail(VALID_EMAIL_AMY).build();
+        editedWish = new WishBuilder(BOB).withPrice(VALID_PRICE_AMY).withEmail(VALID_EMAIL_AMY).build();
         assertCommandSuccess(command, index, editedWish);
 
         /* Case: clear tags -> cleared */
