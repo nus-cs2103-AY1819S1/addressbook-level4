@@ -17,7 +17,7 @@ import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.model.TaskManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.UserPrefsStorage;
-import seedu.address.storage.XmlSerializableAddressBook;
+import seedu.address.storage.XmlSerializableTaskManager;
 import seedu.address.testutil.TestUtil;
 import systemtests.ModelHelper;
 
@@ -45,7 +45,7 @@ public class TestApp extends MainApp {
 
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
-            createDataFileWithData(new XmlSerializableAddressBook(this.initialDataSupplier.get()),
+            createDataFileWithData(new XmlSerializableTaskManager(this.initialDataSupplier.get()),
                     this.saveFileLocation);
         }
     }
@@ -71,9 +71,9 @@ public class TestApp extends MainApp {
     /**
      * Returns a defensive copy of the task manager data stored inside the storage file.
      */
-    public TaskManager readStorageAddressBook() {
+    public TaskManager readStorageTaskManager() {
         try {
-            return new TaskManager(storage.readAddressBook().get());
+            return new TaskManager(storage.readTaskManager().get());
         } catch (DataConversionException dce) {
             throw new AssertionError("Data is not in the TaskManager format.", dce);
         } catch (IOException ioe) {
@@ -85,7 +85,7 @@ public class TestApp extends MainApp {
      * Returns the file path of the storage file.
      */
     public Path getStorageSaveLocation() {
-        return storage.getAddressBookFilePath();
+        return storage.getTaskManagerFilePath();
     }
 
     /**
