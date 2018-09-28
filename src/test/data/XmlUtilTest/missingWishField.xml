@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!-- Person with missing name field -->
 <wish>
-    <phone>9482424</phone>
+    <price>9482424</price>
     <email>hans@example</email>
     <url>https://www.amazon.com/gp/product/B07D998212</url>
     <tagged>friends</tagged>

@@ -28,7 +28,7 @@ public class XmlAdaptedWish {
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
-    private String phone;
+    private String price;
     @XmlElement(required = true)
     private String email;
     @XmlElement(required = true)
@@ -48,9 +48,9 @@ public class XmlAdaptedWish {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given wish details.
      */
-    public XmlAdaptedWish(String name, String phone, String email, String url, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedWish(String name, String price, String email, String url, List<XmlAdaptedTag> tagged) {
         this.name = name;
-        this.phone = phone;
+        this.price = price;
         this.email = email;
         this.url = url;
         this.remark = "";
@@ -66,7 +66,7 @@ public class XmlAdaptedWish {
      */
     public XmlAdaptedWish(Wish source) {
         name = source.getName().fullName;
-        phone = source.getPrice().value;
+        price = source.getPrice().value;
         email = source.getEmail().value;
         url = source.getUrl().value;
         remark = source.getRemark().value;
@@ -94,13 +94,13 @@ public class XmlAdaptedWish {
         }
         final Name modelName = new Name(name);
 
-        if (phone == null) {
+        if (price == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Price.class.getSimpleName()));
         }
-        if (!Price.isValidPrice(phone)) {
+        if (!Price.isValidPrice(price)) {
             throw new IllegalValueException(Price.MESSAGE_PRICE_CONSTRAINTS);
         }
-        final Price modelPrice = new Price(phone);
+        final Price modelPrice = new Price(price);
 
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
@@ -139,7 +139,7 @@ public class XmlAdaptedWish {
 
         XmlAdaptedWish otherWish = (XmlAdaptedWish) other;
         return Objects.equals(name, otherWish.name)
-                && Objects.equals(phone, otherWish.phone)
+                && Objects.equals(price, otherWish.price)
                 && Objects.equals(email, otherWish.email)
                 && Objects.equals(url, otherWish.url)
                 && Objects.equals(remark, otherWish.remark)

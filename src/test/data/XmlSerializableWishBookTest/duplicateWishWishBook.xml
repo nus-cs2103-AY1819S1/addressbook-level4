@@ -3,7 +3,7 @@
 
     <wishes>
         <name>Alice Pauline</name>
-        <phone>94351253</phone>
+        <price>94351253</price>
         <email>alice@example.com</email>
         <url>https://www.amazon.com/gp/product/B07D998212</url>
         <remark></remark>
@@ -13,7 +13,7 @@
     <!-- Person with same identity as Alice Pauline -->
     <wishes>
         <name>Alice Pauline</name>
-        <phone>94351253</phone>
+        <price>94351253</price>
         <email>pauline@example.com</email>
         <remark></remark>
         <url>https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV</url>
