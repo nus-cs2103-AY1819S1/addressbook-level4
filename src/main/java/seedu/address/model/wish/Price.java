@@ -5,7 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Person's phone number in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidPrice(String)}
  */
 public class Price {
 
@@ -21,14 +21,14 @@ public class Price {
      */
     public Price(String phone) {
         requireNonNull(phone);
-        checkArgument(isValidPhone(phone), MESSAGE_PRICE_CONSTRAINTS);
+        checkArgument(isValidPrice(phone), MESSAGE_PRICE_CONSTRAINTS);
         value = Double.parseDouble(phone); // TO-DO: check before allowing.
     }
 
     /**
      * Returns true if a given string is a valid phone number.
      */
-    public static boolean isValidPhone(String test) {
+    public static boolean isValidPrice(String test) {
         return test.matches(PRICE_VALIDATION_REGEX);
     }
 

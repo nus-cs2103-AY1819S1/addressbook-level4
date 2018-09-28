@@ -97,7 +97,7 @@ public class XmlAdaptedWish {
         if (phone == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Price.class.getSimpleName()));
         }
-        if (!Price.isValidPhone(phone)) {
+        if (!Price.isValidPrice(phone)) {
             throw new IllegalValueException(Price.MESSAGE_PRICE_CONSTRAINTS);
         }
         final Price modelPrice = new Price(phone);

@@ -23,19 +23,19 @@ public class PriceTest {
     @Test
     public void isValidPhone() {
         // null phone number
-        Assert.assertThrows(NullPointerException.class, () -> Price.isValidPhone(null));
+        Assert.assertThrows(NullPointerException.class, () -> Price.isValidPrice(null));
 
         // invalid phone numbers
-        assertFalse(Price.isValidPhone("")); // empty string
-        assertFalse(Price.isValidPhone(" ")); // spaces only
-        assertFalse(Price.isValidPhone("91")); // less than 3 numbers
-        assertFalse(Price.isValidPhone("phone")); // non-numeric
-        assertFalse(Price.isValidPhone("9011p041")); // alphabets within digits
-        assertFalse(Price.isValidPhone("9312 1534")); // spaces within digits
+        assertFalse(Price.isValidPrice("")); // empty string
+        assertFalse(Price.isValidPrice(" ")); // spaces only
+        assertFalse(Price.isValidPrice("91")); // less than 3 numbers
+        assertFalse(Price.isValidPrice("phone")); // non-numeric
+        assertFalse(Price.isValidPrice("9011p041")); // alphabets within digits
+        assertFalse(Price.isValidPrice("9312 1534")); // spaces within digits
 
         // valid phone numbers
-        assertTrue(Price.isValidPhone("911")); // exactly 3 numbers
-        assertTrue(Price.isValidPhone("93121534"));
-        assertTrue(Price.isValidPhone("124293842033123")); // long phone numbers
+        assertTrue(Price.isValidPrice("911")); // exactly 3 numbers
+        assertTrue(Price.isValidPrice("93121534"));
+        assertTrue(Price.isValidPrice("124293842033123")); // long phone numbers
     }
 }

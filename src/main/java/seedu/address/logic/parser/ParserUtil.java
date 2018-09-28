@@ -59,7 +59,7 @@ public class ParserUtil {
     public static Price parsePhone(String phone) throws ParseException {
         requireNonNull(phone);
         String trimmedPhone = phone.trim();
-        if (!Price.isValidPhone(trimmedPhone)) {
+        if (!Price.isValidPrice(trimmedPhone)) {
             throw new ParseException(Price.MESSAGE_PRICE_CONSTRAINTS);
         }
         return new Price(trimmedPhone);
