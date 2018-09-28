@@ -17,10 +17,10 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.wish.Url;
 import seedu.address.model.wish.Email;
 import seedu.address.model.wish.Name;
 import seedu.address.model.wish.Price;
+import seedu.address.model.wish.Url;
 import seedu.address.testutil.Assert;
 
 public class ParserUtilTest {
@@ -32,7 +32,8 @@ public class ParserUtilTest {
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PRICE = "12.23";
-    private static final String VALID_URL = "https://www.lazada.sg/products/ps4-092-hori-real-arcade-pron-hayabusaps4ps3pc-i223784444-s340908955.html";
+    private static final String VALID_URL = "https://www.lazada.sg/products"
+            + "/ps4-092-hori-real-arcade-pron-hayabusaps4ps3pc-i223784444-s340908955.html";
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
