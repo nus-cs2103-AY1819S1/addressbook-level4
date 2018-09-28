@@ -1,5 +1,7 @@
 package seedu.address.logic.commands.eventcommands;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
@@ -57,5 +59,44 @@ public class SetTimeCommandTest {
         SetTimeCommand command = new SetTimeCommand(startTime, endTime);
         String expectedMessage = String.format(Messages.MESSAGE_NO_EVENT_SELECTED);
         assertCommandFailure(command, model, commandHistory, expectedMessage);
+    }
+
+    @Test
+    public void execute_notEventOrganiserSetTime() {
+        SetTimeCommand command = new SetTimeCommand(startTime, endTime);
+        Person user = new PersonBuilder().build();
+        commandHistory.setSelectedPerson(user);
+        Person anotherUser = new PersonBuilder(user).withName("Bob").build();
+        EventBuilder eventBuilder = new EventBuilder();
+        eventBuilder.withOrganiser(anotherUser);
+        Event event = eventBuilder.build();
+        commandHistory.setSelectedEvent(event);
+        String expectedMessage = String.format(Messages.MESSAGE_NOT_EVENT_ORGANISER);
+        assertCommandFailure(command, model, commandHistory, expectedMessage);
+    }
+
+    @Test
+    public void equals() {
+        LocalTime timeOne = LocalTime.of(12, 00);
+        LocalTime timeTwo = LocalTime.of(13, 30);
+        LocalTime timeThree = LocalTime.of(14, 15);
+        SetTimeCommand setTimeCommandOne = new SetTimeCommand(timeOne, timeTwo);
+        SetTimeCommand setTimeCommandTwo = new SetTimeCommand(timeTwo, timeThree);
+
+        // same object -> returns true
+        assertTrue(setTimeCommandOne.equals(setTimeCommandOne));
+
+        // same values -> returns true
+        SetTimeCommand setTimeOneCommandCopy = new SetTimeCommand(timeOne, timeTwo);
+        assertTrue(setTimeCommandOne.equals(setTimeOneCommandCopy));
+
+        // different types -> returns false
+        assertFalse(setTimeCommandOne.equals(1));
+
+        // null -> returns false
+        assertFalse(setTimeCommandOne.equals(null));
+
+        // different time -> returns false
+        assertFalse(setTimeCommandOne.equals(setTimeCommandTwo));
     }
 }

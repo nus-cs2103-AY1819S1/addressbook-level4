@@ -138,6 +138,15 @@ public class Event {
     }
 
     /**
+     * Sets the person list of the event.
+     */
+    public void setPersonList(UniquePersonList personList) {
+        for (Person person : personList) {
+            this.personList.add(person);
+        }
+    }
+
+    /**
      * Adds list of persons into the person list.
      */
     public void setPersonList(ArrayList<Person> personList) {

@@ -62,4 +62,11 @@ public class SetDateCommand extends Command {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return new CommandResult(String.format(MESSAGE_SUCCESS, date.format(dateFormat), event));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SetDateCommand // instanceof handles nulls
+                && date.equals(((SetDateCommand) other).date)); // state check
+    }
 }
