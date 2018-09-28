@@ -72,6 +72,5 @@ public class RideContainsKeywordsPredicateTest {
         // Non-matching keyword
         predicate = new RideContainsKeywordsPredicate(Arrays.asList("Carol"));
         assertFalse(predicate.test(new RideBuilder().withName("Alice Bob").build()));
-
     }
 }
