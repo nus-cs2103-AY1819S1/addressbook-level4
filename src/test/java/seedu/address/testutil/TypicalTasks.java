@@ -23,29 +23,29 @@ import seedu.address.model.person.Task;
  */
 public class TypicalTasks {
 
-    public static final Task A_TASK = new TaskBuilder().withName("Alice Pauline")
+    public static final Task A_TASK = new TaskBuilder().withName("Address CS2103 email")
             .withDescription("123, Jurong West Ave 6, #08-111").withPriorityValue("alice@example.com")
             .withDueDate("01-12-18")
             .withLabels("friends").build();
-    public static final Task B_TASK = new TaskBuilder().withName("Benson Meier")
+    public static final Task B_TASK = new TaskBuilder().withName("Build addressbook for tutorial")
             .withDescription("311, Clementi Ave 2, #02-25")
             .withPriorityValue("johnd@example.com").withDueDate("02-12-18 1330")
             .withLabels("owesMoney", "friends").build();
-    public static final Task C_TASK = new TaskBuilder().withName("Carl Kurz").withDueDate("03-12-18")
+    public static final Task C_TASK = new TaskBuilder().withName("Cancel medical appointment").withDueDate("03-12-18")
             .withPriorityValue("heinz@example.com").withDescription("wall street").build();
-    public static final Task D_TASK = new TaskBuilder().withName("Daniel Meier").withDueDate("04-12-18")
+    public static final Task D_TASK = new TaskBuilder().withName("Do CS2106 tutorial").withDueDate("04-12-18")
             .withPriorityValue("cornelia@example.com").withDescription("10th street").withLabels("friends").build();
-    public static final Task E_TASK = new TaskBuilder().withName("Elle Meyer").withDueDate("05-12-18")
+    public static final Task E_TASK = new TaskBuilder().withName("Edit research report").withDueDate("05-12-18")
             .withPriorityValue("werner@example.com").withDescription("michegan ave").build();
-    public static final Task F_TASK = new TaskBuilder().withName("Fiona Kunz").withDueDate("06-12-2018")
+    public static final Task F_TASK = new TaskBuilder().withName("Find suitable reagents for experiment").withDueDate("06-12-2018")
             .withPriorityValue("lydia@example.com").withDescription("little tokyo").build();
-    public static final Task G_TASK = new TaskBuilder().withName("George Best").withDueDate("07-12-18")
+    public static final Task G_TASK = new TaskBuilder().withName("Grade assignments").withDueDate("07-12-18")
             .withPriorityValue("anna@example.com").withDescription("4th street").build();
 
     // Manually added
-    public static final Task H_TASK = new TaskBuilder().withName("Hoon Meier").withDueDate("08-12-18 0900")
+    public static final Task H_TASK = new TaskBuilder().withName("Hack Website").withDueDate("08-12-18 0900")
             .withPriorityValue("stefan@example.com").withDescription("little india").build();
-    public static final Task I_TASK = new TaskBuilder().withName("Ida Mueller").withDueDate("09-12-18")
+    public static final Task I_TASK = new TaskBuilder().withName("Investigate Murder").withDueDate("09-12-18")
             .withPriorityValue("hans@example.com").withDescription("chicago ave").build();
 
     // Manually added - Task's details found in {@code CommandTestUtil}
@@ -56,7 +56,7 @@ public class TypicalTasks {
                     VALID_TAG_FRIEND)
             .build();
 
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+    public static final String KEYWORD_MATCHING_TUTORIAL = "tutorial"; // A keyword that matches tutorial
 
     private TypicalTasks() {
     } // prevents instantiation
