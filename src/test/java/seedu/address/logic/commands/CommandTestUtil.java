@@ -29,8 +29,8 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_PHONE_AMY = "11111111";
-    public static final String VALID_PHONE_BOB = "22222222";
+    public static final String VALID_DUEDATE_AMY = "12-11-18";
+    public static final String VALID_DUEDATE_BOB = "02-11-18";
     public static final String VALID_EMAIL_AMY = "amy@example.com";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
@@ -41,8 +41,8 @@ public class CommandTestUtil {
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
-    public static final String PHONE_DESC_AMY = " " + PREFIX_DUE_DATE + VALID_PHONE_AMY;
-    public static final String PHONE_DESC_BOB = " " + PREFIX_DUE_DATE + VALID_PHONE_BOB;
+    public static final String PHONE_DESC_AMY = " " + PREFIX_DUE_DATE + VALID_DUEDATE_AMY;
+    public static final String PHONE_DESC_BOB = " " + PREFIX_DUE_DATE + VALID_DUEDATE_BOB;
     public static final String EMAIL_DESC_AMY = " " + PREFIX_PRIORITY_VALUE + VALID_EMAIL_AMY;
     public static final String EMAIL_DESC_BOB = " " + PREFIX_PRIORITY_VALUE + VALID_EMAIL_BOB;
     public static final String ADDRESS_DESC_AMY = " " + PREFIX_DESCRIPTION + VALID_ADDRESS_AMY;
@@ -65,10 +65,10 @@ public class CommandTestUtil {
 
     static {
         DESC_AMY = new EditTaskDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
+                .withDueDate(VALID_DUEDATE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
                 .withTags(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditTaskDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+                .withDueDate(VALID_DUEDATE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 

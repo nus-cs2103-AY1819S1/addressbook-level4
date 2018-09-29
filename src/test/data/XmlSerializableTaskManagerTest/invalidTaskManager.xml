@@ -3,7 +3,7 @@
     <!-- Person with invalid priorityValue field -->
     <tasks>
         <name>Hans Muster</name>
-        <dueDate isPrivate="false">9482424</dueDate>
+        <dueDate isPrivate="false">21-12-18</dueDate>
         <priorityValue isPrivate="false">hans@exam!32ple</priorityValue>
         <description isPrivate="false">4th street</description>
         <status>IN PROGRESS</status>

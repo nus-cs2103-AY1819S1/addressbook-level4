@@ -37,7 +37,7 @@ public class XmlUtilTest {
     private static final String INVALID_DUE_DATE = "9482asf424";
 
     private static final String VALID_NAME = "Hans Muster";
-    private static final String VALID_DUE_DATE = "9482424";
+    private static final String VALID_DUE_DATE = "21-12-18";
     private static final String VALID_PRIORITY_VAlUE = "hans@example";
     private static final String VALID_DESCRIPTION = "4th street";
     private static final List<XmlAdaptedLabel> VALID_LABELS = Collections.singletonList(new XmlAdaptedLabel("friends"));
