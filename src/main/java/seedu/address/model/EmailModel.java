@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import org.simplejavamail.email.Email;
 
+//@@author EatOrBeEaten
 /**
  * Wraps Email data.
  */

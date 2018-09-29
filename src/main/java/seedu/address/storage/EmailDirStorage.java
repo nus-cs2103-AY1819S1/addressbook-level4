@@ -9,6 +9,7 @@ import org.simplejavamail.converter.EmailConverter;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.model.EmailModel;
 
+//@@author EatOrBeEaten
 /**
  * A class to access Email directory in the hard disk
  */

@@ -1,5 +1,3 @@
-//@@author EatOrBeEaten
-
 package seedu.address.storage;
 
 import java.io.IOException;
@@ -7,6 +5,7 @@ import java.nio.file.Path;
 
 import seedu.address.model.EmailModel;
 
+//@@author EatOrBeEaten
 /**
  * Represents a storage for Email.
  */

@@ -1,10 +1,9 @@
-//@@author EatOrBeEaten
-
 package seedu.address.commons.events.model;
 
 import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.EmailModel;
 
+//@@author EatOrBeEaten
 /**
  * Indicates the Email in the model has been saved.
  */

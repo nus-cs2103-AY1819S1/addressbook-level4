@@ -3,7 +3,7 @@ package seedu.address.model.email;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-
+//@@author EatOrBeEaten
 /**
  * Represents a subject in Email.
  * Guarantees: immutable; is valid as declared in {@link #isValidSubject(String)}
