@@ -12,7 +12,8 @@ import java.text.SimpleDateFormat;
 public class DueDate {
 
     public static final String MESSAGE_DUEDATE_CONSTRAINTS =
-            "DueDate numbers should only contain numbers, and it should be in the following format dd-mm-yy";
+            "DueDate should only contain numbers, and it should be in one of the following formats:\n" +
+                    " dd-mm-yy, dd-mm-yyyy, dd-mm-yy HHmm, dd-mm-yyyy HHmm";
     public static final String DUEDATE_FORMAT_MINIMAL = "dd-MM-yy";
     public static final String DUEDATE_FORMAT = "dd-MM-yy HHmm";
     public final String value;
@@ -57,6 +58,19 @@ public class DueDate {
         return true;
     }
 
+    /**
+     * Returns true if a given string is a valid due date standard format.
+     * Standard format specified in {@link #DUEDATE_FORMAT}
+     */
+    private static boolean isValidDueDateStandardFormat(String test) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat(DUEDATE_FORMAT);
+            format.setLenient(false);
+            format.parse(test);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     @Override
