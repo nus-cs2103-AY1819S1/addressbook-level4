@@ -34,8 +34,7 @@ public class DueDateTest {
         assertFalse(DueDate.isValidDueDate("9312 1534")); // spaces within digits
 
         // valid due date
-        assertTrue(DueDate.isValidDueDate("911")); // exactly 3 numbers
-        assertTrue(DueDate.isValidDueDate("93121534"));
-        assertTrue(DueDate.isValidDueDate("124293842033123")); // long due date
+        assertTrue(DueDate.isValidDueDate("11-12-18"));
+        assertTrue(DueDate.isValidDueDate("01-11-17"));
     }
 }

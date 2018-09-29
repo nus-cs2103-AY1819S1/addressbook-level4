@@ -19,7 +19,7 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DUEDATE_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LABEL;
 import static seedu.address.testutil.TypicalTasks.A_TASK;
 import static seedu.address.testutil.TypicalTasks.C_TASK;
@@ -82,7 +82,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /* Case: add a person with all fields same as another person in the task manager except phone and email
          * -> added
          */
-        toAdd = new TaskBuilder(Y_TASK).withDueDate(VALID_PHONE_BOB).withPriorityValue(VALID_EMAIL_BOB).build();
+        toAdd = new TaskBuilder(Y_TASK).withDueDate(VALID_DUEDATE_BOB).withPriorityValue(VALID_EMAIL_BOB).build();
         command = TaskUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
@@ -118,7 +118,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
 
         /* Case: add a duplicate person except with different phone -> rejected */
-        toAdd = new TaskBuilder(H_TASK).withDueDate(VALID_PHONE_BOB).build();
+        toAdd = new TaskBuilder(H_TASK).withDueDate(VALID_DUEDATE_BOB).build();
         command = TaskUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
 

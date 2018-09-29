@@ -69,7 +69,7 @@ public class NameContainsKeywordsPredicateTest {
 
         // Keywords match due date, priority value and description, but does not match name
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
-        assertFalse(predicate.test(new TaskBuilder().withName("Alice").withDueDate("12345")
+        assertFalse(predicate.test(new TaskBuilder().withName("Alice").withDueDate("12-12-17")
                 .withPriorityValue("alice@email.com").withDescription("Main Street").build()));
     }
 }

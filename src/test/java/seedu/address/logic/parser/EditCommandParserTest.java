@@ -20,8 +20,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DUEDATE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DUEDATE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LABEL;
@@ -105,7 +105,7 @@ public class EditCommandParserTest {
                 .MESSAGE_LABEL_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY + VALID_PHONE_AMY,
+        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY + VALID_DUEDATE_AMY,
                 Name.MESSAGE_NAME_CONSTRAINTS);
     }
 
@@ -116,7 +116,7 @@ public class EditCommandParserTest {
                 + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND;
 
         EditCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
+                .withDueDate(VALID_DUEDATE_BOB).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -128,7 +128,7 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_FIRST_TASK;
         String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + EMAIL_DESC_AMY;
 
-        EditCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withPhone(VALID_PHONE_BOB)
+        EditCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withDueDate(VALID_DUEDATE_BOB)
                 .withEmail(VALID_EMAIL_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -146,7 +146,7 @@ public class EditCommandParserTest {
 
         // phone
         userInput = targetIndex.getOneBased() + PHONE_DESC_AMY;
-        descriptor = new EditTaskDescriptorBuilder().withPhone(VALID_PHONE_AMY).build();
+        descriptor = new EditTaskDescriptorBuilder().withDueDate(VALID_DUEDATE_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -176,7 +176,7 @@ public class EditCommandParserTest {
                 + TAG_DESC_FRIEND + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY + TAG_DESC_FRIEND
                 + PHONE_DESC_BOB + ADDRESS_DESC_BOB + EMAIL_DESC_BOB + TAG_DESC_HUSBAND;
 
-        EditCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withPhone(VALID_PHONE_BOB)
+        EditCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withDueDate(VALID_DUEDATE_BOB)
                 .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -189,14 +189,14 @@ public class EditCommandParserTest {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_TASK;
         String userInput = targetIndex.getOneBased() + INVALID_PHONE_DESC + PHONE_DESC_BOB;
-        EditCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withPhone(VALID_PHONE_BOB).build();
+        EditCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withDueDate(VALID_DUEDATE_BOB).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
         userInput = targetIndex.getOneBased() + EMAIL_DESC_BOB + INVALID_PHONE_DESC + ADDRESS_DESC_BOB
                 + PHONE_DESC_BOB;
-        descriptor = new EditTaskDescriptorBuilder().withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
+        descriptor = new EditTaskDescriptorBuilder().withDueDate(VALID_DUEDATE_BOB).withEmail(VALID_EMAIL_BOB)
                 .withAddress(VALID_ADDRESS_BOB).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
