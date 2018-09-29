@@ -80,6 +80,14 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code Phone} of the {@code Person} we are buiding to null, for testing people without a phone field.
+     */
+    public PersonBuilder withoutPhone() {
+        this.phone = Optional.empty();
+        return this;
+    }
+
+    /**
      * Sets the {@code Email} of the {@code Person} that we are building.
      */
     public PersonBuilder withEmail(String email) {
