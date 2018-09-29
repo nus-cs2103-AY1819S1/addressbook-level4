@@ -12,7 +12,7 @@ public class DueDate {
 
     public static final String MESSAGE_DUEDATE_CONSTRAINTS =
             "DueDate numbers should only contain numbers, and it should be at least 3 digits long";
-    public static final String DUEDATE_VALIDATION_REGEX = "\\d{3,}";
+    public static final String DUEDATE_VALIDATION_REGEX = "\\d{2}-\\d{2}-\\d{2}";
     public final String value;
 
     /**
