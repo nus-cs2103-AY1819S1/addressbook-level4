@@ -10,19 +10,12 @@ import seedu.address.model.recipe.Recipe;
  */
 public enum Meal {
 
-    /**
-     * BREAKFAST index = 0;
-     * LUNCH index     = 1;
-     * DINNER index    = 2;
-     */
-    BREAKFAST(0), LUNCH(1), DINNER(2);
+    BREAKFAST, LUNCH, DINNER;
 
     // Attributes
-    public final int index;
     private Optional<Recipe> recipe;
 
-    Meal(int index) {
-        this.index = index;
+    Meal() {
         this.recipe = Optional.empty();
     }
 
