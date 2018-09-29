@@ -20,11 +20,11 @@ public class ExportCommandParser implements Parser<ExportCommand> {
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
         }
-        
+
         Path filePath = ParserUtil.parsePath(argMultimap.getValue(PREFIX_PATH).get());
         return new ExportCommand(filePath);
     }
-    
+
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.

@@ -10,7 +10,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PATH;
 
 /**
-    Export existing address book to user-defined path
+ * Export existing address book to user-defined path
  */
 public class ExportCommand extends Command {
 
@@ -24,7 +24,7 @@ public class ExportCommand extends Command {
             + PREFIX_PATH + "backup";
 
     private Path filepath;
-    
+
     public ExportCommand(Path filePath) {
         this.filepath = filePath;
     }

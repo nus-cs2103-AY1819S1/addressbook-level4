@@ -37,7 +37,7 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
     void handleAddressBookChangedEvent(AddressBookChangedEvent abce);
-    
+
     /**
      * Export the current version of the Address Book to the hard disk.
      *   Creates the data file if it is missing.

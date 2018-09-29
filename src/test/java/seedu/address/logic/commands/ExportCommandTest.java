@@ -28,10 +28,10 @@ public class ExportCommandTest {
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
     private static final Path EXPORT_PATH = TestUtil.getFilePathInSandboxFolder("exportData.xml");
-    
+
     @Test
     public void execute_export_message_success() {
-        
+
         ExportCommand exportCommand = new ExportCommand(EXPORT_PATH);
         assertCommandSuccess(exportCommand, model, commandHistory, ExportCommand.MESSAGE_EXPORT_SUCCESS, expectedModel);
         deleteFileIfExists(EXPORT_PATH);
@@ -47,7 +47,7 @@ public class ExportCommandTest {
             throw new AssertionError(ioe);
         }
     }
-    
+
     @After
     /**
      * Cleanup of file created in event of test case fails

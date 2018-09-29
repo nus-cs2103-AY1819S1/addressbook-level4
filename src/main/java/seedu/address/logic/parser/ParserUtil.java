@@ -129,7 +129,7 @@ public class ParserUtil {
         }
         return tagSet;
     }
-    
+
     /**
      * Parses a {@code String title} into a {@code Title}.
      * Leading and trailing whitespaces will be trimmed.
@@ -200,7 +200,7 @@ public class ParserUtil {
 
         return parseList;
     }
-    
+
     /**
      * Parse {@code String filepath} into {@code Path}.
      */

@@ -18,24 +18,25 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PATH;
 import static org.junit.Assert.assertTrue;
 
 public class ExportCommandSystemTest extends AddressBookSystemTest {
-    
+
     private static final String EXPORT_FILE = "ExportData.xml";
     private static final Path EXPORT_PATH = Paths.get(EXPORT_FILE);
+
     @Test
     public void export() throws IOException {
         String command, failedMsg;
         Model expectedModel = getModel();
-        
+
         /* Case: export data to EXPORT_FILE with trailing whitespace-> export successful */
         command = ExportCommand.COMMAND_WORD + " " + PREFIX_PATH + " " + EXPORT_FILE + "   ";
-        
+
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
         assertFileExist(EXPORT_FILE);
         assertExportContentCorrect(EXPORT_PATH);
-        
+
         deleteFileIfExists(EXPORT_PATH);
-       
+
         /* Case: export data to EXPORT_FILE -> export successful */
         command = ExportCommand.COMMAND_WORD + " " + PREFIX_PATH + " " + EXPORT_FILE;
 
@@ -45,7 +46,7 @@ public class ExportCommandSystemTest extends AddressBookSystemTest {
         assertExportContentCorrect(EXPORT_PATH);
 
         deleteFileIfExists(EXPORT_PATH);
-        
+
         /* Case: export data without indicating filename -> rejected */
         command = ExportCommand.COMMAND_WORD;
         failedMsg = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE);
@@ -66,6 +67,7 @@ public class ExportCommandSystemTest extends AddressBookSystemTest {
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the status bar remains unchanged, and the command box has the default style class, and the
      * selected card updated accordingly, depending on {@code cardStatus}.
+     *
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command, Model expectedModel) {
@@ -84,6 +86,7 @@ public class ExportCommandSystemTest extends AddressBookSystemTest {
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the browser url, selected card and status bar remain unchanged, and the command box has the
      * error style.
+     *
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
@@ -95,7 +98,7 @@ public class ExportCommandSystemTest extends AddressBookSystemTest {
         assertCommandBoxShowsErrorStyle();
         assertStatusBarUnchanged();
     }
-    
+
     @After
     /**
      * Clean up file created in event of assertion failure.
@@ -117,6 +120,7 @@ public class ExportCommandSystemTest extends AddressBookSystemTest {
 
     /**
      * Assert if the Exported File exists.
+     *
      * @param filename filename
      */
     private void assertFileExist(String filename) {
@@ -125,8 +129,9 @@ public class ExportCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Assert if the exported address book is the same as the original saved address book by checking 
+     * Assert if the exported address book is the same as the original saved address book by checking
      * its content.
+     *
      * @param path path to the exported file
      * @throws IOException
      */
@@ -134,28 +139,26 @@ public class ExportCommandSystemTest extends AddressBookSystemTest {
         Path original = getDataFileLocation();
         Path export = path;
         final long size = Files.size(export);
-        
+
         if (size < 4096) {
             byte[] f1 = Files.readAllBytes(original);
             byte[] f2 = Files.readAllBytes(export);
-            boolean sameSize = Arrays.equals(f1,f2);
+            boolean sameSize = Arrays.equals(f1, f2);
             assertTrue(sameSize);
         }
 
         InputStream is1 = Files.newInputStream(original);
         InputStream is2 = Files.newInputStream(export);
-        
-        int i,j;
-        byte[] buffer1 = new byte[1024]; 
-        byte[] buffer2 = new byte[1024]; 
-        
+
+        int i, j;
+        byte[] buffer1 = new byte[1024];
+        byte[] buffer2 = new byte[1024];
+
         do {
             i = is1.read(buffer1);
             j = is2.read(buffer2);
-            
-            assertTrue(Arrays.equals(buffer1,buffer2));
+
+            assertTrue(Arrays.equals(buffer1, buffer2));
         } while ((i == j) && (i != -1));
-        
-        
     }
 }

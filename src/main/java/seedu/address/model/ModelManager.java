@@ -145,15 +145,15 @@ public class ModelManager extends ComponentManager implements Model {
     public void commitAddressBook() {
         versionedAddressBook.commit();
     }
-    
+
     // ================= Export/Import =======================================================================
-    
+
     @Override
     /** Raises an event to indicate the model to be exported */
     public void exportAddressBook(Path filepath) {
         raise(new AddressBookExportEvent(versionedAddressBook, filepath));
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
