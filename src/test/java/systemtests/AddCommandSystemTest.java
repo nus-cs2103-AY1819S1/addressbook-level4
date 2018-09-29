@@ -163,7 +163,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: add a person when no user is logged in */
         command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
-                + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
+                + TAG_DESC_HUSBAND;
         testApp.getActualModel().unloadUserData();
         executeCommand(command);
         assertEquals(new NoUserSelectedException().getMessage(), getResultDisplay().getText());
