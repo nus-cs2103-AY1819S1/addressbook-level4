@@ -47,4 +47,10 @@
         <email>anna@example.com</email>
         <address>4th street</address>
     </persons>
+    <persons>
+        <name>Henry Golding</name>
+        <phone>000000000000</phone>
+        <email>henry@example.com</email>
+        <address>Crazy Rich Street</address>
+    </persons>
 </addressbook>
