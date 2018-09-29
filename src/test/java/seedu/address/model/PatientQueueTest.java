@@ -6,8 +6,6 @@ import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import org.junit.Test;
 
-import seedu.address.model.person.Person;
-
 public class PatientQueueTest {
     private ModelManager modelManager = new ModelManager();
     @Test
