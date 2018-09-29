@@ -3,6 +3,8 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.text.SimpleDateFormat;
+
 /**
  * Represents a Task's due date number in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidDueDate(String)}
@@ -11,7 +13,8 @@ public class DueDate {
 
     public static final String MESSAGE_DUEDATE_CONSTRAINTS =
             "DueDate numbers should only contain numbers, and it should be in the following format dd-mm-yy";
-    public static final String DUEDATE_VALIDATION_REGEX = "\\d{1,2}-\\d{1,2}-\\d{1,2}";
+    public static final String DUEDATE_FORMAT_MINIMAL = "dd-MM-yy";
+    public static final String DUEDATE_FORMAT = "dd-MM-yy HHmm";
     public final String value;
 
     /**
@@ -27,9 +30,18 @@ public class DueDate {
 
     /**
      * Returns true if a given string is a valid due date.
+     * Checks if due date is either one of two possible formats.
+     * {@link #isValidDueDateMinimalFormat(String)}.{@link #isValidDueDateStandardFormat(String)}
      */
     public static boolean isValidDueDate(String test) {
-        return test.matches(DUEDATE_VALIDATION_REGEX);
+        //Checks format of due date
+        if (test == null) {
+            throw new NullPointerException();
+        }
+
+        return isValidDueDateMinimalFormat(test) || isValidDueDateStandardFormat(test);
+    }
+
     }
 
     @Override
