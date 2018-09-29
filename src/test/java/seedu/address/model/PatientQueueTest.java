@@ -10,7 +10,6 @@ import seedu.address.model.person.Person;
 
 public class PatientQueueTest {
     private ModelManager modelManager = new ModelManager();
-    private PatientQueue<Person> patientQueue = new PatientQueue<>();
     @Test
     public void hasPatient_patientNotInQueue_returnsFalse() {
         assertFalse(modelManager.hasPatientInPatientQueue());
