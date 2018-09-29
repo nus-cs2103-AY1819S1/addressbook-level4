@@ -5,10 +5,10 @@ package seedu.address.model.person;
  * There are two possible status: IN_PROGRESS and FINISHED.
  */
 public enum Status {
-    IN_PROGRESS("IN PROGRESS"), FINISHED("FINISHED");
+    IN_PROGRESS("IN PROGRESS"), FINISHED("FINISHED"), OVERDUE("OVERDUE");
 
     public static final String MESSAGE_STATUS_CONSTRAINTS =
-            "Status should only have the value IN PROGRESS or FINISHED";
+            "Status should only have the value IN PROGRESS, FINISHED or OVERDUE";
     private String statusValue;
 
     /**
@@ -25,7 +25,7 @@ public enum Status {
      */
     public static boolean isValidStatus(String value) {
         try {
-            return value.equals("IN PROGRESS") || value.equals("FINISHED");
+            return value.equals("IN PROGRESS") || value.equals("FINISHED") || value.equals("OVERDUE");
         } catch (NullPointerException ex) {
             return false;
         }
@@ -38,7 +38,7 @@ public enum Status {
         if (!isValidStatus(value)) {
             throw new IllegalArgumentException();
         }
-        return value.equals("IN PROGRESS") ? Status.IN_PROGRESS : Status.FINISHED;
+        return value.equals("IN PROGRESS") ? Status.IN_PROGRESS : Status.valueOf(value);
     }
 
     @Override
