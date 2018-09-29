@@ -40,7 +40,7 @@ public class PersonCardTest extends GuiUnitTest {
         assertCardDisplay(personCard, personWithoutEmail, 4);
 
         // without address
-        Person personWithoutAddress= new PersonBuilder().withoutAddress().build();
+        Person personWithoutAddress = new PersonBuilder().withoutAddress().build();
         personCard = new PersonCard(personWithoutAddress, 5);
         uiPartRule.setUiPart(personCard);
         assertCardDisplay(personCard, personWithoutAddress, 5);
