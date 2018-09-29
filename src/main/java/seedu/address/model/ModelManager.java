@@ -15,8 +15,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.commons.events.model.EmailSavedEvent;
 import seedu.address.commons.events.model.CalendarCreatedEvent;
+import seedu.address.commons.events.model.EmailSavedEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.calendar.Month;
 import seedu.address.model.calendar.Year;
@@ -50,6 +50,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         this.userPrefs = userPrefs;
+        this.emailModel = new EmailModel();
         this.calendarModel = new CalendarModel(calendarStorage, userPrefs.getExistingCalendar());
     }
 
@@ -65,6 +66,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         this.emailModel = new EmailModel();
+        this.userPrefs = userPrefs;
         CalendarStorage calendarStorage = new IcsCalendarStorage(userPrefs.getCalendarPath());
         this.calendarModel = new CalendarModel(calendarStorage, userPrefs.getExistingCalendar());
 
@@ -83,10 +85,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return versionedAddressBook;
-    }
-
-    public UserPrefs getUserPrefs() {
-        return userPrefs;
     }
 
     /** Raises an event to indicate the model has changed */

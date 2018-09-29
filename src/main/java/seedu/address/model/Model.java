@@ -84,7 +84,8 @@ public interface Model {
      * Saves the email to hard disk
      */
     void saveEmail(Email email);
-  
+
+    /**
      * Returns true if the model already has a calendar with the same month and year
      */
     boolean isExistingCalendar(Year year, Month month);

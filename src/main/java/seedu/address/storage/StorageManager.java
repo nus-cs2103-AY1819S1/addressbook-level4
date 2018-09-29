@@ -28,7 +28,7 @@ public class StorageManager extends ComponentManager implements Storage {
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
     private CalendarStorage calendarStorage;
-    private EmailStorage emailStorage
+    private EmailStorage emailStorage;
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
                           CalendarStorage calendarStorage, EmailStorage emailStorage) {
@@ -119,6 +119,7 @@ public class StorageManager extends ComponentManager implements Storage {
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }
+    }
 
     //@@author GilgameshTC
     // ================ Calendar methods ==============================
@@ -132,4 +133,5 @@ public class StorageManager extends ComponentManager implements Storage {
     public void createCalendar(Calendar calendar, String calendarName) throws IOException {
         calendarStorage.createCalendar(calendar, calendarName);
     }
+
 }
