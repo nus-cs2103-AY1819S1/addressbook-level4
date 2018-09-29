@@ -2,6 +2,10 @@ package seedu.address.model.appointment;
 
 import java.util.Date;
 
+/**
+ * Represents an Prescription in the health book.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class Prescription {
     private String medicineName;
     private Date expirationDate;
