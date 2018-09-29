@@ -45,6 +45,9 @@ public class TypicalPersons {
     // Without phone
     public static final Person HENRY = new PersonBuilder().withName("Henry Golding").withoutPhone()
             .withEmail("henry@example.com").withAddress("Crazy Rich Street").build();
+    // Without email
+    public static final Person IANNA = new PersonBuilder().withName("Ianna Cluse").withPhone("83848586")
+            .withoutEmail().withAddress("24 Recluse Avenue").build();
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")
@@ -75,6 +78,6 @@ public class TypicalPersons {
     }
 
     public static List<Person> getTypicalPersons() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE, HENRY));
+        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE, HENRY, IANNA));
     }
 }

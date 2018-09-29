@@ -32,7 +32,7 @@ public class PersonUtil {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + person.getName().fullName + " ");
         person.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE + phone.value + " "));
-        sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
+        person.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL + email.value + " "));
         sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
         person.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")

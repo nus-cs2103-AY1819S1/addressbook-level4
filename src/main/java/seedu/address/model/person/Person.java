@@ -20,7 +20,7 @@ public class Person {
     // Identity fields
     private final Name name;
     private final Optional<Phone> phone;
-    private final Email email;
+    private final Optional<Email> email;
 
     // Data fields
     private final Address address;
@@ -29,7 +29,7 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Optional<Phone> phone, Email email, Address address, Set<Tag> tags) {
+    public Person(Name name, Optional<Phone> phone, Optional<Email> email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
@@ -46,7 +46,7 @@ public class Person {
         return phone;
     }
 
-    public Email getEmail() {
+    public Optional<Email> getEmail() {
         return email;
     }
 
@@ -110,9 +110,9 @@ public class Person {
         builder.append(getName())
                 .append(" Phone: ");
         getPhone().ifPresentOrElse(builder::append, () -> builder.append("None"));
-        builder.append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
+        builder.append(" Email: ");
+        getEmail().ifPresentOrElse(builder::append, () -> builder.append("None"));
+        builder.append(" Address: ")
                 .append(getAddress())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
