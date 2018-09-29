@@ -2,6 +2,7 @@ package seedu.address.model.planner;
 
 import java.util.Optional;
 
+import seedu.address.model.planner.exceptions.MealRecipeNotFoundException;
 import seedu.address.model.recipe.Recipe;
 
 /**
@@ -19,8 +20,12 @@ public enum Meal {
         this.recipe = Optional.empty();
     }
 
-    public Recipe getRecipe() {
-        return this.recipe.get();
+    public Recipe getRecipe() throws MealRecipeNotFoundException{
+        if (this.recipe.isPresent()) {
+            return this.recipe.get();
+        } else {
+            throw new MealRecipeNotFoundException("No recipe at selected meal slot.");
+        }
     }
 
     public void setRecipe(Recipe recipe) {

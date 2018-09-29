@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.planner.exceptions.MealRecipeNotFoundException;
 import seedu.address.model.recipe.Recipe;
 
 /**
@@ -42,7 +43,7 @@ public class Day {
         return this.meals.get(meal.ordinal());
     }
 
-    public Recipe getMealRecipe(Meal meal) {
+    public Recipe getMealRecipe(Meal meal) throws MealRecipeNotFoundException {
         return this.getMeal(meal).getRecipe();
     }
 

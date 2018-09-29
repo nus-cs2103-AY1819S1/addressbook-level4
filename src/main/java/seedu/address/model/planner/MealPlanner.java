@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
+import seedu.address.model.planner.exceptions.MealRecipeNotFoundException;
 import seedu.address.model.recipe.Recipe;
 
 /**
@@ -33,7 +34,7 @@ public class MealPlanner {
         return this.calendar.get(date);
     }
 
-    public Recipe getMealRecipe(LocalDate date, Meal meal) {
+    public Recipe getMealRecipe(LocalDate date, Meal meal) throws MealRecipeNotFoundException {
         return this.getDay(date).getMealRecipe(meal);
     }
 
