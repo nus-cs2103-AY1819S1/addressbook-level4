@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.healthplan.HealthPlan;
+import seedu.address.model.healthplan.HealthPlanList;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.UniqueRecipeList;
 
@@ -35,6 +37,7 @@ public class AppContent implements ReadOnlyAppContent {
     public AppContent(ReadOnlyAppContent toBeCopied) {
         this();
         resetData(toBeCopied);
+        resetDataHP(toBeCopied);
     }
 
     //// list overwrite operations
@@ -54,6 +57,7 @@ public class AppContent implements ReadOnlyAppContent {
         requireNonNull(newData);
 
         setRecipes(newData.getRecipeList());
+
     }
 
     //// recipe-level operations
@@ -118,4 +122,84 @@ public class AppContent implements ReadOnlyAppContent {
     public int hashCode() {
         return recipes.hashCode();
     }
+
+
+
+    //healthplan
+
+    private final HealthPlanList list;
+    {
+        list = new HealthPlanList();
+    }
+
+
+
+
+    public void setPlan(List<HealthPlan> plans) {
+        this.list.setPlan(plans);
+    }
+
+    /**
+     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     */
+    public void resetDataHP(ReadOnlyAppContent newData) {
+        requireNonNull(newData);
+
+        setPlan(newData.getHealthPlanList());
+    }
+
+
+    //// person-level operations
+
+    /**
+     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     */
+    public boolean hasPlan(HealthPlan plan) {
+        requireNonNull(plan);
+        return list.contains(plan);
+    }
+
+
+    public void addPlan(HealthPlan p) {
+        list.add(p);
+    }
+
+    /**
+     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * {@code target} must exist in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     */
+    public void updatePlan(HealthPlan target, HealthPlan editedPerson) {
+        requireNonNull(editedPerson);
+
+        list.setPlan(target, editedPerson);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removePlan(HealthPlan key) {
+        list.remove(key);
+    }
+
+    //// util methods
+
+
+
+    @Override
+    public ObservableList<HealthPlan> getHealthPlanList() {
+        return list.asUnmodifiableObservableList();
+    }
+
+
+
+
+
+
+
+
+
+
+
 }
