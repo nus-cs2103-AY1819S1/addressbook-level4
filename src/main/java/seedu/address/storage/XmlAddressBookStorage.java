@@ -77,4 +77,53 @@ public class XmlAddressBookStorage implements AddressBookStorage {
         XmlFileStorage.saveDataToFile(filePath, new XmlSerializableAddressBook(addressBook));
     }
 
+    //health plan
+
+    public Path getHealthPlanFilePath() {
+        return filePath;
+    }
+
+    @Override
+    public Optional<ReadOnlyAppContent> readHealthPlan() throws DataConversionException, IOException {
+        return readHealthPlan(filePath);
+    }
+
+
+    public Optional<ReadOnlyAppContent> readHealthPlan(Path filePath) throws DataConversionException,
+            FileNotFoundException {
+        requireNonNull(filePath);
+
+        if (!Files.exists(filePath)) {
+            logger.info("Health Plan file " + filePath + " not found");
+            return Optional.empty();
+        }
+
+        XmlSerializableHealthPlan xmlhp = XmlFileStorage.loadDataFromSaveFileHP(filePath);
+        try {
+            return Optional.of(xmlhp.toModelType());
+        } catch (IllegalValueException ive) {
+            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
+            throw new DataConversionException(ive);
+        }
+    }
+
+    @Override
+    public void saveHealthPlan(ReadOnlyAppContent hp) throws IOException {
+        saveHealthPlan(hp, filePath);
+    }
+
+
+    public void saveHealthPlan(ReadOnlyAppContent hp, Path filePath) throws IOException {
+        requireNonNull(hp);
+        requireNonNull(filePath);
+
+        FileUtil.createIfMissing(filePath);
+        XmlFileStorage.saveDataToFile(filePath, new XmlSerializableHealthPlan(hp));
+    }
+
+
+
+
+
+
 }
