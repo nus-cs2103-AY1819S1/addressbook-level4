@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.events.model.AppContentChangedEvent;
+import seedu.address.commons.events.model.HealthplanChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAppContent;
@@ -29,6 +30,26 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
 
     @Override
     void saveAddressBook(ReadOnlyAppContent addressBook) throws IOException;
+
+    //healthplan
+
+    @Override
+    Path getHealthPlanFilePath();
+
+    @Override
+    Optional<ReadOnlyAppContent> readHealthPlan() throws DataConversionException, IOException;
+
+    @Override
+    void saveHealthPlan(ReadOnlyAppContent hp) throws IOException;
+
+    /**
+     * Saves the current version of the Address Book to the hard disk.
+     *   Creates the data file if it is missing.
+     * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
+     */
+    void handleHealthplanBookChangedEvent(HealthplanChangedEvent abce);
+
+
 
     /**
      * Saves the current version of the Address Book to the hard disk.
