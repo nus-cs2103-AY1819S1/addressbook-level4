@@ -7,11 +7,11 @@ import java.util.Objects;
  */
 public class Anakin_Card {
 
-    private final int performance;  // Change to Enum Performance later
+    private final int performance;
 
     // Identity fields
-    private final String question;  // Change to Question question later
-    private final String answer;    // Change to Answer answer later
+    private final String question;
+    private final String answer;
 
     public Anakin_Card(String question, String answer) {
         this.question = question;

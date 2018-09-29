@@ -10,7 +10,7 @@ import java.util.Objects;
  */
 public class Anakin_Deck {
 
-    private final String name;  // Change to Name name later
+    private final String name;
     private final List<Anakin_Card> cards;
 
     public Anakin_Deck(String name) {
