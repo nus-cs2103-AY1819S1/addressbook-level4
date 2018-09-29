@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
+
 import seedu.address.model.tag.Tag;
 import seedu.address.model.wish.Address;
 import seedu.address.model.wish.Email;
