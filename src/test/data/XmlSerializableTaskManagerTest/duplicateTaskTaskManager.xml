@@ -3,7 +3,7 @@
 
     <tasks>
         <name>Alice Pauline</name>
-        <dueDate>94351253</dueDate>
+        <dueDate>01-12-18</dueDate>
         <priorityValue>alice@example.com</priorityValue>
         <description>123, Jurong West Ave 6, #08-111</description>
         <tagged>friends</tagged>
@@ -12,7 +12,7 @@
     <!-- Person with same identity as Alice Pauline -->
     <tasks>
         <name>Alice Pauline</name>
-        <dueDate>94351253</dueDate>
+        <dueDate>01-12-18</dueDate>
         <priorityValue>pauline@example.com</priorityValue>
         <description>4th street</description>
     </tasks>

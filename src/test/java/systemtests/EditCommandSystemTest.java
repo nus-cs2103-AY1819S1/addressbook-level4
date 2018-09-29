@@ -18,10 +18,10 @@ import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DUEDATE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LABEL;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
@@ -97,7 +97,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         index = INDEX_SECOND_TASK;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedPerson = new TaskBuilder(Z_TASK).withDueDate(VALID_PHONE_AMY).withPriorityValue(VALID_EMAIL_AMY).build();
+        editedPerson = new TaskBuilder(Z_TASK).withDueDate(VALID_DUEDATE_AMY).withPriorityValue(VALID_EMAIL_AMY)
+                .build();
         assertCommandSuccess(command, index, editedPerson);
 
         /* Case: clear tags -> cleared */

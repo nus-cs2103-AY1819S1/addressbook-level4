@@ -48,9 +48,9 @@ public class EditTaskDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code EditTaskDescriptor} that we are building.
+     * Sets the {@code DueDate} of the {@code EditTaskDescriptor} that we are building.
      */
-    public EditTaskDescriptorBuilder withPhone(String phone) {
+    public EditTaskDescriptorBuilder withDueDate(String phone) {
         descriptor.setDueDate(new DueDate(phone));
         return this;
     }

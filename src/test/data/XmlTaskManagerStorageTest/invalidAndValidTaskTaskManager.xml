@@ -3,7 +3,7 @@
     <!-- Valid Task -->
     <tasks>
         <name>Hans Muster</name>
-        <dueDate isPrivate="false">9482424</dueDate>
+        <dueDate isPrivate="false">21-12-18</dueDate>
         <priorityValue isPrivate="false">hans@example.com</priorityValue>
         <description isPrivate="false">4th street</description>
     </tasks>
