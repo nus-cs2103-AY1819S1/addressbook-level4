@@ -44,7 +44,7 @@
     </tasks>
     <tasks>
         <name>Stefan Meier</name>
-        <dueDate isPrivate="false">08-12-18</dueDate>
+        <dueDate isPrivate="false">08-12-18 0900</dueDate>
         <priorityValue isPrivate="false">stefan@example.com</priorityValue>
         <description isPrivate="false">little india</description>
     </tasks>

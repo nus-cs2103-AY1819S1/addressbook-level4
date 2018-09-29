@@ -40,7 +40,7 @@ public class DueDateTest {
         assertTrue(DueDate.isValidDueDate("01-11-17"));
         assertTrue(DueDate.isValidDueDate("10-11-2018"));
 
-        // valid due date (maximal format)
+        // valid due date (standard format)
         assertTrue(DueDate.isValidDueDate("11-12-18 1200"));
         assertTrue(DueDate.isValidDueDate("11-12-18 2000"));
 

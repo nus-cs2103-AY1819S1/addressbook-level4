@@ -10,7 +10,7 @@
     </tasks>
     <tasks>
         <name>Benson Meier</name>
-        <dueDate>02-12-18</dueDate>
+        <dueDate>02-12-18 1330</dueDate>
         <priorityValue>johnd@example.com</priorityValue>
         <description>311, Clementi Ave 2, #02-25</description>
         <labelled>owesMoney</labelled>
@@ -37,7 +37,7 @@
     </tasks>
     <tasks>
         <name>Fiona Kunz</name>
-        <dueDate>06-12-18</dueDate>
+        <dueDate>06-12-2018</dueDate>
         <priorityValue>lydia@example.com</priorityValue>
         <description>little tokyo</description>
     </tasks>
