@@ -13,7 +13,7 @@ import seedu.address.model.person.Person;
 public class PersonCard extends UiPart<Region> {
 
     public static final String NO_PHONE_NUMBER = "No Phone Number";
-    
+
     private static final String FXML = "PersonListCard.fxml";
     private static final String[] TAG_COLOR_STYLES = { "teal", "red", "yellow", "blue",
         "orange", "brown", "green", "pink", "black", "grey"};
