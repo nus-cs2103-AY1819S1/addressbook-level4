@@ -69,6 +69,9 @@ public class ModelManager extends ComponentManager implements Model {
     public void deleteWish(Wish target) {
         versionedWishBook.removeWish(target);
         indicateWishBookChanged();
+
+        //TODO
+
     }
 
     @Override
