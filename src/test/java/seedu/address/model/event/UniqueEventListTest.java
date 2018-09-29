@@ -1,3 +1,4 @@
+//@@author theJrLinguist
 package seedu.address.model.event;
 
 import static org.junit.Assert.assertEquals;

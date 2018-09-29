@@ -1,3 +1,4 @@
+//@@author theJrLinguist
 package seedu.address.logic.commands.eventcommands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
