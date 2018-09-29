@@ -1,6 +1,11 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+//import static seedu.address.logic.parser.CliSyntax.PREFIX_MAINTENANCE;
+//import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+//import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+//import static seedu.address.logic.parser.CliSyntax.PREFIX_WAITING_TIME;
 
 import java.util.Arrays;
 
@@ -27,7 +32,23 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        return new FindCommand(new RideContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        return new FindCommand(new RideContainsKeywordsPredicate(Arrays.asList(nameKeywords),
+                hasAddress(nameKeywords)));
+    }
+
+    /**
+     * Checks the given {@code String[]} to find if it contains PREFIX_ADDRESS returns
+     * a boolean.
+     * @param keywords the string array of keywords to check
+     * @return whether the array contains PREFIX_ADDRESS
+     */
+    private boolean hasAddress(String[] keywords) {
+        for (String keyword : keywords) {
+            if (keyword.contentEquals(PREFIX_ADDRESS.getPrefix())) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
