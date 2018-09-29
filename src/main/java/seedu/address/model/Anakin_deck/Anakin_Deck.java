@@ -26,6 +26,9 @@ public class Anakin_Deck {
         return cards;
     }
 
+    /**
+     * Returns true if 2 decks are the same, or have identical name.
+     */
     public boolean isSameDeck(Anakin_Deck otherDeck) {
         if (otherDeck == this) {
             return true;

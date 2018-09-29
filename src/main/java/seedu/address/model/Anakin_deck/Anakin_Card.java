@@ -7,9 +7,11 @@ import java.util.Objects;
  */
 public class Anakin_Card {
 
-    private final int performance; // Change to Enum Performance later
-    private final String question; // Change to Question question later
-    private final String answer;   // Change to Answer answer later
+    private final int performance;  // Change to Enum Performance later
+
+    // Identity fields
+    private final String question;  // Change to Question question later
+    private final String answer;    // Change to Answer answer later
 
     public Anakin_Card(String question, String answer) {
         this.question = question;
@@ -25,6 +27,9 @@ public class Anakin_Card {
         return answer;
     }
 
+    /**
+     * Returns true if 2 cards are the same, or have same identity fields.
+     */
     public boolean isSameCard(Anakin_Card otherCard) {
         if (otherCard == this) {
             return true;
