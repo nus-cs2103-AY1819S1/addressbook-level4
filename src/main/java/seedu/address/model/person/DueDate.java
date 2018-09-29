@@ -42,6 +42,21 @@ public class DueDate {
         return isValidDueDateMinimalFormat(test) || isValidDueDateStandardFormat(test);
     }
 
+    /**
+     * Returns true if a given string is a valid due date minimal format.
+     * Minimal format specified in {@link #DUEDATE_FORMAT_MINIMAL}
+     */
+    private static boolean isValidDueDateMinimalFormat(String test) {
+        try {
+            SimpleDateFormat formatMinimal = new SimpleDateFormat(DUEDATE_FORMAT_MINIMAL);
+            formatMinimal.setLenient(false);
+            formatMinimal.parse(test);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
     }
 
     @Override
