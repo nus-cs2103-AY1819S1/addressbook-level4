@@ -483,6 +483,10 @@ Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI t
 
 To run tests in headless mode, open a console and run the command `gradlew clean headless allTests` (Mac/Linux: `./gradlew clean headless allTests`)
 
+[NOTE]
+You may encounter a problem with running Gradle commands on the command line, with the following error message: Cannot find System Java Compiler. Ensure that you have installed a JDK (not just a JRE) and configured your JAVA_HOME system variable to point to the according directory.
+If you encounter this error, you can apply the fix shown https://www.mkyong.com/java/how-to-set-java_home-on-windows-10/[here] for Windows.
+
 === Types of tests
 
 We have two types of tests:
