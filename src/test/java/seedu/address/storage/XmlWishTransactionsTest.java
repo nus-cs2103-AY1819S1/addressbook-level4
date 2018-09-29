@@ -15,8 +15,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.wish.*;
 
-public class XmlAdaptedWishTransactionsTest {
-    private XmlAdaptedWishTransactions xmlAdaptedWishTransactions;
+public class XmlWishTransactionsTest {
+    private XmlWishTransactions xmlWishTransactions;
 
     private Wish wish1;
 
@@ -25,7 +25,7 @@ public class XmlAdaptedWishTransactionsTest {
 
     @Before
     public void init() {
-        xmlAdaptedWishTransactions = new XmlAdaptedWishTransactions();
+        xmlWishTransactions = new XmlWishTransactions();
         Set<Tag> tagSet = new HashSet<>();
         ((HashSet) tagSet).add(new Tag("wish1"));
 
@@ -39,22 +39,22 @@ public class XmlAdaptedWishTransactionsTest {
 
     @Test
     public void addWishToTransactionMap_success() {
-        xmlAdaptedWishTransactions.addWish(wish1);
-        assertTrue(xmlAdaptedWishTransactions.getWishMap().containsKey(getKey(wish1)));
+        xmlWishTransactions.addWish(wish1);
+        assertTrue(xmlWishTransactions.getWishMap().containsKey(getKey(wish1)));
     }
 
     @Test
     public void getWishList_success() throws IllegalValueException {
-        xmlAdaptedWishTransactions.addWish(wish1);
-        assertFalse(xmlAdaptedWishTransactions.toCurrentStateWishTransactionList().isEmpty());
+        xmlWishTransactions.addWish(wish1);
+        assertFalse(xmlWishTransactions.toCurrentStateWishTransactionList().isEmpty());
     }
 
     @Test
     public void removeWishFromTransactionMap_success() {
-        xmlAdaptedWishTransactions.getWishMap().clear();
-        xmlAdaptedWishTransactions.addWish(wish1);
-        xmlAdaptedWishTransactions.remove(wish1);
-        assertTrue(xmlAdaptedWishTransactions.getWishMap().isEmpty());
+        xmlWishTransactions.getWishMap().clear();
+        xmlWishTransactions.addWish(wish1);
+        xmlWishTransactions.remove(wish1);
+        assertTrue(xmlWishTransactions.getWishMap().isEmpty());
     }
 
     private String getKey(Wish wish) {

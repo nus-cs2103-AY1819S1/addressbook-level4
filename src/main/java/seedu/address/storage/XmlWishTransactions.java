@@ -14,17 +14,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.wish.Wish;
 
+/**
+ * An Immutable wish transaction log that is serializable to XML format.
+ */
 @XmlRootElement(name = "log")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class XmlAdaptedWishTransactions {
-    public static final String TAG = XmlAdaptedWishTransactions.class.getSimpleName();
+public class XmlWishTransactions {
+    public static final String TAG = XmlWishTransactions.class.getSimpleName();
     private Map<String, List<XmlAdaptedWish>> wishMap;
 
     /**
      * Creates an empty XmlSerializableWishTransactionMap.
      * This empty constructor is required for marshalling.
      */
-    public XmlAdaptedWishTransactions() {
+    public XmlWishTransactions() {
         this.wishMap = new HashMap<>();
     }
 
@@ -57,7 +60,7 @@ public class XmlAdaptedWishTransactions {
     }
 
     /**
-     * @see XmlAdaptedWishTransactions#remove(String)
+     * @see XmlWishTransactions#remove(String)
      */
     public void remove(Wish wish) throws NoSuchElementException {
         remove(wish.getName().fullName);
@@ -74,6 +77,35 @@ public class XmlAdaptedWishTransactions {
             throw new NoSuchElementException(key);
         }
         wishMap.remove(key);
+    }
+
+    /**
+     * Replaces the given wish {@code target} in the list with {@code editedWish}.
+     * {@code target} must exist in the wish book.
+     * The wish identity of {@code editedWish} must not be the same as another existing wish in the wish book.
+     */
+    public void updateWish(Wish target, Wish editedWish) {
+        List<XmlAdaptedWish> wishes = wishMap.get(getKey(target));
+        updateWish(wishes, new XmlAdaptedWish(target), new XmlAdaptedWish(editedWish));
+    }
+
+    /**
+     * @see XmlWishTransactions#updateWish(Wish, Wish)
+     *
+     */
+    private void updateWish(List<XmlAdaptedWish> wishes, XmlAdaptedWish target, XmlAdaptedWish editedWish) {
+        if (wishes.contains(target)) {
+            wishes.set(wishes.indexOf(target), editedWish);
+        }
+    }
+
+    /**
+     * Returns the key corresponding to this wish.
+     * @param wish
+     * @return
+     */
+    public String getKey(Wish wish) {
+        return wish.getName().fullName;
     }
 
     /**
@@ -112,7 +144,7 @@ public class XmlAdaptedWishTransactions {
             return false;
         }
 
-        XmlAdaptedWishTransactions otherMap = (XmlAdaptedWishTransactions) other;
+        XmlWishTransactions otherMap = (XmlWishTransactions) other;
         return Objects.equals(wishMap, otherMap);
     }
 }
