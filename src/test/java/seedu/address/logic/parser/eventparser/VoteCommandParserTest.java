@@ -6,17 +6,17 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.eventcommands.VoteCommand;
 import seedu.address.logic.parser.eventparsers.VoteCommandParser;
+import seedu.address.testutil.TypicalIndexes;
 
 public class VoteCommandParserTest {
     private VoteCommandParser parser = new VoteCommandParser();
 
     @Test
-    public void parse_validArgs_returnsAddPollCommand() {
+    public void parse_validArgs_returnsVoteCommand() {
         assertParseSuccess(parser, " i/1 o/12 August",
-                new VoteCommand(Index.fromOneBased(1), "12 August"));
+                new VoteCommand(TypicalIndexes.INDEX_FIRST, "12 August"));
     }
 
     @Test

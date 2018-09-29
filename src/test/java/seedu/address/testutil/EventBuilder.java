@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,6 +30,9 @@ public class EventBuilder {
     private Set<Tag> tags;
     private ArrayList<Poll> polls;
     private UniquePersonList personList;
+    private LocalDate date;
+    private LocalTime startTime;
+    private LocalTime endTime;
 
     public EventBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -37,6 +42,9 @@ public class EventBuilder {
         tags.add(new Tag(DEFAULT_TAG));
         polls = new ArrayList<>();
         personList = new UniquePersonList();
+        date = LocalDate.of(2018, 1, 1);
+        startTime = LocalTime.of(12, 00);
+        endTime = LocalTime.of(13, 30);
     }
 
     /**
@@ -96,6 +104,9 @@ public class EventBuilder {
      */
     public Event build() {
         Event event = new Event(name, address, tags);
+        event.setDate(date);
+        event.setStartTime(startTime);
+        event.setEndTime(endTime);
         event.setOrganiser(organiser);
         event.setPolls(polls);
         event.setPersonList(personList);

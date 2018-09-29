@@ -63,9 +63,15 @@ public class XmlAdaptedEvent {
         this.name = name;
         this.address = address;
         this.organiser = organiser;
-        this.date = date;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        if (date != null) {
+            this.date = date;
+        }
+        if (startTime != null) {
+            this.startTime = startTime;
+        }
+        if (endTime != null) {
+            this.endTime = endTime;
+        }
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
