@@ -6,15 +6,17 @@ import java.util.Optional;
 
 import net.fortuna.ical4j.model.Calendar;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.EmailSavedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.EmailModel;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage, CalendarStorage {
+public interface Storage extends AddressBookStorage, UserPrefsStorage, CalendarStorage, EmailStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -31,6 +33,12 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, CalendarS
     @Override
     void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
 
+    @Override
+    Path getEmailPath();
+
+    @Override
+    void saveEmail(EmailModel email) throws IOException;
+
     /**
      * Saves the current version of the Address Book to the hard disk.
      *   Creates the data file if it is missing.
@@ -38,10 +46,19 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, CalendarS
      */
     void handleAddressBookChangedEvent(AddressBookChangedEvent abce);
 
+    //@@author EatOrBeEaten
+    /**
+     * Saves the current Email in EmailModel to the hard disk.
+     *   Creates the data file if it is missing.
+     * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
+     */
+    void handleEmailSavedEvent(EmailSavedEvent abce);
+
     //@@author GilgameshTC
     @Override
     Path getCalendarPath();
 
     @Override
     void createCalendar(Calendar calendar, String calendarName) throws IOException;
+
 }
