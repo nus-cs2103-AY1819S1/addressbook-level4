@@ -57,6 +57,16 @@ public class EditCommand extends Command {
     private final EditTaskDescriptor editTaskDescriptor;
 
     /**
+     * The method to call for other commands to update task status through EditCommand.
+     */
+    public static CommandResult executeEditStatus (Index index, Status status, Model model, CommandHistory history)
+            throws CommandException {
+        EditCommand.EditTaskDescriptor editTaskDescriptor = new EditCommand.EditTaskDescriptor();
+        editTaskDescriptor.setStatus(status);
+        return (new EditCommand(index, editTaskDescriptor)).execute(model, history);
+    }
+
+    /**
      * @param index of the task in the filtered task list to edit
      * @param editTaskDescriptor details to edit the task with
      */
