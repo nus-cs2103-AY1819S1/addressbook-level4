@@ -4,14 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Task's due date number in the address book.
+ * Represents a Task's due date number in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidDueDate(String)}
  */
 public class DueDate {
 
-
     public static final String MESSAGE_DUEDATE_CONSTRAINTS =
-            "DueDate numbers should only contain numbers, and it should be at least 3 digits long";
+            "DueDate numbers should only contain numbers, and it should be in the following format dd-mm-yy";
     public static final String DUEDATE_VALIDATION_REGEX = "\\d{2}-\\d{2}-\\d{2}";
     public final String value;
 
