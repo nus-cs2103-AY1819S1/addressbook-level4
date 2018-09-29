@@ -24,6 +24,7 @@ import seedu.address.model.person.Description;
 import seedu.address.model.person.DueDate;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.PriorityValue;
+import seedu.address.model.person.Status;
 import seedu.address.model.person.Task;
 import seedu.address.model.tag.Label;
 
@@ -67,6 +68,16 @@ public class EditCommand extends Command {
         this.editTaskDescriptor = new EditTaskDescriptor(editTaskDescriptor);
     }
 
+    /**
+     * The method to call for other commands to update task status through EditCommand.
+     */
+    public static CommandResult executeEditStatus (Index index, Status status, Model model, CommandHistory history)
+            throws CommandException {
+        EditCommand.EditTaskDescriptor editTaskDescriptor = new EditCommand.EditTaskDescriptor();
+        editTaskDescriptor.setStatus(status);
+        return (new EditCommand(index, editTaskDescriptor)).execute(model, history);
+    }
+
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
@@ -103,8 +114,10 @@ public class EditCommand extends Command {
             .getPriorityValue());
         Description updatedDescription = editTaskDescriptor.getDescription().orElse(taskToEdit.getDescription());
         Set<Label> updatedLabels = editTaskDescriptor.getLabels().orElse(taskToEdit.getLabels());
+        Status updatedStatus = editTaskDescriptor.getStatus().orElse(taskToEdit.getStatus());
 
-        return new Task(updatedName, updatedDueDate, updatedPriorityValue, updatedDescription, updatedLabels);
+        return new Task(updatedName, updatedDueDate, updatedPriorityValue, updatedDescription, updatedLabels,
+                updatedStatus);
     }
 
     @Override
@@ -135,6 +148,7 @@ public class EditCommand extends Command {
         private PriorityValue priorityValue;
         private Description description;
         private Set<Label> labels;
+        private Status status;
 
         public EditTaskDescriptor() {}
 
@@ -148,13 +162,14 @@ public class EditCommand extends Command {
             setPriorityValue(toCopy.priorityValue);
             setDescription(toCopy.description);
             setLabels(toCopy.labels);
+            setStatus(toCopy.status);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, dueDate, priorityValue, description, labels);
+            return CollectionUtil.isAnyNonNull(name, dueDate, priorityValue, description, labels, status);
         }
 
         public void setName(Name name) {
@@ -206,6 +221,14 @@ public class EditCommand extends Command {
             return (labels != null) ? Optional.of(Collections.unmodifiableSet(labels)) : Optional.empty();
         }
 
+        public void setStatus(Status status) {
+            this.status = status;
+        }
+
+        public Optional<Status> getStatus() {
+            return Optional.ofNullable(status);
+        }
+
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -225,7 +248,8 @@ public class EditCommand extends Command {
                     && getDueDate().equals(e.getDueDate())
                     && getPriorityValue().equals(e.getPriorityValue())
                     && getDescription().equals(e.getDescription())
-                    && getLabels().equals(e.getLabels());
+                    && getLabels().equals(e.getLabels())
+                    && getStatus().equals(e.getStatus());
         }
     }
 }

@@ -7,6 +7,7 @@ import seedu.address.model.person.Description;
 import seedu.address.model.person.DueDate;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.PriorityValue;
+import seedu.address.model.person.Status;
 import seedu.address.model.person.Task;
 import seedu.address.model.tag.Label;
 import seedu.address.model.util.SampleDataUtil;
@@ -26,6 +27,7 @@ public class TaskBuilder {
     private PriorityValue priorityValue;
     private Description description;
     private Set<Label> labels;
+    private Status status;
 
     public TaskBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -33,17 +35,19 @@ public class TaskBuilder {
         priorityValue = new PriorityValue(DEFAULT_PRIORITYVALUE);
         description = new Description(DEFAULT_DESCRIPTION);
         labels = new HashSet<>();
+        status = Status.IN_PROGRESS;
     }
 
     /**
-     * Initializes the TaskBuilder with the data of {@code personToCopy}.
+     * Initializes the TaskBuilder with the data of {@code taskToCopy}.
      */
-    public TaskBuilder(Task personToCopy) {
-        name = personToCopy.getName();
-        dueDate = personToCopy.getDueDate();
-        priorityValue = personToCopy.getPriorityValue();
-        description = personToCopy.getDescription();
-        labels = new HashSet<>(personToCopy.getLabels());
+    public TaskBuilder(Task taskToCopy) {
+        name = taskToCopy.getName();
+        dueDate = taskToCopy.getDueDate();
+        priorityValue = taskToCopy.getPriorityValue();
+        description = taskToCopy.getDescription();
+        labels = new HashSet<>(taskToCopy.getLabels());
+        status = taskToCopy.getStatus();
     }
 
     /**
@@ -86,8 +90,16 @@ public class TaskBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Status} of the {@code Task} that we are building.
+     */
+    public TaskBuilder withStatus(Status status) {
+        this.status = status;
+        return this;
+    }
+
     public Task build() {
-        return new Task(name, dueDate, priorityValue, description, labels);
+        return new Task(name, dueDate, priorityValue, description, labels, status);
     }
 
 }

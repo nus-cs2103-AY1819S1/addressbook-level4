@@ -18,6 +18,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.TaskManager;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.Status;
 import seedu.address.model.person.Task;
 import seedu.address.testutil.EditTaskDescriptorBuilder;
 
@@ -36,6 +37,7 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+    public static final Status VALID_STATUS_IN_PROGRESS = Status.IN_PROGRESS;
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;

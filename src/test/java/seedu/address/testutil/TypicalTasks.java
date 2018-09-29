@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_IN_PROGRESS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
@@ -16,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.TaskManager;
+import seedu.address.model.person.Status;
 import seedu.address.model.person.Task;
 
 /**
@@ -30,15 +32,18 @@ public class TypicalTasks {
     public static final Task B_TASK = new TaskBuilder().withName("Build addressbook for tutorial")
             .withDescription("311, Clementi Ave 2, #02-25")
             .withPriorityValue("johnd@example.com").withDueDate("02-12-18 1330")
-            .withLabels("owesMoney", "friends").build();
+            .withLabels("owesMoney", "friends").withStatus(Status.IN_PROGRESS).build();
     public static final Task C_TASK = new TaskBuilder().withName("Cancel medical appointment").withDueDate("03-12-18")
-            .withPriorityValue("heinz@example.com").withDescription("wall street").build();
+            .withPriorityValue("heinz@example.com").withDescription("wall street")
+            .withStatus(Status.IN_PROGRESS).build();
     public static final Task D_TASK = new TaskBuilder().withName("Do CS2106 tutorial").withDueDate("04-12-18")
             .withPriorityValue("cornelia@example.com").withDescription("10th street").withLabels("friends").build();
     public static final Task E_TASK = new TaskBuilder().withName("Edit research report").withDueDate("05-12-18")
-            .withPriorityValue("werner@example.com").withDescription("michegan ave").build();
+            .withPriorityValue("werner@example.com").withDescription("michegan ave")
+            .withStatus(Status.FINISHED).build();
     public static final Task F_TASK = new TaskBuilder().withName("Find suitable reagents for experiment")
-            .withDueDate("06-12-2018").withPriorityValue("lydia@example.com").withDescription("little tokyo").build();
+            .withDueDate("06-12-2018").withPriorityValue("lydia@example.com").withDescription("little tokyo")
+            .withStatus(Status.IN_PROGRESS).build();
     public static final Task G_TASK = new TaskBuilder().withName("Grade assignments").withDueDate("07-12-18")
             .withPriorityValue("anna@example.com").withDescription("4th street").build();
 
@@ -50,7 +55,8 @@ public class TypicalTasks {
 
     // Manually added - Task's details found in {@code CommandTestUtil}
     public static final Task Y_TASK = new TaskBuilder().withName(VALID_NAME_AMY).withDueDate(VALID_DUEDATE_AMY)
-            .withPriorityValue(VALID_EMAIL_AMY).withDescription(VALID_ADDRESS_AMY).withLabels(VALID_TAG_FRIEND).build();
+            .withPriorityValue(VALID_EMAIL_AMY).withDescription(VALID_ADDRESS_AMY).withLabels(VALID_TAG_FRIEND)
+            .withStatus(VALID_STATUS_IN_PROGRESS).build();
     public static final Task Z_TASK = new TaskBuilder().withName(VALID_NAME_BOB).withDueDate(VALID_DUEDATE_BOB)
             .withPriorityValue(VALID_EMAIL_BOB).withDescription(VALID_ADDRESS_BOB).withLabels(VALID_TAG_HUSBAND,
                     VALID_TAG_FRIEND)

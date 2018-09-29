@@ -100,6 +100,7 @@ public class TaskListPanelTest extends GuiUnitTest {
             builder.append("<dueDate>01-07-18</dueDate>\n");
             builder.append("<priorityValue>a@aa</priorityValue>\n");
             builder.append("<description>a</description>\n");
+            builder.append("<status>IN PROGRESS</status>");
             builder.append("</tasks>\n");
         }
         builder.append("</taskmanager>\n");

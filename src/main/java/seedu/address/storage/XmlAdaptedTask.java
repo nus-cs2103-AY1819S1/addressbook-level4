@@ -14,6 +14,7 @@ import seedu.address.model.person.Description;
 import seedu.address.model.person.DueDate;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.PriorityValue;
+import seedu.address.model.person.Status;
 import seedu.address.model.person.Task;
 import seedu.address.model.tag.Label;
 
@@ -35,6 +36,8 @@ public class XmlAdaptedTask {
 
     @XmlElement
     private List<XmlAdaptedLabel> labelled = new ArrayList<>();
+    @XmlElement
+    private String status;
 
     /**
      * Constructs an XmlAdaptedTask.
@@ -54,6 +57,22 @@ public class XmlAdaptedTask {
         if (labelled != null) {
             this.labelled = new ArrayList<>(labelled);
         }
+        this.status = Status.IN_PROGRESS.toString();
+    }
+
+    /**
+     * Constructs an {@code XmlAdaptedTask} with the given task details.
+     */
+    public XmlAdaptedTask(String name, String dueDate, String priorityValue,
+                          String description, List<XmlAdaptedLabel> labelled, Status status) {
+        this.name = name;
+        this.dueDate = dueDate;
+        this.priorityValue = priorityValue;
+        this.description = description;
+        if (labelled != null) {
+            this.labelled = new ArrayList<>(labelled);
+        }
+        this.status = status.toString();
     }
 
     /**
@@ -69,6 +88,7 @@ public class XmlAdaptedTask {
         labelled = source.getLabels().stream()
                 .map(XmlAdaptedLabel::new)
                 .collect(Collectors.toList());
+        status = source.getStatus().toString();
     }
 
     /**
@@ -117,7 +137,11 @@ public class XmlAdaptedTask {
         final Description modelDescription = new Description(description);
 
         final Set<Label> modelLabels = new HashSet<>(taskLabels);
-        return new Task(modelName, modelDueDate, modelPriorityValue, modelDescription, modelLabels);
+        if (!Status.isValidStatus(status)) {
+            throw new IllegalValueException(Status.MESSAGE_STATUS_CONSTRAINTS);
+        }
+        final Status modelStatus = Status.getStatusFromValue(status);
+        return new Task(modelName, modelDueDate, modelPriorityValue, modelDescription, modelLabels, modelStatus);
     }
 
     @Override
@@ -135,6 +159,7 @@ public class XmlAdaptedTask {
                 && Objects.equals(dueDate, otherTask.dueDate)
                 && Objects.equals(priorityValue, otherTask.priorityValue)
                 && Objects.equals(description, otherTask.description)
-                && labelled.equals(otherTask.labelled);
+                && labelled.equals(otherTask.labelled)
+                && Objects.equals(status, otherTask.status);
     }
 }
