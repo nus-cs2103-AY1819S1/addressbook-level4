@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -48,45 +49,60 @@ public class VersionedWishTransactionTest {
     }
 
     @Test
-    public void addWish_success() {
+    public void addWishWithoutCommit_shouldFail() {
         versionedWishTransaction.addWish(wish);
-        assertFalse(isEmptyVersion());
+        assertTrue(isSameSize(1));
+    }
+    @Test
+    public void addWishWithCommit_success() {
+        addWishWithCommit();
+        assertTrue(isSameSize(2));
     }
 
     @Test
     public void removeWish_success() {
-        versionedWishTransaction.addWish(wish);
-        versionedWishTransaction.removeWish(wish);
-        assertTrue(isEmptyVersion());
+        addWishWithCommit();
+        removeWishWithCommit();
+        assertTrue(isSameSize(3));
     }
 
     @Test
     public void undo_shouldSucceed() {
-        versionedWishTransaction.addWish(wish);
+        addWishWithCommit();
         versionedWishTransaction.undo();
-        assertTrue(isEmptyVersion());
+
+        assertTrue(isSameSize(2));
     }
 
     @Test
     public void redo_shouldSucceed() {
-        versionedWishTransaction.addWish(wish);
+        addWishWithCommit();
         versionedWishTransaction.undo();
         versionedWishTransaction.redo();
-        assertFalse(isEmptyVersion());
+        assertTrue(isSameSize(2));
     }
 
     @Test
     public void commit_shouldSucceed() {
-        versionedWishTransaction.addWish(wish);
-        versionedWishTransaction.commit();
-        assertFalse(isEmptyVersion());
+        addWishWithCommit();
+        assertTrue(isSameSize(2));
+    }
+
+    private boolean isSameSize(int size) {
+        return versionedWishTransaction.getWishStateList().size() == size;
     }
 
     /**
-     * Checks if the current versionedWishTransaction is empty.
-     * @return true if empty else false.
+     * Commit to save new wish transaction state.
      */
-    private boolean isEmptyVersion() {
-        return versionedWishTransaction.getWishStateList().isEmpty();
+    private void addWishWithCommit() {
+        versionedWishTransaction.addWish(wish);
+        versionedWishTransaction.commit();
     }
+
+    private void removeWishWithCommit() {
+        versionedWishTransaction.removeWish(wish);
+        versionedWishTransaction.commit();
+    }
+
 }

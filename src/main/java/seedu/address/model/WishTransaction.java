@@ -33,7 +33,7 @@ public class WishTransaction {
     public WishTransaction() {
         this.wishes = new ArrayList<>();
         this.xmlWishTransactions = new XmlWishTransactions();
-        this.logger = LogsCenter.getLogger(WishTransaction.class);
+        this.logger = getLogger();
     }
 
     /**
@@ -44,6 +44,21 @@ public class WishTransaction {
     public WishTransaction(WishTransaction savedCopy) {
         this.logger = savedCopy.logger;
         resetData(savedCopy);
+    }
+
+    /**
+     * Creates a WishTransaction using a saved copy of {@code unmarshalledSavedCopy}
+     * @param unmarshalledSavedCopy unmarshalled copy of saved xml wish histories.
+     * @throws IllegalValueException
+     */
+    public WishTransaction(XmlWishTransactions unmarshalledSavedCopy) throws IllegalValueException {
+        this.logger = getLogger();
+        this.xmlWishTransactions = unmarshalledSavedCopy;
+        unmarshalledSavedCopy.toCurrentStateWishTransactionList();
+    }
+
+    private Logger getLogger() {
+        return LogsCenter.getLogger(WishTransaction.class);
     }
 
     public void addWish(Wish p) {
@@ -85,6 +100,10 @@ public class WishTransaction {
 
     public void setWishes(List<Wish> wishes) {
         this.wishes = wishes;
+    }
+
+    public List<Wish> getWishes() {
+        return wishes;
     }
 
     private void setXmlWishTransactions(XmlWishTransactions xmlWishTransactions) {

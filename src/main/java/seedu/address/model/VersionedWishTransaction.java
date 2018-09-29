@@ -18,12 +18,19 @@ public class VersionedWishTransaction extends WishTransaction implements Version
      */
     private int referencePointer;
 
-
+    /**
+     * The initial state of this wishStateList will always be empty.
+     */
     public VersionedWishTransaction() {
         wishStateList = new ArrayList<>();
-        referencePointer = -1;
+        wishStateList.add(this);
+        referencePointer = 0;
     }
 
+    /**
+     * The initial state of this wishStateList will always be {@code wishTransaction}
+     * @param wishTransaction saved copy of {@code VersionedWishTransaction}
+     */
     public VersionedWishTransaction(WishTransaction wishTransaction) {
         super(wishTransaction);
         wishStateList = new ArrayList<>();
@@ -33,13 +40,19 @@ public class VersionedWishTransaction extends WishTransaction implements Version
 
     @Override
     public void commit() {
-        removeStatesAfterCurrentPointer();
+        if (!hasNothingToRemove()) {
+            removeStatesAfterCurrentPointer();
+        }
         wishStateList.add(this);
         referencePointer++;
     }
 
     private void removeStatesAfterCurrentPointer() {
         wishStateList.subList(referencePointer + 1, wishStateList.size()).clear();
+    }
+
+    private boolean hasNothingToRemove() {
+        return referencePointer >= wishStateList.size();
     }
 
     @Override

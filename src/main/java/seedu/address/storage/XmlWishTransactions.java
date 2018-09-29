@@ -17,7 +17,7 @@ import seedu.address.model.wish.Wish;
 /**
  * An Immutable wish transaction log that is serializable to XML format.
  */
-@XmlRootElement(name = "log")
+@XmlRootElement()
 @XmlAccessorType(XmlAccessType.FIELD)
 public class XmlWishTransactions {
     private Map<String, List<XmlAdaptedWish>> wishMap;
