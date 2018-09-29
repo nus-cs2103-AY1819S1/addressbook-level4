@@ -26,6 +26,12 @@ public class PersonCardTest extends GuiUnitTest {
         personCard = new PersonCard(personWithTags, 2);
         uiPartRule.setUiPart(personCard);
         assertCardDisplay(personCard, personWithTags, 2);
+
+        // without phone
+        Person personWithoutPhone = new PersonBuilder().withoutPhone().build();
+        personCard = new PersonCard(personWithoutPhone, 3);
+        uiPartRule.setUiPart(personCard);
+        assertCardDisplay(personCard, personWithoutPhone, 3);
     }
 
     @Test
