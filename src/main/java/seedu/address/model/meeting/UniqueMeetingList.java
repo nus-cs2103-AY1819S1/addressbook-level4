@@ -1,7 +1,7 @@
-package seedu.address.model.person;
+package seedu.address.model.meeting;
 
-import seedu.address.model.person.exceptions.DuplicateMeetingException;
-import seedu.address.model.person.exceptions.MeetingNotFoundException;
+import seedu.address.model.meeting.exceptions.DuplicateMeetingException;
+import seedu.address.model.meeting.exceptions.MeetingNotFoundException;
 
 import java.util.ArrayList;
 import java.util.Iterator;

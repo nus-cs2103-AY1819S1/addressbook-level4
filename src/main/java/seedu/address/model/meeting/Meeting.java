@@ -1,4 +1,6 @@
-package seedu.address.model.person;
+package seedu.address.model.meeting;
+
+import seedu.address.model.person.Person;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
