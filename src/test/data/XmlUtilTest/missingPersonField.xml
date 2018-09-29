@@ -2,7 +2,6 @@
 <!-- Person with missing name field -->
 <expense>
     <phone>9482424</phone>
-    <email>hans@example</email>
     <cost>1.00</cost>
     <tagged>friends</tagged>
 </expense>

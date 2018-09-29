@@ -18,7 +18,6 @@ public class Person {
     // Identity fields
     private final Name name;
     private final Phone phone;
-    private final Email email;
 
     // Data fields
     private final Cost cost;
@@ -27,11 +26,10 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Cost cost, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, cost, tags);
+    public Person(Name name, Phone phone, Cost cost, Set<Tag> tags) {
+        requireAllNonNull(name, phone, cost, tags);
         this.name = name;
         this.phone = phone;
-        this.email = email;
         this.cost = cost;
         this.tags.addAll(tags);
     }
@@ -42,10 +40,6 @@ public class Person {
 
     public Phone getPhone() {
         return phone;
-    }
-
-    public Email getEmail() {
-        return email;
     }
 
     public Cost getCost() {
@@ -65,13 +59,14 @@ public class Person {
      * This defines a weaker notion of equality between two persons.
      */
     public boolean isSamePerson(Person otherPerson) {
+
         if (otherPerson == this) {
             return true;
         }
 
         return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+                && otherPerson.getName().equals(this.getName())
+                && (otherPerson.getPhone().equals(this.getPhone()) || otherPerson.getCost().equals(this.getCost()));
     }
 
     /**
@@ -91,7 +86,6 @@ public class Person {
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getCost().equals(getCost())
                 && otherPerson.getTags().equals(getTags());
     }
@@ -99,7 +93,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, cost, tags);
+        return Objects.hash(name, phone, cost, tags);
     }
 
     @Override
@@ -108,8 +102,6 @@ public class Person {
         builder.append(getName())
                 .append(" Phone: ")
                 .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
                 .append(" Cost: ")
                 .append(getCost())
                 .append(" Tags: ");

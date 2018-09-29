@@ -81,7 +81,7 @@ Format: `edit INDEX n/EXPENSE_NAME e/EXPENSE [c/CATEGORY]
 Examples:
 
 * `edit 1 n/Stationary e/1.8 c/School` +
-Edits the name and email category of the 1st expense to be `Stationary` and `school` respectively.
+Edits the name of the 1st expense to be `Stationary` and `school` respectively.
 
 === Locating expenses by name: `find`
 

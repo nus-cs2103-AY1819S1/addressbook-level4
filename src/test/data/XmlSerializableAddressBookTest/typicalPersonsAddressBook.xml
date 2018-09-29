@@ -4,14 +4,12 @@
     <persons>
         <name>Alice Pauline</name>
         <phone>94351253</phone>
-        <email>alice@example.com</email>
         <cost>3.00</cost>
         <tagged>friends</tagged>
     </persons>
     <persons>
         <name>Benson Meier</name>
         <phone>98765432</phone>
-        <email>johnd@example.com</email>
         <cost>2.00</cost>
         <tagged>owesMoney</tagged>
         <tagged>friends</tagged>
@@ -19,32 +17,27 @@
     <persons>
         <name>Carl Kurz</name>
         <phone>95352563</phone>
-        <email>heinz@example.com</email>
         <cost>1.00</cost>
     </persons>
     <persons>
         <name>Daniel Meier</name>
         <phone>87652533</phone>
-        <email>cornelia@example.com</email>
         <cost>2.00</cost>
         <tagged>friends</tagged>
     </persons>
     <persons>
         <name>Elle Meyer</name>
         <phone>9482224</phone>
-        <email>werner@example.com</email>
         <cost>5.00</cost>
     </persons>
     <persons>
         <name>Fiona Kunz</name>
         <phone>9482427</phone>
-        <email>lydia@example.com</email>
         <cost>6.00</cost>
     </persons>
     <persons>
         <name>George Best</name>
         <phone>9482442</phone>
-        <email>anna@example.com</email>
         <cost>7.00</cost>
     </persons>
 </addressbook>
