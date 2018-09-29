@@ -1,14 +1,15 @@
 package seedu.address.model.planner;
 
+import java.time.LocalDate;
+import java.util.HashMap;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import seedu.address.model.recipe.Recipe;
 
-import java.time.LocalDate;
-import java.util.HashMap;
-
 /**
  * MealPlanner wraps a calendar containing days with their respective meals and recipes.
+ * Calendar map only contains days which have planned meals, otherwise empty days are removed from the calendar.
  */
 public class MealPlanner {
 
@@ -26,8 +27,15 @@ public class MealPlanner {
         return this.calendar;
     }
 
+    public void clearAll() { this.calendar = FXCollections.observableHashMap(); }
+
+    public Recipe getMealRecipe(LocalDate date, Meal meal) {
+        return this.calendar.get(date).getMealRecipe(meal);
+    }
+
     /**
      * Adds to the calendar a recipe to a meal slot on a day of the specified date.
+     * If a recipe is already present at the meal slot, existing recipe is overwritten.
      * Creates a new day if no such day is present in the calendar.
      *
      * @param recipe Recipe to be added.
@@ -60,4 +68,15 @@ public class MealPlanner {
             calendar.remove(date);
         }
     }
+
+    /**
+     * Clears all the recipes in a day by removing the day from the calendar.
+     * @param date Date of day to be removed.
+     */
+    public void clearDay(LocalDate date) {
+        if (!this.calendar.get(date).isEmpty()) {
+            this.calendar.remove(date);
+        }
+    }
+
 }
