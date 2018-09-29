@@ -25,7 +25,7 @@ import static seedu.address.testutil.TypicalTasks.A_TASK;
 import static seedu.address.testutil.TypicalTasks.C_TASK;
 import static seedu.address.testutil.TypicalTasks.H_TASK;
 import static seedu.address.testutil.TypicalTasks.I_TASK;
-import static seedu.address.testutil.TypicalTasks.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalTasks.KEYWORD_MATCHING_TUTORIAL;
 import static seedu.address.testutil.TypicalTasks.Y_TASK;
 import static seedu.address.testutil.TypicalTasks.Z_TASK;
 
@@ -102,7 +102,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
         /* Case: filters the person list before adding -> added */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showPersonsWithName(KEYWORD_MATCHING_TUTORIAL);
         assertCommandSuccess(I_TASK);
 
         /* ------------------------ Perform add operation while a person card is selected --------------------------- */
