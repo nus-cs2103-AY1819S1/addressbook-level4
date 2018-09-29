@@ -5,15 +5,22 @@ import static java.util.Objects.requireNonNull;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Logger;
 
+
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.healthplan.CurrentWeight;
+import seedu.address.model.healthplan.HealthPlanName;
+import seedu.address.model.healthplan.*;
 import seedu.address.model.recipe.Address;
 import seedu.address.model.recipe.Email;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.storage.StorageManager;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -21,7 +28,7 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-
+    private static final Logger logger = LogsCenter.getLogger(ParserUtil.class);
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
@@ -121,4 +128,89 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+
+    //parse util functions for the healthplan
+
+    public static HealthPlanName parseHPName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!HealthPlanName.isValidName(trimmedName)) {
+            throw new ParseException(HealthPlanName.MESSAGE_NAME_CONSTRAINTS);
+        }
+        return new HealthPlanName(trimmedName);
+    }
+
+    public static TargetWeight parseTWeight(String weight) throws ParseException {
+        requireNonNull(weight);
+        String trimmedWeight = weight.trim();
+        if (!TargetWeight.isValidWeight(trimmedWeight)) {
+            throw new ParseException(CurrentWeight.MESSAGE_WEIGHT_CONSTRAINTS);
+        }
+        return new TargetWeight(trimmedWeight);
+    }
+
+    public static CurrentWeight parseCWeight(String weight) throws ParseException {
+        requireNonNull(weight);
+        String trimmedWeight = weight.trim();
+        if (!CurrentWeight.isValidWeight(trimmedWeight)) {
+            throw new ParseException(CurrentWeight.MESSAGE_WEIGHT_CONSTRAINTS);
+        }
+        return new CurrentWeight(trimmedWeight);
+    }
+
+    public static CurrentHeight parseCHeight(String height) throws ParseException {
+        requireNonNull(height);
+        String trimmedHeight = height.trim();
+        if (!CurrentHeight.isValidHeight(trimmedHeight)) {
+            throw new ParseException(CurrentHeight.MESSAGE_HEIGHT_CONSTRAINTS);
+        }
+        return new CurrentHeight(trimmedHeight);
+    }
+
+    public static Age parseAge(String age) throws ParseException {
+        requireNonNull(age);
+        String trimmedAge = age.trim();
+
+        if(!Age.isValidAge((trimmedAge))){
+            throw new ParseException(Age.MESSAGE_AGE_CONSTRAINTS);
+        }
+        return new Age(trimmedAge);
+    }
+
+    public static Duration parseDuration(String duration) throws ParseException {
+        requireNonNull(duration);
+        String trimmedDuration = duration.trim();
+
+        if(!Duration.isValidDuration((trimmedDuration))){
+            throw new ParseException(Duration.MESSAGE_DURATION_CONSTRAINTS);
+        }
+        return new Duration(trimmedDuration);
+    }
+
+    public static Scheme parseScheme(String scheme) throws ParseException {
+        requireNonNull(scheme);
+        String trimmedScheme = scheme.trim();
+        logger.info(trimmedScheme);
+
+        if(!trimmedScheme.equals("LOSS")&&!trimmedScheme.equals("GAIN")&&!trimmedScheme.equals("MAINTAIN")){
+
+            throw new ParseException("invalid scheme");
+
+        }
+
+
+
+
+
+        return Scheme.valueOf(trimmedScheme);
+    }
+
+
+
+
+
+
+
+
 }
