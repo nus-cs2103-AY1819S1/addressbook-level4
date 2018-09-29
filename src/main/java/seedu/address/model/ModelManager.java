@@ -16,9 +16,6 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
 
-
-
-
 /**
  * Represents the in-memory model of the address book data.
  */
