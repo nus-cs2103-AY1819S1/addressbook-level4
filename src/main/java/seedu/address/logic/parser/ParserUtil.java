@@ -57,16 +57,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code phone} is invalid.
      */
-    public static Optional<Phone> parsePhone(String phone) throws ParseException {
-        if (phone == null) {
-            return Optional.empty();
-        }
-
+    public static Phone parsePhone(String phone) throws ParseException {
+        requireNonNull(phone);
         String trimmedPhone = phone.trim();
         if (!Phone.isValidPhone(trimmedPhone)) {
             throw new ParseException(Phone.MESSAGE_PHONE_CONSTRAINTS);
         }
-        return Optional.of(new Phone(trimmedPhone));
+        return new Phone(trimmedPhone);
     }
 
     /**

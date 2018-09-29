@@ -44,7 +44,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Optional<String> inputPhoneString = argMultimap.getValue(PREFIX_PHONE);
         Optional<Phone> phone = inputPhoneString
                 .isPresent()
-                ? ParserUtil.parsePhone(inputPhoneString.get())
+                ? Optional.of(ParserUtil.parsePhone(inputPhoneString.get()))
                 : Optional.empty();
 
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
