@@ -37,9 +37,10 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
-        patientQueue = new PatientQueue();
+        //@@author jjlee050
+        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList())
         filteredDoctors = new FilteredList<>(versionedAddressBook.getDoctorList());
+        patientQueue = new PatientQueue();
 
     }
 
@@ -103,16 +104,16 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
-
+    @Override
+    public void enqueue(Person target) {
+        patientQueue.add(target);
+    }
+    //@@author jjlee050
     @Override
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
         versionedAddressBook.updatePerson(target, editedPerson);
         indicateAddressBookChanged();
-    }
-    @Override
-    public void enqueue(Person target) {
-        patientQueue.add(target);
     }
     @Override
     public boolean hasPatientInPatientQueue() {
