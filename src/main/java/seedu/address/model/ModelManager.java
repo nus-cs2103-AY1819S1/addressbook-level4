@@ -12,33 +12,41 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.SchedulerChangedEvent;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the scheduler and address book data.
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
+    private final VersionedScheduler versionedScheduler;
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given scheduler, addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyScheduler scheduler, ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + addressBook
+                + ", scheduler: " + scheduler
+                + " and user prefs " + userPrefs);
 
+        versionedScheduler = new VersionedScheduler(scheduler);
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new Scheduler(), new AddressBook(), new UserPrefs());
     }
+
+    //=========== AddressBook methods =======================================================================
 
     @Override
     public void resetData(ReadOnlyAddressBook newData) {
@@ -51,7 +59,7 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedAddressBook;
     }
 
-    /** Raises an event to indicate the model has changed */
+    /** Raises an event to indicate the model has changed due to address book change */
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(versionedAddressBook));
     }
@@ -129,6 +137,30 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.commit();
     }
 
+    //=========== Scheduler methods =========================================================================
+
+    @Override
+    public ReadOnlyScheduler getScheduler() {
+        return versionedScheduler;
+    }
+
+    /** Raises an event to indicate the model has changed due to scheduler change */
+    private void indicateSchedulerChanged() {
+        raise(new SchedulerChangedEvent(versionedScheduler));
+    }
+
+    @Override
+    public void addEvent(Event event) {
+        versionedScheduler.addEvent(event);
+        indicateSchedulerChanged();
+    }
+
+    @Override
+    public void commitScheduler() {
+        versionedScheduler.commit();
+    }
+
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -143,7 +175,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
+        return versionedScheduler.equals(other.versionedScheduler)
+                && versionedAddressBook.equals(other.versionedAddressBook)
                 && filteredPersons.equals(other.filteredPersons);
     }
 
