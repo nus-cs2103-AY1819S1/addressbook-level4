@@ -913,18 +913,52 @@ _{More to be added}_
 (For all use cases below, the *System* is `OASIS` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
+=== Use case: Add a new employee
+
+*MSS*
+
+.  User login to the system
+.  Oasis shows home page
+.  User enters add employee with details
+.  Oasis request for confirmation
+.  User enters confirm
+.  Oasis shows success message
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The credentials are invalid
++
+Use case ends.
+
+* 3a. User enters invalid details
++
+[none]
+** 3a1. OASIS shows an error message.
++
+Use case resumes at step 2.
+
+* 5a. The Manager chooses to cancel
++
+[none]
++
+Use case resumes at step 2.
+
+[discrete]
 === Use case: Delete employee
 
 *MSS*
 
-1. Manager login to the system.
-2. Oasis shows home page.
-3. Manager requests for list of all employees
-4. Oasis displays list of all employees
-5. Manager chooses to delete an employee in the list
-6. Oasis requests for confirmation
-7. Manager enters confirm
-8. Oasis deletes the employee and show success message
+.  Manager login to the system.
+.  Oasis shows home page.
+.  Manager requests for list of all employees
+.  Oasis displays list of all employees
+.  Manager chooses to delete an employee in the list
+.  Oasis requests for confirmation
+.  Manager enters confirm
+.  Oasis deletes the employee and show success message
 +
 Use case ends.
 
