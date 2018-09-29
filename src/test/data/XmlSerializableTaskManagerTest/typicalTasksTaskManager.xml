@@ -3,14 +3,14 @@
 <taskmanager>
     <tasks>
         <name>Alice Pauline</name>
-        <dueDate>94351253</dueDate>
+        <dueDate>01-12-18</dueDate>
         <priorityValue>alice@example.com</priorityValue>
         <description>123, Jurong West Ave 6, #08-111</description>
         <labelled>friends</labelled>
     </tasks>
     <tasks>
         <name>Benson Meier</name>
-        <dueDate>98765432</dueDate>
+        <dueDate>02-12-18</dueDate>
         <priorityValue>johnd@example.com</priorityValue>
         <description>311, Clementi Ave 2, #02-25</description>
         <labelled>owesMoney</labelled>
@@ -18,32 +18,32 @@
     </tasks>
     <tasks>
         <name>Carl Kurz</name>
-        <dueDate>95352563</dueDate>
+        <dueDate>03-12-18</dueDate>
         <priorityValue>heinz@example.com</priorityValue>
         <description>wall street</description>
     </tasks>
     <tasks>
         <name>Daniel Meier</name>
-        <dueDate>87652533</dueDate>
+        <dueDate>04-12-18</dueDate>
         <priorityValue>cornelia@example.com</priorityValue>
         <description>10th street</description>
         <labelled>friends</labelled>
     </tasks>
     <tasks>
         <name>Elle Meyer</name>
-        <dueDate>9482224</dueDate>
+        <dueDate>05-12-18</dueDate>
         <priorityValue>werner@example.com</priorityValue>
         <description>michegan ave</description>
     </tasks>
     <tasks>
         <name>Fiona Kunz</name>
-        <dueDate>9482427</dueDate>
+        <dueDate>06-12-18</dueDate>
         <priorityValue>lydia@example.com</priorityValue>
         <description>little tokyo</description>
     </tasks>
     <tasks>
         <name>George Best</name>
-        <dueDate>9482442</dueDate>
+        <dueDate>07-12-18</dueDate>
         <priorityValue>anna@example.com</priorityValue>
         <description>4th street</description>
     </tasks>
