@@ -10,7 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddPatientCommand;
+import seedu.address.logic.commands.RegisterPatientCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Address;
@@ -22,20 +22,20 @@ import seedu.address.model.tag.Tag;
 /**
  * Parses input arguments and creates a new AddPatientCommand object
  */
-public class AddPatientCommandParser implements Parser<AddPatientCommand> {
+public class RegisterPatientCommandParser implements Parser<RegisterPatientCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddPatientCommand
      * and returns an AddPatientCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddPatientCommand parse(String args) throws ParseException {
+    public RegisterPatientCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPatientCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RegisterPatientCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
@@ -48,7 +48,7 @@ public class AddPatientCommandParser implements Parser<AddPatientCommand> {
 
         Patient person = new Patient(name, phone, email, address, tagList, telegramId);
 
-        return new AddPatientCommand(person);
+        return new RegisterPatientCommand(person);
     }
 
     /**

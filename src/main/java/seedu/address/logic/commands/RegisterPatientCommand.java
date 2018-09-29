@@ -1,24 +1,21 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.patient.Patient;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.*;
+
 /**
  * Adds a patient to the address book.
  */
-public class AddPatientCommand extends Command {
+public class RegisterPatientCommand extends Command {
 
-    public static final String COMMAND_WORD = "add-patient";
+    public static final String COMMAND_WORD = "register-patient";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a patient to the HealthBook. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Register a patient to the HealthBook. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
@@ -30,36 +27,36 @@ public class AddPatientCommand extends Command {
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 ";
 
-    public static final String MESSAGE_SUCCESS = "New patient added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New patient registered: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This patient already exists in the HealthBook";
 
-    private final Patient patientToAdd;
+    private final Patient patientToRegister;
 
     /**
      * Creates an AddPatientCommand to add the specified {@code Patient}
      */
-    public AddPatientCommand(Patient patient) {
+    public RegisterPatientCommand(Patient patient) {
         requireNonNull(patient);
-        patientToAdd = patient;
+        patientToRegister = patient;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasPerson(patientToAdd)) {
+        if (model.hasPerson(patientToRegister)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.addPerson(patientToAdd);
+        model.addPerson(patientToRegister);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, patientToAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, patientToRegister));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddPatientCommand // instanceof handles nulls
-                && patientToAdd.equals(((AddPatientCommand) other).patientToAdd));
+                || (other instanceof RegisterPatientCommand // instanceof handles nulls
+                && patientToRegister.equals(((RegisterPatientCommand) other).patientToRegister));
     }
 }
