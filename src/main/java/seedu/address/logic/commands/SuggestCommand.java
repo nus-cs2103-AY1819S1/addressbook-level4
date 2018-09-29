@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Arrays;
 
 import seedu.address.commons.core.EventsCenter;
@@ -17,10 +19,12 @@ public class SuggestCommand extends Command {
         DeleteCommand.COMMAND_WORD, EditCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD, FindCommand.COMMAND_WORD,
         HelpCommand.COMMAND_WORD, HistoryCommand.COMMAND_WORD, ListCommand.COMMAND_WORD, RedoCommand.COMMAND_WORD,
         SelectCommand.COMMAND_WORD, UndoCommand.COMMAND_WORD};
+    public static final String MESSAGE_SUCCESS_HEADER = "Do you mean the following commands:\n";
 
     private final String[] suggestions;
 
     public SuggestCommand(String prefix) {
+        requireNonNull(prefix);
         if (!prefix.matches("[a-zA-Z]+")) {
             suggestions = new String[0];
             return;
@@ -36,7 +40,7 @@ public class SuggestCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         //guaranteed at least one commandWord in commandWords, otherwise exception raised by parser
-        StringBuilder builder = new StringBuilder("Do you mean the following commands:\n");
+        StringBuilder builder = new StringBuilder(MESSAGE_SUCCESS_HEADER);
         for (String s : suggestions) {
             builder.append(s);
             builder.append(", ");
