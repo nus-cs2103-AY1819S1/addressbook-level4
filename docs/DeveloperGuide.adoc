@@ -830,7 +830,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 * Prefers typing over mouse input
 * Is reasonable comfortable using CLI applications
 
-*Value proposition*: 
+*Value proposition*:
 
 * The ability to manage employees faster than typical mouse or GUI driven app
 * Still retains mouse and GUI features for users that are less proficient or less comfortable
@@ -888,7 +888,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |Manager |View the profile picture |Recognise who the employee is
 
-|`*` |Manager |Record accomplishments of my employees |Identify the better employees 
+|`*` |Manager |Record accomplishments of my employees |Identify the better employees
 
 |`*` |Manager |See the list of potential hires |Easily rank my top choices on who to hire
 
@@ -940,7 +940,41 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-* 5a. The Manager chooses to cancel
+* 5a. The user chooses to cancel
++
+[none]
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Change user details
+
+*MSS*
+
+.  Employee login to the system
+.  Oasis shows home page
+.  Employee enters new user details
+.  Oasis request for confirmation
+.  Employee enters confirm
+.  Oasis save the new user details and show success message
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The credentials are invalid
++
+Use case ends.
+
+* 3a. The details are in an invalid format.
++
+[none]
+** 3a1. OASIS shows an error message.
++
+Use case resumes at step 2.
+
+* 5a. The employee chooses to cancel
 +
 [none]
 +
@@ -986,6 +1020,41 @@ Use case resumes at step 4.
 [none]
 +
 Use case resumes at step 4.
+
+[discrete]
+=== Use case: Apply for leave
+
+*MSS*
+
+.  User login to the system
+.  Oasis shows home page
+.  User enters leave, start date and end date
+.  Oasis displays confirmation message
+.  User enters confirm
+.  Oasis sends the application to the manager
+.  Oasi shows success message
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The credentials are invalid
++
+Use case ends.
+
+* 3a. The format is invalid
++
+[none]
+** 3a1. OASIS shows an error message.
++
+Use case resumes at step 2.
+
+* 5a. The user chooses to cancel
++
+[none]
++
+Use case resumes at step 2.
 
 _{More to be added}_
 
