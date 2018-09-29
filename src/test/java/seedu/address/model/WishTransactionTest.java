@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 import seedu.address.model.tag.Tag;
 import seedu.address.model.wish.Address;
 import seedu.address.model.wish.Email;
@@ -20,9 +21,9 @@ import seedu.address.model.wish.Wish;
 
 public class WishTransactionTest {
 
+    private WishTransaction wishTransaction;
     private Wish wish1;
     private Wish wish2;
-    private WishTransaction wishTransaction;
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -30,7 +31,6 @@ public class WishTransactionTest {
     @Before
     public void init() {
         wishTransaction = new WishTransaction();
-
         Set<Tag> tagSet = new HashSet<>();
         ((HashSet) tagSet).add(new Tag("wish1"));
         this.wish1 = new Wish(new Name("wish1"),

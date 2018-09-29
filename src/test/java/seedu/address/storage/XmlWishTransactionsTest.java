@@ -13,12 +13,17 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.wish.*;
+import seedu.address.model.wish.Address;
+import seedu.address.model.wish.Email;
+import seedu.address.model.wish.Name;
+import seedu.address.model.wish.Phone;
+import seedu.address.model.wish.Remark;
+import seedu.address.model.wish.Wish;
 
 public class XmlWishTransactionsTest {
-    private XmlWishTransactions xmlWishTransactions;
 
     private Wish wish1;
+    private XmlWishTransactions xmlWishTransactions;
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -28,7 +33,6 @@ public class XmlWishTransactionsTest {
         xmlWishTransactions = new XmlWishTransactions();
         Set<Tag> tagSet = new HashSet<>();
         ((HashSet) tagSet).add(new Tag("wish1"));
-
         this.wish1 = new Wish(new Name("wish1"),
                 new Phone("81320902"),
                 new Email("wish1@gmail.com"),
