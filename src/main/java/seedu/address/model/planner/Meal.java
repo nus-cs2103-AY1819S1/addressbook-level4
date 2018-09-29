@@ -1,8 +1,8 @@
 package seedu.address.model.planner;
 
-import seedu.address.model.recipe.Recipe;
-
 import java.util.Optional;
+
+import seedu.address.model.recipe.Recipe;
 
 /**
  * Represents a meal slot (breakfast, lunch, dinner) of a day.
