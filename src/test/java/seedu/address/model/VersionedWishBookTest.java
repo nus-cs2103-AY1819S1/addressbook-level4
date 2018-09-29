@@ -26,7 +26,6 @@ public class VersionedWishBookTest {
     @Test
     public void commit_singleWishBook_noStatesRemovedCurrentStateSaved() {
         VersionedWishBook versionedWishBook = prepareWishBookList(emptyWishBook);
-
         versionedWishBook.commit();
         assertWishBookListStatus(versionedWishBook,
                 Collections.singletonList(emptyWishBook),
