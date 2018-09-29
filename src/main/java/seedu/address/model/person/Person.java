@@ -24,16 +24,21 @@ public class Person {
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
+    // This is a meeting field. The ability to set a meeting wil only be allowed in v2.2,
+    // so for now, this is just a placeholder
+    private final Meeting meeting;
+
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Meeting meeting) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.meeting = meeting;
     }
 
     public Name getName() {
@@ -51,6 +56,8 @@ public class Person {
     public Address getAddress() {
         return address;
     }
+
+    public Meeting getMeeting() { return meeting; }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -93,7 +100,8 @@ public class Person {
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+                && otherPerson.getTags().equals(getTags())
+                && otherPerson.getMeeting().equals(getMeeting());
     }
 
     @Override
@@ -112,7 +120,9 @@ public class Person {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
-                .append(" Tags: ");
+                .append(" Tags: ")
+                .append(" Meeting: ")
+                .append(getMeeting());
         getTags().forEach(builder::append);
         return builder.toString();
     }
