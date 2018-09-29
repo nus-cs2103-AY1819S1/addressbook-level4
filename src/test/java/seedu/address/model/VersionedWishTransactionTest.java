@@ -1,7 +1,5 @@
 package seedu.address.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -10,7 +8,6 @@ import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
-
 import seedu.address.model.tag.Tag;
 import seedu.address.model.wish.Address;
 import seedu.address.model.wish.Email;
