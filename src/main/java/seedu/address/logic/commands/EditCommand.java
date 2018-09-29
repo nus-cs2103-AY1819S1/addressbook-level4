@@ -138,7 +138,7 @@ public class EditCommand extends Command {
         private PriorityValue priorityValue;
         private Description description;
         private Set<Label> labels;
-        private Status status = null;
+        private Status status;
 
         public EditTaskDescriptor() {}
 

@@ -9,6 +9,7 @@ import seedu.address.model.person.Description;
 import seedu.address.model.person.DueDate;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.PriorityValue;
+import seedu.address.model.person.Status;
 import seedu.address.model.person.Task;
 import seedu.address.model.tag.Label;
 
@@ -78,6 +79,14 @@ public class EditTaskDescriptorBuilder {
     public EditTaskDescriptorBuilder withTags(String... tags) {
         Set<Label> tagSet = Stream.of(tags).map(Label::new).collect(Collectors.toSet());
         descriptor.setLabels(tagSet);
+        return this;
+    }
+    
+    /**
+     * Sets the {@code Status} of the {@code EditTaskDescriptor} that we are building.
+     */
+    public EditTaskDescriptorBuilder withStatus(Status status) {
+        descriptor.setStatus(status);
         return this;
     }
 
