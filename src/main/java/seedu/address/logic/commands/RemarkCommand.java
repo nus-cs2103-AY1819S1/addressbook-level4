@@ -22,7 +22,7 @@ public class RemarkCommand extends Command {
             + "by the index number used in the displayed wish list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_REMARK + "NAME]\n"
+            + "[" + PREFIX_REMARK + "REMARK]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_REMARK + "random remark";
 
