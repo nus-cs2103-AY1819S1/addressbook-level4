@@ -10,11 +10,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.model.tag.Tag;
-import seedu.address.model.wish.Address;
 import seedu.address.model.wish.Email;
 import seedu.address.model.wish.Name;
-import seedu.address.model.wish.Phone;
+import seedu.address.model.wish.Price;
 import seedu.address.model.wish.Remark;
+import seedu.address.model.wish.SavedAmount;
+import seedu.address.model.wish.Url;
 import seedu.address.model.wish.Wish;
 
 public class VersionedWishTransactionTest {
@@ -28,9 +29,10 @@ public class VersionedWishTransactionTest {
         Set<Tag> tagSet = new HashSet<>();
         tagSet.add(new Tag("wish1"));
         this.wish = new Wish(new Name("wish1"),
-                new Phone("81320902"),
+                new Price("81320902"),
                 new Email("wish1@gmail.com"),
-                new Address("Blk 102 Simei Avenue"),
+                new Url("https://redmart.com/marketplace/lw-roasted-meat"),
+                new SavedAmount("0"),
                 new Remark("e"),
                 tagSet);
     }
