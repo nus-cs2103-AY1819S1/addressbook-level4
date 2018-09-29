@@ -26,7 +26,7 @@ public class VersionedWishTransactionTest {
     public void init() {
         this.versionedWishTransaction = new VersionedWishTransaction();
         Set<Tag> tagSet = new HashSet<>();
-        ((HashSet) tagSet).add(new Tag("wish1"));
+        tagSet.add(new Tag("wish1"));
         this.wish = new Wish(new Name("wish1"),
                 new Phone("81320902"),
                 new Email("wish1@gmail.com"),
