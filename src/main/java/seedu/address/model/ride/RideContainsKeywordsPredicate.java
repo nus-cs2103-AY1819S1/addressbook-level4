@@ -1,6 +1,7 @@
 package seedu.address.model.ride;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
@@ -11,16 +12,26 @@ import seedu.address.commons.util.StringUtil;
  */
 public class RideContainsKeywordsPredicate implements Predicate<Ride> {
     private final List<String> keywords;
-    private final boolean hasAddress;
+    private Optional<Address> addressKeyWords;
 
-    public RideContainsKeywordsPredicate(List<String> keywords) {
+    public RideContainsKeywordsPredicate(List<String> keywords, Optional... other) {
         this.keywords = keywords;
-        this.hasAddress = false;
+        addressKeyWords = Optional.empty();
+        getKeyWords(other);
     }
 
-    public RideContainsKeywordsPredicate(List<String> keywords, boolean hasAddress) {
-        this.keywords = keywords;
-        this.hasAddress = hasAddress;
+    /**
+     * Get other keywords
+     * @param others
+     */
+    private void getKeyWords(Optional... others) {
+        for (Optional keywords : others) {
+            if (keywords.isPresent()) {
+                if (keywords.get().getClass().equals(Address.class)) {
+                    addressKeyWords = keywords;
+                }
+            }
+        }
     }
 
     @Override
@@ -28,8 +39,9 @@ public class RideContainsKeywordsPredicate implements Predicate<Ride> {
         return keywords.stream()
                 .anyMatch(keyword -> {
                     boolean result = StringUtil.containsWordIgnoreCase(ride.getName().fullName, keyword);
-                    if (this.hasAddress) {
-                        result = result || StringUtil.containsWordIgnoreCase(ride.getAddress().toString(), keyword);
+                    if (addressKeyWords.isPresent()) {
+                        result = result || StringUtil.containsWordIgnoreCase(ride.getAddress().value,
+                                addressKeyWords.get().value);
                     }
                     return result;
                 });

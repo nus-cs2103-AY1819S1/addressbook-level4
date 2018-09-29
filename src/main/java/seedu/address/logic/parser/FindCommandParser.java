@@ -8,9 +8,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 //import static seedu.address.logic.parser.CliSyntax.PREFIX_WAITING_TIME;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ride.Address;
 import seedu.address.model.ride.RideContainsKeywordsPredicate;
 
 /**
@@ -24,6 +26,12 @@ public class FindCommandParser implements Parser<FindCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindCommand parse(String args) throws ParseException {
+        ArgumentMultimap argMutlimap = ArgumentTokenizer.tokenize(args, PREFIX_ADDRESS);
+        Optional<Address> address = Optional.empty();
+        if (argMutlimap.getValue(PREFIX_ADDRESS).isPresent()) {
+            address = Optional.of(ParserUtil.parseAddress(argMutlimap.getValue(PREFIX_ADDRESS).get()));
+        }
+
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
@@ -33,7 +41,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
         return new FindCommand(new RideContainsKeywordsPredicate(Arrays.asList(nameKeywords),
-                hasAddress(nameKeywords)));
+                address));
     }
 
     /**
@@ -44,11 +52,10 @@ public class FindCommandParser implements Parser<FindCommand> {
      */
     private boolean hasAddress(String[] keywords) {
         for (String keyword : keywords) {
-            if (keyword.contentEquals(PREFIX_ADDRESS.getPrefix())) {
+            if (keyword.contains(PREFIX_ADDRESS.getPrefix())) {
                 return true;
             }
         }
         return false;
     }
-
 }
