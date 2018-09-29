@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
+import seedu.address.model.person.Email;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.ui.PersonCard;
@@ -40,7 +41,7 @@ public class GuiTestAssert {
     public static void assertCardDisplaysPerson(Person expectedPerson, PersonCardHandle actualCard) {
         assertEquals(expectedPerson.getName().fullName, actualCard.getName());
         assertPhoneFieldAccurate(expectedPerson.getPhone(), actualCard.getPhone());
-        assertEquals(expectedPerson.getEmail().value, actualCard.getEmail());
+        assertEmailFieldAccurate(expectedPerson.getEmail(), actualCard.getEmail());
         assertEquals(expectedPerson.getAddress().value, actualCard.getAddress());
 
         assertTagsEqual(expectedPerson, actualCard);
@@ -54,7 +55,19 @@ public class GuiTestAssert {
      */
     private static void assertPhoneFieldAccurate(Optional<Phone> phone, String actualPhoneField) {
         phone.ifPresentOrElse(p -> assertEquals(p.value, actualPhoneField), () -> {
-            assertEquals(actualPhoneField, PersonCard.NO_PHONE_NUMBER);
+            assertEquals(actualPhoneField, PersonCard.NO_PHONE);
+        });
+    }
+
+    /**
+     * Asserts that {@code actualEmailField} displays the correct email address of {@code email} if it exists,
+     * and the correct message otherwise.
+     * @param email The Optional email that belongs to the person.
+     * @param actualEmailField The string displayed in the Card's email field.
+     */
+    private static void assertEmailFieldAccurate(Optional<Email> email, String actualEmailField) {
+        email.ifPresentOrElse(e -> assertEquals(e.value, actualEmailField), () -> {
+            assertEquals(actualEmailField, PersonCard.NO_EMAIL);
         });
     }
 

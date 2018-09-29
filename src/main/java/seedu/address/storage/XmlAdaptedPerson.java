@@ -63,8 +63,8 @@ public class XmlAdaptedPerson {
      */
     public XmlAdaptedPerson(Person source) {
         name = source.getName().fullName;
-        phone = source.getPhone().isPresent() ? source.getPhone().get().value : Phone.NO_PHONE_NUMBER;
-        email = source.getEmail().value;
+        phone = source.getPhone().isPresent() ? source.getPhone().get().value : Phone.NO_PHONE;
+        email = source.getEmail().isPresent() ? source.getEmail().get().value : Email.NO_EMAIL;
         address = source.getAddress().value;
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
@@ -97,7 +97,7 @@ public class XmlAdaptedPerson {
             throw new IllegalValueException(Phone.MESSAGE_PHONE_CONSTRAINTS);
         }
         final Optional<Phone> modelPhone = Optional.ofNullable(
-                phone.equals(Phone.NO_PHONE_NUMBER) ? null : new Phone(phone));
+                phone.equals(Phone.NO_PHONE) ? null : new Phone(phone));
 
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
@@ -105,7 +105,8 @@ public class XmlAdaptedPerson {
         if (!Email.isValidEmail(email)) {
             throw new IllegalValueException(Email.MESSAGE_EMAIL_CONSTRAINTS);
         }
-        final Email modelEmail = new Email(email);
+        final Optional<Email> modelEmail = Optional.ofNullable(
+                email.equals(Email.NO_EMAIL) ? null : new Email(email));
 
         if (address == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));

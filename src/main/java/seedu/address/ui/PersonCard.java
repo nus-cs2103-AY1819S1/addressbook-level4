@@ -12,7 +12,8 @@ import seedu.address.model.person.Person;
  */
 public class PersonCard extends UiPart<Region> {
 
-    public static final String NO_PHONE_NUMBER = "No Phone Number";
+    public static final String NO_PHONE = "No Phone Number";
+    public static final String NO_EMAIL = "No Email Address";
 
     private static final String FXML = "PersonListCard.fxml";
     private static final String[] TAG_COLOR_STYLES = { "teal", "red", "yellow", "blue",
@@ -51,9 +52,12 @@ public class PersonCard extends UiPart<Region> {
         person.getPhone()
                 .ifPresentOrElse(p -> {
                     phone.setText(p.value);
-                }, () -> phone.setText(NO_PHONE_NUMBER));
+                }, () -> phone.setText(NO_PHONE));
         address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
+        person.getEmail()
+                .ifPresentOrElse(e -> {
+                    email.setText(e.value);
+                }, () -> email.setText(NO_EMAIL));
         initTags(person);
 
         name.setWrapText(true);

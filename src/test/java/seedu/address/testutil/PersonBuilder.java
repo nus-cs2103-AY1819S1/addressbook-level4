@@ -24,14 +24,14 @@ public class PersonBuilder {
 
     private Name name;
     private Optional<Phone> phone;
-    private Email email;
+    private Optional<Email> email;
     private Address address;
     private Set<Tag> tags;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = Optional.of(new Phone(DEFAULT_PHONE));
-        email = new Email(DEFAULT_EMAIL);
+        email = Optional.of(new Email(DEFAULT_EMAIL));
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
     }
@@ -80,7 +80,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Person} we are buiding to null, for testing people without a phone field.
+     * Sets the {@code Phone} of the {@code Person} we are building to null, for testing people without a phone field.
      */
     public PersonBuilder withoutPhone() {
         this.phone = Optional.empty();
@@ -91,7 +91,15 @@ public class PersonBuilder {
      * Sets the {@code Email} of the {@code Person} that we are building.
      */
     public PersonBuilder withEmail(String email) {
-        this.email = new Email(email);
+        this.email = Optional.of(new Email(email));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Email} of the {@code Person} we are building to null, for testing people without an email field.
+     */
+    public PersonBuilder withoutEmail() {
+        this.email = Optional.empty();
         return this;
     }
 
