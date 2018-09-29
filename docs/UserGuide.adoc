@@ -65,9 +65,11 @@ Login into the system using the username given
 
 Format: `login -u USERNAME`
 
-Will prompt the user in an interactive prompt for the password
-Passwords not to be supplied in the command line (makes it vulnerable to viewing it through history.)
-Login must be done to enable the usage of some commands.
+****
+* Will prompt the user in an interactive prompt for the password
+* Passwords not to be supplied in the command line (makes it vulnerable to viewing it through history.)
+* Login must be done to enable the usage of some commands.
+****
 
 === View history : `history`
 
@@ -77,7 +79,8 @@ Format: `history`
 
 === Adding an employee : `add`
 
-Adds an employee into the system.+
+Adds an employee into the system.
+
 Format: `add -n NAME -s SECTOR [-g GROUP] [-m MERITS] [-f FLAWS] [-p SALARY]`
 
 To use this command, you must be logged in as a manager
@@ -89,10 +92,13 @@ Examples:
 
 === Removing an employee : `remove`
 
-Removes an employee from the system.+
+Removes an employee from the system.
+
 Format: `remove -id ID [-n NAME]`
 
-To use this command, you must be logged in as a manager
+****
+* To use this command, you must be logged in as a manager
+****
 
 Examples:
 
@@ -100,17 +106,21 @@ Examples:
 
 === List effectiveness of sector by profit : `sector`
 
-Lists all the sectors, sorted by more profitable sector first
+Lists all the sectors, sorted by more profitable sector first.
+
 Format: `sector`
 
-To use this command, you must be logged in as a manager
+****
+* To use this command, you must be logged in as a manager
+****
 
 === List effectiveness of employees : `employees`
 
-Lists all employees, sorted by most profitable employees first
+Lists all employees, sorted by most profitable employees first.
+
 Format: `employees -s SORTBY`
 
-To use this command, you must be logged in as a manager
+To use this command, you must be logged in as a manager.
 By default, this sorts by their profitability, but it can also sort by details like name by specifying it in the -s parameter.
 
 ****
@@ -124,6 +134,7 @@ By default, this sorts by their profitability, but it can also sort by details l
 === List details of employee : `detail`
 
 Lists the detailed information of an employee, including their merits/demerits and leave details.
+
 Format: `detail -id ID [-n NAME]`
 
 ****
@@ -132,7 +143,8 @@ Format: `detail -id ID [-n NAME]`
 
 === Apply for leave : `leave`
 
-Apply for leave during a specific date. +
+Apply for leave during a specific date. 
+
 Format: `leave DATE to DATE`
 
 ****
@@ -142,7 +154,8 @@ Format: `leave DATE to DATE`
 
 === Find employees by name : `find`
 
-Find all employees that have their name fir within an applied filter +
+Find all employees that have their name fir within an applied filter.
+
 Format: `find FILTER`
 
 ****
@@ -152,7 +165,8 @@ Format: `find FILTER`
 
 === Edit details : `edit`
 
-Changes the users details (such as contact information) +
+Changes the users details (such as contact information).
+
 Format: `edit [-p PHONE] [-e EMAIL] [-s SALARY] [-d DEPARTMENT]`
 
 ****
@@ -163,7 +177,8 @@ Format: `edit [-p PHONE] [-e EMAIL] [-s SALARY] [-d DEPARTMENT]`
 
 === Change password : `password`
 
-Changes user password +
+Changes user password.
+
 Format: `password`
 
 ****
@@ -173,7 +188,8 @@ Format: `password`
 
 === View leave summary : `leavesummary`
 
-Views the summary of off days current employees take for the month. +
+Views the summary of off days current employees take for the month.
+
 Format: `leavesummary`
 
 ****
@@ -182,7 +198,8 @@ Format: `leavesummary`
 
 === View income summary : `summary`
 
-View income summary for the month +
+View income summary for the month.
+
 Format: `summary`
 
 ****
@@ -191,7 +208,8 @@ Format: `summary`
 
 === Exiting the program : `exit`
 
-Exits the program, automatically saving data and logging you out. +
+Exits the program, automatically saving data and logging you out.
+
 Format: `exit [-f]`
 
 ****
