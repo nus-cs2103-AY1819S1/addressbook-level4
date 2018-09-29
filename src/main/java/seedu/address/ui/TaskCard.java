@@ -37,6 +37,8 @@ public class TaskCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
+    private Label status;
+    @FXML
     private FlowPane tags;
 
     public TaskCard(Task task, int displayedIndex) {
@@ -47,6 +49,7 @@ public class TaskCard extends UiPart<Region> {
         phone.setText(task.getDueDate().value);
         address.setText(task.getDescription().value);
         email.setText(task.getPriorityValue().value);
+        status.setText(task.getStatus().toString());
         task.getLabels().forEach(tag -> tags.getChildren().add(new Label(tag.labelName)));
     }
 

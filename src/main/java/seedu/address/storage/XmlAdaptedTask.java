@@ -137,13 +137,16 @@ public class XmlAdaptedTask {
         final Description modelDescription = new Description(description);
 
         final Set<Label> modelLabels = new HashSet<>(taskLabels);
-        Status taskStatus = (status.equals("IN PROGRESS") ? Status.IN_PROGRESS : Status.FINISHED);
-        return new Task(modelName, modelDueDate, modelPriorityValue, modelDescription, modelLabels, taskStatus);
+        if (!Status.isValidStatus(status)) {
+            throw new IllegalValueException(Status.MESSAGE_STATUS_CONSTRAINTS);
+        }
+        final Status modelStatus = Status.getStatusFromValue(status);
+        return new Task(modelName, modelDueDate, modelPriorityValue, modelDescription, modelLabels, modelStatus);
     }
 
-    public String getStatus() {
-        return status;
-    }
+//    public String getStatus() {
+//        return status;
+//    }
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -160,6 +163,6 @@ public class XmlAdaptedTask {
                 && Objects.equals(priorityValue, otherTask.priorityValue)
                 && Objects.equals(description, otherTask.description)
                 && labelled.equals(otherTask.labelled)
-                && Objects.equals(status,otherTask.getStatus());
+                && Objects.equals(status,otherTask.status);
     }
 }
