@@ -1,14 +1,17 @@
 package seedu.address.model.patient;
 
-import java.util.Queue;
-import java.util.Stack;
-import java.util.Set;
 import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Set;
+import java.util.Stack;
 
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
-
 
 /**
  * Represents a Patient in the health book.
@@ -28,7 +31,7 @@ public class Patient extends Person {
         upcomingAppointments = new LinkedList<>();
         pastAppointments = new Stack<>();
     }
-    
+
     public String getTelegramId() {
         return telegramId;
     }
