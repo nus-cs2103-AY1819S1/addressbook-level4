@@ -52,7 +52,8 @@ public class EditCommandParser implements Parser<EditCommand> {
                     ParserUtil.parseMaintenance(argMultimap.getValue(PREFIX_MAINTENANCE).get()));
         }
         if (argMultimap.getValue(PREFIX_WAITING_TIME).isPresent()) {
-            editPersonDescriptor.setWaitTime(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_WAITING_TIME).get()));
+            editPersonDescriptor.setWaitTime(ParserUtil.parseWaitingTime(argMultimap
+                    .getValue(PREFIX_WAITING_TIME).get()));
         }
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));

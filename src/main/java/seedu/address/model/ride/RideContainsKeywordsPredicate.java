@@ -1,10 +1,14 @@
 package seedu.address.model.ride;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Predicate;
 
+import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.model.tag.Tag;
 
 
 /**
@@ -13,10 +17,12 @@ import seedu.address.commons.util.StringUtil;
 public class RideContainsKeywordsPredicate implements Predicate<Ride> {
     private final List<String> keywords;
     private Optional<Address> addressKeyWords;
+    private Set<Tag> tagKeyWords;
 
     public RideContainsKeywordsPredicate(List<String> keywords, Optional... other) {
         this.keywords = keywords;
         addressKeyWords = Optional.empty();
+        tagKeyWords = new HashSet<>();
         getKeyWords(other);
     }
 
@@ -30,6 +36,12 @@ public class RideContainsKeywordsPredicate implements Predicate<Ride> {
                 if (keywords.get().getClass().equals(Address.class)) {
                     addressKeyWords = keywords;
                 }
+                if (keywords.get().getClass().equals(HashSet.class)) {
+                    Set<Tag> tags = (HashSet) keywords.get();
+                    if (!tags.isEmpty()) {
+                        tagKeyWords = tags;
+                    }
+                }
             }
         }
     }
@@ -42,6 +54,9 @@ public class RideContainsKeywordsPredicate implements Predicate<Ride> {
                     if (addressKeyWords.isPresent()) {
                         result = result || StringUtil.containsWordIgnoreCase(ride.getAddress().value,
                                 addressKeyWords.get().value);
+                    }
+                    if (!tagKeyWords.isEmpty()) {
+                        result = result || CollectionUtil.containsAny(ride.getTags(), tagKeyWords);
                     }
                     return result;
                 });
