@@ -67,7 +67,7 @@ public class XmlWishTransactions {
      * @param key name of wish to remove.
      * @throws NoSuchElementException if key does not exist.
      */
-    private void remove(String key) throws NoSuchElementException{
+    private void remove(String key) throws NoSuchElementException {
         if (!wishMap.containsKey(key)) {
             throw new NoSuchElementException(key);
         }

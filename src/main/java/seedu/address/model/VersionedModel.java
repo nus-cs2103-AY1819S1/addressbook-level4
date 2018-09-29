@@ -1,5 +1,8 @@
 package seedu.address.model;
 
+/**
+ * This interface is implemented by classes which keep track of each state of the wishbook.
+ */
 public interface VersionedModel {
     /**
      * Saves a copy of the current state.

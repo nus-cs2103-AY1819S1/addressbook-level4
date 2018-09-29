@@ -62,16 +62,29 @@ public class WishTransaction {
         return LogsCenter.getLogger(WishTransaction.class);
     }
 
+    /**
+     * Adds a wish to history.
+     * @param p wish to be added.
+     */
     public void addWish(Wish p) {
         xmlWishTransactions.addWish(p);
         updateWishes();
     }
 
+    /**
+     * Updates {@code target} wish to {@code editedWish} in history.
+     * @param target an existing wish in history.
+     * @param editedWish wish to be changed to.
+     */
     public void updateWish(Wish target, Wish editedWish) {
         xmlWishTransactions.updateWish(target, editedWish);
         updateWishes();
     }
 
+    /**
+     * Removes a wish from history.
+     * @param key wish to be removed from history.
+     */
     public void removeWish(Wish key) {
         xmlWishTransactions.remove(key);
         updateWishes();
@@ -84,8 +97,8 @@ public class WishTransaction {
         try {
             this.wishes = xmlWishTransactions.toCurrentStateWishTransactionList();
         } catch (IllegalValueException e) {
-            logger.fine("Error in unmarshalling xmlWishTransactions. \n" +
-                    e.getMessage());
+            logger.fine("Error in unmarshalling xmlWishTransactions. \n"
+                    + e.getMessage());
         }
     }
 
@@ -99,10 +112,18 @@ public class WishTransaction {
         setXmlWishTransactions(newData.xmlWishTransactions);
     }
 
+    /**
+     * Sets the current state's wish histories to {@code wishes}.
+     * @param wishes updated wish history log.
+     */
     public void setWishes(List<Wish> wishes) {
         this.wishes = wishes;
     }
 
+    /**
+     * Retrieves the current state's wish histories.
+     * @return
+     */
     public List<Wish> getWishes() {
         return wishes;
     }
