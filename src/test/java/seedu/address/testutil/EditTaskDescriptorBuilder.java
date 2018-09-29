@@ -81,7 +81,7 @@ public class EditTaskDescriptorBuilder {
         descriptor.setLabels(tagSet);
         return this;
     }
-    
+
     /**
      * Sets the {@code Status} of the {@code EditTaskDescriptor} that we are building.
      */

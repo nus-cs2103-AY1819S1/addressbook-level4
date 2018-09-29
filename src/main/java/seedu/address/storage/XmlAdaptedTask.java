@@ -59,7 +59,7 @@ public class XmlAdaptedTask {
         }
         this.status = Status.IN_PROGRESS.toString();
     }
-    
+
     /**
      * Constructs an {@code XmlAdaptedTask} with the given task details.
      */
@@ -144,9 +144,6 @@ public class XmlAdaptedTask {
         return new Task(modelName, modelDueDate, modelPriorityValue, modelDescription, modelLabels, modelStatus);
     }
 
-//    public String getStatus() {
-//        return status;
-//    }
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -163,6 +160,6 @@ public class XmlAdaptedTask {
                 && Objects.equals(priorityValue, otherTask.priorityValue)
                 && Objects.equals(description, otherTask.description)
                 && labelled.equals(otherTask.labelled)
-                && Objects.equals(status,otherTask.status);
+                && Objects.equals(status, otherTask.status);
     }
 }

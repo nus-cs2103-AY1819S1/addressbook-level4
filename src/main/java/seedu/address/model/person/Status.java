@@ -6,11 +6,11 @@ package seedu.address.model.person;
  */
 public enum Status {
     IN_PROGRESS("IN PROGRESS"), FINISHED("FINISHED");
-    
-    private String statusValue;
+
     public static final String MESSAGE_STATUS_CONSTRAINTS =
             "Status should only have the value IN PROGRESS or FINISHED";
-    
+    private String statusValue;
+
     /**
      * Constructs a {@code Status}.
      *
@@ -26,7 +26,7 @@ public enum Status {
     public static boolean isValidStatus(String value) {
         try {
             return value.equals("IN PROGRESS") || value.equals("FINISHED");
-        } catch(NullPointerException ex) {
+        } catch (NullPointerException ex) {
             return false;
         }
     }
@@ -35,12 +35,12 @@ public enum Status {
      * Returns the corresponding status object of {@param value}.
      */
     public static Status getStatusFromValue(String value) {
-        if(!isValidStatus(value)) {
+        if (!isValidStatus(value)) {
             throw new IllegalArgumentException();
         }
         return value.equals("IN PROGRESS") ? Status.IN_PROGRESS : Status.FINISHED;
     }
-    
+
     @Override
     public String toString() {
         return statusValue;

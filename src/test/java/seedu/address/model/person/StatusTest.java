@@ -10,9 +10,9 @@ import org.junit.Test;
 import seedu.address.testutil.Assert;
 
 public class StatusTest {
-    
+
     @Test
-    public void status_contains_correct_range_of_values() {
+    public void valid_status_values() {
         Status[] expectedValues = {Status.IN_PROGRESS, Status.FINISHED};
         assertArrayEquals(expectedValues, Status.values());
     }
@@ -25,14 +25,14 @@ public class StatusTest {
         //invalid status value
         assertFalse(Status.isValidStatus("work in progress"));
         assertFalse(Status.isValidStatus("finished"));
-        
+
         //valid status value
         assertTrue(Status.isValidStatus("IN PROGRESS"));
         assertTrue(Status.isValidStatus("FINISHED"));
     }
 
     @Test
-    public void valid_status_values_give_status_object() {
+    public void getStatusFromValue() {
         //invalid status value
         Assert.assertThrows(IllegalArgumentException.class, () -> Status.getStatusFromValue("in progress"));
         Assert.assertThrows(IllegalArgumentException.class, () -> Status.getStatusFromValue("hello"));
