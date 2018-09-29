@@ -88,7 +88,7 @@ public class AddressBookParser {
 
         case ComposeCommand.COMMAND_WORD:
             return new ComposeCommandParser().parse(arguments);
-            
+
         case CreateCalendarCommand.COMMAND_WORD:
             return new CreateCalendarCommandParser().parse(arguments);
 

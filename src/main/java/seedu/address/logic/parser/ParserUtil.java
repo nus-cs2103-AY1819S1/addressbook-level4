@@ -9,10 +9,10 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.email.Content;
-import seedu.address.model.email.Subject;
 import seedu.address.model.calendar.Month;
 import seedu.address.model.calendar.Year;
+import seedu.address.model.email.Content;
+import seedu.address.model.email.Subject;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -189,5 +189,5 @@ public class ParserUtil {
         }
         return new Year(trimmedYear);
     }
-  
+
 }

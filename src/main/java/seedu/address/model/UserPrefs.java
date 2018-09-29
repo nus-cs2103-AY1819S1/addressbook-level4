@@ -90,7 +90,7 @@ public class UserPrefs {
                 && Objects.equals(addressBookFilePath, o.addressBookFilePath)
                 && Objects.equals(emailPath, o.emailPath)
                 && Objects.equals(calendarPath, o.calendarPath);
-      
+
     }
 
     @Override

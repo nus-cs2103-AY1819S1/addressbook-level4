@@ -160,7 +160,7 @@ public class AddCommandTest {
         public void saveEmail(Email email) {
             throw new AssertionError("This method should not be called.");
         }
-        
+
         @Override
         public boolean isExistingCalendar(Year year, Month month) {
             throw new AssertionError("This method should not be called.");
@@ -175,7 +175,7 @@ public class AddCommandTest {
         public void updateExistingCalendar() {
             throw new AssertionError("This method should not be called.");
         }
-        
+
     }
 
     /**
