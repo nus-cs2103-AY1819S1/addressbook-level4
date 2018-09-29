@@ -1,13 +1,13 @@
 package seedu.address.logic.commands;
 
-import seedu.address.model.Model;
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PATH;
 
 import java.nio.file.Path;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PATH;
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
 
 /**
  * Export existing address book to user-defined path
@@ -29,6 +29,7 @@ public class ExportCommand extends Command {
         this.filepath = filePath;
     }
 
+    @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 

@@ -1,14 +1,17 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.ExportCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PATH;
 
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PATH;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import seedu.address.logic.commands.ExportCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses input arguments and creates a new ExportCommand object
+ */
 public class ExportCommandParser implements Parser<ExportCommand> {
 
     @Override

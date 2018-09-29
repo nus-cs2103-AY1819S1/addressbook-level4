@@ -1,9 +1,8 @@
 package systemtests;
 
-import org.junit.After;
-import org.junit.Test;
-import seedu.address.logic.commands.ExportCommand;
-import seedu.address.model.Model;
+import static org.junit.Assert.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PATH;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,9 +12,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PATH;
-import static org.junit.Assert.assertTrue;
+import org.junit.After;
+import org.junit.Test;
+
+import seedu.address.logic.commands.ExportCommand;
+import seedu.address.model.Model;
+
 
 public class ExportCommandSystemTest extends AddressBookSystemTest {
 
@@ -24,7 +26,8 @@ public class ExportCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void export() throws IOException {
-        String command, failedMsg;
+        String command;
+        String failedMsg;
         Model expectedModel = getModel();
 
         /* Case: export data to EXPORT_FILE with trailing whitespace-> export successful */
@@ -150,7 +153,8 @@ public class ExportCommandSystemTest extends AddressBookSystemTest {
         InputStream is1 = Files.newInputStream(original);
         InputStream is2 = Files.newInputStream(export);
 
-        int i, j;
+        int i;
+        int j;
         byte[] buffer1 = new byte[1024];
         byte[] buffer2 = new byte[1024];
 
