@@ -88,13 +88,6 @@ public class WishTransactionTest {
     }
 
     /**
-     * Removes the second wish.
-     */
-    private void removeOtherWish() {
-        wishTransaction.removeWish(wish2);
-    }
-
-    /**
      * Checks if size of list is equal to {@code size}.
      * @param size expected size of list.
      * @return true if size of list is expected, false otherwise.
