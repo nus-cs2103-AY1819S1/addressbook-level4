@@ -16,6 +16,7 @@ public class DueDate {
                     " dd-mm-yy, dd-mm-yyyy, dd-mm-yy HHmm, dd-mm-yyyy HHmm";
     public static final String DUEDATE_FORMAT_MINIMAL = "dd-MM-yy";
     public static final String DUEDATE_FORMAT = "dd-MM-yy HHmm";
+    public static final String DUEDATE_REGEX = "\\d{1,2}-\\d{1,2}-\\d{2,4}( \\d{4})?";
     public final String value;
 
     /**
@@ -35,11 +36,12 @@ public class DueDate {
      * {@link #isValidDueDateMinimalFormat(String)}.{@link #isValidDueDateStandardFormat(String)}
      */
     public static boolean isValidDueDate(String test) {
-        //Checks format of due date
         if (test == null) {
             throw new NullPointerException();
         }
-
+        if (!test.matches(DUEDATE_REGEX)) {
+            return false;
+        }
         return isValidDueDateMinimalFormat(test) || isValidDueDateStandardFormat(test);
     }
 
