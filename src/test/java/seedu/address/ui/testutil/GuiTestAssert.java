@@ -53,9 +53,9 @@ public class GuiTestAssert {
      * @param actualPhoneField The string displayed in the Card's phone field.
      */
     private static void assertPhoneFieldAccurate(Optional<Phone> phone, String actualPhoneField) {
-        phone.ifPresentOrElse(
-                p -> assertEquals(p.value, actualPhoneField),
-                () -> assertEquals(actualPhoneField, PersonCard.NO_PHONE_NUMBER));
+        phone.ifPresentOrElse(p -> assertEquals(p.value, actualPhoneField), () -> {
+            assertEquals(actualPhoneField, PersonCard.NO_PHONE_NUMBER);
+        });
     }
 
     /**
