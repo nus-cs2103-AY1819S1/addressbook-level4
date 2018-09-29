@@ -2,6 +2,7 @@ package seedu.address.logic.commands.eventcommands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
@@ -20,7 +21,7 @@ public class AddPollCommand extends Command {
 
     public static final String COMMAND_WORD = "addPoll";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a poll to the pre-selected event. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a poll to the pre-selected event.\n"
             + "Parameters: "
             + PREFIX_NAME + "NAME ";
     public static final String MESSAGE_SUCCESS = "Poll %1$s created for %2$s";
@@ -55,5 +56,12 @@ public class AddPollCommand extends Command {
         model.commitAddressBook();
         model.updateEvent(event, event);
         return new CommandResult(String.format(MESSAGE_SUCCESS, pollName, event));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AddPollCommand // instanceof handles nulls
+                && pollName.equals(((AddPollCommand) other).pollName)); // state check
     }
 }

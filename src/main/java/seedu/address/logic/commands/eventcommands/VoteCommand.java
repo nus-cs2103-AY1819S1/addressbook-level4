@@ -3,6 +3,7 @@ package seedu.address.logic.commands.eventcommands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_POLL_OPTION;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
@@ -25,10 +26,10 @@ public class VoteCommand extends Command {
 
     public static final String COMMAND_WORD = "voteOption";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": User adds vote to the option of the specified poll"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": User adds vote to the option of the specified poll.\n"
             + "Parameters: "
-            + PREFIX_INDEX + "INDEX"
-            + PREFIX_NAME + "NAME ";
+            + PREFIX_INDEX + "INDEX "
+            + PREFIX_POLL_OPTION + "OPTION ";
 
     public static final String MESSAGE_SUCCESS = "Voted for option '%1$s' of poll %2$s.";
 
@@ -69,4 +70,11 @@ public class VoteCommand extends Command {
         }
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof VoteCommand // instanceof handles nulls
+                && pollIndex.equals(((VoteCommand) other).pollIndex)
+                && optionName.equals(((VoteCommand) other).optionName));
+    }
 }
