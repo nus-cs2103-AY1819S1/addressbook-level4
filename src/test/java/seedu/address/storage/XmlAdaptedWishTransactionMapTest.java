@@ -1,5 +1,11 @@
 package seedu.address.storage;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -8,12 +14,6 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.wish.*;
-
-import java.util.HashSet;
-import java.util.Set;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 public class XmlAdaptedWishTransactionMapTest {
     private XmlAdaptedWishTransactionMap xmlAdaptedWishTransactionMap;
