@@ -81,18 +81,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String email} into an {@code WaitTime}.
+     * Parses a {@code String waitingTime} into an {@code WaitTime}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code email} is invalid.
+     * @throws ParseException if the given {@code waitingTime} is invalid.
      */
-    public static WaitTime parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!WaitTime.isValidWaitTime(trimmedEmail)) {
+    public static WaitTime parseWaitingTime(String waitingTime) throws ParseException {
+        requireNonNull(waitingTime);
+        String trimmedWaitingTime = waitingTime.trim();
+        if (!WaitTime.isValidWaitTime(trimmedWaitingTime)) {
             throw new ParseException(WaitTime.MESSAGE_WAIT_TIME_CONSTRAINTS);
         }
-        return new WaitTime(trimmedEmail);
+        return new WaitTime(trimmedWaitingTime);
     }
 
     /**

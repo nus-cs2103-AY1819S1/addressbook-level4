@@ -41,7 +41,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Maintenance maintenance = ParserUtil.parseMaintenance(argMultimap.getValue(PREFIX_MAINTENANCE).get());
-        WaitTime waitTime = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_WAITING_TIME).get());
+        WaitTime waitTime = ParserUtil.parseWaitingTime(argMultimap.getValue(PREFIX_WAITING_TIME).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
