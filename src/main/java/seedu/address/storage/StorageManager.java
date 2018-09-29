@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
+import net.fortuna.ical4j.model.Calendar;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
@@ -26,14 +27,15 @@ public class StorageManager extends ComponentManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
-    private EmailStorage emailStorage;
-
+    private CalendarStorage calendarStorage;
+    private EmailStorage emailStorage
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
-                          EmailStorage emailStorage) {
+                          CalendarStorage calendarStorage, EmailStorage emailStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.calendarStorage = calendarStorage;
         this.emailStorage = emailStorage;
     }
 
@@ -84,7 +86,6 @@ public class StorageManager extends ComponentManager implements Storage {
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
-
     @Override
     @Subscribe
     public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
@@ -118,5 +119,17 @@ public class StorageManager extends ComponentManager implements Storage {
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }
+
+    //@@author GilgameshTC
+    // ================ Calendar methods ==============================
+
+    @Override
+    public Path getCalendarPath() {
+        return calendarStorage.getCalendarPath();
+    }
+
+    @Override
+    public void createCalendar(Calendar calendar, String calendarName) throws IOException {
+        calendarStorage.createCalendar(calendar, calendarName);
     }
 }

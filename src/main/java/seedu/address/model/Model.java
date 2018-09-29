@@ -5,6 +5,8 @@ import java.util.function.Predicate;
 import org.simplejavamail.email.Email;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.calendar.Month;
+import seedu.address.model.calendar.Year;
 import seedu.address.model.person.Person;
 
 /**
@@ -82,4 +84,20 @@ public interface Model {
      * Saves the email to hard disk
      */
     void saveEmail(Email email);
+  
+     * Returns true if the model already has a calendar with the same month and year
+     */
+    boolean isExistingCalendar(Year year, Month month);
+
+    /**
+     * Creates the given calendar
+     * {@code year} and {@code month} must not already be an existing calendar
+     */
+    void createCalendar(Year year, Month month);
+
+    /**
+     * Updates the existing calendar map inside UserPrefs Json file
+     */
+    void updateExistingCalendar();
+
 }

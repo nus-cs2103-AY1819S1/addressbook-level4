@@ -20,6 +20,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.calendar.Month;
+import seedu.address.model.calendar.Year;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -158,6 +160,22 @@ public class AddCommandTest {
         public void saveEmail(Email email) {
             throw new AssertionError("This method should not be called.");
         }
+        
+        @Override
+        public boolean isExistingCalendar(Year year, Month month) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void createCalendar(Year year, Month month) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateExistingCalendar() {
+            throw new AssertionError("This method should not be called.");
+        }
+        
     }
 
     /**

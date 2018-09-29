@@ -29,6 +29,8 @@ import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.EmailDirStorage;
 import seedu.address.storage.EmailStorage;
+import seedu.address.storage.CalendarStorage;
+import seedu.address.storage.IcsCalendarStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -66,7 +68,8 @@ public class MainApp extends Application {
         userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new XmlAddressBookStorage(userPrefs.getAddressBookFilePath());
         EmailStorage emailStorage = new EmailDirStorage(userPrefs.getEmailPath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, emailStorage);
+        CalendarStorage calendarStorage = new IcsCalendarStorage(userPrefs.getCalendarPath());
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, calendarStorage, emailStorage);
 
         initLogging(config);
 
