@@ -12,8 +12,9 @@ import java.text.SimpleDateFormat;
 public class DueDate {
 
     public static final String MESSAGE_DUEDATE_CONSTRAINTS =
-            "DueDate should only contain numbers, and it should be in one of the following formats:\n" +
-                    " dd-mm-yy, dd-mm-yyyy, dd-mm-yy HHmm, dd-mm-yyyy HHmm";
+            "DueDate should only contain numbers, and it should be in one of the following formats:\n"
+                    + " dd-mm-yy, dd-mm-yyyy, dd-mm-yy HHmm, dd-mm-yyyy HHmm\n"
+                    + "Note: 24h time format";
     public static final String DUEDATE_FORMAT_MINIMAL = "dd-MM-yy";
     public static final String DUEDATE_FORMAT = "dd-MM-yy HHmm";
     public static final String DUEDATE_REGEX = "\\d{1,2}-\\d{1,2}-\\d{2,4}( \\d{4})?";
