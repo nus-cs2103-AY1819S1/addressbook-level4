@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.storage.XmlAdaptedRide.MISSING_FIELD_MESSAGE_FORMAT;
-import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalPersons.BIG;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,18 +24,18 @@ public class XmlAdaptedRideTest {
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
 
-    private static final String VALID_NAME = BENSON.getName().toString();
-    private static final String VALID_MAINTENANCE = BENSON.getDaysSinceMaintenance().toString();
-    private static final String VALID_WAIT_TIME = BENSON.getWaitingTime().toString();
-    private static final String VALID_ADDRESS = BENSON.getAddress().toString();
-    private static final List<XmlAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
+    private static final String VALID_NAME = BIG.getName().toString();
+    private static final String VALID_MAINTENANCE = BIG.getDaysSinceMaintenance().toString();
+    private static final String VALID_WAIT_TIME = BIG.getWaitingTime().toString();
+    private static final String VALID_ADDRESS = BIG.getAddress().toString();
+    private static final List<XmlAdaptedTag> VALID_TAGS = BIG.getTags().stream()
             .map(XmlAdaptedTag::new)
             .collect(Collectors.toList());
 
     @Test
     public void toModelType_validPersonDetails_returnsPerson() throws Exception {
-        XmlAdaptedRide person = new XmlAdaptedRide(BENSON);
-        assertEquals(BENSON, person.toModelType());
+        XmlAdaptedRide person = new XmlAdaptedRide(BIG);
+        assertEquals(BIG, person.toModelType());
     }
 
     @Test

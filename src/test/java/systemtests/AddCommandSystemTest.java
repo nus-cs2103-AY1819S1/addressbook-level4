@@ -21,11 +21,11 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_MAINTENANCE_BOB
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_WAIT_TIME_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.ACCELERATOR;
 import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BOB;
-import static seedu.address.testutil.TypicalPersons.CARL;
-import static seedu.address.testutil.TypicalPersons.HOON;
+import static seedu.address.testutil.TypicalPersons.CASTLE;
+import static seedu.address.testutil.TypicalPersons.HAUNTED;
 import static seedu.address.testutil.TypicalPersons.IDA;
 import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
@@ -89,7 +89,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: add to empty address book -> added */
         deleteAllPersons();
-        assertCommandSuccess(ALICE);
+        assertCommandSuccess(ACCELERATOR);
 
         /* Case: add a ride with tags, command with parameters in random order -> added */
         toAdd = BOB;
@@ -98,7 +98,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a ride, missing tags -> added */
-        assertCommandSuccess(HOON);
+        assertCommandSuccess(HAUNTED);
 
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
@@ -110,31 +110,31 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: selects first card in the ride list, add a ride -> added, card selection remains unchanged */
         selectPerson(Index.fromOneBased(1));
-        assertCommandSuccess(CARL);
+        assertCommandSuccess(CASTLE);
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
         /* Case: add a duplicate ride -> rejected */
-        command = PersonUtil.getAddCommand(HOON);
+        command = PersonUtil.getAddCommand(HAUNTED);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: add a duplicate ride except with different phone -> rejected */
-        toAdd = new RideBuilder(HOON).withMaintenance(VALID_MAINTENANCE_BOB).build();
+        toAdd = new RideBuilder(HAUNTED).withMaintenance(VALID_MAINTENANCE_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: add a duplicate ride except with different email -> rejected */
-        toAdd = new RideBuilder(HOON).withWaitTime(VALID_WAIT_TIME_BOB).build();
+        toAdd = new RideBuilder(HAUNTED).withWaitTime(VALID_WAIT_TIME_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: add a duplicate ride except with different address -> rejected */
-        toAdd = new RideBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
+        toAdd = new RideBuilder(HAUNTED).withAddress(VALID_ADDRESS_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: add a duplicate ride except with different tags -> rejected */
-        command = PersonUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
+        command = PersonUtil.getAddCommand(HAUNTED) + " " + PREFIX_TAG.getPrefix() + "friends";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: missing name -> rejected */

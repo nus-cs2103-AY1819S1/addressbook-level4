@@ -61,7 +61,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         /* Case: filtered ride list, delete index within bounds of address book and ride list -> deleted */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         Index index = INDEX_FIRST_PERSON;
-        assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
+        assertTrue(index.getZeroBased() < getModel().getFilteredRideList().size());
         assertCommandSuccess(index);
 
         /* Case: filtered ride list, delete index within bounds of address book but out of bounds of ride list

@@ -43,13 +43,13 @@ public interface Model {
     void updatePerson(Ride target, Ride editedRide);
 
     /** Returns an unmodifiable view of the filtered ride list */
-    ObservableList<Ride> getFilteredPersonList();
+    ObservableList<Ride> getFilteredRideList();
 
     /**
      * Updates the filter of the filtered ride list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Ride> predicate);
+    void updateFilteredRideList(Predicate<Ride> predicate);
 
     /**
      * Returns true if the model has previous address book states to restore.

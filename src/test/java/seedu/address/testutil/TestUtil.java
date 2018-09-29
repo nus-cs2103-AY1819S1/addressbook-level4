@@ -36,20 +36,20 @@ public class TestUtil {
      * Returns the middle index of the ride in the {@code model}'s ride list.
      */
     public static Index getMidIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredPersonList().size() / 2);
+        return Index.fromOneBased(model.getFilteredRideList().size() / 2);
     }
 
     /**
      * Returns the last index of the ride in the {@code model}'s ride list.
      */
     public static Index getLastIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredPersonList().size());
+        return Index.fromOneBased(model.getFilteredRideList().size());
     }
 
     /**
      * Returns the ride in the {@code model}'s ride list at {@code index}.
      */
     public static Ride getPerson(Model model, Index index) {
-        return model.getFilteredPersonList().get(index.getZeroBased());
+        return model.getFilteredRideList().get(index.getZeroBased());
     }
 }

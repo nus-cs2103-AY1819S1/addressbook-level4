@@ -71,7 +71,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void addPerson(Ride ride) {
         versionedAddressBook.addRide(ride);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredRideList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
 
@@ -90,12 +90,12 @@ public class ModelManager extends ComponentManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Ride> getFilteredPersonList() {
+    public ObservableList<Ride> getFilteredRideList() {
         return FXCollections.unmodifiableObservableList(filteredRides);
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Ride> predicate) {
+    public void updateFilteredRideList(Predicate<Ride> predicate) {
         requireNonNull(predicate);
         filteredRides.setPredicate(predicate);
     }
