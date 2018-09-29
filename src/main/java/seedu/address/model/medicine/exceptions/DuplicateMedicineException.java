@@ -7,6 +7,6 @@ package seedu.address.model.medicine.exceptions;
 public class DuplicateMedicineException extends RuntimeException {
     public DuplicateMedicineException() {
             super("Operation would result in duplicate medicines");
-        }
+    }
 }
 

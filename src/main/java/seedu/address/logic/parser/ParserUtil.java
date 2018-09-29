@@ -9,19 +9,17 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.medicine.MedicineName;
+import seedu.address.model.medicine.MinimumStockQuantity;
+import seedu.address.model.medicine.PricePerUnit;
+import seedu.address.model.medicine.SerialNumber;
+import seedu.address.model.medicine.Stock;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.IcNumber;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
-
-import seedu.address.model.medicine.PricePerUnit;
-import seedu.address.model.medicine.MinimumStockQuantity;
-import seedu.address.model.medicine.SerialNumber;
-import seedu.address.model.medicine.Medicine;
-import seedu.address.model.medicine.MedicineName;
-import seedu.address.model.medicine.Stock;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

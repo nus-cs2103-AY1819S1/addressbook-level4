@@ -56,6 +56,15 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Patient> predicate);
 
+    /** Returns an unmodifiable view of the filtered medicine list */
+    ObservableList<Medicine> getFilteredMedicineList();
+
+    /**
+     * Updates the filter of the filtered medicine list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredMedicineList(Predicate<Medicine> predicate);
+
     /**
      * Returns true if the model has previous address book states to restore.
      */

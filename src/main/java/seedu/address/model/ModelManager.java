@@ -12,8 +12,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.model.person.Patient;
 import seedu.address.model.medicine.Medicine;
+import seedu.address.model.person.Patient;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -116,6 +116,23 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPatients.setPredicate(predicate);
     }
 
+    //=========== Filtered Medicine List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Medicine} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Medicine> getFilteredMedicineList() {
+        return FXCollections.unmodifiableObservableList(filteredMedicines);
+    }
+
+    @Override
+    public void updateFilteredMedicineList(Predicate<Medicine> predicate) {
+        requireNonNull(predicate);
+        filteredMedicines.setPredicate(predicate);
+    }
+
     //=========== Undo/Redo =================================================================================
 
     @Override
@@ -160,7 +177,8 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
-                && filteredPatients.equals(other.filteredPatients);
+                && filteredPatients.equals(other.filteredPatients)
+                && filteredMedicines.equals(other.filteredMedicines);
     }
 
 }

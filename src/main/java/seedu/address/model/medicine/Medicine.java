@@ -3,12 +3,10 @@ package seedu.address.model.medicine;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import seedu.address.model.medicine.MedicineName;
-import seedu.address.model.medicine.MinimumStockQuantity;
-import seedu.address.model.medicine.SerialNumber;
-import seedu.address.model.medicine.PricePerUnit;
-import seedu.address.model.medicine.Stock;
-
+/**
+ * Represents a Medicine in the records.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class Medicine {
     private static ArrayList<Medicine> medicineLowStockList;
     private MedicineName medicineName;
@@ -17,7 +15,8 @@ public class Medicine {
     private SerialNumber serialNumber;
     private Stock stock;
 
-    public Medicine(MedicineName medicineName, MinimumStockQuantity minimumStockQuantity, PricePerUnit pricePerUnit, SerialNumber serialNumber, Stock stock) {
+    public Medicine(MedicineName medicineName, MinimumStockQuantity minimumStockQuantity, PricePerUnit pricePerUnit,
+                    SerialNumber serialNumber, Stock stock) {
         this.medicineName = medicineName;
         this.minimumStockQuantity = minimumStockQuantity;
         this.pricePerUnit = pricePerUnit;
@@ -54,8 +53,10 @@ public class Medicine {
             return true;
         }
         return otherMedicine != null
-                && otherMedicine.getMedicineName().equals(getMedicineName()) && otherMedicine.getMinimumStockQuantity().equals(getMedicineName())
-                &&  otherMedicine.getPricePerUnit().equals(getPricePerUnit()) || otherMedicine.getSerialNumber().equals(getSerialNumber());
+                && otherMedicine.getMedicineName().equals(getMedicineName())
+                && otherMedicine.getMinimumStockQuantity().equals(getMedicineName())
+                && otherMedicine.getPricePerUnit().equals(getPricePerUnit())
+                || otherMedicine.getSerialNumber().equals(getSerialNumber());
     }
 
     /**

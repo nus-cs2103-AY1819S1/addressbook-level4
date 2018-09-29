@@ -12,8 +12,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.medicine.Medicine;
 
-import java.util.Objects;
-
 /**
  * Adds a medicine to the records.
  */

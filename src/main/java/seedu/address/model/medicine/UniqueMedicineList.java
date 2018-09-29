@@ -13,10 +13,11 @@ import seedu.address.model.medicine.exceptions.MedicineNotFoundException;
 
 /**
  * A list of medicines that enforces uniqueness between its elements and does not allow nulls.
- * A medicine is considered unique by comparing using {@code Medicine#isSameMedicine(Medicine)}. As such, adding and updating
- * of medicines uses Medicine#isSameMedicine(Medicine) for equality so as to ensure that the medicine being added or updated is
- * unique in terms of identity in the UniqueMedicineList. However, the removal of a medicine uses Medicine#equals(Object) so
- * as to ensure that the medicine with exactly the same fields will be removed.
+ * A medicine is considered unique by comparing using {@code Medicine#isSameMedicine(Medicine)}.
+ * As such, adding and updating of medicines uses Medicine#isSameMedicine(Medicine) for equality so as to ensure
+ * that the medicine being added or updated is unique in terms of identity in the UniqueMedicineList.
+ * However, the removal of a medicine uses Medicine#equals(Object) so as to ensure that the medicine
+ * with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
