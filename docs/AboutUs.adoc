@@ -4,14 +4,14 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+iScheduler Xs Max was developed by the https://github.com/CS2103-AY1819S1-F11-1[F11-1] team. +
+It was developed with reference to the work of the se-edu team. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
+=== RAJAPAKSE, Damith Chatura
 image::damithc.jpg[width="150", align="left"]
 {empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
 
@@ -19,21 +19,21 @@ Role: Project Advisor
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
+=== Zhang Yezhong
+image::Yezhong.jpg[width="150", align="left"]
 {empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: UI
+Responsibilities: Code quality, Logic, IntelliJ expert
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== NG, Daniel, S. Y.
+image::daniel.jpg[width="150", align="left"]
+{empty}[http://github.com/HEARTOFAL1ON[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
+Roles: Deliverables and deadlines + Scheduling and tracking +
+Responsibilities: Testing, Logic and IntelliJ expert
 
 '''
 
@@ -46,11 +46,11 @@ Responsibilities: Dev Ops + Threading
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Goh Cheng Yu
+image::chengyuuu.jpeg[width="150", align="left"]
+{empty}[https://github.com/chengyuuu[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+Role: Integration +
+Responsibilities: Storage
 
 '''

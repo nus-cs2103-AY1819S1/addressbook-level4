@@ -3,12 +3,16 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
+
+    //=========== Address book methods ======================================================================
+
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
@@ -75,4 +79,20 @@ public interface Model {
      * Saves the current address book state for undo/redo.
      */
     void commitAddressBook();
+
+    //=========== Scheduler methods =========================================================================
+
+    /** Returns the Scheduler */
+    ReadOnlyScheduler getScheduler();
+
+    /**
+     * Adds the given event.
+     */
+    void addEvent(Event event);
+
+    /**
+     * Saves the current scheduler state for undo/redo.
+     */
+    void commitScheduler();
+
 }
