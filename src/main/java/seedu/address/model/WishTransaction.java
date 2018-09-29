@@ -48,6 +48,7 @@ public class WishTransaction {
 
     /**
      * Creates a WishTransaction using a saved copy of {@code unmarshalledSavedCopy}
+     *
      * @param unmarshalledSavedCopy unmarshalled copy of saved xml wish histories.
      * @throws IllegalValueException
      */
@@ -109,5 +110,4 @@ public class WishTransaction {
     private void setXmlWishTransactions(XmlWishTransactions xmlWishTransactions) {
         this.xmlWishTransactions = xmlWishTransactions;
     }
-
 }
