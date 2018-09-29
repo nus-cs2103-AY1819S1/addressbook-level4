@@ -13,10 +13,10 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A person is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
- * persons uses Person#isSamePerson(Person) for equality so as to ensure that the person being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a person uses Person#equals(Object) so
- * as to ensure that the person with exactly the same fields will be removed.
+ * A carpark is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
+ * persons uses Person#isSamePerson(Person) for equality so as to ensure that the carpark being added or updated is
+ * unique in terms of identity in the UniquePersonList. However, the removal of a carpark uses Person#equals(Object) so
+ * as to ensure that the carpark with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
@@ -27,7 +27,7 @@ public class UniquePersonList implements Iterable<Person> {
     private final ObservableList<Person> internalList = FXCollections.observableArrayList();
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent carpark as the given argument.
      */
     public boolean contains(Person toCheck) {
         requireNonNull(toCheck);
@@ -35,8 +35,8 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
+     * Adds a carpark to the list.
+     * The carpark must not already exist in the list.
      */
     public void add(Person toAdd) {
         requireNonNull(toAdd);
@@ -47,9 +47,9 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * Replaces the carpark {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the list.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
+     * The carpark identity of {@code editedPerson} must not be the same as another existing carpark in the list.
      */
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
@@ -67,8 +67,8 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Removes the equivalent person from the list.
-     * The person must exist in the list.
+     * Removes the equivalent carpark from the list.
+     * The carpark must exist in the list.
      */
     public void remove(Person toRemove) {
         requireNonNull(toRemove);

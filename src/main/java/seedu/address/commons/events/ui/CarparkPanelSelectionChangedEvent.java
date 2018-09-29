@@ -1,17 +1,18 @@
 package seedu.address.commons.events.ui;
 
 import seedu.address.commons.events.BaseEvent;
+import seedu.address.model.carpark.Carpark;
 import seedu.address.model.person.Person;
 
 /**
  * Represents a selection change in the Person List Panel
  */
-public class PersonPanelSelectionChangedEvent extends BaseEvent {
+public class CarparkPanelSelectionChangedEvent extends BaseEvent {
 
 
-    private final Person newSelection;
+    private final Carpark newSelection;
 
-    public PersonPanelSelectionChangedEvent(Person newSelection) {
+    public CarparkPanelSelectionChangedEvent(Carpark newSelection) {
         this.newSelection = newSelection;
     }
 
@@ -20,7 +21,7 @@ public class PersonPanelSelectionChangedEvent extends BaseEvent {
         return getClass().getSimpleName();
     }
 
-    public Person getNewSelection() {
+    public Carpark getNewSelection() {
         return newSelection;
     }
 }

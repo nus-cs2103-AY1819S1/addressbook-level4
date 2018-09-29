@@ -9,7 +9,7 @@ import javafx.scene.control.ListView;
 import seedu.address.model.person.Person;
 
 /**
- * Provides a handle for {@code PersonListPanel} containing the list of {@code PersonCard}.
+ * Provides a handle for {@code CarparkListPanel} containing the list of {@code CarparkCard}.
  */
 public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
     public static final String PERSON_LIST_VIEW_ID = "#personListView";
@@ -63,7 +63,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
     }
 
     /**
-     * Navigates the listview to display {@code person}.
+     * Navigates the listview to display {@code carpark}.
      */
     public void navigateToCard(Person person) {
         if (!getRootNode().getItems().contains(person)) {
@@ -91,14 +91,14 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
     }
 
     /**
-     * Selects the {@code PersonCard} at {@code index} in the list.
+     * Selects the {@code CarparkCard} at {@code index} in the list.
      */
     public void select(int index) {
         getRootNode().getSelectionModel().select(index);
     }
 
     /**
-     * Returns the person card handle of a person associated with the {@code index} in the list.
+     * Returns the carpark card handle of a carpark associated with the {@code index} in the list.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
     public PersonCardHandle getPersonCardHandle(int index) {
@@ -123,7 +123,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
     }
 
     /**
-     * Remembers the selected {@code PersonCard} in the list.
+     * Remembers the selected {@code CarparkCard} in the list.
      */
     public void rememberSelectedPersonCard() {
         List<Person> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
@@ -136,7 +136,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
     }
 
     /**
-     * Returns true if the selected {@code PersonCard} is different from the value remembered by the most recent
+     * Returns true if the selected {@code CarparkCard} is different from the value remembered by the most recent
      * {@code rememberSelectedPersonCard()} call.
      */
     public boolean isSelectedPersonCardChanged() {
