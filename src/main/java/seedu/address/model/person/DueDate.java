@@ -11,7 +11,7 @@ public class DueDate {
 
     public static final String MESSAGE_DUEDATE_CONSTRAINTS =
             "DueDate numbers should only contain numbers, and it should be in the following format dd-mm-yy";
-    public static final String DUEDATE_VALIDATION_REGEX = "\\d{2}-\\d{2}-\\d{2}";
+    public static final String DUEDATE_VALIDATION_REGEX = "\\d{1,2}-\\d{1,2}-\\d{1,2}";
     public final String value;
 
     /**
