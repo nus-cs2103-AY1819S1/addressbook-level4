@@ -24,9 +24,9 @@ public class Day {
     public Day(LocalDate date) {
         this.date = date;
         this.meals = FXCollections.observableArrayList();
-        this.meals.add(Meal.BREAKFAST.index, Meal.BREAKFAST);
-        this.meals.add(Meal.LUNCH.index, Meal.LUNCH);
-        this.meals.add(Meal.DINNER.index, Meal.DINNER);
+        this.meals.add(Meal.BREAKFAST.ordinal(), Meal.BREAKFAST);
+        this.meals.add(Meal.LUNCH.ordinal(), Meal.LUNCH);
+        this.meals.add(Meal.DINNER.ordinal(), Meal.DINNER);
     }
 
     public Day(LocalDate date, ArrayList<Meal> meals) {
@@ -39,7 +39,7 @@ public class Day {
     }
 
     public Meal getMeal(Meal meal) {
-        return this.meals.get(meal.index);
+        return this.meals.get(meal.ordinal());
     }
 
     public Recipe getMealRecipe(Meal meal) {
