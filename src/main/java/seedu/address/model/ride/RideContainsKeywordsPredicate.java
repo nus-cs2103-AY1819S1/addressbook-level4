@@ -52,7 +52,7 @@ public class RideContainsKeywordsPredicate implements Predicate<Ride> {
                 .anyMatch(keyword -> {
                     boolean result = StringUtil.containsWordIgnoreCase(ride.getName().fullName, keyword);
                     if (addressKeyWords.isPresent()) {
-                        result = result || StringUtil.containsWordIgnoreCase(ride.getAddress().value,
+                        result = result || StringUtil.containsStringIgnoreCase(ride.getAddress().value,
                                 addressKeyWords.get().value);
                     }
                     if (!tagKeyWords.isEmpty()) {
