@@ -19,7 +19,7 @@ public class SuggestCommand extends Command {
         DeleteCommand.COMMAND_WORD, EditCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD, FindCommand.COMMAND_WORD,
         HelpCommand.COMMAND_WORD, HistoryCommand.COMMAND_WORD, ListCommand.COMMAND_WORD, RedoCommand.COMMAND_WORD,
         SelectCommand.COMMAND_WORD, UndoCommand.COMMAND_WORD};
-    public static final String MESSAGE_SUCCESS_HEADER = "Do you mean the following commands:\n";
+    public static final String MESSAGE_SUGGEST_COMMAND_SUCCESS = "Do you mean the following commands:\n%1$s";
 
     private final String[] suggestions;
 
@@ -33,23 +33,18 @@ public class SuggestCommand extends Command {
             -> s.matches("^" + prefix + ".*")).toArray(String[]::new);
     }
 
+    public static String combineCommandWords(String... commandWords) {
+        return String.join(", ", commandWords);
+    }
+
     public boolean isPrefixValid() {
         return suggestions.length > 0;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
-        //guaranteed at least one commandWord in commandWords, otherwise exception raised by parser
-        StringBuilder builder = new StringBuilder(MESSAGE_SUCCESS_HEADER);
-        for (String s : suggestions) {
-            builder.append(s);
-            builder.append(", ");
-        }
-        //remove excess ", "
-        builder.deleteCharAt(builder.length() - 1);
-        builder.deleteCharAt(builder.length() - 1);
-
+        String messageSuccess = String.format(MESSAGE_SUGGEST_COMMAND_SUCCESS, combineCommandWords(suggestions));
         EventsCenter.getInstance().post(new SuggestCommandEvent(suggestions));
-        return new CommandResult(builder.toString());
+        return new CommandResult(messageSuccess);
     }
 }
