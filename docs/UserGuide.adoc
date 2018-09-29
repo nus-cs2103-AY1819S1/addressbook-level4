@@ -105,11 +105,11 @@ View a patient’s medical history.
 ****
 WARNING: You must have the appropriate permissions to invoke this command.
 ****
-Format: `viewmh NRIC`​
+Format: `viewmh ic/NRIC`​
 
 Examples:
 
-* `viewmh S1234567A`
+* `viewmh ic/S1234567A`
 
 === Add to patient’s medical history: `addmh`
 Add to a patient’s medical history.
@@ -118,14 +118,16 @@ Add to a patient’s medical history.
 WARNING: You must have the appropriate permissions to invoke this command.
 ****
 
-Format: `addmh NRIC`​
+Format: `addmh ic/NRIC`​
 ****
-* This will prompt the user for more input, to which the user will write an entry. Pressing ‘Enter’ again will submit the entry.
+* This will prompt the user for more input, to which the user will write an entry.
+* Pressing ‘Enter’ again will submit the entry.
 ****
 
 Examples:
 
-* `addmh S1234567A`
+* `addmh ic/S1234567A`
+* Please enter your remark + {additional details}:
 ** `“Saw a patient today for flu. Prescribed 2 weeks of panadol, advised patient to rest and rehydrate.”`
 
 === View patient’s dietary needs: `viewdiet`

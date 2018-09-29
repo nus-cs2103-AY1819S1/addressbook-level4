@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicine.Prescription;
 import seedu.address.model.medicine.PrescriptionList;
 import seedu.address.model.person.Address;
@@ -31,6 +32,7 @@ public class PersonBuilder {
     private Email email;
     private Address address;
     private Set<Tag> tags;
+    private MedicalHistory medicalHistory;
     private PrescriptionList prescriptionList;
 
     public PersonBuilder() {
@@ -41,6 +43,7 @@ public class PersonBuilder {
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
         prescriptionList = new PrescriptionList();
+        medicalHistory = new MedicalHistory();
     }
 
     /**
@@ -53,6 +56,7 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         tags = new HashSet<>(personToCopy.getTags());
+        medicalHistory = new MedicalHistory(personToCopy.getMedicalHistory());
         prescriptionList = personToCopy.getPrescriptionList();
     }
 
@@ -113,8 +117,16 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code ArrayList<Diagnosis> medicalhistory} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withMedicalHistory(String... records) {
+        this.medicalHistory = SampleDataUtil.getSampleMedicalHistory(records);
+        return this;
+    }
+
     public Person build() {
-        return new Person(nric, name, phone, email, address, tags, prescriptionList);
+        return new Person(nric, name, phone, email, address, tags, medicalHistory, prescriptionList);
     }
 
 }

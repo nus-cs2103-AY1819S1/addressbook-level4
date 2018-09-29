@@ -15,6 +15,9 @@ public class CliSyntax {
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_DRUG_ALLERGY = new Prefix("da/");
 
+    /** Ordered prefixes for the addmh command. */
+    public static final Prefix PREFIX_MED_HISTORY = new Prefix("mh/");
+
     /** Ordered prefixes for the addmeds command. */
     public static final Prefix PREFIX_DRUGNAME = new Prefix("d/");
     public static final Prefix PREFIX_QUANTITY = new Prefix("q/");
