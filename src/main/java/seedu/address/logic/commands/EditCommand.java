@@ -104,7 +104,10 @@ public class EditCommand extends Command {
                 .isPresent()
                 ? editPersonDescriptor.getEmail()
                 : personToEdit.getEmail();
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
+        Optional<Address> updatedAddress = editPersonDescriptor.getAddress()
+                .isPresent()
+                ? editPersonDescriptor.getAddress()
+                : personToEdit.getAddress();
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);

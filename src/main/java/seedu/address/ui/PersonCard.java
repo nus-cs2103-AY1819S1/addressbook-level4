@@ -14,6 +14,7 @@ public class PersonCard extends UiPart<Region> {
 
     public static final String NO_PHONE = "No Phone Number";
     public static final String NO_EMAIL = "No Email Address";
+    public static final String NO_ADDRESS = "No Address";
 
     private static final String FXML = "PersonListCard.fxml";
     private static final String[] TAG_COLOR_STYLES = { "teal", "red", "yellow", "blue",
@@ -53,7 +54,10 @@ public class PersonCard extends UiPart<Region> {
                 .ifPresentOrElse(p -> {
                     phone.setText(p.value);
                 }, () -> phone.setText(NO_PHONE));
-        address.setText(person.getAddress().value);
+        person.getAddress()
+                .ifPresentOrElse(a -> {
+                    address.setText(a.value);
+                }, () -> address.setText(NO_ADDRESS));
         person.getEmail()
                 .ifPresentOrElse(e -> {
                     email.setText(e.value);

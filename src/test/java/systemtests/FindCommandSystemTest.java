@@ -118,7 +118,8 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find address of person in address book -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getAddress().value;
+        assert (DANIEL.getAddress().isPresent()); // DANIEL can have no address, so this must be handled
+        command = FindCommand.COMMAND_WORD + " " + DANIEL.getAddress().get().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 

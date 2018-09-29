@@ -87,7 +87,9 @@ public class PersonCardHandle extends NodeHandle<Node> {
      */
     public boolean equals(Person person) {
         return getName().equals(person.getName().fullName)
-                && getAddress().equals(person.getAddress().value)
+                && getAddress().equals(person.getAddress().isPresent()
+                        ? person.getAddress().get().value
+                        : PersonCard.NO_ADDRESS)
                 && getPhone().equals(person.getPhone().isPresent()
                         ? person.getPhone().get().value
                         : PersonCard.NO_PHONE)

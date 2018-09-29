@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
+import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -42,9 +43,20 @@ public class GuiTestAssert {
         assertEquals(expectedPerson.getName().fullName, actualCard.getName());
         assertPhoneFieldAccurate(expectedPerson.getPhone(), actualCard.getPhone());
         assertEmailFieldAccurate(expectedPerson.getEmail(), actualCard.getEmail());
-        assertEquals(expectedPerson.getAddress().value, actualCard.getAddress());
-
+        assertAddressFieldAccurate(expectedPerson.getAddress(), actualCard.getAddress());
         assertTagsEqual(expectedPerson, actualCard);
+    }
+
+    /**
+     * Asserts that {@code actualAddressField} displays the correct address of {@code address} if it exists,
+     * and the correct message otherwise.
+     * @param address The Optional address that belongs to the person.
+     * @param actualAddressField The string displayed in the Card's address field.
+     */
+    private static void assertAddressFieldAccurate(Optional<Address> address, String actualAddressField) {
+        address.ifPresentOrElse(a -> assertEquals(a.value, actualAddressField), () -> {
+            assertEquals(actualAddressField, PersonCard.NO_ADDRESS);
+        });
     }
 
     /**

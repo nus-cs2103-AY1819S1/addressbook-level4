@@ -23,13 +23,13 @@ public class Person {
     private final Optional<Email> email;
 
     // Data fields
-    private final Address address;
+    private final Optional<Address> address;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Optional<Phone> phone, Optional<Email> email, Address address, Set<Tag> tags) {
+    public Person(Name name, Optional<Phone> phone, Optional<Email> email, Optional<Address> address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
@@ -50,7 +50,7 @@ public class Person {
         return email;
     }
 
-    public Address getAddress() {
+    public Optional<Address> getAddress() {
         return address;
     }
 
@@ -112,9 +112,9 @@ public class Person {
         getPhone().ifPresentOrElse(builder::append, () -> builder.append("None"));
         builder.append(" Email: ");
         getEmail().ifPresentOrElse(builder::append, () -> builder.append("None"));
-        builder.append(" Address: ")
-                .append(getAddress())
-                .append(" Tags: ");
+        builder.append(" Address: ");
+        getAddress().ifPresentOrElse(builder::append, () -> builder.append("None"));
+        builder.append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

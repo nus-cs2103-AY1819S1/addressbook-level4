@@ -65,7 +65,7 @@ public class XmlAdaptedPerson {
         name = source.getName().fullName;
         phone = source.getPhone().isPresent() ? source.getPhone().get().value : Phone.NO_PHONE;
         email = source.getEmail().isPresent() ? source.getEmail().get().value : Email.NO_EMAIL;
-        address = source.getAddress().value;
+        address = source.getAddress().isPresent() ? source.getAddress().get().value : Address.NO_ADDRESS;
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
@@ -114,7 +114,8 @@ public class XmlAdaptedPerson {
         if (!Address.isValidAddress(address)) {
             throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
+        final Optional<Address> modelAddress = Optional.ofNullable(
+                address.equals(Address.NO_ADDRESS) ? null : new Address(address));
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);

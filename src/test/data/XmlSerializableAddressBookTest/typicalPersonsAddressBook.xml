@@ -59,4 +59,10 @@
         <email>NOEMAIL@NOEMAIL.NOEMAIL</email>
         <address>24 Recluse Avenue</address>
     </persons>
+    <persons>
+        <name>Jenny Khiu</name>
+        <phone>91234523</phone>
+        <email>jenny@example.com</email>
+        <address>NO_ADDRESS</address>
+    </persons>
 </addressbook>
