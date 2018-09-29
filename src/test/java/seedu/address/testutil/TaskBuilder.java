@@ -16,7 +16,7 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class TaskBuilder {
 
-    public static final String DEFAULT_NAME = "Alice Pauline";
+    public static final String DEFAULT_NAME = "Address CS2103 email";
     public static final String DEFAULT_DUEDATE = "20-12-18";
     public static final String DEFAULT_PRIORITYVALUE = "alice@gmail.com";
     public static final String DEFAULT_DESCRIPTION = "123, Jurong West Ave 6, #08-111";
