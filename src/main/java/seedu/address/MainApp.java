@@ -85,7 +85,7 @@ public class MainApp extends Application {
         Optional<ReadOnlyWishBook> wishBookOptional;
         ReadOnlyWishBook initialData;
         try {
-            wishBookOptional = storage.readWishBook();  //todo get saved wish history
+            wishBookOptional = storage.readWishBook();
             if (!wishBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample WishBook");
             }

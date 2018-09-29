@@ -57,7 +57,7 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyWishBook> readWishBook() throws DataConversionException, IOException {//todo retrieve wish history
+    public Optional<ReadOnlyWishBook> readWishBook() throws DataConversionException, IOException {
         return readWishBook(wishBookStorage.getWishBookFilePath());
     }
 

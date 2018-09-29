@@ -19,9 +19,9 @@ import seedu.address.model.ReadOnlyWishBook;
 /**
  * A class to access WishBook data stored as an xml file on the hard disk.
  */
-public class XmlWishBookStorage implements WishBookStorage {    //todo implement xmlWishHistoryStorage to get saved file
+public class XmlWishBookStorage implements WishBookStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(XmlWishBookStorage.class);    //todo use xmlFileStorage mtds to save & load xml data
+    private static final Logger logger = LogsCenter.getLogger(XmlWishBookStorage.class);
 
     private Path filePath;
 
