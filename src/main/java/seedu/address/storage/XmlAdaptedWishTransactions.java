@@ -16,15 +16,15 @@ import seedu.address.model.wish.Wish;
 
 @XmlRootElement(name = "log")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class XmlAdaptedWishTransactionMap {
-    public static final String TAG = XmlAdaptedWishTransactionMap.class.getSimpleName();
+public class XmlAdaptedWishTransactions {
+    public static final String TAG = XmlAdaptedWishTransactions.class.getSimpleName();
     private Map<String, List<XmlAdaptedWish>> wishMap;
 
     /**
      * Creates an empty XmlSerializableWishTransactionMap.
      * This empty constructor is required for marshalling.
      */
-    public XmlAdaptedWishTransactionMap() {
+    public XmlAdaptedWishTransactions() {
         this.wishMap = new HashMap<>();
     }
 
@@ -57,7 +57,7 @@ public class XmlAdaptedWishTransactionMap {
     }
 
     /**
-     * @see XmlAdaptedWishTransactionMap#remove(String)
+     * @see XmlAdaptedWishTransactions#remove(String)
      */
     public void remove(Wish wish) throws NoSuchElementException {
         remove(wish.getName().fullName);
@@ -112,7 +112,7 @@ public class XmlAdaptedWishTransactionMap {
             return false;
         }
 
-        XmlAdaptedWishTransactionMap otherMap = (XmlAdaptedWishTransactionMap) other;
+        XmlAdaptedWishTransactions otherMap = (XmlAdaptedWishTransactions) other;
         return Objects.equals(wishMap, otherMap);
     }
 }

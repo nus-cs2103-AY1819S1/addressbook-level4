@@ -15,8 +15,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.wish.*;
 
-public class XmlAdaptedWishTransactionMapTest {
-    private XmlAdaptedWishTransactionMap xmlAdaptedWishTransactionMap;
+public class XmlAdaptedWishTransactionsTest {
+    private XmlAdaptedWishTransactions xmlAdaptedWishTransactions;
 
     private Wish wish1;
 
@@ -25,7 +25,7 @@ public class XmlAdaptedWishTransactionMapTest {
 
     @Before
     public void init() {
-        xmlAdaptedWishTransactionMap = new XmlAdaptedWishTransactionMap();
+        xmlAdaptedWishTransactions = new XmlAdaptedWishTransactions();
         Set<Tag> tagSet = new HashSet<>();
         ((HashSet) tagSet).add(new Tag("wish1"));
 
@@ -39,22 +39,22 @@ public class XmlAdaptedWishTransactionMapTest {
 
     @Test
     public void addWishToTransactionMap_success() {
-        xmlAdaptedWishTransactionMap.addWish(wish1);
-        assertTrue(xmlAdaptedWishTransactionMap.getWishMap().containsKey(getKey(wish1)));
+        xmlAdaptedWishTransactions.addWish(wish1);
+        assertTrue(xmlAdaptedWishTransactions.getWishMap().containsKey(getKey(wish1)));
     }
 
     @Test
     public void getWishList_success() throws IllegalValueException {
-        xmlAdaptedWishTransactionMap.addWish(wish1);
-        assertFalse(xmlAdaptedWishTransactionMap.toCurrentStateWishTransactionList().isEmpty());
+        xmlAdaptedWishTransactions.addWish(wish1);
+        assertFalse(xmlAdaptedWishTransactions.toCurrentStateWishTransactionList().isEmpty());
     }
 
     @Test
     public void removeWishFromTransactionMap_success() {
-        xmlAdaptedWishTransactionMap.getWishMap().clear();
-        xmlAdaptedWishTransactionMap.addWish(wish1);
-        xmlAdaptedWishTransactionMap.remove(wish1);
-        assertTrue(xmlAdaptedWishTransactionMap.getWishMap().isEmpty());
+        xmlAdaptedWishTransactions.getWishMap().clear();
+        xmlAdaptedWishTransactions.addWish(wish1);
+        xmlAdaptedWishTransactions.remove(wish1);
+        assertTrue(xmlAdaptedWishTransactions.getWishMap().isEmpty());
     }
 
     private String getKey(Wish wish) {
