@@ -1,6 +1,11 @@
 package seedu.address.storage;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -92,7 +97,7 @@ public class XmlAdaptedPerson {
             throw new IllegalValueException(Phone.MESSAGE_PHONE_CONSTRAINTS);
         }
         final Optional<Phone> modelPhone = Optional.ofNullable(
-                phone.equals(Phone.NO_PHONE_NUMBER ) ? null : new Phone(phone));
+                phone.equals(Phone.NO_PHONE_NUMBER) ? null : new Phone(phone));
 
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));

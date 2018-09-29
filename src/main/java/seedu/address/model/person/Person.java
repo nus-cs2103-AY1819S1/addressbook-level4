@@ -5,8 +5,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 import java.util.Optional;
+import java.util.Set;
 
 import seedu.address.model.tag.Tag;
 
@@ -109,8 +109,7 @@ public class Person {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append(" Phone: ");
-        getPhone().ifPresentOrElse(builder::append,
-                () -> builder.append("None"));
+        getPhone().ifPresentOrElse(builder::append, () -> builder.append("None"));
         builder.append(" Email: ")
                 .append(getEmail())
                 .append(" Address: ")
