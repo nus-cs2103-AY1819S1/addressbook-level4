@@ -2,7 +2,7 @@
 <taskmanager>
 
     <tasks>
-        <name>Alice Pauline</name>
+        <name>Address CS2103 email</name>
         <dueDate>01-12-18</dueDate>
         <priorityValue>alice@example.com</priorityValue>
         <description>123, Jurong West Ave 6, #08-111</description>
@@ -10,9 +10,9 @@
         <tagged>friends</tagged>
     </tasks>
 
-    <!-- Person with same identity as Alice Pauline -->
+    <!-- Person with same identity as Address CS2103 email -->
     <tasks>
-        <name>Alice Pauline</name>
+        <name>Address CS2103 email</name>
         <dueDate>01-12-18</dueDate>
         <priorityValue>pauline@example.com</priorityValue>
         <description>4th street</description>
