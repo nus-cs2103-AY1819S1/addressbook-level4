@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
@@ -23,8 +24,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
-    //@@author jjlee050
+    private final PatientQueue<Person> patientQueue;
     private final FilteredList<Doctor> filteredDoctors;
+
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -36,9 +38,11 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         //@@author jjlee050
+        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredDoctors = new FilteredList<>(versionedAddressBook.getDoctorList());
+        patientQueue = new PatientQueue();
+
     }
 
     public ModelManager() {
@@ -101,14 +105,20 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
-
+    @Override
+    public void enqueue(Person target) {
+        patientQueue.add(target);
+    }
     @Override
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
         versionedAddressBook.updatePerson(target, editedPerson);
         indicateAddressBookChanged();
     }
-
+    @Override
+    public boolean hasPatientInPatientQueue() {
+        return patientQueue.hasPatient();
+    }
     //@@author jjlee050
     @Override
     public void updateDoctor(Doctor target, Doctor editedDoctor) {
@@ -116,9 +126,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.updateDoctor(target, editedDoctor);
         indicateAddressBookChanged();
     }
-
     //=========== Filtered Person List Accessors =============================================================
-
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
      * {@code versionedAddressBook}
