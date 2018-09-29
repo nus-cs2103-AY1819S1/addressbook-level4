@@ -10,6 +10,7 @@ import com.google.common.eventbus.Subscribe;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AppContentChangedEvent;
+import seedu.address.commons.events.model.HealthplanChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAppContent;
@@ -90,4 +91,49 @@ public class StorageManager extends ComponentManager implements Storage {
         }
     }
 
+
+    //healthplan
+
+    // ================ AddressBook methods ==============================
+
+    @Override
+    public Path getHealthPlanFilePath() {
+        return addressBookStorage.getHealthPlanFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyAppContent> readHealthPlan() throws DataConversionException, IOException {
+        return readHealthPlan(addressBookStorage.getHealthPlanFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyAppContent> readHealthPlan(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return addressBookStorage.readHealthPlan(filePath);
+    }
+
+    @Override
+    public void saveHealthPlan(ReadOnlyAppContent hp) throws IOException {
+        saveHealthPlan(hp, addressBookStorage.getHealthPlanFilePath());
+    }
+
+    @Override
+    public void saveHealthPlan(ReadOnlyAppContent hp, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        addressBookStorage.saveHealthPlan(hp, filePath);
+    }
+
+
+    @Override
+    @Subscribe
+    public void handleHealthplanBookChangedEvent(HealthplanChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
+        try {
+            saveHealthPlan(event.data);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
+
+
+    }
 }
