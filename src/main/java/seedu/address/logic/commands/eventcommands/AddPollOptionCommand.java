@@ -2,7 +2,6 @@ package seedu.address.logic.commands.eventcommands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_POLL_OPTION;
 
 import seedu.address.commons.core.EventsCenter;
