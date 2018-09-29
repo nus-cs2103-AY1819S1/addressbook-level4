@@ -45,4 +45,5 @@
         <phone isPrivate="false">8482131</phone>
         <cost isPrivate="false">123.00</cost>
     </persons>
+    <username>validAddressBook</username>
 </addressbook>

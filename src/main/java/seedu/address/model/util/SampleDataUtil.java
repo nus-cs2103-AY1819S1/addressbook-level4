@@ -11,6 +11,7 @@ import seedu.address.model.expense.Name;
 import seedu.address.model.expense.Person;
 import seedu.address.model.expense.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.user.Username;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -40,7 +41,7 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+        AddressBook sampleAb = new AddressBook(new Username("sample"));
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }

@@ -31,7 +31,7 @@ public class XmlExpensesStorage implements ExpensesStorage {
         this.backupFilePath = Paths.get(filePath.toString() + ".backup");
     }
 
-    public Path getExpensesFilePath() {
+    public Path getExpensesDirPath() {
         return filePath;
     }
 

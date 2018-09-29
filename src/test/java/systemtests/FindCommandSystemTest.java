@@ -19,12 +19,13 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
+import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.tag.Tag;
 
 public class FindCommandSystemTest extends AddressBookSystemTest {
 
     @Test
-    public void find() {
+    public void find() throws NoUserSelectedException {
         /* Case: find multiple persons in address book, command with leading spaces and trailing spaces
          * -> 2 persons found
          */
@@ -159,7 +160,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
      * selected card updated accordingly, depending on {@code cardStatus}.
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandSuccess(String command, Model expectedModel) {
+    private void assertCommandSuccess(String command, Model expectedModel) throws NoUserSelectedException {
         String expectedResultMessage = String.format(
                 MESSAGE_PERSONS_LISTED_OVERVIEW, expectedModel.getFilteredPersonList().size());
 
@@ -178,7 +179,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
      * error style.
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandFailure(String command, String expectedResultMessage) {
+    private void assertCommandFailure(String command, String expectedResultMessage) throws NoUserSelectedException {
         Model expectedModel = getModel();
 
         executeCommand(command);

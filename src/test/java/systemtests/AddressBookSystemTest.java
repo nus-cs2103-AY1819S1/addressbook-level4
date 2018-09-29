@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
@@ -40,6 +39,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
@@ -56,17 +56,17 @@ public abstract class AddressBookSystemTest {
     private static final List<String> COMMAND_BOX_ERROR_STYLE =
             Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
 
-    private MainWindowHandle mainWindowHandle;
-    private TestApp testApp;
-    private SystemTestSetupHelper setupHelper;
+    protected TestApp testApp;
 
+    private MainWindowHandle mainWindowHandle;
+    private SystemTestSetupHelper setupHelper;
     @BeforeClass
     public static void setupBeforeClass() {
         SystemTestSetupHelper.initialize();
     }
 
     @Before
-    public void setUp() {
+    public void setUp() throws NoUserSelectedException {
         setupHelper = new SystemTestSetupHelper();
         testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
@@ -141,7 +141,7 @@ public abstract class AddressBookSystemTest {
     /**
      * Displays all persons in the address book.
      */
-    protected void showAllPersons() {
+    protected void showAllPersons() throws NoUserSelectedException {
         executeCommand(ListCommand.COMMAND_WORD);
         assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredPersonList().size());
     }
@@ -149,9 +149,10 @@ public abstract class AddressBookSystemTest {
     /**
      * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
      */
-    protected void showPersonsWithName(String keyword) {
+    protected void showPersonsWithName(String keyword) throws NoUserSelectedException {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size());
+        assertTrue(testApp.getActualModel().getFilteredPersonList().size()
+                < getModel().getAddressBook().getPersonList().size());
     }
 
     /**
@@ -165,7 +166,7 @@ public abstract class AddressBookSystemTest {
     /**
      * Deletes all persons in the address book.
      */
-    protected void deleteAllPersons() {
+    protected void deleteAllPersons() throws NoUserSelectedException {
         executeCommand(ClearCommand.COMMAND_WORD);
         assertEquals(0, getModel().getAddressBook().getPersonList().size());
     }
@@ -176,7 +177,7 @@ public abstract class AddressBookSystemTest {
      * and the person list panel displays the persons in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
-            Model expectedModel) {
+            Model expectedModel) throws NoUserSelectedException {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
@@ -273,18 +274,17 @@ public abstract class AddressBookSystemTest {
     /**
      * Asserts that the starting state of the application is correct.
      */
-    private void assertApplicationStartingStateIsCorrect() {
+    private void assertApplicationStartingStateIsCorrect() throws NoUserSelectedException {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
         assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());
-        assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 
     /**
-     * Returns a defensive copy of the current model.
+     * Returns a copy of the current model.
      */
     protected Model getModel() {
         return testApp.getModel();

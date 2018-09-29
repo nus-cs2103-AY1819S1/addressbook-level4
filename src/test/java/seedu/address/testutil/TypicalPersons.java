@@ -15,11 +15,13 @@ import java.util.List;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.expense.Person;
+import seedu.address.model.user.Username;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
  */
 public class TypicalPersons {
+    public static final Username SAMPLE_USERNAME = new Username("sampleData");
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
             .withCost("3.00")
@@ -61,7 +63,7 @@ public class TypicalPersons {
      * Returns an {@code AddressBook} with all the typical persons.
      */
     public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+        AddressBook ab = new AddressBook(SAMPLE_USERNAME);
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
         }

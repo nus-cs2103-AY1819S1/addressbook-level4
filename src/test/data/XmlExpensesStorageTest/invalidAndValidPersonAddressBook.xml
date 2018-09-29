@@ -12,4 +12,5 @@
         <phone isPrivate="false">948asdf2424</phone>
         <cost isPrivate="false">1.00</cost>
     </persons>
+    <username>invalidAndValidPersonAddressBook</username>
 </addressbook>
