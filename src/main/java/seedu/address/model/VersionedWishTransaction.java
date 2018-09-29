@@ -6,13 +6,28 @@ import java.util.List;
 /**
  * This class keeps track of the saving history for each wish across each executed command.
  */
-public class VersionedWishTransactions extends WishTransaction implements VersionedModel {
+public class VersionedWishTransaction extends WishTransaction implements VersionedModel {
 
+    /**
+     * Stores the log of wish histories for each state.
+     */
     private final List<WishTransaction> wishStateList;
+
+    /**
+     * Index to the current referenced state.
+     */
     private int referencePointer;
 
-    public VersionedWishTransactions() {
+
+    public VersionedWishTransaction() {
         wishStateList = new ArrayList<>();
+        referencePointer = -1;
+    }
+
+    public VersionedWishTransaction(WishTransaction wishTransaction) {
+        super(wishTransaction);
+        wishStateList = new ArrayList<>();
+        wishStateList.add(wishTransaction);
         referencePointer = 0;
     }
 

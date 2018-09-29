@@ -20,7 +20,6 @@ import seedu.address.model.wish.Wish;
 @XmlRootElement(name = "log")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class XmlWishTransactions {
-    public static final String TAG = XmlWishTransactions.class.getSimpleName();
     private Map<String, List<XmlAdaptedWish>> wishMap;
 
     /**
@@ -33,10 +32,6 @@ public class XmlWishTransactions {
 
     public Map<String, List<XmlAdaptedWish>> getWishMap() {
         return wishMap;
-    }
-
-    public void setWishMap(Map<String, List<XmlAdaptedWish>> wishMap) {
-        this.wishMap = wishMap;
     }
 
     /**

@@ -2,7 +2,9 @@ package seedu.address.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.wish.Wish;
 import seedu.address.storage.XmlWishTransactions;
@@ -13,12 +15,35 @@ import seedu.address.storage.XmlWishTransactions;
  */
 public class WishTransaction extends WishBook {
 
+    /**
+     * Stores a log of wish histories for this current state.
+     */
     private List<Wish> wishes;
-    private final XmlWishTransactions xmlWishTransactions;
+
+    /**
+     * Logger associated with this class.
+     */
+    private final Logger logger;
+
+    /**
+     * Wrapper for log of wish histories in xml format for this current state.
+     */
+    private XmlWishTransactions xmlWishTransactions;
 
     public WishTransaction() {
         this.wishes = new ArrayList<>();
         this.xmlWishTransactions = new XmlWishTransactions();
+        this.logger = LogsCenter.getLogger(WishTransaction.class);
+    }
+
+    /**
+     * Creates a WishTransaction using a saved copy of {@code WishTransaction}.
+     *
+     * @param savedCopy saved copy of {@code WishTransaction} stored in file.
+     */
+    public WishTransaction(WishTransaction savedCopy) {
+        this.logger = savedCopy.logger;
+        resetData(savedCopy);
     }
 
     @Override
@@ -46,16 +71,28 @@ public class WishTransaction extends WishBook {
         try {
             this.wishes = xmlWishTransactions.toCurrentStateWishTransactionList();
         } catch (IllegalValueException e) {
-            // log
+            logger.fine("Error in unmarshalling xmlWishTransactions. \n" +
+                    e.getMessage());
         }
     }
 
+    /**
+     * Changes recorded log of wish histories for the current state to the {@code newData}.
+     *
+     * @param newData Revisioned log of wish histories.
+     */
     public void resetData(WishTransaction newData) {
         setWishes(newData.wishes);
+        setXmlWishTransactions(newData.xmlWishTransactions);
     }
 
     @Override
     public void setWishes(List<Wish> wishes) {
         this.wishes = wishes;
     }
+
+    private void setXmlWishTransactions(XmlWishTransactions xmlWishTransactions) {
+        this.xmlWishTransactions = xmlWishTransactions;
+    }
+
 }
