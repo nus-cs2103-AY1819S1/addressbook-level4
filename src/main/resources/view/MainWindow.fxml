@@ -50,17 +50,17 @@
                     </StackPane>
                 </VBox>
 
-                <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.7" VBox.vgrow="ALWAYS">
+                <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
                     <VBox fx:id="wishList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
                         <padding>
-                            <Insets top="10" right="10" bottom="10" left="10" />
+                            <Insets top="10" right="15" bottom="10" left="15" />
                         </padding>
                         <StackPane fx:id="wishListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                     </VBox>
 
                     <StackPane fx:id="wishDetailPlaceholder" prefWidth="340" >
                         <padding>
-                            <Insets top="10" right="10" bottom="10" left="10" />
+                            <Insets top="10" right="15" bottom="10" left="15" />
                         </padding>
                     </StackPane>
                 </SplitPane>
