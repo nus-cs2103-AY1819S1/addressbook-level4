@@ -121,6 +121,12 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find address of ride in thane park -> 0 rides found */
+        command = FindCommand.COMMAND_WORD + " " + DUMBO.getAddress().value;
+        ModelHelper.setFilteredList(expectedModel);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find address of ride in thane park -> 3 rides found */
         command = FindCommand.COMMAND_WORD + " " + PREFIX_ADDRESS + DUMBO.getAddress().value;
         ModelHelper.setFilteredList(expectedModel, CASTLE, DUMBO, GALAXY);
         assertCommandSuccess(command, expectedModel);
@@ -134,6 +140,12 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: find tags of ride in thane park -> 0 rides found */
         List<Tag> tags = new ArrayList<>(DUMBO.getTags());
+        command = FindCommand.COMMAND_WORD + " " + tags.get(0).tagName;
+        ModelHelper.setFilteredList(expectedModel);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find tags of ride in thane park -> 3 rides found */
         command = FindCommand.COMMAND_WORD + " " + PREFIX_TAG + tags.get(0).tagName;
         ModelHelper.setFilteredList(expectedModel, ACCELERATOR, DUMBO);
         assertCommandSuccess(command, expectedModel);
