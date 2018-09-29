@@ -25,15 +25,30 @@ public class Person {
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
-    // This is a meeting field. The ability to set a meeting wil only be allowed in v2.2,
+    // This is a value field. The ability to set a value wil only be allowed in v2.2,
     // so for now, this is just a placeholder
     private final Meeting meeting;
+
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Meeting meeting) {
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.meeting = new Meeting(Meeting.NO_MEETING);
+    }
+
+    /**
+     * Constructor for scheduling a value. Not to be used for creating a new entry in the
+     * address book.
+     */
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Meeting meeting) {
+        requireAllNonNull(name, phone, email, address, tags, meeting);
         this.name = name;
         this.phone = phone;
         this.email = email;

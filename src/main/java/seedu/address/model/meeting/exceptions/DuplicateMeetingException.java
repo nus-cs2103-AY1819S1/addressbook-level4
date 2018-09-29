@@ -7,6 +7,6 @@ package seedu.address.model.meeting.exceptions;
  */
 public class DuplicateMeetingException extends RuntimeException{
     public DuplicateMeetingException() {
-        super("There is already a meeting at the given time");
+        super("There is already a value at the given time");
     }
 }

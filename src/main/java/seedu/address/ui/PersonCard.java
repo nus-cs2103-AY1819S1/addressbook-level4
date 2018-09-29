@@ -5,13 +5,14 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
 
 /**
  * An UI component that displays information of a {@code Person}.
  */
 public class PersonCard extends UiPart<Region> {
-
+    public static final String NO_MEETING = "No meeting scheduled" ;
     private static final String FXML = "PersonListCard.fxml";
     private static final String[] TAG_COLOR_STYLES = { "teal", "red", "yellow", "blue",
         "orange", "brown", "green", "pink", "black", "grey"};
@@ -38,6 +39,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
+    private Label meeting;
+    @FXML
     private FlowPane tags;
 
     public PersonCard(Person person, int displayedIndex) {
@@ -48,12 +51,13 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
+        meeting.setText(person.getMeeting().value.equals(Meeting.NO_MEETING) ? NO_MEETING : person.getMeeting().value);
         initTags(person);
 
         name.setWrapText(true);
         address.setWrapText(true);
         email.setWrapText(true);
-
+        meeting.setWrapText(true);
     }
 
     /**

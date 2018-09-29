@@ -1,12 +1,10 @@
 package seedu.address.model.meeting;
 
-import seedu.address.model.person.Person;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a meeting that the user has scheduled with the client.
+ * Represents a value that the user has scheduled with the client.
  * Guarantees: immutable.
  */
 public class Meeting {
@@ -15,23 +13,23 @@ public class Meeting {
             "Meeting should only contain a date and time in DDMMYYHHMM format";
 
     public static final String MEETING_VALIDATION_REGEX = "\\d{10}";
+    public static final String NO_MEETING = "0000000000";
 
-    public final String meeting;
-    public final Person person;
+    public final String value;
+
     /**
      * Constructs a {@code Meeting}.
      *
-     * @param meeting A valid meeting time.
+     * @param meeting A valid value time.
      */
-    public Meeting(String meeting, Person person) {
+    public Meeting(String meeting) {
         requireNonNull(meeting);
         checkArgument(isValidMeeting(meeting), MESSAGE_MEETING_CONSTRAINTS);
-        this.meeting = meeting;
-        this.person = person;
+        value = meeting;
     }
 
     /**
-     * Returns true if a given string is a valid meeting.
+     * Returns true if a given string is a valid value.
      */
     public static boolean isValidMeeting(String test) {
         return test.matches(MEETING_VALIDATION_REGEX);
@@ -40,18 +38,19 @@ public class Meeting {
 
     @Override
     public String toString() {
-        return meeting + " " + person.toString();
+        return value;
+        // TBD return details of the entry. Use linear lookup.
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Meeting // instanceof handles nulls
-                && meeting.equals(((Meeting) other).meeting)); // state check
+                && value.equals(((Meeting) other).value)); // state check
     }
 
     @Override
     public int hashCode() {
-        return meeting.hashCode();
+        return value.hashCode();
     }
 }

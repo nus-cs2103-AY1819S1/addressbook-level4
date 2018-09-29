@@ -14,7 +14,7 @@ public class UniqueMeetingList implements Iterable<Meeting> {
     private final ArrayList<Meeting> allMeetings = new ArrayList<>();
 
     /**
-     * Returns true if the list contains an equivalent meeting as the given argument.
+     * Returns true if the list contains an equivalent value as the given argument.
      */
     public boolean contains(Meeting toCheck) {
         requireNonNull(toCheck);
@@ -22,8 +22,8 @@ public class UniqueMeetingList implements Iterable<Meeting> {
     }
 
     /**
-     * Adds a meeting to the list.
-     * No meeting at the same time can exist in the list.
+     * Adds a value to the list.
+     * No value at the same time can exist in the list.
      */
     public void add(Meeting toAdd) {
         requireNonNull(toAdd);
@@ -34,7 +34,7 @@ public class UniqueMeetingList implements Iterable<Meeting> {
     }
 
     /**
-     * Replaces the meeting {@code target} in the list with {@code editedMeeting}.
+     * Replaces the value {@code target} in the list with {@code editedMeeting}.
      * {@code target} must exist in the list.
      */
     public void setMeeting(Meeting target, Meeting editedMeeting) {
@@ -49,8 +49,8 @@ public class UniqueMeetingList implements Iterable<Meeting> {
     }
 
     /**
-     * Removes the equivalent meeting from the list.
-     * The meeting must exist in the list.
+     * Removes the equivalent value from the list.
+     * The value must exist in the list.
      */
     public void remove(Meeting toRemove) {
         requireNonNull(toRemove);
