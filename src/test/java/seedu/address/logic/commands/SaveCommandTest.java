@@ -13,7 +13,7 @@ public class SaveCommandTest {
     Model model = new ModelManager(getTypicalWishBook(), new UserPrefs());
 
     @Test
-    public void excute() {
+    public void execute() {
         CommandTestUtil.assertCommandFailure(new SaveCommand(), model, new CommandHistory(), MESSAGE_USAGE);
     }
 }
