@@ -110,4 +110,5 @@ public class WishTransaction {
     private void setXmlWishTransactions(XmlWishTransactions xmlWishTransactions) {
         this.xmlWishTransactions = xmlWishTransactions;
     }
+
 }

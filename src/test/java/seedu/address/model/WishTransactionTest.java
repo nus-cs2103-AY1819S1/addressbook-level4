@@ -95,4 +95,5 @@ public class WishTransactionTest {
     private boolean isSameSize(int size) {
         return wishTransaction.getWishes().size() == size;
     }
+
 }
