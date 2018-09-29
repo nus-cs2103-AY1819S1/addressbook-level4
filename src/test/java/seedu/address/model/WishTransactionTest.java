@@ -21,18 +21,18 @@ import seedu.address.model.wish.Wish;
 
 public class WishTransactionTest {
 
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
     private WishTransaction wishTransaction;
     private Wish wish1;
     private Wish wish2;
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     @Before
     public void init() {
         wishTransaction = new WishTransaction();
         Set<Tag> tagSet = new HashSet<>();
-        ((HashSet) tagSet).add(new Tag("wish1"));
+        tagSet.add(new Tag("wish1"));
         this.wish1 = new Wish(new Name("wish1"),
                 new Phone("81320902"),
                 new Email("wish1@gmail.com"),

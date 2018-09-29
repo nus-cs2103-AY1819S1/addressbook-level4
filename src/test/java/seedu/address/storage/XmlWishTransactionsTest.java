@@ -22,17 +22,17 @@ import seedu.address.model.wish.Wish;
 
 public class XmlWishTransactionsTest {
 
-    private Wish wish1;
-    private XmlWishTransactions xmlWishTransactions;
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+
+    private Wish wish1;
+    private XmlWishTransactions xmlWishTransactions;
 
     @Before
     public void init() {
         xmlWishTransactions = new XmlWishTransactions();
         Set<Tag> tagSet = new HashSet<>();
-        ((HashSet) tagSet).add(new Tag("wish1"));
+        tagSet.add(new Tag("wish1"));
         this.wish1 = new Wish(new Name("wish1"),
                 new Phone("81320902"),
                 new Email("wish1@gmail.com"),
