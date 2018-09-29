@@ -59,7 +59,7 @@ public class EditTaskDescriptorBuilder {
     /**
      * Sets the {@code Email} of the {@code EditTaskDescriptor} that we are building.
      */
-    public EditTaskDescriptorBuilder withEmail(String email) {
+    public EditTaskDescriptorBuilder withPriorityValue(String email) {
         descriptor.setPriorityValue(new PriorityValue(email));
         return this;
     }
