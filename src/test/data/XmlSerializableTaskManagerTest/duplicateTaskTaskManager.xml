@@ -6,6 +6,7 @@
         <dueDate>94351253</dueDate>
         <priorityValue>alice@example.com</priorityValue>
         <description>123, Jurong West Ave 6, #08-111</description>
+        <status>IN PROGRESS</status>
         <tagged>friends</tagged>
     </tasks>
 
@@ -15,6 +16,7 @@
         <dueDate>94351253</dueDate>
         <priorityValue>pauline@example.com</priorityValue>
         <description>4th street</description>
+        <status>IN PROGRESS</status>
     </tasks>
 
 </taskmanager>

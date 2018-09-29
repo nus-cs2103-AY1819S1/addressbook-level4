@@ -6,6 +6,7 @@
         <dueDate isPrivate="false">9482424</dueDate>
         <priorityValue isPrivate="false">hans@example.com</priorityValue>
         <description isPrivate="false">4th street</description>
+        <status>IN PROGRESS</status>
     </tasks>
     <!-- Task with invalid dueDate field -->
     <tasks>
@@ -13,5 +14,6 @@
         <dueDate isPrivate="false">948asdf2424</dueDate>
         <priorityValue isPrivate="false">hans@example.com</priorityValue>
         <description isPrivate="false">4th street</description>
+        <status>IN PROGRESS</status>
     </tasks>
 </taskmanager>

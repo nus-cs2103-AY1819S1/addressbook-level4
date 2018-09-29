@@ -6,5 +6,6 @@
         <dueDate isPrivate="false">9482424</dueDate>
         <priorityValue isPrivate="false">hans@example.com</priorityValue>
         <description isPrivate="false">4th street</description>
+        <status>IN PROGRESS</status>
     </tasks>
 </taskmanager>

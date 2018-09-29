@@ -7,6 +7,7 @@
         <priorityValue>alice@example.com</priorityValue>
         <description>123, Jurong West Ave 6, #08-111</description>
         <labelled>friends</labelled>
+        <status>IN PROGRESS</status>
     </tasks>
     <tasks>
         <name>Benson Meier</name>
@@ -15,12 +16,14 @@
         <description>311, Clementi Ave 2, #02-25</description>
         <labelled>owesMoney</labelled>
         <labelled>friends</labelled>
+        <status>IN PROGRESS</status>
     </tasks>
     <tasks>
         <name>Carl Kurz</name>
         <dueDate>95352563</dueDate>
         <priorityValue>heinz@example.com</priorityValue>
         <description>wall street</description>
+        <status>IN PROGRESS</status>
     </tasks>
     <tasks>
         <name>Daniel Meier</name>
@@ -28,23 +31,27 @@
         <priorityValue>cornelia@example.com</priorityValue>
         <description>10th street</description>
         <labelled>friends</labelled>
+        <status>IN PROGRESS</status>
     </tasks>
     <tasks>
         <name>Elle Meyer</name>
         <dueDate>9482224</dueDate>
         <priorityValue>werner@example.com</priorityValue>
         <description>michegan ave</description>
+        <status>FINISHED</status>
     </tasks>
     <tasks>
         <name>Fiona Kunz</name>
         <dueDate>9482427</dueDate>
         <priorityValue>lydia@example.com</priorityValue>
         <description>little tokyo</description>
+        <status>IN PROGRESS</status>
     </tasks>
     <tasks>
         <name>George Best</name>
         <dueDate>9482442</dueDate>
         <priorityValue>anna@example.com</priorityValue>
         <description>4th street</description>
+        <status>IN PROGRESS</status>
     </tasks>
 </taskmanager>

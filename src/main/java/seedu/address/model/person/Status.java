@@ -4,7 +4,7 @@ package seedu.address.model.person;
  * Represents a Task's status in the address book.
  * There are two possible status: IN_PROGRESS and FINISHED.
  */
-enum Status {
+public enum Status {
     IN_PROGRESS, FINISHED;
     
     @Override
