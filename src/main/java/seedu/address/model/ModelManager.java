@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -12,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.AddressBookExportEvent;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -143,7 +145,15 @@ public class ModelManager extends ComponentManager implements Model {
     public void commitAddressBook() {
         versionedAddressBook.commit();
     }
-
+    
+    // ================= Export/Import =======================================================================
+    
+    @Override
+    /** Raises an event to indicate the model to be exported */
+    public void exportAddressBook(Path filepath) {
+        raise(new AddressBookExportEvent(versionedAddressBook, filepath));
+    }
+    
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
