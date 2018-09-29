@@ -37,8 +37,8 @@ public class TypicalTasks {
             .withPriorityValue("cornelia@example.com").withDescription("10th street").withLabels("friends").build();
     public static final Task E_TASK = new TaskBuilder().withName("Edit research report").withDueDate("05-12-18")
             .withPriorityValue("werner@example.com").withDescription("michegan ave").build();
-    public static final Task F_TASK = new TaskBuilder().withName("Find suitable reagents for experiment").withDueDate("06-12-2018")
-            .withPriorityValue("lydia@example.com").withDescription("little tokyo").build();
+    public static final Task F_TASK = new TaskBuilder().withName("Find suitable reagents for experiment")
+            .withDueDate("06-12-2018").withPriorityValue("lydia@example.com").withDescription("little tokyo").build();
     public static final Task G_TASK = new TaskBuilder().withName("Grade assignments").withDueDate("07-12-18")
             .withPriorityValue("anna@example.com").withDescription("4th street").build();
 
