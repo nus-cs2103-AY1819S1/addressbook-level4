@@ -24,13 +24,13 @@ import seedu.address.testutil.Assert;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_PHONE = "+651234";
+    private static final String INVALID_DUEDATE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_PHONE = "123456";
+    private static final String VALID_DUEDATE = "05-05-18";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
@@ -93,19 +93,19 @@ public class ParserUtilTest {
 
     @Test
     public void parsePhone_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE));
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_DUEDATE));
     }
 
     @Test
     public void parsePhone_validValueWithoutWhitespace_returnsPhone() throws Exception {
-        DueDate expectedPhone = new DueDate(VALID_PHONE);
-        assertEquals(expectedPhone, ParserUtil.parsePhone(VALID_PHONE));
+        DueDate expectedPhone = new DueDate(VALID_DUEDATE);
+        assertEquals(expectedPhone, ParserUtil.parsePhone(VALID_DUEDATE));
     }
 
     @Test
     public void parsePhone_validValueWithWhitespace_returnsTrimmedPhone() throws Exception {
-        String phoneWithWhitespace = WHITESPACE + VALID_PHONE + WHITESPACE;
-        DueDate expectedPhone = new DueDate(VALID_PHONE);
+        String phoneWithWhitespace = WHITESPACE + VALID_DUEDATE + WHITESPACE;
+        DueDate expectedPhone = new DueDate(VALID_DUEDATE);
         assertEquals(expectedPhone, ParserUtil.parsePhone(phoneWithWhitespace));
     }
 
