@@ -44,13 +44,55 @@ public class VersionedWishTransaction extends WishTransaction implements Version
 
     @Override
     public void undo() {
+        if (!canUndo()) {
+            throw new NoUndoableStateException();
+        }
         referencePointer--;
         resetData(wishStateList.get(referencePointer));
     }
 
     @Override
     public void redo() {
+        if (!canRedo()) {
+            throw new NoRedoableStateException();
+        }
         referencePointer++;
         resetData(wishStateList.get(referencePointer));
+    }
+
+    /**
+     * Returns true if {@code undo()} has address book states to undo.
+     */
+    public boolean canUndo() {
+        return referencePointer > 0;
+    }
+
+    /**
+     * Returns true if {@code redo()} has address book states to redo.
+     */
+    public boolean canRedo() {
+        return referencePointer < wishStateList.size() - 1;
+    }
+
+    public List<WishTransaction> getWishStateList() {
+        return wishStateList;
+    }
+
+    /**
+     * Thrown when trying to {@code undo()} but can't.
+     */
+    public static class NoUndoableStateException extends RuntimeException {
+        private NoUndoableStateException() {
+            super("Current state pointer at start of wishState list, unable to undo.");
+        }
+    }
+
+    /**
+     * Thrown when trying to {@code redo()} but can't.
+     */
+    public static class NoRedoableStateException extends RuntimeException {
+        private NoRedoableStateException() {
+            super("Current state pointer at end of wishState list, unable to redo.");
+        }
     }
 }

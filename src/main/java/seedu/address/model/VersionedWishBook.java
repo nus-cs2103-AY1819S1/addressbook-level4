@@ -97,7 +97,7 @@ public class VersionedWishBook extends WishBook implements VersionedModel {
      */
     public static class NoUndoableStateException extends RuntimeException {
         private NoUndoableStateException() {
-            super("Current state pointer at start of addressBookState list, unable to undo.");
+            super("Current state pointer at start of wishBookState list, unable to undo.");
         }
     }
 
@@ -106,7 +106,7 @@ public class VersionedWishBook extends WishBook implements VersionedModel {
      */
     public static class NoRedoableStateException extends RuntimeException {
         private NoRedoableStateException() {
-            super("Current state pointer at end of addressBookState list, unable to redo.");
+            super("Current state pointer at end of wishBookState list, unable to redo.");
         }
     }
 }

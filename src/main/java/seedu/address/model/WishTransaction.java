@@ -13,7 +13,7 @@ import seedu.address.storage.XmlWishTransactions;
  * Each {@code WishTransaction} represents a state of the WishBook.
  * A state contains logs of undeleted wish histories.
  */
-public class WishTransaction extends WishBook {
+public class WishTransaction {
 
     /**
      * Stores a log of wish histories for this current state.
@@ -46,19 +46,16 @@ public class WishTransaction extends WishBook {
         resetData(savedCopy);
     }
 
-    @Override
     public void addWish(Wish p) {
         xmlWishTransactions.addWish(p);
         updateWishes();
     }
 
-    @Override
     public void updateWish(Wish target, Wish editedWish) {
         xmlWishTransactions.updateWish(target, editedWish);
         updateWishes();
     }
 
-    @Override
     public void removeWish(Wish key) {
         xmlWishTransactions.remove(key);
         updateWishes();
@@ -86,7 +83,6 @@ public class WishTransaction extends WishBook {
         setXmlWishTransactions(newData.xmlWishTransactions);
     }
 
-    @Override
     public void setWishes(List<Wish> wishes) {
         this.wishes = wishes;
     }
