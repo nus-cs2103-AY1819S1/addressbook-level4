@@ -7,6 +7,11 @@ import seedu.address.model.Anakin_deck.Anakin_Card;
 import seedu.address.model.Anakin_deck.Anakin_Deck;
 
 public interface Anakin_Model {
+
+  void resetData(Anakin_ReadOnlyAnakin newData);
+
+  Anakin_ReadOnlyAnakin getAnakin();
+
   boolean hasDeck(Anakin_Deck deck);
 
   void addDeck(Anakin_Deck deck);
@@ -27,4 +32,13 @@ public interface Anakin_Model {
 
   void updateFilteredDeckList(Predicate<Anakin_Deck> predicate);
 
+  boolean canUndoAnakin();
+
+  boolean canRedoAnakin();
+
+  void undoAnakin();
+
+  void redoAnakin();
+
+  void commitAnakin();
 }
