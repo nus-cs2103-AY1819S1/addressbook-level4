@@ -34,7 +34,6 @@ public class XmlFileStorage {
             throws FileNotFoundException {
         try {
             XmlUtil.saveDataToFile(file, addressBook);
-            //XmlUtil.saveDataToFile(FileUtil.getBackupFilePath(file), addressBook);
         } catch (JAXBException e) {
             throw new AssertionError("Unexpected exception " + e.getMessage(), e);
         }
