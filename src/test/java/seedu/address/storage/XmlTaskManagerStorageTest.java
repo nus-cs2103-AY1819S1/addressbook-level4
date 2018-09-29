@@ -2,9 +2,9 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.address.testutil.TypicalTasks.ALICE;
-import static seedu.address.testutil.TypicalTasks.HOON;
-import static seedu.address.testutil.TypicalTasks.IDA;
+import static seedu.address.testutil.TypicalTasks.A_TASK;
+import static seedu.address.testutil.TypicalTasks.H_TASK;
+import static seedu.address.testutil.TypicalTasks.I_TASK;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskManager;
 
 import java.io.IOException;
@@ -85,14 +85,14 @@ public class XmlTaskManagerStorageTest {
         assertEquals(original, new TaskManager(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addTask(HOON);
-        original.removeTask(ALICE);
+        original.addTask(H_TASK);
+        original.removeTask(A_TASK);
         xmlTaskManagerStorage.saveTaskManager(original, filePath);
         readBack = xmlTaskManagerStorage.readTaskManager(filePath).get();
         assertEquals(original, new TaskManager(readBack));
 
         //Save and read without specifying file path
-        original.addTask(IDA);
+        original.addTask(I_TASK);
         xmlTaskManagerStorage.saveTaskManager(original); //file path not specified
         readBack = xmlTaskManagerStorage.readTaskManager().get(); //file path not specified
         assertEquals(original, new TaskManager(readBack));

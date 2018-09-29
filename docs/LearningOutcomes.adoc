@@ -258,7 +258,7 @@ Note how this project uses the http://checkstyle.sourceforge.net/[CheckStyle] st
 == Do Code Reviews `[LO-CodeReview]`
 
 * Note how some PRs in this project have been reviewed by other developers. Here is an https://github.com/se-edu/addressbook-level4/pull/147[example].
-* Also note how we have used https://www.codacy.com[Codacy] to do automate some part of the code review workload (https://www.codacy.com/app/damith/addressbook-level4?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level4&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]])
+* Also note how we have used https://www.codacy.com[Codacy] to do automate some part of the code review workload (https://www.codacy.com/app/damith/addressbook-level4?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level4&utm_campaign=Badge_Grade[image:https://api.codacy.com/projecl/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]])
 
 
 === Exercise: Review a PR
