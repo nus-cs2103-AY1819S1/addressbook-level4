@@ -47,38 +47,71 @@ e.g. typing help and pressing Enter will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add -n NAME -s SECTOR`, `NAME`, `SECTOR` is a parameter which can be used as `add -n John -s Sales `.
+* Items in square brackets are optional e.g `-n NAME [-t TAG]` can be used as `-n John Doe -t friend` or as `-n John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `-t TAG...` can be used as `{nbsp}` (i.e. 0 times), `-t friend`, `-t friend -t family` etc.
+* Parameters can be in any order e.g. if the command specifies `-n NAME -p PHONE_NUMBER`, `-p PHONE_NUMBER -n NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
 
+View the help associated with the system.
+
 Format: `help`
 
-=== Adding a person: `add`
+=== Login into the system : `login`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Login into the system using the username given
 
-[TIP]
-A person can have any number of tags (including 0)
+Format: `login -u USERNAME`
+
+Will prompt the user in an interactive prompt for the password
+Passwords not to be supplied in the command line (makes it vulnerable to viewing it through history.)
+Login must be done to enable the usage of some commands.
+
+=== View history : `history`
+
+Prints all commands entered before as a history of commands.
+
+Format: `history`
+
+=== Adding an employee : `add`
+
+Adds an employee into the system.+
+Format: `add -n NAME -s SECTOR [-g GROUP] [-m MERITS] [-f FLAWS] [-p SALARY]`
+
+To use this command, you must be logged in as a manager
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add -n John Doe -s Sales -p 15000`
+* `add -n Raynard -s Investment -m Self motivated -p 2000`
 
-=== Listing all persons : `list`
+=== Removing an employee : `remove`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Removes an employee from the system.+
+Format: `remove -id ID [-n NAME]`
 
-=== Editing a person : `edit`
+To use this command, you must be logged in as a manager
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Examples:
+
+* `remove -id S12312`
+
+=== List effectiveness of sector by profit : `sector`
+
+Lists all the sectors, sorted by more profitable sector first
+Format: `sector`
+
+To use this command, you must be logged in as a manager
+
+=== List effectiveness of employees : `employees`
+
+Lists all employees, sorted by most profitable employees first
+Format: `employees -s SORTBY`
+
+To use this command, you must be logged in as a manager
+By default, this sorts by their profitability, but it can also sort by details like name by specifying it in the -s parameter.
 
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
@@ -88,158 +121,90 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 * You can remove all the person's tags by typing `t/` without specifying any tags after it.
 ****
 
-Examples:
+=== List details of employee : `detail`
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Lists the detailed information of an employee, including their merits/demerits and leave details.
+Format: `detail -id ID [-n NAME]`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* To use this command, you must be logged in as a manager
 ****
 
-Examples:
+=== Apply for leave : `leave`
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Apply for leave during a specific date. +
+Format: `leave DATE to DATE`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* The program will attempt to parse your time. If it cannot do so, you will be guided through an interactive prompt to set your leave dates. 
+* To use this command, you must be logged in as an employee.
 ****
 
-Examples:
+=== Find employees by name : `find`
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-=== Selecting a person : `select`
-
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
+Find all employees that have their name fir within an applied filter +
+Format: `find FILTER`
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
+* filter can be any name or parts of name. You can substitute * for any number of characters and _ for a single character.
+* To use this command, you must be logged in as a manager.
 ****
 
-Examples:
+=== Edit details : `edit`
 
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
+Changes the users details (such as contact information) +
+Format: `edit [-p PHONE] [-e EMAIL] [-s SALARY] [-d DEPARTMENT]`
 
-=== Listing entered commands : `history`
+****
+* At least one of the parameters must be provided
+* Existing values will be updated to the input values
+* More fields could be added based on any details stored on employees.
+****
 
-Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
+=== Change password : `password`
 
-[NOTE]
-====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
+Changes user password +
+Format: `password`
 
-// tag::undoredo[]
-=== Undoing previous command : `undo`
+****
+* You will be prompted for your current password, and then your new one.
+* You must be logged in to perform this action.
+****
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
-Format: `undo`
+=== View leave summary : `leavesummary`
 
-[NOTE]
-====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
-====
+Views the summary of off days current employees take for the month. +
+Format: `leavesummary`
 
-Examples:
+****
+* To use this command, you must be logged in as a manager
+****
 
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
+=== View income summary : `summary`
 
-* `select 1` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
+View income summary for the month +
+Format: `summary`
 
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-
-=== Redoing the previously undone command : `redo`
-
-Reverses the most recent `undo` command. +
-Format: `redo`
-
-Examples:
-
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
-
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
+****
+* To use this command, you must be logged in as an employee
+****
 
 === Exiting the program : `exit`
 
-Exits the program. +
-Format: `exit`
+Exits the program, automatically saving data and logging you out. +
+Format: `exit [-f]`
 
-=== Saving the data
-
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+****
+* If -f is supplied, exits without saving.
+****
 
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*Q*: What if I lose my password? +
+*A*: Please contact an IT admin to help reset your password. 
+
+*Q*: Is it possible for me to change my username? +
+*A*: No, the username assigned to you is fixed.
 
 == Command Summary
 
