@@ -1,11 +1,5 @@
 package seedu.address.model;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
-import java.util.function.Predicate;
-import java.util.logging.Logger;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -14,6 +8,12 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
+
+import java.util.function.Predicate;
+import java.util.logging.Logger;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -38,7 +38,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         //@@author jjlee050
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList())
+        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredDoctors = new FilteredList<>(versionedAddressBook.getDoctorList());
         patientQueue = new PatientQueue();
 
@@ -108,7 +108,6 @@ public class ModelManager extends ComponentManager implements Model {
     public void enqueue(Person target) {
         patientQueue.add(target);
     }
-    //@@author jjlee050
     @Override
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
@@ -119,6 +118,7 @@ public class ModelManager extends ComponentManager implements Model {
     public boolean hasPatientInPatientQueue() {
         return patientQueue.hasPatient();
     }
+    //@@author jjlee050
     @Override
     public void updateDoctor(Doctor target, Doctor editedDoctor) {
         requireAllNonNull(target, editedDoctor);
