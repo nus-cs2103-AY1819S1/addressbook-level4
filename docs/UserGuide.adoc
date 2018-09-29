@@ -143,12 +143,12 @@ Format: `detail -id ID [-n NAME]`
 
 === Apply for leave : `leave`
 
-Apply for leave during a specific date. 
+Apply for leave during a specific date.
 
 Format: `leave DATE to DATE`
 
 ****
-* The program will attempt to parse your time. If it cannot do so, you will be guided through an interactive prompt to set your leave dates. 
+* The program will attempt to parse your time. If it cannot do so, you will be guided through an interactive prompt to set your leave dates.
 * To use this command, you must be logged in as an employee.
 ****
 
@@ -219,7 +219,7 @@ Format: `exit [-f]`
 == FAQ
 
 *Q*: What if I lose my password? +
-*A*: Please contact an IT admin to help reset your password. 
+*A*: Please contact an IT admin to help reset your password.
 
 *Q*: Is it possible for me to change my username? +
 *A*: No, the username assigned to you is fixed.
