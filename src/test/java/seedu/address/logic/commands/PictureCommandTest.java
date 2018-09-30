@@ -1,5 +1,8 @@
 package seedu.address.logic.commands;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -8,6 +11,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -20,11 +24,11 @@ import seedu.address.testutil.PersonBuilder;
  */
 public class PictureCommandTest {
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void execute_throwsCommandException() throws Exception {
