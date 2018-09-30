@@ -1,7 +1,10 @@
-package seedu.address.model;
+package seedu.address.model.versionedmodels;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import seedu.address.model.ReadOnlyWishBook;
+import seedu.address.model.WishTransaction;
 
 /**
  * This class keeps track of the saving history for each wish across each executed command.
@@ -29,12 +32,24 @@ public class VersionedWishTransaction extends WishTransaction implements Version
 
     /**
      * The initial state of this wishStateList will always be {@code wishTransaction}
-     * @param wishTransaction saved copy of {@code VersionedWishTransaction}
+     * @param wishTransaction saved copy of {@code WishTransaction}.
+     * Note: {@code wishTransaction} can either be of the parent or child class ({@code VersionedWishTransaction}).
      */
     public VersionedWishTransaction(WishTransaction wishTransaction) {
         super(wishTransaction);
         wishStateList = new ArrayList<>();
         wishStateList.add(wishTransaction);
+        referencePointer = 0;
+    }
+
+    /**
+     * Creates a VersionedWishTransaction object from a ReadOnlyWishBook object.
+     * @param wishBook object containing data to seed this object with.
+     */
+    public VersionedWishTransaction(ReadOnlyWishBook wishBook) {
+        extractData(wishBook);
+        wishStateList = new ArrayList<>();
+        wishStateList.add(this);
         referencePointer = 0;
     }
 
@@ -91,21 +106,4 @@ public class VersionedWishTransaction extends WishTransaction implements Version
         return wishStateList;
     }
 
-    /**
-     * Thrown when trying to {@code undo()} but can't.
-     */
-    public static class NoUndoableStateException extends RuntimeException {
-        private NoUndoableStateException() {
-            super("Current state pointer at start of wishState list, unable to undo.");
-        }
-    }
-
-    /**
-     * Thrown when trying to {@code redo()} but can't.
-     */
-    public static class NoRedoableStateException extends RuntimeException {
-        private NoRedoableStateException() {
-            super("Current state pointer at end of wishState list, unable to redo.");
-        }
-    }
 }
