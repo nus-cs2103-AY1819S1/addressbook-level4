@@ -56,7 +56,9 @@ public class Occasion extends Inanimate {
      * UnsupportedOperationException} if modification is attempted.
      */
     @Override
-    public Set<Tag> getTags() { return Collections.unmodifiableSet(tags); }
+    public Set<Tag> getTags() {
+        return Collections.unmodifiableSet(tags);
+    }
 
     /**
      * Check the equality of two occasions. This defines a stronger notion of
@@ -67,19 +69,19 @@ public class Occasion extends Inanimate {
      */
     @Override
     public boolean equals(Object other) {
-      if (other == this) {
-          return true;
-      }
-
-      if (!(other instanceof Occasion)) {
-          return false;
-      }
-
-      Occasion otherOccasion = (Occasion) other;
-      return otherOccasion.getOccasionName().equals(this.getOccasionName())
-          && otherOccasion.getOccasionDate().equals(this.getOccasionDate())
-          && otherOccasion.getOrganiser().equals(this.getOrganiser())
-          && otherOccasion.getTags().equals(this.getTags());
+        if (other == this) {
+            return true;
+        }
+        
+        if (!(other instanceof Occasion)) {
+            return false;
+        }
+        
+        Occasion otherOccasion = (Occasion) other;
+        return otherOccasion.getOccasionName().equals(this.getOccasionName())
+            && otherOccasion.getOccasionDate().equals(this.getOccasionDate())
+            && otherOccasion.getOrganiser().equals(this.getOrganiser())
+            && otherOccasion.getTags().equals(this.getTags());
     }
 
     @Override

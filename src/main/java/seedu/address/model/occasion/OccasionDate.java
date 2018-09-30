@@ -65,7 +65,9 @@ public class OccasionDate {
     //@@author
 
     @Override
-    public String toString() { return fullOccasionDate; }
+    public String toString() {
+        return fullOccasionDate;
+    }
 
     @Override
     public boolean equals(Object other) {
@@ -75,5 +77,7 @@ public class OccasionDate {
     }
 
     @Override
-    public int hashCode() { return fullOccasionDate.hashCode(); }
+    public int hashCode() {
+        return fullOccasionDate.hashCode();
+    }
 }

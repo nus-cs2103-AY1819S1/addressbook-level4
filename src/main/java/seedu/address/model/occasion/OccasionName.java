@@ -46,7 +46,9 @@ public class OccasionName {
     }
 
     @Override
-    public String toString() { return fullOccasionName; }
+    public String toString() {
+        return fullOccasionName;
+    }
 
     @Override
     public boolean equals(Object other) {
@@ -56,5 +58,7 @@ public class OccasionName {
     }
 
     @Override
-    public int hashCode() { return fullOccasionName.hashCode(); }
+    public int hashCode() {
+        return fullOccasionName.hashCode();
+    }
 }
