@@ -3,8 +3,6 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PRIORITY_VALUE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PRIORITY_VALUE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PRIORITY_VALUE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
@@ -13,6 +11,8 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.PRIORITY_VALUE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.PRIORITY_VALUE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
@@ -89,7 +89,8 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Label.MESSAGE_LABEL_CONSTRAINTS); // invalid tag
 
         // invalid phone followed by valid email
-        assertParseFailure(parser, "1" + INVALID_PHONE_DESC + PRIORITY_VALUE_DESC_AMY, DueDate.MESSAGE_DUEDATE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_PHONE_DESC + PRIORITY_VALUE_DESC_AMY,
+                DueDate.MESSAGE_DUEDATE_CONSTRAINTS);
 
         // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
@@ -105,7 +106,8 @@ public class EditCommandParserTest {
                 .MESSAGE_LABEL_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_PRIORITY_VALUE_DESC + VALID_ADDRESS_AMY + VALID_DUEDATE_AMY,
+        assertParseFailure(parser,
+                "1" + INVALID_NAME_DESC + INVALID_PRIORITY_VALUE_DESC + VALID_ADDRESS_AMY + VALID_DUEDATE_AMY,
                 Name.MESSAGE_NAME_CONSTRAINTS);
     }
 
@@ -116,7 +118,9 @@ public class EditCommandParserTest {
                 + PRIORITY_VALUE_DESC_AMY + ADDRESS_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND;
 
         EditCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withDueDate(VALID_DUEDATE_BOB).withPriorityValue(VALID_PRIORITY_VALUE_AMY).withAddress(VALID_ADDRESS_AMY)
+                .withDueDate(VALID_DUEDATE_BOB)
+                .withPriorityValue(VALID_PRIORITY_VALUE_AMY)
+                .withAddress(VALID_ADDRESS_AMY)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -177,7 +181,9 @@ public class EditCommandParserTest {
                 + PHONE_DESC_BOB + ADDRESS_DESC_BOB + PRIORITY_VALUE_DESC_BOB + TAG_DESC_HUSBAND;
 
         EditCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withDueDate(VALID_DUEDATE_BOB)
-                .withPriorityValue(VALID_PRIORITY_VALUE_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+                .withPriorityValue(VALID_PRIORITY_VALUE_BOB)
+                .withAddress(VALID_ADDRESS_BOB)
+                .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -197,7 +203,8 @@ public class EditCommandParserTest {
         // other valid values specified
         userInput = targetIndex.getOneBased() + PRIORITY_VALUE_DESC_BOB + INVALID_PHONE_DESC + ADDRESS_DESC_BOB
                 + PHONE_DESC_BOB;
-        descriptor = new EditTaskDescriptorBuilder().withDueDate(VALID_DUEDATE_BOB).withPriorityValue(VALID_PRIORITY_VALUE_BOB)
+        descriptor = new EditTaskDescriptorBuilder().withDueDate(VALID_DUEDATE_BOB)
+                .withPriorityValue(VALID_PRIORITY_VALUE_BOB)
                 .withAddress(VALID_ADDRESS_BOB).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
