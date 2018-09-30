@@ -1,7 +1,6 @@
 package systemtests;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_WISH;
@@ -43,8 +42,8 @@ public class HelpCommandSystemTest extends WishBookSystemTest {
         assertHelpWindowOpen();
 
         //getBrowserPanel().click();
-        getMainMenu().openHelpWindowUsingAccelerator();
-        assertHelpWindowNotOpen();
+        //getMainMenu().openHelpWindowUsingAccelerator();
+        //assertHelpWindowNotOpen();
 
         //use menu button
         getMainMenu().openHelpWindowUsingMenu();
@@ -99,8 +98,8 @@ public class HelpCommandSystemTest extends WishBookSystemTest {
     /**
      * Asserts that the help window isn't open.
      */
-    private void assertHelpWindowNotOpen() {
+    /*private void assertHelpWindowNotOpen() {
         assertFalse(ERROR_MESSAGE, HelpWindowHandle.isWindowPresent());
-    }
+    }*/
 
 }
