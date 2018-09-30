@@ -23,14 +23,6 @@ public interface Anakin_Model {
 
     void updateDeck(Anakin_Deck target, Anakin_Deck editedDeck);
 
-    boolean hasCard(Anakin_Deck deck, Anakin_Card card);
-
-    void addCard(Anakin_Deck deck, Anakin_Card card);
-
-    void deleteCard(Anakin_Deck deck, Anakin_Card card);
-
-    void updateCard(Anakin_Deck deck, Anakin_Card target, Anakin_Card editedCard);
-
     ObservableList<Anakin_Deck> getFilteredDeckList();
 
     void updateFilteredDeckList(Predicate<Anakin_Deck> predicate);
