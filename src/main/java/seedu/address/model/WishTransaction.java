@@ -1,7 +1,10 @@
 package seedu.address.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
@@ -19,6 +22,7 @@ public class WishTransaction {
      * Stores a log of wish histories for this current state.
      */
     private List<Wish> wishes;
+    private HashMap<String, List<Wish>> wishMap;
 
     /**
      * Logger associated with this class.
@@ -32,6 +36,7 @@ public class WishTransaction {
 
     public WishTransaction() {
         this.wishes = new ArrayList<>();
+        this.wishMap = new HashMap<>();
         this.xmlWishTransactions = new XmlWishTransactions();
         this.logger = getLogger();
     }
@@ -50,12 +55,11 @@ public class WishTransaction {
      * Creates a WishTransaction using a saved copy of {@code unmarshalledSavedCopy}
      *
      * @param unmarshalledSavedCopy unmarshalled copy of saved xml wish histories.
-     * @throws IllegalValueException
      */
-    public WishTransaction(XmlWishTransactions unmarshalledSavedCopy) throws IllegalValueException {
+    public WishTransaction(XmlWishTransactions unmarshalledSavedCopy, HashMap<String, List<Wish>> wishMap) {
         this.logger = getLogger();
         this.xmlWishTransactions = unmarshalledSavedCopy;
-        unmarshalledSavedCopy.toCurrentStateWishTransactionList();
+        this.wishMap = wishMap;
     }
 
     private Logger getLogger() {
@@ -63,43 +67,97 @@ public class WishTransaction {
     }
 
     /**
-     * Adds a wish to history.
-     * @param p wish to be added.
+     * Adds a wish to {@code wishMap} using {@code wish} full name as key.
+     * @param wish
      */
-    public void addWish(Wish p) {
-        xmlWishTransactions.addWish(p);
-        updateWishes();
+    public void addWish(Wish wish) {
+        String wishName = getKey(wish);
+        List<Wish> wishList = getWishList(wishName);
+        setValueOfKey(wish, updateWishes(wishList, wish));
     }
 
     /**
-     * Updates {@code target} wish to {@code editedWish} in history.
-     * @param target an existing wish in history.
-     * @param editedWish wish to be changed to.
+     * Returns the key corresponding to this wish.
+     * @param wish
+     * @return
+     */
+    private String getKey(Wish wish) {
+        return wish.getName().fullName;
+    }
+
+    /**
+     * Retrieves the wishlist stored at {@code key}.
+     * @param key name of the wish.
+     * @return wishlist stored at {@code key}.
+     */
+    private List<Wish> getWishList(String key) {
+        return wishMap.getOrDefault(key, new ArrayList<>());
+    }
+
+    /**
+     * Sets the value of an existing wish to {@code wishes}.
+     * @param existing an existing wish.
+     * @param wishes value to be changed to.
+     */
+    private void setValueOfKey(Wish existing, List<Wish> wishes) {
+        wishMap.put(getKey(existing), wishes);
+    }
+
+    /**
+     * Appends the updated wish to the log of saving history for this wish.
+     * @param existingWishes log of saving history.
+     * @param editedWish wish to be updated to.
+     * @return an updated log of saving history.
+     */
+    private List<Wish> updateWishes(List<Wish> existingWishes, Wish editedWish) {
+        existingWishes.add(editedWish);
+        return existingWishes;
+    }
+
+    /**
+     * Replaces the given wish {@code target} in the list with {@code editedWish}.
+     * {@code target} must exist in the wish book.
+     * The wish identity of {@code editedWish} must not be the same as another existing wish in the wish book.
      */
     public void updateWish(Wish target, Wish editedWish) {
-        xmlWishTransactions.updateWish(target, editedWish);
-        updateWishes();
+        // get a reference to the stored wishes
+        List<Wish> wishes = wishMap.get(getKey(target));
+        // change the key of the target wish
+        changeKey(target, editedWish);
+        // update the stored wishes
+        setValueOfKey(editedWish, updateWishes(wishes, editedWish));
     }
 
     /**
-     * Removes a wish from history.
-     * @param key wish to be removed from history.
+     * Changes the key for the entry of {@code existing} to key of {@code newWish}.
+     * Assumption: {@code existing} must be an existing wish in the map.
+     *
+     * @param existing existing wish in the wishmap.
+     * @param newWish wish to be changed to.
      */
-    public void removeWish(Wish key) {
-        xmlWishTransactions.remove(key);
-        updateWishes();
+    private void changeKey(Wish existing, Wish newWish) {
+        wishMap.remove(getKey(existing));
+        wishMap.put(getKey(newWish), null);
     }
 
     /**
-     * Handles exceptions with unmarshalling {@code xmlWishTransactions} to {@code wishes}
+     * @see WishTransaction#removeWish(String).
      */
-    private void updateWishes() {
-        try {
-            this.wishes = xmlWishTransactions.toCurrentStateWishTransactionList();
-        } catch (IllegalValueException e) {
-            logger.fine("Error in unmarshalling xmlWishTransactions. \n"
-                    + e.getMessage());
+    public void removeWish(Wish wish) {
+        removeWish(getKey(wish));
+    }
+
+    /**
+     * Removes the wish specified by {@code key}.
+     *
+     * @param key name of wish to remove.
+     * @throws NoSuchElementException if key does not exist.
+     */
+    private void removeWish(String key) throws NoSuchElementException {
+        if (!wishMap.containsKey(key)) {
+            throw new NoSuchElementException(key);
         }
+        wishMap.remove(key);
     }
 
     /**
@@ -109,8 +167,18 @@ public class WishTransaction {
      */
     public void resetData(WishTransaction newData) {
         setWishes(newData.wishes);
+        setWishMap(newData.wishMap);
         setXmlWishTransactions(newData.xmlWishTransactions);
     }
+
+    /**
+     * Sets the current state's wish histories to {@code wishMap}.
+     * @param wishMap updated wish history log.
+     */
+    public void setWishMap(HashMap<String, List<Wish>> wishMap) {
+        this.wishMap = wishMap;
+    }
+
 
     /**
      * Sets the current state's wish histories to {@code wishes}.
@@ -126,6 +194,10 @@ public class WishTransaction {
      */
     public List<Wish> getWishes() {
         return wishes;
+    }
+
+    public XmlWishTransactions getXmlWishTransactions() {
+        return xmlWishTransactions;
     }
 
     private void setXmlWishTransactions(XmlWishTransactions xmlWishTransactions) {

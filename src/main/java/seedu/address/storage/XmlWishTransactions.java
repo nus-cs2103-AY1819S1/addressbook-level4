@@ -9,9 +9,11 @@ import java.util.Objects;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.WishTransaction;
 import seedu.address.model.wish.Wish;
 
 /**
@@ -20,6 +22,8 @@ import seedu.address.model.wish.Wish;
 @XmlRootElement()
 @XmlAccessorType(XmlAccessType.FIELD)
 public class XmlWishTransactions {
+
+    @XmlElement
     private Map<String, List<XmlAdaptedWish>> wishMap;
 
     /**
@@ -28,6 +32,13 @@ public class XmlWishTransactions {
      */
     public XmlWishTransactions() {
         this.wishMap = new HashMap<>();
+    }
+
+    /**
+     * Conversion
+     */
+    public XmlWishTransactions(WishTransaction wishTransaction) {
+        // get hashmap in wishtransaction for init
     }
 
     public Map<String, List<XmlAdaptedWish>> getWishMap() {
@@ -129,8 +140,31 @@ public class XmlWishTransactions {
     }
 
     /**
-     * Unmarshalls the xml content in {@code wishMap} and returns a list of current state wishes.
-     * @return list of current state wishes.
+     * Converts this JAXB friendly object into a WishTransaction object.
+     * @return associated WishTransaction object for this XmlWishTransactions object.
+     * @throws IllegalValueException if model is not correctly formatted.
+     */
+    public WishTransaction toModelType() throws IllegalValueException {
+        return new WishTransaction(this, toWishMap());
+    }
+
+    /**
+     * Unmarshalls {@code xmlAdaptedWish} and returns a hashmap of wishes.
+     * @return hashmap of wishes.
+     * @throws IllegalValueException if {@code xmlAdaptedWish} is not correctly formatted.
+     */
+    private HashMap<String, List<Wish>> toWishMap() throws IllegalValueException {
+        HashMap<String, List<Wish>> convertedMap = new HashMap<>();
+        for (Map.Entry<String, List<XmlAdaptedWish>> entries : wishMap.entrySet()) {
+            convertedMap.put(entries.getKey(), toWishList(entries.getValue()));
+        }
+        return convertedMap;
+    }
+
+    /**
+     * Unmarshalls {@code xmlAdaptedWish} and returns a list of wishes.
+     * @return list of wishes.
+     * @throws IllegalValueException if {@code xmlAdaptedWish} is not correctly formatted.
      */
     public List<Wish> toCurrentStateWishTransactionList() throws IllegalValueException {
         List<Wish> wishes = new ArrayList<>();
@@ -144,7 +178,7 @@ public class XmlWishTransactions {
      * Converts a list of {@code XmlAdaptedWish} to a list of {@code Wish}.
      * @param wishList list of xml adapted wishes.
      * @return a list of wishes.
-     * @throws IllegalValueException if {@code xmlAdaptedWish} is of incorrect model type.
+     * @throws IllegalValueException if {@code xmlAdaptedWish} is not correctly formatted.
      */
     private List<Wish> toWishList(List<XmlAdaptedWish> wishList) throws IllegalValueException {
         List<Wish> wishes = new ArrayList<>();
