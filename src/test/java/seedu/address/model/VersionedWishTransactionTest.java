@@ -9,6 +9,7 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
+import seedu.address.model.VersionedModels.VersionedWishTransaction;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.wish.Email;
 import seedu.address.model.wish.Name;

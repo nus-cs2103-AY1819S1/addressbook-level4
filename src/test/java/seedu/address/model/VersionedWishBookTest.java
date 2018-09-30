@@ -14,6 +14,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import seedu.address.model.VersionedModels.VersionedWishBook;
 import seedu.address.testutil.WishBookBuilder;
 
 public class VersionedWishBookTest {

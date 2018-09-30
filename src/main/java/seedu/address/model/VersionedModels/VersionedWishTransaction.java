@@ -1,7 +1,10 @@
-package seedu.address.model;
+package seedu.address.model.VersionedModels;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import seedu.address.model.VersionedModels.VersionedModel;
+import seedu.address.model.WishTransaction;
 
 /**
  * This class keeps track of the saving history for each wish across each executed command.
@@ -91,21 +94,4 @@ public class VersionedWishTransaction extends WishTransaction implements Version
         return wishStateList;
     }
 
-    /**
-     * Thrown when trying to {@code undo()} but can't.
-     */
-    public static class NoUndoableStateException extends RuntimeException {
-        private NoUndoableStateException() {
-            super("Current state pointer at start of wishState list, unable to undo.");
-        }
-    }
-
-    /**
-     * Thrown when trying to {@code redo()} but can't.
-     */
-    public static class NoRedoableStateException extends RuntimeException {
-        private NoRedoableStateException() {
-            super("Current state pointer at end of wishState list, unable to redo.");
-        }
-    }
 }

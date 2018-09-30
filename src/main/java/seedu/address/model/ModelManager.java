@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.WishBookChangedEvent;
+import seedu.address.model.VersionedModels.VersionedWishBook;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.wish.Wish;
 import seedu.address.model.wish.exceptions.DuplicateWishException;
