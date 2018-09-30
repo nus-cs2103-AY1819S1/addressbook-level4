@@ -13,7 +13,6 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.Block;
 import seedu.address.model.person.Room;
 import seedu.address.model.person.School;
 import seedu.address.model.tag.Tag;
@@ -84,26 +83,12 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String block} into a {@code Block}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code block} is invalid.
-     */
-    public static Block parseBlock(String block) throws ParseException {
-        requireNonNull(block);
-        String trimmedBlock = block.trim();
-        if (!Block.isValidBlock(trimmedBlock)) {
-            throw new ParseException(Block.MESSAGE_BLOCK_CONSTRAINTS);
-        }
-        return new Block(trimmedBlock);
-    }
-
-    /**
      * Parses a {@code String room} into a {@code Room}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code room} is invalid.
      */
+    //@@author javenseow
     public static Room parseRoom(String room) throws ParseException {
         requireNonNull(room);
         String trimmedRoom = room.trim();
@@ -127,7 +112,7 @@ public class ParserUtil {
         }
         return new School(trimmedSchool);
     }
-
+    //@@author
     /**
      * Parses a {@code String email} into an {@code Email}.
      * Leading and trailing whitespaces will be trimmed.

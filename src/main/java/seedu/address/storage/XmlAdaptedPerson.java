@@ -10,13 +10,12 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Block;
-import seedu.address.model.person.Room;
-import seedu.address.model.person.School;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Room;
+import seedu.address.model.person.School;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -32,8 +31,6 @@ public class XmlAdaptedPerson {
     private String phone;
     @XmlElement(required = true)
     private String email;
-    @XmlElement(required = true)
-    private String block;
     @XmlElement(required = true)
     private String room;
     @XmlElement(required = true)
@@ -51,11 +48,11 @@ public class XmlAdaptedPerson {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
-    public XmlAdaptedPerson(String name, String phone, String email, String block, String room, String school, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedPerson(String name, String phone, String email, String room, String school,
+                            List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.block = block;
         this.room = room;
         this.school = school;
         if (tagged != null) {
@@ -72,7 +69,6 @@ public class XmlAdaptedPerson {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
-        block = source.getBlock().value;
         room = source.getRoom().roomNumber;
         school = source.getSchool().schoolName;
         tagged = source.getTags().stream()
@@ -115,14 +111,6 @@ public class XmlAdaptedPerson {
         }
         final Email modelEmail = new Email(email);
 
-        if (block == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Block.class.getSimpleName()));
-        }
-        if (!Block.isValidBlock(block)) {
-            throw new IllegalValueException(Block.MESSAGE_BLOCK_CONSTRAINTS);
-        }
-        final Block modelBlock = new Block(block);
-
         if (room == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Room.class.getSimpleName()));
         }
@@ -140,7 +128,7 @@ public class XmlAdaptedPerson {
         final School modelSchool = new School(school);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelBlock, modelRoom, modelSchool, modelTags);
+        return new Person(modelName, modelPhone, modelEmail, modelRoom, modelSchool, modelTags);
     }
 
     @Override
@@ -157,7 +145,6 @@ public class XmlAdaptedPerson {
         return Objects.equals(name, otherPerson.name)
                 && Objects.equals(phone, otherPerson.phone)
                 && Objects.equals(email, otherPerson.email)
-                && Objects.equals(block, otherPerson.block)
                 && Objects.equals(room, otherPerson.room)
                 && Objects.equals(school, otherPerson.school)
                 && tagged.equals(otherPerson.tagged);

@@ -23,18 +23,16 @@ public class Person {
     // Data fields
     private final School school;
     private final Room room;
-    private final Block block;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Block block, Room room, School school, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Room room, School school, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, room, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.block = block;
         this.room = room;
         this.school = school;
         this.tags.addAll(tags);
@@ -56,10 +54,6 @@ public class Person {
         return room;
     }
 
-    public Block getBlock() {
-        return block;
-    }
-
     public School getSchool() {
         return school;
     }
@@ -72,6 +66,19 @@ public class Person {
         return Collections.unmodifiableSet(tags);
     }
 
+    //@@author javenseow
+    /**
+     * Returns an immutable set containing tags, school and room, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Tag> getFields() {
+        Set<Tag> fields = new HashSet<>();
+        fields.addAll(tags);
+        fields.add(new Tag(this.school.schoolName));
+        fields.add(new Tag(this.room.roomNumber));
+        return Collections.unmodifiableSet(fields);
+    }
+    //@@author
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
@@ -122,11 +129,9 @@ public class Person {
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
-                .append(" Block: ")
-                .append(getBlock())
-                .append(" Room ")
+                .append(" Room: ")
                 .append(getRoom())
-                .append( " School: ")
+                .append(" School: ")
                 .append(getSchool())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
