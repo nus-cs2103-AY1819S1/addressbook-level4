@@ -20,7 +20,7 @@ public enum Meal {
         this.recipe = Optional.empty();
     }
 
-    public Recipe getRecipe() throws MealRecipeNotFoundException{
+    public Recipe getRecipe() throws MealRecipeNotFoundException {
         if (this.recipe.isPresent()) {
             return this.recipe.get();
         } else {
