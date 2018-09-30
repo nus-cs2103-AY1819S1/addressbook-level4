@@ -316,6 +316,26 @@
     -fx-padding: 5 1 5 1;
 }
 
+.progress-bar {
+    -fx-accent: #2EE298;
+}
+
+.progress-bar .bar {
+    -fx-background-insets:0;
+    -fx-padding: 0;
+    -fx-border-radius: 50px;
+    -fx-background-radius: 50px;
+}
+
+.progress-bar > .track {
+  -fx-control-inner-background: #3E3F3F;
+  -fx-padding: 0;
+  -fx-background-insets:0;
+  -fx-border-radius: 50px;
+  -fx-background-radius: 50px;
+}
+
+
 #cardPane {
     -fx-background-color: transparent;
     -fx-border-width: 0;

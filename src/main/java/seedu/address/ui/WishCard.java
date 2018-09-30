@@ -2,10 +2,12 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.wish.Wish;
+
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -52,6 +54,9 @@ public class WishCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
+    @FXML
+    private ProgressBar progressBar;
+
     public WishCard(Wish wish, int displayedIndex) {
         super(FXML);
         this.wish = wish;
@@ -62,6 +67,7 @@ public class WishCard extends UiPart<Region> {
         url.setText(wish.getUrl().value);
         email.setText(wish.getEmail().value);
         remark.setText(wish.getRemark().value);
+        progressBar.setProgress(0.5);
         initTags(wish);
     }
 
