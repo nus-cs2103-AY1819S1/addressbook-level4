@@ -39,7 +39,7 @@ public class XmlWishTransactions {
      * @param wish
      */
     public void addWish(Wish wish) {
-        String wishName = wish.getName().fullName;
+        String wishName = getKey(wish);
         List<XmlAdaptedWish> wishList = getWishList(wishName);
         wishList.add(new XmlAdaptedWish(wish));
         wishMap.put(wishName, wishList);
@@ -58,7 +58,7 @@ public class XmlWishTransactions {
      * @see XmlWishTransactions#remove(String)
      */
     public void remove(Wish wish) throws NoSuchElementException {
-        remove(wish.getName().fullName);
+        remove(getKey(wish));
     }
 
     /**
@@ -80,18 +80,39 @@ public class XmlWishTransactions {
      * The wish identity of {@code editedWish} must not be the same as another existing wish in the wish book.
      */
     public void updateWish(Wish target, Wish editedWish) {
+        // get a reference to the stored wishes
         List<XmlAdaptedWish> wishes = wishMap.get(getKey(target));
-        updateWish(wishes, new XmlAdaptedWish(target), new XmlAdaptedWish(editedWish));
+        // change the key of the target wish
+        changeKey(target, editedWish);
+        // update the stored wishes
+        setValueOfKey(editedWish, updateWishes(wishes, editedWish));
     }
 
     /**
-     * @see XmlWishTransactions#updateWish(Wish, Wish)
-     *
+     * Appends the updated wish to the log of saving history for this wish.
+     * @param existingWishes log of saving history.
+     * @param editedWish wish to be updated to.
+     * @return an updated log of saving history.
      */
-    private void updateWish(List<XmlAdaptedWish> wishes, XmlAdaptedWish target, XmlAdaptedWish editedWish) {
-        if (wishes.contains(target)) {
-            wishes.set(wishes.indexOf(target), editedWish);
-        }
+    private List<XmlAdaptedWish> updateWishes(List<XmlAdaptedWish> existingWishes, Wish editedWish) {
+        existingWishes.add(new XmlAdaptedWish(editedWish));
+        return existingWishes;
+    }
+
+    /**
+     * Changes the key for the entry of {@code existing} to key of {@code newWish}.
+     * Assumption: {@code existing} must be an existing wish in the map.
+     *
+     * @param existing existing wish in the wishmap.
+     * @param newWish wish to be changed to.
+     */
+    private void changeKey(Wish existing, Wish newWish) {
+        wishMap.remove(getKey(existing));
+        wishMap.put(getKey(newWish), null);
+    }
+
+    private void setValueOfKey(Wish wish, List<XmlAdaptedWish> wishes) {
+        wishMap.put(getKey(wish), wishes);
     }
 
     /**
