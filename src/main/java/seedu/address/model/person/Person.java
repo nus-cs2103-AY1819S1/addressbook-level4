@@ -25,8 +25,6 @@ public class Person {
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
-    // This is a value field. The ability to set a value wil only be allowed in v2.2,
-    // so for now, this is just a placeholder
     private final Meeting meeting;
 
 
