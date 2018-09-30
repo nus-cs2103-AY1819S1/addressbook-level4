@@ -1,5 +1,6 @@
 package seedu.address.model.analytics;
 
+
 public enum StatisticType {
     AVERAGE ("Average"),
     TOTAL ("Total");
@@ -8,5 +9,9 @@ public enum StatisticType {
 
     StatisticType(String value) {
         this.value = value;
+    }
+
+    @Override public String toString() {
+        return this.value;
     }
 }
