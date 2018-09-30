@@ -44,7 +44,7 @@ public class SampleDataUtil {
             new Wish(new Name("EVGA 1080 Ti Graphics Card"), new Price("70.00"),
                     new Email("irfan@example.com"),
                     new Url("https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV"),
-                    new SavedAmount("4.50.00"),
+                    new SavedAmount("4.50"),
                     SAMPLE_REMARK_EMPTY, getTagSet("classmates")),
             new Wish(new Name("1TB SSD"), new Price("55.00"),
                     new Email("royb@example.com"),
