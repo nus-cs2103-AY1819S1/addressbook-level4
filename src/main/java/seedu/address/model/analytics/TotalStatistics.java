@@ -9,7 +9,7 @@ public class TotalStatistics extends Statistics {
     public static final int NUMBER_STATISTICS = 3;
     private static final String NUMBER_DAYS = statisticType + " number of days of operation (inclusive)";
     private static final String NUMBER_PATIENTS = statisticType + " number of patients to date";
-    private static final String NUMBER_MEDICINES = statisticType + " number of medicines dispensed to date";
+    private static final String NUMBER_MEDICINES = statisticType + " number of medicines prescribed to date";
 
     public TotalStatistics() {
         super();

@@ -12,8 +12,8 @@ public class AverageStatistics extends Statistics {
 
     private static final String NUMBER_PATIENTS_DAY = statisticType + " number of patients " + AVERAGE_TYPE_DAY;
     private static final String TIME_WAITING_PATIENT = statisticType + " waiting time " + AVERAGE_TYPE_PATIENT;
-    private static final String NUMBER_MEDICINES_DAY = statisticType + " number of medicines dispensed " + AVERAGE_TYPE_DAY;
-    private static final String NUMBER_MEDICINES_PATIENT = statisticType + " number of medicines dispensed " + AVERAGE_TYPE_PATIENT;
+    private static final String NUMBER_MEDICINES_DAY = statisticType + " number of medicines prescribed " + AVERAGE_TYPE_DAY;
+    private static final String NUMBER_MEDICINES_PATIENT = statisticType + " number of medicines prescribed " + AVERAGE_TYPE_PATIENT;
 
     public AverageStatistics() {
         super();
