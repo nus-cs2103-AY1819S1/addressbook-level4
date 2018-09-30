@@ -29,7 +29,7 @@ public class OccasionName {
   /**
    * Construct a {@code OccasionName}.
    *
-   * @param name A valid occasion name.
+   * @param name An occasion name.
    */
   public OccasionName(String name) {
     requireNonNull(name);
