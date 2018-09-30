@@ -121,4 +121,16 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    /**
+     * Parses a {@code String fileLocation} into a {@code FileLocation}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code fileLocation} is invalid.
+     */
+    public static String parseFileLocation(String fileLocation) throws ParseException {
+        requireNonNull(fileLocation);
+        String trimmedFileLocation = fileLocation.trim();
+        return trimmedFileLocation;
+    }
 }

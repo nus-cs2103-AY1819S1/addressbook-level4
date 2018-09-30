@@ -99,7 +99,7 @@ public class AddressBookParser {
 
         case PictureCommand.COMMAND_WORD:
         case PictureCommand.COMMAND_ALIAS:
-            return new PictureCommand();
+            return new PictureCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
