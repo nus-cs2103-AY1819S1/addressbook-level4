@@ -21,7 +21,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
-import seedu.address.model.person.Person;
+import seedu.address.model.expense.Person;
 import seedu.address.storage.XmlSerializableAddressBook;
 
 public class PersonListPanelTest extends GuiUnitTest {
@@ -97,10 +97,10 @@ public class PersonListPanelTest extends GuiUnitTest {
             builder.append("<persons>\n");
             builder.append("<name>").append(i).append("a</name>\n");
             builder.append("<phone>000</phone>\n");
-            builder.append("<email>a@aa</email>\n");
-            builder.append("<address>a</address>\n");
+            builder.append("<cost>1.00</cost>\n");
             builder.append("</persons>\n");
         }
+        builder.append("<username>manyPersons</username>");
         builder.append("</addressbook>\n");
 
         Path manyPersonsFile = Paths.get(TEST_DATA_FOLDER + "manyPersons.xml");

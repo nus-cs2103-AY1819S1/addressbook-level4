@@ -13,12 +13,14 @@ import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.exceptions.NoUserSelectedException;
+import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.XmlSerializableAddressBook;
 import seedu.address.testutil.TestUtil;
+import seedu.address.testutil.TypicalPersons;
 import systemtests.ModelHelper;
 
 /**
@@ -27,7 +29,7 @@ import systemtests.ModelHelper;
  */
 public class TestApp extends MainApp {
 
-    public static final Path SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
+    public static final Path SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("data/sampleData.xml");
     public static final String APP_TITLE = "Test App";
 
     protected static final Path DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
@@ -61,10 +63,11 @@ public class TestApp extends MainApp {
     @Override
     protected UserPrefs initPrefs(UserPrefsStorage storage) {
         UserPrefs userPrefs = super.initPrefs(storage);
+        userPrefs.setAddressBookDirPath(
+                TestUtil.getFilePathInSandboxFolder(userPrefs.getAddressBookDirPath().toString()));
         double x = Screen.getPrimary().getVisualBounds().getMinX();
         double y = Screen.getPrimary().getVisualBounds().getMinY();
         userPrefs.updateLastUsedGuiSetting(new GuiSettings(600.0, 600.0, (int) x, (int) y));
-        userPrefs.setAddressBookFilePath(saveFileLocation);
         return userPrefs;
     }
 
@@ -73,7 +76,8 @@ public class TestApp extends MainApp {
      */
     public AddressBook readStorageAddressBook() {
         try {
-            return new AddressBook(storage.readAddressBook().get());
+            return new AddressBook(storage.readAllExpenses(userPrefs.getAddressBookDirPath()).get(
+                    TypicalPersons.SAMPLE_USERNAME));
         } catch (DataConversionException dce) {
             throw new AssertionError("Data is not in the AddressBook format.", dce);
         } catch (IOException ioe) {
@@ -85,16 +89,27 @@ public class TestApp extends MainApp {
      * Returns the file path of the storage file.
      */
     public Path getStorageSaveLocation() {
-        return storage.getAddressBookFilePath();
+        return storage.getExpensesDirPath();
     }
 
     /**
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
-        Model copy = new ModelManager((model.getAddressBook()), new UserPrefs());
-        ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
-        return copy;
+        try {
+            Model copy = model.copy(userPrefs);
+            ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
+            return copy;
+        } catch (NonExistentUserException | NoUserSelectedException e) {
+            throw new AssertionError(e.getMessage());
+        }
+    }
+
+    /**
+     * Returns the model.
+     */
+    public Model getActualModel() {
+        return model;
     }
 
     @Override

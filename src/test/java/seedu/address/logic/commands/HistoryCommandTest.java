@@ -6,12 +6,17 @@ import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
+import seedu.address.model.exceptions.NonExistentUserException;
+import seedu.address.model.exceptions.UserAlreadyExistsException;
+import seedu.address.testutil.ModelUtil;
 
 public class HistoryCommandTest {
     private CommandHistory history = new CommandHistory();
-    private Model model = new ModelManager();
-    private Model expectedModel = new ModelManager();
+    private Model model = ModelUtil.modelWithTestUser();
+    private Model expectedModel = ModelUtil.modelWithTestUser();
+
+    public HistoryCommandTest() throws UserAlreadyExistsException, NonExistentUserException {
+    }
 
     @Test
     public void execute() {

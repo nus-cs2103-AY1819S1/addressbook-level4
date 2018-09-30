@@ -5,8 +5,12 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
+
+import seedu.address.model.expense.Category;
+import seedu.address.model.expense.Expense;
+import seedu.address.model.expense.Person;
+import seedu.address.model.expense.UniquePersonList;
+import seedu.address.model.user.Username;
 
 /**
  * Wraps all data at the address-book level
@@ -14,26 +18,25 @@ import seedu.address.model.person.UniquePersonList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
+    protected Username username;
     private final UniquePersonList persons;
+    private final CategoryList categoryList;
 
-    /*
-     * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
+    /**
+     * Creates an empty AddressBook with the given username.
+     * @param username the username of the AddressBook
      */
-    {
+    public AddressBook(Username username) {
+        this.username = username;
         persons = new UniquePersonList();
+        categoryList = new CategoryList();
     }
-
-    public AddressBook() {}
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
-        this();
+        this(toBeCopied.getUsername());
         resetData(toBeCopied);
     }
 
@@ -63,7 +66,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public boolean hasPerson(Person person) {
         requireNonNull(person);
-        return persons.contains(person);
+        return this.persons.contains(person);
     }
 
     /**
@@ -71,7 +74,23 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The person must not already exist in the address book.
      */
     public void addPerson(Person p) {
-        persons.add(p);
+        this.persons.add(p);
+    }
+
+    /**
+     * Add an expense to the expense tracker.
+     * If the category of the expense doesn't exist, the category will be created.
+     * */
+    public void addExpense(Expense e) { //TODO: Refine this once other attributes are ready
+        Category category = e.getCategory();
+        if (!this.categoryList.hasCategory(category)) {
+            this.categoryList.addCategory(category);
+        }
+        this.categoryList.addExpense(category, e);
+    }
+
+    public CategoryList getCategoryList() {
+        return this.categoryList;
     }
 
     /**
@@ -93,6 +112,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    public Username getUsername() {
+        return username;
+    }
+
+    public void setUsername(Username newUsername) {
+        this.username = newUsername;
+    }
     //// util methods
 
     @Override

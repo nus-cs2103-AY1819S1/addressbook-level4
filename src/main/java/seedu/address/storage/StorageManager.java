@@ -1,8 +1,12 @@
 package seedu.address.storage;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Map;
 import java.util.Optional;
+import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -14,6 +18,7 @@ import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.user.Username;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -21,13 +26,13 @@ import seedu.address.model.UserPrefs;
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private ExpensesStorage expensesStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(ExpensesStorage expensesStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.expensesStorage = expensesStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -52,39 +57,69 @@ public class StorageManager extends ComponentManager implements Storage {
     // ================ AddressBook methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getExpensesDirPath() {
+        return expensesStorage.getExpensesDirPath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyAddressBook> readExpenses() throws DataConversionException, IOException {
+        return readExpenses(expensesStorage.getExpensesDirPath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyAddressBook> readExpenses(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return expensesStorage.readExpenses(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public Map<Username, ReadOnlyAddressBook> readAllExpenses(Path dirPath) throws DataConversionException,
+            IOException {
+        File dir = new File(dirPath.toString());
+        final Map<Username, ReadOnlyAddressBook> books = new TreeMap<>();
+        File[] directoryListing = dir.listFiles();
+        if (!dir.mkdir()) {
+            if (directoryListing != null) {
+                for (File child : directoryListing) {
+                    readExpenses(Paths.get(child.getPath())).ifPresent(
+                        addressBook -> books.put(new Username(child.getName().replace(".xml", "")),
+                                addressBook));
+                }
+            }
+        }
+        return books;
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveExpenses(ReadOnlyAddressBook addressBook) throws IOException {
+        Path path = Paths.get(expensesStorage.getExpensesDirPath().toString(),
+                addressBook.getUsername().toString() + ".xml");
+        saveExpenses(addressBook, path);
+    }
+
+    @Override
+    public void saveExpenses(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        expensesStorage.saveExpenses(addressBook, filePath);
     }
 
+    @Override
+    public void backupExpenses(ReadOnlyAddressBook addressBook) throws IOException {
+        backupExpenses(addressBook, expensesStorage.getExpensesDirPath());
+    }
+
+    @Override
+    public void backupExpenses(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+        logger.fine("Attempting to write backup of: " + filePath);
+        expensesStorage.backupExpenses(addressBook, filePath);
+    }
 
     @Override
     @Subscribe
     public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
-            saveAddressBook(event.data);
+            saveExpenses(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }

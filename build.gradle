@@ -52,6 +52,10 @@ jacocoTestReport {
 
 test {
     useJUnitPlatform()
+    testLogging {
+        events "failed"
+        exceptionFormat "full"
+    }
 }
 
 dependencies {
@@ -243,5 +247,6 @@ task copyDummySearchPage(type: Copy) {
 
 deployOfflineDocs.dependsOn asciidoctor
 processResources.dependsOn deployOfflineDocs
+checkstyleMain.exclude '**/pullFromOrg'
 
 defaultTasks 'clean', 'headless', 'allTests', 'coverage', 'asciidoctor'

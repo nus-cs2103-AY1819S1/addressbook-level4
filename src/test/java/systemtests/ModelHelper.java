@@ -6,7 +6,8 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.exceptions.NoUserSelectedException;
+import seedu.address.model.expense.Person;
 
 /**
  * Contains helper methods to set up {@code Model} for testing.
@@ -17,7 +18,7 @@ public class ModelHelper {
     /**
      * Updates {@code model}'s filtered list to display only {@code toDisplay}.
      */
-    public static void setFilteredList(Model model, List<Person> toDisplay) {
+    public static void setFilteredList(Model model, List<Person> toDisplay) throws NoUserSelectedException {
         Optional<Predicate<Person>> predicate =
                 toDisplay.stream().map(ModelHelper::getPredicateMatching).reduce(Predicate::or);
         model.updateFilteredPersonList(predicate.orElse(PREDICATE_MATCHING_NO_PERSONS));
@@ -26,7 +27,7 @@ public class ModelHelper {
     /**
      * @see ModelHelper#setFilteredList(Model, List)
      */
-    public static void setFilteredList(Model model, Person... toDisplay) {
+    public static void setFilteredList(Model model, Person... toDisplay) throws NoUserSelectedException {
         setFilteredList(model, Arrays.asList(toDisplay));
     }
 
