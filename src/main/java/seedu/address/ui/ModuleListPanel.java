@@ -1,9 +1,6 @@
 package seedu.address.ui;
 
-import java.util.logging.Logger;
-
 import com.google.common.eventbus.Subscribe;
-
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,48 +9,52 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
-import seedu.address.model.person.Person;
+import seedu.address.commons.events.ui.ModulePanelSelectionChangedEvent;
+import seedu.address.model.module.Module;
+
+import java.util.logging.Logger;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of modules.
+ *
+ * @author alistair
  */
-public class PersonListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+public class ModuleListPanel extends UiPart<Region> {
+    private static final String FXML = "ModuleListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(ModuleListPanel.class);
 
     @FXML
-    private ListView<Person> personListView;
+    private ListView<Module> moduleListView;
 
-    public PersonListPanel(ObservableList<Person> personList) {
+    public ModuleListPanel(ObservableList<Module> moduleList) {
         super(FXML);
-        setConnections(personList);
+        setConnections(moduleList);
         registerAsAnEventHandler(this);
     }
 
-    private void setConnections(ObservableList<Person> personList) {
-        personListView.setItems(personList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+    private void setConnections(ObservableList<Module> moduleList) {
+        moduleListView.setItems(moduleList);
+        moduleListView.setCellFactory(listView -> new moduleListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
-        personListView.getSelectionModel().selectedItemProperty()
+        moduleListView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
-                        logger.fine("Selection in person list panel changed to : '" + newValue + "'");
-                        raise(new PersonPanelSelectionChangedEvent(newValue));
+                        logger.fine("Selection in module list panel changed to : '" + newValue + "'");
+                        raise(new ModulePanelSelectionChangedEvent(newValue));
                     }
                 });
     }
 
     /**
-     * Scrolls to the {@code PersonCard} at the {@code index} and selects it.
+     * Scrolls to the {@code ModuleCard} at the {@code index} and selects it.
      */
     private void scrollTo(int index) {
         Platform.runLater(() -> {
-            personListView.scrollTo(index);
-            personListView.getSelectionModel().clearAndSelect(index);
+            moduleListView.scrollTo(index);
+            moduleListView.getSelectionModel().clearAndSelect(index);
         });
     }
 
@@ -64,18 +65,18 @@ public class PersonListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Module} using a {@code ModuleCard}.
      */
-    class PersonListViewCell extends ListCell<Person> {
+    class moduleListViewCell extends ListCell<Module> {
         @Override
-        protected void updateItem(Person person, boolean empty) {
-            super.updateItem(person, empty);
+        protected void updateItem(Module module, boolean empty) {
+            super.updateItem(module, empty);
 
-            if (empty || person == null) {
+            if (empty || module == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+                setGraphic(new ModuleCard(module, getIndex() + 1).getRoot());
             }
         }
     }
