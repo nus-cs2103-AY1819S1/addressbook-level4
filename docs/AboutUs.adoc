@@ -37,7 +37,7 @@ Responsibilities: Data
 '''
 
 === Raynard Hadiwidjaja
-image::RnardHa.png[width="150", align="left"]
+image::rnardha.png[width="150", align="left"]
 {empty}[http://github.com/RnardHa[github]]
 
 Role: Developer +
