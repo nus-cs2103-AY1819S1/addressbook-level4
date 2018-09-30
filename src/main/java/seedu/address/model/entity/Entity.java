@@ -2,6 +2,7 @@ package seedu.address.model.entity;
 
 import java.util.Set;
 
+import seedu.address.commons.util.TypeUtil;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -12,8 +13,13 @@ import seedu.address.model.tag.Tag;
  */
 public abstract class Entity {
     private Set<Tag> tags; // TODO Change from Set to hashMap.
+    protected TypeUtil type; // TODO add type to Person's constructor.
 
     public Set<Tag> getTags() {
         return tags;
+    }
+
+    public TypeUtil getType() {
+        return type;
     }
 }

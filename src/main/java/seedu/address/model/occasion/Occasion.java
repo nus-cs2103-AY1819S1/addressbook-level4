@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.commons.util.TypeUtil;
 import seedu.address.model.inanimate.Inanimate;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
@@ -29,12 +30,13 @@ public class Occasion extends Inanimate {
      * Every field must be present and not null.
      */
     public Occasion(OccasionName occasionName, OccasionDate occasionDate,
-        Person organiser, Set<Tag> tags) {
-        requireAllNonNull(occasionName, occasionDate, organiser, tags);
+        Person organiser, Set<Tag> tags, TypeUtil type) {
+        requireAllNonNull(occasionName, occasionDate, organiser, tags, type);
         this.occasionName = occasionName;
         this.occasionDate = occasionDate;
         this.organiser = organiser;
         this.tags.addAll(tags);
+        this.type = type;
     }
 
     public OccasionName getOccasionName() {
