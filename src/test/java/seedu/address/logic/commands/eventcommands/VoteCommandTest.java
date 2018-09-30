@@ -32,9 +32,8 @@ public class VoteCommandTest {
         VoteCommand command = new VoteCommand(index, OPTION_NAME);
         Person user = new PersonBuilder().build();
         commandHistory.setSelectedPerson(user);
-        EventBuilder eventBuilder = new EventBuilder();
-        eventBuilder.withOrganiser(user);
-        Event event = eventBuilder.withPoll().build();
+        Event event = model.getFilteredEventList().get(0);
+        event.addPoll("Generic poll");
         event.getPoll(index).addOption(OPTION_NAME);
         commandHistory.setSelectedEvent(event);
         String expectedMessage = String.format(command.MESSAGE_SUCCESS, OPTION_NAME, index.getOneBased());

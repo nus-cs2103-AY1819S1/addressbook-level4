@@ -34,12 +34,10 @@ public class SetDateCommandTest {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         Person user = new PersonBuilder().build();
         commandHistory.setSelectedPerson(user);
-        //EventBuilder eventBuilder = new EventBuilder();
-        //Event event = eventBuilder.build();
         Event event = model.getFilteredEventList().get(0);
         commandHistory.setSelectedEvent(event);
         String expectedMessage = String.format(command.MESSAGE_SUCCESS, date.format(dateFormat), event);
-        //expectedModel.updateEvent(model.getFilteredEventList().get(0), event);
+        expectedModel.updateEvent(event, event);
         expectedModel.commitAddressBook();
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }

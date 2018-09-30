@@ -96,8 +96,14 @@ public class XmlAdaptedEvent {
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
         date = source.getDateString();
-        startTime = source.getStartTime().toString();
-        endTime = source.getEndTime().toString();
+        LocalTime start = source.getStartTime();
+        if (start != null) {
+            this.startTime = start.toString();
+        }
+        LocalTime end = source.getEndTime();
+        if (end != null) {
+            endTime = source.getEndTime().toString();
+        }
         polls = source.getPolls().stream()
                 .map(XmlAdaptedPoll::new)
                 .collect(Collectors.toList());

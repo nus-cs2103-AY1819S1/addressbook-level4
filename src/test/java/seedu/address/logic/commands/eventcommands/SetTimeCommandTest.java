@@ -40,7 +40,7 @@ public class SetTimeCommandTest {
         String expectedMessage = String.format(command.MESSAGE_SUCCESS, startTime.format(timeFormat),
                 endTime.format(timeFormat), event);
         expectedModel.commitAddressBook();
-        //expectedModel.updateEvent(event, event);
+        expectedModel.updateEvent(event, event);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
 

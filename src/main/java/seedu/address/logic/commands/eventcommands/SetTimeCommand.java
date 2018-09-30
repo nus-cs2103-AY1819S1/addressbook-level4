@@ -61,12 +61,10 @@ public class SetTimeCommand extends Command {
             throw new CommandException(Messages.MESSAGE_NO_USER_LOGGED_IN);
         }
 
-        List<Event> lastShownList = model.getFilteredEventList();
-        int index = lastShownList.indexOf(event);
         event.setStartTime(startTime);
         event.setEndTime(endTime);
 
-        model.updateEvent(index, event);
+        model.updateEvent(event, event);
         model.commitAddressBook();
         DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
         return new CommandResult(String.format(MESSAGE_SUCCESS, startTime.format(timeFormat),
