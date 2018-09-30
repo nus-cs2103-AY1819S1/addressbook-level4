@@ -1,10 +1,15 @@
 package seedu.address.model;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.testutil.TypicalEvents.BLOOD;
+import static seedu.address.testutil.TypicalEvents.YOUTH;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalRecords.R1;
+import static seedu.address.testutil.TypicalRecords.R2;
 
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -22,6 +27,25 @@ public class ModelManagerTest {
 
     private ModelManager modelManager = new ModelManager();
 
+    //// Test switch
+    @Test
+    public void setCurrentContext_nullContextId_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.setCurrentContext(null);
+    }
+
+    @Test
+    public void setCurrentContext_validContextId_assertTrue() {
+        modelManager.setCurrentContext(Context.EVENT_CONTEXT_ID);
+        assertEquals(modelManager.getContextId(), Context.EVENT_CONTEXT_ID);
+        assertEquals(modelManager.getContextName(), Context.EVENT_CONTEXT_NAME);
+
+        modelManager.setCurrentContext(Context.VOLUNTEER_CONTEXT_ID);
+        assertEquals(modelManager.getContextId(), Context.VOLUNTEER_CONTEXT_ID);
+        assertEquals(modelManager.getContextName(), Context.VOLUNTEER_CONTEXT_NAME);
+    }
+
+    //// Test person
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
@@ -45,9 +69,59 @@ public class ModelManagerTest {
         modelManager.getFilteredPersonList().remove(0);
     }
 
+    //// Test event
+    @Test
+    public void hasEvent_nullEvent_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.hasEvent(null);
+    }
+
+    @Test
+    public void hasEvent_eventNotInAddressBook_returnsFalse() {
+        assertFalse(modelManager.hasEvent(BLOOD));
+    }
+
+    @Test
+    public void hasEvent_eventInAddressBook_returnsTrue() {
+        modelManager.addEvent(BLOOD);
+        assertTrue(modelManager.hasEvent(BLOOD));
+    }
+
+    @Test
+    public void getFilteredEventList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getFilteredEventList().remove(0);
+    }
+
+    //// Test Record
+    @Test
+    public void hasRecord_nullRecord_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.hasRecord(null);
+    }
+
+    @Test
+    public void hasRecord_recordNotInAddressBook_returnsFalse() {
+        assertFalse(modelManager.hasRecord(R1));
+    }
+
+    @Test
+    public void hasRecord_recordInAddressBook_returnsTrue() {
+        modelManager.addRecord(R1);
+        assertTrue(modelManager.hasRecord(R1));
+    }
+
+    @Test
+    public void getFilteredRecordList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getFilteredRecordList().remove(0);
+    }
+
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON)
+                .withEvent(BLOOD).withEvent(YOUTH)
+                .withRecord(R1).withRecord(R2).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
 

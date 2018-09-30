@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+    <records>
+        <eventId>1</eventId>
+        <volunteerId>1</volunteerId>
+        <hour>1</hour>
+        <remark>Emcee</remark>
+    </records>
+    <!-- Record with same identity as first record-->
+    <records>
+        <eventId>1</eventId>
+        <volunteerId>1</volunteerId>
+        <hour>2</hour>
+        <remark>Delivery man</remark>
+    </records>
+</addressbook>
