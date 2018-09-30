@@ -12,6 +12,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Anakin_Model;
 import seedu.address.model.Anakin_deck.Anakin_Deck;
 
+/**
+ * Deletes a deck identified using it's displayed index from Anakin.
+ */
 public class Anakin_DelDeckCommand extends Anakin_Command {
 
     public static final String COMMAND_WORD = "deldeck";
