@@ -122,7 +122,7 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommandAlias_find() throws Exception {
+    public void parseCommandAlais_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_ALIAS + " " + keywords.stream().collect(Collectors.joining(" ")));
