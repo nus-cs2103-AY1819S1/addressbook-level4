@@ -12,7 +12,7 @@ import seedu.address.model.person.FieldsContainsKeywordsPredicate;
  * Keyword matching is case insensitive.
  */
 // @@author javenseow
-public class SearchCommand extends Command{
+public class SearchCommand extends Command {
     public static final String COMMAND_WORD = "search";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons who are tagged with "

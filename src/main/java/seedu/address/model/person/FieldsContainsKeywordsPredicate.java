@@ -1,4 +1,3 @@
-//@@author javenseow
 package seedu.address.model.person;
 
 import java.util.List;
@@ -21,8 +20,8 @@ public class FieldsContainsKeywordsPredicate implements Predicate<Person> {
     public boolean test(Person person) {
         return keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsFieldIgnoreCase
-                        (person.getFields().toString().replaceAll("\\[", "").replaceAll("]", "")
-                        , keyword));
+                        (person.getFields().toString().replaceAll("\\[", "").replaceAll("]", ""),
+                         keyword));
     }
 
     @Override

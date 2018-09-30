@@ -131,7 +131,7 @@ public class Person {
                 .append(getEmail())
                 .append(" Room: ")
                 .append(getRoom())
-                .append( " School: ")
+                .append(" School: ")
                 .append(getSchool())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
