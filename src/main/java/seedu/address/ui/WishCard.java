@@ -15,17 +15,7 @@ import seedu.address.model.wish.Wish;
 public class WishCard extends UiPart<Region> {
 
     private static final String FXML = "WishCard.fxml";
-    private static final String[] TAG_COLORS = {
-            "red",
-            "yellow",
-            "blue",
-            "dark_blue",
-            "orange",
-            "green",
-            "pink",
-            "dark_pink",
-            "purple"
-    };
+    private static final String[] TAG_COLORS = { "red", "yellow", "blue", "navy", "orange", "green", "pink", "hot", "purple" };
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
