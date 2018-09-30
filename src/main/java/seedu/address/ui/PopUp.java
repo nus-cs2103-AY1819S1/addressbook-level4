@@ -7,9 +7,17 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * PopUp window for alert
+ */
 public class PopUp {
 
-    public static void display(String title, String message){
+    /**
+     * Display the Popup window
+     * @param title
+     * @param message
+     */
+    public static void display(String title, String message) {
         Stage window = new Stage();
 
         // the popup window needs to be taken care of first

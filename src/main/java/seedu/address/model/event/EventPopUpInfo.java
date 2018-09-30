@@ -1,8 +1,11 @@
 package seedu.address.model.event;
 
-public class EventPopUpInfo implements Comparable<EventPopUpInfo>{
-    String description;
-    DateTime popUpDateTime;
+/**
+ * Manages Info needed for PopUp alert
+ */
+public class EventPopUpInfo implements Comparable<EventPopUpInfo> {
+    private String description;
+    private DateTime popUpDateTime;
 
     public EventPopUpInfo(String description, DateTime popUpDateTime) {
         this.description = description;
@@ -10,7 +13,7 @@ public class EventPopUpInfo implements Comparable<EventPopUpInfo>{
     }
 
     public int compareTo(EventPopUpInfo other) {
-         return this.popUpDateTime.compareTo(other.popUpDateTime);
+        return this.popUpDateTime.compareTo(other.popUpDateTime);
     }
 
     public DateTime getPopUpDateTime () {

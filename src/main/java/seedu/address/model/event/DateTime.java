@@ -58,14 +58,18 @@ public class DateTime implements Comparable<DateTime> {
     public boolean isClose(DateTime currentDateTime) {
         LocalDateTime currentLocalDateTime = currentDateTime.getLocalDateTime();
         long minutes = currentLocalDateTime.until(value, ChronoUnit.MINUTES);
-        return ( minutes == 0) ;
+        return (minutes == 0);
     }
 
-
+    /**
+     * Used for PopUp
+     * @param currentDateTime
+     * @return True if the event has already past
+     */
     public boolean isPast(DateTime currentDateTime) {
         LocalDateTime currentLocalDateTime = currentDateTime.getLocalDateTime();
         long minutes = value.until(currentLocalDateTime, ChronoUnit.MINUTES);
-        return ( minutes >= 1) ;
+        return (minutes >= 1);
     }
 
 }

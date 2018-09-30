@@ -14,9 +14,13 @@ import seedu.address.model.event.Event;
 import seedu.address.model.event.EventPopUpInfo;
 import seedu.address.ui.PopUp;
 
+/**
+ * Extract PopUp info and run in the background
+ */
 public class PopUpManager {
-    private PriorityQueue<EventPopUpInfo> popUpQueue;
+
     private static final Logger logger = LogsCenter.getLogger(PopUpManager.class);
+    private PriorityQueue<EventPopUpInfo> popUpQueue;
 
     public PopUpManager(ReadOnlyScheduler readOnlyScheduler) {
 
@@ -29,6 +33,9 @@ public class PopUpManager {
         }
     }
 
+    /**
+     * checking for PopUp in the background
+     */
     public void startRunning() {
         Task<Void> task = new Task<Void>() {
             @Override
@@ -47,7 +54,9 @@ public class PopUpManager {
                             popUpQueue.remove();
                             if (!popUpQueue.isEmpty()) {
                                 frontEventDateTime = popUpQueue.peek().getPopUpDateTime();
-                            } else break;
+                            } else {
+                                break;
+                            }
                         }
 
                     }
@@ -61,7 +70,9 @@ public class PopUpManager {
                             popUpQueue.remove();
                             if (!popUpQueue.isEmpty()) {
                                 frontEventDateTime = popUpQueue.peek().getPopUpDateTime();
-                            } else break;
+                            } else {
+                                break;
+                            }
                         }
                     }
 
@@ -79,13 +90,18 @@ public class PopUpManager {
         backgroundThread.start();
     }
 
+    /**
+     * Display PopUp message
+     * @param title
+     * @param description
+     */
     private void displayPopUp (String title, String description) {
         Platform.runLater(new Runnable() {
-                              @Override
-                              public void run() {
-                                  PopUp popUp = new PopUp();
-                                  popUp.display(title, description);
-                              }
-                          });
+            @Override
+            public void run() {
+                PopUp popUp = new PopUp();
+                popUp.display(title, description);
+            }
+        });
     }
 }
