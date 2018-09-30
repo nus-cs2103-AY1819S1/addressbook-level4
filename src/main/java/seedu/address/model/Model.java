@@ -75,4 +75,9 @@ public interface Model {
      * Saves the current address book state for undo/redo.
      */
     void commitAddressBook();
+
+    /**
+     * Import Contacts from given file path
+     */
+    void importContacts(String filePath);
 }
