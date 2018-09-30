@@ -836,51 +836,51 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |new manager |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |register a new volunteer |begin tracking their volunteer work & hours
+|`* * *` |manager |register a new volunteer |begin tracking their volunteer work & hours
 
-|`* * *` |user |view a volunteer's details |track their volunteer work & hours
+|`* * *` |manager |view a volunteer's details |track their volunteer work & hours
 
-|`* * *` |user |update volunteer details |keep their details updated for administrative & other purposes
+|`* * *` |manager |update volunteer details |keep their details updated for administrative & other purposes
 
-|`* *` |user |archive volunteer details |stash away unnecessary volunteer records, yet have the option of restoring them if needed
+|`* *` |manager |archive volunteer details |stash away unnecessary volunteer records, yet have the option of restoring them if needed
 
-|`* *` |user |restore volunteer record |restore volunteer details that were archived
+|`* *` |manager |restore volunteer record |restore volunteer details that were archived
 
-|`* * *` |user |delete volunteer record |permanently remove volunteer record from database
+|`* * *` |manager |delete volunteer record |permanently remove volunteer record from database
 
-|`* *` |user |import volunteer record details |add multiple volunteer data into the database
+|`* *` |manager |import volunteer record details |add multiple volunteer data into the database
 
-|`*` |user |export volunteer record details |have a backup of the volunteer records
+|`*` |manager |export volunteer record details |have a backup of the volunteer records
 
-|`* * *` |user |create new event |have a record of the event details
+|`* * *` |manager |create new event |have a record of the event details
 
-|`* * *` |user |update event details |ensure that event details are kept up to date
+|`* * *` |manager |update event details |ensure that event details are kept up to date
 
-|`* * *` |user |view event details |verify the details of the event
+|`* * *` |manager |view event details |verify the details of the event
 
-|`* * *` |user |delete event details |remove the event from the list if event details were entered wrongly or cancelled
+|`* * *` |manager |delete event details |remove the event from the list if event details were entered wrongly or cancelled
 
-|`* *` |user |archive event details |stash away event records yet have the option of restoring them
+|`* *` |manager |archive event details |stash away event records yet have the option of restoring them
 
-|`* *` |user |restore event details |restore event details that were archived
+|`* *` |manager |restore event details |restore event details that were archived
 
-|`* *` |user |import event data |add multiple events at once
+|`* *` |manager |import event data |add multiple events at once
 
-|`*` |user |export event data |have a backup of event details
+|`*` |manager |export event data |have a backup of event details
 
-|`* * *` |user |add volunteer hours to volunteer profiles |keep track of the number of hours spent by the volunteer volunteering
+|`* * *` |manager |add volunteer hours to volunteer profiles |keep track of the number of hours spent by the volunteer volunteering
 
-|`* * *` |user |edit volunteer hours in volunteer profiles |maintain accuracy of information pertaining to volunteer work
+|`* * *` |manager |edit volunteer hours in volunteer profiles |maintain accuracy of information pertaining to volunteer work
 
-|`*` |user |export certification document from volunteers’ data |provide volunteers with official acknowledgement of service rendered to organization
+|`*` |manager |export certification document from volunteers’ data |provide volunteers with official acknowledgement of service rendered to organization
 
-|`* *` |user |view spread of volunteers across events |determine which are the more popular events
+|`* *` |manager |view spread of volunteers across events |determine which are the more popular events
 
-|`* *` |user |view demographics of volunteers |know what my volunteer profiles are like
+|`* *` |manager |view demographics of volunteers |know what my volunteer profiles are like
 
-|`* *` |user |auto-complete commands |execute commands more efficiently
+|`* *` |manager |auto-complete commands |execute commands more efficiently
 |=======================================================================
 
 _{To be updated and expanded}_
@@ -935,6 +935,9 @@ Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
+
+[[manager]] Manager::
+The intended user of our application, the manager of a social welfare organisation who's in charge of members and events
 
 [appendix]
 == Product Survey
