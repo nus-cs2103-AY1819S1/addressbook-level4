@@ -1,5 +1,8 @@
 package seedu.address.model.analytics;
 
+/**
+ * Represents statistics that are total numbers.
+ */
 public class TotalStatistics extends Statistics {
 
     public static final StatisticType statisticType = StatisticType.TOTAL;

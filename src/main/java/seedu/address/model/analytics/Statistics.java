@@ -3,6 +3,9 @@ package seedu.address.model.analytics;
 import java.util.HashMap;
 import java.util.Set;
 
+/**
+ * Represents statistics of a general type.
+ */
 public abstract class Statistics {
 
     public HashMap<String, Integer> statistics;

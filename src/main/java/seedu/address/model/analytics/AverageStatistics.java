@@ -1,6 +1,8 @@
 package seedu.address.model.analytics;
 
-
+/**
+ * Represents statistics that are averages.
+ */
 public class AverageStatistics extends Statistics {
 
     public static final StatisticType statisticType = StatisticType.AVERAGE;
