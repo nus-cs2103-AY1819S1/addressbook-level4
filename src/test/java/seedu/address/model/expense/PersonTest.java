@@ -29,6 +29,12 @@ public class PersonTest {
     }
 
     @Test
+    public void personHashCode() {
+        // same object -> returns true
+        assertTrue(ALICE.hashCode() == ALICE.hashCode());
+    }
+
+    @Test
     public void isSamePerson() {
         // same object -> returns true
         assertTrue(ALICE.isSamePerson(ALICE));
