@@ -162,6 +162,18 @@ public class WishTransaction implements ActionCommandListener<WishTransaction> {
         setWishMap(newData.wishMap);
     }
 
+    /**
+     * @see WishTransaction#resetData(WishTransaction)
+     */
+    @Override
+    public void resetData() {
+        resetData(new WishTransaction());
+    }
+
+    /**
+     * Responds to request to remove tag from all wishes.
+     * @param tag tag to be removed.
+     */
     @Override
     public void removeTagFromAll(Tag tag) {
         for (Map.Entry<String, List<Wish>> entries : wishMap.entrySet()) {

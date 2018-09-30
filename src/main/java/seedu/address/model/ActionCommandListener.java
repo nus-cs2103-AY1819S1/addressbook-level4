@@ -29,10 +29,15 @@ public interface ActionCommandListener<T> {
     void removeWish(Wish wish);
 
     /**
-     * Called action command clear is executed.
+     * Called when action commands undo, redo are executed.
      * @param newData newData to replace the model with.
      */
     void resetData(T newData);
+
+    /**
+     * Called when action command clear is executed.
+     */
+    void resetData();
 
     /**
      * Removes {@code tag} from all {@code wish}s in this {@code WishBook}.
