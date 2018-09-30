@@ -3,7 +3,7 @@ package seedu.address.model;
 import java.util.HashMap;
 
 import seedu.address.model.expense.Category;
-import seedu.address.model.expense.Expense_temp;
+import seedu.address.model.expense.ExpenseTemp;
 
 
 //@@author Jiang Chen
@@ -30,9 +30,9 @@ public class CategoryList {
     }
 
     /**
-     * add {@code Expense_temp} into an existed {@code Category}.
+     * add {@code ExpenseTemp} into an existed {@code Category}.
      * */
-    public void addExpense(Category categoryTemp, Expense_temp expenseTemp) {
+    public void addExpense(Category categoryTemp, ExpenseTemp expenseTemp) {
         Category currentCate = this.list.get(categoryTemp.getName());
         currentCate.addIntoCategory(expenseTemp);
     }
@@ -54,7 +54,7 @@ public class CategoryList {
         for (String i : this.list.keySet()) {
             categoryString += i;
             categoryString += " ";
-            for (Expense_temp e : this.list.get(i).getExpenseList()) {
+            for (ExpenseTemp e : this.list.get(i).getExpenseList()) {
                 categoryString += e;
             }
             categoryString += " ";

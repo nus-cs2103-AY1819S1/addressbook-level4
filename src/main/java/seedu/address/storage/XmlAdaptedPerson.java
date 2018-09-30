@@ -85,7 +85,8 @@ public class XmlAdaptedPerson {
         final Name modelName = new Name(name);
 
         if (category == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Category.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Category.class.getSimpleName()));
         }
         if (!Category.isValidCategory(category)) {
             throw new IllegalValueException(Category.MESSAGE_PHONE_CONSTRAINTS);

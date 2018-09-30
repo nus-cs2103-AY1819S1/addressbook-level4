@@ -16,7 +16,7 @@ public class Category {
             "Category numbers should only contain numbers, and it should be at least 3 digits long";
     public static final String CATEGORY_VALIDATION_REGEX = "\\p{Alnum}+";
     private final String categoryName;
-    private final ArrayList<Expense_temp> expenseList = new ArrayList<>();
+    private final ArrayList<ExpenseTemp> expenseList = new ArrayList<>();
 
     /**
      * Constructs a {@code Category}.
@@ -37,13 +37,13 @@ public class Category {
     }
 
     /**
-     * Add an Expense_temp into the {@code expenseList} in Category.
+     * Add an ExpenseTemp into the {@code expenseList} in Category.
      * */
-    public void addIntoCategory(Expense_temp expense) {
+    public void addIntoCategory(ExpenseTemp expense) {
         this.expenseList.add(expense);
     }
 
-    public ArrayList<Expense_temp> getExpenseList() {
+    public ArrayList<ExpenseTemp> getExpenseList() {
         return this.expenseList;
     }
 

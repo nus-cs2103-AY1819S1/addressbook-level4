@@ -66,7 +66,8 @@ public class Person {
 
         return otherPerson != null
                 && otherPerson.getName().equals(this.getName())
-                && (otherPerson.getCategory().equals(this.getCategory()) || otherPerson.getCost().equals(this.getCost()));
+                && (otherPerson.getCategory().equals(this.getCategory())
+                || otherPerson.getCost().equals(this.getCost()));
     }
 
     /**
