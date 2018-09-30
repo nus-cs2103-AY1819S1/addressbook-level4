@@ -227,7 +227,7 @@ public class AddressBookParserTest {
     public void parseCommand_pictureCommandAlias_returnsPictureCommand() throws Exception {
         assertTrue(parser.parseCommand("p n/johndoe l/johndoe.jpg") instanceof PictureCommand);
     }
-    
+
     @Test
     public void parseCommandWord_tag() throws Exception {
         List<String> keywords = Arrays.asList("foo", "friends", "colleagues");
