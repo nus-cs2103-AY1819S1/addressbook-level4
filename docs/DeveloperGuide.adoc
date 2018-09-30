@@ -861,7 +861,18 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |efficient user |clear the meal planner immediately at the end of the week |I can save time
 |=======================================================================
 === User Profiling
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+|`* * *`|undecided user |get random recipe suggestions |get new ideas on what to cook
 
+|`* * *` |user |get suggestions to cook based on my viewing and cooking history |learn to cook similar dishes that I may like
+
+|`* * *` |user |favourite a recipe that I really like | save them into my favourites for easy reference
+
+|`* * *` |user |remove a recipe from my favourites |remove a recipe that I no longer like
+
+|`* * *` |user |list out all my favourite recipes|view all of my favourite recipes at a glance
+|=======================================================================
 === Recipes Management and cook-mode
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
@@ -1040,7 +1051,39 @@ Use case ends.
 Use case ends.
 
 === User Profiling
+[discrete]
+=== Use case: UC31 - Request surprise recipe
 
+*MSS*
+
+1. User requests to wants to cook something new, but has no idea what they want to try.
+2. User request for surprise recipe
+3. System displays random recipe
++
+Use case ends.
+
+[discrete]
+=== Use case: UC32 – Favourite recipe
+
+*MSS*
+
+1. User lists a selection of recipes (Based on his search parameters).
+2. User selects a recipe to view.
+3. User likes that recipe, and adds it to their "Favoure Recipe" list.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC33 – Suggest recipe
+
+*MSS*
+
+1. User wants to try a new recipe.
+2. A list of 3 new recipes (That the user hasn't cooked before, and based on their preferences, viewing and cooking history) will be displayed to the user.
++
+Use case ends.
+
+[discrete]
 === Recipes Management and cook-mode
 [discrete]
 ==== Use case: UC41 – Search for Recipe
