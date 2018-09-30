@@ -17,7 +17,6 @@ public class AveragesCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history, Analytics analytics) {
         requireAllNonNull(model, analytics);
-
-        return new CommandResult(String.format(analytics.getAverageStatistics()));
+        return new CommandResult(analytics.getAverageStatistics());
     }
 }

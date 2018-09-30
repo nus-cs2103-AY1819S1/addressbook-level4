@@ -17,6 +17,6 @@ public class TotalsCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history, Analytics analytics) {
         requireAllNonNull(model, analytics);
-        return new CommandResult(String.format(analytics.getTotalStatistics()));
+        return new CommandResult(analytics.getTotalStatistics());
     }
 }
