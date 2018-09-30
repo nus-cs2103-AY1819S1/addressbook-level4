@@ -3,6 +3,7 @@ package seedu.address.model.VersionedModels;
 import java.util.ArrayList;
 import java.util.List;
 
+import seedu.address.model.ReadOnlyWishBook;
 import seedu.address.model.WishTransaction;
 
 /**
@@ -38,6 +39,17 @@ public class VersionedWishTransaction extends WishTransaction implements Version
         super(wishTransaction);
         wishStateList = new ArrayList<>();
         wishStateList.add(wishTransaction);
+        referencePointer = 0;
+    }
+
+    /**
+     * Creates a VersionedWishTransaction object from a ReadOnlyWishBook object.
+     * @param wishBook object containing data to seed this object with.
+     */
+    public VersionedWishTransaction(ReadOnlyWishBook wishBook) {
+        extractData(wishBook);
+        wishStateList = new ArrayList<>();
+        wishStateList.add(this);
         referencePointer = 0;
     }
 

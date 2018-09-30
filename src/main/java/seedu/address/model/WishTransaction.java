@@ -56,6 +56,16 @@ public class WishTransaction implements ActionCommandListener<WishTransaction> {
     }
 
     /**
+     * Extracts data from a {@code ReadOnlyWishBook} object and seeds that data into {@code wishMap}.
+     * @param wishBook object containing data to seed this object with.
+     */
+    protected void extractData(ReadOnlyWishBook wishBook) {
+        for (Wish wish : wishBook.getWishList()) {
+            addWish(wish);
+        }
+    }
+
+    /**
      * Adds a wish to {@code wishMap} using {@code wish} full name as key.
      * @param wish
      */

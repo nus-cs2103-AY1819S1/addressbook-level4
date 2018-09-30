@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.HashMap;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -39,8 +40,20 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with wish book: " + wishBook + " and user prefs " + userPrefs);
 
         versionedWishBook = new VersionedWishBook(wishBook);
-        versionedWishTransaction = new VersionedWishTransaction(/* convert xml to WishTransaction */);
+        versionedWishTransaction = getWishTransaction(wishBook, /* convert xml to WishTransaction */ null);
         filteredWishes = new FilteredList<>(versionedWishBook.getWishList());
+    }
+
+    private VersionedWishTransaction getWishTransaction(ReadOnlyWishBook wishBook, WishTransaction wishTransaction) {
+        if (wishTransaction == null) {
+            return initWishTransactionWithWishBookData(wishBook);
+        } else {
+            return new VersionedWishTransaction(wishTransaction);
+        }
+    }
+
+    private VersionedWishTransaction initWishTransactionWithWishBookData(ReadOnlyWishBook wishBook) {
+        return new VersionedWishTransaction(wishBook);
     }
 
     public ModelManager() {
