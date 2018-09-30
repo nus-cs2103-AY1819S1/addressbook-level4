@@ -22,7 +22,7 @@ public class OccasionName {
    * Length of the name should be restricted between 3 - 20.
    */
   public static final String OCCASIONNAME_VALIDATION_REGEX =
-      "(?! )(?!.*? $)[a-zA-Z0-9 ]{3-20}";
+      "(?! )(?!.*? $)[a-zA-Z0-9 ]{3,20}";
 
   public final String fullOccasionName;
 

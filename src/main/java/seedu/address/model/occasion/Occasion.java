@@ -13,7 +13,7 @@ import seedu.address.model.tag.Tag;
 
 /**
  * Represents an Occasion within the address book.
- * @author zijin
+ * @author KongZijin
  */
 public class Occasion extends Inanimate {
 

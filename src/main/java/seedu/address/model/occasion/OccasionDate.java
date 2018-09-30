@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 /**
  * Represents an Occasions date in the address book.
  * Guarantees: immutable, is valid as declared in {@link #isValidDate(String)}
+ * @author kongzijin
  */
 public class OccasionDate {
 
@@ -73,7 +74,4 @@ public class OccasionDate {
 
   @Override
   public int hashCode() { return fullOccasionDate.hashCode(); }
-
-
-
 }
