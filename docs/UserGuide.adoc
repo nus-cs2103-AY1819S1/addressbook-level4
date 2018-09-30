@@ -513,7 +513,7 @@ e.g. `commonGroupContacts n/James Bond`
 e.g. `remove n/James Bond group/CS2103Group`
 * *Delete Group* : `deleteGroup group/GROUP_NAME` +
 e.g. `deleteGroup group/CS2103Group`
-* *Import Timetable* : `importCalendar SOURCE` + 
+* *Import Timetable* : `importCalendar SOURCE` +
 e.g. `importCalendar Google`
 * *Share Contact* : `share i/INDEX[…​] t/INDEX` +
 e.g. `share i/2 i/3 i/4 t/1`
