@@ -33,8 +33,10 @@ public class WishCard extends UiPart<Region> {
     @FXML
     private Label name;
 
+    private String id;
+
     @FXML
-    private Label id;
+    private Label progress;
 
 //    @FXML
 //    private Label url;
@@ -54,8 +56,9 @@ public class WishCard extends UiPart<Region> {
     public WishCard(Wish wish, int displayedIndex) {
         super(FXML);
         this.wish = wish;
-        id.setText(displayedIndex + ". ");
+        this.id = displayedIndex + ". ";
         name.setText(wish.getName().fullName);
+        progress.setText(getProgressInString(wish));
 //        price.setText(wish.getPrice().toString());
 //        savedAmount.setText(wish.getSavedAmount().toString());
 //        url.setText(wish.getUrl().value);
@@ -73,10 +76,18 @@ public class WishCard extends UiPart<Region> {
     }
 
     /**
-     * Creates the progess for {@code wish}.
+     * Returns the progess for {@code wish}.
      */
     private Double getProgress(Wish wish) {
         return wish.getSavedAmount().value / wish.getPrice().value;
+    }
+
+    /**
+     * Returns the progess in percentage for {@code wish}.
+     */
+    private String getProgressInString(Wish wish) {
+        Double progress = getProgress(wish)*100;
+        return String.format("%d", progress.intValue()) + "%";
     }
 
     /**
@@ -104,7 +115,7 @@ public class WishCard extends UiPart<Region> {
 
         // state check
         WishCard card = (WishCard) other;
-        return id.getText().equals(card.id.getText())
+        return id.equals(card.id)
                 && wish.equals(card.wish);
     }
 }
