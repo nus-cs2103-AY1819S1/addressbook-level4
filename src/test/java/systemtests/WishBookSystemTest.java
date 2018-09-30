@@ -112,10 +112,6 @@ public abstract class WishBookSystemTest {
         return mainWindowHandle.getMainMenu();
     }
 
-    public BrowserPanelHandle getBrowserPanel() {
-        return mainWindowHandle.getBrowserPanel();
-    }
-
     public StatusBarFooterHandle getStatusBarFooter() {
         return mainWindowHandle.getStatusBarFooter();
     }
@@ -136,7 +132,7 @@ public abstract class WishBookSystemTest {
 
         mainWindowHandle.getCommandBox().run(command);
 
-        waitUntilBrowserLoaded(getBrowserPanel());
+        //waitUntilBrowserLoaded(getBrowserPanel());
     }
 
     /**
@@ -191,7 +187,7 @@ public abstract class WishBookSystemTest {
      */
     private void rememberStates() {
         StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
-        getBrowserPanel().rememberUrl();
+        //getBrowserPanel().rememberUrl();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
         getWishListPanel().rememberSelectedWishCard();
@@ -203,7 +199,7 @@ public abstract class WishBookSystemTest {
      * @see BrowserPanelHandle#isUrlChanged()
      */
     protected void assertSelectedCardDeselected() {
-        assertFalse(getBrowserPanel().isUrlChanged());
+        //assertFalse(getBrowserPanel().isUrlChanged());
         assertFalse(getWishListPanel().isAnyCardSelected());
     }
 
@@ -222,7 +218,8 @@ public abstract class WishBookSystemTest {
         } catch (MalformedURLException mue) {
             throw new AssertionError("URL expected to be valid.", mue);
         }
-        assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
+
+        //assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getWishListPanel().getSelectedCardIndex());
     }
@@ -279,7 +276,7 @@ public abstract class WishBookSystemTest {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getWishListPanel(), getModel().getFilteredWishList());
-        assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
+        //assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
