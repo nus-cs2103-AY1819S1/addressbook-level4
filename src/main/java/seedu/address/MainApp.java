@@ -89,7 +89,8 @@ public class MainApp extends Application {
         try {
             addressBooks = storage.readAllExpenses(userPrefs.getAddressBookDirPath());
             if (addressBooks.isEmpty()) {
-                addressBooks.put(new Username("default"), SampleDataUtil.getSampleAddressBook());
+                ReadOnlyAddressBook sampleAddressBook = SampleDataUtil.getSampleAddressBook();
+                addressBooks.put(sampleAddressBook.getUsername(), sampleAddressBook);
             }
         } catch (DataConversionException e) {
             logger.warning("Data files are not in the correct format. Will be starting with no accounts.");
