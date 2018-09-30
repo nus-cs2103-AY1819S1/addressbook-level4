@@ -20,14 +20,22 @@
       <padding>
         <Insets top="20" right="10" bottom="10" left="15" />
       </padding>
-      <HBox spacing="5" alignment="CENTER_LEFT">
-        <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
-        <Label fx:id="progress" text="\$progress" styleClass="cell_big_label">
-          <minWidth>
-            <!-- Ensures that the label text is never truncated -->
-            <Region fx:constant="USE_PREF_SIZE" />
-          </minWidth>
-        </Label>
+      <HBox spacing="0" alignment="CENTER_LEFT">
+        <GridPane>
+          <children>
+            <Label fx:id="name" text="\$first" styleClass="cell_big_label" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <Label fx:id="progress" text="\$progress" styleClass="cell_big_label" GridPane.halignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="0">
+              <minWidth>
+                <!-- Ensures that the label text is never truncated -->
+                <Region fx:constant="USE_PREF_SIZE" />
+              </minWidth>
+            </Label>
+          </children>
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="80.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
+          </columnConstraints>
+        </GridPane>
       </HBox>
       <FlowPane fx:id="tags" />
       <!--<Label fx:id="savedAmount" styleClass="cell_small_label" text="\$savedAmount" />-->
