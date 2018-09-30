@@ -19,6 +19,13 @@ public class Budget {
         this.transaction = new Transaction();
     }
 
+    public Budget(int initial, int spent, int outstanding, Transaction transaction) {
+        this.initial = initial;
+        this.spent = spent;
+        this.outstanding = outstanding;
+        this.transaction = transaction;
+    }
+
     public int getGivenBudget() {
         return initial;
     }

@@ -80,7 +80,7 @@ public class MainWindow extends UiPart<Stage> {
         registerAsAnEventHandler(this);
 
         helpWindow = new HelpWindow();
-        budgetWindow = new BudgetWindow();
+        budgetWindow = new BudgetWindow(logic, prefs);
     }
 
     public Stage getPrimaryStage() {

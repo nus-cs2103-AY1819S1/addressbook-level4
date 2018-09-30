@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.BudgetBook;
 import seedu.address.model.ReadOnlyBudgetBook;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.cca.Cca;
 
 /**
  * An Immutable BudgetBook that is serializable to XML format
@@ -18,17 +18,17 @@ import seedu.address.model.tag.Tag;
 @XmlRootElement(name = "budgetbook")
 public class XmlSerializableBudgetBook {
 
-    public static final String MESSAGE_DUPLICATE_TAG = "Budget list contains duplicate CCA tag(s).";
+    public static final String MESSAGE_DUPLICATE_CCA = "Budget list contains duplicate CCA(s).";
 
     @XmlElement
-    private List<XmlAdaptedTag> tags;
+    private List<XmlAdaptedCca> ccas;
 
     /**
      * Creates an empty XmlSerializableBudgetBook.
      * This empty constructor is required for marshalling.
      */
     public XmlSerializableBudgetBook() {
-        tags = new ArrayList<>();
+        ccas = new ArrayList<>();
     }
 
     /**
@@ -36,23 +36,23 @@ public class XmlSerializableBudgetBook {
      */
     public XmlSerializableBudgetBook(ReadOnlyBudgetBook src) {
         this();
-        tags.addAll(src.getCcaTagList().stream().map(XmlAdaptedTag::new).collect(Collectors.toList()));
+        ccas.addAll(src.getCcaList().stream().map(XmlAdaptedCca::new).collect(Collectors.toList()));
     }
 
     /**
      * Converts this budgetbook into the model's {@code BudgetBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
-     * {@code XmlAdaptedTag}.
+     * {@code XmlAdaptedCca}.
      */
     public BudgetBook toModelType() throws IllegalValueException {
         BudgetBook budgetBook = new BudgetBook();
-        for (XmlAdaptedTag t : tags) {
-            Tag tag = t.toModelType();
-            if (budgetBook.hasTag(tag)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_TAG);
+        for (XmlAdaptedCca c : ccas) {
+            Cca cca = c.toModelType();
+            if (budgetBook.hasCca(cca)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_CCA);
             }
-            budgetBook.addTag(tag);
+            budgetBook.addCca(cca);
         }
         return budgetBook;
     }
@@ -66,6 +66,6 @@ public class XmlSerializableBudgetBook {
         if (!(other instanceof XmlSerializableBudgetBook)) {
             return false;
         }
-        return tags.equals(((XmlSerializableBudgetBook) other).tags);
+        return ccas.equals(((XmlSerializableBudgetBook) other).ccas);
     }
 }

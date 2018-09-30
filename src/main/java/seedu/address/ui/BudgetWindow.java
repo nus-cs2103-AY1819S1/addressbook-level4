@@ -3,23 +3,39 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
-import javafx.scene.web.WebView;
+import javafx.scene.layout.StackPane;
+
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+
+import seedu.address.logic.Logic;
+import seedu.address.model.UserPrefs;
 
 /**
  * Controller for a help page
  */
 public class BudgetWindow extends UiPart<Stage> {
-
-    public static final String USERGUIDE_FILE_PATH = "/docs/HelpWindow.html";
-
     private static final Logger logger = LogsCenter.getLogger(BudgetWindow.class);
     private static final String FXML = "BudgetWindow.fxml";
 
+    private BrowserPanel browserPanel;
+    private CcaListPanel personListPanel;
+    private UserPrefs prefs;
+    private Logic logic;
+
     @FXML
-    private WebView browser;
+    private StackPane browserPlaceholder;
+
+    @FXML
+    private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane resultDisplayPlaceholder;
+
+    @FXML
+    private StackPane statusbarPlaceholder;
+
 
     /**
      * Creates a new BudgetWindow.
@@ -28,16 +44,27 @@ public class BudgetWindow extends UiPart<Stage> {
      */
     public BudgetWindow(Stage root) {
         super(FXML, root);
+    }
 
-//        String userGuideUrl = getClass().getResource(USERGUIDE_FILE_PATH).toString();
-//        browser.getEngine().load(userGuideUrl);
+    public BudgetWindow(Logic logic, UserPrefs prefs) {
+        this(new Stage());
+        this.prefs = prefs;
+        this.logic = logic;
     }
 
     /**
-     * Creates a new BudgetWindow.
+     * Fills up all the placeholders of this window.
      */
-    public BudgetWindow() {
-        this(new Stage());
+    void fillInnerParts() {
+
+        personListPanel = new CcaListPanel(logic.getFilteredCcaList());
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
+        ResultDisplay resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getBudgetBookFilePath());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
     }
 
     /**
@@ -50,25 +77,26 @@ public class BudgetWindow extends UiPart<Stage> {
 
     /**
      * Shows the budget window.
-     * @throws IllegalStateException
-     * <ul>
-     *     <li>
-     *         if this method is called on a thread other than the JavaFX Application Thread.
-     *     </li>
-     *     <li>
-     *         if this method is called during animation or layout processing.
-     *     </li>
-     *     <li>
-     *         if this method is called on the primary stage.
-     *     </li>
-     *     <li>
-     *         if {@code dialogStage} is already showing.
-     *     </li>
+     *
+     * @throws IllegalStateException <ul>
+     * <li>
+     * if this method is called on a thread other than the JavaFX Application Thread.
+     * </li>
+     * <li>
+     * if this method is called during animation or layout processing.
+     * </li>
+     * <li>
+     * if this method is called on the primary stage.
+     * </li>
+     * <li>
+     * if {@code dialogStage} is already showing.
+     * </li>
      * </ul>
      */
     public void show() {
         logger.fine("Showing budget list of the hostel.");
         getRoot().show();
+        fillInnerParts();
     }
 
     /**

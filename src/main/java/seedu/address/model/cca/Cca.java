@@ -13,6 +13,8 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Cca {
+    public static final String MESSAGE_CCA_CONSTRAINTS = "CCAs names should only contain letters and brackets";
+    public static final String CCA_VALIDATION_REGEX = "\\p{Alpha} + \\p{Punct} +";
 
     // Identity fields
     private final Tag ccaName;
@@ -47,6 +49,13 @@ public class Cca {
         this.budget = budget;
     }
 
+    /**
+     * Returns true if a given string is a valid CCA name.
+     */
+    public static boolean isValidCcaName(String test) {
+        return test.matches(CCA_VALIDATION_REGEX);
+    }
+
     public String getCcaName() {
         return ccaName.toString().replaceAll("\\p{P}", "");
     }
@@ -78,6 +87,16 @@ public class Cca {
         return budget.getTransactionLog();
     }
 
+    /**
+     * Returns true if both CCAs are the same.
+     */
+    public boolean isSameCca(Cca otherCca) {
+        if (otherCca == this) {
+            return true;
+        }
+
+        return false;
+    }
 
     /**
      * Returns true if both ccas have the same identity and data fields.
@@ -104,6 +123,7 @@ public class Cca {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(ccaName, head, viceHead, budget);
     }
+
 
 
 }

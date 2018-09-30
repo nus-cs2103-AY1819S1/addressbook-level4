@@ -3,8 +3,8 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.cca.Cca;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
 
 /**
  * The API of the Model component.
@@ -53,10 +53,10 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
-     * Updates the filter of the filtered budget list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered cca list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredBudgetList(Predicate<Tag> predicate);
+    void updateFilteredCcaList(Predicate<Cca> predicate);
 
     /**
      * Returns true if the model has previous address book states to restore.
@@ -82,4 +82,6 @@ public interface Model {
      * Saves the current address book state for undo/redo.
      */
     void commitAddressBook();
+
+    ObservableList<Cca> getFilteredCcaList();
 }

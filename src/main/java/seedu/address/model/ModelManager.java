@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.model.cca.Cca;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -24,7 +25,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
     private final VersionedBudgetBook versionedBudgetBook;
     private final FilteredList<Person> filteredPersons;
-    private final FilteredList<Tag> filteredTags;
+    private final FilteredList<Cca> filteredCcas;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -38,7 +39,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook = new VersionedAddressBook(addressBook);
         versionedBudgetBook = new VersionedBudgetBook(budgetbook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
-        filteredTags = new FilteredList<>(versionedBudgetBook.getCcaTagList());
+        filteredCcas = new FilteredList<>(versionedBudgetBook.getCcaList());
     }
 
     public ModelManager() {
@@ -100,15 +101,20 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public ObservableList<Cca> getFilteredCcaList() {
+        return FXCollections.unmodifiableObservableList(filteredCcas);
+    }
+
+    @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
 
     @Override
-    public void updateFilteredBudgetList(Predicate<Tag> predicate) {
+    public void updateFilteredCcaList(Predicate<Cca> predicate) {
         requireNonNull(predicate);
-        filteredTags.setPredicate(predicate);
+        filteredCcas.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================

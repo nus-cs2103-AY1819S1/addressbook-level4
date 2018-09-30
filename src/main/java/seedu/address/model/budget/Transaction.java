@@ -10,6 +10,10 @@ public class Transaction {
         this.log = null;
     }
 
+    public Transaction(String log) {
+        this.log = log;
+    }
+
     public String getTransactionLog() {
         return log;
     }
