@@ -37,6 +37,7 @@ import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.XmlAddressBookStorage;
 import seedu.address.storage.XmlSchedulerStorage;
+import seedu.address.ui.PopUp;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -80,6 +81,9 @@ public class MainApp extends Application {
         ui = new UiManager(logic, config, userPrefs);
 
         initEventsCenter();
+
+
+
     }
 
     /**
@@ -225,6 +229,8 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) {
         logger.info("Starting AddressBook " + MainApp.VERSION);
         ui.start(primaryStage);
+        PopUp popUp = new PopUp();
+        popUp.display("Hello", "Hello");
     }
 
     @Override
