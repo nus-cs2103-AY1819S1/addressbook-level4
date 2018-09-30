@@ -191,9 +191,7 @@ public class MainWindow extends UiPart<Stage> {
         return wishListPanel;
     }
 
-    void releaseResources() {
-//        wishDetailPanel.freeResources();
-    }
+    void releaseResources() { }
 
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {

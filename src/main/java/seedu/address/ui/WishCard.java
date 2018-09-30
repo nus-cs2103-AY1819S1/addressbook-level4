@@ -15,7 +15,17 @@ import seedu.address.model.wish.Wish;
 public class WishCard extends UiPart<Region> {
 
     private static final String FXML = "WishCard.fxml";
-    private static final String[] TAG_COLORS = { "red", "yellow", "blue", "dark_blue", "orange", "green", "pink", "dark_pink", "purple" };
+    private static final String[] TAG_COLORS = {
+            "red",
+            "yellow",
+            "blue",
+            "dark_blue",
+            "orange",
+            "green",
+            "pink",
+            "dark_pink",
+            "purple"
+    };
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -74,7 +84,7 @@ public class WishCard extends UiPart<Region> {
      * Returns the progess in percentage for {@code wish}.
      */
     private String getProgressInString(Wish wish) {
-        Double progress = getProgress(wish)*100;
+        Double progress = getProgress(wish) * 100;
         return String.format("%d", progress.intValue()) + "%";
     }
 

@@ -16,7 +16,7 @@ import seedu.address.commons.events.ui.WishPanelSelectionChangedEvent;
 import seedu.address.model.wish.Wish;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of wishes.
  */
 public class WishListPanel extends UiPart<Region> {
     private static final String FXML = "WishListPanel.fxml";

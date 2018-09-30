@@ -13,6 +13,9 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.WishPanelSelectionChangedEvent;
 import seedu.address.model.wish.Wish;
 
+/**
+ * Panel containing the detail of wish.
+ */
 public class WishDetailPanel extends UiPart<Region> {
 
     private static final String FXML = "WishDetailPanel.fxml";
@@ -50,6 +53,9 @@ public class WishDetailPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
+    /**
+     * Load the default page.
+     */
     public void loadDefaultPage() {
         name.setText("Click on any wish for details");
         price.setText("");
@@ -59,6 +65,9 @@ public class WishDetailPanel extends UiPart<Region> {
         remark.setText("");
     }
 
+    /**
+     * Load the page that shows the detail of wish.
+     */
     private void loadWishPage(Wish wish) {
         name.setText(wish.getName().fullName);
         savedAmount.setText("Saved: $" + wish.getSavedAmount().toString());
