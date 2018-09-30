@@ -1,5 +1,6 @@
 package systemtests;
 
+import static org.junit.Assert.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
@@ -37,6 +38,7 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
+import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.expense.Cost;
 import seedu.address.model.expense.Email;
 import seedu.address.model.expense.Name;
@@ -49,8 +51,8 @@ import seedu.address.testutil.PersonUtil;
 public class AddCommandSystemTest extends AddressBookSystemTest {
 
     @Test
-    public void add() {
-        Model model = getModel();
+    public void add() throws NoUserSelectedException {
+        Model model = testApp.getActualModel();
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
@@ -176,6 +178,13 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
                 + INVALID_TAG_DESC;
         assertCommandFailure(command, Tag.MESSAGE_TAG_CONSTRAINTS);
+
+        /* Case: add a person when no user is logged in */
+        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
+                + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
+        testApp.getActualModel().unloadUserData();
+        executeCommand(command);
+        assertEquals(new NoUserSelectedException().getMessage(), getResultDisplay().getText());
     }
 
     /**
@@ -192,7 +201,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandSuccess(Person toAdd) {
+    private void assertCommandSuccess(Person toAdd) throws NoUserSelectedException {
         assertCommandSuccess(PersonUtil.getAddCommand(toAdd), toAdd);
     }
 
@@ -201,7 +210,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * instead.
      * @see AddCommandSystemTest#assertCommandSuccess(Person)
      */
-    private void assertCommandSuccess(String command, Person toAdd) {
+    private void assertCommandSuccess(String command, Person toAdd) throws NoUserSelectedException {
         Model expectedModel = getModel();
         expectedModel.addPerson(toAdd);
         String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, toAdd);
@@ -217,7 +226,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * {@code expectedModel}.<br>
      * @see AddCommandSystemTest#assertCommandSuccess(String, Person)
      */
-    private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
+    private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) throws
+            NoUserSelectedException {
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertSelectedCardUnchanged();
@@ -236,7 +246,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandFailure(String command, String expectedResultMessage) {
+    private void assertCommandFailure(String command, String expectedResultMessage) throws NoUserSelectedException {
         Model expectedModel = getModel();
 
         executeCommand(command);

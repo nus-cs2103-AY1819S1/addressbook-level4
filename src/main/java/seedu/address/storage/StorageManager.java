@@ -1,8 +1,12 @@
 package seedu.address.storage;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Map;
 import java.util.Optional;
+import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -14,6 +18,7 @@ import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.user.Username;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -52,13 +57,13 @@ public class StorageManager extends ComponentManager implements Storage {
     // ================ AddressBook methods ==============================
 
     @Override
-    public Path getExpensesFilePath() {
-        return expensesStorage.getExpensesFilePath();
+    public Path getExpensesDirPath() {
+        return expensesStorage.getExpensesDirPath();
     }
 
     @Override
     public Optional<ReadOnlyAddressBook> readExpenses() throws DataConversionException, IOException {
-        return readExpenses(expensesStorage.getExpensesFilePath());
+        return readExpenses(expensesStorage.getExpensesDirPath());
     }
 
     @Override
@@ -68,8 +73,28 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
+    public Map<Username, ReadOnlyAddressBook> readAllExpenses(Path dirPath) throws DataConversionException,
+            IOException {
+        File dir = new File(dirPath.toString());
+        final Map<Username, ReadOnlyAddressBook> books = new TreeMap<>();
+        File[] directoryListing = dir.listFiles();
+        if (!dir.mkdir()) {
+            if (directoryListing != null) {
+                for (File child : directoryListing) {
+                    readExpenses(Paths.get(child.getPath())).ifPresent(
+                        addressBook -> books.put(new Username(child.getName().replace(".xml", "")),
+                                addressBook));
+                }
+            }
+        }
+        return books;
+    }
+
+    @Override
     public void saveExpenses(ReadOnlyAddressBook addressBook) throws IOException {
-        saveExpenses(addressBook, expensesStorage.getExpensesFilePath());
+        Path path = Paths.get(expensesStorage.getExpensesDirPath().toString(),
+                addressBook.getUsername().toString() + ".xml");
+        saveExpenses(addressBook, path);
     }
 
     @Override
@@ -80,7 +105,7 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public void backupExpenses(ReadOnlyAddressBook addressBook) throws IOException {
-        backupExpenses(addressBook, expensesStorage.getExpensesFilePath());
+        backupExpenses(addressBook, expensesStorage.getExpensesDirPath());
     }
 
     @Override

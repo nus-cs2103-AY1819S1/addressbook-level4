@@ -15,7 +15,7 @@ public interface ExpensesStorage {
     /**
      * Returns the file path of the data file.
      */
-    Path getExpensesFilePath();
+    Path getExpensesDirPath();
 
     /**
      * Returns AddressBook data as a {@link ReadOnlyAddressBook}.
@@ -26,7 +26,7 @@ public interface ExpensesStorage {
     Optional<ReadOnlyAddressBook> readExpenses() throws DataConversionException, IOException;
 
     /**
-     * @see #getExpensesFilePath()
+     * @see #getExpensesDirPath()
      */
     Optional<ReadOnlyAddressBook> readExpenses(Path filePath) throws DataConversionException, IOException;
 

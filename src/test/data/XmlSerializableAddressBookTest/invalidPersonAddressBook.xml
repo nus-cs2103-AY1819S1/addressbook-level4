@@ -7,4 +7,5 @@
         <email isPrivate="false">hans@exam!32ple</email>
         <cost isPrivate="false">1.00</cost>
     </persons>
+    <username>invalidPersonAddressBook</username>
 </addressbook>

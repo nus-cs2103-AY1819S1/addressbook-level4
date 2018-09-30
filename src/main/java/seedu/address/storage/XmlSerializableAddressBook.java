@@ -22,6 +22,8 @@ public class XmlSerializableAddressBook {
 
     @XmlElement
     private List<XmlAdaptedPerson> persons;
+    @XmlElement
+    private XmlAdaptedUsername username;
 
     /**
      * Creates an empty XmlSerializableAddressBook.
@@ -36,6 +38,7 @@ public class XmlSerializableAddressBook {
      */
     public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
         this();
+        this.username = new XmlAdaptedUsername(src.getUsername());
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
     }
 
@@ -46,7 +49,7 @@ public class XmlSerializableAddressBook {
      * {@code XmlAdaptedPerson}.
      */
     public AddressBook toModelType() throws IllegalValueException {
-        AddressBook addressBook = new AddressBook();
+        AddressBook addressBook = new AddressBook(username.toModelType());
         for (XmlAdaptedPerson p : persons) {
             Person person = p.toModelType();
             if (addressBook.hasPerson(person)) {

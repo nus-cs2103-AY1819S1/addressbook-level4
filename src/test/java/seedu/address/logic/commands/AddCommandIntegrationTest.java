@@ -11,6 +11,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.expense.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -28,9 +29,8 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_newPerson_success() {
+    public void execute_newPerson_success() throws NoUserSelectedException {
         Person validPerson = new PersonBuilder().build();
-
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.addPerson(validPerson);
         expectedModel.commitAddressBook();
@@ -40,7 +40,7 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_duplicatePerson_throwsCommandException() throws NoUserSelectedException {
         Person personInList = model.getAddressBook().getPersonList().get(0);
         assertCommandFailure(new AddCommand(personInList), model, commandHistory,
                 AddCommand.MESSAGE_DUPLICATE_PERSON);

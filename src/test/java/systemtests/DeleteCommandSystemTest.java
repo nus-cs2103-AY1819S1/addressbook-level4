@@ -18,6 +18,7 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
+import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.expense.Person;
 
 public class DeleteCommandSystemTest extends AddressBookSystemTest {
@@ -26,12 +27,13 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
             String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
 
     @Test
-    public void delete() {
-        /* ----------------- Performing delete operation while an unfiltered list is being shown -------------------- */
+    public void delete() throws NoUserSelectedException {
+        /* -------------- Performing delete operation while an unfiltered list is being shown ----------------- */
 
         /* Case: delete the first person in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
-        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_PERSON.getOneBased() + "       ";
+        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_PERSON.getOneBased()
+                + "       ";
         Person deletedPerson = removePerson(expectedModel, INDEX_FIRST_PERSON);
         String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
@@ -56,7 +58,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         Index middlePersonIndex = getMidIndex(getModel());
         assertCommandSuccess(middlePersonIndex);
 
-        /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
+        /* --------------- Performing delete operation while a filtered list is being shown ------------------- */
 
         /* Case: filtered person list, delete index within bounds of address book and person list -> deleted */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
@@ -72,7 +74,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
-        /* --------------------- Performing delete operation while a person card is selected ------------------------ */
+        /* ------------------ Performing delete operation while a person card is selected --------------------- */
 
         /* Case: delete the selected person -> person list panel selects the person before the deleted person */
         showAllPersons();
@@ -85,7 +87,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
         assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
 
-        /* --------------------------------- Performing invalid delete operation ------------------------------------ */
+        /* ------------------------------ Performing invalid delete operation --------------------------------- */
 
         /* Case: invalid index (0) -> rejected */
         command = DeleteCommand.COMMAND_WORD + " 0";
@@ -115,7 +117,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * Removes the {@code Person} at the specified {@code index} in {@code model}'s address book.
      * @return the removed person
      */
-    private Person removePerson(Model model, Index index) {
+    private Person removePerson(Model model, Index index) throws NoUserSelectedException {
         Person targetPerson = getPerson(model, index);
         model.deletePerson(targetPerson);
         return targetPerson;
@@ -126,7 +128,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * performs the same verification as {@code assertCommandSuccess(String, Model, String)}.
      * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
      */
-    private void assertCommandSuccess(Index toDelete) {
+    private void assertCommandSuccess(Index toDelete) throws NoUserSelectedException {
         Model expectedModel = getModel();
         Person deletedPerson = removePerson(expectedModel, toDelete);
         String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
@@ -146,7 +148,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
+    private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) throws
+            NoUserSelectedException {
         assertCommandSuccess(command, expectedModel, expectedResultMessage, null);
     }
 
@@ -157,7 +160,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
-            Index expectedSelectedCardIndex) {
+            Index expectedSelectedCardIndex) throws NoUserSelectedException {
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
 
@@ -181,7 +184,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandFailure(String command, String expectedResultMessage) {
+    private void assertCommandFailure(String command, String expectedResultMessage) throws NoUserSelectedException {
         Model expectedModel = getModel();
 
         executeCommand(command);
