@@ -1097,6 +1097,8 @@ User case ends.
 . System displays all the projects containing that keyword.
 +
 
+User case ends.
+
 [discrete]
 === UC11: Import timetable
 
