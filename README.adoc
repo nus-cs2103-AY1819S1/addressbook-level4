@@ -11,31 +11,36 @@ ifdef::env-github[]
 image::docs/images/logo.png[width="900"]
 endif::[]
 
+= Showcase
+
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
 endif::[]
 
-ifndef::env-github[]
-image::images/Ui.png[width="600"]
-endif::[]
+= Overview
+*A desktop Event Scheduler application.*
 
-* This is a desktop Event Scheduler application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
-* Exciting features:
-** [To Be Updated]
-** [To Be Updated]
-** [To Be Updated]
+
+* *CLI (Command Line Interface)* interactions with modern *GUI* brought to your!
+* *Always connected.* Sync with your google account!
+* *Cross platform.* Run it on both *Windows* AND *Mac*!
+* *Responsive interface.* We ensure your smooth experience.
+
+== Latest Features
+* Suports repeating events.
+* Supports tag mangement.
+* Sync with your google service.
+* Pop-up alert.
 
 == Site Map
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
 == Acknowledgements
-
+* This application was morph from CS2103 AddressBook-Level4 project created by https://github.com/se-edu/[SE-EDU initiative].
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://github.com/TestFX/TestFX[TextFX], https://bitbucket.org/controlsfx/controlsfx/[ControlsFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]
