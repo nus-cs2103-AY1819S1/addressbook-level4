@@ -19,6 +19,7 @@ public class Person {
     private final Name name;
     private final Phone phone;
     private final Email email;
+    private final Fees tuitionFee;
 
     // Data fields
     private final Address address;
@@ -34,6 +35,7 @@ public class Person {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.tuitionFee = new Fees(21.034567890);
     }
 
     public Name getName() {
@@ -51,6 +53,8 @@ public class Person {
     public Address getAddress() {
         return address;
     }
+
+    public Fees getFees() { return tuitionFee; }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
