@@ -6,7 +6,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
@@ -45,7 +45,7 @@ public class PersonTest {
         assertFalse(ALICE.isSamePerson(null));
 
         // different phone and cost -> returns false
-        Person editedAlice = new PersonBuilder(ALICE).withCategory(VALID_PHONE_BOB).withCost(VALID_ADDRESS_BOB).build();
+        Person editedAlice = new PersonBuilder(ALICE).withCategory(VALID_CATEGORY_BOB).withCost(VALID_ADDRESS_BOB).build();
         assertFalse(ALICE.isSamePerson(editedAlice));
 
         // different name -> returns false
@@ -85,7 +85,7 @@ public class PersonTest {
         assertNotEquals(ALICE, editedAlice);
 
         // different phone -> returns false
-        editedAlice = new PersonBuilder(ALICE).withCategory(VALID_PHONE_BOB).build();
+        editedAlice = new PersonBuilder(ALICE).withCategory(VALID_CATEGORY_BOB).build();
         assertNotEquals(ALICE, editedAlice);
 
         // different address -> returns false
