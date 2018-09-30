@@ -80,8 +80,8 @@ public class Person {
         boolean bothHaveEmail = getEmail().isPresent() && otherPerson.getEmail().isPresent();
 
         // Do not compare fields unless they are present
-        return ((bothHavePhone && otherPerson.getPhone().equals(getPhone())) ||
-                (bothHaveEmail && otherPerson.getEmail().equals(getEmail())));
+        return ((bothHavePhone && otherPerson.getPhone().equals(getPhone()))
+                || (bothHaveEmail && otherPerson.getEmail().equals(getEmail())));
     }
 
     /**
