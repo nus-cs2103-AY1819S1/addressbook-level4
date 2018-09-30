@@ -820,13 +820,22 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Sociable and wish to know about his/her NUS peers
+* Academic and wish to keep track of their grades for certain modules and all the modules can type fast
+* Wish keep track of schedule of events on a calendar
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+
+*Value proposition*:
+
+* Key concepts: Enable  NUS students to keep track of their friends, one's own modules and events, in addition to other
+personal information.
+* What users want: A consolidated platform of friends and modules and events so that one's entire NUS life is
+conveniently available in one place so as to bolster the organisation of a student's life.
+* Limitations of what users can do now: A current undergraduate of NUS' information is spread out over IVLE, MYISIS and
+NUSMODS without any tracking on the information of close friends within the university.
+* Benefits users seek to achieve: Integrate existing information on different platforms all into a single platform.
+* How value proposition is delivered: When we have built a platform that allows the importing of information from
+multiple pre-existing platforms and consolidates all this information in a neat and presentable manner.
 
 [appendix]
 == User Stories
@@ -836,17 +845,38 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |NUS Student |create a profile of myself and be able to edit it to join the address book |I can share my schedule and profile with other people
 
-|`* * *` |user |add a new person |
+|`* * *` |NUS Student |find other students in the same faculty/major |I can network with them
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |people oriented person |see the full list of students in your module / your class |I can see all persons in campus
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |very selective friend |find specific friends and events in the address book |I can pick and choose certain events from a long list
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |Active NUS student |find all students who are taking the same modules as me |we can form study/project groups
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |NUS student |track all the modules I have taken |quickly know about the which modules I have taken
+
+|`* *` |NUS student who has joined some CCA |join my CCA group in this App |know who is in the same CCA as me and make friends with them
+
+|`* *` |NUS student |track my grades |quickly know about my academic performance for every semester
+
+|`* *` |User that may have difficulty spelling names |have similar names suggested when using the find function |ensure I have found the correct person
+
+|`* *` |NUS student who is also a Teaching Assistant of other modules |grades for the past modules given permission from the student |understanding of which level this student is in
+
+|`* *` |Student reading many modules |add URLs to my saved modules |I can quickly access my modules across NUS platforms
+
+|`* *` |Sociable and studious NUS student |see my friends' profiles |I know whether they are taking the same modules as I am and if they are, whether they are in the same tutorial groups as I am
+
+|`* *` |careless user |redo/undo instructions I have just done |Correct quickly if I have given an instruction just now that I don’t it anymore
+
+|`* *` |NUS Student who stays on campus |know the location of other students |we can arrange meet-ups on campus
+
+|`* *` |Current student |set my exam date on the page of addressbook |I can be reminded automatically the date, venue before my exams according to my reminder setting
+
+|`* *` |involved student |create new events to place in my schedule in my profile |have many events in schedule with their details recorded
+
 |=======================================================================
 
 _{More to be added}_
@@ -857,30 +887,97 @@ _{More to be added}_
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Adding an entry
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User asks application to add a new entry.
+2.  Application creates a new entry, displays confirmation to user.
+3.  User enters additional information for new entry.
+4.  Application updates entry, displays info to user.
+
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a.  User creates new entry along with associated information.
+** 1a1.  Application displays confirmation of entry creation.
+** 1a2.  Application displays entry along with associated information.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 1b.  Entry with same name already exists in AddressBook.
+** 1b1.  Application informs user, requests for confirmation.
+** 1b2.  User confirms request.
 +
+Use case resumes from step 2.
+
+* 3a.  Wrong keyword or details input by user.
+** 3a1.  Application prompts user for re-entry.
+** 3a2.  Application will give example of a proper command.
+** 3a3.  User gives proper format of input.
++
+Use case resumes from step 4.
+
+* 3b.  Entry with same name already exists in AddressBook.
+** 3b1.  Application displays numbered list of entries with that same name.
+** 3b2.  User inputs number associated with correct entry.
++
+Use case resumes from step 4.
+
+[discrete]
+=== Use case: Delete an entry
+
+*MSS*
+
+1.  User asks application to delete a entry.
+2.  Application asks user to confirm deletion.
+3.  User confirms deletion.
+4.  Application deletes entry, shows confirmation message to user.
+
+*Extensions*
+
 [none]
-** 3a1. AddressBook shows an error message.
+* 1a.  User’s requested entry does not exist.
+** 1a1.  Application informs user.
 +
-Use case resumes at step 2.
+Use case resumes from step 1.
+
+* 1b.  Multiple entries with identical names exist.
+** 1b1.  Application displays numbered list of entries with that same name.
+** 1b2.  User inputs number associated with correct entry (or 0 to cancel).
++
+Use case resumes from step 4.
+
+* 3a.  User requests to cancel deletion.
+** 3a1.  Application displays acknowledgement message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Update an entry
+
+*MSS*
+
+1.  User searches for an entry name.
+2.  Application displays entry and associated information.
+3.  User adds info into new fields.
+4.  Application displays updated entry.
+
+*Extensions*
+
+[none]
+* 3a.  User edits existing field.
+** 3a1.  Application modifies requested field, displays updated entry.
++
+Use case ends.
+
+* 3b.  User deletes existing field.
+** 3b1.  Application deletes existing field, displays updated entry.
++
+Use case ends.
 
 _{More to be added}_
 
