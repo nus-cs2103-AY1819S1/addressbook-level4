@@ -179,6 +179,9 @@ public class WishTransaction {
         this.wishMap = wishMap;
     }
 
+    public HashMap<String, List<Wish>> getWishMap() {
+        return wishMap;
+    }
 
     /**
      * Sets the current state's wish histories to {@code wishes}.

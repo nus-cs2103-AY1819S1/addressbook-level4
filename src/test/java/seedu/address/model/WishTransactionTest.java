@@ -1,9 +1,11 @@
 package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.Before;
@@ -53,21 +55,21 @@ public class WishTransactionTest {
     @Test
     public void addWish_success() {
         wishTransaction.addWish(wish1);
-        assertTrue(isSameSize(1));
+        assertTrue(isSameSize(wish1,1));
     }
 
     @Test
     public void allowMultipleWishesOfSameName() {
         wishTransaction.addWish(wish1);
         wishTransaction.addWish(wish2);
-        assertTrue(isSameSize(2));
+        assertTrue(isSameSize(wish1,2));
     }
 
     @Test
     public void removeWish_success() {
         wishTransaction.addWish(wish1);
         wishTransaction.removeWish(wish1);
-        assertTrue(isSameSize(0));
+        assertFalse(isFound(wish1));
     }
 
     @Test
@@ -85,9 +87,18 @@ public class WishTransactionTest {
     @Test
     public void resetData_success() {
         wishTransaction.addWish(wish1);
-        assertTrue(isSameSize(1));
+        assertTrue(isSameSize(wish1,1));
         wishTransaction.resetData(new WishTransaction());
-        assertTrue(isSameSize(0));
+        assertFalse(isFound(wish1));
+    }
+
+    /**
+     * Checks if wishTransaction contains the given wish.
+     * @param wish wish to check if is contained within wishTransaction.
+     * @return true if wish is found, false otherwise.
+     */
+    private boolean isFound(Wish wish) {
+        return wishTransaction.getWishMap().containsKey(getKey(wish));
     }
 
     /**
@@ -95,8 +106,13 @@ public class WishTransactionTest {
      * @param size expected size of list.
      * @return true if size of list is expected, false otherwise.
      */
-    private boolean isSameSize(int size) {
-        return wishTransaction.getWishes().size() == size;
+    private boolean isSameSize(Wish queried, int size) {
+        List<Wish> wishes = wishTransaction.getWishMap().get(getKey(queried));
+        return wishes.size() == size;
+    }
+
+    private String getKey(Wish wish) {
+        return wish.getName().fullName;
     }
 
 }
