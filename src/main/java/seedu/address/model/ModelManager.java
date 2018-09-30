@@ -3,18 +3,18 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.HashMap;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.WishBookChangedEvent;
-import seedu.address.model.VersionedModels.VersionedWishBook;
-import seedu.address.model.VersionedModels.VersionedWishTransaction;
+import seedu.address.model.versionedModels.VersionedWishBook;
+import seedu.address.model.versionedModels.VersionedWishTransaction;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.wish.Wish;
 import seedu.address.model.wish.exceptions.DuplicateWishException;
@@ -44,6 +44,10 @@ public class ModelManager extends ComponentManager implements Model {
         filteredWishes = new FilteredList<>(versionedWishBook.getWishList());
     }
 
+    public ModelManager() {
+        this(new WishBook(), new UserPrefs());
+    }
+
     private VersionedWishTransaction getWishTransaction(ReadOnlyWishBook wishBook, WishTransaction wishTransaction) {
         if (wishTransaction == null) {
             return initWishTransactionWithWishBookData(wishBook);
@@ -54,10 +58,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     private VersionedWishTransaction initWishTransactionWithWishBookData(ReadOnlyWishBook wishBook) {
         return new VersionedWishTransaction(wishBook);
-    }
-
-    public ModelManager() {
-        this(new WishBook(), new UserPrefs());
     }
 
     @Override
