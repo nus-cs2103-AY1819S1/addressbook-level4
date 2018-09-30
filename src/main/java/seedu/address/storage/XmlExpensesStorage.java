@@ -14,7 +14,9 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
+import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.user.Username;
 
 /**
  * A class to access AddressBook data stored as an xml file on the hard disk.
@@ -56,7 +58,15 @@ public class XmlExpensesStorage implements ExpensesStorage {
 
         XmlSerializableAddressBook xmlAddressBook = XmlFileStorage.loadDataFromSaveFile(filePath);
         try {
-            return Optional.of(xmlAddressBook.toModelType());
+            Optional<AddressBook> addressBookOptional = Optional.of(xmlAddressBook.toModelType());
+            Username fileName = new Username(filePath.getFileName().toString().replace(".xml", ""));
+            addressBookOptional.ifPresent(addressBook -> {
+                if (!fileName.equals(addressBook.getUsername())) {
+                    logger.info("File name does not match username. Changing username to \"" + fileName + "\"");
+                    addressBook.setUsername(fileName);
+                }
+            });
+            return addressBookOptional.map(addressBook -> addressBook); // Typecast to Optional<ReadOnlyAddressBook>
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
