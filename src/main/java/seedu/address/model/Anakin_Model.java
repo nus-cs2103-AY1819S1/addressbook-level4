@@ -3,7 +3,6 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.Anakin_deck.Anakin_Card;
 import seedu.address.model.Anakin_deck.Anakin_Deck;
 
 /**
