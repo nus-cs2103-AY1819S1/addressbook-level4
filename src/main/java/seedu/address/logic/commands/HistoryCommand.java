@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.Analytics;
+import seedu.address.model.analytics.Analytics;
 import seedu.address.model.Model;
 
 /**

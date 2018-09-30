@@ -3,9 +3,9 @@ package seedu.address.logic.commands;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.Analytics;
+import seedu.address.model.analytics.Analytics;
 import seedu.address.model.Model;
-import seedu.address.model.TotalStatistics;
+import seedu.address.model.analytics.TotalStatistics;
 
 /**
  * Returns statistics that are totals.

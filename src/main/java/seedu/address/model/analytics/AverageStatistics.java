@@ -1,4 +1,5 @@
-package seedu.address.model;
+package seedu.address.model.analytics;
+
 
 public class AverageStatistics extends Statistics {
 

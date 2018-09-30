@@ -12,7 +12,7 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-import seedu.address.model.Analytics;
+import seedu.address.model.analytics.Analytics;
 
 /**
  * The main LogicManager of the app.

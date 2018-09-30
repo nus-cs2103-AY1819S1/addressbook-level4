@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Analytics;
+import seedu.address.model.analytics.Analytics;
 import seedu.address.model.Model;
 
 /**

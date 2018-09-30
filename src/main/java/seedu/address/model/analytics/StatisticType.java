@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.address.model.analytics;
 
 public enum StatisticType {
     AVERAGE ("Average"),
