@@ -85,7 +85,7 @@ public class Occasion extends Inanimate {
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         // Use this method for custom fields hashing instead of implementing one.
         return Objects.hash(occasionName, occasionDate, organiser, tags);
     }

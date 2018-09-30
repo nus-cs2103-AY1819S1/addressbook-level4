@@ -15,8 +15,8 @@ import java.text.SimpleDateFormat;
 public class OccasionDate {
 
     public static final String MESSAGE_OCCASIONDATE_CONSTRAINTS = "Occasion "
-      + "dates should be in the format YYYY-MM-DD, and should not be in the "
-      + "blank.";
+        + "dates should be in the format YYYY-MM-DD, and should not be in the "
+        + "blank.";
 
     /*
      * The date should be in the format YYYY-MM-DD. The date value should be
