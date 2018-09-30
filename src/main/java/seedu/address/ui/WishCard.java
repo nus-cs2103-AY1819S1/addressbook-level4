@@ -61,7 +61,7 @@ public class WishCard extends UiPart<Region> {
 //        url.setText(wish.getUrl().value);
 //        email.setText(wish.getEmail().value);
 //        remark.setText(wish.getRemark().value);
-        progressBar.setProgress(wish.getSavedAmount().value / wish.getPrice().value);
+        progressBar.setProgress(getProgress(wish));
         initTags(wish);
     }
 
@@ -70,6 +70,13 @@ public class WishCard extends UiPart<Region> {
      */
     private String getTagColorStyleFor(String tagName) {
         return TAG_COLORS[Math.abs(tagName.hashCode()) % TAG_COLORS.length];
+    }
+
+    /**
+     * Creates the progess for {@code wish}.
+     */
+    private Double getProgress(Wish wish) {
+        return wish.getSavedAmount().value / wish.getPrice().value;
     }
 
     /**
