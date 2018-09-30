@@ -115,24 +115,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removeTag(Tag tag) {
         persons.forEach(person -> removeTagFromPerson(tag, person));
     }
-    /**
-     * Removes {@code tag} from {@code person} in this {@code AddressBook}.
-     */
-    private void removeTagFromPerson(Tag tag, Person person) {
-        Set<Tag> newTags = new HashSet<>(person.getTags());
-        if (!newTags.remove(tag)) {
-            return;
-        }
-        Person newPerson =
-                new Person(person.getName(), person.getPhone(), person.getEmail(), person.getAddress(), newTags);
-        updatePerson(person, newPerson);
-    }
-    /**
-     * Removes {@code tag} from all persons in this {@code AddressBook}.
-     */
-    public void removeTag(Tag tag) {
-        persons.forEach(person -> removeTagFromPerson(tag, person));
-    }
 
     @Override
     public String toString() {
