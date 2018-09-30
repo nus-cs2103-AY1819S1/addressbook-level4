@@ -30,8 +30,10 @@ public class PersonTest {
 
     @Test
     public void personHashCode() {
-        // same object -> returns true
-        assertTrue(ALICE.hashCode() == ALICE.hashCode());
+        // same person -> returns true
+        assertTrue(new PersonBuilder(ALICE).build().hashCode() == new PersonBuilder(ALICE).build().hashCode());
+        // different person -> return false
+        assertFalse(new PersonBuilder(BOB).build().hashCode() == new PersonBuilder(ALICE).build().hashCode());
     }
 
     @Test
