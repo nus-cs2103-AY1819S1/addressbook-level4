@@ -23,9 +23,6 @@ public class WishDetailPanel extends UiPart<Region> {
     private Label name;
 
     @FXML
-    private Label id;
-
-    @FXML
     private Label price;
 
     @FXML
@@ -54,17 +51,15 @@ public class WishDetailPanel extends UiPart<Region> {
     }
 
     public void loadDefaultPage() {
-        id.setText(". ");
-        name.setText("Name");
-        price.setText("Price");
-        savedAmount.setText("$10,000");
-        url.setText("url");
-        email.setText("Email");
-        remark.setText("Remark");
+        name.setText("Click on any wish for details");
+        price.setText("");
+        savedAmount.setText("");
+        url.setText("");
+        email.setText("");
+        remark.setText("");
     }
 
     private void loadWishPage(Wish wish) {
-        id.setText(". ");
         name.setText(wish.getName().fullName);
         price.setText(wish.getPrice().toString());
         savedAmount.setText(wish.getSavedAmount().toString());
