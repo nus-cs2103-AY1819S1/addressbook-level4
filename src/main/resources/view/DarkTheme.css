@@ -1,5 +1,5 @@
 .background {
-    -fx-background-color: derive(#1d1d1d, 0%);
+    -fx-background-color: derive(#161618, 0%);
     background-color: #1A1A1C; /* Used in the default.html file */
 }
 
@@ -44,11 +44,11 @@
 }
 
 .box {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #161618;
 }
 
 .box-with-shadow {
-    -fx-effect: dropshadow(gaussian, black, 15, 0, 5, 5);
+    -fx-effect: dropshadow(gaussian, black, 13, 0, 5, 5);
 }
 
 .tab-pane {
@@ -62,9 +62,9 @@
 }
 
 .table-view {
-    -fx-base: #1d1d1d;
-    -fx-control-inner-background: #1d1d1d;
-    -fx-background-color: #1d1d1d;
+    -fx-base: #161618;
+    -fx-control-inner-background: #161618;
+    -fx-background-color: #161618;
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
     -fx-padding: 5;
@@ -99,21 +99,21 @@
 }
 
 .split-pane:horizontal .split-pane-divider {
-    -fx-background-color: derive(#1d1d1d, 0%);
+    -fx-background-color: derive(#161618, 0%);
     -fx-border-color: transparent transparent transparent transparent;
 }
 
 .split-pane {
     -fx-border-radius: 1;
     -fx-border-width: 1;
-    -fx-background-color: derive(#1d1d1d, 0%);
+    -fx-background-color: derive(#161618, 0%);
 }
 
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-background-color: derive(#1d1d1d, 0%);
-    -fx-effect: dropshadow(gaussian, black, 15, 0, 5, 5);
+    -fx-background-color: derive(#161618, 0%);
+    -fx-effect: dropshadow(gaussian, black, 13, 0, 5, 5);
 }
 
 .list-cell {
@@ -123,11 +123,11 @@
 }
 
 .list-cell:filled:even {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #161618;
 }
 
 .list-cell:filled:odd {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #161618;
 }
 
 .list-cell:filled:selected {
@@ -158,12 +158,12 @@
 }
 
 .stack-pane {
-     -fx-background-color: derive(#1d1d1d, 0%);
+     -fx-background-color: derive(#161618, 0%);
 }
 
 .pane-with-border {
-     -fx-background-color: derive(#1d1d1d, 0%);
-     -fx-border-color: derive(#1d1d1d, 0%);
+     -fx-background-color: derive(#161618, 0%);
+     -fx-border-color: derive(#161618, 0%);
      -fx-border-top-width: 0px;
 }
 
@@ -189,8 +189,8 @@
 }
 
 .status-bar-with-border {
-    -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 25%);
+    -fx-background-color: derive(#161618, 30%);
+    -fx-border-color: derive(#161618, 25%);
     -fx-border-width: 1px;
 }
 
@@ -199,17 +199,17 @@
 }
 
 .grid-pane {
-    -fx-background-color: derive(#1d1d1d, 0%);
-    -fx-border-color: derive(#1d1d1d, 0%);
+    -fx-background-color: derive(#161618, 0%);
+    -fx-border-color: derive(#161618, 0%);
     -fx-border-width: 1px;
 }
 
 .grid-pane .stack-pane {
-    -fx-background-color: derive(#1d1d1d, 0%);
+    -fx-background-color: derive(#161618, 0%);
 }
 
 .context-menu {
-    -fx-background-color: derive(#1d1d1d, 50%);
+    -fx-background-color: derive(#161618, 50%);
 }
 
 .context-menu .label {
@@ -218,7 +218,7 @@
 
 .menu-bar {
     -fx-padding: 5 23 5 23;
-    -fx-background-color: derive(#1d1d1d, 0%);
+    -fx-background-color: derive(#161618, 0%);
 }
 
 .menu-bar .label {
@@ -242,7 +242,7 @@
     -fx-border-color: #e2e2e2;
     -fx-border-width: 2;
     -fx-background-radius: 0;
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #161618;
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     -fx-font-size: 11pt;
     -fx-text-fill: #d8d8d8;
@@ -255,7 +255,7 @@
 
 .button:pressed, .button:default:hover:pressed {
   -fx-background-color: white;
-  -fx-text-fill: #1d1d1d;
+  -fx-text-fill: #161618;
 }
 
 .button:focused {
@@ -268,7 +268,7 @@
 
 .button:disabled, .button:default:disabled {
     -fx-opacity: 0.4;
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #161618;
     -fx-text-fill: white;
 }
 
@@ -282,11 +282,11 @@
 }
 
 .dialog-pane {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #161618;
 }
 
 .dialog-pane > *.button-bar > *.container {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #161618;
 }
 
 .dialog-pane > *.label.content {
@@ -296,7 +296,7 @@
 }
 
 .dialog-pane:header *.header-panel {
-    -fx-background-color: derive(#1d1d1d, 25%);
+    -fx-background-color: derive(#161618, 25%);
 }
 
 .dialog-pane:header *.header-panel *.label {
@@ -307,11 +307,11 @@
 }
 
 .scroll-bar {
-    -fx-background-color: derive(#1d1d1d, 0%);
+    -fx-background-color: derive(#161618, 0%);
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-background-color: derive(#161618, 30%);
     -fx-background-insets: 3;
 }
 
@@ -365,7 +365,7 @@
     -fx-padding: 5 5 15 5;
     -fx-background-color: transparent #383838 transparent #383838;
     -fx-background-insets: 0;
-    -fx-border-color: #1d1d1d #1d1d1d #ffffff #1d1d1d;
+    -fx-border-color: #161618 #161618 #ffffff #161618;
     -fx-border-insets: 0;
     -fx-border-width: 1;
     -fx-font-family: "Segoe UI Light";
@@ -379,7 +379,7 @@
 
 #resultDisplay .content {
     -fx-padding: 5 5 5 5;
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #161618;
     -fx-background-radius: 0;
 }
 
