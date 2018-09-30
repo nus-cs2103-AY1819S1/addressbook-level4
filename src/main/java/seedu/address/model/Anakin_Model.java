@@ -8,37 +8,37 @@ import seedu.address.model.Anakin_deck.Anakin_Deck;
 
 public interface Anakin_Model {
 
-  void resetData(Anakin_ReadOnlyAnakin newData);
+    void resetData(Anakin_ReadOnlyAnakin newData);
 
-  Anakin_ReadOnlyAnakin getAnakin();
+    Anakin_ReadOnlyAnakin getAnakin();
 
-  boolean hasDeck(Anakin_Deck deck);
+    boolean hasDeck(Anakin_Deck deck);
 
-  void addDeck(Anakin_Deck deck);
+    void addDeck(Anakin_Deck deck);
 
-  void deleteDeck(Anakin_Deck deck);
+    void deleteDeck(Anakin_Deck deck);
 
-  void updateDeck(Anakin_Deck target, Anakin_Deck editedDeck);
+    void updateDeck(Anakin_Deck target, Anakin_Deck editedDeck);
 
-  boolean hasCard(Anakin_Deck deck, Anakin_Card card);
+    boolean hasCard(Anakin_Deck deck, Anakin_Card card);
 
-  void addCard(Anakin_Deck deck, Anakin_Card card);
+    void addCard(Anakin_Deck deck, Anakin_Card card);
 
-  void deleteCard(Anakin_Deck deck, Anakin_Card card);
+    void deleteCard(Anakin_Deck deck, Anakin_Card card);
 
-  void updateCard(Anakin_Deck deck, Anakin_Card target, Anakin_Card editedCard);
+    void updateCard(Anakin_Deck deck, Anakin_Card target, Anakin_Card editedCard);
 
-  ObservableList<Anakin_Deck> getFilteredDeckList();
+    ObservableList<Anakin_Deck> getFilteredDeckList();
 
-  void updateFilteredDeckList(Predicate<Anakin_Deck> predicate);
+    void updateFilteredDeckList(Predicate<Anakin_Deck> predicate);
 
-  boolean canUndoAnakin();
+    boolean canUndoAnakin();
 
-  boolean canRedoAnakin();
+    boolean canRedoAnakin();
 
-  void undoAnakin();
+    void undoAnakin();
 
-  void redoAnakin();
+    void redoAnakin();
 
-  void commitAnakin();
+    void commitAnakin();
 }
