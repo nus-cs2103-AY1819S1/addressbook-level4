@@ -99,7 +99,7 @@ public class WishBook implements ReadOnlyWishBook {
     }
 
     /**
-     * Removes {@code tag} from all {@code wish}s in this {@code WishBook}.
+     * Removes {@code tag} from all {@code wish}es in this {@code WishBook}.
      * @throws DuplicateWishException if there's a duplicate {@code Person} in this {@code WishBook}.
      */
     public void removeTagFromAll(Tag tag) throws DuplicateWishException {

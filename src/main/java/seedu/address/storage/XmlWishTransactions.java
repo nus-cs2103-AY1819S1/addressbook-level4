@@ -6,12 +6,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.WishTransaction;
 import seedu.address.model.wish.Wish;
 
 /**
@@ -20,6 +23,8 @@ import seedu.address.model.wish.Wish;
 @XmlRootElement()
 @XmlAccessorType(XmlAccessType.FIELD)
 public class XmlWishTransactions {
+
+    @XmlElement
     private Map<String, List<XmlAdaptedWish>> wishMap;
 
     /**
@@ -28,6 +33,16 @@ public class XmlWishTransactions {
      */
     public XmlWishTransactions() {
         this.wishMap = new HashMap<>();
+    }
+
+    /**
+     * Conversion
+     */
+    public XmlWishTransactions(WishTransaction wishTransaction) {
+        this();
+        for (Map.Entry<String, List<Wish>> entries : wishTransaction.getWishMap().entrySet()) {
+            wishMap.put(entries.getKey(), toXmlWishList(entries.getValue()));
+        }
     }
 
     public Map<String, List<XmlAdaptedWish>> getWishMap() {
@@ -39,10 +54,9 @@ public class XmlWishTransactions {
      * @param wish
      */
     public void addWish(Wish wish) {
-        String wishName = wish.getName().fullName;
+        String wishName = getKey(wish);
         List<XmlAdaptedWish> wishList = getWishList(wishName);
-        wishList.add(new XmlAdaptedWish(wish));
-        wishMap.put(wishName, wishList);
+        setValueOfKey(wish, updateWishes(wishList, wish));
     }
 
     /**
@@ -58,7 +72,7 @@ public class XmlWishTransactions {
      * @see XmlWishTransactions#remove(String)
      */
     public void remove(Wish wish) throws NoSuchElementException {
-        remove(wish.getName().fullName);
+        remove(getKey(wish));
     }
 
     /**
@@ -80,18 +94,44 @@ public class XmlWishTransactions {
      * The wish identity of {@code editedWish} must not be the same as another existing wish in the wish book.
      */
     public void updateWish(Wish target, Wish editedWish) {
+        // get a reference to the stored wishes
         List<XmlAdaptedWish> wishes = wishMap.get(getKey(target));
-        updateWish(wishes, new XmlAdaptedWish(target), new XmlAdaptedWish(editedWish));
+        // change the key of the target wish
+        changeKey(target, editedWish);
+        // update the stored wishes
+        setValueOfKey(editedWish, updateWishes(wishes, editedWish));
     }
 
     /**
-     * @see XmlWishTransactions#updateWish(Wish, Wish)
-     *
+     * Appends the updated wish to the log of saving history for this wish.
+     * @param existingWishes log of saving history.
+     * @param editedWish wish to be updated to.
+     * @return an updated log of saving history.
      */
-    private void updateWish(List<XmlAdaptedWish> wishes, XmlAdaptedWish target, XmlAdaptedWish editedWish) {
-        if (wishes.contains(target)) {
-            wishes.set(wishes.indexOf(target), editedWish);
-        }
+    private List<XmlAdaptedWish> updateWishes(List<XmlAdaptedWish> existingWishes, Wish editedWish) {
+        existingWishes.add(new XmlAdaptedWish(editedWish));
+        return existingWishes;
+    }
+
+    /**
+     * Changes the key for the entry of {@code existing} to key of {@code newWish}.
+     * Assumption: {@code existing} must be an existing wish in the map.
+     *
+     * @param existing existing wish in the wishmap.
+     * @param newWish wish to be changed to.
+     */
+    private void changeKey(Wish existing, Wish newWish) {
+        wishMap.remove(getKey(existing));
+        wishMap.put(getKey(newWish), null);
+    }
+
+    /**
+     * Sets the value of an existing wish to {@code wishes}.
+     * @param wish an existing wish.
+     * @param wishes value to be changed to.
+     */
+    private void setValueOfKey(Wish wish, List<XmlAdaptedWish> wishes) {
+        wishMap.put(getKey(wish), wishes);
     }
 
     /**
@@ -104,8 +144,31 @@ public class XmlWishTransactions {
     }
 
     /**
-     * Unmarshalls the xml content in {@code wishMap} and returns a list of current state wishes.
-     * @return list of current state wishes.
+     * Converts this JAXB friendly object into a WishTransaction object.
+     * @return associated WishTransaction object for this XmlWishTransactions object.
+     * @throws IllegalValueException if model is not correctly formatted.
+     */
+    public WishTransaction toModelType() throws IllegalValueException {
+        return new WishTransaction(toWishMap());
+    }
+
+    /**
+     * Unmarshalls {@code xmlAdaptedWish} and returns a hashmap of wishes.
+     * @return hashmap of wishes.
+     * @throws IllegalValueException if {@code xmlAdaptedWish} is not correctly formatted.
+     */
+    private HashMap<String, List<Wish>> toWishMap() throws IllegalValueException {
+        HashMap<String, List<Wish>> convertedMap = new HashMap<>();
+        for (Map.Entry<String, List<XmlAdaptedWish>> entries : wishMap.entrySet()) {
+            convertedMap.put(entries.getKey(), toWishList(entries.getValue()));
+        }
+        return convertedMap;
+    }
+
+    /**
+     * Unmarshalls {@code xmlAdaptedWish} and returns a list of wishes.
+     * @return list of wishes.
+     * @throws IllegalValueException if {@code xmlAdaptedWish} is not correctly formatted.
      */
     public List<Wish> toCurrentStateWishTransactionList() throws IllegalValueException {
         List<Wish> wishes = new ArrayList<>();
@@ -116,10 +179,20 @@ public class XmlWishTransactions {
     }
 
     /**
+     * Converts a list of {@code Wish} to a list of {@code XmlAdaptedWish}.
+     * @param wishList list of wishes.
+     * @return a list of XmlAdapted wishes.
+     */
+    private List<XmlAdaptedWish> toXmlWishList(List<Wish> wishList) {
+        return wishList.stream().map(XmlAdaptedWish::new)
+                .collect(Collectors.toList());
+    }
+
+    /**
      * Converts a list of {@code XmlAdaptedWish} to a list of {@code Wish}.
      * @param wishList list of xml adapted wishes.
      * @return a list of wishes.
-     * @throws IllegalValueException if {@code xmlAdaptedWish} is of incorrect model type.
+     * @throws IllegalValueException if {@code xmlAdaptedWish} is not correctly formatted.
      */
     private List<Wish> toWishList(List<XmlAdaptedWish> wishList) throws IllegalValueException {
         List<Wish> wishes = new ArrayList<>();
