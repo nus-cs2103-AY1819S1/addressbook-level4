@@ -3,76 +3,76 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
+import seedu.address.model.wish.Wish;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Wish> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyAddressBook newData);
+    void resetData(ReadOnlyWishBook newData);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the WishBook */
+    ReadOnlyWishBook getWishBook();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a wish with the same identity as {@code wish} exists in the wish book.
      */
-    boolean hasPerson(Person person);
+    boolean hasWish(Wish wish);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given wish.
+     * The wish must exist in the wish book.
      */
-    void deletePerson(Person target);
+    void deleteWish(Wish target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given wish.
+     * {@code wish} must not already exist in the wish book.
      */
-    void addPerson(Person person);
+    void addWish(Wish wish);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Replaces the given wish {@code target} with {@code editedPerson}.
+     * {@code target} must exist in the wish book.
+     * The wish identity of {@code editedPerson} must not be the same as another existing wish in the wish book.
      */
-    void updatePerson(Person target, Person editedPerson);
+    void updateWish(Wish target, Wish editedWish);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered wish list */
+    ObservableList<Wish> getFilteredWishList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered wish list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredWishList(Predicate<Wish> predicate);
 
     /**
-     * Returns true if the model has previous address book states to restore.
+     * Returns true if the model has previous wish book states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndoWishBook();
 
     /**
-     * Returns true if the model has undone address book states to restore.
+     * Returns true if the model has undone wish book states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canRedoWishBook();
 
     /**
-     * Restores the model's address book to its previous state.
+     * Restores the model's wish book to its previous state.
      */
-    void undoAddressBook();
+    void undoWishBook();
 
     /**
-     * Restores the model's address book to its previously undone state.
+     * Restores the model's wish book to its previously undone state.
      */
-    void redoAddressBook();
+    void redoWishBook();
 
     /**
-     * Saves the current address book state for undo/redo.
+     * Saves the current wish book state for undo/redo.
      */
-    void commitAddressBook();
+    void commitWishBook();
 }

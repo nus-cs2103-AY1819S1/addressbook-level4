@@ -11,122 +11,135 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.model.person.Person;
+import seedu.address.commons.events.model.WishBookChangedEvent;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.wish.Wish;
+import seedu.address.model.wish.exceptions.DuplicateWishException;
+
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the wish book data.
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAddressBook versionedAddressBook;
-    private final FilteredList<Person> filteredPersons;
+    private final VersionedWishBook versionedWishBook;
+    private final FilteredList<Wish> filteredWishes;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given wishBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyWishBook wishBook, UserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(wishBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with wish book: " + wishBook + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedAddressBook(addressBook);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        versionedWishBook = new VersionedWishBook(wishBook);
+        filteredWishes = new FilteredList<>(versionedWishBook.getWishList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new WishBook(), new UserPrefs());
     }
 
     @Override
-    public void resetData(ReadOnlyAddressBook newData) {
-        versionedAddressBook.resetData(newData);
-        indicateAddressBookChanged();
+    public void resetData(ReadOnlyWishBook newData) {
+        versionedWishBook.resetData(newData);
+        indicateWishBookChanged();
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
+    public ReadOnlyWishBook getWishBook() {
+        return versionedWishBook;
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(versionedAddressBook));
+    private void indicateWishBookChanged() {
+        raise(new WishBookChangedEvent(versionedWishBook));
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return versionedAddressBook.hasPerson(person);
+    public boolean hasWish(Wish wish) {
+        requireNonNull(wish);
+        return versionedWishBook.hasWish(wish);
     }
 
     @Override
-    public void deletePerson(Person target) {
-        versionedAddressBook.removePerson(target);
-        indicateAddressBookChanged();
+    public void deleteWish(Wish target) {
+        versionedWishBook.removeWish(target);
+        indicateWishBookChanged();
     }
 
     @Override
-    public void addPerson(Person person) {
-        versionedAddressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        indicateAddressBookChanged();
+    public void addWish(Wish wish) {
+        versionedWishBook.addWish(wish);
+        updateFilteredWishList(PREDICATE_SHOW_ALL_PERSONS);
+        indicateWishBookChanged();
     }
 
     @Override
-    public void updatePerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void updateWish(Wish target, Wish editedWish) {
+        requireAllNonNull(target, editedWish);
 
-        versionedAddressBook.updatePerson(target, editedPerson);
-        indicateAddressBookChanged();
+        versionedWishBook.updateWish(target, editedWish);
+        indicateWishBookChanged();
+    }
+
+    /**
+     * Removes {@code tag} from all {@code wish}s in this {@code WishBook}.
+     * @throws DuplicateWishException if there's a duplicate {@code Person} in this {@code WishBook}.
+     */
+    public void deleteTag(Tag tag) throws DuplicateWishException {
+
+        versionedWishBook.removeTagFromAll(tag);
+        indicateWishBookChanged();
     }
 
     //=========== Filtered Person List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedWishBook}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return FXCollections.unmodifiableObservableList(filteredPersons);
+    public ObservableList<Wish> getFilteredWishList() {
+        return FXCollections.unmodifiableObservableList(filteredWishes);
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredWishList(Predicate<Wish> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredWishes.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
+    public boolean canUndoWishBook() {
+        return versionedWishBook.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+    public boolean canRedoWishBook() {
+        return versionedWishBook.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
-        indicateAddressBookChanged();
+    public void undoWishBook() {
+        versionedWishBook.undo();
+        indicateWishBookChanged();
     }
 
     @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
-        indicateAddressBookChanged();
+    public void redoWishBook() {
+        versionedWishBook.redo();
+        indicateWishBookChanged();
     }
 
     @Override
-    public void commitAddressBook() {
-        versionedAddressBook.commit();
+    public void commitWishBook() {
+        versionedWishBook.commit();
     }
 
     @Override
@@ -143,8 +156,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
-                && filteredPersons.equals(other.filteredPersons);
+        return versionedWishBook.equals(other.versionedWishBook)
+                && filteredWishes.equals(other.filteredWishes);
     }
 
 }
