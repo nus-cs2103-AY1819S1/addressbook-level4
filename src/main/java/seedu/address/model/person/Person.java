@@ -73,7 +73,9 @@ public class Person {
         return address;
     }
 
-    public Meeting getMeeting() { return meeting; }
+    public Meeting getMeeting() { 
+        return meeting;
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
