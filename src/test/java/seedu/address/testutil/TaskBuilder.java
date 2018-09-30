@@ -19,7 +19,7 @@ public class TaskBuilder {
 
     public static final String DEFAULT_NAME = "Address CS2103 email";
     public static final String DEFAULT_DUEDATE = "20-12-18";
-    public static final String DEFAULT_PRIORITY_VALUE = "1";
+    public static final String DEFAULT_PRIORITY_VALUE = "2";  // Setting to 1 clashes with A_TASK
     public static final String DEFAULT_DESCRIPTION = "123, Jurong West Ave 6, #08-111";
 
     private Name name;
