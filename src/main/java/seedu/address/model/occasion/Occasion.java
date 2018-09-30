@@ -48,7 +48,7 @@ public class Occasion extends Inanimate {
     public Person getOrganiser() {
         return organiser;
     }
-    
+
     /**
      * Get the set of Tags.
      *
@@ -70,11 +70,11 @@ public class Occasion extends Inanimate {
       if (other == this) {
           return true;
       }
-      
+
       if (!(other instanceof Occasion)) {
           return false;
       }
-      
+
       Occasion otherOccasion = (Occasion) other;
       return otherOccasion.getOccasionName().equals(this.getOccasionName())
           && otherOccasion.getOccasionDate().equals(this.getOccasionDate())

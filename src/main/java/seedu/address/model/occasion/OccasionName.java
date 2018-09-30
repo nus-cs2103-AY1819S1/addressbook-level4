@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * @author KongZijin
  */
 public class OccasionName {
-    
+
     public static final String MESSAGE_OCCASIONNAME_CONSTRAINTS = "Occasion "
         + "names should only contain alphanumeric characters and spaces, and it"
         + " should not be blank.";
@@ -54,7 +54,7 @@ public class OccasionName {
             || (other instanceof OccasionName // instanceof handles nulls
             && fullOccasionName.equals(((OccasionName) other).fullOccasionName));
     }
-    
+
     @Override
     public int hashCode() { return fullOccasionName.hashCode(); }
 }

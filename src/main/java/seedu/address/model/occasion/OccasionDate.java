@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
  * @author kongzijin
  */
 public class OccasionDate {
-    
+
     public static final String MESSAGE_OCCASIONDATE_CONSTRAINTS = "Occasion "
       + "dates should be in the format YYYY-MM-DD, and should not be in the "
       + "blank.";
@@ -51,10 +51,10 @@ public class OccasionDate {
         if (!test.matches(OCCASIONDATE_VALIDATION_REGEX)) {
             return false;
         }
-        
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
         dateFormat.setLenient(false);
-        
+
         try {
             dateFormat.parse(test);
             return true;
@@ -63,7 +63,7 @@ public class OccasionDate {
         }
     }
     //@@author
-    
+
     @Override
     public String toString() { return fullOccasionDate; }
 
@@ -73,7 +73,7 @@ public class OccasionDate {
             || (other instanceof OccasionDate // instanceof handles nulls
             && fullOccasionDate.equals(((OccasionDate) other).fullOccasionDate));
     }
-    
+
     @Override
     public int hashCode() { return fullOccasionDate.hashCode(); }
 }
