@@ -91,7 +91,7 @@ public class ParserUtil {
         requireNonNull(email);
         String trimmedEmail = email.trim();
         if (!PriorityValue.isValidPriorityValue(trimmedEmail)) {
-            throw new ParseException(PriorityValue.MESSAGE_PRIORITYVALUE_CONSTRAINTS);
+            throw new ParseException(PriorityValue.MESSAGE_PRIORITY_VALUE_CONSTRAINTS);
         }
         return new PriorityValue(trimmedEmail);
     }

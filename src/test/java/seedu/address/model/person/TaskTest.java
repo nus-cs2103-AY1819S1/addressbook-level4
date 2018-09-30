@@ -4,8 +4,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DUEDATE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_VALUE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalTasks.A_TASK;
 import static seedu.address.testutil.TypicalTasks.Z_TASK;
@@ -36,26 +36,39 @@ public class TaskTest {
         assertFalse(A_TASK.isSameTask(null));
 
         // different due date and priority value -> returns false
-        Task editedAlice = new TaskBuilder(A_TASK).withDueDate(VALID_DUEDATE_BOB).withPriorityValue(VALID_EMAIL_BOB)
+        Task editedAlice = new TaskBuilder(A_TASK)
+                .withDueDate(VALID_DUEDATE_BOB)
+                .withPriorityValue(VALID_PRIORITY_VALUE_BOB)
                 .build();
         assertFalse(A_TASK.isSameTask(editedAlice));
 
         // different name -> returns false
-        editedAlice = new TaskBuilder(A_TASK).withName(VALID_NAME_BOB).build();
+        editedAlice = new TaskBuilder(A_TASK)
+                .withName(VALID_NAME_BOB)
+                .build();
         assertFalse(A_TASK.isSameTask(editedAlice));
 
         // same name, same due date, different attributes -> returns true
-        editedAlice = new TaskBuilder(A_TASK).withPriorityValue(VALID_EMAIL_BOB).withDescription(VALID_ADDRESS_BOB)
-                .withLabels(VALID_TAG_HUSBAND).build();
+        editedAlice = new TaskBuilder(A_TASK)
+                .withPriorityValue(VALID_PRIORITY_VALUE_BOB)
+                .withDescription(VALID_ADDRESS_BOB)
+                .withLabels(VALID_TAG_HUSBAND)
+                .build();
         assertTrue(A_TASK.isSameTask(editedAlice));
 
         // same name, same priority value, different attributes -> returns true
-        editedAlice = new TaskBuilder(A_TASK).withDueDate(VALID_DUEDATE_BOB).withDescription(VALID_ADDRESS_BOB)
-                .withLabels(VALID_TAG_HUSBAND).build();
+        editedAlice = new TaskBuilder(A_TASK)
+                .withDueDate(VALID_DUEDATE_BOB)
+                .withDescription(VALID_ADDRESS_BOB)
+                .withLabels(VALID_TAG_HUSBAND)
+                .build();
         assertTrue(A_TASK.isSameTask(editedAlice));
 
         // same name, same due date, same priority value, different attributes -> returns true
-        editedAlice = new TaskBuilder(A_TASK).withDescription(VALID_ADDRESS_BOB).withLabels(VALID_TAG_HUSBAND).build();
+        editedAlice = new TaskBuilder(A_TASK)
+                .withDescription(VALID_ADDRESS_BOB)
+                .withLabels(VALID_TAG_HUSBAND)
+                .build();
         assertTrue(A_TASK.isSameTask(editedAlice));
     }
 
@@ -86,7 +99,7 @@ public class TaskTest {
         assertFalse(A_TASK.equals(editedAlice));
 
         // different priority value -> returns false
-        editedAlice = new TaskBuilder(A_TASK).withPriorityValue(VALID_EMAIL_BOB).build();
+        editedAlice = new TaskBuilder(A_TASK).withPriorityValue(VALID_PRIORITY_VALUE_BOB).build();
         assertFalse(A_TASK.equals(editedAlice));
 
         // different description -> returns false

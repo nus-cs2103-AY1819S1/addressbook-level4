@@ -123,7 +123,7 @@ public class XmlAdaptedTask {
                     PriorityValue.class.getSimpleName()));
         }
         if (!PriorityValue.isValidPriorityValue(priorityValue)) {
-            throw new IllegalValueException(PriorityValue.MESSAGE_PRIORITYVALUE_CONSTRAINTS);
+            throw new IllegalValueException(PriorityValue.MESSAGE_PRIORITY_VALUE_CONSTRAINTS);
         }
         final PriorityValue modelPriorityValue = new PriorityValue(priorityValue);
 

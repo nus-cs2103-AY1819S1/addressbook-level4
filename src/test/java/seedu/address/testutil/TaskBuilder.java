@@ -19,7 +19,7 @@ public class TaskBuilder {
 
     public static final String DEFAULT_NAME = "Address CS2103 email";
     public static final String DEFAULT_DUEDATE = "20-12-18";
-    public static final String DEFAULT_PRIORITYVALUE = "alice@gmail.com";
+    public static final String DEFAULT_PRIORITY_VALUE = "2"; // Setting to 1 clashes with A_TASK
     public static final String DEFAULT_DESCRIPTION = "123, Jurong West Ave 6, #08-111";
 
     private Name name;
@@ -32,7 +32,7 @@ public class TaskBuilder {
     public TaskBuilder() {
         name = new Name(DEFAULT_NAME);
         dueDate = new DueDate(DEFAULT_DUEDATE);
-        priorityValue = new PriorityValue(DEFAULT_PRIORITYVALUE);
+        priorityValue = new PriorityValue(DEFAULT_PRIORITY_VALUE);
         description = new Description(DEFAULT_DESCRIPTION);
         labels = new HashSet<>();
         status = Status.IN_PROGRESS;
