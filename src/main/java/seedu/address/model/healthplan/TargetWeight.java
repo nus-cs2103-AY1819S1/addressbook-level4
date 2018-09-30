@@ -3,7 +3,9 @@ package seedu.address.model.healthplan;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-
+/**
+ * Class to handle the target weights set by the user
+ */
 public class TargetWeight {
 
     public static final String MESSAGE_WEIGHT_CONSTRAINTS =

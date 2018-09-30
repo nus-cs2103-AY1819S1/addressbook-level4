@@ -1,6 +1,11 @@
 package seedu.address.model.healthplan;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+
+
+/**
+ * Class to handle the age of health plans
+ */
 public class Age {
 
     public static final String MESSAGE_AGE_CONSTRAINTS =

@@ -15,15 +15,16 @@ import seedu.address.model.AppContent;
 import seedu.address.model.ReadOnlyAppContent;
 import seedu.address.model.healthplan.HealthPlan;
 
-
+/**
+ *
+ * class to parse xml to model from the provided file
+ */
 @XmlRootElement(name = "healthplans")
 public class XmlSerializableHealthPlan {
 
 
     public static final String MESSAGE_DUPLICATE_PLAN = "Persons list contains duplicate plan(s).";
     private static final Logger logger = LogsCenter.getLogger(XmlSerializableHealthPlan.class);
-
-
 
     @XmlElement
     private List<XmlAdaptedHealthPlan> hp;
@@ -38,17 +39,19 @@ public class XmlSerializableHealthPlan {
         hp.addAll(src.getHealthPlanList().stream().map(XmlAdaptedHealthPlan::new).collect(Collectors.toList()));
     }
 
+    /**
+     *
+     * Convert to AppContent Model
+     */
     public AppContent toModelType() throws IllegalValueException {
         AppContent hpb = new AppContent();
-        int i=0;
+
         for (XmlAdaptedHealthPlan p : hp) {
             HealthPlan plan = p.toModelType();
             if (hpb.hasPlan(plan)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PLAN);
             }
             hpb.addPlan(plan);
-            i++;
-            logger.info(String.valueOf(i));
         }
         return hpb;
     }

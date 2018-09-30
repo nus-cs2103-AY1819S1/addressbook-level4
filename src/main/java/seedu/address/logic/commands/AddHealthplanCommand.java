@@ -1,22 +1,23 @@
 package seedu.address.logic.commands;
 
-
 import static java.util.Objects.requireNonNull;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_HPNAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TWEIGHT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CWEIGHT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CHEIGHT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CHEIGHT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CWEIGHT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_HPNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SCHEME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TWEIGHT;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.recipe.Recipe;
 import seedu.address.model.healthplan.HealthPlan;
 
+/**
+ *  command extension for health plans
+ */
 public class AddHealthplanCommand extends Command {
 
     public static final String COMMAND_WORD = "addHP";

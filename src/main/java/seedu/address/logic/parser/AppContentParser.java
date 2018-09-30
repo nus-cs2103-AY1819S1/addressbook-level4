@@ -53,7 +53,7 @@ public class AppContentParser {
             return new AddCommandParser().parse(arguments);
 
         case AddHealthplanCommand.COMMAND_WORD:
-            return new AddHPCommandParser().parse(arguments);
+            return new AddHpCommandParser().parse(arguments);
 
 
         case EditCommand.COMMAND_WORD:

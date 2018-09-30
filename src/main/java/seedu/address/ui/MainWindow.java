@@ -19,7 +19,6 @@ import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.healthplan.HealthPlan;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -123,35 +122,26 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
-
         recipeListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
         personListPanelPlaceholder.getChildren().add(recipeListPanel.getRoot());
-
-
-
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
         StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
-
-    void fillInnerPartsHP() {
-     
-
+    /**
+     * Fills up all the placeholders of this window.
+     */
+    void fillInnerPartsHp() {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         healthPlanPanel = new HealthPlanPanel(logic.getFilteredPlans());
 
         personListPanelPlaceholder.getChildren().add(healthPlanPanel.getRoot());
-
-
-
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -162,8 +152,9 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
-
-
+    /*
+    * hide stage
+    * */
     void hide() {
         primaryStage.hide();
     }

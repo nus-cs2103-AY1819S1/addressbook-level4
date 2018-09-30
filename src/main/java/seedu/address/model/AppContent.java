@@ -29,6 +29,13 @@ public class AppContent implements ReadOnlyAppContent {
         recipes = new UniqueRecipeList();
     }
 
+    private final HealthPlanList list;
+    {
+        list = new HealthPlanList();
+    }
+
+
+
     public AppContent() {}
 
     /**
@@ -37,7 +44,7 @@ public class AppContent implements ReadOnlyAppContent {
     public AppContent(ReadOnlyAppContent toBeCopied) {
         this();
         resetData(toBeCopied);
-        resetDataHP(toBeCopied);
+        resetDataHp(toBeCopied);
     }
 
     //// list overwrite operations
@@ -123,17 +130,7 @@ public class AppContent implements ReadOnlyAppContent {
         return recipes.hashCode();
     }
 
-
-
     //healthplan
-
-    private final HealthPlanList list;
-    {
-        list = new HealthPlanList();
-    }
-
-
-
 
     public void setPlan(List<HealthPlan> plans) {
         this.list.setPlan(plans);
@@ -142,7 +139,7 @@ public class AppContent implements ReadOnlyAppContent {
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
-    public void resetDataHP(ReadOnlyAppContent newData) {
+    public void resetDataHp(ReadOnlyAppContent newData) {
         requireNonNull(newData);
 
         setPlan(newData.getHealthPlanList());

@@ -88,7 +88,10 @@ public class XmlAddressBookStorage implements AddressBookStorage {
         return readHealthPlan(filePath);
     }
 
-
+    /**
+     * method to read health plan from file
+     *
+     */
     public Optional<ReadOnlyAppContent> readHealthPlan(Path filePath) throws DataConversionException,
             FileNotFoundException {
         requireNonNull(filePath);
@@ -98,7 +101,7 @@ public class XmlAddressBookStorage implements AddressBookStorage {
             return Optional.empty();
         }
 
-        XmlSerializableHealthPlan xmlhp = XmlFileStorage.loadDataFromSaveFileHP(filePath);
+        XmlSerializableHealthPlan xmlhp = XmlFileStorage.loadDataFromSaveFileHp(filePath);
         try {
             return Optional.of(xmlhp.toModelType());
         } catch (IllegalValueException ive) {
@@ -112,13 +115,18 @@ public class XmlAddressBookStorage implements AddressBookStorage {
         saveHealthPlan(hp, filePath);
     }
 
-
+    /**
+     *
+     * method to save plans when there are changes
+     *
+     *
+     */
     public void saveHealthPlan(ReadOnlyAppContent hp, Path filePath) throws IOException {
         requireNonNull(hp);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        XmlFileStorage.saveDataToFile(filePath, new XmlSerializableHealthPlan(hp));
+        XmlFileStorage.saveDataToFileHp(filePath, new XmlSerializableHealthPlan(hp));
     }
 
 

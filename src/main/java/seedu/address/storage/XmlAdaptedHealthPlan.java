@@ -1,20 +1,24 @@
 package seedu.address.storage;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.healthplan.*;
+import seedu.address.model.healthplan.Age;
+import seedu.address.model.healthplan.CurrentHeight;
+import seedu.address.model.healthplan.CurrentWeight;
+import seedu.address.model.healthplan.Duration;
+import seedu.address.model.healthplan.HealthPlan;
+import seedu.address.model.healthplan.HealthPlanName;
+import seedu.address.model.healthplan.Scheme;
+import seedu.address.model.healthplan.TargetWeight;
 
-import seedu.address.model.tag.Tag;
 
 
+/**
+ * class for xml context to model
+ */
 public class XmlAdaptedHealthPlan {
 
 
@@ -38,14 +42,15 @@ public class XmlAdaptedHealthPlan {
     //base constructor
     public XmlAdaptedHealthPlan(){}
 
-    public XmlAdaptedHealthPlan(String name, String tweight, String cweight, String cheight, String age, String duration, String scheme) {
+    public XmlAdaptedHealthPlan(String name, String tweight, String cweight, String cheight, String age,
+                                String duration, String scheme) {
         this.name = name;
         this.tweight = tweight;
         this.cweight = cweight;
         this.cheight = cheight;
-        this.age =age;
-        this.duration=duration;
-        this.scheme=scheme;
+        this.age = age;
+        this.duration = duration;
+        this.scheme = scheme;
 
 
     }
@@ -57,44 +62,55 @@ public class XmlAdaptedHealthPlan {
         cweight = source.getCurrentWeight().value;
         cheight = source.getCurrentHeight().value;
         age = source.getAge().value;
-        duration=source.getDuration().value;
-        if(source.getScheme()== Scheme.GAIN){
+        duration = source.getDuration().value;
+        if (source.getScheme() == Scheme.GAIN) {
             scheme = Scheme.GAIN.toString();
-        }else if(source.getScheme()==Scheme.LOSS){
+        } else if (source.getScheme() == Scheme.LOSS) {
             scheme = Scheme.LOSS.toString();
-        }else{
+        } else {
             scheme = Scheme.MAINTAIN.toString();
         }
     }
 
+    /**
+     *
+     * Method to model
+     */
     public HealthPlan toModelType() throws IllegalValueException {
 
         if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, HealthPlanName.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    HealthPlanName.class.getSimpleName()));
         }
+
         if (!HealthPlanName.isValidName(name)) {
             throw new IllegalValueException(HealthPlanName.MESSAGE_NAME_CONSTRAINTS);
         }
         final HealthPlanName modelName = new HealthPlanName(name);
 
         if (tweight == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, TargetWeight.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    TargetWeight.class.getSimpleName()));
         }
+
         if (!TargetWeight.isValidWeight(tweight)) {
             throw new IllegalValueException(TargetWeight.MESSAGE_WEIGHT_CONSTRAINTS);
         }
         final TargetWeight modelTWeight = new TargetWeight(tweight);
 
         if (cweight == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, CurrentWeight.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    CurrentWeight.class.getSimpleName()));
         }
+
         if (!CurrentWeight.isValidWeight(cweight)) {
             throw new IllegalValueException(CurrentWeight.MESSAGE_WEIGHT_CONSTRAINTS);
         }
         final CurrentWeight modelCweight = new CurrentWeight(cweight);
 
         if (cheight == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, CurrentHeight.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    CurrentHeight.class.getSimpleName()));
         }
         if (!CurrentHeight.isValidHeight(cheight)) {
             throw new IllegalValueException(CurrentHeight.MESSAGE_HEIGHT_CONSTRAINTS);
@@ -112,22 +128,18 @@ public class XmlAdaptedHealthPlan {
 
 
         if (duration == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Duration.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Duration.class.getSimpleName()));
         }
         if (!Duration.isValidDuration(duration)) {
             throw new IllegalValueException(Duration.MESSAGE_DURATION_CONSTRAINTS);
         }
         final Duration modelDuration = new Duration(duration);
 
+        Scheme modelScheme = Scheme.valueOf(scheme);
 
-         Scheme modelScheme= Scheme.valueOf(scheme);
-
-
-        return new HealthPlan(modelName,modelTWeight,modelCweight,modelCHeight,modelAge,modelDuration,modelScheme);
-
-
-
-      //  return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new HealthPlan(modelName, modelTWeight, modelCweight, modelCHeight,
+                modelAge, modelDuration, modelScheme);
     }
 
     @Override
@@ -145,9 +157,9 @@ public class XmlAdaptedHealthPlan {
                 && Objects.equals(tweight, otherPlan.tweight)
                 && Objects.equals(cweight, otherPlan.cweight)
                 && Objects.equals(cheight, otherPlan.cheight)
-                && Objects.equals(age,otherPlan.age)
-                && Objects.equals(duration,otherPlan.duration)
-                && Objects.equals(scheme,otherPlan.scheme);
+                && Objects.equals(age, otherPlan.age)
+                && Objects.equals(duration, otherPlan.duration)
+                && Objects.equals(scheme, otherPlan.scheme);
 
     }
 

@@ -15,7 +15,10 @@ public interface ReadOnlyAppContent {
      */
     ObservableList<Recipe> getRecipeList();
 
-//healthplan
+    /**
+     *
+     * returns the healthplan list
+     */
     ObservableList<HealthPlan> getHealthPlanList();
 
 }

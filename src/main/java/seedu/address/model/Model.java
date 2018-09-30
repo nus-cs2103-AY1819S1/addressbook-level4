@@ -3,9 +3,10 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.events.model.HealthplanChangedEvent;
-import seedu.address.model.recipe.Recipe;
+
 import seedu.address.model.healthplan.HealthPlan;
+import seedu.address.model.recipe.Recipe;
+
 
 /**
  * The API of the Model component.

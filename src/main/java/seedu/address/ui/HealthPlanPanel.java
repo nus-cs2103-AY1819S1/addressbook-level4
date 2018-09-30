@@ -15,11 +15,9 @@ import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.PlanPanelSelectionChangedEvent;
 import seedu.address.model.healthplan.HealthPlan;
 
-
-
-
-
-
+/**
+ * Logic class for the panel related to the health plan components
+ */
 public class HealthPlanPanel extends UiPart<Region> {
 
     private static final String FXML = "healthplanPanel.fxml";
@@ -38,7 +36,7 @@ public class HealthPlanPanel extends UiPart<Region> {
     //bind all the entries found in the xml file
     private void setConnections(ObservableList<HealthPlan> planList) {
         healthplanView.setItems(planList);
-        healthplanView.setCellFactory(listView -> new HPListViewCell());
+        healthplanView.setCellFactory(listView -> new HpListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
@@ -53,6 +51,10 @@ public class HealthPlanPanel extends UiPart<Region> {
                 });
     }
 
+    /**
+     *
+     * Method to scroll the view to given @param index
+     */
     private void scrollTo(int index) {
         Platform.runLater(() -> {
             healthplanView.scrollTo(index);
@@ -66,8 +68,11 @@ public class HealthPlanPanel extends UiPart<Region> {
         scrollTo(event.targetIndex);
     }
 
-
-    class HPListViewCell extends ListCell<HealthPlan> {
+    /**
+     *
+     * Class to hold the form of each of the HealthPlans
+     */
+    class HpListViewCell extends ListCell<HealthPlan> {
         @Override
         protected void updateItem(HealthPlan plan, boolean empty) {
             super.updateItem(plan, empty);

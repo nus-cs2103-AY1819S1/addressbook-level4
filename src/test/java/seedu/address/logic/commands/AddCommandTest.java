@@ -19,6 +19,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AppContent;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAppContent;
+import seedu.address.model.healthplan.HealthPlan;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.testutil.RecipeBuilder;
 
@@ -94,6 +95,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addPlan(HealthPlan recipe) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void resetData(ReadOnlyAppContent newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -109,12 +115,28 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasPlan(HealthPlan recipe) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+
+        @Override
         public void deleteRecipe(Recipe target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+        public void deletePlan(HealthPlan target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+
+        @Override
         public void updateRecipe(Recipe target, Recipe editedRecipe) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public void updatePlan(HealthPlan target, HealthPlan editedPlan) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -122,11 +144,20 @@ public class AddCommandTest {
         public ObservableList<Recipe> getFilteredRecipeList() {
             throw new AssertionError("This method should not be called.");
         }
+        @Override
+        public ObservableList<HealthPlan> getFilteredPlans() {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public void updateFilteredRecipeList(Predicate<Recipe> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+        @Override
+        public void updateFilteredPlans(Predicate<HealthPlan> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
 
         @Override
         public boolean canUndoAppContent() {
