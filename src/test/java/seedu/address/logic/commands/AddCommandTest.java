@@ -154,7 +154,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void importContacts(String filePath)  {
+        public void importContacts(String filePath) {
             throw new AssertionError("This method should not be called.");
         }
     }
