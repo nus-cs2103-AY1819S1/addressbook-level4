@@ -12,7 +12,7 @@ import seedu.address.model.person.Person;
  * An UI component that displays information of a {@code Person}.
  */
 public class PersonCard extends UiPart<Region> {
-    public static final String NO_MEETING = "No meeting scheduled" ;
+    public static final String NO_MEETING = "No meeting scheduled";
     private static final String FXML = "PersonListCard.fxml";
     private static final String[] TAG_COLOR_STYLES = { "teal", "red", "yellow", "blue",
         "orange", "brown", "green", "pink", "black", "grey"};

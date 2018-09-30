@@ -1,15 +1,18 @@
 package seedu.address.model.meeting;
 
-import seedu.address.model.meeting.exceptions.DuplicateMeetingException;
-import seedu.address.model.meeting.exceptions.MeetingNotFoundException;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import seedu.address.model.meeting.exceptions.DuplicateMeetingException;
+import seedu.address.model.meeting.exceptions.MeetingNotFoundException;
 
+/**
+ * A list of meetings that enforces uniqueness between its elements and does not allow nulls.
+ */
 public class UniqueMeetingList implements Iterable<Meeting> {
     private final ArrayList<Meeting> allMeetings = new ArrayList<>();
 
@@ -60,7 +63,9 @@ public class UniqueMeetingList implements Iterable<Meeting> {
     }
 
     @Override
-    public Iterator<Meeting> iterator() { return allMeetings.iterator(); }
+    public Iterator<Meeting> iterator() {
+        return allMeetings.iterator();
+    }
 
     /**
      * Returns true if {@code meetings} contains only unique meetings.
