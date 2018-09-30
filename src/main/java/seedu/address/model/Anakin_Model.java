@@ -6,6 +6,9 @@ import javafx.collections.ObservableList;
 import seedu.address.model.Anakin_deck.Anakin_Card;
 import seedu.address.model.Anakin_deck.Anakin_Deck;
 
+/**
+ * The API of the Anakin_Model component
+ */
 public interface Anakin_Model {
 
     void resetData(Anakin_ReadOnlyAnakin newData);
