@@ -9,11 +9,15 @@ public enum StatisticType {
 
     private final String value;
 
+    /**
+     * @param value A string representing the value of the type of statistic.
+     */
     StatisticType(String value) {
         this.value = value;
     }
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         return this.value;
     }
 }

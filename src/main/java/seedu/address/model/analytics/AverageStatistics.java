@@ -10,11 +10,13 @@ public class AverageStatistics extends Statistics {
     private static final String AVERAGE_TYPE_DAY = "per day";
     private static final String AVERAGE_TYPE_PATIENT = "per patient";
 
+    // Different statistics fields.
     private static final String NUMBER_PATIENTS_DAY = statisticType + " number of patients " + AVERAGE_TYPE_DAY;
     private static final String TIME_WAITING_PATIENT = statisticType + " waiting time " + AVERAGE_TYPE_PATIENT;
     private static final String NUMBER_MEDICINES_DAY = statisticType + " number of medicines prescribed " + AVERAGE_TYPE_DAY;
     private static final String NUMBER_MEDICINES_PATIENT = statisticType + " number of medicines prescribed " + AVERAGE_TYPE_PATIENT;
 
+    // Sets statistics to 0 and stores them in a HashMap
     public AverageStatistics() {
         super();
         this.statistics.put(NUMBER_PATIENTS_DAY, 0);

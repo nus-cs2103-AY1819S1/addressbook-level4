@@ -13,10 +13,16 @@ public class Analytics {
         totalStatistics =  new TotalStatistics();
     }
 
+    /**
+     * @return The String representation for displaying of average statistics.
+     */
     public String getAverageStatistics() {
         return averageStatistics.toString();
     }
 
+    /**
+     * @return The String representation for displaying total statistics.
+     */
     public String getTotalStatistics() {
         return totalStatistics.toString();
     }
