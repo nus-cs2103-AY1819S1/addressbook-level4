@@ -1,7 +1,10 @@
-package seedu.address.model;
+package seedu.address.model.versionedmodels;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import seedu.address.model.ReadOnlyWishBook;
+import seedu.address.model.WishBook;
 
 /**
  * {@code WishBook} that keeps track of its own history.
@@ -92,21 +95,4 @@ public class VersionedWishBook extends WishBook implements VersionedModel {
                 && currentStatePointer == otherVersionedAddressBook.currentStatePointer;
     }
 
-    /**
-     * Thrown when trying to {@code undo()} but can't.
-     */
-    public static class NoUndoableStateException extends RuntimeException {
-        private NoUndoableStateException() {
-            super("Current state pointer at start of wishBookState list, unable to undo.");
-        }
-    }
-
-    /**
-     * Thrown when trying to {@code redo()} but can't.
-     */
-    public static class NoRedoableStateException extends RuntimeException {
-        private NoRedoableStateException() {
-            super("Current state pointer at end of wishBookState list, unable to redo.");
-        }
-    }
 }
