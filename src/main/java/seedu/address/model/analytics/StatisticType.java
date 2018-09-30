@@ -6,7 +6,7 @@ public enum StatisticType {
 
     private final String value;
 
-    private StatisticType(String value) {
+    StatisticType(String value) {
         this.value = value;
     }
 }
