@@ -26,13 +26,13 @@ public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_DUEDATE = "+651234";
     private static final String INVALID_ADDRESS = " ";
-    private static final String INVALID_EMAIL = "example.com";
+    private static final String INVALID_PRIORITY_VALUE = "0";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_DUEDATE = "05-05-18";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
-    private static final String VALID_EMAIL = "rachel@example.com";
+    private static final String VALID_PRIORITY_VALUE = "8";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 
@@ -139,19 +139,19 @@ public class ParserUtilTest {
 
     @Test
     public void parseEmail_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseEmail(INVALID_EMAIL));
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseEmail(INVALID_PRIORITY_VALUE));
     }
 
     @Test
     public void parseEmail_validValueWithoutWhitespace_returnsEmail() throws Exception {
-        PriorityValue expectedEmail = new PriorityValue(VALID_EMAIL);
-        assertEquals(expectedEmail, ParserUtil.parseEmail(VALID_EMAIL));
+        PriorityValue expectedEmail = new PriorityValue(VALID_PRIORITY_VALUE);
+        assertEquals(expectedEmail, ParserUtil.parseEmail(VALID_PRIORITY_VALUE));
     }
 
     @Test
     public void parseEmail_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
-        String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
-        PriorityValue expectedEmail = new PriorityValue(VALID_EMAIL);
+        String emailWithWhitespace = WHITESPACE + VALID_PRIORITY_VALUE + WHITESPACE;
+        PriorityValue expectedEmail = new PriorityValue(VALID_PRIORITY_VALUE);
         assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
     }
 
