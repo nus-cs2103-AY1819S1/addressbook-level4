@@ -3,6 +3,9 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.commons.core.Messages.MESSAGE_RIDES_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.testutil.TypicalPersons.ACCELERATOR;
 import static seedu.address.testutil.TypicalPersons.BIG;
 import static seedu.address.testutil.TypicalPersons.CASTLE;
 import static seedu.address.testutil.TypicalPersons.DUMBO;
@@ -26,7 +29,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void find() {
-        /* Case: find multiple rides in address book, command with leading spaces and trailing spaces
+        /* Case: find multiple rides in thane park, command with leading spaces and trailing spaces
          * -> 2 rides found
          */
         String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER + "   ";
@@ -48,23 +51,23 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple rides in address book, 2 keywords -> 2 rides found */
+        /* Case: find multiple rides in thane park, 2 keywords -> 2 rides found */
         command = FindCommand.COMMAND_WORD + " Big Elephant";
         ModelHelper.setFilteredList(expectedModel, BIG, DUMBO);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple rides in address book, 2 keywords in reversed order -> 2 rides found */
+        /* Case: find multiple rides in thane park, 2 keywords in reversed order -> 2 rides found */
         command = FindCommand.COMMAND_WORD + " Dumbo Big";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple rides in address book, 2 keywords with 1 repeat -> 2 rides found */
+        /* Case: find multiple rides in thane park, 2 keywords with 1 repeat -> 2 rides found */
         command = FindCommand.COMMAND_WORD + " Dumbo Big Dumbo";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple rides in address book, 2 matching keywords and 1 non-matching keyword
+        /* Case: find multiple rides in thane park, 2 matching keywords and 1 non-matching keyword
          * -> 2 rides found
          */
         command = FindCommand.COMMAND_WORD + " Dumbo Big NonMatchingKeyWord";
@@ -81,7 +84,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
 
-        /* Case: find same rides in address book after deleting 1 of them -> 1 ride found */
+        /* Case: find same rides in thane park after deleting 1 of them -> 1 ride found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
         assertFalse(getModel().getAddressBook().getRideList().contains(BIG));
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
@@ -90,50 +93,63 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find ride in address book, keyword is same as name but of different case -> 1 ride found */
+        /* Case: find ride in thane park, keyword is same as name but of different case -> 1 ride found */
         command = FindCommand.COMMAND_WORD + " MeIeR";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find ride in address book, keyword is substring of name -> 0 rides found */
+        /* Case: find ride in thane park, keyword is substring of name -> 0 rides found */
         command = FindCommand.COMMAND_WORD + " Mei";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find ride in address book, name is substring of keyword -> 0 rides found */
+        /* Case: find ride in thane park, name is substring of keyword -> 0 rides found */
         command = FindCommand.COMMAND_WORD + " Meiers";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find ride not in address book -> 0 rides found */
+        /* Case: find ride not in thane park -> 0 rides found */
         command = FindCommand.COMMAND_WORD + " Mark";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find phone number of ride in address book -> 0 rides found */
+        /* Case: find phone number of ride in thane park -> 0 rides found */
         command = FindCommand.COMMAND_WORD + " " + DUMBO.getDaysSinceMaintenance().toString();
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find address of ride in address book -> 3 rides found */
+        /* Case: find address of ride in thane park -> 0 rides found */
         command = FindCommand.COMMAND_WORD + " " + DUMBO.getAddress().value;
-        ModelHelper.setFilteredList(expectedModel, DUMBO, GALAXY, CASTLE);
+        ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
-        // assertSelectedCardUnchanged();
+        assertSelectedCardUnchanged();
 
-        /* Case: find waiting time of ride in address book -> 0 rides found */
+        /* Case: find address of ride in thane park -> 3 rides found */
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_ADDRESS + DUMBO.getAddress().value;
+        ModelHelper.setFilteredList(expectedModel, CASTLE, DUMBO, GALAXY);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find waiting time of ride in thane park -> 0 rides found */
         command = FindCommand.COMMAND_WORD + " " + DUMBO.getWaitingTime().toString();
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find tags of ride in address book -> 0 rides found */
+        /* Case: find tags of ride in thane park -> 0 rides found */
         List<Tag> tags = new ArrayList<>(DUMBO.getTags());
         command = FindCommand.COMMAND_WORD + " " + tags.get(0).tagName;
+        ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
+
+        /* Case: find tags of ride in thane park -> 3 rides found */
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_TAG + tags.get(0).tagName;
+        ModelHelper.setFilteredList(expectedModel, ACCELERATOR, DUMBO);
+        assertCommandSuccess(command, expectedModel);
+        // assertSelectedCardUnchanged();
 
         /* Case: find while a ride is selected -> selected card deselected */
         showAllPersons();
@@ -144,7 +160,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardDeselected();
 
-        /* Case: find ride in empty address book -> 0 rides found */
+        /* Case: find ride in empty thane park -> 0 rides found */
         deleteAllPersons();
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
         expectedModel = getModel();
