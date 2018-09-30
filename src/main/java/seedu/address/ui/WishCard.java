@@ -36,20 +36,14 @@ public class WishCard extends UiPart<Region> {
     @FXML
     private Label id;
 
-    @FXML
-    private Label price;
-
-    @FXML
-    private Label savedAmount;
-
-    @FXML
-    private Label url;
-
-    @FXML
-    private Label email;
-
-    @FXML
-    private Label remark;
+//    @FXML
+//    private Label url;
+//
+//    @FXML
+//    private Label email;
+//
+//    @FXML
+//    private Label remark;
 
     @FXML
     private FlowPane tags;
@@ -62,11 +56,11 @@ public class WishCard extends UiPart<Region> {
         this.wish = wish;
         id.setText(displayedIndex + ". ");
         name.setText(wish.getName().fullName);
-        price.setText(wish.getPrice().toString());
-        savedAmount.setText(wish.getSavedAmount().toString());
-        url.setText(wish.getUrl().value);
-        email.setText(wish.getEmail().value);
-        remark.setText(wish.getRemark().value);
+//        price.setText(wish.getPrice().toString());
+//        savedAmount.setText(wish.getSavedAmount().toString());
+//        url.setText(wish.getUrl().value);
+//        email.setText(wish.getEmail().value);
+//        remark.setText(wish.getRemark().value);
         progressBar.setProgress(wish.getSavedAmount().value / wish.getPrice().value);
         initTags(wish);
     }
