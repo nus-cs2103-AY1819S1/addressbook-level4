@@ -374,7 +374,7 @@ You provide a unique field. In this example the `John Doe` contact you will be e
 
 === Allow user to edit contact if duplicate contact is added
 
-Warns you about adding a contact that has the same name and same phone number or email or address field.
+Warns user about adding a contact that has the same name and same phone number or email or address field.
 Address Book allows you to add contact with the same name as an existing contact as long as one of the other fields
 are different.
 
@@ -382,24 +382,28 @@ Examples:
 
 * `add n/John Doe p/91234567 e/johndoe@example.com a/John street, block 123, #01-01` +
 `add n/John Doe p/98765432 e/differentemail@example.com a/Different street, block 123, #01-01` +
-Address Book will warn you that an existing contact John Doe already exists. Address Book will ask you if you would like
-to go ahead and create a new contact, edit the existing contact, or cancel the operation.
+Address Book will warn user that an existing contact John Doe already exists. Address Book will ask you if you would
+like to go ahead and create a new contact, edit the existing contact, or cancel the operation.
 
 === Using tags: `tag`
 
 ==== View contacts by tag
 View all contacts in any existing tag. +
-Format: `tag TAG_NAME`
+Format: `tag TAG_NAME [MORE_TAG_NAMES]`
+
+Shorthand: `t`
 
 ****
-* You can view all users that belong to the same tag.
+* View all contacts that belong to the same tag.
 * Address book will throw an error if an invalid `TAG_NAME` is given.
 ****
 
 Example:
 
 * `tag Work` +
-You can view all contacts with the `Work` tag.
+Returns all contacts with the `Work` tag.
+* `tag Work Important` +
+Returns all contacts with the `Work` or `Important` tags.
 
 ==== Remove a tag
 Remove all users from a tag. +
