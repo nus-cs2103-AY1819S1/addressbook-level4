@@ -41,8 +41,7 @@ public class XmlWishTransactions {
     public void addWish(Wish wish) {
         String wishName = getKey(wish);
         List<XmlAdaptedWish> wishList = getWishList(wishName);
-        wishList.add(new XmlAdaptedWish(wish));
-        wishMap.put(wishName, wishList);
+        setValueOfKey(wish, updateWishes(wishList, wish));
     }
 
     /**
