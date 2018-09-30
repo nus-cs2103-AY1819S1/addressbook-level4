@@ -199,6 +199,8 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedAppContent.equals(other.versionedAppContent)
                 && filteredRecipes.equals(other.filteredRecipes)
                 && filteredPlans.equals(other.filteredPlans);
+
+
     }
 
 }

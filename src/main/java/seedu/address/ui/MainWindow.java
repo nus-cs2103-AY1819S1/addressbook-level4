@@ -20,6 +20,7 @@ import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
+
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
@@ -124,6 +125,8 @@ public class MainWindow extends UiPart<Stage> {
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
         recipeListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
         personListPanelPlaceholder.getChildren().add(recipeListPanel.getRoot());
+
+
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
         StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
@@ -133,15 +136,19 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Fills up all the placeholders of this window.
+     * fill hp
      */
     void fillInnerPartsHp() {
+
+
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         healthPlanPanel = new HealthPlanPanel(logic.getFilteredPlans());
 
         personListPanelPlaceholder.getChildren().add(healthPlanPanel.getRoot());
+
+
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 

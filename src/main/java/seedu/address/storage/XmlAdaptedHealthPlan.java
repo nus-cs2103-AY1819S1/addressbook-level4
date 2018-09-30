@@ -18,6 +18,7 @@ import seedu.address.model.healthplan.TargetWeight;
 
 /**
  * class for xml context to model
+ * xml health plan
  */
 public class XmlAdaptedHealthPlan {
 
@@ -44,6 +45,7 @@ public class XmlAdaptedHealthPlan {
 
     public XmlAdaptedHealthPlan(String name, String tweight, String cweight, String cheight, String age,
                                 String duration, String scheme) {
+
         this.name = name;
         this.tweight = tweight;
         this.cweight = cweight;
@@ -52,9 +54,7 @@ public class XmlAdaptedHealthPlan {
         this.duration = duration;
         this.scheme = scheme;
 
-
     }
-
 
     public XmlAdaptedHealthPlan(HealthPlan source) {
         name = source.getHealthPlanName().planName;
@@ -73,8 +73,12 @@ public class XmlAdaptedHealthPlan {
     }
 
     /**
+<<<<<<< Updated upstream
      *
      * Method to model
+=======
+     * to model
+>>>>>>> Stashed changes
      */
     public HealthPlan toModelType() throws IllegalValueException {
 

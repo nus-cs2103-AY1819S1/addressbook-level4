@@ -74,6 +74,4 @@ public class AddHealthplanCommand extends Command {
                 && toAdd.equals(((AddHealthplanCommand) other).toAdd));
     }
 
-
-
 }

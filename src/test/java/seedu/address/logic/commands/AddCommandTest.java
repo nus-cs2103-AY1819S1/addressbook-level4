@@ -95,9 +95,10 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addPlan(HealthPlan recipe) {
+        public void addPlan(HealthPlan plan) {
             throw new AssertionError("This method should not be called.");
         }
+
 
         @Override
         public void resetData(ReadOnlyAppContent newData) {
@@ -115,10 +116,9 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPlan(HealthPlan recipe) {
+        public boolean hasPlan(HealthPlan plan) {
             throw new AssertionError("This method should not be called.");
         }
-
 
         @Override
         public void deleteRecipe(Recipe target) {
@@ -130,11 +130,11 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-
         @Override
         public void updateRecipe(Recipe target, Recipe editedRecipe) {
             throw new AssertionError("This method should not be called.");
         }
+
         @Override
         public void updatePlan(HealthPlan target, HealthPlan editedPlan) {
             throw new AssertionError("This method should not be called.");
@@ -157,7 +157,6 @@ public class AddCommandTest {
         public void updateFilteredPlans(Predicate<HealthPlan> predicate) {
             throw new AssertionError("This method should not be called.");
         }
-
 
         @Override
         public boolean canUndoAppContent() {

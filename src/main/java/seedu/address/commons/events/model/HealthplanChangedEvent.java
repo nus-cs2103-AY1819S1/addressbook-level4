@@ -4,7 +4,7 @@ import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.ReadOnlyAppContent;
 
 /**
- * Event when health plan is changed
+ *  model change event
  */
 public class HealthplanChangedEvent extends BaseEvent {
 

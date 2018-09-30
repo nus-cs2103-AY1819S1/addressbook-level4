@@ -5,6 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Class to handle the target weights set by the user
+ * target weight class
  */
 public class TargetWeight {
 

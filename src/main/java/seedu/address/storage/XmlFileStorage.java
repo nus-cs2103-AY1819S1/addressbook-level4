@@ -36,9 +36,11 @@ public class XmlFileStorage {
         }
     }
 
+
     /**
      *
      * Method to save data into file using the serializableHealthPlan format
+     * save to file
      */
     public static void saveDataToFileHp(Path file, XmlSerializableHealthPlan hp)
             throws FileNotFoundException {

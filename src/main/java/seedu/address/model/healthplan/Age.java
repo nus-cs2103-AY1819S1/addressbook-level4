@@ -2,9 +2,8 @@ package seedu.address.model.healthplan;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-
 /**
- * Class to handle the age of health plans
+ * Age class
  */
 public class Age {
 
@@ -41,12 +40,6 @@ public class Age {
     public int hashCode() {
         return value.hashCode();
     }
-
-
-
-
-
-
 
 
 }

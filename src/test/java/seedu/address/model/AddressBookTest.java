@@ -99,7 +99,6 @@ public class AddressBookTest {
         private final ObservableList<Recipe> recipes = FXCollections.observableArrayList();
         private final ObservableList<HealthPlan> plans = FXCollections.observableArrayList();
 
-
         AppContentStub(Collection<Recipe> recipes) {
             this.recipes.setAll(recipes);
         }

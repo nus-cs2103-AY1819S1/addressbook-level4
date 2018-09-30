@@ -18,6 +18,7 @@ import seedu.address.model.healthplan.HealthPlan;
 /**
  *
  * class to parse xml to model from the provided file
+ * xml health plan
  */
 @XmlRootElement(name = "healthplans")
 public class XmlSerializableHealthPlan {
@@ -34,18 +35,22 @@ public class XmlSerializableHealthPlan {
     }
 
 
+    /**
+     * construct
+     */
     public XmlSerializableHealthPlan(ReadOnlyAppContent src) {
         this();
         hp.addAll(src.getHealthPlanList().stream().map(XmlAdaptedHealthPlan::new).collect(Collectors.toList()));
     }
 
+
     /**
-     *
+
      * Convert to AppContent Model
+     * change to model
      */
     public AppContent toModelType() throws IllegalValueException {
         AppContent hpb = new AppContent();
-
         for (XmlAdaptedHealthPlan p : hp) {
             HealthPlan plan = p.toModelType();
             if (hpb.hasPlan(plan)) {

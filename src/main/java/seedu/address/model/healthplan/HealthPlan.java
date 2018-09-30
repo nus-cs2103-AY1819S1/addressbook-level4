@@ -6,6 +6,7 @@ import java.util.Objects;
 
 /**
  *  class to handle the overall frame of health plans
+ * Health plan enum
  */
 public class HealthPlan {
     // Identity fields
@@ -27,7 +28,6 @@ public class HealthPlan {
         this.age = age;
         this.duration = duration;
         this.scheme = scheme;
-
     }
 
     public HealthPlanName getHealthPlanName() {
@@ -59,7 +59,11 @@ public class HealthPlan {
 
 
     /**
+<<<<<<< Updated upstream
      * check if the current plan is same as provided
+=======
+     * method check if plan is same
+>>>>>>> Stashed changes
      */
     public boolean isSamePlan(HealthPlan otherPlan) {
         if (otherPlan == this) {
@@ -98,7 +102,9 @@ public class HealthPlan {
         return builder.toString();
     }
 
-
+    /**
+     * method equal
+     */
     @Override
     public boolean equals(Object other) {
         if (other == this) {

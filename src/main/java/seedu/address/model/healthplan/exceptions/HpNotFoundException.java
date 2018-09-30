@@ -1,7 +1,8 @@
 package seedu.address.model.healthplan.exceptions;
 
+
 /**
- * exception thrown when Healthplan is not found
+ * exception for health plan
  */
-public class HpNotFoundException extends RuntimeException{
+public class HpNotFoundException extends RuntimeException {
 }

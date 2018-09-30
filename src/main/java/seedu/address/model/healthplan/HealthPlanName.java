@@ -3,9 +3,9 @@ package seedu.address.model.healthplan;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-
 /**
  * Class to handle the plan name
+ * health plan class
  */
 public class HealthPlanName {
 

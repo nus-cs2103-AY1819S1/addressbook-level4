@@ -13,6 +13,7 @@ import seedu.address.model.healthplan.exceptions.DuplicateHpException;
 import seedu.address.model.healthplan.exceptions.HpNotFoundException;
 
 
+
 /**
  * class that stores the unique list of plans
  */
@@ -22,6 +23,7 @@ public class HealthPlanList implements Iterable<HealthPlan> {
 
     /**
      * remove the plan from the list
+     * method remove
      */
     public void remove(HealthPlan toRemove) {
         requireNonNull(toRemove);
@@ -32,6 +34,7 @@ public class HealthPlanList implements Iterable<HealthPlan> {
 
     /**
      * add plan provided
+     * method add
      */
     public void add(HealthPlan toAdd) {
         requireNonNull(toAdd);
@@ -43,6 +46,7 @@ public class HealthPlanList implements Iterable<HealthPlan> {
 
     /**
      * Check if list contains the plan provided
+     * method contains
      */
     public boolean contains(HealthPlan toCheck) {
         requireNonNull(toCheck);
@@ -79,14 +83,9 @@ public class HealthPlanList implements Iterable<HealthPlan> {
         internalList.setAll(replacement.internalList);
     }
 
-
-
     public ObservableList<HealthPlan> asUnmodifiableObservableList() {
         return FXCollections.unmodifiableObservableList(internalList);
     }
-
-
-
 
     @Override
     public Iterator<HealthPlan> iterator() {
@@ -104,6 +103,7 @@ public class HealthPlanList implements Iterable<HealthPlan> {
                 || (other instanceof HealthPlanList // instanceof handles nulls
                 && internalList.equals(((HealthPlanList) other).internalList));
     }
+
 
     /**
      * method to check if the plans are unique

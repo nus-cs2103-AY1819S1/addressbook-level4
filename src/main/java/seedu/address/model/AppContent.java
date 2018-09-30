@@ -34,8 +34,6 @@ public class AppContent implements ReadOnlyAppContent {
         list = new HealthPlanList();
     }
 
-
-
     public AppContent() {}
 
     /**
@@ -131,6 +129,7 @@ public class AppContent implements ReadOnlyAppContent {
     }
 
     //healthplan
+
 
     public void setPlan(List<HealthPlan> plans) {
         this.list.setPlan(plans);

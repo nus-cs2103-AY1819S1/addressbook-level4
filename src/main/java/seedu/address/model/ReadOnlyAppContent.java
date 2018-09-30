@@ -18,6 +18,8 @@ public interface ReadOnlyAppContent {
     /**
      *
      * returns the healthplan list
+     * Returns an unmodifiable view of the plan list.
+     * This list will not contain any duplicate plan.
      */
     ObservableList<HealthPlan> getHealthPlanList();
 

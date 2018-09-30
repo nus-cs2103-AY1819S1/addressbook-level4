@@ -88,9 +88,10 @@ public class XmlAddressBookStorage implements AddressBookStorage {
         return readHealthPlan(filePath);
     }
 
+
     /**
      * method to read health plan from file
-     *
+     * read plan
      */
     public Optional<ReadOnlyAppContent> readHealthPlan(Path filePath) throws DataConversionException,
             FileNotFoundException {
@@ -115,11 +116,11 @@ public class XmlAddressBookStorage implements AddressBookStorage {
         saveHealthPlan(hp, filePath);
     }
 
+
     /**
      *
      * method to save plans when there are changes
-     *
-     *
+     * Save plan
      */
     public void saveHealthPlan(ReadOnlyAppContent hp, Path filePath) throws IOException {
         requireNonNull(hp);

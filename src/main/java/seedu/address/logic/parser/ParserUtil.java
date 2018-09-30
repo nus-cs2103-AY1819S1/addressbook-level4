@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.healthplan.Age;
@@ -134,8 +135,10 @@ public class ParserUtil {
         return tagSet;
     }
 
+
     /**
      * parse plan names for commands
+     * parse plan name
      */
     public static HealthPlanName parseHpName(String name) throws ParseException {
         requireNonNull(name);
@@ -147,6 +150,7 @@ public class ParserUtil {
     }
     /**
      * parse target weight for commands
+     * parse tweight
      */
     public static TargetWeight parseTWeight(String weight) throws ParseException {
         requireNonNull(weight);
@@ -159,6 +163,7 @@ public class ParserUtil {
 
     /**
      * parse current weight for commands
+     * parse cweight
      */
     public static CurrentWeight parseCWeight(String weight) throws ParseException {
         requireNonNull(weight);
@@ -169,8 +174,10 @@ public class ParserUtil {
         return new CurrentWeight(trimmedWeight);
     }
 
+
     /**
      * parse current height for commands
+     * parse cheight
      */
     public static CurrentHeight parseCHeight(String height) throws ParseException {
         requireNonNull(height);
@@ -180,6 +187,7 @@ public class ParserUtil {
         }
         return new CurrentHeight(trimmedHeight);
     }
+
 
     /**
      * parse age for commands
@@ -208,7 +216,7 @@ public class ParserUtil {
     }
 
     /**
-     * parse the scheme for the commands
+     * parse scheme
      */
     public static Scheme parseScheme(String scheme) throws ParseException {
         requireNonNull(scheme);
@@ -219,11 +227,6 @@ public class ParserUtil {
             throw new ParseException("invalid scheme");
 
         }
-
-
-
-
-
         return Scheme.valueOf(trimmedScheme);
     }
 

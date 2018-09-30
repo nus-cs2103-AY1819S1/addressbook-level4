@@ -5,6 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Class to handle the duration component of health plans
+ * duration class
  */
 public class Duration {
     public static final String MESSAGE_DURATION_CONSTRAINTS =

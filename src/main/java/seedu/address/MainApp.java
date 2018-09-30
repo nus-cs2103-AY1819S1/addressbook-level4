@@ -103,6 +103,7 @@ public class MainApp extends Application {
 
     /**
      * method to initiate the model for health plans
+     * init model
      */
     private Model initModelManagerHp(Storage storage, UserPrefs userPrefs) {
         Optional<ReadOnlyAppContent> addressBookOptional;
@@ -123,12 +124,6 @@ public class MainApp extends Application {
 
         return new ModelManager(initialData, userPrefs);
     }
-
-
-
-
-
-
 
     private void initLogging(Config config) {
         LogsCenter.init(config);

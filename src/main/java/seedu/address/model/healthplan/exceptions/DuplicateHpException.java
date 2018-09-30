@@ -1,12 +1,18 @@
 package seedu.address.model.healthplan.exceptions;
 
 /**
- * Exception thrown when duplicate health plan is found
+ *  class for hp exception
  */
 public class DuplicateHpException extends RuntimeException {
 
+    /**
+     * Signals that the operation will result in duplicate Recipes
+     * (Recipes are considered duplicates if they have the same
+     * identity).
+     */
     public DuplicateHpException() {
-        super("Operation would result in duplicate HealthPlanBook");
+        super("Operation would result in duplicate plans");
+
     }
 
 }

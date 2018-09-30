@@ -17,6 +17,7 @@ import seedu.address.model.healthplan.HealthPlan;
 
 /**
  * Logic class for the panel related to the health plan components
+ * class for health panel
  */
 public class HealthPlanPanel extends UiPart<Region> {
 
@@ -68,10 +69,13 @@ public class HealthPlanPanel extends UiPart<Region> {
         scrollTo(event.targetIndex);
     }
 
+
     /**
      *
      * Class to hold the form of each of the HealthPlans
+     * Health plan cell
      */
+
     class HpListViewCell extends ListCell<HealthPlan> {
         @Override
         protected void updateItem(HealthPlan plan, boolean empty) {
