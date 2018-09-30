@@ -598,12 +598,12 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 [discrete]
 ==== `Ui` component
 
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your url book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
+*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your url book application. You realize that one of the users occasionally tries to delete non-existent tags from a wish, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last wish in the list. Your job is to implement improvements to the UI to solve all these problems.
 
 [TIP]
 Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
 
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
+. Use different colors for different tags inside wish cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
 +
 **Before**
 +
@@ -615,11 +615,11 @@ image::getting-started-ui-tag-after.png[width="300"]
 +
 ****
 * Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/url/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
+** The tag labels are created inside link:{repoURL}/src/main/java/seedu/url/ui/PersonCard.java[the `WishCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
 ** Use the .css attribute `-fx-background-color` to add a color.
 ** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
 * Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
+** You can modify the existing test methods for `WishCard` 's to include testing the tag's color as well.
 ** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
 *** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
 ****
@@ -648,7 +648,7 @@ image::getting-started-ui-result-after.png[width="200"]
 *** Do read the commits one at a time if you feel overwhelmed.
 ****
 
-. Modify the link:{repoURL}/src/main/java/seedu/url/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the url book.
+. Modify the link:{repoURL}/src/main/java/seedu/url/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of wishes in the url book.
 +
 **Before**
 +
@@ -663,7 +663,7 @@ image::getting-started-ui-status-after.png[width="500"]
 ** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
 ** link:{repoURL}/src/main/java/seedu/url/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the url book is updated.
 * Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/url/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
+** Modify the constructor of link:{repoURL}/src/main/java/seedu/url/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of wishes when the application just started.
 ** Use link:{repoURL}/src/main/java/seedu/url/ui/StatusBarFooter.java[`StatusBarFooter#handleWishBookChangedEvent(WishBookChangedEvent)`] to update the number of persons whenever there are new changes to the wishbook.
 ** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
 ** For system tests, modify link:{repoURL}/src/test/java/systemtests/WishBookSystemTest.java[`WishBookSystemTest`] to also verify the new total number of persons status bar.
@@ -696,15 +696,15 @@ By creating this command, you will get a chance to learn how to implement a feat
 *Scenario:* You are a software maintainer for `wishbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
 
 ==== Description
-Edits the remark for a person specified in the `INDEX`. +
+Edits the remark for a wish specified in the `INDEX`. +
 Format: `remark INDEX r/[REMARK]`
 
 Examples:
 
-* `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
+* `remark 1 r/Buying this for dad.` +
+Edits the remark for the first wish to `Buying this for dad.`
 * `remark 1 r/` +
-Removes the remark for the first person.
+Removes the remark for the first wish.
 
 ==== Step-by-step Instructions
 
@@ -722,7 +722,7 @@ Let's start by teaching the application how to parse a `remark` command. We will
 . Add new test method to link:{repoURL}/src/test/java/seedu/url/logic/parser/WishBookParserTest.java[`WishBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
 
 ===== [Step 2] Logic: Teach the app to accept 'remark' arguments
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
+Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Buying this for dad.`
 
 **Main:**
 
@@ -737,20 +737,20 @@ Let's teach the application to parse arguments that our `remark` command will ac
 for `RemarkCommandParser`.
 . Modify link:{repoURL}/src/test/java/seedu/url/logic/parser/WishBookParserTest.java[`WishBookParserTest`] to test that the correct command is generated according to the user input.
 
-===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/url/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
+===== [Step 3] Ui: Add a placeholder for remark in `WishCard`
+Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/url/ui/WishCard.java[`WishCard`] s to display a remark for each wish later.
 
 **Main:**
 
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/url/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
+. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/WishListCard.fxml[`WishListCard.fxml`].
+. Add FXML annotation in link:{repoURL}/src/main/java/seedu/url/ui/WishCard.java[`WishCard`] to tie the variable to the actual label.
 
 **Tests:**
 
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
+. Modify link:{repoURL}/src/test/java/guitests/guihandles/WishCardHandle.java[`WishCardHandle`] so that future tests can read the contents of the remark label.
 
 ===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/url/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
+We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/url/model/wish/Wish.java[`Wish`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
 
 **Main:**
 
@@ -761,17 +761,17 @@ We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/s
 
 . Add test for `Remark`, to test the `Remark#equals()` method.
 
-===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/url/model/person/Person.java[`Person`].
+===== [Step 5] Model: Modify `Wish` to support a `Remark` field
+Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/url/model/wish/Wish.java[`Wish`].
 
 **Main:**
 
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/url/model/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
+. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/url/model/wish/Wish.java[`Wish`].
+. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the wish will be created without a remark).
 . Modify link:{repoURL}/src/main/java/seedu/url/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `wishBook.xml` so that the application will load the sample data when you launch it.)
 
-===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/url/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] to include a `Remark` field so that it will be saved.
+===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedWish` class
+We now have `Remark` s for `Wish` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/url/storage/XmlAdaptedWish.java[`XmlAdaptedWish`] to include a `Remark` field so that it will be saved.
 
 **Main:**
 
@@ -781,24 +781,24 @@ We now have `Remark` s for `Person` s, but they will be gone when we exit the ap
 
 . Fix `invalidAndValidPersonWishBook.xml`, `typicalPersonsWishBook.xml`, `validWishBook.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
 
-===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/url/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/url/model/person/Person.java[`Person`].
+===== [Step 6b] Test: Add withRemark() for `WishBuilder`
+Since `Wish` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/url/testutil/WishBuilder.java[`WishBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/url/model/wish/Wish.java[`Wish`].
 
 **Tests:**
 
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/url/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/url/testutil/TypicalPersons.java[`TypicalPersons`].
+. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/url/testutil/WishBuilder.java[`WishBuilder`]. This method will create a new `Remark` for the wish that it is currently building.
+. Try and use the method on any sample `Wish` in link:{repoURL}/src/test/java/seedu/url/testutil/TypicalWishes.java[`TypicalWishes`].
 
-===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/url/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
+===== [Step 7] Ui: Connect `Remark` field to `WishCard`
+Our remark label in link:{repoURL}/src/main/java/seedu/url/ui/WishCard.java[`WishCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
 
 **Main:**
 
-. Modify link:{repoURL}/src/main/java/seedu/url/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
+. Modify link:{repoURL}/src/main/java/seedu/url/ui/WishCard.java[`WishCard`]'s constructor to bind the `Remark` field to the `Wish` 's remark.
 
 **Tests:**
 
-. Modify link:{repoURL}/src/test/java/seedu/url/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
+. Modify link:{repoURL}/src/test/java/seedu/url/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysWish(...)`] so that it will compare the now-functioning remark label.
 
 ===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
 We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
@@ -876,7 +876,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `Spare` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `WishBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Add wish
@@ -1085,12 +1085,12 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: View past wishes
+=== Use case: View all wishes
 
 *MSS*
 
-1.  *Actor* requests to view past wishes.
-2.  *System* shows all past wishes.
+1.  *Actor* requests to view all wishes.
+2.  *System* shows all wishes.
 +
 Use case ends.
 
@@ -1104,7 +1104,7 @@ Use case ends.
 +
 Use case ends.
 
-* 1b. *System* has no past wishes.
+* 1b. *System* has no recorded wishes.
 +
 [none]
 ** 1b1. *System* shows dialog notifying *Actor* that there are no such wishes.
@@ -1112,12 +1112,39 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: View wish list
+=== Use case: View uncompleted wishes
 
 *MSS*
 
-1.  *Actor* requests to list wishes.
-2.  *System* shows a list of wishes.
+1.  *Actor* requests to view uncompleted wishes.
+2.  *System* shows all uncompleted wishes.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. *System* has no recorded uncompleted wishes.
++
+[none]
+** 1a1. User is prompted to add a wish.
++
+Use case ends.
+
+* 1b. *System* has no recorded uncompleted wishes.
++
+[none]
+** 1b1. *System* shows dialog notifying *Actor* that there are no such wishes.
++
+Use case ends.
+
+[discrete]
+=== Use case: View completed wish list
+
+*MSS*
+
+1.  *Actor* requests to list completed wishes.
+2.  *System* shows a list of completed wishes.
 +
 Use case ends.
 
