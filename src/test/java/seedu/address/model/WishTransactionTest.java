@@ -55,14 +55,14 @@ public class WishTransactionTest {
     @Test
     public void addWish_success() {
         wishTransaction.addWish(wish1);
-        assertTrue(isSameSize(wish1,1));
+        assertTrue(isSameSize(wish1, 1));
     }
 
     @Test
     public void allowMultipleWishesOfSameName() {
         wishTransaction.addWish(wish1);
         wishTransaction.addWish(wish2);
-        assertTrue(isSameSize(wish1,2));
+        assertTrue(isSameSize(wish1, 2));
     }
 
     @Test
@@ -87,7 +87,7 @@ public class WishTransactionTest {
     @Test
     public void resetData_success() {
         wishTransaction.addWish(wish1);
-        assertTrue(isSameSize(wish1,1));
+        assertTrue(isSameSize(wish1, 1));
         wishTransaction.resetData(new WishTransaction());
         assertFalse(isFound(wish1));
     }
