@@ -31,7 +31,8 @@ public class VersionedWishTransaction extends WishTransaction implements Version
 
     /**
      * The initial state of this wishStateList will always be {@code wishTransaction}
-     * @param wishTransaction saved copy of {@code VersionedWishTransaction}
+     * @param wishTransaction saved copy of {@code WishTransaction}.
+     * Note: {@code wishTransaction} can either be of the parent or child class ({@code VersionedWishTransaction}).
      */
     public VersionedWishTransaction(WishTransaction wishTransaction) {
         super(wishTransaction);
