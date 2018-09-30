@@ -13,7 +13,7 @@ public class TotalStatistics extends Statistics {
     private static final String NUMBER_PATIENTS = statisticType + " number of patients to date";
     private static final String NUMBER_MEDICINES = statisticType + " number of medicines prescribed to date";
 
-    // Sets statistics to 0 and stores them in a HashMap
+    // Sets statistics to 0 and stores them in a HashMap.
     public TotalStatistics() {
         super();
         this.statistics.put(NUMBER_DAYS, 0);
