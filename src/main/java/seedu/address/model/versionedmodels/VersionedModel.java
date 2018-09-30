@@ -1,4 +1,4 @@
-package seedu.address.model.versionedModels;
+package seedu.address.model.versionedmodels;
 
 /**
  * This interface is implemented by classes which keep track of each state of the wishbook.

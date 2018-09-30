@@ -1,4 +1,4 @@
-package seedu.address.model.versionedModels;
+package seedu.address.model.versionedmodels;
 
 import java.util.ArrayList;
 import java.util.List;
