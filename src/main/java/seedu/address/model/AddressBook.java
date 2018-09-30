@@ -18,10 +18,14 @@ import seedu.address.model.user.Username;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    protected final Username username;
+    protected Username username;
     private final UniquePersonList persons;
     private final CategoryList categoryList;
 
+    /**
+     * Creates an empty AddressBook with the given username.
+     * @param username the username of the AddressBook
+     */
     public AddressBook(Username username) {
         this.username = username;
         persons = new UniquePersonList();
@@ -110,6 +114,10 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     public Username getUsername() {
         return username;
+    }
+
+    public void setUsername(Username newUsername) {
+        this.username = newUsername;
     }
     //// util methods
 
