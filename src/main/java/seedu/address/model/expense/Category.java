@@ -3,72 +3,51 @@ package seedu.address.model.expense;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.util.ArrayList;
-
-//@@author Jiang Chen
 /**
- * Represent a category of expenses.
- * Guarantee: details are present and not null, filed values are validated, immutable.
+ * Represents a Person's phone number in the address book.
+ * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
  */
-public class Category {
-    public static final String MESSAGE_CATEGORY_CONSTRAINTS =
-            "Category can take any values, and it should not be blank";
-
-    public static final String CATEGORY_VALIDATION_REGEX = "\\p{Alnum}+";
+public class Phone {
 
 
-    private final String categoryName;
-
-    private final ArrayList<Expense> expenseList = new ArrayList<>();
+    public static final String MESSAGE_PHONE_CONSTRAINTS =
+            "Phone numbers should only contain numbers, and it should be at least 3 digits long";
+    public static final String PHONE_VALIDATION_REGEX = "\\d{3,}";
+    public final String value;
 
     /**
-     * Constructs an {@code Category}.
+     * Constructs a {@code Phone}.
      *
-     * @param category A valid category.
+     * @param phone A valid phone number.
      */
-    public Category(String category) {
-        requireNonNull(category);
-        checkArgument(isValidCategory(category), MESSAGE_CATEGORY_CONSTRAINTS);
-        this.categoryName = category;
+    public Phone(String phone) {
+        requireNonNull(phone);
+        checkArgument(isValidPhone(phone), MESSAGE_PHONE_CONSTRAINTS);
+        value = phone;
     }
 
     /**
-     * Returns true if a given string is a valid category.
+     * Returns true if a given string is a valid phone number.
      */
-    public static boolean isValidCategory(String test) {
-        return test.matches(CATEGORY_VALIDATION_REGEX);
-    }
-
-    /**
-     * Add an Expense into the {@code expenseList} in Category.
-     * */
-    public void addIntoCategory(Expense expense) {
-        this.expenseList.add(expense);
-    }
-
-    public ArrayList<Expense> getExpenseList() {
-        return this.expenseList;
-    }
-
-    public String getName() {
-        return this.categoryName;
+    public static boolean isValidPhone(String test) {
+        return test.matches(PHONE_VALIDATION_REGEX);
     }
 
     @Override
     public String toString() {
-        return this.categoryName;
+        return value;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Category // instanceof handles nulls
-                && this.categoryName.equals(((Category) other).categoryName)); // state check
+                || (other instanceof Phone // instanceof handles nulls
+                && value.equals(((Phone) other).value)); // state check
     }
 
     @Override
     public int hashCode() {
-        return this.categoryName.hashCode();
+        return value.hashCode();
     }
 
 }
