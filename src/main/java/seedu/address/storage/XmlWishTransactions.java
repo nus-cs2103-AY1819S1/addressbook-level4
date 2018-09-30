@@ -111,6 +111,11 @@ public class XmlWishTransactions {
         wishMap.put(getKey(newWish), null);
     }
 
+    /**
+     * Sets the value of an existing wish to {@code wishes}.
+     * @param wish an existing wish.
+     * @param wishes value to be changed to.
+     */
     private void setValueOfKey(Wish wish, List<XmlAdaptedWish> wishes) {
         wishMap.put(getKey(wish), wishes);
     }
