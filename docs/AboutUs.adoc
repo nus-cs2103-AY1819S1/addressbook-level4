@@ -29,8 +29,8 @@ Responsibilities: Code quality, Logic, IntelliJ expert
 '''
 
 === NG, Daniel, S. Y.
-image::heartofal1on.png[width="150", align="left"]
-{empty}[http://github.com/HEARTOFAL1ON[github]] [<<heartofal1on#, portfolio>>]
+image::heartoffal1on.png[width="150", align="left"]
+{empty}[http://github.com/HEARTOFAL1ON[github]] [<<heartoffal1on#, portfolio>>]
 
 Roles: Deliverables and deadlines + Scheduling and tracking +
 Responsibilities: Testing, Logic and IntelliJ expert
