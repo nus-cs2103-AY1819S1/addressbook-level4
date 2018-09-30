@@ -16,6 +16,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
+import seedu.address.model.analytics.Analytics;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
@@ -76,10 +77,10 @@ public class CommandTestUtil {
      * - the {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            String expectedMessage, Model expectedModel) {
+            String expectedMessage, Model expectedModel, Analytics analytics) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
-            CommandResult result = command.execute(actualModel, actualCommandHistory);
+            CommandResult result = command.execute(actualModel, actualCommandHistory, analytics);
             assertEquals(expectedMessage, result.feedbackToUser);
             assertEquals(expectedModel, actualModel);
             assertEquals(expectedCommandHistory, actualCommandHistory);
@@ -96,7 +97,7 @@ public class CommandTestUtil {
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            String expectedMessage) {
+                                            Analytics analytics, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
@@ -105,7 +106,7 @@ public class CommandTestUtil {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
         try {
-            command.execute(actualModel, actualCommandHistory);
+            command.execute(actualModel, actualCommandHistory, analytics);
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());

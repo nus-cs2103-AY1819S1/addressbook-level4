@@ -15,6 +15,7 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.model.analytics.Analytics;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -28,6 +29,7 @@ public class DeleteCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
+    private Analytics analytics = new Analytics();
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -40,7 +42,7 @@ public class DeleteCommandTest {
         expectedModel.deletePerson(personToDelete);
         expectedModel.commitAddressBook();
 
-        assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel, analytics);
     }
 
     @Test
@@ -48,7 +50,7 @@ public class DeleteCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, commandHistory, analytics, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
@@ -65,7 +67,7 @@ public class DeleteCommandTest {
         expectedModel.commitAddressBook();
         showNoPerson(expectedModel);
 
-        assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel, analytics);
     }
 
     @Test
@@ -78,7 +80,7 @@ public class DeleteCommandTest {
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, commandHistory, analytics, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
@@ -90,15 +92,15 @@ public class DeleteCommandTest {
         expectedModel.commitAddressBook();
 
         // delete -> first person deleted
-        deleteCommand.execute(model, commandHistory);
+        deleteCommand.execute(model, commandHistory, analytics);
 
         // undo -> reverts addressbook back to previous state and filtered person list to show all persons
         expectedModel.undoAddressBook();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel, analytics);
 
         // redo -> same first person deleted again
         expectedModel.redoAddressBook();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel, analytics);
     }
 
     @Test
@@ -107,11 +109,11 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
         // execution failed -> address book state not added into model
-        assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, commandHistory, analytics, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
         // single address book state in model -> undoCommand and redoCommand fail
-        assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
-        assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
+        assertCommandFailure(new UndoCommand(), model, commandHistory, analytics, UndoCommand.MESSAGE_FAILURE);
+        assertCommandFailure(new RedoCommand(), model, commandHistory, analytics, RedoCommand.MESSAGE_FAILURE);
     }
 
     /**
@@ -132,16 +134,16 @@ public class DeleteCommandTest {
         expectedModel.commitAddressBook();
 
         // delete -> deletes second person in unfiltered person list / first person in filtered person list
-        deleteCommand.execute(model, commandHistory);
+        deleteCommand.execute(model, commandHistory, analytics);
 
         // undo -> reverts addressbook back to previous state and filtered person list to show all persons
         expectedModel.undoAddressBook();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel, analytics);
 
         assertNotEquals(personToDelete, model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()));
         // redo -> deletes same second person in unfiltered person list
         expectedModel.redoAddressBook();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel, analytics);
     }
 
     @Test
