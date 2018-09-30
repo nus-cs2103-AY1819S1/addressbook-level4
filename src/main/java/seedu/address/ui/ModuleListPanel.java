@@ -1,6 +1,9 @@
 package seedu.address.ui;
 
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
+
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,8 +14,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ModulePanelSelectionChangedEvent;
 import seedu.address.model.module.Module;
-
-import java.util.logging.Logger;
 
 /**
  * Panel containing the list of modules.
@@ -34,7 +35,7 @@ public class ModuleListPanel extends UiPart<Region> {
 
     private void setConnections(ObservableList<Module> moduleList) {
         moduleListView.setItems(moduleList);
-        moduleListView.setCellFactory(listView -> new moduleListViewCell());
+        moduleListView.setCellFactory(listView -> new ModuleListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
@@ -67,7 +68,7 @@ public class ModuleListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Module} using a {@code ModuleCard}.
      */
-    class moduleListViewCell extends ListCell<Module> {
+    class ModuleListViewCell extends ListCell<Module> {
         @Override
         protected void updateItem(Module module, boolean empty) {
             super.updateItem(module, empty);

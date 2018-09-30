@@ -45,10 +45,10 @@ public class ModuleCard extends UiPart<Region> {
         super(FXML);
         this.module = module;
         id.setText(displayedIndex + ". ");
-//        name.setText(module.getName().fullName);
-//        phone.setText(module.getPhone().value);
-//        address.setText(module.getAddress().value);
-//        email.setText(module.getEmail().value);
+        //name.setText(module.getName().fullName);
+        //phone.setText(module.getPhone().value);
+        //address.setText(module.getAddress().value);
+        //email.setText(module.getEmail().value);
         module.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
