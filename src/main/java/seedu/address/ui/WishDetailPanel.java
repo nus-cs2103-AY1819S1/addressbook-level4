@@ -61,10 +61,10 @@ public class WishDetailPanel extends UiPart<Region> {
 
     private void loadWishPage(Wish wish) {
         name.setText(wish.getName().fullName);
-        price.setText(wish.getPrice().toString());
-        savedAmount.setText(wish.getSavedAmount().toString());
-        url.setText(wish.getUrl().value);
-        email.setText(wish.getEmail().value);
+        savedAmount.setText("Saved: $" + wish.getSavedAmount().toString());
+        price.setText("Price: $" + wish.getPrice().toString());
+        url.setText("Product URL: " + wish.getUrl().value);
+        email.setText("Email(?): " + wish.getEmail().value);
         remark.setText(wish.getRemark().value);
     }
 
