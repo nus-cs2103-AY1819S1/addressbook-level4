@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -38,7 +39,10 @@ public class XmlWishTransactions {
      * Conversion
      */
     public XmlWishTransactions(WishTransaction wishTransaction) {
-        // get hashmap in wishtransaction for init
+        this();
+        for (Map.Entry<String, List<Wish>> entries : wishTransaction.getWishMap().entrySet()) {
+            wishMap.put(entries.getKey(), toXmlWishList(entries.getValue()));
+        }
     }
 
     public Map<String, List<XmlAdaptedWish>> getWishMap() {
@@ -145,7 +149,7 @@ public class XmlWishTransactions {
      * @throws IllegalValueException if model is not correctly formatted.
      */
     public WishTransaction toModelType() throws IllegalValueException {
-        return new WishTransaction(this, toWishMap());
+        return new WishTransaction(toWishMap());
     }
 
     /**
@@ -172,6 +176,16 @@ public class XmlWishTransactions {
             wishes.addAll(toWishList(entries.getValue()));
         }
         return wishes;
+    }
+
+    /**
+     * Converts a list of {@code Wish} to a list of {@code XmlAdaptedWish}.
+     * @param wishList list of wishes.
+     * @return a list of XmlAdapted wishes.
+     */
+    private List<XmlAdaptedWish> toXmlWishList(List<Wish> wishList) {
+        return wishList.stream().map(XmlAdaptedWish::new)
+                .collect(Collectors.toList());
     }
 
     /**

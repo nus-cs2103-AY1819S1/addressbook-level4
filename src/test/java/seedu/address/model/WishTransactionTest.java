@@ -111,6 +111,11 @@ public class WishTransactionTest {
         return wishes.size() == size;
     }
 
+    /**
+     * Returns the key corresponding to this wish.
+     * @param wish queried wish.
+     * @return key for the corresponding wish.
+     */
     private String getKey(Wish wish) {
         return wish.getName().fullName;
     }

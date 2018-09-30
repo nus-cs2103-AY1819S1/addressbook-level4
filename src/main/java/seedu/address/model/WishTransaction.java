@@ -21,7 +21,6 @@ public class WishTransaction {
     /**
      * Stores a log of wish histories for this current state.
      */
-    private List<Wish> wishes;
     private HashMap<String, List<Wish>> wishMap;
 
     /**
@@ -29,16 +28,9 @@ public class WishTransaction {
      */
     private final Logger logger;
 
-    /**
-     * Wrapper for log of wish histories in xml format for this current state.
-     */
-    private XmlWishTransactions xmlWishTransactions;
-
     public WishTransaction() {
-        this.wishes = new ArrayList<>();
-        this.wishMap = new HashMap<>();
-        this.xmlWishTransactions = new XmlWishTransactions();
         this.logger = getLogger();
+        this.wishMap = new HashMap<>();
     }
 
     /**
@@ -52,13 +44,10 @@ public class WishTransaction {
     }
 
     /**
-     * Creates a WishTransaction using a saved copy of {@code unmarshalledSavedCopy}
-     *
-     * @param unmarshalledSavedCopy unmarshalled copy of saved xml wish histories.
+     * Constructor to be called when converting XmlWishTransactions object to a WishTransaction object.
      */
-    public WishTransaction(XmlWishTransactions unmarshalledSavedCopy, HashMap<String, List<Wish>> wishMap) {
+    public WishTransaction(HashMap<String, List<Wish>> wishMap) {
         this.logger = getLogger();
-        this.xmlWishTransactions = unmarshalledSavedCopy;
         this.wishMap = wishMap;
     }
 
@@ -78,8 +67,8 @@ public class WishTransaction {
 
     /**
      * Returns the key corresponding to this wish.
-     * @param wish
-     * @return
+     * @param wish queried wish.
+     * @return key for the corresponding wish.
      */
     private String getKey(Wish wish) {
         return wish.getName().fullName;
@@ -166,9 +155,7 @@ public class WishTransaction {
      * @param newData Revisioned log of wish histories.
      */
     public void resetData(WishTransaction newData) {
-        setWishes(newData.wishes);
         setWishMap(newData.wishMap);
-        setXmlWishTransactions(newData.xmlWishTransactions);
     }
 
     /**
@@ -181,30 +168,6 @@ public class WishTransaction {
 
     public HashMap<String, List<Wish>> getWishMap() {
         return wishMap;
-    }
-
-    /**
-     * Sets the current state's wish histories to {@code wishes}.
-     * @param wishes updated wish history log.
-     */
-    public void setWishes(List<Wish> wishes) {
-        this.wishes = wishes;
-    }
-
-    /**
-     * Retrieves the current state's wish histories.
-     * @return
-     */
-    public List<Wish> getWishes() {
-        return wishes;
-    }
-
-    public XmlWishTransactions getXmlWishTransactions() {
-        return xmlWishTransactions;
-    }
-
-    private void setXmlWishTransactions(XmlWishTransactions xmlWishTransactions) {
-        this.xmlWishTransactions = xmlWishTransactions;
     }
 
 }
