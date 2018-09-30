@@ -22,10 +22,4 @@ public class TotalStatistics extends Statistics {
     public void compute() {
 
     }
-
-    public static String displayTypes() {
-        return NUMBER_DAYS + "\n"
-                + NUMBER_PATIENTS + "\n"
-                + NUMBER_MEDICINES + "\n";
-    }
 }

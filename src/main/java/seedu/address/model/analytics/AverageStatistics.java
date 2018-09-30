@@ -27,11 +27,4 @@ public class AverageStatistics extends Statistics {
     public void compute() {
 
     }
-
-    public static String displayTypes() {
-        return NUMBER_PATIENTS_DAY + "\n"
-                + TIME_WAITING_PATIENT + "\n"
-                + NUMBER_MEDICINES_DAY + "\n"
-                + NUMBER_MEDICINES_PATIENT + "\n";
-    }
 }
