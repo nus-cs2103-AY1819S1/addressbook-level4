@@ -73,7 +73,7 @@ public class Person {
         return address;
     }
 
-    public Meeting getMeeting() { 
+    public Meeting getMeeting() {
         return meeting;
     }
 
