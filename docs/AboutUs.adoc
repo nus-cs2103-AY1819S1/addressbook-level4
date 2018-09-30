@@ -20,8 +20,8 @@ Role: Project Advisor
 '''
 
 === Zhang Yezhong
-image::Yezhong.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+image::yezhongz.png[width="150", align="left"]
+{empty}[http://github.com/lejolly[github]] [<<yezhongz#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: Code quality, Logic, IntelliJ expert
@@ -29,8 +29,8 @@ Responsibilities: Code quality, Logic, IntelliJ expert
 '''
 
 === NG, Daniel, S. Y.
-image::daniel.jpg[width="150", align="left"]
-{empty}[http://github.com/HEARTOFAL1ON[github]] [<<johndoe#, portfolio>>]
+image::heartoffal1on.png[width="150", align="left"]
+{empty}[http://github.com/HEARTOFAL1ON[github]] [<<heartoffal1on#, portfolio>>]
 
 Roles: Deliverables and deadlines + Scheduling and tracking +
 Responsibilities: Testing, Logic and IntelliJ expert
@@ -47,8 +47,8 @@ Responsibilities: Dev Ops + Threading
 '''
 
 === Goh Cheng Yu
-image::chengyuuu.jpeg[width="150", align="left"]
-{empty}[https://github.com/chengyuuu[github]] [<<johndoe#, portfolio>>]
+image::chengyuuu.png[width="150", align="left"]
+{empty}[https://github.com/chengyuuu[github]] [<<chengyuuu#, portfolio>>]
 
 Role: Integration +
 Responsibilities: Storage
