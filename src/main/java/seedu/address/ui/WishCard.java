@@ -14,7 +14,7 @@ import seedu.address.model.wish.Wish;
  */
 public class WishCard extends UiPart<Region> {
 
-    private static final String FXML = "WishListCard.fxml";
+    private static final String FXML = "WishCard.fxml";
     private static final String[] TAG_COLORS = { "red", "yellow", "blue", "dark_blue", "orange", "green", "pink", "dark_pink", "purple" };
 
     /**
@@ -33,16 +33,16 @@ public class WishCard extends UiPart<Region> {
     @FXML
     private Label name;
 
-    private String id;
-
     @FXML
     private Label progress;
 
     @FXML
-    private FlowPane tags;
+    private ProgressBar progressBar;
 
     @FXML
-    private ProgressBar progressBar;
+    private FlowPane tags;
+
+    private String id;
 
     public WishCard(Wish wish, int displayedIndex) {
         super(FXML);
