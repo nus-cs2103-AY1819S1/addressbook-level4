@@ -3,7 +3,6 @@ package seedu.address.model.VersionedModels;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.model.VersionedModels.VersionedModel;
 import seedu.address.model.WishTransaction;
 
 /**

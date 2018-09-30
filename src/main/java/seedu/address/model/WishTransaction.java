@@ -5,18 +5,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.wish.Wish;
-import seedu.address.storage.XmlWishTransactions;
 
 /**
  * Each {@code WishTransaction} represents a state of the WishBook.
  * A state contains logs of undeleted wish histories.
  */
-public class WishTransaction {
+public class WishTransaction implements ActionCommandListener<WishTransaction> {
 
     /**
      * Stores a log of wish histories for this current state.
@@ -59,6 +59,7 @@ public class WishTransaction {
      * Adds a wish to {@code wishMap} using {@code wish} full name as key.
      * @param wish
      */
+    @Override
     public void addWish(Wish wish) {
         String wishName = getKey(wish);
         List<Wish> wishList = getWishList(wishName);
@@ -108,6 +109,7 @@ public class WishTransaction {
      * {@code target} must exist in the wish book.
      * The wish identity of {@code editedWish} must not be the same as another existing wish in the wish book.
      */
+    @Override
     public void updateWish(Wish target, Wish editedWish) {
         // get a reference to the stored wishes
         List<Wish> wishes = wishMap.get(getKey(target));
@@ -132,6 +134,7 @@ public class WishTransaction {
     /**
      * @see WishTransaction#removeWish(String).
      */
+    @Override
     public void removeWish(Wish wish) {
         removeWish(getKey(wish));
     }
@@ -154,8 +157,73 @@ public class WishTransaction {
      *
      * @param newData Revisioned log of wish histories.
      */
+    @Override
     public void resetData(WishTransaction newData) {
         setWishMap(newData.wishMap);
+    }
+
+    @Override
+    public void removeTagFromAll(Tag tag) {
+        for (Map.Entry<String, List<Wish>> entries : wishMap.entrySet()) {
+            List<Wish> wishes = entries.getValue();
+            // associated wish has a recorded history
+            if (wishes != null) {
+                removeTagIfPresent(tag, wishes);
+            }
+        }
+    }
+
+    /**
+     * Removes the given {@code tag} from the given list of {@code wish}es if the tag is present.
+     * @param tag tag to be removed.
+     * @param wishes list of wishes to be searched for tag.
+     */
+    private void removeTagIfPresent(Tag tag, List<Wish> wishes) {
+        Wish mostRecent = getMostRecentWish(wishes);
+        if (hasTag(tag, mostRecent)) {
+            removeTag(tag, mostRecent);
+        }
+    }
+
+    /**
+     * Returns the most recent wish recorded.
+     * @param wishes list to source for the most recent wish.
+     * @return the most recent wish in {@code wishes}.
+     */
+    private Wish getMostRecentWish(List<Wish> wishes) {
+        return wishes.get(wishes.size() - 1);
+    }
+
+    /**
+     * Checks if the given wish contains the given tag.
+     * @param tag to be checked in the wish.
+     * @param mostRecent wish to be checked for tag.
+     * @return true if the tag is found in the wish, false otherwise.
+     */
+    private boolean hasTag(Tag tag, Wish mostRecent) {
+        return mostRecent.getTags().contains(tag);
+    }
+
+    /**
+     * Removes the given tag from the given wish.
+     * @param tag tag to be removed.
+     * @param mostRecent wish to remove the tag from.
+     */
+    private void removeTag(Tag tag, Wish mostRecent) {
+        Set<Tag> updatedTags = mostRecent.getTags();
+        updatedTags.remove(tag);
+        updateWish(mostRecent, getUpdatedWish(updatedTags, mostRecent));
+    }
+
+    /**
+     * Returns a new wish with the tags changed to {@code updatedTags}.
+     * @param updatedTags field to update.
+     * @param target wish to be updated.
+     * @return a new updated wish.
+     */
+    private Wish getUpdatedWish(Set<Tag> updatedTags, Wish target) {
+        return new Wish(target.getName(), target.getPrice(), target.getEmail(),
+                target.getUrl(), target.getSavedAmount(), target.getRemark(), updatedTags);
     }
 
     /**
