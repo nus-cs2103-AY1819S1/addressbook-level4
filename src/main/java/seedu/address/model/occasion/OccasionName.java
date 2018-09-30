@@ -5,7 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents an Occasion's name in the address book.
- * Gurantees: immutable, is valid as declared in {@link #isValidName(String)}
+ * Guarantees: immutable, is valid as declared in {@link #isValidName(String)}
  *
  * @author KongZijin
  */
