@@ -14,13 +14,15 @@ image::jjlee050.png[width="150", align="left"]
 {empty}[https://github.com/jjlee050[github]] [<<jjlee050#, portfolio>>]
 
 Primary Role: Team Lead (Scheduling and Tracking, Deliverables and deadlines) +
-Responsibilities: +
-* Responsible for overall team coordination. +
-* In charge of defining, assigning, and tracking project tasks. +
-* Ensure project deliverables are done on time and in the right format. +
+Responsibilities:
 
-Other roles: +
-* In charge of UI. +
+* Responsible for overall team coordination.
+* In charge of defining, assigning, and tracking project tasks.
+* Ensure project deliverables are done on time and in the right format.
+
+Other roles:
+
+* In charge of UI.
 * Working on Patient Management feature.
 
 '''
@@ -30,14 +32,16 @@ image::arsalanc-v2.png[width="150", align="left"]
 {empty}[http://github.com/arsalanc-v2[github]] [<<arsalanc-v2#, portfolio>>]
 
 Primary Role: Developer (Documentation) +
-Responsibilities: +
-* Responsible for the quality of various project documents. +
+Responsibilities:
+
+* Responsible for the quality of various project documents.
 
 Secondary Role: - +
-Responsibilities: - +
+Responsibilities: -
 
-Other roles: +
-* In charge of Logic. +
+Other roles:
+
+* In charge of Logic.
 * Working on Data Analytics and Visualisation feature.
 
 '''
@@ -47,15 +51,17 @@ image::iamjackslayer.png[width="150", align="left"]
 {empty}[https://github.com/iamjackslayer[github]] [<<iamjackslayer#, portfolio>>]
 
 Primary Role: Assistant Team Lead (Testing) +
-Responsibilities: +
-* Assist the team lead in overall project coordination. +
-* Ensures the testing of the project is done properly and on time. +
+Responsibilities:
+
+* Assist the team lead in overall project coordination.
+* Ensures the testing of the project is done properly and on time.
 
 Secondary Role: - +
-Responsibilities: - +
+Responsibilities: -
 
-Other roles: +
-* In charge of Logic. +
+Other roles:
+
+* In charge of Logic.
 * Working on Queue Management feature.
 
 '''
@@ -65,15 +71,18 @@ image::gingivitiss.png[width="150", align="left"]
 {empty}[https://github.com/gingivitiss[github]] [<<johndoe#, portfolio>>]
 
 Primary Role: Developer (Code Quality) +
-Responsibilities: +
-* Looks after code quality, ensures adherence to coding standards, etc. +
+Responsibilities:
+
+* Looks after code quality, ensures adherence to coding standards, etc.
 
 Secondary Role: Integration +
-Responsibilities: +
-* In charge of versioning of the code, maintaining the code repository, integrating various parts of the software to create a whole. +
+Responsibilities:
 
-Other roles: +
-* In charge of Model. +
+* In charge of versioning of the code, maintaining the code repository, integrating various parts of the software to create a whole.
+
+Other roles:
+
+* In charge of Model.
 * Working on Appointment Management feature.
 
 '''
@@ -83,12 +92,14 @@ image::aaronseahyh.png[width="150", align="left"]
 {empty}[https://github.com/aaronseahyh[github]] [<<johndoe#, portfolio>>]
 
 Primary Role: Developer (Integration) +
-Responsibilities: +
-* In charge of versioning of the code, maintaining the code repository, integrating various parts of the software to create a whole. +
+Responsibilities:
+
+* In charge of versioning of the code, maintaining the code repository, integrating various parts of the software to create a whole.
 
 Secondary Role: - +
-Responsibilities: - +
+Responsibilities: -
 
-Other roles: +
-* In charge of Storage. +
+Other roles:
+
+* In charge of Storage.
 * Working on Medicine Management feature.
