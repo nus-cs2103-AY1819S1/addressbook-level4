@@ -71,9 +71,18 @@ public class Person {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+        // The other person must exist and have the same name to be the same person
+        if (otherPerson == null || !otherPerson.getName().equals(getName())) {
+            return false;
+        }
+
+        boolean bothHavePhone = getPhone().isPresent() && otherPerson.getPhone().isPresent();
+        boolean bothHaveEmail = getEmail().isPresent() && otherPerson.getEmail().isPresent();
+
+        // Do not compare fields unless they are present
+        return ((bothHavePhone && otherPerson.getPhone().equals(getPhone()))
+                ||
+                (bothHaveEmail && otherPerson.getEmail().equals(getEmail())));
     }
 
     /**
