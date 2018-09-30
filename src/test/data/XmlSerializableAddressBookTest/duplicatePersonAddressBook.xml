@@ -4,7 +4,6 @@
     <persons>
         <name>Alice Pauline</name>
         <phone>94351253</phone>
-        <email>alice@example.com</email>
         <cost>1.00</cost>
         <tagged>friends</tagged>
     </persons>
@@ -13,7 +12,6 @@
     <persons>
         <name>Alice Pauline</name>
         <phone>94351253</phone>
-        <email>pauline@example.com</email>
         <cost>1.00</cost>
     </persons>
 

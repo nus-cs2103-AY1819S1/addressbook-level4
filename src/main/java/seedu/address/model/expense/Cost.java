@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's address in the address book.
+ * Represents a Person's cost in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidCost(String)}
  */
 public class Cost {
@@ -23,16 +23,16 @@ public class Cost {
     /**
      * Constructs an {@code Cost}.
      *
-     * @param address A valid address.
+     * @param cost A valid cost.
      */
-    public Cost(String address) {
-        requireNonNull(address);
-        checkArgument(isValidCost(address), MESSAGE_ADDRESS_CONSTRAINTS);
-        value = address;
+    public Cost(String cost) {
+        requireNonNull(cost);
+        checkArgument(isValidCost(cost), MESSAGE_ADDRESS_CONSTRAINTS);
+        value = cost;
     }
 
     /**
-     * Returns true if a given string is a valid email.
+     * Returns true if a given string is a valid cost.
      */
     public static boolean isValidCost(String test) {
         return test.matches(COST_VALIDATION_REGEX);
