@@ -15,7 +15,7 @@ import seedu.address.model.wish.Wish;
 public class WishCard extends UiPart<Region> {
 
     private static final String FXML = "WishListCard.fxml";
-    private static final String[] TAG_COLORS = { "red", "yellow", "blue", "orange", "brown", "green", "pink", "black" };
+    private static final String[] TAG_COLORS = { "red", "yellow", "blue", "dark_blue", "orange", "green", "pink", "dark_pink", "purple" };
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -38,15 +38,6 @@ public class WishCard extends UiPart<Region> {
     @FXML
     private Label progress;
 
-//    @FXML
-//    private Label url;
-//
-//    @FXML
-//    private Label email;
-//
-//    @FXML
-//    private Label remark;
-
     @FXML
     private FlowPane tags;
 
@@ -55,15 +46,12 @@ public class WishCard extends UiPart<Region> {
 
     public WishCard(Wish wish, int displayedIndex) {
         super(FXML);
+
         this.wish = wish;
         this.id = displayedIndex + ". ";
+
         name.setText(wish.getName().fullName);
         progress.setText(getProgressInString(wish));
-//        price.setText(wish.getPrice().toString());
-//        savedAmount.setText(wish.getSavedAmount().toString());
-//        url.setText(wish.getUrl().value);
-//        email.setText(wish.getEmail().value);
-//        remark.setText(wish.getRemark().value);
         progressBar.setProgress(getProgress(wish));
         initTags(wish);
     }
