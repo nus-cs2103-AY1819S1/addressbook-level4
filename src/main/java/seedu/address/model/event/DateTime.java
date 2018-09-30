@@ -3,6 +3,7 @@ package seedu.address.model.event;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 /**
  * Represents an Event's date and time in the scheduler.
@@ -21,6 +22,11 @@ public class DateTime implements Comparable<DateTime> {
         requireNonNull(formmatedDateTime);
         value = formmatedDateTime;
     }
+
+    public LocalDateTime getLocalDateTime() {
+        return value;
+    }
+
 
     @Override
     public String toString() {
@@ -43,4 +49,23 @@ public class DateTime implements Comparable<DateTime> {
     public int compareTo(DateTime otherDateTime) {
         return value.compareTo(otherDateTime.value);
     }
+
+    /**
+     * Used for PopUp
+     * @param currentDateTime
+     * @return True if the time difference is within 1 minute
+     */
+    public boolean isClose(DateTime currentDateTime) {
+        LocalDateTime currentLocalDateTime = currentDateTime.getLocalDateTime();
+        long minutes = currentLocalDateTime.until(value, ChronoUnit.MINUTES);
+        return ( minutes == 0) ;
+    }
+
+
+    public boolean isPast(DateTime currentDateTime) {
+        LocalDateTime currentLocalDateTime = currentDateTime.getLocalDateTime();
+        long minutes = value.until(currentLocalDateTime, ChronoUnit.MINUTES);
+        return ( minutes >= 1) ;
+    }
+
 }
