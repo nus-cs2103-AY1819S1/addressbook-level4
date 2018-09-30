@@ -1,8 +1,12 @@
 package seedu.address.model.healthplan;
 
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+
+
+/**
+ *  Class to handle the current weight component of health plans
+ */
 public class CurrentWeight {
 
 

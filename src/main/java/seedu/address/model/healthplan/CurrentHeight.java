@@ -1,8 +1,11 @@
 package seedu.address.model.healthplan;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
-public class CurrentHeight {
 
+/**
+ * Class to handle the current height component of the health plans
+ */
+public class CurrentHeight {
 
     public static final String MESSAGE_HEIGHT_CONSTRAINTS =
             "Heights should only contain numbers";

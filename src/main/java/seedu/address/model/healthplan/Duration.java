@@ -3,7 +3,9 @@ package seedu.address.model.healthplan;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-
+/**
+ * Class to handle the duration component of health plans
+ */
 public class Duration {
     public static final String MESSAGE_DURATION_CONSTRAINTS =
             "Duration should only contain numbers";
