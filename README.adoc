@@ -8,6 +8,10 @@ https://www.codacy.com/app/HEARTOFAL1ON/main?utm_source=github.com&amp;utm_mediu
 https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
 
 ifdef::env-github[]
+image::docs/images/logo.png[width="900"]
+endif::[]
+
+ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
 endif::[]
 
