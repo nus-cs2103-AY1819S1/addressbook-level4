@@ -3,51 +3,69 @@ package seedu.address.model.expense;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.ArrayList;
+
 /**
  * Represents a Person's phone number in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidCategory(String)}
  */
-public class Phone {
+public class Category {
 
 
     public static final String MESSAGE_PHONE_CONSTRAINTS =
-            "Phone numbers should only contain numbers, and it should be at least 3 digits long";
-    public static final String PHONE_VALIDATION_REGEX = "\\d{3,}";
-    public final String value;
+            "Category numbers should only contain numbers, and it should be at least 3 digits long";
+    public static final String CATEGORY_VALIDATION_REGEX = "\\p{Alnum}+";
+    private final String categoryName;
+    private final ArrayList<Expense_temp> expenseList = new ArrayList<>();
 
     /**
-     * Constructs a {@code Phone}.
+     * Constructs a {@code Category}.
      *
-     * @param phone A valid phone number.
+     * @param category A valid category number.
      */
-    public Phone(String phone) {
-        requireNonNull(phone);
-        checkArgument(isValidPhone(phone), MESSAGE_PHONE_CONSTRAINTS);
-        value = phone;
+    public Category(String category) {
+        requireNonNull(category);
+        checkArgument(isValidCategory(category), MESSAGE_PHONE_CONSTRAINTS);
+        categoryName = category;
     }
 
     /**
      * Returns true if a given string is a valid phone number.
      */
-    public static boolean isValidPhone(String test) {
-        return test.matches(PHONE_VALIDATION_REGEX);
+    public static boolean isValidCategory(String test) {
+        return test.matches(CATEGORY_VALIDATION_REGEX);
+    }
+
+    /**
+     * Add an Expense_temp into the {@code expenseList} in Category.
+     * */
+    public void addIntoCategory(Expense_temp expense) {
+        this.expenseList.add(expense);
+    }
+
+    public ArrayList<Expense_temp> getExpenseList() {
+        return this.expenseList;
+    }
+
+    public String getName() {
+        return this.categoryName;
     }
 
     @Override
     public String toString() {
-        return value;
+        return categoryName;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Phone // instanceof handles nulls
-                && value.equals(((Phone) other).value)); // state check
+                || (other instanceof Category // instanceof handles nulls
+                && categoryName.equals(((Category) other).categoryName)); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return categoryName.hashCode();
     }
 
 }

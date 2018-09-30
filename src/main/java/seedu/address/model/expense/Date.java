@@ -9,7 +9,7 @@ import java.util.GregorianCalendar;
 
 //@@author jonathantjm
 /**
- * Represents the date the Expense was added into the Expense tracker.
+ * Represents the date the Expense_temp was added into the Expense_temp tracker.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
 public class Date {

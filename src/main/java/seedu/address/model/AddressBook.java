@@ -7,7 +7,7 @@ import java.util.List;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.expense.Category;
-import seedu.address.model.expense.Expense;
+import seedu.address.model.expense.Expense_temp;
 import seedu.address.model.expense.Person;
 import seedu.address.model.expense.UniquePersonList;
 import seedu.address.model.user.Username;
@@ -77,8 +77,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Add an expense to the expense tracker.
      * If the category of the expense doesn't exist, the category will be created.
      * */
-    public void addExpense(Expense e) { //TODO: Refine this once other attributes are ready
-        Category category = e.getCategory();
+    public void addExpense(Expense_temp e) { //TODO: Refine this once other attributes are ready
+        Category category = e.getCategoryTemp();
         if (!this.categoryList.hasCategory(category)) {
             this.categoryList.addCategory(category);
         }

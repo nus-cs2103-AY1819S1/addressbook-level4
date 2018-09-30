@@ -19,10 +19,7 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.expense.Category;
-import seedu.address.model.expense.Expense;
-import seedu.address.model.expense.Name;
-import seedu.address.model.expense.Person;
+import seedu.address.model.expense.*;
 import seedu.address.model.expense.exceptions.DuplicatePersonException;
 import seedu.address.model.user.Username;
 import seedu.address.testutil.ModelUtil;
@@ -100,7 +97,7 @@ public class AddressBookTest {
      * @return the string which consists of category and expense under the category.
      * The order is unexpected as the string is converted from HashMap.
      * */
-    public String testAddExpense(Expense e) {
+    public String testAddExpense(Expense_temp e) {
         addressBook.addExpense(e);
         String result = addressBook.getCategoryList().toString();
         return result;
@@ -110,14 +107,14 @@ public class AddressBookTest {
      * @return the string of a expense list under a particular category.
      * */
     public String getTargetExpenseList(String name, String category) {
-        Expense e = new Expense(new Name(name), new Category(category));
+        Expense_temp e = new Expense_temp(new Name(name), new Category(category));
         addressBook.addExpense(e);
         return addressBook.getCategoryList().getCategory(category).getExpenseList().toString();
     }
 
     @Test
     public void addExpense_categoryNotExist() {
-        Expense e = new Expense(new Name("firstExpense"), new Category("Test"));
+        Expense_temp e = new Expense_temp(new Name("firstExpense"), new Category("Test"));
         assertEquals("Test firstExpense ", testAddExpense(e));
 
         assertEquals("[secondExpense]", getTargetExpenseList("secondExpense", "secondTest"));
