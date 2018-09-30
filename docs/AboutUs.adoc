@@ -39,7 +39,7 @@ Responsibilities: Ensure project deliverables are done on time and in the right 
 
 === Thaddeus Lim Zhi Yu
 image::thaddeuslzy.png[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/thaddeuslzy[github]] [<<johndoe#, portfolio>>]
 
 Role: Integration +
 Responsibilities: In charge of versioning of the code, maintaining the code repository,
