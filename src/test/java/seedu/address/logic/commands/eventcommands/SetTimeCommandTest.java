@@ -26,8 +26,8 @@ public class SetTimeCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
-    private LocalTime startTime = LocalTime.of(12, 00);
-    private LocalTime endTime = LocalTime.of(13, 00);
+    private LocalTime startTime = LocalTime.of(18, 00);
+    private LocalTime endTime = LocalTime.of(17, 30);
 
     @Test
     public void execute_timeAcceptedSetTime() {
@@ -35,14 +35,12 @@ public class SetTimeCommandTest {
         DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
         Person user = new PersonBuilder().build();
         commandHistory.setSelectedPerson(user);
-        EventBuilder eventBuilder = new EventBuilder();
-        eventBuilder.withOrganiser(user);
-        Event event = eventBuilder.build();
+        Event event = model.getFilteredEventList().get(0);
         commandHistory.setSelectedEvent(event);
         String expectedMessage = String.format(command.MESSAGE_SUCCESS, startTime.format(timeFormat),
                 endTime.format(timeFormat), event);
         expectedModel.commitAddressBook();
-        expectedModel.updateEvent(event, event);
+        //expectedModel.updateEvent(event, event);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
 

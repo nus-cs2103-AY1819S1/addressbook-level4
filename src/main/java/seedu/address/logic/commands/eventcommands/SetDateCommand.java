@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
@@ -57,9 +58,13 @@ public class SetDateCommand extends Command {
             throw new CommandException(Messages.MESSAGE_NO_USER_LOGGED_IN);
         }
 
+        //List<Event> lastShownList = model.getFilteredEventList();
+        //int index = lastShownList.indexOf(event);
+
         event.setDate(date);
-        model.commitAddressBook();
+        //model.updateEvent(index, event);
         model.updateEvent(event, event);
+        model.commitAddressBook();
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return new CommandResult(String.format(MESSAGE_SUCCESS, date.format(dateFormat), event));
     }

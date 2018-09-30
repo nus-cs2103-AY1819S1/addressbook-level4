@@ -4,6 +4,7 @@ package seedu.address.logic.commands.eventcommands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.Test;
 
@@ -18,7 +19,7 @@ import seedu.address.testutil.EventBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddPollCommandTest {
-    private static final String POLLNAME = "Generic Poll";
+    private static final String POLLNAME = EventBuilder.DEFAULT_POLL;
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -31,11 +32,12 @@ public class AddPollCommandTest {
         commandHistory.setSelectedPerson(user);
         EventBuilder eventBuilder = new EventBuilder();
         eventBuilder.withOrganiser(user);
-        Event event = eventBuilder.build();
+        Event event = eventBuilder.withPoll().build();
         commandHistory.setSelectedEvent(event);
         String expectedMessage = String.format(command.MESSAGE_SUCCESS, POLLNAME, event);
+        Event eventToEdit = expectedModel.getFilteredEventList().get(INDEX_FIRST.getZeroBased());
+        expectedModel.updateEvent(eventToEdit, event);
         expectedModel.commitAddressBook();
-        expectedModel.updateEvent(event, event);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
 

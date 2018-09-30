@@ -15,17 +15,14 @@ public class TypicalEvents {
     public static final Event TUTORIAL = new EventBuilder().withName("Tutorial")
             .withAddress("NUS UTown")
             .withTags("friends")
-            .withOrganiser(new PersonBuilder().build())
             .build();
     public static final Event MEETING = new EventBuilder().withName("Meeting")
             .withAddress("SOC Canteen")
             .withTags("friends")
-            .withOrganiser(new PersonBuilder().build())
             .build();
     public static final Event DINNER = new EventBuilder().withName("Dinner")
             .withAddress("Arts Canteen")
             .withTags("friends")
-            .withOrganiser(new PersonBuilder().build())
             .build();
 
     /**

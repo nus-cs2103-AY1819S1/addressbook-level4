@@ -234,12 +234,12 @@ public class Event {
         return otherEvent.getName().equals(getName())
                 && otherEvent.getLocation().equals(getLocation())
                 && otherEvent.getTags().equals(getTags())
-                && otherEvent.getPersonList().equals(getPersonList())
                 && otherEvent.getDate().equals(getDate())
                 && otherEvent.getStartTime().equals(getStartTime())
                 && otherEvent.getEndTime().equals(getEndTime())
-                && otherEvent.getOrganiser().equals(getOrganiser())
-                && otherEvent.getPolls().equals(getPolls());
+                && otherEvent.getPersonList().equals(getPersonList());
+                //&& otherEvent.getOrganiser().equals(getOrganiser());
+                //&& otherEvent.getPolls().equals(getPolls());
     }
 
     @Override

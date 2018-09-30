@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 
@@ -64,6 +65,16 @@ public class UniqueEventList implements Iterable<Event> {
         }
 
         internalList.set(index, editedEvent);
+    }
+
+    /**
+     * Replaces the event at {@code index} in the list with {@code event}.
+     */
+    public void setEvent(int index, Event event) {
+        requireNonNull(event);
+        //throw EventNotFoundException
+        //throw duplicate event exception
+        internalList.set(index, event);
     }
 
     /**
