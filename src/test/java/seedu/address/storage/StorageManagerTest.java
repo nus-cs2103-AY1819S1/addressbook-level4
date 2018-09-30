@@ -35,7 +35,8 @@ public class StorageManagerTest {
         XmlAddressBookStorage addressBookStorage = new XmlAddressBookStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         IcsCalendarStorage calendarStorage = new IcsCalendarStorage(getTempFilePath("cal"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage, calendarStorage);
+        EmailDirStorage emailStorage = new EmailDirStorage(getTempFilePath("em"));
+        storageManager = new StorageManager(addressBookStorage, userPrefsStorage, calendarStorage, emailStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -80,7 +81,8 @@ public class StorageManagerTest {
         // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
         Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub(Paths.get("dummy")),
                                              new JsonUserPrefsStorage(Paths.get("dummy")),
-                                             new IcsCalendarStorage(Paths.get("dummy")));
+                                             new IcsCalendarStorage(Paths.get("dummy")),
+                                             new EmailDirStorage(Paths.get("dummy")));
         storage.handleAddressBookChangedEvent(new AddressBookChangedEvent(new AddressBook()));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }

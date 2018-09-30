@@ -11,6 +11,8 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.calendar.Month;
 import seedu.address.model.calendar.Year;
+import seedu.address.model.email.Content;
+import seedu.address.model.email.Subject;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -124,6 +126,37 @@ public class ParserUtil {
         return tagSet;
     }
 
+    //@@author EatOrBeEaten
+    /**
+     * Parses a {@code String content} into an {@code Content}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code content} is invalid.
+     */
+    public static Content parseContent(String content) throws ParseException {
+        requireNonNull(content);
+        String trimmedContent = content.trim();
+        if (!Content.isValidContent(trimmedContent)) {
+            throw new ParseException(Content.MESSAGE_CONTENT_CONSTRAINTS);
+        }
+        return new Content(trimmedContent);
+    }
+
+    /**
+     * Parses a {@code String subject} into an {@code Subject}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code subject} is invalid.
+     */
+    public static Subject parseSubject(String subject) throws ParseException {
+        requireNonNull(subject);
+        String trimmedSubject = subject.trim();
+        if (!Subject.isValidSubject(trimmedSubject)) {
+            throw new ParseException(Subject.MESSAGE_SUBJECT_CONSTRAINTS);
+        }
+        return new Subject(trimmedSubject);
+    }
+
     //@@author GilgameshTC
     /**
      * Parses a {@code String month} into a {@code Month}.
@@ -156,4 +189,5 @@ public class ParserUtil {
         }
         return new Year(trimmedYear);
     }
+
 }
