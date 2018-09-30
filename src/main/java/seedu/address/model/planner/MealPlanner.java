@@ -28,7 +28,9 @@ public class MealPlanner {
         return this.calendar;
     }
 
-    public void clearAll() { this.calendar = FXCollections.observableHashMap(); }
+    public void clearAll() {
+        this.calendar = FXCollections.observableHashMap();
+    }
 
     public Day getDay(LocalDate date) {
         return this.calendar.get(date);
