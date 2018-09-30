@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;

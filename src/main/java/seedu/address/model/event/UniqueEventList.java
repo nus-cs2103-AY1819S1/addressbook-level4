@@ -1,27 +1,22 @@
 package seedu.address.model.event;
 
 import static java.util.Objects.requireNonNull;
-
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A person is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
- * persons uses Person#isSamePerson(Person) for equality so as to ensure that the person being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a person uses Person#equals(Object) so
+ * A list of events that enforces uniqueness between its elements and does not allow nulls.
+ * An event is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
+ * events uses Event#isSameEvent for equality so as to ensure that the event being added or updated is
+ * unique in terms of identity in the UniqueEventList. However, the removal of a event uses Event#equals(Object) so
  * as to ensure that the person with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
- *
- * @see Person#isSamePerson(Person)
  */
 public class UniqueEventList implements Iterable<Event> {
 
