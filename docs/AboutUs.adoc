@@ -32,8 +32,8 @@ Responsibilities: Meal Planner
 '''
 
 === Lim Shi Min
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]]
+image::LimShiMinJonathan.jpg[width="150", align="left"]
+{empty}[https://github.com/LimShiMinJonathan[github]]
 
 Role: Developer, Documentation, Deliverables and deadlines +
 Responsibilities: Dev Ops + Threading
