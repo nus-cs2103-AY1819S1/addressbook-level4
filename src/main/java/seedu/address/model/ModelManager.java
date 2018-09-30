@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
@@ -37,9 +38,10 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
+        //@@author jjlee050
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
-        patientQueue = new PatientQueue();
         filteredDoctors = new FilteredList<>(versionedAddressBook.getDoctorList());
+        patientQueue = new PatientQueue();
 
     }
 
@@ -103,7 +105,10 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
-
+    @Override
+    public void enqueue(Person target) {
+        patientQueue.add(target);
+    }
     @Override
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
@@ -111,13 +116,10 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
     @Override
-    public void enqueue(Person target) {
-        patientQueue.add(target);
-    }
-    @Override
     public boolean hasPatientInPatientQueue() {
         return patientQueue.hasPatient();
     }
+    //@@author jjlee050
     @Override
     public void updateDoctor(Doctor target, Doctor editedDoctor) {
         requireAllNonNull(target, editedDoctor);
