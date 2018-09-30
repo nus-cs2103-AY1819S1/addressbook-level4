@@ -19,6 +19,7 @@ import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.healthplan.HealthPlan;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -36,6 +37,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private RecipeListPanel recipeListPanel;
+    private HealthPlanPanel healthPlanPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
@@ -125,6 +127,8 @@ public class MainWindow extends UiPart<Stage> {
         recipeListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
         personListPanelPlaceholder.getChildren().add(recipeListPanel.getRoot());
 
+
+
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -134,6 +138,31 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
+
+
+    void fillInnerPartsHP() {
+     
+
+        browserPanel = new BrowserPanel();
+        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+
+        healthPlanPanel = new HealthPlanPanel(logic.getFilteredPlans());
+
+        personListPanelPlaceholder.getChildren().add(healthPlanPanel.getRoot());
+
+
+
+        ResultDisplay resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getHealthplanFilePath());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+
+        CommandBox commandBox = new CommandBox(logic);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+
 
     void hide() {
         primaryStage.hide();

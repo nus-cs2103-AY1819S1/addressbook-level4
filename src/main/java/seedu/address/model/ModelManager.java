@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AppContentChangedEvent;
+import seedu.address.model.healthplan.HealthPlan;
 import seedu.address.model.recipe.Recipe;
 
 /**
@@ -22,6 +23,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAppContent versionedAppContent;
     private final FilteredList<Recipe> filteredRecipes;
+    private final FilteredList<HealthPlan>filteredPlans;
 
     /**
      * Initializes a ModelManager with the given appContent and userPrefs.
@@ -34,6 +36,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAppContent = new VersionedAppContent(appContent);
         filteredRecipes = new FilteredList<>(versionedAppContent.getRecipeList());
+        filteredPlans = new FilteredList<>(versionedAppContent.getHealthPlanList());
     }
 
     public ModelManager() {
@@ -94,11 +97,61 @@ public class ModelManager extends ComponentManager implements Model {
         return FXCollections.unmodifiableObservableList(filteredRecipes);
     }
 
+
+
     @Override
     public void updateFilteredRecipeList(Predicate<Recipe> predicate) {
         requireNonNull(predicate);
         filteredRecipes.setPredicate(predicate);
     }
+
+
+    //health plans
+
+    @Override
+    public ObservableList<HealthPlan> getFilteredPlans() {
+        return FXCollections.unmodifiableObservableList(filteredPlans);
+    }
+
+    @Override
+    public void updateFilteredPlans(Predicate<HealthPlan> predicate) {
+        requireNonNull(predicate);
+        filteredPlans.setPredicate(predicate);
+    }
+
+    @Override
+    public boolean hasPlan(HealthPlan hp) {
+        requireNonNull(hp);
+        return versionedAppContent.hasPlan(hp);
+    }
+
+    @Override
+    public void deletePlan(HealthPlan hp) {
+        versionedAppContent.removePlan(hp);
+        indicateAppContentChanged();
+    }
+
+    @Override
+    public void addPlan(HealthPlan hp) {
+        versionedAppContent.addPlan(hp);
+
+        updateFilteredPlans(PREDICATE_SHOW_ALL_PLANS);
+        indicateAppContentChanged();
+    }
+
+    @Override
+    public void updatePlan(HealthPlan target, HealthPlan editedPlan) {
+        requireAllNonNull(target, editedPlan);
+
+        versionedAppContent.updatePlan(target, editedPlan);
+        indicateAppContentChanged();
+    }
+
+
+
+
+
+
 
     //=========== Undo/Redo =================================================================================
 
@@ -144,7 +197,8 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedAppContent.equals(other.versionedAppContent)
-                && filteredRecipes.equals(other.filteredRecipes);
+                && filteredRecipes.equals(other.filteredRecipes)
+         && filteredPlans.equals(other.filteredPlans);
     }
 
 }

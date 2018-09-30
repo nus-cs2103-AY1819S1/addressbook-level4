@@ -62,12 +62,12 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new XmlAddressBookStorage(userPrefs.getAddressBookFilePath());
+        AddressBookStorage addressBookStorage = new XmlAddressBookStorage(userPrefs.getHealthplanFilePath());
         storage = new StorageManager(addressBookStorage, userPrefsStorage);
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs);
+        model = initModelManagerHP(storage, userPrefs);
 
         logic = new LogicManager(model);
 
@@ -100,6 +100,33 @@ public class MainApp extends Application {
 
         return new ModelManager(initialData, userPrefs);
     }
+
+
+    private Model initModelManagerHP(Storage storage, UserPrefs userPrefs) {
+        Optional<ReadOnlyAppContent> addressBookOptional;
+        ReadOnlyAppContent initialData;
+        try {
+            addressBookOptional = storage.readHealthPlan();
+            if (!addressBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample AppContent");
+            }
+            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty AppContent");
+            initialData = new AppContent();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty AppContent");
+            initialData = new AppContent();
+        }
+
+        return new ModelManager(initialData, userPrefs);
+    }
+
+
+
+
+
+
 
     private void initLogging(Config config) {
         LogsCenter.init(config);

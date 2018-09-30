@@ -54,7 +54,7 @@ public class UiManager extends ComponentManager implements Ui {
         try {
             mainWindow = new MainWindow(primaryStage, config, prefs, logic);
             mainWindow.show(); //This should be called before creating other UI parts
-            mainWindow.fillInnerParts();
+            mainWindow.fillInnerPartsHP();
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));

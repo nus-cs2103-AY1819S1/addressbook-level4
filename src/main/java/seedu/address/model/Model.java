@@ -3,7 +3,9 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.events.model.HealthplanChangedEvent;
 import seedu.address.model.recipe.Recipe;
+import seedu.address.model.healthplan.HealthPlan;
 
 /**
  * The API of the Model component.
@@ -11,6 +13,7 @@ import seedu.address.model.recipe.Recipe;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Recipe> PREDICATE_SHOW_ALL_RECIPES = unused -> true;
+    Predicate<HealthPlan> PREDICATE_SHOW_ALL_PLANS = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAppContent newData);
@@ -51,6 +54,23 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredRecipeList(Predicate<Recipe> predicate);
+
+
+    //healthplans
+
+    void updateFilteredPlans(Predicate<HealthPlan> predicate);
+
+    void updatePlan(HealthPlan target, HealthPlan editedPlan);
+
+    void addPlan(HealthPlan plan);
+
+    boolean hasPlan(HealthPlan plan);
+
+    void deletePlan(HealthPlan plan);
+
+    ObservableList<HealthPlan> getFilteredPlans();
+
+
 
     /**
      * Returns true if the model has previous application content states to restore.

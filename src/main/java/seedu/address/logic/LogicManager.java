@@ -11,6 +11,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AppContentParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.healthplan.HealthPlan;
 import seedu.address.model.recipe.Recipe;
 
 /**
@@ -43,6 +44,10 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<Recipe> getFilteredRecipeList() {
         return model.getFilteredRecipeList();
+    }
+    @Override
+    public ObservableList<HealthPlan> getFilteredPlans() {
+        return model.getFilteredPlans();
     }
 
     @Override

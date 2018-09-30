@@ -43,4 +43,18 @@ public interface AddressBookStorage {
      */
     void saveAddressBook(ReadOnlyAppContent addressBook, Path filePath) throws IOException;
 
+
+    Path getHealthPlanFilePath();
+
+    Optional<ReadOnlyAppContent> readHealthPlan() throws DataConversionException, IOException;
+
+    Optional<ReadOnlyAppContent> readHealthPlan(Path filePath) throws DataConversionException, IOException;
+
+    void saveHealthPlan(ReadOnlyAppContent hp) throws IOException;
+
+    void saveHealthPlan(ReadOnlyAppContent hp, Path filePath) throws IOException;
+
+
+
+
 }
