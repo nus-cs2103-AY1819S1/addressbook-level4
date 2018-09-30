@@ -24,7 +24,7 @@ public class SampleDataUtil {
         return new Wish[] {
             new Wish(new Name("Apple iPhone 7"), new Price("700.00"), new Email("alexyeoh@example.com"),
                     new Url("https://www.amazon.com/Apple-iPhone-Fully-Unlocked-32GB/dp/B0731HBTZ7"),
-                    new SavedAmount("43.00"),
+                    new SavedAmount("580.00"),
                     SAMPLE_REMARK_EMPTY, getTagSet("friends")),
             new Wish(new Name("Logitech K840 Mechanical Keyboard"), new Price("450.00"),
                     new Email("berniceyu@example.com"),

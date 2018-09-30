@@ -67,7 +67,7 @@ public class WishCard extends UiPart<Region> {
         url.setText(wish.getUrl().value);
         email.setText(wish.getEmail().value);
         remark.setText(wish.getRemark().value);
-        progressBar.setProgress(0.5);
+        progressBar.setProgress(wish.getSavedAmount().value / wish.getPrice().value);
         initTags(wish);
     }
 
