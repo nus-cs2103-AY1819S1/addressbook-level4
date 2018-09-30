@@ -40,7 +40,7 @@ public class OccasionName {
   /**
    * Check whether a given string is a valid name.
    *
-   * @return A boolean value indicating the validation of a string.
+   * @return A boolean value indicating the validation of this occasion name.
    */
   public static boolean isValidName(String test) {
     return test.matches(OCCASIONNAME_VALIDATION_REGEX);
