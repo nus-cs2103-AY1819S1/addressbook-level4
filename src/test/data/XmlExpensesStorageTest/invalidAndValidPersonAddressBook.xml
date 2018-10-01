@@ -4,14 +4,12 @@
     <persons>
         <name>Hans Muster</name>
         <phone isPrivate="false">9482424</phone>
-        <email isPrivate="false">hans@example.com</email>
         <cost isPrivate="false">1.00</cost>
     </persons>
     <!-- Person with invalid phone field -->
     <persons>
         <name>Hans Muster</name>
         <phone isPrivate="false">948asdf2424</phone>
-        <email isPrivate="false">hans@example.com</email>
         <cost isPrivate="false">1.00</cost>
     </persons>
     <username>invalidAndValidPersonAddressBook</username>

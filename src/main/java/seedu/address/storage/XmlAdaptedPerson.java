@@ -11,7 +11,6 @@ import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.expense.Cost;
-import seedu.address.model.expense.Email;
 import seedu.address.model.expense.Name;
 import seedu.address.model.expense.Person;
 import seedu.address.model.expense.Phone;
@@ -29,8 +28,6 @@ public class XmlAdaptedPerson {
     @XmlElement(required = true)
     private String phone;
     @XmlElement(required = true)
-    private String email;
-    @XmlElement(required = true)
     private String cost;
 
     @XmlElement
@@ -45,10 +42,9 @@ public class XmlAdaptedPerson {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
-    public XmlAdaptedPerson(String name, String phone, String email, String cost, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedPerson(String name, String phone, String cost, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
-        this.email = email;
         this.cost = cost;
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
@@ -63,7 +59,6 @@ public class XmlAdaptedPerson {
     public XmlAdaptedPerson(Person source) {
         name = source.getName().expenseName;
         phone = source.getPhone().value;
-        email = source.getEmail().value;
         cost = source.getCost().value;
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
@@ -97,14 +92,6 @@ public class XmlAdaptedPerson {
         }
         final Phone modelPhone = new Phone(phone);
 
-        if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
-        }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_EMAIL_CONSTRAINTS);
-        }
-        final Email modelEmail = new Email(email);
-
         if (cost == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Cost.class.getSimpleName()));
         }
@@ -115,7 +102,7 @@ public class XmlAdaptedPerson {
         final Cost modelCost = new Cost(cost);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelCost, modelTags);
+        return new Person(modelName, modelPhone, modelCost, modelTags);
     }
 
     @Override
@@ -131,7 +118,6 @@ public class XmlAdaptedPerson {
         XmlAdaptedPerson otherPerson = (XmlAdaptedPerson) other;
         return Objects.equals(name, otherPerson.name)
                 && Objects.equals(phone, otherPerson.phone)
-                && Objects.equals(email, otherPerson.email)
                 && Objects.equals(cost, otherPerson.cost)
                 && tagged.equals(otherPerson.tagged);
     }

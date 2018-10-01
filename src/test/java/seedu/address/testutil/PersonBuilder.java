@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.expense.Cost;
-import seedu.address.model.expense.Email;
 import seedu.address.model.expense.Name;
 import seedu.address.model.expense.Person;
 import seedu.address.model.expense.Phone;
@@ -18,19 +17,16 @@ public class PersonBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
-    public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_COST = "321.00";
 
     private Name name;
     private Phone phone;
-    private Email email;
     private Cost cost;
     private Set<Tag> tags;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
-        email = new Email(DEFAULT_EMAIL);
         cost = new Cost(DEFAULT_COST);
         tags = new HashSet<>();
     }
@@ -41,7 +37,6 @@ public class PersonBuilder {
     public PersonBuilder(Person personToCopy) {
         name = personToCopy.getName();
         phone = personToCopy.getPhone();
-        email = personToCopy.getEmail();
         cost = personToCopy.getCost();
         tags = new HashSet<>(personToCopy.getTags());
     }
@@ -65,8 +60,8 @@ public class PersonBuilder {
     /**
      * Sets the {@code Cost} of the {@code Person} that we are building.
      */
-    public PersonBuilder withCost(String address) {
-        this.cost = new Cost(address);
+    public PersonBuilder withCost(String cost) {
+        this.cost = new Cost(cost);
         return this;
     }
 
@@ -78,16 +73,9 @@ public class PersonBuilder {
         return this;
     }
 
-    /**
-     * Sets the {@code Email} of the {@code Person} that we are building.
-     */
-    public PersonBuilder withEmail(String email) {
-        this.email = new Email(email);
-        return this;
-    }
 
     public Person build() {
-        return new Person(name, phone, email, cost, tags);
+        return new Person(name, phone, cost, tags);
     }
 
 }
