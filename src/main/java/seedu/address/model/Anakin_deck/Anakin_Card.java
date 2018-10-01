@@ -27,6 +27,10 @@ public class Anakin_Card {
         return answer;
     }
 
+    public int getPerformance() {
+        return performance;
+    }
+
     /**
      * Returns true if 2 cards are the same, or have same identity fields.
      */
