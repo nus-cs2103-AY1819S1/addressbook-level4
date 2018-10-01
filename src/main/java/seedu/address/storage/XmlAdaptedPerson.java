@@ -115,7 +115,7 @@ public class XmlAdaptedPerson {
         final Date modelDate = new Date(date);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-      
+
         return new Person(modelName, modelCategory, modelCost, modelDate, modelTags);
     }
 
