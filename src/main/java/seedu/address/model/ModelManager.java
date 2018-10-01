@@ -3,8 +3,13 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+<<<<<<< HEAD
 import java.io.IOException;
 import java.util.List;
+=======
+import java.util.List;
+import java.io.IOException;
+>>>>>>> f7ffea1ae2da90f1d98e8403ce40590ab3d53874
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 

@@ -11,14 +11,26 @@ public class CliSyntax {
     public static final Prefix PREFIX_EMAIL = new Prefix("e/");
     public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
+<<<<<<< HEAD
     public static final Prefix PREFIX_BLOCK = new Prefix("b/");
     public static final Prefix PREFIX_ROOM = new Prefix("r/");
     public static final Prefix PREFIX_SCHOOL = new Prefix("s/");
+=======
+
+    public static final Prefix PREFIX_BLOCK = new Prefix("b/");
+    public static final Prefix PREFIX_ROOM = new Prefix("r/");
+    public static final Prefix PREFIX_SCHOOL = new Prefix("s/");
+
+>>>>>>> f7ffea1ae2da90f1d98e8403ce40590ab3d53874
     public static final Prefix PREFIX_FROM = new Prefix("from/");
     public static final Prefix PREFIX_TO = new Prefix("to/");
     public static final Prefix PREFIX_SUBJECT = new Prefix("subject/");
     public static final Prefix PREFIX_CONTENT = new Prefix("content/");
     public static final Prefix PREFIX_MONTH = new Prefix("month/");
     public static final Prefix PREFIX_YEAR = new Prefix("year/");
+<<<<<<< HEAD
+=======
+
+>>>>>>> f7ffea1ae2da90f1d98e8403ce40590ab3d53874
 
 }

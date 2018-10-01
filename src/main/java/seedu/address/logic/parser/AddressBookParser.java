@@ -9,10 +9,19 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
+<<<<<<< HEAD
+=======
+import seedu.address.logic.commands.AddCommand;
+>>>>>>> f7ffea1ae2da90f1d98e8403ce40590ab3d53874
 import seedu.address.logic.commands.ComposeCommand;
 import seedu.address.logic.commands.CreateCalendarCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
+<<<<<<< HEAD
+=======
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ClearCommand;
+>>>>>>> f7ffea1ae2da90f1d98e8403ce40590ab3d53874
 import seedu.address.logic.commands.EraseCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
