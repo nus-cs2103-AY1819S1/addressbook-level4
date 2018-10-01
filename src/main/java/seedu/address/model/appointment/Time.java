@@ -70,7 +70,7 @@ public class Time {
         if (other == this) {
             return true;
         }
-        if (other instanceof Time) {
+        if (other == null) {
             return false;
         }
         Time otherTime = (Time) other;

@@ -57,7 +57,7 @@ public class Date {
      * @param month Determines validity of day.
      * @return Validity of day.
      */
-    public boolean isValidDay(int day, int month) {
+    public static boolean isValidDay(int day, int month) {
         if (day <= 0 || day > 31) {
             return false;
         }
@@ -66,7 +66,12 @@ public class Date {
                 return false;
             }
         }
-        if (month % 2 == 0 && month != 8) { //excluding august which has 31 days
+        if (month % 2 == 0 && month < 9) {
+            if (day > 30) {
+                return false;
+            }
+        }
+        if (month % 2 == 1 && month >= 9) {
             if (day > 30) {
                 return false;
             }
@@ -79,7 +84,7 @@ public class Date {
      * @param month The month to validate.
      * @return Validity of month.
      */
-    public boolean isValidMonth(int month) {
+    public static boolean isValidMonth(int month) {
         if (month >= 1 && month <= 12) {
             return true;
         }
@@ -91,7 +96,7 @@ public class Date {
      * @param year The year to validate.
      * @return Validity of month.
      */
-    public boolean isValidYear(int year) {
+    public static boolean isValidYear(int year) {
         String string = String.valueOf(year);
         return string.matches(YEAR_VALIDATION_REGEX);
     }
@@ -101,11 +106,12 @@ public class Date {
         if (other == this) {
             return true;
         }
-        if (other instanceof Date) {
+        if (other == null) {
             return false;
         }
         Date otherDate = (Date) other;
-        return (otherDate.getDay() == getDay()) && (otherDate.getMonth() == getMonth())
+        return (otherDate.getDay() == getDay())
+                && (otherDate.getMonth() == getMonth())
                 && (otherDate.getYear() == getYear());
     }
 
