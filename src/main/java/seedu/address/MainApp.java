@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -81,15 +82,15 @@ public class MainApp extends Application {
 
     /**
      * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * A user "default" with a sample AddressBook will be added if the folder does not exist or is empty,
+     * A user "sample" with a sample AddressBook will be added if the username does not exist.
      * or no users will be used instead if errors occur when reading {@code storage}'s address book.
      */
     protected Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Map<Username, ReadOnlyAddressBook> addressBooks;
         try {
             addressBooks = storage.readAllExpenses(userPrefs.getAddressBookDirPath());
-            if (addressBooks.isEmpty()) {
-                ReadOnlyAddressBook sampleAddressBook = SampleDataUtil.getSampleAddressBook();
+            ReadOnlyAddressBook sampleAddressBook = SampleDataUtil.getSampleAddressBook();
+            if (!addressBooks.containsKey(sampleAddressBook.getUsername())) {
                 addressBooks.put(sampleAddressBook.getUsername(), sampleAddressBook);
             }
         } catch (DataConversionException e) {
