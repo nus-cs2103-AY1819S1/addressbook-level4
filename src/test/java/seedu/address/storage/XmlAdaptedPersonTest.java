@@ -55,7 +55,7 @@ public class XmlAdaptedPersonTest {
     public void toModelType_invalidCategory_throwsIllegalValueException() {
         XmlAdaptedPerson person =
                 new XmlAdaptedPerson(VALID_NAME, INVALID_CATEGORY, VALID_ADDRESS, VALID_DATE, VALID_TAGS);
-        String expectedMessage = Phone.MESSAGE_CATEGORY_CONSTRAINTS;
+        String expectedMessage = Category.MESSAGE_CATEGORY_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
