@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
-import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import seedu.address.logic.commands.ImportCommand;
+import org.junit.Test;!
+import static org.junit.Assert.assertEquals;!
+import seedu.address.logic.commands.ImportCommand;!
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -26,9 +26,9 @@ public class ImportCommandPreparerTest {
     private static final Path CORRECT_CSV = TEST_DATA_FOLDER.resolve("AddressbookCorrect.csv");
     private static final Path CONTACT_ONLY_NAME_CSV = TEST_DATA_FOLDER.resolve("AddressbookContactOnlyName.csv");
     private static final Path DUPLICATE_CLASH_CSV = TEST_DATA_FOLDER.resolve("AddressbookDuplicateClash.csv");
-    private static final Path DUPLICATE_CLASH_NEGATIVE_CSV = TEST_DATA_FOLDER.resolve("AddressbookDuplicateClashNegative.csv");
+    private static final Path DUPLICATE_CLASH_NEGATIVE_CSV = TEST_DATA_FOLDER.resolve("AddressbookDuplicateClashNegative.csv");!
     private static final Path CONTACT_NO_NAME_CSV = TEST_DATA_FOLDER.resolve("AddressbookIncompleteContacts.csv");
-    private static final Path INVALID_CONTACT_FIELD_CSV = TEST_DATA_FOLDER.resolve("AddressbookInvalidContactField.csv");
+    private static final Path INVALID_CONTACT_FIELD_CSV = TEST_DATA_FOLDER.resolve("AddressbookInvalidContactField.csv");!
     private static final Path TEXT_DOC_CSV = TEST_DATA_FOLDER.resolve("AddressbookText.txt");
 
     private static final ArrayList<String> noTags = new ArrayList<>();
@@ -75,7 +75,7 @@ public class ImportCommandPreparerTest {
     }
 
     @Test
-    public void contacts_with_only_name() throws FileNotFoundException, ParseException {
+    public void contactsWithOnlyName() throws FileNotFoundException, ParseException {
         ImportCommandPreparer preparer = new ImportCommandPreparer();
         File file = CONTACT_ONLY_NAME_CSV.toFile();
         ImportCommand command = preparer.parseFile(file);
@@ -108,7 +108,7 @@ public class ImportCommandPreparerTest {
     }
 
     @Test
-    public void contacts_with_no_name() throws FileNotFoundException, ParseException {
+    public void contactsWithNoName() throws FileNotFoundException, ParseException {
         ImportCommandPreparer preparer = new ImportCommandPreparer();
         File file = CONTACT_NO_NAME_CSV.toFile();
         ImportCommand command = preparer.parseFile(file);
@@ -140,7 +140,7 @@ public class ImportCommandPreparerTest {
     }
 
     @Test
-    public void contacts_with_invalid_field() throws FileNotFoundException, ParseException {
+    public void contactsWithInvalidField() throws FileNotFoundException, ParseException {
         ImportCommandPreparer preparer = new ImportCommandPreparer();
         File file = INVALID_CONTACT_FIELD_CSV.toFile();
         ImportCommand command = preparer.parseFile(file);
@@ -164,7 +164,7 @@ public class ImportCommandPreparerTest {
     }
 
     @Test
-    public void text_doc_csv() throws FileNotFoundException, ParseException {
+    public void textDocCsv() throws FileNotFoundException, ParseException {
         ImportCommandPreparer preparer = new ImportCommandPreparer();
         File file = TEXT_DOC_CSV.toFile();
         ImportCommand command = preparer.parseFile(file);
