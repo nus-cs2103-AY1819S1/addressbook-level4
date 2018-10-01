@@ -1,4 +1,4 @@
-= SaveGoals - User Guide
+= WishBook - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -205,6 +205,26 @@ Examples:
 * `save 1000 1` +
 Adds $1000 into the item at index 1.
 
+=== Editing a remark for a wish : `remark`
+
+Edits the remark for a wish specified in the index. +
+Format: `remark INDEX r/[REMARK]`
+
+****
+* `INDEX` refers to the index number shown in the displayed list.
+* `INDEX` must be a positive integer 1, 2, 3...
+****
+
+Examples:
+
+* `list` +
+`remark 1 r/Buying this for dad.` +
+Edits the remark for the first wish to `Buying this for dad.`
+
+* `list` +
+`remark 1 r/` +
+Removes the remark for the first wish (if any).
+
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
@@ -302,6 +322,7 @@ e.g.`select 2`
 e.g. `save 1000 1`
 * *Command History* : `history -c`
 * *Savings History* : `history -s`
+* *Remark* : `remark INDEX r/[REMARK]`
 * *Undo* : `undo`
 * *Redo* : `redo`
 * *Exit* : `exit`
