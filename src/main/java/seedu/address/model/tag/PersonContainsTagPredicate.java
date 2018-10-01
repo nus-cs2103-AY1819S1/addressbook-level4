@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import seedu.address.model.person.Person;
 
+//@@author A19Sean
 /**
  * Tests that a {@code Person} contains any of the tags given.
  */
