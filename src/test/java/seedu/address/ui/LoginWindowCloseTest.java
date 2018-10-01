@@ -2,13 +2,17 @@ package seedu.address.ui;
 
 import static org.junit.Assert.assertTrue;
 
-import guitests.guihandles.StageHandle;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+
 import org.testfx.api.FxToolkit;
+
+import guitests.guihandles.StageHandle;
+
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+
 import seedu.address.commons.core.Config;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.LogicManager;
@@ -20,6 +24,7 @@ import seedu.address.ui.testutil.EventsCollectorRule;
  * Contains tests for closing of the {@code LoginWindow}.
  */
 public class LoginWindowCloseTest extends GuiUnitTest {
+
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
@@ -31,7 +36,8 @@ public class LoginWindowCloseTest extends GuiUnitTest {
     public void setUp() throws Exception {
         FxToolkit.setupStage(stage -> {
             this.stage = stage;
-            loginWindow = new LoginWindow(stage, new Config(), new UserPrefs(), new LogicManager(new ModelManager()));
+            loginWindow = new LoginWindow(stage, new Config(), new UserPrefs(),
+                    new LogicManager(new ModelManager()));
             loginWindowHandle = new EmptyLoginWindowHandle(stage);
 
             stage.setScene(loginWindow.getRoot().getScene());
@@ -72,8 +78,8 @@ public class LoginWindowCloseTest extends GuiUnitTest {
         }
 
         /**
-         * Closes the {@code LoginWindow} through an external request {@code LoginWindow} (e.g pressing the 'X' button on
-         * the {@code LoginWindow} or closing the app through the taskbar).
+         * Closes the {@code LoginWindow} through an external request {@code LoginWindow} (e.g pressing the
+         * 'X' button on the {@code LoginWindow} or closing the app through the taskbar).
          */
         private void closeLoginWindowExternally() {
             guiRobot.interact(() -> stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST)));

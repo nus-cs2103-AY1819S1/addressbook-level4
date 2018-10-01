@@ -1,14 +1,16 @@
 package systemtests;
 
-import guitests.guihandles.LoginWindowHandle;
 import java.nio.file.Path;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Supplier;
 
 import org.testfx.api.FxToolkit;
 
+import guitests.guihandles.LoginWindowHandle;
 import guitests.guihandles.MainWindowHandle;
+
 import javafx.stage.Stage;
+
 import seedu.address.TestApp;
 import seedu.address.model.ReadOnlyAddressBook;
 
