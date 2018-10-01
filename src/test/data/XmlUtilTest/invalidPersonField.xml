@@ -2,7 +2,7 @@
 <!-- Person with an invalid category field -->
 <expense>
     <name>Hans Muster</name>
-    <category>9482asf424</category>
+    <category> </category>
     <cost>1.00</cost>
     <tagged>friends</tagged>
 </expense>

@@ -82,7 +82,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * If the category of the expense doesn't exist, the category will be created.
      * */
     public void addExpense(Expense e) { //TODO: Refine this once other attributes are ready
-        Category category = e.getCategoryTemp();
+        Category category = e.getCategory();
         if (!this.categoryList.hasCategory(category)) {
             this.categoryList.addCategory(category);
         }

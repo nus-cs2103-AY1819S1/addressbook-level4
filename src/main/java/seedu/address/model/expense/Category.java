@@ -13,7 +13,7 @@ public class Category {
 
 
     public static final String MESSAGE_CATEGORY_CONSTRAINTS =
-            "Category numbers should only contain numbers, and it should be at least 3 digits long";
+            "Category name should not be blank.";
     public static final String CATEGORY_VALIDATION_REGEX = "\\p{Alnum}+";
     private final String categoryName;
     private final ArrayList<Expense> expenseList = new ArrayList<>();

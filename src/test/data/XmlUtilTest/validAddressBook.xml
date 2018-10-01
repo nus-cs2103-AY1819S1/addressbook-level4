@@ -2,47 +2,47 @@
 <addressbook>
     <persons>
         <name>Hans Muster</name>
-        <category isPrivate="false">9482424</category>
+        <category isPrivate="false">School</category>
         <cost isPrivate="false">200.00</cost>
     </persons>
     <persons>
         <name>Ruth Mueller</name>
-        <category isPrivate="false">87249245</category>
+        <category isPrivate="false">Gamble</category>
         <cost isPrivate="false">1000.00</cost>
     </persons>
     <persons>
         <name>Heinz Kurz</name>
-        <category isPrivate="false">95352563</category>
+        <category isPrivate="false">Entertainment</category>
         <cost isPrivate="false">222.00</cost>
     </persons>
     <persons>
         <name>Cornelia Meier</name>
-        <category isPrivate="false">87652533</category>
+        <category isPrivate="false">Shopping</category>
         <cost isPrivate="false">123.00</cost>
     </persons>
     <persons>
         <name>Werner Meyer</name>
-        <category isPrivate="false">9482224</category>
+        <category isPrivate="false">Book</category>
         <cost isPrivate="false">12.00</cost>
     </persons>
     <persons>
         <name>Lydia Kunz</name>
-        <category isPrivate="false">9482427</category>
+        <category isPrivate="false">Cloth</category>
         <cost isPrivate="false">1.00</cost>
     </persons>
     <persons>
         <name>Anna Best</name>
-        <category isPrivate="false">9482442</category>
+        <category isPrivate="false">Food</category>
         <cost isPrivate="false">3.00</cost>
     </persons>
     <persons>
         <name>Stefan Meier</name>
-        <category isPrivate="false">8482424</category>
+        <category isPrivate="false">School</category>
         <cost isPrivate="false">200.00</cost>
     </persons>
     <persons>
         <name>Martin Mueller</name>
-        <category isPrivate="false">8482131</category>
+        <category isPrivate="false">Travel</category>
         <cost isPrivate="false">123.00</cost>
     </persons>
     <username>validAddressBook</username>
