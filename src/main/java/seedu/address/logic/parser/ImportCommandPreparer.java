@@ -32,7 +32,15 @@ public class ImportCommandPreparer {
     private static final int ADDRESS_FIELD = 3;
     private static final int TAG_FIELD_START = 4;
 
-    ArrayList<Person> persons = new ArrayList<>();
+    private ArrayList<Person> persons;
+
+    /**
+     * Creates a new ImportCommandPreparer with an empty ArrayList of Persons to be added.
+     */
+    public ImportCommandPreparer() {
+        persons = new ArrayList<Person>();
+    }
+
     /**
      * Starts the import process by directing users to choose a file.
      */
@@ -74,7 +82,7 @@ public class ImportCommandPreparer {
                 String[] attributes = line.split(",", -1);
                 int numAttributes = attributes.length;
 
-                if (attributes[NAME_FIELD].equalsIgnoreCase("Name") 
+                if (attributes[NAME_FIELD].equalsIgnoreCase("Name")
                         || attributes[NAME_FIELD].equalsIgnoreCase("Name:")) { // ignore headers
                     line = br.readLine();
                     continue;
