@@ -3,9 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CARPARK_NO;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOT_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOTS_AVAILABLE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOT_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTAL_LOTS;
 
@@ -16,14 +14,9 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.carpark.Carpark;
 import seedu.address.model.carpark.CarparkNumber;
-import seedu.address.model.carpark.LotType;
 import seedu.address.model.carpark.LotsAvailable;
 import seedu.address.model.carpark.TotalLots;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.carpark.Address;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -38,26 +31,29 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_CARPARK_NO, PREFIX_LOTS_AVAILABLE, PREFIX_LOT_TYPE, PREFIX_TOTAL_LOTS, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_CARPARK_NO, PREFIX_LOTS_AVAILABLE,
+                        PREFIX_TOTAL_LOTS, PREFIX_ADDRESS, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_CARPARK_NO, PREFIX_LOTS_AVAILABLE, PREFIX_LOT_TYPE, PREFIX_TOTAL_LOTS, PREFIX_ADDRESS)
+        if (!arePrefixesPresent(argMultimap, PREFIX_CARPARK_NO, PREFIX_LOTS_AVAILABLE,
+                PREFIX_TOTAL_LOTS, PREFIX_ADDRESS)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-//        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-//        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-//        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        CarparkNumber carparknumber = ParserUtil.parseCarparkNumber(argMultimap.getValue(PREFIX_CARPARK_NO).get());
-        LotsAvailable lotsavailable = ParserUtil.parseLotsAvailable(argMultimap.getValue(PREFIX_LOTS_AVAILABLE).get());
-        LotType lottype = ParserUtil.parseLotsType(argMultimap.getValue(PREFIX_LOT_TYPE).get());
-        TotalLots totallots = ParserUtil.parseTotalLots(argMultimap.getValue(PREFIX_TOTAL_LOTS).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        CarparkNumber carparknumber = ParserUtil.parseCarparkNumber(
+                argMultimap.getValue(PREFIX_CARPARK_NO).get());
+        LotsAvailable lotsavailable = ParserUtil.parseLotsAvailable(
+                argMultimap.getValue(PREFIX_LOTS_AVAILABLE).get());
+        TotalLots totallots = ParserUtil.parseTotalLots(
+                argMultimap.getValue(PREFIX_TOTAL_LOTS).get());
+        Address address = ParserUtil.parseAddress(
+                argMultimap.getValue(PREFIX_ADDRESS).get());
+        Set<Tag> tagList = ParserUtil.parseTags(
+                argMultimap.getAllValues(PREFIX_TAG));
 
-        Carpark person = new Carpark(carparknumber, totallots, lotsavailable, lottype, address, tagList);
+        Carpark carpark = new Carpark(carparknumber, totallots, lotsavailable, address, tagList);
 
-        return new AddCommand(person);
+        return new AddCommand(carpark);
     }
 
     /**
@@ -67,5 +63,4 @@ public class AddCommandParser implements Parser<AddCommand> {
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
-
 }

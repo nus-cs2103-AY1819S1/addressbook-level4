@@ -49,9 +49,6 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_CARPARK_NO).isPresent()) {
             editCarparkDescriptor.setCarparkNumber(ParserUtil.parseCarparkNumber(argMultimap.getValue(PREFIX_CARPARK_NO).get()));
         }
-        if (argMultimap.getValue(PREFIX_LOT_TYPE).isPresent()) {
-            editCarparkDescriptor.setLotType(ParserUtil.parseLotsType(argMultimap.getValue(PREFIX_LOT_TYPE).get()));
-        }
         if (argMultimap.getValue(PREFIX_LOTS_AVAILABLE).isPresent()) {
             editCarparkDescriptor.setLotsAvailable(ParserUtil.parseLotsAvailable(argMultimap.getValue(PREFIX_LOTS_AVAILABLE).get()));
         }

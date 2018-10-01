@@ -31,7 +31,7 @@ public class CarparkCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label lotsAvailabe;
+    private Label lotsAvailable;
     @FXML
     private Label totalLots;
     @FXML
@@ -48,11 +48,9 @@ public class CarparkCard extends UiPart<Region> {
         this.carpark = carpark;
         id.setText(displayedIndex + ". ");
         carparkNumber.setText(carpark.getCarparkNumber().value);
-        lotsAvailabe.setText(carpark.getLotsAvailable().value);
-        totalLots.setText(carpark.getTotalLots().value);
-        lotType.setText(carpark.getLotType().value);
         address.setText(carpark.getAddress().value);
-//        email.setText(carpark.getEmail().value);
+        totalLots.setText("Total Lots: " + carpark.getTotalLots().value);
+        lotsAvailable.setText("Lots Available: " + carpark.getLotsAvailable().value);
         carpark.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 

@@ -9,12 +9,10 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.carpark.Address;
 import seedu.address.model.carpark.CarparkNumber;
-import seedu.address.model.carpark.LotType;
 import seedu.address.model.carpark.LotsAvailable;
 import seedu.address.model.carpark.TotalLots;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
@@ -25,60 +23,6 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-
-    /**
-     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
-     * trimmed.
-     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
-     */
-    public static CarparkNumber parseCarparkNumber(String CarparkNumber) throws ParseException {
-        String trimmedCarparkNumber = CarparkNumber.trim();
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedCarparkNumber)) {
-            throw new ParseException(MESSAGE_INVALID_INDEX);
-        }
-        return new CarparkNumber(trimmedCarparkNumber);
-    }
-
-    /**
-     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
-     * trimmed.
-     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
-     */
-    public static LotsAvailable parseLotsAvailable(String LotsAvailable) throws ParseException {
-        String trimmedLotsAvailable = LotsAvailable.trim();
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedLotsAvailable)) {
-            throw new ParseException(MESSAGE_INVALID_INDEX);
-        }
-        return new LotsAvailable(trimmedLotsAvailable);
-    }
-
-    /**
-     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
-     * trimmed.
-     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
-     */
-    public static LotType parseLotsType(String LotsType) throws ParseException {
-        String trimmedLotsType = LotsType.trim();
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedLotsType)) {
-            throw new ParseException(MESSAGE_INVALID_INDEX);
-        }
-        return new LotType(trimmedLotsType);
-    }
-
-    /**
-     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
-     * trimmed.
-     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
-     */
-    public static TotalLots parseTotalLots(String TotalLots) throws ParseException {
-        String trimmedTotalLots = TotalLots.trim();
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedTotalLots)) {
-            throw new ParseException(MESSAGE_INVALID_INDEX);
-        }
-        return new TotalLots(trimmedTotalLots);
-    }
-
-
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -124,6 +68,49 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String carNum} into a {@code CarparkNumber}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code carNum} is invalid.
+     */
+    public static CarparkNumber parseCarparkNumber(String carNum) throws ParseException {
+        String trimmedcarNum = carNum.trim();
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedcarNum)) {
+            throw new ParseException(MESSAGE_INVALID_INDEX);
+        }
+        return new CarparkNumber(trimmedcarNum);
+    }
+
+    /**
+     * Parses a {@code String lotsAvail} into a {@code LotsAvailable}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code lotsAvail} is invalid.
+     */
+    public static LotsAvailable parseLotsAvailable(String lotsAvail) throws ParseException {
+        String trimmedlotsAvail = lotsAvail.trim();
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedlotsAvail)) {
+            throw new ParseException(MESSAGE_INVALID_INDEX);
+        }
+        return new LotsAvailable(trimmedlotsAvail);
+    }
+
+    /**
+     * Parses a {@code String totalLots} into an {@code TotalLots}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code totalLots} is invalid.
+     */
+    public static TotalLots parseTotalLots(String totalLots) throws ParseException {
+        requireNonNull(totalLots);
+        String trimmedTotalLots = totalLots.trim();
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedTotalLots)) {
+            throw new ParseException(MESSAGE_INVALID_INDEX);
+        }
+        return new TotalLots(trimmedTotalLots);
+    }
+
+    /**
      * Parses a {@code String address} into an {@code Address}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -136,21 +123,6 @@ public class ParserUtil {
             throw new ParseException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
         }
         return new Address(trimmedAddress);
-    }
-
-    /**
-     * Parses a {@code String email} into an {@code Email}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code email} is invalid.
-     */
-    public static Email parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_EMAIL_CONSTRAINTS);
-        }
-        return new Email(trimmedEmail);
     }
 
     /**

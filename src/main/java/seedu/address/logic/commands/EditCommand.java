@@ -1,11 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 //import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 //import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 //import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARPARK;
 
 import java.util.Collections;
@@ -22,10 +20,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.carpark.Carpark;
 import seedu.address.model.carpark.CarparkNumber;
-import seedu.address.model.carpark.LotType;
 import seedu.address.model.carpark.LotsAvailable;
 import seedu.address.model.carpark.TotalLots;
-import seedu.address.model.person.Address;
+import seedu.address.model.carpark.Address;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -48,7 +45,7 @@ public class EditCommand extends Command {
 //            + PREFIX_PHONE + "91234567 "
 //            + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_USAGE = "I AM TOO BUSY TO MAKE THESE EDITS";
+    public static final String MESSAGE_USAGE = "We are not doing edits. Due for deletion.";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -92,21 +89,26 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
+     * Creates and returns a {@code Carpark} with the details of {@code carparkToEdit}
      * edited with {@code editCarparkDescriptor}.
      */
-    private static Carpark createEditedCarpark(Carpark carparkToEdit, EditCarparkDescriptor editCarparkDescriptor) {
+    private static Carpark createEditedCarpark(Carpark carparkToEdit,
+                                               EditCarparkDescriptor editCarparkDescriptor) {
         assert carparkToEdit != null;
 
-        CarparkNumber updatedCarparkNumber = editCarparkDescriptor.getCarparkNumber().orElse(carparkToEdit.getCarparkNumber());
-        TotalLots updatedTotalLots = editCarparkDescriptor.getTotalLots().orElse(carparkToEdit.getTotalLots());
-        LotsAvailable updatedLotsAvailable = editCarparkDescriptor.getLotsAvailable().orElse(carparkToEdit.getLotsAvailable());
-        LotType updatedLotType = editCarparkDescriptor.getLotType().orElse(carparkToEdit.getLotType());
-        Address updatedAddress = editCarparkDescriptor.getAddress().orElse(carparkToEdit.getAddress());
-        Set<Tag> updatedTags = editCarparkDescriptor.getTags().orElse(carparkToEdit.getTags());
+        CarparkNumber updatedCarparkNumber = editCarparkDescriptor.getCarparkNumber()
+                .orElse(carparkToEdit.getCarparkNumber());
+        TotalLots updatedTotalLots = editCarparkDescriptor.getTotalLots()
+                .orElse(carparkToEdit.getTotalLots());
+        LotsAvailable updatedLotsAvailable = editCarparkDescriptor.getLotsAvailable()
+                .orElse(carparkToEdit.getLotsAvailable());
+        Address updatedAddress = editCarparkDescriptor.getAddress()
+                .orElse(carparkToEdit.getAddress());
+        Set<Tag> updatedTags = editCarparkDescriptor.getTags()
+                .orElse(carparkToEdit.getTags());
 
-//        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
-        return new Carpark(updatedCarparkNumber, updatedTotalLots, updatedLotsAvailable, updatedLotType, updatedAddress, updatedTags);
+        return new Carpark(updatedCarparkNumber, updatedTotalLots, updatedLotsAvailable,
+                updatedAddress, updatedTags);
     }
 
     @Override
@@ -132,43 +134,9 @@ public class EditCommand extends Command {
      * corresponding field value of the carpark.
      */
     public static class EditCarparkDescriptor {
-        public Optional<CarparkNumber> getCarparkNumber() {
-            return Optional.of(carparkNumber);
-        }
-
-        public Optional<TotalLots> getTotalLots() {
-            return Optional.of(totalLots);
-        }
-
-        public Optional<LotsAvailable> getLotsAvailable() {
-            return Optional.of(lotsAvailable);
-        }
-
-        public Optional<LotType> getLotType() {
-            return Optional.of(lotType);
-        }
-
         private CarparkNumber carparkNumber;
         private TotalLots totalLots;
-
-        public void setCarparkNumber(CarparkNumber carparkNumber) {
-            this.carparkNumber = carparkNumber;
-        }
-
-        public void setTotalLots(TotalLots totalLots) {
-            this.totalLots = totalLots;
-        }
-
-        public void setLotsAvailable(LotsAvailable lotsAvailable) {
-            this.lotsAvailable = lotsAvailable;
-        }
-
-        public void setLotType(LotType lotType) {
-            this.lotType = lotType;
-        }
-
         private LotsAvailable lotsAvailable;
-        private LotType lotType;
         private Address address;
         private Set<Tag> tags;
 
@@ -179,13 +147,9 @@ public class EditCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditCarparkDescriptor(EditCarparkDescriptor toCopy) {
-//            setName(toCopy.name);
-//            setPhone(toCopy.phone);
-//            setEmail(toCopy.email);
             setCarparkNumber(toCopy.carparkNumber);
             setLotsAvailable(toCopy.lotsAvailable);
             setTotalLots(toCopy.totalLots);
-            setLotType(toCopy.lotType);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
         }
@@ -194,32 +158,32 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(carparkNumber, lotsAvailable, totalLots, lotType, address, tags);
+            return CollectionUtil.isAnyNonNull(carparkNumber, lotsAvailable, totalLots, address, tags);
         }
 
-//        public void setName(Name name) {
-//            this.name = name;
-//        }
-//
-//        public Optional<Name> getName() {
-//            return Optional.ofNullable(name);
-//        }
-//
-//        public void setPhone(Phone phone) {
-//            this.phone = phone;
-//        }
-//
-//        public Optional<Phone> getPhone() {
-//            return Optional.ofNullable(phone);
-//        }
-//
-//        public void setEmail(Email email) {
-//            this.email = email;
-//        }
-//
-//        public Optional<Email> getEmail() {
-//            return Optional.ofNullable(email);
-//        }
+        public void setCarparkNumber(CarparkNumber carparkNumber) {
+            this.carparkNumber = carparkNumber;
+        }
+
+        public Optional<CarparkNumber> getCarparkNumber() {
+            return Optional.of(carparkNumber);
+        }
+
+        public void setTotalLots(TotalLots totalLots) {
+            this.totalLots = totalLots;
+        }
+
+        public Optional<TotalLots> getTotalLots() {
+            return Optional.of(totalLots);
+        }
+
+        public void setLotsAvailable(LotsAvailable lotsAvailable) {
+            this.lotsAvailable = lotsAvailable;
+        }
+
+        public Optional<LotsAvailable> getLotsAvailable() {
+            return Optional.of(lotsAvailable);
+        }
 
         public void setAddress(Address address) {
             this.address = address;
@@ -263,7 +227,6 @@ public class EditCommand extends Command {
 
             return getCarparkNumber().equals(e.getCarparkNumber())
                     && getLotsAvailable().equals(e.getLotsAvailable())
-                    && getLotType().equals(e.getLotType())
                     && getTotalLots().equals(e.getTotalLots())
                     && getAddress().equals(e.getAddress())
                     && getTags().equals(e.getTags());
