@@ -12,8 +12,8 @@ import seedu.address.model.tag.Tag;
  * @author Ahan
  */
 public abstract class Entity {
-    private Set<Tag> tags; // TODO Change from Set to hashMap.
     protected TypeUtil type; // TODO add type to Person's constructor.
+    private Set<Tag> tags; // TODO Change from Set to hashMap.
 
     public Set<Tag> getTags() {
         return tags;

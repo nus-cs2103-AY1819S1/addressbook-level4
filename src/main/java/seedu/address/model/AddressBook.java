@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.occasion.Occasion;
 import seedu.address.model.occasion.UniqueOccasionList;
 import seedu.address.model.person.Person;

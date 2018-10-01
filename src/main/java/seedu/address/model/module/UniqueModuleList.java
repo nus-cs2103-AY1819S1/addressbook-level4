@@ -1,14 +1,23 @@
 package seedu.address.model.module;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import seedu.address.model.module.exceptions.DuplicateModuleException;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Iterator;
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.address.model.module.exceptions.DuplicateModuleException;
 
+/**
+ * A list of modules that enforces uniqueness between its elements and does not allow nulls.
+ * A module is considered unique by comparing using {@code Module#equals(Module)}. As such, adding and updating of
+ * modules uses Module#equals(Module) for equality so as to ensure that the module being added or updated is
+ * unique in terms of identity in the UniqueModuleList.
+ *
+ * Supports a minimal set of list operations.
+ *
+ */
 public class UniqueModuleList implements Iterable<Module> {
 
     private final ObservableList<Module> internalList = FXCollections.observableArrayList();
@@ -24,7 +33,6 @@ public class UniqueModuleList implements Iterable<Module> {
     /**
      * Adds the specified module to the list iff it is not originally contained
      * within it.
-     * @param moduleToAdd
      */
     public void add(Module moduleToAdd) {
         requireNonNull(moduleToAdd);
@@ -96,8 +104,9 @@ public class UniqueModuleList implements Iterable<Module> {
     private boolean modulesAreUnique(List<Module> modules) {
         for (int i = 0; i < modules.size(); i++) {
             for (int j = 0; j < modules.size(); j++) {
-                if (modules.get(i).equals(modules.get(j)))
+                if (modules.get(i).equals(modules.get(j))) {
                     return false;
+                }
             }
         }
         return true;

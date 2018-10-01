@@ -1,14 +1,23 @@
 package seedu.address.model.occasion;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import seedu.address.model.occasion.exceptions.DuplicateOccasionException;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Iterator;
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.address.model.occasion.exceptions.DuplicateOccasionException;
 
+/**
+ * A list of occasions that enforces uniqueness between its elements and does not allow nulls.
+ * An occasion is considered unique by comparing using {@code Occasion#equals(Occasion)}. As such, adding and updating of
+ * occasions uses Occasion#equals(Occasion) for equality so as to ensure that the occasion being added or updated is
+ * unique in terms of identity in the UniqueOccasionList.
+ *
+ * Supports a minimal set of list operations.
+ *
+ */
 public class UniqueOccasionList implements Iterable<Occasion> {
     private final ObservableList<Occasion> internalList = FXCollections.observableArrayList();
 
@@ -23,7 +32,6 @@ public class UniqueOccasionList implements Iterable<Occasion> {
     /**
      * Adds the specified occasion to the list iff it is not originally contained
      * within it.
-     * @param occasionToAdd
      */
     public void add(Occasion occasionToAdd) {
         requireNonNull(occasionToAdd);
@@ -95,8 +103,9 @@ public class UniqueOccasionList implements Iterable<Occasion> {
     private boolean occasionsAreUnique(List<Occasion> occasions) {
         for (int i = 0; i < occasions.size(); i++) {
             for (int j = 0; j < occasions.size(); j++) {
-                if (occasions.get(i).equals(occasions.get(j)))
+                if (occasions.get(i).equals(occasions.get(j))) {
                     return false;
+                }
             }
         }
         return true;
