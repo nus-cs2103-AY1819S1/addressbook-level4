@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MEETING;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.Messages;
@@ -74,9 +75,9 @@ public class ScheduleCommand extends Command {
         assert personToSchedule != null;
 
         Name name = personToSchedule.getName();
-        Phone phone = personToSchedule.getPhone();
-        Email email = personToSchedule.getEmail();
-        Address address = personToSchedule.getAddress();
+        Optional<Phone> phone = personToSchedule.getPhone();
+        Optional<Email> email = personToSchedule.getEmail();
+        Optional<Address> address = personToSchedule.getAddress();
         Set<Tag> tags = personToSchedule.getTags();
 
         return new Person(name, phone, email, address, tags, meeting);

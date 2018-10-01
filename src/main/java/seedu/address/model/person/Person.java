@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.meeting.Meeting;
@@ -12,17 +13,18 @@ import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Person in the address book.
- * Guarantees: details are present and not null, field values are validated, immutable.
+ * Guarantees: details are present and not null, but details other than name are optional, field values are
+ * validated, immutable.
  */
 public class Person {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
-    private final Email email;
+    private final Optional<Phone> phone;
+    private final Optional<Email> email;
 
     // Data fields
-    private final Address address;
+    private final Optional<Address> address;
     private final Set<Tag> tags = new HashSet<>();
 
     private final Meeting meeting;
@@ -31,7 +33,7 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Person(Name name, Optional<Phone> phone, Optional<Email> email, Optional<Address> address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
@@ -46,7 +48,7 @@ public class Person {
      * Constructor for scheduling a value. Not to be used for creating a new entry in the
      * address book.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Meeting meeting) {
+    public Person(Name name, Optional<Phone> phone, Optional<Email> email, Optional<Address> address, Set<Tag> tags, Meeting meeting) {
         requireAllNonNull(name, phone, email, address, tags, meeting);
         this.name = name;
         this.phone = phone;
@@ -60,15 +62,15 @@ public class Person {
         return name;
     }
 
-    public Phone getPhone() {
+    public Optional<Phone> getPhone() {
         return phone;
     }
 
-    public Email getEmail() {
+    public Optional<Email> getEmail() {
         return email;
     }
 
-    public Address getAddress() {
+    public Optional<Address> getAddress() {
         return address;
     }
 
@@ -94,9 +96,17 @@ public class Person {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+        // The other person must exist and have the same name to be the same person
+        if (otherPerson == null || !otherPerson.getName().equals(getName())) {
+            return false;
+        }
+
+        boolean bothHavePhone = getPhone().isPresent() && otherPerson.getPhone().isPresent();
+        boolean bothHaveEmail = getEmail().isPresent() && otherPerson.getEmail().isPresent();
+
+        // Do not compare fields unless they are present
+        return ((bothHavePhone && otherPerson.getPhone().equals(getPhone()))
+                || (bothHaveEmail && otherPerson.getEmail().equals(getEmail())));
     }
 
     /**
@@ -131,16 +141,21 @@ public class Person {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
-                .append(" Tags: ")
-                .append(" Meeting: ")
+        builder.append(getName());
+
+        builder.append(" Phone: ");
+        getPhone().ifPresentOrElse(builder::append, () -> builder.append("None"));
+
+        builder.append(" Email: ");
+        getEmail().ifPresentOrElse(builder::append, () -> builder.append("None"));
+
+        builder.append(" Address: ");
+        getAddress().ifPresentOrElse(builder::append, () -> builder.append("None"));
+
+        builder.append(" Meeting: ")
                 .append(getMeeting().toString());
+
+        builder.append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Phone {
 
-
+    public static final String NO_PHONE = "000000000000";
     public static final String MESSAGE_PHONE_CONSTRAINTS =
             "Phone numbers should only contain numbers, and it should be at least 3 digits long";
     public static final String PHONE_VALIDATION_REGEX = "\\d{3,}";
