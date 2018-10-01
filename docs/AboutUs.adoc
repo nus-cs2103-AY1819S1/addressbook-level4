@@ -10,15 +10,15 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Adeel Dhedhi Bhyria
-image::Adeel.png[width="150", align="left"]
-{empty} [https://github.com/adeeldb[github]] [<<johndoe#, portfolio>>]
+image::adeeldb.png[width="150", align="left"]
+{empty} [https://github.com/adeeldb[github]] [<<adeeldb#, portfolio>>]
 
 Responsibilities: UI
 
 '''
 
 === Chow Keng Ji
-image::KengJi.jpg[width="150", align="left"]
+image::theJrLinguist.jpg[width="150", align="left"]
 {empty}[http://github.com/theJrLinguist[github]] [<<theJrLinguist#, portfolio>>]
 
 Responsibilities: Model (Event)
@@ -34,16 +34,16 @@ Responsibilities: Storage
 '''
 
 === Wang Yaofeng
-image::yaofeng.png[width="150", align="left"]
-{empty}[https://github.com/yao-feng[github]] [<<johndoe#, portfolio>>]
+image::yao-feng.png[width="150", align="left"]
+{empty}[https://github.com/yao-feng[github]] [<<yao-feng#, portfolio>>]
 
 Responsibilities: Model (User)
 
 '''
 
 === Zhang Cheng
-image::Zhang Cheng.png[width="150", align="left"]
-{empty}[https://github.com/agendazhang[github]] [<<johndoe#, portfolio>>]
+image::agendazhang.png[width="150", align="left"]
+{empty}[https://github.com/agendazhang[github]] [<<agendazhang#, portfolio>>]
 
 Responsibilities: Logic
 
