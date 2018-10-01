@@ -21,6 +21,7 @@ public class Person {
 
     // Data fields
     private final Cost cost;
+    private final Date date;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -31,6 +32,16 @@ public class Person {
         this.name = name;
         this.phone = phone;
         this.cost = cost;
+        this.date = new Date();
+        this.tags.addAll(tags);
+    }
+
+    public Person(Name name, Phone phone, Cost cost, Set<Tag> tags, Date date) {
+        requireAllNonNull(name, phone, cost, tags, date);
+        this.name = name;
+        this.phone = phone;
+        this.cost = cost;
+        this.date = date;
         this.tags.addAll(tags);
     }
 
@@ -44,6 +55,10 @@ public class Person {
 
     public Cost getCost() {
         return cost;
+    }
+
+    public Date getDate() {
+        return date;
     }
 
     /**
