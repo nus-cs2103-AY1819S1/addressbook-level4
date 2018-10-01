@@ -6,15 +6,15 @@ package seedu.address.model.analytics;
  */
 public class TotalStatistics extends Statistics {
 
-    public static final StatisticType statisticType = StatisticType.TOTAL;
+    public static final StatisticType STATISTIC_TYPE = StatisticType.TOTAL;
     public static final int NUMBER_STATISTICS = 3;
 
     // Different statistics fields.
-    private static final String NUMBER_DAYS = statisticType
+    private static final String NUMBER_DAYS = STATISTIC_TYPE
             + " number of days of operation (inclusive)";
-    private static final String NUMBER_PATIENTS = statisticType
+    private static final String NUMBER_PATIENTS = STATISTIC_TYPE
             + " number of patients to date";
-    private static final String NUMBER_MEDICINES = statisticType
+    private static final String NUMBER_MEDICINES = STATISTIC_TYPE
             + " number of medicines prescribed to date";
 
     // Sets statistics to 0 and stores them in a HashMap.
