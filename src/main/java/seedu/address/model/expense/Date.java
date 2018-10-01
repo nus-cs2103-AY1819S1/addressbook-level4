@@ -66,4 +66,22 @@ public class Date {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         return dateFormat.format(fullDate.getTime());
     }
+
+    /**
+     * Returns true if both Dates represent the same calendar date.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Date)) {
+            return false;
+        }
+
+        Date otherDate = (Date) other;
+        return fullDate.get(Calendar.DAY_OF_YEAR) == otherDate.fullDate.get(Calendar.DAY_OF_YEAR)
+                && fullDate.get(Calendar.YEAR) == otherDate.fullDate.get(Calendar.YEAR);
+    }
 }

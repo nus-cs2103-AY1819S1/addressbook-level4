@@ -100,6 +100,7 @@ public class Person {
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getCost().equals(getCost())
+                && otherPerson.getDate().equals(getDate())
                 && otherPerson.getTags().equals(getTags());
     }
 
