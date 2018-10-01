@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+<<<<<<< HEAD
 import seedu.address.model.carpark.Address;
 import seedu.address.model.carpark.Carpark;
 import seedu.address.model.carpark.CarparkNumber;
@@ -17,6 +18,18 @@ import seedu.address.model.carpark.NightParking;
 import seedu.address.model.carpark.ShortTerm;
 import seedu.address.model.carpark.TotalLots;
 import seedu.address.model.carpark.TypeOfParking;
+=======
+import seedu.address.model.carpark.Carpark;
+import seedu.address.model.carpark.CarparkNumber;
+import seedu.address.model.carpark.LotType;
+import seedu.address.model.carpark.LotsAvailable;
+import seedu.address.model.carpark.TotalLots;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+>>>>>>> master
 import seedu.address.model.tag.Tag;
 
 /**
@@ -39,8 +52,21 @@ public class SampleDataUtil {
         };
     }
 
+    public static Carpark[] getSampleCarpark() {
+        System.out.println("RETURNING SAMPLE LIST, APPLY SMTH HERE PLZ");
+        return new Carpark[] {
+                new Carpark(new CarparkNumber("HELLO"),new TotalLots("10"),new LotsAvailable("5"),new LotType("D"),new Address("Blk 47 Tampines Street 20, #17-35"),getTagSet("AMAZING"))
+        };
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
+<<<<<<< HEAD
+=======
+//        for (Person samplePerson : getSamplePersons()) {
+//            sampleAb.addPerson(samplePerson);
+//        }
+>>>>>>> master
         for (Carpark sampleCarpark : getSampleCarpark()) {
             sampleAb.addPerson(sampleCarpark);
         }

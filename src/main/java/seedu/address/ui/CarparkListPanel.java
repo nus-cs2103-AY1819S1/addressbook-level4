@@ -11,15 +11,15 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.CarparkPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.commons.events.ui.CarparkPanelSelectionChangedEvent;
 import seedu.address.model.carpark.Carpark;
 
 /**
  * Panel containing the list of persons.
  */
 public class CarparkListPanel extends UiPart<Region> {
-    private static final String FXML = "CarparkListPanel.fxml";
+    private static final String FXML = "PersonListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(CarparkListPanel.class);
 
     @FXML

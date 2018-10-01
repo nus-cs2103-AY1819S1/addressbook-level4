@@ -31,7 +31,11 @@ public class FindCommand extends Command {
         requireNonNull(model);
         model.updateFilteredCarparkList(predicate);
         return new CommandResult(
+<<<<<<< HEAD
                 String.format(Messages.MESSAGE_CARPARKS_LISTED_OVERVIEW, model.getFilteredCarparkList().size()));
+=======
+                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredCarparkList().size()));
+>>>>>>> master
     }
 
     @Override

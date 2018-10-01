@@ -12,7 +12,7 @@ import seedu.address.model.carpark.Carpark;
  */
 public class CarparkCard extends UiPart<Region> {
 
-    private static final String FXML = "CarparkListCard.fxml";
+    private static final String FXML = "PersonListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -31,23 +31,15 @@ public class CarparkCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label address;
-    @FXML
-    private Label coordinate;
-    @FXML
-    private Label carparkType;
+    private Label lotsAvailabe;
     @FXML
     private Label totalLots;
     @FXML
-    private Label lotsAvailable;
+    private Label lotType;
     @FXML
-    private Label freeParking;
+    private Label address;
     @FXML
-    private Label nightParking;
-    @FXML
-    private Label shortTerm;
-    @FXML
-    private Label parkingSystem;
+    private Label email;
     @FXML
     private FlowPane tags;
 
@@ -56,15 +48,11 @@ public class CarparkCard extends UiPart<Region> {
         this.carpark = carpark;
         id.setText(displayedIndex + ". ");
         carparkNumber.setText(carpark.getCarparkNumber().value);
+        lotsAvailabe.setText(carpark.getLotsAvailable().value);
+        totalLots.setText(carpark.getTotalLots().value);
+        lotType.setText(carpark.getLotType().value);
         address.setText(carpark.getAddress().value);
-        carparkType.setText(carpark.getCarparkType().value);
-        coordinate.setText("Coordinate: " + carpark.getCoordinate().value);
-        totalLots.setText("Total Lots: " + carpark.getTotalLots().value);
-        lotsAvailable.setText("Lots Available: " + carpark.getLotsAvailable().value);
-        freeParking.setText("Free Parking: " + carpark.getFreeParking().value);
-        nightParking.setText("Night Parking: " + carpark.getNightParking().value);
-        shortTerm.setText("Short Term Parking: " + carpark.getShortTerm().value);
-        parkingSystem.setText("Parking System: " + carpark.getTypeOfParking());
+//        email.setText(carpark.getEmail().value);
         carpark.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
