@@ -4,7 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-Sous chef is the work from a committed team of software developers.
+Sous chef is a project from a committed team of software developers.
 Our team ,
 https://CS2103-AY1819S1-W10-4.github.io/docs/Team.html[W10-4], has created this application
 with the difficulty of young adults managing a healthy lifestyle in mind.
@@ -36,7 +36,7 @@ image::LimShiMinJonathan.jpg[width="150", align="left"]
 {empty}[https://github.com/LimShiMinJonathan[github]]
 
 Role: Developer, Documentation, Deliverables and deadlines +
-Responsibilities: Dev Ops + Threading
+Responsibilities: User Profiling
 
 '''
 
