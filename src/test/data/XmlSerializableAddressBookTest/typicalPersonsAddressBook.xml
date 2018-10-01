@@ -3,41 +3,41 @@
 <addressbook>
     <persons>
         <name>Alice Pauline</name>
-        <phone>94351253</phone>
+        <category>School</category>
         <cost>3.00</cost>
         <tagged>friends</tagged>
     </persons>
     <persons>
         <name>Benson Meier</name>
-        <phone>98765432</phone>
+        <category>Food</category>
         <cost>2.00</cost>
         <tagged>owesMoney</tagged>
         <tagged>friends</tagged>
     </persons>
     <persons>
         <name>Carl Kurz</name>
-        <phone>95352563</phone>
+        <category>Entertainment</category>
         <cost>1.00</cost>
     </persons>
     <persons>
         <name>Daniel Meier</name>
-        <phone>87652533</phone>
+        <category>Shopping</category>
         <cost>2.00</cost>
         <tagged>friends</tagged>
     </persons>
     <persons>
         <name>Elle Meyer</name>
-        <phone>9482224</phone>
+        <category>Tax</category>
         <cost>5.00</cost>
     </persons>
     <persons>
         <name>Fiona Kunz</name>
-        <phone>9482427</phone>
+        <category>Book</category>
         <cost>6.00</cost>
     </persons>
     <persons>
         <name>George Best</name>
-        <phone>9482442</phone>
+        <category>Fine</category>
         <cost>7.00</cost>
     </persons>
     <username>typicalPersonsAddressBook</username>
