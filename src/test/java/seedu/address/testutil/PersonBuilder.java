@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.expense.Cost;
+import seedu.address.model.expense.Date;
 import seedu.address.model.expense.Name;
 import seedu.address.model.expense.Person;
 import seedu.address.model.expense.Phone;
@@ -18,16 +19,19 @@ public class PersonBuilder {
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_COST = "321.00";
+    public static final String DEFAULT_DATE = "01-10-2018";
 
     private Name name;
     private Phone phone;
     private Cost cost;
+    private Date date;
     private Set<Tag> tags;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         cost = new Cost(DEFAULT_COST);
+        date = new Date(DEFAULT_DATE);
         tags = new HashSet<>();
     }
 
@@ -38,6 +42,7 @@ public class PersonBuilder {
         name = personToCopy.getName();
         phone = personToCopy.getPhone();
         cost = personToCopy.getCost();
+        date = personToCopy.getDate();
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -73,6 +78,13 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Date} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withDate(String date) {
+        this.date = new Date(date);
+        return this;
+    }
 
     public Person build() {
         return new Person(name, phone, cost, tags);

@@ -36,6 +36,8 @@ public class CommandTestUtil {
     public static final String VALID_PHONE_BOB = "22222222";
     public static final String VALID_ADDRESS_AMY = "123.00";
     public static final String VALID_ADDRESS_BOB = "22.00";
+    public static final String VALID_DATE_AMY = "30-09-2018";
+    public static final String VALID_DATE_BOB = "29-09-2018";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
