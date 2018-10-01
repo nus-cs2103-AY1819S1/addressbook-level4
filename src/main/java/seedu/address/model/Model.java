@@ -74,10 +74,10 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
-     * @return An unmodifiable view of the sorted person list 
+     * @return An unmodifiable view of the sorted person list
      */
     ObservableList<Person> getSortedPersonList();
-    
+
     /**
      * Updates the sorting of the sorted person list to sort by the given {@code comparator}.
      * @param personPropertyComparator The comparator to sort the list by.

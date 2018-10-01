@@ -118,14 +118,14 @@ public class ModelManager extends ComponentManager implements Model {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
-    
+
     //=========== Sorted Person List Accessors ==============================================================
 
     @Override
     public ObservableList<Person> getSortedPersonList() {
         return FXCollections.unmodifiableObservableList(sortedPersons);
     }
-    
+
     @Override
     public void updateSortedPersonList(PersonPropertyComparator personPropertyComparator) {
         requireNonNull(personPropertyComparator);

@@ -14,7 +14,7 @@ public class SortCommand extends Command {
 
     public static final String COMMAND_WORD = "sort";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD 
+    public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Sorts the displayed person list based on the property given by their natural ordering.\n"
             + "Parameters: [name/phone/email/address]\n"
             + "Example: " + COMMAND_WORD + " name";
