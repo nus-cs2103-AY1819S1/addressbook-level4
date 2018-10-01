@@ -1,9 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -25,7 +23,8 @@ public class LoginCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
-            + PREFIX_EMAIL + "johnd@example.com";
+            + PREFIX_EMAIL + "johnd@example.com"
+            + PREFIX_ADDRESS + "a/123, Clementi Rd, 1234665";
 
     public static final String MESSAGE_SUCCESS = "Welcome back %1$s!";
     public static final String MESSAGE_PERSON_DOES_NOT_EXIST = "This person does not exist in the address book";
