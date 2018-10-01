@@ -279,18 +279,31 @@ Shorthand: `q`
 
 === Mass import contacts: `import`
 
-Import contacts from a csv file. User provides the file path as the second argument. +
-Format: `import SOURCE_FILE_PATH`
+Import contacts from a csv file. A file browser will open for users to navigate to their desired file (.txt and .csv only) +
+Format: `import`
 
+Shorthand: `i`
 ****
 * Address book will fetch the file from the given path.
-* Address book will throw an error message if the path or file type is invalid.
+* Address book will NOT throw an error message if the formatting of the file is incorrect.
+* Improperly formatted contacts and/or duplicate contacts will be ignored.
+* Examples of properly formatted csv files are shown below.
 ****
 
 Example:
 
-* `import C:\Users\John Doe\Desktop\contacts.csv` +
-Address book will import the contacts provided in the csv file.
+* `import` 
+* A file browser will pop up as shown below:
++
+image::import.png[width="790"]
++
+* Address book will load contacts from the given csv file
+* Each contact in these files must have the name, phone number, email and address fields filled up in that order.
+* Any invalid entries will be ignored.
++
+image::import-acceptable-csv.png[width="790"]
++
+image::import-acceptable-csv2.png[width="790"]
 
 === Mass export email addresses: `export`
 
@@ -448,7 +461,7 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
-* *Import contacts* : `import SOURCE_FILE_PATH`
+* *Import contacts* : `import`
 * *Export email addresses* : `export DESTINATION_DIRECTORY`
 * *Schedule* : `schedule n/NAME d/DDMMYY [t/HHMM]`
 * *Meetings* : `meetings [d/DDMMYY] [t/HHMM]`
