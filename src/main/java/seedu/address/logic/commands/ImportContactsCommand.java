@@ -7,6 +7,8 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+import java.io.File;
+
 /**
  * Import contacts to the address book.
  */
@@ -23,21 +25,20 @@ public class ImportContactsCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Contacts imported";
 
-    private final String toImport;
+    private final File toImport;
 
     /**
      * Creates an ImportContactsCommand to add the specified {@code File}
      */
-    public ImportContactsCommand(String file) {
-        requireNonNull(file);
-        toImport = file;
+    public ImportContactsCommand(File filePath) {
+        requireNonNull(filePath);
+        toImport = filePath;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        model.importContacts(toImport);
         //model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toImport));
     }
