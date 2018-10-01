@@ -4,9 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.address.testutil.TypicalTasks.AMY;
-import static seedu.address.testutil.TypicalTasks.BOB;
-import static seedu.address.testutil.TypicalTasks.CARL;
+import static seedu.address.testutil.TypicalTasks.C_TASK;
+import static seedu.address.testutil.TypicalTasks.Y_TASK;
+import static seedu.address.testutil.TypicalTasks.Z_TASK;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,9 +18,9 @@ import seedu.address.testutil.TaskManagerBuilder;
 
 public class VersionedTaskManagerTest {
 
-    private final ReadOnlyTaskManager taskManagerWithAmy = new TaskManagerBuilder().withTask(AMY).build();
-    private final ReadOnlyTaskManager taskManagerWithBob = new TaskManagerBuilder().withTask(BOB).build();
-    private final ReadOnlyTaskManager taskManagerWithCarl = new TaskManagerBuilder().withTask(CARL).build();
+    private final ReadOnlyTaskManager taskManagerWithAmy = new TaskManagerBuilder().withTask(Y_TASK).build();
+    private final ReadOnlyTaskManager taskManagerWithBob = new TaskManagerBuilder().withTask(Z_TASK).build();
+    private final ReadOnlyTaskManager taskManagerWithCarl = new TaskManagerBuilder().withTask(C_TASK).build();
     private final ReadOnlyTaskManager emptyTaskManager = new TaskManagerBuilder().build();
 
     @Test

@@ -2,18 +2,25 @@ package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.model.util.DateFormatUtil.isValidDateFormat;
+import static seedu.address.model.util.DateFormatUtil.parseDate;
+
+import java.util.Date;
 
 /**
- * Represents a Task's due date number in the address book.
+ * Represents a due date in the {@link Task}.
  * Guarantees: immutable; is valid as declared in {@link #isValidDueDate(String)}
  */
 public class DueDate {
 
-
     public static final String MESSAGE_DUEDATE_CONSTRAINTS =
-            "DueDate numbers should only contain numbers, and it should be at least 3 digits long";
-    public static final String DUEDATE_VALIDATION_REGEX = "\\d{3,}";
+            "DueDate should only contain numbers, and it should be in one of the following formats:\n"
+                    + " dd-mm-yy, dd-mm-yyyy, dd-mm-yy HHmm, dd-mm-yyyy HHmm\n"
+                    + "Note: 24h time format";
+
+    public static final String DUEDATE_REGEX = "\\d{1,2}-\\d{1,2}-\\d{2,4}( \\d{4})?";
     public final String value;
+    public final Date valueDate;
 
     /**
      * Constructs a {@code DueDate}.
@@ -24,13 +31,29 @@ public class DueDate {
         requireNonNull(dueDate);
         checkArgument(isValidDueDate(dueDate), MESSAGE_DUEDATE_CONSTRAINTS);
         value = dueDate;
+        valueDate = parseDate(value);
     }
 
     /**
      * Returns true if a given string is a valid due date.
+     *
+     * @param test date to be checked
      */
     public static boolean isValidDueDate(String test) {
-        return test.matches(DUEDATE_VALIDATION_REGEX);
+        if (test == null) {
+            throw new NullPointerException();
+        }
+        if (!test.matches(DUEDATE_REGEX)) {
+            return false;
+        }
+        return isValidDateFormat(test);
+    }
+
+    /**
+     * Returns true if a given {@code DueDate} is overdue.
+     */
+    public boolean isOverDue() {
+        return new Date().compareTo(valueDate) > 0;
     }
 
     @Override

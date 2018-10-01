@@ -7,6 +7,7 @@ import seedu.address.model.person.Description;
 import seedu.address.model.person.DueDate;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.PriorityValue;
+import seedu.address.model.person.Status;
 import seedu.address.model.person.Task;
 import seedu.address.model.tag.Label;
 import seedu.address.model.util.SampleDataUtil;
@@ -16,34 +17,37 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class TaskBuilder {
 
-    public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_DUEDATE = "85355255";
-    public static final String DEFAULT_PRIORITYVALUE = "alice@gmail.com";
+    public static final String DEFAULT_NAME = "Address CS2103 email";
+    public static final String DEFAULT_DUEDATE = "20-12-18";
+    public static final String DEFAULT_PRIORITY_VALUE = "2"; // Setting to 1 clashes with A_TASK
     public static final String DEFAULT_DESCRIPTION = "123, Jurong West Ave 6, #08-111";
 
     private Name name;
     private DueDate dueDate;
     private PriorityValue priorityValue;
-    private Description address;
+    private Description description;
     private Set<Label> labels;
+    private Status status;
 
     public TaskBuilder() {
         name = new Name(DEFAULT_NAME);
         dueDate = new DueDate(DEFAULT_DUEDATE);
-        priorityValue = new PriorityValue(DEFAULT_PRIORITYVALUE);
-        address = new Description(DEFAULT_DESCRIPTION);
+        priorityValue = new PriorityValue(DEFAULT_PRIORITY_VALUE);
+        description = new Description(DEFAULT_DESCRIPTION);
         labels = new HashSet<>();
+        status = Status.IN_PROGRESS;
     }
 
     /**
-     * Initializes the TaskBuilder with the data of {@code personToCopy}.
+     * Initializes the TaskBuilder with the data of {@code taskToCopy}.
      */
-    public TaskBuilder(Task personToCopy) {
-        name = personToCopy.getName();
-        dueDate = personToCopy.getDueDate();
-        priorityValue = personToCopy.getPriorityValue();
-        address = personToCopy.getDescription();
-        labels = new HashSet<>(personToCopy.getLabels());
+    public TaskBuilder(Task taskToCopy) {
+        name = taskToCopy.getName();
+        dueDate = taskToCopy.getDueDate();
+        priorityValue = taskToCopy.getPriorityValue();
+        description = taskToCopy.getDescription();
+        labels = new HashSet<>(taskToCopy.getLabels());
+        status = taskToCopy.getStatus();
     }
 
     /**
@@ -66,7 +70,7 @@ public class TaskBuilder {
      * Sets the {@code Description} of the {@code Task} that we are building.
      */
     public TaskBuilder withDescription(String description) {
-        this.address = new Description(description);
+        this.description = new Description(description);
         return this;
     }
 
@@ -86,8 +90,16 @@ public class TaskBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Status} of the {@code Task} that we are building.
+     */
+    public TaskBuilder withStatus(Status status) {
+        this.status = status;
+        return this;
+    }
+
     public Task build() {
-        return new Task(name, dueDate, priorityValue, address, labels);
+        return new Task(name, dueDate, priorityValue, description, labels, status);
     }
 
 }

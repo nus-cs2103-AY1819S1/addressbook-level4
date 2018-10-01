@@ -2,56 +2,65 @@
 <taskmanager>
     <tasks>
         <name>Hans Muster</name>
-        <dueDate isPrivate="false">9482424</dueDate>
-        <priorityValue isPrivate="false">hans@example.com</priorityValue>
+        <dueDate isPrivate="false">21-12-18</dueDate>
+        <priorityValue isPrivate="false">8</priorityValue>
         <description isPrivate="false">4th street</description>
+        <status>IN PROGRESS</status>
     </tasks>
     <tasks>
         <name>Ruth Mueller</name>
-        <dueDate isPrivate="false">87249245</dueDate>
-        <priorityValue isPrivate="false">ruth@example.com</priorityValue>
+        <dueDate isPrivate="false">22-12-18</dueDate>
+        <priorityValue isPrivate="false">8</priorityValue>
         <description isPrivate="false">81th street</description>
+        <status>IN PROGRESS</status>
     </tasks>
     <tasks>
         <name>Heinz Kurz</name>
-        <dueDate isPrivate="false">95352563</dueDate>
-        <priorityValue isPrivate="false">heinz@example.com</priorityValue>
+        <dueDate isPrivate="false">03-12-18</dueDate>
+        <priorityValue isPrivate="false">8</priorityValue>
         <description isPrivate="false">wall street</description>
+        <status>IN PROGRESS</status>
     </tasks>
     <tasks>
         <name>Cornelia Meier</name>
-        <dueDate isPrivate="false">87652533</dueDate>
-        <priorityValue isPrivate="false">cornelia@example.com</priorityValue>
+        <dueDate isPrivate="false">04-12-18</dueDate>
+        <priorityValue isPrivate="false">3</priorityValue>
         <description isPrivate="false">10th street</description>
+        <status>IN PROGRESS</status>
     </tasks>
     <tasks>
         <name>Werner Meyer</name>
-        <dueDate isPrivate="false">9482224</dueDate>
-        <priorityValue isPrivate="false">werner@example.com</priorityValue>
+        <dueDate isPrivate="false">05-12-18</dueDate>
+        <priorityValue isPrivate="false">3</priorityValue>
         <description isPrivate="false">michegan ave</description>
+        <status>IN PROGRESS</status>
     </tasks>
     <tasks>
         <name>Lydia Kunz</name>
-        <dueDate isPrivate="false">9482427</dueDate>
-        <priorityValue isPrivate="false">lydia@example.com</priorityValue>
+        <dueDate isPrivate="false">06-12-18</dueDate>
+        <priorityValue isPrivate="false">2</priorityValue>
         <description isPrivate="false">little tokyo</description>
+        <status>IN PROGRESS</status>
     </tasks>
     <tasks>
         <name>Anna Best</name>
-        <dueDate isPrivate="false">9482442</dueDate>
-        <priorityValue isPrivate="false">anna@example.com</priorityValue>
+        <dueDate isPrivate="false">07-12-18</dueDate>
+        <priorityValue isPrivate="false">1</priorityValue>
         <description isPrivate="false">4th street</description>
+        <status>IN PROGRESS</status>
     </tasks>
     <tasks>
         <name>Stefan Meier</name>
-        <dueDate isPrivate="false">8482424</dueDate>
-        <priorityValue isPrivate="false">stefan@example.com</priorityValue>
+        <dueDate isPrivate="false">08-12-18 0900</dueDate>
+        <priorityValue isPrivate="false">9</priorityValue>
         <description isPrivate="false">little india</description>
+        <status>IN PROGRESS</status>
     </tasks>
     <tasks>
         <name>Martin Mueller</name>
-        <dueDate isPrivate="false">8482131</dueDate>
-        <priorityValue isPrivate="false">hans@example.com</priorityValue>
+        <dueDate isPrivate="false">09-12-18</dueDate>
+        <priorityValue isPrivate="false">3</priorityValue>
         <description isPrivate="false">chicago ave</description>
+        <status>IN PROGRESS</status>
     </tasks>
 </taskmanager>

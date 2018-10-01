@@ -16,8 +16,8 @@ public class TaskManagerBuilder {
         taskManager = new TaskManager();
     }
 
-    public TaskManagerBuilder(TaskManager addressBook) {
-        this.taskManager = addressBook;
+    public TaskManagerBuilder(TaskManager taskManager) {
+        this.taskManager = taskManager;
     }
 
     /**

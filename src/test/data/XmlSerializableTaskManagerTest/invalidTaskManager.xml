@@ -3,8 +3,9 @@
     <!-- Person with invalid priorityValue field -->
     <tasks>
         <name>Hans Muster</name>
-        <dueDate isPrivate="false">9482424</dueDate>
-        <priorityValue isPrivate="false">hans@exam!32ple</priorityValue>
+        <dueDate isPrivate="false">21-12-18</dueDate>
+        <priorityValue isPrivate="false">0</priorityValue>
         <description isPrivate="false">4th street</description>
+        <status>IN PROGRESS</status>
     </tasks>
 </taskmanager>

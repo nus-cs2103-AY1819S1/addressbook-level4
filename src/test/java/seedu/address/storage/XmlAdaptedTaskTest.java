@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.storage.XmlAdaptedTask.MISSING_FIELD_MESSAGE_FORMAT;
-import static seedu.address.testutil.TypicalTasks.BENSON;
+import static seedu.address.testutil.TypicalTasks.B_TASK;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,18 +24,18 @@ public class XmlAdaptedTaskTest {
     private static final String INVALID_PRIORITY_VALUE = "example.com";
     private static final String INVALID_LABEL = "#friend";
 
-    private static final String VALID_NAME = BENSON.getName().toString();
-    private static final String VALID_DUE_DATE = BENSON.getDueDate().toString();
-    private static final String VALID_PRIORITY_VALUE = BENSON.getPriorityValue().toString();
-    private static final String VALID_DESCRIPTION = BENSON.getDescription().toString();
-    private static final List<XmlAdaptedLabel> VALID_LABELS = BENSON.getLabels().stream()
+    private static final String VALID_NAME = B_TASK.getName().toString();
+    private static final String VALID_DUE_DATE = B_TASK.getDueDate().toString();
+    private static final String VALID_PRIORITY_VALUE = B_TASK.getPriorityValue().toString();
+    private static final String VALID_DESCRIPTION = B_TASK.getDescription().toString();
+    private static final List<XmlAdaptedLabel> VALID_LABELS = B_TASK.getLabels().stream()
             .map(XmlAdaptedLabel::new)
             .collect(Collectors.toList());
 
     @Test
     public void toModelType_validTaskDetails_returnsTask() throws Exception {
-        XmlAdaptedTask task = new XmlAdaptedTask(BENSON);
-        assertEquals(BENSON, task.toModelType());
+        XmlAdaptedTask task = new XmlAdaptedTask(B_TASK);
+        assertEquals(B_TASK, task.toModelType());
     }
 
     @Test
@@ -74,7 +74,7 @@ public class XmlAdaptedTaskTest {
     public void toModelType_invalidPriorityValue_throwsIllegalValueException() {
         XmlAdaptedTask task =
                 new XmlAdaptedTask(VALID_NAME, VALID_DUE_DATE, INVALID_PRIORITY_VALUE, VALID_DESCRIPTION, VALID_LABELS);
-        String expectedMessage = PriorityValue.MESSAGE_PRIORITYVALUE_CONSTRAINTS;
+        String expectedMessage = PriorityValue.MESSAGE_PRIORITY_VALUE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, task::toModelType);
     }
 

@@ -52,18 +52,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code DueDate}.
+     * Parses a {@code String dueDate} into a {@code DueDate}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws ParseException if the given {@code dueDate} is invalid.
      */
-    public static DueDate parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!DueDate.isValidDueDate(trimmedPhone)) {
+    public static DueDate parseDueDate(String dueDate) throws ParseException {
+        requireNonNull(dueDate);
+        String trimmedDueDate = dueDate.trim();
+        if (!DueDate.isValidDueDate(trimmedDueDate)) {
             throw new ParseException(DueDate.MESSAGE_DUEDATE_CONSTRAINTS);
         }
-        return new DueDate(trimmedPhone);
+        return new DueDate(trimmedDueDate);
     }
 
     /**
@@ -91,7 +91,7 @@ public class ParserUtil {
         requireNonNull(email);
         String trimmedEmail = email.trim();
         if (!PriorityValue.isValidPriorityValue(trimmedEmail)) {
-            throw new ParseException(PriorityValue.MESSAGE_PRIORITYVALUE_CONSTRAINTS);
+            throw new ParseException(PriorityValue.MESSAGE_PRIORITY_VALUE_CONSTRAINTS);
         }
         return new PriorityValue(trimmedEmail);
     }

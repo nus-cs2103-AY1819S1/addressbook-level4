@@ -28,14 +28,21 @@ public class DueDateTest {
         // invalid due date
         assertFalse(DueDate.isValidDueDate("")); // empty string
         assertFalse(DueDate.isValidDueDate(" ")); // spaces only
-        assertFalse(DueDate.isValidDueDate("91")); // less than 3 numbers
-        assertFalse(DueDate.isValidDueDate("phone")); // non-numeric
-        assertFalse(DueDate.isValidDueDate("9011p041")); // alphabets within digits
-        assertFalse(DueDate.isValidDueDate("9312 1534")); // spaces within digits
+        assertFalse(DueDate.isValidDueDate("date")); // non-numeric
+        assertFalse(DueDate.isValidDueDate("11 11 12")); // spaces within digits
+        assertFalse(DueDate.isValidDueDate("00-01-18")); //Invalid date
+        assertFalse(DueDate.isValidDueDate("32-02-18")); //Invalid date
+        assertFalse(DueDate.isValidDueDate("01-02-18 12pm")); //Invalid time
+        assertFalse(DueDate.isValidDueDate("01-02-18 1200pm")); //Invalid time
 
-        // valid due date
-        assertTrue(DueDate.isValidDueDate("911")); // exactly 3 numbers
-        assertTrue(DueDate.isValidDueDate("93121534"));
-        assertTrue(DueDate.isValidDueDate("124293842033123")); // long due date
+        // valid due date (minimal format)
+        assertTrue(DueDate.isValidDueDate("11-12-18"));
+        assertTrue(DueDate.isValidDueDate("01-11-17"));
+        assertTrue(DueDate.isValidDueDate("10-11-2018"));
+
+        // valid due date (standard format)
+        assertTrue(DueDate.isValidDueDate("11-12-18 1200"));
+        assertTrue(DueDate.isValidDueDate("11-12-18 2000"));
+
     }
 }

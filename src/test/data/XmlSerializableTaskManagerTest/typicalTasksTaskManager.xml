@@ -2,49 +2,56 @@
 <!-- TaskManager save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook() -->
 <taskmanager>
     <tasks>
-        <name>Alice Pauline</name>
-        <dueDate>94351253</dueDate>
-        <priorityValue>alice@example.com</priorityValue>
+        <name>Address CS2103 email</name>
+        <dueDate>01-12-18</dueDate>
+        <priorityValue>1</priorityValue>
         <description>123, Jurong West Ave 6, #08-111</description>
         <labelled>friends</labelled>
+        <status>IN PROGRESS</status>
     </tasks>
     <tasks>
-        <name>Benson Meier</name>
-        <dueDate>98765432</dueDate>
-        <priorityValue>johnd@example.com</priorityValue>
+        <name>Build addressbook for tutorial</name>
+        <dueDate>02-12-18 1330</dueDate>
+        <priorityValue>2</priorityValue>
         <description>311, Clementi Ave 2, #02-25</description>
         <labelled>owesMoney</labelled>
         <labelled>friends</labelled>
+        <status>IN PROGRESS</status>
     </tasks>
     <tasks>
-        <name>Carl Kurz</name>
-        <dueDate>95352563</dueDate>
-        <priorityValue>heinz@example.com</priorityValue>
+        <name>Cancel medical appointment</name>
+        <dueDate>03-12-18</dueDate>
+        <priorityValue>3</priorityValue>
         <description>wall street</description>
+        <status>IN PROGRESS</status>
     </tasks>
     <tasks>
-        <name>Daniel Meier</name>
-        <dueDate>87652533</dueDate>
-        <priorityValue>cornelia@example.com</priorityValue>
+        <name>Do CS2106 tutorial</name>
+        <dueDate>04-12-18</dueDate>
+        <priorityValue>4</priorityValue>
         <description>10th street</description>
         <labelled>friends</labelled>
+        <status>IN PROGRESS</status>
     </tasks>
     <tasks>
-        <name>Elle Meyer</name>
-        <dueDate>9482224</dueDate>
-        <priorityValue>werner@example.com</priorityValue>
+        <name>Edit research report</name>
+        <dueDate>05-12-18</dueDate>
+        <priorityValue>5</priorityValue>
         <description>michegan ave</description>
+        <status>FINISHED</status>
     </tasks>
     <tasks>
-        <name>Fiona Kunz</name>
-        <dueDate>9482427</dueDate>
-        <priorityValue>lydia@example.com</priorityValue>
+        <name>Find suitable reagents for experiment</name>
+        <dueDate>06-12-2018</dueDate>
+        <priorityValue>6</priorityValue>
         <description>little tokyo</description>
+        <status>IN PROGRESS</status>
     </tasks>
     <tasks>
-        <name>George Best</name>
-        <dueDate>9482442</dueDate>
-        <priorityValue>anna@example.com</priorityValue>
+        <name>Grade assignments</name>
+        <dueDate>07-12-18</dueDate>
+        <priorityValue>7</priorityValue>
         <description>4th street</description>
+        <status>IN PROGRESS</status>
     </tasks>
 </taskmanager>

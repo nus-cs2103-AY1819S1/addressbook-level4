@@ -5,7 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalTasks.ALICE;
+import static seedu.address.testutil.TypicalTasks.A_TASK;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskManager;
 
 import java.util.Arrays;
@@ -51,9 +51,9 @@ public class TaskManagerTest {
     @Test
     public void resetData_withDuplicateTasks_throwsDuplicateTaskException() {
         // Two tasks with the same identity fields
-        Task editedAlice = new TaskBuilder(ALICE).withDescription(VALID_ADDRESS_BOB).withLabels(VALID_TAG_HUSBAND)
+        Task editedAlice = new TaskBuilder(A_TASK).withDescription(VALID_ADDRESS_BOB).withLabels(VALID_TAG_HUSBAND)
                 .build();
-        List<Task> newTasks = Arrays.asList(ALICE, editedAlice);
+        List<Task> newTasks = Arrays.asList(A_TASK, editedAlice);
         TaskManagerStub newData = new TaskManagerStub(newTasks);
 
         thrown.expect(DuplicateTaskException.class);
@@ -68,19 +68,19 @@ public class TaskManagerTest {
 
     @Test
     public void hasTask_taskNotInTaskManager_returnsFalse() {
-        assertFalse(taskManager.hasTask(ALICE));
+        assertFalse(taskManager.hasTask(A_TASK));
     }
 
     @Test
     public void hasTask_personInTaskManager_returnsTrue() {
-        taskManager.addTask(ALICE);
-        assertTrue(taskManager.hasTask(ALICE));
+        taskManager.addTask(A_TASK);
+        assertTrue(taskManager.hasTask(A_TASK));
     }
 
     @Test
     public void hasTask_taskWithSameIdentityFieldsInTaskManager_returnsTrue() {
-        taskManager.addTask(ALICE);
-        Task editedAlice = new TaskBuilder(ALICE).withDescription(VALID_ADDRESS_BOB).withLabels(VALID_TAG_HUSBAND)
+        taskManager.addTask(A_TASK);
+        Task editedAlice = new TaskBuilder(A_TASK).withDescription(VALID_ADDRESS_BOB).withLabels(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(taskManager.hasTask(editedAlice));
     }

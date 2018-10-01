@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!-- Task with missing name field -->
 <task>
-    <dueDate>9482424</dueDate>
-    <priorityValue>hans@example</priorityValue>
+    <dueDate>21-12-18</dueDate>
+    <priorityValue>8</priorityValue>
     <description>4th street</description>
     <labelled>friends</labelled>
+    <status>IN PROGRESS</status>
 </task>
