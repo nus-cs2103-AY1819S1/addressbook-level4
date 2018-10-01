@@ -78,6 +78,20 @@ public class Appointment {
     }
 
     /**
+     * Converts status to string.
+     * @return String form of status.
+     */
+    public String statusToString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (appointmentStatus == APPROVED) {
+            stringBuilder.append("APPROVED");
+        } else {
+            stringBuilder.append("CANCELLED");
+        }
+        return stringBuilder.toString();
+    }
+
+    /**
      * Returns true if appointments have the same date, time, patient and status.
      */
     @Override
@@ -103,6 +117,13 @@ public class Appointment {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
+        builder.append(appointmentDate.toString())
+                .append("\n")
+                .append(appointmentTime.toString())
+                .append("\n")
+                .append(patient.toString())
+                .append("\n")
+                .append(statusToString());
         return builder.toString();
     }
 }

@@ -49,7 +49,8 @@ public class Date {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getDay())
+        builder.append("Date:")
+                .append(getDay())
                 .append("/")
                 .append(getMonth())
                 .append("/")
