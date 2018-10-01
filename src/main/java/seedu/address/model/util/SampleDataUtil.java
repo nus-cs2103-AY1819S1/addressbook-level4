@@ -6,6 +6,19 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+<<<<<<< HEAD
+import seedu.address.model.carpark.Address;
+import seedu.address.model.carpark.Carpark;
+import seedu.address.model.carpark.CarparkNumber;
+import seedu.address.model.carpark.CarparkType;
+import seedu.address.model.carpark.Coordinate;
+import seedu.address.model.carpark.FreeParking;
+import seedu.address.model.carpark.LotsAvailable;
+import seedu.address.model.carpark.NightParking;
+import seedu.address.model.carpark.ShortTerm;
+import seedu.address.model.carpark.TotalLots;
+import seedu.address.model.carpark.TypeOfParking;
+=======
 import seedu.address.model.carpark.Carpark;
 import seedu.address.model.carpark.CarparkNumber;
 import seedu.address.model.carpark.LotType;
@@ -16,32 +29,26 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+>>>>>>> master
 import seedu.address.model.tag.Tag;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
-    public static Person[] getSamplePersons() {
-        return new Person[] {
-            new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                new Address("Blk 30 Geylang Street 29, #06-40"),
-                getTagSet("friends")),
-            new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
-                new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                getTagSet("colleagues", "friends")),
-            new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                getTagSet("neighbours")),
-            new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
-                new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                getTagSet("family")),
-            new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
-                new Address("Blk 47 Tampines Street 20, #17-35"),
-                getTagSet("classmates")),
-            new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                new Address("Blk 45 Aljunied Street 85, #11-31"),
-                getTagSet("colleagues"))
+
+    public static Carpark[] getSampleCarpark() {
+        return new Carpark[] {
+            new Carpark(new Address("BLK 11/12/13 YORK HILL CAR PARK"), new CarparkNumber("YHS"),
+                    new CarparkType("SURFACE CAR PARK"), new Coordinate("28508.3965, 29880.2227"),
+                    new FreeParking("SUN & PH FR 7AM-10.30PM"), new LotsAvailable("10"), new NightParking("YES"),
+                    new ShortTerm("WHOLE DAY"), new TotalLots("100"),
+                    new TypeOfParking("ELECTRONIC PARKING"), getTagSet("AMAZING")),
+            new Carpark(new Address("BLK 747/752 YISHUN STREET 72"), new CarparkNumber("Y9"),
+                    new CarparkType("SURFACE CAR PARK"), new Coordinate("28077.2305, 45507.8047"),
+                    new FreeParking("SUN & PH FR 7AM-10.30PM"), new LotsAvailable("51"), new NightParking("YES"),
+                    new ShortTerm("WHOLE DAY"), new TotalLots("300"),
+                    new TypeOfParking("ELECTRONIC PARKING"), getTagSet("HOME")),
         };
     }
 
@@ -54,9 +61,12 @@ public class SampleDataUtil {
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
+<<<<<<< HEAD
+=======
 //        for (Person samplePerson : getSamplePersons()) {
 //            sampleAb.addPerson(samplePerson);
 //        }
+>>>>>>> master
         for (Carpark sampleCarpark : getSampleCarpark()) {
             sampleAb.addPerson(sampleCarpark);
         }
@@ -71,5 +81,4 @@ public class SampleDataUtil {
                 .map(Tag::new)
                 .collect(Collectors.toSet());
     }
-
 }

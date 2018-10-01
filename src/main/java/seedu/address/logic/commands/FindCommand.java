@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.carpark.CarparkContainsKeywordsPredicate;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -20,9 +20,9 @@ public class FindCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
-    private final NameContainsKeywordsPredicate predicate;
+    private final CarparkContainsKeywordsPredicate predicate;
 
-    public FindCommand(NameContainsKeywordsPredicate predicate) {
+    public FindCommand(CarparkContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
@@ -31,7 +31,11 @@ public class FindCommand extends Command {
         requireNonNull(model);
         model.updateFilteredCarparkList(predicate);
         return new CommandResult(
+<<<<<<< HEAD
+                String.format(Messages.MESSAGE_CARPARKS_LISTED_OVERVIEW, model.getFilteredCarparkList().size()));
+=======
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredCarparkList().size()));
+>>>>>>> master
     }
 
     @Override
