@@ -41,8 +41,8 @@ Responsibilities: User Profiling
 '''
 
 === Ng Zhen Wei Alec
-image::AlecNgZW.png[width="150", align="left"]
-{empty}[http://github.com/AlecNgZW[github]]
+image::alecngzw.png[width="150", align="left"]
+{empty}[http://github.com/alecngzw[github]]
 
 Role: Developer, Integration, Code Quality +
 Responsibilities: Health Management
