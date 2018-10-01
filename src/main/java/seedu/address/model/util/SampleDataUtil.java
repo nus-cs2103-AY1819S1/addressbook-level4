@@ -19,22 +19,22 @@ import seedu.address.model.user.Username;
 public class SampleDataUtil {
     public static Person[] getSamplePersons() {
         return new Person[] {
-            new Person(new Name("Alex Yeoh"), new Category("87438807"),
+            new Person(new Name("Alex Yeoh"), new Category("School"),
                 new Cost("1.00"),
                 getTagSet("friends")),
-            new Person(new Name("Bernice Yu"), new Category("99272758"),
+            new Person(new Name("Bernice Yu"), new Category("Food"),
                 new Cost("1.00"),
                 getTagSet("colleagues", "friends")),
-            new Person(new Name("Charlotte Oliveiro"), new Category("93210283"),
+            new Person(new Name("Charlotte Oliveiro"), new Category("Entertainment"),
                 new Cost("1.00"),
                 getTagSet("neighbours")),
-            new Person(new Name("David Li"), new Category("91031282"),
+            new Person(new Name("David Li"), new Category("Shopping"),
                 new Cost("1.00"),
                 getTagSet("family")),
-            new Person(new Name("Irfan Ibrahim"), new Category("92492021"),
+            new Person(new Name("Irfan Ibrahim"), new Category("Tax"),
                 new Cost("1.00"),
                 getTagSet("classmates")),
-            new Person(new Name("Roy Balakrishnan"), new Category("92624417"),
+            new Person(new Name("Roy Balakrishnan"), new Category("Book"),
                 new Cost("1.00"),
                 getTagSet("colleagues"))
         };
