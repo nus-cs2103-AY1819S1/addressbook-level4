@@ -48,7 +48,8 @@ public class Person {
      * Constructor for scheduling a value. Not to be used for creating a new entry in the
      * address book.
      */
-    public Person(Name name, Optional<Phone> phone, Optional<Email> email, Optional<Address> address, Set<Tag> tags, Meeting meeting) {
+    public Person(Name name, Optional<Phone> phone, Optional<Email> email, Optional<Address> address,
+                  Set<Tag> tags, Meeting meeting) {
         requireAllNonNull(name, phone, email, address, tags, meeting);
         this.name = name;
         this.phone = phone;
