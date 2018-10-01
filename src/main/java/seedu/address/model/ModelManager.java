@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.person.Patient;
 
 /**
@@ -22,6 +23,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Patient> filteredPatients;
+    private final FilteredList<Medicine> filteredMedicines;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -34,6 +36,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPatients = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredMedicines = new FilteredList<>(versionedAddressBook.getMedicineList());
     }
 
     public ModelManager() {
@@ -63,6 +66,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public boolean hasMedicine(Medicine medicine) {
+        requireNonNull(medicine);
+        return versionedAddressBook.hasMedicine(medicine);
+    }
+
+    @Override
     public void deletePerson(Patient target) {
         versionedAddressBook.removePerson(target);
         indicateAddressBookChanged();
@@ -72,6 +81,13 @@ public class ModelManager extends ComponentManager implements Model {
     public void addPerson(Patient patient) {
         versionedAddressBook.addPerson(patient);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void addMedicine(Medicine medicine) {
+        versionedAddressBook.addMedicine(medicine);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_MEDICINES);
         indicateAddressBookChanged();
     }
 
@@ -98,6 +114,23 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredPersonList(Predicate<Patient> predicate) {
         requireNonNull(predicate);
         filteredPatients.setPredicate(predicate);
+    }
+
+    //=========== Filtered Medicine List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Medicine} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Medicine> getFilteredMedicineList() {
+        return FXCollections.unmodifiableObservableList(filteredMedicines);
+    }
+
+    @Override
+    public void updateFilteredMedicineList(Predicate<Medicine> predicate) {
+        requireNonNull(predicate);
+        filteredMedicines.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -144,7 +177,8 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
-                && filteredPatients.equals(other.filteredPatients);
+                && filteredPatients.equals(other.filteredPatients)
+                && filteredMedicines.equals(other.filteredMedicines);
     }
 
 }

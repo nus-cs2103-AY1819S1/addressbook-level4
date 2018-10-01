@@ -19,6 +19,7 @@ import seedu.address.model.person.Patient;
  */
 public class ReceiptCommand extends Command {
     public static final String COMMAND_WORD = "receipt";
+    public static final String COMMAND_ALIAS = "rct";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Generates a receipt for the patient in the specified"
             + " index. Includes information like the date of visit, consultation fee, medicine sold etc. \n"

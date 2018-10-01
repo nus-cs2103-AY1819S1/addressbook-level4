@@ -18,4 +18,10 @@ public class CliSyntax {
     public static final Prefix PREFIX_DRUGALLERGY = new Prefix("da/");
     public static final Prefix PREFIX_NOTE = new Prefix("m/");
 
+    public static final Prefix PREFIX_MEDICINE_NAME = new Prefix("mn/");
+    public static final Prefix PREFIX_MINIMUM_STOCK_QUANTITY = new Prefix("msq/");
+    public static final Prefix PREFIX_PRICE_PER_UNIT = new Prefix("ppu/");
+    public static final Prefix PREFIX_STOCK = new Prefix("s/");
+    public static final Prefix PREFIX_SERIAL_NUMBER = new Prefix("sn/");
+
 }
