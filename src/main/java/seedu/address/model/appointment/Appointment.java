@@ -20,10 +20,6 @@ public class Appointment {
     //to replace with patient class later on
     private static Person patient;
 
-    /**
-     * Constructs appointment.
-     * appointmentStatus is set to APPROVED as default.
-     */
     public Appointment(Date date, Time time, Person patient) {
         this.appointmentDate = date;
         this.appointmentTime = time;
@@ -99,7 +95,7 @@ public class Appointment {
 
     @Override
     public int hashCode() {
-        return Object.hash(appointmentDate, appointmentTime, patient, appointmentStatus);
+        return Objects.hash(appointmentDate, appointmentTime, patient, appointmentStatus);
     }
 
     @Override
