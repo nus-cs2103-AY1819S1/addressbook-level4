@@ -1,14 +1,14 @@
 = Developer Guide
 
-= Target user profile
+== Target user profile
 
 People who would like to learn new words they see in their daily life more efficiently and use computer a lot. These people can be for example non-native english speakers and schools who want to use the program in language courses. In the future, target users will be extended to also other languages than english.
 
-= Value propositions
+== Value propositions
 
 The application helps the user to find the meaning of words. Upon finding the meaning of words, they will be stored into a “review list”, where the user can refresh their memory of the word that they had just learnt (similar to flash cards). In specific, we currently plan to give the user the meaning of the word and ask them to type the word correctly. If they can type in the word correctly for continuous several days, then the word will be deleted from the review list automatically. Besides, the user can also manually add words in the review list and delete words from the review list. In the end, this will help the user to learn the language.
 
-= User stories
+== User stories
 
 As a user, I want to be able to learn new English words everyday.
 
@@ -19,7 +19,7 @@ As a user, I want to test and challenge myself to improve my English.
 As a user, I want to check the meaning of words.
 
 
-= Use cases
+== Use cases
 
 **Add a word to the review list:**
 

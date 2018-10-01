@@ -1,16 +1,16 @@
 = User Guide
 
-= Introduction
+== Introduction
 
 LearnV is for those who prefer to use an offline version of the dictionary for learning purposes. More importantly, LearnV is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, LearnV can fetch the words faster than searching it on the website. Interested? Jump to the Section 2, “Quick Start” to get started. Enjoy!
 
-= Quick Start
+== Quick Start
 Ensure you have Java version 9 or later installed in your Computer.
 Download the latest dictionary.jar here.
 Copy the file to the folder you want to use as the home folder for LearnV
 Double-click the file to start the app. The GUI should appear in a few seconds.
 
-= Features
+== Features
 **Adding words**
 
 A command for adding words to the user’s review list
@@ -72,7 +72,7 @@ Group words accordingly
 Command syntax: group [word] [group]
 Format: group [word] [group]
 
-= FAQ
+== FAQ
 
 *Command Summary*
 
