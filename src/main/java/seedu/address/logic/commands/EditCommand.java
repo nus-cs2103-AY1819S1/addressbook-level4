@@ -73,31 +73,61 @@ public class EditCommand extends Command {
      */
     public static CommandResult executeEditStatus (Index index, Status status, Model model, CommandHistory history)
             throws CommandException {
+        return executeEditStatus(index, status, model, history, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX,
+                MESSAGE_DUPLICATE_TASK, MESSAGE_EDIT_TASK_SUCCESS);
+    }
+
+    /**
+     * Typically, this is called with its result eventually being used in CommandBox.handleCommandEntered()
+     * @param index index is the UUID of the task.
+     * @param status status is an enum from the Status enum.
+     * @param model model to save the new state with the edited task.
+     * @param history history is not used here.
+     * @param invalidIndexMessage message to be displayed to the user if no task can be identified 
+     *                            by the given index.
+     * @param duplicateTaskMessage message to be displayed to the user if edited task is equal to a 
+     *                             task currently within the model.
+     * @param successMessage message to be displayed to the used on success.
+     * @return A new command result with it's encapsulated user feedback.
+     * @throws CommandException
+     */
+    public static CommandResult executeEditStatus (Index index, Status status, Model model, CommandHistory history,
+                                                   String invalidIndexMessage, String duplicateTaskMessage,
+                                                   String successMessage)
+            throws CommandException {
         EditCommand.EditTaskDescriptor editTaskDescriptor = new EditCommand.EditTaskDescriptor();
         editTaskDescriptor.setStatus(status);
-        return (new EditCommand(index, editTaskDescriptor)).execute(model, history);
+        return new EditCommand(index, editTaskDescriptor).execute(model, history, invalidIndexMessage,
+                duplicateTaskMessage, successMessage);
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        return execute(model, history, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX, 
+                MESSAGE_DUPLICATE_TASK, MESSAGE_EDIT_TASK_SUCCESS);
+    }
+    
+    public CommandResult execute(Model model, CommandHistory history, String invalidIndexMessage,
+                                 String duplicateTaskMessage, String successMessage)
+            throws  CommandException {
         requireNonNull(model);
         List<Task> lastShownList = model.getFilteredTaskList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            throw new CommandException(invalidIndexMessage);
         }
 
         Task taskToEdit = lastShownList.get(index.getZeroBased());
         Task editedTask = createEditedTask(taskToEdit, editTaskDescriptor);
 
         if (!taskToEdit.isSameTask(editedTask) && model.hasTask(editedTask)) {
-            throw new CommandException(MESSAGE_DUPLICATE_TASK);
+            throw new CommandException(duplicateTaskMessage);
         }
 
         model.updateTask(taskToEdit, editedTask);
         model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         model.commitTaskManager();
-        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask));
+        return new CommandResult(String.format(successMessage, editedTask));
     }
 
     /**
