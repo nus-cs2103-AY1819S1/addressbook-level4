@@ -28,10 +28,6 @@ public class Date {
         return year;
     }
 
-    public void setDay() {
-
-    }
-
     @Override
     public boolean equals(Object other) {
         if (other == this) {

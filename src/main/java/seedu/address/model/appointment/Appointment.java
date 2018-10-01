@@ -52,6 +52,7 @@ public class Appointment {
 
     /**
      * Returns true if the appointment has the same date and time slot.
+     * @param other Appointment to compare with.
      */
     public boolean isSameSlot(Appointment other) {
         return other.getAppointmentDate().equals(getAppointmentDate())
@@ -60,6 +61,7 @@ public class Appointment {
 
     /**
      * Returns true if the appointment has the same patient.
+     * @param other Appointment to compare with.
      */
     public boolean isSamePatient(Appointment other) {
         return other.getPatient().equals(getPatient());
@@ -69,7 +71,7 @@ public class Appointment {
      * Returns true if appointment is cancelled.
      */
     public boolean isCancelled() {
-        if (appointmentStatus == APPROVED) {
+        if (appointmentStatus == CANCELLED) {
             return true;
         }
         return false;
@@ -90,7 +92,7 @@ public class Appointment {
         return otherAppointment.getAppointmentDate().equals(getAppointmentDate())
                 && otherAppointment.getAppointmentTime().equals(getAppointmentTime())
                 && otherAppointment.getPatient().equals(getPatient())
-                && otherAppointment.getAppointmentStatus(),equals(getAppointmentStatus());
+                && (otherAppointment.getAppointmentStatus() == getAppointmentStatus());
     }
 
     @Override
