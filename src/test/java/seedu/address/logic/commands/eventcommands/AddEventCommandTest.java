@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -214,17 +213,17 @@ public class AddEventCommandTest {
         }
 
         @Override
+        public void updateEvent(int index, Event editedEvent) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setCurrentUser(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public Person getCurrentUser() throws NoUserLoggedInException{
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateEvent(int index, Event editedEvent) {
+        public Person getCurrentUser() throws NoUserLoggedInException {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -282,7 +281,7 @@ public class AddEventCommandTest {
         }
 
         @Override
-        public Person getCurrentUser() throws NoUserLoggedInException{
+        public Person getCurrentUser() throws NoUserLoggedInException {
             if (currentUser == null) {
                 throw new NoUserLoggedInException();
             }
