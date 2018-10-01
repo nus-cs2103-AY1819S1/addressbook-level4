@@ -1,5 +1,6 @@
 package seedu.address.model.analytics;
 
+//@@author arsalanc-v2
 /**
  * Represents statistics that are averages.
  */

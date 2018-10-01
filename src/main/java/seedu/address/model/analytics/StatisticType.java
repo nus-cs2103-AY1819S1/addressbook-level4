@@ -1,5 +1,6 @@
 package seedu.address.model.analytics;
 
+//@@author arsalanc-v2
 /**
  * Enum to represent the values of the different types of statistics.
  */
