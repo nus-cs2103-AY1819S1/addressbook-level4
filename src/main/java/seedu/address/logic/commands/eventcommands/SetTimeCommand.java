@@ -1,3 +1,4 @@
+//@@author theJrLinguist
 package seedu.address.logic.commands.eventcommands;
 
 import static java.util.Objects.requireNonNull;
@@ -61,8 +62,9 @@ public class SetTimeCommand extends Command {
 
         event.setStartTime(startTime);
         event.setEndTime(endTime);
-        model.commitAddressBook();
+
         model.updateEvent(event, event);
+        model.commitAddressBook();
         DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
         return new CommandResult(String.format(MESSAGE_SUCCESS, startTime.format(timeFormat),
                 endTime.format(timeFormat), event));

@@ -63,9 +63,15 @@ public class XmlAdaptedEvent {
         this.name = name;
         this.address = address;
         this.organiser = organiser;
-        this.date = date;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        if (date != null) {
+            this.date = date;
+        }
+        if (startTime != null) {
+            this.startTime = startTime;
+        }
+        if (endTime != null) {
+            this.endTime = endTime;
+        }
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
@@ -90,8 +96,14 @@ public class XmlAdaptedEvent {
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
         date = source.getDateString();
-        startTime = source.getStartTime().toString();
-        endTime = source.getEndTime().toString();
+        LocalTime start = source.getStartTime();
+        if (start != null) {
+            this.startTime = start.toString();
+        }
+        LocalTime end = source.getEndTime();
+        if (end != null) {
+            endTime = source.getEndTime().toString();
+        }
         polls = source.getPolls().stream()
                 .map(XmlAdaptedPoll::new)
                 .collect(Collectors.toList());

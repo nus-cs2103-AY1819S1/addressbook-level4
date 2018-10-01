@@ -1,3 +1,4 @@
+//@@author theJrLinguist
 package seedu.address.logic.commands.eventcommands;
 
 import static java.util.Objects.requireNonNull;
@@ -212,6 +213,11 @@ public class AddEventCommandTest {
 
         @Override
         public void setCurrentUser(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateEvent(int index, Event editedEvent) {
             throw new AssertionError("This method should not be called.");
         }
     }

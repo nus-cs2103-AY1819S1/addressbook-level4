@@ -191,6 +191,11 @@ public class LoginCommandTest {
         }
 
         @Override
+        public void updateEvent(int index, Event event) {
+
+        }
+
+        @Override
         public void setCurrentUser(Person currentUser) {
             throw new AssertionError("This method should not be called.");
         }

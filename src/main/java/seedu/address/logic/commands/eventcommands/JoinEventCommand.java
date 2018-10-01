@@ -1,3 +1,4 @@
+//@@author theJrLinguist
 package seedu.address.logic.commands.eventcommands;
 
 import static java.util.Objects.requireNonNull;
@@ -60,8 +61,8 @@ public class JoinEventCommand extends Command {
             throw new CommandException(Messages.MESSAGE_NO_USER_LOGGED_IN);
         }
 
-        model.commitAddressBook();
         model.updateEvent(event, event);
+        model.commitAddressBook();
 
         EventsCenter.getInstance().post(new JumpToEventListRequestEvent(targetIndex));
         String result = String.format(MESSAGE_SUCCESS, event);

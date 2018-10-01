@@ -141,6 +141,14 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public void updateEvent(int index, Event editedPerson) {
+        requireAllNonNull(index, editedPerson);
+
+        versionedAddressBook.updateEvent(index, editedPerson);
+        indicateAddressBookChanged();
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -198,8 +206,6 @@ public class ModelManager extends ComponentManager implements Model {
     public void commitAddressBook() {
         versionedAddressBook.commit();
     }
-
-
 
     @Override
     public boolean equals(Object obj) {
