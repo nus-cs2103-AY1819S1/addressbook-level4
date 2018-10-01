@@ -1,9 +1,9 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_COST_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_COST_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COST_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COST_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_1990;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_2018;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
@@ -75,18 +75,19 @@ public class TypicalPersons {
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withCategory(VALID_CATEGORY_AMY)
-        .withCost(VALID_COST_AMY)
-        .withDate(VALID_DATE_1990)
-        .withTags(VALID_TAG_FRIEND).build();
+            .withCost(VALID_COST_AMY)
+            .withDate(VALID_DATE_1990)
+            .withTags(VALID_TAG_FRIEND).build();
     public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB).withCategory(VALID_CATEGORY_BOB)
-        .withCost(VALID_COST_BOB)
-        .withDate(VALID_DATE_2018)
-        .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
-        .build();
+            .withCost(VALID_COST_BOB)
+            .withDate(VALID_DATE_2018)
+            .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+            .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalPersons() {} // prevents instantiation
+    private TypicalPersons() {
+    } // prevents instantiation
 
     /**
      * Returns an {@code AddressBook} with all the typical persons.
