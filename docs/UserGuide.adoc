@@ -12,7 +12,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-W14-2/main
 
 By: `CS2103-AY1819S1-W14-2`      Since: `Sep 2018`      Licence: `MIT`
 
@@ -48,11 +48,11 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* `<>` denotes compulsory field
-* `[]` denotes optional field
-* `||` denotes flag
-* `{}` denotes keystroke
-* `...` denotes variable arguments
+* `<>` denotes compulsory field. Example: `add <attraction>`
+* `[]` denotes optional field. Example: `help [more]`
+* `||` denotes flag. Example: `history |find| [findargs...]`
+* `{}` denotes keystroke. Example `{tab}` is the TAB keystroke.
+* `...` denotes variable arguments. Example: `history |find| [findargs...]`
 
 ====
 
@@ -101,6 +101,7 @@ arguments. If invalid arguments are passed, the error handling will be
 done by `find`. +
 Format: `history |find| [findargs...]`
 
+// tag::undoredo[]
 ==== Undoing commands: `undo`
 
 Undo previous command during current session. +
@@ -196,7 +197,7 @@ Format: `exit`
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous ThanePark folder.
 
 == Command Summary
 

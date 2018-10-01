@@ -1,12 +1,22 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+//import static seedu.address.logic.parser.CliSyntax.PREFIX_MAINTENANCE;
+//import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+//import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+//import static seedu.address.logic.parser.CliSyntax.PREFIX_WAITING_TIME;
 
 import java.util.Arrays;
+import java.util.Optional;
+import java.util.Set;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ride.NameContainsKeywordsPredicate;
+import seedu.address.model.ride.Address;
+import seedu.address.model.ride.RideContainsKeywordsPredicate;
+import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -19,6 +29,15 @@ public class FindCommandParser implements Parser<FindCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindCommand parse(String args) throws ParseException {
+        ArgumentMultimap argMutlimap = ArgumentTokenizer.tokenize(args, PREFIX_ADDRESS, PREFIX_TAG);
+        Optional<Address> address =
+                !argMutlimap.getValue(PREFIX_ADDRESS).isPresent() ? Optional.empty()
+                : Optional.of(ParserUtil.parseAddress(argMutlimap.getValue(PREFIX_ADDRESS).get()));
+        Optional<Set<Tag>> tags =
+                argMutlimap.getValue(PREFIX_TAG).isPresent()
+                        ? Optional.of(ParserUtil.parseTags(argMutlimap.getAllValues(PREFIX_TAG)))
+                        : Optional.empty();
+
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
@@ -27,7 +46,22 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        return new FindCommand(new RideContainsKeywordsPredicate(Arrays.asList(nameKeywords),
+                address, tags));
     }
 
+    /**
+     * Checks the given {@code String[]} to find if it contains PREFIX_ADDRESS returns
+     * a boolean.
+     * @param keywords the string array of keywords to check
+     * @return whether the array contains PREFIX_ADDRESS
+     */
+    private boolean hasAddress(String[] keywords) {
+        for (String keyword : keywords) {
+            if (keyword.contains(PREFIX_ADDRESS.getPrefix())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

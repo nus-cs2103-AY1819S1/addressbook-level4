@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.ThanePark;
 import seedu.address.model.ride.Ride;
 
 /**
@@ -23,27 +23,28 @@ import seedu.address.model.ride.Ride;
  */
 public class TypicalPersons {
 
-    public static final Ride ALICE = new RideBuilder().withName("Alice Pauline")
+    public static final Ride ACCELERATOR = new RideBuilder().withName("Accelerator")
             .withAddress("123, Jurong West Ave 6, #08-111").withWaitTime("1")
             .withMaintenance("94351253")
             .withTags("friends").build();
-    public static final Ride BENSON = new RideBuilder().withName("Benson Meier")
+    public static final Ride BIG = new RideBuilder().withName("Big Thunder Mountain Meier")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withWaitTime("16").withMaintenance("98765432")
             .withTags("owesMoney", "friends").build();
-    public static final Ride CARL = new RideBuilder().withName("Carl Kurz").withMaintenance("95352563")
+    public static final Ride CASTLE = new RideBuilder().withName("Castle Carrousel").withMaintenance("95352563")
             .withWaitTime("13").withAddress("wall street").build();
-    public static final Ride DANIEL = new RideBuilder().withName("Daniel Meier").withMaintenance("87652533")
+    public static final Ride DUMBO = new RideBuilder().withName("Dumbo The Flying Elephant Meier").withMaintenance(
+            "87652533")
             .withWaitTime("3").withAddress("10th street").withTags("friends").build();
-    public static final Ride ELLE = new RideBuilder().withName("Elle Meyer").withMaintenance("9482224")
+    public static final Ride ENCHANTED = new RideBuilder().withName("Enchanted Airways").withMaintenance("9482224")
             .withWaitTime("21").withAddress("michegan ave").build();
-    public static final Ride FIONA = new RideBuilder().withName("Fiona Kunz").withMaintenance("9482427")
+    public static final Ride FANTASY = new RideBuilder().withName("Final Fantasy").withMaintenance("9482427")
             .withWaitTime("12").withAddress("little tokyo").build();
-    public static final Ride GEORGE = new RideBuilder().withName("George Best").withMaintenance("9482442")
+    public static final Ride GALAXY = new RideBuilder().withName("Galaxy Road").withMaintenance("9482442")
             .withWaitTime("1").withAddress("4th street").build();
 
     // Manually added
-    public static final Ride HOON = new RideBuilder().withName("Hoon Meier").withMaintenance("8482424")
+    public static final Ride HAUNTED = new RideBuilder().withName("The Haunted Mansion").withMaintenance("8482424")
             .withWaitTime("19").withAddress("little india").build();
     public static final Ride IDA = new RideBuilder().withName("Ida Mueller").withMaintenance("8482131")
             .withWaitTime("13").withAddress("chicago ave").build();
@@ -61,17 +62,17 @@ public class TypicalPersons {
     private TypicalPersons() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code ThanePark} with all the typical persons.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static ThanePark getTypicalAddressBook() {
+        ThanePark ab = new ThanePark();
         for (Ride ride : getTypicalPersons()) {
-            ab.addPerson(ride);
+            ab.addRide(ride);
         }
         return ab;
     }
 
     public static List<Ride> getTypicalPersons() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+        return new ArrayList<>(Arrays.asList(ACCELERATOR, BIG, CASTLE, DUMBO, ENCHANTED, FANTASY, GALAXY));
     }
 }

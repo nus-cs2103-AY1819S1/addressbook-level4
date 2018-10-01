@@ -20,7 +20,7 @@ import seedu.address.model.tag.Tag;
 /**
  * JAXB-friendly version of the Ride.
  */
-public class XmlAdaptedPerson {
+public class XmlAdaptedRide {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Ride's %s field is missing!";
 
@@ -37,16 +37,16 @@ public class XmlAdaptedPerson {
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * Constructs an XmlAdaptedPerson.
+     * Constructs an XmlAdaptedRide.
      * This is the no-arg constructor that is required by JAXB.
      */
-    public XmlAdaptedPerson() {}
+    public XmlAdaptedRide() {}
 
     /**
-     * Constructs an {@code XmlAdaptedPerson} with the given ride details.
+     * Constructs an {@code XmlAdaptedRide} with the given ride details.
      */
-    public XmlAdaptedPerson(String name, String daysSinceMaintenanceString, String waitingTimeString, String address,
-                            List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedRide(String name, String daysSinceMaintenanceString, String waitingTimeString, String address,
+                          List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.daysSinceMaintenanceString = daysSinceMaintenanceString;
         this.waitingTimeString = waitingTimeString;
@@ -59,9 +59,9 @@ public class XmlAdaptedPerson {
     /**
      * Converts a given Ride into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedPerson
+     * @param source future changes to this will not affect the created XmlAdaptedRide
      */
-    public XmlAdaptedPerson(Ride source) {
+    public XmlAdaptedRide(Ride source) {
         name = source.getName().fullName;
         daysSinceMaintenanceString = source.getDaysSinceMaintenance().toString();
         waitingTimeString = source.getWaitingTime().toString();
@@ -126,11 +126,11 @@ public class XmlAdaptedPerson {
             return true;
         }
 
-        if (!(other instanceof XmlAdaptedPerson)) {
+        if (!(other instanceof XmlAdaptedRide)) {
             return false;
         }
 
-        XmlAdaptedPerson otherPerson = (XmlAdaptedPerson) other;
+        XmlAdaptedRide otherPerson = (XmlAdaptedRide) other;
         return Objects.equals(name, otherPerson.name)
                 && Objects.equals(daysSinceMaintenanceString, otherPerson.daysSinceMaintenanceString)
                 && Objects.equals(waitingTimeString, otherPerson.waitingTimeString)

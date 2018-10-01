@@ -1,3 +1,5 @@
+:stylesDir: stylesheets
+:experimental:
 * `add <attraction>`
 * `delete <attraction>`
 * `exit`

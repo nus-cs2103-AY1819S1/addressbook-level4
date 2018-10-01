@@ -13,10 +13,10 @@ public interface Model {
     Predicate<Ride> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyAddressBook newData);
+    void resetData(ReadOnlyThanePark newData);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the ThanePark */
+    ReadOnlyThanePark getAddressBook();
 
     /**
      * Returns true if a ride with the same identity as {@code ride} exists in the address book.
@@ -43,13 +43,13 @@ public interface Model {
     void updatePerson(Ride target, Ride editedRide);
 
     /** Returns an unmodifiable view of the filtered ride list */
-    ObservableList<Ride> getFilteredPersonList();
+    ObservableList<Ride> getFilteredRideList();
 
     /**
      * Updates the filter of the filtered ride list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Ride> predicate);
+    void updateFilteredRideList(Predicate<Ride> predicate);
 
     /**
      * Returns true if the model has previous address book states to restore.
