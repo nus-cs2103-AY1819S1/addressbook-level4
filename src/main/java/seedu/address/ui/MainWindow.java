@@ -134,31 +134,6 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
-
-    /**
-     * fill hp
-     */
- /*   void fillInnerPartsHp() {
-
-
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
-
-        healthPlanPanel = new HealthPlanPanel(logic.getFilteredPlans());
-
-        personListPanelPlaceholder.getChildren().add(healthPlanPanel.getRoot());
-
-
-        ResultDisplay resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
-        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getHealthplanFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-
-        CommandBox commandBox = new CommandBox(logic);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-    }*/
-
     /*
     * hide stage
     * */
