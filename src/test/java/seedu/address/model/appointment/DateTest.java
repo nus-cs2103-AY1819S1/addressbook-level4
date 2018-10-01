@@ -60,5 +60,6 @@ public class DateTest {
 
         //different
         assertFalse(date3.equals(date2));
+        assertFalse(date2.equals(null));
     }
 }
