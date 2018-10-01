@@ -27,6 +27,7 @@ public class PersonCardTest extends GuiUnitTest {
         uiPartRule.setUiPart(personCard);
         assertCardDisplay(personCard, personWithTags, 2);
 
+        //@@author zioul123
         // without phone
         Person personWithoutPhone = new PersonBuilder().withoutPhone().build();
         personCard = new PersonCard(personWithoutPhone, 3);
@@ -44,6 +45,7 @@ public class PersonCardTest extends GuiUnitTest {
         personCard = new PersonCard(personWithoutAddress, 5);
         uiPartRule.setUiPart(personCard);
         assertCardDisplay(personCard, personWithoutAddress, 5);
+        //@@author
     }
 
     @Test
