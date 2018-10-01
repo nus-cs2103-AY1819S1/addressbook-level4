@@ -19,7 +19,7 @@ import seedu.address.model.AppContent;
 import seedu.address.storage.XmlAdaptedRecipe;
 import seedu.address.storage.XmlAdaptedTag;
 import seedu.address.storage.XmlSerializableAddressBook;
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.AppContentBuilder;
 import seedu.address.testutil.RecipeBuilder;
 import seedu.address.testutil.TestUtil;
 
@@ -128,7 +128,7 @@ public class XmlUtilTest {
         XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
         assertEquals(dataToWrite, dataFromFile);
 
-        AddressBookBuilder builder = new AddressBookBuilder(new AppContent());
+        AppContentBuilder builder = new AppContentBuilder(new AppContent());
         dataToWrite = new XmlSerializableAddressBook(
                 builder.withRecipe(new RecipeBuilder().build()).build());
 

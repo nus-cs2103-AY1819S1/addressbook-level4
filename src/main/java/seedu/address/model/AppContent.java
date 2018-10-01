@@ -9,7 +9,7 @@ import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.UniqueRecipeList;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the application content level
  * Duplicates are not allowed (by .isSameRecipe comparison)
  */
 public class AppContent implements ReadOnlyAppContent {

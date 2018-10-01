@@ -14,21 +14,21 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.AppContentBuilder;
 
 public class VersionedAddressBookTest {
 
-    private final ReadOnlyAppContent addressBookWithAmy = new AddressBookBuilder().withRecipe(AMY).build();
-    private final ReadOnlyAppContent addressBookWithBob = new AddressBookBuilder().withRecipe(BOB).build();
-    private final ReadOnlyAppContent addressBookWithCarl = new AddressBookBuilder().withRecipe(CARL).build();
-    private final ReadOnlyAppContent emptyAddressBook = new AddressBookBuilder().build();
+    private final ReadOnlyAppContent addressBookWithAmy = new AppContentBuilder().withRecipe(AMY).build();
+    private final ReadOnlyAppContent addressBookWithBob = new AppContentBuilder().withRecipe(BOB).build();
+    private final ReadOnlyAppContent addressBookWithCarl = new AppContentBuilder().withRecipe(CARL).build();
+    private final ReadOnlyAppContent emptyAddressBook = new AppContentBuilder().build();
 
     @Test
     public void commit_singleAddressBook_noStatesRemovedCurrentStateSaved() {
-        VersionedAppContent versionedAddressBook = prepareAddressBookList(emptyAddressBook);
+        VersionedAppContent versionedAppContent = prepareAddressBookList(emptyAddressBook);
 
-        versionedAddressBook.commit();
-        assertAddressBookListStatus(versionedAddressBook,
+        versionedAppContent.commit();
+        assertAddressBookListStatus(versionedAppContent,
                 Collections.singletonList(emptyAddressBook),
                 emptyAddressBook,
                 Collections.emptyList());
