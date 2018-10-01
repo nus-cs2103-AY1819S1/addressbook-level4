@@ -47,4 +47,22 @@
         <email>anna@example.com</email>
         <address>4th street</address>
     </persons>
+    <persons>
+        <name>Henry Golding</name>
+        <phone>000000000000</phone>
+        <email>henry@example.com</email>
+        <address>Crazy Rich Street</address>
+    </persons>
+    <persons>
+        <name>Ianna Cluse</name>
+        <phone>83848586</phone>
+        <email>NOEMAIL@NOEMAIL.NOEMAIL</email>
+        <address>24 Recluse Avenue</address>
+    </persons>
+    <persons>
+        <name>Jenny Khiu</name>
+        <phone>91234523</phone>
+        <email>jenny@example.com</email>
+        <address>NO_ADDRESS</address>
+    </persons>
 </addressbook>

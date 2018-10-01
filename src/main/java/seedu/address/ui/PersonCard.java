@@ -12,9 +12,14 @@ import seedu.address.model.person.Person;
  */
 public class PersonCard extends UiPart<Region> {
 
+    public static final String NO_PHONE = "No Phone Number";
+    public static final String NO_EMAIL = "No Email Address";
+    public static final String NO_ADDRESS = "No Address";
+
     private static final String FXML = "PersonListCard.fxml";
     private static final String[] TAG_COLOR_STYLES = { "teal", "red", "yellow", "blue",
         "orange", "brown", "green", "pink", "black", "grey"};
+
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
      * As a consequence, UI elements' variable names cannot be set to such keywords
@@ -45,9 +50,18 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
+        person.getPhone()
+                .ifPresentOrElse(p -> {
+                    phone.setText(p.value);
+                }, () -> phone.setText(NO_PHONE));
+        person.getAddress()
+                .ifPresentOrElse(a -> {
+                    address.setText(a.value);
+                }, () -> address.setText(NO_ADDRESS));
+        person.getEmail()
+                .ifPresentOrElse(e -> {
+                    email.setText(e.value);
+                }, () -> email.setText(NO_EMAIL));
         initTags(person);
 
         name.setWrapText(true);
