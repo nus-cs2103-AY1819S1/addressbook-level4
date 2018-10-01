@@ -3,7 +3,7 @@
 
     <persons>
         <name>Alice Pauline</name>
-        <phone>94351253</phone>
+        <category>94351253</category>
         <cost>1.00</cost>
 		<date>01-10-2018</date>
         <tagged>friends</tagged>
@@ -12,8 +12,8 @@
     <!-- Person with same identity as Alice Pauline -->
     <persons>
         <name>Alice Pauline</name>
-        <phone>94351253</phone>
-		<date>01-10-2018</date>
+		    <date>01-10-2018</date>
+        <category>94351253</category>
         <cost>1.00</cost>
     </persons>
 
