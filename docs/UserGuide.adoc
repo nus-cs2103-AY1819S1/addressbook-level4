@@ -408,15 +408,15 @@ Examples:
 
 Adds an event in the system. Any number of contacts can be included in the event. A notification will be sent to the user only 24 hours before the event.
 
-Format: `addEvent n/EVENT_NAME dsc/DESCRIPTION d/DATE(DD-MM-YY) t/TIME(HHMM) [i/CONTACT_INDEX…]`
+Format: `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(DD-MM-YY) t/TIME(HHMM) a/ADDRESS [i/CONTACT_INDEX]…`
 
 Examples:
 
-* `addEvent n/Dental Appointment dsc/Consultation d/15-09-18 t/1030`
+* `addEvent n/Doctor Appointment dsc/Consultation d/15-09-18 t/1030 a/123, Clementi Rd, 1234665`
 * list
-  `addEvent n/Dental Appointment dsc/Consultation d/15-09-18 t/1030 i/1`
+  `addEvent n/Doctor Appointment dsc/Consultation d/15-09-18 t/1030 a/123, Clementi Rd, 1234665 i/1`
 * Find Betsy Tim John
-  `addEvent n/Dental Appointment dsc/Consultation d/15-09-18 t/1030 i/1 i/2 i/3`
+  `addEvent n/Meeting  dsc/Project meeting d/15-09-18 t/1030 a/123, Clementi Rd, 1234665 i/1 i/2 i/3`
 
 === List personal events: `listEvent`
 
@@ -432,11 +432,11 @@ Examples:
 
 Adds an event in the system for the specified group. A notification will be sent to the user and the contacts in the group 24 hours before the event.
 
-Format: `addGroupEvent n/EVENT_NAME dsc/DESCRIPTION d/DATE(DD-MM-YY) t/TIME(HHMM) group/GROUP_NAME`
+Format: `addGroupEvent n/EVENT_NAME dsc/DESCRIPTION d/DATE(DD-MM-YY) t/TIME(HHMM) a/ADDRESS group/GROUP_NAME`
 
 Examples:
 
-* `addGroupEvent n/Project Meeting dsc/First Meeting d/12-09-18 t/1200 group/CS2103_Group`
+* `addGroupEvent n/Project Meeting dsc/First Meeting d/12-09-18 t/1200 a/123, Clementi Rd, 1234665 group/CS2103_Group`
 
 === List group events: `listGroupEvent`
 
@@ -523,11 +523,11 @@ e.g. `archive group/CS2103Group`
 e.g. `unarchive group/CS2103Group`
 * *Suggest Location* : `generateLocation event/EVENT_NAME group/GROUP_NAME` +
 e.g. `generateLocation event/First Meeting group/CS2103Group`
-* *Add Event* : `addEvent n/EVENT_NAME dsc/DESCRIPTION d/DATE(DD-MM-YY) t/TIME(HHMM) [i/CONTACT_INDEX…]` +
-e.g. `addEvent n/Dental Appointment dsc/Consultation d/15-09-18 t/1030`
+* *Add Event* : `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(DD-MM-YY) t/TIME(HHMM) a/ADDRESS [i/CONTACT_INDEX]…` +
+e.g. `addEvent n/Doctor Appointment dsc/Consultation d/15-09-18 t/1030 a/123, Clementi Rd, 1234665 i/1`
 * *List Events* : `listEvent`
-* *Add Group Event* : `addGroupEvent n/EVENT_NAME dsc/DESCRIPTION d/DATE(DD-MM-YY) t/TIME(HHMM) group/GROUP_NAME` +
-e.g. `addGroupEvent n/Project Meeting dsc/First Meeting d/12-09-18 t/1200 group/CS2103_Group`
+* *Add Group Event* : `addGroupEvent n/EVENT_NAME dsc/DESCRIPTION d/DATE(DD-MM-YY) t/TIME(HHMM) a/ADDRESS group/GROUP_NAME` +
+e.g. `addGroupEvent n/Project Meeting dsc/First Meeting d/12-09-18 t/1200 a/123, Clementi Rd, 1234665 group/CS2103_Group`
 * *List Group Events* : `listGroupEvent`
 * *Import Contacts* : `importContacts file/FILEPATH` +
 e.g. `importContacts file/~/Downloads/contacts1.csv`
