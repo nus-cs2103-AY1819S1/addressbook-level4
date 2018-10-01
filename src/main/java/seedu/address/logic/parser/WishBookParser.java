@@ -85,8 +85,9 @@ public class WishBookParser {
         case RemarkCommand.COMMAND_WORD:
             return new RemarkCommandParser().parse(arguments);
 
+        case SaveCommand.COMMAND_ALIAS:
         case SaveCommand.COMMAND_WORD:
-            return new SaveCommand();
+            return new SaveCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

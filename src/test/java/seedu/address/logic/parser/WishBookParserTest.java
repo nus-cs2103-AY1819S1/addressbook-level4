@@ -6,6 +6,8 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.REMARK_DESC_SAMPLE_1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SAVED_AMOUNT_AMY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SAVING;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_WISH;
 
 import java.util.Arrays;
@@ -20,6 +22,7 @@ import seedu.address.logic.commands.*;
 import seedu.address.logic.commands.EditCommand.EditWishDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.wish.NameContainsKeywordsPredicate;
+import seedu.address.model.wish.SavedAmount;
 import seedu.address.model.wish.Wish;
 import seedu.address.testutil.EditWishDescriptorBuilder;
 import seedu.address.testutil.WishBuilder;
@@ -203,7 +206,11 @@ public class WishBookParserTest {
 
     @Test
     public void parseCommand_saveCommand_returnsSaveCommand() throws Exception {
-        assertTrue(parser.parseCommand(SaveCommand.COMMAND_WORD) instanceof SaveCommand);
+        SavedAmount savedAmount = new SavedAmount(VALID_SAVED_AMOUNT_AMY);
+        SaveCommand saveCommandFromParser = (SaveCommand) parser.parseCommand(
+                SaveCommand.COMMAND_WORD + " " + INDEX_FIRST_WISH.getOneBased() + " "
+        + PREFIX_SAVING + VALID_SAVED_AMOUNT_AMY);
+        assertEquals(new SaveCommand(INDEX_FIRST_WISH, savedAmount), saveCommandFromParser);
     }
 
     @Test
