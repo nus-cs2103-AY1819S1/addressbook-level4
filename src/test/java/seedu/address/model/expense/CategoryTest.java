@@ -15,27 +15,24 @@ public class CategoryTest {
     }
 
     @Test
-    public void constructor_invalidPhone_throwsIllegalArgumentException() {
-        String invalidPhone = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Category(invalidPhone));
+    public void constructor_invalidCategory_throwsIllegalArgumentException() {
+        String invalidCategory = "";
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Category(invalidCategory));
     }
 
     @Test
-    public void isValidPhone() {
-        // null phone number
+    public void isValidCategory() {
+        // null category
         Assert.assertThrows(NullPointerException.class, () -> Category.isValidCategory(null));
 
-        // invalid phone numbers
+        // invalid category
         assertFalse(Category.isValidCategory("")); // empty string
         assertFalse(Category.isValidCategory(" ")); // spaces only
-        assertFalse(Category.isValidCategory("91")); // less than 3 numbers
-        assertFalse(Category.isValidCategory("phone")); // non-numeric
-        assertFalse(Category.isValidCategory("9011p041")); // alphabets within digits
-        assertFalse(Category.isValidCategory("9312 1534")); // spaces within digits
 
-        // valid phone numbers
-        assertTrue(Category.isValidCategory("911")); // exactly 3 numbers
-        assertTrue(Category.isValidCategory("93121534"));
-        assertTrue(Category.isValidCategory("124293842033123")); // long phone numbers
+
+        // valid category
+        assertTrue(Category.isValidCategory("School"));
+        assertTrue(Category.isValidCategory("Oct1"));
+        assertTrue(Category.isValidCategory("124293842033123")); // long numbers
     }
 }

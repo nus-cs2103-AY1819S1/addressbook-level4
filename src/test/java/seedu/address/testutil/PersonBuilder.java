@@ -68,8 +68,8 @@ public class PersonBuilder {
     /**
      * Sets the {@code Category} of the {@code Person} that we are building.
      */
-    public PersonBuilder withCategory(String phone) {
-        this.category = new Category(phone);
+    public PersonBuilder withCategory(String category) {
+        this.category = new Category(category);
         return this;
     }
 

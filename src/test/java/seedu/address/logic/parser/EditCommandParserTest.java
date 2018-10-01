@@ -3,20 +3,20 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -76,16 +76,19 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_NAME_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, "1" + INVALID_CATEGORY_DESC, Category.MESSAGE_PHONE_CONSTRAINTS); // invalid phone
+        assertParseFailure(parser,
+                "1" + INVALID_CATEGORY_DESC, Category.MESSAGE_CATEGORY_CONSTRAINTS); // invalid category
         assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Cost.MESSAGE_ADDRESS_CONSTRAINTS); // invalid address
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS); // invalid tag
 
-        // invalid phone
-        assertParseFailure(parser, "1" + INVALID_CATEGORY_DESC, Category.MESSAGE_PHONE_CONSTRAINTS);
+        // invalid category
+        assertParseFailure(parser, "1" + INVALID_CATEGORY_DESC, Category.MESSAGE_CATEGORY_CONSTRAINTS);
 
-        // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
+        // valid category followed by invalid category.
+        // The test case for invalid category followed by valid category
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, "1" + CATEGORY_DESC_BOB + INVALID_CATEGORY_DESC, Category.MESSAGE_PHONE_CONSTRAINTS);
+        assertParseFailure(parser,
+                "1" + CATEGORY_DESC_BOB + INVALID_CATEGORY_DESC, Category.MESSAGE_CATEGORY_CONSTRAINTS);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Person} being edited,
         // parsing it together with a valid tag results in error
@@ -105,7 +108,7 @@ public class EditCommandParserTest {
                 + ADDRESS_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND;
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_CATEGORY_BOB).withCost(VALID_ADDRESS_AMY)
+                .withCategory(VALID_CATEGORY_BOB).withCost(VALID_ADDRESS_AMY)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -117,7 +120,7 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + CATEGORY_DESC_BOB;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_CATEGORY_BOB)
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withCategory(VALID_CATEGORY_BOB)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -133,9 +136,9 @@ public class EditCommandParserTest {
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // phone
+        // category
         userInput = targetIndex.getOneBased() + CATEGORY_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_CATEGORY_AMY).build();
+        descriptor = new EditPersonDescriptorBuilder().withCategory(VALID_CATEGORY_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -159,7 +162,7 @@ public class EditCommandParserTest {
                 + TAG_DESC_FRIEND + CATEGORY_DESC_AMY + ADDRESS_DESC_AMY + TAG_DESC_FRIEND
                 + CATEGORY_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_CATEGORY_BOB)
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withCategory(VALID_CATEGORY_BOB)
                 .withCost(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -172,14 +175,14 @@ public class EditCommandParserTest {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + INVALID_CATEGORY_DESC + CATEGORY_DESC_BOB;
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_CATEGORY_BOB).build();
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withCategory(VALID_CATEGORY_BOB).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
         userInput = targetIndex.getOneBased() + INVALID_CATEGORY_DESC + ADDRESS_DESC_BOB
                 + CATEGORY_DESC_BOB;
-        descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_CATEGORY_BOB)
+        descriptor = new EditPersonDescriptorBuilder().withCategory(VALID_CATEGORY_BOB)
                 .withCost(VALID_ADDRESS_BOB).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);

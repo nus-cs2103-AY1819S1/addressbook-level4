@@ -6,17 +6,17 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.util.ArrayList;
 
 /**
- * Represents a Person's phone number in the address book.
+ * Represents a Person's category in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidCategory(String)}
  */
 public class Category {
 
 
-    public static final String MESSAGE_PHONE_CONSTRAINTS =
+    public static final String MESSAGE_CATEGORY_CONSTRAINTS =
             "Category numbers should only contain numbers, and it should be at least 3 digits long";
     public static final String CATEGORY_VALIDATION_REGEX = "\\p{Alnum}+";
     private final String categoryName;
-    private final ArrayList<ExpenseTemp> expenseList = new ArrayList<>();
+    private final ArrayList<Expense> expenseList = new ArrayList<>();
 
     /**
      * Constructs a {@code Category}.
@@ -25,25 +25,25 @@ public class Category {
      */
     public Category(String category) {
         requireNonNull(category);
-        checkArgument(isValidCategory(category), MESSAGE_PHONE_CONSTRAINTS);
+        checkArgument(isValidCategory(category), MESSAGE_CATEGORY_CONSTRAINTS);
         categoryName = category;
     }
 
     /**
-     * Returns true if a given string is a valid phone number.
+     * Returns true if a given string is a valid category.
      */
     public static boolean isValidCategory(String test) {
         return test.matches(CATEGORY_VALIDATION_REGEX);
     }
 
     /**
-     * Add an ExpenseTemp into the {@code expenseList} in Category.
+     * Add an Expense into the {@code expenseList} in Category.
      * */
-    public void addIntoCategory(ExpenseTemp expense) {
+    public void addIntoCategory(Expense expense) {
         this.expenseList.add(expense);
     }
 
-    public ArrayList<ExpenseTemp> getExpenseList() {
+    public ArrayList<Expense> getExpenseList() {
         return this.expenseList;
     }
 

@@ -50,18 +50,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Category}.
+     * Parses a {@code String category} into a {@code Category}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws ParseException if the given {@code category} is invalid.
      */
-    public static Category parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Category.isValidCategory(trimmedPhone)) {
-            throw new ParseException(Category.MESSAGE_PHONE_CONSTRAINTS);
+    public static Category parseCategory(String category) throws ParseException {
+        requireNonNull(category);
+        String trimmedCategory = category.trim();
+        if (!Category.isValidCategory(trimmedCategory)) {
+            throw new ParseException(Category.MESSAGE_CATEGORY_CONSTRAINTS);
         }
-        return new Category(trimmedPhone);
+        return new Category(trimmedCategory);
     }
 
     /**

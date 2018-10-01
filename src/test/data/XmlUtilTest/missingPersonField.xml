@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!-- Person with missing name field -->
-<expenseTemp>
+<expense>
     <category>9482424</category>
     <cost>1.00</cost>
     <tagged>friends</tagged>
-</expenseTemp>
+</expense>
 
 

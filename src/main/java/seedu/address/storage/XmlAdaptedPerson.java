@@ -89,7 +89,7 @@ public class XmlAdaptedPerson {
                     Category.class.getSimpleName()));
         }
         if (!Category.isValidCategory(category)) {
-            throw new IllegalValueException(Category.MESSAGE_PHONE_CONSTRAINTS);
+            throw new IllegalValueException(Category.MESSAGE_CATEGORY_CONSTRAINTS);
         }
         final Category modelCategory = new Category(category);
 

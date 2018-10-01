@@ -3,41 +3,41 @@
 <addressbook>
     <persons>
         <name>Alice Pauline</name>
-        <category>94351253</category>
+        <category>School</category>
         <cost>3.00</cost>
         <tagged>friends</tagged>
     </persons>
     <persons>
         <name>Benson Meier</name>
-        <category>98765432</category>
+        <category>Food</category>
         <cost>2.00</cost>
         <tagged>owesMoney</tagged>
         <tagged>friends</tagged>
     </persons>
     <persons>
         <name>Carl Kurz</name>
-        <category>95352563</category>
+        <category>Entertainment</category>
         <cost>1.00</cost>
     </persons>
     <persons>
         <name>Daniel Meier</name>
-        <category>87652533</category>
+        <category>Shopping</category>
         <cost>2.00</cost>
         <tagged>friends</tagged>
     </persons>
     <persons>
         <name>Elle Meyer</name>
-        <category>9482224</category>
+        <category>Tax</category>
         <cost>5.00</cost>
     </persons>
     <persons>
         <name>Fiona Kunz</name>
-        <category>9482427</category>
+        <category>Book</category>
         <cost>6.00</cost>
     </persons>
     <persons>
         <name>George Best</name>
-        <category>9482442</category>
+        <category>Fine</category>
         <cost>7.00</cost>
     </persons>
     <username>typicalPersonsAddressBook</username>
