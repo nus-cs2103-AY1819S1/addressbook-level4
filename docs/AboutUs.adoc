@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Auyok Sean
-image::sean.jpeg[width="150", align="left"]
+image::A19Sean.jpeg[width="150", align="left"]
 {empty}[https://github.com/A19Sean[github]]
 
 Role: Developer +
@@ -20,7 +20,7 @@ Responsibilities: Documentation and Code Quality, UI Component
 '''
 
 === Chattoraj Ayush
-image::ayush.jpeg[width="150", align="left"]
+image::AyushChatto.jpeg[width="150", align="left"]
 {empty}[https://github.com/AyushChatto[github]]
 
 Role: Developer +
@@ -29,7 +29,7 @@ Responsibilities: Workflow, Git, and Github, Logic Component
 '''
 
 === Alex Chan
-image::alex.jpeg[width="150", align="left"]
+image::chantca95.jpeg[width="150", align="left"]
 {empty}[https://github.com/chantca95[github]]
 
 Role: Developer +
@@ -38,7 +38,7 @@ Responsibilities: Testing, UI Component
 '''
 
 === Denzel Chung
-image::denzel.jpg[width="150", align="left"]
+image::denzelchung.jpg[width="150", align="left"]
 {empty}[https://github.com/denzelchung[github]]
 
 Role: Developer +
@@ -47,7 +47,7 @@ Responsibilities: Integration, Storage Component
 '''
 
 === Louiz Kim-Chan
-image::louiz.jpeg[width="150", align="left"]
+image::zioul123.jpeg[width="150", align="left"]
 {empty}[https://github.com/zioul123[github]]
 
 Role: Team lead +
