@@ -1,5 +1,6 @@
 package systemtests;
 
+import guitests.guihandles.LoginWindowHandle;
 import java.nio.file.Path;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Supplier;
@@ -17,6 +18,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 public class SystemTestSetupHelper {
     private TestApp testApp;
     private MainWindowHandle mainWindowHandle;
+    private LoginWindowHandle loginWindowHandle;
 
     /**
      * Sets up a new {@code TestApp} and returns it.
@@ -59,6 +61,23 @@ public class SystemTestSetupHelper {
         }
 
         return mainWindowHandle;
+    }
+
+    /**
+     * Encapsulates the primary stage of {@code TestApp} in a {@code LoginWindowHandle} and returns it.
+     */
+    public LoginWindowHandle setupLoginWindowHandle() {
+        try {
+            FxToolkit.setupStage((stage) -> {
+                loginWindowHandle = new LoginWindowHandle(stage);
+                loginWindowHandle.focus();
+            });
+            FxToolkit.showStage();
+        } catch (TimeoutException te) {
+            throw new AssertionError("Stage takes too long to set up.", te);
+        }
+
+        return loginWindowHandle;
     }
 
     /**
