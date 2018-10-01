@@ -75,7 +75,7 @@ public class LoginCommandTest {
         assertFalse(loginAliceCommand.equals(1));
 
         // null -> returns false
-        assertFalse(loginAliceCommand.equals(null));
+        assertFalse(loginAliceCommand == null);
 
         // different person -> returns false
         assertFalse(loginAliceCommand.equals(loginBobCommand));
@@ -192,7 +192,7 @@ public class LoginCommandTest {
 
         @Override
         public void updateEvent(int index, Event event) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
