@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Afiq Lattif
-image::afiqlattif.jpg[width="150", align="left"]
+image::afiqlattif.png[width="150", align="left"]
 {empty}[https://github.com/afiqlattif[github]] [<<afiqlattif#, portfolio>>]
 
 Role: Developer +
@@ -30,7 +30,7 @@ Responsibilities: -
 '''
 
 === Amabel Yeo
-image::imarbles.jpg[width="150", align="left"]
+image::imarbles.png[width="150", align="left"]
 {empty}[https://github.com/iMarbles[github]] [<<amabelyeo#, portfolio>>]
 
 Role: Developer +
@@ -39,7 +39,7 @@ Responsibilities: -
 '''
 
 === Thangavel Sharan
-image::sharan8.jpeg[width="150", align="left"]
+image::sharan8.png[width="150", align="left"]
 {empty}[https://github.com/sharan8[github]] [<<thangavelsharan#, portfolio>>]
 
 Role: Developer +
