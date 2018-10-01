@@ -33,22 +33,13 @@ image::RussellOng95.jpg[width="150", align="left"]
 {empty}[https://github.com/RussellOng95[github]]
 
 Role: Group Member
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Daniel Koh
+image::danielkoh.jpg[width="160", align="left"]
+{empty}[https://github.com/danielkoh94[github]]
 
-Role: Developer +
-Responsibilities: UI
+Role: Group Member
 
 '''
