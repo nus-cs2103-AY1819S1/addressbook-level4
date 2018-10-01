@@ -241,20 +241,15 @@ e.g. edit -p 12312312
 * *Exit* : `exit [-f]`
 
 === Manager Commands
-* *Adding an employee* : `add -n NAME -s SECTOR [-g GROUP] [-m MERITS] [-f FLAWS] [-p SALARY]`
-
+* *Adding an employee* : `add -n NAME -s SECTOR [-g GROUP] [-m MERITS] [-f FLAWS] [-p SALARY]` +
 e.g. add -n Elliot -s Sales -g 1 -f Procrastinator
-* *Removing an employee* : `remove -n [NAME] -id [ID]`
-
+* *Removing an employee* : `remove -n [NAME] -id [ID]` +
 e.g. remove id E01312
 * *List effectiveness of sector by profit* : `sector`
-* *List effectiveness of employees* : `employees [-s SORTBY]`
-
+* *List effectiveness of employees* : `employees [-s SORTBY]` +
 e.g. employees -s name
-* *List employees* : `detail [-n NAME][-id ID]`
-
+* *List employees* : `detail [-n NAME][-id ID]` +
 e.g. detail -n Elliot
-* *Find employees by name* : `find FILTER`
-
+* *Find employees by name* : `find FILTER` +
 e.g. find Choo
 * *View employee leave summary* : `leavesummary`
