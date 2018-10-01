@@ -23,7 +23,8 @@ public class ClearCommandTest {
         Model expectedModel = new ModelManager();
         expectedModel.commitAddressBook();
 
-        assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel, analytics);
+        assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel,
+            analytics);
     }
 
     @Test
@@ -33,7 +34,8 @@ public class ClearCommandTest {
         expectedModel.resetData(new AddressBook());
         expectedModel.commitAddressBook();
 
-        assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel, analytics);
+        assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel,
+            analytics);
     }
 
 }

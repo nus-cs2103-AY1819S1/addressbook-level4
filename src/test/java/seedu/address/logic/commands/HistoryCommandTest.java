@@ -17,7 +17,8 @@ public class HistoryCommandTest {
 
     @Test
     public void execute() {
-        assertCommandSuccess(new HistoryCommand(), model, history, HistoryCommand.MESSAGE_NO_HISTORY, expectedModel, analytics);
+        assertCommandSuccess(new HistoryCommand(), model, history, HistoryCommand.MESSAGE_NO_HISTORY, expectedModel,
+            analytics);
 
         String command1 = "clear";
         history.add(command1);
