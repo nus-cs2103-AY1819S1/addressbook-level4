@@ -1,4 +1,4 @@
-= Address Book (Level 4)
+= TheTracker
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/se-edu/addressbook-level4[image:https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master[Build Status]]
@@ -16,16 +16,16 @@ image::docs/images/Ui.png[width="600"]
 endif::[]
 
 * Welcome to TheTracker
-* TheTracker aims at NUS students to keep track of everything from the
-modules they take to the events they join, and every person related to them
-from NUS staff to their friends.
+* TheTracker aims to help NUS students keep track of their friends, modules and events.
+* Students can find other students who share their major, have common modules,
+while also noting those in charge of key events.
 * The design of TheTracker favours students who prefer interactions which are
- using CLI(Command Line Interface).
-* TheTracker welcomes students who are:
-** Sociable and wish to know about his/her NUS peers
-** Academic and wish to keep track of their grades for certain modules and all
-the modules
-** keep track of schedule of events on a calendar
+ using CLI(Command Line Interface). Experienced users can do multiple updates at once,
+ but new users can perform these step by step.
+* TheTracker welcomes students who:
+** Are sociable and wish to stay in contact with his/her NUS peers
+** Want a multi-utility academic tool, to record grades, modules and peers
+** Are looking for a minimalistic scheduler/planner
 
 == Site Map
 
