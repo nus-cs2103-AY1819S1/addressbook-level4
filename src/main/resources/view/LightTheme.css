@@ -150,7 +150,7 @@
      -fx-background-color: derive(#D2D2D2, 20%);
      -fx-border-color: derive(#1d1d1d, 10%);
      -fx-border-top-width: 1px;
-} 
+}
 
 .status-bar {
     -fx-background-color: derive(#D2D2D2, 10%);
@@ -336,7 +336,6 @@
     -fx-font-size: 13pt;
     -fx-text-fill: black;
     -fx-prompt-text-fill: #4c2d2e;
-    
 }
 
 #filterField, #personListPanel, #personWebpage {
