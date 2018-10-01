@@ -35,7 +35,7 @@ e.g. typing help and pressing Enter will open the help window.
 
 * *`login`* : login into the manager account. The default username and password is admin/admin.
 * *`employees`* : lists all employees.
-* **`add`**`John Doe Marketing` : adds an employee named John Doe into the marketing sector.
+* **`add`**`-n John Doe Marketing -s Sales` : adds an employee named John Doe into the marketing sector.
 * **`find`**`J*` : finds all employees that start with J.
 * *`exit`* : exits the app
 
@@ -229,12 +229,12 @@ Format: `exit [-f]`
 === Employee Commands
 
 * *Help* : `help`
-* *Login* : `login -u USERNAME [-p]`
+* *Login* : `login -u USERNAME [-p]` +
 e.g. login -u Kok
 * *History* : `history`
-* *Apply for leave* : `leave DATE to DATE`
+* *Apply for leave* : `leave DATE to DATE` +
 e.g. leave 1/1/2019 to 30/1/2019
-* *Edit details* : `edit [-p PHONE][-e EMAIL][-a ADDRESS]`
+* *Edit details* : `edit [-p PHONE][-e EMAIL][-a ADDRESS]` +
 e.g. edit -p 12312312
 * *Change password* : `passwd`
 * *View income summary* : `summary`
@@ -242,14 +242,19 @@ e.g. edit -p 12312312
 
 === Manager Commands
 * *Adding an employee* : `add -n NAME -s SECTOR [-g GROUP] [-m MERITS] [-f FLAWS] [-p SALARY]`
+
 e.g. add -n Elliot -s Sales -g 1 -f Procrastinator
 * *Removing an employee* : `remove -n [NAME] -id [ID]`
+
 e.g. remove id E01312
 * *List effectiveness of sector by profit* : `sector`
 * *List effectiveness of employees* : `employees [-s SORTBY]`
+
 e.g. employees -s name
 * *List employees* : `detail [-n NAME][-id ID]`
+
 e.g. detail -n Elliot
 * *Find employees by name* : `find FILTER`
-e.g. find -n Choo
+
+e.g. find Choo
 * *View employee leave summary* : `leavesummary`
