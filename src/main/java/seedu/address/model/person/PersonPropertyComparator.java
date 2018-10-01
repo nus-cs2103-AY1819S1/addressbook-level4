@@ -24,7 +24,8 @@ public enum PersonPropertyComparator {
         return comparator;
     }
     
-    public static PersonPropertyComparator getPersonPropertyComparator(String personProperty) throws IllegalArgumentException {
+    public static PersonPropertyComparator getPersonPropertyComparator(String personProperty) 
+            throws IllegalArgumentException {
         return PersonPropertyComparator.valueOf(personProperty.toUpperCase());
     }
     
