@@ -26,6 +26,8 @@ public class CommandHistory {
 
     public CommandHistory(CommandHistory commandHistory) {
         userInputHistory = new LinkedList<>(commandHistory.userInputHistory);
+        selectedEvent = commandHistory.getSelectedEvent();
+        selectedPerson = commandHistory.getSelectedPersonNoException();
     }
 
     /**
@@ -71,6 +73,10 @@ public class CommandHistory {
     @Override
     public int hashCode() {
         return userInputHistory.hashCode();
+    }
+
+    public Person getSelectedPersonNoException() {
+        return selectedPerson;
     }
 
     public Person getSelectedPerson() throws NoUserLoggedInException {

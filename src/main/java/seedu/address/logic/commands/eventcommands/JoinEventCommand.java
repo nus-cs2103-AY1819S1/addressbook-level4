@@ -30,7 +30,7 @@ public class JoinEventCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_JOINED_EVENT_SUCCESS = "Joined event: %1$s";
+    public static final String MESSAGE_SUCCESS = "Joined event: %1$s";
 
     private final Index targetIndex;
 
@@ -64,7 +64,7 @@ public class JoinEventCommand extends Command {
         model.updateEvent(event, event);
 
         EventsCenter.getInstance().post(new JumpToEventListRequestEvent(targetIndex));
-        String result = String.format(MESSAGE_JOINED_EVENT_SUCCESS, targetIndex.getOneBased());
+        String result = String.format(MESSAGE_SUCCESS, event);
         result += "\n" + "People attending: " + event.getNameList();
         return new CommandResult(result);
     }

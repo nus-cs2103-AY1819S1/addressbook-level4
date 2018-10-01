@@ -88,8 +88,8 @@ public class CommandTestUtil {
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
             String expectedMessage, Model expectedModel) {
-        CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
+            CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
             CommandResult result = command.execute(actualModel, actualCommandHistory);
             assertEquals(expectedMessage, result.feedbackToUser);
             assertEquals(expectedModel, actualModel);

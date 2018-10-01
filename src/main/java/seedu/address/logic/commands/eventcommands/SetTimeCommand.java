@@ -10,8 +10,10 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
+import seedu.address.model.person.Person;
 
 /**
  * Sets the time of an event.
@@ -21,17 +23,20 @@ public class SetTimeCommand extends Command {
     public static final String COMMAND_WORD = "setTime";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Confirms the time for the pre-selected event.";
-    public static final String MESSAGE_SUCCESS = "Time %1$s set for %2$s";
+    public static final String MESSAGE_SUCCESS = "Time from %1$s to $2$s set for %3$s";
 
-    private final LocalTime time;
+    private final LocalTime startTime;
+    private final LocalTime endTime;
     private Event event;
 
     /**
      * Creates an AddCommand to add the specified {@code Event}
      */
-    public SetTimeCommand(LocalTime time) {
-        requireNonNull(time);
-        this.time = time;
+    public SetTimeCommand(LocalTime startTime, LocalTime endTime) {
+        requireNonNull(startTime);
+        requireNonNull(endTime);
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     public void setEvent(Event event) {
@@ -44,10 +49,30 @@ public class SetTimeCommand extends Command {
         if (event == null) {
             throw new CommandException(Messages.MESSAGE_NO_EVENT_SELECTED);
         }
-        event.setTime(time);
+
+        try {
+            Person person = history.getSelectedPerson();
+            if (!person.equals(event.getOrganiser())) {
+                throw new CommandException(Messages.MESSAGE_NOT_EVENT_ORGANISER);
+            }
+        } catch (NoUserLoggedInException e) {
+            throw new CommandException(Messages.MESSAGE_NO_USER_LOGGED_IN);
+        }
+
+        event.setStartTime(startTime);
+        event.setEndTime(endTime);
         model.commitAddressBook();
         model.updateEvent(event, event);
         DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
-        return new CommandResult(String.format(MESSAGE_SUCCESS, time.format(timeFormat), event));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, startTime.format(timeFormat),
+                endTime.format(timeFormat), event));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SetTimeCommand // instanceof handles nulls
+                && startTime.equals(((SetTimeCommand) other).startTime)
+                && endTime.equals(((SetTimeCommand) other).endTime)); // state check
     }
 }

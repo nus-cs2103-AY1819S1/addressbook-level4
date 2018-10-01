@@ -28,6 +28,7 @@ import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.eventcommands.DeleteEventCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
@@ -46,6 +47,12 @@ public class AddressBookParserTest {
         Person person = new PersonBuilder().build();
         LoginCommand command = (LoginCommand) parser.parseCommand(PersonUtil.getLoginCommand(person));
         assertEquals(new LoginCommand(person), command);
+    }
+
+    public void parseCommand_deleteEvent() throws Exception {
+        DeleteEventCommand command = (DeleteEventCommand) parser.parseCommand(
+                DeleteEventCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        assertEquals(new DeleteEventCommand(INDEX_FIRST), command);
     }
 
     @Test

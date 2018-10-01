@@ -34,7 +34,9 @@ public class XmlAdaptedEvent {
     @XmlElement(required = true)
     private XmlAdaptedPerson organiser;
     @XmlElement(required = false)
-    private String time = "";
+    private String startTime = "";
+    @XmlElement(required = false)
+    private String endTime = "";
     @XmlElement(required = false)
     private String date = "";
 
@@ -55,14 +57,15 @@ public class XmlAdaptedEvent {
      * Constructs an {@code XmlAdaptedEvent} with the given event details.
      */
 
-    public XmlAdaptedEvent(String name, String address, XmlAdaptedPerson organiser, String date, String time,
-                           List<XmlAdaptedTag> tagged, List<XmlAdaptedPoll> polls,
-                           List<XmlAdaptedPerson> personList) {
+    public XmlAdaptedEvent(String name, String address, XmlAdaptedPerson organiser, String date,
+                           String startTime, String endTime, List<XmlAdaptedTag> tagged,
+                           List<XmlAdaptedPoll> polls, List<XmlAdaptedPerson> personList) {
         this.name = name;
         this.address = address;
         this.organiser = organiser;
         this.date = date;
-        this.time = time;
+        this.startTime = startTime;
+        this.endTime = endTime;
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
@@ -87,7 +90,8 @@ public class XmlAdaptedEvent {
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
         date = source.getDateString();
-        time = source.getTimeString();
+        startTime = source.getStartTime().toString();
+        endTime = source.getEndTime().toString();
         polls = source.getPolls().stream()
                 .map(XmlAdaptedPoll::new)
                 .collect(Collectors.toList());
@@ -136,9 +140,14 @@ public class XmlAdaptedEvent {
             event.setDate(modelDate);
         }
 
-        if (!time.isEmpty()) {
-            LocalTime modelTime = LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"));
-            event.setTime(modelTime);
+        if (!startTime.isEmpty()) {
+            LocalTime modelTime = LocalTime.parse(startTime, DateTimeFormatter.ofPattern("HH:mm"));
+            event.setStartTime(modelTime);
+        }
+
+        if (!endTime.isEmpty()) {
+            LocalTime modelTime = LocalTime.parse(endTime, DateTimeFormatter.ofPattern("HH:mm"));
+            event.setEndTime(modelTime);
         }
 
         final ArrayList<Poll> modelPolls = new ArrayList<>();
