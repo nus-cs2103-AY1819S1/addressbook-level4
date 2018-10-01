@@ -9,6 +9,9 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.ImportContactsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses input arguments and creates a new ImportContactsCommand object
+ */
 public class ImportContactsCommandParser {
     /**
      * Parses the given {@code String} of arguments in the context of the ImportContactsCommand
@@ -21,7 +24,8 @@ public class ImportContactsCommandParser {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_FILE)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportContactsCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ImportContactsCommand.MESSAGE_USAGE));
         }
 
         File file = ParserUtil.parseFilePath(argMultimap.getValue(PREFIX_FILE).get());
