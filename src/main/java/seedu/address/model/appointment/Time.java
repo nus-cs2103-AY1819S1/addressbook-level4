@@ -2,7 +2,7 @@ package seedu.address.model.appointment;
 
 import java.util.Objects;
 
-import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
@@ -24,8 +24,7 @@ public class Time {
      * @param minute A valid minute.
      */
     public Time(int hour, int minute) {
-        requireNonNull(hour);
-        requireNonNull(minute);
+        requireAllNonNull(hour, minute);
         checkArgument(isValidHour(hour), MESSAGE_HOUR_CONSTRAINTS);
         checkArgument(isValidMinute(hour), MESSAGE_MINUTE_CONSTRAINTS);
         this.hour = hour;

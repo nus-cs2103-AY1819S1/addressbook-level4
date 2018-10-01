@@ -2,7 +2,7 @@ package seedu.address.model.appointment;
 
 import java.util.Objects;
 
-import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
@@ -30,9 +30,7 @@ public class Date {
      * @param year A valid year.
      */
     public Date(int day, int month, int year) {
-        requireNonNull(day);
-        requireNonNull(month);
-        requireNonNull(year);
+        requireAllNonNull(day, month, year);
         checkArgument(isValidDay(day, month), MESSAGE_DAY_CONSTRAINTS);
         checkArgument(isValidMonth(month), MESSAGE_MONTH_CONSTRAINTS);
         checkArgument(isValidYear(year), MESSAGE_YEAR_CONSTRAINTS);

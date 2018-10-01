@@ -4,6 +4,8 @@ import seedu.address.model.person.Person;
 
 import java.util.Objects;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 /**
  * Contains details regarding appointment.
  */
@@ -21,6 +23,7 @@ public class Appointment {
     private static Person patient;
 
     public Appointment(Date date, Time time, Person patient) {
+        requireAllNonNull(date, time, patient);
         this.appointmentDate = date;
         this.appointmentTime = time;
         this.patient = patient;
