@@ -19,6 +19,7 @@ import seedu.address.model.person.Patient;
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_ALIAS = "a";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a patient to the address book. "
             + "Parameters: "
@@ -62,6 +63,7 @@ public class AddCommand extends Command {
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
+
 
     @Override
     public boolean equals(Object other) {

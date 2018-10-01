@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddMedicalRecordCommand;
+import seedu.address.logic.commands.AddMedicineCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
@@ -18,6 +19,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListStockCommand;
 import seedu.address.logic.commands.ReceiptCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RegisterCommand;
@@ -55,27 +57,40 @@ public class AddressBookParser {
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
+        case AddCommand.COMMAND_ALIAS:
             return new AddCommandParser().parse(arguments);
 
+        case AddMedicineCommand.COMMAND_WORD:
+            return new AddMedicineCommandParser().parse(arguments);
+
         case EditCommand.COMMAND_WORD:
+        case EditCommand.COMMAND_ALIAS:
             return new EditCommandParser().parse(arguments);
 
         case SelectCommand.COMMAND_WORD:
+        case SelectCommand.COMMAND_ALIAS:
             return new SelectCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
+        case DeleteCommand.COMMAND_ALIAS:
             return new DeleteCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
+        case FindCommand.COMMAND_ALIAS:
             return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
+        case ListCommand.COMMAND_ALIAS:
             return new ListCommand();
 
+        case ListStockCommand.COMMAND_WORD:
+            return new ListStockCommand();
+
         case HistoryCommand.COMMAND_WORD:
+        case HistoryCommand.COMMAND_ALIAS:
             return new HistoryCommand();
 
         case ExitCommand.COMMAND_WORD:
@@ -85,15 +100,19 @@ public class AddressBookParser {
             return new HelpCommand();
 
         case UndoCommand.COMMAND_WORD:
+        case UndoCommand.COMMAND_ALIAS:
             return new UndoCommand();
 
         case RedoCommand.COMMAND_WORD:
+        case RedoCommand.COMMAND_ALIAS:
             return new RedoCommand();
 
         case AddMedicalRecordCommand.COMMAND_WORD:
+        case AddMedicalRecordCommand.COMMAND_ALIAS:
             return new AddMedicalRecordCommandParser().parse(arguments);
 
         case ReceiptCommand.COMMAND_WORD:
+        case ReceiptCommand.COMMAND_ALIAS:
             return new ReceiptCommandParser().parse(arguments);
 
         case DisplayQueueCommand.COMMAND_WORD:
