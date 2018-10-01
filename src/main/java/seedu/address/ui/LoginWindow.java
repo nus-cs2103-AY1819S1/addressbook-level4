@@ -40,6 +40,7 @@ public class LoginWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
+    private BrowserPanel browserPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
