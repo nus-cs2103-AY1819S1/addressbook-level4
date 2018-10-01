@@ -59,7 +59,7 @@ Role: Developer
 '''
 
 === Nguyen Trong Truong Thanh
-image::truongthanh.png[width="150", align="left"]
+image::truongthanh2606.png[width="150", align="left"]
 {empty}[https://github.com/truongthanh2606[github]] [<<truongthanh2606#, portfolio>>]
 
 Role: Developer
