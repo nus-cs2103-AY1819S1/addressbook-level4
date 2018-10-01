@@ -52,5 +52,5 @@ class EraseCommandTest {
         assertCommandSuccess(eraseCommand, model, commandHistory,
                 String.format(MESSAGE_ERASE_SUCCESS, target.get(0)), expectedModel);
     }
-    
+
 }
