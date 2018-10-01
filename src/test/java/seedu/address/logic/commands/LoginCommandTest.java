@@ -199,6 +199,11 @@ public class LoginCommandTest {
         public void setCurrentUser(Person currentUser) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public Person getCurrentUser() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

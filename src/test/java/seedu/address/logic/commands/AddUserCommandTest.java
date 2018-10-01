@@ -201,6 +201,11 @@ public class AddUserCommandTest {
         }
 
         @Override
+        public Person getCurrentUser() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateEvent(int index, Event editedEvent) {
             throw new AssertionError("This method should not be called.");
         }

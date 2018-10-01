@@ -53,8 +53,8 @@ public class JoinEventCommand extends Command {
         history.setSelectedEvent(event);
 
         try {
-            Person person = history.getSelectedPerson();
-            event.addPerson(person);
+            //Person person = history.getSelectedPerson();
+            event.addPerson(model.getCurrentUser());
         } catch (DuplicatePersonException e) {
             throw new CommandException(Messages.MESSAGE_ALREADY_JOINED);
         } catch (NoUserLoggedInException e) {

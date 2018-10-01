@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,6 +21,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -47,7 +49,7 @@ public class AddEventCommandTest {
         AddEventCommandTest.ModelStubAcceptingEventAdded modelStub = new
                 AddEventCommandTest.ModelStubAcceptingEventAdded();
         Event validEvent = new EventBuilder().build();
-        commandHistory.setSelectedPerson(new PersonBuilder().build());
+        modelStub.setCurrentUser(new PersonBuilder().build());
 
         CommandResult commandResult = new AddEventCommand(validEvent).execute(modelStub, commandHistory);
 
@@ -217,6 +219,11 @@ public class AddEventCommandTest {
         }
 
         @Override
+        public Person getCurrentUser() throws NoUserLoggedInException{
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateEvent(int index, Event editedEvent) {
             throw new AssertionError("This method should not be called.");
         }
@@ -245,6 +252,7 @@ public class AddEventCommandTest {
      */
     private class ModelStubAcceptingEventAdded extends AddEventCommandTest.ModelStub {
         final ArrayList<Event> eventsAdded = new ArrayList<>();
+        private Person currentUser = null;
 
         @Override
         public boolean hasEvent(Event event) {
@@ -267,6 +275,20 @@ public class AddEventCommandTest {
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
         }
+
+        @Override
+        public void setCurrentUser(Person person) {
+            currentUser = person;
+        }
+
+        @Override
+        public Person getCurrentUser() throws NoUserLoggedInException{
+            if (currentUser == null) {
+                throw new NoUserLoggedInException();
+            }
+            return currentUser;
+        }
+
     }
 
 }

@@ -11,8 +11,11 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 
@@ -54,7 +57,10 @@ public class ModelManager extends ComponentManager implements Model {
         return (currentUser != null);
     }
 
-    public Person getCurrentUser() {
+    public Person getCurrentUser() throws NoUserLoggedInException {
+        if (currentUser == null) {
+            throw new NoUserLoggedInException();
+        }
         return currentUser;
     }
 

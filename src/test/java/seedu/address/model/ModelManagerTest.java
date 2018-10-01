@@ -16,6 +16,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.commons.core.Messages;
+import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
 
@@ -54,14 +56,17 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void getCurrentUser_currentUserHasBeenSet() {
+    public void getCurrentUser_currentUserHasBeenSet() throws NoUserLoggedInException {
         modelManager.setCurrentUser(ALICE);
+        assertTrue(modelManager.hasSetCurrentUser());
         assertEquals(ALICE, modelManager.getCurrentUser());
     }
 
     @Test
-    public void getCurrentUser_currentUserHasNotBeenSet() {
-        assertNull(modelManager.getCurrentUser());
+    public void getCurrentUser_currentUserHasNotBeenSet_throwsNoUserLoggedInException() throws NoUserLoggedInException {
+        assertFalse(modelManager.hasSetCurrentUser());
+        thrown.expect (NoUserLoggedInException.class);
+        modelManager.getCurrentUser();
     }
 
 
