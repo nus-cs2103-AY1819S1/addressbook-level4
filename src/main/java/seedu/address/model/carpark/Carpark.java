@@ -14,7 +14,6 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Carpark {
-
     // Identity fields
     private final Address address;
     private final CarparkNumber carparkNumber;
@@ -50,6 +49,56 @@ public class Carpark {
         this.typeOfParking = typeOfParking;
 
         this.tags.addAll(tags);
+    }
+
+    public Carpark(String shortTerm, String carparkType, String yCoord, String xCoord, String freeParking,
+                   String nightParking, String address, String id, String carparkNumber, String typeOfParking,
+                   String totalLots, String lotsAvailable) {
+
+        requireAllNonNull(address, carparkNumber, carparkType, xCoord, yCoord, freeParking,
+                nightParking, shortTerm, typeOfParking);
+        this.address = new Address(address);
+        this.carparkNumber = new CarparkNumber(carparkNumber);
+        this.carparkType = new CarparkType(carparkType);
+        this.coordinate = new Coordinate(xCoord + ", " + yCoord);
+        this.freeParking = new FreeParking(freeParking);
+        this.nightParking = new NightParking(nightParking);
+        this.shortTerm = new ShortTerm(shortTerm);
+        this.typeOfParking = new TypeOfParking(typeOfParking);
+
+        if (totalLots != null) {
+            this.totalLots = new TotalLots(totalLots);
+        } else {
+            this.totalLots = new TotalLots("0");
+        }
+
+        if(lotsAvailable != null) {
+            this.lotsAvailable = new LotsAvailable(lotsAvailable);
+        } else {
+            this.lotsAvailable = new LotsAvailable("0");
+        }
+    }
+
+    public Carpark(String... data) {
+
+        String shortTerm = data[0], carparkType = data[1], yCoord = data[2], xCoord = data[3],
+                freeParking = data[4], nightParking = data[5], address = data[6], id = data[6],
+                carparkNumber = data[7], typeOfParking = data[8];
+
+        requireAllNonNull(address, carparkNumber, carparkType, xCoord, yCoord, freeParking,
+                nightParking, shortTerm, typeOfParking);
+
+        this.address = new Address(address);
+        this.carparkNumber = new CarparkNumber(carparkNumber);
+        this.carparkType = new CarparkType(carparkType);
+        this.coordinate = new Coordinate(yCoord + ", " + xCoord);
+        this.freeParking = new FreeParking(freeParking);
+        this.nightParking = new NightParking(nightParking);
+        this.shortTerm = new ShortTerm(shortTerm);
+        this.typeOfParking = new TypeOfParking(typeOfParking);
+
+        this.totalLots = new TotalLots("0");
+        this.lotsAvailable = new LotsAvailable("0");
     }
 
     public Address getAddress() {
