@@ -96,9 +96,18 @@ public class EditCommand extends Command {
         assert personToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
+        Optional<Phone> updatedPhone = editPersonDescriptor.getPhone()
+                .isPresent()
+                ? editPersonDescriptor.getPhone()
+                : personToEdit.getPhone();
+        Optional<Email> updatedEmail = editPersonDescriptor.getEmail()
+                .isPresent()
+                ? editPersonDescriptor.getEmail()
+                : personToEdit.getEmail();
+        Optional<Address> updatedAddress = editPersonDescriptor.getAddress()
+                .isPresent()
+                ? editPersonDescriptor.getAddress()
+                : personToEdit.getAddress();
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);

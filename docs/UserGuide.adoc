@@ -67,7 +67,8 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 Shorthand: `a`
 
 [TIP]
-A person can have any number of tags (including 0)
+Only the Name field is compulsory, all other fields need not be included.
+A person can have one name, phone, email and address, and any number of tags (including 0)
 
 Examples:
 
