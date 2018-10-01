@@ -50,8 +50,6 @@ public class Meeting {
                 + value.charAt(6) + value.charAt(7)
                 + value.charAt(8) + value.charAt(9));
         return sb.toString();
-//        return value;
-        // TBD return details of the entry. Use linear lookup.
     }
 
     @Override
