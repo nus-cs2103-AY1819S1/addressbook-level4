@@ -14,7 +14,7 @@ import seedu.address.model.person.Person;
  * Allow a person to login to the address book.
  */
 public class LoginCommand extends Command {
-
+    public static final String COMMAND_ALIAS = "l";
     public static final String COMMAND_WORD = "login";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Login a person to the address book. "
@@ -49,7 +49,7 @@ public class LoginCommand extends Command {
         }
 
         model.setCurrentUser(toLogin);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toLogin));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toLogin.getName()));
     }
 
     @Override
