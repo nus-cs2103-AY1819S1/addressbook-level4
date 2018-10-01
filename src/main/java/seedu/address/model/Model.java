@@ -1,10 +1,10 @@
 package seedu.address.model;
 
-import java.util.Comparator;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonPropertyComparator;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -80,9 +80,9 @@ public interface Model {
     
     /**
      * Updates the sorting of the sorted person list to sort by the given {@code comparator}.
-     * @param comparator The comparator to sort the list by.
+     * @param personPropertyComparator The comparator to sort the list by.
      */
-    void updateSortedPersonList(Comparator<Person> comparator);
+    void updateSortedPersonList(PersonPropertyComparator personPropertyComparator);
 
     /**
      * Returns true if the model has previous address book states to restore.

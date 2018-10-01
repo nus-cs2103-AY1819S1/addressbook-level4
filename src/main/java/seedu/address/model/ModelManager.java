@@ -3,7 +3,6 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -15,6 +14,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonPropertyComparator;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -127,9 +127,9 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void updateSortedPersonList(Comparator<Person> comparator) {
-        requireNonNull(comparator);
-        sortedPersons.setComparator(comparator);
+    public void updateSortedPersonList(PersonPropertyComparator personPropertyComparator) {
+        requireNonNull(personPropertyComparator);
+        sortedPersons.setComparator(personPropertyComparator.getComparator());
     }
 
     //=========== Undo/Redo =================================================================================
