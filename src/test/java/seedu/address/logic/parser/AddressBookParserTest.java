@@ -6,6 +6,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,7 +29,15 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.eventcommands.AddPollCommand;
+import seedu.address.logic.commands.eventcommands.AddPollOptionCommand;
 import seedu.address.logic.commands.eventcommands.DeleteEventCommand;
+import seedu.address.logic.commands.eventcommands.DisplayPollCommand;
+import seedu.address.logic.commands.eventcommands.JoinEventCommand;
+import seedu.address.logic.commands.eventcommands.SelectEventCommand;
+import seedu.address.logic.commands.eventcommands.SetDateCommand;
+import seedu.address.logic.commands.eventcommands.SetTimeCommand;
+import seedu.address.logic.commands.eventcommands.VoteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
@@ -47,6 +57,66 @@ public class AddressBookParserTest {
                 DeleteEventCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
         assertEquals(new DeleteEventCommand(INDEX_FIRST), command);
     }
+
+    @Test
+    public void parseCommand_addPoll() throws Exception {
+        AddPollCommand command = (AddPollCommand) parser.parseCommand(
+                AddPollCommand.COMMAND_WORD + " " + "n/Date poll");
+        assertEquals(new AddPollCommand("Date poll"), command);
+    }
+
+    @Test
+    public void parseCommand_addPollOption() throws Exception {
+        AddPollOptionCommand command = (AddPollOptionCommand) parser.parseCommand(
+                AddPollOptionCommand.COMMAND_WORD + " " + "i/1 o/12 August");
+        assertEquals(new AddPollOptionCommand(INDEX_FIRST, "12 August"), command);
+    }
+
+    @Test
+    public void parseCommand_joinEvent() throws Exception {
+        JoinEventCommand command = (JoinEventCommand) parser.parseCommand(
+                JoinEventCommand.COMMAND_WORD + " " + "1");
+        assertEquals(new JoinEventCommand(INDEX_FIRST), command);
+    }
+
+    @Test
+    public void parseCommand_selectEvent() throws Exception {
+        SelectEventCommand command = (SelectEventCommand) parser.parseCommand(
+                SelectEventCommand.COMMAND_WORD + " " + "1");
+        assertEquals(new SelectEventCommand(INDEX_FIRST), command);
+    }
+
+    @Test
+    public void parseCommand_setDate() throws Exception {
+        SetDateCommand command = (SetDateCommand) parser.parseCommand(
+                SetDateCommand.COMMAND_WORD + " " + "d/02-03-2018");
+        LocalDate date = LocalDate.of(2018, 3, 2);
+        assertEquals(new SetDateCommand(date), command);
+    }
+
+    @Test
+    public void parseCommand_setTime() throws Exception {
+        SetTimeCommand command = (SetTimeCommand) parser.parseCommand(
+                SetTimeCommand.COMMAND_WORD + " " + "t1/12:00 t2/13:30");
+        LocalTime startTime = LocalTime.of(12, 00);
+        LocalTime endTime = LocalTime.of(13, 30);
+        assertEquals(new SetTimeCommand(startTime, endTime), command);
+    }
+
+    @Test
+    public void parseCommand_vote() throws Exception {
+        VoteCommand command = (VoteCommand) parser.parseCommand(
+                VoteCommand.COMMAND_WORD + " " + "i/1 o/12 August");
+        assertEquals(new VoteCommand(INDEX_FIRST, "12 August"), command);
+    }
+
+    @Test
+    public void parseCommand_joinOption() throws Exception {
+        DisplayPollCommand command = (DisplayPollCommand) parser.parseCommand(
+                DisplayPollCommand.COMMAND_WORD + " " + "1");
+        assertEquals(new DisplayPollCommand(INDEX_FIRST), command);
+    }
+
 
     @Test
     public void parseCommand_add() throws Exception {

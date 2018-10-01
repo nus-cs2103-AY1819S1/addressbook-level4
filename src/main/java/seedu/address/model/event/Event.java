@@ -226,14 +226,20 @@ public class Event {
             return true;
         }
 
-        if (!(other instanceof seedu.address.model.event.Event)) {
+        if (!(other instanceof Event)) {
             return false;
         }
 
-        Event otherEvent = (seedu.address.model.event.Event) other;
+        Event otherEvent = (Event) other;
         return otherEvent.getName().equals(getName())
                 && otherEvent.getLocation().equals(getLocation())
-                && otherEvent.getTags().equals(getTags());
+                && otherEvent.getTags().equals(getTags())
+                && otherEvent.getDate().equals(getDate())
+                && otherEvent.getStartTime().equals(getStartTime())
+                && otherEvent.getEndTime().equals(getEndTime())
+                && otherEvent.getPersonList().equals(getPersonList());
+                //&& otherEvent.getOrganiser().equals(getOrganiser());
+                //&& otherEvent.getPolls().equals(getPolls());
     }
 
     @Override

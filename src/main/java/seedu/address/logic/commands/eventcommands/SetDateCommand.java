@@ -1,3 +1,4 @@
+//@@author theJrLinguist
 package seedu.address.logic.commands.eventcommands;
 
 import static java.util.Objects.requireNonNull;
@@ -56,9 +57,13 @@ public class SetDateCommand extends Command {
             throw new CommandException(Messages.MESSAGE_NO_USER_LOGGED_IN);
         }
 
+        //List<Event> lastShownList = model.getFilteredEventList();
+        //int index = lastShownList.indexOf(event);
+
         event.setDate(date);
-        model.commitAddressBook();
+        //model.updateEvent(index, event);
         model.updateEvent(event, event);
+        model.commitAddressBook();
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return new CommandResult(String.format(MESSAGE_SUCCESS, date.format(dateFormat), event));
     }

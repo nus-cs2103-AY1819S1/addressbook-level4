@@ -1,3 +1,4 @@
+//@@author theJrLinguist
 package seedu.address.logic.commands.eventcommands;
 
 import static org.junit.Assert.assertFalse;
@@ -25,7 +26,7 @@ public class SetDateCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
-    private LocalDate date = LocalDate.of(2018, 1, 1);
+    private LocalDate date = LocalDate.of(2018, 2, 1);
 
     @Test
     public void execute_dateAcceptedSetDate() {
@@ -33,13 +34,11 @@ public class SetDateCommandTest {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         Person user = new PersonBuilder().build();
         commandHistory.setSelectedPerson(user);
-        EventBuilder eventBuilder = new EventBuilder();
-        eventBuilder.withOrganiser(user);
-        Event event = eventBuilder.build();
+        Event event = model.getFilteredEventList().get(0);
         commandHistory.setSelectedEvent(event);
         String expectedMessage = String.format(command.MESSAGE_SUCCESS, date.format(dateFormat), event);
-        expectedModel.commitAddressBook();
         expectedModel.updateEvent(event, event);
+        expectedModel.commitAddressBook();
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
 
