@@ -11,10 +11,14 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.carpark.Address;
 import seedu.address.model.carpark.CarparkNumber;
+import seedu.address.model.carpark.CarparkType;
+import seedu.address.model.carpark.Coordinate;
+import seedu.address.model.carpark.FreeParking;
 import seedu.address.model.carpark.LotsAvailable;
+import seedu.address.model.carpark.NightParking;
+import seedu.address.model.carpark.ShortTerm;
 import seedu.address.model.carpark.TotalLots;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
+import seedu.address.model.carpark.TypeOfParking;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -38,33 +42,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
+     * Parses a {@code String address} into an {@code Address}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code name} is invalid.
+     * @throws ParseException if the given {@code address} is invalid.
      */
-    public static Name parseName(String name) throws ParseException {
-        requireNonNull(name);
-        String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_NAME_CONSTRAINTS);
+    public static Address parseAddress(String address) throws ParseException {
+        requireNonNull(address);
+        String trimmedAddress = address.trim();
+        if (!Address.isValidAddress(trimmedAddress)) {
+            throw new ParseException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
         }
-        return new Name(trimmedName);
-    }
-
-    /**
-     * Parses a {@code String phone} into a {@code Phone}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code phone} is invalid.
-     */
-    public static Phone parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_PHONE_CONSTRAINTS);
-        }
-        return new Phone(trimmedPhone);
+        return new Address(trimmedAddress);
     }
 
     /**
@@ -82,17 +71,92 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String carType} into a {@code CarparkType}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code carType} is invalid.
+     */
+    public static CarparkType parseCarparkType(String carType) throws ParseException {
+        requireNonNull(carType);
+        String trimmedCarparkType = carType.trim();
+        if (!CarparkType.isValidCarType(trimmedCarparkType)) {
+            throw new ParseException(CarparkType.MESSAGE_CAR_TYPE_CONSTRAINTS);
+        }
+        return new CarparkType(trimmedCarparkType);
+    }
+
+    /**
+     * Parses a {@code String coordinate} into a {@code Coordinate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code coordinate} is invalid.
+     */
+    public static Coordinate parseCoordinate(String coordinate) throws ParseException {
+        requireNonNull(coordinate);
+        String trimmedCoordinate = coordinate.trim();
+        if (!Coordinate.isValidCoord(trimmedCoordinate)) {
+            throw new ParseException(Coordinate.MESSAGE_COORD_CONSTRAINTS);
+        }
+        return new Coordinate(trimmedCoordinate);
+    }
+
+    /**
+     * Parses a {@code String freePark} into a {@code FreeParking}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code coordinate} is invalid.
+     */
+    public static FreeParking parseFreeParking(String freePark) throws ParseException {
+        requireNonNull(freePark);
+        String trimmedFreeParking = freePark.trim();
+        if (!FreeParking.isValidFreePark(trimmedFreeParking)) {
+            throw new ParseException(FreeParking.MESSAGE_FREE_PARK_CONSTRAINTS);
+        }
+        return new FreeParking(trimmedFreeParking);
+    }
+
+    /**
      * Parses a {@code String lotsAvail} into a {@code LotsAvailable}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code lotsAvail} is invalid.
      */
     public static LotsAvailable parseLotsAvailable(String lotsAvail) throws ParseException {
-        String trimmedlotsAvail = lotsAvail.trim();
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedlotsAvail)) {
+        String trimmedLotsAvail = lotsAvail.trim();
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedLotsAvail)) {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
-        return new LotsAvailable(trimmedlotsAvail);
+        return new LotsAvailable(trimmedLotsAvail);
+    }
+
+    /**
+     * Parses a {@code String nightPark} into a {@code NightParking}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code nightPark} is invalid.
+     */
+    public static NightParking parseNightParking(String nightPark) throws ParseException {
+        requireNonNull(nightPark);
+        String trimmedNightParking = nightPark.trim();
+        if (!NightParking.isValidNightPark(trimmedNightParking)) {
+            throw new ParseException(NightParking.MESSAGE_NIGHT_PARK_CONSTRAINTS);
+        }
+        return new NightParking(trimmedNightParking);
+    }
+
+    /**
+     * Parses a {@code String shortTerm} into a {@code ShortTerm}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code shortTerm} is invalid.
+     */
+    public static ShortTerm parseShortTerm(String shortTerm) throws ParseException {
+        requireNonNull(shortTerm);
+        String trimmedShortTerm = shortTerm.trim();
+        if (!ShortTerm.isValidShortTerm(trimmedShortTerm)) {
+            throw new ParseException(ShortTerm.MESSAGE_SHORT_TERM_CONSTRAINTS);
+        }
+        return new ShortTerm(trimmedShortTerm);
     }
 
     /**
@@ -111,18 +175,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}.
+     * Parses a {@code String typePark} into a {@code TypeOfParking}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code address} is invalid.
+     * @throws ParseException if the given {@code typePark} is invalid.
      */
-    public static Address parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
+    public static TypeOfParking parseTypeOfParking(String typePark) throws ParseException {
+        requireNonNull(typePark);
+        String trimmedTypeOfParking = typePark.trim();
+        if (!TypeOfParking.isValidTypePark(trimmedTypeOfParking)) {
+            throw new ParseException(TypeOfParking.MESSAGE_TYPE_PARK_CONSTRAINTS);
         }
-        return new Address(trimmedAddress);
+        return new TypeOfParking(trimmedTypeOfParking);
     }
 
     /**

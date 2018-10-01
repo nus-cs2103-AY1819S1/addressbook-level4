@@ -4,7 +4,6 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.carpark.Carpark;
-import seedu.address.model.person.Person;
 
 /**
  * The API of the Model component.
@@ -37,9 +36,9 @@ public interface Model {
     void addCarpark(Carpark carpark);
 
     /**
-     * Replaces the given carpark {@code target} with {@code editedPerson}.
+     * Replaces the given carpark {@code target} with {@code editedCarpark}.
      * {@code target} must exist in the address book.
-     * The carpark identity of {@code editedPerson} must not be the same as another existing carpark in the address book.
+     * The carpark identity of {@code editedCarpark} must not be the same as another existing carpark in the address book.
      */
     void updateCarpark(Carpark target, Carpark editedCarpark);
 

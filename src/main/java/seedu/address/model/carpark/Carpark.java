@@ -16,38 +16,78 @@ import seedu.address.model.tag.Tag;
 public class Carpark {
 
     // Identity fields
-    private final CarparkNumber carparkNumber;
     private final Address address;
+    private final CarparkNumber carparkNumber;
+    private final Coordinate coordinate;
 
     // Data fields
-    private final TotalLots totalLots;
+    private final CarparkType carparkType;
+    private final FreeParking freeParking;
     private final LotsAvailable lotsAvailable;
+    private final NightParking nightParking;
+    private final ShortTerm shortTerm;
+    private final TotalLots totalLots;
+    private final TypeOfParking typeOfParking;
     private final Set<Tag> tags = new HashSet<>();
 
-    public Carpark(CarparkNumber carparkNumber, TotalLots totalLots, LotsAvailable lotsAvailable,
-                   Address address, Set<Tag> tags) {
-        requireAllNonNull(carparkNumber, totalLots, lotsAvailable, address, tags);
-        this.carparkNumber = carparkNumber;
-        this.totalLots = totalLots;
-        this.lotsAvailable = lotsAvailable;
+    /**
+     * Every field must be present and not null.
+     */
+    public Carpark(Address address, CarparkNumber carparkNumber, CarparkType carparkType, Coordinate coordinate,
+                   FreeParking freeParking, LotsAvailable lotsAvailable, NightParking nightParking,
+                   ShortTerm shortTerm, TotalLots totalLots, TypeOfParking typeOfParking, Set<Tag> tags) {
+        requireAllNonNull(address, carparkNumber, carparkType, coordinate, freeParking, lotsAvailable,
+                nightParking, shortTerm, totalLots, typeOfParking, tags);
         this.address = address;
+        this.carparkNumber = carparkNumber;
+        this.lotsAvailable = lotsAvailable;
+        this.carparkType = carparkType;
+        this.coordinate = coordinate;
+        this.freeParking = freeParking;
+        this.nightParking = nightParking;
+        this.shortTerm = shortTerm;
+        this.totalLots = totalLots;
+        this.typeOfParking = typeOfParking;
+
         this.tags.addAll(tags);
+    }
+
+    public Address getAddress() {
+        return address;
     }
 
     public CarparkNumber getCarparkNumber() {
         return carparkNumber;
     }
 
-    public TotalLots getTotalLots() {
-        return totalLots;
+    public CarparkType getCarparkType() {
+        return carparkType;
     }
+
+    public Coordinate getCoordinate() {
+        return coordinate;
+    }
+
+    public FreeParking getFreeParking() { return freeParking; }
 
     public LotsAvailable getLotsAvailable() {
         return lotsAvailable;
     }
 
-    public Address getAddress() {
-        return address;
+    public NightParking getNightParking() {
+        return nightParking;
+    }
+
+    public ShortTerm getShortTerm() {
+        return shortTerm;
+    }
+
+    public TotalLots getTotalLots() {
+        return totalLots;
+    }
+
+    public TypeOfParking getTypeOfParking() {
+        return typeOfParking;
     }
 
     /**
@@ -67,8 +107,9 @@ public class Carpark {
             return true;
         }
         return otherCarpark != null
+                && otherCarpark.getAddress().equals(getAddress())
                 && otherCarpark.getCarparkNumber().equals(getCarparkNumber())
-                && otherCarpark.getAddress().equals(getAddress());
+                && otherCarpark.getCoordinate().equals((getCoordinate()));
     }
 
     /**
@@ -76,7 +117,7 @@ public class Carpark {
      * This defines a stronger notion of equality between two carparks.
      */
     @Override
-    public boolean equals (Object other) {
+    public boolean equals(Object other) {
         if (other == this) {
             return true;
         }
@@ -86,28 +127,47 @@ public class Carpark {
         }
 
         Carpark otherCarpark = (Carpark) other;
-        return otherCarpark.getCarparkNumber().equals(getCarparkNumber())
-                && otherCarpark.getTotalLots().equals(getTotalLots())
+        return otherCarpark.getAddress().equals(getAddress())
+                && otherCarpark.getCarparkNumber().equals(getCarparkNumber())
+                && otherCarpark.getCarparkType().equals((getCarparkType()))
+                && otherCarpark.getCoordinate().equals((getCoordinate()))
+                && otherCarpark.getFreeParking().equals((getFreeParking()))
                 && otherCarpark.getLotsAvailable().equals(getLotsAvailable())
-                && otherCarpark.getAddress().equals(getAddress())
+                && otherCarpark.getNightParking().equals(getNightParking())
+                && otherCarpark.getShortTerm().equals(getShortTerm())
+                && otherCarpark.getTotalLots().equals(getTotalLots())
+                && otherCarpark.getTypeOfParking().equals(getTypeOfParking())
                 && otherCarpark.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(carparkNumber, totalLots, lotsAvailable, address, tags);
+        return Objects.hash(address, carparkNumber, carparkType, coordinate, freeParking, lotsAvailable,
+                nightParking, shortTerm, totalLots, typeOfParking, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getCarparkNumber())
+                .append(" Address: ")
+                .append(getAddress())
+                .append(" Coordinate: ")
+                .append(getCoordinate())
+                .append(" Type: ")
+                .append(getCarparkType())
                 .append(" Total Lots: ")
                 .append(getTotalLots())
                 .append(" Lots Available: ")
                 .append(getLotsAvailable())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" Free Parking: ")
+                .append(getFreeParking())
+                .append(" Night Parking: ")
+                .append(getNightParking())
+                .append(" Short Term Parking: ")
+                .append(getShortTerm())
+                .append(" Parking System: ")
+                .append(getTypeOfParking())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

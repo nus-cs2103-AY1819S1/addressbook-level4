@@ -14,23 +14,19 @@ public class Coordinate {
     public static final String MESSAGE_COORD_CONSTRAINTS =
             "Coordinate should only contain decimal numbers";
 
-    public static final String COORD_VALIDATION_REGEX = "[0-9]*\\.?,?[0-9]+";
+    public static final String COORD_VALIDATION_REGEX = "^(\\d+(\\.\\d+)?),\\s*(\\d+(\\.\\d+)?)$";
 
-    public final ArrayList<String> value;
+    public final String value;
 
     /**
      * Constructs a {@code Coordinate}.
      *
      * @param coord A valid Coordinate.
      */
-    public Coordinate(String... coord) {
-        value = new ArrayList<>();
-
-        for (String decimal : coord) {
-            requireNonNull(decimal);
-            checkArgument(isValidCoord(decimal), MESSAGE_COORD_CONSTRAINTS);
-            value.add(decimal);
-        }
+    public Coordinate(String coord) {
+        requireNonNull(coord);
+        checkArgument(isValidCoord(coord), MESSAGE_COORD_CONSTRAINTS);
+        value = coord;
     }
 
     /**
@@ -42,7 +38,7 @@ public class Coordinate {
 
     @Override
     public String toString() {
-        return String.join(", ", value);
+        return value;
     }
 
     @Override

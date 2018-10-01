@@ -10,7 +10,6 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.carpark.Carpark;
-import seedu.address.model.person.Person;
 
 /**
  * Deletes a carpark identified using it's displayed index from the address book.
@@ -24,7 +23,7 @@ public class DeleteCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_DELETE_CARPARK_SUCCESS = "Deleted Carpark: %1$s";
 
     private final Index targetIndex;
 
@@ -38,13 +37,13 @@ public class DeleteCommand extends Command {
         List<Carpark> lastShownList = model.getFilteredCarparkList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_CARPARK_DISPLAYED_INDEX);
         }
 
-        Carpark personToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteCarpark(personToDelete);
+        Carpark carparkToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.deleteCarpark(carparkToDelete);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_CARPARK_SUCCESS, carparkToDelete));
     }
 
     @Override
