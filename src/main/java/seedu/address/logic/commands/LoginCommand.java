@@ -2,7 +2,13 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.*;
+<<<<<<< HEAD
+=======
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+>>>>>>> 7891c4cb77f9075093ffa86111a2c38f5ddc0a9c
 
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -45,6 +51,14 @@ public class LoginCommand extends Command {
 
         if (!model.hasPerson(toLogin)) {
             throw new CommandException(MESSAGE_PERSON_DOES_NOT_EXIST);
+        }
+
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        ObservableList<Person> list = model.getFilteredPersonList();
+        for (Person p : list) {
+            if (p.isSamePerson(toLogin)) {
+                toLogin = p;
+            }
         }
 
         model.setCurrentUser(toLogin);
