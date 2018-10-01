@@ -18,6 +18,7 @@ public class Person {
     // Identity fields
     private final Name name;
     private final Phone phone;
+    private final Date date;
 
     // Data fields
     private final Cost cost;
@@ -26,12 +27,20 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Cost cost, Set<Tag> tags) {
-        requireAllNonNull(name, phone, cost, tags);
+    public Person(Name name, Phone phone, Cost cost, Date date, Set<Tag> tags) {
+        requireAllNonNull(name, phone, cost, date, tags);
         this.name = name;
         this.phone = phone;
         this.cost = cost;
+        this.date = date;
         this.tags.addAll(tags);
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Person(Name name, Phone phone, Cost cost, Set<Tag> tags) {
+        this(name, phone, cost, new Date(), tags);
     }
 
     public Name getName() {
@@ -44,6 +53,10 @@ public class Person {
 
     public Cost getCost() {
         return cost;
+    }
+
+    public Date getDate() {
+        return date;
     }
 
     /**
@@ -104,6 +117,8 @@ public class Person {
                 .append(getPhone())
                 .append(" Cost: ")
                 .append(getCost())
+                .append(" Date: ")
+                .append(getDate())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
