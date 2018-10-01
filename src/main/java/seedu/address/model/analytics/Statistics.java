@@ -8,7 +8,7 @@ import java.util.Set;
  */
 public abstract class Statistics {
 
-    public HashMap<String, Integer> statistics;
+    protected HashMap<String, Integer> statistics;
 
     /**
      * Initializes a HashMap to store statistic names as keys and their values.
