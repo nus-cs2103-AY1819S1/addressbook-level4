@@ -413,9 +413,9 @@ Format: `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(DD-MM-YY) t/TIME(HHM
 Examples:
 
 * `addEvent n/Doctor Appointment dsc/Consultation d/15-09-18 t/1030 a/123, Clementi Rd, 1234665`
-* list
+* `list` +
   `addEvent n/Doctor Appointment dsc/Consultation d/15-09-18 t/1030 a/123, Clementi Rd, 1234665 i/1`
-* Find Betsy Tim John
+* `Find Betsy Tim John` +
   `addEvent n/Meeting  dsc/Project meeting d/15-09-18 t/1030 a/123, Clementi Rd, 1234665 i/1 i/2 i/3`
 
 === List personal events: `listEvent`
