@@ -19,15 +19,15 @@ Responsibilities: UI
 
 === Chow Keng Ji
 image::KengJi.jpg[width="150", align="left"]
-{empty}[http://github.com/theJrLinguist[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/theJrLinguist[github]] [<<theJrLinguist#, portfolio>>]
 
 Responsibilities: Model (Event)
 
 '''
 
 === Soh Jason
-image::Jason.png[width="150", align="left"]
-{empty}[https://github.com/adjscent[github]] [<<johndoe#, portfolio>>]
+image::adjscent.png[width="150", align="left"]
+{empty}[https://github.com/adjscent[github]] [<<adjscent#, portfolio>>]
 
 Responsibilities: Storage
 
