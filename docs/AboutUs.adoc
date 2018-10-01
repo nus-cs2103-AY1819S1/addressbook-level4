@@ -23,7 +23,7 @@ Responsibilities: Ingredient Management
 '''
 
 === Benn Tay Guobin
-image::benntayguobin.png[width="150", align="left"]
+image::benntay.png[width="150", align="left"]
 {empty}[http://github.com/benntay[github]]
 
 Role: Developer, Testing, Code Quality +
@@ -32,8 +32,8 @@ Responsibilities: Meal Planner
 '''
 
 === Lim Shi Min
-image::LimShiMinJonathan.png[width="150", align="left"]
-{empty}[https://github.com/LimShiMinJonathan[github]]
+image::limshiminjonathan.png[width="150", align="left"]
+{empty}[https://github.com/limshiminjonathan[github]]
 
 Role: Developer, Documentation, Deliverables and deadlines +
 Responsibilities: User Profiling
