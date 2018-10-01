@@ -28,9 +28,11 @@
         <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
       </HBox>
       <FlowPane fx:id="tags" />
-      <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
+      <Label fx:id="carparkNumber" styleClass="cell_small_label" text="\$carparkNumber" />
+      <Label fx:id="lotsAvailabe" styleClass="cell_small_label" text="\$lotsAvailabe" />
+      <Label fx:id="totalLots" styleClass="cell_small_label" text="\$totalLots" />
+      <Label fx:id="lotType" styleClass="cell_small_label" text="\$lotType" />
       <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
-      <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
     </VBox>
   </GridPane>
 </HBox>

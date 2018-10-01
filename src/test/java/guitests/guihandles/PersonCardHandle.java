@@ -11,7 +11,7 @@ import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
 
 /**
- * Provides a handle to a person card in the person list panel.
+ * Provides a handle to a carpark card in the carpark list panel.
  */
 public class PersonCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
@@ -73,7 +73,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
     }
 
     /**
-     * Returns true if this handle contains {@code person}.
+     * Returns true if this handle contains {@code carpark}.
      */
     public boolean equals(Person person) {
         return getName().equals(person.getName().fullName)
