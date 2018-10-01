@@ -1,6 +1,6 @@
 .background {
-    -fx-background-color: derive(#E2E2E2, 80%);
-    background-color: #E8E8E8; /* Used in the default.html file */
+    -fx-background-color: derive(#F2F2F2, 20%);
+    background-color: #F8F8F8; /* Used in the default.html file */
 }
 
 .label {
@@ -77,20 +77,20 @@
 }
 
 .split-pane:horizontal .split-pane-divider {
-    -fx-background-color: derive(#E2E2E2, 80%);
+    -fx-background-color: derive(#F2F2F2, 20%);
     -fx-border-color: transparent transparent transparent #4d4d4d;
 }
 
 .split-pane {
     -fx-border-radius: 1;
     -fx-border-width: 1;
-    -fx-background-color: derive(#E2E2E2, 80%);
+    -fx-background-color: derive(#F2F2F2, 20%);
 }
 
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-background-color: derive(#E2E2E2, 80%);
+    -fx-background-color: derive(#F2F2F2, 20%);
 }
 
 .list-cell {
@@ -133,17 +133,17 @@
 }
 
 .stack-pane {
-     -fx-background-color: derive(#E2E2E2, 80%);
+     -fx-background-color: derive(#F2F2F2, 20%);
 }
 
 .pane-with-border {
-     -fx-background-color: derive(#E2E2E2, 80%);
+     -fx-background-color: derive(#F2F2F2, 20%);
      -fx-border-color: derive(#1d1d1d, 10%);
      -fx-border-top-width: 1px;
-}
+} 
 
 .status-bar {
-    -fx-background-color: derive(#E2E2E2, 10%);
+    -fx-background-color: derive(#F2F2F2, 10%);
     -fx-text-fill: black;
 }
 
@@ -165,8 +165,8 @@
 }
 
 .status-bar-with-border {
-    -fx-background-color: derive(#E2E2E2, 70%);
-    -fx-border-color: derive(#E2E2E2, 75%);
+    -fx-background-color: derive(#F2F2F2, 30%);
+    -fx-border-color: derive(#1d1d1d, 25%);
     -fx-border-width: 1px;
 }
 
@@ -181,11 +181,11 @@
 }
 
 .grid-pane .stack-pane {
-    -fx-background-color: derive(#E2E2E2, 70%);
+    -fx-background-color: derive(#F2F2F2, 30%);
 }
 
 .context-menu {
-    -fx-background-color: derive(#E2E2E2, 50%);
+    -fx-background-color: derive(#F2F2F2, 50%);
 }
 
 .context-menu .label {
@@ -214,7 +214,7 @@
  */
 .button {
     -fx-padding: 5 22 5 22;
-    -fx-border-color: #e2e2e2;
+    -fx-border-color: #F2F2F2;
     -fx-border-width: 2;
     -fx-background-radius: 0;
     -fx-background-color: #1d1d1d;
@@ -271,7 +271,7 @@
 }
 
 .dialog-pane:header *.header-panel {
-    -fx-background-color: derive(#E2E2E2, 75%);
+    -fx-background-color: derive(#F2F2F2, 25%);
 }
 
 .dialog-pane:header *.header-panel *.label {
@@ -282,11 +282,11 @@
 }
 
 .scroll-bar {
-    -fx-background-color: derive(#E2E2E2, 70%);
+    -fx-background-color: derive(#F2F2F2, 30%);
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: derive(#E2E2E2, 50%);
+    -fx-background-color: derive(#F2F2F2, 30%);
     -fx-background-insets: 3;
 }
 
