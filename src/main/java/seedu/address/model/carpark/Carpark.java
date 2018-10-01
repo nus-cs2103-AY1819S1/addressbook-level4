@@ -36,7 +36,7 @@ public class Carpark {
                    FreeParking freeParking, LotsAvailable lotsAvailable, NightParking nightParking,
                    ShortTerm shortTerm, TotalLots totalLots, TypeOfParking typeOfParking, Set<Tag> tags) {
         requireAllNonNull(address, carparkNumber, carparkType, coordinate, freeParking, lotsAvailable,
-                nightParking, shortTerm, totalLots, typeOfParking, tags);
+                nightParking, shortTerm, totalLots, typeOfParking);
         this.address = address;
         this.carparkNumber = carparkNumber;
         this.lotsAvailable = lotsAvailable;
@@ -48,57 +48,9 @@ public class Carpark {
         this.totalLots = totalLots;
         this.typeOfParking = typeOfParking;
 
-        this.tags.addAll(tags);
-    }
-
-    public Carpark(String shortTerm, String carparkType, String yCoord, String xCoord, String freeParking,
-                   String nightParking, String address, String id, String carparkNumber, String typeOfParking,
-                   String totalLots, String lotsAvailable) {
-
-        requireAllNonNull(address, carparkNumber, carparkType, xCoord, yCoord, freeParking,
-                nightParking, shortTerm, typeOfParking);
-        this.address = new Address(address);
-        this.carparkNumber = new CarparkNumber(carparkNumber);
-        this.carparkType = new CarparkType(carparkType);
-        this.coordinate = new Coordinate(xCoord + ", " + yCoord);
-        this.freeParking = new FreeParking(freeParking);
-        this.nightParking = new NightParking(nightParking);
-        this.shortTerm = new ShortTerm(shortTerm);
-        this.typeOfParking = new TypeOfParking(typeOfParking);
-
-        if (totalLots != null) {
-            this.totalLots = new TotalLots(totalLots);
-        } else {
-            this.totalLots = new TotalLots("0");
+        if (tags != null) {
+            this.tags.addAll(tags);
         }
-
-        if(lotsAvailable != null) {
-            this.lotsAvailable = new LotsAvailable(lotsAvailable);
-        } else {
-            this.lotsAvailable = new LotsAvailable("0");
-        }
-    }
-
-    public Carpark(String... data) {
-
-        String shortTerm = data[0], carparkType = data[1], yCoord = data[2], xCoord = data[3],
-                freeParking = data[4], nightParking = data[5], address = data[6], id = data[6],
-                carparkNumber = data[7], typeOfParking = data[8];
-
-        requireAllNonNull(address, carparkNumber, carparkType, xCoord, yCoord, freeParking,
-                nightParking, shortTerm, typeOfParking);
-
-        this.address = new Address(address);
-        this.carparkNumber = new CarparkNumber(carparkNumber);
-        this.carparkType = new CarparkType(carparkType);
-        this.coordinate = new Coordinate(yCoord + ", " + xCoord);
-        this.freeParking = new FreeParking(freeParking);
-        this.nightParking = new NightParking(nightParking);
-        this.shortTerm = new ShortTerm(shortTerm);
-        this.typeOfParking = new TypeOfParking(typeOfParking);
-
-        this.totalLots = new TotalLots("0");
-        this.lotsAvailable = new LotsAvailable("0");
     }
 
     public Address getAddress() {
