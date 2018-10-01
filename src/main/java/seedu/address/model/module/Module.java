@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.commons.util.TypeUtil;
 import seedu.address.model.inanimate.Inanimate;
 import seedu.address.model.tag.Tag;
 
@@ -28,13 +29,14 @@ public class Module extends Inanimate {
      * Every field must be present and not null.
      */
     public Module(ModuleCode moduleCode, ModuleTitle moduleTitle, AcademicYear academicYear,
-                  Semester semester, Set<Tag> tags) {
-        requireAllNonNull(moduleCode, moduleTitle, academicYear, semester, tags);
+                  Semester semester, Set<Tag> tags, TypeUtil type) {
+        requireAllNonNull(moduleCode, moduleTitle, academicYear, semester, tags, type);
         this.moduleCode = moduleCode;
         this.moduleTitle = moduleTitle;
         this.academicYear = academicYear;
         this.semester = semester;
         this.tags.addAll(tags);
+        this.type = type;
     }
 
     public ModuleCode getModuleCode() {

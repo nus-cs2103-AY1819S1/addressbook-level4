@@ -5,6 +5,10 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.UniqueModuleList;
+import seedu.address.model.occasion.Occasion;
+import seedu.address.model.occasion.UniqueOccasionList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -15,6 +19,8 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueModuleList modules;
+    private final UniqueOccasionList occasions;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +31,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        modules = new UniqueModuleList();
+        occasions = new UniqueOccasionList();
     }
 
     public AddressBook() {}
@@ -104,6 +112,16 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    //@Override
+    public ObservableList<Module> getModuleList() {
+        return modules.asUnmodifiableObservableList();
+    }
+
+    //@Override
+    public ObservableList<Occasion> getOccasionList() {
+        return occasions.asUnmodifiableObservableList();
     }
 
     @Override
