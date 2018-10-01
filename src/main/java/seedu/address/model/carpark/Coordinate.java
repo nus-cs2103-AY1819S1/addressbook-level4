@@ -3,8 +3,6 @@ package seedu.address.model.carpark;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.util.ArrayList;
-
 /**
  * Represents a Carpark's coordinate in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidCoord(String)}

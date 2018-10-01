@@ -14,7 +14,6 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.CarparkPanelSelectionChangedEvent;
 import seedu.address.model.carpark.Carpark;
-import seedu.address.model.person.Person;
 
 /**
  * The Browser Panel of the App.
@@ -42,7 +41,7 @@ public class BrowserPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
-    private void loadPersonPage(Carpark carpark) {
+    private void loadCarparkPage(Carpark carpark) {
         loadPage(SEARCH_PAGE_URL + carpark.getCarparkNumber());
     }
 
@@ -66,8 +65,8 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(CarparkPanelSelectionChangedEvent event) {
+    private void handleCarparkPanelSelectionChangedEvent(CarparkPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        loadPersonPage(event.getNewSelection());
+        loadCarparkPage(event.getNewSelection());
     }
 }

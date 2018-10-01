@@ -8,11 +8,11 @@ import javafx.scene.layout.Region;
 import seedu.address.model.carpark.Carpark;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Carpark}.
  */
 public class CarparkCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "CarparkListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -31,15 +31,23 @@ public class CarparkCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label lotsAvailabe;
+    private Label address;
+    @FXML
+    private Label coordinate;
+    @FXML
+    private Label carparkType;
     @FXML
     private Label totalLots;
     @FXML
-    private Label lotType;
+    private Label lotsAvailable;
     @FXML
-    private Label address;
+    private Label freeParking;
     @FXML
-    private Label email;
+    private Label nightParking;
+    @FXML
+    private Label shortTerm;
+    @FXML
+    private Label parkingSystem;
     @FXML
     private FlowPane tags;
 
@@ -48,11 +56,15 @@ public class CarparkCard extends UiPart<Region> {
         this.carpark = carpark;
         id.setText(displayedIndex + ". ");
         carparkNumber.setText(carpark.getCarparkNumber().value);
-        lotsAvailabe.setText(carpark.getLotsAvailable().value);
-        totalLots.setText(carpark.getTotalLots().value);
-        lotType.setText(carpark.getLotType().value);
         address.setText(carpark.getAddress().value);
-//        email.setText(carpark.getEmail().value);
+        carparkType.setText(carpark.getCarparkType().value);
+        coordinate.setText("Coordinate: " + carpark.getCoordinate().value);
+        totalLots.setText("Total Lots: " + carpark.getTotalLots().value);
+        lotsAvailable.setText("Lots Available: " + carpark.getLotsAvailable().value);
+        freeParking.setText("Free Parking: " + carpark.getFreeParking().value);
+        nightParking.setText("Night Parking: " + carpark.getNightParking().value);
+        shortTerm.setText("Short Term Parking: " + carpark.getShortTerm().value);
+        parkingSystem.setText("Parking System: " + carpark.getTypeOfParking());
         carpark.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 

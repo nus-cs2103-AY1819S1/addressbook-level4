@@ -6,15 +6,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditCarparkDescriptor;
-<<<<<<< HEAD
 import seedu.address.model.carpark.Address;
-=======
-import seedu.address.model.person.Address;
->>>>>>> master
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 /**

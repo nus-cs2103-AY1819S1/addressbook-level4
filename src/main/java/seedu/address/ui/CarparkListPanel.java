@@ -16,10 +16,10 @@ import seedu.address.commons.events.ui.CarparkPanelSelectionChangedEvent;
 import seedu.address.model.carpark.Carpark;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of carparks.
  */
 public class CarparkListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
+    private static final String FXML = "CarparkListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(CarparkListPanel.class);
 
     @FXML
@@ -64,7 +64,7 @@ public class CarparkListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code CarparkCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Carpark} using a {@code CarparkCard}.
      */
     class CarparkListViewCell extends ListCell<Carpark> {
         @Override

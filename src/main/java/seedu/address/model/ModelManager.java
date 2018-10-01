@@ -64,13 +64,13 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void deleteCarpark(Carpark target) {
-        versionedAddressBook.removePerson(target);
+        versionedAddressBook.removeCarpark(target);
         indicateAddressBookChanged();
     }
 
     @Override
     public void addCarpark(Carpark carpark) {
-        versionedAddressBook.addPerson(carpark);
+        versionedAddressBook.addCarpark(carpark);
         updateFilteredCarparkList(PREDICATE_SHOW_ALL_CARPARK);
         indicateAddressBookChanged();
     }
@@ -79,14 +79,14 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateCarpark(Carpark target, Carpark editedCarpark) {
         requireAllNonNull(target, editedCarpark);
 
-        versionedAddressBook.updatePerson(target, editedCarpark);
+        versionedAddressBook.updateCarpark(target, editedCarpark);
         indicateAddressBookChanged();
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Carpark List Accessors ============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Carpark} backed by the internal list of
      * {@code versionedAddressBook}
      */
     @Override

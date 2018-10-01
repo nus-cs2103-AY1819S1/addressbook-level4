@@ -7,16 +7,13 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.carpark.Carpark;
 import seedu.address.model.carpark.UniqueCarparkList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSameCarpark comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-//    private final UniquePersonList persons;
     private final UniqueCarparkList carparks;
 
     /*
@@ -33,7 +30,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public AddressBook() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an AddressBook using the Carparks in the {@code toBeCopied}
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this();
@@ -43,8 +40,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the carpark list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the carpark list with {@code carparks}.
+     * {@code carparks} must not contain duplicate carparks.
      */
     public void setCarparks(List<Carpark> carparks) {
         this.carparks.setCarparks(carparks);
@@ -73,26 +70,27 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Adds a carpark to the address book.
      * The carpark must not already exist in the address book.
      */
-    public void addPerson(Carpark c) {
+    public void addCarpark(Carpark c) {
         carparks.add(c);
     }
 
     /**
-     * Replaces the given carpark {@code target} in the list with {@code editedPerson}.
+     * Replaces the given carpark {@code target} in the list with {@code editedCarpark}.
      * {@code target} must exist in the address book.
-     * The carpark identity of {@code editedPerson} must not be the same as another existing carpark in the address book.
+     * The carpark identity of {@code editedCarpark} must not be the same as
+     * another existing carpark in the address book.
      */
-    public void updatePerson(Carpark target, Carpark editedPerson) {
-        requireNonNull(editedPerson);
+    public void updateCarpark(Carpark target, Carpark editedCarpark) {
+        requireNonNull(editedCarpark);
 
-        carparks.setCarpark(target, editedPerson);
+        carparks.setCarpark(target, editedCarpark);
     }
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Carpark key) {
+    public void removeCarpark(Carpark key) {
         carparks.remove(key);
     }
 
@@ -100,7 +98,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return carparks.asUnmodifiableObservableList().size() + " persons";
+        return carparks.asUnmodifiableObservableList().size() + " carparks";
         // TODO: refine later
     }
 

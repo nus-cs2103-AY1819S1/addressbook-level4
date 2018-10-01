@@ -12,7 +12,6 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.carpark.Carpark;
-import seedu.address.model.person.Person;
 
 /**
  * The main LogicManager of the app.

@@ -2,22 +2,12 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-<<<<<<< HEAD
-=======
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
->>>>>>> master
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.carpark.Carpark;
-<<<<<<< HEAD
-=======
-import seedu.address.model.person.Person;
->>>>>>> master
 
 /**
  * Adds a carpark to the address book.
@@ -41,19 +31,15 @@ public class AddCommand extends Command {
 //            + PREFIX_TAG + "friends "
 //            + PREFIX_TAG + "owesMoney";
 
-<<<<<<< HEAD
     public static final String MESSAGE_USAGE = "We are not doing adds. Due for deletion.";
-=======
-    public static final String MESSAGE_USAGE = "SEND HALP NOW PLZ";
->>>>>>> master
 
     public static final String MESSAGE_SUCCESS = "New carpark added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This carpark already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_CARPARK = "This carpark already exists in the address book";
 
     private final Carpark toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code Carpark}
      */
     public AddCommand(Carpark carpark) {
         requireNonNull(carpark);
@@ -65,7 +51,7 @@ public class AddCommand extends Command {
         requireNonNull(model);
 
         if (model.hasCarpark(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_CARPARK);
         }
 
         model.hasCarpark(toAdd);

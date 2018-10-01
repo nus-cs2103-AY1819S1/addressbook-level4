@@ -98,11 +98,7 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
-<<<<<<< HEAD
         List<Carpark> expectedFilteredList = new ArrayList<>(actualModel.getFilteredCarparkList());
-=======
-        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredCarparkList());
->>>>>>> master
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -123,36 +119,20 @@ public class CommandTestUtil {
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredCarparkList().size());
-<<<<<<< HEAD
-//
-//        Person person = model.getFilteredCarparkList().get(targetIndex.getZeroBased());
-//        final String[] splitName = person.getName().fullName.split("\\s+");
-//        model.updateFilteredCarparkList(new CarparkContainsKeywordsPredicate(Arrays.asList(splitName[0])));
-//
-//        assertEquals(1, model.getFilteredCarparkList().size());
-=======
-
         Person person = model.getFilteredCarparkList().get(targetIndex.getZeroBased());
         final String[] splitName = person.getName().fullName.split("\\s+");
         model.updateFilteredCarparkList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredCarparkList().size());
->>>>>>> master
     }
 
     /**
      * Deletes the first carpark in {@code model}'s filtered list from {@code model}'s address book.
      */
     public static void deleteFirstPerson(Model model) {
-<<<<<<< HEAD
-//        Person firstPerson = model.getFilteredCarparkList().get(0);
-//        model.deletePerson(firstPerson);
-//        model.commitAddressBook();
-=======
         Person firstPerson = model.getFilteredCarparkList().get(0);
         model.deletePerson(firstPerson);
         model.commitAddressBook();
->>>>>>> master
     }
 
 }

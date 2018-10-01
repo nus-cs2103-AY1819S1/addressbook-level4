@@ -9,8 +9,8 @@ import seedu.address.model.carpark.Carpark;
 public interface ReadOnlyAddressBook {
 
     /**
-     * Returns an unmodifiable view of the persons list.
-     * This list will not contain any duplicate persons.
+     * Returns an unmodifiable view of the carparks list.
+     * This list will not contain any duplicate carparks.
      */
     ObservableList<Carpark> getCarparkList();
 
