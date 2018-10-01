@@ -1,6 +1,8 @@
 package seedu.address.model.appointment;
 
 import java.util.Objects;
+
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
@@ -21,7 +23,16 @@ public class Date {
     private final int month;
     private final int year;
 
+    /**
+     * Constructs a {@code Date}.
+     * @param day A valid day.
+     * @param month A valid month.
+     * @param year A valid year.
+     */
     public Date(int day, int month, int year) {
+        requireNonNull(day);
+        requireNonNull(month);
+        requireNonNull(year);
         checkArgument(isValidDay(day, month), MESSAGE_DAY_CONSTRAINTS);
         checkArgument(isValidMonth(month), MESSAGE_MONTH_CONSTRAINTS);
         checkArgument(isValidYear(year), MESSAGE_YEAR_CONSTRAINTS);
@@ -49,7 +60,7 @@ public class Date {
      * @return Validity of day.
      */
     public boolean isValidDay(int day, int month) {
-        if (day <= 0 && day > 31) {
+        if (day <= 0 || day > 31) {
             return false;
         }
         if (month == 2) {
