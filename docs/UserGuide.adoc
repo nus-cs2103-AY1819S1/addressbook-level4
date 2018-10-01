@@ -293,7 +293,7 @@ Shorthand: `i`
 
 Example:
 
-* `import` 
+* `import`
 * A file browser will pop up as shown below:
 +
 image::import.png[width="790"]

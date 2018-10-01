@@ -4,10 +4,14 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-
+/**
+ * Adds a list of pre-established Valid persons to the address book.
+ * Duplicate contacts will not be added.
+ */
 public class ImportCommand extends Command {
 
     public static final String COMMAND_WORD = "import";
@@ -31,13 +35,16 @@ public class ImportCommand extends Command {
         this.hasContactWithInvalidField = hasContactWithInvalidField;
         this.hasContactWithoutName = hasContactWithoutName;
     }
-    
+    /**
+     * Adds Persons in list to AddressBook.
+     */
+    @Override
     public CommandResult execute(Model model, CommandHistory history) {
-        
+
         boolean hasAddedNew = false;
         boolean hasDuplicate = false;
-        
-        for(int i = 0; i < personsToAdd.size(); i++) {
+
+        for (int i = 0; i < personsToAdd.size(); i++) {
             if (model.hasPerson(personsToAdd.get(i))) {
                 hasDuplicate = true;
                 continue;
@@ -48,10 +55,10 @@ public class ImportCommand extends Command {
         if (hasAddedNew) {
             model.commitAddressBook();
         }
-        
+
         //Format the final message acccordingly
         StringBuilder finalReportMessage = new StringBuilder();
-        if (hasAddedNew) { 
+        if (hasAddedNew) {
             finalReportMessage.append(MESSAGE_SUCCESS);
         } else {
             finalReportMessage.append(MESSAGE_FAIL);
@@ -74,11 +81,11 @@ public class ImportCommand extends Command {
             return true;
         }
         if ((other instanceof ImportCommand)) {
-            ImportCommand otherIC = (ImportCommand) other;
-            
-            return (personsToAdd.equals(otherIC.personsToAdd)
-            && hasContactWithoutName == otherIC.hasContactWithoutName
-            && hasContactWithInvalidField == otherIC.hasContactWithInvalidField);
+            ImportCommand otherIc = (ImportCommand) other;
+
+            return (personsToAdd.equals(otherIc.personsToAdd)
+                && hasContactWithoutName == otherIc.hasContactWithoutName
+                && hasContactWithInvalidField == otherIc.hasContactWithInvalidField);
         }
         return false;
     }

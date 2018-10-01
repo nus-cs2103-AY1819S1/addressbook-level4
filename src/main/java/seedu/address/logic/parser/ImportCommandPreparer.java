@@ -1,6 +1,15 @@
 //@@author chantca95
 package seedu.address.logic.parser;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Optional;
+import java.util.Set;
+
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import seedu.address.logic.commands.ImportCommand;
@@ -11,40 +20,38 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Optional;
-import java.util.Set;
-
+/**
+ * Directs user to choose a file, then reads from the file.
+ * Prepares a list of Persons to add to the address book.
+ */
 public class ImportCommandPreparer {
-    
-    public static int NAME_FIELD = 0;
-    public static int PHONE_FIELD = 1;
-    public static int EMAIL_FIELD = 2;
-    public static int ADDRESS_FIELD = 3;
-    public static int TAG_FIELD_START = 4;
-    
+
+    private static final int NAME_FIELD = 0;
+    private static final int PHONE_FIELD = 1;
+    private static final int EMAIL_FIELD = 2;
+    private static final int ADDRESS_FIELD = 3;
+    private static final int TAG_FIELD_START = 4;
+
     ArrayList<Person> persons = new ArrayList<>();
-    
+    /**
+     * Starts the import process by directing users to choose a file.
+     */
     public ImportCommand init() throws ParseException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select .csv file");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV", "*.csv"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TEXT", "*.txt"));
         File file = fileChooser.showOpenDialog(new Stage());
-        
+
         return parseFile(file);
-    } 
-    
+    }
+    /**
+     * Parses the selected csv file.
+     */
     public ImportCommand parseFile(File file) throws ParseException {
-        
+
         FileReader fr = null;
-        
+
         try {
             fr = new FileReader(file);
         } catch (FileNotFoundException fnfe) {
@@ -54,7 +61,10 @@ public class ImportCommandPreparer {
         BufferedReader br = new BufferedReader(fr);
         return parseLinesFromFile(br);
     }
-
+    /**
+     * Reads every row of the chosen csv file.
+     * Contacts with wrongly formatted fields and/or without Name fields are ignored.
+     */
     private ImportCommand parseLinesFromFile(BufferedReader br) {
         boolean hasContactWithInvalidField = false;
         boolean hasContactWithoutName = false;
@@ -64,13 +74,13 @@ public class ImportCommandPreparer {
                 String[] attributes = line.split(",", -1);
                 int numAttributes = attributes.length;
 
-                if(attributes[NAME_FIELD].equalsIgnoreCase("Name") ||
-                        attributes[NAME_FIELD].equalsIgnoreCase("Name:")){ // ignore headers
+                if (attributes[NAME_FIELD].equalsIgnoreCase("Name") 
+                        || attributes[NAME_FIELD].equalsIgnoreCase("Name:")) { // ignore headers
                     line = br.readLine();
                     continue;
                 }
-                
-                if(contactHasNoName(attributes, numAttributes)) {
+
+                if (contactHasNoName(attributes, numAttributes)) {
                     hasContactWithoutName = true;
                     line = br.readLine();
                     continue;
@@ -99,7 +109,7 @@ public class ImportCommandPreparer {
                 }
 
                 ArrayList<String> tags = new ArrayList<>();
-                //Check for tags 
+                //Check for tags
                 if (numAttributes > TAG_FIELD_START) {
                     for (int i = TAG_FIELD_START; i < numAttributes; i++) {
                         if (!attributes[i].matches("")) {
@@ -126,12 +136,10 @@ public class ImportCommandPreparer {
     }
 
     /**
-        this method checks if the compulsory name field is filled up
-        Note: it is okay if the fields are filled up improperly, ie an email without @,
-        The format checking routine associated with AddCommand will handle that and alert the user
+        this method checks if the compulsory name field is filled up.
     */
     private boolean contactHasNoName(String[] attributes, int numAttributes) {
-        if(attributes[0].matches("")) {
+        if (attributes[0].matches("")) {
             return true;
         }
         return false;
