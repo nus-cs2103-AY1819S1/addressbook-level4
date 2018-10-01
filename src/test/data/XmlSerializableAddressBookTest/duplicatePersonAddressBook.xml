@@ -5,6 +5,7 @@
         <name>Alice Pauline</name>
         <phone>94351253</phone>
         <cost>1.00</cost>
+		<date>01-10-2018</date>
         <tagged>friends</tagged>
     </persons>
 
@@ -12,6 +13,7 @@
     <persons>
         <name>Alice Pauline</name>
         <phone>94351253</phone>
+		<date>01-10-2018</date>
         <cost>1.00</cost>
     </persons>
 

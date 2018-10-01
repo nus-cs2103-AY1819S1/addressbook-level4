@@ -98,6 +98,7 @@ public class PersonListPanelTest extends GuiUnitTest {
             builder.append("<name>").append(i).append("a</name>\n");
             builder.append("<phone>000</phone>\n");
             builder.append("<cost>1.00</cost>\n");
+            builder.append("<date>01-10-2018</date>\n");
             builder.append("</persons>\n");
         }
         builder.append("<username>manyPersons</username>");

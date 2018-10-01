@@ -5,6 +5,7 @@
         <name>Hans Muster</name>
         <phone isPrivate="false">9482424</phone>
         <cost isPrivate="false">a</cost>
+		<date isPrivate="false">01-10-2018</date>
     </persons>
     <username>invalidPersonAddressBook</username>
 </addressbook>
