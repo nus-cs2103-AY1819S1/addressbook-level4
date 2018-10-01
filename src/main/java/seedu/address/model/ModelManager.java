@@ -9,10 +9,13 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.WishBookChangedEvent;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.versionedmodels.VersionedWishBook;
+import seedu.address.model.versionedmodels.VersionedWishTransaction;
 import seedu.address.model.wish.Wish;
 import seedu.address.model.wish.exceptions.DuplicateWishException;
 
@@ -24,6 +27,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final VersionedWishBook versionedWishBook;
+    private final VersionedWishTransaction versionedWishTransaction;
     private final FilteredList<Wish> filteredWishes;
 
     /**
@@ -36,6 +40,7 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with wish book: " + wishBook + " and user prefs " + userPrefs);
 
         versionedWishBook = new VersionedWishBook(wishBook);
+        versionedWishTransaction = getWishTransaction(wishBook, /* convert xml to WishTransaction */ null);
         filteredWishes = new FilteredList<>(versionedWishBook.getWishList());
     }
 
@@ -43,9 +48,22 @@ public class ModelManager extends ComponentManager implements Model {
         this(new WishBook(), new UserPrefs());
     }
 
+    private VersionedWishTransaction getWishTransaction(ReadOnlyWishBook wishBook, WishTransaction wishTransaction) {
+        if (wishTransaction == null) {
+            return initWishTransactionWithWishBookData(wishBook);
+        } else {
+            return new VersionedWishTransaction(wishTransaction);
+        }
+    }
+
+    private VersionedWishTransaction initWishTransactionWithWishBookData(ReadOnlyWishBook wishBook) {
+        return new VersionedWishTransaction(wishBook);
+    }
+
     @Override
     public void resetData(ReadOnlyWishBook newData) {
         versionedWishBook.resetData(newData);
+        versionedWishTransaction.resetData();
         indicateWishBookChanged();
     }
 
@@ -68,12 +86,17 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void deleteWish(Wish target) {
         versionedWishBook.removeWish(target);
+        versionedWishTransaction.removeWish(target);
         indicateWishBookChanged();
+
+        //TODO
+
     }
 
     @Override
     public void addWish(Wish wish) {
         versionedWishBook.addWish(wish);
+        versionedWishTransaction.addWish(wish);
         updateFilteredWishList(PREDICATE_SHOW_ALL_PERSONS);
         indicateWishBookChanged();
     }
@@ -81,7 +104,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateWish(Wish target, Wish editedWish) {
         requireAllNonNull(target, editedWish);
-
+        versionedWishTransaction.updateWish(target, editedWish);
         versionedWishBook.updateWish(target, editedWish);
         indicateWishBookChanged();
     }
@@ -91,8 +114,8 @@ public class ModelManager extends ComponentManager implements Model {
      * @throws DuplicateWishException if there's a duplicate {@code Person} in this {@code WishBook}.
      */
     public void deleteTag(Tag tag) throws DuplicateWishException {
-
         versionedWishBook.removeTagFromAll(tag);
+        versionedWishTransaction.removeTagFromAll(tag);
         indicateWishBookChanged();
     }
 
@@ -128,18 +151,21 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void undoWishBook() {
         versionedWishBook.undo();
+        versionedWishTransaction.undo();
         indicateWishBookChanged();
     }
 
     @Override
     public void redoWishBook() {
         versionedWishBook.redo();
+        versionedWishTransaction.redo();
         indicateWishBookChanged();
     }
 
     @Override
     public void commitWishBook() {
         versionedWishBook.commit();
+        versionedWishTransaction.commit();
     }
 
     @Override

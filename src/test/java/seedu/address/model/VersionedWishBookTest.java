@@ -14,6 +14,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import seedu.address.model.versionedmodels.VersionedWishBook;
 import seedu.address.testutil.WishBookBuilder;
 
 public class VersionedWishBookTest {
@@ -26,7 +27,6 @@ public class VersionedWishBookTest {
     @Test
     public void commit_singleWishBook_noStatesRemovedCurrentStateSaved() {
         VersionedWishBook versionedWishBook = prepareWishBookList(emptyWishBook);
-
         versionedWishBook.commit();
         assertWishBookListStatus(versionedWishBook,
                 Collections.singletonList(emptyWishBook),
