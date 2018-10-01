@@ -4,11 +4,8 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
-
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Person;
 
 public class ImportCommand extends Command {
@@ -69,5 +66,20 @@ public class ImportCommand extends Command {
             finalReportMessage.append(MESSAGE_NAMELESS_CONTACT);
         }
         return new CommandResult(finalReportMessage.toString());
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if ((other instanceof ImportCommand)) {
+            ImportCommand otherIC = (ImportCommand) other;
+            
+            return (personsToAdd.equals(otherIC.personsToAdd)
+            && hasContactWithoutName == otherIC.hasContactWithoutName
+            && hasContactWithInvalidField == otherIC.hasContactWithInvalidField);
+        }
+        return false;
     }
 }
