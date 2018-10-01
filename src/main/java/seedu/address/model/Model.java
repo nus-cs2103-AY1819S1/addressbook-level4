@@ -112,4 +112,15 @@ public interface Model {
      * Saves the current address book state for undo/redo.
      */
     void commitAddressBook();
+
+    /**
+     * Enqueues the given person.
+     * May need to be more specific in future - patient, doc or receptionist.
+     */
+    void enqueue(Person target);
+
+    /**
+     * Check if patient exists in the patient queue.
+     */
+    boolean hasPatientInPatientQueue();
 }
