@@ -50,6 +50,7 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getFilteredPersonList();
     }
 
+    //@@author jonathantjm
     public LinkedHashMap<String, Double> getExpenseStats() throws NoUserSelectedException {
         ObservableList<Person> expenseList = model.getExpenseStats();
         LinkedHashMap<String, Double> stats = new LinkedHashMap<>();
@@ -66,6 +67,7 @@ public class LogicManager extends ComponentManager implements Logic {
         return stats;
     }
 
+    //@@author
     @Override
     public ListElementPointer getHistorySnapshot() {
         return new ListElementPointer(history.getHistory());

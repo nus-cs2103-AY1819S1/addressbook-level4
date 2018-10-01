@@ -179,6 +179,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.commit();
     }
 
+    //@@author jonathantjm
     //=========== Stats =================================================================================
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
@@ -202,7 +203,7 @@ public class ModelManager extends ComponentManager implements Model {
         expenseStatPredicate = predicate;
     }
 
-
+    //@@author
     //=========== Login =================================================================================
     @Override
     public void loadUserData(Username username) throws NonExistentUserException {
