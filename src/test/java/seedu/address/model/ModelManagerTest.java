@@ -2,7 +2,7 @@ package seedu.address.model;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARPARK;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
@@ -70,15 +70,11 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
-<<<<<<< HEAD
         modelManager.updateFilteredCarparkList(new CarparkContainsKeywordsPredicate(Arrays.asList(keywords)));
-=======
-        modelManager.updateFilteredCarparkList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
->>>>>>> master
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredCarparkList(PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.updateFilteredCarparkList(PREDICATE_SHOW_ALL_CARPARK);
 
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();

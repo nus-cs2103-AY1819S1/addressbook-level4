@@ -12,11 +12,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.carpark.Carpark;
-<<<<<<< HEAD
-=======
-import seedu.address.model.person.Person;
 
->>>>>>> master
 /**
  * Selects a carpark identified using it's displayed index from the address book.
  */
@@ -29,7 +25,7 @@ public class SelectCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Person: %1$s";
+    public static final String MESSAGE_SELECT_CARPARK_SUCCESS = "Selected Carpark: %1$s";
 
     private final Index targetIndex;
 
@@ -44,15 +40,11 @@ public class SelectCommand extends Command {
         List<Carpark> filteredCarparkList = model.getFilteredCarparkList();
 
         if (targetIndex.getZeroBased() >= filteredCarparkList.size()) {
-<<<<<<< HEAD
             throw new CommandException(Messages.MESSAGE_INVALID_CARPARK_DISPLAYED_INDEX);
-=======
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
->>>>>>> master
         }
 
         EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
-        return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));
+        return new CommandResult(String.format(MESSAGE_SELECT_CARPARK_SUCCESS, targetIndex.getOneBased()));
 
     }
 

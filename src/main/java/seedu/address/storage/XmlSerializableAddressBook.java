@@ -11,7 +11,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.carpark.Carpark;
-import seedu.address.model.person.Person;
 
 /**
  * An Immutable AddressBook that is serializable to XML format
@@ -19,7 +18,7 @@ import seedu.address.model.person.Person;
 @XmlRootElement(name = "addressbook")
 public class XmlSerializableAddressBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate carpark(s).";
+    public static final String MESSAGE_DUPLICATE_CARPARK = "Carparks list contains duplicate carpark(s).";
 
     @XmlElement
     private List<XmlAdaptedCarpark> carparks;
@@ -51,9 +50,9 @@ public class XmlSerializableAddressBook {
         for (XmlAdaptedCarpark c : carparks) {
             Carpark carpark = c.toModelType();
             if (addressBook.hasCarpark(carpark)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_CARPARK);
             }
-            addressBook.addPerson(carpark);
+            addressBook.addCarpark(carpark);
         }
         return addressBook;
     }

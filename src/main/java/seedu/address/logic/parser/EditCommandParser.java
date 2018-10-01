@@ -3,7 +3,6 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-<<<<<<< HEAD
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CAR_NUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CAR_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COORD;
@@ -14,16 +13,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SHORT_TERM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTAL_LOTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE_PARK;
-=======
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CARPARK_NO;
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOTS_AVAILABLE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOT_TYPE;
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTAL_LOTS;
->>>>>>> master
 
 import java.util.Collection;
 import java.util.Collections;
@@ -48,13 +37,9 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-<<<<<<< HEAD
                 ArgumentTokenizer.tokenize(args, PREFIX_ADDRESS, PREFIX_CAR_NUM, PREFIX_CAR_TYPE, PREFIX_COORD,
                         PREFIX_FREE_PARK, PREFIX_LOTS_AVAILABLE, PREFIX_NIGHT_PARK, PREFIX_SHORT_TERM,
                         PREFIX_TOTAL_LOTS, PREFIX_TYPE_PARK, PREFIX_TAG);
-=======
-                ArgumentTokenizer.tokenize(args, PREFIX_CARPARK_NO, PREFIX_LOTS_AVAILABLE, PREFIX_LOT_TYPE, PREFIX_TOTAL_LOTS, PREFIX_ADDRESS, PREFIX_TAG);
->>>>>>> master
 
         Index index;
 
@@ -65,7 +50,6 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         EditCommand.EditCarparkDescriptor editCarparkDescriptor = new EditCommand.EditCarparkDescriptor();
-<<<<<<< HEAD
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editCarparkDescriptor.setAddress(
                     ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
@@ -109,25 +93,6 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editCarparkDescriptor::setTags);
 
-=======
-        if (argMultimap.getValue(PREFIX_CARPARK_NO).isPresent()) {
-            editCarparkDescriptor.setCarparkNumber(ParserUtil.parseCarparkNumber(argMultimap.getValue(PREFIX_CARPARK_NO).get()));
-        }
-        if (argMultimap.getValue(PREFIX_LOT_TYPE).isPresent()) {
-            editCarparkDescriptor.setLotType(ParserUtil.parseLotsType(argMultimap.getValue(PREFIX_LOT_TYPE).get()));
-        }
-        if (argMultimap.getValue(PREFIX_LOTS_AVAILABLE).isPresent()) {
-            editCarparkDescriptor.setLotsAvailable(ParserUtil.parseLotsAvailable(argMultimap.getValue(PREFIX_LOTS_AVAILABLE).get()));
-        }
-        if (argMultimap.getValue(PREFIX_TOTAL_LOTS).isPresent()) {
-            editCarparkDescriptor.setTotalLots(ParserUtil.parseTotalLots(argMultimap.getValue(PREFIX_TOTAL_LOTS).get()));
-        }
-        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            editCarparkDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
-        }
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editCarparkDescriptor::setTags);
-
->>>>>>> master
         if (!editCarparkDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
