@@ -3,11 +3,11 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.model.expense.Category;
 import seedu.address.model.expense.Cost;
 import seedu.address.model.expense.Date;
 import seedu.address.model.expense.Name;
 import seedu.address.model.expense.Person;
-import seedu.address.model.expense.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -17,19 +17,19 @@ import seedu.address.model.util.SampleDataUtil;
 public class PersonBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_PHONE = "85355255";
+    public static final String DEFAULT_CATEGORY = "Default";
     public static final String DEFAULT_COST = "321.00";
     public static final String DEFAULT_DATE = "01-10-2018";
 
     private Name name;
-    private Phone phone;
+    private Category category;
     private Cost cost;
     private Date date;
     private Set<Tag> tags;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
-        phone = new Phone(DEFAULT_PHONE);
+        category = new Category(DEFAULT_CATEGORY);
         cost = new Cost(DEFAULT_COST);
         date = new Date(DEFAULT_DATE);
         tags = new HashSet<>();
@@ -40,7 +40,7 @@ public class PersonBuilder {
      */
     public PersonBuilder(Person personToCopy) {
         name = personToCopy.getName();
-        phone = personToCopy.getPhone();
+        category = personToCopy.getCategory();
         cost = personToCopy.getCost();
         date = personToCopy.getDate();
         tags = new HashSet<>(personToCopy.getTags());
@@ -71,10 +71,10 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Person} that we are building.
+     * Sets the {@code Category} of the {@code Person} that we are building.
      */
-    public PersonBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
+    public PersonBuilder withCategory(String category) {
+        this.category = new Category(category);
         return this;
     }
 
@@ -87,7 +87,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, cost, tags);
+        return new Person(name, category, cost, tags);
     }
 
 }
