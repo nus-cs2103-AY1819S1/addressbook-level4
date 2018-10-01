@@ -11,9 +11,9 @@ import seedu.address.model.occasion.exceptions.DuplicateOccasionException;
 
 /**
  * A list of occasions that enforces uniqueness between its elements and does not allow nulls.
- * An occasion is considered unique by comparing using {@code Occasion#equals(Occasion)}. As such, adding and updating of
- * occasions uses Occasion#equals(Occasion) for equality so as to ensure that the occasion being added or updated is
- * unique in terms of identity in the UniqueOccasionList.
+ * An occasion is considered unique by comparing using {@code Occasion#equals(Occasion)}. As such, adding and updating
+ * of occasions uses Occasion#equals(Occasion) for equality so as to ensure that the occasion being added or updated
+ * is unique in terms of identity in the UniqueOccasionList.
  *
  * Supports a minimal set of list operations.
  *
@@ -52,6 +52,9 @@ public class UniqueOccasionList implements Iterable<Occasion> {
         // update feature to do.
     }
 
+    /**
+     * Removes the designated occasions from the internal list.
+     */
     public void remove(Occasion occasionToRemove) {
         requireNonNull(occasionToRemove);
         if (!internalList.remove(occasionToRemove)) {

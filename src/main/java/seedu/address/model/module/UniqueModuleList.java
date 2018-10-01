@@ -53,6 +53,9 @@ public class UniqueModuleList implements Iterable<Module> {
         // update feature to do.
     }
 
+    /**
+     * Removes the designated module from the internal list.
+     */
     public void remove(Module moduleToRemove) {
         requireNonNull(moduleToRemove);
         if (!internalList.remove(moduleToRemove)) {
