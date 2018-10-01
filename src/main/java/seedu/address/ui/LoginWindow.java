@@ -1,21 +1,29 @@
 package seedu.address.ui;
 
-import com.google.common.eventbus.Subscribe;
 import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
+
 import javafx.event.ActionEvent;
+
 import javafx.fxml.FXML;
+
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+
 import javafx.stage.Stage;
+
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+
 import seedu.address.logic.Logic;
+
 import seedu.address.model.UserPrefs;
 
 /**
@@ -37,13 +45,13 @@ public class LoginWindow extends UiPart<Stage> {
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
-    
+
     @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
-    
+
     @FXML
     private StackPane resultDisplayPlaceholder;
 
@@ -52,7 +60,7 @@ public class LoginWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane titleScreenPlaceholder;
-    
+
     public LoginWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
 
