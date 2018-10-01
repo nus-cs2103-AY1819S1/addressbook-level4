@@ -10,7 +10,7 @@ public class Analytics {
 
     public Analytics() {
         averageStatistics = new AverageStatistics();
-        totalStatistics =  new TotalStatistics();
+        totalStatistics = new TotalStatistics();
     }
 
     /**

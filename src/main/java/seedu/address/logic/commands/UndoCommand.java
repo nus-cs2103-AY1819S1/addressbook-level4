@@ -5,8 +5,8 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.analytics.Analytics;
 import seedu.address.model.Model;
+import seedu.address.model.analytics.Analytics;
 
 /**
  * Reverts the {@code model}'s address book to its previous state.
