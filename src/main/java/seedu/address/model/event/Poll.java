@@ -1,8 +1,10 @@
+//@@author theJrLinguist
 package seedu.address.model.event;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
@@ -90,15 +92,14 @@ public class Poll {
         String title = String.format("Poll %1$s: %2$s", Integer.toString(id), pollName);
         String mostPopularEntries = "";
         if (!pollData.isEmpty()) {
-            mostPopularEntries = "Most popular options: " + getHighest().toString();
+            mostPopularEntries = "Most popular options:\n" + getHighest().toString();
         }
         String data = displayPollData();
-        return title + "\n" + mostPopularEntries + "\n" + data;
+        return title + "\n" + mostPopularEntries + "\n\n" + data;
     }
 
     /**
      * Returns the poll data as a string identifying people by their names.
-     * @return
      */
     public String displayPollData() {
         HashMap<String, List<String>> displayData = new HashMap<>();
@@ -108,6 +109,10 @@ public class Poll {
                     .collect(Collectors.toList());
             displayData.put(k, nameList);
         });
-        return displayData.toString();
+        String result = "";
+        for (Map.Entry<String, List<String>> entry : displayData.entrySet()) {
+            result += entry.getKey() + ":\n" + entry.getValue().toString() + "\n";
+        }
+        return result;
     }
 }

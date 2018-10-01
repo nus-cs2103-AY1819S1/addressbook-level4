@@ -1,3 +1,4 @@
+//@@author theJrLinguist
 package seedu.address.logic.commands.eventcommands;
 
 import static java.util.Objects.requireNonNull;
@@ -12,9 +13,9 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 
 /**
@@ -29,7 +30,7 @@ public class JoinEventCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_JOINED_EVENT_SUCCESS = "Joined event: %1$s";
+    public static final String MESSAGE_SUCCESS = "Joined event: %1$s";
 
     private final Index targetIndex;
 
@@ -50,20 +51,20 @@ public class JoinEventCommand extends Command {
         Event event = model.getEvent(targetIndex);
         history.setSelectedEvent(event);
 
-        Person person = history.getSelectedPerson();
         try {
-            event.addPerson(person);
+            //Person person = history.getSelectedPerson();
+            event.addPerson(model.getCurrentUser());
         } catch (DuplicatePersonException e) {
             throw new CommandException(Messages.MESSAGE_ALREADY_JOINED);
-        } catch (NullPointerException e) {
-            throw new CommandException(Messages.MESSAGE_NO_USER_SELECTED);
+        } catch (NoUserLoggedInException e) {
+            throw new CommandException(Messages.MESSAGE_NO_USER_LOGGED_IN);
         }
 
-        model.commitAddressBook();
         model.updateEvent(event, event);
+        model.commitAddressBook();
 
         EventsCenter.getInstance().post(new JumpToEventListRequestEvent(targetIndex));
-        String result = String.format(MESSAGE_JOINED_EVENT_SUCCESS, targetIndex.getOneBased());
+        String result = String.format(MESSAGE_SUCCESS, event);
         result += "\n" + "People attending: " + event.getNameList();
         return new CommandResult(result);
     }

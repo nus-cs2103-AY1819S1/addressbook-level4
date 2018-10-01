@@ -44,7 +44,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         /* Case: undo deleting the last person in the list -> last person restored */
         command = UndoCommand.COMMAND_WORD;
         expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
+        assertCommandSuccess(
+                command, modelBeforeDeletingLast, expectedResultMessage);
 
         /* Case: redo deleting the last person in the list -> last person deleted again */
         command = RedoCommand.COMMAND_WORD;

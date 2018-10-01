@@ -31,8 +31,12 @@ public class XmlAdaptedEvent {
     private String name;
     @XmlElement(required = true)
     private String address;
+    @XmlElement(required = true)
+    private XmlAdaptedPerson organiser;
     @XmlElement(required = false)
-    private String time = "";
+    private String startTime = "";
+    @XmlElement(required = false)
+    private String endTime = "";
     @XmlElement(required = false)
     private String date = "";
 
@@ -53,13 +57,21 @@ public class XmlAdaptedEvent {
      * Constructs an {@code XmlAdaptedEvent} with the given event details.
      */
 
-    public XmlAdaptedEvent(String name, String address, String date, String time,
-                           List<XmlAdaptedTag> tagged, List<XmlAdaptedPoll> polls,
-                           List<XmlAdaptedPerson> personList) {
+    public XmlAdaptedEvent(String name, String address, XmlAdaptedPerson organiser, String date,
+                           String startTime, String endTime, List<XmlAdaptedTag> tagged,
+                           List<XmlAdaptedPoll> polls, List<XmlAdaptedPerson> personList) {
         this.name = name;
         this.address = address;
-        this.date = date;
-        this.time = time;
+        this.organiser = organiser;
+        if (date != null) {
+            this.date = date;
+        }
+        if (startTime != null) {
+            this.startTime = startTime;
+        }
+        if (endTime != null) {
+            this.endTime = endTime;
+        }
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
@@ -79,11 +91,19 @@ public class XmlAdaptedEvent {
     public XmlAdaptedEvent(Event source) {
         name = source.getName().fullName;
         address = source.getLocation().value;
+        organiser = new XmlAdaptedPerson(source.getOrganiser());
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
         date = source.getDateString();
-        time = source.getTimeString();
+        LocalTime start = source.getStartTime();
+        if (start != null) {
+            this.startTime = start.toString();
+        }
+        LocalTime end = source.getEndTime();
+        if (end != null) {
+            endTime = source.getEndTime().toString();
+        }
         polls = source.getPolls().stream()
                 .map(XmlAdaptedPoll::new)
                 .collect(Collectors.toList());
@@ -122,16 +142,24 @@ public class XmlAdaptedEvent {
         }
         final Address modelAddress = new Address(address);
 
+        final Person modelOrganiser = organiser.toModelType();
+
         Event event = new Event(modelName, modelAddress, modelTags);
+        event.setOrganiser(modelOrganiser);
 
         if (!date.isEmpty()) {
             LocalDate modelDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
             event.setDate(modelDate);
         }
 
-        if (!time.isEmpty()) {
-            LocalTime modelTime = LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"));
-            event.setTime(modelTime);
+        if (!startTime.isEmpty()) {
+            LocalTime modelTime = LocalTime.parse(startTime, DateTimeFormatter.ofPattern("HH:mm"));
+            event.setStartTime(modelTime);
+        }
+
+        if (!endTime.isEmpty()) {
+            LocalTime modelTime = LocalTime.parse(endTime, DateTimeFormatter.ofPattern("HH:mm"));
+            event.setEndTime(modelTime);
         }
 
         final ArrayList<Poll> modelPolls = new ArrayList<>();

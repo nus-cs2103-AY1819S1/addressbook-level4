@@ -17,7 +17,6 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
-
     private final UniqueEventList events;
 
     /*
@@ -124,6 +123,17 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedEvent);
 
         events.setEvent(target, editedEvent);
+    }
+
+    /**
+     * Replaces the given event at the given {@code index} in the list with {@code editedEvent}.
+     * {@code target} must exist in the address book.
+     * The identity of {@code editedEvent} must not be the same as another existing event in the address book.
+     */
+    public void updateEvent(int index, Event editedEvent) {
+        requireNonNull(editedEvent);
+
+        events.setEvent(index, editedEvent);
     }
 
     /**

@@ -1,3 +1,4 @@
+//@@author theJrLinguist
 package seedu.address.logic.commands.eventcommands;
 
 import static java.util.Objects.requireNonNull;
@@ -14,16 +15,19 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EventBuilder;
+import seedu.address.testutil.PersonBuilder;
 
 public class AddEventCommandTest {
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
@@ -44,12 +48,12 @@ public class AddEventCommandTest {
         AddEventCommandTest.ModelStubAcceptingEventAdded modelStub = new
                 AddEventCommandTest.ModelStubAcceptingEventAdded();
         Event validEvent = new EventBuilder().build();
+        modelStub.setCurrentUser(new PersonBuilder().build());
 
         CommandResult commandResult = new AddEventCommand(validEvent).execute(modelStub, commandHistory);
 
         assertEquals(String.format(AddEventCommand.MESSAGE_SUCCESS, validEvent), commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validEvent), modelStub.eventsAdded);
-        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
@@ -61,6 +65,18 @@ public class AddEventCommandTest {
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddEventCommand.MESSAGE_DUPLICATE_EVENT);
         addEventCommand.execute(modelStub, commandHistory);
+    }
+
+    @Test
+    public void execute_noUser_throwsCommandException() throws Exception {
+        AddEventCommandTest.ModelStubAcceptingEventAdded modelStub = new
+                AddEventCommandTest.ModelStubAcceptingEventAdded();
+        Event validEvent = new EventBuilder().build();
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(Messages.MESSAGE_NO_USER_LOGGED_IN);
+
+        new AddEventCommand(validEvent).execute(modelStub, commandHistory);
     }
 
     @Test
@@ -195,6 +211,21 @@ public class AddEventCommandTest {
         public void updateEvent(Event event, Event editedEvent) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void updateEvent(int index, Event editedEvent) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCurrentUser(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Person getCurrentUser() throws NoUserLoggedInException {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
@@ -220,6 +251,7 @@ public class AddEventCommandTest {
      */
     private class ModelStubAcceptingEventAdded extends AddEventCommandTest.ModelStub {
         final ArrayList<Event> eventsAdded = new ArrayList<>();
+        private Person currentUser = null;
 
         @Override
         public boolean hasEvent(Event event) {
@@ -242,6 +274,20 @@ public class AddEventCommandTest {
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
         }
+
+        @Override
+        public void setCurrentUser(Person person) {
+            currentUser = person;
+        }
+
+        @Override
+        public Person getCurrentUser() throws NoUserLoggedInException {
+            if (currentUser == null) {
+                throw new NoUserLoggedInException();
+            }
+            return currentUser;
+        }
+
     }
 
 }
