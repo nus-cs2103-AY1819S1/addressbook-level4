@@ -19,6 +19,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.person.Patient;
 import seedu.address.testutil.PersonBuilder;
 
@@ -94,6 +95,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addMedicine(Medicine medicine) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void resetData(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -129,6 +135,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Medicine> getFilteredMedicineList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredMedicineList(Predicate<Medicine> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean canUndoAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
@@ -150,6 +166,11 @@ public class AddCommandTest {
 
         @Override
         public void commitAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasMedicine(Medicine medicine) {
             throw new AssertionError("This method should not be called.");
         }
     }

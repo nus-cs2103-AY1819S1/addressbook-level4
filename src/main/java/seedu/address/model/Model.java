@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.person.Patient;
 
 /**
@@ -11,6 +12,9 @@ import seedu.address.model.person.Patient;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Patient> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Patient> PREDICATE_SHOW_ALL_MEDICINES = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
@@ -52,6 +56,15 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Patient> predicate);
 
+    /** Returns an unmodifiable view of the filtered medicine list */
+    ObservableList<Medicine> getFilteredMedicineList();
+
+    /**
+     * Updates the filter of the filtered medicine list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredMedicineList(Predicate<Medicine> predicate);
+
     /**
      * Returns true if the model has previous address book states to restore.
      */
@@ -76,4 +89,15 @@ public interface Model {
      * Saves the current address book state for undo/redo.
      */
     void commitAddressBook();
+
+    /**
+     * Returns true if a medicine {@code medicine} exists in the records.
+     */
+    boolean hasMedicine(Medicine medicine);
+
+    /**
+     * Adds the given medicine.
+     * {@code medicine} must not already exist in the records.
+     */
+    void addMedicine(Medicine medicine);
 }
