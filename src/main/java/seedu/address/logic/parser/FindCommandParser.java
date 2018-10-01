@@ -30,11 +30,9 @@ public class FindCommandParser implements Parser<FindCommand> {
      */
     public FindCommand parse(String args) throws ParseException {
         ArgumentMultimap argMutlimap = ArgumentTokenizer.tokenize(args, PREFIX_ADDRESS, PREFIX_TAG);
-        Optional<Address> address =
-                !argMutlimap.getValue(PREFIX_ADDRESS).isPresent() ? Optional.empty()
+        Optional<Address> address = !argMutlimap.getValue(PREFIX_ADDRESS).isPresent() ? Optional.empty()
                 : Optional.of(ParserUtil.parseAddress(argMutlimap.getValue(PREFIX_ADDRESS).get()));
-        Optional<Set<Tag>> tags =
-                argMutlimap.getValue(PREFIX_TAG).isPresent()
+        Optional<Set<Tag>> tags = argMutlimap.getValue(PREFIX_TAG).isPresent()
                         ? Optional.of(ParserUtil.parseTags(argMutlimap.getAllValues(PREFIX_TAG)))
                         : Optional.empty();
 
