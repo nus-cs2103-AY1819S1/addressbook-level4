@@ -47,6 +47,7 @@ public class GuiTestAssert {
         assertTagsEqual(expectedPerson, actualCard);
     }
 
+    //@@author zioul123
     /**
      * Asserts that {@code actualAddressField} displays the correct address of {@code address} if it exists,
      * and the correct message otherwise.
@@ -82,6 +83,7 @@ public class GuiTestAssert {
             assertEquals(actualEmailField, PersonCard.NO_EMAIL);
         });
     }
+    //@@author
 
     /**
      * Asserts that the list in {@code personListPanelHandle} displays the details of {@code persons} correctly and

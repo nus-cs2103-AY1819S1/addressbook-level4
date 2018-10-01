@@ -71,6 +71,7 @@ public class PersonBuilder {
         return this;
     }
 
+    //@@author zioul123
     /**
      * Sets the {@code Address} of the {@code Person} we are building to null, for
      * testing people without an address field.
@@ -79,6 +80,7 @@ public class PersonBuilder {
         this.address = Optional.empty();
         return this;
     }
+    //@@author
 
     /**
      * Sets the {@code Phone} of the {@code Person} that we are building.
@@ -88,6 +90,7 @@ public class PersonBuilder {
         return this;
     }
 
+    //@@author zioul123
     /**
      * Sets the {@code Phone} of the {@code Person} we are building to null, for testing people without a phone field.
      */
@@ -95,6 +98,7 @@ public class PersonBuilder {
         this.phone = Optional.empty();
         return this;
     }
+    //@@author
 
     /**
      * Sets the {@code Email} of the {@code Person} that we are building.
@@ -104,6 +108,7 @@ public class PersonBuilder {
         return this;
     }
 
+    //@@author zioul123
     /**
      * Sets the {@code Email} of the {@code Person} we are building to null, for testing people without an email field.
      */
@@ -111,6 +116,7 @@ public class PersonBuilder {
         this.email = Optional.empty();
         return this;
     }
+    //@@author
 
     public Person build() {
         return new Person(name, phone, email, address, tags);

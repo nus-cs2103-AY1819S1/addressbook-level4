@@ -71,6 +71,7 @@ public class Person {
             return true;
         }
 
+        //@@author zioul123
         // The other person must exist and have the same name to be the same person
         if (otherPerson == null || !otherPerson.getName().equals(getName())) {
             return false;
@@ -82,6 +83,7 @@ public class Person {
         // Do not compare fields unless they are present
         return ((bothHavePhone && otherPerson.getPhone().equals(getPhone()))
                 || (bothHaveEmail && otherPerson.getEmail().equals(getEmail())));
+        //@@author
     }
 
     /**
