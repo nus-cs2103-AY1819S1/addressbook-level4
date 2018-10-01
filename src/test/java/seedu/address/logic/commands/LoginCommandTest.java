@@ -46,7 +46,7 @@ public class LoginCommandTest {
         Person validPerson = new PersonBuilder(ALICE).build();
         ModelStubAcceptingPersonLogin modelStub = new ModelStubAcceptingPersonLogin(validPerson);
         CommandResult commandResult = new LoginCommand(validPerson).execute(modelStub, commandHistory);
-        assertEquals(String.format(LoginCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
+        assertEquals(String.format(LoginCommand.MESSAGE_SUCCESS, validPerson.getName()), commandResult.feedbackToUser);
     }
 
     @Test
