@@ -12,6 +12,7 @@ import seedu.address.logic.commands.AddMedicineCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DisplayQueueCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -21,7 +22,10 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListStockCommand;
 import seedu.address.logic.commands.ReceiptCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.RegisterCommand;
+import seedu.address.logic.commands.RemoveCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.ServeCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -110,6 +114,18 @@ public class AddressBookParser {
         case ReceiptCommand.COMMAND_WORD:
         case ReceiptCommand.COMMAND_ALIAS:
             return new ReceiptCommandParser().parse(arguments);
+
+        case DisplayQueueCommand.COMMAND_WORD:
+            return new DisplayQueueCommand();
+
+        case RegisterCommand.COMMAND_WORD:
+            return new RegisterCommandParser().parse(arguments);
+
+        case ServeCommand.COMMAND_WORD:
+            return new ServeCommand();
+
+        case RemoveCommand.COMMAND_WORD:
+            return new RemoveCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -278,18 +278,19 @@ Serve the patient first in queue. +
 Alias: `ser` +
 Format: `serve`
 
-=== Remove a patient from queue : `dequeue`
+=== Remove a patient from queue : `remove`
 
 Remove someone from the queue if he/she leaves before being served. +
-Alias: `deq` +
-Format: `dequeue <INDEX>` or `dequeue <IC Number>`
+Alias: `rem` +
+Format: `remove <INDEX>` or `remove <IC Number>`
+
 
 Examples:
 
-* `dequeue 5` +
-Dequeues the 5th patient in the queue.
-* `dequeue S9786585D` +
-Dequeues the patient with that IC Number.
+* `remove 5` +
+Removes the 5th patient in the queue.
+* `remove S9786585D` +
+Removes the patient with that IC Number.
 
 === Insert a patient to queue : `insert`
 
