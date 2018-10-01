@@ -138,7 +138,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * fill hp
      */
-    void fillInnerPartsHp() {
+ /*   void fillInnerPartsHp() {
 
 
         browserPanel = new BrowserPanel();
@@ -157,7 +157,7 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-    }
+    }*/
 
     /*
     * hide stage

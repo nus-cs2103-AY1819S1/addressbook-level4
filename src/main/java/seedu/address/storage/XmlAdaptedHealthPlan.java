@@ -40,6 +40,7 @@ public class XmlAdaptedHealthPlan {
     @XmlElement(required = true)
     private String scheme;
 
+
     //base constructor
     public XmlAdaptedHealthPlan(){}
 
