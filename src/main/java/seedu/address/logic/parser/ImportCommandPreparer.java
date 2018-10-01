@@ -22,6 +22,13 @@ import java.util.Optional;
 import java.util.Set;
 
 public class ImportCommandPreparer {
+    
+    public static int NAME_FIELD = 0;
+    public static int PHONE_FIELD = 1;
+    public static int EMAIL_FIELD = 2;
+    public static int ADDRESS_FIELD = 3;
+    public static int TAG_FIELD_START = 4;
+    
     ArrayList<Person> persons = new ArrayList<>();
     
     public ImportCommand init() throws ParseException {
@@ -37,9 +44,6 @@ public class ImportCommandPreparer {
     public ImportCommand parseFile(File file) throws ParseException {
         
         FileReader fr = null;
-
-        boolean hasContactWithInvalidField = false;
-        boolean hasContactWithoutName = false;
         
         try {
             fr = new FileReader(file);
@@ -48,41 +52,45 @@ public class ImportCommandPreparer {
         }
 
         BufferedReader br = new BufferedReader(fr);
+        return parseLinesFromFile(br);
+    }
 
+    private ImportCommand parseLinesFromFile(BufferedReader br) {
+        boolean hasContactWithInvalidField = false;
+        boolean hasContactWithoutName = false;
         try {
             String line = br.readLine();
             while (line != null) {
                 String[] attributes = line.split(",", -1);
-                
-                if(attributes[0].equalsIgnoreCase("Name") ||
-                attributes[0].equalsIgnoreCase("Name:")){ // ignore headers
+                int numAttributes = attributes.length;
+
+                if(attributes[NAME_FIELD].equalsIgnoreCase("Name") ||
+                        attributes[NAME_FIELD].equalsIgnoreCase("Name:")){ // ignore headers
                     line = br.readLine();
                     continue;
                 }
-
-                int numAttributes = attributes.length;
                 
-                if(hasInvalidContact(attributes, numAttributes)) {
+                if(contactHasNoName(attributes, numAttributes)) {
                     hasContactWithoutName = true;
                     line = br.readLine();
                     continue;
                 }
-                
+
                 Name name = null;
                 Optional<Phone> phone = Optional.empty();
                 Optional<Email> email = Optional.empty();
                 Optional<Address> address = Optional.empty();
-                
+
                 try {
-                    name = ParserUtil.parseName(attributes[0]);
-                    if (!attributes[1].matches("")) {
-                        phone = Optional.of(ParserUtil.parsePhone(attributes[1]));
+                    name = ParserUtil.parseName(attributes[NAME_FIELD]);
+                    if (!attributes[PHONE_FIELD].matches("")) {
+                        phone = Optional.of(ParserUtil.parsePhone(attributes[PHONE_FIELD]));
                     }
-                    if (!attributes[2].matches("")) {
-                        email = Optional.of(ParserUtil.parseEmail(attributes[2]));
+                    if (!attributes[EMAIL_FIELD].matches("")) {
+                        email = Optional.of(ParserUtil.parseEmail(attributes[EMAIL_FIELD]));
                     }
-                    if (!attributes[3].matches("")) {
-                        address = Optional.of(ParserUtil.parseAddress(attributes[3]));
+                    if (!attributes[ADDRESS_FIELD].matches("")) {
+                        address = Optional.of(ParserUtil.parseAddress(attributes[ADDRESS_FIELD]));
                     }
                 } catch (ParseException pe) {
                     hasContactWithInvalidField = true;
@@ -92,15 +100,21 @@ public class ImportCommandPreparer {
 
                 ArrayList<String> tags = new ArrayList<>();
                 //Check for tags 
-                if (numAttributes >= 5) {
-                    for (int i = 4; i < numAttributes; i++) {
+                if (numAttributes > TAG_FIELD_START) {
+                    for (int i = TAG_FIELD_START; i < numAttributes; i++) {
                         if (!attributes[i].matches("")) {
                             tags.add(attributes[i]);
                         }
                     }
                 }
-                
-                Set<Tag> tagList = ParserUtil.parseTags(tags);
+
+                Set<Tag> tagList = null;
+                try {
+                    tagList = ParserUtil.parseTags(tags);
+                } catch (ParseException e) {
+                    line = br.readLine();
+                    continue;
+                }
                 persons.add(new Person(name, phone, email, address, tagList));
                 line = br.readLine();
             }
@@ -110,12 +124,13 @@ public class ImportCommandPreparer {
         }
         return new ImportCommand(persons, hasContactWithInvalidField, hasContactWithoutName);
     }
+
     /**
         this method checks if the compulsory name field is filled up
         Note: it is okay if the fields are filled up improperly, ie an email without @,
         The format checking routine associated with AddCommand will handle that and alert the user
     */
-    private boolean hasInvalidContact(String[] attributes, int numAttributes) {
+    private boolean contactHasNoName(String[] attributes, int numAttributes) {
         if(attributes[0].matches("")) {
             return true;
         }
