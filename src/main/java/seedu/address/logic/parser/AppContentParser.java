@@ -18,7 +18,6 @@ import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
-import seedu.address.logic.commands.SurpriseCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -73,8 +72,6 @@ public class AppContentParser {
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();
 
-        case SurpriseCommand.COMMAND_WORD:
-            return new SurpriseCommand();
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
