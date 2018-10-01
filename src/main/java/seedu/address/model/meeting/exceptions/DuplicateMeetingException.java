@@ -1,6 +1,6 @@
 package seedu.address.model.meeting.exceptions;
 
-
+//@@author AyushChatto
 /**
  * Signals that the operation will result in duplicate Meetings (Meetings are considered duplicte if they are at the
  * same time).

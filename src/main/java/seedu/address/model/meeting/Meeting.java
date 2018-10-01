@@ -3,6 +3,7 @@ package seedu.address.model.meeting;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+//@@author AyushChatto
 /**
  * Represents a value that the user has scheduled with the client.
  * Guarantees: immutable.
@@ -14,6 +15,7 @@ public class Meeting {
 
     public static final String MEETING_VALIDATION_REGEX = "\\d{10}";
     public static final String NO_MEETING = "0000000000";
+    public static final String NO_MEETING_MSG = "No meeting scheduled";
 
     public final String value;
 
@@ -38,7 +40,17 @@ public class Meeting {
 
     @Override
     public String toString() {
-        return value;
+        if (value.equals(NO_MEETING)) {
+            return NO_MEETING_MSG;
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append(" " + value.charAt(0) + value.charAt(1) + "/"
+                + value.charAt(2) + value.charAt(3) + "/"
+                + value.charAt(4) + value.charAt(5) + " at "
+                + value.charAt(6) + value.charAt(7)
+                + value.charAt(8) + value.charAt(9));
+        return sb.toString();
+//        return value;
         // TBD return details of the entry. Use linear lookup.
     }
 

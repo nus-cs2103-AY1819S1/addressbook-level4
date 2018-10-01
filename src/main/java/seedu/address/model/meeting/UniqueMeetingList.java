@@ -10,6 +10,7 @@ import java.util.List;
 import seedu.address.model.meeting.exceptions.DuplicateMeetingException;
 import seedu.address.model.meeting.exceptions.MeetingNotFoundException;
 
+//@@author AyushChatto
 /**
  * A list of meetings that enforces uniqueness between its elements and does not allow nulls.
  */

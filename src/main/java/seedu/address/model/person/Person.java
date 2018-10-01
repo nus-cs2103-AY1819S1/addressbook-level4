@@ -41,6 +41,7 @@ public class Person {
         this.meeting = new Meeting(Meeting.NO_MEETING);
     }
 
+    //@@author AyushChatto
     /**
      * Constructor for scheduling a value. Not to be used for creating a new entry in the
      * address book.
@@ -71,6 +72,7 @@ public class Person {
         return address;
     }
 
+    //@@author AyushChatto
     public Meeting getMeeting() {
         return meeting;
     }
@@ -138,7 +140,7 @@ public class Person {
                 .append(getAddress())
                 .append(" Tags: ")
                 .append(" Meeting: ")
-                .append(getMeeting());
+                .append(getMeeting().toString());
         getTags().forEach(builder::append);
         return builder.toString();
     }

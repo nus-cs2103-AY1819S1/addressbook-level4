@@ -96,6 +96,7 @@ public class ParserUtil {
         return new Email(trimmedEmail);
     }
 
+    //@@author AyushChatto
     /**
      * Parses a {@code String value} into a {@code Meeting}.
      * Leading and trailing whitespaces will be trimmed.

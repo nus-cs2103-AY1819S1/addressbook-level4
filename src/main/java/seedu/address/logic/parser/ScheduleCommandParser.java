@@ -9,6 +9,7 @@ import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.meeting.Meeting;
 
+//@@author AyushChatto
 /**
  * Parses input arguments and creates a new ScheduleCommand object
  */
