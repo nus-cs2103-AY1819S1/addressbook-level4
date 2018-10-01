@@ -34,7 +34,11 @@
           </Menu>
         </MenuBar>
 
-        <Label styleClass="label-header" text="ClinicIO"/>
+        <StackPane VBox.vgrow="NEVER" fx:id="titleScreenPlaceholder">
+          <padding>
+            <Insets top="5" right="10" bottom="5" left="10" />
+          </padding>
+        </StackPane>
 
         <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
           <padding>

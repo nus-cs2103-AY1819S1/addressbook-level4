@@ -50,6 +50,9 @@ public class LoginWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
+    @FXML
+    private StackPane titleScreenPlaceholder;
+    
     public LoginWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
 
@@ -119,6 +122,9 @@ public class LoginWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        TitleScreen titleScreen = new TitleScreen();
+        titleScreenPlaceholder.getChildren().add(titleScreen.getRoot());
     }
 
     void hide() {

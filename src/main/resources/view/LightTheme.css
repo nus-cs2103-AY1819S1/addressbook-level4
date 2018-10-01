@@ -20,8 +20,18 @@
 .label-header {
     -fx-font-size: 32pt;
     -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-opacity: 1;
+}
+
+.title-header {
+    -fx-font-size: 32pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: black;
+    -fx-opacity: 1;
+    -fx-text-alignment: center;
+    -fx-content-display: center;
+    -fx-padding: 50 50 50 50;
 }
 
 .text-field {
@@ -193,7 +203,7 @@
 }
 
 .menu-bar {
-    -fx-background-color: derive(#D2D2D2, 80%);
+    -fx-background-color: derive(#F2F2F2, 80%);
 }
 
 .menu-bar .label {
