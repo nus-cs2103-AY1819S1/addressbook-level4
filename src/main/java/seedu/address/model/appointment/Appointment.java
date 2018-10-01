@@ -12,15 +12,15 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 public class Appointment {
 
     //fields used for making appointment
-    private static Date appointmentDate;
-    private static Time appointmentTime;
-    private static int appointmentStatus;
+    private final Date appointmentDate;
+    private final Time appointmentTime;
+    private int appointmentStatus;
 
     private static final int APPROVED = 1;
     private static final int CANCELLED = 0;
 
     //to replace with patient class later on
-    private static Person patient;
+    private final Person patient;
 
     public Appointment(Date date, Time time, Person patient) {
         requireAllNonNull(date, time, patient);
@@ -34,15 +34,15 @@ public class Appointment {
         return appointmentDate;
     }
 
-    public static Time getAppointmentTime() {
+    public Time getAppointmentTime() {
         return appointmentTime;
     }
 
-    public static int getAppointmentStatus() {
+    public int getAppointmentStatus() {
         return appointmentStatus;
     }
 
-    public static Person getPatient() {
+    public Person getPatient() {
         return patient;
     }
 
