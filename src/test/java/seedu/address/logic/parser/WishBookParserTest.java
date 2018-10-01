@@ -159,14 +159,28 @@ public class WishBookParserTest {
 
     @Test
     public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+        ListCommand listAllCommand = (ListCommand) parser.parseCommand(
+                ListCommand.COMMAND_WORD);
+        ListCommand listCompletedCommand = (ListCommand) parser.parseCommand(
+                ListCommand.COMMAND_WORD + " -c");
+        ListCommand listUncompletedCommand = (ListCommand) parser.parseCommand(
+                ListCommand.COMMAND_WORD + " -u");
+        assertEquals(new ListCommand(ListCommand.ListType.SHOW_ALL), listAllCommand);
+        assertEquals(new ListCommand(ListCommand.ListType.SHOW_COMPLETED), listCompletedCommand);
+        assertEquals(new ListCommand(ListCommand.ListType.SHOW_UNCOMPLETED), listUncompletedCommand);
     }
 
     @Test
     public void parseCommand_listAlias() throws Exception {
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_ALIAS) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_ALIAS + " 3") instanceof ListCommand);
+        ListCommand listAllCommand = (ListCommand) parser.parseCommand(
+                ListCommand.COMMAND_ALIAS);
+        ListCommand listCompletedCommand = (ListCommand) parser.parseCommand(
+                ListCommand.COMMAND_ALIAS + " -c");
+        ListCommand listUncompletedCommand = (ListCommand) parser.parseCommand(
+                ListCommand.COMMAND_ALIAS + " -u");
+        assertEquals(new ListCommand(ListCommand.ListType.SHOW_ALL), listAllCommand);
+        assertEquals(new ListCommand(ListCommand.ListType.SHOW_COMPLETED), listCompletedCommand);
+        assertEquals(new ListCommand(ListCommand.ListType.SHOW_UNCOMPLETED), listUncompletedCommand);
     }
 
     @Test
