@@ -96,6 +96,7 @@ public class EditCommand extends Command {
         assert personToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
+        //@@author zioul123
         Optional<Phone> updatedPhone = editPersonDescriptor.getPhone()
                 .isPresent()
                 ? editPersonDescriptor.getPhone()
@@ -108,6 +109,7 @@ public class EditCommand extends Command {
                 .isPresent()
                 ? editPersonDescriptor.getAddress()
                 : personToEdit.getAddress();
+        //@@author
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);

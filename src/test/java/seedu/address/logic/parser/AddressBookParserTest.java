@@ -217,6 +217,7 @@ public class AddressBookParserTest {
         assertTrue(parser.parseCommand("u 3") instanceof UndoCommand);
     }
 
+    //@@author A19Sean-reused
     @Test
     public void parseCommandWord_tag() throws Exception {
         List<String> keywords = Arrays.asList("foo", "friends", "colleagues");
@@ -233,6 +234,7 @@ public class AddressBookParserTest {
         assertEquals(new TagCommand(new PersonContainsTagPredicate(keywords)), command);
     }
 
+    //@@author
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() throws Exception {
         thrown.expect(ParseException.class);

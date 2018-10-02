@@ -50,6 +50,7 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
+        //@@author zioul123
         person.getPhone()
                 .ifPresentOrElse(p -> {
                     phone.setText(p.value);
@@ -62,6 +63,7 @@ public class PersonCard extends UiPart<Region> {
                 .ifPresentOrElse(e -> {
                     email.setText(e.value);
                 }, () -> email.setText(NO_EMAIL));
+        //@@author
         initTags(person);
 
         name.setWrapText(true);
