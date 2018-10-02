@@ -32,7 +32,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.username = username;
         this.persons = new UniquePersonList();
         this.categoryList = new CategoryList();
-        this.maximumBudget = new Budget(0.0);
+        this.maximumBudget = new Budget("0.00");
     }
 
     /**
@@ -77,8 +77,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         this.setPersons(newData.getPersonList());
-        this.modifyMaximumBudget(newData.getMaximumBudget());
-        this.maximumBudget.clearSpending();
+        this.maximumBudget = newData.getMaximumBudget();
     }
 
     //// person-level operations
@@ -164,9 +163,11 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public boolean equals(Object other) {
+        System.out.println(this.maximumBudget.equals(((AddressBook) other).maximumBudget));
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                && persons.equals(((AddressBook) other).persons))
+                && this.maximumBudget.equals(((AddressBook) other).maximumBudget);
     }
 
     @Override

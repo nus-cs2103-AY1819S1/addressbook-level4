@@ -185,7 +185,7 @@ public class ModelManager extends ComponentManager implements Model {
     //========== Budget ====================================================================
 
     @Override
-    public void modifyMaximumBudget(double budget) throws NoUserSelectedException {
+    public void modifyMaximumBudget(Budget budget) throws NoUserSelectedException {
         this.versionedAddressBook.modifyMaximumBudget(budget);
         indicateAddressBookChanged();
     }

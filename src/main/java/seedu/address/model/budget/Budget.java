@@ -1,30 +1,36 @@
 package seedu.address.model.budget;
-
-import java.util.Calendar;
+//@@author winsonhys
 
 import seedu.address.model.expense.Person;
 
-//@@author winsonhys
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents maximum budget of an expense tracker
  * Guarantees: details are present and not null, field values are validated, mutable.
  */
 public class Budget {
+    public static final String MESSAGE_BUDGET_CONSTRAINTS =
+        "Cost should only take values in the following format: {int}.{digit}{digit}";
+
+    public static final String BUDGET_VALIDATION_REGEX = "(\\d+).(\\d)(\\d)";
+
     private double budgetCap;
-    private Calendar budgetSetTimestamp;
     private double currentExpenses;
+
+
 
     /**
      * Constructs a {@code Budget}
      *
      * @param budget a valid double
      */
-    public Budget(double budget) {
-        this.budgetCap = budget;
-        this.budgetSetTimestamp = Calendar.getInstance();
+    public Budget(String budget) {
+        requireNonNull(budget);
+        checkArgument(isValidBudget(budget), BUDGET_VALIDATION_REGEX);
+        this.budgetCap = Double.parseDouble(budget);
         this.currentExpenses = 0.0;
-
     }
 
     /**
@@ -34,10 +40,17 @@ public class Budget {
      */
     public Budget(double budget, double currentExpenses) {
         this.budgetCap = budget;
-        this.budgetSetTimestamp = Calendar.getInstance();
         this.currentExpenses = currentExpenses;
 
     }
+
+    /**
+     * Returns true if a given string is a valid budget.
+     */
+    public static boolean isValidBudget(String test) {
+        return test.matches(BUDGET_VALIDATION_REGEX);
+    }
+
 
     /**
      * Modifies the current (@code Budget) to have a new value
@@ -46,7 +59,6 @@ public class Budget {
      */
     public void modifyBudget(double budget) {
         this.budgetCap = budget;
-        this.budgetSetTimestamp = Calendar.getInstance();
     }
 
     /**
@@ -54,9 +66,6 @@ public class Budget {
      *
      * @return a Calendar object that consists of the most recent timestamp.
      */
-    public Calendar getBudgetSetTimestamp() {
-        return this.budgetSetTimestamp;
-    }
 
     /**
      * Attemps to add expense
@@ -99,18 +108,15 @@ public class Budget {
 
     public double getCurrentExpenses() { return this.currentExpenses; }
 
-    /**
-     * @return true if budget is exceeded else false
-     */
-    public boolean isBudgetExceeded() {
-        return this.currentExpenses > this.budgetCap;
-    }
-
     @Override
     public boolean equals(Object budget) {
         Budget anotherBudget = (Budget) budget;
         return this.currentExpenses == anotherBudget.currentExpenses
-            && this.budgetSetTimestamp.equals(anotherBudget.budgetSetTimestamp)
             && this.budgetCap == anotherBudget.budgetCap;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("$%f", this.budgetCap);
     }
 }
