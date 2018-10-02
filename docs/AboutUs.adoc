@@ -13,7 +13,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::yuntongzhang.png[width="150", align="left"]
 {empty}[[homepage]] [https://github.com/yuntongzhang[github]] [<<johndoe#, portfolio>>]
 
-Role: TBD +
+Role: Developer +
 Responsibilities: TBD +
 
 '''
@@ -22,8 +22,8 @@ Responsibilities: TBD +
 image::snajef.png[width="150", align="left"]
 {empty}[http://github.com/snajef[github]] [<<johndoe#, portfolio>>]
 
-Role: TBD +
-Responsibilities: TBD +
+Role: Developer + Gradle Expert +
+Responsibilities: In charge of the `Model` component +
 
 '''
 
@@ -31,7 +31,7 @@ Responsibilities: TBD +
 image::omegafishy.png[width="150", align="left"]
 {empty}[http://github.com/omegafishy[github]] [<<johndoe#, portfolio>>]
 
-Role: TBD +
+Role: Developer +
 Responsibilities: TBD +
 
 '''
@@ -40,7 +40,7 @@ Responsibilities: TBD +
 image::jeffypie369.png[width="150", align="left"]
 {empty}[http://github.com/jeffypie369[github]] [<<johndoe#, portfolio>>]
 
-Role: TBD +
+Role: Developer +
 Responsibilities: TBD +
 
 '''
@@ -49,7 +49,7 @@ Responsibilities: TBD +
 image::gaojiaxin666.png[width="150", align="left"]
 {empty}[http://github.com/gaojiaxin666[github]] [<<johndoe#, portfolio>>]
 
-Role: TBD +
+Role: Developer +
 Responsibilities: TBD +
 
 '''
