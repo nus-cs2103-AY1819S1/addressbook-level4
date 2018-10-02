@@ -5,17 +5,22 @@ import java.util.logging.Logger;
 import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Platform;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
 import seedu.address.MainApp;
+
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.util.StringUtil;
+
 import seedu.address.logic.Logic;
+
 import seedu.address.model.UserPrefs;
 
 /**
@@ -35,7 +40,7 @@ public class UiManager extends ComponentManager implements Ui {
     private Logic logic;
     private Config config;
     private UserPrefs prefs;
-    private MainWindow mainWindow;
+    private MainWindow loginWindow;
 
     public UiManager(Logic logic, Config config, UserPrefs prefs) {
         super();
@@ -52,10 +57,10 @@ public class UiManager extends ComponentManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage, config, prefs, logic);
-            mainWindow.show(); //This should be called before creating other UI parts
-            mainWindow.fillInnerParts();
-
+            loginWindow = new MainWindow(primaryStage, config, prefs, logic);
+            loginWindow.show(); //This should be called before creating other UI parts
+            loginWindow.fillInnerParts();
+            loginWindow.viewInFullScreen(); //View this app in full-screen exclusive
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
@@ -64,9 +69,9 @@ public class UiManager extends ComponentManager implements Ui {
 
     @Override
     public void stop() {
-        prefs.updateLastUsedGuiSetting(mainWindow.getCurrentGuiSetting());
-        mainWindow.hide();
-        mainWindow.releaseResources();
+        prefs.updateLastUsedGuiSetting(loginWindow.getCurrentGuiSetting());
+        loginWindow.hide();
+        loginWindow.releaseResources();
     }
 
     private void showFileOperationAlertAndWait(String description, String details, Throwable cause) {
@@ -79,7 +84,7 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
-        showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
+        showAlertDialogAndWait(loginWindow.getPrimaryStage(), type, title, headerText, contentText);
     }
 
     /**

@@ -2,8 +2,11 @@ package seedu.address.model;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DOCTORS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.testutil.TypicalPersons.ADAM;
 import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BEN;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import java.nio.file.Paths;
@@ -17,6 +20,7 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
 
 public class ModelManagerTest {
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -28,9 +32,22 @@ public class ModelManagerTest {
         modelManager.hasPerson(null);
     }
 
+    //@@author jjlee050
+    @Test
+    public void hasDoctor_nullDoctor_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.hasDoctor(null);
+    }
+
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
         assertFalse(modelManager.hasPerson(ALICE));
+    }
+
+    //@@author jjlee050
+    @Test
+    public void hasDoctor_doctorNotInAddressBook_returnsFalse() {
+        assertFalse(modelManager.hasDoctor(ADAM));
     }
 
     @Test
@@ -39,15 +56,30 @@ public class ModelManagerTest {
         assertTrue(modelManager.hasPerson(ALICE));
     }
 
+    //@@author jjlee050
+    @Test
+    public void hasDoctor_doctorInAddressBook_returnsTrue() {
+        modelManager.addDoctor(ADAM);
+        assertTrue(modelManager.hasDoctor(ADAM));
+    }
+
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getFilteredPersonList().remove(0);
     }
 
+    //@@author jjlee050
+    @Test
+    public void getFilteredDoctorList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getFilteredDoctorList().remove(0);
+    }
+
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON)
+                .withDoctor(ADAM).withDoctor(BEN).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -75,6 +107,8 @@ public class ModelManagerTest {
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        //@@author jjlee050
+        modelManager.updateFilteredDoctorList(PREDICATE_SHOW_ALL_DOCTORS);
 
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();

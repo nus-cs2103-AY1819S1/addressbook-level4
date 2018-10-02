@@ -3,18 +3,24 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 
 import javafx.collections.ObservableList;
+
+import seedu.address.model.doctor.Doctor;
+import seedu.address.model.doctor.UniqueDoctorList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSamePerson and .isSameDoctor comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    //@@author jjlee050
+    private final UniqueDoctorList doctors;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +31,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        //@@author jjlee050
+        doctors = new UniqueDoctorList();
     }
 
     public AddressBook() {}
@@ -47,13 +55,22 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.persons.setPersons(persons);
     }
 
+    //@@author jjlee050
+    /**
+     * Replaces the contents of the doctor list with {@code doctors}.
+     * {@code doctors} must not contain duplicate doctors.
+     */
+    public void setDoctors(List<Doctor> doctors) {
+        this.doctors.setDoctors(doctors);
+    }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
-
         setPersons(newData.getPersonList());
+        setDoctors(newData.getDoctorList());
     }
 
     //// person-level operations
@@ -66,12 +83,30 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.contains(person);
     }
 
+    //@@author jjlee050
+    /**
+     * Returns true if a doctor with the same identity as {@code doctor} exists in the address book.
+     */
+    public boolean hasDoctor(Doctor doctor) {
+        requireNonNull(doctor);
+        return doctors.contains(doctor);
+    }
+
     /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
     public void addPerson(Person p) {
         persons.add(p);
+    }
+
+    //author jjlee050
+    /**
+     * Adds a doctor to the ClinicIO.
+     * The doctor must not already exist in the ClinicIO.
+     */
+    public void addDoctor(Doctor d) {
+        doctors.add(d);
     }
 
     /**
@@ -81,8 +116,18 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void updatePerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
-
         persons.setPerson(target, editedPerson);
+    }
+
+    //@@author jjlee050
+    /**
+     * Replaces the given doctor {@code target} in the list with {@code editedDoctor}.
+     * {@code target} must exist in the address book.
+     * The doctor identity of {@code editedDoctor} must not be the same as another existing doctor in the address book.
+     */
+    public void updateDoctor(Doctor target, Doctor editedDoctor) {
+        requireNonNull(editedDoctor);
+        doctors.setDoctor(target, editedDoctor);
     }
 
     /**
@@ -93,11 +138,22 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    //@@author jjlee050
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeDoctor(Doctor key) {
+        doctors.remove(key);
+    }
+
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        //@@author jjlee050
+        return persons.asUnmodifiableObservableList().size() + " persons & "
+                + doctors.asUnmodifiableObservableList().size() + " doctors";
         // TODO: refine later
     }
 
@@ -106,15 +162,24 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.asUnmodifiableObservableList();
     }
 
+    //@@author jjlee050
+    @Override
+    public ObservableList<Doctor> getDoctorList() {
+        return doctors.asUnmodifiableObservableList();
+    }
+
     @Override
     public boolean equals(Object other) {
+        //@@author jjlee050
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                && persons.equals(((AddressBook) other).persons)
+                && doctors.equals(((AddressBook) other).doctors));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        //@@author jjlee050
+        return Objects.hash(persons.hashCode(), doctors.hashCode());
     }
 }
