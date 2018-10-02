@@ -15,12 +15,11 @@ import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddDietCommandTest {
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     private CommandHistory commandHistory = new CommandHistory();
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void execute_successful() throws Exception {
