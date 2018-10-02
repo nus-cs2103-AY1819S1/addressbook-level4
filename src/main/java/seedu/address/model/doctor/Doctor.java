@@ -58,7 +58,7 @@ public class Doctor extends Person {
         }
 
         return otherDoctor != null
-                && otherDoctor.getId().equals(getId()) 
+                && otherDoctor.getId().equals(getId())
                 && (otherDoctor.getName().equals(getName())
                 || otherDoctor.getPassword().equals(getPassword()));
     }

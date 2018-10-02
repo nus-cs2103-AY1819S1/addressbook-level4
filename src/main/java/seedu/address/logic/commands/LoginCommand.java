@@ -32,7 +32,7 @@ public class LoginCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Login successful.";
     public static final String MESSAGE_FAILURE = "Login failed. Please try again.";
-    
+
     private final Person toAuthenticate;
 
     /**
@@ -42,7 +42,7 @@ public class LoginCommand extends Command {
         requireNonNull(person);
         toAuthenticate = person;
     }
-    
+
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
