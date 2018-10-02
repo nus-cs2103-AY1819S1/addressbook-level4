@@ -32,7 +32,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.username = username;
         this.persons = new UniquePersonList();
         this.categoryList = new CategoryList();
-        this.maximumBudget = new Budget("0.00");
+        this.maximumBudget = new Budget("28.00");
     }
 
     /**
