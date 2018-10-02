@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= Sous Chef - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,9 +13,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-W10-4/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W10-4`      Since: `Sep 2018`      Licence: `MIT`
 
 == Setting up
 
@@ -194,7 +194,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+.  The command execution can affect the `Model` (e.g. adding a recipe) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
@@ -264,18 +264,18 @@ Step 1. The user launches the application for the first time. The `VersionedAddr
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th recipe in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David ...` to add a new recipe. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the recipe was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
@@ -311,7 +311,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the recipe being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
@@ -560,7 +560,7 @@ Each individual exercise in this section is component-based (i.e. you would not 
 [TIP]
 Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
 
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
+. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all recipes in the list.
 +
 ****
 * Hints
@@ -587,9 +587,9 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 * Hints
 ** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
 ** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
+**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/recipe/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a recipe, and link:{repoURL}/src/main/java/seedu/address/model/recipe/Person.java[`Person`] allows you to update the tags.
 * Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
+** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each recipe, and remove the `tag` from each recipe.
 ** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
 ** Add new tests for each of the new public methods that you have added.
 ** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
@@ -598,12 +598,12 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 [discrete]
 ==== `Ui` component
 
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
+*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last recipe in the list. Your job is to implement improvements to the UI to solve all these problems.
 
 [TIP]
 Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
 
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
+. Use different colors for different tags inside recipe cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
 +
 **Before**
 +
@@ -663,10 +663,10 @@ image::getting-started-ui-status-after.png[width="500"]
 ** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
 ** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
 * Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
+** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of recipes when the application just started.
+** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of recipes whenever there are new changes to the addressbook.
 ** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
+** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of recipes status bar.
 ** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
 ****
 
@@ -696,15 +696,15 @@ By creating this command, you will get a chance to learn how to implement a feat
 *Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
 
 ==== Description
-Edits the remark for a person specified in the `INDEX`. +
+Edits the remark for a recipe specified in the `INDEX`. +
 Format: `remark INDEX r/[REMARK]`
 
 Examples:
 
 * `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
+Edits the remark for the first recipe to `Likes to drink coffee.`
 * `remark 1 r/` +
-Removes the remark for the first person.
+Removes the remark for the first recipe.
 
 ==== Step-by-step Instructions
 
@@ -738,7 +738,7 @@ for `RemarkCommandParser`.
 . Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
 
 ===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
+Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each recipe later.
 
 **Main:**
 
@@ -750,11 +750,11 @@ Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui
 . Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
 
 ===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
+We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/recipe/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
 
 **Main:**
 
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
+. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/recipe/Address.java[`Address`], remove the regex and change the names accordingly).
 . Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
 
 **Tests:**
@@ -762,12 +762,12 @@ We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/s
 . Add test for `Remark`, to test the `Remark#equals()` method.
 
 ===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
+Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/recipe/Person.java[`Person`].
 
 **Main:**
 
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
+. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/recipe/Person.java[`Person`].
+. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the recipe will be created without a remark).
 . Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `addressBook.xml` so that the application will load the sample data when you launch it.)
 
 ===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedPerson` class
@@ -782,11 +782,11 @@ We now have `Remark` s for `Person` s, but they will be gone when we exit the ap
 . Fix `invalidAndValidPersonAddressBook.xml`, `typicalPersonsAddressBook.xml`, `validAddressBook.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
 
 ===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
+Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/recipe/Person.java[`Person`].
 
 **Tests:**
 
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
+. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the recipe that it is currently building.
 . Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
 
 ===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
@@ -805,7 +805,7 @@ We now have everything set up... but we still can't modify the remarks. Let's fi
 
 **Main:**
 
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
+. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a recipe.
 
 **Tests:**
 
@@ -820,13 +820,13 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* prefer home-cooked meals and has a need to manage meal preparation schedule
+* interested to explore different recipes and receive suggestions on the next meal
+* requires a kitchen-helper providing step-by-step instructions
+* like to keep track of nutrition and calories intake
+* has needs for a shopping list based on the meals planned
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: innovate, plan and guide health-conscious occupied working adults in preparing home-cooked meals
 
 [appendix]
 == User Stories
@@ -834,61 +834,477 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+=== Ingredient Management
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |user |limit the search result of recipes to what I have in my inventory |cook a meal without buying additional ingredients
 
-|`* * *` |user |add a new person |
+|`* * *` |user |Be informed of the name/amount of ingredients that I am lacking |so that I can buy the shortfall
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user with ingredient near expiry |I can refer to the purchase date on ingredient manager and search for recipes that include those ingredients |use up my ingredients near expiry
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |see recipes that can use the most number of ingredients in the ingredient manager |cook with the maximum utilization of my ingredients
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* *` |user who wants to cook more than one serving of dishes |get the accordingly calculated missing amount of ingredients |-
+|=======================================================================
+=== Meal Planner
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+|`* * *` |user |plan my meals for breakfast, lunch and dinner |I can remember my meals for each day
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |fickle-minded user |edit my meal plans |I can add different recipes if I change my mind
+
+|`* * *` |efficient user |clear the meal planner immediately at the end of the week |I can save time
+
+|`* *` |health-conscious user |view the nutritional value of each recipe |I can choose recipes according to my nutritional needs
+
+|`*` |meticulous user |view the time taken for each recipe |I can plan ahead for meal preparations to fit my schedule
+
+|=======================================================================
+=== User Profiling
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+|`* * *`|undecided user |get random recipe suggestions |get new ideas on what to cook
+
+|`* * *` |user |get suggestions to cook based on my viewing and cooking history |learn to cook similar dishes that I may like
+
+|`* * *` |user |favourite a recipe that I really like | save them into my favourites for easy reference
+
+|`* * *` |user |remove a recipe from my favourites |remove a recipe that I no longer like
+
+|`* * *` |user |list out all my favourite recipes|view all of my favourite recipes at a glance
+|=======================================================================
+=== Recipes Management and cook-mode
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+
+|`* * *` |Indian |search for recipes of Indian dishes	|prepare a wholesome meal for my family
+
+|`* * *` |vegetarian |search for vegan option |prepare self-make food for my dietary requirements
+
+|`* * *` |mum |search for kids-friendly recipes |prepare food that is to my kids liking
+
+|`* *` |amateur cook |follow through the step-by-step cooking instructions explicitly |my cooking process is guided
+
+|`*` |user |provide suggestions to a recipe |improve on the recipe to value-add the community
+
+|`*` |picky user |search for recipes with good reviews |prepare tasty food that is worth the calories
+
+|`*` |user |“like/dislike” reviews on a recipe made by other users	 |credit/discredit valid/invalid reviews
 |=======================================================================
 
-_{More to be added}_
+
+=== Health Planner
+|========================================================================
+|Priority | As a... |I want to ... | So that I can...
+|`* * *`|new user| be able to easily use the interface without hassle | easily learn the interface without difficulty
+|`* *`|Health-conscious user| be able to view the nutritional breakdown| Know what food to cut down or replace
+|`* *`|Fickle user | be able to change plans or make new plans on the go | make changes when errors are made
+|`* *`|User trying to be more healthy | be recommended healthy recipes by the system | save the effort needed to search online
+|`*`| Experimental user| be able to have many plans | try out different plans on the go
+|========================================================================
+
+
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Sous Chef` and the *Actor* is the `user`, unless specified otherwise)
 
+=== Ingredient Management
 [discrete]
-=== Use case: Delete person
+=== Use case: UC11 – List Ingredient
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests to list ingredients.
+2. System shows list of ingredients.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC12 – Add Ingredient
+
+*MSS*
+
+1. User requests to add an ingredient.
+2. System adds the ingredient at the rear of the list and shows the list.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
+* 1a. System prompt insufficient/invalid contents for name (not in ingredients dictionary)/ amount (not numeric)/ date (not in the specified format).
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 1a1. Step 1 is repeated until the data entered are correct.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: UC13 – Edit Ingredient
+
+*MSS*
+
+1. User requests to edit an ingredient.
+2. System reflects the change to the list and show the list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. System prompt insufficient/invalid contents.
++
+[none]
+** 1a1. Step 1 is repeated until the data entered are correct.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: UC14 – Delete Ingredient
+
+*MSS*
+
+1. User requests to delete an ingredient.
+2. System deletes the ingredient and shows the list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The ingredient does not exist in the ingredient manager.
++
+[none]
+** 1a1. System show the message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC15 – Find Ingredient
+
+*MSS*
+
+1. User requests to find ingredients.
+2. System show the list of ingredients that contains the keywords.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC16 – Search recipes based on ingredients manager availability
+
+*MSS*
+
+1. User +++<u>list ingredients (UC11)</u>+++.
+2. System shows the list of recipes in order of most number of ingredients in IM included.
+3. User selects both mandatory and desirable ingredients for the search.
+4. System shows the list of recipes in order of most number of ingredients selected.
+5. User selects a recipe.
+6. System shows recipe specifying missing ingredients and its amount, calculated according to number of servings.
++
+Use case ends.
+
+=== Meal Planner
+[discrete]
+=== Use case: UC21 – Add recipe to meal planner
+
+*MSS*
+
+1. User requests to list available recipes.
+2. System shows list of available recipes.
+3. User selects desired recipe and adds it to the desired meal slot.
+4. System shows the recipe listed under the indicated meal slot.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC22 – Delete recipe from meal planner
+
+*MSS*
+
+1. User requests to view current meal plan.
+2. System shows current meal plan.
+3. User requests to delete unwanted recipe.
+4. System shows specified meal slot as empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC23 – View meal plan
+
+*MSS*
+
+1. User requests to view current meal plan.
+2. System shows current full meal plan.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC24 – View meal recipe
+
+*MSS*
+
+1. User requests to view recipe for a specific meal slot.
+2. System shows the full recipe of the specified meal slot.
++
+Use case ends.
+
+=== User Profiling
+[discrete]
+=== Use case: UC31 - Request surprise recipe
+
+*MSS*
+
+1. User requests to wants to cook something new, but has no idea what they want to try.
+2. User request for surprise recipe
+3. System displays random recipe
++
+Use case ends.
+
+[discrete]
+=== Use case: UC32 – Favourite recipe
+
+*MSS*
+
+1. User lists a selection of recipes (Based on his search parameters).
+2. User selects a recipe to view.
+3. User likes that recipe, and adds it to their "Favoure Recipe" list.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC33 – Suggest recipe
+
+*MSS*
+
+1. User wants to try a new recipe.
+2. A list of 3 new recipes (That the user hasn't cooked before, and based on their preferences, viewing and cooking history) will be displayed to the user.
++
+Use case ends.
+
+=== Recipes Management and cook-mode
+[discrete]
+==== Use case: UC41 – Search for Recipe
+*MSS*
+
+1.	User chooses to search for recipe.
+2.	System requests for details.
+3.	User enters keywords.
+4.	System displays recipes.
+5.	System suggests ways to refine result.
++
+Steps 3 – 5 are repeated until search result becomes too narrow or user choose to look at existing result.
++
+Use case ends.
+
+[discrete]
+==== Use case: UC42 – View Recipe
+*MSS*
+
+1.	User +++<u>searches for recipe (UC41)</u>+++.
+2.	User chooses a recipe.
+3.	System displays recipe details.
++
+Use case ends.
+
+[discrete]
+==== Use case: UC44 – Navigate Recipe
+*MSS*
+
+1.	User +++<u>views recipe (UC42)</u>+++.
+2.	User chooses to enter navigation mode.
+3.	System displays instruction.
+4.	User chooses next instruction.
++
+Steps 3 – 4 are repeated until end of recipe’s instruction or user chooses to end navigation.
++
+Use case ends.
+
+
+*Extensions*
+[none]
+* 3a. 	System displays timer for duration specific instruction.
+* 3b. 	User chooses to start timer.
+* 3c. 	System displays countdown.
+* 3d. 	System displays alert when timer ends.
++
+Use case resumes at step 3.
+
+* *c. 	At any time, user chooses to end timer.
+[none]
+** c1. 	System ends timer.
++
+Use case resumes at step 3.
+
+[discrete]
+==== Use case: UC45 – Add Recipe
+*MSS*
+
+1.	User chooses to add recipe.
+2.	System requests for details.
+3.	User enters details.
+4.	User chooses to save.
+5.	System displays saved recipe.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 4a. 	System detects missing field(s).
+* 4a1. 	System requests for input of missing field(s).
+* 4a2. 	User enters details.
+* Steps 4a1 – 4a2 are repeated until the data entered are correct.
+* Use case resumes at step 5.
+
+=== Health planner
+[discrete]
+==== Use case: UC51 – Create plan
+
+*MSS*
+
+1. User requests to create a plan.
+2. User enters details for the plan.
+3. AddressBook creates the plan.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. User enters invalid details.
++
+[none]
+** 2a1. AddressBook shows error message.
++
+Use case resumes at 2.
+
+[discrete]
+==== Use case: UC52 – Edit plan
+
+*MSS*
+
+1. User requests to edit a plan.
+2. AddressBook retrieves the list of plans by user.
+3. User select the plan to edit.
+4. User enters the new details to the plan.
+5. AddressBook updates the details.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. No prior plan.
++
+Use case ends.
+
+[none]
+* 4a. Invalid details.
++
+[none]
+** 4a1. AddressBook shows an error message.
++
+Use case returns to 4.
+
+[discrete]
+==== Use case: UC53 – Delete plan
+
+*MSS*
+
+1. User requests to delete plan.
+2. AddressBook shows list of plans.
+3. User selects plan to delete.
+4. AddressBook deletes the selected plan.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. No pre-existing plan.
++
+Use case ends.
+
+[discrete]
+==== Use case: UC54 – Enter dietary intakes for the day
+
+*MSS*
+
+1. User request to enter intake.
+2. AddressBook shows list of plans.
+3. User selects plan from list.
+4. AddressBook shows list of recipes to select.
+5. User selects recipe to add into list.
+6. AddressBook adds the recipe to list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. No existent plan.
++
+Use case ends.
+
+[none]
+* 4a. No recipe to show.
++
+Use case ends.
+
+[discrete]
+==== Use case: UC55 – Remove an recipe from the dietary intakes for the day
+
+*MSS*
+
+1. User request to remove recipe from intake list.
+2. AddressBook shows list of recipes.
+3. User selects recipe from the list.
+4. AddressBook removes the selected recipe from the list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. No prior ingredient.
++
+Use case ends.
+
+[discrete]
+==== Use case: UC56 – View nutritional Intake
+
+*MSS*
+
+1. User requests to view nutritional intake entered.
+2. AddressBook retrieves the list of intakes to show the user.
+3. AddressBook retrieves the nutritional facts based on the recipes in the list to show the user.
+
+*Extensions*
+
+[none]
+* 2a. No data entered previously.
++
+Use case ends.
+
+[discrete]
+==== Use case: UC57 – Compare actual intake against target
+
+*MSS*
+
+1. User requests to compare the entered data against set target.
+2. AddressBook shows Target set by User.
+3. AddressBook calculates and shows the actual intake by user.
+4. AddressBook calculates the difference in the 2 scores and shows the user the percentage difference(positive or negative) from set target.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 recipes without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
@@ -943,15 +1359,15 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting a recipe
 
-. Deleting a person while all persons are listed
+. Deleting a recipe while all recipes are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all recipes using the `list` command. Multiple recipes in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No recipe is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
