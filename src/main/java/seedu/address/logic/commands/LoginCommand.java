@@ -23,8 +23,11 @@ public class LoginCommand extends Command {
         + "[" + PREFIX_PASSWORD + "/PASSWORD]"    
         + "Example: login r/doctor n/Adam Bell pass/doctor1";
 
+    public static final String MESSAGE_SUCCESS = "Login successful.";
+    public static final String MESSAGE_FAILURE = "Login failed. Please try again.";
+    
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
-        return null;
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 }
