@@ -4,7 +4,7 @@ import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.carpark.Carpark;
 
 /**
- * Represents a selection change in the Carpark List Panel
+ * Represents a selection change in the Car park List Panel
  */
 public class CarparkPanelSelectionChangedEvent extends BaseEvent {
 

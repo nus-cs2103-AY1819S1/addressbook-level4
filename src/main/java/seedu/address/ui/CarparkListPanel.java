@@ -11,12 +11,12 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.CarparkPanelSelectionChangedEvent;
+import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.model.carpark.Carpark;
 
 /**
- * Panel containing the list of carparks.
+ * Panel containing the list of car parks.
  */
 public class CarparkListPanel extends UiPart<Region> {
     private static final String FXML = "CarparkListPanel.fxml";
@@ -41,7 +41,7 @@ public class CarparkListPanel extends UiPart<Region> {
         carparkListView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
-                        logger.fine("Selection in carpark list panel changed to : '" + newValue + "'");
+                        logger.fine("Selection in car park list panel changed to : '" + newValue + "'");
                         raise(new CarparkPanelSelectionChangedEvent(newValue));
                     }
                 });

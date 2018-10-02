@@ -20,8 +20,8 @@ public class GsonUtil {
     private static ArrayList<CarparkJson> carparkList = new ArrayList<>();
 
     /**
-     * Fetches carpark information and returns a list of it.
-     * @return A list of list of strings containing the carpark information.
+     * Fetches car park information and returns a list of it.
+     * @return A list of list of strings containing the car park information.
      * @throws IOException if unable to connect to URL.
      */
     public static ArrayList<ArrayList<String>> fetchCarparkInfo() throws IOException {
@@ -101,7 +101,11 @@ public class GsonUtil {
         }
     }
 
+    /**
+     * Container class to hold JSON data.
+     */
     private class CarparkJson {
+        //CHECKSTYLE.OFF: MemberNameCheck
         private final String short_term_parking;
         private final String y_coord;
         private final String car_park_type;
@@ -111,6 +115,7 @@ public class GsonUtil {
         private final String address;
         private final String car_park_no;
         private final String type_of_parking_system;
+        //CHECKSTYLE.ON: MemberNameCheck
 
         private ArrayList<String> jsonData;
 

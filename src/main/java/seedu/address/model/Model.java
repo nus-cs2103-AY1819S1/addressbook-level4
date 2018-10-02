@@ -19,26 +19,27 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a carpark with the same identity as {@code carpark} exists in the address book.
+     * Returns true if a car park with the same identity as {@code carpark} exists in the address book.
      */
     boolean hasCarpark(Carpark carpark);
 
     /**
-     * Deletes the given carpark.
-     * The carpark must exist in the address book.
+     * Deletes the given car park.
+     * The car park must exist in the address book.
      */
     void deleteCarpark(Carpark target);
 
     /**
-     * Adds the given carpark.
+     * Adds the given car park.
      * {@code carpark} must not already exist in the address book.
      */
     void addCarpark(Carpark carpark);
 
     /**
-     * Replaces the given carpark {@code target} with {@code editedCarpark}.
+     * Replaces the given car park {@code target} with {@code editedCarpark}.
      * {@code target} must exist in the address book.
-     * The carpark identity of {@code editedCarpark} must not be the same as another existing carpark in the address book.
+     * The car park identity of {@code editedCarpark} must not be the same
+     * as another existing car park in the address book.
      */
     void updateCarpark(Carpark target, Carpark editedCarpark);
 
@@ -46,7 +47,7 @@ public interface Model {
     ObservableList<Carpark> getFilteredCarparkList();
 
     /**
-     * Updates the filter of the filtered carpark list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered car park list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredCarparkList(Predicate<Carpark> predicate);
