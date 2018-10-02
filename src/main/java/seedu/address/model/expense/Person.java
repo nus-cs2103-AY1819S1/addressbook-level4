@@ -17,7 +17,8 @@ public class Person {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
+    private final Date date;
+    private final Category category;
 
     // Data fields
     private final Cost cost;
@@ -26,24 +27,37 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Cost cost, Set<Tag> tags) {
-        requireAllNonNull(name, phone, cost, tags);
+
+    public Person(Name name, Category category, Cost cost, Date date, Set<Tag> tags) {
+        requireAllNonNull(name, category, cost, date, tags);
         this.name = name;
-        this.phone = phone;
+        this.category = category;
         this.cost = cost;
+        this.date = date;
         this.tags.addAll(tags);
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Person(Name name, Category category, Cost cost, Set<Tag> tags) {
+        this(name, category, cost, new Date(), tags);
     }
 
     public Name getName() {
         return name;
     }
 
-    public Phone getPhone() {
-        return phone;
+    public Category getCategory() {
+        return category;
     }
 
     public Cost getCost() {
         return cost;
+    }
+
+    public Date getDate() {
+        return date;
     }
 
     /**
@@ -66,7 +80,8 @@ public class Person {
 
         return otherPerson != null
                 && otherPerson.getName().equals(this.getName())
-                && (otherPerson.getPhone().equals(this.getPhone()) || otherPerson.getCost().equals(this.getCost()));
+                && (otherPerson.getCategory().equals(this.getCategory())
+                || otherPerson.getCost().equals(this.getCost()));
     }
 
     /**
@@ -85,25 +100,28 @@ public class Person {
 
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone())
+                && otherPerson.getCategory().equals(getCategory())
                 && otherPerson.getCost().equals(getCost())
+                && otherPerson.getDate().equals(getDate())
                 && otherPerson.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, cost, tags);
+        return Objects.hash(name, category, cost, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
+                .append(" Category: ")
+                .append(getCategory())
                 .append(" Cost: ")
                 .append(getCost())
+                .append(" Date: ")
+                .append(getDate())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

@@ -1,8 +1,9 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
@@ -34,8 +35,9 @@ public class PersonUtil {
     public static String getPersonDetails(Person person) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + person.getName().expenseName + " ");
-        sb.append(PREFIX_PHONE + person.getPhone().value + " ");
-        sb.append(PREFIX_ADDRESS + person.getCost().value + " ");
+        sb.append(PREFIX_CATEGORY + person.getCategory().getName() + " ");
+        sb.append(PREFIX_COST + person.getCost().value + " ");
+        sb.append(PREFIX_DATE + person.getDate().toString() + " ");
         person.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
@@ -48,8 +50,10 @@ public class PersonUtil {
     public static String getEditPersonDescriptorDetails(EditPersonDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.expenseName).append(" "));
-        descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
-        descriptor.getCost().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
+        descriptor.getCategory().ifPresent(category ->
+                sb.append(PREFIX_CATEGORY).append(category.getName()).append(" "));
+        descriptor.getCost().ifPresent(address -> sb.append(PREFIX_COST).append(address.value).append(" "));
+        descriptor.getDate().ifPresent(date -> sb.append(PREFIX_DATE).append(date.toString()).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

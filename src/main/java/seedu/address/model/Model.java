@@ -108,6 +108,15 @@ public interface Model {
      */
     boolean hasSelectedUser();
 
+    /** Returns an unmodifiable view of the expense stats*/
+    ObservableList<Person> getExpenseStats() throws NoUserSelectedException;
+
+    /**
+     * Updates the expense stats
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateExpenseStats(Predicate<Person> predicate) throws NoUserSelectedException;
+
     /**
      * Modifies the existing maximum budget for the current user
      */

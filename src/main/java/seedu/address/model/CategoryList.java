@@ -25,15 +25,15 @@ public class CategoryList {
     /**
      * Add a new {@code Category} into CategoryList.
      * */
-    public void addCategory(Category category) {
-        this.list.put(category.getName(), category);
+    public void addCategory(Category categoryTemp) {
+        this.list.put(categoryTemp.getName(), categoryTemp);
     }
 
     /**
      * add {@code Expense} into an existed {@code Category}.
      * */
-    public void addExpense(Category category, Expense expense) {
-        Category currentCate = this.list.get(category.getName());
+    public void addExpense(Category categoryTemp, Expense expense) {
+        Category currentCate = this.list.get(categoryTemp.getName());
         currentCate.addIntoCategory(expense);
     }
 
@@ -42,7 +42,7 @@ public class CategoryList {
     }
 
     /**
-     * Returns true if a category with the same identity as {@code category} exists in the address book.
+     * Returns true if a categoryTemp with the same identity as {@code category} exists in the address book.
      */
     public boolean hasCategory(Category category) {
         return this.list.containsKey(category.getName());

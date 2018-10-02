@@ -36,11 +36,12 @@ public class XmlUtilTest {
     private static final Path VALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("validPerson.xml");
     private static final Path TEMP_FILE = TestUtil.getFilePathInSandboxFolder("tempAddressBook.xml");
 
-    private static final String INVALID_PHONE = "9482asf424";
+    private static final String INVALID_CATEGORY = " ";
 
     private static final String VALID_NAME = "Hans Muster";
-    private static final String VALID_PHONE = "9482424";
+    private static final String VALID_CATEGORY = "School";
     private static final String VALID_ADDRESS = "1.00";
+    private static final String VALID_DATE = "01-10-2018";
     private static final String VALID_ADDRESS_BOOK_USERNAME = "validAddressBook";
     private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("friends"));
 
@@ -84,7 +85,7 @@ public class XmlUtilTest {
         XmlAdaptedPerson actualPerson = XmlUtil.getDataFromFile(
                 MISSING_PERSON_FIELD_FILE, XmlAdaptedPersonWithRootElement.class);
         XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
-                null, VALID_PHONE, VALID_ADDRESS, VALID_TAGS);
+                null, VALID_CATEGORY, VALID_ADDRESS, VALID_DATE, VALID_TAGS);
         assertEquals(expectedPerson, actualPerson);
     }
 
@@ -93,7 +94,7 @@ public class XmlUtilTest {
         XmlAdaptedPerson actualPerson = XmlUtil.getDataFromFile(
                 INVALID_PERSON_FIELD_FILE, XmlAdaptedPersonWithRootElement.class);
         XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
-                VALID_NAME, INVALID_PHONE, VALID_ADDRESS, VALID_TAGS);
+                VALID_NAME, INVALID_CATEGORY, VALID_ADDRESS, VALID_DATE, VALID_TAGS);
         assertEquals(expectedPerson, actualPerson);
     }
 
@@ -102,7 +103,7 @@ public class XmlUtilTest {
         XmlAdaptedPerson actualPerson = XmlUtil.getDataFromFile(
                 VALID_PERSON_FILE, XmlAdaptedPersonWithRootElement.class);
         XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
-                VALID_NAME, VALID_PHONE, VALID_ADDRESS, VALID_TAGS);
+                VALID_NAME, VALID_CATEGORY, VALID_ADDRESS, VALID_DATE, VALID_TAGS);
         assertEquals(expectedPerson, actualPerson);
     }
 
