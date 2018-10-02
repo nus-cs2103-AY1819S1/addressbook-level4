@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showRestaurantAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RESTAURANT;
 import static seedu.address.testutil.TypicalRestaurants.getTypicalAddressBook;
 
 import org.junit.Before;
@@ -35,7 +35,7 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
-        showRestaurantAtIndex(model, INDEX_FIRST_PERSON);
+        showRestaurantAtIndex(model, INDEX_FIRST_RESTAURANT);
         assertCommandSuccess(new ListCommand(), model, commandHistory, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

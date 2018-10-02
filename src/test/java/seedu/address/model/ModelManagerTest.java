@@ -2,7 +2,7 @@ package seedu.address.model;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RESTAURANTS;
 import static seedu.address.testutil.TypicalRestaurants.ALICE;
 import static seedu.address.testutil.TypicalRestaurants.BENSON;
 
@@ -74,7 +74,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
 
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();

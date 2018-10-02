@@ -11,8 +11,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showRestaurantAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RESTAURANT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_RESTAURANT;
 import static seedu.address.testutil.TypicalRestaurants.getTypicalAddressBook;
 
 import org.junit.Test;
@@ -41,9 +41,9 @@ public class EditCommandTest {
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Restaurant editedRestaurant = new RestaurantBuilder().build();
         EditRestaurantDescriptor descriptor = new EditRestaurantDescriptorBuilder(editedRestaurant).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_RESTAURANT, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedRestaurant);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RESTAURANT_SUCCESS, editedRestaurant);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updateRestaurant(model.getFilteredRestaurantList().get(0), editedRestaurant);
@@ -65,7 +65,7 @@ public class EditCommandTest {
                 .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastRestaurant, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedRestaurant);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RESTAURANT_SUCCESS, editedRestaurant);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updateRestaurant(lastRestaurant, editedRestaurant);
@@ -76,10 +76,10 @@ public class EditCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditRestaurantDescriptor());
-        Restaurant editedRestaurant = model.getFilteredRestaurantList().get(INDEX_FIRST_PERSON.getZeroBased());
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_RESTAURANT, new EditRestaurantDescriptor());
+        Restaurant editedRestaurant = model.getFilteredRestaurantList().get(INDEX_FIRST_RESTAURANT.getZeroBased());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedRestaurant);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RESTAURANT_SUCCESS, editedRestaurant);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.commitAddressBook();
@@ -89,14 +89,15 @@ public class EditCommandTest {
 
     @Test
     public void execute_filteredList_success() {
-        showRestaurantAtIndex(model, INDEX_FIRST_PERSON);
+        showRestaurantAtIndex(model, INDEX_FIRST_RESTAURANT);
 
-        Restaurant restaurantInFilteredList = model.getFilteredRestaurantList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Restaurant restaurantInFilteredList = model.getFilteredRestaurantList()
+                .get(INDEX_FIRST_RESTAURANT.getZeroBased());
         Restaurant editedRestaurant = new RestaurantBuilder(restaurantInFilteredList).withName(VALID_NAME_BOB).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_RESTAURANT,
                 new EditRestaurantDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedRestaurant);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RESTAURANT_SUCCESS, editedRestaurant);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updateRestaurant(model.getFilteredRestaurantList().get(0), editedRestaurant);
@@ -107,24 +108,24 @@ public class EditCommandTest {
 
     @Test
     public void execute_duplicateRestaurantUnfilteredList_failure() {
-        Restaurant firstRestaurant = model.getFilteredRestaurantList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Restaurant firstRestaurant = model.getFilteredRestaurantList().get(INDEX_FIRST_RESTAURANT.getZeroBased());
         EditRestaurantDescriptor descriptor = new EditRestaurantDescriptorBuilder(firstRestaurant).build();
-        EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
+        EditCommand editCommand = new EditCommand(INDEX_SECOND_RESTAURANT, descriptor);
 
-        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_RESTAURANT);
     }
 
     @Test
     public void execute_duplicateRestaurantFilteredList_failure() {
-        showRestaurantAtIndex(model, INDEX_FIRST_PERSON);
+        showRestaurantAtIndex(model, INDEX_FIRST_RESTAURANT);
 
         // edit restaurant in filtered list into a duplicate in address book
         Restaurant restaurantInList = model.getAddressBook().getRestaurantList()
-                .get(INDEX_SECOND_PERSON.getZeroBased());
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
+                .get(INDEX_SECOND_RESTAURANT.getZeroBased());
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_RESTAURANT,
                 new EditRestaurantDescriptorBuilder(restaurantInList).build());
 
-        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_RESTAURANT);
     }
 
     @Test
@@ -133,7 +134,7 @@ public class EditCommandTest {
         EditRestaurantDescriptor descriptor = new EditRestaurantDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
-        assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_RESTAURANT_DISPLAYED_INDEX);
     }
 
     /**
@@ -142,23 +143,23 @@ public class EditCommandTest {
      */
     @Test
     public void execute_invalidRestaurantIndexFilteredList_failure() {
-        showRestaurantAtIndex(model, INDEX_FIRST_PERSON);
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+        showRestaurantAtIndex(model, INDEX_FIRST_RESTAURANT);
+        Index outOfBoundIndex = INDEX_SECOND_RESTAURANT;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getRestaurantList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditRestaurantDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
-        assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_RESTAURANT_DISPLAYED_INDEX);
     }
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Restaurant editedRestaurant = new RestaurantBuilder().build();
-        Restaurant restaurantToEdit = model.getFilteredRestaurantList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Restaurant restaurantToEdit = model.getFilteredRestaurantList().get(INDEX_FIRST_RESTAURANT.getZeroBased());
         EditRestaurantDescriptor descriptor = new EditRestaurantDescriptorBuilder(editedRestaurant).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_RESTAURANT, descriptor);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updateRestaurant(restaurantToEdit, editedRestaurant);
         expectedModel.commitAddressBook();
@@ -182,7 +183,7 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         // execution failed -> address book state not added into model
-        assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_RESTAURANT_DISPLAYED_INDEX);
 
         // single address book state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
@@ -200,11 +201,11 @@ public class EditCommandTest {
     public void executeUndoRedo_validIndexFilteredList_sameRestaurantEdited() throws Exception {
         Restaurant editedRestaurant = new RestaurantBuilder().build();
         EditRestaurantDescriptor descriptor = new EditRestaurantDescriptorBuilder(editedRestaurant).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_RESTAURANT, descriptor);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
-        showRestaurantAtIndex(model, INDEX_SECOND_PERSON);
-        Restaurant restaurantToEdit = model.getFilteredRestaurantList().get(INDEX_FIRST_PERSON.getZeroBased());
+        showRestaurantAtIndex(model, INDEX_SECOND_RESTAURANT);
+        Restaurant restaurantToEdit = model.getFilteredRestaurantList().get(INDEX_FIRST_RESTAURANT.getZeroBased());
         expectedModel.updateRestaurant(restaurantToEdit, editedRestaurant);
         expectedModel.commitAddressBook();
 
@@ -215,7 +216,7 @@ public class EditCommandTest {
         expectedModel.undoAddressBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        assertNotEquals(model.getFilteredRestaurantList().get(INDEX_FIRST_PERSON.getZeroBased()), restaurantToEdit);
+        assertNotEquals(model.getFilteredRestaurantList().get(INDEX_FIRST_RESTAURANT.getZeroBased()), restaurantToEdit);
         // redo -> edits same second restaurant in unfiltered restaurant list
         expectedModel.redoAddressBook();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
@@ -223,11 +224,11 @@ public class EditCommandTest {
 
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_PERSON, DESC_AMY);
+        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_RESTAURANT, DESC_AMY);
 
         // same values -> returns true
         EditRestaurantDescriptor copyDescriptor = new EditRestaurantDescriptor(DESC_AMY);
-        EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_PERSON, copyDescriptor);
+        EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_RESTAURANT, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -240,10 +241,10 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_PERSON, DESC_AMY)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_RESTAURANT, DESC_AMY)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_PERSON, DESC_BOB)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_RESTAURANT, DESC_BOB)));
     }
 
 }

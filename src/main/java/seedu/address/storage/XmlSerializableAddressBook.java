@@ -18,7 +18,7 @@ import seedu.address.model.restaurant.Restaurant;
 @XmlRootElement(name = "addressbook")
 public class XmlSerializableAddressBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Restaurants list contains duplicate restaurant(s).";
+    public static final String MESSAGE_DUPLICATE_RESTAURANT = "Restaurants list contains duplicate restaurant(s).";
 
     @XmlElement
     private List<XmlAdaptedRestaurant> restaurants;
@@ -51,7 +51,7 @@ public class XmlSerializableAddressBook {
         for (XmlAdaptedRestaurant p : restaurants) {
             Restaurant restaurant = p.toModelType();
             if (addressBook.hasRestaurant(restaurant)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_RESTAURANT);
             }
             addressBook.addRestaurant(restaurant);
         }

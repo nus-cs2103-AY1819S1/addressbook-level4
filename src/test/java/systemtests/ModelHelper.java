@@ -12,7 +12,7 @@ import seedu.address.model.restaurant.Restaurant;
  * Contains helper methods to set up {@code Model} for testing.
  */
 public class ModelHelper {
-    private static final Predicate<Restaurant> PREDICATE_MATCHING_NO_PERSONS = unused -> false;
+    private static final Predicate<Restaurant> PREDICATE_MATCHING_NO_RESTAURANTS = unused -> false;
 
     /**
      * Updates {@code model}'s filtered list to display only {@code toDisplay}.
@@ -20,7 +20,7 @@ public class ModelHelper {
     public static void setFilteredList(Model model, List<Restaurant> toDisplay) {
         Optional<Predicate<Restaurant>> predicate =
                 toDisplay.stream().map(ModelHelper::getPredicateMatching).reduce(Predicate::or);
-        model.updateFilteredRestaurantList(predicate.orElse(PREDICATE_MATCHING_NO_PERSONS));
+        model.updateFilteredRestaurantList(predicate.orElse(PREDICATE_MATCHING_NO_RESTAURANTS));
     }
 
     /**

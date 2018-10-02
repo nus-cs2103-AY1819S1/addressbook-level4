@@ -163,7 +163,7 @@ public class User {
     public void acceptFriendRequest(Name username) {
         Friendship friendship = findFriendshipInList(friendRequests, username);
         User friend = friendship.getFriendUser();
-        // ensures that the person who initiated the friendship is not the one accepting
+        // ensures that the RESTAURANT who initiated the friendship is not the one accepting
         if (!friendship.getInitiatedBy().equals(this)) {
             // changes friendship to accepted
             friendship.changeFriendshipStatus();

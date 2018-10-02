@@ -10,7 +10,7 @@ import seedu.address.model.restaurant.Restaurant;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Restaurant> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Restaurant> PREDICATE_SHOW_ALL_RESTAURANTS = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);

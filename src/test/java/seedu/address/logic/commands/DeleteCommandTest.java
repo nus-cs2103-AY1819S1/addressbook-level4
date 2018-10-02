@@ -6,8 +6,8 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showRestaurantAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RESTAURANT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_RESTAURANT;
 import static seedu.address.testutil.TypicalRestaurants.getTypicalAddressBook;
 
 import org.junit.Test;
@@ -31,10 +31,10 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Restaurant restaurantToDelete = model.getFilteredRestaurantList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        Restaurant restaurantToDelete = model.getFilteredRestaurantList().get(INDEX_FIRST_RESTAURANT.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_RESTAURANT);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, restaurantToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_RESTAURANT_SUCCESS, restaurantToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteRestaurant(restaurantToDelete);
@@ -48,17 +48,17 @@ public class DeleteCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredRestaurantList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_RESTAURANT_DISPLAYED_INDEX);
     }
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showRestaurantAtIndex(model, INDEX_FIRST_PERSON);
+        showRestaurantAtIndex(model, INDEX_FIRST_RESTAURANT);
 
-        Restaurant restaurantToDelete = model.getFilteredRestaurantList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        Restaurant restaurantToDelete = model.getFilteredRestaurantList().get(INDEX_FIRST_RESTAURANT.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_RESTAURANT);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, restaurantToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_RESTAURANT_SUCCESS, restaurantToDelete);
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteRestaurant(restaurantToDelete);
@@ -70,21 +70,21 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showRestaurantAtIndex(model, INDEX_FIRST_PERSON);
+        showRestaurantAtIndex(model, INDEX_FIRST_RESTAURANT);
 
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+        Index outOfBoundIndex = INDEX_SECOND_RESTAURANT;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getRestaurantList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_RESTAURANT_DISPLAYED_INDEX);
     }
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
-        Restaurant restaurantToDelete = model.getFilteredRestaurantList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        Restaurant restaurantToDelete = model.getFilteredRestaurantList().get(INDEX_FIRST_RESTAURANT.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_RESTAURANT);
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteRestaurant(restaurantToDelete);
         expectedModel.commitAddressBook();
@@ -107,7 +107,7 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
         // execution failed -> address book state not added into model
-        assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_RESTAURANT_DISPLAYED_INDEX);
 
         // single address book state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
@@ -123,11 +123,11 @@ public class DeleteCommandTest {
      */
     @Test
     public void executeUndoRedo_validIndexFilteredList_sameRestaurantDeleted() throws Exception {
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_RESTAURANT);
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
-        showRestaurantAtIndex(model, INDEX_SECOND_PERSON);
-        Restaurant restaurantToDelete = model.getFilteredRestaurantList().get(INDEX_FIRST_PERSON.getZeroBased());
+        showRestaurantAtIndex(model, INDEX_SECOND_RESTAURANT);
+        Restaurant restaurantToDelete = model.getFilteredRestaurantList().get(INDEX_FIRST_RESTAURANT.getZeroBased());
         expectedModel.deleteRestaurant(restaurantToDelete);
         expectedModel.commitAddressBook();
 
@@ -139,7 +139,8 @@ public class DeleteCommandTest {
         expectedModel.undoAddressBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        assertNotEquals(restaurantToDelete, model.getFilteredRestaurantList().get(INDEX_FIRST_PERSON.getZeroBased()));
+        assertNotEquals(restaurantToDelete,
+                model.getFilteredRestaurantList().get(INDEX_FIRST_RESTAURANT.getZeroBased()));
         // redo -> deletes same second restaurant in unfiltered restaurant list
         expectedModel.redoAddressBook();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
@@ -147,14 +148,14 @@ public class DeleteCommandTest {
 
     @Test
     public void equals() {
-        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_PERSON);
-        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_PERSON);
+        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_RESTAURANT);
+        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_RESTAURANT);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_PERSON);
+        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_RESTAURANT);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false

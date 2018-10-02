@@ -4,7 +4,7 @@ import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.EventsUtil.postNow;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_RESTAURANT;
 import static seedu.address.testutil.TypicalRestaurants.getTypicalRestaurants;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysRestaurant;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
@@ -25,10 +25,11 @@ import seedu.address.model.restaurant.Restaurant;
 import seedu.address.storage.XmlSerializableAddressBook;
 
 public class RestaurantListPanelTest extends GuiUnitTest {
-    private static final ObservableList<Restaurant> TYPICAL_PERSONS =
+    private static final ObservableList<Restaurant> TYPICAL_RESTAURANTS =
             FXCollections.observableList(getTypicalRestaurants());
 
-    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_PERSON);
+    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT =
+            new JumpToListRequestEvent(INDEX_SECOND_RESTAURANT);
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "sandbox");
 
@@ -38,11 +39,11 @@ public class RestaurantListPanelTest extends GuiUnitTest {
 
     @Test
     public void display() {
-        initUi(TYPICAL_PERSONS);
+        initUi(TYPICAL_RESTAURANTS);
 
-        for (int i = 0; i < TYPICAL_PERSONS.size(); i++) {
-            restaurantListPanelHandle.navigateToCard(TYPICAL_PERSONS.get(i));
-            Restaurant expectedRestaurant = TYPICAL_PERSONS.get(i);
+        for (int i = 0; i < TYPICAL_RESTAURANTS.size(); i++) {
+            restaurantListPanelHandle.navigateToCard(TYPICAL_RESTAURANTS.get(i));
+            Restaurant expectedRestaurant = TYPICAL_RESTAURANTS.get(i);
             RestaurantCardHandle actualCard = restaurantListPanelHandle.getRestaurantCardHandle(i);
 
             assertCardDisplaysRestaurant(expectedRestaurant, actualCard);
@@ -52,12 +53,12 @@ public class RestaurantListPanelTest extends GuiUnitTest {
 
     @Test
     public void handleJumpToListRequestEvent() {
-        initUi(TYPICAL_PERSONS);
+        initUi(TYPICAL_RESTAURANTS);
         postNow(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 
         RestaurantCardHandle expectedRestaurant = restaurantListPanelHandle.getRestaurantCardHandle(
-                INDEX_SECOND_PERSON.getZeroBased());
+                INDEX_SECOND_RESTAURANT.getZeroBased());
         RestaurantCardHandle selectedRestaurant = restaurantListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedRestaurant, selectedRestaurant);
     }
@@ -122,6 +123,6 @@ public class RestaurantListPanelTest extends GuiUnitTest {
         uiPartRule.setUiPart(restaurantListPanel);
 
         restaurantListPanelHandle = new RestaurantListPanelHandle(getChildNode(restaurantListPanel.getRoot(),
-                RestaurantListPanelHandle.PERSON_LIST_VIEW_ID));
+                RestaurantListPanelHandle.RESTAURANT_LIST_VIEW_ID));
     }
 }

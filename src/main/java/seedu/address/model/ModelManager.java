@@ -88,7 +88,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void addRestaurant(Restaurant restaurant) {
         versionedAddressBook.addRestaurant(restaurant);
-        updateFilteredRestaurantList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
         indicateAddressBookChanged();
     }
 

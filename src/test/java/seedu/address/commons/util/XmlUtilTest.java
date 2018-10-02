@@ -29,9 +29,9 @@ public class XmlUtilTest {
     private static final Path EMPTY_FILE = TEST_DATA_FOLDER.resolve("empty.xml");
     private static final Path MISSING_FILE = TEST_DATA_FOLDER.resolve("missing.xml");
     private static final Path VALID_FILE = TEST_DATA_FOLDER.resolve("validAddressBook.xml");
-    private static final Path MISSING_PERSON_FIELD_FILE = TEST_DATA_FOLDER.resolve("missingRestaurantField.xml");
-    private static final Path INVALID_PERSON_FIELD_FILE = TEST_DATA_FOLDER.resolve("invalidRestaurantField.xml");
-    private static final Path VALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("validRestaurant.xml");
+    private static final Path MISSING_RESTAURANT_FIELD_FILE = TEST_DATA_FOLDER.resolve("missingRestaurantField.xml");
+    private static final Path INVALID_RESTAURANT_FIELD_FILE = TEST_DATA_FOLDER.resolve("invalidRestaurantField.xml");
+    private static final Path VALID_RESTAURANT_FILE = TEST_DATA_FOLDER.resolve("validRestaurant.xml");
     private static final Path TEMP_FILE = TestUtil.getFilePathInSandboxFolder("tempAddressBook.xml");
 
     private static final String INVALID_PHONE = "9482asf424";
@@ -77,7 +77,7 @@ public class XmlUtilTest {
     @Test
     public void xmlAdaptedRestaurantFromFile_fileWithMissingRestaurantField_validResult() throws Exception {
         XmlAdaptedRestaurant actualRestaurant = XmlUtil.getDataFromFile(
-                MISSING_PERSON_FIELD_FILE, XmlAdaptedRestaurantWithRootElement.class);
+                MISSING_RESTAURANT_FIELD_FILE, XmlAdaptedRestaurantWithRootElement.class);
         XmlAdaptedRestaurant expectedRestaurant = new XmlAdaptedRestaurant(
                 null, VALID_PHONE, VALID_ADDRESS, VALID_TAGS);
         assertEquals(expectedRestaurant, actualRestaurant);
@@ -86,7 +86,7 @@ public class XmlUtilTest {
     @Test
     public void xmlAdaptedRestaurantFromFile_fileWithInvalidRestaurantField_validResult() throws Exception {
         XmlAdaptedRestaurant actualRestaurant = XmlUtil.getDataFromFile(
-                INVALID_PERSON_FIELD_FILE, XmlAdaptedRestaurantWithRootElement.class);
+                INVALID_RESTAURANT_FIELD_FILE, XmlAdaptedRestaurantWithRootElement.class);
         XmlAdaptedRestaurant expectedRestaurant = new XmlAdaptedRestaurant(
                 VALID_NAME, INVALID_PHONE, VALID_ADDRESS, VALID_TAGS);
         assertEquals(expectedRestaurant, actualRestaurant);
@@ -95,7 +95,7 @@ public class XmlUtilTest {
     @Test
     public void xmlAdaptedRestaurantFromFile_fileWithValidRestaurant_validResult() throws Exception {
         XmlAdaptedRestaurant actualRestaurant = XmlUtil.getDataFromFile(
-                VALID_PERSON_FILE, XmlAdaptedRestaurantWithRootElement.class);
+                VALID_RESTAURANT_FILE, XmlAdaptedRestaurantWithRootElement.class);
         XmlAdaptedRestaurant expectedRestaurant = new XmlAdaptedRestaurant(
                 VALID_NAME, VALID_PHONE, VALID_ADDRESS, VALID_TAGS);
         assertEquals(expectedRestaurant, actualRestaurant);
