@@ -126,9 +126,9 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find tags of person in task manager -> 0 persons found */
-        List<Label> tags = new ArrayList<>(D_TASK.getLabels());
-        command = FindCommand.COMMAND_WORD + " " + tags.get(0).labelName;
+        /* Case: find labels of person in task manager -> 0 persons found */
+        List<Label> labels = new ArrayList<>(D_TASK.getLabels());
+        command = FindCommand.COMMAND_WORD + " " + labels.get(0).labelName;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 

@@ -22,7 +22,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_DUEDATE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_VALUE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LABEL_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LABEL;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TASK;
@@ -63,7 +63,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
                 + PHONE_DESC_BOB + " " + PRIORITY_VALUE_DESC_BOB + "  " + ADDRESS_DESC_BOB + " "
                 + LABEL_DESC_HUSBAND + " ";
-        Task editedPerson = new TaskBuilder(Z_TASK).withLabels(VALID_TAG_HUSBAND).build();
+        Task editedPerson = new TaskBuilder(Z_TASK).withLabels(VALID_LABEL_HUSBAND).build();
         assertCommandSuccess(command, index, editedPerson);
 
         /* Case: undo editing the last person in the list -> last person restored */

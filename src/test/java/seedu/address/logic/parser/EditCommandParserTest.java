@@ -22,8 +22,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_DUEDATE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_VALUE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_VALUE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LABEL_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LABEL_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LABEL;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -121,7 +121,7 @@ public class EditCommandParserTest {
                 .withDueDate(VALID_DUEDATE_BOB)
                 .withPriorityValue(VALID_PRIORITY_VALUE_AMY)
                 .withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withTags(VALID_LABEL_HUSBAND, VALID_LABEL_FRIEND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -168,7 +168,7 @@ public class EditCommandParserTest {
 
         // tags
         userInput = targetIndex.getOneBased() + LABEL_DESC_FRIEND;
-        descriptor = new EditTaskDescriptorBuilder().withTags(VALID_TAG_FRIEND).build();
+        descriptor = new EditTaskDescriptorBuilder().withTags(VALID_LABEL_FRIEND).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -183,7 +183,7 @@ public class EditCommandParserTest {
         EditCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withDueDate(VALID_DUEDATE_BOB)
                 .withPriorityValue(VALID_PRIORITY_VALUE_BOB)
                 .withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+                .withTags(VALID_LABEL_FRIEND, VALID_LABEL_HUSBAND)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 

@@ -35,8 +35,8 @@ public class CommandTestUtil {
     public static final String VALID_PRIORITY_VALUE_BOB = "2";
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_LABEL_HUSBAND = "husband";
+    public static final String VALID_LABEL_FRIEND = "friend";
     public static final Status VALID_STATUS_IN_PROGRESS = Status.IN_PROGRESS;
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
@@ -47,8 +47,8 @@ public class CommandTestUtil {
     public static final String PRIORITY_VALUE_DESC_BOB = " " + PREFIX_PRIORITY_VALUE + VALID_PRIORITY_VALUE_BOB;
     public static final String ADDRESS_DESC_AMY = " " + PREFIX_DESCRIPTION + VALID_ADDRESS_AMY;
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_DESCRIPTION + VALID_ADDRESS_BOB;
-    public static final String LABEL_DESC_FRIEND = " " + PREFIX_LABEL + VALID_TAG_FRIEND;
-    public static final String LABEL_DESC_HUSBAND = " " + PREFIX_LABEL + VALID_TAG_HUSBAND;
+    public static final String LABEL_DESC_FRIEND = " " + PREFIX_LABEL + VALID_LABEL_FRIEND;
+    public static final String LABEL_DESC_HUSBAND = " " + PREFIX_LABEL + VALID_LABEL_HUSBAND;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_DUE_DATE + "911a"; // 'a' not allowed in phones
@@ -68,12 +68,12 @@ public class CommandTestUtil {
                 .withDueDate(VALID_DUEDATE_AMY)
                 .withPriorityValue(VALID_PRIORITY_VALUE_AMY)
                 .withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
+                .withTags(VALID_LABEL_FRIEND).build();
         DESC_BOB = new EditTaskDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withDueDate(VALID_DUEDATE_BOB)
                 .withPriorityValue(VALID_PRIORITY_VALUE_BOB)
                 .withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withTags(VALID_LABEL_HUSBAND, VALID_LABEL_FRIEND).build();
     }
 
     /**

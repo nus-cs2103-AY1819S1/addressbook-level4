@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DUEDATE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LABEL_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showTaskAtIndex;
@@ -59,10 +59,10 @@ public class EditCommandTest {
 
         TaskBuilder taskInList = new TaskBuilder(lastTask);
         Task editedTask = taskInList.withName(VALID_NAME_BOB).withDueDate(VALID_DUEDATE_BOB)
-                .withLabels(VALID_TAG_HUSBAND).build();
+                .withLabels(VALID_LABEL_HUSBAND).build();
 
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withDueDate(VALID_DUEDATE_BOB).withTags(VALID_TAG_HUSBAND).build();
+                .withDueDate(VALID_DUEDATE_BOB).withTags(VALID_LABEL_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastTask, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask);
