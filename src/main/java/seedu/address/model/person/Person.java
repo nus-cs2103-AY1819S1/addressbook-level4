@@ -39,6 +39,19 @@ public class Person {
         this.tags.addAll(tags);
     }
 
+    public Person(Name name, Phone phone, Email email, Address address,
+                  Set<Tag> tags, Set<Tag> groupTags) {
+        requireAllNonNull(name, phone, email, address, tags);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        if (groupTags != null && !groupTags.isEmpty()) {
+            this.groupTags.addAll(groupTags);
+        }
+    }
+
     public Name getName() {
         return name;
     }
@@ -144,6 +157,7 @@ public class Person {
                 .append(getAddress())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
+        builder.append(" Group tags: ");
         getGroupTags().forEach(builder::append);
         return builder.toString();
     }

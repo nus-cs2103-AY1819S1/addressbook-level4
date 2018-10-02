@@ -131,6 +131,35 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String groupTag} into a {@code Tag}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code groupTag} is invalid.
+     */
+    public static Tag parseGroupTag(String groupTag) throws ParseException {
+        requireNonNull(groupTag);
+        String trimmedGroupTag = groupTag.trim();
+        if (!Tag.isValidTagName(trimmedGroupTag)) {
+            throw new ParseException(Tag.MESSAGE_TAG_CONSTRAINTS);
+        }
+        return new Tag(trimmedGroupTag);
+    }
+
+    /**
+     * Parses a {@code Collection<String> groupTags} into a {@code Set<Tag>}
+     */
+    public static Set<Tag> parseGroupTags(Collection<String> groupTags) throws ParseException {
+        if (groupTags == null || groupTags.isEmpty()) {
+            return null;
+        }
+        final Set<Tag> groupTagSet = new HashSet<>();
+        for (String groupTagName : groupTags) {
+            groupTagSet.add(parseGroupTag(groupTagName));
+        }
+        return groupTagSet;
+    }
+
+    /**
      * Parses a {@code String title} into a {@code Title}.
      * Leading and trailing whitespaces will be trimmed.
      *
