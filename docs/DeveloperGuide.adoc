@@ -1142,6 +1142,16 @@ Use case ends.
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Able to work across common platforms and operating systems i.e. OS, Windows, Android
+.  The system should be able to work on 32-bit and 64-bit environments.
+.  The system should respond to the user’s input command within 5 seconds.
+.  The system is not required to handle conflicts between group members’ schedules which are not stored in any online platform (recorded only in a paper diary, etc.)
+.  UI should be aesthetically pleasing i.e. colour, font, layout, pictorial-wise.
+.  The basic usage of the application should be easy for a new user to pick up so as to ensure that the application continues to be used in the long term.
+.  Privacy of user groups should be ensured - developers should not be able to view the contacts or groups or events of the user.
+.  Capacity: Each user should be able to have up to 50 groups that the user can be in at any one point in time.
+.  User activities should be logged in a separate file.
+.  Functions should be testable.
 
 _{More to be added}_
 
