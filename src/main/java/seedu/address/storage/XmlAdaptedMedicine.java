@@ -12,6 +12,9 @@ import seedu.address.model.medicine.PricePerUnit;
 import seedu.address.model.medicine.SerialNumber;
 import seedu.address.model.medicine.Stock;
 
+/**
+ * JAXB-friendly version of the Medicine.
+ */
 public class XmlAdaptedMedicine {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Medicine's %s field is missing!";
@@ -66,7 +69,8 @@ public class XmlAdaptedMedicine {
     public Medicine toModelType() throws IllegalValueException {
 
         if (medicineName == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, MedicineName.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    MedicineName.class.getSimpleName()));
         }
         if (!MedicineName.isValidMedicineName(medicineName)) {
             throw new IllegalValueException(MedicineName.MESSAGE_MEDICINE_NAME_CONSTRAINTS);
@@ -74,7 +78,8 @@ public class XmlAdaptedMedicine {
         final MedicineName modelMedicineName = new MedicineName(medicineName);
 
         if (minimumStockQuantity == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, MinimumStockQuantity.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    MinimumStockQuantity.class.getSimpleName()));
         }
         if (!MinimumStockQuantity.isValidMinimumStockQuantity(minimumStockQuantity)) {
             throw new IllegalValueException(MinimumStockQuantity.MESSAGE_MINIMUM_STOCK_QUANTITY_CONSTRAINTS);
@@ -82,7 +87,8 @@ public class XmlAdaptedMedicine {
         final MinimumStockQuantity modelMinimumStockQuantity = new MinimumStockQuantity(minimumStockQuantity);
 
         if (pricePerUnit == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, PricePerUnit.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    PricePerUnit.class.getSimpleName()));
         }
         if (!PricePerUnit.isValidPricePerUnit(pricePerUnit)) {
             throw new IllegalValueException(PricePerUnit.MESSAGE_PRICE_PER_UNIT_CONSTRAINTS);
@@ -90,7 +96,8 @@ public class XmlAdaptedMedicine {
         final PricePerUnit modelPricePerUnit = new PricePerUnit(pricePerUnit);
 
         if (serialNumber == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, SerialNumber.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    SerialNumber.class.getSimpleName()));
         }
         if (!SerialNumber.isValidSerialNumber(serialNumber)) {
             throw new IllegalValueException(SerialNumber.MESSAGE_SERIAL_NUMBER_CONSTRAINTS);
@@ -98,14 +105,16 @@ public class XmlAdaptedMedicine {
         final SerialNumber modelSerialNumber = new SerialNumber(serialNumber);
 
         if (stock == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Stock.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Stock.class.getSimpleName()));
         }
         if (!Stock.isValidStock(stock)) {
             throw new IllegalValueException(Stock.MESSAGE_STOCK_CONSTRAINTS);
         }
         final Stock modelStock = new Stock(stock);
 
-        return new Medicine(modelMedicineName, modelMinimumStockQuantity, modelPricePerUnit, modelSerialNumber, modelStock);
+        return new Medicine(modelMedicineName, modelMinimumStockQuantity, modelPricePerUnit, modelSerialNumber,
+                modelStock);
     }
 
     @Override
