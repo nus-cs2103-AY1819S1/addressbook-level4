@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PRIORITY_VALUE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_LABEL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
@@ -86,7 +86,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_PRIORITY_VALUE_DESC, PriorityValue.MESSAGE_PRIORITY_VALUE_CONSTRAINTS);
         // invalid address
         assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
-        assertParseFailure(parser, "1" + INVALID_TAG_DESC, Label.MESSAGE_LABEL_CONSTRAINTS); // invalid tag
+        assertParseFailure(parser, "1" + INVALID_LABEL_DESC, Label.MESSAGE_LABEL_CONSTRAINTS); // invalid tag
 
         // invalid phone followed by valid email
         assertParseFailure(parser, "1" + INVALID_PHONE_DESC + PRIORITY_VALUE_DESC_AMY,

@@ -9,7 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PRIORITY_VALUE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_LABEL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
@@ -192,7 +192,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: invalid tag -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " "
-                        + INDEX_FIRST_TASK.getOneBased() + INVALID_TAG_DESC,
+                        + INDEX_FIRST_TASK.getOneBased() + INVALID_LABEL_DESC,
                 Label.MESSAGE_LABEL_CONSTRAINTS);
 
         /* Case: edit a person with new values same as another person's values -> rejected */
