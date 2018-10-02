@@ -66,8 +66,8 @@ public class CheckinCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.logic.commands.CheckinCommand // instanceof handles nulls
-                && toCheckin.equals(((seedu.address.logic.commands.CheckinCommand) other).toCheckin));
+                || (other instanceof CheckinCommand // instanceof handles nulls
+                && toCheckin.equals(((CheckinCommand) other).toCheckin));
     }
 
 
