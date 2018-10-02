@@ -9,7 +9,7 @@ import seedu.address.model.recipe.Recipe;
 public interface ReadOnlyAppContent {
 
     /**
-     * Returns an unmodifiable view of the recipes list.
+     * Returns an unmodifiable view of the respective list.
      * This list will not contain any duplicate recipes.
      */
     ObservableList<Recipe> getRecipeList();
