@@ -21,6 +21,7 @@ public class Person {
     private final Email email;
     private final Fees tuitionFee;
 
+
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();

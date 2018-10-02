@@ -154,6 +154,24 @@ Selects the 2nd person in the address book.
 `select 1` +
 Selects the 1st person in the results of the `find` command.
 
+
+
+
+
+=== Making list by limit fee command: `filterByFee`
+
+Making list of according to minimal limit fee +
+Format: `filterByFee [minimal fee to be filtered]`
+
+****
+* filter result: list the person's name whose fee is not less than minimal fee.
+****
+
+[NOTE]
+====
+If no one is qualified then shows cannot find.
+====
+
 === Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
@@ -178,6 +196,11 @@ Format: `grades ACTION [parameters]`
 Regard the mark of the student who doesn't have a grade as 0.
 ====
 
+
+
+
+
+=======
 === Retrieving earnings : `earnings`
 
 Retrieve the total earnings within a range of date in the current year. +
