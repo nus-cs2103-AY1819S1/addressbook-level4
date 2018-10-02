@@ -37,6 +37,12 @@ public class StatsWindowTest extends GuiUnitTest {
     }
 
     @Test
+    public void isNotShowing_after_closed() throws Exception {
+        guiRobot.interact(statsWindow::close);
+        assertFalse(statsWindow.isShowing());
+    }
+
+    @Test
     public void isShowing_helpWindowIsShowing_returnsTrue() {
         guiRobot.interact(statsWindow::show);
         assertTrue(statsWindow.isShowing());
