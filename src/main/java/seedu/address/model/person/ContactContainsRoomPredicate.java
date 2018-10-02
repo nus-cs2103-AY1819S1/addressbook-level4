@@ -9,7 +9,6 @@ import java.util.function.Predicate;
  */
 public class ContactContainsRoomPredicate implements Predicate<Person> {
     private final List<String> keywords;
-    private Room room;
 
     public ContactContainsRoomPredicate(List<String> keywords) {
         this.keywords = keywords;
@@ -17,7 +16,7 @@ public class ContactContainsRoomPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
-        room = person.getRoom();
+        Room room = person.getRoom();
         for (String s : keywords) {
             if (s.equals(room.toString())) {
                 return true;

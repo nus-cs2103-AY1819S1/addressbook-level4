@@ -28,9 +28,8 @@ public class ClearCommandTest {
         Model expectedModel = new ModelManager();
         expectedModel.commitAddressBook();
         List<String> target = new ArrayList<>();
-        ContactContainsTagPredicate predicate = new ContactContainsTagPredicate(target);
 
-        assertCommandSuccess(new ClearCommand(target, predicate), model, commandHistory,
+        assertCommandSuccess(new ClearCommand(target), model, commandHistory,
                 ClearCommand.MESSAGE_CLEAR_ALL_SUCCESS, expectedModel);
     }
 
@@ -41,9 +40,8 @@ public class ClearCommandTest {
         expectedModel.resetData(new AddressBook());
         expectedModel.commitAddressBook();
         List<String> target = new ArrayList<>();
-        ContactContainsTagPredicate predicate = new ContactContainsTagPredicate(target);
 
-        assertCommandSuccess(new ClearCommand(target, predicate), model, commandHistory,
+        assertCommandSuccess(new ClearCommand(target), model, commandHistory,
                 ClearCommand.MESSAGE_CLEAR_ALL_SUCCESS, expectedModel);
     }
 
@@ -54,8 +52,7 @@ public class ClearCommandTest {
         List<String> target = new ArrayList<>();
         Object[] tags = p.getTags().toArray();
         target.add(tags[0].toString());
-        ContactContainsTagPredicate predicate = new ContactContainsTagPredicate(target);
-        ClearCommand clearCommand = new ClearCommand(target, predicate);
+        ClearCommand clearCommand = new ClearCommand(target);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), model.getBudgetBook(), new UserPrefs());
         List<Person> persons = new ArrayList<>();
