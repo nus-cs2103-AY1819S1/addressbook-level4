@@ -33,7 +33,7 @@ public class Person {
         this.name = name;
         this.category = category;
         this.cost = cost;
-        this.date = new Date();
+        this.date = date;
         this.tags.addAll(tags);
     }
 
