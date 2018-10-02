@@ -161,10 +161,6 @@ If “then [Command]”  is inserted after find, the [Command] will be applied t
 Thus it is possible to run commands like
 “in CS2101 findwhere then delete” to delete every task under CS2101
 
-=== Sort the list: `sort`
-
-Sorts the current displayed list based on the given property. +
-Format: `sort [TODO]` +
 
 
 === Selecting a task : `select`

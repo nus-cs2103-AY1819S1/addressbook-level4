@@ -10,13 +10,11 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.AddressBookExportEvent;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.PersonPropertyComparator;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -27,7 +25,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
-    private final SortedList<Person> sortedPersons;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -40,7 +37,6 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
-        sortedPersons = new SortedList<>(filteredPersons);
     }
 
     public ModelManager() {
@@ -119,19 +115,6 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
-    }
-
-    //=========== Sorted Person List Accessors ==============================================================
-
-    @Override
-    public ObservableList<Person> getSortedPersonList() {
-        return FXCollections.unmodifiableObservableList(sortedPersons);
-    }
-
-    @Override
-    public void updateSortedPersonList(PersonPropertyComparator personPropertyComparator) {
-        requireNonNull(personPropertyComparator);
-        sortedPersons.setComparator(personPropertyComparator.getComparator());
     }
 
     //=========== Undo/Redo =================================================================================
