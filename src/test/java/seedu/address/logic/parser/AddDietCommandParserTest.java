@@ -1,10 +1,6 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NRIC_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalPersons.AMY;
 
@@ -21,6 +17,6 @@ public class AddDietCommandParserTest {
     public void parse_success() {
         // zero tags
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
-        assertParseSuccess(parser, NRIC_DESC_AMY, new AddDietCommand(expectedPerson));
+        assertParseSuccess(parser, NRIC_DESC_AMY + " alg/Egg", new AddDietCommand(expectedPerson));
     }
 }
