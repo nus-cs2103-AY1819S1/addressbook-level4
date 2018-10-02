@@ -2,6 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -226,5 +228,15 @@ public class ParserUtil {
         members.forEach(parseList::add);
 
         return parseList;
+    }
+
+    /**
+     * Parse {@code String filepath} into {@code Path}.
+     */
+    public static Path parsePath(String filepath) throws ParseException {
+        requireNonNull(filepath);
+        String trimmed = filepath.trim();
+        Path path = Paths.get(trimmed);
+        return path;
     }
 }

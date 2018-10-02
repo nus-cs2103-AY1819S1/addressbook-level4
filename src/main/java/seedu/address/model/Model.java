@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -96,4 +97,9 @@ public interface Model {
      * Saves the current address book state for undo/redo.
      */
     void commitAddressBook();
+
+    /**
+     * Export the current address book.
+     */
+    void exportAddressBook(Path filepath);
 }
