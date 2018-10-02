@@ -3,6 +3,7 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.commons.core.amount.Amount;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.wish.Email;
@@ -94,7 +95,7 @@ public class WishBuilder {
      * with the the given {@code SavedAmount}.
      */
     public WishBuilder withSavedAmountIncrement(String savedAmount) {
-        this.savedAmount = this.savedAmount.incrementSavedAmount(new SavedAmount(savedAmount));
+        this.savedAmount = this.savedAmount.incrementSavedAmount(new Amount(savedAmount));
         return this;
     }
 

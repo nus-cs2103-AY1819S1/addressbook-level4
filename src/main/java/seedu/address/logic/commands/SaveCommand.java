@@ -7,6 +7,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_WISHES;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.amount.Amount;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -30,14 +31,14 @@ public class SaveCommand extends Command {
     public static final String MESSAGE_SAVE_SUCCESS = "Saved %1$s for wish %2$s";
 
     private final Index index;
-    private final SavedAmount savedAmount;
+    private final Amount amountToSave;
 
-    public SaveCommand(Index index, SavedAmount savedAmount) {
+    public SaveCommand(Index index, Amount amountToSave) {
         requireNonNull(index);
-        requireNonNull(savedAmount);
+        requireNonNull(amountToSave);
 
         this.index = index;
-        this.savedAmount = savedAmount;
+        this.amountToSave = amountToSave;
     }
 
     @Override
@@ -51,14 +52,14 @@ public class SaveCommand extends Command {
         Wish wishToEdit = lastShownList.get(index.getZeroBased());
 
         Wish editedWish = new Wish(wishToEdit.getName(), wishToEdit.getPrice(), wishToEdit.getEmail(),
-                wishToEdit.getUrl(), wishToEdit.getSavedAmount().incrementSavedAmount(savedAmount),
+                wishToEdit.getUrl(), wishToEdit.getSavedAmount().incrementSavedAmount(amountToSave),
                 wishToEdit.getRemark(), wishToEdit.getTags());
 
         model.updateWish(wishToEdit, editedWish);
         model.updateFilteredWishList(PREDICATE_SHOW_ALL_WISHES);
         model.commitWishBook();
 
-        return new CommandResult(String.format(MESSAGE_SAVE_SUCCESS, savedAmount.toString(),
+        return new CommandResult(String.format(MESSAGE_SAVE_SUCCESS, amountToSave.toString(),
                 index.getOneBased()));
     }
 
@@ -74,6 +75,6 @@ public class SaveCommand extends Command {
 
         SaveCommand saveCommand = (SaveCommand) other;
         return this.index.equals(saveCommand.index)
-                && this.savedAmount.equals(saveCommand.savedAmount);
+                && this.amountToSave.equals(saveCommand.amountToSave);
     }
 }

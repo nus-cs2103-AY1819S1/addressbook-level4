@@ -18,6 +18,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.commons.core.amount.Amount;
 import seedu.address.logic.commands.*;
 import seedu.address.logic.commands.EditCommand.EditWishDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -206,11 +207,11 @@ public class WishBookParserTest {
 
     @Test
     public void parseCommand_saveCommand_returnsSaveCommand() throws Exception {
-        SavedAmount savedAmount = new SavedAmount(VALID_SAVED_AMOUNT_AMY);
+        Amount amount = new Amount(VALID_SAVED_AMOUNT_AMY);
         SaveCommand saveCommandFromParser = (SaveCommand) parser.parseCommand(
                 SaveCommand.COMMAND_WORD + " " + INDEX_FIRST_WISH.getOneBased() + " "
         + PREFIX_SAVING + VALID_SAVED_AMOUNT_AMY);
-        assertEquals(new SaveCommand(INDEX_FIRST_WISH, savedAmount), saveCommandFromParser);
+        assertEquals(new SaveCommand(INDEX_FIRST_WISH, amount), saveCommandFromParser);
     }
 
     @Test

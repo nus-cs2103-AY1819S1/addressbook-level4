@@ -1,5 +1,7 @@
 package seedu.address.model.wish;
 
+import seedu.address.commons.core.amount.Amount;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -11,7 +13,7 @@ public class SavedAmount {
 
     public static final String MESSAGE_PRICE_CONSTRAINTS =
             "Saved Amount numbers should only contain numbers, and at most two numbers after the decimal point.";
-    public static final String SAVED_AMOUNT_VALIDATION_REGEX = "[+-]?[0-9]+([,.][0-9]{1,2})?";
+    public static final String SAVED_AMOUNT_VALIDATION_REGEX = "[+-]?[0-9]{1,14}([.]{1}[0-9]{1,2})?";
     public final Double value;
 
     /**
@@ -19,7 +21,7 @@ public class SavedAmount {
      *
      * @param savedAmount A valid savedAmount number.
      */
-    public SavedAmount(String savedAmount) {
+    public SavedAmount(String savedAmount) throws IllegalArgumentException {
         requireNonNull(savedAmount);
         checkArgument(isValidSavedAmount(savedAmount), MESSAGE_PRICE_CONSTRAINTS);
         value = Double.parseDouble(savedAmount); // TODO: check before allowing.
@@ -28,10 +30,10 @@ public class SavedAmount {
     /**
      * Constructs a {@code SavedAmount} from an increment {@code SavedAmount}.
      *
-     * @param increment A valid savedAmount to increment the current savedAmount with.
+     * @param change A valid savedAmount to increment the current savedAmount with.
      */
-    public SavedAmount incrementSavedAmount(SavedAmount increment) {
-        return new SavedAmount("" + (this.value + increment.value));
+    public SavedAmount incrementSavedAmount(Amount change) {
+        return new SavedAmount("" + (this.value + change.value));
     }
 
     /**
@@ -57,5 +59,4 @@ public class SavedAmount {
     public int hashCode() {
         return value.hashCode();
     }
-
 }

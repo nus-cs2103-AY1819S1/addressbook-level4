@@ -1,5 +1,7 @@
 package seedu.address.commons.core.amount;
 
+import seedu.address.commons.util.AppUtil;
+
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -9,20 +11,17 @@ import static java.util.Objects.requireNonNull;
 public class Amount {
 
     private static final String AMOUNT_REGEX = "[+-]?[0-9]{1,14}([.]{1}[0-9]{1,2})?";
-    private final Double value;
+    public final Double value;
 
     /**
      * Constructs a {@code Amount}.
      *
      * @param amount A valid amount {@code String}.
      */
-    public Amount(String amount) {
+    public Amount(String amount) throws IllegalArgumentException {
         requireNonNull(amount);
-        if(isValidAmount(amount)) {
-            value = Double.parseDouble(amount);
-        } else {
-            throw new IllegalArgumentException();
-        }
+        AppUtil.checkArgument(isValidAmount(amount));
+        value = Double.parseDouble(amount);
     }
 
     /**
