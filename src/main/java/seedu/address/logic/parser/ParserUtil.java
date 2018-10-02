@@ -130,7 +130,7 @@ public class ParserUtil {
         requireNonNull(filePath);
         String trimmedFilePath = filePath.trim();
         File contactsFile = new File(trimmedFilePath);
-        if (!contactsFile.isAbsolute()) {
+        if (!contactsFile.isAbsolute() || !contactsFile.isFile()) {
             throw new ParseException("");
         }
         return contactsFile;

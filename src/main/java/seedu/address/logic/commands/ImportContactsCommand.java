@@ -21,7 +21,7 @@ public class ImportContactsCommand extends Command {
             + "Parameters: "
             + PREFIX_FILE + "FILEPATH\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_FILE + "/~/Downloads/contacts1.csv ";
+            + PREFIX_FILE + "~/Downloads/contacts1.csv ";
 
     public static final String MESSAGE_SUCCESS = "Contacts imported";
 
@@ -39,6 +39,7 @@ public class ImportContactsCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
+        //System.out.println("helloworld");
         //model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toImport));
     }
