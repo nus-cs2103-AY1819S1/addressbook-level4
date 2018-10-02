@@ -1,13 +1,16 @@
 package seedu.address.ui;
 
+import com.google.common.eventbus.Subscribe;
+import javafx.application.Platform;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
-import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.ChangeImageEvent;
 
-import java.net.URL;
 import java.util.logging.Logger;
 
 /**
@@ -21,19 +24,24 @@ public class ImagePanel extends UiPart<Region> {
      * An image panel for showing the previews
      */
 
-
+    private final ObjectProperty<Image> image = new SimpleObjectProperty<Image>(new Image("https://via.placeholder.com/500x500"));
+    private final String name;
     @FXML
     private ImageView imageView;
 
-    public ImagePanel(URL url) {
+    public ImagePanel(String name) {
         super(FXML);
-        Image image = new Image(url.toString());
-        imageView.setImage(image);
+        this.name = name;
+        imageView.imageProperty().bind(image);
+        registerAsAnEventHandler(this);
     }
 
-    public void setImage(Image image){
-        this.imageView.setImage(image);
+    @Subscribe
+    private void handlePreviewImageEvent(ChangeImageEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        if(this.name.equals(event.target)){
+            Platform.runLater(() -> image.setValue(event.image));
+        }
     }
-
 
 }

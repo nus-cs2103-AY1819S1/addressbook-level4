@@ -139,15 +139,12 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        try{
-            originalImagePanel = new ImagePanel(new URL("https://source.unsplash.com/random/800x600"));
-            originalImagePlaceholder.getChildren().add(originalImagePanel.getRoot());
 
-            previewImagePanel = new ImagePanel(new URL("https://picsum.photos/800/800/?random"));
-            previewImagePlaceholder.getChildren().add(previewImagePanel.getRoot());
-        }catch(IOException e){
-            logger.severe(e.toString());
-        }
+        originalImagePanel = new ImagePanel("original");
+        originalImagePlaceholder.getChildren().add(originalImagePanel.getRoot());
+
+        previewImagePanel = new ImagePanel("preview");
+        previewImagePlaceholder.getChildren().add(previewImagePanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -214,6 +211,9 @@ public class MainWindow extends UiPart<Stage> {
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
+
+    public ImagePanel getOrginalImagePanel() {return originalImagePanel;}
+    public ImagePanel getPreviewImagePanel() {return previewImagePanel;}
 
     void releaseResources() {
         browserPanel.freeResources();
