@@ -4,53 +4,55 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+Hallper was developed by https://cs2103-ay1819s1-w16-1.github.io/main/[TEAM W16-1].  +
+
 {empty} +
-We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+We are a TEAM W16-1 based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
-
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
-
-'''
-
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== ERIC YANG JIA WEI
+image::ericyjw.png[width="150", align="left"]
+{empty}[https://github.com/ericyjw[github]]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: In charge of budgeting feature
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== JAVEN SEOW YU BIN
+image::javenseow.png[width="150", align="left"]
+{empty}[https://github.com/javenseow[github]]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: In charge of profile view GUI feature & email feature
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== KOK YUAN
+image::eatorbeeaten.png[width="150", align="left"]
+{empty}[https://github.com/eatorbeeaten[github]]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: In charge of email feature
+
+'''
+
+=== SHANNA LIM KENG WOON
+image::kengwoon.png[width="150", align="left"]
+{empty}[https://github.com/kengwoon[github]]
+
+Role: Developer +
+Responsibilities: In charge of import and filter feature
+
+'''
+
+=== TRAVIS CHING JIA YEA
+image::gilgameshtc.png[width="150", align="left"]
+{empty}[https://github.com/gilgameshtc[github]]
+
+
+Role: Developer  +
+Responsibilities: In charge of calendar feature
 
 '''
