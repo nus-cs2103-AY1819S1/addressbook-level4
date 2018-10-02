@@ -190,7 +190,7 @@ public class ModelManager extends ComponentManager implements Model {
         if (filteredPersons == null) {
             throw new NoUserSelectedException();
         }
-        FilteredList<Person> temp = new FilteredList<>(FXCollections.observableArrayList(filteredPersons));
+        FilteredList<Person> temp = new FilteredList<>(versionedAddressBook.getPersonList());
         temp.setPredicate(expenseStatPredicate);
         return FXCollections.unmodifiableObservableList(temp);
     }
