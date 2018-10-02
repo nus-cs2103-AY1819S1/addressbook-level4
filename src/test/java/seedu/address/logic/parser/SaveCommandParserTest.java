@@ -1,19 +1,18 @@
 package seedu.address.logic.parser;
 
-import org.junit.Test;
-import seedu.address.commons.core.amount.Amount;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.CommandTestUtil;
-import seedu.address.logic.commands.SaveCommand;
-import seedu.address.model.wish.SavedAmount;
-
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.*;
-import static seedu.address.logic.commands.SaveCommand.COMMAND_WORD;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SAVED_AMOUNT_AMY;
 import static seedu.address.logic.commands.SaveCommand.MESSAGE_USAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SAVING;
-import static seedu.address.logic.parser.CommandParserTestUtil.*;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_WISH;
+
+import org.junit.Test;
+
+import seedu.address.commons.core.amount.Amount;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.SaveCommand;
 
 public class SaveCommandParserTest {
     private SaveCommandParser saveCommandParser = new SaveCommandParser();

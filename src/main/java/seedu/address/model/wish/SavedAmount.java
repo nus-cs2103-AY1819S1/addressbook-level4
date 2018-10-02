@@ -1,9 +1,9 @@
 package seedu.address.model.wish;
 
-import seedu.address.commons.core.amount.Amount;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+
+import seedu.address.commons.core.amount.Amount;
 
 /**
  * Represents a saved Amount for a Wish in the wish book.
@@ -26,9 +26,9 @@ public class SavedAmount {
         requireNonNull(savedAmount);
         checkArgument(isValidSavedAmount(savedAmount), MESSAGE_SAVED_AMOUNT_INVALID);
         value = Double.parseDouble(savedAmount);
-        if(value.doubleValue() < 0) {
+        if (value.doubleValue() < 0) {
             throw new IllegalArgumentException(MESSAGE_SAVED_AMOUNT_NEGATIVE);
-        } else if(value.doubleValue() > 1000e12) {
+        } else if (value.doubleValue() > 1000e12) {
             throw new IllegalArgumentException(MESSAGE_SAVED_AMOUNT_TOO_LARGE);
         }
     }

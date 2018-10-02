@@ -1,18 +1,19 @@
 package seedu.address.logic.parser;
 
-import seedu.address.commons.core.amount.Amount;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.RemarkCommand;
-import seedu.address.logic.commands.SaveCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.wish.SavedAmount;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_AMOUNT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SAVING;
 
-public class SaveCommandParser implements Parser<SaveCommand>{
+import seedu.address.commons.core.amount.Amount;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.SaveCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+
+/**
+ * Parses input arguments and creates a new SaveCommand object.
+ */
+public class SaveCommandParser implements Parser<SaveCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the SaveCommand
@@ -26,14 +27,14 @@ public class SaveCommandParser implements Parser<SaveCommand>{
         ArgumentMultimap argumentMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_SAVING);
 
-        if(!isSavingsCommandPresent(argumentMultimap) || argumentMultimap.getPreamble().isEmpty()) {
+        if (!isSavingsCommandPresent(argumentMultimap) || argumentMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveCommand.MESSAGE_USAGE));
         }
         Index index;
         try {
             index = ParserUtil.parseIndex(argumentMultimap.getPreamble());
-        } catch(ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,SaveCommand.MESSAGE_USAGE), pe);
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveCommand.MESSAGE_USAGE), pe);
         }
 
         String savedAmountString = argumentMultimap.getValue(PREFIX_SAVING).orElse("");
@@ -41,7 +42,7 @@ public class SaveCommandParser implements Parser<SaveCommand>{
         Amount amount;
         try {
             amount = new Amount(savedAmountString);
-        } catch(IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             throw new ParseException(String.format(MESSAGE_INVALID_AMOUNT, savedAmountString));
         }
 
@@ -52,7 +53,7 @@ public class SaveCommandParser implements Parser<SaveCommand>{
      * Returns true if the savings prefix does not contain empty {@code Optional} value in the given
      * {@code ArgumentMultimap}.
      */
-     private static boolean isSavingsCommandPresent(ArgumentMultimap argumentMultiMap) {
-         return argumentMultiMap.getValue(PREFIX_SAVING).isPresent();
-     }
+    private static boolean isSavingsCommandPresent(ArgumentMultimap argumentMultiMap) {
+        return argumentMultiMap.getValue(PREFIX_SAVING).isPresent();
+    }
 }

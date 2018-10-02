@@ -1,16 +1,17 @@
 package seedu.address.commons.amount;
 
-import org.junit.Test;
-import seedu.address.commons.core.amount.Amount;
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import org.junit.Test;
+
+import seedu.address.commons.core.amount.Amount;
+
 public class AmountTest {
 
     @Test
-    public void Amount() {
+    public void constructor_illegalArguments_throwsExceptions() {
 
         assertThrows(IllegalArgumentException.class, () -> new Amount("111.111"));
         assertThrows(IllegalArgumentException.class, () -> new Amount("123412341234123.11"));
