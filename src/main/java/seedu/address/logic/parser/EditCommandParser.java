@@ -57,7 +57,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
             editTaskDescriptor.setDescription(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_LABEL)).ifPresent(editTaskDescriptor::setLabels);
+        parseLabelsForEdit(argMultimap.getAllValues(PREFIX_LABEL)).ifPresent(editTaskDescriptor::setLabels);
 
         if (!editTaskDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
@@ -67,18 +67,18 @@ public class EditCommandParser implements Parser<EditCommand> {
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Label>} if {@code tags} is non-empty.
-     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Label>} containing zero tags.
+     * Parses {@code Collection<String> labels} into a {@code Set<Label>} if {@code labels} is non-empty.
+     * If {@code labels} contain only one element which is an empty string, it will be parsed into a
+     * {@code Set<Label>} containing zero labels.
      */
-    private Optional<Set<Label>> parseTagsForEdit(Collection<String> tags) throws ParseException {
-        assert tags != null;
+    private Optional<Set<Label>> parseLabelsForEdit(Collection<String> labels) throws ParseException {
+        assert labels != null;
 
-        if (tags.isEmpty()) {
+        if (labels.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
-        return Optional.of(ParserUtil.parseLabels(tagSet));
+        Collection<String> labelSet = labels.size() == 1 && labels.contains("") ? Collections.emptySet() : labels;
+        return Optional.of(ParserUtil.parseLabels(labelSet));
     }
 
 }
