@@ -18,7 +18,7 @@ public class ContactContainsRoomPredicate implements Predicate<Person> {
     public boolean test(Person person) {
         Room room = person.getRoom();
         for (String s : keywords) {
-            if (s.equals(room.toString())) {
+            if (s.toLowerCase().equals(room.toString().toLowerCase())) {
                 return true;
             }
         }
