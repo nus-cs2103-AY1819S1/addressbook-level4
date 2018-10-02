@@ -55,7 +55,7 @@ public class CommandTestUtil {
     public static final String INVALID_PRIORITY_VALUE_DESC = " " + PREFIX_PRIORITY_VALUE + "0"; // only positive ints
     // empty string not allowed for addresses
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_DESCRIPTION;
-    public static final String INVALID_LABEL_DESC = " " + PREFIX_LABEL + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_LABEL_DESC = " " + PREFIX_LABEL + "hubby*"; // '*' not allowed in labels
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
