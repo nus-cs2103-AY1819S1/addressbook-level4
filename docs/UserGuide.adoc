@@ -12,19 +12,24 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-T09-2/Main.git
 
-By: `T09-02`      Since: `Sep 2018`      Licence: `MIT`
+By: `Team T09-2`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
+Welcome to the *Anakin* User Guide!
 
-*Anakin*  is for those who *want to make heavy use of flashcards without the hassle of managing physical copies*. More importantly, Anakin is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+*Anakin*  was built for those who *want to make heavy use of flashcards without the hassle of managing physical copies*. More importantly, Anakin is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
+
+To get started, head over to <<Quick Start>>!
+
+For a quick review of commands, check out <<Command Summary>>.
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `Anakin.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your copy of Anakin.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -35,7 +40,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * *`list`* : lists all decks
 * **`newdeck`** : creates a new deck.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* **`delete`**`3` : deletes the 3rd deck shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -47,9 +52,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Items in square brackets are optional e.g `newdeck [n/NAME]` can be used as `newdeck n/My Deck` or as `newdeck`.
+* Parameters can be in any order e.g. if the command specifies `q/QUESTION a/ANSWER`, `a/ANSWER q/QUESTION` is also acceptable.
 ====
 
 === Viewing help : `help`
@@ -64,15 +68,16 @@ Format: `list`
 
 === Adding a deck: `newdeck`
 
-Adds a person to the address book +
-Format: `newdeck [n/name]`
+Adds a new deck to Anakin +
+Format: `newdeck [n/NAME]`
 
 ****
-* Name will be taken as a string.
-* If name is left blank, the name of the deck will be “New Deck #number”.
+*If NAME is left blank, the name of the deck will be “New Deck #number”.
+*NAME will be taken as a string.
 ****
 
 Examples:
+
 * `newdeck n/My First Deck`
 
 === Navigating into a deck : `cd`
@@ -85,6 +90,7 @@ Format: `cd INDEX_OF_DECK`
 ****
 
 Examples:
+
 * `list` +
 `select 2` +
 Enter the 2nd deck in the deck list
@@ -110,7 +116,7 @@ Edits the name of the first deck in the list to be `My Deck`.
 
 === Deleting a deck : `deldeck`
 
-Deletes the specified person from the address book. +
+Deletes the specified person from Anakin. +
 Format: `deldeck INDEX_OF_DECK`
 
 ****
@@ -132,7 +138,7 @@ Format: `newcard d/INDEX_OF_DECK [q/QUESTION] [a/ANSWER]`
 If user is inside a deck, can omit: d/INDEX_OF_DECK. +
 Format: `newcard [q/QUESTION] [a/ANSWER]`
 
-=== Editing a deck : `editdeck`
+=== Editing a card : `editcard`
 
 Edits an existing card in the specified deck. +
 Format: `editcard d/INDEX_OF_DECK INDEX_OF_CARD [q/QUESTION] [a/ANSWER]`
@@ -148,22 +154,16 @@ Format: `editcard INDEX_OF_CARD [q/QUESTION] [a/ANSWER]`
 ****
 
 Examples:
+
 * `list` +
 Displays all decks. +
 * `edit 1 n/My Deck` +
 Edits the name of the first deck in the list to be `My Deck`.
 
 === Sort current list by name : `sortname`
-If user is currently in a deck, sort all card in alphabetical order.
+If user is currently in a deck, sort all card in alphabetical order. +
 Format: `sortname`
 
-=== Sort by rank : `sortrank`
-Sorts the cards in current deck by rank (card performance). +
-Format: `sortrank`
-
-****
-* Note: User must be inside a deck to perform this command.
-****
 
 === Export deck to csv file : `exportdeck`
 Creates a CSV file at the specified FILEPATH containing the deck at INDEX_OF_DECK. +
@@ -186,18 +186,22 @@ Format: `exportdeck FILEPATH`
 Sorts the cards in current deck by rank (card performance). +
 Format: `sortrank`
 
+****
+* Note: User must be inside a deck to perform this command.
+****
 === Card difficulty classification : `classify`
 Allocates card into one of four bins {Easy, Good, Hard, Review} +
-Format: `classify d/INDEX_OF_DECK INDEX_OF_CARD <classification>`
+Format: `classify d/INDEX_OF_DECK INDEX_OF_CARD RATING`
 
 If user is inside a deck: +
-Format: `classify INDEX_OF_CARD <classification>`
+Format: `classify INDEX_OF_CARD RATING`
 
 If user is viewing a card: +
-Format: `classify <classification>`
+Format: `classify RATING`
 
 ****
-* <classification>: {‘easy’ | ‘good’ | ‘hard’ | ‘review’}
+* RATING indicates how you felt about the question +
+*RATING* {‘easy’ | ‘good’ | ‘hard’ | ‘review’}
 ****
 
 === Exiting Anakin : `exit`
@@ -209,6 +213,30 @@ Format: `exit`
 *Q*: How do I transfer my data to another Computer? +
 *A*: Export all your decks, copy the .csv files to the other Computer, then use the import command to import your decks.
 
+*Q*: Why is it called *Anakin*? +
+*A*: Because using CLI is as cool as using the Force.
+
 == Command Summary
 
-* See above please :)
+A convenient cheat sheet of commands
+
+[width="100%",cols="20%,<30%",options="header",]
+|=======================================================================
+|Command | What does it do?
+|`list` | Lists all decks
+|`newdeck [n/NAME]` | Creates a new deck. /n is optional
+|`editdeck  INDEX n/NAME` | Edits the deck
+|`cd INDEX` | Navigates into the deck at INDEX. +
+Use `cd ..` to navigate out of the deck
+|`deldeck INDEX` | Deletes the deck at the specified INDEX
+|`newcard [q/QUESTION] [a/ANSWER]` | Creates a new card in the current deck.
+|`delcard INDEX_OF_DECK INDEX_OF_CARD` | Deletes the card at the specified INDEX_OF_CARD inside the deck at INDEX_OF_DECK.
+|`delcard INDEX_OF_CARD` | Deletes the card at the specified INDEX. +
+You must be inside a deck to perform this operation.
+|`newcard [q/QUESTION] [a/ANSWER]` | Creates a new card in the current deck. q/ and a/ are optional.
+|`editcard INDEX_OF_CARD [q/QUESTION] [a/ANSWER]` | Edits a new card in the current  at INDEX_OF_CARD. Either q/ or a/ must be provided.
+|`sortname` | Sort the currently displayed list of decks or cards by name
+|`classify RATING` | Classifies the current card into one of the following categories: {‘easy’, ‘good’ , ‘hard’ , ‘review’}
+
+
+|=======================================================================
