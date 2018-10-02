@@ -1,3 +1,4 @@
+//@@author theJrLinguist
 package seedu.address.logic.commands.eventcommands;
 
 import static java.util.Objects.requireNonNull;
@@ -22,7 +23,7 @@ public class DisplayPollCommand extends Command {
     public static final String COMMAND_WORD = "displayPoll";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays the poll with the provided index";
-    public static final String MESSAGE_SUCCESS = "Poll %1$s displayed.";
+    public static final String MESSAGE_SUCCESS = "Poll %1$s of %2$s displayed.";
 
     private final Index targetIndex;
 
@@ -42,12 +43,19 @@ public class DisplayPollCommand extends Command {
         }
         try {
             Poll poll = event.getPoll(targetIndex);
-            String result = String.format(MESSAGE_SUCCESS, targetIndex.getOneBased());
-            result += '\n' + poll.displayPoll();
-            EventsCenter.getInstance().post(new DisplayPollEvent(result));
+            String result = String.format(MESSAGE_SUCCESS, targetIndex.getOneBased(), event);
+            String pollDisplayResult = poll.displayPoll();
+            EventsCenter.getInstance().post(new DisplayPollEvent(pollDisplayResult));
             return new CommandResult(result);
         } catch (IndexOutOfBoundsException e) {
-            throw new CommandException("No poll exists at this index.");
+            throw new CommandException(Messages.MESSAGE_NO_POLL_AT_INDEX);
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof DisplayPollCommand // instanceof handles nulls
+                && targetIndex.equals(((DisplayPollCommand) other).targetIndex)); // state check
     }
 }

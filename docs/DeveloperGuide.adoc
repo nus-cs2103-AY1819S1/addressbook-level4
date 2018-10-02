@@ -11,6 +11,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 :warning-caption: :warning:
+:experimental:
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
@@ -46,6 +47,10 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
+. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+.. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
+.. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
+. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
@@ -841,31 +846,32 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 ==== Division of work
 
-#### Keng Ji : Add event feature and search for participants
+#### Keng Ji : Add event feature with polls and time, location features
 
-- [ ] v1.1: able to create a basic event
-- [ ] v1.2: able to add basic event details, and filter users by various criteria
-- [ ] v1.3: enable voting feature for location and time
+- [x] V1.1: Event organiser able to create a basic event with date, time, organiser, participant and poll features.
+- [ ] V1.2: Organisers able to "invite" participants to get recommendations for and set location;
+Users able to search for events by attributes (date, time, location, interest) and retrieve joined events.
+- [ ] V1.3: Application able to generate poll options based on application recommendation for time and location.
 
 #### Yao Feng : Add scheduling and recommend best time feature
-- [ ] v1.1: able to input user schedule and preferred timings
-- [ ] v1.2: able to rank most popular timings for an event
-- [ ] v1.3:
+- [ ] V1.1: Users able to login.
+- [ ] V1.2: Organisers can search for event participants based on interests, friendships, schedule and address.
+- [ ] V1.3: Users can rate the event after it is held.
 
 #### Zhang Cheng :
-- [ ] V1.1: Able to specify friendships with other people
-- [ ] V1.2: Able to form groups and find mutual friends
-- [ ] V1.3: Able to visualise groups
+- [ ] V1.1: Users able to specify their interests.
+- [ ] V1.2: Users able to specify friendships with other people.
+- [ ] V1.3: Users able to form groups and find mutual friends.
 
 #### Adeel :
-- [ ] V1.1: Implement voting for meetup places, choose most popular place from votes
-- [ ] V1.2: Implement Google maps visualisation
-- [ ] V1.3: Implement recommendation of best meetup location via MRT lines
+- [ ] V1.1: Add feature of nearest MRT for each individual.
+- [ ] V1.2: Implement recommendation of best meet-up location via MRT lines.
+- [ ] V1.3: Implement Google maps visualisation.
 
 #### Jason : Event Management/Recommendation
-- [ ] V1.1: Implement Event management Tab / Allow Event Data Storage
-- [ ] V1.2: Pull schedule from NUS Mods and create union of multiple schedules
-- [ ] V1.3: Visualize the most popular threading event criteria
+- [x] V1.1: Pull schedule from NUS Mods and convert to a timetable. Allow Unions of timetable.
+- [ ] V1.2: Create, Update, Delete individual slots in timetable. Find best possible time for events using timetables.
+- [ ] V1.3: Visualize timetables of multiple friends.
 
 [appendix]
 == User Stories
@@ -1189,7 +1195,7 @@ _{More to be added}_
 
 [appendix]
 == Glossary
-[[user]] User::
+[[user]] User / Person::
 Refers to a person who uses EventOrganiser.
 
 [[user-profile]] User Profile::
@@ -1204,8 +1210,6 @@ Refers to the user currently identified by the system.
 [[event-organiser]] Event Organiser::
 Refers to a user who has created an event.
 
-[[attendee]] Attendee::
-Refers to a user who has indicated in EventOrganiser that they will attend the event.
 
 ////
 

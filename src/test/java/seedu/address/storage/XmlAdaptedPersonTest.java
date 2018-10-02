@@ -103,7 +103,7 @@ public class XmlAdaptedPersonTest {
     }
 
     @Test
-    public void toModelType_invalidInterests_throwsIllegalValueException() {
+    public void toModelTypeInvalidInterestsThrowsIllegalValueException() {
         List<XmlAdaptedInterest> invalidInterests = new ArrayList<>(VALID_INTERESTS);
         invalidInterests.add(new XmlAdaptedInterest(INVALID_INTEREST));
         XmlAdaptedPerson person =

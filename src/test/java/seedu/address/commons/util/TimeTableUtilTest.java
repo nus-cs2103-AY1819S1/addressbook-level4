@@ -35,4 +35,26 @@ public class TimeTableUtilTest {
         assert TimeTableUtil.parseUrl(shortlink).convertToSchedule()
                .valueToString().equals(scheduleString);
     }
+
+    @Test
+    public void parseUrl() throws ParseException {
+        // This is just a wrapper method call
+        parseLongUrl();
+    }
+
+    @Test
+    public void parseLongUrl() throws ParseException {
+        assert TimeTableUtil.parseLongUrl(actuallonglink).convertToSchedule()
+            .valueToString().equals(scheduleString);
+    }
+
+    @Test
+    public void parseModule() throws ParseException {
+        assert TimeTableUtil.parseModule("CS2103=LEC:1,TUT:01", "sem-1").size() == 2;
+    }
+
+    @Test
+    public void obtainModuleInfoFromApi() throws ParseException {
+        assert TimeTableUtil.obtainModuleInfoFromApi("CS2103", 1).size() == 6;
+    }
 }

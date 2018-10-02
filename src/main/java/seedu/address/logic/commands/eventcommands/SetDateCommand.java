@@ -1,3 +1,4 @@
+//@@author theJrLinguist
 package seedu.address.logic.commands.eventcommands;
 
 import static java.util.Objects.requireNonNull;
@@ -10,8 +11,10 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
+import seedu.address.model.person.Person;
 
 /**
  * Sets the date of an event.
@@ -27,15 +30,15 @@ public class SetDateCommand extends Command {
     private Event event;
 
     /**
-     * Creates an AddCommand to add the specified {@code Event}
+     * Creates an SetDateCommand to add a date to the specified {@code Event}
      */
     public SetDateCommand(LocalDate date) {
         requireNonNull(date);
         this.date = date;
     }
 
-    public void setEvent(Event event) {
-        this.event = event;
+    public Event getEvent() {
+        return event;
     }
 
     @Override
@@ -44,10 +47,31 @@ public class SetDateCommand extends Command {
         if (event == null) {
             throw new CommandException(Messages.MESSAGE_NO_EVENT_SELECTED);
         }
+
+        try {
+            Person person = history.getSelectedPerson();
+            if (!person.equals(event.getOrganiser())) {
+                throw new CommandException(Messages.MESSAGE_NOT_EVENT_ORGANISER);
+            }
+        } catch (NoUserLoggedInException e) {
+            throw new CommandException(Messages.MESSAGE_NO_USER_LOGGED_IN);
+        }
+
+        //List<Event> lastShownList = model.getFilteredEventList();
+        //int index = lastShownList.indexOf(event);
+
         event.setDate(date);
-        model.commitAddressBook();
+        //model.updateEvent(index, event);
         model.updateEvent(event, event);
+        model.commitAddressBook();
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return new CommandResult(String.format(MESSAGE_SUCCESS, date.format(dateFormat), event));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SetDateCommand // instanceof handles nulls
+                && date.equals(((SetDateCommand) other).date)); // state check
     }
 }

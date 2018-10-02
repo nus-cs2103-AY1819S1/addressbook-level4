@@ -27,15 +27,16 @@ import seedu.address.model.tag.Tag;
 public class Event {
 
     // Identity fields
-    private static int currID = 0;
     private final Name name;
-    private final int id;
 
     // Data fields
     private final Address location;
 
     private LocalDate date;
-    private LocalTime time;
+    private LocalTime startTime;
+    private LocalTime endTime;
+
+    private Person organiser;
 
     private final Set<Tag> tags = new HashSet<>();
     private final ArrayList<Poll> polls;
@@ -46,8 +47,6 @@ public class Event {
      */
     public Event(Name name, Address address, Set<Tag> tags) {
         requireAllNonNull(name, address, tags);
-        this.id = currID;
-        currID++;
         this.name = name;
         this.location = address;
         this.tags.addAll(tags);
@@ -61,6 +60,14 @@ public class Event {
 
     public Address getLocation() {
         return location;
+    }
+
+    public Person getOrganiser() {
+        return organiser;
+    }
+
+    public void setOrganiser(Person person) {
+        organiser = person;
     }
 
     public LocalDate getDate() {
@@ -84,23 +91,35 @@ public class Event {
     }
 
     /**
-     * Returns the time as a string.
+     * Returns the start and end time as a string.
      */
     public String getTimeString() {
-        if (time != null) {
+        String result = "";
+        if (startTime != null) {
             DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
-            return time.format(timeFormat);
-        } else {
-            return "";
+            result += startTime.format(timeFormat) + " - ";
         }
+        if (endTime != null) {
+            DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
+            result += endTime.format(timeFormat);
+        }
+        return result;
     }
 
-    public LocalTime getTime() {
-        return time;
+    public LocalTime getStartTime() {
+        return startTime;
     }
 
-    public void setTime(LocalTime time) {
-        this.time = time;
+    public void setStartTime(LocalTime time) {
+        this.startTime = time;
+    }
+
+    public LocalTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalTime time) {
+        this.endTime = time;
     }
 
     /**
@@ -116,6 +135,15 @@ public class Event {
 
     public UniquePersonList getPersonList() {
         return personList;
+    }
+
+    /**
+     * Sets the person list of the event.
+     */
+    public void setPersonList(UniquePersonList personList) {
+        for (Person person : personList) {
+            this.personList.add(person);
+        }
     }
 
     /**
@@ -198,14 +226,20 @@ public class Event {
             return true;
         }
 
-        if (!(other instanceof seedu.address.model.event.Event)) {
+        if (!(other instanceof Event)) {
             return false;
         }
 
-        Event otherEvent = (seedu.address.model.event.Event) other;
+        Event otherEvent = (Event) other;
         return otherEvent.getName().equals(getName())
                 && otherEvent.getLocation().equals(getLocation())
-                && otherEvent.getTags().equals(getTags());
+                && otherEvent.getTags().equals(getTags())
+                && otherEvent.getDate().equals(getDate())
+                && otherEvent.getStartTime().equals(getStartTime())
+                && otherEvent.getEndTime().equals(getEndTime())
+                && otherEvent.getPersonList().equals(getPersonList())
+                && otherEvent.getOrganiser().equals(getOrganiser())
+                && otherEvent.getPolls().equals(getPolls());
     }
 
     @Override
