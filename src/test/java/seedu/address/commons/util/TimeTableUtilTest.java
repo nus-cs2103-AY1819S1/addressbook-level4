@@ -4,6 +4,8 @@ import java.text.ParseException;
 
 import org.junit.Test;
 
+import static seedu.address.testutil.Assert.assertThrows;
+
 
 public class TimeTableUtilTest {
 
@@ -28,6 +30,10 @@ public class TimeTableUtilTest {
     @Test
     public void parseShortUrl() throws ParseException {
         assert actuallonglink.equals(TimeTableUtil.parseShortUrl(shortlink));
+        assertThrows(ParseException.class, () ->
+        { TimeTableUtil.parseShortUrl("http://mo.us/4v8s"); });
+        assertThrows(ParseException.class, () ->
+        { TimeTableUtil.parseShortUrl("http://modsn.us/2322111"); });
     }
 
     @Test
@@ -39,7 +45,8 @@ public class TimeTableUtilTest {
     @Test
     public void parseUrl() throws ParseException {
         // This is just a wrapper method call
-        parseLongUrl();
+        assert TimeTableUtil.parseUrl(shortlink).convertToSchedule()
+            .valueToString().equals(scheduleString);
     }
 
     @Test
@@ -56,5 +63,11 @@ public class TimeTableUtilTest {
     @Test
     public void obtainModuleInfoFromApi() throws ParseException {
         assert TimeTableUtil.obtainModuleInfoFromApi("CS2103", 1).size() == 6;
+        assertThrows(ParseException.class, () ->
+        { TimeTableUtil.obtainModuleInfoFromApi("123123", 1); });
+        assertThrows(ParseException.class, () ->
+        { TimeTableUtil.obtainModuleInfoFromApi("", 0); });
+        assertThrows(ParseException.class, () ->
+        { TimeTableUtil.obtainModuleInfoFromApi("", 2); });
     }
 }
