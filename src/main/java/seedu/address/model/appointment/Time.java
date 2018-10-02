@@ -1,9 +1,9 @@
 package seedu.address.model.appointment;
 
-import java.util.Objects;
-
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+
+import java.util.Objects;
 
 /**
  * Represents the time in military time to be used in appointment.

@@ -1,23 +1,25 @@
 package seedu.address.model.appointment;
 
-import seedu.address.model.person.Person;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import seedu.address.model.person.Person;
 
 /**
  * Contains details regarding appointment.
  */
 public class Appointment {
 
+    //constants for status
+    private static final int APPROVED = 1;
+    private static final int CANCELLED = 0;
+
     //fields used for making appointment
     private final Date appointmentDate;
     private final Time appointmentTime;
     private int appointmentStatus;
 
-    private static final int APPROVED = 1;
-    private static final int CANCELLED = 0;
 
     //to replace with patient class later on
     private final Person patient;

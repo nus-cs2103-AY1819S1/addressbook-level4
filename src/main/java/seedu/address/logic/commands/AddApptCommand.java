@@ -11,6 +11,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
 
+/**
+ * Adds appointment to schedule.
+ */
 public class AddApptCommand extends Command {
 
     public static final String COMMAND_WORD = "addappt";
