@@ -36,5 +36,5 @@ public class Fees {
 
     @Override
     public String toString() {
-    	return "$" + df.format(feesPerHr) + "/hour"; }
+        return "$" + df.format(feesPerHr) + "/hour"; }
 }
