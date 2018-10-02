@@ -9,7 +9,8 @@ import seedu.address.testutil.Assert;
 
 
 public class BudgetTest {
-
+    public static final String VALID_BUDGET = "2.00";
+    public static final String INVALID_BUDGET = "A";
     @Test
     public void constructor_null_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new Budget(null));
@@ -17,8 +18,7 @@ public class BudgetTest {
 
     @Test
     public void constructor_invalidAddress_throwsIllegalArgumentException() {
-        String invalidBudget = "as";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Budget(invalidBudget));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Budget(BudgetTest.INVALID_BUDGET));
     }
 
     @Test

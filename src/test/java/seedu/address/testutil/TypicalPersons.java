@@ -62,7 +62,8 @@ public class TypicalPersons {
     private TypicalPersons() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons and its maximmum budget equal to the sum of all expenses.
+     * Returns an {@code AddressBook} with all the typical persons
+     * and its maximmum budget equal to the sum of all expenses.
      */
     public static AddressBook getTypicalAddressBook() {
         double expense = 0;
@@ -72,6 +73,8 @@ public class TypicalPersons {
             expense += person.getCost().getCostValue();
         }
         ab.modifyMaximumBudget(expense + 2);
+        System.out.println("Budget cap " + ab.getMaximumBudget().getBudgetCap());
+        System.out.println("Current spending" + ab.getMaximumBudget().getCurrentExpenses());
         return ab;
     }
 
