@@ -16,7 +16,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ContactContainsTagPredicate;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
 
 //@@author kengwoon
 public class ClearCommandTest {
@@ -31,7 +30,8 @@ public class ClearCommandTest {
         List<String> target = new ArrayList<>();
         ContactContainsTagPredicate predicate = new ContactContainsTagPredicate(target);
 
-        assertCommandSuccess(new ClearCommand(target, predicate), model, commandHistory, ClearCommand.MESSAGE_CLEAR_ALL_SUCCESS, expectedModel);
+        assertCommandSuccess(new ClearCommand(target, predicate), model, commandHistory,
+                ClearCommand.MESSAGE_CLEAR_ALL_SUCCESS, expectedModel);
     }
 
     @Test
@@ -43,7 +43,8 @@ public class ClearCommandTest {
         List<String> target = new ArrayList<>();
         ContactContainsTagPredicate predicate = new ContactContainsTagPredicate(target);
 
-        assertCommandSuccess(new ClearCommand(target, predicate), model, commandHistory, ClearCommand.MESSAGE_CLEAR_ALL_SUCCESS, expectedModel);
+        assertCommandSuccess(new ClearCommand(target, predicate), model, commandHistory,
+                ClearCommand.MESSAGE_CLEAR_ALL_SUCCESS, expectedModel);
     }
 
     @Test
