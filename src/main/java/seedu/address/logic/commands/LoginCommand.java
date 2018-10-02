@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
+//@@author jjlee050
 /**
  * Authenticate user and provide them access to ClinicIO based on the role.
  */
