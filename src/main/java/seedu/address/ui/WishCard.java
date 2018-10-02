@@ -2,18 +2,20 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.wish.Wish;
+
 
 /**
  * An UI component that displays information of a {@code Person}.
  */
 public class WishCard extends UiPart<Region> {
 
-    private static final String FXML = "WishListCard.fxml";
-    private static final String[] TAG_COLORS = { "red", "yellow", "blue", "orange", "brown", "green", "pink", "black" };
+    private static final String FXML = "WishCard.fxml";
+    private static final String[] TAG_COLORS = { "red", "yel", "blue", "navy", "ora", "green", "pink", "hot", "pur" };
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -32,36 +34,25 @@ public class WishCard extends UiPart<Region> {
     private Label name;
 
     @FXML
-    private Label id;
+    private Label progress;
 
     @FXML
-    private Label price;
-
-    @FXML
-    private Label savedAmount;
-
-    @FXML
-    private Label url;
-
-    @FXML
-    private Label email;
-
-    @FXML
-    private Label remark;
+    private ProgressBar progressBar;
 
     @FXML
     private FlowPane tags;
 
+    private String id;
+
     public WishCard(Wish wish, int displayedIndex) {
         super(FXML);
+
         this.wish = wish;
-        id.setText(displayedIndex + ". ");
+        this.id = displayedIndex + ". ";
+
         name.setText(wish.getName().fullName);
-        price.setText(wish.getPrice().toString());
-        savedAmount.setText(wish.getSavedAmount().toString());
-        url.setText(wish.getUrl().value);
-        email.setText(wish.getEmail().value);
-        remark.setText(wish.getRemark().value);
+        progress.setText(getProgressInString(wish));
+        progressBar.setProgress(getProgress(wish));
         initTags(wish);
     }
 
@@ -70,6 +61,21 @@ public class WishCard extends UiPart<Region> {
      */
     private String getTagColorStyleFor(String tagName) {
         return TAG_COLORS[Math.abs(tagName.hashCode()) % TAG_COLORS.length];
+    }
+
+    /**
+     * Returns the progess for {@code wish}.
+     */
+    private Double getProgress(Wish wish) {
+        return wish.getSavedAmount().value / wish.getPrice().value;
+    }
+
+    /**
+     * Returns the progess in percentage for {@code wish}.
+     */
+    private String getProgressInString(Wish wish) {
+        Double progress = getProgress(wish) * 100;
+        return String.format("%d", progress.intValue()) + "%";
     }
 
     /**
@@ -97,7 +103,7 @@ public class WishCard extends UiPart<Region> {
 
         // state check
         WishCard card = (WishCard) other;
-        return id.getText().equals(card.id.getText())
+        return id.equals(card.id)
                 && wish.equals(card.wish);
     }
 }
