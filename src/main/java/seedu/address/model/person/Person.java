@@ -43,7 +43,8 @@ public class Person {
         this.name = name;
         this.phone = null;
         this.email = null;
-        this.address = null;
+        this.room = null;
+        this.school = null;
     }
 
     public Name getName() {

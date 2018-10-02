@@ -40,7 +40,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final CalendarModel calendarModel;
 
     /**
-     * Initializes a ModelManager with the given addressBook, userPrefs and calendarStorage.
+     * Initializes a ModelManager with the given addressBook, budgetBook userPrefs and calendarStorage.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyBudgetBook budgetbook, UserPrefs userPrefs,
                         CalendarStorage calendarStorage) {

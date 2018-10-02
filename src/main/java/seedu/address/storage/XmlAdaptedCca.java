@@ -12,11 +12,12 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.budget.Transaction;
 import seedu.address.model.cca.Cca;
-import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Room;
+import seedu.address.model.person.School;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -35,7 +36,9 @@ public class XmlAdaptedCca {
     @XmlElement(required = true)
     private String headEmail;
     @XmlElement(required = true)
-    private String headAddress;
+    private String headRoom;
+    @XmlElement(required = true)
+    private String headSchool;
     @XmlElement
     private List<XmlAdaptedTag> headTagged = new ArrayList<>();
 
@@ -46,7 +49,9 @@ public class XmlAdaptedCca {
     @XmlElement(required = true)
     private String viceHeadEmail;
     @XmlElement(required = true)
-    private String viceHeadAddress;
+    private String viceHeadRoom;
+    @XmlElement(required = true)
+    private String viceHeadSchool;
     @XmlElement
     private List<XmlAdaptedTag> viceHeadTagged = new ArrayList<>();
 
@@ -129,17 +134,26 @@ public class XmlAdaptedCca {
         }
         final Email modelHeadEmail = new Email(headEmail);
 
-        if (headAddress == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+        if (headRoom == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Room.class.getSimpleName()));
         }
-        if (!Address.isValidAddress(headAddress)) {
-            throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
+        if (!Room.isValidRoom(headRoom)) {
+            throw new IllegalValueException(Room.MESSAGE_ROOM_CONSTRAINTS);
         }
-        final Address modelHeadAddress = new Address(headAddress);
+        final Room modelHeadRoom = new Room(headRoom);
+
+        if (headSchool == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, School.class.getSimpleName()));
+        }
+        if (!School.isValidSchool(headSchool)) {
+            throw new IllegalValueException(School.MESSAGE_SCHOOL_CONSTRAINTS);
+        }
+        final School modelHeadSchool = new School(headSchool);
 
         final Set<Tag> modelHeadTags = new HashSet<>(headTags);
 
-        Person modelHead = new Person(modelHeadName, modelHeadPhone, modelHeadEmail, modelHeadAddress, modelHeadTags);
+        Person modelHead = new Person(modelHeadName, modelHeadPhone, modelHeadEmail, modelHeadRoom,
+                modelHeadSchool, modelHeadTags);
 
         final List<Tag> viceHeadTags = new ArrayList<>();
         for (XmlAdaptedTag tag : viceHeadTagged) {
@@ -170,19 +184,26 @@ public class XmlAdaptedCca {
         }
         final Email modelViceHeadEmail = new Email(viceHeadEmail);
 
-        if (viceHeadAddress == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+        if (viceHeadRoom == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Room.class.getSimpleName()));
         }
-        if (!Address.isValidAddress(viceHeadAddress)) {
-            throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
+        if (!Room.isValidRoom(viceHeadRoom)) {
+            throw new IllegalValueException(Room.MESSAGE_ROOM_CONSTRAINTS);
         }
-        final Address modelViceHeadAddress = new Address(viceHeadAddress);
+        final Room modelViceHeadRoom = new Room(viceHeadRoom);
+
+        if (viceHeadSchool == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, School.class.getSimpleName()));
+        }
+        if (!School.isValidSchool(viceHeadSchool)) {
+            throw new IllegalValueException(School.MESSAGE_SCHOOL_CONSTRAINTS);
+        }
+        final School modelViceHeadSchool = new School(viceHeadSchool);
 
         final Set<Tag> modelViceHeadTags = new HashSet<>(viceHeadTags);
 
         Person modelViceHead = new Person(modelViceHeadName, modelViceHeadPhone, modelViceHeadEmail,
-            modelViceHeadAddress,
-            modelViceHeadTags);
+            modelViceHeadRoom, modelViceHeadSchool, modelViceHeadTags);
 
         // TODO: BUDGET
         //Budget
@@ -216,12 +237,14 @@ public class XmlAdaptedCca {
             && Objects.equals(headName, otherPerson.headName)
             && Objects.equals(headPhone, otherPerson.headPhone)
             && Objects.equals(headEmail, otherPerson.headEmail)
-            && Objects.equals(headAddress, otherPerson.headAddress)
+            && Objects.equals(headRoom, otherPerson.headRoom)
+            && Objects.equals(headSchool, otherPerson.headSchool)
             && headTagged.equals(otherPerson.headTagged)
             && Objects.equals(viceHeadName, otherPerson.viceHeadName)
             && Objects.equals(viceHeadPhone, otherPerson.viceHeadPhone)
             && Objects.equals(viceHeadEmail, otherPerson.viceHeadEmail)
-            && Objects.equals(viceHeadAddress, otherPerson.viceHeadAddress)
+            && Objects.equals(viceHeadRoom, otherPerson.viceHeadRoom)
+            && Objects.equals(viceHeadSchool, otherPerson.viceHeadSchool)
             && viceHeadTagged.equals(otherPerson.viceHeadTagged)
             && budget.equals(((XmlAdaptedCca) other).budget);
     }
