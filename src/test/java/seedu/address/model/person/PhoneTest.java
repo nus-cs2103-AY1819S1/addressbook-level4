@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import seedu.address.model.word.Phone;
 import seedu.address.testutil.Assert;
 
 public class PhoneTest {
