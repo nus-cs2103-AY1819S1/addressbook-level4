@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Ang Chen Shin
-image::CrimsonAng.jpg[width="150", align="left"]
+image::crimsonang.png[width="150", align="left"]
 {empty}[https://github.com/CrimsonAng[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead, Scheduling and Tracking +
@@ -19,7 +19,7 @@ Responsibilities: Responsible for overall project coordination.
 '''
 
 === Lin Xu
-image::linxu.jpg[width="150", align="left"]
+image::woodsuns.png[width="150", align="left"]
 {empty}[https://github.com/Woodnsuns[github]] [<<johndoe#, portfolio>>]
 
 Role: Documentation, Code Quality +
@@ -29,7 +29,7 @@ Looks after code quality, ensures adherence to coding standards, etc.
 '''
 
 === Park Sang Jun
-image::park-sang-jun.jpg[width="150", align="left"]
+image::park-sang-jun.png[width="150", align="left"]
 {empty}[https://github.com/park-sang-jun[github]] [<<johndoe#, portfolio>>]
 
 Role: Deliverables and Deadlines +
@@ -38,8 +38,8 @@ Responsibilities: Ensure project deliverables are done on time and in the right 
 '''
 
 === Thaddeus Lim Zhi Yu
-image::thaddeuslzy.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+image::thaddeuslzy.png[width="150", align="left"]
+{empty}[http://github.com/thaddeuslzy[github]] [<<johndoe#, portfolio>>]
 
 Role: Integration +
 Responsibilities: In charge of versioning of the code, maintaining the code repository,
@@ -48,7 +48,7 @@ integrating various parts of the software to create a whole.
 '''
 
 === Xiao Yilin
-image::hotarumin.jpg[width="150", align="left"]
+image::hotarumin.png[width="150", align="left"]
 {empty}[https://github.com/hotarumin[github]] [<<johndoe#, portfolio>>]
 
 Role: Testing +
