@@ -54,7 +54,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add a person without tags to a non-empty task manager, command with leading spaces and trailing spaces
+        /* Case: add a person without labels to a non-empty task manager, command with leading spaces and trailing spaces
          * -> added
          */
         Task toAdd = Y_TASK;
@@ -91,13 +91,13 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         deleteAllPersons();
         assertCommandSuccess(A_TASK);
 
-        /* Case: add a person with tags, command with parameters in random order -> added */
+        /* Case: add a task with labels, command with parameters in random order -> added */
         toAdd = Z_TASK;
         command = AddCommand.COMMAND_WORD + LABEL_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
                 + LABEL_DESC_HUSBAND + PRIORITY_VALUE_DESC_BOB;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a person, missing tags -> added */
+        /* Case: add a person, missing labels -> added */
         assertCommandSuccess(H_TASK);
 
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
@@ -133,7 +133,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         command = TaskUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
 
-        /* Case: add a duplicate person except with different tags -> rejected */
+        /* Case: add a duplicate person except with different labels -> rejected */
         command = TaskUtil.getAddCommand(H_TASK) + " " + PREFIX_LABEL.getPrefix() + "friends";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
 
@@ -177,7 +177,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
                 + PRIORITY_VALUE_DESC_AMY + INVALID_ADDRESS_DESC;
         assertCommandFailure(command, Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
 
-        /* Case: invalid tag -> rejected */
+        /* Case: invalid label -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
                 + PRIORITY_VALUE_DESC_AMY + ADDRESS_DESC_AMY
                 + INVALID_LABEL_DESC;
