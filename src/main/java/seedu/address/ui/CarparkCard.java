@@ -59,8 +59,15 @@ public class CarparkCard extends UiPart<Region> {
         address.setText(carpark.getAddress().value);
         carparkType.setText(carpark.getCarparkType().value);
         coordinate.setText("Coordinate: " + carpark.getCoordinate().value);
-        totalLots.setText("Total Lots: " + carpark.getTotalLots().value);
-        lotsAvailable.setText("Lots Available: " + carpark.getLotsAvailable().value);
+
+        if (carpark.getTotalLots().value.equals("0")) {
+            totalLots.setText("Total Lots: Not Available");
+            lotsAvailable.setText("Lots Available: Not Available");
+        } else {
+            totalLots.setText("Total Lots: " + carpark.getTotalLots().value);
+            lotsAvailable.setText("Lots Available: " + carpark.getLotsAvailable().value);
+        }
+
         freeParking.setText("Free Parking: " + carpark.getFreeParking().value);
         nightParking.setText("Night Parking: " + carpark.getNightParking().value);
         shortTerm.setText("Short Term Parking: " + carpark.getShortTerm().value);
