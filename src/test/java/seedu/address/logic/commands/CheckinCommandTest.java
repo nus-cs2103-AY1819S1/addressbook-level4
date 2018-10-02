@@ -22,7 +22,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
-public class AddCommandTest {
+public class CheckinCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -34,7 +34,7 @@ public class AddCommandTest {
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddCommand(null);
+        new CheckinCommand(null);
     }
 
     @Test
@@ -42,9 +42,9 @@ public class AddCommandTest {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Person validPerson = new PersonBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
+        CommandResult commandResult = new CheckinCommand(validPerson).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
+        assertEquals(String.format(CheckinCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
@@ -52,36 +52,36 @@ public class AddCommandTest {
     @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
         Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
+        CheckinCommand checkinCommand = new CheckinCommand(validPerson);
         ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
-        addCommand.execute(modelStub, commandHistory);
+        thrown.expectMessage(CheckinCommand.MESSAGE_DUPLICATE_PERSON);
+        checkinCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
         Person alice = new PersonBuilder().withName("Alice").build();
         Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        CheckinCommand checkinAliceCommand = new CheckinCommand(alice);
+        CheckinCommand checkinBobCommand = new CheckinCommand(bob);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(checkinAliceCommand.equals(checkinAliceCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        CheckinCommand checkinAliceCommandCopy = new CheckinCommand(alice);
+        assertTrue(checkinAliceCommand.equals(checkinAliceCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(checkinAliceCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(checkinAliceCommand.equals(null));
 
         // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(checkinAliceCommand.equals(checkinBobCommand));
     }
 
     /**
