@@ -17,18 +17,19 @@ public class Person {
 
     // Identity fields
     private final Name name;
+    private final Date date;
     private final Category category;
 
     // Data fields
     private final Cost cost;
-    private final Date date;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Category category, Cost cost, Set<Tag> tags) {
-        requireAllNonNull(name, category, cost, tags);
+
+    public Person(Name name, Category category, Cost cost, Date date, Set<Tag> tags) {
+        requireAllNonNull(name, category, cost, date, tags);
         this.name = name;
         this.category = category;
         this.cost = cost;
@@ -36,13 +37,11 @@ public class Person {
         this.tags.addAll(tags);
     }
 
-    public Person(Name name, Phone phone, Cost cost, Set<Tag> tags, Date date) {
-        requireAllNonNull(name, phone, cost, tags, date);
-        this.name = name;
-        this.phone = phone;
-        this.cost = cost;
-        this.date = date;
-        this.tags.addAll(tags);
+    /**
+     * Every field must be present and not null.
+     */
+    public Person(Name name, Category category, Cost cost, Set<Tag> tags) {
+        this(name, category, cost, new Date(), tags);
     }
 
     public Name getName() {
@@ -103,6 +102,7 @@ public class Person {
         return otherPerson.getName().equals(getName())
                 && otherPerson.getCategory().equals(getCategory())
                 && otherPerson.getCost().equals(getCost())
+                && otherPerson.getDate().equals(getDate())
                 && otherPerson.getTags().equals(getTags());
     }
 
@@ -120,6 +120,8 @@ public class Person {
                 .append(getCategory())
                 .append(" Cost: ")
                 .append(getCost())
+                .append(" Date: ")
+                .append(getDate())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

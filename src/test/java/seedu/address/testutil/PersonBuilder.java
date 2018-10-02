@@ -31,7 +31,7 @@ public class PersonBuilder {
         name = new Name(DEFAULT_NAME);
         category = new Category(DEFAULT_CATEGORY);
         cost = new Cost(DEFAULT_COST);
-        date = new Date(DEFAULT_DATE);
+        date = new Date();
         tags = new HashSet<>();
     }
 
@@ -87,7 +87,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, category, cost, tags);
+        return new Person(name, category, cost, date, tags);
     }
 
 }
