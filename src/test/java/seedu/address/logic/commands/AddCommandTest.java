@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -113,6 +114,16 @@ public class AddCommandTest {
 
         @Override
         public void deletePerson(Person target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void clearMultiplePersons(List<Person> target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeTagsFromPersons(List<Person> target, List<Person> original) {
             throw new AssertionError("This method should not be called.");
         }
 
