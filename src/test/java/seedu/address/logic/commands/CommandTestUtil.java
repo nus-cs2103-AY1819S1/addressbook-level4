@@ -36,6 +36,7 @@ public class CommandTestUtil {
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_CATEGORY_AMY = "School";
     public static final String VALID_CATEGORY_BOB = "Food";
+
     public static final String VALID_COST_AMY = "123.00";
     public static final String VALID_COST_BOB = "22.00";
     public static final String VALID_TAG_HUSBAND = "husband";
