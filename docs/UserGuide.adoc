@@ -12,7 +12,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/CS2103-AY1819S1-T09-2/Main.git
+:repoURL: https://github.com/CS2103-AY1819S1-T09-2/main
 
 By: `Team T09-2`      Since: `Aug 2018`      Licence: `MIT`
 
@@ -72,8 +72,8 @@ Adds a new deck to Anakin +
 Format: `newdeck [n/NAME]`
 
 ****
-*If NAME is left blank, the name of the deck will be “New Deck #number”.
 *NAME will be taken as a string.
+*If NAME is left blank, the name of the deck will be “New Deck #number”.
 ****
 
 Examples:
