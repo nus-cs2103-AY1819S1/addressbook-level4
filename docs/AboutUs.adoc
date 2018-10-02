@@ -16,6 +16,7 @@ image::ccl.png[width="150", align="left"]
 {empty}[https://github.com/chenlu-chua[github]] [<<johndoe#, portfolio>>]
 
 Role: Team lead + Testing
+Responsibilities: UI
 
 '''
 
@@ -24,7 +25,7 @@ image::lejolly.jpg[width="150", align="left"]
 {empty}[http://github.com/CJuanvip[github]] [<<johndoe#, portfolio>>]
 
 Role: Deliverables and deadline + Scheduling and tracking
-Responsibilities: UI
+Responsibilities: Logic
 
 '''
 
@@ -33,7 +34,7 @@ image::yijinl.jpg[width="150", align="left"]
 {empty}[http://github.com/LZYAndy[github]] [<<johndoe#, portfolio>>]
 
 Role: Documentation + Code quality
-Responsibilities: Data
+Responsibilities: Model
 
 '''
 
@@ -42,7 +43,7 @@ image::m133225.jpg[width="150", align="left"]
 {empty}[http://github.com/junjiee[github]] [<<johndoe#, portfolio>>]
 
 Role: Code quality
-Responsibilities: Dev Ops + Threading
+Responsibilities: Storage
 
 '''
 
