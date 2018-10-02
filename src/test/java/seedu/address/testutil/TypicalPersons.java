@@ -73,8 +73,6 @@ public class TypicalPersons {
             expense += person.getCost().getCostValue();
         }
         ab.modifyMaximumBudget(expense + 2);
-        System.out.println("Budget cap " + ab.getMaximumBudget().getBudgetCap());
-        System.out.println("Current spending" + ab.getMaximumBudget().getCurrentExpenses());
         return ab;
     }
 

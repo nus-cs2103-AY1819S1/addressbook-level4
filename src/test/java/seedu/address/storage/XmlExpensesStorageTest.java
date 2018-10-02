@@ -83,6 +83,8 @@ public class XmlExpensesStorageTest {
         //Save in new file and read back
         xmlAddressBookStorage.saveExpenses(original, filePath);
         ReadOnlyAddressBook readBack = xmlAddressBookStorage.readExpenses(filePath).get();
+        System.out.println(new AddressBook(readBack).getMaximumBudget().getCurrentExpenses());
+        System.out.println(new AddressBook(readBack).getMaximumBudget().getBudgetCap());
         assertEquals(original, new AddressBook(readBack));
 
         //Modify data, overwrite exiting file, and read back

@@ -25,14 +25,6 @@ public class XmlAdaptedBudget {
     }
 
     /**
-     * Constructs a {@code XmlAdaptedBudget} with the given {@code budgetCap} and {@code currentExpenses}.
-     */
-    public XmlAdaptedBudget(double budgetCap, double currentExpenses) {
-        this.budgetCap = budgetCap;
-        this.currentExpenses = currentExpenses;
-    }
-
-    /**
      * Converts a given Budget into this class for JAXB use.
      *
      * @param source source budget
