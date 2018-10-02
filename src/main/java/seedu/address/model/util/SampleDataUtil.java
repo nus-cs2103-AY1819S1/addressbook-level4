@@ -52,9 +52,9 @@ public class SampleDataUtil {
     public static List<Doctor> getSampleDoctors() {
         return new ArrayList<>(Arrays.asList(
                 new Doctor(new Id(1), new Name("Adam Bell"),
-                        new Password(HashUtil.hashToString("doctor1"))),
+                        new Password("doctor1")),
                 new Doctor(new Id(2), new Name("Chip Dale"),
-                        new Password(HashUtil.hashToString("doctor2")))));
+                        new Password("doctor2"))));
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
