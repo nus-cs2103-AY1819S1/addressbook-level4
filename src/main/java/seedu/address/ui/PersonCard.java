@@ -5,13 +5,13 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
 
 /**
  * An UI component that displays information of a {@code Person}.
  */
 public class PersonCard extends UiPart<Region> {
-
     public static final String NO_PHONE = "No Phone Number";
     public static final String NO_EMAIL = "No Email Address";
     public static final String NO_ADDRESS = "No Address";
@@ -43,6 +43,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
+    private Label meeting;
+    @FXML
     private FlowPane tags;
 
     public PersonCard(Person person, int displayedIndex) {
@@ -50,6 +52,8 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
+
+        //@@author zioul123
         person.getPhone()
                 .ifPresentOrElse(p -> {
                     phone.setText(p.value);
@@ -62,12 +66,16 @@ public class PersonCard extends UiPart<Region> {
                 .ifPresentOrElse(e -> {
                     email.setText(e.value);
                 }, () -> email.setText(NO_EMAIL));
+        meeting.setText(person.getMeeting().value.equals(Meeting.NO_MEETING) ? Meeting.NO_MEETING_MSG : "Meeting on"
+                + person.getMeeting().toString() + "hrs");
+
+        //@@author
         initTags(person);
 
         name.setWrapText(true);
         address.setWrapText(true);
         email.setWrapText(true);
-
+        meeting.setWrapText(true);
     }
 
     /**

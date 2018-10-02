@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -26,6 +27,9 @@ public class Person {
     private final Optional<Address> address;
     private final Set<Tag> tags = new HashSet<>();
 
+    private final Meeting meeting;
+
+
     /**
      * Every field must be present and not null.
      */
@@ -36,6 +40,23 @@ public class Person {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.meeting = new Meeting(Meeting.NO_MEETING);
+    }
+
+    //@@author AyushChatto
+    /**
+     * Constructor for scheduling a value. Not to be used for creating a new entry in the
+     * address book.
+     */
+    public Person(Name name, Optional<Phone> phone, Optional<Email> email, Optional<Address> address,
+                  Set<Tag> tags, Meeting meeting) {
+        requireAllNonNull(name, phone, email, address, tags, meeting);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.meeting = meeting;
     }
 
     public Name getName() {
@@ -52,6 +73,11 @@ public class Person {
 
     public Optional<Address> getAddress() {
         return address;
+    }
+
+    //@@author AyushChatto
+    public Meeting getMeeting() {
+        return meeting;
     }
 
     /**
@@ -71,6 +97,7 @@ public class Person {
             return true;
         }
 
+        //@@author zioul123
         // The other person must exist and have the same name to be the same person
         if (otherPerson == null || !otherPerson.getName().equals(getName())) {
             return false;
@@ -82,6 +109,7 @@ public class Person {
         // Do not compare fields unless they are present
         return ((bothHavePhone && otherPerson.getPhone().equals(getPhone()))
                 || (bothHaveEmail && otherPerson.getEmail().equals(getEmail())));
+        //@@author
     }
 
     /**
@@ -103,7 +131,8 @@ public class Person {
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+                && otherPerson.getTags().equals(getTags())
+                && otherPerson.getMeeting().equals(getMeeting());
     }
 
     @Override
@@ -115,13 +144,20 @@ public class Person {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Phone: ");
+        builder.append(getName());
+
+        builder.append(" Phone: ");
         getPhone().ifPresentOrElse(builder::append, () -> builder.append("None"));
+
         builder.append(" Email: ");
         getEmail().ifPresentOrElse(builder::append, () -> builder.append("None"));
+
         builder.append(" Address: ");
         getAddress().ifPresentOrElse(builder::append, () -> builder.append("None"));
+
+        builder.append(" Meeting: ")
+                .append(getMeeting().toString());
+
         builder.append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -33,6 +34,8 @@ public class XmlAdaptedPerson {
     private String email;
     @XmlElement(required = true)
     private String address;
+    @XmlElement(required = true)
+    private String meeting;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -69,6 +72,7 @@ public class XmlAdaptedPerson {
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
+        meeting = source.getMeeting().value;
     }
 
     /**
@@ -117,8 +121,16 @@ public class XmlAdaptedPerson {
         final Optional<Address> modelAddress = Optional.ofNullable(
                 address.equals(Address.NO_ADDRESS) ? null : new Address(address));
 
+        if (meeting == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Meeting.class.getSimpleName()));
+        }
+        if (!Meeting.isValidMeeting(meeting)) {
+            throw new IllegalValueException(Meeting.MESSAGE_MEETING_CONSTRAINTS);
+        }
+        final Meeting modelMeeting = new Meeting(meeting);
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelMeeting);
     }
 
     @Override
