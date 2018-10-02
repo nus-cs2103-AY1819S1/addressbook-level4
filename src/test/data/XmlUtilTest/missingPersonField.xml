@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!-- Person with missing name field -->
 <expense>
-    <phone>9482424</phone>
+    <category>School</category>
     <cost>1.00</cost>
     <tagged>friends</tagged>
+	<date>01-10-2018</date>
 </expense>
 
 

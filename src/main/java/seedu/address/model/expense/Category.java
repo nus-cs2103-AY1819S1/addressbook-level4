@@ -5,31 +5,28 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.ArrayList;
 
-//@@author Jiang Chen
 /**
- * Represent a category of expenses.
- * Guarantee: details are present and not null, filed values are validated, immutable.
+ * Represents a Person's category in the address book.
+ * Guarantees: immutable; is valid as declared in {@link #isValidCategory(String)}
  */
 public class Category {
+
+
     public static final String MESSAGE_CATEGORY_CONSTRAINTS =
-            "Category can take any values, and it should not be blank";
-
+            "Category name should not be blank.";
     public static final String CATEGORY_VALIDATION_REGEX = "\\p{Alnum}+";
-
-
     private final String categoryName;
-
     private final ArrayList<Expense> expenseList = new ArrayList<>();
 
     /**
-     * Constructs an {@code Category}.
+     * Constructs a {@code Category}.
      *
-     * @param category A valid category.
+     * @param category A valid category number.
      */
     public Category(String category) {
         requireNonNull(category);
         checkArgument(isValidCategory(category), MESSAGE_CATEGORY_CONSTRAINTS);
-        this.categoryName = category;
+        categoryName = category;
     }
 
     /**
@@ -56,19 +53,19 @@ public class Category {
 
     @Override
     public String toString() {
-        return this.categoryName;
+        return categoryName;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Category // instanceof handles nulls
-                && this.categoryName.equals(((Category) other).categoryName)); // state check
+                && categoryName.equals(((Category) other).categoryName)); // state check
     }
 
     @Override
     public int hashCode() {
-        return this.categoryName.hashCode();
+        return categoryName.hashCode();
     }
 
 }

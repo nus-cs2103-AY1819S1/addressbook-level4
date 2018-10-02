@@ -4,9 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COST_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
@@ -44,21 +45,22 @@ public class PersonTest {
         // null -> returns false
         assertFalse(ALICE.isSamePerson(null));
 
-        // different phone and cost -> returns false
-        Person editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withCost(VALID_ADDRESS_BOB).build();
+        // different category and cost -> returns false
+        Person editedAlice = new PersonBuilder(ALICE)
+                .withCategory(VALID_CATEGORY_BOB).withCost(VALID_COST_BOB).build();
         assertFalse(ALICE.isSamePerson(editedAlice));
 
         // different name -> returns false
         editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.isSamePerson(editedAlice));
 
-        // same name, same phone, different attributes -> returns true
-        editedAlice = new PersonBuilder(ALICE).withCost(VALID_ADDRESS_BOB)
+        // same name, same category, different attributes -> returns true
+        editedAlice = new PersonBuilder(ALICE).withCost(VALID_COST_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSamePerson(editedAlice));
 
-        // same name, same phone, different attributes -> returns true
-        editedAlice = new PersonBuilder(ALICE).withCost(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        // same name, same category, different attributes -> returns true
+        editedAlice = new PersonBuilder(ALICE).withCost(VALID_COST_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSamePerson(editedAlice));
     }
 
@@ -84,12 +86,12 @@ public class PersonTest {
         Person editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertNotEquals(ALICE, editedAlice);
 
-        // different phone -> returns false
-        editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
+        // different category -> returns false
+        editedAlice = new PersonBuilder(ALICE).withCategory(VALID_CATEGORY_BOB).build();
         assertNotEquals(ALICE, editedAlice);
 
         // different address -> returns false
-        editedAlice = new PersonBuilder(ALICE).withCost(VALID_ADDRESS_BOB).build();
+        editedAlice = new PersonBuilder(ALICE).withCost(VALID_COST_BOB).build();
         assertNotEquals(ALICE, editedAlice);
 
         // different tags -> returns false

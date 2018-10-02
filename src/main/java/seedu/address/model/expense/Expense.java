@@ -1,7 +1,7 @@
 package seedu.address.model.expense;
 
 /**
- * Represents an Expense in the expense tracker.
+ * Temporary class for testing purpose TODO: Remove it after morphing Person to Expense
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Expense {

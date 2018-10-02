@@ -1,9 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -20,10 +21,11 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.NoUserSelectedException;
+import seedu.address.model.expense.Category;
 import seedu.address.model.expense.Cost;
+import seedu.address.model.expense.Date;
 import seedu.address.model.expense.Name;
 import seedu.address.model.expense.Person;
-import seedu.address.model.expense.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -34,20 +36,21 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
     public static final String COMMAND_ALIAS = "e";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the expense identified "
+            + "by the index number used in the displayed expense list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_CATEGORY + "CATEGORY] "
+            + "[" + PREFIX_COST + "ADDRESS] "
+            + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 ";
+            + PREFIX_CATEGORY + "91234567 ";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Expense: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This expense already exists in the address book.";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -94,11 +97,12 @@ public class EditCommand extends Command {
         assert personToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
+        Category updatedCategory = editPersonDescriptor.getCategory().orElse(personToEdit.getCategory());
         Cost updatedCost = editPersonDescriptor.getCost().orElse(personToEdit.getCost());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        Date updatedDate = editPersonDescriptor.getDate().orElse(personToEdit.getDate());
 
-        return new Person(updatedName, updatedPhone, updatedCost, updatedTags);
+        return new Person(updatedName, updatedCategory, updatedCost, updatedDate, updatedTags);
     }
 
     @Override
@@ -125,9 +129,10 @@ public class EditCommand extends Command {
      */
     public static class EditPersonDescriptor {
         private Name name;
-        private Phone phone;
+        private Category category;
         private Cost cost;
         private Set<Tag> tags;
+        private Date date;
 
         public EditPersonDescriptor() {}
 
@@ -137,16 +142,17 @@ public class EditCommand extends Command {
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setName(toCopy.name);
-            setPhone(toCopy.phone);
+            setCategory(toCopy.category);
             setCost(toCopy.cost);
             setTags(toCopy.tags);
+            setDate(toCopy.date);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, cost, tags);
+            return CollectionUtil.isAnyNonNull(name, category, cost, tags);
         }
 
         public void setName(Name name) {
@@ -157,12 +163,20 @@ public class EditCommand extends Command {
             return Optional.ofNullable(name);
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public void setDate(Date date) {
+            this.date = date;
         }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
+        public Optional<Date> getDate() {
+            return Optional.ofNullable(date);
+        }
+
+        public void setCategory(Category category) {
+            this.category = category;
+        }
+
+        public Optional<Category> getCategory() {
+            return Optional.ofNullable(category);
         }
 
         public void setCost(Cost cost) {
@@ -206,9 +220,10 @@ public class EditCommand extends Command {
             EditPersonDescriptor e = (EditPersonDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
+                    && getCategory().equals(e.getCategory())
                     && getCost().equals(e.getCost())
-                    && getTags().equals(e.getTags());
+                    && getTags().equals(e.getTags())
+                    && getDate().equals(e.getDate());
         }
     }
 }
