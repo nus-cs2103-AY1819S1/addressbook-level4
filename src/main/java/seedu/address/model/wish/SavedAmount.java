@@ -1,6 +1,7 @@
 package seedu.address.model.wish;
 
 import seedu.address.commons.core.amount.Amount;
+import seedu.address.logic.commands.SaveCommand;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
@@ -10,10 +11,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidSavedAmount(String)}
  */
 public class SavedAmount {
-
-    public static final String MESSAGE_PRICE_CONSTRAINTS =
-            "Saved Amount numbers should only contain numbers, and at most two numbers after the decimal point.";
-    public static final String SAVED_AMOUNT_VALIDATION_REGEX = "[+-]?[0-9]{1,14}([.]{1}[0-9]{1,2})?";
+    public static final String MESSAGE_SAVED_AMOUNT_CONSTRAINTS =
+            "Invalid saved amount value!";
+    public static final String MESSAGE_SAVED_AMOUNT_NEGATIVE = "Saved amount cannot be negative";
+    public static final String SAVED_AMOUNT_VALIDATION_REGEX = "[-+]?[0-9]{1,14}([.]{1}[0-9]{1,2})?";
     public final Double value;
 
     /**
@@ -23,8 +24,11 @@ public class SavedAmount {
      */
     public SavedAmount(String savedAmount) throws IllegalArgumentException {
         requireNonNull(savedAmount);
-        checkArgument(isValidSavedAmount(savedAmount), MESSAGE_PRICE_CONSTRAINTS);
-        value = Double.parseDouble(savedAmount); // TODO: check before allowing.
+        checkArgument(isValidSavedAmount(savedAmount), MESSAGE_SAVED_AMOUNT_CONSTRAINTS);
+        value = Double.parseDouble(savedAmount);
+        if(value.doubleValue() < 0) {
+            throw new IllegalArgumentException(MESSAGE_SAVED_AMOUNT_NEGATIVE);
+        }
     }
 
     /**

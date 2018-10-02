@@ -51,13 +51,18 @@ public class SaveCommand extends Command {
 
         Wish wishToEdit = lastShownList.get(index.getZeroBased());
 
-        Wish editedWish = new Wish(wishToEdit.getName(), wishToEdit.getPrice(), wishToEdit.getEmail(),
-                wishToEdit.getUrl(), wishToEdit.getSavedAmount().incrementSavedAmount(amountToSave),
-                wishToEdit.getRemark(), wishToEdit.getTags());
+        try {
+            Wish editedWish = new Wish(wishToEdit.getName(), wishToEdit.getPrice(), wishToEdit.getEmail(),
+                    wishToEdit.getUrl(), wishToEdit.getSavedAmount().incrementSavedAmount(amountToSave),
+                    wishToEdit.getRemark(), wishToEdit.getTags());
 
-        model.updateWish(wishToEdit, editedWish);
-        model.updateFilteredWishList(PREDICATE_SHOW_ALL_WISHES);
-        model.commitWishBook();
+            model.updateWish(wishToEdit, editedWish);
+            model.updateFilteredWishList(PREDICATE_SHOW_ALL_WISHES);
+            model.commitWishBook();
+        } catch(IllegalArgumentException iae) {
+            throw new CommandException(iae.getMessage());
+        }
+
 
         return new CommandResult(String.format(MESSAGE_SAVE_SUCCESS, amountToSave.toString(),
                 index.getOneBased()));
