@@ -25,6 +25,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -120,5 +121,23 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+    /**
+     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     */
+    //TODO: need to implement exceptions
+    public static String parseUsername(String username) throws ParseException {
+        requireNonNull(username);
+        String trimmedName = username.trim();
+        return username;
+    }
+    /**
+     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     */
+    //TODO: need to implement exceptions
+    public static String parsePassword(String password) throws ParseException {
+        requireNonNull(password);
+        String trimmedName = password.trim();
+        return password;
     }
 }
