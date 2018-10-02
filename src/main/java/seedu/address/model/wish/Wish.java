@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.commons.util.AppUtil;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -18,19 +19,25 @@ public class Wish {
     // Identity fields
     private final Name name;
     private final Price price;
-    private final SavedAmount savedAmount;
     private final Email email;
 
     // Data fields
     private final Url url;
     private final Remark remark;
     private final Set<Tag> tags = new HashSet<>();
+    private final SavedAmount savedAmount;
+    private final boolean isCompleted;
 
     /**
      * Every field must be present and not null.
      */
     public Wish(Name name, Price price, Email email, Url url, SavedAmount savedAmount, Remark remark, Set<Tag> tags) {
         requireAllNonNull(name, price, email, url, tags);
+        if(isSavedAmountGreaterThanOrEqualToPrice(savedAmount, price)) {
+            isCompleted = true;
+        } else {
+            isCompleted = false;
+        }
         this.name = name;
         this.price = price;
         this.email = email;
@@ -38,6 +45,13 @@ public class Wish {
         this.tags.addAll(tags);
         this.remark = remark;
         this.savedAmount = savedAmount;
+    }
+
+    /**
+     * Returns true if SaveAmount exceeds Price of wish.
+     */
+    private boolean isSavedAmountGreaterThanOrEqualToPrice(SavedAmount savedAmount, Price price) {
+        return savedAmount.value > price.value;
     }
 
     public Name getName() {
