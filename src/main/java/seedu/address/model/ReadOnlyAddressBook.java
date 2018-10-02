@@ -16,4 +16,5 @@ public interface ReadOnlyAddressBook {
      */
     ObservableList<Person> getPersonList();
     Budget getMaximumBudget();
-    Username getUsername();}
+    Username getUsername();
+}

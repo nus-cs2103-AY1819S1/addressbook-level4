@@ -1,12 +1,16 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.address.logic.commands.SetBudgetCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.budget.Budget;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 //@author winsonhys
+/**
+ * Parses input arguments and creates a new SetBudgetCommand object
+ */
 public class SetBudgetCommandParser implements Parser<SetBudgetCommand> {
 
     /**

@@ -1,10 +1,11 @@
 package seedu.address.model.budget;
 //@@author winsonhys
 
-import seedu.address.model.expense.Person;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+
+import seedu.address.model.expense.Person;
+
 
 /**
  * Represents maximum budget of an expense tracker
@@ -106,7 +107,9 @@ public class Budget {
         return this.budgetCap;
     }
 
-    public double getCurrentExpenses() { return this.currentExpenses; }
+    public double getCurrentExpenses() {
+        return this.currentExpenses;
+    }
 
     @Override
     public boolean equals(Object budget) {
