@@ -43,7 +43,7 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook, userPrefs and calendarStorage.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyBudgetBook budgetbook, UserPrefs userPrefs,
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyBudgetBook budgetBook, UserPrefs userPrefs,
                         CalendarStorage calendarStorage) {
         super();
         requireAllNonNull(addressBook, userPrefs, calendarStorage);
@@ -52,7 +52,7 @@ public class ModelManager extends ComponentManager implements Model {
             + " and calendar: " + calendarStorage);
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
-        versionedBudgetBook = new VersionedBudgetBook(budgetbook);
+        versionedBudgetBook = new VersionedBudgetBook(budgetBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredCcas = new FilteredList<>(versionedBudgetBook.getCcaList());
         this.userPrefs = userPrefs;
@@ -63,14 +63,14 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook, userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyBudgetBook budgetbook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyBudgetBook budgetBook, UserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
-        versionedBudgetBook = new VersionedBudgetBook(budgetbook);
+        versionedBudgetBook = new VersionedBudgetBook(budgetBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredCcas = new FilteredList<>(versionedBudgetBook.getCcaList());
         this.emailModel = new EmailModel();
@@ -84,6 +84,16 @@ public class ModelManager extends ComponentManager implements Model {
         this(new AddressBook(), new BudgetBook(), new UserPrefs());
     }
 
+    public ModelManager(AddressBook addressBook, UserPrefs userPrefs) {
+        versionedAddressBook = new VersionedAddressBook(addressBook);
+        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        versionedBudgetBook = null;
+        filteredCcas = null;
+        emailModel = null;
+        calendarModel = null;
+        this.userPrefs = userPrefs;
+    }
+
     @Override
     public void resetData(ReadOnlyAddressBook newData) {
         versionedAddressBook.resetData(newData);
@@ -94,6 +104,9 @@ public class ModelManager extends ComponentManager implements Model {
     public ReadOnlyAddressBook getAddressBook() {
         return versionedAddressBook;
     }
+
+    @Override
+    public ReadOnlyBudgetBook getBudgetBook() { return versionedBudgetBook; }
 
     /**
      * Raises an event to indicate the model has changed

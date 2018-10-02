@@ -34,7 +34,7 @@ class EraseCommandTest {
         ContactContainsTagPredicate predicate = new ContactContainsTagPredicate(target);
         EraseCommand eraseCommand = new EraseCommand(target, predicate);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), model.getBudgetBook(), new UserPrefs());
         List<Person> original = new ArrayList<>();
         original.add(p);
         Set<Tag> editedTags = new HashSet<>();

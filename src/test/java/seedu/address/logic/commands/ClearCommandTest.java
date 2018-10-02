@@ -57,7 +57,7 @@ public class ClearCommandTest {
         ContactContainsTagPredicate predicate = new ContactContainsTagPredicate(target);
         ClearCommand clearCommand = new ClearCommand(target, predicate);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), model.getBudgetBook(), new UserPrefs());
         List<Person> persons = new ArrayList<>();
         persons.add(p);
         expectedModel.clearMultiplePersons(persons);
