@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -14,6 +15,8 @@ import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.user.User;
+import seedu.address.model.user.Username;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -23,12 +26,20 @@ public class StorageManager extends ComponentManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
-
+    private UsersStorage usersStorage;
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
+    }
+
+    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
+                          UsersStorage usersStorage) {
+        super();
+        this.addressBookStorage = addressBookStorage;
+        this.userPrefsStorage = userPrefsStorage;
+        this.usersStorage = usersStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -90,4 +101,30 @@ public class StorageManager extends ComponentManager implements Storage {
         }
     }
 
+    // ================ Users methods ==============================
+    public Path getUsersFilePath() {
+        return usersStorage.getUsersFilePath();
+    }
+
+    @Override
+    public Optional<HashMap<Username, User>> readUsers() throws DataConversionException, IOException {
+        return readUsers(usersStorage.getUsersFilePath());
+    }
+
+    @Override
+    public Optional<HashMap<Username, User>> readUsers(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return usersStorage.readUsers(filePath);
+    }
+
+    @Override
+    public void saveUsers(HashMap<Username, User> usernameUserHashMap) throws IOException {
+        saveUsers(usernameUserHashMap, usersStorage.getUsersFilePath());
+    }
+
+    @Override
+    public void saveUsers(HashMap<Username, User> usernameUserHashMap, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        usersStorage.saveUsers(usernameUserHashMap, filePath);
+    }
 }

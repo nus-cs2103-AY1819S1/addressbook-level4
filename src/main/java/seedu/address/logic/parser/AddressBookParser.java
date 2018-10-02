@@ -84,6 +84,20 @@ public class AddressBookParser {
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
 
+        // Restaurant Commands
+
+        // Friend Commands
+
+        // Jio Commands
+
+        // Group Commands
+
+        // Timetable Commands
+
+        // Accounting Commands
+
+        // Other Additional Makan Book Commands
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

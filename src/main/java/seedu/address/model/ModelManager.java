@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.HashMap;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -12,7 +13,9 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.model.person.Person;
+import seedu.address.model.restaurant.Restaurant;
+import seedu.address.model.user.User;
+import seedu.address.model.user.Username;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -21,7 +24,9 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final VersionedAddressBook versionedAddressBook;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Restaurant> filteredRestaurants;
+    private HashMap<Username, User> usernameUserHashMap;
+    private boolean isLoggedIn = false;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -33,7 +38,19 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredRestaurants = new FilteredList<>(versionedAddressBook.getRestaurantList());
+    }
+
+    public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs,
+                        HashMap<Username, User> usernameUserHashMap) {
+        super();
+        requireAllNonNull(addressBook, userPrefs, usernameUserHashMap);
+
+        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+
+        versionedAddressBook = new VersionedAddressBook(addressBook);
+        filteredRestaurants = new FilteredList<>(versionedAddressBook.getRestaurantList());
+        this.usernameUserHashMap = usernameUserHashMap;
     }
 
     public ModelManager() {
@@ -57,47 +74,47 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return versionedAddressBook.hasPerson(person);
+    public boolean hasRestaurant(Restaurant restaurant) {
+        requireNonNull(restaurant);
+        return versionedAddressBook.hasRestaurant(restaurant);
     }
 
     @Override
-    public void deletePerson(Person target) {
-        versionedAddressBook.removePerson(target);
+    public void deleteRestaurant(Restaurant target) {
+        versionedAddressBook.removeRestaurant(target);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void addPerson(Person person) {
-        versionedAddressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addRestaurant(Restaurant restaurant) {
+        versionedAddressBook.addRestaurant(restaurant);
+        updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void updatePerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void updateRestaurant(Restaurant target, Restaurant editedRestaurant) {
+        requireAllNonNull(target, editedRestaurant);
 
-        versionedAddressBook.updatePerson(target, editedPerson);
+        versionedAddressBook.updateRestaurant(target, editedRestaurant);
         indicateAddressBookChanged();
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Restaurant List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Restaurant} backed by the internal list of
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return FXCollections.unmodifiableObservableList(filteredPersons);
+    public ObservableList<Restaurant> getFilteredRestaurantList() {
+        return FXCollections.unmodifiableObservableList(filteredRestaurants);
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredRestaurantList(Predicate<Restaurant> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredRestaurants.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -144,7 +161,7 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredRestaurants.equals(other.filteredRestaurants);
     }
 
 }

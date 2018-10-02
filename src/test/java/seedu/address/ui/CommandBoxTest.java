@@ -137,6 +137,7 @@ public class CommandBoxTest extends GuiUnitTest {
     }
 
     /**
+     *
      * Runs a command that succeeds, then verifies that <br>
      *      - the text is cleared <br>
      *      - the command box's style is the same as {@code defaultStyleOfCommandBox}.
