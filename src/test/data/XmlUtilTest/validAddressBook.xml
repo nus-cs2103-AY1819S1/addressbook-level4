@@ -46,4 +46,8 @@
         <cost isPrivate="false">123.00</cost>
     </persons>
     <username>validAddressBook</username>
+    <budget>
+        <budgetCap>28.00</budgetCap>
+        <currentExpenses>26.00</currentExpenses>
+    </budget>
 </addressbook>
