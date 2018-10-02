@@ -4,13 +4,13 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DUEDATE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DUEDATE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LABEL_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LABEL_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_VALUE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_VALUE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_IN_PROGRESS;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_LABEL_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_LABEL_HUSBAND;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,7 +55,9 @@ public class TypicalTasks {
 
     // Manually added - Task's details found in {@code CommandTestUtil}
     public static final Task Y_TASK = new TaskBuilder().withName(VALID_NAME_AMY).withDueDate(VALID_DUEDATE_AMY)
-            .withPriorityValue(VALID_PRIORITY_VALUE_AMY).withDescription(VALID_ADDRESS_AMY).withLabels(VALID_LABEL_FRIEND)
+            .withPriorityValue(VALID_PRIORITY_VALUE_AMY)
+            .withDescription(VALID_ADDRESS_AMY)
+            .withLabels(VALID_LABEL_FRIEND)
             .withStatus(VALID_STATUS_IN_PROGRESS).build();
     public static final Task Z_TASK = new TaskBuilder().withName(VALID_NAME_BOB)
             .withDueDate(VALID_DUEDATE_BOB)

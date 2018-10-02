@@ -200,7 +200,8 @@ public class ParserUtilTest {
     @Test
     public void parseLabels_collectionWithValidLabels_returnsLabelSet() throws Exception {
         Set<Label> actualLabelSet = ParserUtil.parseLabels(Arrays.asList(VALID_LABEL_1, VALID_LABEL_2));
-        Set<Label> expectedLabelSet = new HashSet<Label>(Arrays.asList(new Label(VALID_LABEL_1), new Label(VALID_LABEL_2)));
+        Set<Label> expectedLabelSet = new HashSet<Label>(Arrays.asList(new Label(VALID_LABEL_1),
+              new Label(VALID_LABEL_2)));
 
         assertEquals(expectedLabelSet, actualLabelSet);
     }
