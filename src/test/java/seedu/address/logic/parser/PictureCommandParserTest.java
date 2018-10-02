@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.PictureCommand;
 
+//@@author denzelchung
 public class PictureCommandParserTest {
 
     private static final String MESSAGE_INVALID_FORMAT =

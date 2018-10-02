@@ -10,6 +10,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+//@@author denzelchung
 /**
  * Adds a picture to a contact in the address book.
  */
