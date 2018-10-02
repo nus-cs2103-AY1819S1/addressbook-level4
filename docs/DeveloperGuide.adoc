@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= Tutor Pal - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,7 +13,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-T13-1/main
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
@@ -820,13 +820,12 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Full-time private tutor
+* manages a huge number of student contacts
+* has to constantly review and update students' academic progress
+* comfortable with CLI applications
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: Manage an address book containing list of students faster than a typical mouse driven application
 
 [appendix]
 == User Stories
@@ -838,18 +837,44 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |tutor |add a new student |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |tutor |delete a student |remove entries that I no longer need
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |tutor |find a student by name |locate details of students without having to go through the entire list
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |tutor |record the current grades of a student |
+
+|`* * *` |tutor |sort the students by their grades |track the performance of each student relative to their peers
+
+|`* * *` |tutor |retrieve the list of grades and the number of students with each grade |identify students who need more help
+
+|`* * *` |tutor |undo the most recent modification |recover unintentional changes
+
+|`* * *` |tutor |access and modify the info of students |updates any changes to student information
+
+|`* * *` |tutor |have fuzzy matching when i do the searching |search for something i can't remember the name clearly
+
+|`* *` |tutor |plan my tutoring schedules |manage my time more efficiently
+
+|`* *` |tutor |calculate my total earnings from tuition fees within a certain range of date |
+
+|`* *` |tutor |record the attendance of a student |
+
+|`* *` |tutor |create and allocate students into different groups |categorise the students according to their ability to learn
+
+|`* *` |tutor |write and check teaching log and plan for a student or a group |trace teaching progress for every student or every group and can store the plan for them in the system easily as well
+
+|`*` |tutor |have a short description of my students' distinct features |it will help me remember their names better
+
+|`*` |tutor |see the graphical representation of a student’s performance over the year |track the performance of a student
+
+|`*` |tutor |the system to require username and  password to log in and verify the user by requiring password again if user want to change something very important such as deleting a student directly |decide which one can access the system and change the content
+
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -882,16 +907,184 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+=== Use case: Adding a student
+
+*MSS*
+
+1. User enters the details of the student
+2. System displays the details entered for confirmation
+3. System displays successful message
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. User did not specify all the attributes of a student.
++
+[none]
+** 1a1. Dummy variables are created for missing attributes.
+
+* 1a*. Phone number of student already exist in the address book.
++
+[none]
+** 1a*1. System display student already exists in address book message.
+
+* 2a. User chooses to cancel the addition.
++
+[none]
+** 2a1. System displays command cancelled message.
+
+* 3a. The student name entered already exists.
++
+[none]
+** 3a1. System asks user whether wants to overwrite existing information or create a new student.
+
+=== Use case: Editing a student
+
+*MSS*
+
+1. User enters the name of student and the details to be edited
+2. System displays the new details of the students for confirmation
+3. System displays successful message
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. Multiple students with the same name are shown.
++
+[none]
+** 1a1. System displays a list of students with the same name.
++
+** 1a2. System request for the index of the student to be edited.
+
+* 1a*. No student with such name is found.
++
+[none]
+** 1a*1. System displays no such student found message.
+
+* 2a. User chooses to cancel the modification.
++
+[none]
+** 2a1. System displays command cancelled message.
+
+=== Use case: Calculate total earnings
+
+*MSS*
+
+1. User requests to calculate and display earning in a certain month
+2. System calculates and displays total earnings in that month
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. User inputs an invalid date.
++
+[none]
+** 1a1. System displays an error message.
++
+** 1a2. System prompts user for a corrected input.
++
+Use case resumes from step 2.
+
+=== Use case: Find information of students
+
+*MSS*
+
+1. User requests to find and indicates the retrieve information, method & required information
+2. System retrieve information and display them
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. User inputs invalid commands
++
+[none]
+** 1a1. System displays error messages.
++
+** 1a2. System displays the correct format of find command.
++
+Use case ends.
+
+* 1b. System is unable to find the record satisfying the requirement
++
+[none]
+** 1b1. System print a “unable to find” warning
++
+Use case ends.
+
+=== Use case: Sorting students by grades
+
+*MSS*
+
+1. User requests to sort students by grades in a exam
+2. System display the relevant information sorted
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. User did not indicate the exam or indicate a wrong exam number
++
+[none]
+** 1a1. System display the list of exams.
++
+** 1a2. User choose one exam.
++
+** 1a3. System display the relevant information sorted.
++
+Use case ends.
+
+*** 1a2a. User choose a wrong number of exam.
++
+[none]
+**** 1a2a1. System print a warning of “wrong input”.
++
+Use case ends.
+
+=== Use case: Listing grades of a student
+
+*MSS*
+
+1. User request to listing grades of a student
+2. System display the list
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. User did not indicate the student or indicate a wrong student.
++
+[none]
+** 1a1. System display the list of students.
++
+** 1a2. User choose one student.
++
+** 1a3. System display the list of grades.
++
+Use case ends.
+
+*** 1a2a. User choose a wrong number of student.
++
+**** 1a2a1. System print a warning of “wrong input”.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 10000 students without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  Does not require an Internet connection
 
 [appendix]
 == Glossary
@@ -901,6 +1094,9 @@ Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
+
+[[fuzzyFind]] fuzzyFind::
+Find something whose edit distance with keyword is less than or equal to 2.
 
 [appendix]
 == Product Survey

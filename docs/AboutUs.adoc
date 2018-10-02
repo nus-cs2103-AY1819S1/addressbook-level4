@@ -4,53 +4,53 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
+TutorPal was developed by the CS2103-AY1819S1-T13-1 team. +
 _{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Chua Chenlu
+image::ccl.png[width="150", align="left"]
+{empty}[https://github.com/chenlu-chua[github]] [<<johndoe#, portfolio>>]
 
-Role: Project Advisor
+Role: Team lead + Testing
 
 '''
 
-=== John Roe
+=== Chen Juan
 image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/CJuanvip[github]] [<<johndoe#, portfolio>>]
 
-Role: Team Lead +
+Role: Deliverables and deadline + Scheduling and tracking
 Responsibilities: UI
 
 '''
 
-=== Johnny Doe
+=== Liu Zhaoyu
 image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/LZYAndy[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
+Role: Documentation + Code quality
 Responsibilities: Data
 
 '''
 
-=== Johnny Roe
+=== Ong Junjie
 image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/junjiee[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
+Role: Code quality
 Responsibilities: Dev Ops + Threading
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Xiong Haoran
+image::hrxiong.png[width="150", align="left"]
+{empty}[http://github.com/hrxiong[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
+Role: Testing + Integration
 Responsibilities: UI
 
 '''
