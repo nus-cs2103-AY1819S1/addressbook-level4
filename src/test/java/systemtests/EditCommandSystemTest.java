@@ -205,7 +205,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 + ADDRESS_DESC_BOB + LABEL_DESC_FRIEND + LABEL_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_TASK);
 
-        /* Case: edit a person with new values same as another person's values but with different tags -> rejected */
+        /* Case: edit a person with new values same as another task's values but with different labels -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
                 + PHONE_DESC_BOB + PRIORITY_VALUE_DESC_BOB
                 + ADDRESS_DESC_BOB + LABEL_DESC_HUSBAND;
