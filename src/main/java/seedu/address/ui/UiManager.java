@@ -40,7 +40,7 @@ public class UiManager extends ComponentManager implements Ui {
     private Logic logic;
     private Config config;
     private UserPrefs prefs;
-    private LoginWindow loginWindow;
+    private MainWindow loginWindow;
 
     public UiManager(Logic logic, Config config, UserPrefs prefs) {
         super();
@@ -57,7 +57,7 @@ public class UiManager extends ComponentManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            loginWindow = new LoginWindow(primaryStage, config, prefs, logic);
+            loginWindow = new MainWindow(primaryStage, config, prefs, logic);
             loginWindow.show(); //This should be called before creating other UI parts
             loginWindow.fillInnerParts();
             loginWindow.viewInFullScreen(); //View this app in full-screen exclusive
