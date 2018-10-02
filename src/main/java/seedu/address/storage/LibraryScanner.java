@@ -17,7 +17,7 @@ public class LibraryScanner {
      * @return
      */
     public static void scan(Library library) {
-        File folder = new File(Library.libraryDir);
+        File folder = new File(Library.LIBRARYDIR);
         File[] listOfFiles = folder.listFiles((dir, name) -> name.toLowerCase().endsWith(".mp3"));
         List<Track> trackList = new ArrayList<>();
         for (int i = 0; i < listOfFiles.length; i++) {

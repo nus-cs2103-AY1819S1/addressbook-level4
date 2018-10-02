@@ -8,7 +8,7 @@ import seedu.address.commons.util.CollectionUtil;
  * Represents the library in JxMusic
  */
 public class Library {
-    public static final String libraryDir = "library/";
+    public static final String LIBRARYDIR = "library/";
 
     // tracks are mp3 files in /library folder
     // so it can change if new file added into folder when program is running
