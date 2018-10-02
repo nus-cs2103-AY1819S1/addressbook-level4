@@ -2,6 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -129,6 +131,34 @@ public class ParserUtil {
         return tagSet;
     }
 
+    /**
+     * Parses a {@code String groupTag} into a {@code Tag}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code groupTag} is invalid.
+     */
+    public static Tag parseGroupTag(String groupTag) throws ParseException {
+        requireNonNull(groupTag);
+        String trimmedGroupTag = groupTag.trim();
+        if (!Tag.isValidTagName(trimmedGroupTag)) {
+            throw new ParseException(Tag.MESSAGE_TAG_CONSTRAINTS);
+        }
+        return new Tag(trimmedGroupTag);
+    }
+
+    /**
+     * Parses a {@code Collection<String> groupTags} into a {@code Set<Tag>}
+     */
+    public static Set<Tag> parseGroupTags(Collection<String> groupTags) throws ParseException {
+        if (groupTags == null || groupTags.isEmpty()) {
+            return null;
+        }
+        final Set<Tag> groupTagSet = new HashSet<>();
+        for (String groupTagName : groupTags) {
+            groupTagSet.add(parseGroupTag(groupTagName));
+        }
+        return groupTagSet;
+    }
 
     /**
      * Parses a {@code String title} into a {@code Title}.
@@ -216,5 +246,15 @@ public class ParserUtil {
         } catch (IllegalArgumentException e) {
             throw new ParseException(PersonPropertyComparator.MESSAGE_PERSON_PROPERTY_CONSTRAINTS);
         }
+    }
+
+    /**
+     * Parse {@code String filepath} into {@code Path}.
+     */
+    public static Path parsePath(String filepath) throws ParseException {
+        requireNonNull(filepath);
+        String trimmed = filepath.trim();
+        Path path = Paths.get(trimmed);
+        return path;
     }
 }
