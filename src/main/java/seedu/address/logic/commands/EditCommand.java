@@ -106,7 +106,7 @@ public class EditCommand extends Command {
         Person updatedPerson = new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
 
         editPersonDescriptor.getGroupTags().ifPresentOrElse(updatedPerson::setGroupTags,
-                () -> updatedPerson.setGroupTags(personToEdit.getGroupTags()));
+            () -> updatedPerson.setGroupTags(personToEdit.getGroupTags()));
 
         return updatedPerson;
     }
