@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class School {
     public static final String MESSAGE_SCHOOL_CONSTRAINTS =
             "School should only contain alphanumeric characters and spaces, and it should not be blank.";
-    public static final String SCHOOL_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String SCHOOL_VALIDATION_REGEX = "\\\\p*Alnum}+";
 
     public final String schoolName;
 
@@ -41,5 +41,10 @@ public class School {
         return other == this // short circuit if same object
                 || (other instanceof School // instanceof handles nulls
                 && schoolName.equals(((School) other).schoolName));
+    }
+
+    @Override
+    public int hashCode() {
+        return schoolName.hashCode();
     }
 }

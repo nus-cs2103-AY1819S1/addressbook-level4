@@ -10,7 +10,7 @@ public class Room {
     public static final String MESSAGE_ROOM_CONSTRAINTS =
             "Room numbers should only be alphanumeric, and the first character should be an alphabet,"
             + "followed by 3 digits.";
-    public static final String ROOM_VALIDATION_REGEX = "\\D\\d{3,}";
+    public static final String ROOM_VALIDATION_REGEX = "\\\\p*Alnum}+";
     public final String value;
 
     /**
@@ -41,5 +41,10 @@ public class Room {
         return other == this // short circuit if same object
                 || (other instanceof Room // instanceof handles nulls
                 && value.equals(((Room) other).value));
+    }
+
+    @Override
+    public int hashCode() {
+        return value.hashCode();
     }
 }
