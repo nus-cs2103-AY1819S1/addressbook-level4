@@ -12,12 +12,11 @@ public class PreferenceQueueTest {
     private ModelManager modelManager = new ModelManager();
     @Test
     public void hasPatient_patientNotInPreferenceQueue_returnsFalse() {
-        assertFalse(modelManager.hasPatientInMainQueue()); // using main model's main queue
-        // rather than preference queue
+        assertFalse(modelManager.hasPatientInPreferenceQueue());
     }
     @Test
     public void hasPatient_patientInPreferenceQueue_returnTrue() {
         modelManager.enqueue(ALICE);
-        assertTrue(modelManager.hasPatientInMainQueue());
+        assertTrue(modelManager.hasPatientInPreferenceQueue());
     }
 }

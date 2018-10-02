@@ -15,6 +15,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.patientqueue.MainQueue;
+import seedu.address.model.patientqueue.PreferenceQueue;
 import seedu.address.model.person.Person;
 
 /**
@@ -25,8 +26,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
-    private final MainQueue mainQueue;
     private final FilteredList<Doctor> filteredDoctors;
+    private final MainQueue mainQueue;
+    private final PreferenceQueue preferenceQueue;
 
 
     /**
@@ -42,7 +44,9 @@ public class ModelManager extends ComponentManager implements Model {
         //@@author jjlee050
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredDoctors = new FilteredList<>(versionedAddressBook.getDoctorList());
+        //@@author iamjackslayer
         mainQueue = new MainQueue();
+        preferenceQueue = new PreferenceQueue();
 
     }
 
@@ -111,6 +115,10 @@ public class ModelManager extends ComponentManager implements Model {
         mainQueue.add(patient);
     }
     @Override
+    public void enqueueIntoPreferenceQueue(Person patient) {
+        preferenceQueue.add(patient);
+    }
+    @Override
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
         versionedAddressBook.updatePerson(target, editedPerson);
@@ -119,6 +127,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public boolean hasPatientInMainQueue() {
         return mainQueue.hasPatient();
+    }
+
+    @Override
+    public boolean hasPatientInPreferenceQueue() {
+        return preferenceQueue.hasPatient();
     }
     //@@author jjlee050
     @Override
