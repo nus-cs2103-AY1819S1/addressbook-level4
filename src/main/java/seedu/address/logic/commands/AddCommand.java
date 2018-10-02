@@ -19,13 +19,13 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task manager. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_DUE_DATE + "PHONE "
-            + PREFIX_PRIORITY_VALUE + "EMAIL "
-            + PREFIX_DESCRIPTION + "ADDRESS "
-            + "[" + PREFIX_LABEL + "TAG]...\n"
+            + PREFIX_PRIORITY_VALUE + "PRIORITY VALUE "
+            + PREFIX_DESCRIPTION + "DESCRIPTION "
+            + "[" + PREFIX_LABEL + "LABEL]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_DUE_DATE + "02-12-18 1330 "
@@ -35,7 +35,7 @@ public class AddCommand extends Command {
             + PREFIX_LABEL + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
     public static final String MESSAGE_EXPIRED_TASK = "The date of task added is before current time";
 
     private final Task toAdd;
