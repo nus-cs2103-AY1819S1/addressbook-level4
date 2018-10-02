@@ -217,7 +217,7 @@ public class AddressBookParserTest {
         assertTrue(parser.parseCommand("u 3") instanceof UndoCommand);
     }
 
-    //@@author A19Sean-reused
+    //@@author A19Sean
     @Test
     public void parseCommandWord_tag() throws Exception {
         List<String> keywords = Arrays.asList("foo", "friends", "colleagues");
