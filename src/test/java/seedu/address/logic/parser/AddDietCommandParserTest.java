@@ -10,7 +10,7 @@ import static seedu.address.testutil.TypicalPersons.AMY;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddDietCommand;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -22,6 +22,6 @@ public class AddDietCommandParserTest {
         // zero tags
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
         assertParseSuccess(parser, NRIC_DESC_AMY + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
-                new AddCommand(expectedPerson));
+                new AddDietCommand(expectedPerson));
     }
 }
