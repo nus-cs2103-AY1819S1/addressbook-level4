@@ -188,9 +188,9 @@ Format: `from/DDMM to/DDMM`
 DDMM is the format of date to be entered
 ====
 
-Examples:
+Example:
 
-`earnings from/0204 to/2504`
+* `earnings from/0204 to/2504` +
 This input returns the total amount of tuition fees earned from 2 February 2018 to 25 April 2018 inclusive.
 
 // tag::undoredo[]
