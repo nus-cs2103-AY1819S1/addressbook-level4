@@ -53,6 +53,10 @@ public class WishCard extends UiPart<Region> {
         name.setText(wish.getName().fullName);
         progress.setText(getProgressInString(wish));
         progressBar.setProgress(getProgress(wish));
+
+        if(wish.isFulfilled()) {
+            cardPane.setOpacity(0.5);
+        }
         initTags(wish);
     }
 
