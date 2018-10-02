@@ -51,7 +51,7 @@ public class XmlAddressBookStorage implements AddressBookStorage {
             return Optional.empty();
         }
 
-        XmlSerializableAddressBook xmlAddressBook = XmlFileStorage.loadDataFromSaveABFile(filePath);
+        XmlSerializableAddressBook xmlAddressBook = XmlFileStorage.loadDataFromSaveAbFile(filePath);
         try {
             return Optional.of(xmlAddressBook.toModelType());
         } catch (IllegalValueException ive) {
@@ -74,7 +74,7 @@ public class XmlAddressBookStorage implements AddressBookStorage {
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        XmlFileStorage.saveDataToABFile(filePath, new XmlSerializableAddressBook(addressBook));
+        XmlFileStorage.saveDataToAbFile(filePath, new XmlSerializableAddressBook(addressBook));
     }
 
 }

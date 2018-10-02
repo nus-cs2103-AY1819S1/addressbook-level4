@@ -17,7 +17,8 @@ import seedu.address.model.UserPrefs;
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, BudgetBookStorage, UserPrefsStorage, CalendarStorage, EmailStorage {
+public interface Storage extends AddressBookStorage, BudgetBookStorage, UserPrefsStorage, CalendarStorage,
+    EmailStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -45,15 +46,16 @@ public interface Storage extends AddressBookStorage, BudgetBookStorage, UserPref
 
     /**
      * Saves the current version of the Address Book to the hard disk.
-     *   Creates the data file if it is missing.
+     * Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
     void handleAddressBookChangedEvent(AddressBookChangedEvent abce);
 
     //@@author EatOrBeEaten
+
     /**
      * Saves the current Email in EmailModel to the hard disk.
-     *   Creates the data file if it is missing.
+     * Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
     void handleEmailSavedEvent(EmailSavedEvent abce);

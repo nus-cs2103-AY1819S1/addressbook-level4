@@ -52,7 +52,7 @@ public class XmlBudgetBookStorage implements BudgetBookStorage {
             return Optional.empty();
         }
 
-        XmlSerializableBudgetBook xmlBudgetBook = XmlFileStorage.loadDataFromSaveBBFile(filePath);
+        XmlSerializableBudgetBook xmlBudgetBook = XmlFileStorage.loadDataFromSaveBbFile(filePath);
         try {
             return Optional.of(xmlBudgetBook.toModelType());
         } catch (IllegalValueException ive) {
@@ -76,7 +76,7 @@ public class XmlBudgetBookStorage implements BudgetBookStorage {
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        XmlFileStorage.saveDataToBBFile(filePath, new XmlSerializableBudgetBook(budgetBook));
+        XmlFileStorage.saveDataToBbFile(filePath, new XmlSerializableBudgetBook(budgetBook));
     }
 
 }

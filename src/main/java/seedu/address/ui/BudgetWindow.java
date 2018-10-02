@@ -36,6 +36,9 @@ public class BudgetWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
+    @FXML
+    private StackPane commandBoxPlaceholder;
+
 
     /**
      * Creates a new BudgetWindow.
@@ -56,6 +59,9 @@ public class BudgetWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+
+        CommandBox commandBox = new CommandBox(logic);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         personListPanel = new CcaListPanel(logic.getFilteredCcaList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());

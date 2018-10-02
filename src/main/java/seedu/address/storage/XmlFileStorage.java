@@ -15,7 +15,7 @@ public class XmlFileStorage {
     /**
      * Saves the given addressbook data to the specified file.
      */
-    public static void saveDataToABFile(Path file, XmlSerializableAddressBook addressBook)
+    public static void saveDataToAbFile(Path file, XmlSerializableAddressBook addressBook)
             throws FileNotFoundException {
         try {
             XmlUtil.saveDataToFile(file, addressBook);
@@ -27,7 +27,7 @@ public class XmlFileStorage {
     /**
      * Saves the given budgetbook data to the specified file.
      */
-    public static void saveDataToBBFile(Path file, XmlSerializableBudgetBook budgetBook)
+    public static void saveDataToBbFile(Path file, XmlSerializableBudgetBook budgetBook)
         throws FileNotFoundException {
         try {
             XmlUtil.saveDataToFile(file, budgetBook);
@@ -39,7 +39,7 @@ public class XmlFileStorage {
     /**
      * Returns address book in the file or an empty address book
      */
-    public static XmlSerializableAddressBook loadDataFromSaveABFile(Path file) throws DataConversionException,
+    public static XmlSerializableAddressBook loadDataFromSaveAbFile(Path file) throws DataConversionException,
                                                                             FileNotFoundException {
         try {
             return XmlUtil.getDataFromFile(file, XmlSerializableAddressBook.class);
@@ -51,7 +51,7 @@ public class XmlFileStorage {
     /**
      * Returns address book in the file or an empty budget book
      */
-    public static XmlSerializableBudgetBook loadDataFromSaveBBFile(Path file) throws DataConversionException,
+    public static XmlSerializableBudgetBook loadDataFromSaveBbFile(Path file) throws DataConversionException,
         FileNotFoundException {
         try {
             return XmlUtil.getDataFromFile(file, XmlSerializableBudgetBook.class);

@@ -14,7 +14,7 @@ public class Budget {
 
     public Budget(int initial) {
         this.initial = initial;
-        this.spent= INITIAL_SPENDING;
+        this.spent = INITIAL_SPENDING;
         this.outstanding = initial;
         this.transaction = new Transaction();
     }

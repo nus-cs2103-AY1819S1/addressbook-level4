@@ -1,6 +1,5 @@
 package seedu.address.storage;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -8,7 +7,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.budget.Budget;
@@ -69,7 +67,8 @@ public class XmlAdaptedCca {
      * Constructs an XmlAdaptedTag.
      * This is the no-arg constructor that is required by JAXB.
      */
-    public XmlAdaptedCca() {}
+    public XmlAdaptedCca() {
+    }
 
     /**
      * Constructs a {@code XmlAdaptedCca} with the given {@code ccaName}.
@@ -200,7 +199,6 @@ public class XmlAdaptedCca {
 
         return new Cca(modelCcaName, modelHead, modelViceHead, modelBudget);
     }
-
 
 
     @Override

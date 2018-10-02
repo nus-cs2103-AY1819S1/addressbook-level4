@@ -15,14 +15,12 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.model.cca.Cca;
-import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
 import seedu.address.commons.events.model.CalendarCreatedEvent;
 import seedu.address.commons.events.model.EmailSavedEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.calendar.Month;
 import seedu.address.model.calendar.Year;
+import seedu.address.model.cca.Cca;
 import seedu.address.model.person.Person;
 import seedu.address.storage.CalendarStorage;
 import seedu.address.storage.IcsCalendarStorage;
@@ -44,12 +42,13 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook, userPrefs and calendarStorage.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyBudgetBook budgetbook, UserPrefs userPrefs, CalendarStorage calendarStorage) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyBudgetBook budgetbook, UserPrefs userPrefs,
+                        CalendarStorage calendarStorage) {
         super();
         requireAllNonNull(addressBook, userPrefs, calendarStorage);
 
         logger.fine("Initializing with address book: " + addressBook + " , user prefs " + userPrefs
-                + " and calendar: " + calendarStorage);
+            + " and calendar: " + calendarStorage);
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         versionedBudgetBook = new VersionedBudgetBook(budgetbook);
@@ -95,7 +94,9 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedAddressBook;
     }
 
-    /** Raises an event to indicate the model has changed */
+    /**
+     * Raises an event to indicate the model has changed
+     */
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(versionedAddressBook));
     }
@@ -187,7 +188,9 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author GilgameshTC
     //=========== Calendar =================================================================================
 
-    /** Raises an event to indicate the calendar model has changed */
+    /**
+     * Raises an event to indicate the calendar model has changed
+     */
     private void indicateCalendarModelChanged() {
         raise(new CalendarCreatedEvent(calendarModel));
     }
@@ -230,8 +233,8 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
-                && filteredPersons.equals(other.filteredPersons)
-                && calendarModel.equals(other.calendarModel);
+            && filteredPersons.equals(other.filteredPersons)
+            && calendarModel.equals(other.calendarModel);
     }
 
     //@@author EatOrBeEaten
@@ -243,7 +246,9 @@ public class ModelManager extends ComponentManager implements Model {
         indicateEmailSaved();
     }
 
-    /** Raises an event to indicate the model has changed */
+    /**
+     * Raises an event to indicate the model has changed
+     */
     private void indicateEmailSaved() {
         raise(new EmailSavedEvent(emailModel));
     }
