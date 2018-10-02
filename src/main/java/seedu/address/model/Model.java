@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.simplejavamail.email.Email;
@@ -30,6 +31,11 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
+     * Returns the BudgetBook
+     */
+    ReadOnlyBudgetBook getBudgetBook();
+
+    /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
     boolean hasPerson(Person person);
@@ -39,6 +45,18 @@ public interface Model {
      * The person must exist in the address book.
      */
     void deletePerson(Person target);
+
+    /**
+     * Clears the given persons.
+     * The persons must exist in the address book.
+     */
+    void clearMultiplePersons(List<Person> target);
+
+    /**
+     * Removes tag(s) from given persons.
+     * The persons must exist in the address book.
+     */
+    void removeTagsFromPersons(List<Person> target, List<Person> original);
 
     /**
      * Adds the given person.

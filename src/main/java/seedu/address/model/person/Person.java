@@ -43,7 +43,8 @@ public class Person {
         this.name = name;
         this.phone = null;
         this.email = null;
-        this.address = null;
+        this.room = null;
+        this.school = null;
     }
 
     public Name getName() {
@@ -82,10 +83,11 @@ public class Person {
     public Set<Tag> getFields() {
         Set<Tag> fields = new HashSet<>();
         fields.addAll(tags);
-        fields.add(new Tag(this.school.schoolName));
-        fields.add(new Tag(this.room.roomNumber));
+        fields.add(new Tag(this.school.value));
+        fields.add(new Tag(this.room.value));
         return Collections.unmodifiableSet(fields);
     }
+
     //@@author
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.

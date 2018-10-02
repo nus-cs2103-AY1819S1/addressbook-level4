@@ -84,8 +84,8 @@ public class PersonCardHandle extends NodeHandle<Node> {
      */
     public boolean equals(Person person) {
         return getName().equals(person.getName().fullName)
-                && getRoom().equals(person.getRoom().roomNumber)
-                && getSchool().equals(person.getSchool().schoolName)
+                && getRoom().equals(person.getRoom().value)
+                && getSchool().equals(person.getSchool().value)
                 && getPhone().equals(person.getPhone().value)
                 && getEmail().equals(person.getEmail().value)
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(person.getTags().stream()
