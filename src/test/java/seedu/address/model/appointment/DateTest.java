@@ -14,7 +14,7 @@ public class DateTest {
         assertTrue(Date.isValidDay(12, 8));
 
         //invalid day
-        assertFalse(Date.isValidDay(679,12));
+        assertFalse(Date.isValidDay(679, 12));
         assertFalse(Date.isValidDay(31, 9));
         assertFalse(Date.isValidDay(30, 2));
         assertFalse(Date.isValidDay(-9, 5));
@@ -47,8 +47,8 @@ public class DateTest {
     @Test
     public void equals() {
         Date date1 = new Date(1, 1, 3000);
-        Date date2 = new Date(1,1,3000);
-        Date date3 = new Date(2,4,9000);
+        Date date2 = new Date(1, 1, 3000);
+        Date date3 = new Date(2,4, 9000);
 
         //same obj
         assertTrue(date1.equals(date1));
