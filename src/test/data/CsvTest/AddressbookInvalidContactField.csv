@@ -1,0 +1,3 @@
+Name,Number,Email,Address,Tags,,"***Ernie will be ignored, Bert will be successfully added. Error message shows up because of Ernie"
+Ernie,89473624,test(invalid field),Sesame Street,puppet,,
+Bert,94837243,valid@gmail.com,Sesame Street,puppet,grouchy,
