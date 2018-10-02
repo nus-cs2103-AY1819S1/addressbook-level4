@@ -3,8 +3,9 @@ package seedu.address.model.person.medicalrecord;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import seedu.address.model.medicine.Stock;
-
+/**
+ * Represents Quantity of a dispensed medicine.
+ */
 public class Quantity {
 
     public static final String MESSAGE_QUANTITY_CONSTRAINTS =
