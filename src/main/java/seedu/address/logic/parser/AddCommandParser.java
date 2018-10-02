@@ -44,9 +44,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         DueDate phone = ParserUtil.parseDueDate(argMultimap.getValue(PREFIX_DUE_DATE).get());
         PriorityValue email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_PRIORITY_VALUE).get());
         Description address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_DESCRIPTION).get());
-        Set<Label> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_LABEL));
+        Set<Label> labelList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_LABEL));
 
-        Task task = new Task(name, phone, email, address, tagList);
+        Task task = new Task(name, phone, email, address, labelList);
 
         return new AddCommand(task);
     }
