@@ -958,12 +958,6 @@ Use case ends
 
 *Exceptions*
 [none]
-* 2a. User was previously logged in
-[none]
-** 2a1. Expense tracker prompts user that he has already logged in
-+
-Use case ends
-[none]
 * 4a. The username keyed in by the user does not exist
 [none]
 ** 4a1. Expense tracker prompts the user that the username does not exist
@@ -975,6 +969,7 @@ Use case ends
 ** 6a1. Expense tracker prompts the user that the password is incorrect.
 *
 Use case ends
+
 [discrete]
 === Use case: Logout
 
@@ -992,6 +987,7 @@ Use case ends
 +
 Use case ends
 [discrete]
+
 === Use case: Clear
 
 *MSS*
@@ -1030,6 +1026,7 @@ Use case ends
 === Use case: Notification Off
 
 *MSS*
+
 1. User keys in command to turn off notifications
 2. Notifications no longer show whenever the set budget has been exceeded.
 3. Any notification that is currently showing will be hidden from the user.
@@ -1040,6 +1037,7 @@ Use case ends
 === Use case: Set recurring expenditure
 
 *MSS*
+
 1. User key in command to set recurring expenses for an expense that was already keyed in
 2. Expense tracker prompts the user to key in which expense and the frequency of recurrence.
 3. User keys in the index of the expenditure to set as recurring expense and the frequency
