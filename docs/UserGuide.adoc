@@ -164,6 +164,20 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
+=== Analyzing grades commands : `grades`
+
+Analyze the grades of students +
+Format: `grades ACTION [parameters]`
+
+****
+* grades sort: list the details of students sorting by grades.
+****
+
+[NOTE]
+====
+Regard the mark of the student who doesn't have a grade as 0.
+====
+
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
