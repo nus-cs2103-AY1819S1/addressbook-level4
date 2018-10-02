@@ -21,13 +21,13 @@ public class FieldsContainsKeywordsPredicate implements Predicate<Person> {
         return keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsFieldIgnoreCase
                         (person.getFields().toString().replaceAll("\\[", "").replaceAll("]", ""),
-                         keyword));
+                                keyword));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof FieldsContainsKeywordsPredicate //instanceof handles null
-            && keywords.equals(((FieldsContainsKeywordsPredicate) other).keywords)); //state check
+                || (other instanceof FieldsContainsKeywordsPredicate //instanceof handles null
+                && keywords.equals(((FieldsContainsKeywordsPredicate) other).keywords)); //state check
     }
 }

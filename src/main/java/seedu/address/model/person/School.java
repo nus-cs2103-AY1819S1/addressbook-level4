@@ -12,7 +12,7 @@ public class School {
             "School should only contain alphanumeric characters and spaces, and it should not be blank.";
     public static final String SCHOOL_VALIDATION_REGEX = "\\p{Alnum}+";
 
-    public final String schoolName;
+    public final String value;
 
     /**
      * Constructs a {@code School}.
@@ -22,7 +22,7 @@ public class School {
     public School(String school) {
         requireNonNull(school);
         checkArgument(isValidSchool(school), MESSAGE_SCHOOL_CONSTRAINTS);
-        schoolName = school;
+        value = school;
     }
 
     /**
@@ -34,18 +34,18 @@ public class School {
 
     @Override
     public String toString() {
-        return schoolName;
+        return value;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof School // instanceof handles nulls
-                && schoolName.equals(((School) other).schoolName));
+                && value.equals(((School) other).value));
     }
 
     @Override
     public int hashCode() {
-        return schoolName.hashCode();
+        return value.hashCode();
     }
 }
