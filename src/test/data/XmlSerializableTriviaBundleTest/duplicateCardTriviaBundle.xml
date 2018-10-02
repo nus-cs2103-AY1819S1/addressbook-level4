@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<triviabundle>
+
+    <cards>
+        <question>Why apple drop from apple tree?</question>
+        <answer>Because of gravity</answer>
+        <tagged>Physics</tagged>
+    </cards>
+
+    <!-- Card with same identity as the above card -->
+    <cards>
+        <question>Why apple drop from apple tree?</question>
+        <answer>Because!</answer>
+    </cards>
+
+</triviabundle>

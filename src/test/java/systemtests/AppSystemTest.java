@@ -24,6 +24,7 @@ import org.junit.BeforeClass;
 import org.junit.ClassRule;
 
 import guitests.guihandles.BrowserPanelHandle;
+import guitests.guihandles.CardListPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
@@ -40,15 +41,17 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.TriviaBundle;
+import seedu.address.testutil.TypicalCards;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
 
 /**
- * A system test class for AddressBook, which provides access to handles of GUI components and helper methods
+ * A system test class for the application, which provides access to handles of GUI components and helper methods
  * for test verification.
  */
-public abstract class AddressBookSystemTest {
+public abstract class AppSystemTest {
     @ClassRule
     public static ClockRule clockRule = new ClockRule();
 
@@ -68,7 +71,8 @@ public abstract class AddressBookSystemTest {
     @Before
     public void setUp() {
         setupHelper = new SystemTestSetupHelper();
-        testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
+        testApp = setupHelper.setupApplication(this::getAddressBookData, this::getTriviaBundleData,
+                getAddressBookFile(), getTriviaBundleFile());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
         waitUntilBrowserLoaded(getBrowserPanel());
@@ -82,17 +86,31 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
+     * Returns the data to be loaded into the file in {@link #getAddressBookFile()}.
      */
-    protected AddressBook getInitialData() {
+    protected AddressBook getAddressBookData() {
         return TypicalPersons.getTypicalAddressBook();
+    }
+
+    /**
+     * Returns the data to be loaded into the file in {@link #getAddressBookFile()}.
+     */
+    protected TriviaBundle getTriviaBundleData() {
+        return TypicalCards.getTypicalTriviaBundle();
     }
 
     /**
      * Returns the directory of the data file.
      */
-    protected Path getDataFileLocation() {
-        return TestApp.SAVE_LOCATION_FOR_TESTING;
+    protected Path getAddressBookFile() {
+        return TestApp.ADDRESS_BOOK_SAVE_LOCATION;
+    }
+
+    /**
+     * Returns the directory of the data file.
+     */
+    protected Path getTriviaBundleFile() {
+        return TestApp.TRIVIA_BUNDLE_SAVE_LOCATION;
     }
 
     public MainWindowHandle getMainWindowHandle() {
@@ -105,6 +123,10 @@ public abstract class AddressBookSystemTest {
 
     public PersonListPanelHandle getPersonListPanel() {
         return mainWindowHandle.getPersonListPanel();
+    }
+
+    public CardListPanelHandle getCardListPanel() {
+        return mainWindowHandle.getCardListPanel();
     }
 
     public MainMenuHandle getMainMenu() {
@@ -139,27 +161,28 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Displays all persons in the address book.
+     * Displays all cards in the trivia bundle.
      */
-    protected void showAllPersons() {
+    protected void showAllCards() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredPersonList().size());
+        assertEquals(getModel().getTriviaBundle().getCardList().size(), getModel().getFilteredCardList().size());
     }
 
     /**
-     * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
+     * Displays all cards with any parts of their question matching {@code keyword} (case-insensitive).
      */
-    protected void showPersonsWithName(String keyword) {
+    protected void showCardsWithQuestion(String keyword) {
+
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size());
+        assertTrue(getModel().getFilteredCardList().size() < getModel().getTriviaBundle().getCardList().size());
     }
 
     /**
-     * Selects the person at {@code index} of the displayed list.
+     * Selects the card at {@code index} of the displayed list.
      */
-    protected void selectPerson(Index index) {
+    protected void selectCard(Index index) {
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
-        assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        assertEquals(index.getZeroBased(), getCardListPanel().getSelectedCardIndex());
     }
 
     /**
@@ -179,8 +202,8 @@ public abstract class AddressBookSystemTest {
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
-        assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
+        assertEquals(new TriviaBundle(expectedModel.getTriviaBundle()), testApp.readStorageTriviaBundle());
+        assertListMatching(getCardListPanel(), expectedModel.getFilteredCardList());
     }
 
     /**
@@ -193,6 +216,7 @@ public abstract class AddressBookSystemTest {
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
         getPersonListPanel().rememberSelectedPersonCard();
+        getCardListPanel().rememberSelectedCardView();
     }
 
     /**
@@ -202,7 +226,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void assertSelectedCardDeselected() {
         assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getPersonListPanel().isAnyCardSelected());
+        assertFalse(getCardListPanel().isAnyCardSelected());
     }
 
     /**
@@ -211,7 +235,7 @@ public abstract class AddressBookSystemTest {
      * @see BrowserPanelHandle#isUrlChanged()
      * @see PersonListPanelHandle#isSelectedPersonCardChanged()
      */
-    protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
+    protected void assertSelectedPersonChanged(Index expectedSelectedCardIndex) {
         getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
         String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
         URL expectedUrl;
@@ -226,6 +250,27 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
+     * Asserts that the browser's url is changed to display the details of the person in the person list panel at
+     * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
+     * @see BrowserPanelHandle#isUrlChanged()
+     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
+     */
+    protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
+        getCardListPanel().navigateToCard(getCardListPanel().getSelectedCardIndex());
+        String selectedCardQuestion = getCardListPanel().getHandleToSelectedCard().getQuestion();
+        URL expectedUrl;
+        try {
+            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardQuestion
+                    .replaceAll(" ", "%20"));
+        } catch (MalformedURLException mue) {
+            throw new AssertionError("URL expected to be valid.", mue);
+        }
+        assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
+
+        assertEquals(expectedSelectedCardIndex.getZeroBased(), getCardListPanel().getSelectedCardIndex());
+    }
+
+    /**
      * Asserts that the browser's url and the selected card in the person list panel remain unchanged.
      * @see BrowserPanelHandle#isUrlChanged()
      * @see PersonListPanelHandle#isSelectedPersonCardChanged()
@@ -233,6 +278,17 @@ public abstract class AddressBookSystemTest {
     protected void assertSelectedCardUnchanged() {
         assertFalse(getBrowserPanel().isUrlChanged());
         assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
+        assertFalse(getCardListPanel().isSelectedCardViewChanged());
+    }
+
+    /**
+     * Asserts that the browser's url and the selected card view in the panel remain unchanged.
+     * @see BrowserPanelHandle#isUrlChanged()
+     * @see CardListPanelHandle#isSelectedCardViewChanged()
+     */
+    protected void assertSelectedCardViewUnchanged() {
+        assertFalse(getBrowserPanel().isUrlChanged());
+        assertFalse(getCardListPanel().isSelectedCardViewChanged());
     }
 
     /**
@@ -278,7 +334,7 @@ public abstract class AddressBookSystemTest {
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
         assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
-        assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
+        assertEquals(Paths.get(".").resolve(testApp.getAddressBookFilePath()).toString(),
                 getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }

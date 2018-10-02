@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<triviabundle>
+    <!-- Card with invalid answer field -->
+    <cards>
+        <question>Why is the sky blue?</question>
+        <answer></answer>
+        <tagged>Physics</tagged>
+    </cards>
+</triviabundle>

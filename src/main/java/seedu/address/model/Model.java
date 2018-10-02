@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.card.Card;
 import seedu.address.model.person.Person;
 
 /**
@@ -11,9 +12,14 @@ import seedu.address.model.person.Person;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Card> PREDICATE_SHOW_ALL_CARDS = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
+
+    /** Clears existing backing model and replaces with the provided new data. */
+    void resetData(ReadOnlyTriviaBundle newData);
 
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
@@ -35,13 +41,6 @@ public interface Model {
      */
     void addPerson(Person person);
 
-    /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     */
-    void updatePerson(Person target, Person editedPerson);
-
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
@@ -54,25 +53,63 @@ public interface Model {
     /**
      * Returns true if the model has previous address book states to restore.
      */
-    boolean canUndoAddressBook();
+
+    void commitAddressBook();
+
+    /** Returns the TriviaBundle */
+    ReadOnlyTriviaBundle getTriviaBundle();
 
     /**
-     * Returns true if the model has undone address book states to restore.
+     * Returns true if a card with the same identity as {@code card} exists in the list of trivia bundle.
      */
-    boolean canRedoAddressBook();
+    boolean hasCard(Card card);
 
     /**
-     * Restores the model's address book to its previous state.
+     * Adds the given card.
+     * {@code card} must not already exist in the list of trivia bundle.
      */
-    void undoAddressBook();
+    void addCard(Card card);
+
+    /** Returns an unmodifiable view of the filtered card's list */
+    ObservableList<Card> getFilteredCardList();
 
     /**
-     * Restores the model's address book to its previously undone state.
+     * Updates the filter of the filtered card list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
      */
-    void redoAddressBook();
+    void updateFilteredCardList(Predicate<Card> predicate);
+
+    /**
+     * Replaces the given card {@code target} with {@code editedCard}.
+     * {@code target} must exist in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     */
+    void updateCard(Card target, Card editedCard);
 
     /**
      * Saves the current address book state for undo/redo.
      */
-    void commitAddressBook();
+    void commitTriviaBundle();
+
+    boolean canUndoTriviaBundle();
+
+    /**
+     * Returns true if the model has undone trivial bundle states to restore.
+     */
+    boolean canRedoTriviaBundle();
+
+    /**
+     * Restores the model's trivial bundle to its previous state.
+     */
+    void undoTriviaBundle();
+
+    /**
+     * Restores the model's trivial bundle to its previously undone state.
+     */
+    void redoTriviaBundle();
+
+    /**
+     * Saves the current trivial bundle state for undo/redo.
+     */
+
 }

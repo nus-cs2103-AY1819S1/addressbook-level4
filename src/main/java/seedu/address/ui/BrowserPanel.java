@@ -12,7 +12,9 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.CardPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.model.card.Card;
 import seedu.address.model.person.Person;
 
 /**
@@ -22,7 +24,7 @@ public class BrowserPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE = "default.html";
     public static final String SEARCH_PAGE_URL =
-            "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
+            "https://www.google.com.sg/search?q=";
 
     private static final String FXML = "BrowserPanel.fxml";
 
@@ -43,6 +45,10 @@ public class BrowserPanel extends UiPart<Region> {
 
     private void loadPersonPage(Person person) {
         loadPage(SEARCH_PAGE_URL + person.getName().fullName);
+    }
+
+    private void loadCardPage(Card card) {
+        loadPage(SEARCH_PAGE_URL + card.getQuestion().value);
     }
 
     public void loadPage(String url) {
@@ -68,5 +74,11 @@ public class BrowserPanel extends UiPart<Region> {
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadPersonPage(event.getNewSelection());
+    }
+
+    @Subscribe
+    private void handleCardPanelSelectionChangedEvent(CardPanelSelectionChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        loadCardPage(event.getNewSelection());
     }
 }
