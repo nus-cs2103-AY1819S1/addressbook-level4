@@ -237,9 +237,9 @@ public class Event {
                 && otherEvent.getDate().equals(getDate())
                 && otherEvent.getStartTime().equals(getStartTime())
                 && otherEvent.getEndTime().equals(getEndTime())
-                && otherEvent.getPersonList().equals(getPersonList());
-                //&& otherEvent.getOrganiser().equals(getOrganiser());
-                //&& otherEvent.getPolls().equals(getPolls());
+                && otherEvent.getPersonList().equals(getPersonList())
+                && otherEvent.getOrganiser().equals(getOrganiser())
+                && otherEvent.getPolls().equals(getPolls());
     }
 
     @Override
