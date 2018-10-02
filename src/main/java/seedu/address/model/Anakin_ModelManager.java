@@ -5,10 +5,13 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.Anakin_ComponentManager;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.Anakin_AnakinChangedEvent;
+import seedu.address.model.Anakin_deck.Anakin_Card;
 import seedu.address.model.Anakin_deck.Anakin_Deck;
 
 /**
@@ -19,6 +22,8 @@ public class Anakin_ModelManager extends Anakin_ComponentManager implements Anak
 
     private final Anakin_VersionedAnakin versionedAnakin;
     private final FilteredList<Anakin_Deck> filteredDecks;
+    // The filteredCards is not assigned. Should have methods to assign filteredCards (when user is inside a deck).
+    private FilteredList<Anakin_Card> filteredCards;
 
     /**
      * Initializes a Anakin_ModelManager with the given Anakin and userPrefs.
@@ -39,7 +44,8 @@ public class Anakin_ModelManager extends Anakin_ComponentManager implements Anak
 
     @Override
     public void resetData(Anakin_ReadOnlyAnakin newData) {
-
+        versionedAnakin.resetData(newData);
+        indicateAnakinChanged();
     }
 
     @Override
@@ -47,58 +53,118 @@ public class Anakin_ModelManager extends Anakin_ComponentManager implements Anak
         return null;
     }
 
-    @Override
-    public boolean hasDeck(Anakin_Deck deck) {
-        return false;
+    /** Raises an event to indicate the model has changed */
+    private void indicateAnakinChanged() {
+        raise(new Anakin_AnakinChangedEvent(versionedAnakin));
     }
 
     @Override
-    public void addDeck(Anakin_Deck deck) {
-
+    public boolean hasDeck(Anakin_Deck deck) {
+        requireAllNonNull(deck);
+        return versionedAnakin.hasDeck(deck);
     }
 
     @Override
     public void deleteDeck(Anakin_Deck deck) {
+        versionedAnakin.removeDeck(deck);
+        indicateAnakinChanged();
+    }
 
+    @Override
+    public void addDeck(Anakin_Deck deck) {
+        versionedAnakin.addDeck(deck);
+        updateFilteredDeckList(PREDICATE_SHOW_ALL_DECKS);
+        indicateAnakinChanged();
     }
 
     @Override
     public void updateDeck(Anakin_Deck target, Anakin_Deck editedDeck) {
+        requireAllNonNull(target, editedDeck);
 
+        versionedAnakin.updateDeck(target, editedDeck);
+        indicateAnakinChanged();
     }
 
+    //=========== Filtered Deck List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Deck} backed by the internal list of
+     * {@code versionedAnakin}
+     */
     @Override
     public ObservableList<Anakin_Deck> getFilteredDeckList() {
-        return null;
+        return FXCollections.unmodifiableObservableList(filteredDecks);
     }
 
     @Override
     public void updateFilteredDeckList(Predicate<Anakin_Deck> predicate) {
+        requireAllNonNull(predicate);
+        filteredDecks.setPredicate(predicate);
+    }
 
+    //=========== Filtered Card List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Card} backed by the internal list of
+     * {@code currentDeck}
+     */
+    @Override
+    public ObservableList<Anakin_Card> getFilteredCardList() {
+        // TODO: throws exception when user is not inside any decks
+        return FXCollections.unmodifiableObservableList(filteredCards);
     }
 
     @Override
+    public void updateFilteredCardList(Predicate<Anakin_Card> predicate) {
+        // TODO: throws exception when user is not inside any decks
+        requireAllNonNull(predicate);
+        filteredCards.setPredicate(predicate);
+    }
+
+    //=========== Undo/Redo =================================================================================
+
+    @Override
     public boolean canUndoAnakin() {
-        return false;
+        return versionedAnakin.canUndo();
     }
 
     @Override
     public boolean canRedoAnakin() {
-        return false;
+        return versionedAnakin.canRedo();
     }
 
     @Override
     public void undoAnakin() {
-
+        versionedAnakin.undo();
+        indicateAnakinChanged();
     }
 
     @Override
     public void redoAnakin() {
-
+        versionedAnakin.canRedo();
+        indicateAnakinChanged();
     }
 
     @Override
     public void commitAnakin() {
+        versionedAnakin.commit();
+    }
 
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof Anakin_ModelManager)) {
+            return false;
+        }
+
+        // state check
+        Anakin_ModelManager other = (Anakin_ModelManager) obj;
+        return versionedAnakin.equals(other.versionedAnakin)
+                && filteredDecks.equals(other.filteredDecks);
     }
 }
