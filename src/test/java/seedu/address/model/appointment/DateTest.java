@@ -48,7 +48,7 @@ public class DateTest {
     public void equals() {
         Date date1 = new Date(1, 1, 3000);
         Date date2 = new Date(1, 1, 3000);
-        Date date3 = new Date(2,4, 9000);
+        Date date3 = new Date(2, 4, 9000);
 
         //same obj
         assertTrue(date1.equals(date1));
