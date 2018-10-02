@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_SAVED_AMOUNT_BO
 
 import org.junit.Test;
 
+import seedu.address.commons.core.amount.Amount;
 import seedu.address.logic.commands.CommandTestUtil;
 import seedu.address.testutil.Assert;
 
@@ -20,8 +21,16 @@ public class SavedAmountTest {
 
     @Test
     public void constructor_invalidPrice_throwsIllegalArgumentException() {
-        String invalidSavedAmount = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new SavedAmount(invalidSavedAmount));
+        String[] invalidSavedAmounts = { "123412341234123.67", // larger than 1000 trillion
+                "11.111", // too many decimal places
+                "-111.1", // negative value
+                ".90", // no ones place
+                };
+
+        for(String invalidSavedAmount : invalidSavedAmounts) {
+            Assert.assertThrows(IllegalArgumentException.class,
+                    () -> new SavedAmount(invalidSavedAmount));
+        }
     }
 
     @Test
@@ -42,6 +51,11 @@ public class SavedAmountTest {
         assertTrue(SavedAmount.isValidSavedAmount("+93121534")); // no decimal digit
         assertTrue(SavedAmount.isValidSavedAmount("1.0")); // one decimal digit
         assertTrue(SavedAmount.isValidSavedAmount("-1.02")); // two decimal digits
+    }
+
+    @Test
+    public void incrementSavedAmount() {
+        SavedAmount savedAmount0 = new SavedAmount(VALID_SAVED_AMOUNT_BOB);
     }
 
     @Test
