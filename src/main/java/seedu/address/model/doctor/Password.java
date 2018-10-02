@@ -30,7 +30,7 @@ public class Password {
     public Password(String password) {
         requireNonNull(password);
         checkArgument(isValidPassword(password), MESSAGE_PASSWORD_CONSTRAINTS);
-        this.password = password;
+        this.password = HashUtil.hashToString(password);
     }
 
     /**
