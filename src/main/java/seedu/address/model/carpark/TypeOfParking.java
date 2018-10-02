@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents the type of parking system for a carpark in the address book.
+ * Represents the type of parking system for a car park in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidTypePark(String)}
  */
 public class TypeOfParking {
