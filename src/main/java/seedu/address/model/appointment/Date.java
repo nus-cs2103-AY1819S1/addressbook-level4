@@ -61,20 +61,14 @@ public class Date {
         if (day <= 0 || day > 31) {
             return false;
         }
-        if (month == 2) {
-            if (day > 29) { //february has 28/29 days
-                return false;
-            }
+        if (month == 2 && day > 29) { //february has 28/29 days
+            return false;
         }
-        if (month % 2 == 0 && month < 9) {
-            if (day > 30) {
-                return false;
-            }
+        if (month % 2 == 0 && month < 9 && day > 30) {
+            return false;
         }
-        if (month % 2 == 1 && month >= 9) {
-            if (day > 30) {
-                return false;
-            }
+        if (month % 2 == 1 && month >= 9 && day > 30) {
+            return false;
         }
         return true;
     }

@@ -74,10 +74,7 @@ public class Appointment {
      * Returns true if appointment is cancelled.
      */
     public boolean isCancelled() {
-        if (appointmentStatus == CANCELLED) {
-            return true;
-        }
-        return false;
+        return appointmentStatus == CANCELLED;
     }
 
     /**
