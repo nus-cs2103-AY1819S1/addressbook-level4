@@ -50,9 +50,6 @@ public class LoginCommand extends Command {
             Doctor thisDoctor = (Doctor)toAuthenticate;
             List<Doctor> doctorsList = model.getFilteredDoctorList();
             for (Doctor d : doctorsList) {
-            /*if(!d.isSameDoctor((Doctor)toAuthenticate)) {
-                return new CommandResult(MESSAGE_FAILURE);        
-            }*/
                 if ((d.getName().equals(thisDoctor.getName()) && (d.getPassword().equals(thisDoctor.getPassword())))) {
                     return new CommandResult(MESSAGE_SUCCESS);
                 }
