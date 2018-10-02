@@ -27,14 +27,14 @@ public class ParserUtilTest {
     private static final String INVALID_DUEDATE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_PRIORITY_VALUE = "0";
-    private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_LABEL = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_DUEDATE = "05-05-18";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_PRIORITY_VALUE = "8";
-    private static final String VALID_TAG_1 = "friend";
-    private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_LABEL_1 = "friend";
+    private static final String VALID_LABEL_2 = "neighbour";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -156,52 +156,52 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseTag_null_throwsNullPointerException() throws Exception {
+    public void parseLabel_null_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
         ParserUtil.parseLabel(null);
     }
 
     @Test
-    public void parseTag_invalidValue_throwsParseException() throws Exception {
+    public void parseLabel_invalidValue_throwsParseException() throws Exception {
         thrown.expect(ParseException.class);
-        ParserUtil.parseLabel(INVALID_TAG);
+        ParserUtil.parseLabel(INVALID_LABEL);
     }
 
     @Test
-    public void parseTag_validValueWithoutWhitespace_returnsTag() throws Exception {
-        Label expectedTag = new Label(VALID_TAG_1);
-        assertEquals(expectedTag, ParserUtil.parseLabel(VALID_TAG_1));
+    public void parseLabel_validValueWithoutWhitespace_returnsTag() throws Exception {
+        Label expectedTag = new Label(VALID_LABEL_1);
+        assertEquals(expectedTag, ParserUtil.parseLabel(VALID_LABEL_1));
     }
 
     @Test
-    public void parseTag_validValueWithWhitespace_returnsTrimmedTag() throws Exception {
-        String tagWithWhitespace = WHITESPACE + VALID_TAG_1 + WHITESPACE;
-        Label expectedTag = new Label(VALID_TAG_1);
+    public void parseLabel_validValueWithWhitespace_returnsTrimmedLabel() throws Exception {
+        String tagWithWhitespace = WHITESPACE + VALID_LABEL_1 + WHITESPACE;
+        Label expectedTag = new Label(VALID_LABEL_1);
         assertEquals(expectedTag, ParserUtil.parseLabel(tagWithWhitespace));
     }
 
     @Test
-    public void parseTags_null_throwsNullPointerException() throws Exception {
+    public void parseLabels_null_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
         ParserUtil.parseLabels(null);
     }
 
     @Test
-    public void parseTags_collectionWithInvalidTags_throwsParseException() throws Exception {
+    public void parseLabels_collectionWithInvalidLabels_throwsParseException() throws Exception {
         thrown.expect(ParseException.class);
-        ParserUtil.parseLabels(Arrays.asList(VALID_TAG_1, INVALID_TAG));
+        ParserUtil.parseLabels(Arrays.asList(VALID_LABEL_1, INVALID_LABEL));
     }
 
     @Test
-    public void parseTags_emptyCollection_returnsEmptySet() throws Exception {
+    public void parseLabels_emptyCollection_returnsEmptySet() throws Exception {
         assertTrue(ParserUtil.parseLabels(Collections.emptyList()).isEmpty());
     }
 
     @Test
-    public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
-        Set<Label> actualTagSet = ParserUtil.parseLabels(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
-        Set<Label> expectedTagSet = new HashSet<Label>(Arrays.asList(new Label(VALID_TAG_1), new Label(VALID_TAG_2)));
+    public void parseLabels_collectionWithValidLabels_returnsLabelSet() throws Exception {
+        Set<Label> actualLabelSet = ParserUtil.parseLabels(Arrays.asList(VALID_LABEL_1, VALID_LABEL_2));
+        Set<Label> expectedLabelSet = new HashSet<Label>(Arrays.asList(new Label(VALID_LABEL_1), new Label(VALID_LABEL_2)));
 
-        assertEquals(expectedTagSet, actualTagSet);
+        assertEquals(expectedLabelSet, actualLabelSet);
     }
 }
