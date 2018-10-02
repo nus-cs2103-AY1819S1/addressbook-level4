@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.AddressBook;
+import seedu.address.model.BudgetBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -30,7 +31,7 @@ public class ClearCommandTest {
         List<String> target = new ArrayList<>();
 
         assertCommandSuccess(new ClearCommand(target), model, commandHistory,
-                ClearCommand.MESSAGE_CLEAR_ALL_SUCCESS, expectedModel);
+                String.format(ClearCommand.MESSAGE_CLEAR_SPECIFIC_SUCCESS, target.get(0)), expectedModel);
     }
 
     @Test
@@ -42,7 +43,7 @@ public class ClearCommandTest {
         List<String> target = new ArrayList<>();
 
         assertCommandSuccess(new ClearCommand(target), model, commandHistory,
-                ClearCommand.MESSAGE_CLEAR_ALL_SUCCESS, expectedModel);
+                String.format(ClearCommand.MESSAGE_CLEAR_SPECIFIC_SUCCESS, target.get(0)), expectedModel);
     }
 
     @Test
@@ -54,7 +55,7 @@ public class ClearCommandTest {
         target.add(tags[0].toString());
         ClearCommand clearCommand = new ClearCommand(target);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), model.getBudgetBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new BudgetBook(), new UserPrefs());
         List<Person> persons = new ArrayList<>();
         persons.add(p);
         expectedModel.clearMultiplePersons(persons);
