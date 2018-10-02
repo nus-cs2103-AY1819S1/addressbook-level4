@@ -72,7 +72,6 @@ public class MainApp extends Application {
 
 
         model = initModelManager(storage, userPrefs);
-        System.out.println("Got past initModelManager");
 
         logic = new LogicManager(model);
 
@@ -90,7 +89,6 @@ public class MainApp extends Application {
         Map<Username, ReadOnlyAddressBook> addressBooks;
         try {
             addressBooks = storage.readAllExpenses(userPrefs.getAddressBookDirPath());
-            System.out.println("can read allExpenses");
             ReadOnlyAddressBook sampleAddressBook = SampleDataUtil.getSampleAddressBook();
             if (!addressBooks.containsKey(sampleAddressBook.getUsername())) {
                 addressBooks.put(sampleAddressBook.getUsername(), sampleAddressBook);

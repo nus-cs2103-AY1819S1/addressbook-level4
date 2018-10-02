@@ -34,12 +34,10 @@ public class AddCommandIntegrationTest {
     @Test
     public void execute_newPerson_withinBudget() throws NoUserSelectedException {
         Person validPerson = new PersonBuilder().withCost("1.00").build();
-        System.out.println("Expected model initialize");
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.addPerson(validPerson);
         expectedModel.commitAddressBook();
 
-        System.out.println(expectedModel.getMaximumBudget().getBudgetCap());
 
         assertCommandSuccess(new AddCommand(validPerson), model, commandHistory,
                 String.format(AddCommand.MESSAGE_SUCCESS, validPerson), expectedModel);

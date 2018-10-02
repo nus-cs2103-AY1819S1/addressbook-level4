@@ -163,7 +163,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public boolean equals(Object other) {
-        System.out.println(this.maximumBudget.equals(((AddressBook) other).maximumBudget));
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
                 && persons.equals(((AddressBook) other).persons))

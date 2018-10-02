@@ -50,13 +50,13 @@ public class XmlExpensesStorage implements ExpensesStorage {
     public Optional<ReadOnlyAddressBook> readExpenses(Path filePath) throws DataConversionException,
                                                                                  FileNotFoundException {
         requireNonNull(filePath);
-
         if (!Files.exists(filePath)) {
             logger.info("AddressBook file " + filePath + " not found");
             return Optional.empty();
         }
 
         XmlSerializableAddressBook xmlAddressBook = XmlFileStorage.loadDataFromSaveFile(filePath);
+
         try {
             Optional<AddressBook> addressBookOptional = Optional.of(xmlAddressBook.toModelType());
             Username fileName = new Username(filePath.getFileName().toString().replace(".xml", ""));
@@ -66,7 +66,6 @@ public class XmlExpensesStorage implements ExpensesStorage {
                     addressBook.setUsername(fileName);
                 }
             });
-            System.out.println("readExpenses " + xmlAddressBook.toModelType().getMaximumBudget().getCurrentExpenses());
             return addressBookOptional.map(addressBook -> addressBook); // Typecast to Optional<ReadOnlyAddressBook>
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());

@@ -76,7 +76,6 @@ public class XmlUtilTest {
     public void getDataFromFile_validFile_validResult() throws Exception {
         AddressBook dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableAddressBook.class).toModelType();
         assertEquals(9, dataFromFile.getPersonList().size());
-        System.out.println(dataFromFile.getUsername());
         assertEquals(dataFromFile.getUsername(), new Username(VALID_ADDRESS_BOOK_USERNAME));
     }
 

@@ -75,7 +75,6 @@ public class StorageManager extends ComponentManager implements Storage {
     @Override
     public Map<Username, ReadOnlyAddressBook> readAllExpenses(Path dirPath) throws DataConversionException,
             IOException {
-        System.out.println("readAllExpenses");
         File dir = new File(dirPath.toString());
         final Map<Username, ReadOnlyAddressBook> books = new TreeMap<>();
         File[] directoryListing = dir.listFiles();

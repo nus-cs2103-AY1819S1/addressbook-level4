@@ -60,7 +60,9 @@ public class XmlSerializableAddressBook {
             }
             addressBook.addPerson(person);
         }
-        addressBook.modifyMaximumBudget(this.budget.toModelType());
+        if (this.budget != null) {
+            addressBook.modifyMaximumBudget(this.budget.toModelType());
+        }
         return addressBook;
     }
 
