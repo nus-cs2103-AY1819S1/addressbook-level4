@@ -17,7 +17,8 @@ import seedu.address.testutil.PersonBuilder;
 
 //@@author AyushChatto
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for ScheduleCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
+ * ScheduleCommand.
  */
 class ScheduleCommandTest {
 

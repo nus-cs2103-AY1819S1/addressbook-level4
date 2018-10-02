@@ -98,7 +98,7 @@ public class ParserUtil {
 
     //@@author AyushChatto
     /**
-     * Parses a {@code String value} into a {@code Meeting}.
+     * Parses a {@code String meeting} into a {@code Meeting}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code value} is invalid.
