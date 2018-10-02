@@ -21,7 +21,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_DOSE_UNIT = new Prefix("u/");
     public static final Prefix PREFIX_DOSES_PER_DAY = new Prefix("n/");
     public static final Prefix PREFIX_DURATION = new Prefix("t/");
-    
+
     /** Prefix definitions for dietary related commands. */
     public static final Prefix PREFIX_ALLERGY = new Prefix("alg/");
 }
