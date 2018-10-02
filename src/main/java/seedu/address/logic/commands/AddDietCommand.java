@@ -22,7 +22,7 @@ public class AddDietCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds dietary requirements for a patient. "
                                                + "Parameters: "
-                                               + PREFIX_NRIC + "NRIC"
+                                               + PREFIX_NRIC + "NRIC "
                                                + PREFIX_ALLERGY + "ALLERGIES "
                                                + "Example: " + COMMAND_WORD + " "
                                                + PREFIX_NRIC + "S1234567M "
@@ -39,7 +39,6 @@ public class AddDietCommand extends Command {
     /**
      * Creates an AddDietCommand to add Diet to a patient.
      * @param patient The patient to be edited.
-     * @param diet The diet to be added to the patient.
      */
     public AddDietCommand(Person patient) {
         patientToEdit = patient;
