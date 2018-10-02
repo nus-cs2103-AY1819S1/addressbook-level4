@@ -13,6 +13,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_ROOM = new Prefix("r/");
     public static final Prefix PREFIX_SCHOOL = new Prefix("s/");
+    public static final Prefix PREFIX_NULL = new Prefix(null);
     public static final Prefix PREFIX_FROM = new Prefix("from/");
     public static final Prefix PREFIX_TO = new Prefix("to/");
     public static final Prefix PREFIX_SUBJECT = new Prefix("subject/");
