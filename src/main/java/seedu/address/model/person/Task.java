@@ -132,7 +132,7 @@ public class Task {
                 .append(getPriorityValue())
                 .append(" Description: ")
                 .append(getDescription())
-                .append(" Tags: ");
+                .append(" Labels: ");
         getLabels().forEach(builder::append);
         builder.append(" Status: ")
                 .append(getStatus());
