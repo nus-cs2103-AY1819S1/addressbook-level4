@@ -53,14 +53,14 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+=== Viewing help : `help`, `h`
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding a person: `add`, `a`
 
 Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Format: `add n/NAME p/PHONE_NUMBER[...] e/EMAIL a/ADDRESS [t/TAG]...`
 
 [TIP]
 ====
@@ -73,12 +73,12 @@ Examples:
 * `add n/John Doe p/98765432 p/88888888 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-=== Listing all persons : `list`
+=== Listing all persons : `list`, `ls`
 
 Shows a list of all persons in the address book. +
 Format: `list`
 
-=== Editing a person : `edit`
+=== Editing a person : `edit`, `e`
 
 Edits an existing person in the address book. +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
@@ -98,7 +98,7 @@ Edits the phone number and email address of the 1st person to be `91234567` and 
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-=== Locating persons by name: `find`
+=== Locating persons by name: `find`, `f`
 
 Finds persons whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
@@ -118,7 +118,7 @@ Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
 
-=== Deleting a person : `delete`
+=== Deleting a person : `delete`, `d`
 
 Deletes the specified person from the address book. +
 Format: `delete INDEX`
@@ -138,7 +138,7 @@ Deletes the 2nd person in the address book.
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
 
-=== Selecting a person : `select`
+=== Selecting a person : `select`, `s`
 
 Selects the person identified by the index number used in the displayed person list. +
 Format: `select INDEX`
@@ -158,7 +158,7 @@ Selects the 2nd person in the address book.
 `select 1` +
 Selects the 1st person in the results of the `find` command.
 
-=== Listing entered commands : `history`
+=== Listing entered commands : `history`, `hs`
 
 Lists all the commands that you have entered in reverse chronological order. +
 Format: `history`
@@ -169,7 +169,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 ====
 
 // tag::undoredo[]
-=== Undoing previous command : `undo`
+=== Undoing previous command : `undo`, `u`
 
 Restores the address book to the state before the previous _undoable_ command was executed. +
 Format: `undo`
@@ -195,7 +195,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
 
-=== Redoing the previously undone command : `redo`
+=== Redoing the previously undone command : `redo`, `r`
 
 Reverses the most recent `undo` command. +
 Format: `redo`
@@ -218,12 +218,12 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
-=== Clearing all entries : `clear`
+=== Clearing all entries : `clear`, `cls`
 
 Clears all entries from the address book. +
 Format: `clear`
 
-=== Exiting the program : `exit`
+=== Exiting the program : `exit`, `q`
 
 Exits the program. +
 Format: `exit`
@@ -233,7 +233,7 @@ Format: `exit`
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-=== Add contacts to an exising group : `addToGroup`
+=== Add contacts to an existing group : `addToGroup`
 
 Adds a specified list of contacts to a specified group, based on the user's last-viewed listing. +
 Any number of contacts can be added to the group (including 0).
@@ -358,7 +358,7 @@ Format: `importCalendar SOURCE`
 
 Examples:
 
-* `importCalendar Google`
+* `importCalendar Google` +
 App will redirect to the source to handle majority of the importing process - e.g. logging in, calendar to import, etc.)
 
 
@@ -408,15 +408,15 @@ Examples:
 
 Adds an event in the system. Any number of contacts can be included in the event. A notification will be sent to the user only 24 hours before the event.
 
-Format: `addEvent n/EVENT_NAME dsc/DESCRIPTION d/DATE(DD-MM-YY) t/TIME(HHMM) [i/CONTACT_INDEX…]`
+Format: `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(DD-MM-YY) t/TIME(HHMM) a/ADDRESS [i/CONTACT_INDEX]…`
 
 Examples:
 
-* `addEvent n/Dental Appointment dsc/Consultation d/15-09-18 t/1030`
-* list
-  `addEvent n/Dental Appointment dsc/Consultation d/15-09-18 t/1030 i/1`
-* Find Betsy Tim John
-  `addEvent n/Dental Appointment dsc/Consultation d/15-09-18 t/1030 i/1 i/2 i/3`
+* `addEvent n/Doctor Appointment dsc/Consultation d/15-09-18 t/1030 a/123, Clementi Rd, 1234665`
+* `list` +
+  `addEvent n/Doctor Appointment dsc/Consultation d/15-09-18 t/1030 a/123, Clementi Rd, 1234665 i/1`
+* `Find Betsy Tim John` +
+  `addEvent n/Meeting  dsc/Project meeting d/15-09-18 t/1030 a/123, Clementi Rd, 1234665 i/1 i/2 i/3`
 
 === List personal events: `listEvent`
 
@@ -432,11 +432,11 @@ Examples:
 
 Adds an event in the system for the specified group. A notification will be sent to the user and the contacts in the group 24 hours before the event.
 
-Format: `addGroupEvent n/EVENT_NAME dsc/DESCRIPTION d/DATE(DD-MM-YY) t/TIME(HHMM) group/GROUP_NAME`
+Format: `addGroupEvent n/EVENT_NAME dsc/DESCRIPTION d/DATE(DD-MM-YY) t/TIME(HHMM) a/ADDRESS group/GROUP_NAME`
 
 Examples:
 
-* `addGroupEvent n/Project Meeting dsc/First Meeting d/12-09-18 t/1200 group/CS2103_Group`
+* `addGroupEvent n/Project Meeting dsc/First Meeting d/12-09-18 t/1200 a/123, Clementi Rd, 1234665 group/CS2103_Group`
 
 === List group events: `listGroupEvent`
 
@@ -480,7 +480,7 @@ Examples:
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
+* *Add* : `add n/NAME p/PHONE_NUMBER[...] e/EMAIL a/ADDRESS [t/TAG]...` +
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
@@ -496,3 +496,40 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *Add Contacts to Group* : `addToGroup group/GROUP_NAME [i/INDEX]` +
+e.g. `addToGroup group/CS2103Group i/1 i/2 i/3`
+* *Rename Groups* `renameGroup group/ORIGINAL_NAME n/NEW_GROUP_NAME` +
+e.g. `renameGroup group/CS2103Group n/HelloWorld`
+* *Merge Group* : `mergeGroup n/NEW_GROUP_NAME group/GROUP_NAME[…​]` +
+e.g. `mergeGroup n/CS2103_MERGED group/CS2103_Group1 group/CS2103_Group2 group/CS2103_Group3`
+* *Split Group* : `splitGroup group/GROUP_NAME {n/NEW_GROUP_NAME i/INDEX[…​]}[…​]` +
+e.g. `splitGroup group/CS2103_MERGE
+n/CS2103_Group1 i/1 i/2 i/3 i/4 i/5`
+* *View Group* : `viewGroup/GROUP_NAME` +
+e.g. `viewGroup/CS2103Group`
+* *Common Group Contacts* : `commonGroupContacts n/CONTACT_NAME` +
+e.g. `commonGroupContacts n/James Bond`
+* *Remove Contact from Group* : remove n/CONTACT_NAME group/GROUP_NAME +
+e.g. `remove n/James Bond group/CS2103Group`
+* *Delete Group* : `deleteGroup group/GROUP_NAME` +
+e.g. `deleteGroup group/CS2103Group`
+* *Import Timetable* : `importCalendar SOURCE` +
+e.g. `importCalendar Google`
+* *Share Contact* : `share i/INDEX[…​] t/INDEX` +
+e.g. `share i/2 i/3 i/4 t/1`
+* *Archive Group* : `archive group/GROUP_NAME` +
+e.g. `archive group/CS2103Group`
+* *Unarchive Group* : `unarchive group/GROUP_NAME` +
+e.g. `unarchive group/CS2103Group`
+* *Suggest Location* : `generateLocation event/EVENT_NAME group/GROUP_NAME` +
+e.g. `generateLocation event/First Meeting group/CS2103Group`
+* *Add Event* : `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(DD-MM-YY) t/TIME(HHMM) a/ADDRESS [i/CONTACT_INDEX]…` +
+e.g. `addEvent n/Doctor Appointment dsc/Consultation d/15-09-18 t/1030 a/123, Clementi Rd, 1234665 i/1`
+* *List Events* : `listEvent`
+* *Add Group Event* : `addGroupEvent n/EVENT_NAME dsc/DESCRIPTION d/DATE(DD-MM-YY) t/TIME(HHMM) a/ADDRESS group/GROUP_NAME` +
+e.g. `addGroupEvent n/Project Meeting dsc/First Meeting d/12-09-18 t/1200 a/123, Clementi Rd, 1234665 group/CS2103_Group`
+* *List Group Events* : `listGroupEvent`
+* *Import Contacts* : `importContacts file/FILEPATH` +
+e.g. `importContacts file/~/Downloads/contacts1.csv`
+* *Disable and Enable Notification* : `notification <EVENT INDEX> enable/disable` +
+e.g. `notification 2 disable`
