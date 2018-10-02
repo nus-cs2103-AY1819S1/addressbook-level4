@@ -31,7 +31,8 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
                         PREFIX_TIME, PREFIX_ADDRESS);
 
         // check for mandatory fields, and that no other data is entered between the command and first argument prefix
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_EVENT_DESCRIPTION, PREFIX_DATE, PREFIX_TIME, PREFIX_ADDRESS)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_EVENT_DESCRIPTION, PREFIX_DATE, PREFIX_TIME,
+                PREFIX_ADDRESS)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEventCommand.MESSAGE_USAGE));
         }

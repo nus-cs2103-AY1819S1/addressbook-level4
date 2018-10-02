@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -34,7 +33,7 @@ public class AddEventCommand extends Command {
             + PREFIX_DATE + "15-09-18 "
             + PREFIX_TIME + "1030 "
             + PREFIX_ADDRESS + "123, Clementi Rd, 1234665";
-            // + PREFIX_CONTACT_INDEX + "1";
+    // + PREFIX_CONTACT_INDEX + "1";
 
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the address book";
