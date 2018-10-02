@@ -890,54 +890,258 @@ _{To be updated and expanded}_
 
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
-[discrete]
-=== Use case: Delete person
 
-*MSS*
+[width="59%",cols="22%",options="header",]
+|=======================================================================
+|Use Cases
+a|*UC01:* Register new volunteer +
+*Actor:* Admin +
+*Precondition(s):* Admin is logged in +
+*Guarantee(s):*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
-+
-Use case ends.
+* New user will be created only if data entered is valid and there is sufficient memory space to store the new user +
 
-*Extensions*
+*MSS:*
 
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
+    . Admin chooses to add a new volunteer
+    . Application requests for details of the volunteer
+    . Admin enters and submits the requested details
+    . Application creates the volunteer and notifies Admin of success +
+    Use case ends. +
 
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+*Extensions:* +
+
+    * 3a. The entered data is invalid
+    ** 3a1. Application shows an error message that the entered data is invalid +
+    Use case resumes from step 3.
+a|*UC02:* View volunteer details +
+*Actor:* Admin +
+*Precondition(s):* Admin is logged in +
+*Guarantee(s):* +
+*MSS:*
+
+    . Admin requests to list all volunteers
+    . Application displays a list of all volunteers
+    . Admin requests to view a volunteer profile at a specific index in the list
+    . Application displays the volunteer profile +
+    Use case ends. +
+
+*Extensions:*
+
+    * 2a. The volunteer list is empty
+    ** 2a1. Application shows an error message that volunteer list is empty +
+    Use case ends.
+    * 3a. The given index is invalid
+    ** 3a1. Application shows an error message that the index given is invalid +
+    Use case resumes from step 2.
+a|*UC03:* Update volunteer details +
+*Actor:* Admin +
+*Precondition(s):* Admin is logged in +
+*Guarantee(s):* +
+*MSS:*
+
+      . Admin requests to list all volunteers
+      . Application displays a list of all volunteers
+      . Admin enters the index and updated details of the volunteer to be changed
+      . Application updates the volunteer details and notifies of the successful update +
+      Use case ends. +
+
+*Extensions:*
+
+    * 2a. The volunteer list is empty
+    ** 2a1. Application shows an error message that volunteer list is empty +
+    Use case ends.
+    * 3a. The given index is invalid
+    ** 3a1. Application shows an error message that the index given is invalid +
+    Use case resumes from step 2.
+    * 3b. The given details are invalid
+    ** 3b1. Application shows an error message that the details given are invalid +
+    Use case resumes at step 2.
+a|*UC04:* Delete volunteer record +
+*Actor:* Admin +
+*Precondition(s):* Admin is logged in +
+*Guarantee(s):* +
+
+  * Volunteer record will be deleted only if index specified is valid +
+
+*MSS:*
+
+      . Admin requests to list all volunteers
+      . Application displays a list of all volunteers
+      . Admin requests to delete a volunteer at a specific index in the list
+      . Application deletes the volunteer
+      . Application displays a successful deletion message to Admin +
+      Use case ends. +
+
+*Extensions:*
+
+    * 2a. The volunteer list is empty
+    ** 2a1. Application shows an error message that volunteer list is empty +
+    Use case ends.
+    * 3a. The given index is invalid
+    ** 3a1. Application shows an error message that the index given is invalid +
+    Use case resumes from step 2.
+a|*UC05:* Create new event +
+*Actor:* Admin +
+*Precondition(s):* Admin is logged in +
+*Guarantee(s):* +
+*MSS:*
+
+        . Admin requests to create a new event
+        . Application requests for details of the event
+        . Admin enters details of the event to be created
+        . Application creates the event and shows successful creation message +
+        Use case ends. +
+
+*Extensions:*
+
+      * 2a. The given details is invalid
+      ** 2a1. Application shows an error message that given details is invalid +
+      Use case resumes from step 1.
+a|*UC06:* Update event details +
+*Actor:* Admin +
+*Precondition(s):* Admin is logged in +
+*Guarantee(s):* +
+*MSS:*
+
+        . Admin requests to list all events
+        . Application displays a list of all events
+        . Admin enters the index and updated details of the event to be changed
+        . Application updates the event details and notifies of the successful update +
+        Use case ends. +
+
+*Extensions:*
+
+      * 2a. The event list is empty
+      ** 2a1. Application shows an error message that event list is empty +
+      Use case ends.
+      * 3a. The given index is invalid
+      ** 3a1. Application shows an error message that the index given is invalid +
+      Use case resumes from step 2.
+      * 3b. The given details are invalid
+      ** 3b1. Application shows an error message that the details given are invalid +
+      Use case resumes at step 2.
+a|*UC07:* View event details +
+*Actor:* Admin +
+*Precondition(s):* Admin is logged in +
+*Guarantee(s):* +
+*MSS:*
+
+      . Admin requests to list all events
+      . Application displays a list of all events
+      . Admin requests to view event details at a specific index in the list
+      . Application displays the details of the event +
+      Use case ends. +
+
+*Extensions:*
+
+      * 2a. The event list is empty
+      ** 2a1. Application shows an error message that event list is empty +
+      Use case ends.
+      * 3a. The given index is invalid
+      ** 3a1. Application shows an error message that the index given is invalid +
+      Use case resumes from step 2.
+a|*UC08:* Delete event details +
+*Actor:* Admin +
+*Precondition(s):* Admin is logged in +
+*Guarantee(s):* +
+*MSS:*
+
+        . Admin requests to list all events
+        . Application displays a list of all events
+        . Admin requests to delete event details at a specific index in the list
+        . Application requests for confirmation
+        . Admin confirms the deletion
+        . Application deletes the event details
+        . Application displays a successful deletion message to Admin +
+        Use case ends. +
+
+*Extensions:*
+
+      * 2a. The events list is empty
+      ** 2a1. Application shows an error message that event list is empty +
+      Use case ends.
+      * 3a. The given index is invalid
+      ** 3a1. Application shows an error message that the index given is invalid +
+      Use case resumes from step 2.
+a|*UC09:* Add volunteer hours to volunteer profile +
+*Actor:* Admin +
+*Precondition(s):* Admin is logged in +
+*Guarantee(s):* +
+*MSS:*
+
+        . Application [underline]#displays the volunteer profile UC02#
+        . Admin requests to list all volunteer hours of the volunteer
+        . Application displays a list of all volunteer hours of the volunteer
+        . Admin chooses to add volunteer hours
+        . Application requests for details of the volunteer hours
+        . Admin enters the requested details
+        . Application requests for confirmation
+        . Admin confirms the addition
+        . Application adds the volunteer hours and notifies Admin of success +
+        Use case ends. +
+
+*Extensions:*
+
+        * 2a. The volunteer hours list is empty
+        ** 2a1. Application shows an error message that volunteer hours list is empty +
+        Use case ends.
+        * 8a. Application detects an error in the entered data
+        ** 8a1. Application requests for the correct data
+        ** 8a2. Admin enters new data
+        ** Steps 8a1-8a2 are repeated until the data entered is valid +
+        Use case resumes from step 9.
+a|*UC10:* Edit volunteer hours in volunteer profile +
+*Actor:* Admin +
+*Precondition(s):* Admin is logged in +
+*Guarantee(s):* +
+*MSS:*
+
+          . Application [underline]#displays the volunteer profile UC02#
+          . Admin requests to list all volunteer hours of the volunteer
+          . Application displays a list of all volunteer hours of the volunteer
+          . Admin enters the index and the details of the volunteer hours to be changed
+          . Application updates the volunteer hours and notifies Admin of success +
+          Use case ends. +
+
+*Extensions:*
+
+          * 2a. The volunteer hours list is empty
+          ** 2a1. Application shows an error message that volunteer hours list is empty +
+          Use case ends.
+          * 4a. The given index is invalid
+          ** Application shows an error message that the index given is invalid +
+          Use case resumes from step 5.
+          * 4b. The given details are invalid
+          ** 4b1. Application shows an error message that the details given is invalid +
+          Use case resumes from step 5.
+|=======================================================================
 
 _{More to be added}_
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+*  Reasonable response time (2-3s)
+*  Backward compatibility by being able to transfer data from older versions of the application when updating each version
+*  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
+*  Files containing volunteer data should be encrypted
+*  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
 
 [appendix]
 == Glossary
-
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[[manager]] Manager::
-The intended user of our application, the manager of a social welfare organisation who's in charge of members and events
+[width="59%",cols="50%,50%",options="header",]
+|=======================================================================
+| Term| Explanation
+| *Volunteer Manager*| Staff working for the organization, who handles administrative issues pertaining to volunteer and event management
+| *Volunteer*| A person who has signed up and has a profile with the organization
+| *Admin*| Our application’s intended target user (Most likely the volunteer manager)
+| *Application*| Refers to our system
+| *UCXX*| Use case with XX being the use case ID
+|[[mainstream-os]] *Mainstream OS*| Windows, Linux, Unix, OS-X
+|=======================================================================
 
 [appendix]
 == Product Survey
