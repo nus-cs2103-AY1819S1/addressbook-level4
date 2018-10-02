@@ -41,6 +41,7 @@ public class XmlAdaptedPerson {
     private XmlAdaptedPrescriptionList prescriptions = new XmlAdaptedPrescriptionList();
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
+    //todo may need to add new list for MedicalHistory
 
     /**
      * Constructs an XmlAdaptedPerson. This is the no-arg constructor that is
