@@ -1,10 +1,11 @@
 package seedu.address.logic.Anakin_commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Anakin_Model;
 
-import static java.util.Objects.requireNonNull;
 
 /**
  * Lists all persons in the address book to the user.
