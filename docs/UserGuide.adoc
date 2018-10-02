@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= HealthBook - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,15 +12,15 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-T10-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team CS2103-AY1819S1-T10-2`      Since: `Aug 2018`      Licence: `NUS`
 
 == Introduction
 
 HealthBook is for clinic receptionist who *prefer to use a desktop app for managing doctors and patients information and appointments*.
 HealthBook is *optimized for receptionist who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
-If you can type fast, HealthBook can help you maintain a clean and clear information management of your doctors and patients more efficiently compared traditional GUI apps.
+If you can type fast, HealthBook can help you maintain a clean and concise information management of your doctors and patients more efficiently compared traditional GUI apps.
 Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
@@ -72,13 +72,202 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-=== Listing all persons : `list`
+=== Registering a patient: `register-patient`
+Registers a patient to the HealthBook. Patient is automatically tagged as a "Patient". +
+Format: `register-patient n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS t/TELEGRAM_ID`
 
-Shows a list of all persons in the HealthBook. +
+Examples:
+
+* `register-patient n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+
+=== Registering a doctor: `register-doctor`
+Registers a doctor to the HealthBook. Doctor is automatically tagged as a "Doctor". +
+Format: `register-patient n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS`
+
+Examples:
+
+* `register-doctor n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+
+=== Deleting a patient: `delete-patient`
+Deletes a patient from the HealthBook by name and phone number for verification. +
+Format: `delete-patient n/NAME p/PHONE_NUMBER`
+
+Examples:
+
+* `delete-patient n/John Doe p/98765432`
+
+=== Deleting a doctor: `delete-doctor`
+Deletes a doctor from the HealthBook by name and phone number for verification. +
+Format: `delete-doctor n/NAME p/PHONE_NUMBER`
+
+Examples:
+
+* `delete-doctor n/John Doe p/98765432`
+
+=== Viewing a patient: `view-patient`
+Views a landing page of a patient one the HealthBook. This will display all information of the patient onto the HealthBook
+including their personal information, medical history, upcoming appointment and their past appointments. +
+Format: `view-patient n/NAME`
+
+****
+* Views the patient and loads the information page of the patient with the specified `NAME`.
+* The name refers to the name that the patient is registered under.
+* The name must have been registered into the HealthBook.
+****
+
+Examples:
+
+* `view-patient n/John Doe`
+
+=== Listing all patients and doctors : `list`
+Shows a list of all patients and doctors in the HealthBook. +
 Format: `list`
 
-=== Editing a person : `edit`
+=== Booking an appointment: `book-appointment`
+Book a doctor's appointment for the patient. A serial number of this appointment will be generated. +
+Format: `book-appointment n/PATIENT_NAME doc/DOCTOR_NAME dt/DATE_TIME`
 
+****
+* Date and time should be in the format hhmm-dd-mm-yy
+****
+
+Examples:
+
+* `book-appointment n/John Doe doc/Sally dt/1200-13-01-19`
+* `book-appointment n/Jackie Chan doc/Johnny Depp dt/1300-15-02-19`
+
+=== Editing an appointment: `edit-appointment`
+Edit a doctor's appointment for the patient by its serial number. +
+Format: `edit-appointment sn/SERIAL_NUMBER dt/DATE_TIME`
+
+****
+* Date and time should be in the format hhmm-dd-mm-yy
+****
+
+Examples:
+
+* `edit-appointment sn/123456 dt/1300-15-02-19`
+
+=== Deleting an appointment `delete-appointment`
+Delete a doctor's appointment for the patient by its serial number. +
+Format: `delete-appointment sn/SERIAL_NUMBER`
+
+Examples:
+
+* `delete-appointment sn/123456`
+
+=== Selecting an appointment `select-appointment`
+Select an appointment to perform various command on it. +
+Format: `select-appointment sn/SERIAL_NUMBER`
+
+Examples:
+
+* `select-appointment sn/123456`
+
+=== Adding prescriptions to a patient: `add-prescription`
+Adds a prescription to the patient with details on its drug, amount to consume per session and number of times to consume
+in a day. +
+Format: `add-prescription drug/DRUG_NAME amt/AMOUNT_PER_SESSION count/NUMBER_TO_TAKE_PER_DAY`
+
+Examples:
+
+* `add-prescription drug/Panadol amt/2 count/3`
+
+****
+* User needs to select an appointment before this command can be called.
+* If no appointment is selected, HealthBook will request for an appointment to be selected.
+* There cannot be a duplicate of drug name for that particular appointment.
+****
+
+=== Adding prescriptions to a patient: `delete-prescription`
+Delete a prescription to the patient by drug name. +
+Format: `delete-prescription drug/DRUG_NAME`
+
+Examples:
+
+* `delete-prescription drug/Panadol`
+
+****
+* User needs to select an appointment before this command can be called.
+* If no appointment is selected, HealthBook will request for an appointment to be selected.
+****
+
+
+=== Adding prescriptions to a patient: `edit-prescription`
+Edit a prescription to the patient by drug name. +
+Format: `edit-prescription drug/DRUG_NAME amt/AMOUNT_PER_SESSION count/NUMBER_TO_TAKE_PER_DAY`
+
+Examples:
+
+* `edit-prescription drug/Panadol amt/3 count/4`
+
+****
+* User needs to select an appointment before this command can be called.
+* If no appointment is selected, HealthBook will request for an appointment to be selected.
+* Prescription should already be added to the appointment before this can be performed.
+****
+
+=== Adding prescriptions to a patient: `view-prescription`
+View a prescription to the patient by drug name. This will display the amount to consume per session as well as
+the number of times to consume per day. +
+Format: `view-prescription drug/DRUG_NAME`
+
+Examples:
+
+* `view-prescription drug/Panadol`
+
+****
+* User needs to select an appointment before this command can be called.
+* If no appointment is selected, HealthBook will request for an appointment to be selected.
+* Prescription should already be added to the appointment before this can be performed.
+****
+
+=== Adding prescriptions to a patient: `view-all-prescription`
+View all ongoing prescription for a patient. This will display all drugs prescriptions for the patient. +
+Format: `view-all-prescription n/NAME`
+
+=== Adding medical condition or allergy to patient: `add-medical-history`
+Add a condition or allergy to the patient's medical history. This will then be displayed on the users information page. +
+Format: `add-medical-history n/NAME [condition/CONDITION] [allergy/ALLERGY]`
+
+Examples:
+
+* `add-medical-history n/NAME condition/Weak Pulse allergy/Panadol`
+
+****
+* Either condition or allergy must be present.
+****
+
+=== Deleting medical condition or allergy to patient: `delete-medical-history`
+Delete a condition or allergy to the patient's medical history. This will then be removed on the users information page. +
+Format: `delete-medical-history n/NAME [condition/CONDITION] [allergy/ALLERGY]`
+
+Examples:
+
+* `delete-medical-history n/NAME condition/Weak Pulse allergy/Panadol`
+
+****
+* Either condition or allergy must be present.
+* Condition and allergy indicated must be present in the patient's records
+****
+
+=== Reminding patient on their upcoming appointment: `remind-patient`
+Remind a patient on their upcoming appointment. This will send a message to the patient via an external platform to inform
+them about their appointment. +
+Format: `remind-patient n/NAME`
+
+Examples:
+
+* `remind-patient n/John Doe` +
+* `remind-patient n/Sally`
+
+=== Reminding all patient on their upcoming appointment: `remind-all-patient`
+Remind all patient will upcoming appointment this week. This will send a message to the patient via an external platform to
+inform them about their upcoming appointment. +
+Format: `remind-all-patient`
+
+
+=== Editing a person : `edit` [ to be removed ]
 Edits an existing person in the HealthBook. +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
@@ -97,7 +286,7 @@ Edits the phone number and email address of the 1st person to be `91234567` and 
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-=== Locating persons by name: `find`
+=== Locating persons by name: `find` [ to be removed ]
 
 Finds persons whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
@@ -117,7 +306,7 @@ Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
 
-=== Deleting a person : `delete`
+=== Deleting a person : `delete` [ to be removed ]
 
 Deletes the specified person from the HealthBook. +
 Format: `delete INDEX`
@@ -137,7 +326,7 @@ Deletes the 2nd person in the HealthBook.
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
 
-=== Selecting a person : `select`
+=== Selecting a person : `select` [ to be removed ]
 
 Selects the person identified by the index number used in the displayed person list. +
 Format: `select INDEX`
