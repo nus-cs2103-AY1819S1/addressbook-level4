@@ -67,7 +67,7 @@ public class Task {
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable label set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Label> getLabels() {
