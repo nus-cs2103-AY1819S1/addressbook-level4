@@ -136,7 +136,7 @@ public class ParserUtil {
      * @return A valid person with its role object.
      */
     public static Person parseRole(String role, Name name, Password password) {
-        if(role.equals("doctor")) {
+        if (role.equals("doctor")) {
             return new Doctor(new Id(0), name, password);
         } else {
             return null;
