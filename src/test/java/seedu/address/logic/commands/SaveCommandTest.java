@@ -12,6 +12,7 @@ import static seedu.address.testutil.TypicalWishes.getTypicalWishBook;
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.amount.Amount;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -35,7 +36,7 @@ public class SaveCommandTest {
         Wish editedWish = new WishBuilder(firstWish)
                 .withSavedAmountIncrement(VALID_SAVED_AMOUNT_AMY).build();
 
-        SavedAmount amountToSave = new SavedAmount(VALID_SAVED_AMOUNT_AMY);
+        Amount amountToSave = new Amount(VALID_SAVED_AMOUNT_AMY);
         Index editedWishIndex = INDEX_FIRST_WISH;
 
         SaveCommand saveCommandToTest = new SaveCommand(INDEX_FIRST_WISH, amountToSave);
@@ -58,7 +59,7 @@ public class SaveCommandTest {
         Wish editedWish = new WishBuilder(firstWish)
                 .withSavedAmountIncrement(VALID_SAVED_AMOUNT_AMY).build();
 
-        SavedAmount amountToSave = new SavedAmount(VALID_SAVED_AMOUNT_AMY);
+        Amount amountToSave = new Amount(VALID_SAVED_AMOUNT_AMY);
         Index editedWishIndex = INDEX_FIRST_WISH;
 
         SaveCommand saveCommandToTest = new SaveCommand(INDEX_FIRST_WISH, amountToSave);
@@ -76,7 +77,7 @@ public class SaveCommandTest {
     public void execute_invalidWishIndexUnfilteredList_failure() {
         model.updateFilteredWishList(PREDICATE_SHOW_ALL_WISHES);
         Index indexOutOfBounds = Index.fromOneBased(model.getFilteredWishList().size() + 1);
-        SaveCommand saveCommand = new SaveCommand(indexOutOfBounds, new SavedAmount(VALID_SAVED_AMOUNT_AMY));
+        SaveCommand saveCommand = new SaveCommand(indexOutOfBounds, new Amount(VALID_SAVED_AMOUNT_AMY));
 
         String expectedMessage = MESSAGE_INVALID_WISH_DISPLAYED_INDEX;
 
@@ -99,7 +100,7 @@ public class SaveCommandTest {
                 largestIndexInCurrWishBook.getOneBased());
 
         SaveCommand saveCommand = new SaveCommand(indexOutOfBoundsInFilteredWishList,
-                new SavedAmount(VALID_SAVED_AMOUNT_AMY));
+                new Amount(VALID_SAVED_AMOUNT_AMY));
 
         String expectedMessage = MESSAGE_INVALID_WISH_DISPLAYED_INDEX;
 
@@ -114,7 +115,7 @@ public class SaveCommandTest {
         Wish editedWish = new WishBuilder(firstWish)
                 .withSavedAmountIncrement(VALID_SAVED_AMOUNT_AMY).build();
 
-        SavedAmount amountToSave = new SavedAmount(VALID_SAVED_AMOUNT_AMY);
+        Amount amountToSave = new Amount(VALID_SAVED_AMOUNT_AMY);
         Index editedWishIndex = INDEX_FIRST_WISH;
 
         SaveCommand saveCommandToTest = new SaveCommand(INDEX_FIRST_WISH, amountToSave);
@@ -143,7 +144,7 @@ public class SaveCommandTest {
     public void executeUndoRedo_saveInvalidIndexUnfilteredList_failure() {
         model.updateFilteredWishList(PREDICATE_SHOW_ALL_WISHES);
         Index indexOutOfBounds = Index.fromOneBased(model.getFilteredWishList().size() + 1);
-        SaveCommand saveCommandToFail = new SaveCommand(indexOutOfBounds, new SavedAmount(VALID_SAVED_AMOUNT_AMY));
+        SaveCommand saveCommandToFail = new SaveCommand(indexOutOfBounds, new Amount(VALID_SAVED_AMOUNT_AMY));
 
         String expectedMessage = MESSAGE_INVALID_WISH_DISPLAYED_INDEX;
 
@@ -161,11 +162,11 @@ public class SaveCommandTest {
 
     @Test
     public void equals() {
-        final SavedAmount savedAmountAmy = new SavedAmount(VALID_SAVED_AMOUNT_AMY);
-        final SavedAmount savedAmountBob = new SavedAmount(VALID_SAVED_AMOUNT_BOB);
-        final SaveCommand saveCommand1a = new SaveCommand(INDEX_FIRST_WISH, savedAmountAmy);
-        final SaveCommand saveCommand1b = new SaveCommand(INDEX_FIRST_WISH, savedAmountAmy);
-        final SaveCommand saveCommand2 = new SaveCommand(INDEX_FIRST_WISH, savedAmountBob);
+        final Amount amountAmy = new Amount(VALID_SAVED_AMOUNT_AMY);
+        final Amount amountBob = new Amount(VALID_SAVED_AMOUNT_BOB);
+        final SaveCommand saveCommand1a = new SaveCommand(INDEX_FIRST_WISH, amountAmy);
+        final SaveCommand saveCommand1b = new SaveCommand(INDEX_FIRST_WISH, amountAmy);
+        final SaveCommand saveCommand2 = new SaveCommand(INDEX_FIRST_WISH, amountBob);
 
         // same object
         assertTrue(saveCommand1a.equals(saveCommand1a));

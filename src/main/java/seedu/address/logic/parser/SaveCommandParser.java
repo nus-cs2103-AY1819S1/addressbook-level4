@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import seedu.address.commons.core.amount.Amount;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.RemarkCommand;
 import seedu.address.logic.commands.SaveCommand;
@@ -7,6 +8,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.wish.SavedAmount;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_AMOUNT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SAVING;
 
@@ -35,9 +37,15 @@ public class SaveCommandParser implements Parser<SaveCommand>{
         }
 
         String savedAmountString = argumentMultimap.getValue(PREFIX_SAVING).orElse("");
-        SavedAmount savedAmount = new SavedAmount(savedAmountString);
 
-        return new SaveCommand(index,savedAmount);
+        Amount amount;
+        try {
+            amount = new Amount(savedAmountString);
+        } catch(IllegalArgumentException iae) {
+            throw new ParseException(String.format(MESSAGE_INVALID_AMOUNT, savedAmountString));
+        }
+
+        return new SaveCommand(index, amount);
     }
 
     /**

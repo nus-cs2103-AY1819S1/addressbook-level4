@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import org.junit.Test;
+import seedu.address.commons.core.amount.Amount;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandTestUtil;
 import seedu.address.logic.commands.SaveCommand;
@@ -17,14 +18,14 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_WISH;
 public class SaveCommandParserTest {
     private SaveCommandParser saveCommandParser = new SaveCommandParser();
     private final Index targetIndex = INDEX_FIRST_WISH;
-    private final SavedAmount savedAmount = new SavedAmount(VALID_SAVED_AMOUNT_AMY);
+    private final Amount amount = new Amount(VALID_SAVED_AMOUNT_AMY);
 
     @Test
     public void parse_indexSpecified_success() {
         final String userInput = targetIndex.getOneBased() + " " + PREFIX_SAVING
                 + VALID_SAVED_AMOUNT_AMY;
 
-        final SaveCommand expectedCommand = new SaveCommand(targetIndex, savedAmount);
+        final SaveCommand expectedCommand = new SaveCommand(targetIndex, amount);
 
         assertParseSuccess(saveCommandParser, userInput, expectedCommand);
     }
