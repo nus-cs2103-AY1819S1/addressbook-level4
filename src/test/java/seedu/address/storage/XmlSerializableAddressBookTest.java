@@ -20,7 +20,8 @@ public class XmlSerializableAddressBookTest {
             Paths.get("src", "test", "data", "XmlSerializableAddressBookTest");
     private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalRestaurantsAddressBook.xml");
     private static final Path INVALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("invalidRestaurantAddressBook.xml");
-    private static final Path DUPLICATE_PERSON_FILE = TEST_DATA_FOLDER.resolve("duplicateRestaurantAddressBook.xml");
+    private static final Path DUPLICATE_PERSON_FILE = TEST_DATA_FOLDER.resolve(
+            "duplicateRestaurantAddressBook.xml");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
