@@ -75,7 +75,7 @@ public class AddressBookParser {
             return new ListCommand();
 
         case SyncCommand.COMMAND_WORD:
-             return new SyncCommand();
+            return new SyncCommand();
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();
