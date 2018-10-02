@@ -105,6 +105,7 @@ public class GsonUtil {
      * Container class to hold JSON data.
      */
     private class CarparkJson {
+        //CHECKSTYLE.OFF: MemberNameCheck
         private final String short_term_parking;
         private final String y_coord;
         private final String car_park_type;
@@ -114,6 +115,7 @@ public class GsonUtil {
         private final String address;
         private final String car_park_no;
         private final String type_of_parking_system;
+        //CHECKSTYLE.ON: MemberNameCheck
 
         private ArrayList<String> jsonData;
 
