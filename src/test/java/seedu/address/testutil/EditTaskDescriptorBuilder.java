@@ -73,12 +73,12 @@ public class EditTaskDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditTaskDescriptor}
+     * Parses the {@code labels} into a {@code Set<Label>} and set it to the {@code EditTaskDescriptor}
      * that we are building.
      */
-    public EditTaskDescriptorBuilder withTags(String... tags) {
-        Set<Label> tagSet = Stream.of(tags).map(Label::new).collect(Collectors.toSet());
-        descriptor.setLabels(tagSet);
+    public EditTaskDescriptorBuilder withLabels(String... labels) {
+        Set<Label> labelSet = Stream.of(labels).map(Label::new).collect(Collectors.toSet());
+        descriptor.setLabels(labelSet);
         return this;
     }
 

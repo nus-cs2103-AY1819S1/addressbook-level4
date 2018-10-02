@@ -68,12 +68,12 @@ public class CommandTestUtil {
                 .withDueDate(VALID_DUEDATE_AMY)
                 .withPriorityValue(VALID_PRIORITY_VALUE_AMY)
                 .withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_LABEL_FRIEND).build();
+                .withLabels(VALID_LABEL_FRIEND).build();
         DESC_BOB = new EditTaskDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withDueDate(VALID_DUEDATE_BOB)
                 .withPriorityValue(VALID_PRIORITY_VALUE_BOB)
                 .withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_LABEL_HUSBAND, VALID_LABEL_FRIEND).build();
+                .withLabels(VALID_LABEL_HUSBAND, VALID_LABEL_FRIEND).build();
     }
 
     /**

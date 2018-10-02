@@ -121,7 +121,7 @@ public class EditCommandParserTest {
                 .withDueDate(VALID_DUEDATE_BOB)
                 .withPriorityValue(VALID_PRIORITY_VALUE_AMY)
                 .withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_LABEL_HUSBAND, VALID_LABEL_FRIEND).build();
+                .withLabels(VALID_LABEL_HUSBAND, VALID_LABEL_FRIEND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -168,7 +168,7 @@ public class EditCommandParserTest {
 
         // labels
         userInput = targetIndex.getOneBased() + LABEL_DESC_FRIEND;
-        descriptor = new EditTaskDescriptorBuilder().withTags(VALID_LABEL_FRIEND).build();
+        descriptor = new EditTaskDescriptorBuilder().withLabels(VALID_LABEL_FRIEND).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -183,7 +183,7 @@ public class EditCommandParserTest {
         EditCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withDueDate(VALID_DUEDATE_BOB)
                 .withPriorityValue(VALID_PRIORITY_VALUE_BOB)
                 .withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_LABEL_FRIEND, VALID_LABEL_HUSBAND)
+                .withLabels(VALID_LABEL_FRIEND, VALID_LABEL_HUSBAND)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -215,7 +215,7 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_THIRD_TASK;
         String userInput = targetIndex.getOneBased() + LABEL_EMPTY;
 
-        EditCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withTags().build();
+        EditCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withLabels().build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);

@@ -52,7 +52,7 @@ public class EditTaskDescriptorTest {
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different tags -> returns false
-        editedAmy = new EditTaskDescriptorBuilder(DESC_AMY).withTags(VALID_LABEL_HUSBAND).build();
+        editedAmy = new EditTaskDescriptorBuilder(DESC_AMY).withLabels(VALID_LABEL_HUSBAND).build();
         assertFalse(DESC_AMY.equals(editedAmy));
     }
 }

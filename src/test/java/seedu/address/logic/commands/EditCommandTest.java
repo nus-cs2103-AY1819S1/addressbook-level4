@@ -62,7 +62,7 @@ public class EditCommandTest {
                 .withLabels(VALID_LABEL_HUSBAND).build();
 
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withDueDate(VALID_DUEDATE_BOB).withTags(VALID_LABEL_HUSBAND).build();
+                .withDueDate(VALID_DUEDATE_BOB).withLabels(VALID_LABEL_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastTask, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask);
