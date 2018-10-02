@@ -16,12 +16,13 @@ image::images/Ui.png[width="600"]
 endif::[]
 
 * This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
-* What's different from https://github.com/se-edu/addressbook-level3[level 3]:
-** A more sophisticated GUI that includes a list  panel and an in-built Browser.
-** More test cases, including automated GUI testing.
-** Support for _Build Automation_ using Gradle and for _Continuous Integration_ using Travis CI.
+* It is an application intended to help private tutors to manage their tutees.
+* It has features specifically catered to tutors' needs:
+** Users can store name, address, contact number, education level, tuition timing and fees of a tutee.
+** Users can create a schedule of their tuition timings.
+** Users are able to assign grades to tutees according to their academic capabilities.
+** Users are able to calculate their tuition earnings.
+** Users can review the effectiveness of their teaching methods through a graphical analysis of their tutees' grades over time.
 
 == Site Map
 
