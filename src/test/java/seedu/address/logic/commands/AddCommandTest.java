@@ -50,6 +50,17 @@ public class AddCommandTest {
     }
 
     @Test
+    public void execute_expiredTask_throwsCommandException() throws Exception {
+        Task expiredTask = new TaskBuilder().withName("Apply moisturizer").withDueDate("01-02-1996").build();
+        AddCommand addCommand = new AddCommand(expiredTask);
+        ModelStub modelStub = new ModelStubWithTask(expiredTask);
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(AddCommand.MESSAGE_EXPIRED_TASK);
+        addCommand.execute(modelStub, commandHistory);
+    }
+
+    @Test
     public void execute_duplicateTask_throwsCommandException() throws Exception {
         Task validTask = new TaskBuilder().build();
         AddCommand addCommand = new AddCommand(validTask);
