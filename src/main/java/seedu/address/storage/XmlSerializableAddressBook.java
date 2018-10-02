@@ -18,7 +18,7 @@ import seedu.address.model.carpark.Carpark;
 @XmlRootElement(name = "addressbook")
 public class XmlSerializableAddressBook {
 
-    public static final String MESSAGE_DUPLICATE_CARPARK = "Carparks list contains duplicate carpark(s).";
+    public static final String MESSAGE_DUPLICATE_CARPARK = "Car parks list contains duplicate car park(s).";
 
     @XmlElement
     private List<XmlAdaptedCarpark> carparks;

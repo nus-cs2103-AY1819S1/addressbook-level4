@@ -12,18 +12,18 @@ import seedu.address.model.Model;
 import seedu.address.model.carpark.Carpark;
 
 /**
- * Deletes a carpark identified using it's displayed index from the address book.
+ * Deletes a car park identified using it's displayed index from the address book.
  */
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the carpark identified by the index number used in the displayed carpark list.\n"
+            + ": Deletes the car park identified by the index number used in the displayed carpark list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_CARPARK_SUCCESS = "Deleted Carpark: %1$s";
+    public static final String MESSAGE_DELETE_CARPARK_SUCCESS = "Deleted Car park: %1$s";
 
     private final Index targetIndex;
 
