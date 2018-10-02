@@ -233,7 +233,7 @@ Modifies the exam at INDEX 1 to have the name "CS2100" and date of 27th March 20
 * `modify exam 2 e/CS2929 d/270301` +
 Modifies the exam at INDEX 2 to have the name "CS2929" and date of 27th March 2001.
 
-=== Delete exam date : `delete exam`
+=== Delete exam : `delete exam`
 
 Deletes an existing exam from the exam list. +
 Format: `delete exam INDEX`
@@ -338,16 +338,24 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add Task* `add task n/NAME p/PRIORITYLEVEL [d/DEADLINE] [c/CATEGORY]...` +
+* *Add task* `add task n/NAME p/PRIORITYLEVEL [d/DEADLINE] [c/CATEGORY]...` +
 e.g. `add task n/buy apples p/1 d/111118 c/groceries`
 * *Clear* : `clear`
-* *Delete Task* : `delete task INDEX` +
+* *Delete task* : `delete task INDEX` +
 e.g. `delete task 3`
 * *Edit task* : `edit INDEX [n/NAME] [p/PRIORITYLEVEL] [d/DEADLINE] [c/CATEGORY]...` +
 e.g. `edit 2 n/buy bread d/211118`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
-* *List task* : `list task`
+* *List tasks* : `list task`
+* *List overdue tasks* : `list overdue`
+* *Sort tasks by priority* : `sort priority`
+* *List categories* : `list category`
+* *Add exam* : `add exam`
+* *List exam* : `list exam`
+* *Modify exam date* : `modify exam` +
+e.g. `modify exam 1 CS9998 270397`
+* *Delete exam* : `delete exam`
 * *Help* : `help`
 * *History* : `history`
 * *Undo* : `undo`
