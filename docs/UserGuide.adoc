@@ -141,7 +141,7 @@ Format: `newcard [q/QUESTION] [a/ANSWER]`
 === Editing a card : `editcard`
 
 Edits an existing card in the specified deck. +
-Format: `editcard d/INDEX_OF_DECK INDEX_OF_CARD [q/QUESTION] [a/ANSWER]`
+Format: `editcard INDEX_OF_CARD d/INDEX_OF_DECK [q/QUESTION] [a/ANSWER]`
 
 If user is inside a deck, can omit: d/INDEX_OF_DECK. +
 Format: `editcard INDEX_OF_CARD [q/QUESTION] [a/ANSWER]`
@@ -155,10 +155,8 @@ Format: `editcard INDEX_OF_CARD [q/QUESTION] [a/ANSWER]`
 
 Examples:
 
-* `list` +
-Displays all decks. +
-* `edit 1 n/My Deck` +
-Edits the name of the first deck in the list to be `My Deck`.
+* `edit 1 d/1 a/A` +
+Edits the answer of the first card in the first deck to be `A`.
 
 === Sort current list by name : `sortname`
 If user is currently in a deck, sort all card in alphabetical order. +
