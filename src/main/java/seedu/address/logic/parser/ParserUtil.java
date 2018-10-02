@@ -9,6 +9,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.doctor.Password;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -108,6 +109,20 @@ public class ParserUtil {
             throw new ParseException(Tag.MESSAGE_TAG_CONSTRAINTS);
         }
         return new Tag(trimmedTag);
+    }
+
+    /**
+     * Parses a {@code String password} into a {@code Password}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code password} is invalid.
+     */
+    public static Password parsePassword(String password) throws ParseException {
+        requireNonNull(password);
+        if (!Password.isValidPassword(password)) {
+            throw new ParseException(Password.MESSAGE_PASSWORD_CONSTRAINTS);
+        }
+        return new Password(password);
     }
 
     /**
