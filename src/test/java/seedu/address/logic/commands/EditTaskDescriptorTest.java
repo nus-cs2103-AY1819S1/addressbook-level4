@@ -51,7 +51,7 @@ public class EditTaskDescriptorTest {
         editedAmy = new EditTaskDescriptorBuilder(DESC_AMY).withAddress(VALID_ADDRESS_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
-        // different tags -> returns false
+        // different labels -> returns false
         editedAmy = new EditTaskDescriptorBuilder(DESC_AMY).withLabels(VALID_LABEL_HUSBAND).build();
         assertFalse(DESC_AMY.equals(editedAmy));
     }
