@@ -106,7 +106,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 .build();
         assertCommandSuccess(command, index, editedPerson);
 
-        /* Case: clear tags -> cleared */
+        /* Case: clear labels -> cleared */
         index = INDEX_FIRST_TASK;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_LABEL.getPrefix();
         Task personToEdit = getModel().getFilteredTaskList().get(index.getZeroBased());
@@ -190,7 +190,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                         + INDEX_FIRST_TASK.getOneBased() + INVALID_ADDRESS_DESC,
                 Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
 
-        /* Case: invalid tag -> rejected */
+        /* Case: invalid label -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " "
                         + INDEX_FIRST_TASK.getOneBased() + INVALID_LABEL_DESC,
                 Label.MESSAGE_LABEL_CONSTRAINTS);
