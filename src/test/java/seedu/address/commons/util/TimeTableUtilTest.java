@@ -50,11 +50,11 @@ public class TimeTableUtilTest {
 
     @Test
     public void parseModule() throws ParseException {
-        assert TimeTableUtil.parseModule("CS2103=LEC:1,TUT:01","sem-1").size() == 2;
+        assert TimeTableUtil.parseModule("CS2103=LEC:1,TUT:01", "sem-1").size() == 2;
     }
 
     @Test
     public void obtainModuleInfoFromApi() throws ParseException {
-        assert TimeTableUtil.obtainModuleInfoFromApi("CS2103",1).size() == 6;
+        assert TimeTableUtil.obtainModuleInfoFromApi("CS2103", 1).size() == 6;
     }
 }
