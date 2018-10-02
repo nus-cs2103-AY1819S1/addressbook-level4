@@ -218,6 +218,7 @@ public class AddressBookParserTest {
         assertTrue(parser.parseCommand("u 3") instanceof UndoCommand);
     }
 
+    //@@author A19Sean
     @Test
     public void parseCommand_pictureCommandWord_returnsPictureCommand() throws Exception {
         assertTrue(parser.parseCommand("pic n/johndoe l/johndoe.jpg") instanceof PictureCommand);
@@ -244,6 +245,7 @@ public class AddressBookParserTest {
         assertEquals(new TagCommand(new PersonContainsTagPredicate(keywords)), command);
     }
 
+    //@@author
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() throws Exception {
         thrown.expect(ParseException.class);

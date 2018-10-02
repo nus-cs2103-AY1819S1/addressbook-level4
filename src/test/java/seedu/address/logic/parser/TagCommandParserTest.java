@@ -11,6 +11,7 @@ import org.junit.Test;
 import seedu.address.logic.commands.TagCommand;
 import seedu.address.model.tag.PersonContainsTagPredicate;
 
+//@@author A19Sean
 public class TagCommandParserTest {
 
     private TagCommandParser parser = new TagCommandParser();
