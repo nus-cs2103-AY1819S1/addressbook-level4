@@ -4,18 +4,18 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_LABEL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PRIORITY_VALUE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.LABEL_DESC_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.LABEL_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PRIORITY_VALUE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PRIORITY_VALUE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DUEDATE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
@@ -54,12 +54,13 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add a person without tags to a non-empty task manager, command with leading spaces and trailing spaces
+        /* Case: add a person without labels to a non-empty task manager,
+         * command with leading spaces and trailing spaces
          * -> added
          */
         Task toAdd = Y_TASK;
         String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
-                + PRIORITY_VALUE_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
+                + PRIORITY_VALUE_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + LABEL_DESC_FRIEND + " ";
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
@@ -76,7 +77,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /* Case: add a person with all fields same as another person in the task manager except name -> added */
         toAdd = new TaskBuilder(Y_TASK).withName(VALID_NAME_BOB).build();
         command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + PRIORITY_VALUE_DESC_AMY + ADDRESS_DESC_AMY
-                + TAG_DESC_FRIEND;
+                + LABEL_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a person with all fields same as another person in the task manager except phone and email
@@ -91,13 +92,13 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         deleteAllPersons();
         assertCommandSuccess(A_TASK);
 
-        /* Case: add a person with tags, command with parameters in random order -> added */
+        /* Case: add a task with labels, command with parameters in random order -> added */
         toAdd = Z_TASK;
-        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
-                + TAG_DESC_HUSBAND + PRIORITY_VALUE_DESC_BOB;
+        command = AddCommand.COMMAND_WORD + LABEL_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
+                + LABEL_DESC_HUSBAND + PRIORITY_VALUE_DESC_BOB;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a person, missing tags -> added */
+        /* Case: add a person, missing labels -> added */
         assertCommandSuccess(H_TASK);
 
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
@@ -133,7 +134,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         command = TaskUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
 
-        /* Case: add a duplicate person except with different tags -> rejected */
+        /* Case: add a duplicate person except with different labels -> rejected */
         command = TaskUtil.getAddCommand(H_TASK) + " " + PREFIX_LABEL.getPrefix() + "friends";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
 
@@ -177,10 +178,10 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
                 + PRIORITY_VALUE_DESC_AMY + INVALID_ADDRESS_DESC;
         assertCommandFailure(command, Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
 
-        /* Case: invalid tag -> rejected */
+        /* Case: invalid label -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
                 + PRIORITY_VALUE_DESC_AMY + ADDRESS_DESC_AMY
-                + INVALID_TAG_DESC;
+                + INVALID_LABEL_DESC;
         assertCommandFailure(command, Label.MESSAGE_LABEL_CONSTRAINTS);
     }
 

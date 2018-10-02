@@ -4,9 +4,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DUEDATE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LABEL_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_VALUE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalTasks.A_TASK;
 import static seedu.address.testutil.TypicalTasks.Z_TASK;
 
@@ -52,7 +52,7 @@ public class TaskTest {
         editedAlice = new TaskBuilder(A_TASK)
                 .withPriorityValue(VALID_PRIORITY_VALUE_BOB)
                 .withDescription(VALID_ADDRESS_BOB)
-                .withLabels(VALID_TAG_HUSBAND)
+                .withLabels(VALID_LABEL_HUSBAND)
                 .build();
         assertTrue(A_TASK.isSameTask(editedAlice));
 
@@ -60,14 +60,14 @@ public class TaskTest {
         editedAlice = new TaskBuilder(A_TASK)
                 .withDueDate(VALID_DUEDATE_BOB)
                 .withDescription(VALID_ADDRESS_BOB)
-                .withLabels(VALID_TAG_HUSBAND)
+                .withLabels(VALID_LABEL_HUSBAND)
                 .build();
         assertTrue(A_TASK.isSameTask(editedAlice));
 
         // same name, same due date, same priority value, different attributes -> returns true
         editedAlice = new TaskBuilder(A_TASK)
                 .withDescription(VALID_ADDRESS_BOB)
-                .withLabels(VALID_TAG_HUSBAND)
+                .withLabels(VALID_LABEL_HUSBAND)
                 .build();
         assertTrue(A_TASK.isSameTask(editedAlice));
     }
@@ -107,7 +107,7 @@ public class TaskTest {
         assertFalse(A_TASK.equals(editedAlice));
 
         // different labels -> returns false
-        editedAlice = new TaskBuilder(A_TASK).withLabels(VALID_TAG_HUSBAND).build();
+        editedAlice = new TaskBuilder(A_TASK).withLabels(VALID_LABEL_HUSBAND).build();
         assertFalse(A_TASK.equals(editedAlice));
     }
 }
