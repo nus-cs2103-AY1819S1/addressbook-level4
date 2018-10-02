@@ -21,7 +21,6 @@ public class Doctor extends Person {
 
     // Identity fields
     private final Id id;
-    private final Name name;
     private final Password password;
 
     //Data fields
@@ -34,7 +33,6 @@ public class Doctor extends Person {
         super(name, new Phone(""), new Email(""), new Address(""), new HashSet<Tag>());
         requireAllNonNull(id, name, password);
         this.id = id;
-        this.name = name;
         this.password = password;
         //this.shift = shift;
     }
@@ -42,11 +40,7 @@ public class Doctor extends Person {
     public Id getId() {
         return id;
     }
-
-    public Name getName() {
-        return name;
-    }
-
+    
     public Password getPassword() {
         return password;
     }
@@ -93,7 +87,7 @@ public class Doctor extends Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(id, name, password);
+        return Objects.hash(id, password);
     }
 
     @Override
