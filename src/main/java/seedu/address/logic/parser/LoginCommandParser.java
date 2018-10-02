@@ -15,6 +15,7 @@ import seedu.address.model.doctor.Password;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
+//@@author jjlee050
 /**
  * Parses input arguments and creates a new LoginCommand object
  */
@@ -37,7 +38,7 @@ public class LoginCommandParser implements Parser<LoginCommand> {
         String role = argMultimap.getValue(PREFIX_ROLE).get();
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Password password = ParserUtil.parsePassword(argMultimap.getValue(PREFIX_PASSWORD).get());
-        Person person = new Doctor(new Id(0), name, password);
+        Person person = ParserUtil.parseRole(role, name, password);
 
         return new LoginCommand(role, person);
     }
