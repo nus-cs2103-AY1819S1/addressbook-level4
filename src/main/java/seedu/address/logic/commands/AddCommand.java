@@ -36,6 +36,7 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book";
+    public static final String MESSAGE_EXPIRED_TASK = "The date of task added is before current time";
 
     private final Task toAdd;
 
@@ -50,6 +51,10 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+
+        if (toAdd.getDueDate().isOverDue()) {
+            throw new CommandException(MESSAGE_EXPIRED_TASK);
+        }
 
         if (model.hasTask(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
