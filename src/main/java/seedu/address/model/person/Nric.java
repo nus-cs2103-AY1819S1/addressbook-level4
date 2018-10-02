@@ -24,7 +24,7 @@ public class Nric {
      *            A valid nric.
      */
     public Nric(String nric) {
-        requireNonNull(nric); 
+        requireNonNull(nric);
         checkArgument(isValidNric(nric), MESSAGE_NAME_CONSTRAINTS);
         this.nric = nric;
     }
