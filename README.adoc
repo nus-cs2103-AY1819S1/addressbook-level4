@@ -1,4 +1,4 @@
-= Health Book (Level 4)
+= Health Book
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/CS2103-AY1819S1-T10-2/main[image:https://travis-ci.org/CS2103-AY1819S1-T10-2/main.svg?branch=master[Build Status]]
