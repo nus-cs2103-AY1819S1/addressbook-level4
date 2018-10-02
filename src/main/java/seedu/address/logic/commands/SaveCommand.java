@@ -1,5 +1,11 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SAVING;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_WISHES;
+
+import java.util.List;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -8,12 +14,9 @@ import seedu.address.model.Model;
 import seedu.address.model.wish.SavedAmount;
 import seedu.address.model.wish.Wish;
 
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SAVING;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_WISHES;
-
+/*
+ * Saves specified amount to a specified wish.
+ */
 public class SaveCommand extends Command {
     public static final String COMMAND_WORD = "save";
     public static final String COMMAND_ALIAS = "sv";
