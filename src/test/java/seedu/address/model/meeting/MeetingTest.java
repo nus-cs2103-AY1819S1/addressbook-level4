@@ -1,14 +1,14 @@
 package seedu.address.model.meeting;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.testutil.Assert;
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.testutil.Assert;
 
 //@@author AyushChatto
-class MeetingTest {
+public class MeetingTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
