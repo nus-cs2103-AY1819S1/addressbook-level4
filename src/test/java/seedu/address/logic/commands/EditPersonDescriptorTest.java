@@ -8,12 +8,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROOM_BOB;
-<<<<<<< HEAD
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-=======
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SCHOOL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_BOB;
->>>>>>> 4f35be1cf2190ddc1eaab76b690faf30595ac5fb
 
 import org.junit.Test;
 
@@ -52,17 +48,12 @@ public class EditPersonDescriptorTest {
         editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withEmail(VALID_EMAIL_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
-<<<<<<< HEAD
-        // different address -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withRoom(VALID_ROOM_BOB).build();
-=======
         // different room -> returns false
         editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withRoom(VALID_ROOM_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different school -> return false
         editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withSchool(VALID_SCHOOL_BOB).build();
->>>>>>> 4f35be1cf2190ddc1eaab76b690faf30595ac5fb
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different tags -> returns false

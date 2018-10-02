@@ -10,10 +10,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Room;
-<<<<<<< HEAD
-=======
 import seedu.address.model.person.School;
->>>>>>> 4f35be1cf2190ddc1eaab76b690faf30595ac5fb
 import seedu.address.model.tag.Tag;
 
 /**
@@ -40,10 +37,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setPhone(person.getPhone());
         descriptor.setEmail(person.getEmail());
         descriptor.setRoom(person.getRoom());
-<<<<<<< HEAD
-=======
         descriptor.setSchool(person.getSchool());
->>>>>>> 4f35be1cf2190ddc1eaab76b690faf30595ac5fb
         descriptor.setTags(person.getTags());
     }
 
@@ -76,8 +70,6 @@ public class EditPersonDescriptorBuilder {
      */
     public EditPersonDescriptorBuilder withRoom(String room) {
         descriptor.setRoom(new Room(room));
-<<<<<<< HEAD
-=======
         return this;
     }
 
@@ -86,7 +78,6 @@ public class EditPersonDescriptorBuilder {
      */
     public EditPersonDescriptorBuilder withSchool(String school) {
         descriptor.setSchool(new School(school));
->>>>>>> 4f35be1cf2190ddc1eaab76b690faf30595ac5fb
         return this;
     }
 

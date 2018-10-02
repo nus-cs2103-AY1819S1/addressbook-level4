@@ -18,7 +18,7 @@ public class SchoolContainsKeywordPredicate implements Predicate<Person> {
     @Override
     public boolean test(Person person) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getSchool().schoolName, keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getSchool().value, keyword));
     }
 
     @Override

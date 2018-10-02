@@ -4,11 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROOM_BOB;
-<<<<<<< HEAD
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-=======
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_BOB;
->>>>>>> 4f35be1cf2190ddc1eaab76b690faf30595ac5fb
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
@@ -50,11 +46,7 @@ public class UniquePersonListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniquePersonList.add(ALICE);
-<<<<<<< HEAD
-        Person editedAlice = new PersonBuilder(ALICE).withRoom(VALID_ROOM_BOB).withTags(VALID_TAG_HUSBAND)
-=======
         Person editedAlice = new PersonBuilder(ALICE).withRoom(VALID_ROOM_BOB).withTags(VALID_TAG_BOB)
->>>>>>> 4f35be1cf2190ddc1eaab76b690faf30595ac5fb
                 .build();
         assertTrue(uniquePersonList.contains(editedAlice));
     }
@@ -102,11 +94,7 @@ public class UniquePersonListTest {
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
         uniquePersonList.add(ALICE);
-<<<<<<< HEAD
-        Person editedAlice = new PersonBuilder(ALICE).withRoom(VALID_ROOM_BOB).withTags(VALID_TAG_HUSBAND)
-=======
         Person editedAlice = new PersonBuilder(ALICE).withRoom(VALID_ROOM_BOB).withTags(VALID_TAG_BOB)
->>>>>>> 4f35be1cf2190ddc1eaab76b690faf30595ac5fb
                 .build();
         uniquePersonList.setPerson(ALICE, editedAlice);
         UniquePersonList expectedUniquePersonList = new UniquePersonList();

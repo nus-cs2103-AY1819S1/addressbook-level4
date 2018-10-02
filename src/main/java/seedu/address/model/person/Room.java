@@ -12,13 +12,8 @@ public class Room {
     public static final String MESSAGE_ROOM_CONSTRAINTS =
             "Room numbers should only be alphanumeric, and the first character should be an alphabet,"
             + "followed by 3 digits.";
-<<<<<<< HEAD
-    public static final String ROOM_VALIDATION_REGEX = "\\\\p*Alnum}+";
-    public final String value;
-=======
     public static final String ROOM_VALIDATION_REGEX = "\\p{Alnum}+";
-    public final String roomNumber;
->>>>>>> 4f35be1cf2190ddc1eaab76b690faf30595ac5fb
+    public final String value;
 
     /**
      * Constructs a {@code Room}.
@@ -53,10 +48,5 @@ public class Room {
     @Override
     public int hashCode() {
         return value.hashCode();
-    }
-
-    @Override
-    public int hashCode() {
-        return roomNumber.hashCode();
     }
 }

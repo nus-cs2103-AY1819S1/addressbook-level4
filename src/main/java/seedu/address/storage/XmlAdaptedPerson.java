@@ -48,13 +48,8 @@ public class XmlAdaptedPerson {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
-<<<<<<< HEAD
-    public XmlAdaptedPerson(String name, String phone, String email,
-                            String room, String school, List<XmlAdaptedTag> tagged) {
-=======
     public XmlAdaptedPerson(String name, String phone, String email, String room, String school,
                             List<XmlAdaptedTag> tagged) {
->>>>>>> 4f35be1cf2190ddc1eaab76b690faf30595ac5fb
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -75,7 +70,7 @@ public class XmlAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         room = source.getRoom().value;
-        school = source.getSchool().schoolName;
+        school = source.getSchool().value;
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
