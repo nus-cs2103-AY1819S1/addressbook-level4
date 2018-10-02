@@ -14,7 +14,7 @@ import guitests.GuiRobot;
 import guitests.guihandles.AlertDialogHandle;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 
-public class ErrorDialogGuiTest extends AddressBookSystemTest {
+public class ErrorDialogGuiTest extends TaskCollectionSystemTest {
 
     private static final IOException IO_EXCEPTION_STUB = new IOException("Stub");
     private final GuiRobot guiRobot = new GuiRobot();
@@ -25,10 +25,11 @@ public class ErrorDialogGuiTest extends AddressBookSystemTest {
 
         guiRobot.waitForEvent(() -> guiRobot.isWindowShown(FILE_OPS_ERROR_DIALOG_STAGE_TITLE));
 
-        AlertDialogHandle alertDialog = new AlertDialogHandle(guiRobot.getStage(FILE_OPS_ERROR_DIALOG_STAGE_TITLE));
+        AlertDialogHandle alertDialog = new AlertDialogHandle(
+            guiRobot.getStage(FILE_OPS_ERROR_DIALOG_STAGE_TITLE));
         assertEquals(FILE_OPS_ERROR_DIALOG_HEADER_MESSAGE, alertDialog.getHeaderText());
         assertEquals(FILE_OPS_ERROR_DIALOG_CONTENT_MESSAGE + ":\n" + IO_EXCEPTION_STUB.toString(),
-                alertDialog.getContentText());
+            alertDialog.getContentText());
     }
 
 }

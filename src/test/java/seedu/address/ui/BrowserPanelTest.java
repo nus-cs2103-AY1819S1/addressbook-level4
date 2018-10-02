@@ -17,6 +17,7 @@ import seedu.address.MainApp;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 
 public class BrowserPanelTest extends GuiUnitTest {
+
     private PersonPanelSelectionChangedEvent selectionChangedEventStub;
 
     private BrowserPanel browserPanel;
@@ -38,9 +39,10 @@ public class BrowserPanelTest extends GuiUnitTest {
         URL expectedDefaultPageUrl = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
         assertEquals(expectedDefaultPageUrl, browserPanelHandle.getLoadedUrl());
 
-        // associated web page of a person
+        // associated web page of a task
         postNow(selectionChangedEventStub);
-        URL expectedPersonUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + ALICE.getName().fullName.replaceAll(" ", "%20"));
+        URL expectedPersonUrl = new URL(
+            BrowserPanel.SEARCH_PAGE_URL + ALICE.getName().value.replaceAll(" ", "%20"));
 
         waitUntilBrowserLoaded(browserPanelHandle);
         assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());

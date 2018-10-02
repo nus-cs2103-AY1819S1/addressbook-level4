@@ -27,6 +27,7 @@ import seedu.address.ui.testutil.EventsCollectorRule;
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
  */
 public class SelectCommandTest {
+
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
@@ -64,8 +65,8 @@ public class SelectCommandTest {
         showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
 
         Index outOfBoundsIndex = INDEX_SECOND_PERSON;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        // ensures that outOfBoundIndex is still in bounds of deadline manager list
+        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getTaskList().size());
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
@@ -88,27 +89,29 @@ public class SelectCommandTest {
         // null -> returns false
         assertFalse(selectFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different task -> returns false
         assertFalse(selectFirstCommand.equals(selectSecondCommand));
     }
 
     /**
-     * Executes a {@code SelectCommand} with the given {@code index}, and checks that {@code JumpToListRequestEvent}
-     * is raised with the correct index.
+     * Executes a {@code SelectCommand} with the given {@code index}, and checks that {@code
+     * JumpToListRequestEvent} is raised with the correct index.
      */
     private void assertExecutionSuccess(Index index) {
         SelectCommand selectCommand = new SelectCommand(index);
-        String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, index.getOneBased());
+        String expectedMessage = String
+            .format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, index.getOneBased());
 
         assertCommandSuccess(selectCommand, model, commandHistory, expectedMessage, expectedModel);
 
-        JumpToListRequestEvent lastEvent = (JumpToListRequestEvent) eventsCollectorRule.eventsCollector.getMostRecent();
+        JumpToListRequestEvent lastEvent = (JumpToListRequestEvent) eventsCollectorRule.eventsCollector
+            .getMostRecent();
         assertEquals(index, Index.fromZeroBased(lastEvent.targetIndex));
     }
 
     /**
-     * Executes a {@code SelectCommand} with the given {@code index}, and checks that a {@code CommandException}
-     * is thrown with the {@code expectedMessage}.
+     * Executes a {@code SelectCommand} with the given {@code index}, and checks that a {@code
+     * CommandException} is thrown with the {@code expectedMessage}.
      */
     private void assertExecutionFailure(Index index, String expectedMessage) {
         SelectCommand selectCommand = new SelectCommand(index);

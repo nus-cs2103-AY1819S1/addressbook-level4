@@ -9,25 +9,28 @@ import com.google.common.eventbus.Subscribe;
 
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.TaskCollectionChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.ReadOnlyTaskCollection;
 import seedu.address.model.UserPrefs;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of TaskCollection data in local storage.
  */
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private static final String MESSAGE_SAME_FILE_ERROR = "Cannot overwrite save file! "
+                                                          + "Export as a different filename.";
+    private TaskCollectionStorage privateTaskCollectionStorage;
     private UserPrefsStorage userPrefsStorage;
 
-
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(TaskCollectionStorage privateTaskCollectionStorage,
+                          UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.privateTaskCollectionStorage = privateTaskCollectionStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -48,43 +51,63 @@ public class StorageManager extends ComponentManager implements Storage {
         userPrefsStorage.saveUserPrefs(userPrefs);
     }
 
-
-    // ================ AddressBook methods ==============================
+    // ================ TaskCollection methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getTaskCollectionFilePath() {
+        return privateTaskCollectionStorage.getTaskCollectionFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyTaskCollection> readTaskCollection()
+        throws DataConversionException, IOException {
+        return readTaskCollection(privateTaskCollectionStorage.getTaskCollectionFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyTaskCollection> readTaskCollection(Path filePath)
+        throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return privateTaskCollectionStorage.readTaskCollection(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveTaskCollection(ReadOnlyTaskCollection taskCollection) throws IOException {
+        saveTaskCollection(taskCollection, privateTaskCollectionStorage.getTaskCollectionFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveTaskCollection(ReadOnlyTaskCollection taskCollection, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        privateTaskCollectionStorage.saveTaskCollection(taskCollection, filePath);
     }
 
+    @Override
+    public Optional<ReadOnlyTaskCollection> importTaskCollection(Path filePath)
+        throws DataConversionException, IOException {
+        logger.fine("Attempting to import from file: " + filePath);
+        return privateTaskCollectionStorage.readTaskCollection(filePath);
+    }
+
+    @Override
+    public void exportTaskCollection(ReadOnlyTaskCollection taskCollection,
+                                     TaskCollectionStorage importExportTaskCollectionStorage)
+                                     throws IOException, IllegalValueException {
+        Path filePath = importExportTaskCollectionStorage.getTaskCollectionFilePath();
+        if (privateTaskCollectionStorage.getTaskCollectionFilePath().equals(filePath)) {
+            throw new IllegalValueException(MESSAGE_SAME_FILE_ERROR);
+        }
+        logger.fine("Attempting to export to file: " + filePath);
+        importExportTaskCollectionStorage.saveTaskCollection(taskCollection, filePath);
+    }
 
     @Override
     @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
+    public void handleTaskCollectionChangedEvent(TaskCollectionChangedEvent event) {
+        logger.info(
+            LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
-            saveAddressBook(event.data);
+            saveTaskCollection(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }

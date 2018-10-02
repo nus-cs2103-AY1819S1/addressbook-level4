@@ -8,17 +8,18 @@ import java.nio.file.Path;
 
 import org.junit.Test;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.TaskCollection;
+import seedu.address.model.task.Task;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.testutil.TestUtil;
 
-public class SampleDataTest extends AddressBookSystemTest {
+public class SampleDataTest extends TaskCollectionSystemTest {
+
     /**
      * Returns null to force test app to load data of the file in {@code getDataFileLocation()}.
      */
     @Override
-    protected AddressBook getInitialData() {
+    protected TaskCollection getInitialData() {
         return null;
     }
 
@@ -27,7 +28,8 @@ public class SampleDataTest extends AddressBookSystemTest {
      */
     @Override
     protected Path getDataFileLocation() {
-        Path filePath = TestUtil.getFilePathInSandboxFolder("SomeFileThatDoesNotExist1234567890.xml");
+        Path filePath = TestUtil
+            .getFilePathInSandboxFolder("SomeFileThatDoesNotExist1234567890.xml");
         deleteFileIfExists(filePath);
         return filePath;
     }
@@ -45,7 +47,7 @@ public class SampleDataTest extends AddressBookSystemTest {
 
     @Test
     public void addressBook_dataFileDoesNotExist_loadSampleData() {
-        Person[] expectedList = SampleDataUtil.getSamplePersons();
+        Task[] expectedList = SampleDataUtil.getSamplePersons();
         assertListMatching(getPersonListPanel(), expectedList);
     }
 }
