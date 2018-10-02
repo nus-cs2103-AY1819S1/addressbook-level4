@@ -30,7 +30,7 @@ public class Doctor extends Person {
      * Every field must be present and not null.
      */
     public Doctor(Id id, Name name, Password password) {
-        super(name, new Phone(""), new Email(""), new Address(""), new HashSet<Tag>());
+        super(name, new Phone("999"), new Email("alice@live.com"), new Address("1"), new HashSet<>());
         requireAllNonNull(id, name, password);
         this.id = id;
         this.password = password;
@@ -40,7 +40,7 @@ public class Doctor extends Person {
     public Id getId() {
         return id;
     }
-    
+
     public Password getPassword() {
         return password;
     }
