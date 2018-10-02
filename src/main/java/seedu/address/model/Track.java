@@ -13,6 +13,10 @@ public class Track {
     // if storage finds this inconvenient, can change to String instead
     private final File file;
 
+    public Track(String trackname) throws Exception {
+        this(new File("library/" + trackname));
+    }
+
     public Track(File file) throws Exception {
         CollectionUtil.requireAllNonNull(file);
         if (isValidMp3(file)) {
