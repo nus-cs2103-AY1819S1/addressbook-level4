@@ -13,8 +13,8 @@ import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PRIORITY_VALUE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PRIORITY_VALUE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.LABEL_DESC_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.LABEL_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DUEDATE_AMY;
@@ -98,11 +98,11 @@ public class EditCommandParserTest {
 
         // while parsing {@code PREFIX_LABEL} alone will reset the tags of the {@code Task} being edited,
         // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY, Label
+        assertParseFailure(parser, "1" + LABEL_DESC_FRIEND + LABEL_DESC_HUSBAND + TAG_EMPTY, Label
                 .MESSAGE_LABEL_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, Label
+        assertParseFailure(parser, "1" + LABEL_DESC_FRIEND + TAG_EMPTY + LABEL_DESC_HUSBAND, Label
                 .MESSAGE_LABEL_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Label
+        assertParseFailure(parser, "1" + TAG_EMPTY + LABEL_DESC_FRIEND + LABEL_DESC_HUSBAND, Label
                 .MESSAGE_LABEL_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
@@ -114,8 +114,8 @@ public class EditCommandParserTest {
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_TASK;
-        String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + TAG_DESC_HUSBAND
-                + PRIORITY_VALUE_DESC_AMY + ADDRESS_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND;
+        String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + LABEL_DESC_HUSBAND
+                + PRIORITY_VALUE_DESC_AMY + ADDRESS_DESC_AMY + NAME_DESC_AMY + LABEL_DESC_FRIEND;
 
         EditCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withDueDate(VALID_DUEDATE_BOB)
@@ -167,7 +167,7 @@ public class EditCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // tags
-        userInput = targetIndex.getOneBased() + TAG_DESC_FRIEND;
+        userInput = targetIndex.getOneBased() + LABEL_DESC_FRIEND;
         descriptor = new EditTaskDescriptorBuilder().withTags(VALID_TAG_FRIEND).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -177,8 +177,8 @@ public class EditCommandParserTest {
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_TASK;
         String userInput = targetIndex.getOneBased() + PHONE_DESC_AMY + ADDRESS_DESC_AMY + PRIORITY_VALUE_DESC_AMY
-                + TAG_DESC_FRIEND + PHONE_DESC_AMY + ADDRESS_DESC_AMY + PRIORITY_VALUE_DESC_AMY + TAG_DESC_FRIEND
-                + PHONE_DESC_BOB + ADDRESS_DESC_BOB + PRIORITY_VALUE_DESC_BOB + TAG_DESC_HUSBAND;
+                + LABEL_DESC_FRIEND + PHONE_DESC_AMY + ADDRESS_DESC_AMY + PRIORITY_VALUE_DESC_AMY + LABEL_DESC_FRIEND
+                + PHONE_DESC_BOB + ADDRESS_DESC_BOB + PRIORITY_VALUE_DESC_BOB + LABEL_DESC_HUSBAND;
 
         EditCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withDueDate(VALID_DUEDATE_BOB)
                 .withPriorityValue(VALID_PRIORITY_VALUE_BOB)

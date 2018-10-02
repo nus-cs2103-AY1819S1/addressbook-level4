@@ -47,8 +47,8 @@ public class CommandTestUtil {
     public static final String PRIORITY_VALUE_DESC_BOB = " " + PREFIX_PRIORITY_VALUE + VALID_PRIORITY_VALUE_BOB;
     public static final String ADDRESS_DESC_AMY = " " + PREFIX_DESCRIPTION + VALID_ADDRESS_AMY;
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_DESCRIPTION + VALID_ADDRESS_BOB;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_LABEL + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_LABEL + VALID_TAG_HUSBAND;
+    public static final String LABEL_DESC_FRIEND = " " + PREFIX_LABEL + VALID_TAG_FRIEND;
+    public static final String LABEL_DESC_HUSBAND = " " + PREFIX_LABEL + VALID_TAG_HUSBAND;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_DUE_DATE + "911a"; // 'a' not allowed in phones
