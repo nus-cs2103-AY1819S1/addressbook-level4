@@ -29,9 +29,11 @@ public class ImportCommandPreparerTest {
     private static final Path CORRECT_CSV = TEST_DATA_FOLDER.resolve("AddressbookCorrect.csv");
     private static final Path CONTACT_ONLY_NAME_CSV = TEST_DATA_FOLDER.resolve("AddressbookContactOnlyName.csv");
     private static final Path DUPLICATE_CLASH_CSV = TEST_DATA_FOLDER.resolve("AddressbookDuplicateClash.csv");
-    private static final Path DUPLICATE_CLASH_NEGATIVE_CSV = TEST_DATA_FOLDER.resolve("AddressbookDuplicateClashNegative.csv");!
+    private static final Path DUPLICATE_CLASH_NEGATIVE_CSV = 
+            TEST_DATA_FOLDER.resolve("AddressbookDuplicateClashNegative.csv");
     private static final Path CONTACT_NO_NAME_CSV = TEST_DATA_FOLDER.resolve("AddressbookIncompleteContacts.csv");
-    private static final Path INVALID_CONTACT_FIELD_CSV = TEST_DATA_FOLDER.resolve("AddressbookInvalidContactField.csv");!
+    private static final Path INVALID_CONTACT_FIELD_CSV = 
+            TEST_DATA_FOLDER.resolve("AddressbookInvalidContactField.csv");
     private static final Path TEXT_DOC_CSV = TEST_DATA_FOLDER.resolve("AddressbookText.txt");
 
     private static final ArrayList<String> noTags = new ArrayList<>();
