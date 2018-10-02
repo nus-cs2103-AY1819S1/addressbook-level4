@@ -29,11 +29,14 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.ScheduledEventBuilder;
+import seedu.address.testutil.ScheduledEventUtil;
 
 public class AddressBookParserTest {
     @Rule
@@ -118,7 +121,9 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_addEvent() throws Exception {
-        assertTrue(parser.parseCommand(AddEventCommand.COMMAND_WORD) instanceof AddEventCommand);
+        Event event = new ScheduledEventBuilder().build();
+        AddEventCommand command = (AddEventCommand) parser.parseCommand(ScheduledEventUtil.getAddEventCommand(event));
+        assertEquals(new AddEventCommand(event), command);
     }
 
     @Test
