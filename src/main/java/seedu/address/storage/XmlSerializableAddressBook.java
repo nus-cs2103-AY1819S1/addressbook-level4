@@ -23,12 +23,16 @@ public class XmlSerializableAddressBook {
     @XmlElement
     private List<XmlAdaptedPerson> patients;
 
+    @XmlElement
+    private List<XmlAdaptedMedicine> medicines;
+
     /**
      * Creates an empty XmlSerializableAddressBook.
      * This empty constructor is required for marshalling.
      */
     public XmlSerializableAddressBook() {
         patients = new ArrayList<>();
+        medicines = new ArrayList<>();
     }
 
     /**
@@ -37,6 +41,7 @@ public class XmlSerializableAddressBook {
     public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
         this();
         patients.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+        medicines.addAll(src.getMedicineList().stream().map(XmlAdaptedMedicine::new).collect(Collectors.toList()));
     }
 
     public List<XmlAdaptedPerson> getPatients() {
