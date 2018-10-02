@@ -100,7 +100,11 @@ public class PersonListPanelTest extends GuiUnitTest {
             builder.append("<cost>1.00</cost>\n");
             builder.append("</persons>\n");
         }
-        builder.append("<username>manyPersons</username>");
+        builder.append("<username>manyPersons</username>\n");
+        builder.append("<budget>\n");
+        builder.append("<budgetCap>").append((double) personCount).append("</budgetCap>\n");
+        builder.append("<currentExpenses>").append((double) personCount).append("</currentExpenses>\n");
+        builder.append("</budget>\n");
         builder.append("</addressbook>\n");
 
         Path manyPersonsFile = Paths.get(TEST_DATA_FOLDER + "manyPersons.xml");

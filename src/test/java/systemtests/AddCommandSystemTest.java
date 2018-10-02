@@ -47,7 +47,10 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void add() throws NoUserSelectedException {
+        System.out.println("havent fail");
         Model model = testApp.getActualModel();
+        System.out.println("fail");
+
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
