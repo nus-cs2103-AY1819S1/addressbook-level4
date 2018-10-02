@@ -50,6 +50,9 @@ public class SaveCommand extends Command {
         }
 
         Wish wishToEdit = lastShownList.get(index.getZeroBased());
+        if(wishToEdit.isFulfilled()) {
+            throw new CommandException(Messages.MESSAGE_WISH_FULFILLED);
+        }
 
         try {
             Wish editedWish = new Wish(wishToEdit.getName(), wishToEdit.getPrice(), wishToEdit.getEmail(),

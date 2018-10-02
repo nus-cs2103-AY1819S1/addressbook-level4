@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.commons.util.AppUtil;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -26,7 +25,7 @@ public class Wish {
     private final Remark remark;
     private final Set<Tag> tags = new HashSet<>();
     private final SavedAmount savedAmount;
-    private final boolean isCompleted;
+    private final boolean fulfilled;
 
     /**
      * Every field must be present and not null.
@@ -34,9 +33,9 @@ public class Wish {
     public Wish(Name name, Price price, Email email, Url url, SavedAmount savedAmount, Remark remark, Set<Tag> tags) {
         requireAllNonNull(name, price, email, url, tags);
         if(isSavedAmountGreaterThanOrEqualToPrice(savedAmount, price)) {
-            isCompleted = true;
+            fulfilled = true;
         } else {
-            isCompleted = false;
+            fulfilled = false;
         }
         this.name = name;
         this.price = price;
@@ -77,6 +76,8 @@ public class Wish {
     public Remark getRemark() {
         return remark;
     }
+
+    public boolean isFulfilled() { return fulfilled; }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
