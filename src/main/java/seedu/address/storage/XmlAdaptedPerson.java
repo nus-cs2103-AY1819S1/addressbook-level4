@@ -13,16 +13,16 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.word.Meaning;
 import seedu.address.model.word.Email;
 import seedu.address.model.word.Name;
-import seedu.address.model.word.Person;
+import seedu.address.model.word.Word;
 import seedu.address.model.word.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
- * JAXB-friendly version of the Person.
+ * JAXB-friendly version of the Word.
  */
 public class XmlAdaptedPerson {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Word's %s field is missing!";
 
     @XmlElement(required = true)
     private String name;
@@ -43,7 +43,7 @@ public class XmlAdaptedPerson {
     public XmlAdaptedPerson() {}
 
     /**
-     * Constructs an {@code XmlAdaptedPerson} with the given person details.
+     * Constructs an {@code XmlAdaptedPerson} with the given word details.
      */
     public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
         this.name = name;
@@ -56,11 +56,11 @@ public class XmlAdaptedPerson {
     }
 
     /**
-     * Converts a given Person into this class for JAXB use.
+     * Converts a given Word into this class for JAXB use.
      *
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
-    public XmlAdaptedPerson(Person source) {
+    public XmlAdaptedPerson(Word source) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
@@ -71,11 +71,11 @@ public class XmlAdaptedPerson {
     }
 
     /**
-     * Converts this jaxb-friendly adapted person object into the model's Person object.
+     * Converts this jaxb-friendly adapted word object into the model's Word object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person
+     * @throws IllegalValueException if there were any data constraints violated in the adapted word
      */
-    public Person toModelType() throws IllegalValueException {
+    public Word toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
@@ -114,7 +114,7 @@ public class XmlAdaptedPerson {
         final Meaning modelMeaning = new Meaning(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelMeaning, modelTags);
+        return new Word(modelName, modelPhone, modelEmail, modelMeaning, modelTags);
     }
 
     @Override

@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's address in the address book.
+ * Represents a Word's address in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidMeaning(String)}
  */
 public class Meaning {
@@ -16,7 +16,7 @@ public class Meaning {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String ADDRESS_VALIDATION_REGEX = "[^\\s].*";
+    public static final String MEANING_VALIDATION_REGEX = "[^\\s].*";
 
     public final String value;
 
@@ -35,7 +35,7 @@ public class Meaning {
      * Returns true if a given string is a valid email.
      */
     public static boolean isValidMeaning(String test) {
-        return test.matches(ADDRESS_VALIDATION_REGEX);
+        return test.matches(MEANING_VALIDATION_REGEX);
     }
 
     @Override

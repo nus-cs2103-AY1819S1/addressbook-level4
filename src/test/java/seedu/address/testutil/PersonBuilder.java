@@ -6,13 +6,13 @@ import java.util.Set;
 import seedu.address.model.word.Meaning;
 import seedu.address.model.word.Email;
 import seedu.address.model.word.Name;
-import seedu.address.model.word.Person;
+import seedu.address.model.word.Word;
 import seedu.address.model.word.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
- * A utility class to help with building Person objects.
+ * A utility class to help with building Word objects.
  */
 public class PersonBuilder {
 
@@ -36,18 +36,18 @@ public class PersonBuilder {
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code personToCopy}.
+     * Initializes the PersonBuilder with the data of {@code wordToCopy}.
      */
-    public PersonBuilder(Person personToCopy) {
-        name = personToCopy.getName();
-        phone = personToCopy.getPhone();
-        email = personToCopy.getEmail();
-        meaning = personToCopy.getMeaning();
-        tags = new HashSet<>(personToCopy.getTags());
+    public PersonBuilder(Word wordToCopy) {
+        name = wordToCopy.getName();
+        phone = wordToCopy.getPhone();
+        email = wordToCopy.getEmail();
+        meaning = wordToCopy.getMeaning();
+        tags = new HashSet<>(wordToCopy.getTags());
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code Name} of the {@code Word} that we are building.
      */
     public PersonBuilder withName(String name) {
         this.name = new Name(name);
@@ -55,7 +55,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Word} that we are building.
      */
     public PersonBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
@@ -63,7 +63,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Meaning} of the {@code Person} that we are building.
+     * Sets the {@code Meaning} of the {@code Word} that we are building.
      */
     public PersonBuilder withAddress(String address) {
         this.meaning = new Meaning(address);
@@ -71,7 +71,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Person} that we are building.
+     * Sets the {@code Phone} of the {@code Word} that we are building.
      */
     public PersonBuilder withPhone(String phone) {
         this.phone = new Phone(phone);
@@ -79,15 +79,15 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code Person} that we are building.
+     * Sets the {@code Email} of the {@code Word} that we are building.
      */
     public PersonBuilder withEmail(String email) {
         this.email = new Email(email);
         return this;
     }
 
-    public Person build() {
-        return new Person(name, phone, email, meaning, tags);
+    public Word build() {
+        return new Word(name, phone, email, meaning, tags);
     }
 
 }
