@@ -22,7 +22,16 @@ public class SavedAmount {
     public SavedAmount(String savedAmount) {
         requireNonNull(savedAmount);
         checkArgument(isValidSavedAmount(savedAmount), MESSAGE_PRICE_CONSTRAINTS);
-        value = Double.parseDouble(savedAmount); // TO-DO: check before allowing.
+        value = Double.parseDouble(savedAmount); // TODO: check before allowing.
+    }
+
+    /**
+     * Constructs a {@code SavedAmount} from an increment {@code SavedAmount}.
+     *
+     * @param increment A valid savedAmount to increment the current savedAmount with.
+     */
+    public SavedAmount incrementSavedAmount(SavedAmount increment) {
+        return new SavedAmount("" + (this.value + increment.value));
     }
 
     /**

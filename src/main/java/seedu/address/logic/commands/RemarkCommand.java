@@ -51,7 +51,7 @@ public class RemarkCommand extends Command {
         Wish updatedRemarkWish = createUpdatedRemarkWish(wishToEdit, this.remark);
 
         model.updateWish(wishToEdit, updatedRemarkWish);
-        model.updateFilteredWishList(Model.PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredWishList(Model.PREDICATE_SHOW_ALL_WISHES);
         model.commitWishBook();
         return new CommandResult(String.format(MESSAGE_REMARK_ADD_SUCCESS, updatedRemarkWish));
     }

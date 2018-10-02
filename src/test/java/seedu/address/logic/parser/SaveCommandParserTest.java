@@ -31,7 +31,7 @@ public class SaveCommandParserTest {
 
     @Test
     public void parse_missingCompulsoryField_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE);
+        final String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE);
 
         final String userInputMissingIndex = PREFIX_SAVING + VALID_SAVED_AMOUNT_AMY;
         assertParseFailure(saveCommandParser, userInputMissingIndex,

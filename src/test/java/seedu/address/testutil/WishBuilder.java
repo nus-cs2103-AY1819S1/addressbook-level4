@@ -90,10 +90,11 @@ public class WishBuilder {
     }
 
     /**
-     * Sets the {@code SavedAmount} of the {@code Wish} that we are building.
+     * Increments the default {@code SavedAmount} of the {@code Wish} to be built
+     * with the the given {@code SavedAmount}.
      */
-    public WishBuilder withSavedAmount(String savedAmount) {
-        this.savedAmount = new SavedAmount(savedAmount);
+    public WishBuilder withSavedAmountIncrement(String savedAmount) {
+        this.savedAmount = this.savedAmount.incrementSavedAmount(new SavedAmount(savedAmount));
         return this;
     }
 

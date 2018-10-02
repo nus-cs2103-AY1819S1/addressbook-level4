@@ -64,14 +64,14 @@ public class WishCard extends UiPart<Region> {
     }
 
     /**
-     * Returns the progess for {@code wish}.
+     * Returns the progress for {@code wish}.
      */
     private Double getProgress(Wish wish) {
         return wish.getSavedAmount().value / wish.getPrice().value;
     }
 
     /**
-     * Returns the progess in percentage for {@code wish}.
+     * Returns the progress in percentage for {@code wish}.
      */
     private String getProgressInString(Wish wish) {
         Double progress = getProgress(wish) * 100;
