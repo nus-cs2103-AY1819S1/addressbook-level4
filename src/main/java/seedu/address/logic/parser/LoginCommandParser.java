@@ -39,7 +39,7 @@ public class LoginCommandParser implements Parser<LoginCommand> {
         Password password = ParserUtil.parsePassword(argMultimap.getValue(PREFIX_PASSWORD).get());
         Person person = new Doctor(new Id(0), name, password);
 
-        return new LoginCommand();
+        return new LoginCommand(role, person);
     }
 
     /**
