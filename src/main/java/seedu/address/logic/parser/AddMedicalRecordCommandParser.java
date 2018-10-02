@@ -9,16 +9,22 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddMedicalRecordCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.medicine.MedicineName;
+import seedu.address.model.medicine.SerialNumber;
 import seedu.address.model.person.medicalrecord.BloodType;
 import seedu.address.model.person.medicalrecord.Disease;
 import seedu.address.model.person.medicalrecord.DrugAllergy;
 import seedu.address.model.person.medicalrecord.MedicalRecord;
+import seedu.address.model.person.medicalrecord.Message;
 import seedu.address.model.person.medicalrecord.Note;
+import seedu.address.model.person.medicalrecord.Quantity;
 
 /**
  * Parses input arguments and creates a new AddMedicalRecordCommand object
@@ -66,7 +72,11 @@ public class AddMedicalRecordCommandParser implements Parser<AddMedicalRecordCom
         List<Note> noteList = new ArrayList<>();
         if (argMultimap.getValue(PREFIX_NOTE).isPresent()) {
             String noteRawString = argMultimap.getValue(PREFIX_NOTE).get();
-            Note note = new Note(noteRawString);
+            Map<SerialNumber, Quantity> test = new HashMap<>();
+            test.put(new SerialNumber("11111"), new Quantity("5"));
+            test.put(new SerialNumber("22222"), new Quantity("6"));
+            test.put(new SerialNumber("33333"), new Quantity("7"));
+            Note note = new Note(new Message(noteRawString), test);
             noteList.add(note);
         }
 

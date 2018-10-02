@@ -66,7 +66,6 @@ public class XmlSerializableAddressBook {
             addressBook.addPerson(patient);
         }
         for (XmlAdaptedMedicine m : medicines) {
-            System.out.println("READING FRM FILE! " + m.toString());
             Medicine medicine = m.toModelType();
             if (addressBook.hasMedicine(medicine)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_MEDICINE);
