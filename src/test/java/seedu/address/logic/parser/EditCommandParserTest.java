@@ -44,7 +44,7 @@ import seedu.address.testutil.EditTaskDescriptorBuilder;
 
 public class EditCommandParserTest {
 
-    private static final String TAG_EMPTY = " " + PREFIX_LABEL;
+    private static final String LABEL_EMPTY = " " + PREFIX_LABEL;
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
@@ -96,13 +96,13 @@ public class EditCommandParserTest {
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
         assertParseFailure(parser, "1" + PHONE_DESC_BOB + INVALID_PHONE_DESC, DueDate.MESSAGE_DUEDATE_CONSTRAINTS);
 
-        // while parsing {@code PREFIX_LABEL} alone will reset the tags of the {@code Task} being edited,
-        // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1" + LABEL_DESC_FRIEND + LABEL_DESC_HUSBAND + TAG_EMPTY, Label
+        // while parsing {@code PREFIX_LABEL} alone will reset the labels of the {@code Task} being edited,
+        // parsing it together with a valid label results in error
+        assertParseFailure(parser, "1" + LABEL_DESC_FRIEND + LABEL_DESC_HUSBAND + LABEL_EMPTY, Label
                 .MESSAGE_LABEL_CONSTRAINTS);
-        assertParseFailure(parser, "1" + LABEL_DESC_FRIEND + TAG_EMPTY + LABEL_DESC_HUSBAND, Label
+        assertParseFailure(parser, "1" + LABEL_DESC_FRIEND + LABEL_EMPTY + LABEL_DESC_HUSBAND, Label
                 .MESSAGE_LABEL_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + LABEL_DESC_FRIEND + LABEL_DESC_HUSBAND, Label
+        assertParseFailure(parser, "1" + LABEL_EMPTY + LABEL_DESC_FRIEND + LABEL_DESC_HUSBAND, Label
                 .MESSAGE_LABEL_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
@@ -166,7 +166,7 @@ public class EditCommandParserTest {
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // tags
+        // labels
         userInput = targetIndex.getOneBased() + LABEL_DESC_FRIEND;
         descriptor = new EditTaskDescriptorBuilder().withTags(VALID_LABEL_FRIEND).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -211,9 +211,9 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_resetTags_success() {
+    public void parse_resetLabels_success() {
         Index targetIndex = INDEX_THIRD_TASK;
-        String userInput = targetIndex.getOneBased() + TAG_EMPTY;
+        String userInput = targetIndex.getOneBased() + LABEL_EMPTY;
 
         EditCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withTags().build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
