@@ -11,10 +11,10 @@ public enum PersonPropertyComparator {
     EMAIL ((p1, p2) -> p1.getEmail().value.compareToIgnoreCase(p2.getEmail().value)),
     ADDRESS ((p1, p2) -> p1.getAddress().value.compareToIgnoreCase(p2.getAddress().value));
 
-    private final Comparator<Person> comparator;
-
     public static final String MESSAGE_PERSON_PROPERTY_CONSTRAINTS =
             "Must be a property of a person. i.e. name, phone, email, address";
+
+    private final Comparator<Person> comparator;
 
     PersonPropertyComparator(Comparator<Person> comparator) {
         this.comparator = comparator;
