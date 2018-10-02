@@ -20,8 +20,8 @@ public class PersonBuilder {
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
-    public static final String DEFAULT_ROOM = "A123";
-    public static final String DEAFAULT_SCHOOL = "SchoolOfComputing";
+    public static final String DEFAULT_ROOM = "E201";
+    public static final String DEAFAULT_SCHOOL = "BIZ";
 
     private Name name;
     private Phone phone;
