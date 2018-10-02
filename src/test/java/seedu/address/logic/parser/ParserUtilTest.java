@@ -158,48 +158,48 @@ public class ParserUtilTest {
     @Test
     public void parseTag_null_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        ParserUtil.parseTag(null);
+        ParserUtil.parseLabel(null);
     }
 
     @Test
     public void parseTag_invalidValue_throwsParseException() throws Exception {
         thrown.expect(ParseException.class);
-        ParserUtil.parseTag(INVALID_TAG);
+        ParserUtil.parseLabel(INVALID_TAG);
     }
 
     @Test
     public void parseTag_validValueWithoutWhitespace_returnsTag() throws Exception {
         Label expectedTag = new Label(VALID_TAG_1);
-        assertEquals(expectedTag, ParserUtil.parseTag(VALID_TAG_1));
+        assertEquals(expectedTag, ParserUtil.parseLabel(VALID_TAG_1));
     }
 
     @Test
     public void parseTag_validValueWithWhitespace_returnsTrimmedTag() throws Exception {
         String tagWithWhitespace = WHITESPACE + VALID_TAG_1 + WHITESPACE;
         Label expectedTag = new Label(VALID_TAG_1);
-        assertEquals(expectedTag, ParserUtil.parseTag(tagWithWhitespace));
+        assertEquals(expectedTag, ParserUtil.parseLabel(tagWithWhitespace));
     }
 
     @Test
     public void parseTags_null_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        ParserUtil.parseTags(null);
+        ParserUtil.parseLabels(null);
     }
 
     @Test
     public void parseTags_collectionWithInvalidTags_throwsParseException() throws Exception {
         thrown.expect(ParseException.class);
-        ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, INVALID_TAG));
+        ParserUtil.parseLabels(Arrays.asList(VALID_TAG_1, INVALID_TAG));
     }
 
     @Test
     public void parseTags_emptyCollection_returnsEmptySet() throws Exception {
-        assertTrue(ParserUtil.parseTags(Collections.emptyList()).isEmpty());
+        assertTrue(ParserUtil.parseLabels(Collections.emptyList()).isEmpty());
     }
 
     @Test
     public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
-        Set<Label> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
+        Set<Label> actualTagSet = ParserUtil.parseLabels(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
         Set<Label> expectedTagSet = new HashSet<Label>(Arrays.asList(new Label(VALID_TAG_1), new Label(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
