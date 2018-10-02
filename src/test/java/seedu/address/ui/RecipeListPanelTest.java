@@ -103,7 +103,7 @@ public class RecipeListPanelTest extends GuiUnitTest {
         }
         builder.append("</addressbook>\n");
 
-        Path manyRecipesFile = Paths.get(TEST_DATA_FOLDER + "manyRecipes.xml");
+        Path manyRecipesFile = TEST_DATA_FOLDER.resolve("manyPersons.xml");
         FileUtil.createFile(manyRecipesFile);
         FileUtil.writeToFile(manyRecipesFile, builder.toString());
         manyRecipesFile.toFile().deleteOnExit();

@@ -3,11 +3,13 @@ package seedu.address.model.tag;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import seedu.address.model.UniqueType;
+
 /**
  * Represents a Tag in the application content.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
-public class Tag {
+public class Tag extends UniqueType {
 
     public static final String MESSAGE_TAG_CONSTRAINTS = "Tags names should be alphanumeric";
     public static final String TAG_VALIDATION_REGEX = "\\p{Alnum}+";
@@ -32,6 +34,19 @@ public class Tag {
         return test.matches(TAG_VALIDATION_REGEX);
     }
 
+    /**
+     * Returns true if both recipes of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two recipes.
+     */
+    private boolean isSameTag(Tag otherTag) {
+        if (otherTag == this) {
+            return true;
+        }
+
+        return otherTag != null
+                && otherTag.tagName.equals(this.tagName);
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -51,4 +66,11 @@ public class Tag {
         return '[' + tagName + ']';
     }
 
+    @Override
+    public boolean isSame(UniqueType uniqueType) {
+        if (uniqueType instanceof Tag) {
+            return isSameTag((Tag) uniqueType);
+        }
+        return false;
+    }
 }
