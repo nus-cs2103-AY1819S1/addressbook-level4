@@ -1018,6 +1018,124 @@ If user does not want to add the event, use case ends. Else, use case resumes fr
 +
 Use case ends.
 
+[discrete]
+=== UC6: View events for a particular week
+
+*MSS*
+
+. User requests to view events for a given week.
+. AddressBook displays events for that week.
++
+
+User case ends.
+
+*Extensions*
+
+* 1a. User enters invalid date.
++
+** 1a1. AddressBook displays error message.
++
+Use case ends.
+
+[discrete]
+=== UC7: View contacts by tag
+
+*MSS*
+
+. User requests to view contacts for a given tag.
+. AddressBook displays contacts under that tag.
++
+
+User case ends.
+
+*Extensions*
+
+* 1a. User enters invalid tag.
++
+** 1a1. AddressBook displays invalid tag message and returns to original screen.
++
+Use case ends.
+
+[discrete]
+=== UC8: Message multiple users
+
+*MSS*
+
+. User requests to send emails to a particular project group.
+. System goes to email page and puts all contacts in the email recipient list.
+. User sends email.
+. System returns to original screen.
++
+
+User case ends.
+
+*Extensions*
+
+* 3a. User exits email screen without sending email.
++
+** 3a1. AddressBook returns to original screen.
++
+Use case ends.
+
+[discrete]
+=== UC9: List projects
+
+*MSS*
+
+. User requests to view all projects.
+. System displays the list of projects.
++
+
+User case ends.
+
+[discrete]
+=== UC10: Find projects by keyword
+
+*MSS*
+
+. User requests to get projects with a certain keyword.
+. System displays all the projects containing that keyword.
++
+
+User case ends.
+
+[discrete]
+=== UC11: Import timetable
+
+*MSS*
+
+. User is redirected to IVLE login for app to access IVLE data.
+. Toast indicating successful import.
+. User is redirected to timetable page on the app.
++
+
+User case ends.
+
+*Extensions*
+
+* 2a. Incorrect login procedure is handled by IVLE.
++
+* 2b. AddressBook detects a clash with the user's schedule.
+** 2b1. AddressBook displays error message showing a clash.
+** 2b2. AddressBook asks if user wants to add the event anyway.
+** 2b3. AddressBook adds the event (or not).
+** If user does not want to add the event, use case ends.
+** Else, use case resumes from step 3.
++
+Use case ends.
+
+[discrete]
+=== UC12: Upcoming event notification
+
+*MSS*
+
+. Notification appears 24h before the event.
+. User taps on notification.
+. User is redirected to app homepage.
++
+
+Use case ends.
+
 [appendix]
 == Non Functional Requirements
 
