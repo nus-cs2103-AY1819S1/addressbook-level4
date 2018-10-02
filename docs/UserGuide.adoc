@@ -60,13 +60,13 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ==== Add attractions: `add`
 
-Add an attraction by name. +
-Format: `add <attraction>`
+Add an attraction by name with the information. +
+Format: `add <attraction>` `<maintenance>` `<waitTime>` `<address>` `<tag(s)>`
 
 ==== Delete attractions: `delete`
 
-Delete an attraction by name. +
-Format: `delete <attraction>`
+Delete an attraction by index(must be a positive integer). +
+Format: `delete <index>`
 
 ==== Update information of attraction: `update`
 
@@ -202,8 +202,8 @@ Format: `exit`
 == Command Summary
 
 === Provided
-* *Add*: `add <attraction>`
-* *Delete*: `delete <attraction>`
+* *Add*: `add <attraction>` `<maintenance>` `<waitTime>` `<address>` `<tag(s)>`
+* *Delete*: `delete <index>`
 * *Exit*: `exit`
 * *Find*: `find <attraction>`
 * *Help*: `help [option]`
