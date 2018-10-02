@@ -41,7 +41,7 @@ public class XmlUtilTest {
     private static final String VALID_EMAIL = "hans@example";
     private static final String VALID_ROOM = "B214";
     private static final String VALID_SCHOOL = "Engine";
-    private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("friends"));
+    private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("soccer"));
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
