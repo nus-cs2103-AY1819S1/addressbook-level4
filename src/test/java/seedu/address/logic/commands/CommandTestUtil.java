@@ -80,6 +80,7 @@ public class CommandTestUtil {
         try {
             CommandResult result = command.execute(actualModel, actualCommandHistory);
             assertEquals(expectedMessage, result.feedbackToUser);
+            assertEquals(expectedModel.getMaximumBudget(), actualModel.getMaximumBudget());
             assertEquals(expectedModel, actualModel);
             assertEquals(expectedCommandHistory, actualCommandHistory);
         } catch (Exception ce) {

@@ -122,7 +122,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void modifyMaximumBudget(double budget) {
+        public void modifyMaximumBudget(Budget budget) {
             throw new AssertionError("modifyMaximumBudget method should not be called.");
         }
 
