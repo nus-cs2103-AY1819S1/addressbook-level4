@@ -51,6 +51,7 @@ public class ModelManager extends ComponentManager implements Model {
         super();
         requireAllNonNull(addressBook, userPrefs);
         Map<Username, ReadOnlyAddressBook> addressBooks = new TreeMap<>();
+        System.out.println("Constructor " + addressBook.getMaximumBudget().getBudgetCap());
         logger.fine("Initializing with address book: " + addressBooks + " and user prefs " + userPrefs);
         this.addressBooks = addressBooks;
         this.addressBooks.put(addressBook.getUsername(), addressBook);
@@ -80,7 +81,8 @@ public class ModelManager extends ComponentManager implements Model {
         if (versionedAddressBook == null) {
             throw new NoUserSelectedException();
         }
-        return versionedAddressBook;
+        System.out.println("getAddressBook " + this.versionedAddressBook.getMaximumBudget().getBudgetCap());
+        return this.versionedAddressBook;
     }
 
     /** Raises an event to indicate the model has changed */
@@ -188,6 +190,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+
     @Override
     public Budget getMaximumBudget() {
         return this.versionedAddressBook.getMaximumBudget();
@@ -199,7 +202,11 @@ public class ModelManager extends ComponentManager implements Model {
         if (!isUserExists(username)) {
             throw new NonExistentUserException(username, addressBooks.size());
         }
+        System.out.println("loadUserData " + addressBooks.get(username).getMaximumBudget().getBudgetCap());
+
         this.versionedAddressBook = new VersionedAddressBook(addressBooks.get(username));
+        System.out.println("versionedAddressBook " + this.versionedAddressBook.getMaximumBudget().getBudgetCap());
+
         this.filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         this.username = username;
         addressBooks.replace(this.username, this.versionedAddressBook);

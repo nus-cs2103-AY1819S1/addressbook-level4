@@ -41,4 +41,8 @@
         <cost>7.00</cost>
     </persons>
     <username>typicalPersonsAddressBook</username>
+    <budget>
+        <budgetCap>1.00</budgetCap>
+        <currentExpenses>3.00</currentExpenses>
+    </budget>
 </addressbook>

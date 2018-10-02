@@ -22,7 +22,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     protected Username username;
     private final UniquePersonList persons;
     private final CategoryList categoryList;
-    private final Budget maximumBudget;
+    private Budget maximumBudget;
 
     /**
      * Creates an empty AddressBook with the given username.
@@ -51,6 +51,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void modifyMaximumBudget(double budget) {
         this.maximumBudget.modifyBudget(budget);
     }
+
+    /**
+     * Modifies the maximum budget for the current expense tracker
+     * @param budget a valid Budget
+     */
+    public void modifyMaximumBudget(Budget budget) {
+        this.maximumBudget = budget;
+    }
     //// list overwrite operaticons
 
     /**
@@ -68,7 +76,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        this.setPersons(newData.getPersonList());
+        this.modifyMaximumBudget(newData.getMaximumBudget());
         this.maximumBudget.clearSpending();
     }
 

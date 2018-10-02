@@ -28,6 +28,18 @@ public class Budget {
     }
 
     /**
+     * Constructs a {@code Budget} with modified current expenses
+     * @param budget
+     * @param currentExpenses
+     */
+    public Budget(double budget, double currentExpenses) {
+        this.budgetCap = budget;
+        this.budgetSetTimestamp = Calendar.getInstance();
+        this.currentExpenses = currentExpenses;
+
+    }
+
+    /**
      * Modifies the current (@code Budget) to have a new value
      *
      * @param budget a valid double
@@ -54,7 +66,7 @@ public class Budget {
 
     public boolean addExpense(double expense) {
         this.currentExpenses += expense;
-        if (this.currentExpenses + expense > this.budgetCap) {
+        if (this.currentExpenses > this.budgetCap) {
             return false;
         }
         return true;
@@ -84,6 +96,8 @@ public class Budget {
     public double getBudgetCap() {
         return this.budgetCap;
     }
+
+    public double getCurrentExpenses() { return this.currentExpenses; }
 
     /**
      * @return true if budget is exceeded else false

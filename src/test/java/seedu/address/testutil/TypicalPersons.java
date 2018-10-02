@@ -71,7 +71,7 @@ public class TypicalPersons {
             ab.addPerson(person);
             expense += person.getCost().getCostValue();
         }
-        ab.modifyMaximumBudget(expense);
+        ab.modifyMaximumBudget(expense + 2);
         return ab;
     }
 

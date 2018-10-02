@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Person;
 import seedu.address.model.user.Username;
 
@@ -14,5 +15,5 @@ public interface ReadOnlyAddressBook {
      * This list will not contain any duplicate persons.
      */
     ObservableList<Person> getPersonList();
-
+    Budget getMaximumBudget();
     Username getUsername();}

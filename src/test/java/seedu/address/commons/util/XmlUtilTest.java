@@ -1,6 +1,7 @@
 package seedu.address.commons.util;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
@@ -40,6 +41,7 @@ public class XmlUtilTest {
     private static final String VALID_NAME = "Hans Muster";
     private static final String VALID_PHONE = "9482424";
     private static final String VALID_ADDRESS = "1.00";
+    private static final String TYPICAL_PERSONS_ADDRESS_BOOK_USERNAME = "typicalPersonsAddressBook";
     private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("friends"));
 
     @Rule
@@ -73,6 +75,7 @@ public class XmlUtilTest {
     public void getDataFromFile_validFile_validResult() throws Exception {
         AddressBook dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableAddressBook.class).toModelType();
         assertEquals(9, dataFromFile.getPersonList().size());
+        assertTrue(dataFromFile.getUsername().equals(TYPICAL_PERSONS_ADDRESS_BOOK_USERNAME));
     }
 
     @Test
