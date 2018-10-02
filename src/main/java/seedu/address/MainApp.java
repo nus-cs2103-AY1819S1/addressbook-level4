@@ -196,7 +196,6 @@ public class MainApp extends Application {
         System.exit(0);
     }
 
-    @Subscribe
     public void handleExitAppRequestEvent(ExitAppRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         stop();

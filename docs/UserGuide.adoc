@@ -164,6 +164,16 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
+
+
+
+=== Showing list of AddressBook commands : `showList`
+
+Showing the addressbook list of person
+Format: `showList`
+
+
+
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
