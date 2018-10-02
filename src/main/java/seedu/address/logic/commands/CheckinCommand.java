@@ -2,11 +2,11 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DRUG_ALLERGY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -27,15 +27,15 @@ public class CheckinCommand extends Command {
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_ADDRESS + "ADDRESS "
-            + "[" + PREFIX_TAG + "DRUG ALLERGIES]...\n"
+            + "[" + PREFIX_DRUG_ALLERGY + "DRUG ALLERGIES]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NRIC + "S1234567A "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_TAG + "peanuts "
-            + PREFIX_TAG + "shellfish";
+            + PREFIX_DRUG_ALLERGY + "aspirin "
+            + PREFIX_DRUG_ALLERGY + "insulin";
 
     public static final String MESSAGE_SUCCESS = "New patient checked in: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person is already checked in";
