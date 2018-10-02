@@ -29,14 +29,26 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_newPerson_success() throws NoUserSelectedException {
-        Person validPerson = new PersonBuilder().build();
+    public void execute_newPerson_withinBudget() throws NoUserSelectedException {
+        Person validPerson = new PersonBuilder().withCost("1.00").build();
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.modifyMaximumBudget(expectedModel.getMaximumBudget().getBudgetCap() + 2);
         expectedModel.addPerson(validPerson);
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(new AddCommand(validPerson), model, commandHistory,
                 String.format(AddCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
+    }
+
+    @Test
+    public void execute_newPerson_budgetExceed() throws NoUserSelectedException {
+        Person validPerson = new PersonBuilder().withCost("2.00").build();
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.addPerson(validPerson);
+        expectedModel.commitAddressBook();
+
+        assertCommandSuccess(new AddCommand(validPerson), model, commandHistory,
+            AddCommand.MESSAGE_BUDGET_EXCEED_WARNING, expectedModel);
     }
 
     @Test

@@ -15,5 +15,4 @@ public interface ReadOnlyAddressBook {
      */
     ObservableList<Person> getPersonList();
 
-    Username getUsername();
-}
+    Username getUsername();}

@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
@@ -36,8 +37,9 @@ public interface Model {
     /**
      * Adds the given person.
      * {@code person} must not already exist in the address book.
+     * @return true if person is added without warning, else false.
      */
-    void addPerson(Person person) throws NoUserSelectedException;
+    boolean addPerson(Person person) throws NoUserSelectedException;
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
@@ -105,6 +107,13 @@ public interface Model {
      * Returns true if a user has been selected to be used. i.e Already logged in
      */
     boolean hasSelectedUser();
+
+    /**
+     * Modifies the existing maximum budget for the current user
+     */
+    void modifyMaximumBudget(double budget) throws NoUserSelectedException;
+
+    Budget getMaximumBudget();
 
     /**
      * Returns a copy of this model.

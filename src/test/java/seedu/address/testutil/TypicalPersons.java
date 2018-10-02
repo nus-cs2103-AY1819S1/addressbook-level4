@@ -62,13 +62,16 @@ public class TypicalPersons {
     private TypicalPersons() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code AddressBook} with all the typical persons and its maximmum budget equal to the sum of all expenses.
      */
     public static AddressBook getTypicalAddressBook() {
+        double expense = 0;
         AddressBook ab = new AddressBook(SAMPLE_USERNAME);
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
+            expense += person.getCost().getCostValue();
         }
+        ab.modifyMaximumBudget(expense);
         return ab;
     }
 

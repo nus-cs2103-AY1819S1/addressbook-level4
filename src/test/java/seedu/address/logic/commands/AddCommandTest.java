@@ -52,6 +52,26 @@ public class AddCommandTest {
     }
 
     @Test
+    public void execute_personAcceptedByModel_budgetExceed() throws Exception {
+        ModelStubBudget modelStub = new ModelStubBudget(false);
+        Person validPerson = new PersonBuilder().build();
+        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
+
+        assertEquals(AddCommand.MESSAGE_BUDGET_EXCEED_WARNING, commandResult.feedbackToUser);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+    }
+
+    @Test
+    public void execute_personAcceptedByModel_withinBudget() throws Exception {
+        ModelStubBudget modelStub = new ModelStubBudget(true);
+        Person validPerson = new PersonBuilder().build();
+        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
+
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+    }
+
+    @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
         Person validPerson = new PersonBuilder().build();
         AddCommand addCommand = new AddCommand(validPerson);
@@ -91,12 +111,17 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public void addPerson(Person person) {
+        public boolean addPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void resetData(ReadOnlyAddressBook newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void modifyMaximumBudget(double budget) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -210,6 +235,7 @@ public class AddCommandTest {
     private class ModelStubAcceptingPersonAdded extends ModelStub {
         final ArrayList<Person> personsAdded = new ArrayList<>();
 
+
         @Override
         public boolean hasPerson(Person person) {
             requireNonNull(person);
@@ -217,9 +243,10 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addPerson(Person person) {
+        public boolean addPerson(Person person) {
             requireNonNull(person);
             personsAdded.add(person);
+            return false;
         }
 
         @Override
@@ -232,5 +259,18 @@ public class AddCommandTest {
             return new AddressBook(new Username("aa"));
         }
     }
+
+    private class ModelStubBudget extends ModelStub {
+        private final boolean withinBudget;
+
+        public ModelStubBudget(boolean withinBudget) {
+            this.withinBudget = withinBudget;
+        }
+        @Override
+        public boolean addPerson(Person person) {
+            return this.withinBudget;
+        }
+    }
+
 
 }

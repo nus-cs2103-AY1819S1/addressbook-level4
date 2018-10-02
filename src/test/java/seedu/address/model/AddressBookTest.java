@@ -44,6 +44,7 @@ public class AddressBookTest {
     public void resetData_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         addressBook.resetData(null);
+        //TODO: ADD TEST FOR RESETTING BUDGET
     }
 
     @Test
@@ -51,6 +52,7 @@ public class AddressBookTest {
         AddressBook newData = getTypicalAddressBook();
         addressBook.resetData(newData);
         assertEquals(newData, addressBook);
+        assertEquals(newData.getMaximumBudget(), addressBook.getMaximumBudget());
     }
 
     @Test
