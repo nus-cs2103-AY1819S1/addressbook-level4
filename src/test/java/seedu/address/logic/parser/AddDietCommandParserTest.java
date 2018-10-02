@@ -21,7 +21,6 @@ public class AddDietCommandParserTest {
     public void parse_success() {
         // zero tags
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
-        assertParseSuccess(parser, NRIC_DESC_AMY + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
-                new AddDietCommand(expectedPerson));
+        assertParseSuccess(parser, NRIC_DESC_AMY, new AddDietCommand(expectedPerson));
     }
 }

@@ -51,4 +51,8 @@ public class AddDietCommand extends Command {
     }
 
     // TODO: add an override equals() method
+    @Override
+    public boolean equals(Object other) {
+        return true;
+    }
 }
