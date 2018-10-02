@@ -72,8 +72,8 @@ Adds a new deck to Anakin +
 Format: `newdeck [n/NAME]`
 
 ****
-*NAME will be taken as a string.
-*If NAME is left blank, the name of the deck will be “New Deck #number”.
+* NAME will be taken as a string.
+* If NAME is left blank, the name of the deck will be “New Deck #number”.
 ****
 
 Examples:
