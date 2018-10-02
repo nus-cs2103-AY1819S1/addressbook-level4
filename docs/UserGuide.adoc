@@ -154,6 +154,24 @@ Selects the 2nd person in the address book.
 `select 1` +
 Selects the 1st person in the results of the `find` command.
 
+
+
+
+
+=== Making list by limit fee command: `filterByFee`
+
+Making list of according to minimal limit fee +
+Format: `filterByFee [minimal fee to be filtered]`
+
+****
+* filter result: list the person's name whose fee is not less than minimal fee.
+****
+
+[NOTE]
+====
+If no one is qualified then shows cannot find.
+====
+
 === Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
@@ -181,19 +199,22 @@ Regard the mark of the student who doesn't have a grade as 0.
 
 
 
-=== Making list by limit fee command: `filterByFee`
 
-Making list of according to minimal limit fee +
-Format: `filterByFee [minimal fee to be filtered]`
+=======
+=== Retrieving earnings : `earnings`
 
-****
-* filter result: list the person's name whose fee is not less than minimal fee.
-****
+Retrieve the total earnings within a range of date in the current year. +
+Format: `from/DDMM to/DDMM`
 
 [NOTE]
 ====
-If no one is qualified then shows cannot find.
+DDMM is the format of date to be entered
 ====
+
+Example:
+
+* `earnings from/0204 to/2504` +
+This input returns the total amount of tuition fees earned from 2 February 2018 to 25 April 2018 inclusive.
 
 // tag::undoredo[]
 === Undoing previous command : `undo`
@@ -287,5 +308,6 @@ e.g. `find James Jake`
 * *Select* : `select INDEX` +
 e.g.`select 2`
 * *History* : `history`
+* *Earnings* : `earnings from/DDMM to/DDMM`
 * *Undo* : `undo`
 * *Redo* : `redo`
