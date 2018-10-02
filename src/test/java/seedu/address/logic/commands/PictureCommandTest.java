@@ -1,7 +1,11 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -28,11 +32,11 @@ public class PictureCommandTest {
 
     @Test
     public void execute_throwsCommandException() throws Exception {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        PictureCommand pictureCommand = new PictureCommand(alice.getName(), "image/alice.jpg");
+        Path fileLocation = Paths.get("image/alice.jpg");
+        PictureCommand pictureCommand = new PictureCommand(INDEX_FIRST_PERSON, fileLocation);
         pictureCommand.execute(model, commandHistory);
 
-        String expectedMessage = String.format(PictureCommand.MESSAGE_SUCCESS, alice.getName());
+        String expectedMessage = String.format(PictureCommand.MESSAGE_SUCCESS, INDEX_FIRST_PERSON);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         assertCommandSuccess(pictureCommand, model, commandHistory, expectedMessage, expectedModel);
     }

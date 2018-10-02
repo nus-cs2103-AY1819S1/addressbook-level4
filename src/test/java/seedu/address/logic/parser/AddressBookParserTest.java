@@ -4,8 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_LOCATION;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -218,17 +220,21 @@ public class AddressBookParserTest {
         assertTrue(parser.parseCommand("u 3") instanceof UndoCommand);
     }
 
-    //@@author A19Sean
     @Test
     public void parseCommand_pictureCommandWord_returnsPictureCommand() throws Exception {
-        assertTrue(parser.parseCommand("pic n/johndoe l/johndoe.jpg") instanceof PictureCommand);
+        PictureCommand command = (PictureCommand) parser.parseCommand(PictureCommand.COMMAND_WORD + " "
+            + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_FILE_LOCATION + "image/alice.jpg");
+        assertTrue(command instanceof PictureCommand);
     }
 
     @Test
     public void parseCommand_pictureCommandAlias_returnsPictureCommand() throws Exception {
-        assertTrue(parser.parseCommand("p n/johndoe l/johndoe.jpg") instanceof PictureCommand);
+        PictureCommand command = (PictureCommand) parser.parseCommand(PictureCommand.COMMAND_ALIAS + " "
+            + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_FILE_LOCATION + "image/alice.jpg");
+        assertTrue(command instanceof PictureCommand);
     }
 
+    //@@author A19Sean
     @Test
     public void parseCommandWord_tag() throws Exception {
         List<String> keywords = Arrays.asList("foo", "friends", "colleagues");

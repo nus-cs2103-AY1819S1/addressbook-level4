@@ -2,13 +2,12 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_LOCATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
-import java.util.stream.Stream;
+import java.nio.file.Path;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.PictureCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Name;
 
 /**
  * Parses input arguments and creates a new PictureCommand object
@@ -23,24 +22,22 @@ public class PictureCommandParser implements Parser<PictureCommand> {
     @Override
     public PictureCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_FILE_LOCATION);
+            ArgumentTokenizer.tokenize(args, PREFIX_FILE_LOCATION);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_FILE_LOCATION)
-            || !argMultimap.getPreamble().isEmpty()) {
+        Index index;
+
+        try {
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PictureCommand.MESSAGE_USAGE), pe);
+        }
+
+        if (!argMultimap.getValue(PREFIX_FILE_LOCATION).isPresent()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PictureCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        String fileLocation = ParserUtil.parseFileLocation(argMultimap.getValue(PREFIX_FILE_LOCATION).get());
+        Path fileLocation = ParserUtil.parseFileLocation(argMultimap.getValue(PREFIX_FILE_LOCATION).get());
 
-        return new PictureCommand(name, fileLocation);
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+        return new PictureCommand(index, fileLocation);
     }
 }

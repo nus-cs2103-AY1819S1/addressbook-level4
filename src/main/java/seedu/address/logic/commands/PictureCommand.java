@@ -19,11 +19,11 @@ public class PictureCommand extends Command {
     public static final String COMMAND_ALIAS = "p";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a picture to a contact in the address book "
-        + "by the name used in the displayed person list.\n"
+        + "by the index number used in the displayed person list.\n"
         + "Parameters: INDEX (must be a positive integer) "
         + PREFIX_FILE_LOCATION + "FILE_LOCATION\n"
         + "Example: " + COMMAND_WORD + " 1 "
-        + PREFIX_FILE_LOCATION + "/images/johndoe.jpg";
+        + PREFIX_FILE_LOCATION + "images/johndoe.jpg";
 
     public static final String MESSAGE_SUCCESS = "Added picture for Person: %1$s";
     public static final String MESSAGE_INVALID_PICTURE = "The image file could not be found.";
