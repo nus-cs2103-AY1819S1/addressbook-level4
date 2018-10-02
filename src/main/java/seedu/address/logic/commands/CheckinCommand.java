@@ -67,8 +67,6 @@ public class CheckinCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof CheckinCommand // instanceof handles nulls
-                && toCheckin.equals(((CheckinCommand) other).toCheckin));
+                        && toCheckin.equals(((CheckinCommand) other).toCheckin));
     }
-
-
 }
