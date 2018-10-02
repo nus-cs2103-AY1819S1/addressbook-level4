@@ -34,8 +34,8 @@ public class PersonUtil {
         sb.append(PREFIX_NAME + person.getName().fullName + " ");
         sb.append(PREFIX_PHONE + person.getPhone().value + " ");
         sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
-        sb.append(PREFIX_ROOM + person.getRoom().roomNumber + " ");
-        sb.append(PREFIX_SCHOOL + person.getSchool().schoolName + " ");
+        sb.append(PREFIX_ROOM + person.getRoom().value + " ");
+        sb.append(PREFIX_SCHOOL + person.getSchool().value + " ");
         person.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
@@ -50,8 +50,8 @@ public class PersonUtil {
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
-        descriptor.getRoom().ifPresent(room -> sb.append(PREFIX_ROOM).append(room.roomNumber).append(" "));
-        descriptor.getSchool().ifPresent(school -> sb.append(PREFIX_SCHOOL).append(school.schoolName).append(" "));
+        descriptor.getRoom().ifPresent(room -> sb.append(PREFIX_ROOM).append(room.value).append(" "));
+        descriptor.getSchool().ifPresent(school -> sb.append(PREFIX_SCHOOL).append(school.value).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

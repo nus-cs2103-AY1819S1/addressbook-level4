@@ -155,6 +155,7 @@ public class XmlAdaptedCca {
         Person modelHead = new Person(modelHeadName, modelHeadPhone, modelHeadEmail, modelHeadRoom,
                 modelHeadSchool, modelHeadTags);
 
+
         final List<Tag> viceHeadTags = new ArrayList<>();
         for (XmlAdaptedTag tag : viceHeadTagged) {
             viceHeadTags.add(tag.toModelType());

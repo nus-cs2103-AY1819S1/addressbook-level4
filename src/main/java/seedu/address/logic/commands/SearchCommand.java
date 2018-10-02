@@ -37,7 +37,7 @@ public class SearchCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof SearchCommand // instance of handles null
-            && predicate.equals(((SearchCommand) other).predicate));
+                || (other instanceof SearchCommand // instance of handles null
+                && predicate.equals(((SearchCommand) other).predicate));
     }
 }
