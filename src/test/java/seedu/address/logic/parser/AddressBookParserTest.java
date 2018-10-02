@@ -4,9 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_LOCATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
@@ -30,10 +27,12 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.PictureCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.TagCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.PersonContainsTagPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -227,6 +226,22 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_pictureCommandAlias_returnsPictureCommand() throws Exception {
         assertTrue(parser.parseCommand("p n/johndoe l/johndoe.jpg") instanceof PictureCommand);
+    }
+
+    @Test
+    public void parseCommandWord_tag() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "friends", "colleagues");
+        TagCommand command = (TagCommand) parser.parseCommand(
+                TagCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new TagCommand(new PersonContainsTagPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommandAlias_tag() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "friends", "colleagues");
+        TagCommand command = (TagCommand) parser.parseCommand(
+                TagCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new TagCommand(new PersonContainsTagPredicate(keywords)), command);
     }
 
     @Test
