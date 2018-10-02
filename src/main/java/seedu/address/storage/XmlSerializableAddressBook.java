@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.person.Patient;
 
 /**
@@ -19,6 +20,7 @@ import seedu.address.model.person.Patient;
 public class XmlSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate patient(s).";
+    public static final String MESSAGE_DUPLICATE_MEDICINE = "Medicines list contains duplicate medicine(s).";
 
     @XmlElement
     private List<XmlAdaptedPerson> patients;
@@ -62,6 +64,14 @@ public class XmlSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
             addressBook.addPerson(patient);
+        }
+        for (XmlAdaptedMedicine m : medicines) {
+            System.out.println("READING FRM FILE! " + m.toString());
+            Medicine medicine = m.toModelType();
+            if (addressBook.hasMedicine(medicine)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_MEDICINE);
+            }
+            addressBook.addMedicine(medicine);
         }
         return addressBook;
     }
