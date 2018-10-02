@@ -50,7 +50,7 @@ public class TaskCard extends UiPart<Region> {
         address.setText(task.getDescription().value);
         email.setText(task.getPriorityValue().value);
         status.setText(task.getStatus().toString());
-        task.getLabels().forEach(label -> labels.getChildren().add(new Label(label.labelName)));
+        task.getLabels().forEach(label -> tags.getChildren().add(new Label(label.labelName)));
     }
 
     @Override
