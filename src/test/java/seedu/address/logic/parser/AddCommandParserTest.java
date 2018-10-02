@@ -67,16 +67,16 @@ public class AddCommandParserTest {
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + PRIORITY_VALUE_DESC_BOB + ADDRESS_DESC_AMY
                 + ADDRESS_DESC_BOB + LABEL_DESC_FRIEND, new AddCommand(expectedTask));
 
-        // multiple tags - all accepted
-        Task expectedTaskMultipleTags = new TaskBuilder(Z_TASK).withLabels(VALID_LABEL_FRIEND, VALID_LABEL_HUSBAND)
+        // multiple labels - all accepted
+        Task expectedTaskMultipleLabels = new TaskBuilder(Z_TASK).withLabels(VALID_LABEL_FRIEND, VALID_LABEL_HUSBAND)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + PRIORITY_VALUE_DESC_BOB + ADDRESS_DESC_BOB
-                + LABEL_DESC_HUSBAND + LABEL_DESC_FRIEND, new AddCommand(expectedTaskMultipleTags));
+                + LABEL_DESC_HUSBAND + LABEL_DESC_FRIEND, new AddCommand(expectedTaskMultipleLabels));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
-        // zero tags
+        // zero labels
         Task expectedTask = new TaskBuilder(Y_TASK).withLabels().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + PRIORITY_VALUE_DESC_AMY + ADDRESS_DESC_AMY,
                 new AddCommand(expectedTask));
@@ -125,7 +125,7 @@ public class AddCommandParserTest {
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + PRIORITY_VALUE_DESC_BOB + INVALID_ADDRESS_DESC
                 + LABEL_DESC_HUSBAND + LABEL_DESC_FRIEND, Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
 
-        // invalid tag
+        // invalid label
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + PRIORITY_VALUE_DESC_BOB + ADDRESS_DESC_BOB
                 + INVALID_LABEL_DESC + VALID_LABEL_FRIEND, Label.MESSAGE_LABEL_CONSTRAINTS);
 
