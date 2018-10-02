@@ -76,7 +76,7 @@ public class Person {
      */
     public Person(Nric nric, Name name, Phone phone, Email email, Address address, Set<Tag> tags,
                   MedicalHistory medicalHistory, PrescriptionList prescriptionList) {
-        requireAllNonNull(nric, name, phone, email, address, tags, medicalHistory);
+        requireAllNonNull(nric, name, phone, email, address, tags, medicalHistory, prescriptionList);
         this.nric = nric;
         this.name = name;
         this.phone = phone;
