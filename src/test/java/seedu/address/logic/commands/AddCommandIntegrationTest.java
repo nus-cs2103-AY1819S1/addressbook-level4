@@ -47,7 +47,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_newPerson_budgetExceed() throws NoUserSelectedException {
-        Person validPerson = new PersonBuilder().withCost("2.00").build();
+        Person validPerson = new PersonBuilder().withCost("9999.99").build();
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.addPerson(validPerson);
         expectedModel.commitAddressBook();
