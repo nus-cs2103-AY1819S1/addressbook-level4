@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.EraseCommand.MESSAGE_ERASE_SUCCESS;
+import static seedu.address.logic.commands.EraseCommand.MESSAGE_NOTHING_ERASED;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -49,7 +50,7 @@ class EraseCommandTest {
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(eraseCommand, model, commandHistory,
-                String.format(MESSAGE_ERASE_SUCCESS, target.get(0)), expectedModel);
+                String.format(MESSAGE_NOTHING_ERASED, '[' + target.get(0) + ']'), expectedModel);
     }
 
 }
