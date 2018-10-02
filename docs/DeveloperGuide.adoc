@@ -846,31 +846,32 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 ==== Division of work
 
-#### Keng Ji : Add event feature and search for participants
+#### Keng Ji : Add event feature with polls and time, location features
 
-- [ ] v1.1: able to create a basic event
-- [ ] v1.2: able to add basic event details, and filter users by various criteria
-- [ ] v1.3: enable voting feature for location and time
+- [x] V1.1: Event organiser able to create a basic event with date, time, organiser, participant and poll features.
+- [ ] V1.2: Organisers able to "invite" participants to get recommendations for and set location;
+Users able to search for events by attributes (date, time, location, interest) and retrieve joined events.
+- [ ] V1.3: Application able to generate poll options based on application recommendation for time and location.
 
 #### Yao Feng : Add scheduling and recommend best time feature
-- [ ] v1.1: able to input user schedule and preferred timings
-- [ ] v1.2: able to rank most popular timings for an event
-- [ ] v1.3:
+- [ ] V1.1: Users able to login.
+- [ ] V1.2: Organisers can search for event participants based on interests, friendships, schedule and address.
+- [ ] V1.3: Users can rate the event after it is held.
 
 #### Zhang Cheng :
-- [ ] V1.1: Able to specify friendships with other people
-- [ ] V1.2: Able to form groups and find mutual friends
-- [ ] V1.3: Able to visualise groups
+- [ ] V1.1: Users able to specify their interests.
+- [ ] V1.2: Users able to specify friendships with other people.
+- [ ] V1.3: Users able to form groups and find mutual friends.
 
 #### Adeel :
-- [ ] V1.1: Implement voting for meetup places, choose most popular place from votes
-- [ ] V1.2: Implement Google maps visualisation
-- [ ] V1.3: Implement recommendation of best meetup location via MRT lines
+- [ ] V1.1: Add feature of nearest MRT for each individual.
+- [ ] V1.2: Implement recommendation of best meet-up location via MRT lines.
+- [ ] V1.3: Implement Google maps visualisation.
 
 #### Jason : Event Management/Recommendation
 - [x] V1.1: Pull schedule from NUS Mods and convert to a timetable. Allow Unions of timetable.
-- [ ] V1.2: Create, Update, Delete individual slots in timetable. Find  best possible time for events using timetables.
-- [ ] V1.3: Visualize timetables of multiple friends
+- [ ] V1.2: Create, Update, Delete individual slots in timetable. Find best possible time for events using timetables.
+- [ ] V1.3: Visualize timetables of multiple friends.
 
 [appendix]
 == User Stories
