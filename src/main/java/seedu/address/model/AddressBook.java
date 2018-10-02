@@ -138,7 +138,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     public Budget getMaximumBudget() {
-        return this.maximumBudget;
+        return new Budget(this.maximumBudget.getBudgetCap(), this.maximumBudget.getCurrentExpenses());
     }
 
     public Username getUsername() {

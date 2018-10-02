@@ -29,7 +29,7 @@ public class LogicManagerTest {
     private Model model = ModelUtil.modelWithTestUser();
     private Logic logic = new LogicManager(model);
 
-    public LogicManagerTest() throws UserAlreadyExistsException, NonExistentUserException {
+    public LogicManagerTest() throws UserAlreadyExistsException, NonExistentUserException, NoUserSelectedException {
     }
 
     @Test
