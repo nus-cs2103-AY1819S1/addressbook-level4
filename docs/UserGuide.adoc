@@ -262,6 +262,21 @@ The `addToGroup` command adds the first person returned from `list`.
 `addToGroup group/CS2103Group i/1 i/2 i/3` +
 The `addToGroup` command adds the first(Betsy), second(Tim) and Third(John) person returned from `list`.
 
+=== Create group : `createGroup`
+
+Creates a group.
+
+[NOTE]
+====
+If the group already exists, an error message is displayed accordingly to indicate that this command cannot be parsed.
+====
+
+Format: `createGroup group/GROUP_NAME`
+
+Examples:
+
+* `createGroup group/CS2103Group`
+
 === Rename groups : `renameGroup`
 
 Renames a specified group, if it exists.
