@@ -19,6 +19,7 @@ import seedu.address.model.person.Room;
 import seedu.address.model.person.School;
 import seedu.address.model.tag.Tag;
 
+
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
