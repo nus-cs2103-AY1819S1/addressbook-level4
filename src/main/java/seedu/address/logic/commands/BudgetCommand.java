@@ -16,9 +16,12 @@ public class BudgetCommand extends Command {
 
     public static final String COMMAND_WORD = "budget";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": View the budget of the whole hall or by each CCA "
-        + "Parameters: "
-        + "overall or " + PREFIX_TAG + "TAG\n"
-        + "Example: " + COMMAND_WORD + " overall or " + COMMAND_WORD + " basketball\n";
+        + "\nParameters: "
+        + "overall\n"
+        + "Example: " + COMMAND_WORD + " overall\n"
+        + " or\n"
+        + "Parameters: " + PREFIX_TAG + "TAG\n"
+        + "Example: " + COMMAND_WORD + " basketball\n";
 
     public static final String SHOWING_BUDGET_MESSAGE = "Display budget.";
 

@@ -13,7 +13,7 @@ import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
 /**
- * Controller for a help page
+ * Controller for a budget page
  */
 public class BudgetWindow extends UiPart<Stage> {
     private static final Logger logger = LogsCenter.getLogger(BudgetWindow.class);
