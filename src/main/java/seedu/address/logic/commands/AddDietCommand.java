@@ -29,29 +29,27 @@ public class AddDietCommand extends Command {
                                                + PREFIX_ALLERGY + "Egg ";
 
     public static final String MESSAGE_SUCCESS = "Added dietary requirements for patient: %1$s";
+    public static final String MESSAGE_IN_PROGRESS = "Feature in the progress of development.";
 
     private final Person patientToEdit;
-    private final Diet dietToAdd;
+
+    // TODO: add new class and include the attribute here
+    // private final Diet dietToAdd;
 
     /**
      * Creates an AddDietCommand to add Diet to a patient.
      * @param patient The patient to be edited.
      * @param diet The diet to be added to the patient.
      */
-    public AddDietCommand(Person patient, Diet diet) {
+    public AddDietCommand(Person patient) {
         patientToEdit = patient;
-        dietToAdd = diet;
     }
 
     // TODO: finish this method
-    @override
+    @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        return new CommandResult("Our team is still building this functionality.");
+        return new CommandResult(MESSAGE_IN_PROGRESS);
     }
 
-    // Todo: finish this method
-    @override
-    public boolean equals(Object other) {
-        return false;
-    }
+    // TODO: add an override equals() method
 }
