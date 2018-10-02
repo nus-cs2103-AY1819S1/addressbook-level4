@@ -1,4 +1,4 @@
-= Spare
+= WishBook
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/CS2103-AY1819S1-T16-1/main[image:https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master[Build Status]]
@@ -20,11 +20,11 @@ _Are you saving for a house deposit, new car, holiday, household bill etc or put
 
 [%hardbreaks]
 
-*Get Spare and keep track of your savings and save more!*
+*Get WishBook and keep track of your savings and save more!*
 
 '''
 
-* Spare is a desktop saving assistant application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* WishBook is a desktop saving assistant application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * It is a Java application built for people who want to set saving goals and keep track of their progress.
 
 * The app boasts beautifully designed interface and has cool features like:
