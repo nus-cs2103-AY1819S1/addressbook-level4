@@ -1,6 +1,8 @@
 //@@author chantca95
 package seedu.address.logic.parser;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
@@ -9,9 +11,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
-import org.junit.Test;!
-import static org.junit.Assert.assertEquals;!
-import seedu.address.logic.commands.ImportCommand;!
+
+import org.junit.Test;
+
+import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
