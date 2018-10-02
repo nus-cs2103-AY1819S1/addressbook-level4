@@ -19,7 +19,6 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.PersonPropertyComparator;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
@@ -229,23 +228,6 @@ public class ParserUtil {
         members.forEach(parseList::add);
 
         return parseList;
-    }
-
-    /**
-     * Parses a {@code String personProperty} into a {@code PersonPropertyComparator}.
-     * Leading and trailing whitespaces will be trimmed.
-     * @param personProperty the property of person.
-     * @return the PersonPropertyComparator representing the comparator for that property.
-     * @throws ParseException if the given {@code personProperty} is invalid.
-     */
-    public static PersonPropertyComparator parsePersonPropertyComparator(String personProperty) throws ParseException {
-        requireNonNull(personProperty);
-        String trimmedPersonProperty = personProperty.trim();
-        try {
-            return PersonPropertyComparator.getPersonPropertyComparator(trimmedPersonProperty);
-        } catch (IllegalArgumentException e) {
-            throw new ParseException(PersonPropertyComparator.MESSAGE_PERSON_PROPERTY_CONSTRAINTS);
-        }
     }
 
     /**
