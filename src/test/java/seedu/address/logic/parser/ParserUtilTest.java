@@ -168,16 +168,16 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseLabel_validValueWithoutWhitespace_returnsTag() throws Exception {
-        Label expectedTag = new Label(VALID_LABEL_1);
-        assertEquals(expectedTag, ParserUtil.parseLabel(VALID_LABEL_1));
+    public void parseLabel_validValueWithoutWhitespace_returnsLabel() throws Exception {
+        Label expectedLabel = new Label(VALID_LABEL_1);
+        assertEquals(expectedLabel, ParserUtil.parseLabel(VALID_LABEL_1));
     }
 
     @Test
     public void parseLabel_validValueWithWhitespace_returnsTrimmedLabel() throws Exception {
-        String tagWithWhitespace = WHITESPACE + VALID_LABEL_1 + WHITESPACE;
-        Label expectedTag = new Label(VALID_LABEL_1);
-        assertEquals(expectedTag, ParserUtil.parseLabel(tagWithWhitespace));
+        String labelWithWhitespace = WHITESPACE + VALID_LABEL_1 + WHITESPACE;
+        Label expectedLabel = new Label(VALID_LABEL_1);
+        assertEquals(expectedLabel, ParserUtil.parseLabel(labelWithWhitespace));
     }
 
     @Test
