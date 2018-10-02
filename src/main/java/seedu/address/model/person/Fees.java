@@ -1,7 +1,7 @@
 package seedu.address.model.person;
 
-import static seedu.address.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.text.DecimalFormat;
 
@@ -17,7 +17,7 @@ public class Fees {
 
     private static DecimalFormat df = new DecimalFormat("#.00");
 
-	public final double feesPerHr;
+    public final double feesPerHr;
 
     public Fees(double amount) {
         requireNonNull(amount);

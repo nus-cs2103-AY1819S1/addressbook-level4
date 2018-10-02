@@ -20,10 +20,10 @@ public class EarningsCommand extends Command {
 
     private String[] personToFind = new String[1];
 
-	/**
-	 * @param personName of the person to retrieve tuition fees from
-	 */
-	public EarningsCommand (String personName) {
+    /**
+     * @param personName of the person to retrieve tuition fees from
+     */
+    public EarningsCommand (String personName) {
         personToFind[0] = personName;
     }
 

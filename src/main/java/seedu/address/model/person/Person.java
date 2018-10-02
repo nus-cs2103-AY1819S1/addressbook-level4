@@ -54,7 +54,8 @@ public class Person {
         return address;
     }
 
-    public Fees getFees() { return tuitionFee; }
+    public Fees getFees() {
+        return tuitionFee; }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
