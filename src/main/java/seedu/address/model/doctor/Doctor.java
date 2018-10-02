@@ -2,16 +2,22 @@ package seedu.address.model.doctor;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.HashSet;
 import java.util.Objects;
 
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.tag.Tag;
 
 //@@author jjlee050
 /**
  * Represents a Doctor in the ClinicIO.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Doctor {
+public class Doctor extends Person {
 
     // Identity fields
     private final Id id;
@@ -25,6 +31,7 @@ public class Doctor {
      * Every field must be present and not null.
      */
     public Doctor(Id id, Name name, Password password) {
+        super(name, new Phone(""), new Email(""), new Address(""), new HashSet<Tag>());
         requireAllNonNull(id, name, password);
         this.id = id;
         this.name = name;

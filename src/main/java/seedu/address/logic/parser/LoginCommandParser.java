@@ -9,8 +9,10 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.doctor.Doctor;
 import seedu.address.model.doctor.Password;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
 
 /**
  * Parses input arguments and creates a new LoginCommand object
@@ -34,7 +36,7 @@ public class LoginCommandParser implements Parser<LoginCommand> {
         String role = argMultimap.getValue(PREFIX_ROLE).get();
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Password password = ParserUtil.parsePassword(argMultimap.getValue(PREFIX_PASSWORD).get());
-        //Person person = new Person(name, phone, email, address, tagList);
+        Person person = new Doctor(0, name, password);
 
         return new LoginCommand();
     }
