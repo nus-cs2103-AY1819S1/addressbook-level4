@@ -53,6 +53,7 @@ public class PersonCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
 
+        //@@author zioul123
         person.getPhone()
                 .ifPresentOrElse(p -> {
                     phone.setText(p.value);
@@ -67,6 +68,8 @@ public class PersonCard extends UiPart<Region> {
                 }, () -> email.setText(NO_EMAIL));
         meeting.setText(person.getMeeting().value.equals(Meeting.NO_MEETING) ? Meeting.NO_MEETING_MSG : "Meeting on"
                 + person.getMeeting().toString() + "hrs");
+
+        //@@author
         initTags(person);
 
         name.setWrapText(true);
