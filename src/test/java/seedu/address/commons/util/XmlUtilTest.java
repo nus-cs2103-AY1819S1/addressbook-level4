@@ -39,9 +39,15 @@ public class XmlUtilTest {
     private static final String VALID_NAME = "Hans Muster";
     private static final String VALID_PHONE = "9482424";
     private static final String VALID_EMAIL = "hans@example";
+<<<<<<< HEAD
     private static final String VALID_ROOM = "A123";
     private static final String VALID_SCHOOL = "SoC";
     private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("friends"));
+=======
+    private static final String VALID_ROOM = "B214";
+    private static final String VALID_SCHOOL = "Engine";
+    private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("soccer"));
+>>>>>>> 4f35be1cf2190ddc1eaab76b690faf30595ac5fb
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();

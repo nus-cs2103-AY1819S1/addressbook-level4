@@ -6,10 +6,15 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 /**
  * Represents a Person's school in the address book.
  */
+//@@author javenseow
 public class School {
     public static final String MESSAGE_SCHOOL_CONSTRAINTS =
             "School should only contain alphanumeric characters and spaces, and it should not be blank.";
+<<<<<<< HEAD
     public static final String SCHOOL_VALIDATION_REGEX = "\\\\p*Alnum}+";
+=======
+    public static final String SCHOOL_VALIDATION_REGEX = "\\p{Alnum}+";
+>>>>>>> 4f35be1cf2190ddc1eaab76b690faf30595ac5fb
 
     public final String schoolName;
 

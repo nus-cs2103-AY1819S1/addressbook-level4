@@ -1,7 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4f35be1cf2190ddc1eaab76b690faf30595ac5fb
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -33,10 +36,14 @@ public class AddCommand extends Command {
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
+<<<<<<< HEAD
             + PREFIX_ROOM + "420 "
+=======
+            + PREFIX_ROOM + "C420 "
+>>>>>>> 4f35be1cf2190ddc1eaab76b690faf30595ac5fb
             + PREFIX_SCHOOL + "Faculty of Science "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_TAG + "soccer "
+            + PREFIX_TAG + "track";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";

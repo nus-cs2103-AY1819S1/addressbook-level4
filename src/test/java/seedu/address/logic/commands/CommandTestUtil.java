@@ -6,6 +6,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROOM;
+<<<<<<< HEAD
+=======
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SCHOOL;
+>>>>>>> 4f35be1cf2190ddc1eaab76b690faf30595ac5fb
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
@@ -34,8 +38,10 @@ public class CommandTestUtil {
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_ROOM_AMY = "B124";
     public static final String VALID_ROOM_BOB = "A410";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_SCHOOL_AMY = "SDE";
+    public static final String VALID_SCHOOL_BOB = "Biz";
+    public static final String VALID_TAG_AMY = "choir";
+    public static final String VALID_TAG_BOB = "soccer";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -45,13 +51,26 @@ public class CommandTestUtil {
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
     public static final String ROOM_DESC_AMY = " " + PREFIX_ROOM + VALID_ROOM_AMY;
     public static final String ROOM_DESC_BOB = " " + PREFIX_ROOM + VALID_ROOM_BOB;
+<<<<<<< HEAD
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+=======
+    public static final String SCHOOL_DESC_AMY = " " + PREFIX_SCHOOL + VALID_SCHOOL_AMY;
+    public static final String SCHOOL_DESC_BOB = " " + PREFIX_SCHOOL + VALID_SCHOOL_BOB;
+    public static final String TAG_DESC_AMY = " " + PREFIX_TAG + VALID_TAG_AMY;
+    public static final String TAG_DESC_BOB = " " + PREFIX_TAG + VALID_TAG_BOB;
+>>>>>>> 4f35be1cf2190ddc1eaab76b690faf30595ac5fb
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
+<<<<<<< HEAD
     public static final String INVALID_ROOM_DESC = " " + PREFIX_ROOM; // empty string not allowed for addresses
+=======
+    public static final String INVALID_ROOM_DESC = " " + PREFIX_ROOM; // empty string not allowed for room
+    public static final String INVALID_SCHOOL_DESC = " " + PREFIX_SCHOOL
+            + "School of Computing"; // spacing no allowed for school
+>>>>>>> 4f35be1cf2190ddc1eaab76b690faf30595ac5fb
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
@@ -63,10 +82,10 @@ public class CommandTestUtil {
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withRoom(VALID_ROOM_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
+                .withSchool(VALID_SCHOOL_AMY).withTags(VALID_TAG_AMY).build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withRoom(VALID_ROOM_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withSchool(VALID_SCHOOL_BOB).withTags(VALID_TAG_BOB).build();
     }
 
     /**

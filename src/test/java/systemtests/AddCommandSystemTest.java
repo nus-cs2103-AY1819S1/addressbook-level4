@@ -14,8 +14,15 @@ import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.ROOM_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ROOM_DESC_BOB;
+<<<<<<< HEAD
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+=======
+import static seedu.address.logic.commands.CommandTestUtil.SCHOOL_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.SCHOOL_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_BOB;
+>>>>>>> 4f35be1cf2190ddc1eaab76b690faf30595ac5fb
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
@@ -37,11 +44,11 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
-import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Room;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -59,7 +66,11 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
          */
         Person toAdd = AMY;
         String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
+<<<<<<< HEAD
                 + EMAIL_DESC_AMY + "   " + ROOM_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
+=======
+                + EMAIL_DESC_AMY + "   " + ROOM_DESC_AMY + "   " + SCHOOL_DESC_AMY + " " + TAG_DESC_AMY + " ";
+>>>>>>> 4f35be1cf2190ddc1eaab76b690faf30595ac5fb
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
@@ -76,7 +87,11 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /* Case: add a person with all fields same as another person in the address book except name -> added */
         toAdd = new PersonBuilder(AMY).withName(VALID_NAME_BOB).build();
         command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ROOM_DESC_AMY
+<<<<<<< HEAD
                 + TAG_DESC_FRIEND;
+=======
+                + SCHOOL_DESC_AMY + TAG_DESC_AMY;
+>>>>>>> 4f35be1cf2190ddc1eaab76b690faf30595ac5fb
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a person with all fields same as another person in the address book except phone and email
@@ -92,8 +107,13 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: add a person with tags, command with parameters in random order -> added */
         toAdd = BOB;
+<<<<<<< HEAD
         command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ROOM_DESC_BOB + NAME_DESC_BOB
                 + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
+=======
+        command = AddCommand.COMMAND_WORD + PHONE_DESC_BOB + ROOM_DESC_BOB + NAME_DESC_BOB
+                + TAG_DESC_BOB + EMAIL_DESC_BOB + SCHOOL_DESC_BOB;
+>>>>>>> 4f35be1cf2190ddc1eaab76b690faf30595ac5fb
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a person, missing tags -> added */
@@ -127,16 +147,20 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
+<<<<<<< HEAD
         /* Case: add a duplicate person except with different address -> rejected */
         toAdd = new PersonBuilder(HOON).withRoom(VALID_ROOM_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+=======
+>>>>>>> 4f35be1cf2190ddc1eaab76b690faf30595ac5fb
 
         /* Case: add a duplicate person except with different tags -> rejected */
         command = PersonUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: missing name -> rejected */
+<<<<<<< HEAD
         command = AddCommand.COMMAND_WORD + PHONE_DESC_AMY + EMAIL_DESC_AMY + ROOM_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
@@ -146,10 +170,21 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: missing email -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + ROOM_DESC_AMY;
+=======
+        command = AddCommand.COMMAND_WORD + PHONE_DESC_AMY + EMAIL_DESC_AMY + ROOM_DESC_AMY + SCHOOL_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
-        /* Case: missing address -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY;
+        /* Case: missing phone -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + EMAIL_DESC_AMY + ROOM_DESC_AMY + SCHOOL_DESC_AMY;
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+
+        /* Case: missing email -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + ROOM_DESC_AMY + SCHOOL_DESC_AMY;
+>>>>>>> 4f35be1cf2190ddc1eaab76b690faf30595ac5fb
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+
+        /* Case: missing room -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + EMAIL_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
@@ -157,6 +192,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
+<<<<<<< HEAD
         command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY + ROOM_DESC_AMY;
         assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
 
@@ -175,6 +211,30 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /* Case: invalid tag -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ROOM_DESC_AMY
                 + INVALID_TAG_DESC;
+=======
+        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY + ROOM_DESC_AMY
+                + SCHOOL_DESC_AMY;
+        assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
+
+        /* Case: invalid phone -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY + ROOM_DESC_AMY
+                + SCHOOL_DESC_AMY;
+        assertCommandFailure(command, Phone.MESSAGE_PHONE_CONSTRAINTS);
+
+        /* Case: invalid email -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC + ROOM_DESC_AMY
+                + SCHOOL_DESC_AMY;
+        assertCommandFailure(command, Email.MESSAGE_EMAIL_CONSTRAINTS);
+
+        /* Case: invalid room -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + INVALID_ROOM_DESC
+                + SCHOOL_DESC_AMY;
+        assertCommandFailure(command, Room.MESSAGE_ROOM_CONSTRAINTS);
+
+        /* Case: invalid tag -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ROOM_DESC_AMY
+                + SCHOOL_DESC_AMY + INVALID_TAG_DESC;
+>>>>>>> 4f35be1cf2190ddc1eaab76b690faf30595ac5fb
         assertCommandFailure(command, Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 

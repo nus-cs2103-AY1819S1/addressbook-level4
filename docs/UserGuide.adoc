@@ -266,20 +266,16 @@ Format: `compose`
 === Creating calendar : `create_calendar`
 
 Creates a calendar file in the address book for updating of events. +
-Format: `create_calendar MONTH`
+Format: `create_calendar month/MONTH year/YEAR`
 
+****
+* Creates a calendar as a *`.ics`* file.
+* The month *must be specified as MMM*
+* The year *musst be specified as YYYY*
+****
 Example:
 
-* `create_calendar Feb`
-
-=== Exporting calendars : `publish_calendar`
-
-Exports the calendar as a .ics file that can be used to sync with Google Calendar. +
-Format: `publish_calendar MONTH`
-
-Example:
-
-* `publish_calendar Feb`
+* `create_calendar month/Feb year/2018`
 
 === Viewing calendar : `view_calendar`
 
@@ -412,9 +408,7 @@ e.g. `search basketball`
 * *Select* : `select INDEX` +
 e.g. `select 2`
 * *Create Calendar* : `create_calendar MONTH` +
-e.g. `create_calendar Feb`
-* *Publish Calendar* : `publish_calendar MONTH` +
-e.g. `publish_calendar Feb`
+e.g. `create_calendar month/Feb year/2018`
 * *View Calendar* : `view_calendar MONTH` +
 e.g. `view_calendar Feb`
 * *Add Event* : `add_event m/MONTH d/DATE st/START TIME et/END TIME n/NAME OF EVENT` +

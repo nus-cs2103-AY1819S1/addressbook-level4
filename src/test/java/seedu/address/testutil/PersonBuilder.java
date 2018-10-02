@@ -21,7 +21,7 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ROOM = "E201";
-    public static final String DEAFAULT_SCHOOL = "BIZ";
+    public static final String DEFAULT_SCHOOL = "BIZ";
 
     private Name name;
     private Phone phone;
@@ -35,7 +35,7 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         room = new Room(DEFAULT_ROOM);
-        school = new School(DEAFAULT_SCHOOL);
+        school = new School(DEFAULT_SCHOOL);
         tags = new HashSet<>();
     }
 
@@ -68,10 +68,18 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code Person} that we are building.
+     * Sets the {@code Room} of the {@code Person} that we are building.
      */
-    public PersonBuilder withRoom(String address) {
-        this.room = new Room(address);
+    public PersonBuilder withRoom(String room) {
+        this.room = new Room(room);
+        return this;
+    }
+
+    /**
+     * Sets the {@code School} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withSchool(String school) {
+        this.school = new School(school);
         return this;
     }
 

@@ -8,10 +8,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
 public class Tag {
-
     public static final String MESSAGE_TAG_CONSTRAINTS = "Tags names should be alphanumeric";
     public static final String TAG_VALIDATION_REGEX = "\\p{Alnum}+";
-
     public final String tagName;
 
     /**
@@ -26,6 +24,21 @@ public class Tag {
     }
 
     /**
+     * Returns true if both tags are the same.
+     */
+    public boolean isSameTag(Tag otherTag) {
+        if (otherTag == this) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public String getTag() {
+        return tagName;
+    }
+
+    /**
      * Returns true if a given string is a valid tag name.
      */
     public static boolean isValidTagName(String test) {
@@ -35,8 +48,8 @@ public class Tag {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Tag // instanceof handles nulls
-                && tagName.equals(((Tag) other).tagName)); // state check
+            || (other instanceof Tag // instanceof handles nulls
+            && tagName.equals(((Tag) other).tagName)); // state check
     }
 
     @Override

@@ -48,8 +48,13 @@ public class XmlAdaptedPerson {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
+<<<<<<< HEAD
     public XmlAdaptedPerson(String name, String phone, String email,
                             String room, String school, List<XmlAdaptedTag> tagged) {
+=======
+    public XmlAdaptedPerson(String name, String phone, String email, String room, String school,
+                            List<XmlAdaptedTag> tagged) {
+>>>>>>> 4f35be1cf2190ddc1eaab76b690faf30595ac5fb
         this.name = name;
         this.phone = phone;
         this.email = email;
