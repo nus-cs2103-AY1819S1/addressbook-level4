@@ -1,5 +1,8 @@
 package seedu.address.logic.commands;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -31,10 +34,12 @@ public class AddCommandIntegrationTest {
     @Test
     public void execute_newPerson_withinBudget() throws NoUserSelectedException {
         Person validPerson = new PersonBuilder().withCost("1.00").build();
+        System.out.println("Expected model initialize");
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.modifyMaximumBudget(expectedModel.getMaximumBudget().getBudgetCap() + 2);
         expectedModel.addPerson(validPerson);
         expectedModel.commitAddressBook();
+
+        System.out.println(expectedModel.getMaximumBudget().getBudgetCap());
 
         assertCommandSuccess(new AddCommand(validPerson), model, commandHistory,
                 String.format(AddCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
