@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
@@ -20,6 +21,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -119,6 +121,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addGroup(Person target, Tag newGroup) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeGroup(Person target, Tag oldGroup) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -150,6 +162,11 @@ public class AddCommandTest {
 
         @Override
         public void commitAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void exportAddressBook(Path filepath) {
             throw new AssertionError("This method should not be called.");
         }
     }
