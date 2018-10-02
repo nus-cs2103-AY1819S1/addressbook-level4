@@ -113,14 +113,16 @@ public interface Model {
      */
     void commitAddressBook();
 
+    //@@author iamjackslayer
     /**
      * Enqueues the given person.
-     * May need to be more specific in future - patient, doc or receptionist.
+     * TODO Change Person object to Patient Object
      */
-    void enqueue(Person target);
+    void enqueue(Person patient);
 
+    //@@author iamjackslayer
     /**
      * Check if patient exists in the patient queue.
      */
-    boolean hasPatientInPatientQueue();
+    boolean hasPatientInMainQueue();
 }

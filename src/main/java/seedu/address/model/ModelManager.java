@@ -14,6 +14,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.doctor.Doctor;
+import seedu.address.model.patientqueue.MainQueue;
 import seedu.address.model.person.Person;
 
 /**
@@ -24,7 +25,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
-    private final PatientQueue<Person> patientQueue;
+    private final MainQueue mainQueue;
     private final FilteredList<Doctor> filteredDoctors;
 
 
@@ -41,7 +42,7 @@ public class ModelManager extends ComponentManager implements Model {
         //@@author jjlee050
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredDoctors = new FilteredList<>(versionedAddressBook.getDoctorList());
-        patientQueue = new PatientQueue();
+        mainQueue = new MainQueue();
 
     }
 
@@ -106,8 +107,8 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
     @Override
-    public void enqueue(Person target) {
-        patientQueue.add(target);
+    public void enqueue(Person patient) {
+        mainQueue.add(patient);
     }
     @Override
     public void updatePerson(Person target, Person editedPerson) {
@@ -116,8 +117,8 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
     @Override
-    public boolean hasPatientInPatientQueue() {
-        return patientQueue.hasPatient();
+    public boolean hasPatientInMainQueue() {
+        return mainQueue.hasPatient();
     }
     //@@author jjlee050
     @Override
