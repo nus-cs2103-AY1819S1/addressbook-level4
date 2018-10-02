@@ -65,4 +65,32 @@ public class StringUtil {
             return false;
         }
     }
+
+    /**
+     * Returns true if {@code sentence} contains any word in {@code string}
+     * @param sentence
+     * @param string
+     * @return whether sentence contains any word in string
+     */
+    public static boolean containsStringIgnoreCase(String sentence, String string) {
+        requireNonNull(sentence);
+        requireNonNull(string);
+
+        String preppedString = string;
+        checkArgument(!string.trim().isEmpty(), "String parameter cannot be empty!");
+        String[] wordsInPreppedString = preppedString.split("\\s+");
+
+        String preppedSentence = sentence;
+        String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
+
+        return Arrays.stream(wordsInPreppedSentence)
+                .anyMatch(word -> {
+                    for (String keyWord : wordsInPreppedString) {
+                        if (word.equalsIgnoreCase(keyWord)) {
+                            return true;
+                        }
+                    }
+                    return false;
+                });
+    }
 }

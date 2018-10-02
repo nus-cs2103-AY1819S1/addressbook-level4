@@ -537,359 +537,427 @@ A project often depends on third-party libraries. For example, Address Book depe
 a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
 
-[[GetStartedProgramming]]
-[appendix]
-== Suggested Programming Tasks to Get Started
-
-Suggested path for new programmers:
-
-1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in <<GetStartedProgramming-EachComponent>>.
-
-2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. <<GetStartedProgramming-RemarkCommand>> explains how to go about adding such a feature.
-
-[[GetStartedProgramming-EachComponent]]
-=== Improving each component
-
-Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
-
-[discrete]
-==== `Logic` component
-
-*Scenario:* You are in charge of `logic`. During dog-fooding, your team realize that it is troublesome for the user to type the whole command in order to execute a command. Your team devise some strategies to help cut down the amount of typing necessary, and one of the suggestions was to implement aliases for the command words. Your job is to implement such aliases.
-
-[TIP]
-Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
-
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
-+
-****
-* Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
-* Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
-** Add new tests for each of the aliases that you have added.
-** Update the user guide to document the new aliases.
-** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
-****
-
-[discrete]
-==== `Model` component
-
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
-
-[TIP]
-Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
-
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
-+
-****
-* Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
-** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
-* Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
-** Add new tests for each of the new public methods that you have added.
-** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
-****
-
-[discrete]
-==== `Ui` component
-
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
-
-[TIP]
-Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
-
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
-+
-**Before**
-+
-image::getting-started-ui-tag-before.png[width="300"]
-+
-**After**
-+
-image::getting-started-ui-tag-after.png[width="300"]
-+
-****
-* Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
-** Use the .css attribute `-fx-background-color` to add a color.
-** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
-* Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
-*** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
-****
-
-. Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
-+
-**Before**
-+
-image::getting-started-ui-result-before.png[width="200"]
-+
-**After**
-+
-image::getting-started-ui-result-after.png[width="200"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
-* Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
-** You can write two different kinds of tests to ensure that the functionality works:
-*** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
-*** Do read the commits one at a time if you feel overwhelmed.
-****
-
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
-+
-**Before**
-+
-image::getting-started-ui-status-before.png[width="500"]
-+
-**After**
-+
-image::getting-started-ui-status-after.png[width="500"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
-* Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
-** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
-****
-
-[discrete]
-==== `Storage` component
-
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
-
-[TIP]
-Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
-
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
-+
-****
-* Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/XmlAddressBookStorage.java[`XmlAddressBookStorage`] class.
-* Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
-****
-
-[[GetStartedProgramming-RemarkCommand]]
-=== Creating a new command: `remark`
-
-By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
-
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
-
-==== Description
-Edits the remark for a person specified in the `INDEX`. +
-Format: `remark INDEX r/[REMARK]`
-
-Examples:
-
-* `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
-* `remark 1 r/` +
-Removes the remark for the first person.
-
-==== Step-by-step Instructions
-
-===== [Step 1] Logic: Teach the app to accept 'remark' which does nothing
-Let's start by teaching the application how to parse a `remark` command. We will add the logic of `remark` later.
-
-**Main:**
-
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
-
-**Tests:**
-
-. Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
-
-===== [Step 2] Logic: Teach the app to accept 'remark' arguments
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
-
-**Main:**
-
-. Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
-. Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
-
-**Tests:**
-
-. Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
-. Add `RemarkCommandParserTest` that tests different boundary values
-for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
-
-===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
-
-**Main:**
-
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
-
-===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
-
-**Main:**
-
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
-. Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
-
-**Tests:**
-
-. Add test for `Remark`, to test the `Remark#equals()` method.
-
-===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Main:**
-
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `addressBook.xml` so that the application will load the sample data when you launch it.)
-
-===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] to include a `Remark` field so that it will be saved.
-
-**Main:**
-
-. Add a new Xml field for `Remark`.
-
-**Tests:**
-
-. Fix `invalidAndValidPersonAddressBook.xml`, `typicalPersonsAddressBook.xml`, `validAddressBook.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
-
-===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Tests:**
-
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
-
-===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
-
-**Main:**
-
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
-
-===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
-We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
-
-**Main:**
-
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
-
-**Tests:**
-
-. Update `RemarkCommandTest` to test that the `execute()` logic works.
-
-==== Full Solution
-
-See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
-
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Works at a attraction/theme park as manager, operator, customer relations… Mainly for operators.
+* Need to manage crowds and update status of park
+* Highly proficient with keyboard
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: Manage attraction/theme parks more efficiently.
 
 [appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
+=== User stories that will be implemented
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* *` |theme park manager |identify popularity trends in attractions |better plan for future expansions
 
-|`* * *` |user |add a new person |
+|`* * *` |theme park manager |identify manpower and physical assets shortages |better manage the staff roster
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* *` |theme park manager |find less popular rides |replace them with better ones, to keep the park fresh for visitors…
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |theme park manager |add/delete attractions |let operators know the changes in the park.
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |theme park manager |find detailed information about an attraction |perform planning with better knowledge.
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |theme park manager |view history |perform some amount of audit on the actions of employees.
+
+|`* * *` |attraction operator |monitor status of attractions |appropriately handle crowds and technical faults.
+
+|`* * *` |attraction operator |update the system on the queue status of the attraction I am stationed at |provide everyone access to live data.
+
+|`* * *` |attraction operator |shutdown/reopen attraction |facilitate maintenance works.
+
+|`* * *` |attraction operator |find detailed information about an attraction |perform my on-site duties without misinformation.
+
+|`* * *` |attraction operator |view history |keep track what work I have already completed.
+
+|`* *` |theme park customer relations officer |know which rides have the longest/shortest queue |suggest to customers which rides to ride
+
+|`* *` |theme park customer relations officer |find detailed information about an attraction |appropriately answer visitor queries on attractions.
+
+|`* *` |non-tech savvy user |ask the system to complete/correct my sentences |reduce the need to remember all the commands.
+
+|`* *` |non-tech savvy user |sort the entries according to a desired order |get a more comprehensive view.
+
+|`* *` |non-tech savvy user |view summarized help |stay not overwhelmed.
+
+|`* *` |non-tech savvy user |view detailed help about a certain command |have an idea on how to use the command on unique use cases.
+
+|`* *` |non-tech savvy user |undo an action |revert the damage done by my own negligence.
+
+|`* *` |non-tech savvy user |redo an action |perform an action that I undone at will.
+
+|`* *` |new user |find my basic commands |complete my basic tasks with ease.
+
+|`* *` |new user |get a quickhelp on startup |get productive within 30 seconds.
 |=======================================================================
 
 _{More to be added}_
 
+=== User stories that will not be implemented
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+|`* *` |theme park manager |promote less frequented attractions |there is an increase in utilisation and growth
+
+|`*` |attraction operator |give suggestions |new/confused visitors have a destination
+
+|`*` |attraction operator |minimise waiting time for visitors |they can play more and wait less
+
+|`* *` |attraction operator |know which souvenirs sells the most |increase revenue for the theme park
+
+|`* *` |attraction operator |get a priority on offering visitors with the option of patronizing a less crowded
+attraction and coming back later without having to queue |visitors do not feel mistreated.
+
+|`* * *` |attraction operator |track visitors visiting an assigned attraction |visitors cannot cheat the queue system
+
+|`* *` |attraction operator |track ongoing promotions |visitors will be offered reward points for visiting promoted attractions
+
+|`* *` |theme park customer relations officer |know which rides the customers like most/least |upgrade rides to fit the customers’ needs
+
+|`* *` |theme park customer relations officer |know which rides have the longest/shortest queue |suggest to customers which rides to ride
+
+|`* *` |theme park customer relations officer |get recorded feedback from visitors |I will be able to have a better performance/ do my job better
+
+|`*` |theme park customer relations officer |better appease visitors |they are more inclined to return
+
+|`*` |theme park customer relations officer |give compensation to dissatisfied visitors |raise the approval rating of the park
+
+|`*` |theme park customer relations officer |give a suggested itinerary (randomized) |visitors can enjoy more rides with their money’s worth
+
+|`*` |theme park customer relations officer |make visitors feel welcomed in the park |they can enjoy themselves
+
+|`* *` |theme park customer relations officer |give directions to a less crowded food joint |visitors can enjoy a meal with their friends/family
+
+|`* *` |theme park customer relations officer |register visitors’ souvenir shopping list |visitors do not need to carry bulky souvenirs around
+
+|`*` |theme park customer relations officer |find a less crowded shop to buy souvenir |
+
+|=======================================================================
+
+
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
-
 [discrete]
-=== Use case: Delete person
-
+=== Use case: Add attraction
+*System*: ThanePark +
+*Actor* Manager +
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User adds attraction by name with the information.
+2.  ThanePark shows add success message.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. User adds attraction that already exists.
++
+[none]
+** 1a1. ThanePark shows add error message. +
+Use case ends.
+
+[discrete]
+=== Use case: Delete attraction
+*System*: ThanePark +
+*Actor* Manager +
+*MSS*
+
+1.  User deletes attraction by index(must be a positive integer).
+2.  ThanePark show delete success message.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+
+*Extensions*
+
+[none]
+* 1a. User deletes attraction that does not exist.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 1a1. ThanePark shows delete error message. +
+Use case ends.
+
+[discrete]
+=== Use case: Exit
+*System*: ThanePark +
+*Actor* All +
+*MSS*
+
+1.  User exits ThanePark application.
+2.  ThanePark completes closing process and shows relevant message.
++
+Use case ends.
+
+*Extensions*
+
+none
+
+[discrete]
+=== Use case: Find attraction
+*System*: ThanePark +
+*Actor* Manager/Operator/Customer relations +
+*MSS*
+
+1.  User finds an attraction by name.
+2.  ThanePark shows detailed information of attraction.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. There is no exact match of given name
++
+[none]
+** 1a1. ThanePark shows a list of names with substring match.
+** 1a2. User finds attraction using complete name as shown.
++
+Use case ends.
+
+* 1aa. There is no substring match.
++
+[none]
+** 1aa1. ThanePark shows warning message to user.
++
+Use case ends
+
+[discrete]
+=== Use case: Help
+*System*: ThanePark +
+*Actor* Non-tech savvy user +
+*MSS*
+
+1.  User requests for help.
+2.  ThanePark shows summarized information for help.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User requests for more help.
++
+[none]
+** 1a1. ThanePark shows normal detail of information for all commands.
++
+Use case ends.
+
+* 1b. User requests for help on specific command.
++
+[none]
+** 1b1. ThanePark shows detailed help with more examples on specific command.
++
+Use case ends.
+
+* 1c. User requests for help with extra invalid parameters.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: History
+*System*: ThanePark +
+*Actor* Manager/Operator +
+*MSS*
+
+1.  User requests for history.
+2.  ThanePark shows history.
++
+Use case ends.
+
+*Extensions*
+
+none
+
+[discrete]
+=== Use case: Redo
+*System*: ThanePark +
+*Actor* Non-tech savvy user +
+*MSS*
+
+1.  User requests to redo.
+2.  ThanePark redoes the next action in the redo queue.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Redo queue is empty
++
+[none]
+** 1a1. ThanePark shows redo error.
++
+Use case ends.
+
+
+[discrete]
+=== Use case: Undo
+*System*: ThanePark +
+*Actor* Non-tech savvy user +
+*MSS*
+
+1.  User requests to undo.
+2.  ThanePark undoes the most recent undoable action.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. There is no most recent undoable action as system just started up.
++
+[none]
+** 1a1. ThanePark shows undo error.
++
+Use case ends.
+
+
+[discrete]
+=== Use case: Update attraction
+*System*: ThanePark +
+*Actor* Operator +
+*MSS*
+
+1.  User requests to update information of an attraction.
+2.  ThanePark shows the updated state of the attraction.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The attraction does not exist.
++
+[none]
+** 1a1. ThanePark shows an error message for updating the attraction information
++
+Use case ends.
+
+[discrete]
+=== Use case: Shutdown attraction
+*System*: ThanePark +
+*Actor* Operator +
+*MSS*
+
+1.  User shuts down an attraction.
+2.  ThanePark sets the status of attraction to be shut down.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The attraction does not exist.
++
+[none]
+** 1a1. ThanePark shows an error message for shutting down the attraction.
++
+Use case ends.
+
+[none]
+* 1b. The attraction is already shut down.
++
+[none]
+** 1b1. ThanePark shows error.
++
+Use case ends.
+
+[discrete]
+=== Use case: View attraction
+*System*: ThanePark +
+*Actor* All +
+*MSS*
+
+1.  User requests to view all attractions.
+2.  ThanePark shows a summarized view for the whole list of attractions in the park.
++
+Use case ends.
+
+*Extensions*
+
+none
+
+[discrete]
+=== Use case: Quickview
+*System*: ThanePark +
+*Actor* All +
+*MSS*
+
+1.  User requests to view all attractions.
+2.  ThanePark shows a summarized view sorted by queue status.
++
+Use case ends.
+
+*Extensions*
+
+none
+
+[discrete]
+=== Use case: Filter
+*System*: ThanePark +
+*Actor* All +
+*MSS*
+
+1.  User requests for a filter query.
+2.  ThanePark shows all attractions that matches the filter criteria.
++
+Use case ends.
+
+*Extensions*
+
+none
+
+[discrete]
+=== Use case: Autocomplete
+*System*: ThanePark +
+*Actor* All +
+*MSS*
+
+1.  User types a command halfway.
+2.  System idles.
+3.  User presses tab.
+4.  System completes the command word for the user.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. There is more than 1 prefix match for the half-typed command.
++
+[none]
+** 3a1. ThanePark shows a list of command words that start with the same prefix.
++
+Use case resumes at step 1.
+
+[none]
+* 3b. There is no match for the half-typed command.
++
+[none]
+** 3b1. ThanePark idles.
++
+Use case resumes at step 1.
+
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 100 attractions without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  System startup should not take more than 10 seconds.
+.  User should become productive within first 30 seconds.
 
 _{More to be added}_
 
@@ -899,68 +967,5 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
-== Instructions for Manual Testing
-
-Given below are instructions to test the app manually.
-
-[NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
-
-=== Launch and Shutdown
-
-. Initial launch
-
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
-
-. Saving window preferences
-
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
-
-_{ more test cases ... }_
-
-=== Deleting a person
-
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
-
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+[[attraction-ride]] Attraction/ride:
+An attraction/ride that is meant for visitors to patronize.
