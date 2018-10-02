@@ -28,7 +28,6 @@ class EraseCommandTest {
 
     @Test
     void execute_eraseTag_success() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         Person p = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         List<String> target = new ArrayList<>();
         ContactContainsTagPredicate predicate = new ContactContainsTagPredicate(target);
