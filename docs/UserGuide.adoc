@@ -68,8 +68,8 @@ Adds a person to the address book +
 Format: `newdeck [n/name]`
 
 ****
-*Name will be taken as a string.
-*If name is left blank, the name of the deck will be “New Deck #number”.
+* Name will be taken as a string.
+* If name is left blank, the name of the deck will be “New Deck #number”.
 ****
 
 Examples:
