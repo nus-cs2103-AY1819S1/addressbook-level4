@@ -94,7 +94,7 @@ public class AddressBookParser {
 
         case SearchCommand.COMMAND_WORD:
             return new SearchCommandParser().parse(arguments);
-            
+
         case BudgetCommand.COMMAND_WORD:
             return new BudgetCommandParser().parse(arguments);
 
