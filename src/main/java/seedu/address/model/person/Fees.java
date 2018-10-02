@@ -8,6 +8,7 @@ import java.text.DecimalFormat;
 /**
  * Represents a Person's tuition fees per hour.
  */
+
 public class Fees {
 
     public static final String MESSAGE_FEES_CONSTRAINTS =

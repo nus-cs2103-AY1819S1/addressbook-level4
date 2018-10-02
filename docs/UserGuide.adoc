@@ -178,6 +178,23 @@ Format: `grades ACTION [parameters]`
 Regard the mark of the student who doesn't have a grade as 0.
 ====
 
+
+
+
+=== Making list by limit fee command: `filterByFee`
+
+Making list of according to minimal limit fee +
+Format: `filterByFee [minimal fee to be filtered]`
+
+****
+* filter result: list the person's name whose fee is not less than minimal fee.
+****
+
+[NOTE]
+====
+If no one is qualified then shows cannot find.
+====
+
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
