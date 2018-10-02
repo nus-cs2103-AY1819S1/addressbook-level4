@@ -20,26 +20,22 @@ public class SavedAmountTest {
     @Test
     public void constructor_invalidPrice_throwsIllegalArgumentException() {
         String[] invalidSavedAmounts = { "1234123412341234.67", // larger than 1000 trillion
-                "11.111", // too many decimal places
-                "-111.1", // negative value
-                ".90", // no ones place
-                };
+            "11.111", // too many decimal places
+            "-111.1", // negative value
+            ".90" // no ones place
+        };
 
         Assert.assertThrows(IllegalArgumentException.class,
-                SavedAmount.MESSAGE_SAVED_AMOUNT_TOO_LARGE,
-                () -> new SavedAmount(invalidSavedAmounts[0]));
+                SavedAmount.MESSAGE_SAVED_AMOUNT_TOO_LARGE, () -> new SavedAmount(invalidSavedAmounts[0]));
 
         Assert.assertThrows(IllegalArgumentException.class,
-                SavedAmount.MESSAGE_SAVED_AMOUNT_INVALID,
-                () -> new SavedAmount(invalidSavedAmounts[1]));
+                SavedAmount.MESSAGE_SAVED_AMOUNT_INVALID, () -> new SavedAmount(invalidSavedAmounts[1]));
 
         Assert.assertThrows(IllegalArgumentException.class,
-                SavedAmount.MESSAGE_SAVED_AMOUNT_NEGATIVE,
-                () -> new SavedAmount(invalidSavedAmounts[2]));
+                SavedAmount.MESSAGE_SAVED_AMOUNT_NEGATIVE, () -> new SavedAmount(invalidSavedAmounts[2]));
 
         Assert.assertThrows(IllegalArgumentException.class,
-                SavedAmount.MESSAGE_SAVED_AMOUNT_INVALID,
-                () -> new SavedAmount(invalidSavedAmounts[3]));
+                SavedAmount.MESSAGE_SAVED_AMOUNT_INVALID, () -> new SavedAmount(invalidSavedAmounts[3]));
     }
 
     @Test

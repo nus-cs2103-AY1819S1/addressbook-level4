@@ -12,10 +12,9 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.wish.SavedAmount;
 import seedu.address.model.wish.Wish;
 
-/*
+/**
  * Saves specified amount to a specified wish.
  */
 public class SaveCommand extends Command {
@@ -45,12 +44,12 @@ public class SaveCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         List<Wish> lastShownList = model.getFilteredWishList();
 
-        if(index.getZeroBased() >= lastShownList.size()) {
+        if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_WISH_DISPLAYED_INDEX);
         }
 
         Wish wishToEdit = lastShownList.get(index.getZeroBased());
-        if(wishToEdit.isFulfilled()) {
+        if (wishToEdit.isFulfilled()) {
             throw new CommandException(Messages.MESSAGE_WISH_FULFILLED);
         }
 
@@ -62,7 +61,7 @@ public class SaveCommand extends Command {
             model.updateWish(wishToEdit, editedWish);
             model.updateFilteredWishList(PREDICATE_SHOW_ALL_WISHES);
             model.commitWishBook();
-        } catch(IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             throw new CommandException(iae.getMessage());
         }
 
@@ -73,11 +72,11 @@ public class SaveCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        if(other == this) {
+        if (other == this) {
             return true;
         }
 
-        if(!(other instanceof SaveCommand)) {
+        if (!(other instanceof SaveCommand)) {
             return false;
         }
 

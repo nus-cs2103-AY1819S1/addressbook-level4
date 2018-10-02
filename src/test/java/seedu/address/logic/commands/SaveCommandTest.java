@@ -1,8 +1,13 @@
 package seedu.address.logic.commands;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_WISH_DISPLAYED_INDEX;
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SAVED_AMOUNT_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SAVED_AMOUNT_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.showWishAtIndex;
 import static seedu.address.logic.commands.SaveCommand.MESSAGE_SAVE_SUCCESS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_WISHES;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_WISH;
@@ -11,16 +16,13 @@ import static seedu.address.testutil.TypicalWishes.getTypicalWishBook;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.amount.Amount;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.WishBook;
-import seedu.address.model.wish.SavedAmount;
 import seedu.address.model.wish.Wish;
 import seedu.address.testutil.WishBuilder;
 
@@ -96,8 +98,8 @@ public class SaveCommandTest {
         Index largestIndexInCurrWishBook = Index.fromOneBased(model.getWishBook().getWishList().size());
 
         // TypicalWishes must have at least 2 wishes
-        assertTrue(indexOutOfBoundsInFilteredWishList.getOneBased() <=
-                largestIndexInCurrWishBook.getOneBased());
+        assertTrue(indexOutOfBoundsInFilteredWishList.getOneBased()
+                <= largestIndexInCurrWishBook.getOneBased());
 
         SaveCommand saveCommand = new SaveCommand(indexOutOfBoundsInFilteredWishList,
                 new Amount(VALID_SAVED_AMOUNT_AMY));

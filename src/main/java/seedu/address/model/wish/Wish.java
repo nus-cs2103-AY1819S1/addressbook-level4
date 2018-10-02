@@ -32,8 +32,9 @@ public class Wish {
      */
     public Wish(Name name, Price price, Email email, Url url, SavedAmount savedAmount, Remark remark, Set<Tag> tags) {
         requireAllNonNull(name, price, email, url, tags);
-        if(isSavedAmountGreaterThanOrEqualToPrice(savedAmount, price)) {
+        if (isSavedAmountGreaterThanOrEqualToPrice(savedAmount, price)) {
             fulfilled = true;
+
         } else {
             fulfilled = false;
         }
@@ -77,7 +78,9 @@ public class Wish {
         return remark;
     }
 
-    public boolean isFulfilled() { return fulfilled; }
+    public boolean isFulfilled() {
+        return fulfilled;
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}

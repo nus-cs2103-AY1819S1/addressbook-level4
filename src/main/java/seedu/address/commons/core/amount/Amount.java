@@ -1,8 +1,8 @@
 package seedu.address.commons.core.amount;
 
-import seedu.address.commons.util.AppUtil;
-
 import static java.util.Objects.requireNonNull;
+
+import seedu.address.commons.util.AppUtil;
 
 /**
  * Represents an amount of money. It can be negative.
@@ -40,15 +40,15 @@ public class Amount {
 
     @Override
     public boolean equals(Object other) {
-        if(this == other) {
+        if (this == other) {
             return true;
         }
 
-        if(!(other instanceof Amount)) {
+        if (!(other instanceof Amount)) {
             return false;
         }
 
-        if(((Amount) other).value.equals(this.value)) {
+        if (((Amount) other).value.equals(this.value)) {
             return true;
         } else {
             return false;
