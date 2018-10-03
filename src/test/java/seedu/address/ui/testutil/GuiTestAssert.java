@@ -9,12 +9,8 @@ import java.util.stream.Collectors;
 import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
-<<<<<<< HEAD
-import seedu.address.model.word.Word;
-=======
 import seedu.address.model.person.Person;
 import seedu.address.ui.PersonCard;
->>>>>>> c5b4e3f8008650eb753b3f31e36f51cf20782441
 
 /**
  * A set of assertion methods useful for writing GUI tests.
@@ -37,20 +33,15 @@ public class GuiTestAssert {
     }
 
     /**
-     * Asserts that {@code actualCard} displays the details of {@code expectedWord}.
+     * Asserts that {@code actualCard} displays the details of {@code expectedPerson}.
      */
-    public static void assertCardDisplaysPerson(Word expectedWord, PersonCardHandle actualCard) {
-        assertEquals(expectedWord.getName().fullName, actualCard.getName());
-        assertEquals(expectedWord.getPhone().value, actualCard.getPhone());
-        assertEquals(expectedWord.getEmail().value, actualCard.getEmail());
-<<<<<<< HEAD
-        assertEquals(expectedWord.getMeaning().value, actualCard.getAddress());
-        assertEquals(expectedWord.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
-                actualCard.getTags());
-=======
-        assertEquals(expectedWord.getAddress().value, actualCard.getAddress());
+    public static void assertCardDisplaysPerson(Person expectedPerson, PersonCardHandle actualCard) {
+        assertEquals(expectedPerson.getName().fullName, actualCard.getName());
+        assertEquals(expectedPerson.getPhone().value, actualCard.getPhone());
+        assertEquals(expectedPerson.getEmail().value, actualCard.getEmail());
+        assertEquals(expectedPerson.getAddress().value, actualCard.getAddress());
 
-        assertTagsEqual(expectedWord, actualCard);
+        assertTagsEqual(expectedPerson, actualCard);
     }
 
     /**
@@ -85,36 +76,35 @@ public class GuiTestAssert {
     }
 
     /**
-     * Asserts that the tags in {@code actualCard} matches all the tags in {@code expectedWord} with the correct
+     * Asserts that the tags in {@code actualCard} matches all the tags in {@code expectedPerson} with the correct
      * color.
      */
-    private static void assertTagsEqual(Word expectedWord, PersonCardHandle actualCard) {
-        List<String> expectedTags = expectedWord.getTags().stream()
+    private static void assertTagsEqual(Person expectedPerson, PersonCardHandle actualCard) {
+        List<String> expectedTags = expectedPerson.getTags().stream()
                 .map(tag -> tag.tagName).collect(Collectors.toList());
         assertEquals(expectedTags, actualCard.getTags());
         expectedTags.forEach(tag ->
                 assertEquals(Arrays.asList(LABEL_DEFAULT_STYLE, getTagColorStyleFor(tag)),
                         actualCard.getTagStyleClasses(tag)));
->>>>>>> c5b4e3f8008650eb753b3f31e36f51cf20782441
     }
 
     /**
-     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code words} correctly and
+     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code persons} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(PersonListPanelHandle personListPanelHandle, Word... words) {
-        for (int i = 0; i < words.length; i++) {
+    public static void assertListMatching(PersonListPanelHandle personListPanelHandle, Person... persons) {
+        for (int i = 0; i < persons.length; i++) {
             personListPanelHandle.navigateToCard(i);
-            assertCardDisplaysPerson(words[i], personListPanelHandle.getPersonCardHandle(i));
+            assertCardDisplaysPerson(persons[i], personListPanelHandle.getPersonCardHandle(i));
         }
     }
 
     /**
-     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code words} correctly and
+     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code persons} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(PersonListPanelHandle personListPanelHandle, List<Word> words) {
-        assertListMatching(personListPanelHandle, words.toArray(new Word[0]));
+    public static void assertListMatching(PersonListPanelHandle personListPanelHandle, List<Person> persons) {
+        assertListMatching(personListPanelHandle, persons.toArray(new Person[0]));
     }
 
     /**

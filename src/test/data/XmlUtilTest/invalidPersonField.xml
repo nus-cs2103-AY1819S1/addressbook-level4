@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!-- Word with an invalid phone field -->
-<word>
+<!-- Person with an invalid phone field -->
+<person>
     <name>Hans Muster</name>
     <phone>9482asf424</phone>
     <email>hans@example</email>
-    <meaning>4th street</meaning>
+    <address>4th street</address>
     <tagged>friends</tagged>
-</word>
+</person>

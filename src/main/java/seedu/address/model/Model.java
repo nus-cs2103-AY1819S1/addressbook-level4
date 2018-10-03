@@ -3,14 +3,14 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.word.Word;
+import seedu.address.model.person.Person;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Word> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
@@ -19,37 +19,37 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a word with the same identity as {@code word} exists in the address book.
+     * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
-    boolean hasPerson(Word word);
+    boolean hasPerson(Person person);
 
     /**
-     * Deletes the given word.
-     * The word must exist in the address book.
+     * Deletes the given person.
+     * The person must exist in the address book.
      */
-    void deleteWord(Word target);
+    void deletePerson(Person target);
 
     /**
-     * Adds the given word.
-     * {@code word} must not already exist in the address book.
+     * Adds the given person.
+     * {@code person} must not already exist in the address book.
      */
-    void addWord(Word word);
+    void addPerson(Person person);
 
     /**
-     * Replaces the given word {@code target} with {@code editedWord}.
+     * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
-     * The word identity of {@code editedWord} must not be the same as another existing word in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
-    void updateWord(Word target, Word editedWord);
+    void updatePerson(Person target, Person editedPerson);
 
-    /** Returns an unmodifiable view of the filtered word list */
-    ObservableList<Word> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered person list */
+    ObservableList<Person> getFilteredPersonList();
 
     /**
-     * Updates the filter of the filtered word list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredWordList(Predicate<Word> predicate);
+    void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
      * Returns true if the model has previous address book states to restore.

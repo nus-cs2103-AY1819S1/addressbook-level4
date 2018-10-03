@@ -88,7 +88,7 @@ public class SelectCommandTest {
         // null -> returns false
         assertFalse(selectFirstCommand.equals(null));
 
-        // different word -> returns false
+        // different person -> returns false
         assertFalse(selectFirstCommand.equals(selectSecondCommand));
     }
 
