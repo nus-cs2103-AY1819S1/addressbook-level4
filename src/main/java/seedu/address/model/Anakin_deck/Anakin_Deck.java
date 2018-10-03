@@ -10,15 +10,15 @@ import java.util.Objects;
  */
 public class Anakin_Deck {
 
-    private final String name;
+    private final Name name;
     private final List<Anakin_Card> cards;
 
-    public Anakin_Deck(String name) {
+    public Anakin_Deck(Name name) {
         this.name = name;
         cards = new ArrayList<>();
     }
 
-    public String getName() {
+    public Name getName() {
         return name;
     }
 
