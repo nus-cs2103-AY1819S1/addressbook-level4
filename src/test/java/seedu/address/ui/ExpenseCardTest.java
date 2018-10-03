@@ -41,7 +41,7 @@ public class ExpenseCardTest extends GuiUnitTest {
         assertTrue(expenseCard.equals(expenseCard));
 
         // null -> returns false
-        assertFalse(expenseCard.equals(null));
+        assertFalse(expenseCard == null);
 
         // different types -> returns false
         assertFalse(expenseCard.equals(0));
