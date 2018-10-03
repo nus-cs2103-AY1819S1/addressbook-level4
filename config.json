@@ -1,0 +1,5 @@
+{
+  "appTitle" : "EventOrganiser App",
+  "logLevel" : "INFO",
+  "userPrefsFilePath" : "preferences.json"
+}
