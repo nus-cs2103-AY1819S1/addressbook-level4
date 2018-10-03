@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addressbook>
-    <!-- Word with invalid name field -->
-    <words>
+    <!-- Person with invalid name field -->
+    <persons>
         <name>Ha!ns Mu@ster</name>
         <phone isPrivate="false">9482424</phone>
         <email isPrivate="false">hans@example.com</email>
-        <meaning isPrivate="false">4th street</meaning>
-    </words>
+        <address isPrivate="false">4th street</address>
+    </persons>
 </addressbook>

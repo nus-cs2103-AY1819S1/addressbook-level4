@@ -5,10 +5,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.word.Word;
+import seedu.address.model.person.Person;
 
 /**
- * An UI component that displays information of a {@code Word}.
+ * An UI component that displays information of a {@code Person}.
  */
 public class PersonCard extends UiPart<Region> {
 
@@ -24,7 +24,7 @@ public class PersonCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Word word;
+    public final Person person;
 
     @FXML
     private HBox cardPane;
@@ -41,15 +41,15 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public PersonCard(Word word, int displayedIndex) {
+    public PersonCard(Person person, int displayedIndex) {
         super(FXML);
-        this.word = word;
+        this.person = person;
         id.setText(displayedIndex + ". ");
-        name.setText(word.getName().fullName);
-        phone.setText(word.getPhone().value);
-        address.setText(word.getMeaning().value);
-        email.setText(word.getEmail().value);
-        initTags(word);
+        name.setText(person.getName().fullName);
+        phone.setText(person.getPhone().value);
+        address.setText(person.getAddress().value);
+        email.setText(person.getEmail().value);
+        initTags(person);
     }
 
     /**
@@ -62,10 +62,10 @@ public class PersonCard extends UiPart<Region> {
     }
 
     /**
-     * Creates the tag labels for {@code word}.
+     * Creates the tag labels for {@code person}.
      */
-    private void initTags(Word word) {
-        word.getTags().forEach(tag -> {
+    private void initTags(Person person) {
+        person.getTags().forEach(tag -> {
             Label tagLabel = new Label(tag.tagName);
             tagLabel.getStyleClass().add(getTagColorStyleFor(tag.tagName));
             tags.getChildren().add(tagLabel);
@@ -87,6 +87,6 @@ public class PersonCard extends UiPart<Region> {
         // state check
         PersonCard card = (PersonCard) other;
         return id.getText().equals(card.id.getText())
-                && word.equals(card.word);
+                && person.equals(card.person);
     }
 }

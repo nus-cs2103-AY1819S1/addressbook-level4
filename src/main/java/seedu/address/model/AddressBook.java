@@ -5,16 +5,16 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.word.UniqueWordList;
-import seedu.address.model.word.Word;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSameWord comparison)
+ * Duplicates are not allowed (by .isSamePerson comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniqueWordList vocab;
+    private final UniquePersonList persons;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -24,7 +24,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        vocab = new UniqueWordList();
+        persons = new UniquePersonList();
     }
 
     public AddressBook() {}
@@ -40,11 +40,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the word list with {@code words}.
-     * {@code words} must not contain duplicate words.
+     * Replaces the contents of the person list with {@code persons}.
+     * {@code persons} must not contain duplicate persons.
      */
-    public void setVocab(List<Word> words) {
-        this.vocab.setWords(words);
+    public void setPersons(List<Person> persons) {
+        this.persons.setPersons(persons);
     }
 
     /**
@@ -53,68 +53,68 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
-        setVocab(newData.getPersonList());
+        setPersons(newData.getPersonList());
     }
 
-    //// word-level operations
+    //// person-level operations
 
     /**
-     * Returns true if a word with the same identity as {@code word} exists in the address book.
+     * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
-    public boolean hasPerson(Word word) {
-        requireNonNull(word);
-        return vocab.contains(word);
+    public boolean hasPerson(Person person) {
+        requireNonNull(person);
+        return persons.contains(person);
     }
 
     /**
-     * Adds a word to the address book.
-     * The word must not already exist in the address book.
+     * Adds a person to the address book.
+     * The person must not already exist in the address book.
      */
-    public void addWord(Word p) {
-        vocab.add(p);
+    public void addPerson(Person p) {
+        persons.add(p);
     }
 
     /**
-     * Replaces the given word {@code target} in the list with {@code editedWord}.
+     * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
-     * The word identity of {@code editedWord} must not be the same as another existing word in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
-    public void updateWord(Word target, Word editedWord) {
-        requireNonNull(editedWord);
+    public void updatePerson(Person target, Person editedPerson) {
+        requireNonNull(editedPerson);
 
-        vocab.setWord(target, editedWord);
+        persons.setPerson(target, editedPerson);
     }
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removeWord(Word key) {
-        vocab.remove(key);
+    public void removePerson(Person key) {
+        persons.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return vocab.asUnmodifiableObservableList().size() + " vocab";
+        return persons.asUnmodifiableObservableList().size() + " persons";
         // TODO: refine later
     }
 
     @Override
-    public ObservableList<Word> getPersonList() {
-        return vocab.asUnmodifiableObservableList();
+    public ObservableList<Person> getPersonList() {
+        return persons.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && vocab.equals(((AddressBook) other).vocab));
+                && persons.equals(((AddressBook) other).persons));
     }
 
     @Override
     public int hashCode() {
-        return vocab.hashCode();
+        return persons.hashCode();
     }
 }

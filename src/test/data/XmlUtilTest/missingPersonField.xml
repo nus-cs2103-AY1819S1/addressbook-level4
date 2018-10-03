@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!-- Word with missing name field -->
-<word>
+<!-- Person with missing name field -->
+<person>
     <phone>9482424</phone>
     <email>hans@example</email>
-    <meaning>4th street</meaning>
+    <address>4th street</address>
     <tagged>friends</tagged>
-</word>
+</person>

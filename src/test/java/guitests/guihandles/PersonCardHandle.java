@@ -8,10 +8,10 @@ import com.google.common.collect.ImmutableMultiset;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.address.model.word.Word;
+import seedu.address.model.person.Person;
 
 /**
- * Provides a handle to a word card in the word list panel.
+ * Provides a handle to a person card in the person list panel.
  */
 public class PersonCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
@@ -82,14 +82,14 @@ public class PersonCardHandle extends NodeHandle<Node> {
     }
 
     /**
-     * Returns true if this handle contains {@code word}.
+     * Returns true if this handle contains {@code person}.
      */
-    public boolean equals(Word word) {
-        return getName().equals(word.getName().fullName)
-                && getAddress().equals(word.getMeaning().value)
-                && getPhone().equals(word.getPhone().value)
-                && getEmail().equals(word.getEmail().value)
-                && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(word.getTags().stream()
+    public boolean equals(Person person) {
+        return getName().equals(person.getName().fullName)
+                && getAddress().equals(person.getAddress().value)
+                && getPhone().equals(person.getPhone().value)
+                && getEmail().equals(person.getEmail().value)
+                && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(person.getTags().stream()
                         .map(tag -> tag.tagName)
                         .collect(Collectors.toList())));
     }

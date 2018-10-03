@@ -9,11 +9,11 @@ import java.nio.file.Path;
 import org.junit.Test;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.word.Word;
+import seedu.address.model.person.Person;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.testutil.TestUtil;
 
-public class SampleDataTest extends MeaningBookSystemTest {
+public class SampleDataTest extends AddressBookSystemTest {
     /**
      * Returns null to force test app to load data of the file in {@code getDataFileLocation()}.
      */
@@ -45,7 +45,7 @@ public class SampleDataTest extends MeaningBookSystemTest {
 
     @Test
     public void addressBook_dataFileDoesNotExist_loadSampleData() {
-        Word[] expectedList = SampleDataUtil.getSamplePersons();
+        Person[] expectedList = SampleDataUtil.getSamplePersons();
         assertListMatching(getPersonListPanel(), expectedList);
     }
 }
