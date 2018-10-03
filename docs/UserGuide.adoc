@@ -1,6 +1,5 @@
 = Car Park Finder - User Guide
 :site-section: UserGuide
-:no-site-header
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -15,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S1-T09-4/main
 
-By: `Team T9-04`      Since: `Oct 2018`      Licence: `MIT`
+By: `Team T09-4`      Since: `Oct 2018`      Licence: `MIT`
 
 == Introduction
 
@@ -31,7 +30,7 @@ work with a *Command Line Interface (CLI)* to display a list of car parks with t
 . Copy the file to the folder you want to use as the home folder for your Car park book.
 . Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::User_guide.png[width="790"]
+image::Ui.png[width="790"]
 +
 . Type the command in the command box and press Enter to execute it.
 . Some example commands you can try:
