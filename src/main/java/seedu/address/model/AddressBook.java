@@ -43,8 +43,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the carpark list with {@code carparks}.
      * {@code carparks} must not contain duplicate carparks.
      */
-    public void setCarparks(List<Carpark> carparks) {
-        this.carparks.setCarparks(carparks);
+    public void setCarparks(List<Carpark> listCarparks) {
+        carparks.setCarparks(listCarparks);
     }
 
     /**

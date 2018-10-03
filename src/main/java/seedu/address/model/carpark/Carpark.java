@@ -112,7 +112,9 @@ public class Carpark {
         return otherCarpark != null
                 && otherCarpark.getAddress().equals(getAddress())
                 && otherCarpark.getCarparkNumber().equals(getCarparkNumber())
-                && otherCarpark.getCoordinate().equals((getCoordinate()));
+                && otherCarpark.getCoordinate().equals((getCoordinate()))
+                && otherCarpark.getLotsAvailable().equals(getLotsAvailable())
+                && otherCarpark.getTotalLots().equals(getTotalLots());
     }
 
     /**
