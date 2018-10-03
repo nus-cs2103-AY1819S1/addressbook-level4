@@ -19,6 +19,7 @@ import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.model.AppContent;
 import seedu.address.model.ReadOnlyAppContent;
 import seedu.address.model.UserPrefs;
+import seedu.address.storage.recipe.XmlRecipeStorage;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
 public class StorageManagerTest {
@@ -32,7 +33,7 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        XmlAddressBookStorage addressBookStorage = new XmlAddressBookStorage(getTempFilePath("ab"));
+        XmlGeneralStorage addressBookStorage = new XmlRecipeStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
     }
@@ -64,14 +65,14 @@ public class StorageManagerTest {
          * More extensive testing of UserPref saving/reading is done in {@link XmlAddressBookStorageTest} class.
          */
         AppContent original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAppContent retrieved = storageManager.readAddressBook().get();
+        storageManager.save(original);
+        ReadOnlyAppContent retrieved = storageManager.read().get();
         assertEquals(original, new AppContent(retrieved));
     }
 
     @Test
     public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+        assertNotNull(storageManager.getFilePath());
     }
 
     @Test
@@ -87,14 +88,14 @@ public class StorageManagerTest {
     /**
      * A Stub class to throw an exception when the save method is called
      */
-    class XmlAddressBookStorageExceptionThrowingStub extends XmlAddressBookStorage {
+    class XmlAddressBookStorageExceptionThrowingStub extends XmlGeneralStorage {
 
         public XmlAddressBookStorageExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyAppContent addressBook, Path filePath) throws IOException {
+        public void save(ReadOnlyAppContent addressBook, Path filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }

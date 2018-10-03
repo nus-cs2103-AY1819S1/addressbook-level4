@@ -17,7 +17,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAppContent;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.UserPrefsStorage;
-import seedu.address.storage.XmlSerializableAddressBook;
+import seedu.address.storage.recipe.XmlSerializableAddressBook;
 import seedu.address.testutil.TestUtil;
 import systemtests.ModelHelper;
 
@@ -73,7 +73,7 @@ public class TestApp extends MainApp {
      */
     public AppContent readStorageAddressBook() {
         try {
-            return new AppContent(storage.readAddressBook().get());
+            return new AppContent(storage.read().get());
         } catch (DataConversionException dce) {
             throw new AssertionError("Data is not in the AppContent format.", dce);
         } catch (IOException ioe) {
@@ -85,7 +85,7 @@ public class TestApp extends MainApp {
      * Returns the file path of the storage file.
      */
     public Path getStorageSaveLocation() {
-        return storage.getAddressBookFilePath();
+        return storage.getFilePath();
     }
 
     /**

@@ -26,12 +26,12 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAppContent;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.GenericStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
-import seedu.address.storage.XmlAddressBookStorage;
+import seedu.address.storage.recipe.XmlRecipeStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -62,7 +62,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new XmlAddressBookStorage(userPrefs.getAddressBookFilePath());
+        GenericStorage addressBookStorage = new XmlRecipeStorage(userPrefs.getAddressBookFilePath());
         storage = new StorageManager(addressBookStorage, userPrefsStorage);
 
         initLogging(config);
@@ -85,31 +85,7 @@ public class MainApp extends Application {
         Optional<ReadOnlyAppContent> addressBookOptional;
         ReadOnlyAppContent initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AppContent");
-            }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AppContent");
-            initialData = new AppContent();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AppContent");
-            initialData = new AppContent();
-        }
-
-        return new ModelManager(initialData, userPrefs);
-    }
-
-    /**
-     * method to initiate the model for health plans
-     * init model
-     */
-    private Model initModelManagerHp(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyAppContent> addressBookOptional;
-        ReadOnlyAppContent initialData;
-        try {
-            addressBookOptional = storage.readHealthPlan();
+            addressBookOptional = storage.read();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AppContent");
             }

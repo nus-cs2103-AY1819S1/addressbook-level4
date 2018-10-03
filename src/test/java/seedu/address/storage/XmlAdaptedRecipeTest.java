@@ -1,7 +1,7 @@
 package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.storage.XmlAdaptedRecipe.MISSING_FIELD_MESSAGE_FORMAT;
+import static seedu.address.storage.recipe.XmlAdaptedRecipe.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.TypicalRecipes.BENSON;
 
 import java.util.ArrayList;
@@ -15,6 +15,8 @@ import seedu.address.model.recipe.Address;
 import seedu.address.model.recipe.Email;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Phone;
+import seedu.address.storage.recipe.XmlAdaptedRecipe;
+import seedu.address.storage.recipe.XmlAdaptedTag;
 import seedu.address.testutil.Assert;
 
 public class XmlAdaptedRecipeTest {

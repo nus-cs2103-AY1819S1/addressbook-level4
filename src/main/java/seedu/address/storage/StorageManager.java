@@ -10,7 +10,6 @@ import com.google.common.eventbus.Subscribe;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AppContentChangedEvent;
-import seedu.address.commons.events.model.HealthplanChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAppContent;
@@ -22,13 +21,13 @@ import seedu.address.model.UserPrefs;
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private GenericStorage genericStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(GenericStorage genericStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.genericStorage = genericStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -50,33 +49,31 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
 
-    // ================ AppContent methods ==============================
-
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getFilePath() {
+        return genericStorage.getFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAppContent> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyAppContent> read() throws DataConversionException, IOException {
+        return read(genericStorage.getFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAppContent> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyAppContent> read(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return genericStorage.read(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAppContent addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void save(ReadOnlyAppContent appContent) throws IOException {
+        save(appContent, genericStorage.getFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAppContent addressBook, Path filePath) throws IOException {
+    public void save(ReadOnlyAppContent appContent, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        genericStorage.save(appContent, filePath);
     }
 
 
@@ -85,55 +82,11 @@ public class StorageManager extends ComponentManager implements Storage {
     public void handleAddressBookChangedEvent(AppContentChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
-            saveAddressBook(event.data);
+            save(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }
     }
 
 
-    //healthplan
-
-    // ================ AddressBook methods ==============================
-
-    @Override
-    public Path getHealthPlanFilePath() {
-        return addressBookStorage.getHealthPlanFilePath();
-    }
-
-    @Override
-    public Optional<ReadOnlyAppContent> readHealthPlan() throws DataConversionException, IOException {
-        return readHealthPlan(addressBookStorage.getHealthPlanFilePath());
-    }
-
-    @Override
-    public Optional<ReadOnlyAppContent> readHealthPlan(Path filePath) throws DataConversionException, IOException {
-        logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readHealthPlan(filePath);
-    }
-
-    @Override
-    public void saveHealthPlan(ReadOnlyAppContent hp) throws IOException {
-        saveHealthPlan(hp, addressBookStorage.getHealthPlanFilePath());
-    }
-
-    @Override
-    public void saveHealthPlan(ReadOnlyAppContent hp, Path filePath) throws IOException {
-        logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveHealthPlan(hp, filePath);
-    }
-
-
-    @Override
-    @Subscribe
-    public void handleHealthplanBookChangedEvent(HealthplanChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
-        try {
-            saveHealthPlan(event.data);
-        } catch (IOException e) {
-            raise(new DataSavingExceptionEvent(e));
-        }
-
-
-    }
 }

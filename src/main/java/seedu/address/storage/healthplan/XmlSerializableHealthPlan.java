@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.healthplan;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +14,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AppContent;
 import seedu.address.model.ReadOnlyAppContent;
 import seedu.address.model.healthplan.HealthPlan;
+import seedu.address.storage.XmlSerializableGeneric;
 
 /**
  *
@@ -21,7 +22,7 @@ import seedu.address.model.healthplan.HealthPlan;
  * xml health plan
  */
 @XmlRootElement(name = "healthplans")
-public class XmlSerializableHealthPlan {
+public class XmlSerializableHealthPlan extends XmlSerializableGeneric {
 
 
     public static final String MESSAGE_DUPLICATE_PLAN = "Persons list contains duplicate plan(s).";

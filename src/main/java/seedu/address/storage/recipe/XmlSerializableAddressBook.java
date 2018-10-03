@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.recipe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,12 +11,13 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AppContent;
 import seedu.address.model.ReadOnlyAppContent;
 import seedu.address.model.recipe.Recipe;
+import seedu.address.storage.XmlSerializableGeneric;
 
 /**
  * An Immutable AppContent that is serializable to XML format
  */
 @XmlRootElement(name = "addressbook")
-public class XmlSerializableAddressBook {
+public class XmlSerializableAddressBook extends XmlSerializableGeneric {
 
     public static final String MESSAGE_DUPLICATE_RECIPE = "Recipes list contains duplicate recipe(s).";
 
@@ -45,6 +46,7 @@ public class XmlSerializableAddressBook {
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
      * {@code XmlAdaptedRecipe}.
      */
+    @Override
     public AppContent toModelType() throws IllegalValueException {
         AppContent addressBook = new AppContent();
         for (XmlAdaptedRecipe p : recipes) {
