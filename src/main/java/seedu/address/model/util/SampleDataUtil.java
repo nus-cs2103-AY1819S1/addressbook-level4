@@ -31,17 +31,14 @@ public class SampleDataUtil {
         ArrayList<ArrayList<String>> carparkInfo = GsonUtil.fetchCarparkInfo();
         ArrayList<Carpark> carparkList = new ArrayList<>();
 
-
         for (ArrayList<String> carpark : carparkInfo) {
             Carpark c = new Carpark(new Address(carpark.get(0)), new CarparkNumber(carpark.get(1)),
                     new CarparkType(carpark.get(2)), new Coordinate(carpark.get(3)),
                     new FreeParking(carpark.get(4)), new LotsAvailable(carpark.get(5)),
                     new NightParking(carpark.get(6)), new ShortTerm(carpark.get(7)),
                     new TotalLots(carpark.get(8)), new TypeOfParking(carpark.get(9)), null);
-
             carparkList.add(c);
         }
-
         return carparkList.toArray(new Carpark[0]);
     }
 
