@@ -14,7 +14,7 @@ public class WishCompletedPredicate implements Predicate<Wish> {
 
     @Override
     public boolean test(Wish wish) {
-        return wish.isWishCompleted() == this.isCompletedList;
+        return wish.isFulfilled() == this.isCompletedList;
     }
 
     @Override
