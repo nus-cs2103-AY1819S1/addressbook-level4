@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import javafx.scene.layout.Region;
 
+//@@author snookerballs
 /**
  * The Title. Provides the basic application layout containing
  * the application header and title.
