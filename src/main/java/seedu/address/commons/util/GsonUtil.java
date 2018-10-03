@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Objects;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -18,7 +20,7 @@ import com.google.gson.JsonParser;
  * Converts JSON from API call to a Java Object
  */
 public class GsonUtil {
-    private static ArrayList<CarparkJson> carparkList = new ArrayList<>();
+    private static HashSet<CarparkJson> carparkList = new HashSet<>();
 
     /**
      * Fetches car park information and returns a list of it.
@@ -46,8 +48,10 @@ public class GsonUtil {
         URLConnection con = obj.openConnection();
         con.connect();
 
+        InputStreamReader in = new InputStreamReader((InputStream) con.getContent());
+
         JsonArray test3 = new JsonParser()
-                .parse(new InputStreamReader((InputStream) con.getContent()))
+                .parse(in)
                 .getAsJsonObject()
                 .getAsJsonArray("items")
                 .get(0)
@@ -79,27 +83,47 @@ public class GsonUtil {
                 }
             }
         }
+
+        in.close();
     }
 
     private static void getCarparkData() throws IOException {
-        String url = "https://data.gov.sg/api/action/datastore_search?"
-                + "resource_id=139a3035-e624-4f56-b63f-89ae28d4ae4c&limit=2000";
-        URL obj = new URL(url);
-        URLConnection con = obj.openConnection();
+        String urlHalf = "https://data.gov.sg/api/action/datastore_search?"
+                + "resource_id=139a3035-e624-4f56-b63f-89ae28d4ae4c&limit=1000&offset=";
 
+        int offset = 0;
+        StringBuilder urlFull = new StringBuilder();
+        urlFull.append(urlHalf).append(offset);
+
+        InputStreamReader in;
+        JsonArray test3;
         Gson gson = new Gson();
 
-        JsonArray test3 = new JsonParser()
-                .parse(new InputStreamReader((InputStream) con.getContent()))
-                .getAsJsonObject()
-                .getAsJsonObject("result")
-                .getAsJsonArray("records");
+        do {
+            URL obj = new URL(urlFull.toString());
+            URLConnection con = obj.openConnection();
+            con.connect();
 
-        for (int i = 0; i < test3.size(); i++) {
-            JsonElement object = test3.get(i);
-            CarparkJson data = gson.fromJson(object.toString(), CarparkJson.class);
-            carparkList.add(data);
-        }
+            in = new InputStreamReader((InputStream) con.getContent());
+
+            test3 = new JsonParser()
+                    .parse(in)
+                    .getAsJsonObject()
+                    .getAsJsonObject("result")
+                    .getAsJsonArray("records");
+
+            for (int i = 0; i < test3.size(); i++) {
+                JsonElement object = test3.get(i);
+                CarparkJson cPark = gson.fromJson(object.toString(), CarparkJson.class);
+                carparkList.add(cPark);
+            }
+
+            offset += 1000;
+            urlFull.setLength(0);
+            urlFull.append(urlHalf).append(offset);
+        } while (test3.size() > 0);
+
+        in.close();
     }
 
     /**
@@ -153,6 +177,34 @@ public class GsonUtil {
 
         private String getNumber() {
             return car_park_no;
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            if (other == this) {
+                return true;
+            }
+
+            if (!(other instanceof CarparkJson)) {
+                return false;
+            }
+
+            CarparkJson otherCarparkJson = (CarparkJson) other;
+            return short_term_parking.equals(otherCarparkJson.short_term_parking)
+                    && y_coord.equals(otherCarparkJson.y_coord)
+                    && car_park_type.equals(otherCarparkJson.car_park_type)
+                    && x_coord.equals(otherCarparkJson.x_coord)
+                    && free_parking.equals(otherCarparkJson.free_parking)
+                    && night_parking.equals(otherCarparkJson.night_parking)
+                    && address.equals(otherCarparkJson.address)
+                    && car_park_no.equals(otherCarparkJson.car_park_no)
+                    && type_of_parking_system.equals(otherCarparkJson.type_of_parking_system);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(short_term_parking, y_coord, car_park_type, x_coord, free_parking, night_parking,
+                    address, car_park_no, type_of_parking_system);
         }
     }
 }

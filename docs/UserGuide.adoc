@@ -1,5 +1,6 @@
 = Car Park Finder - User Guide
 :site-section: UserGuide
+:no-site-header
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -12,9 +13,9 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-T09-4/main
 
-By: `CS2103[T9-04]`      Since: `Sep 2018`      Licence: `MIT`
+By: `Team T9-04`      Since: `Oct 2018`      Licence: `MIT`
 
 == Introduction
 

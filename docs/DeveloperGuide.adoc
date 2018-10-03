@@ -1,4 +1,4 @@
-= Carpark Finder - Developer Guide
+= Car Park Finder - Developer Guide
 :site-section: DeveloperGuide
 :no-site-header
 :toc:
