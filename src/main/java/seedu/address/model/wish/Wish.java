@@ -64,7 +64,7 @@ public class Wish {
         return remark;
     }
 
-    public boolean isWishCompleted() {
+    public boolean isFulfilled() {
         return (savedAmount.value >= price.value);
     }
 
