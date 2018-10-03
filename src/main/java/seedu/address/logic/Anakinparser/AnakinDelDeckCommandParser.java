@@ -3,7 +3,7 @@ package seedu.address.logic.Anakinparser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.Anakin_commands.Anakin_DelDeckCommand;
+import seedu.address.logic.AnakinCommands.Anakin_DelDeckCommand;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 

@@ -1,5 +1,8 @@
 package seedu.address.commons.core;
 
+/**
+ * Container for user visible messages.
+ */
 public class AnakinMessages {
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";

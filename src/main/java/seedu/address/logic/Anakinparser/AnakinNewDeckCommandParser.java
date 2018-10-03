@@ -9,14 +9,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.Anakin_commands.Anakin_NewDeckCommand;
+import seedu.address.logic.AnakinCommands.Anakin_NewDeckCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Anakin_deck.Anakin_Deck;
-import seedu.address.model.Anakin_deck.Name;
+import seedu.address.model.AnakinDeck.AnakinDeck;
+import seedu.address.model.AnakinDeck.Name;
 
 
 /**
@@ -49,7 +49,7 @@ public class AnakinNewDeckCommandParser implements AnakinParserInterface<Anakin_
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         */
 
-        Anakin_Deck deck = new Anakin_Deck(new Name("Deck1")); //TO DO
+        AnakinDeck deck = new AnakinDeck(new Name("Deck1")); //TO DO
 
         return new Anakin_NewDeckCommand(deck);
     }

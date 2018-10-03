@@ -1,12 +1,12 @@
 package seedu.address.logic.Anakinparser;
 
-import seedu.address.logic.Anakin_commands.Anakin_Command;
+import seedu.address.logic.AnakinCommands.AnakinCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Represents a Parser that is able to parse user input into a {@code Anakin_Command} of type {@code T}.
+ * Represents a Parser that is able to parse user input into a {@code AnakinCommand} of type {@code T}.
  */
-public interface AnakinParserInterface<T extends Anakin_Command> {
+public interface AnakinParserInterface<T extends AnakinCommand> {
 
     /**
      * Parses {@code userInput} into a command and returns it.

@@ -1,32 +1,33 @@
-package seedu.address.logic.Anakin_commands;
+package seedu.address.logic.AnakinCommands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Anakin_Model.PREDICATE_SHOW_ALL_DECKS;
+import static seedu.address.model.AnakinModel.PREDICATE_SHOW_ALL_DECKS;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-
 import seedu.address.commons.core.AnakinMessages;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
-import seedu.address.model.Anakin_deck.Name;
-import seedu.address.model.Anakin_Model;
-import seedu.address.model.Anakin_deck.Anakin_Card;
-import seedu.address.model.Anakin_deck.Anakin_Deck;
+import seedu.address.model.AnakinDeck.AnakinCard;
+import seedu.address.model.AnakinDeck.AnakinDeck;
+import seedu.address.model.AnakinDeck.Name;
+import seedu.address.model.AnakinModel;
+
 
 /**
  * Edits the details of an existing deck in the address book.
  */
-public class AnakinEditDeckCommand extends Anakin_Command {
+public class AnakinEditDeckCommand extends AnakinCommand {
 
     public static final String COMMAND_WORD = "edit";
 
@@ -59,16 +60,16 @@ public class AnakinEditDeckCommand extends Anakin_Command {
     }
 
     @Override
-    public CommandResult execute(Anakin_Model anakinModel, CommandHistory history) throws CommandException {
+    public CommandResult execute(AnakinModel anakinModel, CommandHistory history) throws CommandException {
         requireNonNull(anakinModel);
-        List<Anakin_Deck> lastShownList = anakinModel.getFilteredDeckList();
+        List<AnakinDeck> lastShownList = anakinModel.getFilteredDeckList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(AnakinMessages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX);
         }
 
-        Anakin_Deck deckToEdit = lastShownList.get(index.getZeroBased());
-        Anakin_Deck editedDeck = createEditedDeck(deckToEdit, editDeckDescriptor);
+        AnakinDeck deckToEdit = lastShownList.get(index.getZeroBased());
+        AnakinDeck editedDeck = createEditedDeck(deckToEdit, editDeckDescriptor);
 
         if (!deckToEdit.isSameDeck(editedDeck) && anakinModel.hasDeck(editedDeck)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
@@ -84,13 +85,13 @@ public class AnakinEditDeckCommand extends Anakin_Command {
      * Creates and returns a {@code Deck} with the details of {@code deckToEdit}
      * edited with {@code editDeckDescriptor}.
      */
-    private static Anakin_Deck createEditedDeck(Anakin_Deck deckToEdit, EditDeckDescriptor editDeckDescriptor) {
+    private static AnakinDeck createEditedDeck(AnakinDeck deckToEdit, EditDeckDescriptor editDeckDescriptor) {
         assert deckToEdit != null;
 
         Name updatedName = editDeckDescriptor.getName().orElse(deckToEdit.getName());
-        //List<Anakin_Card> updatedList = editDeckDescriptor.getCards().orElse(deckToEdit.getCards());
+        //List<AnakinCard> updatedList = editDeckDescriptor.getCards().orElse(deckToEdit.getCards());
 
-        return new Anakin_Deck(updatedName);
+        return new AnakinDeck(updatedName);
     }
 
     @Override
@@ -117,7 +118,7 @@ public class AnakinEditDeckCommand extends Anakin_Command {
      */
     public static class EditDeckDescriptor {
         private Name name;
-        private List<Anakin_Card> cards;
+        private List<AnakinCard> cards;
 
         public EditDeckDescriptor() {}
 
@@ -150,7 +151,7 @@ public class AnakinEditDeckCommand extends Anakin_Command {
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
          */
-        public void setCards(List<Anakin_Card> cards) {
+        public void setCards(List<AnakinCard> cards) {
             this.cards = (cards != null) ? new ArrayList<>(cards) : null;
         }
 
@@ -159,7 +160,7 @@ public class AnakinEditDeckCommand extends Anakin_Command {
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code tags} is null.
          */
-        public Optional<List<Anakin_Card>> getCards() {
+        public Optional<List<AnakinCard>> getCards() {
             return (cards != null) ? Optional.of(Collections.unmodifiableList(cards)) : Optional.empty();
         }
 

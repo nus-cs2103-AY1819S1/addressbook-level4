@@ -1,4 +1,4 @@
-package seedu.address.model.Anakin_deck;
+package seedu.address.model.AnakinDeck;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,12 +8,12 @@ import java.util.Objects;
 /**
  * Represents a Deck inside Anakin.
  */
-public class Anakin_Deck {
+public class AnakinDeck {
 
     private final Name name;
-    private final List<Anakin_Card> cards;
+    private final List<AnakinCard> cards;
 
-    public Anakin_Deck(Name name) {
+    public AnakinDeck(Name name) {
         this.name = name;
         cards = new ArrayList<>();
     }
@@ -22,14 +22,14 @@ public class Anakin_Deck {
         return name;
     }
 
-    public List<Anakin_Card> getCards() {
+    public List<AnakinCard> getCards() {
         return cards;
     }
 
     /**
      * Returns true if 2 decks are the same, or have identical name.
      */
-    public boolean isSameDeck(Anakin_Deck otherDeck) {
+    public boolean isSameDeck(AnakinDeck otherDeck) {
         if (otherDeck == this) {
             return true;
         }
@@ -39,11 +39,11 @@ public class Anakin_Deck {
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof Anakin_Deck)) {
+        if (!(other instanceof AnakinDeck)) {
             return false;
         }
 
-        return isSameDeck((Anakin_Deck) other);
+        return isSameDeck((AnakinDeck) other);
     }
 
     @Override

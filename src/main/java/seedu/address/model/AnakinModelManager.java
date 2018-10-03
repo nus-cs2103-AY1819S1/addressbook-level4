@@ -11,24 +11,24 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.Anakin_ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.Anakin_AnakinChangedEvent;
-import seedu.address.model.Anakin_deck.Anakin_Card;
-import seedu.address.model.Anakin_deck.Anakin_Deck;
+import seedu.address.model.AnakinDeck.AnakinCard;
+import seedu.address.model.AnakinDeck.AnakinDeck;
 
 /**
  * Represents the in-memory model of Anakin data.
  */
-public class Anakin_ModelManager extends Anakin_ComponentManager implements Anakin_Model {
-    public static final Logger logger = LogsCenter.getLogger(Anakin_ModelManager.class);
+public class AnakinModelManager extends Anakin_ComponentManager implements AnakinModel {
+    public static final Logger logger = LogsCenter.getLogger(AnakinModelManager.class);
 
     private final Anakin_VersionedAnakin versionedAnakin;
-    private final FilteredList<Anakin_Deck> filteredDecks;
+    private final FilteredList<AnakinDeck> filteredDecks;
     // The filteredCards is not assigned. Should have methods to assign filteredCards (when user is inside a deck).
-    private FilteredList<Anakin_Card> filteredCards;
+    private FilteredList<AnakinCard> filteredCards;
 
     /**
-     * Initializes a Anakin_ModelManager with the given Anakin and userPrefs.
+     * Initializes a AnakinModelManager with the given Anakin and userPrefs.
      */
-    public Anakin_ModelManager(Anakin_ReadOnlyAnakin anakin, UserPrefs userPrefs) {
+    public AnakinModelManager(Anakin_ReadOnlyAnakin anakin, UserPrefs userPrefs) {
         super();
         requireAllNonNull(anakin, userPrefs);
 
@@ -38,7 +38,7 @@ public class Anakin_ModelManager extends Anakin_ComponentManager implements Anak
         filteredDecks = new FilteredList<>(versionedAnakin.getDeckList());
     }
 
-    public Anakin_ModelManager() {
+    public AnakinModelManager() {
         this(new Anakin(), new UserPrefs());
     }
 
@@ -59,26 +59,26 @@ public class Anakin_ModelManager extends Anakin_ComponentManager implements Anak
     }
 
     @Override
-    public boolean hasDeck(Anakin_Deck deck) {
+    public boolean hasDeck(AnakinDeck deck) {
         requireAllNonNull(deck);
         return versionedAnakin.hasDeck(deck);
     }
 
     @Override
-    public void deleteDeck(Anakin_Deck deck) {
+    public void deleteDeck(AnakinDeck deck) {
         versionedAnakin.removeDeck(deck);
         indicateAnakinChanged();
     }
 
     @Override
-    public void addDeck(Anakin_Deck deck) {
+    public void addDeck(AnakinDeck deck) {
         versionedAnakin.addDeck(deck);
         updateFilteredDeckList(PREDICATE_SHOW_ALL_DECKS);
         indicateAnakinChanged();
     }
 
     @Override
-    public void updateDeck(Anakin_Deck target, Anakin_Deck editedDeck) {
+    public void updateDeck(AnakinDeck target, AnakinDeck editedDeck) {
         requireAllNonNull(target, editedDeck);
 
         versionedAnakin.updateDeck(target, editedDeck);
@@ -86,23 +86,23 @@ public class Anakin_ModelManager extends Anakin_ComponentManager implements Anak
     }
 
     @Override
-    public boolean hasCard(Anakin_Card card) {
+    public boolean hasCard(AnakinCard card) {
         // TODO
         return true;
     }
 
     @Override
-    public void deleteCard(Anakin_Card card) {
+    public void deleteCard(AnakinCard card) {
         // TODO
     }
 
     @Override
-    public void addCard(Anakin_Card card) {
+    public void addCard(AnakinCard card) {
         // TODO
     }
 
     @Override
-    public void updateCard(Anakin_Card target, Anakin_Card editedCard) {
+    public void updateCard(AnakinCard target, AnakinCard editedCard) {
         // TODO
     }
 
@@ -113,12 +113,12 @@ public class Anakin_ModelManager extends Anakin_ComponentManager implements Anak
      * {@code versionedAnakin}
      */
     @Override
-    public ObservableList<Anakin_Deck> getFilteredDeckList() {
+    public ObservableList<AnakinDeck> getFilteredDeckList() {
         return FXCollections.unmodifiableObservableList(filteredDecks);
     }
 
     @Override
-    public void updateFilteredDeckList(Predicate<Anakin_Deck> predicate) {
+    public void updateFilteredDeckList(Predicate<AnakinDeck> predicate) {
         requireAllNonNull(predicate);
         filteredDecks.setPredicate(predicate);
     }
@@ -130,13 +130,13 @@ public class Anakin_ModelManager extends Anakin_ComponentManager implements Anak
      * {@code currentDeck}
      */
     @Override
-    public ObservableList<Anakin_Card> getFilteredCardList() {
+    public ObservableList<AnakinCard> getFilteredCardList() {
         // TODO: throws exception when user is not inside any decks
         return FXCollections.unmodifiableObservableList(filteredCards);
     }
 
     @Override
-    public void updateFilteredCardList(Predicate<Anakin_Card> predicate) {
+    public void updateFilteredCardList(Predicate<AnakinCard> predicate) {
         // TODO: throws exception when user is not inside any decks
         requireAllNonNull(predicate);
         filteredCards.setPredicate(predicate);
@@ -179,12 +179,12 @@ public class Anakin_ModelManager extends Anakin_ComponentManager implements Anak
         }
 
         // instanceof handles nulls
-        if (!(obj instanceof Anakin_ModelManager)) {
+        if (!(obj instanceof AnakinModelManager)) {
             return false;
         }
 
         // state check
-        Anakin_ModelManager other = (Anakin_ModelManager) obj;
+        AnakinModelManager other = (AnakinModelManager) obj;
         return versionedAnakin.equals(other.versionedAnakin)
                 && filteredDecks.equals(other.filteredDecks);
     }
