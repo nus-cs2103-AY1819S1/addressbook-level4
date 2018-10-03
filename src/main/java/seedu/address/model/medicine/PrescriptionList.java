@@ -96,8 +96,8 @@ public class PrescriptionList {
         return medicineList.stream();
     }
 
-    /** Helper method to return an unmodifiable view of the medication list. */
-    public ObservableList<Prescription> getReadOnlyList() {
-        return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(medicineList));
+    /** Helper method to return a view of the medication list. */
+    public ObservableList<Prescription> getViewOfPrescriptionList() {
+        return FXCollections.observableArrayList(medicineList);
     }
 }
