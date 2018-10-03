@@ -26,7 +26,7 @@ Role: Team Member
 '''
 
 === Kong Zijin
-image::kongzijin.jpg[width="150", align="left"]
+image::kongzijin.png[width="150", align="left"]
 {empty}[http://github.com/KongZijin[github]] [<<KongZijin#, portfolio>>]
 
 Role: Team Member
@@ -34,7 +34,7 @@ Role: Team Member
 '''
 
 === Alistair Ong
-image::alistairong.jpg[width="150", align="left"]
+image::alistairong.png[width="150", align="left"]
 {empty}[http://github.com/alistairong[github]] [<<alistairong#, portfolio>>]
 
 Role: Team Member
