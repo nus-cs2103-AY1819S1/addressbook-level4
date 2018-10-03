@@ -70,7 +70,7 @@ public class BrowserPanel extends UiPart<Region> {
 
     @Subscribe
     private void handleNewResultAvailableEvent(NewResultAvailableEvent event) {
-        logger.info("[seedu.address.ui.BrowserPanel]: " + LogsCenter.getEventHandlingLogMessage(event));
+        logger.info("[" + this.getClass().getName() + "]: " + LogsCenter.getEventHandlingLogMessage(event));
 
         // If we're not looking at anything, there's no need to update.
         if (currentSelection == null) {
