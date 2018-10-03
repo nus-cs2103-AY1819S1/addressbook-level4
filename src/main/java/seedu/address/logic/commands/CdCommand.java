@@ -1,17 +1,19 @@
 package seedu.address.logic.commands;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
+import static java.util.Objects.requireNonNull;
 
 import java.io.File;
 import java.nio.file.Path;
 
-import static java.util.Objects.requireNonNull;
+import seedu.address.logic.CommandHistory;
+import seedu.address.model.Model;
+
+
 
 /**
  * Changes the current directory.
  */
-public class CdCommand extends Command{
+public class CdCommand extends Command {
 
     public static final String COMMAND_WORD = "cd";
 
