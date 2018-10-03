@@ -1,9 +1,9 @@
 package seedu.address.model.person;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.testutil.Assert;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 class ScheduleTest {
 
