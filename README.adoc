@@ -1,4 +1,4 @@
-= Carpark Finder
+= Car Park Finder
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/CS2103-AY1819S1-T09-4/main[image:https://travis-ci.org/CS2103-AY1819S1-T09-4/main.svg?branch=master[Build Status]]
@@ -11,9 +11,9 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop carpark finder application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java application developed by us, for CS2103T Software Engineering with Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code that was built upon https://github.com/se-edu/addressbook-level4[Address Book level 4].
+* Car Park Finder is the application for all car owners seeking a hassle-free way to find HDB car parks.
+It has a GUI (Graphic User Interface) but most of the user interactions happen using the CLI (Command Line Interface).
+* It is a Java application developed by us using data provided by https://data.gov.sg[Data.gov.sg].
 
 * Features
 ** A sophisticated GUI that includes a list panel and an in-built Browser.
@@ -24,13 +24,12 @@ endif::[]
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-//* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
-//* <<ContactUs#, Contact Us>>
 
 == Acknowledgements
 
-* This application was morphed from https://github.com/se-edu/addressbook-level4[Address Book level 4].
-* Libraries used: https://github.com/google/gson[Gson], https://github.com/TestFX/TestFX[TextFX], https://bitbucket.org/controlsfx/controlsfx/[ControlsFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]
+* This application was morphed from https://github.com/se-edu/addressbook-level4[Address Book level 4], a project created by the SE-EDU initiative.
+* Libraries used: https://github.com/google/gson[Gson],
+https://github.com/TestFX/TestFX[TextFX], https://bitbucket.org/controlsfx/controlsfx/[ControlsFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]
 
 == Licence : link:LICENSE[MIT]
