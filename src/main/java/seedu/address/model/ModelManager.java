@@ -25,7 +25,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final PreviewImageManager previewImageManager;
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
-    public GoogleClientInstance photoLibrary = null;
+    private GoogleClientInstance photoLibrary = null;
 
     private final UserPrefs userPrefs;
 

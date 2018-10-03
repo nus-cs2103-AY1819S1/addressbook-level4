@@ -1,8 +1,9 @@
 package seedu.address.model;
 
-import javafx.scene.image.Image;
 import java.util.ArrayList;
 import java.util.List;
+
+import javafx.scene.image.Image;
 
 //@author Ivan
 
@@ -11,8 +12,8 @@ import java.util.List;
  */
 public class PreviewImageManager {
 
-    // static variable single_instance of type Singleton 
-    private static PreviewImageManager single_instance = null;
+    // static variable single_instance of type Singleton
+    private static PreviewImageManager singleInstance = null;
     private List<PreviewImage> previewImageStateList;
     private int currentStatePointer;
 
@@ -23,18 +24,19 @@ public class PreviewImageManager {
         currentStatePointer = 0;
     }
 
-    // static method to create instance of PreviewImageManager class 
-    public static PreviewImageManager getInstance()
-    {
-        // To ensure only one instance is created 
-        if (single_instance == null) {
-            single_instance = new PreviewImageManager();
+    // static method to create instance of PreviewImageManager class
+    public static PreviewImageManager getInstance() {
+        // To ensure only one instance is created
+        if (singleInstance == null) {
+            singleInstance = new PreviewImageManager();
         }
-        
-        return single_instance;
+        return singleInstance;
     }
 
     //initialise with Image
+    /**
+     * Initialise a copy of the latest {@code PreviewImage} state with image.
+     */
     public void initialiseWithImage(PreviewImage initialImage) {
         previewImageStateList = new ArrayList<>();
         previewImageStateList.add(initialImage);

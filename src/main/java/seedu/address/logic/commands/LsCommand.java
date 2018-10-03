@@ -2,11 +2,11 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
-
 import java.io.File;
 import javax.imageio.ImageIO;
+
+import seedu.address.logic.CommandHistory;
+import seedu.address.model.Model;
 
 //@@author chivent
 
@@ -35,7 +35,7 @@ public class LsCommand extends Command {
                         fileNames.append(file.getName());
                         fileNames.append("\t");
                     }
-                } else if (file.isDirectory()){
+                } else if (file.isDirectory()) {
                     // do not list system directories
                     if (!(file.getName()).startsWith(".")) {
                         fileNames.append(file.getName());
