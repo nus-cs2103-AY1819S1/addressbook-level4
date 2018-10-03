@@ -3,24 +3,24 @@ package seedu.address.logic.Anakin_commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.model.Anakin_Model.PREDICATE_SHOW_ALL_DECKS;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 
-import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.AnakinMessages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
+import seedu.address.model.Anakin_deck.Name;
 import seedu.address.model.Anakin_Model;
+import seedu.address.model.Anakin_deck.Anakin_Card;
 import seedu.address.model.Anakin_deck.Anakin_Deck;
 
 /**
@@ -31,7 +31,7 @@ public class AnakinEditDeckCommand extends Anakin_Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the deck identified "
-            + "by the index number used in the displayed person list. "
+            + "by the index number used in the displayed deck list. "
             + "Changes its name to NAME.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
@@ -50,7 +50,7 @@ public class AnakinEditDeckCommand extends Anakin_Command {
      * @param index of the deck in the filtered deck list to edit
      * @param editDeckDescriptor details to edit the deck with
      */
-    public EditCommand(Index index, EditDeckDescriptor editDeckDescriptor) {
+    public AnakinEditDeckCommand(Index index, EditDeckDescriptor editDeckDescriptor) {
         requireNonNull(index);
         requireNonNull(editDeckDescriptor);
 
@@ -64,7 +64,7 @@ public class AnakinEditDeckCommand extends Anakin_Command {
         List<Anakin_Deck> lastShownList = anakinModel.getFilteredDeckList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX);
+            throw new CommandException(AnakinMessages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX);
         }
 
         Anakin_Deck deckToEdit = lastShownList.get(index.getZeroBased());
@@ -75,8 +75,8 @@ public class AnakinEditDeckCommand extends Anakin_Command {
         }
 
         anakinModel.updateDeck(deckToEdit, editedDeck);
-        anakinModel.updateFilteredDeckList(PREDICATE_SHOW_ALL_DECK);
-        anakinModel.commitAddressBook();
+        anakinModel.updateFilteredDeckList(PREDICATE_SHOW_ALL_DECKS);
+        anakinModel.commitAnakin();
         return new CommandResult(String.format(MESSAGE_EDIT_DECK_SUCCESS, editedDeck));
     }
 
@@ -88,9 +88,9 @@ public class AnakinEditDeckCommand extends Anakin_Command {
         assert deckToEdit != null;
 
         Name updatedName = editDeckDescriptor.getName().orElse(deckToEdit.getName());
-        Set<Tag> updatedTags = editDeckDescriptor.getTags().orElse(deckToEdit.getTags());
+        //List<Anakin_Card> updatedList = editDeckDescriptor.getCards().orElse(deckToEdit.getCards());
 
-        return new Anakin_Deck(updatedName, updatedTags);
+        return new Anakin_Deck(updatedName);
     }
 
     @Override
@@ -101,12 +101,12 @@ public class AnakinEditDeckCommand extends Anakin_Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof AnakinEditDeckCommand)) {
             return false;
         }
 
         // state check
-        EditCommand e = (EditCommand) other;
+        AnakinEditDeckCommand e = (AnakinEditDeckCommand) other;
         return index.equals(e.index)
                 && editDeckDescriptor.equals(e.editDeckDescriptor);
     }
@@ -117,7 +117,7 @@ public class AnakinEditDeckCommand extends Anakin_Command {
      */
     public static class EditDeckDescriptor {
         private Name name;
-        private Set<Tag> tags;
+        private List<Anakin_Card> cards;
 
         public EditDeckDescriptor() {}
 
@@ -127,14 +127,14 @@ public class AnakinEditDeckCommand extends Anakin_Command {
          */
         public EditDeckDescriptor(EditDeckDescriptor toCopy) {
             setName(toCopy.name);
-            setTags(toCopy.tags);
+            setCards(toCopy.cards);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, tags);
+            return CollectionUtil.isAnyNonNull(name, cards);
         }
 
         public void setName(Name name) {
@@ -150,8 +150,8 @@ public class AnakinEditDeckCommand extends Anakin_Command {
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
          */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        public void setCards(List<Anakin_Card> cards) {
+            this.cards = (cards != null) ? new ArrayList<>(cards) : null;
         }
 
         /**
@@ -159,8 +159,8 @@ public class AnakinEditDeckCommand extends Anakin_Command {
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code tags} is null.
          */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        public Optional<List<Anakin_Card>> getCards() {
+            return (cards != null) ? Optional.of(Collections.unmodifiableList(cards)) : Optional.empty();
         }
 
         @Override
@@ -179,7 +179,7 @@ public class AnakinEditDeckCommand extends Anakin_Command {
             EditDeckDescriptor e = (EditDeckDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getTags().equals(e.getTags());
+                    && getCards().equals(e.getCards());
         }
     }
 }
