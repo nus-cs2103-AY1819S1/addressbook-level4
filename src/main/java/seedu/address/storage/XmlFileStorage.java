@@ -12,6 +12,9 @@ import seedu.address.commons.util.XmlUtil;
  * Stores wishBook data in an XML file
  */
 public class XmlFileStorage {
+
+    // ================ XmlSerializableWishBook methods ==============================
+
     /**
      * Saves the given wishBook data to the specified file.
      */
@@ -51,8 +54,10 @@ public class XmlFileStorage {
         }
     }
 
+    // ================ XmlWishTransactions methods ==============================
+
     /**
-     * Saves the given addressBook data to the specified file.
+     * Saves the given wish transaction data to the specified file.
      */
     public static void saveDataToFile(Path file, XmlWishTransactions xmlWishTransactions)
             throws FileNotFoundException {

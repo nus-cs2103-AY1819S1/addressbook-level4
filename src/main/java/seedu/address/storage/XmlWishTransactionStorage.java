@@ -11,8 +11,12 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.FileUtil;
 import seedu.address.model.WishTransaction;
 
+/**
+ * A class to access WishTransaction data stored as an xml file on the hard disk.
+ */
 public class XmlWishTransactionStorage implements WishTransactionStorage {
 
     private static final Logger logger = LogsCenter.getLogger(XmlWishBookStorage.class);
@@ -53,8 +57,7 @@ public class XmlWishTransactionStorage implements WishTransactionStorage {
 
     @Override
     public void saveWishTransaction(WishTransaction wishTransaction) throws IOException {
-
-
+        saveWishTransaction(wishTransaction, filePath);
     }
 
     @Override
