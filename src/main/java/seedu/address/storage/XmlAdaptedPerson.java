@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -15,6 +16,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.ProfilePic;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -33,6 +35,8 @@ public class XmlAdaptedPerson {
     @XmlElement(required = true)
     private String address;
 
+    @XmlElement
+    private String profilePic;
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
@@ -53,6 +57,21 @@ public class XmlAdaptedPerson {
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
+        this.profilePic = null;
+    }
+    /**
+     * Overriden constructor that allows specification of a profile picture
+     */
+    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged,
+                            String profilePic) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        if (tagged != null) {
+            this.tagged = new ArrayList<>(tagged);
+        }
+        this.profilePic = profilePic;
     }
 
     /**
@@ -68,6 +87,7 @@ public class XmlAdaptedPerson {
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
+        profilePic = source.getProfilePic().isPresent() ? source.getProfilePic().get().value :  null;
     }
 
     /**
@@ -113,8 +133,19 @@ public class XmlAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
+        Optional<ProfilePic> modelProfilePic = Optional.empty();
+        if (profilePic == null) {
+//            profilePic = "src\\main\\resources\\images\\fail.png"; // temporary default value
+            // throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ProfilePic.class.getSimpleName()));
+        } else {
+            if (!ProfilePic.isValidPath(profilePic)) {
+                throw new IllegalValueException(ProfilePic.MESSAGE_PROFILEPIC_CONSTRAINTS);
+            }
+            modelProfilePic = Optional.of(new ProfilePic(profilePic));
+        }
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelProfilePic);
     }
 
     @Override
@@ -132,6 +163,7 @@ public class XmlAdaptedPerson {
                 && Objects.equals(phone, otherPerson.phone)
                 && Objects.equals(email, otherPerson.email)
                 && Objects.equals(address, otherPerson.address)
+                && Objects.equals(profilePic, otherPerson.profilePic)
                 && tagged.equals(otherPerson.tagged);
     }
 }

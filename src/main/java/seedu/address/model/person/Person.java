@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
@@ -23,6 +24,7 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private final Optional<ProfilePic> profilePic;
 
     /**
      * Every field must be present and not null.
@@ -34,6 +36,21 @@ public class Person {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+//        this.profilePic = new ProfilePic("src\\main\\resources\\images\\fail.png"); // Default for now
+        this.profilePic = Optional.empty();
+    }
+
+    /**
+     * Overriden constructor that allows specification of a profile picture
+     */
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Optional<ProfilePic> profilePic) {
+        requireAllNonNull(name, phone, email, address, tags);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.profilePic = profilePic;
     }
 
     public Name getName() {
@@ -50,6 +67,10 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Optional<ProfilePic> getProfilePic() {
+        return profilePic;
     }
 
     /**
@@ -93,13 +114,14 @@ public class Person {
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+                && otherPerson.getTags().equals(getTags())
+                && otherPerson.getProfilePic().equals(getProfilePic());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, tags, profilePic);
     }
 
     @Override
@@ -112,6 +134,8 @@ public class Person {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" Profile Pic: ")
+                .append(getProfilePic().orElse(new ProfilePic("[no pic]")))
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
