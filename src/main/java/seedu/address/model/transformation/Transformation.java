@@ -1,6 +1,6 @@
 package seedu.address.model.transformation;
 
-//@author Jeffry
+//@@uthor j-lum
 /**
  * Represents a single transformation to a single layer in a canvas.
  */
@@ -14,7 +14,7 @@ public class Transformation {
         this.args = args;
     }
 
-    //@author (tian yang?)
+    //@@author lancelotwillow
     @Override
     public String toString() {
         return super.toString(); //whoever is in charge do this
