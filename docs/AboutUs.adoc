@@ -20,7 +20,7 @@ Role: Project Advisor
 '''
 
 === Ivan Ho
-image::ihwk1996.jpg[width="150", align="left"]
+image::ihwk1996.png[width="150", align="left"]
 {empty}[http://github.com/ihwk1996[github]] [<<ivan#, portfolio>>]
 
 Role: Team Lead +
