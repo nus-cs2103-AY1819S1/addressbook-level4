@@ -11,6 +11,7 @@ import org.junit.Test;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
+import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.testutil.ModelUtil;
@@ -24,13 +25,13 @@ public class HelpCommandTest {
     private Model expectedModel = ModelUtil.modelWithTestUser();
     private CommandHistory commandHistory = new CommandHistory();
 
-    public HelpCommandTest() throws UserAlreadyExistsException, NonExistentUserException {
+    public HelpCommandTest() throws UserAlreadyExistsException, NonExistentUserException, NoUserSelectedException {
     }
 
     @Test
     public void execute_help_success() {
         assertCommandSuccess(new HelpCommand(), model, commandHistory, SHOWING_HELP_MESSAGE, expectedModel);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ShowHelpRequestEvent);
-        assertEquals(5, eventsCollectorRule.eventsCollector.getSize());
+        assertEquals(7, eventsCollectorRule.eventsCollector.getSize());
     }
 }

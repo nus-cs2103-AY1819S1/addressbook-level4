@@ -10,6 +10,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
@@ -37,6 +38,10 @@ public class ClearCommandTest {
 
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         expectedModel.resetData(new AddressBook(new Username("typicalAddressBook")));
+
+        Budget clearedBudget = model.getMaximumBudget();
+        clearedBudget.clearSpending();
+        expectedModel.modifyMaximumBudget(clearedBudget);
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
