@@ -37,6 +37,7 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.expense.Category;
 import seedu.address.model.expense.Cost;
@@ -51,6 +52,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
     @Test
     public void add() throws NoUserSelectedException {
         Model model = testApp.getActualModel();
+        //Set budget such that it never exceeds
+        model.modifyMaximumBudget(new Budget(String.format("%.2f", Double.MAX_VALUE)));
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 

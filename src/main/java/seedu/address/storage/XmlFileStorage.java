@@ -30,6 +30,7 @@ public class XmlFileStorage {
     public static XmlSerializableAddressBook loadDataFromSaveFile(Path file) throws DataConversionException,
                                                                             FileNotFoundException {
         try {
+
             return XmlUtil.getDataFromFile(file, XmlSerializableAddressBook.class);
         } catch (JAXBException e) {
             throw new DataConversionException(e);

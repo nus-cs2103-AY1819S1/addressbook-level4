@@ -38,6 +38,10 @@ public class Cost {
         return test.matches(COST_VALIDATION_REGEX);
     }
 
+    public double getCostValue() {
+        return Double.parseDouble(this.value);
+    }
+
     @Override
     public String toString() {
         return value;

@@ -16,6 +16,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.UserLoggedInEvent;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
@@ -80,7 +81,7 @@ public class ModelManager extends ComponentManager implements Model {
         if (versionedAddressBook == null) {
             throw new NoUserSelectedException();
         }
-        return versionedAddressBook;
+        return this.versionedAddressBook;
     }
 
     /** Raises an event to indicate the model has changed */
@@ -107,10 +108,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void addPerson(Person person) throws NoUserSelectedException {
-        versionedAddressBook.addPerson(person);
+    public boolean addPerson(Person person) throws NoUserSelectedException {
+        boolean budgetNotExceeded = versionedAddressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
+        return budgetNotExceeded;
     }
 
     @Override
@@ -179,6 +181,21 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.commit();
     }
 
+    //@author winsonhys
+    //========== Budget ====================================================================
+
+    @Override
+    public void modifyMaximumBudget(Budget budget) throws NoUserSelectedException {
+        this.versionedAddressBook.modifyMaximumBudget(budget);
+        indicateAddressBookChanged();
+    }
+
+
+    @Override
+    public Budget getMaximumBudget() {
+        return this.versionedAddressBook.getMaximumBudget();
+    }
+
     //@@author jonathantjm
     //=========== Stats =================================================================================
     /**
@@ -210,7 +227,9 @@ public class ModelManager extends ComponentManager implements Model {
         if (!isUserExists(username)) {
             throw new NonExistentUserException(username, addressBooks.size());
         }
+
         this.versionedAddressBook = new VersionedAddressBook(addressBooks.get(username));
+
         this.filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         this.username = username;
         addressBooks.replace(this.username, this.versionedAddressBook);

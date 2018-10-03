@@ -12,6 +12,7 @@ import org.junit.Test;
 import seedu.address.commons.events.ui.ShowStatsRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
+import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.testutil.ModelUtil;
@@ -25,13 +26,13 @@ public class StatsCommandTest {
     private Model expectedModel = ModelUtil.modelWithTestUser();
     private CommandHistory commandHistory = new CommandHistory();
 
-    public StatsCommandTest() throws UserAlreadyExistsException, NonExistentUserException {
+    public StatsCommandTest() throws UserAlreadyExistsException, NonExistentUserException, NoUserSelectedException {
     }
 
     @Test
     public void execute_stats_success() {
         assertCommandSuccess(new StatsCommand(), model, commandHistory, MESSAGE_SUCCESS, expectedModel);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ShowStatsRequestEvent);
-        assertEquals(5, eventsCollectorRule.eventsCollector.getSize());
+        assertEquals(7, eventsCollectorRule.eventsCollector.getSize());
     }
 }
