@@ -8,7 +8,7 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 import org.junit.Test;
 
 import guitests.guihandles.PersonCardHandle;
-import seedu.address.model.person.Person;
+import seedu.address.model.Issue;
 import seedu.address.testutil.PersonBuilder;
 
 public class PersonCardTest extends GuiUnitTest {
@@ -16,13 +16,13 @@ public class PersonCardTest extends GuiUnitTest {
     @Test
     public void display() {
         // no tags
-        Person personWithNoTags = new PersonBuilder().withTags(new String[0]).build();
+        Issue personWithNoTags = new PersonBuilder().withTags(new String[0]).build();
         PersonCard personCard = new PersonCard(personWithNoTags, 1);
         uiPartRule.setUiPart(personCard);
         assertCardDisplay(personCard, personWithNoTags, 1);
 
         // with tags
-        Person personWithTags = new PersonBuilder().build();
+        Issue personWithTags = new PersonBuilder().build();
         personCard = new PersonCard(personWithTags, 2);
         uiPartRule.setUiPart(personCard);
         assertCardDisplay(personCard, personWithTags, 2);
@@ -30,10 +30,10 @@ public class PersonCardTest extends GuiUnitTest {
 
     @Test
     public void equals() {
-        Person person = new PersonBuilder().build();
+        Issue person = new PersonBuilder().build();
         PersonCard personCard = new PersonCard(person, 0);
 
-        // same person, same index -> returns true
+        // same issue, same index -> returns true
         PersonCard copy = new PersonCard(person, 0);
         assertTrue(personCard.equals(copy));
 
@@ -46,11 +46,11 @@ public class PersonCardTest extends GuiUnitTest {
         // different types -> returns false
         assertFalse(personCard.equals(0));
 
-        // different person, same index -> returns false
-        Person differentPerson = new PersonBuilder().withName("differentName").build();
+        // different issue, same index -> returns false
+        Issue differentPerson = new PersonBuilder().withName("differentName").build();
         assertFalse(personCard.equals(new PersonCard(differentPerson, 0)));
 
-        // same person, different index -> returns false
+        // same issue, different index -> returns false
         assertFalse(personCard.equals(new PersonCard(person, 1)));
     }
 
@@ -58,7 +58,7 @@ public class PersonCardTest extends GuiUnitTest {
      * Asserts that {@code personCard} displays the details of {@code expectedPerson} correctly and matches
      * {@code expectedId}.
      */
-    private void assertCardDisplay(PersonCard personCard, Person expectedPerson, int expectedId) {
+    private void assertCardDisplay(PersonCard personCard, Issue expectedPerson, int expectedId) {
         guiRobot.pauseForHuman();
 
         PersonCardHandle personCardHandle = new PersonCardHandle(personCard.getRoot());
@@ -66,7 +66,7 @@ public class PersonCardTest extends GuiUnitTest {
         // verify id is displayed correctly
         assertEquals(Integer.toString(expectedId) + ". ", personCardHandle.getId());
 
-        // verify person details are displayed correctly
+        // verify issue details are displayed correctly
         assertCardDisplaysPerson(expectedPerson, personCardHandle);
     }
 }

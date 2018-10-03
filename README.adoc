@@ -1,40 +1,51 @@
-= Address Book (Level 4)
+= SaveIt
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-https://travis-ci.org/se-edu/addressbook-level4[image:https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master[Build Status]]
-https://ci.appveyor.com/project/damithc/addressbook-level4[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
-https://coveralls.io/github/se-edu/addressbook-level4?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master[Coverage Status]]
-https://www.codacy.com/app/damith/addressbook-level4?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level4&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
-https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
+https://travis-ci.org/CS2103-AY1819S1-T12-4/main[image:https://travis-ci.org/CS2103-AY1819S1-T12-4/main.svg?branch=master[Build Status]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui.png[width="600"]
+image::docs/images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
-* What's different from https://github.com/se-edu/addressbook-level3[level 3]:
-** A more sophisticated GUI that includes a list  panel and an in-built Browser.
-** More test cases, including automated GUI testing.
-** Support for _Build Automation_ using Gradle and for _Continuous Integration_ using Travis CI.
+SaveIt is a desktop application written in Java
+
+* It provides a platform for you to keep track of issues that you encounter and the corresponding solutions that you found on through your search engine.
+
+This application is geared towards programmers:
+
+* To help keep track of bugs/error messages encountered and searched on google (or any other search engine).
+* To save the webpage of the corresponding email(s) found
+
+While programming, it is quite often that we run into similar problems that we have encountered before. Yet, we might not always remember the email (or where we found it) and go on searching for it again.
+
+* Traditional browsers have bookmarks which allow you to keep track of webpages that you might want to visit later, however, they have a few drawbacks:
+** They do not provide enough context to why the page was bookmarked (besides allowing you to set the title for the url)
+** It becomes hard to manage when the list gets large, and having nested folders makes things complicated.
+** It is not possible to map multiple solutions (url links) to a single issue (unless you create a folder)
+* The aforementioned reasons make it infeasible to keep track of issues/bugs using bookmarks
+
+SaveIt helps to bridge this gap by:
+
+* Providing a platform to map issues to their email(s)
+* Providing an internal search functionality to find similar issues and their solutions straight away
+* The storage and search functionalities are further enhanced with a tagging system for further categorization
 
 == Site Map
+You might find these useful in getting started.
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
 == Acknowledgements
 
-* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
-_Marco Jakob_.
+* The source code for this application was obtained from https://github.com/CS2103-AY1819S1-T12-4/main[SaveIt], and subsequently repackaged as a new application.
 * Libraries used: https://github.com/TestFX/TestFX[TextFX], https://bitbucket.org/controlsfx/controlsfx/[ControlsFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]
 
 == Licence : link:LICENSE[MIT]
+

@@ -175,7 +175,7 @@ module Slim::Helpers
   ##
   # Constructs a HTML <a> tag representing a link in the navigation bar.
   #
-  # @param section [String] Name of the site section represented by the link.
+  # @param section [String] IssueStatement of the site section represented by the link.
   #   This is used to highlight the navigation item if the current document
   #   sets its site-section attribute to this String, indicating that the
   #   reader is browsing this section of the site.
