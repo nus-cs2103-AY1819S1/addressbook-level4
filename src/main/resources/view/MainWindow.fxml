@@ -32,6 +32,34 @@
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
           </Menu>
         </MenuBar>
+        
+        <StackPane VBox.vgrow="NEVER" fx:id="titlePlaceholder">
+        </StackPane>
+
+        <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
+          <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+            <padding>
+              <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+            <StackPane fx:id="leftPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+          </VBox>
+          
+          <SplitPane id="splitPane" fx:id="rightSplitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS" orientation="VERTICAL">
+            <VBox fx:id="budgetPanel" prefWidth="338" prefHeight="149">
+              <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+              </padding>
+              <StackPane fx:id="budgetPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            </VBox>
+            <VBox fx:id="notificationPanel" prefWidth="338" prefHeight="356">
+              <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+              </padding>
+              <StackPane fx:id="notificationPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            </VBox>
+
+          </SplitPane>
+        </SplitPane>
 
         <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
           <padding>
@@ -45,22 +73,7 @@
             <Insets top="5" right="10" bottom="5" left="10" />
           </padding>
         </StackPane>
-
-        <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-          <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-            <StackPane fx:id="expenseListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-          </VBox>
-
-          <StackPane fx:id="browserPlaceholder" prefWidth="340" >
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-          </StackPane>
-        </SplitPane>
-
+        
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>
     </Scene>
