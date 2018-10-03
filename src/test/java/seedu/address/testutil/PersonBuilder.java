@@ -4,10 +4,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.carpark.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.carpark.Carpark;
+import seedu.address.model.carpark.FreeParking;
+import seedu.address.model.carpark.NightParking;
+import seedu.address.model.carpark.ShortTerm;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -21,16 +21,16 @@ public class PersonBuilder {
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
-    private Name name;
-    private Phone phone;
-    private Email email;
     private Address address;
     private Set<Tag> tags;
+    private ShortTerm name;
+    private NightParking phone;
+    private FreeParking email;
 
     public PersonBuilder() {
-        name = new Name(DEFAULT_NAME);
-        phone = new Phone(DEFAULT_PHONE);
-        email = new Email(DEFAULT_EMAIL);
+        name = new ShortTerm(DEFAULT_NAME);
+        phone = new NightParking(DEFAULT_PHONE);
+        email = new FreeParking(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
     }
@@ -38,10 +38,10 @@ public class PersonBuilder {
     /**
      * Initializes the PersonBuilder with the data of {@code personToCopy}.
      */
-    public PersonBuilder(Person personToCopy) {
-        name = personToCopy.getName();
-        phone = personToCopy.getPhone();
-        email = personToCopy.getEmail();
+    public PersonBuilder(Carpark personToCopy) {
+        name = personToCopy.getShortTerm();
+        phone = personToCopy.getNightParking();
+        email = personToCopy.getFreeParking();
         address = personToCopy.getAddress();
         tags = new HashSet<>(personToCopy.getTags());
     }
@@ -50,7 +50,7 @@ public class PersonBuilder {
      * Sets the {@code Name} of the {@code Person} that we are building.
      */
     public PersonBuilder withName(String name) {
-        this.name = new Name(name);
+        this.name = new ShortTerm(name);
         return this;
     }
 
@@ -74,7 +74,7 @@ public class PersonBuilder {
      * Sets the {@code Phone} of the {@code Person} that we are building.
      */
     public PersonBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
+        this.phone = new NightParking(phone);
         return this;
     }
 
@@ -82,12 +82,12 @@ public class PersonBuilder {
      * Sets the {@code Email} of the {@code Person} that we are building.
      */
     public PersonBuilder withEmail(String email) {
-        this.email = new Email(email);
+        this.email = new FreeParking(email);
         return this;
     }
 
-    public Person build() {
-        return new Person(name, phone, email, address, tags);
-    }
+    //public Carpark build() {
+    //    return new Carpark(name, name, name, phone, email, address, tags);
+    //}
 
 }
