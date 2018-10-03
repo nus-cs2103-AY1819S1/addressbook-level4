@@ -9,7 +9,7 @@ public class Transformation {
     private String operation;
     private String[] args;
 
-    public Transformation(String operation, String... args){
+    public Transformation(String operation, String... args) {
         this.operation = operation;
         this.args = args;
     }
