@@ -39,7 +39,6 @@ public class SampleDataUtil {
                     new TotalLots(carpark.get(8)), new TypeOfParking(carpark.get(9)), null);
             carparkList.add(c);
         }
-
         return carparkList.toArray(new Carpark[0]);
     }
 
