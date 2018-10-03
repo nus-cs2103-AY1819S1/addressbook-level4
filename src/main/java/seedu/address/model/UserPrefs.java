@@ -13,6 +13,7 @@ public class UserPrefs {
 
     private GuiSettings guiSettings;
     private Path wishBookFilePath = Paths.get("data" , "addressbook.xml");
+    private Path wishTransactionFilePath = Paths.get("first", "wishtransaction.xml");
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);
@@ -36,6 +37,14 @@ public class UserPrefs {
 
     public void setAddressBookFilePath(Path wishBookFilePath) {
         this.wishBookFilePath = wishBookFilePath;
+    }
+
+    public Path getWishTransactionFilePath() {
+        return wishTransactionFilePath;
+    }
+
+    public void setWishTransactionFilePath(Path wishTransactionFilePath) {
+        this.wishTransactionFilePath = wishTransactionFilePath;
     }
 
     @Override

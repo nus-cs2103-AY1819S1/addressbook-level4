@@ -31,7 +31,9 @@ import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.WishBookStorage;
+import seedu.address.storage.WishTransactionStorage;
 import seedu.address.storage.XmlWishBookStorage;
+import seedu.address.storage.XmlWishTransactionStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -63,7 +65,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
         WishBookStorage wishBookStorage = new XmlWishBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(wishBookStorage, userPrefsStorage);
+        WishTransactionStorage wishTransactionStorage = new XmlWishTransactionStorage(userPrefs.getWishTransactionFilePath());
+        storage = new StorageManager(wishBookStorage, wishTransactionStorage, userPrefsStorage);
 
         initLogging(config);
 
