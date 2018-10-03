@@ -13,6 +13,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.NoEventSelectedException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.Poll;
@@ -45,11 +46,8 @@ public class AddPollOptionCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        event = history.getSelectedEvent();
-        if (event == null) {
-            throw new CommandException(Messages.MESSAGE_NO_EVENT_SELECTED);
-        }
         try {
+            event = model.getSelectedEvent();
             Poll poll = event.getPoll(targetIndex);
             poll.addOption(pollOption);
             model.commitAddressBook();
@@ -60,6 +58,8 @@ public class AddPollOptionCommand extends Command {
             return new CommandResult(result);
         } catch (IndexOutOfBoundsException e) {
             throw new CommandException("No poll exists at this index.");
+        } catch (NoEventSelectedException e) {
+            throw new CommandException(Messages.MESSAGE_NO_EVENT_SELECTED);
         }
     }
 

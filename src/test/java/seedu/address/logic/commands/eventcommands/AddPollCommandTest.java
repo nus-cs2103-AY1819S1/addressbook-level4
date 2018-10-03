@@ -33,7 +33,7 @@ public class AddPollCommandTest {
         //eventBuilder.withOrganiser(user);
         //Event event = eventBuilder.withPoll().build();
         Event event = model.getFilteredEventList().get(0);
-        commandHistory.setSelectedEvent(event);
+        model.setSelectedEvent(event);
         String expectedMessage = String.format(command.MESSAGE_SUCCESS, POLLNAME, event);
         //Event eventToEdit = expectedModel.getFilteredEventList().get(INDEX_FIRST.getZeroBased());
         expectedModel.updateEvent(event, event);
@@ -45,7 +45,7 @@ public class AddPollCommandTest {
     public void execute_noUserAddPoll() {
         AddPollCommand command = new AddPollCommand(POLLNAME);
         Event event = new EventBuilder().build();
-        commandHistory.setSelectedEvent(event);
+        model.setSelectedEvent(event);
         String expectedMessage = String.format(Messages.MESSAGE_NO_USER_LOGGED_IN);
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
@@ -66,7 +66,7 @@ public class AddPollCommandTest {
         EventBuilder eventBuilder = new EventBuilder();
         eventBuilder.withOrganiser(anotherUser);
         Event event = eventBuilder.build();
-        commandHistory.setSelectedEvent(event);
+        model.setSelectedEvent(event);
         String expectedMessage = String.format(Messages.MESSAGE_NOT_EVENT_ORGANISER);
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }

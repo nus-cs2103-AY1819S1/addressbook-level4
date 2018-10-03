@@ -5,20 +5,11 @@ import static java.util.Objects.requireNonNull;
 import java.util.LinkedList;
 import java.util.List;
 
-import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
-import seedu.address.model.event.Event;
-
-import seedu.address.model.person.Person;
-
 /**
  * Stores the history of commands executed.
  */
 public class CommandHistory {
     private LinkedList<String> userInputHistory;
-
-    private Event selectedEvent;
-
-    private Person selectedPerson;
 
     public CommandHistory() {
         userInputHistory = new LinkedList<>();
@@ -26,8 +17,6 @@ public class CommandHistory {
 
     public CommandHistory(CommandHistory commandHistory) {
         userInputHistory = new LinkedList<>(commandHistory.userInputHistory);
-        selectedEvent = commandHistory.getSelectedEvent();
-        selectedPerson = commandHistory.getSelectedPersonNoException();
     }
 
     /**
@@ -36,14 +25,6 @@ public class CommandHistory {
     public void add(String userInput) {
         requireNonNull(userInput);
         userInputHistory.add(userInput);
-    }
-
-    public void setSelectedEvent(Event event) {
-        selectedEvent = event;
-    }
-
-    public Event getSelectedEvent() {
-        return selectedEvent;
     }
 
     /**
@@ -73,20 +54,5 @@ public class CommandHistory {
     @Override
     public int hashCode() {
         return userInputHistory.hashCode();
-    }
-
-    public Person getSelectedPersonNoException() {
-        return selectedPerson;
-    }
-
-    public Person getSelectedPerson() throws NoUserLoggedInException {
-        if (selectedPerson == null) {
-            throw new NoUserLoggedInException();
-        }
-        return selectedPerson;
-    }
-
-    public void setSelectedPerson(Person selectedPerson) {
-        this.selectedPerson = selectedPerson;
     }
 }
