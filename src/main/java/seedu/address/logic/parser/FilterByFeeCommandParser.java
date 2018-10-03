@@ -3,7 +3,16 @@ package seedu.address.logic.parser;
 import seedu.address.logic.commands.FilterByFeeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-public class FilterByFeeCommandParser implements Parser<FilterByFeeCommand>{
+/**
+ * FilterByFeeCommandParser
+ */
+public class FilterByFeeCommandParser implements Parser<FilterByFeeCommand> {
+    /**
+     * FilterByFeeCommand
+     * @param args
+     * @return
+     * @throws ParseException
+     */
     public FilterByFeeCommand parse(String args) throws ParseException {
 
         String trimmedArgs = args.trim();
@@ -12,7 +21,7 @@ public class FilterByFeeCommandParser implements Parser<FilterByFeeCommand>{
                     String.format("Enter error message here"));
         }
 
-        return new FilterByFeeCommand((double)Integer.parseInt(trimmedArgs));
+        return new FilterByFeeCommand((double) Integer.parseInt(trimmedArgs));
     }
 
 }

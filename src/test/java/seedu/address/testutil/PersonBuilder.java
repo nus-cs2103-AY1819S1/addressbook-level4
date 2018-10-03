@@ -1,6 +1,5 @@
 package seedu.address.testutil;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -96,7 +95,7 @@ public class PersonBuilder {
      * Sets the {@code Grades} of the {@code Person} that we are building.
      */
     public PersonBuilder withGrades(String grades) {
-            this.grades = new Grades(grades);
+        this.grades = new Grades(grades);
         return this;
     }
 

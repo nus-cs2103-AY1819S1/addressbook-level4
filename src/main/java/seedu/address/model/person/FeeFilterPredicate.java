@@ -2,6 +2,9 @@ package seedu.address.model.person;
 
 import java.util.function.Predicate;
 
+/**
+ * predicate for fee filter
+ */
 public class FeeFilterPredicate implements Predicate<Person> {
     private final double minLimit;
 
