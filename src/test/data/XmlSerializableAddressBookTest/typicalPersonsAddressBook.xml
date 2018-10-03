@@ -24,6 +24,8 @@
         <email>heinz@example.com</email>
         <room>A421</room>
         <school>SDE</school>
+        <tagged>geyao</tagged>
+        <tagged>badminton</tagged>
     </persons>
     <persons>
         <name>Daniel Meier</name>
@@ -31,7 +33,8 @@
         <email>cornelia@example.com</email>
         <room>C120</room>
         <school>Biz</school>
-        <tagged>soccer</tagged>
+        <tagged>geyao</tagged>
+        <tagged>track</tagged>
     </persons>
     <persons>
         <name>Elle Meyer</name>

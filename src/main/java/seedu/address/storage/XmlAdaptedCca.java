@@ -12,7 +12,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.budget.Transaction;
 import seedu.address.model.cca.Cca;
-import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -153,7 +152,9 @@ public class XmlAdaptedCca {
 
         final Set<Tag> modelHeadTags = new HashSet<>(headTags);
 
-        Person modelHead = new Person(modelHeadName, modelHeadPhone, modelHeadEmail, modelHeadRoom, modelHeadSchool, modelHeadTags);
+        Person modelHead = new Person(modelHeadName, modelHeadPhone, modelHeadEmail, modelHeadRoom,
+                modelHeadSchool, modelHeadTags);
+
 
         final List<Tag> viceHeadTags = new ArrayList<>();
         for (XmlAdaptedTag tag : viceHeadTagged) {
@@ -196,16 +197,14 @@ public class XmlAdaptedCca {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, School.class.getSimpleName()));
         }
         if (!School.isValidSchool(viceHeadSchool)) {
-            throw new IllegalValueException(Room.MESSAGE_ROOM_CONSTRAINTS);
+            throw new IllegalValueException(School.MESSAGE_SCHOOL_CONSTRAINTS);
         }
         final School modelViceHeadSchool = new School(viceHeadSchool);
 
         final Set<Tag> modelViceHeadTags = new HashSet<>(viceHeadTags);
 
         Person modelViceHead = new Person(modelViceHeadName, modelViceHeadPhone, modelViceHeadEmail,
-            modelViceHeadRoom,
-            modelViceHeadSchool,
-            modelViceHeadTags);
+            modelViceHeadRoom, modelViceHeadSchool, modelViceHeadTags);
 
         // TODO: BUDGET
         //Budget
@@ -240,13 +239,13 @@ public class XmlAdaptedCca {
             && Objects.equals(headPhone, otherPerson.headPhone)
             && Objects.equals(headEmail, otherPerson.headEmail)
             && Objects.equals(headRoom, otherPerson.headRoom)
-                && Objects.equals(headSchool, otherPerson.headSchool)
+            && Objects.equals(headSchool, otherPerson.headSchool)
             && headTagged.equals(otherPerson.headTagged)
             && Objects.equals(viceHeadName, otherPerson.viceHeadName)
             && Objects.equals(viceHeadPhone, otherPerson.viceHeadPhone)
             && Objects.equals(viceHeadEmail, otherPerson.viceHeadEmail)
             && Objects.equals(viceHeadRoom, otherPerson.viceHeadRoom)
-                && Objects.equals(viceHeadSchool, otherPerson.viceHeadSchool)
+            && Objects.equals(viceHeadSchool, otherPerson.viceHeadSchool)
             && viceHeadTagged.equals(otherPerson.viceHeadTagged)
             && budget.equals(((XmlAdaptedCca) other).budget);
     }

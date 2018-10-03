@@ -10,61 +10,63 @@ import java.util.List;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.AddressBook;
+import seedu.address.model.BudgetBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.ContactContainsTagPredicate;
 import seedu.address.model.person.Person;
 
 //@@author kengwoon
 public class ClearCommandTest {
 
     private CommandHistory commandHistory = new CommandHistory();
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private ModelManager expectedModel = new ModelManager(model.getAddressBook(), new BudgetBook(), new UserPrefs());
 
     @Test
     public void execute_emptyAddressBook_success() {
-        Model model = new ModelManager();
-        Model expectedModel = new ModelManager();
-        expectedModel.commitAddressBook();
+        Model modelEmpty = new ModelManager();
+        Model expectedModelEmpty = new ModelManager();
         List<String> target = new ArrayList<>();
-        ContactContainsTagPredicate predicate = new ContactContainsTagPredicate(target);
+        target.add("basketball");
 
-        assertCommandSuccess(new ClearCommand(target, predicate), model, commandHistory,
-                ClearCommand.MESSAGE_CLEAR_ALL_SUCCESS, expectedModel);
+        String expectedMessage = String.format(ClearCommand.MESSAGE_CLEAR_NOTHING, '[' + target.get(0) + ']');
+
+        assertCommandSuccess(new ClearCommand(target), modelEmpty, commandHistory, expectedMessage, expectedModelEmpty);
     }
 
     @Test
     public void execute_nonEmptyAddressBook_success() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel.resetData(new AddressBook());
-        expectedModel.commitAddressBook();
         List<String> target = new ArrayList<>();
-        ContactContainsTagPredicate predicate = new ContactContainsTagPredicate(target);
+        target.add("track");
 
-        assertCommandSuccess(new ClearCommand(target, predicate), model, commandHistory,
-                ClearCommand.MESSAGE_CLEAR_ALL_SUCCESS, expectedModel);
+        Person p = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        List<Person> persons = new ArrayList<>();
+        persons.add(p);
+
+        expectedModel.clearMultiplePersons(persons);
+        expectedModel.commitAddressBook();
+
+        String expectedMessage = String.format(ClearCommand.MESSAGE_CLEAR_SPECIFIC_SUCCESS, '[' + target.get(0) + ']');
+
+        assertCommandSuccess(new ClearCommand(target), model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_clearSpecific_success() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        Person p = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         List<String> target = new ArrayList<>();
-        Object[] tags = p.getTags().toArray();
-        target.add(tags[0].toString());
-        ContactContainsTagPredicate predicate = new ContactContainsTagPredicate(target);
-        ClearCommand clearCommand = new ClearCommand(target, predicate);
+        target.add("track");
+        ClearCommand clearCommand = new ClearCommand(target);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), model.getBudgetBook(), new UserPrefs());
+        String expectedMessage = String.format(ClearCommand.MESSAGE_CLEAR_SPECIFIC_SUCCESS, '[' + target.get(0) + ']');
+
+        Person p = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         List<Person> persons = new ArrayList<>();
         persons.add(p);
         expectedModel.clearMultiplePersons(persons);
         expectedModel.commitAddressBook();
 
-        assertCommandSuccess(clearCommand, model, commandHistory,
-                String.format(ClearCommand.MESSAGE_CLEAR_SPECIFIC_SUCCESS, target.get(0)), expectedModel);
+        assertCommandSuccess(clearCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
 }

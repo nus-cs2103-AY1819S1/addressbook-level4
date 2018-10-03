@@ -41,7 +41,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final CalendarModel calendarModel;
 
     /**
-     * Initializes a ModelManager with the given addressBook, userPrefs and calendarStorage.
+     * Initializes a ModelManager with the given addressBook, budgetBook, userPrefs and calendarStorage.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyBudgetBook budgetBook, UserPrefs userPrefs,
                         CalendarStorage calendarStorage) {
@@ -61,7 +61,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * Initializes a ModelManager with the given addressBook, userPrefs.
+     * Initializes a ModelManager with the given addressBook, budgetBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyBudgetBook budgetBook, UserPrefs userPrefs) {
         super();
@@ -87,11 +87,12 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(AddressBook addressBook, UserPrefs userPrefs) {
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
-        versionedBudgetBook = null;
-        filteredCcas = null;
-        emailModel = null;
-        calendarModel = null;
+        versionedBudgetBook = new VersionedBudgetBook(new BudgetBook());
+        filteredCcas = new FilteredList<>(versionedBudgetBook.getCcaList());
+        emailModel = new EmailModel();
         this.userPrefs = userPrefs;
+        CalendarStorage calendarStorage = new IcsCalendarStorage(userPrefs.getCalendarPath());
+        this.calendarModel = new CalendarModel(calendarStorage, userPrefs.getExistingCalendar());
     }
 
     @Override
@@ -106,7 +107,9 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public ReadOnlyBudgetBook getBudgetBook() { return versionedBudgetBook; }
+    public ReadOnlyBudgetBook getBudgetBook() {
+        return versionedBudgetBook;
+    }
 
     /**
      * Raises an event to indicate the model has changed
@@ -264,6 +267,12 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
+        if (filteredPersons == null) {
+            return versionedAddressBook.equals(other.versionedAddressBook);
+        } else if (calendarModel == null) {
+            return versionedAddressBook.equals(other.versionedAddressBook)
+                    && filteredPersons.equals(other.filteredPersons);
+        }
         return versionedAddressBook.equals(other.versionedAddressBook)
             && filteredPersons.equals(other.filteredPersons)
             && calendarModel.equals(other.calendarModel);
