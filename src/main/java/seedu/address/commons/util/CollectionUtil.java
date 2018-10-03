@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Stream;
 
 /**
@@ -31,5 +32,22 @@ public class CollectionUtil {
      */
     public static boolean isAnyNonNull(Object... items) {
         return items != null && Arrays.stream(items).anyMatch(Objects::nonNull);
+    }
+
+    /**
+     * Returns true if {@code itemsToCompare} contains any elements in {@code keyItems}
+     * @param itemsToCompare
+     * @param keyItems
+     * @return
+     */
+    public static boolean containsAny(Set<?> itemsToCompare, Set<?> keyItems) {
+        return Stream.of(itemsToCompare).anyMatch(item -> {
+            for (Object keyItem : keyItems) {
+                if (item.contains(keyItem)) {
+                    return true;
+                }
+            }
+            return false;
+        });
     }
 }
