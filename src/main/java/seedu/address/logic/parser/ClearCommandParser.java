@@ -6,7 +6,6 @@ import java.util.Arrays;
 
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.ContactContainsTagPredicate;
 
 //@@author kengwoon
 /**
