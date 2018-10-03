@@ -41,7 +41,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final CalendarModel calendarModel;
 
     /**
-     * Initializes a ModelManager with the given addressBook, budgetBook userPrefs and calendarStorage.
+     * Initializes a ModelManager with the given addressBook, budgetBook, userPrefs and calendarStorage.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyBudgetBook budgetBook, UserPrefs userPrefs,
                         CalendarStorage calendarStorage) {
@@ -61,7 +61,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * Initializes a ModelManager with the given addressBook, userPrefs.
+     * Initializes a ModelManager with the given addressBook, budgetBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyBudgetBook budgetBook, UserPrefs userPrefs) {
         super();
@@ -264,6 +264,12 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
+        if (filteredPersons == null) {
+            return versionedAddressBook.equals(other.versionedAddressBook);
+        } else if (calendarModel == null) {
+            return versionedAddressBook.equals(other.versionedAddressBook)
+                    && filteredPersons.equals(other.filteredPersons);
+        }
         return versionedAddressBook.equals(other.versionedAddressBook)
             && filteredPersons.equals(other.filteredPersons)
             && calendarModel.equals(other.calendarModel);
