@@ -11,8 +11,9 @@ package seedu.address.ui;
 //import seedu.address.model.person.Person;
 //import seedu.address.testutil.PersonBuilder;
 
-public class CarparkCardTest extends GuiUnitTest {
+//public class CarparkCardTest extends GuiUnitTest {
 
+public class CarparkCardTest {
 //    @Test
 //    public void display() {
 //        // no tags
