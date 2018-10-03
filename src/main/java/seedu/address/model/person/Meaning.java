@@ -7,6 +7,7 @@ public class Meaning {
 
     public static final String MESSAGE_MEANING_CONSTRAINTS = "Meaning of a word should not be left blank";
 
+    public static final String MEANING_VALIDATION_REGEX = "[^\\s].*";
 
     public final String fullMeaning;
 
@@ -15,6 +16,11 @@ public class Meaning {
 
         fullMeaning = meaning;
     }
+
+    public static boolean isValidMeaning(String test) {
+        return test.matches(MEANING_VALIDATION_REGEX);
+    }
+
 
     @Override
     public String toString() {

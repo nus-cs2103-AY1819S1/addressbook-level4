@@ -11,6 +11,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Meaning;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
@@ -56,6 +57,16 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code phone} is invalid.
      */
+
+    public static Meaning parseMeaning(String meaning) throws ParseException {
+        requireNonNull(meaning);
+        String trimmedMeaning = meaning.trim();
+        if (!Meaning.isValidMeaning(trimmedMeaning)) {
+            throw new ParseException(Meaning.MESSAGE_MEANING_CONSTRAINTS);
+        }
+        return new Meaning(trimmedMeaning);
+    }
+
     public static Phone parsePhone(String phone) throws ParseException {
         requireNonNull(phone);
         String trimmedPhone = phone.trim();

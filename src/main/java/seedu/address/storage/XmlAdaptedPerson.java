@@ -12,6 +12,7 @@ import javax.xml.bind.annotation.XmlElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Meaning;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Word;
 import seedu.address.model.person.Phone;
@@ -26,6 +27,8 @@ public class XmlAdaptedPerson {
 
     @XmlElement(required = true)
     private String name;
+    @XmlElement(required = true)
+    private String meaning;
     @XmlElement(required = true)
     private String phone;
     @XmlElement(required = true)
@@ -45,8 +48,9 @@ public class XmlAdaptedPerson {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given word details.
      */
-    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedPerson(String name, String meaning, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
         this.name = name;
+        this.meaning = meaning;
         this.phone = phone;
         this.email = email;
         this.address = address;
@@ -62,6 +66,7 @@ public class XmlAdaptedPerson {
      */
     public XmlAdaptedPerson(Word source) {
         name = source.getName().fullName;
+        meaning = source.getMeaning().fullMeaning;
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
@@ -89,6 +94,11 @@ public class XmlAdaptedPerson {
         }
         final Name modelName = new Name(name);
 
+        if (meaning == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Meaning.class.getSimpleName()));
+        }
+        final Meaning modelMeaning = new Meaning(meaning);
+
         if (phone == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
         }
@@ -114,7 +124,7 @@ public class XmlAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Word(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Word(modelName, modelMeaning, modelPhone, modelEmail, modelAddress, modelTags);
     }
 
     @Override

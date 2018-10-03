@@ -22,6 +22,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Meaning;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Word;
 import seedu.address.model.person.Phone;
@@ -96,12 +97,13 @@ public class EditCommand extends Command {
         assert wordToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(wordToEdit.getName());
+        Meaning updatedMeaning = editPersonDescriptor.getMeaning().orElse(wordToEdit.getMeaning());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(wordToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(wordToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(wordToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(wordToEdit.getTags());
 
-        return new Word(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Word(updatedName, updatedMeaning, updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
 
     @Override
@@ -128,6 +130,7 @@ public class EditCommand extends Command {
      */
     public static class EditPersonDescriptor {
         private Name name;
+        private Meaning meaning;
         private Phone phone;
         private Email email;
         private Address address;
@@ -141,6 +144,7 @@ public class EditCommand extends Command {
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setName(toCopy.name);
+            setMeaning(toCopy.meaning);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
@@ -161,6 +165,10 @@ public class EditCommand extends Command {
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
         }
+
+        public void setMeaning(Meaning meaning) { this.meaning = meaning; }
+
+        public Optional<Meaning> getMeaning() { return Optional.ofNullable(meaning); }
 
         public void setPhone(Phone phone) {
             this.phone = phone;
@@ -219,6 +227,7 @@ public class EditCommand extends Command {
             EditPersonDescriptor e = (EditPersonDescriptor) other;
 
             return getName().equals(e.getName())
+                    && getMeaning().equals(e.getMeaning())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())
