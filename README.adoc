@@ -21,14 +21,14 @@ endif::[]
 *A desktop Event Scheduler application.*
 
 
-* *CLI (Command Line Interface)* interactions with modern *GUI* brought to your!
+* *CLI (Command Line Interface)* interactions with modern *GUI* brought to you!
 * *Always connected.* Sync with your google account!
 * *Cross platform.* Run it on both *Windows* AND *Mac*!
 * *Responsive interface.* We ensure your smooth experience.
 
 == Latest Features
-* Suports repeating events.
-* Supports tag mangement.
+* Supports repeating events.
+* Supports tag management.
 * Sync with your google service.
 * Pop-up alert.
 
