@@ -29,6 +29,7 @@ public class ClearCommandTest {
         Model expectedModel = new ModelManager();
         expectedModel.commitAddressBook();
         List<String> target = new ArrayList<>();
+        target.add("basketball");
 
         assertCommandSuccess(new ClearCommand(target), model, commandHistory,
                 String.format(ClearCommand.MESSAGE_CLEAR_SPECIFIC_SUCCESS, target.get(0)), expectedModel);
@@ -41,6 +42,7 @@ public class ClearCommandTest {
         expectedModel.resetData(new AddressBook());
         expectedModel.commitAddressBook();
         List<String> target = new ArrayList<>();
+        target.add("basketball");
 
         assertCommandSuccess(new ClearCommand(target), model, commandHistory,
                 String.format(ClearCommand.MESSAGE_CLEAR_SPECIFIC_SUCCESS, target.get(0)), expectedModel);
