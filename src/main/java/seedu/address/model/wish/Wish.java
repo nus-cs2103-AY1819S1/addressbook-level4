@@ -64,7 +64,9 @@ public class Wish {
         return remark;
     }
 
-    public boolean isWishCompleted() { return (savedAmount.value >= price.value); }
+    public boolean isWishCompleted() {
+        return (savedAmount.value >= price.value);
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}

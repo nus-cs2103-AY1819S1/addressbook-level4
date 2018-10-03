@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.wish.WishCompletedPredicate;
@@ -22,6 +21,9 @@ public class ListCommand extends Command {
             + COMMAND_WORD + " -c: Lists all wishes have been completed.\n"
             + COMMAND_WORD + " -u: Lists all wishes that are still in progress.\n";
 
+    /**
+     * Types of lists that can be shown.
+     */
     public enum ListType { SHOW_ALL, SHOW_COMPLETED, SHOW_UNCOMPLETED }
 
     public static final String MESSAGE_SUCCESS = "Listed all wishes";

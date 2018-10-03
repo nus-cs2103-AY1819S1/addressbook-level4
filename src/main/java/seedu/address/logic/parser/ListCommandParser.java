@@ -5,7 +5,10 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-public class ListCommandParser implements Parser<ListCommand>{
+/**
+ * Parses input filter and creates a new ListCommand Object.
+ */
+public class ListCommandParser implements Parser<ListCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the ListCommand
      * and returns a ListCommand object for execution.
