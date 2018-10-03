@@ -3,38 +3,38 @@ package seedu.address.ui;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysCarpark;
 
 import org.junit.Test;
 
-import guitests.guihandles.PersonCardHandle;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
+import guitests.guihandles.CarparkCardHandle;
+import seedu.address.model.carpark.Carpark;
+import seedu.address.testutil.CarparkBuilder;
 
 public class CarparkCardTest extends GuiUnitTest {
 
     @Test
     public void display() {
         // no tags
-        Person personWithNoTags = new PersonBuilder().withTags(new String[0]).build();
-        CarparkCard carparkCard = new CarparkCard(personWithNoTags, 1);
+        Carpark carparkWithNoTags = new CarparkBuilder().withTags(new String[0]).build();
+        CarparkCard carparkCard = new CarparkCard(carparkWithNoTags, 1);
         uiPartRule.setUiPart(carparkCard);
-        assertCardDisplay(carparkCard, personWithNoTags, 1);
+        assertCardDisplay(carparkCard, carparkWithNoTags, 1);
 
         // with tags
-        Person personWithTags = new PersonBuilder().build();
-        carparkCard = new CarparkCard(personWithTags, 2);
+        Carpark carparkWithTags = new CarparkBuilder().build();
+        carparkCard = new CarparkCard(carparkWithTags, 2);
         uiPartRule.setUiPart(carparkCard);
-        assertCardDisplay(carparkCard, personWithTags, 2);
+        assertCardDisplay(carparkCard, carparkWithTags, 2);
     }
 
     @Test
     public void equals() {
-        Person person = new PersonBuilder().build();
-        CarparkCard carparkCard = new CarparkCard(person, 0);
+        Carpark carpark = new CarparkBuilder().build();
+        CarparkCard carparkCard = new CarparkCard(carpark, 0);
 
         // same carpark, same index -> returns true
-        CarparkCard copy = new CarparkCard(person, 0);
+        CarparkCard copy = new CarparkCard(carpark, 0);
         assertTrue(carparkCard.equals(copy));
 
         // same object -> returns true
@@ -47,26 +47,26 @@ public class CarparkCardTest extends GuiUnitTest {
         assertFalse(carparkCard.equals(0));
 
         // different carpark, same index -> returns false
-        Person differentPerson = new PersonBuilder().withName("differentName").build();
-        assertFalse(carparkCard.equals(new CarparkCard(differentPerson, 0)));
+        Carpark differentCarpark = new CarparkBuilder().withCarparkNumber("differentName").build();
+        assertFalse(carparkCard.equals(new CarparkCard(differentCarpark, 0)));
 
         // same carpark, different index -> returns false
-        assertFalse(carparkCard.equals(new CarparkCard(person, 1)));
+        assertFalse(carparkCard.equals(new CarparkCard(carpark, 1)));
     }
 
     /**
      * Asserts that {@code carparkCard} displays the details of {@code expectedPerson} correctly and matches
      * {@code expectedId}.
      */
-    private void assertCardDisplay(CarparkCard carparkCard, Person expectedPerson, int expectedId) {
+    private void assertCardDisplay(CarparkCard carparkCard, Carpark expectedCarpark, int expectedId) {
         guiRobot.pauseForHuman();
 
-        PersonCardHandle personCardHandle = new PersonCardHandle(carparkCard.getRoot());
+        CarparkCardHandle carparkCardHandle = new CarparkCardHandle (carparkCard.getRoot());
 
         // verify id is displayed correctly
-        assertEquals(Integer.toString(expectedId) + ". ", personCardHandle.getId());
+        assertEquals(Integer.toString(expectedId) + ". ", carparkCardHandle.getCarparkNumber());
 
         // verify carpark details are displayed correctly
-        assertCardDisplaysPerson(expectedPerson, personCardHandle);
+        assertCardDisplaysCarpark(expectedCarpark, carparkCardHandle);
     }
 }

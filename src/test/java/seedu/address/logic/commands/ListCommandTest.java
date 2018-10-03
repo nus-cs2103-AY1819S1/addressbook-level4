@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.address.logic.commands.CommandTestUtil.showCarparkAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARPARK;
 import static seedu.address.testutil.TypicalCarparks.getTypicalAddressBook;
 
@@ -38,7 +38,7 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
-        showPersonAtIndex(model, INDEX_FIRST_CARPARK);
+        showCarparkAtIndex(model, INDEX_FIRST_CARPARK);
         assertCommandSuccess(new ListCommand(), model, commandHistory, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }
