@@ -1,6 +1,5 @@
 = Car Park Finder - Developer Guide
 :site-section: DeveloperGuide
-:no-site-header
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -116,7 +115,7 @@ of nearby car parks from their destination in a fast and efficient manner
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-==== Filter and Sorting - Yurou
+=== Filter and Sorting - Yurou
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
@@ -130,7 +129,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |decide if I can park and leave my car there
 |=======================================================================
 
-==== Search and Flag - Keith
+=== Search and Flag - Keith
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
@@ -144,7 +143,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |car owner |search by details of a car park |view information about a car park that I want
 |=======================================================================
 
-==== Store and Load Favorites - Alvin
+=== Store and Load Favorites - Alvin
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
@@ -168,7 +167,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |remove car parks that are no longer of my interest
 |=======================================================================
 
-==== API and Notifications - Zhuan Yu
+=== API and Notifications - Zhuan Yu
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
@@ -186,7 +185,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |plan ahead if the car park has no shelter and move to one that has it
 |=======================================================================
 
-==== Cache and Aliases - Delong
+=== Cache and Aliases - Delong
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
