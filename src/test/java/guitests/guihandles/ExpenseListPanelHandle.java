@@ -9,26 +9,26 @@ import javafx.scene.control.ListView;
 import seedu.address.model.expense.Person;
 
 /**
- * Provides a handle for {@code PersonListPanel} containing the list of {@code PersonCard}.
+ * Provides a handle for {@code ExpenseListPanel} containing the list of {@code ExpenseCard}.
  */
-public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
+public class ExpenseListPanelHandle extends NodeHandle<ListView<Person>> {
     public static final String PERSON_LIST_VIEW_ID = "#personListView";
 
     private static final String CARD_PANE_ID = "#cardPane";
 
     private Optional<Person> lastRememberedSelectedPersonCard;
 
-    public PersonListPanelHandle(ListView<Person> personListPanelNode) {
+    public ExpenseListPanelHandle(ListView<Person> personListPanelNode) {
         super(personListPanelNode);
     }
 
     /**
-     * Returns a handle to the selected {@code PersonCardHandle}.
+     * Returns a handle to the selected {@code ExpenseCardHandle}.
      * A maximum of 1 item can be selected at any time.
      * @throws AssertionError if no card is selected, or more than 1 card is selected.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
-    public PersonCardHandle getHandleToSelectedCard() {
+    public ExpenseCardHandle getHandleToSelectedCard() {
         List<Person> selectedPersonList = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedPersonList.size() != 1) {
@@ -36,7 +36,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
         }
 
         return getAllCardNodes().stream()
-                .map(PersonCardHandle::new)
+                .map(ExpenseCardHandle::new)
                 .filter(handle -> handle.equals(selectedPersonList.get(0)))
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);
@@ -91,7 +91,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
     }
 
     /**
-     * Selects the {@code PersonCard} at {@code index} in the list.
+     * Selects the {@code ExpenseCard} at {@code index} in the list.
      */
     public void select(int index) {
         getRootNode().getSelectionModel().select(index);
@@ -101,9 +101,9 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
      * Returns the person card handle of a person associated with the {@code index} in the list.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
-    public PersonCardHandle getPersonCardHandle(int index) {
+    public ExpenseCardHandle getPersonCardHandle(int index) {
         return getAllCardNodes().stream()
-                .map(PersonCardHandle::new)
+                .map(ExpenseCardHandle::new)
                 .filter(handle -> handle.equals(getPerson(index)))
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);
@@ -123,7 +123,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
     }
 
     /**
-     * Remembers the selected {@code PersonCard} in the list.
+     * Remembers the selected {@code ExpenseCard} in the list.
      */
     public void rememberSelectedPersonCard() {
         List<Person> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
@@ -136,7 +136,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
     }
 
     /**
-     * Returns true if the selected {@code PersonCard} is different from the value remembered by the most recent
+     * Returns true if the selected {@code ExpenseCard} is different from the value remembered by the most recent
      * {@code rememberSelectedPersonCard()} call.
      */
     public boolean isSelectedPersonCardChanged() {
