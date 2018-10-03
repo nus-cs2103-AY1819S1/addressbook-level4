@@ -149,8 +149,6 @@ Examples:
 Shows your favorites list, with all the car park details. +
 Format: `list`
 
-[TIP]
-alias - a
 
 === Remove from favorites list : `remove`
 

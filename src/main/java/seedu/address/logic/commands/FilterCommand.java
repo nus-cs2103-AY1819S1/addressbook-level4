@@ -6,8 +6,11 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.carpark.Carpark;
+import seedu.address.model.carpark.CarparkHasNightParkingPredicate;
 
 import java.util.List;
+import java.util.Arrays;
+import java.util.ArrayList;
 
 import static java.util.Objects.requireNonNull;
 
@@ -19,34 +22,35 @@ public class FilterCommand extends Command {
             + "Parameters: Tags ... \n"   //-----------------------------------------------------CHANGE LATER
             + "Example: " + COMMAND_WORD + "f/TRUE";
 
-    public static final String MESSAGE_DELETE_CARPARK_SUCCESS = "Filtered Carparks.";
+    //public static final String MESSAGE_FILTER_CARPARK_SUCCESS = "Filtered Carparks.";
+    private final CarparkHasNightParkingPredicate predicate;
 
-    //private final Index targetIndex;
-    private boolean freeParking;
+    private String[] flags;
 
-    public FilterCommand(boolean freeParking) {
-        this.freeParking = freeParking;
+    public FilterCommand(String[] flags) {
+        this.flags = flags;
+        this.predicate = new CarparkHasNightParkingPredicate("YES");
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+
         requireNonNull(model);
-        List<Carpark> lastShownList = model.getFilteredCarparkList();
-
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_CARPARK_DISPLAYED_INDEX);
+        List<String> flagList = Arrays.asList(flags);
+        System.out.println(flagList.contains("n/"));
+        if (flagList.contains("n/")) {
+            model.updateFilteredCarparkList(predicate);
         }
-
-        Carpark carparkToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteCarpark(carparkToDelete);
-        model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_DELETE_CARPARK_SUCCESS, carparkToDelete));
+        return new CommandResult(
+                String.format(Messages.MESSAGE_CARPARKS_LISTED_OVERVIEW, model.getFilteredCarparkList().size()));
+        //throw new CommandException("filter command executed.");
+        //return new CommandResult(String.format(MESSAGE_FILTER_CARPARK_SUCCESS));
     }
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof DeleteCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+        return other == this; // short circuit if same object
+                //|| (other instanceof DeleteCommand // instanceof handles nulls
+                //&& targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
     }
 }

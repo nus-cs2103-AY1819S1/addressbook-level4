@@ -17,7 +17,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.carpark.Address;
@@ -34,16 +34,23 @@ import seedu.address.model.carpark.TypeOfParking;
 import seedu.address.model.tag.Tag;
 
 
-public class FilterCommandParser {
+public class FilterCommandParser implements Parser<FilterCommand>{
 
 
     public FilterCommand parse(String args) throws ParseException {
+
+        //return new FilterCommand(false);
         try {
-            Index index = ParserUtil.parseIndex(args);
-            return new FilterCommand(index);
+            String[] flags = ParserUtil.parseFlags(args);
+
+            //System.out.println(flags[0]);   // [space]
+            //System.out.println(flags[1]);   // flag 1
+            //System.out.println(flags[2]);   // flag 2
+
+            return new FilterCommand(flags);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE), pe);
         }
     }
 
