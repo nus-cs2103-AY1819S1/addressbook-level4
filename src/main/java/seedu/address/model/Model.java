@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -43,7 +44,12 @@ public interface Model {
      */
     void updateCarpark(Carpark target, Carpark editedCarpark);
 
-    /** Returns an unmodifiable view of the filtered carpark list */
+    /**
+     * Updates with a list of car parks {@code listCarpark}.
+     */
+    void loadCarpark(List<Carpark> listCarpark);
+
+    /** Returns an unmodifiable view of the filtered car park list */
     ObservableList<Carpark> getFilteredCarparkList();
 
     /**

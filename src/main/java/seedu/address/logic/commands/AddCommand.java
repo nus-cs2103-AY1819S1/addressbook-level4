@@ -52,7 +52,7 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_CARPARK);
         }
 
-        model.hasCarpark(toAdd);
+        model.addCarpark(toAdd);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

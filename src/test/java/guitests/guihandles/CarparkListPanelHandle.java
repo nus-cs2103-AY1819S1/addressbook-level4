@@ -65,13 +65,13 @@ public class CarparkListPanelHandle extends NodeHandle<ListView<Carpark>> {
     /**
      * Navigates the listview to display {@code carpark}.
      */
-    public void navigateToCard(Carpark Carpark) {
-        if (!getRootNode().getItems().contains(Carpark)) {
+    public void navigateToCard(Carpark carpark) {
+        if (!getRootNode().getItems().contains(carpark)) {
             throw new IllegalArgumentException("Carpark does not exist.");
         }
 
         guiRobot.interact(() -> {
-            getRootNode().scrollTo(Carpark);
+            getRootNode().scrollTo(carpark);
         });
         guiRobot.pauseForHuman();
     }

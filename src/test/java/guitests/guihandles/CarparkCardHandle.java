@@ -112,18 +112,18 @@ public class CarparkCardHandle extends NodeHandle<Node> {
     /**
      * Returns true if this handle contains {@code carpark}.
      */
-    public boolean equals(Carpark Carpark) {
-        return getAddress().equals(Carpark.getAddress().value)
-                && getCarparkNumber().equals(Carpark.getCarparkNumber().value)
-                && getCoordinate().equals(Carpark.getCoordinate().value)
-                && getCarparkType().equals(Carpark.getCarparkType().value)
-                && getFreeParking().equals(Carpark.getFreeParking().value)
-                && getLotsAvailable().equals(Carpark.getLotsAvailable().value)
-                && getNightParking().equals(Carpark.getNightParking().value)
-                && getShortTerm().equals(Carpark.getShortTerm().value)
-                && getTotalLots().equals(Carpark.getTotalLots().value)
-                && getTypeOfParking().equals(Carpark.getTypeOfParking().value)
-                && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(Carpark.getTags().stream()
+    public boolean equals(Carpark carpark) {
+        return getAddress().equals(carpark.getAddress().value)
+                && getCarparkNumber().equals(carpark.getCarparkNumber().value)
+                && getCoordinate().equals(carpark.getCoordinate().value)
+                && getCarparkType().equals(carpark.getCarparkType().value)
+                && getFreeParking().equals(carpark.getFreeParking().value)
+                && getLotsAvailable().equals(carpark.getLotsAvailable().value)
+                && getNightParking().equals(carpark.getNightParking().value)
+                && getShortTerm().equals(carpark.getShortTerm().value)
+                && getTotalLots().equals(carpark.getTotalLots().value)
+                && getTypeOfParking().equals(carpark.getTypeOfParking().value)
+                && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(carpark.getTags().stream()
                         .map(tag -> tag.tagName)
                         .collect(Collectors.toList())));
     }
