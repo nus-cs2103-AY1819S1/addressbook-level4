@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -21,9 +22,12 @@ import seedu.address.model.person.Person;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
+    private final PreviewImageManager previewImageManager;
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
     public GoogleClientInstance photoLibrary = null;
+
+    private final UserPrefs userPrefs;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -34,8 +38,10 @@ public class ModelManager extends ComponentManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
+        previewImageManager = PreviewImageManager.getInstance();
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        this.userPrefs = userPrefs;
     }
 
     public ModelManager() {
@@ -117,30 +123,30 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
+    public boolean canUndoPreviewImageManager() {
+        return previewImageManager.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+    public boolean canRedoPreviewImageManager() {
+        return previewImageManager.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
-        indicateAddressBookChanged();
+    public void undoPreviewImageManager() {
+        previewImageManager.undo();
+        // indicateAddressBookChanged();
     }
 
     @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
-        indicateAddressBookChanged();
+    public void redoPreviewImageManager() {
+        previewImageManager.redo();
+        // indicateAddressBookChanged();
     }
 
     @Override
-    public void commitAddressBook() {
-        versionedAddressBook.commit();
+    public void commitPreviewImageManager() {
+        // TODO: previewImageManager.commit(editedImage);
     }
 
     @Override
@@ -161,4 +167,15 @@ public class ModelManager extends ComponentManager implements Model {
                 && filteredPersons.equals(other.filteredPersons);
     }
 
+    //=========== Update UserPrefs ==========================================================================
+
+    @Override
+    public void updateUserPrefs(Path newCurrDirectory) {
+        this.userPrefs.updateCurrDirectory(newCurrDirectory);
+    }
+
+    @Override
+    public Path getCurrDirectory() {
+        return this.userPrefs.getCurrDirectory();
+    }
 }

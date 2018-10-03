@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -63,27 +64,37 @@ public interface Model {
     void setGoogleClientInstance(GoogleClientInstance instance);
 
     /**
-     * Returns true if the model has previous address book states to restore.
+     * Returns true if the model has previous PreviewImage states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndoPreviewImageManager();
 
     /**
-     * Returns true if the model has undone address book states to restore.
+     * Returns true if the model has undone PreviewImage states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canRedoPreviewImageManager();
 
     /**
-     * Restores the model's address book to its previous state.
+     * Restores the model's PreviewImage to its previous state.
      */
-    void undoAddressBook();
+    void undoPreviewImageManager();
 
     /**
-     * Restores the model's address book to its previously undone state.
+     * Restores the model's PreviewImage to its previously undone state.
      */
-    void redoAddressBook();
+    void redoPreviewImageManager();
 
     /**
-     * Saves the current address book state for undo/redo.
+     * Saves the current PreviewImage state for undo/redo.
      */
-    void commitAddressBook();
+    void commitPreviewImageManager();
+
+    /**
+     * Updates the userPrefs current directory.
+     */
+    void updateUserPrefs(Path newCurrDirectory);
+
+    /**
+     * Retrieves the userPrefs current directory.
+     */
+    Path getCurrDirectory();
 }
