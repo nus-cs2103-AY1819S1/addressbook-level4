@@ -39,7 +39,6 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
     private Config config;
     private UserPrefs prefs;
@@ -130,8 +129,6 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -141,6 +138,24 @@ public class MainWindow extends UiPart<Stage> {
 
         hideLoggedInUi();
     }
+
+    /**
+     * Initialize UI after login
+     */
+    void initializeAfterLogin() {
+        try {
+            personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        } catch (NoUserSelectedException e) {
+            throw new IllegalStateException(e.getMessage());
+        }
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        
+        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookDirPath());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+        
+        
+    }
+    
 
     /**
      * Hides the bottom part of the UI which shows entries in the AddressBook and sync information.
@@ -231,10 +246,6 @@ public class MainWindow extends UiPart<Stage> {
 
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
-    }
-
-    void releaseResources() {
-        browserPanel.freeResources();
     }
 
     @Subscribe
