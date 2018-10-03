@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -23,6 +24,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
 
+    private final UserPrefs userPrefs;
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -34,6 +37,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        this.userPrefs = userPrefs;
     }
 
     public ModelManager() {
@@ -147,4 +151,15 @@ public class ModelManager extends ComponentManager implements Model {
                 && filteredPersons.equals(other.filteredPersons);
     }
 
+    //=========== Update UserPrefs ==========================================================================
+
+    @Override
+    public void updateUserPrefs(Path newCurrDirectory) {
+        this.userPrefs.updateCurrDirectory(newCurrDirectory);
+    }
+
+    @Override
+    public Path getCurrDirectory() {
+        return this.userPrefs.getCurrDirectory();
+    }
 }
