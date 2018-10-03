@@ -4,7 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-LearnVocabulary - Level 4 was developed by the T10-3 team. +
+LearnVocabulary was developed by the T10-3 team. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
