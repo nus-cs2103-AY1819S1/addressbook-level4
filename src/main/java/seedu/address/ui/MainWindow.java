@@ -22,6 +22,7 @@ import seedu.address.commons.events.model.UserLoggedInEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.ui.ShowStatsRequestEvent;
+import seedu.address.commons.events.ui.SwapLeftPanelEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.exceptions.NoUserSelectedException;
@@ -160,6 +161,22 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Swaps the panel from statistics to list
+     */
+    void swapToList() {
+        leftPanelPlaceholder.getChildren().clear();
+        leftPanelPlaceholder.getChildren().add(expenseListPanel.getRoot());
+    }
+
+    /**
+     * Swaps the panel from list to statistics
+     */
+    void swapToStat() {
+        leftPanelPlaceholder.getChildren().clear();
+        leftPanelPlaceholder.getChildren().add(statisticsSplitPane);
+    }
+
+    /**
      * Initialize UI after login
      */
     void initializeAfterLogin() {
@@ -168,7 +185,7 @@ public class MainWindow extends UiPart<Stage> {
         } catch (NoUserSelectedException e) {
             throw new IllegalStateException(e.getMessage());
         }
- 
+
         StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookDirPath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
         Title title = new Title();
@@ -189,6 +206,8 @@ public class MainWindow extends UiPart<Stage> {
         statisticsSplitPane.getItems().add(categoriesPanel.getRoot());
 
         leftPanelPlaceholder.getChildren().add(expenseListPanel.getRoot());
+        
+        swapToStat();
     }
 
     /**
@@ -213,7 +232,6 @@ public class MainWindow extends UiPart<Stage> {
         getPrimaryStage().setMinHeight(600);
         setWindowDefaultSize(prefs);
         statusbarPlaceholder.setManaged(true);
-        
     }
 
     void hide() {
@@ -305,4 +323,18 @@ public class MainWindow extends UiPart<Stage> {
         initializeAfterLogin();
         showLoggedInUi();
     }
+    
+    @Subscribe
+    private void handleSwapLeftPanelEvent(SwapLeftPanelEvent event) {
+        switch(event.getPanelType()) {
+        case LIST:
+            swapToList();
+            break;
+        case STATISTIC:
+            swapToStat();
+            break;
+        default:
+        }
+    }
+    
 }
