@@ -1,25 +1,21 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import seedu.address.commons.util.GsonUtil;
 import seedu.address.model.AddressBook;
-import seedu.address.model.carpark.*;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.carpark.Address;
+import seedu.address.model.carpark.Carpark;
+import seedu.address.model.carpark.CarparkNumber;
+import seedu.address.model.carpark.CarparkType;
+import seedu.address.model.carpark.Coordinate;
+import seedu.address.model.carpark.FreeParking;
+import seedu.address.model.carpark.LotsAvailable;
+import seedu.address.model.carpark.NightParking;
+import seedu.address.model.carpark.ShortTerm;
+import seedu.address.model.carpark.TotalLots;
+import seedu.address.model.carpark.TypeOfParking;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
@@ -78,7 +74,7 @@ public class TypicalCarparks {
         ArrayList<ArrayList<String>> info = GsonUtil.fetchCarparkInfo();
 
         ArrayList<Carpark> carparkInfo = null;
-        for(ArrayList<String> str : info) {
+        for (ArrayList<String> str : info) {
             carparkInfo.add(new Carpark(new Address(str.get(0)),
                     new CarparkNumber(str.get(1)),
                     new CarparkType(str.get(2)),
