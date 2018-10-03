@@ -215,4 +215,14 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    /**
+     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     */
+    public static String[] parseFlags(String flags) throws ParseException {
+        requireNonNull(flags);
+        String[] flagArray = flags.split("\\s+");
+
+        return flagArray;
+    }
 }
