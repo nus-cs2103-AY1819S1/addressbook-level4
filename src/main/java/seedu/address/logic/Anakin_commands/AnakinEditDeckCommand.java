@@ -1,12 +1,8 @@
 package seedu.address.logic.Anakin_commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -14,14 +10,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
+
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.Anakin_Model;
@@ -43,7 +39,7 @@ public class AnakinEditDeckCommand extends Anakin_Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_NAME;
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Deck: %1$s";
+    public static final String MESSAGE_EDIT_DECK_SUCCESS = "Edited Deck: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This deck already exists in the address book.";
 
@@ -64,23 +60,23 @@ public class AnakinEditDeckCommand extends Anakin_Command {
 
     @Override
     public CommandResult execute(Anakin_Model anakinModel, CommandHistory history) throws CommandException {
-        requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        requireNonNull(anakinModel);
+        List<Anakin_Deck> lastShownList = anakinModel.getFilteredDeckList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX);
         }
 
-        Person deckToEdit = lastShownList.get(index.getZeroBased());
-        Person editedDeck = createEditedDeck(deckToEdit, editDeckDescriptor);
+        Anakin_Deck deckToEdit = lastShownList.get(index.getZeroBased());
+        Anakin_Deck editedDeck = createEditedDeck(deckToEdit, editDeckDescriptor);
 
-        if (!deckToEdit.isSameDeck(editedDeck) && model.hasDeck(editedDeck)) {
+        if (!deckToEdit.isSameDeck(editedDeck) && anakinModel.hasDeck(editedDeck)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.updateDeck(personToEdit, editedDeck);
-        model.updateFilteredDeckList(PREDICATE_SHOW_ALL_DECK);
-        model.commitAddressBook();
+        anakinModel.updateDeck(deckToEdit, editedDeck);
+        anakinModel.updateFilteredDeckList(PREDICATE_SHOW_ALL_DECK);
+        anakinModel.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_DECK_SUCCESS, editedDeck));
     }
 
@@ -88,16 +84,13 @@ public class AnakinEditDeckCommand extends Anakin_Command {
      * Creates and returns a {@code Deck} with the details of {@code deckToEdit}
      * edited with {@code editDeckDescriptor}.
      */
-    private static Deck createEditedDeck(Deck personToEdit, EditDeckDescriptor editPersonDescriptor) {
-        assert personToEdit != null;
+    private static Anakin_Deck createEditedDeck(Anakin_Deck deckToEdit, EditDeckDescriptor editDeckDescriptor) {
+        assert deckToEdit != null;
 
         Name updatedName = editDeckDescriptor.getName().orElse(deckToEdit.getName());
-        Phone updatedPhone = editDeckDescriptor.getPhone().orElse(deckToEdit.getPhone());
-        Email updatedEmail = editDeckDescriptor.getEmail().orElse(deckToEdit.getEmail());
-        Address updatedAddress = editDeckDescriptor.getAddress().orElse(deckToEdit.getAddress());
         Set<Tag> updatedTags = editDeckDescriptor.getTags().orElse(deckToEdit.getTags());
 
-        return new Deck(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Anakin_Deck(updatedName, updatedTags);
     }
 
     @Override
@@ -124,9 +117,6 @@ public class AnakinEditDeckCommand extends Anakin_Command {
      */
     public static class EditDeckDescriptor {
         private Name name;
-        private Phone phone;
-        private Email email;
-        private Address address;
         private Set<Tag> tags;
 
         public EditDeckDescriptor() {}
@@ -137,9 +127,6 @@ public class AnakinEditDeckCommand extends Anakin_Command {
          */
         public EditDeckDescriptor(EditDeckDescriptor toCopy) {
             setName(toCopy.name);
-            setPhone(toCopy.phone);
-            setEmail(toCopy.email);
-            setAddress(toCopy.address);
             setTags(toCopy.tags);
         }
 
@@ -147,7 +134,7 @@ public class AnakinEditDeckCommand extends Anakin_Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, tags);
         }
 
         public void setName(Name name) {
@@ -158,29 +145,6 @@ public class AnakinEditDeckCommand extends Anakin_Command {
             return Optional.ofNullable(name);
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
-        }
-
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
-        }
-
-        public void setEmail(Email email) {
-            this.email = email;
-        }
-
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
-        }
-
-        public void setAddress(Address address) {
-            this.address = address;
-        }
-
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
-        }
 
         /**
          * Sets {@code tags} to this object's {@code tags}.
@@ -215,9 +179,6 @@ public class AnakinEditDeckCommand extends Anakin_Command {
             EditDeckDescriptor e = (EditDeckDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
                     && getTags().equals(e.getTags());
         }
     }
