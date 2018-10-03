@@ -108,7 +108,7 @@ public class XmlAdaptedPersonTest {
     @Test
     public void toModelType_invalidSchool_throwsIllegalValueException() {
         XmlAdaptedPerson person =
-                new XmlAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, INVALID_ROOM, INVALID_SCHOOL,
+                new XmlAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ROOM, INVALID_SCHOOL,
                         VALID_TAGS);
         String expectedMessage = School.MESSAGE_SCHOOL_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
