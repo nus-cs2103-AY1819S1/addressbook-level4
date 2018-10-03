@@ -10,14 +10,11 @@ import java.util.List;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.AddressBook;
 import seedu.address.model.BudgetBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.ContactContainsTagPredicate;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
 
 //@@author kengwoon
 public class ClearCommandTest {
@@ -46,6 +43,7 @@ public class ClearCommandTest {
         Person p = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         List<Person> persons = new ArrayList<>();
         persons.add(p);
+
         expectedModel.clearMultiplePersons(persons);
         expectedModel.commitAddressBook();
 

@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ROOM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SCHOOL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.time.chrono.Era;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -85,13 +86,18 @@ public class CommandTestUtil {
     public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
             String expectedMessage, Model expectedModel) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
+        boolean isErase = false;
+        boolean isClear = false;
+        if (command instanceof EraseCommand) { isErase = true; }
+        if (command instanceof ClearCommand) { isClear = true; }
         try {
             CommandResult result = command.execute(actualModel, actualCommandHistory);
             assertEquals(expectedMessage, result.feedbackToUser);
-            if (!(command instanceof EraseCommand)) {
-                assertEquals(expectedModel, actualModel);
+            if (isErase || isClear) {
+                assertEquals(expectedCommandHistory, actualCommandHistory);
+                return;
             }
-            assertEquals(expectedCommandHistory, actualCommandHistory);
+            assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
