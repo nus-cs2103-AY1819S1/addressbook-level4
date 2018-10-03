@@ -28,12 +28,15 @@ import systemtests.ModelHelper;
 public class TestApp extends MainApp {
 
     public static final Path SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
+    public static final Path SAVE_LOCATION_FOR_WISHTRANSACTION_TESTING
+            = TestUtil.getFilePathInSandboxFolder("emptywishtransaction.xml");
     public static final String APP_TITLE = "Test App";
 
     protected static final Path DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
             TestUtil.getFilePathInSandboxFolder("pref_testing.json");
     protected Supplier<ReadOnlyWishBook> initialDataSupplier = () -> null;
     protected Path saveFileLocation = SAVE_LOCATION_FOR_TESTING;
+    protected Path saveWishTransactionFileLocation = SAVE_LOCATION_FOR_WISHTRANSACTION_TESTING;
 
     public TestApp() {
     }
@@ -65,6 +68,7 @@ public class TestApp extends MainApp {
         double y = Screen.getPrimary().getVisualBounds().getMinY();
         userPrefs.updateLastUsedGuiSetting(new GuiSettings(600.0, 600.0, (int) x, (int) y));
         userPrefs.setAddressBookFilePath(saveFileLocation);
+        userPrefs.setAddressBookFilePath(saveWishTransactionFileLocation);
         return userPrefs;
     }
 
