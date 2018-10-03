@@ -206,8 +206,8 @@ public class MainWindow extends UiPart<Stage> {
         statisticsSplitPane.getItems().add(categoriesPanel.getRoot());
 
         leftPanelPlaceholder.getChildren().add(expenseListPanel.getRoot());
-        
-        swapToStat();
+
+        swapToList();
     }
 
     /**
@@ -323,7 +323,7 @@ public class MainWindow extends UiPart<Stage> {
         initializeAfterLogin();
         showLoggedInUi();
     }
-    
+
     @Subscribe
     private void handleSwapLeftPanelEvent(SwapLeftPanelEvent event) {
         switch(event.getPanelType()) {
@@ -336,5 +336,4 @@ public class MainWindow extends UiPart<Stage> {
         default:
         }
     }
-    
 }
