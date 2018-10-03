@@ -53,6 +53,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `newdeck [n/NAME]` can be used as `newdeck n/My Deck` or as `newdeck`.
+* Items with …​ after them can be used multiple times including zero times e.g. `[t/TAG]…​` can be used as (i.e. 0 times), t/friend, t/friend t/family etc.
 * Parameters can be in any order e.g. if the command specifies `q/QUESTION a/ANSWER`, `a/ANSWER q/QUESTION` is also acceptable.
 ====
 
@@ -141,7 +142,7 @@ Format: `newcard [q/QUESTION] [a/ANSWER]`
 === Editing a card : `editcard`
 
 Edits an existing card in the specified deck. +
-Format: `editcard d/INDEX_OF_DECK INDEX_OF_CARD [q/QUESTION] [a/ANSWER]`
+Format: `editcard INDEX_OF_CARD d/INDEX_OF_DECK [q/QUESTION] [a/ANSWER]`
 
 If user is inside a deck, can omit: d/INDEX_OF_DECK. +
 Format: `editcard INDEX_OF_CARD [q/QUESTION] [a/ANSWER]`
@@ -155,15 +156,52 @@ Format: `editcard INDEX_OF_CARD [q/QUESTION] [a/ANSWER]`
 
 Examples:
 
-* `list` +
-Displays all decks. +
-* `edit 1 n/My Deck` +
-Edits the name of the first deck in the list to be `My Deck`.
+* `edit 1 d/1 a/A` +
+Edits the answer of the first card in the first deck to be `A`.
 
 === Sort current list by name : `sortname`
 If user is currently in a deck, sort all card in alphabetical order. +
 Format: `sortname`
 
+=== Locate a deck by name : `find`
+
+Finds decks with names that contain any of the given keywords.
+Format: `find KEYWORD [MORE_KEYWORDS]…`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Decks matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+****
+
+Examples:
+
+* `find Algo` +
+Returns `algo` and `Easy Algo`
+* `find Bio Chem Physics` +
+Returns any deck having names `Bio`, `Chem`, or `Physics`
+
+=== Locate a card by question : `find`
+
+Finds cards in a specified deck with questions that contain any of the given keywords.
+Format: `find d/INDEX_OF_DECK KEYWORD [MORE_KEYWORDS]…`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Cards matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+****
+
+Examples:
+
+* `find d/1 NP` +
+Returns `Is p = np?` and `Explain NP-hard` from the first deck.
+* `find d/1 P NP` +
+Returns any cards having questions including `P` or `NP` in the first deck.
 
 === Export deck to csv file : `exportdeck`
 Creates a CSV file at the specified FILEPATH containing the deck at INDEX_OF_DECK. +
@@ -236,6 +274,8 @@ You must be inside a deck to perform this operation.
 |`newcard [q/QUESTION] [a/ANSWER]` | Creates a new card in the current deck. q/ and a/ are optional.
 |`editcard INDEX_OF_CARD [q/QUESTION] [a/ANSWER]` | Edits a new card in the current  at INDEX_OF_CARD. Either q/ or a/ must be provided.
 |`sortname` | Sort the currently displayed list of decks or cards by name
+|`find KEYWORD [MORE_KEYWORDS]` | Finds decks with names that contain any of the given keywords.
+|`find d/INDEX_OF_DECK KEYWORD [MORE_KEYWORDS]` | Finds cards in a specified deck with questions that contain any of the given keywords.
 |`classify RATING` | Classifies the current card into one of the following categories: {‘easy’, ‘good’ , ‘hard’ , ‘review’}
 
 
