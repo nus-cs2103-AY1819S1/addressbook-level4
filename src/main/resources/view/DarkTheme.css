@@ -341,7 +341,7 @@
     -fx-effect: dropshadow( gaussian , rgba(27,153,39,0.5) , 5,0,0,1 );
 }
 
-#title . label {
+#title .label {
     -fx-font-size: 30pt;
     -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: #fff;
@@ -356,7 +356,7 @@
 }
 
 
-#notificationPanel . label, #budgetPanel . label{
+#notificationPanel .label, #budgetPanel .label{
     -fx-font-size: 20pt;
     -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: #656565;

@@ -52,9 +52,6 @@ public class MainWindow extends UiPart<Stage> {
     private CategoriesPanel categoriesPanel;
 
     @FXML
-    private StackPane browserPlaceholder;
-
-    @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
@@ -163,7 +160,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Swaps the panel from statistics to list
      */
-    void swapToList() {
+    public void swapToList() {
         leftPanelPlaceholder.getChildren().clear();
         leftPanelPlaceholder.getChildren().add(expenseListPanel.getRoot());
     }
@@ -171,7 +168,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Swaps the panel from list to statistics
      */
-    void swapToStat() {
+    public void swapToStat() {
         leftPanelPlaceholder.getChildren().clear();
         leftPanelPlaceholder.getChildren().add(statisticsSplitPane);
     }
@@ -179,7 +176,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Initialize UI after login
      */
-    void initializeAfterLogin() {
+    private void initializeAfterLogin() {
         try {
             expenseListPanel = new ExpenseListPanel(logic.getFilteredPersonList());
         } catch (NoUserSelectedException e) {
@@ -325,7 +322,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     @Subscribe
-    private void handleSwapLeftPanelEvent(SwapLeftPanelEvent event) {
+    public void handleSwapLeftPanelEvent(SwapLeftPanelEvent event) {
         switch(event.getPanelType()) {
         case LIST:
             swapToList();
