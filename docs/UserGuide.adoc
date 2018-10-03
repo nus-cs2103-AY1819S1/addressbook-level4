@@ -225,6 +225,11 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
+=== Listing all expenses : `stats`
+
+Opens up a new window showing a bar chart of the expenditure of the past week. +
+Format: `stats`
+
 === Clearing all entries : `clear`
 
 Clears all entries from the expense tracker. +
