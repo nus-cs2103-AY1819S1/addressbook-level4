@@ -1,4 +1,4 @@
-package seedu.address.model.Anakin_deck;
+package seedu.address.model.AnakinDeck;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;

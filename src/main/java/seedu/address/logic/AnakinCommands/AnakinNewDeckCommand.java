@@ -1,4 +1,4 @@
-package seedu.address.logic.Anakin_commands;
+package seedu.address.logic.AnakinCommands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -6,13 +6,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Anakin_Model;
-import seedu.address.model.Anakin_deck.Anakin_Deck;
+import seedu.address.model.AnakinDeck.AnakinDeck;
+import seedu.address.model.AnakinModel;
 
 /**
  * Adds a person to the address book.
  */
-public class Anakin_NewDeckCommand extends Anakin_Command {
+public class AnakinNewDeckCommand extends AnakinCommand {
 
     public static final String COMMAND_WORD = "newdeck";
 
@@ -25,18 +25,18 @@ public class Anakin_NewDeckCommand extends Anakin_Command {
     public static final String MESSAGE_SUCCESS = "New deck added: %1$s";
     public static final String MESSAGE_DUPLICATE_DECK = "This deck already exists in Anakin";
 
-    private final Anakin_Deck toAdd;
+    private final AnakinDeck toAdd;
 
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
-    public Anakin_NewDeckCommand(Anakin_Deck anakin_deck) {
-        requireNonNull(anakin_deck);
-        toAdd = anakin_deck;
+    public AnakinNewDeckCommand(AnakinDeck AnakinDeck) {
+        requireNonNull(AnakinDeck);
+        toAdd = AnakinDeck;
     }
 
     @Override
-    public CommandResult execute(Anakin_Model anakinModel, CommandHistory history) throws CommandException {
+    public CommandResult execute(AnakinModel anakinModel, CommandHistory history) throws CommandException {
         requireNonNull(anakinModel);
 
         if (anakinModel.hasDeck(toAdd)) {
@@ -51,7 +51,7 @@ public class Anakin_NewDeckCommand extends Anakin_Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Anakin_NewDeckCommand // instanceof handles nulls
-                && toAdd.equals(((Anakin_NewDeckCommand) other).toAdd));
+                || (other instanceof AnakinNewDeckCommand // instanceof handles nulls
+                && toAdd.equals(((AnakinNewDeckCommand) other).toAdd));
     }
 }

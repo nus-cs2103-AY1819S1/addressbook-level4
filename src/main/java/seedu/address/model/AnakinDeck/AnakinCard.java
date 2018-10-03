@@ -1,4 +1,4 @@
-package seedu.address.model.Anakin_deck;
+package seedu.address.model.AnakinDeck;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -7,7 +7,7 @@ import java.util.Objects;
 /**
  * Represents a Card inside a Deck.
  */
-public class Anakin_Card {
+public class AnakinCard {
 
     private final int performance;
 
@@ -15,7 +15,7 @@ public class Anakin_Card {
     private final AnakinQuestion question;
     private final AnakinAnswer answer;
 
-    public Anakin_Card(AnakinQuestion question, AnakinAnswer answer) {
+    public AnakinCard(AnakinQuestion question, AnakinAnswer answer) {
         requireAllNonNull(question, answer);
         this.question = question;
         this.answer = answer;
@@ -37,7 +37,7 @@ public class Anakin_Card {
     /**
      * Returns true if 2 cards are the same, or have same identity fields.
      */
-    public boolean isSameCard(Anakin_Card otherCard) {
+    public boolean isSameCard(AnakinCard otherCard) {
         if (otherCard == this) {
             return true;
         }
@@ -48,11 +48,11 @@ public class Anakin_Card {
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof Anakin_Card)) {
+        if (!(other instanceof AnakinCard)) {
             return false;
         }
 
-        return isSameCard((Anakin_Card) other);
+        return isSameCard((AnakinCard) other);
     }
 
     @Override

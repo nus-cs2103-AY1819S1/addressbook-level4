@@ -1,4 +1,4 @@
-package seedu.address.logic.Anakinparser;
+package seedu.address.logic.AnakinParser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -6,9 +6,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.Anakin_commands.Anakin_Command;
-import seedu.address.logic.Anakin_commands.Anakin_DelDeckCommand;
-import seedu.address.logic.Anakin_commands.Anakin_NewDeckCommand;
+import seedu.address.logic.AnakinCommands.AnakinCommand;
+import seedu.address.logic.AnakinCommands.AnakinDelDeckCommand;
+import seedu.address.logic.AnakinCommands.AnakinNewDeckCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -30,7 +30,7 @@ public class AnakinParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Anakin_Command parseCommand(String userInput) throws ParseException {
+    public AnakinCommand parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -40,10 +40,10 @@ public class AnakinParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case Anakin_NewDeckCommand.COMMAND_WORD:
+        case AnakinNewDeckCommand.COMMAND_WORD:
             return new AnakinNewDeckCommandParser().parse(arguments);
 
-        case Anakin_DelDeckCommand.COMMAND_WORD:
+        case AnakinDelDeckCommand.COMMAND_WORD:
             return new AnakinDelDeckCommandParser().parse(arguments);
 
         // TO DO

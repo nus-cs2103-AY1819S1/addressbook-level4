@@ -4,7 +4,7 @@ import javafx.collections.ObservableList;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Anakin_deck.Anakin_Deck;
+import seedu.address.model.AnakinDeck.AnakinDeck;
 
 /**
  * API of the Logic component
@@ -20,7 +20,7 @@ public interface AnakinLogic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Anakin_Deck> getFilteredDeckList();
+    ObservableList<AnakinDeck> getFilteredDeckList();
 
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();
