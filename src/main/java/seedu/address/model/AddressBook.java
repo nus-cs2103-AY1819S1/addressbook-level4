@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 
+import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Category;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Person;
@@ -21,6 +22,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     protected Username username;
     private final UniquePersonList persons;
     private final CategoryList categoryList;
+    private Budget maximumBudget;
 
     /**
      * Creates an empty AddressBook with the given username.
@@ -28,8 +30,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public AddressBook(Username username) {
         this.username = username;
-        persons = new UniquePersonList();
-        categoryList = new CategoryList();
+        this.persons = new UniquePersonList();
+        this.categoryList = new CategoryList();
+        this.maximumBudget = new Budget("28.00");
     }
 
     /**
@@ -39,8 +42,24 @@ public class AddressBook implements ReadOnlyAddressBook {
         this(toBeCopied.getUsername());
         resetData(toBeCopied);
     }
+    //// budget operations
 
-    //// list overwrite operations
+    /**
+     * Modifies the maximum budget for the current expense tracker
+     * @param budget a valid double
+     */
+    public void modifyMaximumBudget(double budget) {
+        this.maximumBudget.modifyBudget(budget);
+    }
+
+    /**
+     * Modifies the maximum budget for the current expense tracker
+     * @param budget a valid Budget
+     */
+    public void modifyMaximumBudget(Budget budget) {
+        this.maximumBudget = budget;
+    }
+    //// list overwrite operaticons
 
     /**
      * Replaces the contents of the person list with {@code persons}.
@@ -48,6 +67,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setPersons(List<Person> persons) {
         this.persons.setPersons(persons);
+        persons.forEach(person -> this.maximumBudget.addExpense(person.getCost().getCostValue()));
     }
 
     /**
@@ -56,7 +76,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        this.setPersons(newData.getPersonList());
+        this.maximumBudget = newData.getMaximumBudget();
     }
 
     //// person-level operations
@@ -70,11 +91,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a person into the address book
+     * @return true if expense is successfully added withouot exceeding budget, else false
      */
-    public void addPerson(Person p) {
+    public boolean addPerson(Person p) {
         this.persons.add(p);
+        return this.maximumBudget.addExpense(p.getCost().getCostValue());
     }
 
     /**
@@ -94,14 +116,16 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given expense {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
     public void updatePerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
 
-        persons.setPerson(target, editedPerson);
+        this.persons.setPerson(target, editedPerson);
+        this.maximumBudget.alterSpending(target, editedPerson);
+
     }
 
     /**
@@ -110,6 +134,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
+        this.maximumBudget.removeExpense(key);
+    }
+
+    public Budget getMaximumBudget() {
+        return new Budget(this.maximumBudget.getBudgetCap(), this.maximumBudget.getCurrentExpenses());
     }
 
     public Username getUsername() {
@@ -136,7 +165,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                && persons.equals(((AddressBook) other).persons))
+                && this.maximumBudget.equals(((AddressBook) other).maximumBudget);
     }
 
     @Override

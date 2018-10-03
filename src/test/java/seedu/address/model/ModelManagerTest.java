@@ -27,7 +27,7 @@ public class ModelManagerTest {
     private ModelManager modelManager = (ModelManager) ModelUtil.modelWithTestUser();
     private ModelManager modelManagerLoggedOut = new ModelManager();
 
-    public ModelManagerTest() throws UserAlreadyExistsException, NonExistentUserException {
+    public ModelManagerTest() throws UserAlreadyExistsException, NonExistentUserException, NoUserSelectedException {
     }
 
     @Test

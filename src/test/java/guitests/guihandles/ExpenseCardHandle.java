@@ -13,7 +13,7 @@ import seedu.address.model.expense.Person;
 /**
  * Provides a handle to a expense card in the expense list panel.
  */
-public class PersonCardHandle extends NodeHandle<Node> {
+public class ExpenseCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String NAME_FIELD_ID = "#name";
     private static final String ADDRESS_FIELD_ID = "#cost";
@@ -26,7 +26,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
     private final Label categoryLabel;
     private final List<Label> tagLabels;
 
-    public PersonCardHandle(Node cardNode) {
+    public ExpenseCardHandle(Node cardNode) {
         super(cardNode);
 
         idLabel = getChildNode(ID_FIELD_ID);

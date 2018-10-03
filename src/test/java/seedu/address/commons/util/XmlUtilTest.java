@@ -41,6 +41,7 @@ public class XmlUtilTest {
     private static final String VALID_CATEGORY = "School";
     private static final String VALID_ADDRESS = "1.00";
     private static final String VALID_DATE = "01-10-2018";
+    private static final String VALID_ADDRESS_BOOK_USERNAME = "validAddressBook";
     private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("friends"));
 
     @Rule
@@ -74,6 +75,7 @@ public class XmlUtilTest {
     public void getDataFromFile_validFile_validResult() throws Exception {
         AddressBook dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableAddressBook.class).toModelType();
         assertEquals(9, dataFromFile.getPersonList().size());
+        assertEquals(dataFromFile.getUsername(), new Username(VALID_ADDRESS_BOOK_USERNAME));
     }
 
     @Test
