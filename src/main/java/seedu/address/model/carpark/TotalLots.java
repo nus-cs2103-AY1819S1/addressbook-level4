@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents the total lots in a carpark in the address book.
+ * Represents the total lots in a car park in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidTotalLots(String)}
  */
 public class TotalLots {

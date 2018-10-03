@@ -29,24 +29,24 @@ import seedu.address.model.carpark.TypeOfParking;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing carpark in the address book.
+ * Edits the details of an existing car park in the address book.
  */
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-//    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the carpark identified "
-//            + "by the index number used in the displayed carpark list. "
-//            + "Existing values will be overwritten by the input values.\n"
-//            + "Parameters: INDEX (must be a positive integer) "
-//            + "[" + PREFIX_NAME + "NAME] "
-//            + "[" + PREFIX_PHONE + "PHONE] "
-//            + "[" + PREFIX_EMAIL + "EMAIL] "
-//            + "[" + PREFIX_ADDRESS + "ADDRESS] "
-//            + "[" + PREFIX_TAG + "TAG]...\n"
-//            + "Example: " + COMMAND_WORD + " 1 "
-//            + PREFIX_PHONE + "91234567 "
-//            + PREFIX_EMAIL + "johndoe@example.com";
+    //public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the carpark identified "
+    //        + "by the index number used in the displayed carpark list. "
+    //        + "Existing values will be overwritten by the input values.\n"
+    //        + "Parameters: INDEX (must be a positive integer) "
+    //        + "[" + PREFIX_NAME + "NAME] "
+    //        + "[" + PREFIX_PHONE + "PHONE] "
+    //        + "[" + PREFIX_EMAIL + "EMAIL] "
+    //        + "[" + PREFIX_ADDRESS + "ADDRESS] "
+    //        + "[" + PREFIX_TAG + "TAG]...\n"
+    //        + "Example: " + COMMAND_WORD + " 1 "
+    //        + PREFIX_PHONE + "91234567 "
+    //        + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_USAGE = "We are not doing edits. Due for deletion.";
 
@@ -85,7 +85,7 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_CARPARK);
         }
 
-        model.updateCarpark(carparkToEdit, editedCarpark );
+        model.updateCarpark(carparkToEdit, editedCarpark);
         model.updateFilteredCarparkList(PREDICATE_SHOW_ALL_CARPARK);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_CARPARK_SUCCESS, editedCarpark));

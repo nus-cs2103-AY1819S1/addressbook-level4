@@ -12,11 +12,11 @@ import seedu.address.model.carpark.exceptions.CarparkNotFoundException;
 import seedu.address.model.carpark.exceptions.DuplicateCarparkException;
 
 /**
- * A list of carparks that enforces uniqueness between its elements and does not allow nulls.
- * A carpark is considered unique by comparing using {@code Carpark#isSameCarpark(Carpark)}.
- * As such, adding and updating of carparks uses Carpark#isSameCarpark(Carpark) for equality so as to ensure
- * that the carpark being added or updated is unique in terms of identity in the UniqueCarparkList.
- * However, the removal of a carpark uses Carpark#equals(Object) so as to ensure that the carpark with
+ * A list of car parks that enforces uniqueness between its elements and does not allow nulls.
+ * A car park is considered unique by comparing using {@code Carpark#isSameCarpark(Carpark)}.
+ * As such, adding and updating of car parks uses Carpark#isSameCarpark(Carpark) for equality so as to ensure
+ * that the car park being added or updated is unique in terms of identity in the UniqueCarparkList.
+ * However, the removal of a car park uses Carpark#equals(Object) so as to ensure that the car park with
  * exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
@@ -27,7 +27,7 @@ public class UniqueCarparkList implements Iterable<Carpark> {
     private final ObservableList<Carpark> internalList = FXCollections.observableArrayList();
 
     /**
-     * Returns true if the list contains an equivalent carpark as the given argument.
+     * Returns true if the list contains an equivalent car park as the given argument.
      */
     public boolean contains(Carpark toCheck) {
         requireNonNull(toCheck);
@@ -35,8 +35,8 @@ public class UniqueCarparkList implements Iterable<Carpark> {
     }
 
     /**
-     * Adds a carpark to the list.
-     * The carpark must not already exist in the list.
+     * Adds a car park to the list.
+     * The car park must not already exist in the list.
      */
     public void add(Carpark toAdd) {
         requireNonNull(toAdd);
@@ -47,9 +47,9 @@ public class UniqueCarparkList implements Iterable<Carpark> {
     }
 
     /**
-     * Replaces the carpark {@code target} in the list with {@code editedCarpark}.
+     * Replaces the car park {@code target} in the list with {@code editedCarpark}.
      * {@code target} must exist in the list.
-     * The carpark identity of {@code editedCarpark} must not be the same as another existing carpark in the list.
+     * The car park identity of {@code editedCarpark} must not be the same as another existing car park in the list.
      */
     public void setCarpark(Carpark target, Carpark editedCarpark) {
         requireAllNonNull(target, editedCarpark);
@@ -67,8 +67,8 @@ public class UniqueCarparkList implements Iterable<Carpark> {
     }
 
     /**
-     * Removes the equivalent carpark from the list.
-     * The carpark must exist in the list.
+     * Removes the equivalent car park from the list.
+     * The car park must exist in the list.
      */
     public void remove(Carpark toRemove) {
         requireNonNull(toRemove);
@@ -84,7 +84,7 @@ public class UniqueCarparkList implements Iterable<Carpark> {
 
     /**
      * Replaces the contents of this list with {@code carparks}.
-     * {@code carparks} must not contain duplicate carparks.
+     * {@code car parks} must not contain duplicate car parks.
      */
     public void setCarparks(List<Carpark> carparks) {
         requireAllNonNull(carparks);
@@ -119,7 +119,7 @@ public class UniqueCarparkList implements Iterable<Carpark> {
     }
 
     /**
-     * Returns true if {@code carparks} contains only unique carparks.
+     * Returns true if {@code carparks} contains only unique car parks.
      */
     private boolean carparksAreUnique(List<Carpark> carparks) {
         for (int i = 0; i < carparks.size() - 1; i++) {
