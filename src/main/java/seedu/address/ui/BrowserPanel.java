@@ -3,6 +3,8 @@ package seedu.address.ui;
 import java.net.URL;
 import java.util.logging.Logger;
 
+import org.simplejavamail.email.Email;
+
 import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Platform;
@@ -58,6 +60,14 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     /**
+     * Loads HTML body of email.
+     * @param email The composed email
+     */
+    public void loadEmail(Email email) {
+        Platform.runLater(() -> browser.getEngine().loadContent(email.getHTMLText()));
+    }
+
+    /**
      * Frees resources allocated to the browser.
      */
     public void freeResources() {
@@ -69,4 +79,5 @@ public class BrowserPanel extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadPersonPage(event.getNewSelection());
     }
+
 }
