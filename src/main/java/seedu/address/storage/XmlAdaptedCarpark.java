@@ -24,11 +24,11 @@ import seedu.address.model.carpark.TypeOfParking;
 import seedu.address.model.tag.Tag;
 
 /**
- * JAXB-friendly version of the Carpark.
+ * JAXB-friendly version of the Car park.
  */
 public class XmlAdaptedCarpark {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Carpark's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Car park's %s field is missing!";
 
     @XmlElement(required = true)
     private String address;
@@ -61,7 +61,7 @@ public class XmlAdaptedCarpark {
     public XmlAdaptedCarpark() {}
 
     /**
-     * Constructs an {@code XmlAdaptedCarpark} with the given carpark details.
+     * Constructs an {@code XmlAdaptedCarpark} with the given car park details.
      */
     public XmlAdaptedCarpark(String address, String carkparkNumber, String carparkType, String coordinate,
                              String freeParking, String lotsAvailable, String nightParking, String shortTerm,
@@ -83,7 +83,7 @@ public class XmlAdaptedCarpark {
     }
 
     /**
-     * Converts a given Carpark into this class for JAXB use.
+     * Converts a given Car park into this class for JAXB use.
      *
      * @param source future changes to this will not affect the created XmlAdaptedCarpark
      */
@@ -105,9 +105,9 @@ public class XmlAdaptedCarpark {
     }
 
     /**
-     * Converts this jaxb-friendly adapted carpark object into the model's Carpark object.
+     * Converts this jaxb-friendly adapted Carpark object into the model's Carpark object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted carpark
+     * @throws IllegalValueException if there were any data constraints violated in the adapted Carpark
      */
     public Carpark toModelType() throws IllegalValueException {
         final List<Tag> carparkTags = new ArrayList<>();

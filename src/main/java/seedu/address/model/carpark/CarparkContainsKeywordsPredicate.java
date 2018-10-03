@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import seedu.address.commons.util.StringUtil;
 
 /**
- * Tests that a {@code Carpark}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Carpark}'s {@code carparkNumber} matches any of the keywords given.
  */
 public class CarparkContainsKeywordsPredicate implements Predicate<Carpark> {
     private final List<String> keywords;

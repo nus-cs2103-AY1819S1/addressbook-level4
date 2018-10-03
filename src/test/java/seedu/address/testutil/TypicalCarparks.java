@@ -11,19 +11,22 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.address.commons.util.GsonUtil;
 import seedu.address.model.AddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.carpark.*;
+import seedu.address.model.tag.Tag;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
  */
-public class TypicalPersons {
+public class TypicalCarparks {
 
-    public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
+    /*public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("94351253")
             .withTags("friends").build();
@@ -55,22 +58,41 @@ public class TypicalPersons {
             .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER*/
 
-    private TypicalPersons() {} // prevents instantiation
+    private TypicalCarparks() {} // prevents instantiation
 
     /**
      * Returns an {@code AddressBook} with all the typical persons.
      */
-    public static AddressBook getTypicalAddressBook() {
+    public static AddressBook getTypicalAddressBook() throws IOException {
         AddressBook ab = new AddressBook();
-        for (Person person : getTypicalPersons()) {
-            ab.addPerson(person);
+        for (Carpark carpark : getTypicalCarparks()) {
+            ab.addCarpark(carpark);
         }
         return ab;
     }
 
-    public static List<Person> getTypicalPersons() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    public static ArrayList<Carpark> getTypicalCarparks() throws IOException {
+        //return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+        ArrayList<ArrayList<String>> info = GsonUtil.fetchCarparkInfo();
+
+        ArrayList<Carpark> carparkInfo = null;
+        for(ArrayList<String> str : info) {
+            carparkInfo.add(new Carpark(new Address(str.get(0)),
+                    new CarparkNumber(str.get(1)),
+                    new CarparkType(str.get(2)),
+                    new Coordinate(str.get(3)),
+                    new FreeParking(str.get(4)),
+                    new LotsAvailable(str.get(5)),
+                    new NightParking(str.get(6)),
+                    new ShortTerm(str.get(7)),
+                    new TotalLots(str.get(8)),
+                    new TypeOfParking(str.get(9)),
+                    null
+
+            ));
+        }
+        return carparkInfo;
     }
 }

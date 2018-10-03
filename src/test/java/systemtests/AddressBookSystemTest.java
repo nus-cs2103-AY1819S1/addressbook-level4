@@ -3,6 +3,7 @@ package systemtests;
 import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
@@ -10,6 +11,7 @@ import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
+import com.oracle.tools.packager.Log;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
@@ -27,20 +29,21 @@ import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
-import guitests.guihandles.PersonListPanelHandle;
+import guitests.guihandles.CarparkListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.MainApp;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.FindCommand;
+//import seedu.address.logic.commands.ClearCommand;
+//import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.testutil.TypicalPersons;
+//import seedu.address.testutil.TypicalPersons;
+import seedu.address.model.util.SampleDataUtil;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
 
@@ -85,7 +88,11 @@ public abstract class AddressBookSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected AddressBook getInitialData() {
-        return TypicalPersons.getTypicalAddressBook();
+        try{
+            return (AddressBook)SampleDataUtil.getSampleAddressBook();
+        } catch (Exception e) {
+            return null; // TODO
+        }
     }
 
     /**
@@ -103,8 +110,8 @@ public abstract class AddressBookSystemTest {
         return mainWindowHandle.getCommandBox();
     }
 
-    public PersonListPanelHandle getPersonListPanel() {
-        return mainWindowHandle.getPersonListPanel();
+    public CarparkListPanelHandle getCarparkListPanel() {
+        return mainWindowHandle.getCarparkListPanel();
     }
 
     public MainMenuHandle getMainMenu() {
@@ -139,36 +146,53 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Displays all persons in the address book.
-     */
-    protected void showAllPersons() {
+      * Displays all carparks in the address book.
+      */
+    protected void showAllCarparks() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredCarparkList().size());
+        assertNotNull(getModel().getAddressBook().getCarparkList());
+        //assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredCarparkList().size());
     }
 
     /**
-     * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
+     * Selects the carpark using a {@code carparkNumber}.
      */
-    protected void showPersonsWithName(String keyword) {
-        executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredCarparkList().size() < getModel().getAddressBook().getPersonList().size());
+    protected void selectCarpark(String carparkNumber) {
+        executeCommand(SelectCommand.COMMAND_WORD + " " + carparkNumber);
+        //assertEquals(index.getZeroBased(), getCarparkListPanel().getSelectedCardIndex());
     }
 
-    /**
-     * Selects the carpark at {@code index} of the displayed list.
-     */
-    protected void selectPerson(Index index) {
-        executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
-        assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
-    }
+//    /**
+//     * Displays all persons in the address book.
+//     */
+//    protected void showAllPersons() {
+//        executeCommand(ListCommand.COMMAND_WORD);
+//        assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredCarparkList().size());
+//    }
 
-    /**
-     * Deletes all persons in the address book.
-     */
-    protected void deleteAllPersons() {
-        executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getAddressBook().getPersonList().size());
-    }
+//    /**
+//     * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
+//     */
+//    protected void showPersonsWithName(String keyword) {
+//        executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
+//        assertTrue(getModel().getFilteredCarparkList().size() < getModel().getAddressBook().getPersonList().size());
+//    }
+
+//    /**
+//     * Selects the carpark at {@code index} of the displayed list.
+//     */
+//    protected void selectPerson(Index index) {
+//        executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
+//        assertEquals(index.getZeroBased(), getCarparkListPanel().getSelectedCardIndex());
+//    }
+
+//    /**
+//     * Deletes all persons in the address book.
+//     */
+//    protected void deleteAllPersons() {
+//        executeCommand(ClearCommand.COMMAND_WORD);
+//        assertEquals(0, getModel().getAddressBook().getPersonList().size());
+//    }
 
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
@@ -180,7 +204,7 @@ public abstract class AddressBookSystemTest {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
-        assertListMatching(getPersonListPanel(), expectedModel.getFilteredCarparkList());
+        assertListMatching(getCarparkListPanel(), expectedModel.getFilteredCarparkList());
     }
 
     /**
@@ -202,7 +226,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void assertSelectedCardDeselected() {
         assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getPersonListPanel().isAnyCardSelected());
+        assertFalse(getCarparkListPanel().isAnyCardSelected());
     }
 
     /**
@@ -276,7 +300,7 @@ public abstract class AddressBookSystemTest {
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        assertListMatching(getPersonListPanel(), getModel().getFilteredCarparkList());
+        assertListMatching(getCarparkListPanel(), getModel().getFilteredCarparkList());
         assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());

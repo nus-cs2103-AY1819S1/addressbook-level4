@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Carpark's short term parking timing in the address book.
+ * Represents a car park's short term parking timing in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidShortTerm(String)}
  */
 public class ShortTerm {

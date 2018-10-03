@@ -69,7 +69,9 @@ public class Carpark {
         return coordinate;
     }
 
-    public FreeParking getFreeParking() { return freeParking; }
+    public FreeParking getFreeParking() {
+        return freeParking;
+    }
 
     public LotsAvailable getLotsAvailable() {
         return lotsAvailable;
