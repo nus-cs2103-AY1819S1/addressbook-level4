@@ -20,7 +20,8 @@ public class ModelUtil {
      * empty. Budget cap is $28 with $0 current expenses
      * @return a model logged in with a test user
      */
-    public static Model modelWithTestUser() throws NonExistentUserException, UserAlreadyExistsException, NoUserSelectedException {
+    public static Model modelWithTestUser() throws NonExistentUserException, UserAlreadyExistsException,
+        NoUserSelectedException {
         Model model = new ModelManager();
         model.addUser(TEST_USERNAME);
         model.loadUserData(TEST_USERNAME);
