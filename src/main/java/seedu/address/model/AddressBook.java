@@ -91,8 +91,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a person into the address book
+     * @return true if expense is successfully added withouot exceeding budget, else false
      */
     public boolean addPerson(Person p) {
         this.persons.add(p);

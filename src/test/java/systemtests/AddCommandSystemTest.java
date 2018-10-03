@@ -51,9 +51,9 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void add() throws NoUserSelectedException {
-        Model model = testApp.getActualModel();
+        Model model = testApp.getModel();
         //Set budget such that it never exceeds
-        model.modifyMaximumBudget(new Budget("999999999.00"));
+        model.modifyMaximumBudget(new Budget(Double.toString(Double.MAX_VALUE)));
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 

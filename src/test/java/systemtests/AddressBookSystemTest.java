@@ -151,7 +151,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showPersonsWithName(String keyword) throws NoUserSelectedException {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(testApp.getActualModel().getFilteredPersonList().size()
+        assertTrue(getModel().getFilteredPersonList().size()
                 < getModel().getAddressBook().getPersonList().size());
     }
 
