@@ -13,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.model.google.GoogleClientInstance;
 import seedu.address.model.person.Person;
 
 /**
@@ -21,8 +22,10 @@ import seedu.address.model.person.Person;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
+    private final PreviewImageManager previewImageManager;
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
+    public GoogleClientInstance photoLibrary = null;
 
     private final UserPrefs userPrefs;
 
@@ -35,6 +38,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
+        previewImageManager = PreviewImageManager.getInstance();
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         this.userPrefs = userPrefs;
@@ -104,33 +108,45 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    //=========== GoogleClient Accessors =============================================================
+
+    @Override
+    public void setGoogleClientInstance(GoogleClientInstance instance) {
+        photoLibrary = instance;
+    }
+
+    @Override
+    public GoogleClientInstance getGoogleClientInstance() {
+        return photoLibrary;
+    }
+
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
+    public boolean canUndoPreviewImageManager() {
+        return previewImageManager.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+    public boolean canRedoPreviewImageManager() {
+        return previewImageManager.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
-        indicateAddressBookChanged();
+    public void undoPreviewImageManager() {
+        previewImageManager.undo();
+        // indicateAddressBookChanged();
     }
 
     @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
-        indicateAddressBookChanged();
+    public void redoPreviewImageManager() {
+        previewImageManager.redo();
+        // indicateAddressBookChanged();
     }
 
     @Override
-    public void commitAddressBook() {
-        versionedAddressBook.commit();
+    public void commitPreviewImageManager() {
+        // TODO: previewImageManager.commit(editedImage);
     }
 
     @Override
