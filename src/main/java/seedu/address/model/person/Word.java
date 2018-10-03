@@ -19,6 +19,7 @@ public class Word {
     private final Name name;
     private final Phone phone;
     private final Email email;
+    private final Meaning meaning;
 
     // Data fields
     private final Address address;
@@ -27,17 +28,23 @@ public class Word {
     /**
      * Every field must be present and not null.
      */
-    public Word(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Word(Name name, Meaning meaning, Phone phone, Email email, Address address, Set<Tag> tags) {
+        requireAllNonNull(name, meaning, phone, email, address, tags);
         this.name = name;
+        this.meaning = meaning;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+
     }
 
     public Name getName() {
         return name;
+    }
+
+    public Meaning getMeaning(){
+        return meaning;
     }
 
     public Phone getPhone() {
@@ -106,6 +113,8 @@ public class Word {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append(" Meaning: ")
+                .append(getMeaning())
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Email: ")
