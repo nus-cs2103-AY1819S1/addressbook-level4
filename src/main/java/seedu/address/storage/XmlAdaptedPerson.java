@@ -87,7 +87,7 @@ public class XmlAdaptedPerson {
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
-        profilePic = source.getProfilePic().isPresent() ? source.getProfilePic().get().value :  null;
+        profilePic = source.getProfilePic().isPresent() ? source.getProfilePic().get().value : null;
     }
 
     /**
@@ -134,10 +134,7 @@ public class XmlAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         Optional<ProfilePic> modelProfilePic = Optional.empty();
-        if (profilePic == null) {
-//            profilePic = "src\\main\\resources\\images\\fail.png"; // temporary default value
-            // throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ProfilePic.class.getSimpleName()));
-        } else {
+        if (profilePic != null) {
             if (!ProfilePic.isValidPath(profilePic)) {
                 throw new IllegalValueException(ProfilePic.MESSAGE_PROFILEPIC_CONSTRAINTS);
             }

@@ -36,14 +36,14 @@ public class Person {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
-//        this.profilePic = new ProfilePic("src\\main\\resources\\images\\fail.png"); // Default for now
         this.profilePic = Optional.empty();
     }
 
     /**
      * Overriden constructor that allows specification of a profile picture
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Optional<ProfilePic> profilePic) {
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+                  Optional<ProfilePic> profilePic) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
