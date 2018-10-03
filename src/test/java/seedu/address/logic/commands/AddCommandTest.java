@@ -1,4 +1,5 @@
 package seedu.address.logic.commands;
+
 //
 //import static java.util.Objects.requireNonNull;
 //import static org.junit.Assert.assertEquals;
@@ -20,6 +21,7 @@ package seedu.address.logic.commands;
 //import seedu.address.model.Model;
 //import seedu.address.model.ReadOnlyAddressBook;
 //import seedu.address.model.person.Person;
+
 //import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -200,5 +202,4 @@ public class AddCommandTest {
 //            return new AddressBook();
 //        }
 //    }
-
 }
