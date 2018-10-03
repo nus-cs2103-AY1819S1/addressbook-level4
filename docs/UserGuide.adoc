@@ -114,6 +114,25 @@ Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
 
+=== Locating persons by email address: `find/e`
+
+Finds a person through his/her email address. +
+Format: `find/e EMAIL`
+
+****
+* The search is case insensitive. e.g `abc@example.com` will match `ABc@example.com`
+* Only the email is searched.
+* Only full words will be matched. e.g. `abc@example` will not match `abcd@example.com`
+* Person matching the email will be returned.
+****
+
+Examples:
+
+* `find/e John@example.com` +
+Returns `John Doe` whose email address is `John@example.com`
+* `find/e TIM@EXAmple.Com` +
+Returns `Tim` whose email address is `tim@example.com`
+
 === Deleting a person : `delete`
 
 Deletes the specified person from the address book. +
