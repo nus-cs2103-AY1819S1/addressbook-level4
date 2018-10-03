@@ -125,6 +125,8 @@ public class XmlAdaptedPerson {
         }
         final Email modelEmail = new Email(email);
 
+
+
         if (address == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
         }
