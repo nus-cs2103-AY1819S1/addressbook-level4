@@ -935,14 +935,11 @@ Use case ends.
 
 * 3a. User enters invalid details
 +
-[none]
 ** 3a1. OASIS shows an error message.
 +
 Use case resumes at step 2.
 
 * 5a. The user chooses to cancel
-+
-[none]
 +
 Use case resumes at step 2.
 
@@ -969,14 +966,11 @@ Use case ends.
 
 * 3a. The details are in an invalid format.
 +
-[none]
 ** 3a1. OASIS shows an error message.
 +
 Use case resumes at step 2.
 
 * 5a. The employee chooses to cancel
-+
-[none]
 +
 Use case resumes at step 2.
 
@@ -1003,21 +997,17 @@ Use case ends.
 +
 Use case ends.
 
-[none]
 * 3a. The list is empty.
 +
 Use case ends.
 
 * 5a. The chosen employee is invalid.
 +
-[none]
 ** 5a1. OASIS shows an error message.
 +
 Use case resumes at step 4.
 
 * 7a. The Manager chooses to cancel
-+
-[none]
 +
 Use case resumes at step 4.
 
@@ -1045,14 +1035,11 @@ Use case ends.
 
 * 3a. The format is invalid
 +
-[none]
 ** 3a1. OASIS shows an error message.
 +
 Use case resumes at step 2.
 
 * 5a. The user chooses to cancel
-+
-[none]
 +
 Use case resumes at step 2.
 
