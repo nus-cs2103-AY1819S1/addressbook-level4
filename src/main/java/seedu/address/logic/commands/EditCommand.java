@@ -85,7 +85,7 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_CARPARK);
         }
 
-        model.updateCarpark(carparkToEdit, editedCarpark );
+        model.updateCarpark(carparkToEdit, editedCarpark);
         model.updateFilteredCarparkList(PREDICATE_SHOW_ALL_CARPARK);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_CARPARK_SUCCESS, editedCarpark));
