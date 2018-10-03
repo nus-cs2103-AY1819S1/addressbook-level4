@@ -4,7 +4,7 @@ import java.nio.file.Path;
 import java.util.List;
 
 /**
- * @suthor Zhang Tianyang
+ * @author Zhang Tianyang
  * this class is to convert the joson file that store the convert arguments to list<String>, and store the convert
  * command arguments insde the json file
  */
