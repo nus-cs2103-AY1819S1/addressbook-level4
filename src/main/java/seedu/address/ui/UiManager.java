@@ -30,7 +30,7 @@ public class UiManager extends ComponentManager implements Ui {
     public static final String FILE_OPS_ERROR_DIALOG_CONTENT_MESSAGE = "Could not save data to file";
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
-    private static final String ICON_APPLICATION = "/images/hallper.png";
+    private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
 
     private Logic logic;
@@ -48,9 +48,11 @@ public class UiManager extends ComponentManager implements Ui {
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting UI...");
+        System.out.println("0");
 
         //Set the application icon.
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
+        System.out.println("1");
 
         try {
             mainWindow = new MainWindow(primaryStage, config, prefs, logic);
