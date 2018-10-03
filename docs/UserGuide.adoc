@@ -1,4 +1,4 @@
-= Oasis - User Guide
+= OASIS - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Nus School of Computing AY1819S1 F10-1 Team`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
@@ -73,9 +73,13 @@ Format: `login -u USERNAME`
 
 === View history : `history`
 
-Prints all commands entered before as a history of commands.
-
+Prints all commands entered before as a history of commands. +
 Format: `history`
+
+[NOTE]
+====
+Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+====
 
 === Adding an employee : `add`
 
