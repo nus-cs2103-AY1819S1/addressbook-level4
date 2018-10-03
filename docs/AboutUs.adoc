@@ -42,7 +42,7 @@ Role: Team Member
 '''
 
 === Tian Xueyan
-image::xueyantian.jpeg[width="150", align="left"]
+image::xueyantian.png[width="150", align="left"]
 {empty}[http://github.com/xueyantian[github]] [<<xueyantian#, portfolio>>]
 
 Role: Team Member
