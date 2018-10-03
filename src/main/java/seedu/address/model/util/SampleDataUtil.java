@@ -5,7 +5,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.BudgetBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyBudgetBook;
+import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.Transaction;
+import seedu.address.model.cca.Cca;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -40,12 +45,40 @@ public class SampleDataUtil {
         };
     }
 
+    private static Cca[] getSampleCcas() {
+        return new Cca[] {
+            new Cca(
+                new Tag("Basketball"),
+                new Person(new Name("MrYanDao")),
+                new Person(new Name("XiaoMing")),
+                new Budget(500, 300, 200, new Transaction("transaction_log_1"))),
+            new Cca(
+                new Tag("Floorball"),
+                new Person(new Name("XiaoBitch")),
+                new Person(new Name("RisLow")),
+                new Budget(600, 500, 100, new Transaction("transaction_log_2"))),
+            new Cca(
+                new Tag("Handball"),
+                new Person(new Name("Steven Lim")),
+                new Person(new Name("Bumble Bee")),
+                new Budget(100, 100, 0, new Transaction("transaction_log_2"))),
+        };
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }
         return sampleAb;
+    }
+
+    public static ReadOnlyBudgetBook getSampleBudgetBook() {
+        BudgetBook sampleBb = new BudgetBook();
+        for (Cca sampleCca : getSampleCcas()) {
+            sampleBb.addCca(sampleCca);
+        }
+        return sampleBb;
     }
 
     /**
@@ -56,5 +89,4 @@ public class SampleDataUtil {
                 .map(Tag::new)
                 .collect(Collectors.toSet());
     }
-
 }
