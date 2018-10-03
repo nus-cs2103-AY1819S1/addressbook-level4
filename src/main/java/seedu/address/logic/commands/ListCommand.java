@@ -3,8 +3,10 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
+import seedu.address.model.wish.WishCompletedPredicate;
 
 /**
  * Lists all persons in the address book to the user.
@@ -22,7 +24,7 @@ public class ListCommand extends Command {
 
     public enum ListType { SHOW_ALL, SHOW_COMPLETED, SHOW_UNCOMPLETED }
 
-    public static final String MESSAGE_SUCCESS = "Listed all persons";
+    public static final String MESSAGE_SUCCESS = "Listed all wishes";
 
     private final ListType listType;
 
@@ -33,7 +35,15 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.updateFilteredWishList(PREDICATE_SHOW_ALL_PERSONS);
+
+        //model.updateFilteredWishList(PREDICATE_SHOW_ALL_PERSONS);
+        if (this.listType.equals(ListType.SHOW_ALL)) {
+            model.updateFilteredWishList(PREDICATE_SHOW_ALL_PERSONS);
+        } else if (this.listType.equals(ListType.SHOW_COMPLETED)) {
+            model.updateFilteredWishList(new WishCompletedPredicate(true));
+        } else {
+            model.updateFilteredWishList(new WishCompletedPredicate(false));
+        }
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
