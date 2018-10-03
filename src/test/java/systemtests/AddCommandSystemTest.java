@@ -37,6 +37,7 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.expense.Category;
 import seedu.address.model.expense.Cost;
@@ -51,6 +52,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
     @Test
     public void add() throws NoUserSelectedException {
         Model model = testApp.getActualModel();
+        //Set budget such that it never exceeds
+        model.modifyMaximumBudget(new Budget(String.format("%.2f", Double.MAX_VALUE)));
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
@@ -178,7 +181,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * 2. Command box has the default style class.<br>
      * 3. Result display box displays the success message of executing {@code AddCommand} with the details of
      * {@code toAdd}.<br>
-     * 4. {@code Storage} and {@code PersonListPanel} equal to the corresponding components in
+     * 4. {@code Storage} and {@code ExpenseListPanel} equal to the corresponding components in
      * the current model added with {@code toAdd}.<br>
      * 5. Browser url and selected card remain unchanged.<br>
      * 6. Status bar's sync status changes.<br>
@@ -209,7 +212,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * Performs the same verification as {@code assertCommandSuccess(String, Person)} except asserts that
      * the,<br>
      * 1. Result display box displays {@code expectedResultMessage}.<br>
-     * 2. {@code Storage} and {@code PersonListPanel} equal to the corresponding components in
+     * 2. {@code Storage} and {@code ExpenseListPanel} equal to the corresponding components in
      * {@code expectedModel}.<br>
      *
      * @see AddCommandSystemTest#assertCommandSuccess(String, Person)
@@ -228,7 +231,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * 1. Command box displays {@code command}.<br>
      * 2. Command box has the error style class.<br>
      * 3. Result display box displays {@code expectedResultMessage}.<br>
-     * 4. {@code Storage} and {@code PersonListPanel} remain unchanged.<br>
+     * 4. {@code Storage} and {@code ExpenseListPanel} remain unchanged.<br>
      * 5. Browser url, selected card and status bar remain unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>

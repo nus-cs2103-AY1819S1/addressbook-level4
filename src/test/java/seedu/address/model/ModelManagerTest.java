@@ -27,7 +27,7 @@ public class ModelManagerTest {
     private ModelManager modelManager = (ModelManager) ModelUtil.modelWithTestUser();
     private ModelManager modelManagerLoggedOut = new ModelManager();
 
-    public ModelManagerTest() throws UserAlreadyExistsException, NonExistentUserException {
+    public ModelManagerTest() throws UserAlreadyExistsException, NonExistentUserException, NoUserSelectedException {
     }
 
     @Test
@@ -54,7 +54,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void getAddessBook_noUserSelected_throwsNoUserSelectedException() throws Exception {
+    public void getAddressBook_noUserSelected_throwsNoUserSelectedException() throws Exception {
         thrown.expect(NoUserSelectedException.class);
         modelManagerLoggedOut.getAddressBook();
     }
@@ -93,6 +93,18 @@ public class ModelManagerTest {
     public void commitAddressBook_noUserSelected_throwsNoUserSelectedException() throws Exception {
         thrown.expect(NoUserSelectedException.class);
         modelManagerLoggedOut.commitAddressBook();
+    }
+
+    @Test
+    public void getExpenseStats_noUserSelected_throwsNoUserSelectedException() throws Exception {
+        thrown.expect(NoUserSelectedException.class);
+        modelManagerLoggedOut.getExpenseStats();
+    }
+
+    @Test
+    public void updateExpenseStats_noUserSelected_throwsNoUserSelectedException() throws Exception {
+        thrown.expect(NoUserSelectedException.class);
+        modelManagerLoggedOut.updateExpenseStats(unused -> true);
     }
 
     @Test

@@ -1,6 +1,8 @@
 package seedu.address.logic;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
@@ -28,7 +30,7 @@ public class LogicManagerTest {
     private Model model = ModelUtil.modelWithTestUser();
     private Logic logic = new LogicManager(model);
 
-    public LogicManagerTest() throws UserAlreadyExistsException, NonExistentUserException {
+    public LogicManagerTest() throws UserAlreadyExistsException, NonExistentUserException, NoUserSelectedException {
     }
 
     @Test
@@ -56,6 +58,12 @@ public class LogicManagerTest {
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() throws NoUserSelectedException {
         thrown.expect(UnsupportedOperationException.class);
         logic.getFilteredPersonList().remove(0);
+    }
+
+
+    @Test
+    public void getExpenseStats_returnsEmptyMapWhenNoEntries() throws NoUserSelectedException {
+        assertTrue(logic.getExpenseStats().size() == 0);
     }
 
     /**
@@ -108,14 +116,14 @@ public class LogicManagerTest {
 
         try {
             CommandResult result = logic.execute(inputCommand);
-            assertEquals(expectedException, null);
+            assertNull(expectedException);
             assertEquals(expectedMessage, result.feedbackToUser);
         } catch (CommandException | ParseException | NoUserSelectedException | NonExistentUserException
                 | UserAlreadyExistsException e) {
             assertEquals(expectedException, e.getClass());
             assertEquals(expectedMessage, e.getMessage());
         }
-
+        System.out.println(expectedModel.equals(model));
         assertEquals(expectedModel, model);
     }
 

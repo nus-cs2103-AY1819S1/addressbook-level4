@@ -83,9 +83,23 @@ Adds an expense to the tracker
 Format: add n/EXPENSE_NAME $/COST c/CATEGORY [d/DATE] [t/TAG]...
 
 Examples:
+****
 *  add n/Lunch $/4.00 c/Food
 *  add n/Stationary $/1.80 c/School t/bookhaven
 *  add n/Project $/2.08 c/School d/01-01-2018
+****
+
+=== Setting a budget: `setBudget`
+Sets a cap on the expense tracker. Will warn you if you try
+to add an expense that will exceed your budget
+
+Format: setBudget MONEY_WITH_TWO_DECIMAL_PLACES
+
+Examples:
+****
+* setBudget 2.00
+* setBudget 20.00
+****
 
 
 === Listing all expenses : `list`
@@ -225,6 +239,11 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
+=== Show expense statistics: `stats`
+
+Opens up a new window showing a bar chart of the expenditure of the past week. +
+Format: `stats`
+
 === Clearing all entries : `clear`
 
 Clears all entries from the expense tracker. +
@@ -266,3 +285,4 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *Statistics* : `stats`
