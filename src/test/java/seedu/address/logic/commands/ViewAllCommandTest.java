@@ -30,12 +30,14 @@ public class ViewAllCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ViewAllCommand(), model, commandHistory, ViewAllCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ViewAllCommand(), model, commandHistory,
+                ViewAllCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        assertCommandSuccess(new ViewAllCommand(), model, commandHistory, ViewAllCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ViewAllCommand(), model, commandHistory,
+                ViewAllCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }
