@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.carpark.Carpark;
 
 /**
  * An Immutable AddressBook that is serializable to XML format
@@ -18,17 +18,17 @@ import seedu.address.model.person.Person;
 @XmlRootElement(name = "addressbook")
 public class XmlSerializableAddressBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_CARPARK = "Carparks list contains duplicate carpark(s).";
 
     @XmlElement
-    private List<XmlAdaptedPerson> persons;
+    private List<XmlAdaptedCarpark> carparks;
 
     /**
      * Creates an empty XmlSerializableAddressBook.
      * This empty constructor is required for marshalling.
      */
     public XmlSerializableAddressBook() {
-        persons = new ArrayList<>();
+        carparks = new ArrayList<>();
     }
 
     /**
@@ -36,23 +36,23 @@ public class XmlSerializableAddressBook {
      */
     public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
         this();
-        persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+        carparks.addAll(src.getCarparkList().stream().map(XmlAdaptedCarpark::new).collect(Collectors.toList()));
     }
 
     /**
      * Converts this addressbook into the model's {@code AddressBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
-     * {@code XmlAdaptedPerson}.
+     * {@code XmlAdaptedCarpark}.
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
-        for (XmlAdaptedPerson p : persons) {
-            Person person = p.toModelType();
-            if (addressBook.hasPerson(person)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+        for (XmlAdaptedCarpark c : carparks) {
+            Carpark carpark = c.toModelType();
+            if (addressBook.hasCarpark(carpark)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_CARPARK);
             }
-            addressBook.addPerson(person);
+            addressBook.addCarpark(carpark);
         }
         return addressBook;
     }
@@ -66,6 +66,6 @@ public class XmlSerializableAddressBook {
         if (!(other instanceof XmlSerializableAddressBook)) {
             return false;
         }
-        return persons.equals(((XmlSerializableAddressBook) other).persons);
+        return carparks.equals(((XmlSerializableAddressBook) other).carparks);
     }
 }

@@ -3,14 +3,14 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
+import seedu.address.model.carpark.Carpark;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Carpark> PREDICATE_SHOW_ALL_CARPARK = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
@@ -19,37 +19,37 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a carpark with the same identity as {@code carpark} exists in the address book.
      */
-    boolean hasPerson(Person person);
+    boolean hasCarpark(Carpark carpark);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given carpark.
+     * The carpark must exist in the address book.
      */
-    void deletePerson(Person target);
+    void deleteCarpark(Carpark target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given carpark.
+     * {@code carpark} must not already exist in the address book.
      */
-    void addPerson(Person person);
+    void addCarpark(Carpark carpark);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given carpark {@code target} with {@code editedCarpark}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The carpark identity of {@code editedCarpark} must not be the same as another existing carpark in the address book.
      */
-    void updatePerson(Person target, Person editedPerson);
+    void updateCarpark(Carpark target, Carpark editedCarpark);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered carpark list */
+    ObservableList<Carpark> getFilteredCarparkList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered carpark list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredCarparkList(Predicate<Carpark> predicate);
 
     /**
      * Returns true if the model has previous address book states to restore.
