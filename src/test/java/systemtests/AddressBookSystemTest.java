@@ -4,16 +4,15 @@ import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
-import com.oracle.tools.packager.Log;
 import java.net.MalformedURLException;
 import java.net.URL;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -26,23 +25,21 @@ import org.junit.BeforeClass;
 import org.junit.ClassRule;
 
 import guitests.guihandles.BrowserPanelHandle;
+import guitests.guihandles.CarparkListPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
-import guitests.guihandles.CarparkListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
+
 import seedu.address.MainApp;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
-//import seedu.address.logic.commands.ClearCommand;
-//import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-//import seedu.address.testutil.TypicalPersons;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
@@ -89,7 +86,7 @@ public abstract class AddressBookSystemTest {
      */
     protected AddressBook getInitialData() {
         try{
-            return (AddressBook)SampleDataUtil.getSampleAddressBook();
+            return (AddressBook) SampleDataUtil.getSampleAddressBook();
         } catch (Exception e) {
             return null; // TODO
         }
