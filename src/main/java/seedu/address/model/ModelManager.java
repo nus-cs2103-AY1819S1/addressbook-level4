@@ -87,11 +87,12 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(AddressBook addressBook, UserPrefs userPrefs) {
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
-        versionedBudgetBook = null;
-        filteredCcas = null;
-        emailModel = null;
-        calendarModel = null;
+        versionedBudgetBook = new VersionedBudgetBook(new BudgetBook());
+        filteredCcas = new FilteredList<>(versionedBudgetBook.getCcaList());
+        emailModel = new EmailModel();
         this.userPrefs = userPrefs;
+        CalendarStorage calendarStorage = new IcsCalendarStorage(userPrefs.getCalendarPath());
+        this.calendarModel = new CalendarModel(calendarStorage, userPrefs.getExistingCalendar());
     }
 
     @Override
