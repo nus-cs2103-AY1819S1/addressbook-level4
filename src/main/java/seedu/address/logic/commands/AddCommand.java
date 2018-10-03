@@ -37,7 +37,11 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New word added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This word already exists in the address book";
 
+
+    public static final String MESSAGE_NO_GROUP = "The group typed does not exist.";
+
     private final Word toAdd;
+
 
     /**
      * Creates an AddCommand to add the specified {@code Word}
@@ -53,6 +57,10 @@ public class AddCommand extends Command {
 
         if (model.hasPerson(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        }
+
+        if (!model.hasTag(toAdd.getTags())){
+            throw new CommandException(MESSAGE_NO_GROUP);
         }
 
         model.addPerson(toAdd);

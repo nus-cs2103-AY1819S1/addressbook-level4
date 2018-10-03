@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -12,6 +13,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+
+import seedu.address.model.tag.Tag;
 import seedu.address.model.person.Word;
 
 /**
@@ -63,7 +66,20 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public boolean hasTag(Set<Tag> tags){
+        requireNonNull(tags);
+        boolean check = true;
+        for (Tag tag: tags) {
+            if(!versionedAddressBook.hasTag(tag)) {
+                check = false;
+            }
+        }
+        return check;
+    }
+
+    @Override
     public void deletePerson(Word target) {
+
         versionedAddressBook.removePerson(target);
         indicateAddressBookChanged();
     }

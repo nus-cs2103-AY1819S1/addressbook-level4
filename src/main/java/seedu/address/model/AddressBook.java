@@ -6,6 +6,8 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.tag.Tag;
+
 import seedu.address.model.person.Word;
 
 
@@ -68,6 +70,18 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if a tag with the same identity as {@code tag} exists in the address book.
+     */
+    public boolean hasTag(Tag tag) {
+        requireNonNull(tag);
+        for (Person person:persons) {
+            if(person.getTags().contains(tag)){
+                return true;
+            }
+        }
+        return false;
+    }
+    /**
      * Adds a word to the address book.
      * The word must not already exist in the address book.
      */
@@ -118,4 +132,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     public int hashCode() {
         return persons.hashCode();
     }
+
+
 }
