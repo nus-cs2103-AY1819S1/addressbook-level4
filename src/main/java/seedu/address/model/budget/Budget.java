@@ -76,10 +76,7 @@ public class Budget {
 
     public boolean addExpense(double expense) {
         this.currentExpenses += expense;
-        if (this.currentExpenses > this.budgetCap) {
-            return false;
-        }
-        return true;
+        return this.currentExpenses <= this.budgetCap;
     }
 
     public void removeExpense(Person expense) {
