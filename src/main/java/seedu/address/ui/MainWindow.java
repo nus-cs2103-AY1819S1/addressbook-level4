@@ -46,19 +46,12 @@ public class MainWindow extends UiPart<Stage> {
     private UserPrefs prefs;
     private HelpWindow helpWindow;
     private StatsWindow statsWindow;
-    private BudgetPanel budgetPanel;
-    private NotificationPanel notificationPanel;
-    private StatisticPanel statisticPanel;
-    private CategoriesPanel categoriesPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
-
-    @FXML
-    private StackPane expenseListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -188,14 +181,14 @@ public class MainWindow extends UiPart<Stage> {
         Title title = new Title();
         titlePlaceholder.getChildren().add(title.getRoot());
 
-        budgetPanel = new BudgetPanel();
+        BudgetPanel budgetPanel = new BudgetPanel();
         budgetPanelPlaceholder.getChildren().add(budgetPanel.getRoot());
 
-        notificationPanel = new NotificationPanel();
+        NotificationPanel notificationPanel = new NotificationPanel();
         notificationPanelPlaceholder.getChildren().add(notificationPanel.getRoot());
 
-        statisticPanel = new StatisticPanel();
-        categoriesPanel = new CategoriesPanel();
+        StatisticPanel statisticPanel = new StatisticPanel();
+        CategoriesPanel categoriesPanel = new CategoriesPanel();
 
         statisticsSplitPane = new SplitPane();
         statisticsSplitPane.setOrientation(Orientation.VERTICAL);
