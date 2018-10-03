@@ -39,7 +39,7 @@ public class ListCommand extends Command {
 
         //model.updateFilteredWishList(PREDICATE_SHOW_ALL_PERSONS);
         if (this.listType.equals(ListType.SHOW_ALL)) {
-            model.updateFilteredWishList(PREDICATE_SHOW_ALL_PERSONS);
+            model.updateFilteredWishList(PREDICATE_SHOW_ALL_WISHES);
         } else if (this.listType.equals(ListType.SHOW_COMPLETED)) {
             model.updateFilteredWishList(new WishCompletedPredicate(true));
         } else {
