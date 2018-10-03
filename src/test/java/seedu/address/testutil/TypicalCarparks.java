@@ -24,9 +24,9 @@ import seedu.address.model.tag.Tag;
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
  */
-public class TypicalPersons {
+public class TypicalCarparks {
 
-    public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
+    /*public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("94351253")
             .withTags("friends").build();
@@ -58,9 +58,9 @@ public class TypicalPersons {
             .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER*/
 
-    private TypicalPersons() {} // prevents instantiation
+    private TypicalCarparks() {} // prevents instantiation
 
     /**
      * Returns an {@code AddressBook} with all the typical persons.
