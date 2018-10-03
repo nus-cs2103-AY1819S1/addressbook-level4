@@ -3,14 +3,13 @@ package seedu.address.commons.util;
 
 //import com.oracle.tools.packager.UnsupportedPlatformException;
 //import com.sun.javafx.PlatformUtil;
-//@author Jeffry
+//@@author j-lum
 
 /**
  * An utility class that handles most of the low-level interaction with the ImageMagick executable.
  */
 public class ImageMagickUtil {
     /**
-     *
      * @return path an string to the location of the ImageMagick executable for a supported platform.
      */
     public static String getImageMagickPath() /*throws UnsupportedPlatformException*/ {
