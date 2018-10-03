@@ -22,9 +22,9 @@ public class SampleDataUtil {
     public static final Remark SAMPLE_REMARK_EMPTY = new Remark("");
     public static Wish[] getSampleWishes() {
         return new Wish[] {
-            new Wish(new Name("Apple iPhone 7"), new Price("700.00"), new Email("alexyeoh@example.com"),
+            new Wish(new Name("Apple iPhone X"), new Price("700.00"), new Email("alexyeoh@example.com"),
                     new Url("https://www.amazon.com/Apple-iPhone-Fully-Unlocked-32GB/dp/B0731HBTZ7"),
-                    new SavedAmount("580.00"),
+                    new SavedAmount("700.00"),
                     SAMPLE_REMARK_EMPTY, getTagSet("friends")),
             new Wish(new Name("Logitech K840 Mechanical Keyboard"), new Price("450.00"),
                     new Email("berniceyu@example.com"),
