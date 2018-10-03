@@ -54,8 +54,8 @@
 
         <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" prefWidth="800">
         </StackPane>
-        
-        <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" 
+
+        <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder"
                    prefWidth="800">
         </StackPane>
 
