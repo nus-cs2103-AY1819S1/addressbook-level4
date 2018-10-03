@@ -13,32 +13,32 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A person is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
- * persons uses Person#isSamePerson(Person) for equality so as to ensure that the person being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a person uses Person#equals(Object) so
- * as to ensure that the person with exactly the same fields will be removed.
+ * A word is considered unique by comparing using {@code Word#isSamePerson(Word)}. As such, adding and updating of
+ * persons uses Word#isSamePerson(Word) for equality so as to ensure that the word being added or updated is
+ * unique in terms of identity in the UniquePersonList. However, the removal of a word uses Word#equals(Object) so
+ * as to ensure that the word with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
- * @see Person#isSamePerson(Person)
+ * @see Word#isSamePerson(Word)
  */
-public class UniquePersonList implements Iterable<Person> {
+public class UniquePersonList implements Iterable<Word> {
 
-    private final ObservableList<Person> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Word> internalList = FXCollections.observableArrayList();
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent word as the given argument.
      */
-    public boolean contains(Person toCheck) {
+    public boolean contains(Word toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSamePerson);
     }
 
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
+     * Adds a word to the list.
+     * The word must not already exist in the list.
      */
-    public void add(Person toAdd) {
+    public void add(Word toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicatePersonException();
@@ -47,30 +47,30 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * Replaces the word {@code target} in the list with {@code editedWord}.
      * {@code target} must exist in the list.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
+     * The word identity of {@code editedWord} must not be the same as another existing word in the list.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void setPerson(Word target, Word editedWord) {
+        requireAllNonNull(target, editedWord);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new PersonNotFoundException();
         }
 
-        if (!target.isSamePerson(editedPerson) && contains(editedPerson)) {
+        if (!target.isSamePerson(editedWord) && contains(editedWord)) {
             throw new DuplicatePersonException();
         }
 
-        internalList.set(index, editedPerson);
+        internalList.set(index, editedWord);
     }
 
     /**
-     * Removes the equivalent person from the list.
-     * The person must exist in the list.
+     * Removes the equivalent word from the list.
+     * The word must exist in the list.
      */
-    public void remove(Person toRemove) {
+    public void remove(Word toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new PersonNotFoundException();
@@ -83,27 +83,27 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Replaces the contents of this list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of this list with {@code words}.
+     * {@code words} must not contain duplicate words.
      */
-    public void setPersons(List<Person> persons) {
-        requireAllNonNull(persons);
-        if (!personsAreUnique(persons)) {
+    public void setPersons(List<Word> words) {
+        requireAllNonNull(words);
+        if (!personsAreUnique(words)) {
             throw new DuplicatePersonException();
         }
 
-        internalList.setAll(persons);
+        internalList.setAll(words);
     }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Person> asUnmodifiableObservableList() {
+    public ObservableList<Word> asUnmodifiableObservableList() {
         return FXCollections.unmodifiableObservableList(internalList);
     }
 
     @Override
-    public Iterator<Person> iterator() {
+    public Iterator<Word> iterator() {
         return internalList.iterator();
     }
 
@@ -120,12 +120,12 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Returns true if {@code persons} contains only unique persons.
+     * Returns true if {@code words} contains only unique words.
      */
-    private boolean personsAreUnique(List<Person> persons) {
-        for (int i = 0; i < persons.size() - 1; i++) {
-            for (int j = i + 1; j < persons.size(); j++) {
-                if (persons.get(i).isSamePerson(persons.get(j))) {
+    private boolean personsAreUnique(List<Word> words) {
+        for (int i = 0; i < words.size() - 1; i++) {
+            for (int j = i + 1; j < words.size(); j++) {
+                if (words.get(i).isSamePerson(words.get(j))) {
                     return false;
                 }
             }
