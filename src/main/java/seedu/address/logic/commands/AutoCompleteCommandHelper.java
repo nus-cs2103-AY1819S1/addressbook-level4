@@ -26,8 +26,9 @@ public class AutoCompleteCommandHelper {
      */
     public static String autoCompleteWord(String partialWord) {
         for (String s : commandWordList) {
-            if (s.startsWith(partialWord))
+            if (s.startsWith(partialWord)) {
                 return s;
+            }
         }
         return null;
     }
