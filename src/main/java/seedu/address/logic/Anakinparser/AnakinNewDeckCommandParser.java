@@ -1,4 +1,4 @@
-package seedu.address.logic.Anakinparser;
+package seedu.address.logic.AnakinParser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
@@ -9,7 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.AnakinCommands.Anakin_NewDeckCommand;
+import seedu.address.logic.AnakinCommands.AnakinNewDeckCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -22,14 +22,14 @@ import seedu.address.model.AnakinDeck.Name;
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class AnakinNewDeckCommandParser implements AnakinParserInterface<Anakin_NewDeckCommand> {
+public class AnakinNewDeckCommandParser implements AnakinParserInterface<AnakinNewDeckCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Anakin_NewDeckCommand parse(String args) throws ParseException {
+    public AnakinNewDeckCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DECK,
                         PREFIX_ANSWER, PREFIX_QUESTION, PREFIX_FILEPATH);
@@ -51,7 +51,7 @@ public class AnakinNewDeckCommandParser implements AnakinParserInterface<Anakin_
 
         AnakinDeck deck = new AnakinDeck(new Name("Deck1")); //TO DO
 
-        return new Anakin_NewDeckCommand(deck);
+        return new AnakinNewDeckCommand(deck);
     }
 
     /**

@@ -1,4 +1,4 @@
-package seedu.address.logic.Anakinparser;
+package seedu.address.logic.AnakinParser;
 
 import static java.util.Objects.requireNonNull;
 

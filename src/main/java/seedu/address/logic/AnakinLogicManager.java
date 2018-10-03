@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.AnakinCommands.AnakinCommand;
-import seedu.address.logic.Anakinparser.AnakinParser;
+import seedu.address.logic.AnakinParser.AnakinParser;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -22,19 +22,19 @@ public class AnakinLogicManager extends ComponentManager implements AnakinLogic 
 
     private final AnakinModel model;
     private final CommandHistory history;
-    private final AnakinParser anakinParser;
+    private final AnakinParser AnakinParser;
 
     public AnakinLogicManager(AnakinModel model) {
         this.model = model;
         history = new CommandHistory();
-        anakinParser = new AnakinParser();
+        AnakinParser = new AnakinParser();
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
-            AnakinCommand command = anakinParser.parseCommand(commandText);
+            AnakinCommand command = AnakinParser.parseCommand(commandText);
             return command.execute(model, history);
         } finally {
             history.add(commandText);
