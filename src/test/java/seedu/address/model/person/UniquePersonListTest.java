@@ -16,15 +16,16 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.carpark.UniqueCarparkList;
+import seedu.address.model.carpark.exceptions.DuplicateCarparkException;
+import seedu.address.model.carpark.exceptions.CarparkNotFoundException;
 import seedu.address.testutil.PersonBuilder;
 
 public class UniquePersonListTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final UniquePersonList uniquePersonList = new UniquePersonList();
+    private final UniqueCarparkList uniqueCarparkList = new UniqueCarparkList();
 
     @Test
     public void contains_nullPerson_throwsNullPointerException() {
