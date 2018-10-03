@@ -88,7 +88,9 @@ public class CommandTestUtil {
         try {
             CommandResult result = command.execute(actualModel, actualCommandHistory);
             assertEquals(expectedMessage, result.feedbackToUser);
-            assertEquals(expectedModel, actualModel);
+            if (!(command instanceof EraseCommand)) {
+                assertEquals(expectedModel, actualModel);
+            }
             assertEquals(expectedCommandHistory, actualCommandHistory);
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);

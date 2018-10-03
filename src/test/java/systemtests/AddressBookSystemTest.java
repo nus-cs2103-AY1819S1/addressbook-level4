@@ -166,7 +166,7 @@ public abstract class AddressBookSystemTest {
      * Deletes all persons in the address book.
      */
     protected void deleteAllPersons() {
-        executeCommand(ClearCommand.COMMAND_WORD);
+        executeCommand(ClearCommand.COMMAND_WORD + " all");
         assertEquals(0, getModel().getAddressBook().getPersonList().size());
     }
 
