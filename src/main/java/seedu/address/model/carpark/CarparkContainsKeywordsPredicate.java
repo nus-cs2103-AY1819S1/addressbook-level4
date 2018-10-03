@@ -18,8 +18,9 @@ public class CarparkContainsKeywordsPredicate implements Predicate<Carpark> {
     @Override
     public boolean test(Carpark carpark) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(
-                        carpark.getCarparkNumber().value, keyword));
+                .anyMatch(keyword ->
+                        StringUtil.containsWordIgnoreCase(carpark.getCarparkNumber().value, keyword)
+                                || StringUtil.containsWordIgnoreCase(carpark.getAddress().value, keyword));
     }
 
     @Override
