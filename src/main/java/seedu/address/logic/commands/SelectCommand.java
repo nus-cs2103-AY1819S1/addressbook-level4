@@ -48,10 +48,10 @@ public class SelectCommand extends Command {
         // TODO: Ivan - model.resetPreviewImageManager(initialImage);
 
         EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
-        EventsCenter.getInstance().post(new ChangeImageEvent
-                (new Image("https://api.thecatapi.com/v1/images/search?format=src&size=full"), "preview"));
-        EventsCenter.getInstance().post(new ChangeImageEvent
-                (new Image("https://api.thecatapi.com/v1/images/search?format=src&size=full"), "original"));
+        EventsCenter.getInstance().post(new ChangeImageEvent(
+                new Image("https://api.thecatapi.com/v1/images/search?format=src&size=full"), "preview"));
+        EventsCenter.getInstance().post(new ChangeImageEvent(
+                new Image("https://api.thecatapi.com/v1/images/search?format=src&size=full"), "original"));
         return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));
 
     }

@@ -7,9 +7,9 @@ import java.nio.file.Path;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-//@author Benedict
 
 
+//@author benedictcss
 /**
  * Changes the current directory.
  */

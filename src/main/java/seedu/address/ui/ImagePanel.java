@@ -1,8 +1,8 @@
 package seedu.address.ui;
 
-import com.google.common.eventbus.Subscribe;
-
 import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
@@ -25,8 +25,8 @@ public class ImagePanel extends UiPart<Region> {
     /**
      * An image panel for showing the previews
      */
-    private final ObjectProperty<Image> image = new SimpleObjectProperty<Image>
-            (new Image("https://via.placeholder.com/500x500"));
+    private final ObjectProperty<Image> image = new SimpleObjectProperty<Image>(
+            new Image("https://via.placeholder.com/500x500"));
 
     private final String name;
 
