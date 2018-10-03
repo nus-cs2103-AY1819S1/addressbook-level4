@@ -1,9 +1,10 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.ListCommand;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
 import org.junit.Test;
 
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import seedu.address.logic.commands.ListCommand;
 
 public class ListCommandParserTest {
     private ListCommandParser parser = new ListCommandParser();
