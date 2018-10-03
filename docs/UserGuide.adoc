@@ -166,7 +166,7 @@ Format: `sortname`
 === Locate a deck by name : `find`
 
 Finds decks with names that contain any of the given keywords.
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find KEYWORD [MORE_KEYWORDS]…`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
@@ -186,7 +186,7 @@ Returns any deck having names `Bio`, `Chem`, or `Physics`
 === Locate a card by question : `find`
 
 Finds cards in a specified deck with questions that contain any of the given keywords.
-Format: `find d/INDEX_OF_DECK KEYWORD [MORE_KEYWORDS]`
+Format: `find d/INDEX_OF_DECK KEYWORD [MORE_KEYWORDS]…`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
