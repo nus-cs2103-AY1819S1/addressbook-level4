@@ -33,6 +33,7 @@ public class PreviewImageManager {
         return single_instance;
     }
 
+    //initialise with Image
     public void initialiseWithImage(PreviewImage initialImage) {
         previewImageStateList = new ArrayList<>();
         previewImageStateList.add(initialImage);
