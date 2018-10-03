@@ -29,7 +29,7 @@ Responsibilities: UI
 '''
 
 === Benedict Chua
-image::benedictcss/png[width="150", align="left"]
+image::benedictcss.png[width="150", align="left"]
 {empty}[http://github.com/benedictcss[github]] [<<benedict#, portfolio>>]
 
 Role: Developer +
