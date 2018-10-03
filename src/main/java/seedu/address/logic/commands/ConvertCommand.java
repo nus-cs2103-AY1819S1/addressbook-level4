@@ -1,14 +1,14 @@
 package seedu.address.logic.commands;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.storage.JsonConvertArgsStorage;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
+
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
+import seedu.address.storage.JsonConvertArgsStorage;
 
 /**
  * @author Zhang Tianyang
@@ -25,12 +25,12 @@ public class ConvertCommand extends Command {
      */
     ConvertCommand(Path filepath) {
         this.filepath = filepath;
-        if(!isFileExist(filepath)) {
+        if (!isFileExist(filepath)) {
             throw new IllegalArgumentException("no file found");
         }
     }
 
-    static private boolean isFileExist(Path filepath) {
+    private static boolean isFileExist(Path filepath) {
         return new File(filepath.toString()).exists();
     }
 
@@ -52,7 +52,7 @@ public class ConvertCommand extends Command {
         ProcessBuilder pb = new ProcessBuilder(parseArguments());
         try {
             pb.start();
-        } catch(IOException e) {
+        } catch (IOException e) {
             System.err.println(e.toString());
         }
         return null;

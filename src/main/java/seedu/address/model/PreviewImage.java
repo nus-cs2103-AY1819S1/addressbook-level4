@@ -8,7 +8,7 @@ import seedu.address.model.transformation.TransformationSet;
 /**
  * Wraps the image and transformation set for preview.
  */
-public class PreviewImage implements PreviewableImage{
+public class PreviewImage implements PreviewableImage {
     private final Image image;
     private final TransformationSet transformationSet;
 
