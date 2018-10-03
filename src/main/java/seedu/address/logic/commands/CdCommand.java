@@ -3,7 +3,10 @@ package seedu.address.logic.commands;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
+import java.io.File;
 import java.nio.file.Path;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Changes the current directory.
@@ -27,6 +30,19 @@ public class CdCommand extends Command{
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
-        return new CommandResult(MESSAGE_FAILURE);
+        requireNonNull(model);
+
+        String currDirectory = model.getCurrDirectory().toString();
+        String newDir = currDirectory + "\\" + toDirectories.toString();
+
+        File dir = new File(newDir);
+        if (!dir.isDirectory()) {
+            return new CommandResult(MESSAGE_FAILURE);
+        }
+
+        Path newCurrDirectory = dir.toPath().normalize();
+        model.updateUserPrefs(newCurrDirectory);
+        return new CommandResult(newCurrDirectory.toString());
+
     }
 }
