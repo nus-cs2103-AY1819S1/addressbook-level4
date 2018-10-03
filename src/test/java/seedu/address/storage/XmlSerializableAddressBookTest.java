@@ -31,6 +31,7 @@ public class XmlSerializableAddressBookTest {
         AddressBook addressBookFromFile = dataFromFile.toModelType();
         AddressBook typicalPersonsAddressBook = TypicalPersons.getTypicalAddressBook();
         assertEquals(addressBookFromFile, typicalPersonsAddressBook);
+        assertEquals(addressBookFromFile.getMaximumBudget(), typicalPersonsAddressBook.getMaximumBudget());
     }
 
     @Test

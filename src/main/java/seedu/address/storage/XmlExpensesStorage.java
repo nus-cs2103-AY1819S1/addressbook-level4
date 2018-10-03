@@ -50,13 +50,13 @@ public class XmlExpensesStorage implements ExpensesStorage {
     public Optional<ReadOnlyAddressBook> readExpenses(Path filePath) throws DataConversionException,
                                                                                  FileNotFoundException {
         requireNonNull(filePath);
-
         if (!Files.exists(filePath)) {
             logger.info("AddressBook file " + filePath + " not found");
             return Optional.empty();
         }
 
         XmlSerializableAddressBook xmlAddressBook = XmlFileStorage.loadDataFromSaveFile(filePath);
+
         try {
             Optional<AddressBook> addressBookOptional = Optional.of(xmlAddressBook.toModelType());
             Username fileName = new Username(filePath.getFileName().toString().replace(".xml", ""));

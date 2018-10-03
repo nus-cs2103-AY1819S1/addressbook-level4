@@ -48,4 +48,8 @@
 		<date>01-10-2018</date>
     </persons>
     <username>typicalPersonsAddressBook</username>
+    <budget>
+        <budgetCap>28.00</budgetCap>
+        <currentExpenses>26.00</currentExpenses>
+    </budget>
 </addressbook>

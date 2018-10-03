@@ -24,6 +24,8 @@ public class XmlSerializableAddressBook {
     private List<XmlAdaptedPerson> persons;
     @XmlElement
     private XmlAdaptedUsername username;
+    @XmlElement
+    private XmlAdaptedBudget budget;
 
     /**
      * Creates an empty XmlSerializableAddressBook.
@@ -40,6 +42,7 @@ public class XmlSerializableAddressBook {
         this();
         this.username = new XmlAdaptedUsername(src.getUsername());
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+        this.budget = new XmlAdaptedBudget(src.getMaximumBudget());
     }
 
     /**
@@ -56,6 +59,9 @@ public class XmlSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
             addressBook.addPerson(person);
+        }
+        if (this.budget != null) {
+            addressBook.modifyMaximumBudget(this.budget.toModelType());
         }
         return addressBook;
     }

@@ -19,6 +19,7 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Category;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Name;
@@ -43,7 +44,8 @@ public class AddressBookTest {
     @Test
     public void resetData_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.resetData(null);
+        this.addressBook.resetData(null);
+        assertTrue(this.addressBook.getMaximumBudget().getBudgetCap() == 0);
     }
 
     @Test
@@ -51,6 +53,7 @@ public class AddressBookTest {
         AddressBook newData = getTypicalAddressBook();
         addressBook.resetData(newData);
         assertEquals(newData, addressBook);
+        assertEquals(newData.getMaximumBudget(), addressBook.getMaximumBudget());
     }
 
     @Test
@@ -145,6 +148,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<Person> getPersonList() {
             return persons;
+        }
+
+        @Override
+        public Budget getMaximumBudget() {
+            return new Budget("0.00");
         }
 
         @Override
