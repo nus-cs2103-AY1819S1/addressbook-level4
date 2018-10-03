@@ -16,6 +16,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyWishBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.WishBook;
+import seedu.address.model.WishTransaction;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.XmlSerializableWishBook;
 import seedu.address.testutil.TestUtil;
@@ -68,8 +69,21 @@ public class TestApp extends MainApp {
         double y = Screen.getPrimary().getVisualBounds().getMinY();
         userPrefs.updateLastUsedGuiSetting(new GuiSettings(600.0, 600.0, (int) x, (int) y));
         userPrefs.setAddressBookFilePath(saveFileLocation);
-        userPrefs.setAddressBookFilePath(saveWishTransactionFileLocation);
+        userPrefs.setWishTransactionFilePath(saveWishTransactionFileLocation);
         return userPrefs;
+    }
+
+    /**
+     * Returns a defensive copy of wish transactions stored inside the storage file.
+     */
+    public WishTransaction readWishTransaction() {
+        try {
+            return new WishTransaction(storage.readWishTransaction().get());
+        } catch (DataConversionException e) {
+            throw new AssertionError("Data is not in the wish transaction format.", e);
+        } catch (IOException e) {
+            throw new AssertionError("Wish Transaction Storage file cannot be found.", e);
+        }
     }
 
     /**
@@ -82,19 +96,6 @@ public class TestApp extends MainApp {
             throw new AssertionError("Data is not in the WishBook format.", dce);
         } catch (IOException ioe) {
             throw new AssertionError("Storage file cannot be found.", ioe);
-        }
-    }
-
-    /**
-     * transfer backup to actual addressbook storage
-     */
-    public void saveBackup() {
-        try {
-            storage.saveBackup();
-        } catch (IOException e) {
-            throw new AssertionError("Storage file cannot be found");
-        } catch (DataConversionException e) {
-            throw new AssertionError("Data is not in the WishBook format.", e);
         }
     }
 

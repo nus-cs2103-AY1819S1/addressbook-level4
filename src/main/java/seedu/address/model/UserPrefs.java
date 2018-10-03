@@ -12,8 +12,8 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs {
 
     private GuiSettings guiSettings;
-    private Path wishBookFilePath = Paths.get("data" , "addressbook.xml");
-    private Path wishTransactionFilePath = Paths.get("first", "wishtransaction.xml");
+    private Path wishBookFilePath = Paths.get("data", "addressbook.xml");
+    private Path wishTransactionFilePath = Paths.get("data", "wishtransaction.xml");
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);
