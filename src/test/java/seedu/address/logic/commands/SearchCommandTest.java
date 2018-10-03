@@ -26,8 +26,8 @@ import seedu.address.storage.IcsCalendarStorage;
 
 //@@author javenseow
 public class SearchCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalBudgetBook(), new UserPrefs(), null);
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalBudgetBook(), new UserPrefs(), null);
+    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalBudgetBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalBudgetBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
