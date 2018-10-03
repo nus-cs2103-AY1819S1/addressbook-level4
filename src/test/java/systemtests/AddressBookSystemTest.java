@@ -158,7 +158,7 @@ public abstract class AddressBookSystemTest {
      * Selects the carpark using a {@code carparkNumber}.
      */
     protected void selectCarpark(String carparkNumber) {
-        executeCommand(SelectCommand.COMMAND_WORD + " " + carparkNumber;
+        executeCommand(SelectCommand.COMMAND_WORD + " " + carparkNumber);
         //assertEquals(index.getZeroBased(), getCarparkListPanel().getSelectedCardIndex());
     }
 
