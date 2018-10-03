@@ -5,14 +5,13 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.person.Email;
 import seedu.address.model.person.EmailContainsKeywordsPredicate;
 
 /**
  * Find a person through his/her email address in address book.
  * Keyword matching is case sensitive.
  */
-public class FindEmailCommand  extends Command {
+public class FindEmailCommand extends Command {
 
     public static final String COMMAND_WORD = "find/e";
 
