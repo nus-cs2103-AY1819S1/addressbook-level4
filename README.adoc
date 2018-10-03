@@ -8,7 +8,8 @@ image:https://api.codacy.com/project/badge/Grade/56707ee7344441ebaa5839b92e17a88
 https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
 
 ifdef::env-github[]
-image::docs/images/Ui.png[width="600"]
+image::docs/images/UI.png[width="600"]
+image::docs/images/UI2.png[width="600"]
 endif::[]
 
 * Have you ever lost track of your expenditure and burst your budget for the month? Fret not! The Expense Tracker is here to help you.
