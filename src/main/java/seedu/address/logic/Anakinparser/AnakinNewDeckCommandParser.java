@@ -16,6 +16,7 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Anakin_deck.Anakin_Deck;
+import seedu.address.model.Anakin_deck.Name;
 
 
 /**
@@ -48,7 +49,7 @@ public class AnakinNewDeckCommandParser implements AnakinParserInterface<Anakin_
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         */
 
-        Anakin_Deck deck = new Anakin_Deck("Deck1"); //TO DO
+        Anakin_Deck deck = new Anakin_Deck(new Name("Deck1")); //TO DO
 
         return new Anakin_NewDeckCommand(deck);
     }
