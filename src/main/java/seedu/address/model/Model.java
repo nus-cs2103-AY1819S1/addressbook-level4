@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.google.GoogleClientInstance;
 import seedu.address.model.person.Person;
 
 /**
@@ -50,6 +51,16 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Get GoogleClientInstance.
+     */
+    GoogleClientInstance getGoogleClientInstance();
+
+    /**
+     * Set GoogleClientInstance.
+     */
+    void setGoogleClientInstance(GoogleClientInstance instance);
 
     /**
      * Returns true if the model has previous address book states to restore.
