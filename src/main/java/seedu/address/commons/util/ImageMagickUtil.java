@@ -13,7 +13,7 @@ public class ImageMagickUtil {
      * @return path an string to the location of the ImageMagick executable for a supported platform.
      */
     public static String getImageMagickPath() /*throws UnsupportedPlatformException*/ {
-        if(PlatformUtil.isLinux()){
+        /*if(PlatformUtil.isLinux()){
             return "convert";
         }else if(PlatformUtil.isMac()){
             return "convert";
@@ -21,8 +21,9 @@ public class ImageMagickUtil {
             return "convert";
         }else{
             //TODO: make a new exception that allows us to specify an error message.
-            /*throw new UnsupportedPlatformException();*/
+            *//*throw new UnsupportedPlatformException();*//*
             return "cry deeply";
-        }
+        }*/
+        return "";
     }
 }
