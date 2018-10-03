@@ -1,9 +1,9 @@
 package seedu.address.logic.commands;
 
-import java.util.ArrayList;
-
+/**
+ * Helper class to auto complete commands typed into command box
+ */
 public class AutoCompleteCommandHelper {
-    //TODO: Implement this to handle autocomplete.
     private static String[] commandWordList = {
             AddCommand.COMMAND_WORD,
             ClearCommand.COMMAND_WORD,
@@ -19,6 +19,11 @@ public class AutoCompleteCommandHelper {
             UndoCommand.COMMAND_WORD
     };
 
+    /**
+     * This method predicts the command the user is entering.
+     * @param partialWord The current characters available in command box.
+     * @return The predicted command.
+     */
     public static String autoCompleteWord(String partialWord) {
         for (String s : commandWordList) {
             if (s.startsWith(partialWord))
