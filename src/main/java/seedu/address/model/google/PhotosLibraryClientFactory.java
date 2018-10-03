@@ -1,17 +1,5 @@
 package seedu.address.model.google;
 
-// @author chivent (kaile)
-// don't @ me for my messy style I'll do clean up at the end. feedback is welcome though
-
-// creation of authentication instance (O-Auth)
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.security.GeneralSecurityException;
-import java.util.List;
-
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
@@ -31,16 +19,18 @@ import com.google.common.collect.ImmutableList;
 import com.google.photos.library.v1.PhotosLibraryClient;
 import com.google.photos.library.v1.PhotosLibrarySettings;
 
-
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.security.GeneralSecurityException;
+import java.util.List;
 
 //@@author chivent
 //TODO: credit --> https://github.com/google/java-photoslibrary/tree/master/sample
 //TODO: Remove comments in later future
 //TODO: Store files elsewhere [TBD]
 
-/**
- * Factory for Photos Library
- */
 public class PhotosLibraryClientFactory {
 
 
@@ -52,12 +42,14 @@ public class PhotosLibraryClientFactory {
                     "email");
 
     //for storing serializable data in key-value form
-    private static final File DATA_STORE = new File(PhotosLibraryClientFactory.class.getResource("/").getPath(), "user_credentials");
-    private static File credential_file = new File(PhotosLibraryClientFactory.class.getClassLoader().getResource("client_credentials.json").getPath());
+    private static final File DATA_STORE = new File(PhotosLibraryClientFactory.
+            class.getResource("/").getPath(), "user_credentials");
+
+    private static File credentialFile = new File(PhotosLibraryClientFactory
+            .class.getClassLoader().getResource("client_credentials.json").getPath());
 
     private PhotosLibraryClientFactory() {
     }
-
 
     public static GoogleClientInstance createClient() throws IOException, GeneralSecurityException {
 
@@ -66,7 +58,7 @@ public class PhotosLibraryClientFactory {
         // load designated client secret/id
         GoogleClientSecrets clientSecrets =
                 GoogleClientSecrets.load(
-                        JSON_FACTORY, new InputStreamReader(new FileInputStream(credential_file)));
+                        JSON_FACTORY, new InputStreamReader(new FileInputStream(credentialFile)));
 
         String clientSecret = clientSecrets.getDetails().getClientSecret();
         String clientId = clientSecrets.getDetails().getClientId();
@@ -92,6 +84,12 @@ public class PhotosLibraryClientFactory {
         return new GoogleClientInstance(createPhotosLibraryClient(userCredentials), getUserEmail(credential));
     }
 
+    /**
+     * Creates a PhotosLibraryClient instance from credentials
+     *
+     * @param credentials
+     * @return PhotosLibraryClient new PhotosLibraryClient instance
+     */
     private static PhotosLibraryClient createPhotosLibraryClient(Credentials credentials) throws IOException {
         PhotosLibrarySettings libSettings =
                 PhotosLibrarySettings.newBuilder()
@@ -99,6 +97,12 @@ public class PhotosLibraryClientFactory {
         return PhotosLibraryClient.initialize(libSettings);
     }
 
+    /**
+     * Gets user's email from a Google+ instance
+     *
+     * @param credential credentials to create google+ instance with
+     * @return a String of user email
+     */
     private static String getUserEmail(Credential credential) throws GeneralSecurityException, IOException {
         Plus plus = new Plus.Builder(
                 GoogleNetHttpTransport.newTrustedTransport(), JacksonFactory.getDefaultInstance(), credential)

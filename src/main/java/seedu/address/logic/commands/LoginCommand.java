@@ -1,16 +1,17 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.google.GoogleClientInstance;
 import seedu.address.model.google.PhotosLibraryClientFactory;
 
-import static java.util.Objects.requireNonNull;
 
 //TODO: add for parser
 
 /**
- *  Logs in user
+ * Logs in user
  */
 public class LoginCommand extends Command {
 
@@ -34,13 +35,14 @@ public class LoginCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
 
-        GoogleClientInstance client = null;
         try {
             if (model.getGoogleClientInstance() == null) {
                 model.setGoogleClientInstance(PhotosLibraryClientFactory.createClient());
-                return new CommandResult(String.format(MESSAGE_SUCCESS, model.getGoogleClientInstance().identifyUser()));
+                return new CommandResult(String.format
+                        (MESSAGE_SUCCESS, model.getGoogleClientInstance().identifyUser()));
             } else {
-                return new CommandResult(String.format(MESSAGE_LOGGED_IN, model.getGoogleClientInstance().identifyUser()));
+                return new CommandResult(String.format
+                        (MESSAGE_LOGGED_IN, model.getGoogleClientInstance().identifyUser()));
             }
 
         } catch (Exception ex) {
