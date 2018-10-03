@@ -1051,7 +1051,7 @@ Use case ends
 *MSS*
 
 1. User keys in command to view the information and statistics of his weekly/monthly/yearly budget
-2. Programs loads page consisting of visual information displaying the relevant information
+2. Programs loads a window consisting of visual information displaying the relevant information
 +
 Use case ends
 

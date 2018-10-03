@@ -1,5 +1,5 @@
 .background {
-    -fx-background-color: derive(#FFF, 20%);
+    -fx-background-color: derive(#e6e6e6, 20%);
     background-color: #383838; /* Used in the default.html file */
 }
 
@@ -77,37 +77,40 @@
 }
 
 .split-pane:horizontal .split-pane-divider {
-    -fx-background-color: derive(#FFF, 20%);
+    -fx-background-color: derive(#e6e6e6, 20%);
     -fx-border-color: transparent transparent transparent transparent;
 }
 
 .split-pane {
-    -fx-border-radius: 1;
-    -fx-border-width: 1;
-    -fx-background-color: derive(#FFF, 20%);
+    -fx-background-color: derive(#e6e6e6, 20%);
 }
+
+.split-pane:vertical > .split-pane-divider {
+    -fx-padding: 0 1 0 1;
+}
+
 
 .list-view {
     -fx-background-insets: 0;
-    -fx-padding: 0;
-    -fx-background-color: derive(#FFF, 20%);
+    -fx-padding: 10px 5px 10px 5px;
+    -fx-background-color: derive(#e6e6e6, 20%);
 }
 
 .list-cell {
-    -fx-label-padding: 0 0 0 0;
-    -fx-graphic-text-gap : 0;
-    -fx-padding: 0 0 0 0;
+    -fx-padding: 0 0 10px 0;
+    -fx-background-color: transparent, -fx-background;
+    -fx-background-insets: 0px, 5px ;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 5);
 }
 
-.list-cell:filled:even {
-    -fx-background-color: #f3c39b;
-}
-
-.list-cell:filled:odd {
-    -fx-background-color: #cfa481;
+.list-cell:empty {
+    -fx-padding: 0 0 10px 0;
+    -fx-background-color: transparent ;
+    -fx-background-insets: 0 ;
 }
 
 .list-cell:filled:selected {
+    -fx-padding: 0 0 10px 0;
     -fx-background-color: #9c7a5e;
 }
 
@@ -116,20 +119,20 @@
     -fx-border-width: 1;
 }
 
-.list-cell .label {
-    -fx-text-fill: white;
+.cell_big_label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 16px;
+    -fx-text-fill: #464646 !important;
 }
 
-
+.cell_small_label {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
+    -fx-text-fill: #464646 !important;
+}
 
 .stack-pane {
      -fx-background-color: derive(#FFF, 20%);
-}
-
-.pane-with-border {
-     -fx-background-color: derive(#FFF, 20%);
-     -fx-border-color: derive(#FFF, 10%);
-     -fx-border-top-width: 1px;
 }
 
 .status-bar {
@@ -140,8 +143,11 @@
 .result-display {
     -fx-background-color: transparent;
     -fx-font-family: "Segoe UI Light";
+    -fx-text-alignment: center;
     -fx-font-size: 13pt;
     -fx-text-fill: white;
+    -fx-padding: -1px;
+    -fx-translate-y: -3px;
 }
 
 .result-display .label {
@@ -271,12 +277,15 @@
 }
 
 .scroll-bar {
-    -fx-background-color: derive(#FFF, 20%);
+    -fx-background-color: derive(#f0d4b4, 20%);
+    -fx-scale-x: 1.5;
+    -fx-translate-x: 5px;
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: derive(#FFF, 50%);
+    -fx-background-color: derive(#e86200, 50%);
     -fx-background-insets: 3;
+    -fx-scale-x: 1.5;
 }
 
 .scroll-bar .increment-button, .scroll-bar .decrement-button {
@@ -296,7 +305,7 @@
 
 #commandTypeLabel {
     -fx-font-size: 11px;
-    -fx-text-fill: #F70D1A;
+    -fx-text-fill: #FFF;
 }
 
 #commandTextField {
@@ -307,7 +316,11 @@
     -fx-border-width: 5;
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
-    -fx-text-fill: white;
+    -fx-text-fill: #FFF;
+}
+
+.text-field {
+    -fx-prompt-text-fill: #FFF;
 }
 
 #filterField, #personListPanel, #personWebpage {
@@ -318,7 +331,6 @@
     -fx-background-color: #95b4b5;
     -fx-background-radius: 0;
     -fx-border-color: #1b998b;
-    -fx-border-insets: 0;
     -fx-border-width: 5;
 }
 
@@ -338,7 +350,7 @@
 
 #title {
     -fx-background-color: #1b998b;
-    -fx-effect: dropshadow( gaussian , rgba(27,153,39,0.5) , 5,0,0,1 );
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 5);
 }
 
 #title .label {
@@ -348,13 +360,11 @@
     -fx-padding: 10px;
 }
 
-#leftPanel, #notificationPanel, #budgetPanel {
-    -fx-background-color: #fff;
-    -fx-border-style: solid solid none solid;
-    -fx-border-width: 2px;
-    -fx-border-color: #a6a4a3;
-}
 
+#notificationPanel, #budgetPanel {
+    -fx-background-color: #fff;
+    -fx-padding: 5px;
+}
 
 #notificationPanel .label, #budgetPanel .label{
     -fx-font-size: 20pt;
@@ -363,14 +373,3 @@
     -fx-padding: 5px;
 }
 
-.cell_big_label {
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-font-size: 16px;
-    -fx-text-fill: #464646;
-}
-
-.cell_small_label {
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 13px;
-    -fx-text-fill: #464646;
-}
