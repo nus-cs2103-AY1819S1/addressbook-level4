@@ -39,7 +39,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private ExpenseListPanel expenseListPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
@@ -55,7 +55,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane expenseListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -144,18 +144,14 @@ public class MainWindow extends UiPart<Stage> {
      */
     void initializeAfterLogin() {
         try {
-            personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+            expenseListPanel = new ExpenseListPanel(logic.getFilteredPersonList());
         } catch (NoUserSelectedException e) {
             throw new IllegalStateException(e.getMessage());
         }
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-        
+        expenseListPanelPlaceholder.getChildren().add(expenseListPanel.getRoot());
         StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookDirPath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-        
-        
     }
-    
 
     /**
      * Hides the bottom part of the UI which shows entries in the AddressBook and sync information.
@@ -244,8 +240,8 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public ExpenseListPanel getExpenseListPanel() {
+        return expenseListPanel;
     }
 
     @Subscribe
@@ -268,11 +264,11 @@ public class MainWindow extends UiPart<Stage> {
     @Subscribe
     public void handleLoggedInEvent(UserLoggedInEvent event) {
         try {
-            personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+            expenseListPanel = new ExpenseListPanel(logic.getFilteredPersonList());
         } catch (NoUserSelectedException e) {
             throw new IllegalStateException(e.getMessage());
         }
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        expenseListPanelPlaceholder.getChildren().add(expenseListPanel.getRoot());
         StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookDirPath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
         showLoggedInUi();
