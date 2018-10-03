@@ -6,6 +6,7 @@ import com.google.common.eventbus.Subscribe;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Orientation;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
@@ -21,6 +22,7 @@ import seedu.address.commons.events.model.UserLoggedInEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.ui.ShowStatsRequestEvent;
+import seedu.address.commons.events.ui.SwapLeftPanelEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.exceptions.NoUserSelectedException;
@@ -39,24 +41,17 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
+    private ExpenseListPanel expenseListPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
     private StatsWindow statsWindow;
 
     @FXML
-    private StackPane browserPlaceholder;
-
-    @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
-
-    @FXML
-    private StackPane personListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -66,6 +61,21 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private SplitPane splitPane;
+
+    @FXML
+    private StackPane titlePlaceholder;
+
+    @FXML
+    private StackPane budgetPanelPlaceholder;
+
+    @FXML
+    private StackPane notificationPanelPlaceholder;
+
+    @FXML
+    private StackPane leftPanelPlaceholder;
+
+    @FXML
+    private SplitPane statisticsSplitPane;
 
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
@@ -130,8 +140,6 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -140,6 +148,56 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         hideLoggedInUi();
+    }
+
+    /**
+     * Swaps the panel from statistics to list
+     */
+    public void swapToList() {
+        leftPanelPlaceholder.getChildren().clear();
+        leftPanelPlaceholder.getChildren().add(expenseListPanel.getRoot());
+    }
+
+    /**
+     * Swaps the panel from list to statistics
+     */
+    public void swapToStat() {
+        leftPanelPlaceholder.getChildren().clear();
+        leftPanelPlaceholder.getChildren().add(statisticsSplitPane);
+    }
+
+    /**
+     * Initialize UI after login
+     */
+    private void initializeAfterLogin() {
+        try {
+            expenseListPanel = new ExpenseListPanel(logic.getFilteredPersonList());
+        } catch (NoUserSelectedException e) {
+            throw new IllegalStateException(e.getMessage());
+        }
+
+        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookDirPath());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+        Title title = new Title();
+        titlePlaceholder.getChildren().add(title.getRoot());
+
+        BudgetPanel budgetPanel = new BudgetPanel();
+        budgetPanelPlaceholder.getChildren().add(budgetPanel.getRoot());
+
+        NotificationPanel notificationPanel = new NotificationPanel();
+        notificationPanelPlaceholder.getChildren().add(notificationPanel.getRoot());
+
+        StatisticPanel statisticPanel = new StatisticPanel();
+        CategoriesPanel categoriesPanel = new CategoriesPanel();
+
+        statisticsSplitPane = new SplitPane();
+        statisticsSplitPane.setOrientation(Orientation.VERTICAL);
+        statisticsSplitPane.getItems().add(statisticPanel.getRoot());
+        statisticsSplitPane.getItems().add(categoriesPanel.getRoot());
+
+        leftPanelPlaceholder.getChildren().add(expenseListPanel.getRoot());
+
+        swapToList();
     }
 
     /**
@@ -229,12 +287,8 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }
-
-    void releaseResources() {
-        browserPanel.freeResources();
+    public ExpenseListPanel getExpenseListPanel() {
+        return expenseListPanel;
     }
 
     @Subscribe
@@ -256,14 +310,20 @@ public class MainWindow extends UiPart<Stage> {
 
     @Subscribe
     public void handleLoggedInEvent(UserLoggedInEvent event) {
-        try {
-            personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        } catch (NoUserSelectedException e) {
-            throw new IllegalStateException(e.getMessage());
-        }
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookDirPath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+        initializeAfterLogin();
         showLoggedInUi();
+    }
+
+    @Subscribe
+    public void handleSwapLeftPanelEvent(SwapLeftPanelEvent event) {
+        switch(event.getPanelType()) {
+        case LIST:
+            swapToList();
+            break;
+        case STATISTIC:
+            swapToStat();
+            break;
+        default:
+        }
     }
 }
