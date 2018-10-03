@@ -896,7 +896,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |student |redo my command |correct my accidental "undo"
 
 |`* *` |student |add and view subtasks under each task |know specifically what tasks requires
-E.g CS2103T Project * bullet Write User guide * bullet Review Pull Requests * bullet Peer Evaluation
+E.g CS2103T Project -Write User guide -Review Pull Requests -Peer Evaluation
 
 |`*` |student |add my tasks that are non-school related |have a schedule mixed with both school and non-school related tasks
 
@@ -914,47 +914,159 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Student Schedule Planner` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add Exam
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to add exam into Student Schedule Planner.
+2.  Student Schedule Planner add the exam into exam list.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. The add Exam command did not follow the correct format.
++
+[none]
+** 1a1. Student Schedule Planner shows an error message.
++
+Use case resume at step 1.
+
+[discrete]
+=== Use case: List Exam
+
+*MSS*
+
+1.  User requests to view exam list from Student Schedule Planner.
+2.  Student Schedule Planner display the exam list.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+*Extensions*
+
+[none]
+* 1a. The list exam command did not follow the correct format.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 1a1. Student Schedule Planner shows an error message.
 +
-Use case resumes at step 2.
+Use case resume at step 1.
+[none]
+* 2a1. The list is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: Modify Exam
+
+*MSS*
+
+1.  User requests to list exam list from Student Schedule Planner.
+2.  Student Schedule Planner display the exam list.
+3.  User request to edit a specific exam in the list.
+4.  Student Schedule Planner updates the exam.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list exam command did not follow the correct format.
++
+[none]
+** 1a1. Student Schedule Planner shows an error message.
++
+Use case resume at step 1.
+[none]
+* 2a1. The list is empty.
++
+Use case ends.
+[none]
+* 3a. The Modify exam command did not follow the correct format.
++
+[none]
+** 3a1. Student Schedule Planner shows an error message.
++
+Use case resume at step 3.
+
+[discrete]
+=== Use case: Delete Exam
+
+*MSS*
+
+1.  User requests to list exam list from Student Schedule Planner.
+2.  Student Schedule Planner display the exam list.
+3.  User request to delete a specific exam in the list.
+4.  Student Schedule Planner delete the exam.
++
+Use case ends.
+
+[discrete]
+*Extensions*
+
+[none]
+* 1a. The list exam command did not follow the correct format.
++
+[none]
+** 1a1. Student Schedule Planner shows an error message.
++
+Use case resume at step 1.
+[none]
+* 2a1. The list is empty.
++
+Use case ends.
+[none]
+* 3a. The Delete exam command did not follow the correct format.
++
+[none]
+** 3a1. Student Schedule Planner shows an error message.
++
+Use case resume at step 3.
+
+[discrete]
+=== Use case: Search Exam
+
+*MSS*
+
+1.  User requests to search a specific exam from Student Schedule Planner.
+2.  Student Schedule Planner filter the exam by the given parameter.
+3.  Student Schedule Planner display the filtered exam.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The search exam command did not follow the correct format.
++
+[none]
+** 1a1. Student Schedule Planner shows an error message.
++
+Use case resume at step 1.
+[none]
+* 3a. The filtered exam list is empty and thus display empty list.
++
+Use case ends.
 
 _{More to be added}_
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should work on most Mainstream OS as long as it has Java `9` or higher installed.
+.  Each command execution time should not take more than 3 seconds.
 
 _{More to be added}_
 
 [appendix]
 == Glossary
+
+[[MSS]] MSS::
+Main Success Scenario (MSS) is the steps of a scenario to be followed to accomplish the objective goal.
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
