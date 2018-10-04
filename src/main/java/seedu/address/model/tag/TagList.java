@@ -8,8 +8,6 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.event.exceptions.EventNotFoundException;
 
 /**
  * A list of events that does not allow nulls.
@@ -45,9 +43,6 @@ public class TagList implements Iterable<Tag> {
         requireAllNonNull(target, editedTag);
 
         int index = internalList.indexOf(target);
-        if (index == -1) {
-            throw new EventNotFoundException();
-        }
 
         internalList.set(index, editedTag);
     }
@@ -58,9 +53,6 @@ public class TagList implements Iterable<Tag> {
      */
     public void remove(Tag toRemove) {
         requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
-            throw new EventNotFoundException();
-        }
     }
 
     public void setTags(TagList replacement) {
