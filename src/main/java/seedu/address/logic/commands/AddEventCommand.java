@@ -37,6 +37,7 @@ public class AddEventCommand extends Command {
             + PREFIX_TAG + "ad-hoc";
 
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
+    public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the scheduler";
 
     private final List<Event> toAdd = new ArrayList<>();
 
