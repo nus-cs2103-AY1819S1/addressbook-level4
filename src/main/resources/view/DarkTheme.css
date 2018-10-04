@@ -100,11 +100,11 @@
 }
 
 .list-cell:filled:even {
-    -fx-background-color: #3c3e3f;
+    -fx-background-image: url("/images/Background2.png");
 }
 
 .list-cell:filled:odd {
-    -fx-background-color: #515658;
+    -fx-background-image: url("/images/Background3.png");
 }
 
 .list-cell:filled:selected {
