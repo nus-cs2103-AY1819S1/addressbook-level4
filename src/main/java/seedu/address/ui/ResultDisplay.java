@@ -12,7 +12,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
-import javafx.collections.ObservableList;
 
 /**
  * A ui for the status bar that is displayed at the header of the application.
@@ -44,7 +43,7 @@ public class ResultDisplay extends UiPart<Region> {
         Platform.runLater(() -> {
             displayed.setValue(event.message);
 
-            if(event.isSuccessful) {
+            if (event.isSuccessful) {
                 setStyleForCommandSuccess();
             } else {
                 setStyleForCommandFailure();
