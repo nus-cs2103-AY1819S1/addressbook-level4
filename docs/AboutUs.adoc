@@ -37,20 +37,20 @@ Responsibilities: Testing, Logic and IntelliJ expert
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
-
-'''
-
 === Goh Cheng Yu
 image::chengyuuu.png[width="150", align="left"]
 {empty}[https://github.com/chengyuuu[github]] [<<chengyuuu#, portfolio>>]
 
 Role: Integration +
 Responsibilities: Storage
+
+'''
+
+=== He Xinyi
+image::hexinyiyi.jpg[width="150", align="left"]
+{empty}[https://github.com/hexinyiyi[github]] [<<hexinyiyi#, portfolio>>]
+
+Role: Developer + Testing
+Responsibilities: UI
 
 '''
