@@ -82,7 +82,6 @@ public class CommandBox extends UiPart<Region> {
                 Platform.exit();
             }
             break;
-            
         default:
             // let JavaFx handle the keypress
         }
