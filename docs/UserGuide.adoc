@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= iScheduler Xs Max - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,7 +12,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-F11-1/main
 
 By: `CS2103-AY1819S1-F11-1`      Since: `Sep 2018`      Licence: `MIT`
 
@@ -45,7 +45,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ====
 *Command Format*
-
+* Some commands have an alias, which you can also use to execute the command e.g. to add a person to the address book, you can type either `add n/John Doe` or `a n/John Doe`.
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
@@ -59,6 +59,7 @@ Format: `help`
 === Adding an event
 
 Adds an event to the scheduler +
+Alias: `a` +
 Format: `add event n/EVENT_NAME [s/EVENT_START_DATE_TIME] [e/EVENT_END_DATE_TIME] [d/DESCRIPTION] [p/PRIORIY] [v/VENUE] [rs/EVENT_RECURRING_STATUS] [ru/EVENT_RECURRING_UNTIL_DATE_TIME] [t/TAG]…​`
 
 [TIP]
@@ -243,7 +244,7 @@ _{explain how the user can enable/disable data encryption}_
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous iScheduler folder.
 
 == Command Summary
 
