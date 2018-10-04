@@ -1,4 +1,4 @@
-package seedu.address.model.AnakinDeck.AnakinExceptions;
+package seedu.address.model.anakindeck.AnakinExceptions;
 
 /**
  * Signals that the operation is unable to find the specified card.

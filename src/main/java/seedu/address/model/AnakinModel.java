@@ -3,8 +3,8 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.AnakinDeck.AnakinCard;
-import seedu.address.model.AnakinDeck.AnakinDeck;
+import seedu.address.model.anakindeck.AnakinCard;
+import seedu.address.model.anakindeck.AnakinDeck;
 
 /**
  * The API of the AnakinModel component

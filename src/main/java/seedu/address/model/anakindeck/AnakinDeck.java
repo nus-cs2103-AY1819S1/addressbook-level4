@@ -1,4 +1,4 @@
-package seedu.address.model.AnakinDeck;
+package seedu.address.model.anakindeck;
 
 import java.util.Objects;
 

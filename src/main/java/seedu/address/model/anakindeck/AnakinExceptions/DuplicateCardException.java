@@ -1,4 +1,4 @@
-package seedu.address.model.AnakinDeck.AnakinExceptions;
+package seedu.address.model.anakindeck.AnakinExceptions;
 
 /**
  * Signals that the operation will result in duplicate Cards (Cards are considered duplicates if they have the same

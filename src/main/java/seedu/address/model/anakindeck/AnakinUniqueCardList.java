@@ -1,4 +1,4 @@
-package seedu.address.model.AnakinDeck;
+package seedu.address.model.anakindeck;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.AnakinDeck.AnakinExceptions.CardNotFoundException;
-import seedu.address.model.AnakinDeck.AnakinExceptions.DuplicateCardException;
+import seedu.address.model.anakindeck.AnakinExceptions.CardNotFoundException;
+import seedu.address.model.anakindeck.AnakinExceptions.DuplicateCardException;
 
 /**
  * A list of cards that enforces uniqueness between its elements and does not allow nulls.

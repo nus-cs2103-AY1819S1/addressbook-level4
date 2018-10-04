@@ -1,4 +1,4 @@
-package seedu.address.model.AnakinDeck;
+package seedu.address.model.anakindeck;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
