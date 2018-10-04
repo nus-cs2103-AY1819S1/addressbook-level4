@@ -7,13 +7,9 @@ import static seedu.address.model.util.DateFormatUtil.parseDate;
 
 import java.util.Date;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 public class DateFormatUtilTest {
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void parseDate_returnsNull() {
@@ -27,7 +23,7 @@ public class DateFormatUtilTest {
 
     @Test
     public void parseDate_validDate() {
-        //Comparing parsed date against intended date in unix timestamp
+        // Comparing parsed date against intended date in unix timestamp
         assertEquals(parseDate("12-12-2018"), new Date(1544544000000L));
     }
 
