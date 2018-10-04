@@ -3,9 +3,9 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_LABEL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
@@ -61,7 +61,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
          */
         Index index = INDEX_FIRST_TASK;
         String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
-                + PHONE_DESC_BOB + " " + PRIORITY_VALUE_DESC_BOB + "  " + ADDRESS_DESC_BOB + " "
+                + PHONE_DESC_BOB + " " + PRIORITY_VALUE_DESC_BOB + "  " + DESCRIPTION_DESC_BOB + " "
                 + LABEL_DESC_HUSBAND + " ";
         Task editedPerson = new TaskBuilder(Z_TASK).withLabels(VALID_LABEL_HUSBAND).build();
         assertCommandSuccess(command, index, editedPerson);
@@ -81,7 +81,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         /* Case: edit a person with new values same as existing values -> edited */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
                 + PHONE_DESC_BOB + PRIORITY_VALUE_DESC_BOB
-                + ADDRESS_DESC_BOB + LABEL_DESC_FRIEND + LABEL_DESC_HUSBAND;
+                + DESCRIPTION_DESC_BOB + LABEL_DESC_FRIEND + LABEL_DESC_HUSBAND;
         assertCommandSuccess(command, index, Z_TASK);
 
         /* Case: edit a person with new values same as another person's values but with different name -> edited */
@@ -90,7 +90,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertNotEquals(getModel().getFilteredTaskList().get(index.getZeroBased()), Z_TASK);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY
                 + PHONE_DESC_BOB + PRIORITY_VALUE_DESC_BOB
-                + ADDRESS_DESC_BOB + LABEL_DESC_FRIEND + LABEL_DESC_HUSBAND;
+                + DESCRIPTION_DESC_BOB + LABEL_DESC_FRIEND + LABEL_DESC_HUSBAND;
         editedPerson = new TaskBuilder(Z_TASK).withName(VALID_NAME_AMY).build();
         assertCommandSuccess(command, index, editedPerson);
 
@@ -100,7 +100,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         index = INDEX_SECOND_TASK;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
                 + PHONE_DESC_AMY + PRIORITY_VALUE_DESC_AMY
-                + ADDRESS_DESC_BOB + LABEL_DESC_FRIEND + LABEL_DESC_HUSBAND;
+                + DESCRIPTION_DESC_BOB + LABEL_DESC_FRIEND + LABEL_DESC_HUSBAND;
         editedPerson = new TaskBuilder(Z_TASK).withDueDate(VALID_DUEDATE_AMY)
                 .withPriorityValue(VALID_PRIORITY_VALUE_AMY)
                 .build();
@@ -142,7 +142,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         selectPerson(index);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY
                 + PHONE_DESC_AMY + PRIORITY_VALUE_DESC_AMY
-                + ADDRESS_DESC_AMY + LABEL_DESC_FRIEND;
+                + DESCRIPTION_DESC_AMY + LABEL_DESC_FRIEND;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new person's name
         assertCommandSuccess(command, index, Y_TASK, index);
@@ -187,7 +187,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: invalid address -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " "
-                        + INDEX_FIRST_TASK.getOneBased() + INVALID_ADDRESS_DESC,
+                        + INDEX_FIRST_TASK.getOneBased() + INVALID_DESCRIPTION_DESC,
                 Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
 
         /* Case: invalid label -> rejected */
@@ -202,31 +202,31 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertFalse(getModel().getFilteredTaskList().get(index.getZeroBased()).equals(Z_TASK));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
                 + PHONE_DESC_BOB + PRIORITY_VALUE_DESC_BOB
-                + ADDRESS_DESC_BOB + LABEL_DESC_FRIEND + LABEL_DESC_HUSBAND;
+                + DESCRIPTION_DESC_BOB + LABEL_DESC_FRIEND + LABEL_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_TASK);
 
         /* Case: edit a person with new values same as another task's values but with different labels -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
                 + PHONE_DESC_BOB + PRIORITY_VALUE_DESC_BOB
-                + ADDRESS_DESC_BOB + LABEL_DESC_HUSBAND;
+                + DESCRIPTION_DESC_BOB + LABEL_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_TASK);
 
         /* Case: edit a person with new values same as another person's values but with different address -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
                 + PHONE_DESC_BOB + PRIORITY_VALUE_DESC_BOB
-                + ADDRESS_DESC_AMY + LABEL_DESC_FRIEND + LABEL_DESC_HUSBAND;
+                + DESCRIPTION_DESC_AMY + LABEL_DESC_FRIEND + LABEL_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_TASK);
 
         /* Case: edit a person with new values same as another person's values but with different phone -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
                 + PHONE_DESC_AMY + PRIORITY_VALUE_DESC_BOB
-                + ADDRESS_DESC_BOB + LABEL_DESC_FRIEND + LABEL_DESC_HUSBAND;
+                + DESCRIPTION_DESC_BOB + LABEL_DESC_FRIEND + LABEL_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_TASK);
 
         /* Case: edit a person with new values same as another person's values but with different email -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
                 + PHONE_DESC_BOB + PRIORITY_VALUE_DESC_AMY
-                + ADDRESS_DESC_BOB + LABEL_DESC_FRIEND + LABEL_DESC_HUSBAND;
+                + DESCRIPTION_DESC_BOB + LABEL_DESC_FRIEND + LABEL_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_TASK);
     }
 

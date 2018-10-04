@@ -33,6 +33,7 @@ public class AddCommand extends Command {
             + PREFIX_DESCRIPTION + "Do it for Jelena "
             + PREFIX_LABEL + "tutorial ";
 
+
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
     public static final String MESSAGE_EXPIRED_TASK = "The date of task added is before current time";

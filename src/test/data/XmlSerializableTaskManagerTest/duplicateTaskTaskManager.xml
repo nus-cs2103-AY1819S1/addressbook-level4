@@ -5,7 +5,7 @@
         <name>Address CS2103 email</name>
         <dueDate>01-12-18</dueDate>
         <priorityValue>3</priorityValue>
-        <description>123, Jurong West Ave 6, #08-111</description>
+        <description>Reply to Damith</description>
         <status>IN PROGRESS</status>
         <labelled>friends</labelled>
     </tasks>
@@ -15,7 +15,7 @@
         <name>Address CS2103 email</name>
         <dueDate>01-12-18</dueDate>
         <priorityValue>3</priorityValue>
-        <description>4th street</description>
+        <description>Reply to Damith</description>
         <status>IN PROGRESS</status>
     </tasks>
 

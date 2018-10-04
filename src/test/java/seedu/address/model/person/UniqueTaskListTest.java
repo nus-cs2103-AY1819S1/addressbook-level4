@@ -3,7 +3,7 @@ package seedu.address.model.person;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LABEL_HUSBAND;
 import static seedu.address.testutil.TypicalTasks.A_TASK;
 import static seedu.address.testutil.TypicalTasks.Z_TASK;
@@ -46,7 +46,8 @@ public class UniqueTaskListTest {
     @Test
     public void contains_taskWithSameIdentityFieldsInList_returnsTrue() {
         uniqueTaskList.add(A_TASK);
-        Task editedAlice = new TaskBuilder(A_TASK).withDescription(VALID_ADDRESS_BOB).withLabels(VALID_LABEL_HUSBAND)
+        Task editedAlice = new TaskBuilder(A_TASK).withDescription(VALID_DESCRIPTION_BOB)
+                .withLabels(VALID_LABEL_HUSBAND)
                 .build();
         assertTrue(uniqueTaskList.contains(editedAlice));
     }
@@ -94,7 +95,8 @@ public class UniqueTaskListTest {
     @Test
     public void setTask_editedTaskHasSameIdentity_success() {
         uniqueTaskList.add(A_TASK);
-        Task editedAlice = new TaskBuilder(A_TASK).withDescription(VALID_ADDRESS_BOB).withLabels(VALID_LABEL_HUSBAND)
+        Task editedAlice = new TaskBuilder(A_TASK).withDescription(VALID_DESCRIPTION_BOB)
+                .withLabels(VALID_LABEL_HUSBAND)
                 .build();
         uniqueTaskList.setTask(A_TASK, editedAlice);
         UniqueTaskList expectedUniqueTaskList = new UniqueTaskList();
@@ -106,9 +108,9 @@ public class UniqueTaskListTest {
     public void setTask_editedTaskHasDifferentIdentity_success() {
         uniqueTaskList.add(A_TASK);
         uniqueTaskList.setTask(A_TASK, Z_TASK);
-        UniqueTaskList expectedUniquePersonList = new UniqueTaskList();
-        expectedUniquePersonList.add(Z_TASK);
-        assertEquals(expectedUniquePersonList, uniqueTaskList);
+        UniqueTaskList expectedUniqueTaskList = new UniqueTaskList();
+        expectedUniqueTaskList.add(Z_TASK);
+        assertEquals(expectedUniqueTaskList, uniqueTaskList);
     }
 
     @Test
@@ -165,9 +167,9 @@ public class UniqueTaskListTest {
         uniqueTaskList.add(A_TASK);
         List<Task> personList = Collections.singletonList(Z_TASK);
         uniqueTaskList.setTasks(personList);
-        UniqueTaskList expectedUniquePersonList = new UniqueTaskList();
-        expectedUniquePersonList.add(Z_TASK);
-        assertEquals(expectedUniquePersonList, uniqueTaskList);
+        UniqueTaskList expectedUniqueTaskList = new UniqueTaskList();
+        expectedUniqueTaskList.add(Z_TASK);
+        assertEquals(expectedUniqueTaskList, uniqueTaskList);
     }
 
     @Test
