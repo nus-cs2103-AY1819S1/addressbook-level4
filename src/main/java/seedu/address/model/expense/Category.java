@@ -16,7 +16,6 @@ public class Category {
             "Category name should not be blank.";
     public static final String CATEGORY_VALIDATION_REGEX = "\\p{Alnum}+";
     private final String categoryName;
-    private final ArrayList<Expense> expenseList = new ArrayList<>();
 
     /**
      * Constructs a {@code Category}.
@@ -36,16 +35,6 @@ public class Category {
         return test.matches(CATEGORY_VALIDATION_REGEX);
     }
 
-    /**
-     * Add an Expense into the {@code expenseList} in Category.
-     * */
-    public void addIntoCategory(Expense expense) {
-        this.expenseList.add(expense);
-    }
-
-    public ArrayList<Expense> getExpenseList() {
-        return this.expenseList;
-    }
 
     public String getName() {
         return this.categoryName;
