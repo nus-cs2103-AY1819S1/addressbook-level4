@@ -79,8 +79,8 @@ public class Task {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both tasks of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two tasks.
      */
     public boolean isSameTask(Task othertask) {
         if (othertask == this) {
@@ -94,8 +94,8 @@ public class Task {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both tasks have the same identity and data fields.
+     * This defines a stronger notion of equality between two tasks.
      */
     @Override
     public boolean equals(Object other) {

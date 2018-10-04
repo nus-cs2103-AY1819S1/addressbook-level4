@@ -41,6 +41,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+
         DueDate phone = ParserUtil.parseDueDate(argMultimap.getValue(PREFIX_DUE_DATE).get());
         PriorityValue priorityValue = ParserUtil.parsePriorityValue(argMultimap.getValue(PREFIX_PRIORITY_VALUE).get());
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());

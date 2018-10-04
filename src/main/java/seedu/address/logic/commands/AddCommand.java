@@ -19,7 +19,7 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task manager. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_DUE_DATE + "PHONE "
@@ -27,15 +27,16 @@ public class AddCommand extends Command {
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + "[" + PREFIX_LABEL + "LABEL]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
+            + PREFIX_NAME + "Do CS2103 tutorial "
             + PREFIX_DUE_DATE + "02-12-18 1330 "
-            + PREFIX_PRIORITY_VALUE + "2 "
-            + PREFIX_DESCRIPTION + "[description of task] "
-            + PREFIX_LABEL + "friends "
-            + PREFIX_LABEL + "owesMoney";
+            + PREFIX_PRIORITY_VALUE + "5 "
+            + PREFIX_DESCRIPTION + "Do it for Jelena "
+            + PREFIX_LABEL + "tutorial ";
+
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
+    public static final String MESSAGE_EXPIRED_TASK = "The date of task added is before current time";
 
     private final Task toAdd;
 
@@ -50,6 +51,10 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+
+        if (toAdd.getDueDate().isOverDue()) {
+            throw new CommandException(MESSAGE_EXPIRED_TASK);
+        }
 
         if (model.hasTask(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
