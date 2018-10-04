@@ -47,6 +47,13 @@ Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely
 |**| user | statistics function | keep track of progress
 | ** | user | insights function | keep track of progress
 |**| competitive user | compete with friends | challenge myself and peers
+| * | person without arms | have the computer interpret my words | type with my toes
+| * | person who hates rules | enter tasks in a specified format and computer should interpret for me | easy addition of tasks
+| * | visual person | colour coding in tasks | visually discern between tasks
+| * | user | feedback on completion of tasks | better plan ways to handle tasks
+| * | lazy student | provide intuitive information about the chaining to tasks | easy to tell end of task
+| * | user | customize persona | make tasks seem more personal
+| * | unmotivated student | see tasks creatively explosively destroy themselves | derive more enjoyment
 |===
 
 
