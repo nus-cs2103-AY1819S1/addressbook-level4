@@ -6,7 +6,6 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
-
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.WishBookChangedEvent;
@@ -58,7 +57,7 @@ public class StorageManager extends ComponentManager implements Storage {
         userPrefsStorage.saveUserPrefs(userPrefs);
     }
 
-    // ================ UserPrefs methods ==============================
+    // ================ WishTransaction methods ==============================
 
     @Override
     public Path getWishTransactionFilePath() {
@@ -72,7 +71,7 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public Optional<WishTransaction> readWishTransaction(Path filePath) throws DataConversionException, IOException {
-        logger.fine("Attempting to read data from file: " + filePath);
+        logger.fine("Attempting to read wishTransaction data from file: " + filePath);
         return wishTransactionStorage.readWishTransaction(filePath);
     }
 

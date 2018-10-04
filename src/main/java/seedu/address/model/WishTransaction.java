@@ -44,6 +44,16 @@ public class WishTransaction implements ActionCommandListener<WishTransaction> {
     }
 
     /**
+     * Creates a WishTransaction using a {@code ReadOnlyWishBook}.
+     *
+     * @param readOnlyWishBook referenced data-containing {@code ReadOnlyWishBook}.
+     */
+    public WishTransaction(ReadOnlyWishBook readOnlyWishBook) {
+        this();
+        extractData(readOnlyWishBook);
+    }
+
+    /**
      * Constructor to be called when converting XmlWishTransactions object to a WishTransaction object.
      */
     public WishTransaction(HashMap<String, List<Wish>> wishMap) {
