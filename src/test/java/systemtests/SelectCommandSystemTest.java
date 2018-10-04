@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.SelectCommand.MESSAGE_SELECT_TASK_SUC
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TASK;
-import static seedu.address.testutil.TypicalTasks.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalTasks.KEYWORD_MATCHING_TUTORIAL;
 
 import org.junit.Test;
 
@@ -57,7 +57,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         /* Case: filtered person list, select index within bounds of task manager but out of bounds of person list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showPersonsWithName(KEYWORD_MATCHING_TUTORIAL);
         int invalidIndex = getModel().getTaskManager().getTaskList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 

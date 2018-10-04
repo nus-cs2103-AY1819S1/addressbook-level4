@@ -24,6 +24,7 @@ import seedu.address.model.person.Description;
 import seedu.address.model.person.DueDate;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.PriorityValue;
+import seedu.address.model.person.Status;
 import seedu.address.model.person.Task;
 import seedu.address.model.tag.Label;
 
@@ -43,7 +44,7 @@ public class EditCommand extends Command {
         + "[" + PREFIX_DUE_DATE + "DUE_DATE] "
         + "[" + PREFIX_PRIORITY_VALUE + "PRIORITY_VALUE] "
         + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
-        + "[" + PREFIX_LABEL + "TAG]...\n"
+        + "[" + PREFIX_LABEL + "LABEL]...\n"
         + "Example: " + COMMAND_WORD + " 1 "
         + PREFIX_DUE_DATE + "91234567 "
         + PREFIX_PRIORITY_VALUE + "johndoe@example.com";
@@ -65,6 +66,16 @@ public class EditCommand extends Command {
 
         this.index = index;
         this.editTaskDescriptor = new EditTaskDescriptor(editTaskDescriptor);
+    }
+
+    /**
+     * The method to call for other commands to update task status through EditCommand.
+     */
+    public static CommandResult executeEditStatus (Index index, Status status, Model model, CommandHistory history)
+            throws CommandException {
+        EditCommand.EditTaskDescriptor editTaskDescriptor = new EditCommand.EditTaskDescriptor();
+        editTaskDescriptor.setStatus(status);
+        return (new EditCommand(index, editTaskDescriptor)).execute(model, history);
     }
 
     @Override
@@ -103,8 +114,10 @@ public class EditCommand extends Command {
             .getPriorityValue());
         Description updatedDescription = editTaskDescriptor.getDescription().orElse(taskToEdit.getDescription());
         Set<Label> updatedLabels = editTaskDescriptor.getLabels().orElse(taskToEdit.getLabels());
+        Status updatedStatus = editTaskDescriptor.getStatus().orElse(taskToEdit.getStatus());
 
-        return new Task(updatedName, updatedDueDate, updatedPriorityValue, updatedDescription, updatedLabels);
+        return new Task(updatedName, updatedDueDate, updatedPriorityValue, updatedDescription, updatedLabels,
+                updatedStatus);
     }
 
     @Override
@@ -135,6 +148,7 @@ public class EditCommand extends Command {
         private PriorityValue priorityValue;
         private Description description;
         private Set<Label> labels;
+        private Status status;
 
         public EditTaskDescriptor() {}
 
@@ -148,13 +162,14 @@ public class EditCommand extends Command {
             setPriorityValue(toCopy.priorityValue);
             setDescription(toCopy.description);
             setLabels(toCopy.labels);
+            setStatus(toCopy.status);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, dueDate, priorityValue, description, labels);
+            return CollectionUtil.isAnyNonNull(name, dueDate, priorityValue, description, labels, status);
         }
 
         public void setName(Name name) {
@@ -198,12 +213,20 @@ public class EditCommand extends Command {
         }
 
         /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * Returns an unmodifiable label set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code labels} is null.
          */
         public Optional<Set<Label>> getLabels() {
             return (labels != null) ? Optional.of(Collections.unmodifiableSet(labels)) : Optional.empty();
+        }
+
+        public void setStatus(Status status) {
+            this.status = status;
+        }
+
+        public Optional<Status> getStatus() {
+            return Optional.ofNullable(status);
         }
 
         @Override
@@ -225,7 +248,8 @@ public class EditCommand extends Command {
                     && getDueDate().equals(e.getDueDate())
                     && getPriorityValue().equals(e.getPriorityValue())
                     && getDescription().equals(e.getDescription())
-                    && getLabels().equals(e.getLabels());
+                    && getLabels().equals(e.getLabels())
+                    && getStatus().equals(e.getStatus());
         }
     }
 }

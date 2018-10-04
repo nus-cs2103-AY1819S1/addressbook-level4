@@ -25,7 +25,7 @@ public class AddCommand extends Command {
             + PREFIX_DUE_DATE + "PHONE "
             + PREFIX_PRIORITY_VALUE + "EMAIL "
             + PREFIX_DESCRIPTION + "ADDRESS "
-            + "[" + PREFIX_LABEL + "TAG]...\n"
+            + "[" + PREFIX_LABEL + "LABEL]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_DUE_DATE + "02-12-18 1330 "

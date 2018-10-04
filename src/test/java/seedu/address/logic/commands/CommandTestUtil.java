@@ -18,6 +18,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.TaskManager;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.Status;
 import seedu.address.model.person.Task;
 import seedu.address.testutil.EditTaskDescriptorBuilder;
 
@@ -30,30 +31,31 @@ public class CommandTestUtil {
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_DUEDATE_AMY = "12-11-18";
     public static final String VALID_DUEDATE_BOB = "02-11-18";
-    public static final String VALID_EMAIL_AMY = "amy@example.com";
-    public static final String VALID_EMAIL_BOB = "bob@example.com";
+    public static final String VALID_PRIORITY_VALUE_AMY = "1";
+    public static final String VALID_PRIORITY_VALUE_BOB = "2";
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_LABEL_HUSBAND = "husband";
+    public static final String VALID_LABEL_FRIEND = "friend";
+    public static final Status VALID_STATUS_IN_PROGRESS = Status.IN_PROGRESS;
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_DUE_DATE + VALID_DUEDATE_AMY;
     public static final String PHONE_DESC_BOB = " " + PREFIX_DUE_DATE + VALID_DUEDATE_BOB;
-    public static final String EMAIL_DESC_AMY = " " + PREFIX_PRIORITY_VALUE + VALID_EMAIL_AMY;
-    public static final String EMAIL_DESC_BOB = " " + PREFIX_PRIORITY_VALUE + VALID_EMAIL_BOB;
+    public static final String PRIORITY_VALUE_DESC_AMY = " " + PREFIX_PRIORITY_VALUE + VALID_PRIORITY_VALUE_AMY;
+    public static final String PRIORITY_VALUE_DESC_BOB = " " + PREFIX_PRIORITY_VALUE + VALID_PRIORITY_VALUE_BOB;
     public static final String ADDRESS_DESC_AMY = " " + PREFIX_DESCRIPTION + VALID_ADDRESS_AMY;
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_DESCRIPTION + VALID_ADDRESS_BOB;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_LABEL + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_LABEL + VALID_TAG_HUSBAND;
+    public static final String LABEL_DESC_FRIEND = " " + PREFIX_LABEL + VALID_LABEL_FRIEND;
+    public static final String LABEL_DESC_HUSBAND = " " + PREFIX_LABEL + VALID_LABEL_HUSBAND;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_DUE_DATE + "911a"; // 'a' not allowed in phones
-    public static final String INVALID_EMAIL_DESC = " " + PREFIX_PRIORITY_VALUE + "bob!yahoo"; // missing '@' symbol
+    public static final String INVALID_PRIORITY_VALUE_DESC = " " + PREFIX_PRIORITY_VALUE + "0"; // only positive ints
     // empty string not allowed for addresses
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_DESCRIPTION;
-    public static final String INVALID_TAG_DESC = " " + PREFIX_LABEL + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_LABEL_DESC = " " + PREFIX_LABEL + "hubby*"; // '*' not allowed in labels
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -63,11 +65,15 @@ public class CommandTestUtil {
 
     static {
         DESC_AMY = new EditTaskDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withDueDate(VALID_DUEDATE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
+                .withDueDate(VALID_DUEDATE_AMY)
+                .withPriorityValue(VALID_PRIORITY_VALUE_AMY)
+                .withAddress(VALID_ADDRESS_AMY)
+                .withLabels(VALID_LABEL_FRIEND).build();
         DESC_BOB = new EditTaskDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withDueDate(VALID_DUEDATE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withDueDate(VALID_DUEDATE_BOB)
+                .withPriorityValue(VALID_PRIORITY_VALUE_BOB)
+                .withAddress(VALID_ADDRESS_BOB)
+                .withLabels(VALID_LABEL_HUSBAND, VALID_LABEL_FRIEND).build();
     }
 
     /**

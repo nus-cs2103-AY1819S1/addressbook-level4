@@ -52,11 +52,11 @@ public class TaskUtil {
         descriptor.getDescription().ifPresent(address -> sb.append(PREFIX_DESCRIPTION)
             .append(address.value).append(" "));
         if (descriptor.getLabels().isPresent()) {
-            Set<Label> tags = descriptor.getLabels().get();
-            if (tags.isEmpty()) {
+            Set<Label> labels = descriptor.getLabels().get();
+            if (labels.isEmpty()) {
                 sb.append(PREFIX_LABEL);
             } else {
-                tags.forEach(s -> sb.append(PREFIX_LABEL).append(s.labelName).append(" "));
+                labels.forEach(s -> sb.append(PREFIX_LABEL).append(s.labelName).append(" "));
             }
         }
         return sb.toString();

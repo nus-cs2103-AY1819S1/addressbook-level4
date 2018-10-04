@@ -91,35 +91,35 @@ public class ParserUtil {
         requireNonNull(email);
         String trimmedEmail = email.trim();
         if (!PriorityValue.isValidPriorityValue(trimmedEmail)) {
-            throw new ParseException(PriorityValue.MESSAGE_PRIORITYVALUE_CONSTRAINTS);
+            throw new ParseException(PriorityValue.MESSAGE_PRIORITY_VALUE_CONSTRAINTS);
         }
         return new PriorityValue(trimmedEmail);
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Label}.
+     * Parses a {@code String label} into a {@code Label}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code tag} is invalid.
+     * @throws ParseException if the given {@code label} is invalid.
      */
-    public static Label parseTag(String tag) throws ParseException {
-        requireNonNull(tag);
-        String trimmedTag = tag.trim();
-        if (!Label.isValidLabelName(trimmedTag)) {
+    public static Label parseLabel(String label) throws ParseException {
+        requireNonNull(label);
+        String trimmedLabel = label.trim();
+        if (!Label.isValidLabelName(trimmedLabel)) {
             throw new ParseException(Label.MESSAGE_LABEL_CONSTRAINTS);
         }
-        return new Label(trimmedTag);
+        return new Label(trimmedLabel);
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Label>}.
+     * Parses {@code Collection<String> labels} into a {@code Set<Label>}.
      */
-    public static Set<Label> parseTags(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
-        final Set<Label> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
+    public static Set<Label> parseLabels(Collection<String> labels) throws ParseException {
+        requireNonNull(labels);
+        final Set<Label> labelSet = new HashSet<>();
+        for (String labelName : labels) {
+            labelSet.add(parseLabel(labelName));
         }
-        return tagSet;
+        return labelSet;
     }
 }

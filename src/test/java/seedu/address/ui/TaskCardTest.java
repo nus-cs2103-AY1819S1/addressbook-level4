@@ -16,17 +16,17 @@ public class TaskCardTest extends GuiUnitTest {
 
     @Test
     public void display() {
-        // no tags
-        Task taskWithNoTags = new TaskBuilder().withLabels(new String[0]).build();
-        TaskCard taskCard = new TaskCard(taskWithNoTags, 1);
+        // no labels
+        Task taskWithNoLabels = new TaskBuilder().withLabels(new String[0]).build();
+        TaskCard taskCard = new TaskCard(taskWithNoLabels, 1);
         uiPartRule.setUiPart(taskCard);
-        assertCardDisplay(taskCard, taskWithNoTags, 1);
+        assertCardDisplay(taskCard, taskWithNoLabels, 1);
 
-        // with tags
-        Task taskWithTags = new TaskBuilder().build();
-        taskCard = new TaskCard(taskWithTags, 2);
+        // with labels
+        Task taskWithLabels = new TaskBuilder().build();
+        taskCard = new TaskCard(taskWithLabels, 2);
         uiPartRule.setUiPart(taskCard);
-        assertCardDisplay(taskCard, taskWithTags, 2);
+        assertCardDisplay(taskCard, taskWithLabels, 2);
     }
 
     @Test

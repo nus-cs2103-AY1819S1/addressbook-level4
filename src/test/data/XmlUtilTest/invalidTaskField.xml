@@ -3,7 +3,8 @@
 <task>
     <name>Hans Muster</name>
     <dueDate>9482asf424</dueDate>
-    <priorityValue>hans@example</priorityValue>
+    <priorityValue>8</priorityValue>
     <description>4th street</description>
     <labelled>friends</labelled>
+    <status>IN PROGRESS</status>
 </task>
