@@ -156,6 +156,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public boolean hasEvent(Event event) {
+        requireNonNull(event);
+        return versionedScheduler.hasEvent(event);
+    }
+
+    @Override
     public void addEvent(Event event) {
         versionedScheduler.addEvent(event);
         indicateSchedulerChanged();
