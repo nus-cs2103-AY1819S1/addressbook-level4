@@ -76,7 +76,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: add a person with all fields same as another person in the task manager except name -> added */
         toAdd = new TaskBuilder(Y_TASK).withName(VALID_NAME_BOB).build();
-        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + PRIORITY_VALUE_DESC_AMY + DESCRIPTION_DESC_AMY
+        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY
+                + PRIORITY_VALUE_DESC_AMY + DESCRIPTION_DESC_AMY
                 + LABEL_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
