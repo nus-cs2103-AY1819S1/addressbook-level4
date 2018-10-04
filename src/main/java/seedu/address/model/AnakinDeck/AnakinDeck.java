@@ -11,18 +11,18 @@ import java.util.Objects;
 public class AnakinDeck {
 
     private final Name name;
-    private final List<AnakinCard> cards;
+    private final AnakinUniqueCardList cards;
 
     public AnakinDeck(Name name) {
         this.name = name;
-        cards = new ArrayList<>();
+        cards = new AnakinUniqueCardList();
     }
 
     public Name getName() {
         return name;
     }
 
-    public List<AnakinCard> getCards() {
+    public AnakinUniqueCardList getCards() {
         return cards;
     }
 

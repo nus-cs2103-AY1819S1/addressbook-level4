@@ -35,15 +35,14 @@ public class AnakinCard {
     }
 
     /**
-     * Returns true if 2 cards are the same, or have same identity fields.
+     * Returns true if 2 cards are the same, or have same question.
      */
     public boolean isSameCard(AnakinCard otherCard) {
         if (otherCard == this) {
             return true;
         }
 
-        return otherCard.getQuestion().equals(getQuestion())
-                && otherCard.getAnswer().equals(getAnswer());
+        return otherCard.getQuestion().equals(getQuestion());
     }
 
     @Override
@@ -57,7 +56,7 @@ public class AnakinCard {
 
     @Override
     public int hashCode() {
-        return Objects.hash(question, answer);
+        return Objects.hash(question);
     }
 
     @Override

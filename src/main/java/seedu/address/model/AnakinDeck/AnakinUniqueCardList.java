@@ -8,6 +8,9 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.AnakinDeck.AnakinExceptions.CardNotFoundException;
+import seedu.address.model.AnakinDeck.AnakinExceptions.DuplicateCardException;
+import seedu.address.model.AnakinDeck.AnakinExceptions.DuplicateDeckException;
 
 /**
  * A list of cards that enforces uniqueness between its elements and does not allow nulls.
@@ -33,8 +36,7 @@ public class AnakinUniqueCardList implements Iterable<AnakinCard> {
     public void add(AnakinCard toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            // TODO: throw exception
-            //throw new DuplicatePersonException();
+            throw new DuplicateCardException();
         }
         internalList.add(toAdd);
     }
@@ -49,13 +51,11 @@ public class AnakinUniqueCardList implements Iterable<AnakinCard> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            //TODO
-            //throw new PersonNotFoundException();
+            throw new CardNotFoundException();
         }
 
         if (!target.isSameCard(editedCard) && contains(editedCard)) {
-            // TODO
-            //throw new DuplicatePersonException();
+            throw new DuplicateCardException();
         }
 
         internalList.set(index, editedCard);
@@ -68,8 +68,7 @@ public class AnakinUniqueCardList implements Iterable<AnakinCard> {
     public void remove(AnakinCard toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            // TODO
-            //throw new PersonNotFoundException();
+            throw new CardNotFoundException();
         }
     }
 
@@ -85,8 +84,7 @@ public class AnakinUniqueCardList implements Iterable<AnakinCard> {
     public void setCards(List<AnakinCard> cards) {
         requireAllNonNull(cards);
         if (!cardsAreUnique(cards)) {
-            // TODO
-            //throw new DuplicatePersonException();
+            throw new DuplicateCardException();
         }
 
         internalList.setAll(cards);

@@ -8,6 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.AnakinDeck.AnakinExceptions.DeckNotFoundException;
+import seedu.address.model.AnakinDeck.AnakinExceptions.DuplicateDeckException;
 
 /**
  * A list of decks that enforces uniqueness between its elements and does not allow nulls.
@@ -33,8 +35,7 @@ public class AnakinUniqueDeckList implements Iterable<AnakinDeck> {
     public void add(AnakinDeck toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            // TODO: throw exception
-            //throw new DuplicatePersonException();
+            throw new DuplicateDeckException();
         }
         internalList.add(toAdd);
     }
@@ -49,13 +50,11 @@ public class AnakinUniqueDeckList implements Iterable<AnakinDeck> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            //TODO
-            //throw new PersonNotFoundException();
+            throw new DeckNotFoundException();
         }
 
         if (!target.isSameDeck(editedDeck) && contains(editedDeck)) {
-            // TODO
-            //throw new DuplicatePersonException();
+            throw new DuplicateDeckException();
         }
 
         internalList.set(index, editedDeck);
@@ -68,8 +67,7 @@ public class AnakinUniqueDeckList implements Iterable<AnakinDeck> {
     public void remove(AnakinDeck toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            // TODO
-            //throw new PersonNotFoundException();
+            throw new DeckNotFoundException();
         }
     }
 
@@ -85,8 +83,7 @@ public class AnakinUniqueDeckList implements Iterable<AnakinDeck> {
     public void setDecks(List<AnakinDeck> decks) {
         requireAllNonNull(decks);
         if (!decksAreUnique(decks)) {
-            // TODO
-            //throw new DuplicatePersonException();
+            throw new DuplicateDeckException();
         }
 
         internalList.setAll(decks);
