@@ -12,16 +12,21 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 
+
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the address book data. #TO DO: Refactor methods: hasPerson -->
+ * hasElements () {calls has method in Person / Group/ etc} and Group/Person
  */
 public class ModelManager extends ComponentManager implements Model {
+
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Group> filteredGroups;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -30,14 +35,46 @@ public class ModelManager extends ComponentManager implements Model {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine(
+            "Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredGroups = new FilteredList<>(versionedAddressBook.getGroupList());
     }
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
+    }
+
+    // timetable operations
+
+
+    //group operations
+    @Override
+    public void deleteGroup(Group target) {
+        versionedAddressBook.removeGroup(target);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void addGroup(Group group) {
+        versionedAddressBook.addGroup(group);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public boolean hasGroup(Group group) {
+        requireNonNull(group);
+        return versionedAddressBook.hasGroup(group);
+    }
+
+    @Override
+    public void updateGroup(Group target, Group editedGroup) {
+        requireAllNonNull(target, editedGroup);
+
+        versionedAddressBook.updateGroup(target, editedGroup);
+        indicateAddressBookChanged();
     }
 
     @Override
@@ -51,7 +88,9 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedAddressBook;
     }
 
-    /** Raises an event to indicate the model has changed */
+    /**
+     * Raises an event to indicate the model has changed
+     */
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(versionedAddressBook));
     }
@@ -83,11 +122,11 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Person/Group List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the list of {@code Person} and {@code Group} backed by the
+     * internal list of {@code versionedAddressBook}
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
@@ -98,6 +137,17 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<Group> getFilteredGroupList() {
+        return FXCollections.unmodifiableObservableList(filteredGroups);
+    }
+
+    @Override
+    public void updateFilteredGroupList(Predicate<Group> predicate) {
+        requireNonNull(predicate);
+        filteredGroups.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -144,7 +194,7 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
-                && filteredPersons.equals(other.filteredPersons);
+            && filteredPersons.equals(other.filteredPersons);
     }
 
 }

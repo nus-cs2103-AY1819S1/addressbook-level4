@@ -7,13 +7,15 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.Entity;
+import seedu.address.model.person.timetable.Timetable;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Person in the address book.
- * Guarantees: details are present and not null, field values are validated, immutable.
+ * Represents a Person in the address book. Guarantees: details are present and not null, field
+ * values are validated, immutable.
  */
-public class Person {
+public class Person extends Entity {
 
     // Identity fields
     private final Name name;
@@ -22,10 +24,11 @@ public class Person {
 
     // Data fields
     private final Address address;
+    private final Timetable timetable;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
-     * Every field must be present and not null.
+     * Every field must be present and not null. creates a person with empty horizontal timetable
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
@@ -34,6 +37,20 @@ public class Person {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.timetable = new Timetable(this.name.toString(), "horizontal");
+    }
+
+    /**
+     * @param timetable takes in params and create a person object with timetable
+     */
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+        Timetable timetable) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.timetable = timetable;
     }
 
     public Name getName() {
@@ -52,31 +69,41 @@ public class Person {
         return address;
     }
 
+    public Timetable getTimetable() {
+        return timetable;
+    }
+
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException} if
+     * modification is attempted.
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both persons of the same name have at least one other identity field that is
+     * the same. This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
+    @Override
+    public boolean isSame(Object other) {
+        if (other == this) {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+        if (!(other instanceof Person)) {
+            return false;
+        }
+
+        Person otherPerson = (Person) other;
+        return otherPerson.getName().equals(getName())
+            && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail()
+            .equals(getEmail()));
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both persons have the same identity and data fields. This defines a stronger
+     * notion of equality between two persons.
      */
     @Override
     public boolean equals(Object other) {
@@ -90,10 +117,10 @@ public class Person {
 
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+            && otherPerson.getPhone().equals(getPhone())
+            && otherPerson.getEmail().equals(getEmail())
+            && otherPerson.getAddress().equals(getAddress())
+            && otherPerson.getTags().equals(getTags());
     }
 
     @Override
@@ -106,13 +133,13 @@ public class Person {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
-                .append(" Tags: ");
+            .append(" Phone: ")
+            .append(getPhone())
+            .append(" Email: ")
+            .append(getEmail())
+            .append(" Address: ")
+            .append(getAddress())
+            .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
