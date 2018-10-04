@@ -1,185 +1,55 @@
 package seedu.address.model.util;
 
-package seedu.address.model.person;
-
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalTasks.A_TASK;
-import static seedu.address.testutil.TypicalTasks.Z_TASK;
+import static seedu.address.model.util.DateFormatUtil.isValidDateFormat;
+import static seedu.address.model.util.DateFormatUtil.parseDate;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.Date;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
-import seedu.address.model.person.exceptions.DuplicateTaskException;
-import seedu.address.model.person.exceptions.TaskNotFoundException;
-import seedu.address.testutil.TaskBuilder;
 
 public class DateFormatUtilTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void contains_nullTask_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        uniqueTaskList.contains(null);
+    public void parseDate_returnsNull() {
+        assertEquals(parseDate(null), null);
     }
 
     @Test
-    public void contains_taskNotInList_returnsFalse() {
-        assertFalse(uniqueTaskList.contains(A_TASK));
+    public void parseDate_invalidDateFormat() {
+        assertEquals(parseDate("12.12.18"), null);
     }
 
     @Test
-    public void contains_taskInList_returnsTrue() {
-        uniqueTaskList.add(A_TASK);
-        assertTrue(uniqueTaskList.contains(A_TASK));
+    public void parseDate_validDate() {
+        //Comparing parsed date against intended date in unix timestamp
+        assertEquals(parseDate("12-12-2018"), new Date(1544544000000L) );
     }
 
     @Test
-    public void contains_taskWithSameIdentityFieldsInList_returnsTrue() {
-        uniqueTaskList.add(A_TASK);
-        Task editedAlice = new TaskBuilder(A_TASK).withDescription(VALID_ADDRESS_BOB).withLabels(VALID_TAG_HUSBAND)
-                .build();
-        assertTrue(uniqueTaskList.contains(editedAlice));
+    public void isValidDateFormat_validMinimalFormat(){
+        assertTrue(isValidDateFormat("12-12-18"));
     }
 
     @Test
-    public void add_nullTask_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        uniqueTaskList.add(null);
+    public void isValidDateFormat_validStandardFormat(){
+        assertTrue(isValidDateFormat("12-12-18 1200"));
     }
 
     @Test
-    public void add_duplicateTask_throwsDuplicatePersonException() {
-        uniqueTaskList.add(A_TASK);
-        thrown.expect(DuplicateTaskException.class);
-        uniqueTaskList.add(A_TASK);
+    public void isValidDateFormat_validDateFormat_minimalFormat(){
+        assertTrue(isValidDateFormat("12-12-18"));
+        assertTrue(isValidDateFormat("13-12-2018"));
     }
 
     @Test
-    public void setPerson_nullTargetTask_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        uniqueTaskList.setTask(null, A_TASK);
-    }
-
-    @Test
-    public void setTask_nullEditedTask_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        uniqueTaskList.setTask(A_TASK, null);
-    }
-
-    @Test
-    public void setTask_targetTaskNotInList_throwsTaskNotFoundException() {
-        thrown.expect(TaskNotFoundException.class);
-        uniqueTaskList.setTask(A_TASK, A_TASK);
-    }
-
-    @Test
-    public void setTask_editedTaskIsSameTask_success() {
-        uniqueTaskList.add(A_TASK);
-        uniqueTaskList.setTask(A_TASK, A_TASK);
-        UniqueTaskList expectedUniqueTaskList = new UniqueTaskList();
-        expectedUniqueTaskList.add(A_TASK);
-        assertEquals(expectedUniqueTaskList, uniqueTaskList);
-    }
-
-    @Test
-    public void setTask_editedTaskHasSameIdentity_success() {
-        uniqueTaskList.add(A_TASK);
-        Task editedAlice = new TaskBuilder(A_TASK).withDescription(VALID_ADDRESS_BOB).withLabels(VALID_TAG_HUSBAND)
-                .build();
-        uniqueTaskList.setTask(A_TASK, editedAlice);
-        UniqueTaskList expectedUniqueTaskList = new UniqueTaskList();
-        expectedUniqueTaskList.add(editedAlice);
-        assertEquals(expectedUniqueTaskList, uniqueTaskList);
-    }
-
-    @Test
-    public void setTask_editedTaskHasDifferentIdentity_success() {
-        uniqueTaskList.add(A_TASK);
-        uniqueTaskList.setTask(A_TASK, Z_TASK);
-        UniqueTaskList expectedUniquePersonList = new UniqueTaskList();
-        expectedUniquePersonList.add(Z_TASK);
-        assertEquals(expectedUniquePersonList, uniqueTaskList);
-    }
-
-    @Test
-    public void setTask_editedTaskHasNonUniqueIdentity_throwsDuplicateTaskException() {
-        uniqueTaskList.add(A_TASK);
-        uniqueTaskList.add(Z_TASK);
-        thrown.expect(DuplicateTaskException.class);
-        uniqueTaskList.setTask(A_TASK, Z_TASK);
-    }
-
-    @Test
-    public void remove_nullTask_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        uniqueTaskList.remove(null);
-    }
-
-    @Test
-    public void remove_taskDoesNotExist_throwsTaskNotFoundException() {
-        thrown.expect(TaskNotFoundException.class);
-        uniqueTaskList.remove(A_TASK);
-    }
-
-    @Test
-    public void remove_existingTask_removesTask() {
-        uniqueTaskList.add(A_TASK);
-        uniqueTaskList.remove(A_TASK);
-        UniqueTaskList expectedUniqueTaskList = new UniqueTaskList();
-        assertEquals(expectedUniqueTaskList, uniqueTaskList);
-    }
-
-    @Test
-    public void setTasks_nullUniqueTaskList_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        uniqueTaskList.setTasks((UniqueTaskList) null);
-    }
-
-    @Test
-    public void setTasks_uniqueTaskList_replacesOwnListWithProvidedUniqueTaskList() {
-        uniqueTaskList.add(A_TASK);
-        UniqueTaskList expectedUniqueTaskList = new UniqueTaskList();
-        expectedUniqueTaskList.add(Z_TASK);
-        uniqueTaskList.setTasks(expectedUniqueTaskList);
-        assertEquals(expectedUniqueTaskList, uniqueTaskList);
-    }
-
-    @Test
-    public void setTasks_nullList_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        uniqueTaskList.setTasks((List<Task>) null);
-    }
-
-    @Test
-    public void setTasks_list_replacesOwnListWithProvidedList() {
-        uniqueTaskList.add(A_TASK);
-        List<Task> personList = Collections.singletonList(Z_TASK);
-        uniqueTaskList.setTasks(personList);
-        UniqueTaskList expectedUniquePersonList = new UniqueTaskList();
-        expectedUniquePersonList.add(Z_TASK);
-        assertEquals(expectedUniquePersonList, uniqueTaskList);
-    }
-
-    @Test
-    public void setTasks_listWithDuplicateTasks_throwsDuplicateTaskException() {
-        List<Task> listWithDuplicateTasks = Arrays.asList(A_TASK, A_TASK);
-        thrown.expect(DuplicateTaskException.class);
-        uniqueTaskList.setTasks(listWithDuplicateTasks);
-    }
-
-    @Test
-    public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
-        thrown.expect(UnsupportedOperationException.class);
-        uniqueTaskList.asUnmodifiableObservableList().remove(0);
+    public void isValidDateFormat_validDateFormat_standardFormat(){
+        assertTrue(isValidDateFormat("12-12-18 1200"));
+        assertTrue(isValidDateFormat("13-12-2018 1200"));
     }
 }
