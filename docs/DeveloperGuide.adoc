@@ -221,7 +221,7 @@ Use case ends.
 - Should be able to hold up to 1000 tasks without a noticable decline in performance.
 - Should not take more than 3 seconds to complete a command.
 - System should be maintainable with proper documentation.
-- Proper feedback to user when error occurs. // @jelena: Usability
+- Proper feedback to user when error occurs.
 
 ## Glossary
 
