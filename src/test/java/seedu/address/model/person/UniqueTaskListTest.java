@@ -106,9 +106,9 @@ public class UniqueTaskListTest {
     public void setTask_editedTaskHasDifferentIdentity_success() {
         uniqueTaskList.add(A_TASK);
         uniqueTaskList.setTask(A_TASK, Z_TASK);
-        UniqueTaskList expectedUniquePersonList = new UniqueTaskList();
-        expectedUniquePersonList.add(Z_TASK);
-        assertEquals(expectedUniquePersonList, uniqueTaskList);
+        UniqueTaskList expectedUniqueTaskList = new UniqueTaskList();
+        expectedUniqueTaskList.add(Z_TASK);
+        assertEquals(expectedUniqueTaskList, uniqueTaskList);
     }
 
     @Test
@@ -165,9 +165,9 @@ public class UniqueTaskListTest {
         uniqueTaskList.add(A_TASK);
         List<Task> personList = Collections.singletonList(Z_TASK);
         uniqueTaskList.setTasks(personList);
-        UniqueTaskList expectedUniquePersonList = new UniqueTaskList();
-        expectedUniquePersonList.add(Z_TASK);
-        assertEquals(expectedUniquePersonList, uniqueTaskList);
+        UniqueTaskList expectedUniqueTaskList = new UniqueTaskList();
+        expectedUniqueTaskList.add(Z_TASK);
+        assertEquals(expectedUniqueTaskList, uniqueTaskList);
     }
 
     @Test
