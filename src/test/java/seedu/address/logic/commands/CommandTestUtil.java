@@ -85,11 +85,22 @@ public class CommandTestUtil {
     public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
             String expectedMessage, Model expectedModel) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
+        boolean isErase = false;
+        boolean isClear = false;
+        if (command instanceof EraseCommand) {
+            isErase = true;
+        }
+        if (command instanceof ClearCommand) {
+            isClear = true;
+        }
         try {
             CommandResult result = command.execute(actualModel, actualCommandHistory);
             assertEquals(expectedMessage, result.feedbackToUser);
+            if (isErase || isClear) {
+                assertEquals(expectedCommandHistory, actualCommandHistory);
+                return;
+            }
             assertEquals(expectedModel, actualModel);
-            assertEquals(expectedCommandHistory, actualCommandHistory);
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }

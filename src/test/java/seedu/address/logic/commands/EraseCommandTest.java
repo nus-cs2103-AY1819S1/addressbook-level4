@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.EraseCommand.MESSAGE_ERASE_SUCCESS;
 import static seedu.address.logic.commands.EraseCommand.MESSAGE_NOTHING_ERASED;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -14,6 +13,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.model.BudgetBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -29,25 +29,27 @@ class EraseCommandTest {
 
     @Test
     void execute_eraseTag_success() {
-        Person p = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         List<String> target = new ArrayList<>();
-        ContactContainsTagPredicate predicate = new ContactContainsTagPredicate(target);
-        EraseCommand eraseCommand = new EraseCommand(target, predicate);
-
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), model.getBudgetBook(), new UserPrefs());
         List<Person> original = new ArrayList<>();
-        original.add(p);
         Set<Tag> editedTags = new HashSet<>();
-        Object[] tags = p.getTags().toArray();
+        List<Person> erased = new ArrayList<>();
+
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new BudgetBook(), new UserPrefs());
+        Person originalPerson = expectedModel.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        original.add(originalPerson);
+        Object[] tags = originalPerson.getTags().toArray();
         target.add(tags[0].toString());
         for (int i = 1; i < tags.length; i++) {
             editedTags.add((Tag) tags[i]);
         }
-        List<Person> persons = new ArrayList<>();
-        Person temp = new Person(p.getName(), p.getPhone(), p.getEmail(), p.getRoom(), p.getSchool(), editedTags);
-        persons.add(temp);
-        expectedModel.removeTagsFromPersons(persons, original);
+        Person newPerson = new Person(originalPerson.getName(), originalPerson.getPhone(), originalPerson.getEmail(),
+                originalPerson.getRoom(), originalPerson.getSchool(), editedTags);
+        erased.add(newPerson);
+        expectedModel.removeTagsFromPersons(erased, original);
         expectedModel.commitAddressBook();
+
+        ContactContainsTagPredicate predicate = new ContactContainsTagPredicate(target);
+        EraseCommand eraseCommand = new EraseCommand(target, predicate);
 
         assertCommandSuccess(eraseCommand, model, commandHistory,
                 String.format(MESSAGE_NOTHING_ERASED, '[' + target.get(0) + ']'), expectedModel);
