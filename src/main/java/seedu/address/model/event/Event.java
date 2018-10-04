@@ -79,6 +79,20 @@ public class Event {
     }
 
     /**
+     * Returns true if the date has been set.
+     */
+    public boolean isDateSet() {
+        return (date != null);
+    }
+
+    /**
+     * Returns true if the start and end times are set.
+     */
+    public boolean isTimeSet() {
+        return (startTime != null && endTime != null);
+    }
+
+    /**
      * Returns the date as a string.
      */
     public String getDateString() {
@@ -258,5 +272,4 @@ public class Event {
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
 }
