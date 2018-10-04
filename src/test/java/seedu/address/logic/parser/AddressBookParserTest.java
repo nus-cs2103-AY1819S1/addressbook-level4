@@ -14,7 +14,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddmhCommand;
+import seedu.address.logic.commands.AddmedsCommand;
+import seedu.address.logic.commands.CheckinCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -28,11 +30,17 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.medicine.Prescription;
+import seedu.address.model.medicalhistory.Diagnosis;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.DiagnosisBuilder;
+import seedu.address.testutil.DiagnosisUtil;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.PrescriptionBuilder;
+import seedu.address.testutil.PrescriptionUtil;
 
 public class AddressBookParserTest {
     @Rule
@@ -41,10 +49,19 @@ public class AddressBookParserTest {
     private final AddressBookParser parser = new AddressBookParser();
 
     @Test
-    public void parseCommand_add() throws Exception {
+    public void parseCommand_addmeds() throws Exception {
         Person person = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
-        assertEquals(new AddCommand(person), command);
+        Prescription prescription = new PrescriptionBuilder().build();
+        AddmedsCommand command = (AddmedsCommand) parser.parseCommand(
+                PrescriptionUtil.getAddmedsCommand(person.getNric(), prescription));
+        assertEquals(new AddmedsCommand(person.getNric(), prescription), command);
+    }
+
+    @Test
+    public void parseCommand_checkin() throws Exception {
+        Person person = new PersonBuilder().build();
+        CheckinCommand command = (CheckinCommand) parser.parseCommand(PersonUtil.getCheckinCommand(person));
+        assertEquals(new CheckinCommand(person), command);
     }
 
     @Test
@@ -67,6 +84,22 @@ public class AddressBookParserTest {
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
+    }
+
+    @Test
+    public void parseCommand_addmh() throws Exception {
+        Person person = new PersonBuilder().build();
+        Diagnosis diagnosis = new DiagnosisBuilder().build();
+        AddmhCommand command = (AddmhCommand) parser.parseCommand(
+                DiagnosisUtil.getAddmhCommand(person.getNric(), diagnosis));
+        assertEquals(new AddmhCommand(person.getNric(), diagnosis), command);
+        // test that typing addmh returns an instance of addmhCommand
+    }
+
+    @Test
+    public void parseCommand_viewmh() throws Exception {
+        //TODO after settling parser
+        // test that typing viewmh returns an instance of viewmhCommand
     }
 
     @Test

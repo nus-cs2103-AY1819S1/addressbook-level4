@@ -105,28 +105,29 @@ View a patient’s medical history.
 ****
 WARNING: You must have the appropriate permissions to invoke this command.
 ****
-Format: `viewmh NRIC`​
+Format: `viewmh ic/NRIC`​
 
 Examples:
 
-* `viewmh S1234567A`
+* `viewmh ic/S1234567A`
 
 === Add to patient’s medical history: `addmh`
-Add to a patient’s medical history.
+Add a diagnosis entry to a patient’s medical history.
 
 ****
 WARNING: You must have the appropriate permissions to invoke this command.
 ****
 
-Format: `addmh NRIC`​
+Format: `addmh ic/NRIC mh/diagnosis​`
 ****
-* This will prompt the user for more input, to which the user will write an entry. Pressing ‘Enter’ again will submit the entry.
+* This will prompt the user for more input, to which the user will write an entry.
+* Pressing ‘Enter’ again will submit the entry.
 ****
 
 Examples:
 
-* `addmh S1234567A`
-** `“Saw a patient today for flu. Prescribed 2 weeks of panadol, advised patient to rest and rehydrate.”`
+* `addmh ic/S1234567A mh/ Saw a patient today for flu. Prescribed 2 weeks of panadol, advised patient to
+rest and rehydrate.`
 
 === View patient’s dietary needs: `viewdiet`
 View a patient’s dietary needs.
@@ -158,18 +159,14 @@ Examples:
 * `adddiet S1234567A`
 ** `d/halal d/kosher d/babyfood`
 
-=== View patient’s medication: `viewmeds`
+=== View patient’s medication: UI functionality
 View a patient’s medication history.
 
 ****
-WARNING: You must have the appropriate permissions to invoke this command.
+WARNING: You must have the appropriate permissions to invoke this functionality.
 ****
 
-Format: `viewmeds NRIC`​
-
-Examples:
-
-* `viewmeds S1234567A`
+Simply click on the person's card and the panel on the right will display his prescribed medication.
 
 === Add patient medication: `addmeds`
 Add to a patient’s medication history.
@@ -178,18 +175,11 @@ Add to a patient’s medication history.
 WARNING: You must have the appropriate permissions to invoke this command.
 ****
 
-Format: `addmeds NRIC`
-****
-* This will prompt the user for more information on the medication to prescribe, to be submitted in this format:
-** `d/DRUG_NAME q/QUANTITY_PER_DOSE n/ DOSES_PER_DAY t/DURATION_IN_DAYS`
-* Entering an empty line will submit the medication.
-* Entering an empty line twice will end the medication submission.
-****
+Format: `addmeds ic/NRIC d/DRUG_NAME q/QUANTITY_PER_DOSE u/DOSAGE_UNIT n/DOSES_PER_DAY t/DURATION_IN_DAYS`
 
 Examples:
 
-* `addmeds S1234567A`
-**  `d/Paracetamol q/2 tablets n/4 t/14`
+* `addmeds ic/S1234567A d/Paracetamol q/2 u/tablets n/4 t/14`
 
 === Sign in patient’s visitors: `visitorin`
 Signs in a visitor for a patient.

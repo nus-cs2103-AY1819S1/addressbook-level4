@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.medicalhistory.MedicalHistory;
+import seedu.address.model.medicine.PrescriptionList;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -24,6 +26,8 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private final PrescriptionList prescriptionList;
+    private final MedicalHistory medicalHistory = new MedicalHistory();
 
     /**
      * Every field must be present and not null.
@@ -36,6 +40,51 @@ public class Person {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        prescriptionList = new PrescriptionList();
+    }
+
+    public Person(Nric nric, Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+            PrescriptionList prescriptionList) {
+        requireAllNonNull(nric, name, phone, email, address, tags, prescriptionList);
+        this.nric = nric;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.prescriptionList = prescriptionList;
+    }
+
+    /**
+     * Overloaded constructor to generate a person that has existing medicalhistory.
+     */
+    public Person(Nric nric, Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+                  MedicalHistory medicalHistory) {
+        requireAllNonNull(nric, name, phone, email, address, tags, medicalHistory);
+        this.nric = nric;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.medicalHistory.addAll(medicalHistory);
+        this.prescriptionList = new PrescriptionList();
+    }
+
+    /**
+     * Overloaded constructor to generate a person that has existing medicalhistory.
+     */
+    public Person(Nric nric, Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+                  MedicalHistory medicalHistory, PrescriptionList prescriptionList) {
+        requireAllNonNull(nric, name, phone, email, address, tags, medicalHistory, prescriptionList);
+        this.nric = nric;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.medicalHistory.addAll(medicalHistory);
+        this.prescriptionList = prescriptionList;
     }
 
     public Nric getNric() {
@@ -56,6 +105,14 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public PrescriptionList getPrescriptionList() {
+        return prescriptionList;
+    }
+
+    public MedicalHistory getMedicalHistory() {
+        return medicalHistory;
     }
 
     /**
@@ -102,13 +159,14 @@ public class Person {
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+                && otherPerson.getTags().equals(getTags())
+                && otherPerson.getMedicalHistory().equals(getMedicalHistory());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(nric, name, phone, email, address, tags);
+        return Objects.hash(nric, name, phone, email, address, tags, medicalHistory);
     }
 
     @Override
