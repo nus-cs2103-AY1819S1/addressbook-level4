@@ -1,8 +1,12 @@
 package seedu.address.commons.util;
 
+import static seedu.address.testutil.Assert.assertThrows;
+
 import java.text.ParseException;
 
 import org.junit.Test;
+
+
 
 
 public class TimeTableUtilTest {
@@ -28,11 +32,44 @@ public class TimeTableUtilTest {
     @Test
     public void parseShortUrl() throws ParseException {
         assert actuallonglink.equals(TimeTableUtil.parseShortUrl(shortlink));
+        assertThrows(ParseException.class, () -> {
+            TimeTableUtil.parseShortUrl("http://mo.us/4v8s"); });
+        assertThrows(ParseException.class, () -> {
+            TimeTableUtil.parseShortUrl("http://modsn.us/2322111"); });
     }
 
     @Test
     public void convertToSchedule() throws ParseException {
         assert TimeTableUtil.parseUrl(shortlink).convertToSchedule()
                .valueToString().equals(scheduleString);
+    }
+
+    @Test
+    public void parseUrl() throws ParseException {
+        // This is just a wrapper method call
+        assert TimeTableUtil.parseUrl(shortlink).convertToSchedule()
+            .valueToString().equals(scheduleString);
+    }
+
+    @Test
+    public void parseLongUrl() throws ParseException {
+        assert TimeTableUtil.parseLongUrl(actuallonglink).convertToSchedule()
+            .valueToString().equals(scheduleString);
+    }
+
+    @Test
+    public void parseModule() throws ParseException {
+        assert TimeTableUtil.parseModule("CS2103=LEC:1,TUT:01", "sem-1").size() == 2;
+    }
+
+    @Test
+    public void obtainModuleInfoFromApi() throws ParseException {
+        assert TimeTableUtil.obtainModuleInfoFromApi("CS2103", 1).size() == 6;
+        assertThrows(ParseException.class, () -> {
+            TimeTableUtil.obtainModuleInfoFromApi("123123", 1); });
+        assertThrows(ParseException.class, () -> {
+            TimeTableUtil.obtainModuleInfoFromApi("", 0); });
+        assertThrows(ParseException.class, () -> {
+            TimeTableUtil.obtainModuleInfoFromApi("", 2); });
     }
 }
