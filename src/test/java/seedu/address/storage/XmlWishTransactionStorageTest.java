@@ -2,6 +2,9 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static seedu.address.testutil.TypicalWishes.ALICE;
+import static seedu.address.testutil.TypicalWishes.HOON;
+import static seedu.address.testutil.TypicalWishes.IDA;
 import static seedu.address.testutil.TypicalWishes.getTypicalWishTransaction;
 
 import java.io.IOException;
@@ -60,20 +63,25 @@ public class XmlWishTransactionStorageTest {
         Path filePath = TEST_DATA_FOLDER.resolve("TempWishTransaction.xml");
         WishTransaction original = getTypicalWishTransaction();
 
-        //todo
-        System.out.println("original wishTransaction");
-        System.out.println(original);
-
         XmlWishTransactionStorage xmlWishTransactionStorage = new XmlWishTransactionStorage(filePath);
 
         // Save in new file and read back
         xmlWishTransactionStorage.saveWishTransaction(original, filePath);
         WishTransaction read = xmlWishTransactionStorage.readWishTransaction(filePath).get();
 
-        //todo
-        System.out.println("read wishTransaction");
-        System.out.println(read);
+        assertEquals(original, read);
 
+        //Modify data, overwrite exiting file, and read back
+        original.addWish(HOON);
+        original.removeWish(ALICE);
+        xmlWishTransactionStorage.saveWishTransaction(original, filePath);
+        read = xmlWishTransactionStorage.readWishTransaction(filePath).get();
+        assertEquals(original, read);
+
+        //Save and read without specifying file path
+        original.addWish(IDA);
+        xmlWishTransactionStorage.saveWishTransaction(original); //file path not specified
+        read = xmlWishTransactionStorage.readWishTransaction().get(); //file path not specified
         assertEquals(original, read);
     }
 }

@@ -41,10 +41,6 @@ public class XmlWishTransactions {
         for (Map.Entry<String, LinkedList<Wish>> entries : wishTransaction.getWishMap().entrySet()) {
             this.wishMap.put(entries.getKey(), new XmlAdaptedWishWrapper(toXmlWishList(entries.getValue())));
         }
-
-        //todo
-        System.out.println("Converting from wishTransaction to XmlWishTransaction");
-        System.out.println(this);
     }
 
     public Map<String, XmlAdaptedWishWrapper> getWishMap() {

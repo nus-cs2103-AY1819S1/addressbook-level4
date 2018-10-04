@@ -17,17 +17,16 @@
             </value>
         </entry>
         <entry>
-            <key>Alice Pauline</key>
+            <key>Ida Mueller</key>
             <value>
                 <xmlAdaptedWishes>
                     <xmlAdaptedWishes>
-                        <name>Alice Pauline</name>
-                        <price>94.35</price>
+                        <name>Ida Mueller</name>
+                        <price>84.82</price>
                         <savedAmount>0.00</savedAmount>
-                        <email>alice@example.com</email>
-                        <url>https://www.lazada.sg/products/ps4-092-hori-real-arcade-pron-hayabusaps4ps3pc-i223784444-s340908955.html</url>
+                        <email>hans@example.com</email>
+                        <url>https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV</url>
                         <remark></remark>
-                        <tagged>friends</tagged>
                     </xmlAdaptedWishes>
                 </xmlAdaptedWishes>
             </value>
@@ -106,6 +105,21 @@
                         <remark></remark>
                         <tagged>owesMoney</tagged>
                         <tagged>friends</tagged>
+                    </xmlAdaptedWishes>
+                </xmlAdaptedWishes>
+            </value>
+        </entry>
+        <entry>
+            <key>Hoon Meier</key>
+            <value>
+                <xmlAdaptedWishes>
+                    <xmlAdaptedWishes>
+                        <name>Hoon Meier</name>
+                        <price>84.82</price>
+                        <savedAmount>0.00</savedAmount>
+                        <email>stefan@example.com</email>
+                        <url>https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV</url>
+                        <remark></remark>
                     </xmlAdaptedWishes>
                 </xmlAdaptedWishes>
             </value>
