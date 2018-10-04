@@ -27,7 +27,7 @@ public class DisplayPollCommandTest {
         DisplayPollCommand command = new DisplayPollCommand(TypicalIndexes.INDEX_FIRST);
         EventBuilder eventBuilder = new EventBuilder();
         Event event = eventBuilder.withPoll().build();
-        commandHistory.setSelectedEvent(event);
+        model.setSelectedEvent(event);
         String expectedMessage = String.format(command.MESSAGE_SUCCESS,
                 TypicalIndexes.INDEX_FIRST.getOneBased(), event);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
@@ -45,7 +45,7 @@ public class DisplayPollCommandTest {
         DisplayPollCommand command = new DisplayPollCommand(TypicalIndexes.INDEX_FIRST);
         EventBuilder eventBuilder = new EventBuilder();
         Event event = eventBuilder.build();
-        commandHistory.setSelectedEvent(event);
+        model.setSelectedEvent(event);
         String expectedMessage = String.format(Messages.MESSAGE_NO_POLL_AT_INDEX);
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }

@@ -1,5 +1,7 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 
 /**
@@ -32,6 +34,7 @@ public class TimeTable {
      * @param lessonList
      */
     public TimeTable(ArrayList<Lesson> lessonList) {
+        requireNonNull(lessonList);
         this.lessonList = lessonList;
     }
 

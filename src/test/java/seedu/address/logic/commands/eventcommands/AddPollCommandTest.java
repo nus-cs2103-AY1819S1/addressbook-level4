@@ -2,6 +2,7 @@
 package seedu.address.logic.commands.eventcommands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
 
 import org.junit.Test;
@@ -22,28 +23,29 @@ public class AddPollCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
-    /*
+
     @Test
     public void execute_acceptedAddPoll() {
         AddPollCommand command = new AddPollCommand(POLLNAME);
         Person user = new PersonBuilder().build();
         model.setCurrentUser(user);
-        EventBuilder eventBuilder = new EventBuilder();
-        eventBuilder.withOrganiser(user);
-        Event event = eventBuilder.withPoll().build();
-        commandHistory.setSelectedEvent(event);
+        //EventBuilder eventBuilder = new EventBuilder();
+        //eventBuilder.withOrganiser(user);
+        //Event event = eventBuilder.withPoll().build();
+        Event event = model.getFilteredEventList().get(0);
+        model.setSelectedEvent(event);
         String expectedMessage = String.format(command.MESSAGE_SUCCESS, POLLNAME, event);
-        Event eventToEdit = expectedModel.getFilteredEventList().get(INDEX_FIRST.getZeroBased());
-        expectedModel.updateEvent(eventToEdit, event);
+        //Event eventToEdit = expectedModel.getFilteredEventList().get(INDEX_FIRST.getZeroBased());
+        expectedModel.updateEvent(event, event);
         expectedModel.commitAddressBook();
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
-    */
+
     @Test
     public void execute_noUserAddPoll() {
         AddPollCommand command = new AddPollCommand(POLLNAME);
         Event event = new EventBuilder().build();
-        commandHistory.setSelectedEvent(event);
+        model.setSelectedEvent(event);
         String expectedMessage = String.format(Messages.MESSAGE_NO_USER_LOGGED_IN);
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
@@ -64,7 +66,7 @@ public class AddPollCommandTest {
         EventBuilder eventBuilder = new EventBuilder();
         eventBuilder.withOrganiser(anotherUser);
         Event event = eventBuilder.build();
-        commandHistory.setSelectedEvent(event);
+        model.setSelectedEvent(event);
         String expectedMessage = String.format(Messages.MESSAGE_NOT_EVENT_ORGANISER);
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
