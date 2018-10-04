@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DUEDATE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DUEDATE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LABEL_FRIEND;
@@ -56,13 +56,13 @@ public class TypicalTasks {
     // Manually added - Task's details found in {@code CommandTestUtil}
     public static final Task Y_TASK = new TaskBuilder().withName(VALID_NAME_AMY).withDueDate(VALID_DUEDATE_AMY)
             .withPriorityValue(VALID_PRIORITY_VALUE_AMY)
-            .withDescription(VALID_ADDRESS_AMY)
+            .withDescription(VALID_DESCRIPTION_AMY)
             .withLabels(VALID_LABEL_FRIEND)
             .withStatus(VALID_STATUS_IN_PROGRESS).build();
     public static final Task Z_TASK = new TaskBuilder().withName(VALID_NAME_BOB)
             .withDueDate(VALID_DUEDATE_BOB)
             .withPriorityValue(VALID_PRIORITY_VALUE_BOB)
-            .withDescription(VALID_ADDRESS_BOB)
+            .withDescription(VALID_DESCRIPTION_BOB)
             .withLabels(VALID_LABEL_HUSBAND, VALID_LABEL_FRIEND)
             .build();
 

@@ -1,9 +1,9 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_LABEL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
@@ -16,7 +16,7 @@ import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PRIORITY_VALUE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PRIORITY_VALUE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DUEDATE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_VALUE_BOB;
@@ -60,7 +60,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
          */
         Task toAdd = Y_TASK;
         String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
-                + PRIORITY_VALUE_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + LABEL_DESC_FRIEND + " ";
+                + PRIORITY_VALUE_DESC_AMY + "   " + DESCRIPTION_DESC_AMY + "   " + LABEL_DESC_FRIEND + " ";
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
@@ -76,7 +76,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: add a person with all fields same as another person in the task manager except name -> added */
         toAdd = new TaskBuilder(Y_TASK).withName(VALID_NAME_BOB).build();
-        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + PRIORITY_VALUE_DESC_AMY + ADDRESS_DESC_AMY
+        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + PRIORITY_VALUE_DESC_AMY + DESCRIPTION_DESC_AMY
                 + LABEL_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
@@ -94,7 +94,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: add a task with labels, command with parameters in random order -> added */
         toAdd = Z_TASK;
-        command = AddCommand.COMMAND_WORD + LABEL_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
+        command = AddCommand.COMMAND_WORD + LABEL_DESC_FRIEND + PHONE_DESC_BOB + DESCRIPTION_DESC_BOB + NAME_DESC_BOB
                 + LABEL_DESC_HUSBAND + PRIORITY_VALUE_DESC_BOB;
         assertCommandSuccess(command, toAdd);
 
@@ -130,7 +130,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
 
         /* Case: add a duplicate person except with different address -> rejected */
-        toAdd = new TaskBuilder(H_TASK).withDescription(VALID_ADDRESS_BOB).build();
+        toAdd = new TaskBuilder(H_TASK).withDescription(VALID_DESCRIPTION_BOB).build();
         command = TaskUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
 
@@ -139,15 +139,15 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
 
         /* Case: missing name -> rejected */
-        command = AddCommand.COMMAND_WORD + PHONE_DESC_AMY + PRIORITY_VALUE_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + PHONE_DESC_AMY + PRIORITY_VALUE_DESC_AMY + DESCRIPTION_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing phone -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PRIORITY_VALUE_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PRIORITY_VALUE_DESC_AMY + DESCRIPTION_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing email -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + DESCRIPTION_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing address -> rejected */
@@ -160,27 +160,27 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: invalid name -> rejected */
         command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY
-                + PRIORITY_VALUE_DESC_AMY + ADDRESS_DESC_AMY;
+                + PRIORITY_VALUE_DESC_AMY + DESCRIPTION_DESC_AMY;
         assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC
-                + PRIORITY_VALUE_DESC_AMY + ADDRESS_DESC_AMY;
+                + PRIORITY_VALUE_DESC_AMY + DESCRIPTION_DESC_AMY;
         assertCommandFailure(command, DueDate.MESSAGE_DUEDATE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
-                + INVALID_PRIORITY_VALUE_DESC + ADDRESS_DESC_AMY;
+                + INVALID_PRIORITY_VALUE_DESC + DESCRIPTION_DESC_AMY;
         assertCommandFailure(command, PriorityValue.MESSAGE_PRIORITY_VALUE_CONSTRAINTS);
 
         /* Case: invalid address -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
-                + PRIORITY_VALUE_DESC_AMY + INVALID_ADDRESS_DESC;
+                + PRIORITY_VALUE_DESC_AMY + INVALID_DESCRIPTION_DESC;
         assertCommandFailure(command, Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
 
         /* Case: invalid label -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
-                + PRIORITY_VALUE_DESC_AMY + ADDRESS_DESC_AMY
+                + PRIORITY_VALUE_DESC_AMY + DESCRIPTION_DESC_AMY
                 + INVALID_LABEL_DESC;
         assertCommandFailure(command, Label.MESSAGE_LABEL_CONSTRAINTS);
     }
