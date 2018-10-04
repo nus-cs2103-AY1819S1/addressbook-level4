@@ -26,15 +26,15 @@ public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_DUEDATE = "+651234";
     private static final String INVALID_ADDRESS = " ";
-    private static final String INVALID_EMAIL = "example.com";
-    private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_PRIORITY_VALUE = "0";
+    private static final String INVALID_LABEL = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_DUEDATE = "05-05-18";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
-    private static final String VALID_EMAIL = "rachel@example.com";
-    private static final String VALID_TAG_1 = "friend";
-    private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_PRIORITY_VALUE = "8";
+    private static final String VALID_LABEL_1 = "friend";
+    private static final String VALID_LABEL_2 = "neighbour";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -139,69 +139,70 @@ public class ParserUtilTest {
 
     @Test
     public void parseEmail_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseEmail(INVALID_EMAIL));
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseEmail(INVALID_PRIORITY_VALUE));
     }
 
     @Test
     public void parseEmail_validValueWithoutWhitespace_returnsEmail() throws Exception {
-        PriorityValue expectedEmail = new PriorityValue(VALID_EMAIL);
-        assertEquals(expectedEmail, ParserUtil.parseEmail(VALID_EMAIL));
+        PriorityValue expectedEmail = new PriorityValue(VALID_PRIORITY_VALUE);
+        assertEquals(expectedEmail, ParserUtil.parseEmail(VALID_PRIORITY_VALUE));
     }
 
     @Test
     public void parseEmail_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
-        String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
-        PriorityValue expectedEmail = new PriorityValue(VALID_EMAIL);
+        String emailWithWhitespace = WHITESPACE + VALID_PRIORITY_VALUE + WHITESPACE;
+        PriorityValue expectedEmail = new PriorityValue(VALID_PRIORITY_VALUE);
         assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
     }
 
     @Test
-    public void parseTag_null_throwsNullPointerException() throws Exception {
+    public void parseLabel_null_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        ParserUtil.parseTag(null);
+        ParserUtil.parseLabel(null);
     }
 
     @Test
-    public void parseTag_invalidValue_throwsParseException() throws Exception {
+    public void parseLabel_invalidValue_throwsParseException() throws Exception {
         thrown.expect(ParseException.class);
-        ParserUtil.parseTag(INVALID_TAG);
+        ParserUtil.parseLabel(INVALID_LABEL);
     }
 
     @Test
-    public void parseTag_validValueWithoutWhitespace_returnsTag() throws Exception {
-        Label expectedTag = new Label(VALID_TAG_1);
-        assertEquals(expectedTag, ParserUtil.parseTag(VALID_TAG_1));
+    public void parseLabel_validValueWithoutWhitespace_returnsLabel() throws Exception {
+        Label expectedLabel = new Label(VALID_LABEL_1);
+        assertEquals(expectedLabel, ParserUtil.parseLabel(VALID_LABEL_1));
     }
 
     @Test
-    public void parseTag_validValueWithWhitespace_returnsTrimmedTag() throws Exception {
-        String tagWithWhitespace = WHITESPACE + VALID_TAG_1 + WHITESPACE;
-        Label expectedTag = new Label(VALID_TAG_1);
-        assertEquals(expectedTag, ParserUtil.parseTag(tagWithWhitespace));
+    public void parseLabel_validValueWithWhitespace_returnsTrimmedLabel() throws Exception {
+        String labelWithWhitespace = WHITESPACE + VALID_LABEL_1 + WHITESPACE;
+        Label expectedLabel = new Label(VALID_LABEL_1);
+        assertEquals(expectedLabel, ParserUtil.parseLabel(labelWithWhitespace));
     }
 
     @Test
-    public void parseTags_null_throwsNullPointerException() throws Exception {
+    public void parseLabels_null_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        ParserUtil.parseTags(null);
+        ParserUtil.parseLabels(null);
     }
 
     @Test
-    public void parseTags_collectionWithInvalidTags_throwsParseException() throws Exception {
+    public void parseLabels_collectionWithInvalidLabels_throwsParseException() throws Exception {
         thrown.expect(ParseException.class);
-        ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, INVALID_TAG));
+        ParserUtil.parseLabels(Arrays.asList(VALID_LABEL_1, INVALID_LABEL));
     }
 
     @Test
-    public void parseTags_emptyCollection_returnsEmptySet() throws Exception {
-        assertTrue(ParserUtil.parseTags(Collections.emptyList()).isEmpty());
+    public void parseLabels_emptyCollection_returnsEmptySet() throws Exception {
+        assertTrue(ParserUtil.parseLabels(Collections.emptyList()).isEmpty());
     }
 
     @Test
-    public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
-        Set<Label> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
-        Set<Label> expectedTagSet = new HashSet<Label>(Arrays.asList(new Label(VALID_TAG_1), new Label(VALID_TAG_2)));
+    public void parseLabels_collectionWithValidLabels_returnsLabelSet() throws Exception {
+        Set<Label> actualLabelSet = ParserUtil.parseLabels(Arrays.asList(VALID_LABEL_1, VALID_LABEL_2));
+        Set<Label> expectedLabelSet = new HashSet<Label>(Arrays.asList(new Label(VALID_LABEL_1),
+              new Label(VALID_LABEL_2)));
 
-        assertEquals(expectedTagSet, actualTagSet);
+        assertEquals(expectedLabelSet, actualLabelSet);
     }
 }

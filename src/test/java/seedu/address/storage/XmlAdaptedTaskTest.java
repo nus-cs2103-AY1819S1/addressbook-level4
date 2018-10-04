@@ -74,7 +74,7 @@ public class XmlAdaptedTaskTest {
     public void toModelType_invalidPriorityValue_throwsIllegalValueException() {
         XmlAdaptedTask task =
                 new XmlAdaptedTask(VALID_NAME, VALID_DUE_DATE, INVALID_PRIORITY_VALUE, VALID_DESCRIPTION, VALID_LABELS);
-        String expectedMessage = PriorityValue.MESSAGE_PRIORITYVALUE_CONSTRAINTS;
+        String expectedMessage = PriorityValue.MESSAGE_PRIORITY_VALUE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, task::toModelType);
     }
 

@@ -9,34 +9,25 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class PriorityValue {
 
-    private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";
-    public static final String MESSAGE_PRIORITYVALUE_CONSTRAINTS = "Emails should be of the format local-part@domain "
-            + "and adhere to the following constraints:\n"
-            + "1. The local-part should only contain alphanumeric characters and these special characters, excluding "
-            + "the parentheses, (" + SPECIAL_CHARACTERS + ") .\n"
-            + "2. This is followed by a '@' and then a domain name. "
-            + "The domain name must:\n"
-            + "    - be at least 2 characters long\n"
-            + "    - start and end with alphanumeric characters\n"
-            + "    - consist of alphanumeric characters, a period or a hyphen for the characters in between, if any.";
+    //private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";
+    public static final String MESSAGE_PRIORITY_VALUE_CONSTRAINTS = "Priority value should be a positive integer. ";
     // alphanumeric and special characters
-    private static final String LOCAL_PART_REGEX = "^[\\w" + SPECIAL_CHARACTERS + "]+";
-    private static final String DOMAIN_FIRST_CHARACTER_REGEX = "[^\\W_]"; // alphanumeric characters except underscore
-    private static final String DOMAIN_MIDDLE_REGEX = "[a-zA-Z0-9.-]*"; // alphanumeric, period and hyphen
-    private static final String DOMAIN_LAST_CHARACTER_REGEX = "[^\\W_]$";
-    public static final String PRIORITYVALUE_VALIDATION_REGEX = LOCAL_PART_REGEX + "@"
-            + DOMAIN_FIRST_CHARACTER_REGEX + DOMAIN_MIDDLE_REGEX + DOMAIN_LAST_CHARACTER_REGEX;
+    //private static final String LOCAL_PART_REGEX = "^[\\w" + SPECIAL_CHARACTERS + "]+";
+    //private static final String DOMAIN_FIRST_CHARACTER_REGEX = "[^\\W_]"; // alphanumeric characters except underscore
+    //private static final String DOMAIN_MIDDLE_REGEX = "[a-zA-Z0-9.-]*"; // alphanumeric, period and hyphen
+    //private static final String DOMAIN_LAST_CHARACTER_REGEX = "[^\\W_]$";
+    public static final String PRIORITY_VALUE_VALIDATION_REGEX = "^[1-9][0-9]*$";
 
     public final String value;
 
     /**
      * Constructs an {@code PriorityValue}.
      *
-     * @param priorityValue A valid priorityValue address.
+     * @param priorityValue A valid priorityValue value.
      */
     public PriorityValue(String priorityValue) {
         requireNonNull(priorityValue);
-        checkArgument(isValidPriorityValue(priorityValue), MESSAGE_PRIORITYVALUE_CONSTRAINTS);
+        checkArgument(isValidPriorityValue(priorityValue), MESSAGE_PRIORITY_VALUE_CONSTRAINTS);
         value = priorityValue;
     }
 
@@ -44,7 +35,7 @@ public class PriorityValue {
      * Returns if a given string is a valid priority value.
      */
     public static boolean isValidPriorityValue(String test) {
-        return test.matches(PRIORITYVALUE_VALIDATION_REGEX);
+        return test.matches(PRIORITY_VALUE_VALIDATION_REGEX);
     }
 
     @Override

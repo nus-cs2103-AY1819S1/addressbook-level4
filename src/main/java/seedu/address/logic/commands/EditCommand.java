@@ -44,7 +44,7 @@ public class EditCommand extends Command {
         + "[" + PREFIX_DUE_DATE + "DUE_DATE] "
         + "[" + PREFIX_PRIORITY_VALUE + "PRIORITY_VALUE] "
         + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
-        + "[" + PREFIX_LABEL + "TAG]...\n"
+        + "[" + PREFIX_LABEL + "LABEL]...\n"
         + "Example: " + COMMAND_WORD + " 1 "
         + PREFIX_DUE_DATE + "91234567 "
         + PREFIX_PRIORITY_VALUE + "johndoe@example.com";
@@ -213,7 +213,7 @@ public class EditCommand extends Command {
         }
 
         /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * Returns an unmodifiable label set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code labels} is null.
          */

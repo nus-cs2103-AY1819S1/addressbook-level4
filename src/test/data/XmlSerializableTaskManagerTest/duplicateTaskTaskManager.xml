@@ -4,17 +4,17 @@
     <tasks>
         <name>Address CS2103 email</name>
         <dueDate>01-12-18</dueDate>
-        <priorityValue>alice@example.com</priorityValue>
+        <priorityValue>3</priorityValue>
         <description>123, Jurong West Ave 6, #08-111</description>
         <status>IN PROGRESS</status>
-        <tagged>friends</tagged>
+        <labelled>friends</labelled>
     </tasks>
 
     <!-- Person with same identity as Address CS2103 email -->
     <tasks>
         <name>Address CS2103 email</name>
         <dueDate>01-12-18</dueDate>
-        <priorityValue>pauline@example.com</priorityValue>
+        <priorityValue>3</priorityValue>
         <description>4th street</description>
         <status>IN PROGRESS</status>
     </tasks>

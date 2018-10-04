@@ -20,7 +20,7 @@ public class XmlAdaptedLabel {
     public XmlAdaptedLabel() {}
 
     /**
-     * Constructs a {@code XmlAdaptedTag} with the given {@code labelName}.
+     * Constructs a {@code XmlAdaptedLabel} with the given {@code labelName}.
      */
     public XmlAdaptedLabel(String labelName) {
         this.labelName = labelName;
