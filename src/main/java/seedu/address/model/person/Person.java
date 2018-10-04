@@ -21,19 +21,30 @@ public class Person {
     private final Email email;
 
     // Data fields
-    private final Address address;
+    private final School school;
+    private final Room room;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, Room room, School school, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, room, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
+        this.room = room;
+        this.school = school;
         this.tags.addAll(tags);
+    }
+
+    // ToDo: testing
+    public Person(Name name) {
+        this.name = name;
+        this.phone = null;
+        this.email = null;
+        this.room = null;
+        this.school = null;
     }
 
     public Name getName() {
@@ -48,8 +59,12 @@ public class Person {
         return email;
     }
 
-    public Address getAddress() {
-        return address;
+    public Room getRoom() {
+        return room;
+    }
+
+    public School getSchool() {
+        return school;
     }
 
     /**
@@ -60,6 +75,20 @@ public class Person {
         return Collections.unmodifiableSet(tags);
     }
 
+    //@@author javenseow
+    /**
+     * Returns an immutable set containing tags, school and room, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Tag> getFields() {
+        Set<Tag> fields = new HashSet<>();
+        fields.addAll(tags);
+        fields.add(new Tag(this.school.value));
+        fields.add(new Tag(this.room.value));
+        return Collections.unmodifiableSet(fields);
+    }
+
+    //@@author
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
@@ -92,14 +121,14 @@ public class Person {
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
+                && otherPerson.getRoom().equals(getRoom())
                 && otherPerson.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, room, tags);
     }
 
     @Override
@@ -110,8 +139,10 @@ public class Person {
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" Room: ")
+                .append(getRoom())
+                .append(" School: ")
+                .append(getSchool())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
