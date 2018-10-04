@@ -19,5 +19,6 @@ public class Messages {
     public static final String MESSAGE_WRONG_DATE_FORMAT = "The date format is incorrect.";
     public static final String MESSAGE_WRONG_TIME_FORMAT = "The time format is incorrect.";
     public static final String MESSAGE_END_BEFORE_START_TIME = "The end time must come after the start time.";
+    public static final String MESSAGE_HAVE_NOT_JOINED = "You have yet to join this event.";
 
 }

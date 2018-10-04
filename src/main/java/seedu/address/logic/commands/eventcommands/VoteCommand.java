@@ -18,6 +18,7 @@ import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.Poll;
+import seedu.address.model.event.UserNotJoinedEventException;
 import seedu.address.model.person.Person;
 
 /**
@@ -50,13 +51,12 @@ public class VoteCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         try {
             Event event = model.getSelectedEvent();
-            Poll poll = event.getPoll(pollIndex);
             Person person = model.getCurrentUser();
-            poll.addVote(optionName, person);
+            event.addVoteToPoll(pollIndex, person, optionName);
             model.commitAddressBook();
             model.updateEvent(event, event);
             String result = String.format(MESSAGE_SUCCESS, optionName, pollIndex.getOneBased());
-            String pollDisplayResult = poll.displayPoll();
+            String pollDisplayResult = event.displayPoll(pollIndex);
             EventsCenter.getInstance().post(new DisplayPollEvent(pollDisplayResult));
             return new CommandResult(result);
         } catch (IndexOutOfBoundsException e) {
@@ -67,6 +67,8 @@ public class VoteCommand extends Command {
             throw new CommandException(Messages.MESSAGE_NO_USER_LOGGED_IN);
         } catch (NoEventSelectedException e) {
             throw new CommandException(Messages.MESSAGE_NO_EVENT_SELECTED);
+        } catch (UserNotJoinedEventException e) {
+            throw new CommandException(Messages.MESSAGE_HAVE_NOT_JOINED);
         }
     }
 

@@ -139,4 +139,9 @@ public interface Model {
      * Gets the selected event.
      */
     Event getSelectedEvent() throws NoEventSelectedException;
+
+    /**
+     * Removes the selected event.
+     */
+    void removeSelectedEvent();
 }

@@ -68,6 +68,13 @@ public class ModelManager extends ComponentManager implements Model {
         this.currentEvent = currentEvent;
     }
 
+    /**
+     * Removes the selected event.
+     */
+    public void removeSelectedEvent() {
+        this.currentEvent = null;
+    }
+
     public Event getSelectedEvent() throws NoEventSelectedException {
         if (currentEvent == null) {
             throw new NoEventSelectedException();

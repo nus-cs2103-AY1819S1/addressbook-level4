@@ -160,18 +160,14 @@ public class Event {
      * Sets the person list of the event.
      */
     public void setPersonList(UniquePersonList personList) {
-        for (Person person : personList) {
-            this.personList.add(person);
-        }
+        this.personList.setPersons(personList);
     }
 
     /**
      * Adds list of persons into the person list.
      */
     public void setPersonList(ArrayList<Person> personList) {
-        for (Person person : personList) {
-            this.personList.add(person);
-        }
+        this.personList.setPersons(personList);
     }
 
     /**
@@ -213,6 +209,25 @@ public class Event {
         for (Poll poll : polls) {
             this.polls.add(poll);
         }
+    }
+
+    /**
+     * Adds a person to an option of the poll at the specified index, only if person has joined the event.
+     */
+    public void addVoteToPoll(Index pollIndex, Person person, String option)
+            throws UserNotJoinedEventException {
+        if (!personList.contains(person)) {
+            throw new UserNotJoinedEventException();
+        }
+        int index = pollIndex.getZeroBased();
+        polls.get(index).addVote(option, person);
+    }
+
+    /**
+     * Displays the poll at the given index.
+     */
+    public String displayPoll(Index pollIndex) {
+        return polls.get(pollIndex.getZeroBased()).displayPoll();
     }
 
     /**
