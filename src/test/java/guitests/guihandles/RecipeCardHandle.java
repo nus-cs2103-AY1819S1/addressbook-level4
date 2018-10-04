@@ -8,7 +8,7 @@ import com.google.common.collect.ImmutableMultiset;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.address.model.recipe.Recipe;
+import seedu.souschef.model.recipe.Recipe;
 
 /**
  * Provides a handle to a recipe card in the recipe list panel.
