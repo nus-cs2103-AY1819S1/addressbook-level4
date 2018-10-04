@@ -177,8 +177,10 @@ public class EditCommandParserTest {
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_TASK;
         String userInput = targetIndex.getOneBased() + PHONE_DESC_AMY + DESCRIPTION_DESC_AMY + PRIORITY_VALUE_DESC_AMY
-                + LABEL_DESC_FRIEND + PHONE_DESC_AMY + DESCRIPTION_DESC_AMY + PRIORITY_VALUE_DESC_AMY + LABEL_DESC_FRIEND
-                + PHONE_DESC_BOB + DESCRIPTION_DESC_BOB + PRIORITY_VALUE_DESC_BOB + LABEL_DESC_HUSBAND;
+                + LABEL_DESC_FRIEND + PHONE_DESC_AMY + DESCRIPTION_DESC_AMY
+                + PRIORITY_VALUE_DESC_AMY + LABEL_DESC_FRIEND
+                + PHONE_DESC_BOB + DESCRIPTION_DESC_BOB
+                + PRIORITY_VALUE_DESC_BOB + LABEL_DESC_HUSBAND;
 
         EditCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withDueDate(VALID_DUEDATE_BOB)
                 .withPriorityValue(VALID_PRIORITY_VALUE_BOB)

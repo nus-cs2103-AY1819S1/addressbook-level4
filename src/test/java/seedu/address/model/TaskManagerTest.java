@@ -51,7 +51,8 @@ public class TaskManagerTest {
     @Test
     public void resetData_withDuplicateTasks_throwsDuplicateTaskException() {
         // Two tasks with the same identity fields
-        Task editedAlice = new TaskBuilder(A_TASK).withDescription(VALID_DESCRIPTION_BOB).withLabels(VALID_LABEL_HUSBAND)
+        Task editedAlice = new TaskBuilder(A_TASK).withDescription(VALID_DESCRIPTION_BOB)
+                .withLabels(VALID_LABEL_HUSBAND)
                 .build();
         List<Task> newTasks = Arrays.asList(A_TASK, editedAlice);
         TaskManagerStub newData = new TaskManagerStub(newTasks);
@@ -80,7 +81,8 @@ public class TaskManagerTest {
     @Test
     public void hasTask_taskWithSameIdentityFieldsInTaskManager_returnsTrue() {
         taskManager.addTask(A_TASK);
-        Task editedAlice = new TaskBuilder(A_TASK).withDescription(VALID_DESCRIPTION_BOB).withLabels(VALID_LABEL_HUSBAND)
+        Task editedAlice = new TaskBuilder(A_TASK).withDescription(VALID_DESCRIPTION_BOB)
+                .withLabels(VALID_LABEL_HUSBAND)
                 .build();
         assertTrue(taskManager.hasTask(editedAlice));
     }
