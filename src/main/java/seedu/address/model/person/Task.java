@@ -67,7 +67,7 @@ public class Task {
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable label set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Label> getLabels() {
@@ -132,7 +132,7 @@ public class Task {
                 .append(getPriorityValue())
                 .append(" Description: ")
                 .append(getDescription())
-                .append(" Tags: ");
+                .append(" Labels: ");
         getLabels().forEach(builder::append);
         builder.append(" Status: ")
                 .append(getStatus());
