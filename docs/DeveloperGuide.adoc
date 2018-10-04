@@ -31,22 +31,26 @@ Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely
 |===
 | Priority   | As a ...  | I want to ... | So that I can ...
 
-| *** | organised student | apply lables to my task | focus on tasks
-|*** | forgetful student | alerted of important deadlines | not forget about tasks
-| *** | busy person | easily prioritise tasks | get important things out of the way first
-| *** | organised student | have tasks organised by categories that they are under | manage different aspects of life better
-| *** | proactive individual | view the day's task at a glance | I know what I need to do
-| *** | user | see task organized between todos and dones | better organisation
-| *** | user | see a list of tasks that needs attention at present time| I may pay attention to them first
-| ** | long-sighted quantitative person |  overview of my past tasks of the week | I can track my progress and evaluate how I am doing.
-|** | user | have rewards for completing tasks | continue doing tasks
-|**| user | see list of tasks that need my attention most at the present time | pay attention to them first
-| ** | user | see QOTD for basic motivation | motivation
-| ** | user that is demoralized easily | get positive encouragement |stay motivated
-| ** | user | negative reinforcement  | stay motivated
-|**| user | statistics function | keep track of progress
-| ** | user | insights function | keep track of progress
-|**| competitive user | compete with friends | challenge myself and peers
+| * * * | organised student | apply lables to my task | focus on tasks
+| * * * | forgetful student | alerted of important deadlines | not forget about tasks
+| * * * | busy person | easily prioritise tasks | get important things out of the way first
+| * * * | organised student | have tasks organised by categories that they are under | manage
+different aspects of life better
+| * * * | proactive individual | view the day's task at a glance | I know what I need to do
+| * * * | user | see task organized between todos and dones | better organisation
+| * * * | user | see a list of tasks that needs attention at present time| I may pay attention to
+them first
+| * * | long-sighted quantitative person |  overview of my past tasks of the week | I can track
+my progress and evaluate how I am doing.
+|* * | user | have rewards for completing tasks | continue doing tasks
+|* *| user | see list of tasks that need my attention most at the present time | pay attention to
+ them first
+| * * | user | see QOTD for basic motivation | motivation
+| * * | user that is demoralized easily | get positive encouragement |stay motivated
+| * * | user | negative reinforcement  | stay motivated
+|* *| user | statistics function | keep track of progress
+| * * | user | insights function | keep track of progress
+|* *| competitive user | compete with friends | challenge myself and peers
 |===
 
 
