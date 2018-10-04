@@ -219,7 +219,7 @@ Format: `xappt INDEX`
 Examples:
 
 * `view S1234567A` +
-'xappt 2' +
+`xappt 2` +
 Deletes the second appointment belonging to patient with NRIC S1234567A
 
 === Sign in patient’s visitors: `visitorin`
