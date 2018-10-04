@@ -61,139 +61,158 @@ Only features that require more than a few steps to implement will be shown.
 
 ### Use case: Display Welcome Screen
 #### MSS
-* 1. User logs in successfully
-* 2. Application fetches QOTD and shows it.
-* 3. Application then displays **10** tasks sorted by ascending deadline.
+.  User logs in successfully
+.  Application fetches QOTD and shows it.
+.  Application then displays **10** tasks sorted by ascending deadline.
+
 Use case ends.
 
 #### Extensions
 
 * 3a. There are less than **10** tasks available
-* 3a1. Let the number of tasks available be `n`, then `n` tasks will be shown.
+** 3a1. Let the number of tasks available be `n`, then `n` tasks will be shown.
+
 Use case ends.
 
 * 3b. There are multiple tasks with the same deadline.
-    * 3b1. Tie will be broken by the lexicographic order of Task name
-    * 3b2. If multiple tasks have the same lexicographic order, the outputted task will be non-deterministic
+** 3b1. Tie will be broken by the lexicographic order of Task name
+** 3b2. If multiple tasks have the same lexicographic order, the outputted task will be
+non-deterministic
+
 Use case ends.
 
 ### Use case: Display Motivational Quote (MQ) on task completion
 #### MSS
-* 1. User marks task as complete.
-* 2. Application shows MQ.
+. User marks task as complete.
+. Application shows MQ.
+
 Use case ends.
 
 #### Extensions
 
 * 1a. User marks multiple tasks as complete.
-    * 1a1. Application still shows only one MQ.
-      Use case ends.
+** 1a1. Application still shows only one MQ.
+
+Use case ends.
 
 ### Use case: List Task
 #### MSS
-* 1. User requests to list tasks, fulfilling a (potentially empty) set of criteria.
-* 2. Application shows a list of corresponding tasks.
+. User requests to list tasks, fulfilling a (potentially empty) set of criteria.
+. Application shows a list of corresponding tasks.
+
 Use case ends.
 
 #### Extensions
 * 1a. No matches found.
-    * 1a1. Application informs user that no tasks matching the specified criteria have been found.
+** 1a1. Application informs user that no tasks matching the specified criteria have been found.
+
 Use case ends.
 
 ### Use case: Add task
 #### MSS
-* 1. User requests to add a task in the list
-* 2. Application adds the task
+. User requests to add a task in the list
+. Application adds the task
+
 Use case ends.
+
 #### Extensions
-* 1. The task already exists.
-* 2. Application shows an error message.
+* 1a. The task already exists.
+** 1a1. Application shows an error message.
+
 Use case resumes at step 1 in MSS.
 
 
-* 1. The user enters the add command in a wrong for
-* 2. Application shows an error message.
+* 1b. The user enters the add command in a wrong format.
+** 1b1. Application shows an error message.
+
 Use case resumes at step 1 in MSS.
 
 ### Use case: Delete task
 #### MSS
-* 1. User requests to delete a task with a particular index
-* 2. Application deletes the task
+. User requests to delete a task with a particular index
+. Application deletes the task
+
 Use case ends.
+
 #### Extensions
 * 1a. A task with the specified index does not exist.
-     * 1a1. Application shows an error message.
-    Use case resumes at step 1 in MSS.
+** 1a1. Application shows an error message.
+
+Use case resumes at step 1 in MSS.
 
 * 1b. The task with the specified index is already deleted.
-    * 1b1. Application shows an error message.
+** 1b1. Application shows an error message.
+
 Use case resumes at step 1 in MSS.
 
 ### Use case: Viewing Command History
 #### MSS
-* 1. User requests to view command history.
-* 2. Application displays command history.
-  Use case ends.
+. User requests to view command history.
+. Application displays command history.
 
-#### Extensions
- * 1a. Command history is empty.
-     * 1a1. Application informs user that there is no command history.
-       Use case ends.
-
-### Use case: Undoing Last Command
-#### MSS
-* 1. User requests undoing last command.
-* 2. Application resets state to before last state-changing command.
-  Use case ends.
+Use case ends.
 
 #### Extensions
 * 1a. Command history is empty.
-    * 1a1. Application informs user that there is no past history to undo.
-      Use case ends.
+** 1a1. Application informs user that there is no command history.
+
+Use case ends.
+
+### Use case: Undoing Last Command
+#### MSS
+. User requests undoing last command.
+. Application resets state to before last state-changing command.
+
+Use case ends.
+
+#### Extensions
+* 1a. Command history is empty.
+** 1a1. Application informs user that there is no past history to undo.
+
+Use case ends.
 
 ### Use case: Redoing Last Command
 #### MSS
-* 1. User requests redoing last command.
-* 2. Application resets state to before last state-changing command was undone.
-  Use case ends.
+. User requests redoing last command.
+. Application resets state to before last state-changing command was undone.
+
+Use case ends.
 
 #### Extensions
 * 1a. The immediately preceding command (ignoring redone undos) is not an undo command
-    * 1a1. Application informs user that there is no undo to redo.
-      Use case ends.
+** 1a1. Application informs user that there is no undo to redo.
+
+Use case ends.
 
 ### Use case: Completing Task
 #### MSS
-* 1. User marks tasks as complete.
-* 2. Application reports both points earned and current points to user.
+. User marks tasks as complete.
+. Application reports both points earned and current points to user.
+
 #### Extensions
 * 2a. User earns enough points to level up
-    * 2a1. Application displays a congratulatory message, current points, and points earned to user.
+** 2a1. Application displays a congratulatory message, current points, and points earned to user.
 
 ### Use case: Display Statistics
 #### MSS
-* 1. User requests for statistics.
-* 2. Application fetches data and displays statistics.
+. User requests for statistics.
+. Application fetches data and displays statistics.
+
 #### Extensions
 * 2a. There are no statistics.
-    * 2a1. Application displays a flavour text explaining that the user needs to complete a task first to get statistics.
+** 2a1. Application displays a flavour text explaining that the user needs to complete a task first to get statistics.
+
+Use case ends.
 
 ### Use case: Failing to complete task
 #### MSS
-* 1. User fails to complete tasks on time
-* 2. Application displays points lost and current current points to user.
-### Extensions
+. User fails to complete tasks on time
+. Application displays points lost and current current points to user.
+
+#### Extensions
 * 2a. User loses enough points that it level down.
     * 2a1. Application displays a warning message, current points, and points lost to user.
-
-### Use Case: Deleting a task
-#### MSS
-* 1. User lists tasks.
-* 2. System displays list of tasks.
-* 3. User selects task to delete.
-* 4. System deletes task.
-* 5. System displays success message.
-
+Use case ends.
 
 ## Non-functional requirements
 - There should be no noticable lag when typing on the command line.
@@ -219,10 +238,6 @@ A glossary serves to ensure that all stakeholders have a common understanding of
 |Points | A unit of measurement to measure current experience
 | Level | A larger unit of measurement to measure experience.
 |===
-
-
-
-
 
 ## 1. Setting up
 
