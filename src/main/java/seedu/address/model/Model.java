@@ -90,6 +90,11 @@ public interface Model {
     ReadOnlyScheduler getScheduler();
 
     /**
+     * Returns true if an event with the same identity as {@code event} exists in the scheduler.
+     */
+    boolean hasEvent(Event event);
+
+    /**
      * Adds the given event.
      */
     void addEvent(Event event);
