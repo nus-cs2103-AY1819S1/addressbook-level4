@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= OASIS - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,9 +13,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-F10-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `NUS School of Computing AY1819S1 F10-1 Team`      Since: `Aug 2018`      Licence: `MIT`
 
 == Setting up
 
@@ -483,6 +483,10 @@ Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI t
 
 To run tests in headless mode, open a console and run the command `gradlew clean headless allTests` (Mac/Linux: `./gradlew clean headless allTests`)
 
+[NOTE]
+You may encounter a problem with running Gradle commands on the command line, with the following error message: Cannot find System Java Compiler. Ensure that you have installed a JDK (not just a JRE) and configured your JAVA_HOME system variable to point to the according directory.
+If you encounter this error, you can apply the fix shown https://www.mkyong.com/java/how-to-set-java_home-on-windows-10/[here] for Windows.
+
 === Types of tests
 
 We have two types of tests:
@@ -820,13 +824,17 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Has a need to manage a significant number of employees
+* Prefers desktop applications over applications on other platforms
+* Can type fast
+* Prefers typing over mouse input
+* Is reasonable comfortable using CLI applications
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
+
+* The ability to manage employees faster than typical mouse or GUI driven app
+* Still retains mouse and GUI features for users that are less proficient or less comfortable
+with text command
 
 [appendix]
 == User Stories
@@ -836,17 +844,65 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |User |See usage instructions |Refer to instructions when I forget how to use the application
 
-|`* * *` |user |add a new person |
+|`* * *` |User |Log in |Access the features of the system
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |User |Be able to change my password |Ensure that my account will not be compromised
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |User |Edit my contact information |Be contacted with the updated contact information in the system
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |User |Log out |Prevent non-authorized users of my computer from using the system
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |Manager |Add a new employee |Have the new hire listed in the system
+
+|`* * *` |Manager |Delete an employee |Remove employees that have left or have been fired by the company
+
+|`* * *` |Manager |View all my employees |Find our more about my employees
+
+|`* * *` |Manager |Approve or reject employee requests for leave |Plan out future projects
+
+|`* * *` |Manager |See the total manpower strength in each department |Allocate manpower to department in need for more employees
+
+|`* * *` |Employee |Apply for leave |Ask for approval for leave from my manager
+
+|`* * *` |Manager |Sort employee by their role |Find best person for each job
+
+|`* *` |Manager with many employees |Sort them by name |Locate an employee easily
+
+|`* *` |Manager with many employees |Filter them by department |Locate employees in a particular department easily
+
+|`* *` |Manager |See leave applications from employees |Approve or reject employee requests for leave
+
+|`* *` |Manager |View summary of leaves taken by my employees in the upcoming months |Better plan upcoming projects and manpower distribution
+
+|`* *` |Manager with many employees |View workload of employees under me |Delegate the work evenly
+
+|`* *` |Employee |See income summary |Know my monthly income.
+
+|`* *` |Manager |Promote/demote an employee |Give the employee more access to the feature of the system
+
+|`* *` |Employee |Upload a profile picture |Other users can see who I am in the system
+
+|`*` |Manager |See the performance of every department/sector |Keep track of which departments are not performing
+
+|`*` |Manager |View the profile picture |Recognise who the employee is
+
+|`*` |Manager |Record accomplishments of my employees |Identify the better employees
+
+|`*` |Manager |See the list of potential hires |Easily rank my top choices on who to hire
+
+|`*` |Employee |Submit claim |Claim money related to company matters
+
+|`*` |Employee |Submit overtime claim |Receive my overtime pay
+
+|`*` |Manager |See the performance of individual employees |Identify underperforming employees
+
+|`*` |Employee |View current assigned tasks to me |Track which assignments I have left to finish
+
+|`*` |Manager |Send Email |Send Email to every worker of the organization
+
+|`*` |Manager |Find out how much I am paying my employees in total |Calculate profit margins for the organization and any bonus for my employees at the end of the year
 |=======================================================================
 
 _{More to be added}_
@@ -854,31 +910,136 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `OASIS` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add a new employee
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+.  User login to the system
+.  Oasis shows home page
+.  User enters add employee with details
+.  Oasis request for confirmation
+.  User enters confirm
+.  Oasis shows success message
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. The credentials are invalid
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. User enters invalid details
 +
+** 3a1. OASIS shows an error message.
++
+Use case resumes at step 2.
+
+* 5a. The user chooses to cancel
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Change user details
+
+*MSS*
+
+.  Employee login to the system
+.  Oasis shows home page
+.  Employee enters new user details
+.  Oasis request for confirmation
+.  Employee enters confirm
+.  Oasis save the new user details and show success message
++
+Use case ends.
+
+*Extensions*
+
 [none]
-** 3a1. AddressBook shows an error message.
+* 1a. The credentials are invalid
++
+Use case ends.
+
+* 3a. The details are in an invalid format.
++
+** 3a1. OASIS shows an error message.
++
+Use case resumes at step 2.
+
+* 5a. The employee chooses to cancel
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Delete employee
+
+*MSS*
+
+.  Manager login to the system.
+.  Oasis shows home page.
+.  Manager requests for list of all employees
+.  Oasis displays list of all employees
+.  Manager chooses to delete an employee in the list
+.  Oasis requests for confirmation
+.  Manager enters confirm
+.  Oasis deletes the employee and show success message
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The credentials are invalid
++
+Use case ends.
+
+* 3a. The list is empty.
++
+Use case ends.
+
+* 5a. The chosen employee is invalid.
++
+** 5a1. OASIS shows an error message.
++
+Use case resumes at step 4.
+
+* 7a. The Manager chooses to cancel
++
+Use case resumes at step 4.
+
+[discrete]
+=== Use case: Apply for leave
+
+*MSS*
+
+.  User login to the system
+.  Oasis shows home page
+.  User enters leave, start date and end date
+.  Oasis displays confirmation message
+.  User enters confirm
+.  Oasis sends the application to the manager
+.  Oasi shows success message
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The credentials are invalid
++
+Use case ends.
+
+* 3a. The format is invalid
++
+** 3a1. OASIS shows an error message.
++
+Use case resumes at step 2.
+
+* 5a. The user chooses to cancel
 +
 Use case resumes at step 2.
 
@@ -890,6 +1051,10 @@ _{More to be added}_
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  A user should only be allowed to perform the tasks that he has the credentials to perform based on his login credentials
+.  Passwords should be salted and hashed
+.  The system will be reliable and not crash frequently
+.  The system should stay responsive even when there are updates to the GUI
 
 _{More to be added}_
 
