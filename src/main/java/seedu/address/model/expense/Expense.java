@@ -10,10 +10,10 @@ import java.util.Set;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Expense in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person {
+public class Expense {
 
     // Identity fields
     private final Name name;
@@ -28,7 +28,7 @@ public class Person {
      * Every field must be present and not null.
      */
 
-    public Person(Name name, Category category, Cost cost, Date date, Set<Tag> tags) {
+    public Expense(Name name, Category category, Cost cost, Date date, Set<Tag> tags) {
         requireAllNonNull(name, category, cost, date, tags);
         this.name = name;
         this.category = category;
@@ -40,7 +40,7 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Category category, Cost cost, Set<Tag> tags) {
+    public Expense(Name name, Category category, Cost cost, Set<Tag> tags) {
         this(name, category, cost, new Date(), tags);
     }
 
@@ -69,24 +69,24 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both expenses of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two expenses.
      */
-    public boolean isSamePerson(Person otherPerson) {
+    public boolean isSameExpense(Expense otherExpense) {
 
-        if (otherPerson == this) {
+        if (otherExpense == this) {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().equals(this.getName())
-                && (otherPerson.getCategory().equals(this.getCategory())
-                || otherPerson.getCost().equals(this.getCost()));
+        return otherExpense != null
+                && otherExpense.getName().equals(this.getName())
+                && (otherExpense.getCategory().equals(this.getCategory())
+                || otherExpense.getCost().equals(this.getCost()));
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both expenses have the same identity and data fields.
+     * This defines a stronger notion of equality between two expenses.
      */
     @Override
     public boolean equals(Object other) {
@@ -94,16 +94,16 @@ public class Person {
             return true;
         }
 
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Expense)) {
             return false;
         }
 
-        Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName())
-                && otherPerson.getCategory().equals(getCategory())
-                && otherPerson.getCost().equals(getCost())
-                && otherPerson.getDate().equals(getDate())
-                && otherPerson.getTags().equals(getTags());
+        Expense otherExpense = (Expense) other;
+        return otherExpense.getName().equals(getName())
+                && otherExpense.getCategory().equals(getCategory())
+                && otherExpense.getCost().equals(getCost())
+                && otherExpense.getDate().equals(getDate())
+                && otherExpense.getTags().equals(getTags());
     }
 
     @Override
