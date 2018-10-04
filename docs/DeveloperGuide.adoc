@@ -41,7 +41,7 @@ Use case ends
 
 *Trivia mode:*
 
-MSS: 
+MSS:
 User inputs command (trivia)
 
 System displays meaning of a selected word in user’s review list
@@ -142,6 +142,5 @@ High (Need to have) - PPP, Medium (Nice to have) - PP, Low (Not very needed) - P
 |PP
 |English speaker
 |Play a game
-|Improve my English further
-
+|Improve my E   nglish further
 |===
