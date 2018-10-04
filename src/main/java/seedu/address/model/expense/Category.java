@@ -3,8 +3,6 @@ package seedu.address.model.expense;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.util.ArrayList;
-
 /**
  * Represents a Expense's category in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidCategory(String)}
