@@ -1,111 +1,148 @@
-Developer Guide
-Target user profile
+= Developer Guide
+
+== Target user profile
+
 People who would like to learn new words they see in their daily life more efficiently and use computer a lot. These people can be for example non-native english speakers and schools who want to use the program in language courses. In the future, target users will be extended to also other languages than english.
 
-Value propositions
-The application helps the user to find the meaning of words. Upon finding the meaning of words, they will be stored into a “review list”, where the user can refresh their memory of the word that they had just learnt (similar to flash cards). In specific, we currently plan to give the user the meaning of the word and ask them to type the word correctly. If they can type in the word correctly for continuous several days, then the word will be deleted from the review list automatically. Besides, the user can also manually add words in the review list and delete words from the review list. In the end, this will help the user to learn the language. 
-User stories
+== Value propositions
+
+The application helps the user to find the meaning of words. Upon finding the meaning of words, they will be stored into a “review list”, where the user can refresh their memory of the word that they had just learnt (similar to flash cards). In specific, we currently plan to give the user the meaning of the word and ask them to type the word correctly. If they can type in the word correctly for continuous several days, then the word will be deleted from the review list automatically. Besides, the user can also manually add words in the review list and delete words from the review list. In the end, this will help the user to learn the language.
+
+== User stories
+
 As a user, I want to be able to learn new English words everyday.
+
 As a user, I want to be able to save words so that I can "collect" those words and review what I have learnt.
+
 As a user, I want to test and challenge myself to improve my English.
+
 As a user, I want to check the meaning of words.
 
 
-Use cases
-Add a word to the review list:
+== Use cases
+
+**Add a word to the review list:**
+
 User enters a word to add to the review list.
+
 System checks if word exists in the dictionary and displays if the word could be successfully added or not. It also displays the meaning of the word.
+
 Use case ends
 
+**Finding a word in the review list or in the dictionary:**
 
-Finding a word in the review list or in the dictionary
 User enters the word that he or she wants to look up
-System checks that the word exists in the dictionary and displays the meaning of the word. System also checks if the word is already in the review list and asks if the users wants to add it to the review list (if it is not already there).
+
+System checks that the word exists in the dictionary and displays the meaning of the word.
+
+System also checks if the word is already in the review list and asks if the users wants to add it to the review list (if it is not already there).
+
 Use case ends
 
-Trivia mode:
+*Trivia mode:*
+
 MSS: 
 User inputs command (trivia)
+
 System displays meaning of a selected word in user’s review list
+
 User enters the word which corresponds to the meaning displayed.
+
 System reveals the answer
+
 Repeat steps 2 - 4 until 10 questions have been displayed
 Use case ends
-	Extensions:
-User’s review list is empty
-System displays that user’s review list is empty
-Use case ends.
 
-Group words together
+    Extensions:
+    User’s review list is empty
+    System displays that user’s review list is empty
+    Use case ends.
+
+*Group words together*
+
 User inputs command (group)
+
 System responds with helper text (group [word] in [group])
+
 User enters “group gazelle in animals
+
 System groups the word “gazelle” in “animals”
+
 Use case ends
 
-List words individually from review list or groups
+**List words individually from review list or groups**
+
 User inputs command (list)
+
 A helper text will appear (list, list [group], list [20 random entries])
+
 System would pull up the data from storage
+
 Use case ends
 
-Multilingual Support:
+*Multilingual Support:*
+
 User inputs command (multi)
+
 A helper text will appear (multi chi (chinese), multi fr (french, multi…)
+
 User enters “multi chi”
+
 System prompts for chinese words
+
 Chinese words will be translated into the English meaning
+
 Use case ends
 
- Non functional requirements
+*Non functional requirements*
+
 Should work on any mainstream operating system as long as Java 9 or higher is installed.
+
 Works by command line input and possibly a minimalistic GUI output
+
 Handles at least one complete dictionary (e.g. english)
 
 
+== Appendix A: User Stories
+Priorities:
+High (Need to have) - PPP, Medium (Nice to have) - PP, Low (Not very needed) - P
 
+|===
+|Priority |As a... |I want to... |So that I can...
 
+|PPP
+|Non-native English speaker
+|Search for the meaning of words
+|Improve my English abilities
 
-
-Appendix A: User Stories
-Priorities: 
-High (Need to have) - ***, Medium (Nice to have) - **, Low (Not very needed) - *
+|PPP
+|Non-native English speaker
+|Add/keep words that I have searched
+|Reference them easily to learn better
 
-Priority
-As a...
-I want to...
-So that I can...
-***
-Non-native English speaker
-Search for the meaning of words
-Improve my English abilities
-***
-Non-native English speaker
-Add/keep words that I have searched
-Reference them easily to learn better
-***
-Non-native English speaker
-Play a game that would improve my English capabilities
-Not get bored of the learning process and have fun at the same time
-***
-Non-native English speaker
-Refer to my native tongue while looking at English words
-Speed up the learning process much faster
-***
-Non-native English speaker
-Group words together
-Refer to them esily in the future
-**
-English speaker
-Look up words
-Learn the meanings of words
-**
-English speaker
-Play a game
-Improve my English further
+|PPP
+|Non-native English speaker
+|Play a game that would improve my English capabilities
+|Not get bored of the learning process and have fun at the same time
 
+|PPP
+|Non-native English speaker
+|Refer to my native tongue while looking at English words
+|Speed up the learning process much faster
 
+|PPP
+|Non-native English speaker
+|Group words together
+|Refer to them easily in the future
 
+|PP
+|English speaker
+|Look up words
+|Learn the meanings of words
 
+|PP
+|English speaker
+|Play a game
+|Improve my English further
 
-
+|===
