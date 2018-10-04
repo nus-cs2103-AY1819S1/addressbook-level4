@@ -37,12 +37,12 @@ Responsibilities: Testing, Logic and IntelliJ expert
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Wu Jiacheng
+image::jiacheng-panda.png[width="150", align="left"]
+{empty}[http://github.com/jiacheng-panda[github]] [<<jiacheng-panda#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Documentation, Markdown, Component Model
 
 '''
 
