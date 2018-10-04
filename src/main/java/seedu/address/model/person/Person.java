@@ -181,7 +181,7 @@ public class Person {
                .append(getEmail())
                .append(" Address: ")
                .append(getAddress())
-               .append(" Tags: ");
+               .append(" Drug Allergies: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
