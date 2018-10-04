@@ -1,16 +1,16 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.Anakin_deck.Anakin_Deck;
+import seedu.address.model.AnakinDeck.AnakinDeck;
 
 /**
  * Unmodifiable view of Anakin
  */
-public interface Anakin_ReadOnlyAnakin {
+public interface AnakinReadOnlyAnakin {
 
     /**
      * Returns an unmodifiable view of the decks list.
      * This list will not contain any duplicate decks.
      */
-    ObservableList<Anakin_Deck> getDeckList();
+    ObservableList<AnakinDeck> getDeckList();
 }

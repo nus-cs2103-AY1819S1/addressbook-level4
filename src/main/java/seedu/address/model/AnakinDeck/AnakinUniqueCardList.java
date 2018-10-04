@@ -1,4 +1,4 @@
-package seedu.address.model.Anakin_deck;
+package seedu.address.model.AnakinDeck;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -10,27 +10,27 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- * A list of decks that enforces uniqueness between its elements and does not allow nulls.
+ * A list of cards that enforces uniqueness between its elements and does not allow nulls.
  *
  * Supports a minimal set of list operations.
  */
-public class Anakin_UniqueDeckList implements Iterable<Anakin_Deck> {
+public class AnakinUniqueCardList implements Iterable<AnakinCard> {
 
-    public final ObservableList<Anakin_Deck> internalList = FXCollections.observableArrayList();
+    public final ObservableList<AnakinCard> internalList = FXCollections.observableArrayList();
 
     /**
      * Returns true if the list contains an equivalent deck as the given argument.
      */
-    public boolean contains(Anakin_Deck toCheck) {
+    public boolean contains(AnakinCard toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameDeck);
+        return internalList.stream().anyMatch(toCheck::isSameCard);
     }
 
     /**
      * Adds a deck to the list.
      * The deck must not already exist in the list.
      */
-    public void add(Anakin_Deck toAdd) {
+    public void add(AnakinCard toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             // TODO: throw exception
@@ -40,12 +40,12 @@ public class Anakin_UniqueDeckList implements Iterable<Anakin_Deck> {
     }
 
     /**
-     * Replaces the deck {@code target} in the list with {@code editedDeck}.
+     * Replaces the card {@code target} in the list with {@code editedCard}.
      * {@code target} must exist in the list.
-     * The deck identity of {@code editedPerson} must not be the same as another existing deck in the list.
+     * The card identity of {@code editedCard} must not be the same as another existing card in the list.
      */
-    public void setDeck(Anakin_Deck target, Anakin_Deck editedDeck) {
-        requireAllNonNull(target, editedDeck);
+    public void setCard(AnakinCard target, AnakinCard editedCard) {
+        requireAllNonNull(target, editedCard);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
@@ -53,19 +53,19 @@ public class Anakin_UniqueDeckList implements Iterable<Anakin_Deck> {
             //throw new PersonNotFoundException();
         }
 
-        if (!target.isSameDeck(editedDeck) && contains(editedDeck)) {
+        if (!target.isSameCard(editedCard) && contains(editedCard)) {
             // TODO
             //throw new DuplicatePersonException();
         }
 
-        internalList.set(index, editedDeck);
+        internalList.set(index, editedCard);
     }
 
     /**
-     * Removes the equivalent deck from the list.
-     * The deck must exist in the list.
+     * Removes the equivalent card from the list.
+     * The card must exist in the list.
      */
-    public void remove(Anakin_Deck toRemove) {
+    public void remove(AnakinCard toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             // TODO
@@ -73,42 +73,42 @@ public class Anakin_UniqueDeckList implements Iterable<Anakin_Deck> {
         }
     }
 
-    public void setDecks(Anakin_UniqueDeckList replacement) {
+    public void setCards(AnakinUniqueCardList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
 
     /**
-     * Replaces the contents of this list with {@code decks}.
-     * {@code decks} must not contain duplicate decks.
+     * Replaces the contents of this list with {@code cards}.
+     * {@code cards} must not contain duplicate cards.
      */
-    public void setDecks(List<Anakin_Deck> decks) {
-        requireAllNonNull(decks);
-        if (!decksAreUnique(decks)) {
+    public void setCards(List<AnakinCard> cards) {
+        requireAllNonNull(cards);
+        if (!cardsAreUnique(cards)) {
             // TODO
             //throw new DuplicatePersonException();
         }
 
-        internalList.setAll(decks);
+        internalList.setAll(cards);
     }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Anakin_Deck> asUnmodifiableObservableList() {
+    public ObservableList<AnakinCard> asUnmodifiableObservableList() {
         return FXCollections.unmodifiableObservableList(internalList);
     }
 
     @Override
-    public Iterator<Anakin_Deck> iterator() {
+    public Iterator<AnakinCard> iterator() {
         return internalList.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Anakin_UniqueDeckList // instanceof handles nulls
-                && internalList.equals(((Anakin_UniqueDeckList) other).internalList));
+                || (other instanceof AnakinUniqueDeckList // instanceof handles nulls
+                && internalList.equals(((AnakinUniqueDeckList) other).internalList));
     }
 
     @Override
@@ -117,13 +117,13 @@ public class Anakin_UniqueDeckList implements Iterable<Anakin_Deck> {
     }
 
     /**
-     * Returns true if {@code decks} contains only unique decks.
-     * @param decks
+     * Returns true if {@code cards} contains only unique cards.
+     * @param cards
      */
-    private boolean decksAreUnique(List<Anakin_Deck> decks) {
-        for (int i = 0; i < decks.size() - 1; i++) {
-            for (int j = i + 1; j < decks.size(); j++) {
-                if (decks.get(i).isSameDeck(decks.get(j))) {
+    private boolean cardsAreUnique(List<AnakinCard> cards) {
+        for (int i = 0; i < cards.size() - 1; i++) {
+            for (int j = i + 1; j < cards.size(); j++) {
+                if (cards.get(i).isSameCard(cards.get(j))) {
                     return false;
                 }
             }

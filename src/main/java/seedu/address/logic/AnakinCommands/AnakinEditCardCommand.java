@@ -1,10 +1,10 @@
-package seedu.address.logic.Anakin_commands;
+package seedu.address.logic.AnakinCommands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DECK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
-import static seedu.address.model.Anakin_Model.PREDICATE_SHOW_ALL_CARDS;
+import static seedu.address.model.AnakinModel.PREDICATE_SHOW_ALL_CARDS;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,15 +15,17 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Anakin_Model;
-import seedu.address.model.Anakin_deck.AnakinAnswer;
-import seedu.address.model.Anakin_deck.AnakinQuestion;
-import seedu.address.model.Anakin_deck.Anakin_Card;
+
+import seedu.address.model.AnakinDeck.AnakinAnswer;
+import seedu.address.model.AnakinDeck.AnakinCard;
+import seedu.address.model.AnakinDeck.AnakinQuestion;
+import seedu.address.model.AnakinModel;
+
 
 /**
  * Edits the details of an existing card in a deck.
  */
-public class AnakinEditCardCommand extends Anakin_Command {
+public class AnakinEditCardCommand extends AnakinCommand {
 
     public static final String COMMAND_WORD = "editcard";
 
@@ -58,16 +60,16 @@ public class AnakinEditCardCommand extends Anakin_Command {
     }
 
     @Override
-    public CommandResult execute(Anakin_Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(AnakinModel model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Anakin_Card> lastShownList = model.getFilteredCardList();
+        List<AnakinCard> lastShownList = model.getFilteredCardList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
         }
 
-        Anakin_Card cardToEdit = lastShownList.get(index.getZeroBased());
-        Anakin_Card editedCard = createEditedCard(cardToEdit, editCardDescriptor);
+        AnakinCard cardToEdit = lastShownList.get(index.getZeroBased());
+        AnakinCard editedCard = createEditedCard(cardToEdit, editCardDescriptor);
 
         if (!cardToEdit.isSameCard(editedCard) && model.hasCard(editedCard)) {
             throw new CommandException(MESSAGE_DUPLICATE_CARD);
@@ -84,13 +86,13 @@ public class AnakinEditCardCommand extends Anakin_Command {
      * Creates and returns a {@code Card} with the details of {@code cardToEdit}
      * edited with {@code editCardDescriptor}.
      */
-    private static Anakin_Card createEditedCard(Anakin_Card cardToEdit, EditCardDescriptor editCardDescriptor) {
+    private static AnakinCard createEditedCard(AnakinCard cardToEdit, EditCardDescriptor editCardDescriptor) {
         assert cardToEdit != null;
 
         AnakinQuestion updatedQuestion = editCardDescriptor.getQuestion().orElse(cardToEdit.getQuestion());
         AnakinAnswer updatedAnswer = editCardDescriptor.getAnswer().orElse(cardToEdit.getAnswer());
 
-        return new Anakin_Card(updatedQuestion, updatedAnswer);
+        return new AnakinCard(updatedQuestion, updatedAnswer);
     }
 
     @Override
