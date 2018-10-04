@@ -1,6 +1,7 @@
 package seedu.address.model.util;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.model.util.DateFormatUtil.isValidDateFormat;
 import static seedu.address.model.util.DateFormatUtil.parseDate;
@@ -51,7 +52,7 @@ public class DateFormatUtilTest {
 
     @Test
     public void isValidDateFormat_invalidDateFormat_standardFormat() {
-        assertTrue(isValidDateFormat("12-13-18"));
-        assertTrue(isValidDateFormat("32-12-2018 1200"));
+        assertFalse(isValidDateFormat("12-13-18"));
+        assertFalse(isValidDateFormat("32-12-2018 1200"));
     }
 }
