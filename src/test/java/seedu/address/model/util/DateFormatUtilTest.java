@@ -28,27 +28,27 @@ public class DateFormatUtilTest {
     @Test
     public void parseDate_validDate() {
         //Comparing parsed date against intended date in unix timestamp
-        assertEquals(parseDate("12-12-2018"), new Date(1544544000000L) );
+        assertEquals(parseDate("12-12-2018"), new Date(1544544000000L));
     }
 
     @Test
-    public void isValidDateFormat_validMinimalFormat(){
+    public void isValidDateFormat_validMinimalFormat() {
         assertTrue(isValidDateFormat("12-12-18"));
     }
 
     @Test
-    public void isValidDateFormat_validStandardFormat(){
+    public void isValidDateFormat_validStandardFormat() {
         assertTrue(isValidDateFormat("12-12-18 1200"));
     }
 
     @Test
-    public void isValidDateFormat_validDateFormat_minimalFormat(){
+    public void isValidDateFormat_validDateFormat_minimalFormat() {
         assertTrue(isValidDateFormat("12-12-18"));
         assertTrue(isValidDateFormat("13-12-2018"));
     }
 
     @Test
-    public void isValidDateFormat_validDateFormat_standardFormat(){
+    public void isValidDateFormat_validDateFormat_standardFormat() {
         assertTrue(isValidDateFormat("12-12-18 1200"));
         assertTrue(isValidDateFormat("13-12-2018 1200"));
     }
