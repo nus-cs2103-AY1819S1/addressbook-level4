@@ -59,8 +59,11 @@ public class SetTimeCommand extends Command {
             throw new CommandException(Messages.MESSAGE_NO_EVENT_SELECTED);
         }
 
-        event.setStartTime(startTime);
-        event.setEndTime(endTime);
+        try {
+            event.setTime(startTime, endTime);
+        } catch (IllegalArgumentException e) {
+            throw new CommandException(Messages.MESSAGE_END_BEFORE_START_TIME);
+        }
 
         model.updateEvent(event, event);
         model.commitAddressBook();

@@ -152,14 +152,10 @@ public class XmlAdaptedEvent {
             event.setDate(modelDate);
         }
 
-        if (!startTime.isEmpty()) {
-            LocalTime modelTime = LocalTime.parse(startTime, DateTimeFormatter.ofPattern("HH:mm"));
-            event.setStartTime(modelTime);
-        }
-
-        if (!endTime.isEmpty()) {
-            LocalTime modelTime = LocalTime.parse(endTime, DateTimeFormatter.ofPattern("HH:mm"));
-            event.setEndTime(modelTime);
+        if (!startTime.isEmpty() && !endTime.isEmpty()) {
+            LocalTime modelStartTime = LocalTime.parse(startTime, DateTimeFormatter.ofPattern("HH:mm"));
+            LocalTime modelEndTime = LocalTime.parse(endTime, DateTimeFormatter.ofPattern("HH:mm"));
+            event.setTime(modelStartTime, modelEndTime);
         }
 
         final ArrayList<Poll> modelPolls = new ArrayList<>();

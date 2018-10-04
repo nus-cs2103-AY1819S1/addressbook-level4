@@ -124,16 +124,19 @@ public class Event {
         return startTime;
     }
 
-    public void setStartTime(LocalTime time) {
-        this.startTime = time;
+    /**
+     * Sets the start and end time.
+     */
+    public void setTime(LocalTime startTime, LocalTime endTime) throws IllegalArgumentException {
+        if (endTime.isBefore(startTime)) {
+            throw new IllegalArgumentException();
+        }
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     public LocalTime getEndTime() {
         return endTime;
-    }
-
-    public void setEndTime(LocalTime time) {
-        this.endTime = time;
     }
 
     /**

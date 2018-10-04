@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME_START;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -49,10 +50,14 @@ public class FindEventByTimeCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        EventInTimeFramePredicate predicate = new EventInTimeFramePredicate(startTime, endTime, date);
-        model.updateFilteredEventList(predicate);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, model.getFilteredEventList().size(),
-                date.toString(), startTime.toString(), endTime.toString()));
+        try {
+            EventInTimeFramePredicate predicate = new EventInTimeFramePredicate(startTime, endTime, date);
+            model.updateFilteredEventList(predicate);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, model.getFilteredEventList().size(),
+                    date.toString(), startTime.toString(), endTime.toString()));
+        } catch (IllegalArgumentException e) {
+            throw new CommandException(Messages.MESSAGE_END_BEFORE_START_TIME);
+        }
     }
 
     @Override
