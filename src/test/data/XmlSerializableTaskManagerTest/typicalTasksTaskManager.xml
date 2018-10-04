@@ -5,7 +5,7 @@
         <name>Address CS2103 email</name>
         <dueDate>01-12-18</dueDate>
         <priorityValue>1</priorityValue>
-        <description>123, Jurong West Ave 6, #08-111</description>
+        <description>Reply to Damith</description>
         <labelled>friends</labelled>
         <status>IN PROGRESS</status>
     </tasks>
@@ -13,7 +13,7 @@
         <name>Build addressbook for tutorial</name>
         <dueDate>02-12-18 1330</dueDate>
         <priorityValue>2</priorityValue>
-        <description>311, Clementi Ave 2, #02-25</description>
+        <description>Press 'Build' in IntelliJ</description>
         <labelled>owesMoney</labelled>
         <labelled>friends</labelled>
         <status>IN PROGRESS</status>
@@ -22,14 +22,14 @@
         <name>Cancel medical appointment</name>
         <dueDate>03-12-18</dueDate>
         <priorityValue>3</priorityValue>
-        <description>wall street</description>
+        <description>Call number +6562353535</description>
         <status>IN PROGRESS</status>
     </tasks>
     <tasks>
         <name>Do CS2106 tutorial</name>
         <dueDate>04-12-18</dueDate>
         <priorityValue>4</priorityValue>
-        <description>10th street</description>
+        <description>Preferably before the tutorial</description>
         <labelled>friends</labelled>
         <status>IN PROGRESS</status>
     </tasks>
@@ -37,21 +37,21 @@
         <name>Edit research report</name>
         <dueDate>05-12-18</dueDate>
         <priorityValue>5</priorityValue>
-        <description>michegan ave</description>
+        <description>Add more words</description>
         <status>FINISHED</status>
     </tasks>
     <tasks>
         <name>Find suitable reagents for experiment</name>
         <dueDate>06-12-2018</dueDate>
         <priorityValue>6</priorityValue>
-        <description>little tokyo</description>
+        <description>Missing spice and everything nice</description>
         <status>IN PROGRESS</status>
     </tasks>
     <tasks>
         <name>Grade assignments</name>
         <dueDate>07-12-18</dueDate>
         <priorityValue>7</priorityValue>
-        <description>4th street</description>
+        <description>Then enter grades into IVLE</description>
         <status>IN PROGRESS</status>
     </tasks>
 </taskmanager>
