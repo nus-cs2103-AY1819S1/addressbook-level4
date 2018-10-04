@@ -47,13 +47,15 @@ public enum Meal {
      * @param s Command string token
      * @return Meal
      */
-    public Meal stringToMealEnum(String s) {
+    public Meal stringToMealEnum(String s) throws IllegalArgumentException {
         if (s.equalsIgnoreCase("breakfast")) {
             return BREAKFAST;
         } else if (s.equalsIgnoreCase("lunch")) {
             return LUNCH;
-        } else {
+        } else if (s.equalsIgnoreCase("dinner")){
             return DINNER;
+        } else {
+            throw new IllegalArgumentException("Valid meal slots: breakfast, lunch, dinner");
         }
     }
 }
