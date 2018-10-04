@@ -50,6 +50,7 @@ public class ResultDisplay extends UiPart<Region> {
             }
         });
     }
+    //@@author
 
     //Solution below adapted from https://github.com/se-edu/addressbook-level4/pull/799/files
     /**

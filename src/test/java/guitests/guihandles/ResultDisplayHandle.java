@@ -30,4 +30,5 @@ public class ResultDisplayHandle extends NodeHandle<TextArea> {
     public List<String> getStyleClass() {
         return getRootNode().getStyleClass();
     }
+    //@@author
 }

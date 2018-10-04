@@ -16,6 +16,7 @@ public class NewResultAvailableEvent extends BaseEvent {
         this.message = message;
         this.isSuccessful = isSuccessful;
     }
+    //@@author
 
     @Override
     public String toString() {
