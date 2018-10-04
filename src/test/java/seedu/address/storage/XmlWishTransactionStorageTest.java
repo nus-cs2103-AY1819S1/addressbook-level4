@@ -18,7 +18,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.WishTransaction;
 
 public class XmlWishTransactionStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src","test", "XmlWishTransactionTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src","test", "data", "XmlWishTransactionStorageTest");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
