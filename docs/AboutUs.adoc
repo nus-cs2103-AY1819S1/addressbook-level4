@@ -16,10 +16,11 @@ image::crimsonang.png[width="150", align="left"]
 
 Role: Team Lead, Scheduling and Tracking +
 Responsibilities: Responsible for overall project coordination.
+
 '''
 
 === Lin Xu
-image::woodsuns.png[width="150", align="left"]
+image::woodnsuns.png[width="150", align="left"]
 {empty}[https://github.com/Woodnsuns[github]] [<<johndoe#, portfolio>>]
 
 Role: Documentation, Code Quality +
