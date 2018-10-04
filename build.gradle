@@ -55,6 +55,8 @@ test {
 }
 
 dependencies {
+    compile 'org.jsoup:jsoup:1.11.3'
+
     String testFxVersion = '4.0.12-alpha'
     String jUnitVersion = '5.1.0'
 
