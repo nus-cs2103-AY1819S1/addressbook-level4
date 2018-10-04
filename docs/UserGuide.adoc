@@ -49,7 +49,7 @@ Format: clear
 
 *Multilingual support*
 
-Allow users to download dictionaries of other languages 
+Allow users to download dictionaries of other languages
 Allows for user to enter their native language and learn English from there.
 Command syntax: multi [language]
 Format: multi chi
