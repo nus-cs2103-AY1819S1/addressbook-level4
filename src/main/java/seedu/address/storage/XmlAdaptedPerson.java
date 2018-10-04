@@ -14,8 +14,8 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Meaning;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Word;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Word;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -48,7 +48,8 @@ public class XmlAdaptedPerson {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given word details.
      */
-    public XmlAdaptedPerson(String name, String meaning, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedPerson(String name, String meaning, String phone,
+                            String email, String address, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.meaning = meaning;
         this.phone = phone;
@@ -139,6 +140,7 @@ public class XmlAdaptedPerson {
 
         XmlAdaptedPerson otherPerson = (XmlAdaptedPerson) other;
         return Objects.equals(name, otherPerson.name)
+                && Objects.equals(meaning, otherPerson.meaning)
                 && Objects.equals(phone, otherPerson.phone)
                 && Objects.equals(email, otherPerson.email)
                 && Objects.equals(address, otherPerson.address)
