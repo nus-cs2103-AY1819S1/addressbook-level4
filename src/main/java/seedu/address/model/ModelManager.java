@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -40,9 +41,9 @@ public class ModelManager extends ComponentManager implements Model {
     private final CalendarModel calendarModel;
 
     /**
-     * Initializes a ModelManager with the given addressBook, userPrefs and calendarStorage.
+     * Initializes a ModelManager with the given addressBook, budgetBook, userPrefs and calendarStorage.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyBudgetBook budgetbook, UserPrefs userPrefs,
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyBudgetBook budgetBook, UserPrefs userPrefs,
                         CalendarStorage calendarStorage) {
         super();
         requireAllNonNull(addressBook, userPrefs, calendarStorage);
@@ -51,7 +52,7 @@ public class ModelManager extends ComponentManager implements Model {
             + " and calendar: " + calendarStorage);
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
-        versionedBudgetBook = new VersionedBudgetBook(budgetbook);
+        versionedBudgetBook = new VersionedBudgetBook(budgetBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredCcas = new FilteredList<>(versionedBudgetBook.getCcaList());
         this.userPrefs = userPrefs;
@@ -60,16 +61,16 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * Initializes a ModelManager with the given addressBook, userPrefs.
+     * Initializes a ModelManager with the given addressBook, budgetBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyBudgetBook budgetbook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyBudgetBook budgetBook, UserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
-        versionedBudgetBook = new VersionedBudgetBook(budgetbook);
+        versionedBudgetBook = new VersionedBudgetBook(budgetBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredCcas = new FilteredList<>(versionedBudgetBook.getCcaList());
         this.emailModel = new EmailModel();
@@ -83,6 +84,17 @@ public class ModelManager extends ComponentManager implements Model {
         this(new AddressBook(), new BudgetBook(), new UserPrefs());
     }
 
+    public ModelManager(AddressBook addressBook, UserPrefs userPrefs) {
+        versionedAddressBook = new VersionedAddressBook(addressBook);
+        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        versionedBudgetBook = new VersionedBudgetBook(new BudgetBook());
+        filteredCcas = new FilteredList<>(versionedBudgetBook.getCcaList());
+        emailModel = new EmailModel();
+        this.userPrefs = userPrefs;
+        CalendarStorage calendarStorage = new IcsCalendarStorage(userPrefs.getCalendarPath());
+        this.calendarModel = new CalendarModel(calendarStorage, userPrefs.getExistingCalendar());
+    }
+
     @Override
     public void resetData(ReadOnlyAddressBook newData) {
         versionedAddressBook.resetData(newData);
@@ -92,6 +104,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return versionedAddressBook;
+    }
+
+    @Override
+    public ReadOnlyBudgetBook getBudgetBook() {
+        return versionedBudgetBook;
     }
 
     /**
@@ -110,6 +127,24 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void deletePerson(Person target) {
         versionedAddressBook.removePerson(target);
+        indicateAddressBookChanged();
+    }
+
+    //@@author kengwoon
+    @Override
+    public void clearMultiplePersons(List<Person> target) {
+        for (Person p : target) {
+            versionedAddressBook.removePerson(p);
+        }
+        indicateAddressBookChanged();
+    }
+
+    //@@author kengwoon
+    @Override
+    public void removeTagsFromPersons(List<Person> target, List<Person> original) {
+        for (int i = 0; i < target.size(); i++) {
+            updatePerson(original.get(i), target.get(i));
+        }
         indicateAddressBookChanged();
     }
 
@@ -232,6 +267,12 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
+        if (filteredPersons == null) {
+            return versionedAddressBook.equals(other.versionedAddressBook);
+        } else if (calendarModel == null) {
+            return versionedAddressBook.equals(other.versionedAddressBook)
+                    && filteredPersons.equals(other.filteredPersons);
+        }
         return versionedAddressBook.equals(other.versionedAddressBook)
             && filteredPersons.equals(other.filteredPersons)
             && calendarModel.equals(other.calendarModel);

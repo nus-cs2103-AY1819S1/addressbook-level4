@@ -64,4 +64,11 @@ public class Tag {
         return '[' + tagName + ']';
     }
 
+    /**
+     * Format state as String.
+     */
+    public String toStringOnly() {
+        return tagName;
+    }
+
 }
