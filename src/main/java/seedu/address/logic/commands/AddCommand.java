@@ -27,12 +27,11 @@ public class AddCommand extends Command {
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + "[" + PREFIX_LABEL + "LABEL]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
+            + PREFIX_NAME + "Do CS2103 tutorial "
             + PREFIX_DUE_DATE + "02-12-18 1330 "
-            + PREFIX_PRIORITY_VALUE + "johnd@example.com "
-            + PREFIX_DESCRIPTION + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_LABEL + "friends "
-            + PREFIX_LABEL + "owesMoney";
+            + PREFIX_PRIORITY_VALUE + "5 "
+            + PREFIX_DESCRIPTION + "Do it for Jelena "
+            + PREFIX_LABEL + "tutorial ";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
