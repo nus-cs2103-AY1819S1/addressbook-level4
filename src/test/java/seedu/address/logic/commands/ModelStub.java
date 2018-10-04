@@ -145,7 +145,7 @@ public class ModelStub implements Model {
     public Event getSelectedEvent() throws NoEventSelectedException {
         throw new AssertionError("This method should not be called.");
     }
-
+  
     @Override
     public void removeSelectedEvent() {
         throw new AssertionError("This method should not be called.");

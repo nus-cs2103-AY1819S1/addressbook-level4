@@ -58,7 +58,6 @@ public class SetDateCommand extends Command {
         } catch (NoEventSelectedException e) {
             throw new CommandException(Messages.MESSAGE_NO_EVENT_SELECTED);
         }
-
         event.setDate(date);
         model.updateEvent(event, event);
         model.commitAddressBook();
