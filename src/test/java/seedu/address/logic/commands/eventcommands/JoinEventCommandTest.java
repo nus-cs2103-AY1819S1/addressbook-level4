@@ -43,7 +43,7 @@ public class JoinEventCommandTest {
     public void execute_indexInvalidJoinEvent() {
         JoinEventCommand command = new JoinEventCommand(INVALID_INDEX);
         Person user = new PersonBuilder().build();
-        commandHistory.setSelectedPerson(user);
+        model.setCurrentUser(user);
         String expectedMessage = String.format(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
@@ -52,7 +52,7 @@ public class JoinEventCommandTest {
     public void execute_noUserJoinEvent() {
         JoinEventCommand command = new JoinEventCommand(TypicalIndexes.INDEX_FIRST);
         Event event = new EventBuilder().build();
-        commandHistory.setSelectedEvent(event);
+        model.setSelectedEvent(event);
         String expectedMessage = String.format(Messages.MESSAGE_NO_USER_LOGGED_IN);
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }

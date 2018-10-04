@@ -34,9 +34,9 @@ public class SetTimeCommandTest {
         SetTimeCommand command = new SetTimeCommand(startTime, endTime);
         DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
         Person user = new PersonBuilder().build();
-        commandHistory.setSelectedPerson(user);
+        model.setCurrentUser(user);
         Event event = model.getFilteredEventList().get(0);
-        commandHistory.setSelectedEvent(event);
+        model.setSelectedEvent(event);
         String expectedMessage = String.format(command.MESSAGE_SUCCESS, startTime.format(timeFormat),
                 endTime.format(timeFormat), event);
         expectedModel.commitAddressBook();
@@ -48,7 +48,7 @@ public class SetTimeCommandTest {
     public void execute_noUserSetTime() {
         SetTimeCommand command = new SetTimeCommand(startTime, endTime);
         Event event = new EventBuilder().build();
-        commandHistory.setSelectedEvent(event);
+        model.setSelectedEvent(event);
         String expectedMessage = String.format(Messages.MESSAGE_NO_USER_LOGGED_IN);
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
@@ -64,12 +64,12 @@ public class SetTimeCommandTest {
     public void execute_notEventOrganiserSetTime() {
         SetTimeCommand command = new SetTimeCommand(startTime, endTime);
         Person user = new PersonBuilder().build();
-        commandHistory.setSelectedPerson(user);
+        model.setCurrentUser(user);
         Person anotherUser = new PersonBuilder(user).withName("Bob").build();
         EventBuilder eventBuilder = new EventBuilder();
         eventBuilder.withOrganiser(anotherUser);
         Event event = eventBuilder.build();
-        commandHistory.setSelectedEvent(event);
+        model.setSelectedEvent(event);
         String expectedMessage = String.format(Messages.MESSAGE_NOT_EVENT_ORGANISER);
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
