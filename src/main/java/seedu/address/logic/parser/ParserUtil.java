@@ -87,7 +87,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code email} is invalid.
      */
-    public static PriorityValue parseEmail(String email) throws ParseException {
+    public static PriorityValue parsePriorityValue(String email) throws ParseException {
         requireNonNull(email);
         String trimmedEmail = email.trim();
         if (!PriorityValue.isValidPriorityValue(trimmedEmail)) {

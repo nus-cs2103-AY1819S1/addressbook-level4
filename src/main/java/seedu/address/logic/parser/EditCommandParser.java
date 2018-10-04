@@ -51,7 +51,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             editTaskDescriptor.setDueDate(ParserUtil.parseDueDate(argMultimap.getValue(PREFIX_DUE_DATE).get()));
         }
         if (argMultimap.getValue(PREFIX_PRIORITY_VALUE).isPresent()) {
-            editTaskDescriptor.setPriorityValue(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_PRIORITY_VALUE)
+            editTaskDescriptor.setPriorityValue(ParserUtil.parsePriorityValue(argMultimap.getValue(PREFIX_PRIORITY_VALUE)
                 .get()));
         }
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {

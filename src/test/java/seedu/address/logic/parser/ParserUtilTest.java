@@ -134,25 +134,25 @@ public class ParserUtilTest {
 
     @Test
     public void parseEmail_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseEmail((String) null));
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parsePriorityValue((String) null));
     }
 
     @Test
     public void parseEmail_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseEmail(INVALID_PRIORITY_VALUE));
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parsePriorityValue(INVALID_PRIORITY_VALUE));
     }
 
     @Test
     public void parseEmail_validValueWithoutWhitespace_returnsEmail() throws Exception {
         PriorityValue expectedEmail = new PriorityValue(VALID_PRIORITY_VALUE);
-        assertEquals(expectedEmail, ParserUtil.parseEmail(VALID_PRIORITY_VALUE));
+        assertEquals(expectedEmail, ParserUtil.parsePriorityValue(VALID_PRIORITY_VALUE));
     }
 
     @Test
     public void parseEmail_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
         String emailWithWhitespace = WHITESPACE + VALID_PRIORITY_VALUE + WHITESPACE;
         PriorityValue expectedEmail = new PriorityValue(VALID_PRIORITY_VALUE);
-        assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
+        assertEquals(expectedEmail, ParserUtil.parsePriorityValue(emailWithWhitespace));
     }
 
     @Test
