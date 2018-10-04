@@ -6,9 +6,9 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showCarparkAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARPARK;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARPARK;
+import static seedu.address.testutil.TypicalCarparks.getTypicalAddressBook;
 
 import org.junit.Test;
 
@@ -18,6 +18,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.carpark.Carpark;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -30,13 +31,13 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Person personToDelete = model.getFilteredCarparkList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        Carpark carparkToDelete = model.getFilteredCarparkList().get(INDEX_FIRST_CARPARK.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_CARPARK);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_CARPARK_SUCCESS, carparkToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.deletePerson(personToDelete);
+        expectedModel.deleteCarpark(carparkToDelete);
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -47,20 +48,20 @@ public class DeleteCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredCarparkList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_CARPARK_DISPLAYED_INDEX);
     }
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showCarparkAtIndex(model, INDEX_FIRST_PERSON);
+        showCarparkAtIndex(model, INDEX_FIRST_CARPARK);
 
-        Person personToDelete = model.getFilteredCarparkList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        Carpark carparkToDelete = model.getFilteredCarparkList().get(INDEX_FIRST_CARPARK.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_CARPARK);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_CARPARK_SUCCESS, carparkToDelete);
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.deletePerson(personToDelete);
+        expectedModel.deleteCarpark(carparkToDelete);
         expectedModel.commitAddressBook();
         showNoPerson(expectedModel);
 
@@ -69,23 +70,23 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showCarparkAtIndex(model, INDEX_FIRST_PERSON);
+        showCarparkAtIndex(model, INDEX_FIRST_CARPARK);
 
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+        Index outOfBoundIndex = INDEX_SECOND_CARPARK;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getCarparkList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_CARPARK_DISPLAYED_INDEX);
     }
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
-        Person personToDelete = model.getFilteredCarparkList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        Carpark carparkToDelete = model.getFilteredCarparkList().get(INDEX_FIRST_CARPARK.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_CARPARK);
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.deletePerson(personToDelete);
+        expectedModel.deleteCarpark(carparkToDelete);
         expectedModel.commitAddressBook();
 
         // delete -> first carpark deleted
@@ -106,7 +107,7 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
         // execution failed -> address book state not added into model
-        assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_CARPARK_DISPLAYED_INDEX);
 
         // single address book state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
@@ -122,12 +123,12 @@ public class DeleteCommandTest {
      */
     @Test
     public void executeUndoRedo_validIndexFilteredList_samePersonDeleted() throws Exception {
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_CARPARK);
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
-        showCarparkAtIndex(model, INDEX_SECOND_PERSON);
-        Person personToDelete = model.getFilteredCarparkList().get(INDEX_FIRST_PERSON.getZeroBased());
-        expectedModel.deletePerson(personToDelete);
+        showCarparkAtIndex(model, INDEX_SECOND_CARPARK);
+        Carpark carparkToDelete = model.getFilteredCarparkList().get(INDEX_FIRST_CARPARK.getZeroBased());
+        expectedModel.deleteCarpark(carparkToDelete);
         expectedModel.commitAddressBook();
 
         // delete -> deletes second carpark in unfiltered carpark list / first carpark in filtered carpark list
@@ -137,7 +138,7 @@ public class DeleteCommandTest {
         expectedModel.undoAddressBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        assertNotEquals(personToDelete, model.getFilteredCarparkList().get(INDEX_FIRST_PERSON.getZeroBased()));
+        assertNotEquals(carparkToDelete, model.getFilteredCarparkList().get(INDEX_FIRST_CARPARK.getZeroBased()));
         // redo -> deletes same second carpark in unfiltered carpark list
         expectedModel.redoAddressBook();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
@@ -145,14 +146,14 @@ public class DeleteCommandTest {
 
     @Test
     public void equals() {
-        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_PERSON);
-        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_PERSON);
+        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_CARPARK);
+        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_CARPARK);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_PERSON);
+        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_CARPARK);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false

@@ -112,7 +112,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find phone number of carpark in address book -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getPhone().value;
+        command = FindCommand.COMMAND_WORD + " " + DANIEL.getCoordinate().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -122,7 +122,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find email of carpark in address book -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getEmail().value;
+        command = FindCommand.COMMAND_WORD + " " + DANIEL.getNightParking().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 

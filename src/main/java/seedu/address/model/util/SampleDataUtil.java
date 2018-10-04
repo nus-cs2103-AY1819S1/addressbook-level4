@@ -46,7 +46,7 @@ public class SampleDataUtil {
     public static ReadOnlyAddressBook getSampleAddressBook() throws IOException {
         AddressBook sampleAb = new AddressBook();
         for (Carpark sampleCarpark : getSampleCarpark()) {
-            System.out.println(sampleCarpark);
+//            System.out.println(sampleCarpark);
             sampleAb.addCarpark(sampleCarpark);
         }
         return sampleAb;
