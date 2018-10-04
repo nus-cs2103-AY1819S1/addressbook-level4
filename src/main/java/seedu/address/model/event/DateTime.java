@@ -51,7 +51,7 @@ public class DateTime implements Comparable<DateTime> {
     }
 
     /**
-     * Used for PopUp
+     * Used for PopUp to check if the current time is close to the next event in the pop up queue
      * @param currentDateTime
      * @return True if the time difference is within 1 minute
      */
@@ -62,7 +62,7 @@ public class DateTime implements Comparable<DateTime> {
     }
 
     /**
-     * Used for PopUp
+     * Used for PopUp to check if the event has already passed when the app is open
      * @param currentDateTime
      * @return True if the event has already past
      */

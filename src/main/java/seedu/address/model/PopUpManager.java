@@ -76,6 +76,7 @@ public class PopUpManager {
                         }
                     }
 
+                    // Sleep for 5 seconds after each loop of checking, to give the app some buffer time
                     try {
                         TimeUnit.SECONDS.sleep(5);
                     } catch (InterruptedException e) {

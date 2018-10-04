@@ -11,13 +11,13 @@ ifdef::env-github[]
 image::docs/images/logo.png[width="900"]
 endif::[]
 
-= Showcase
+== Showcase
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
 endif::[]
 
-= Overview
+== Overview
 *A desktop Event Scheduler application.*
 
 
