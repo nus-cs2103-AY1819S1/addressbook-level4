@@ -11,8 +11,8 @@ import seedu.address.logic.AnakinParser.AnakinParser;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.anakindeck.AnakinDeck;
 import seedu.address.model.AnakinModel;
+import seedu.address.model.anakindeck.AnakinDeck;
 
 /**
  * The main LogicManager of the app. Implements AnakinLogic

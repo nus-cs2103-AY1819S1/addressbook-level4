@@ -9,8 +9,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.anakindeck.AnakinDeck;
 import seedu.address.model.AnakinModel;
+import seedu.address.model.anakindeck.AnakinDeck;
 
 /**
  * Deletes a deck identified using it's displayed index from Anakin.

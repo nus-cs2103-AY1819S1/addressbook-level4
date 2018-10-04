@@ -16,11 +16,10 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
+import seedu.address.model.AnakinModel;
 import seedu.address.model.anakindeck.AnakinAnswer;
 import seedu.address.model.anakindeck.AnakinCard;
 import seedu.address.model.anakindeck.AnakinQuestion;
-import seedu.address.model.AnakinModel;
-
 
 /**
  * Edits the details of an existing card in a deck.
