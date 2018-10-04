@@ -36,7 +36,7 @@ public class SampleDataUtil {
                     new Description("Inject heroin"),
                     getLabelSet("classmates")),
             new Task(new Name("Run home"), new DueDate("06-10-18"), new PriorityValue("3"),
-                    new Description(""),
+                    new Description("Just go"),
                     getLabelSet("colleagues"))
         };
     }
