@@ -10,7 +10,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.AnakinDeck.AnakinExceptions.CardNotFoundException;
 import seedu.address.model.AnakinDeck.AnakinExceptions.DuplicateCardException;
-import seedu.address.model.AnakinDeck.AnakinExceptions.DuplicateDeckException;
 
 /**
  * A list of cards that enforces uniqueness between its elements and does not allow nulls.
