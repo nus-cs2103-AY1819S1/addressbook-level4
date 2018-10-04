@@ -48,4 +48,10 @@ public class DateFormatUtilTest {
         assertTrue(isValidDateFormat("12-12-18 1200"));
         assertTrue(isValidDateFormat("13-12-2018 1200"));
     }
+
+    @Test
+    public void isValidDateFormat_invalidDateFormat_standardFormat() {
+        assertTrue(isValidDateFormat("12-13-18"));
+        assertTrue(isValidDateFormat("32-12-2018 1200"));
+    }
 }
