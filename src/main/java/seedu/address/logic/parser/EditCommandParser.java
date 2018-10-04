@@ -55,7 +55,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                 .get()));
         }
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
-            editTaskDescriptor.setDescription(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
+            editTaskDescriptor.setDescription(ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }
         parseLabelsForEdit(argMultimap.getAllValues(PREFIX_LABEL)).ifPresent(editTaskDescriptor::setLabels);
 
