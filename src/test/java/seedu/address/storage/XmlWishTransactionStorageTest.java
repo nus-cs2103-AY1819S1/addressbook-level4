@@ -56,13 +56,24 @@ public class XmlWishTransactionStorageTest {
 
     @Test
     public void readAndSaveWishTransaction() throws Exception{
-        Path filePath = testFolder.getRoot().toPath().resolve("TempWishTransaction.xml");
+//        Path filePath = testFolder.getRoot().toPath().resolve("TempWishTransaction.xml");
+        Path filePath = TEST_DATA_FOLDER.resolve("TempWishTransaction.xml");
         WishTransaction original = getTypicalWishTransaction();
+
+        //todo
+        System.out.println("original wishTransaction");
+        System.out.println(original);
+
         XmlWishTransactionStorage xmlWishTransactionStorage = new XmlWishTransactionStorage(filePath);
 
         // Save in new file and read back
         xmlWishTransactionStorage.saveWishTransaction(original, filePath);
-        WishTransaction read = xmlWishTransactionStorage.readWishTransaction().get();
+        WishTransaction read = xmlWishTransactionStorage.readWishTransaction(filePath).get();
+
+        //todo
+        System.out.println("read wishTransaction");
+        System.out.println(read);
+
         assertEquals(original, read);
     }
 }

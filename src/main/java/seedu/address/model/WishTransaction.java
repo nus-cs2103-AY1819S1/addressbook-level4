@@ -284,4 +284,13 @@ public class WishTransaction implements ActionCommandListener<WishTransaction> {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        wishMap.entrySet().forEach(entry -> {
+            System.out.println(entry.getKey());
+            entry.getValue().forEach(System.out::println);
+        });
+        return null;
+    }
 }

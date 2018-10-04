@@ -8,7 +8,7 @@ import java.util.Objects;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -22,8 +22,8 @@ import seedu.address.model.wish.Wish;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class XmlWishTransactions {
 
-    @XmlElement
-    private Map<String, LinkedList<XmlAdaptedWish>> wishMap;
+    @XmlElementWrapper
+    private Map<String, XmlAdaptedWishWrapper> wishMap;
 
     /**
      * Creates an empty XmlSerializableWishTransactionMap.
@@ -39,11 +39,15 @@ public class XmlWishTransactions {
     public XmlWishTransactions(WishTransaction wishTransaction) {
         this();
         for (Map.Entry<String, LinkedList<Wish>> entries : wishTransaction.getWishMap().entrySet()) {
-            wishMap.put(entries.getKey(), toXmlWishList(entries.getValue()));
+            this.wishMap.put(entries.getKey(), new XmlAdaptedWishWrapper(toXmlWishList(entries.getValue())));
         }
+
+        //todo
+        System.out.println("Converting from wishTransaction to XmlWishTransaction");
+        System.out.println(this);
     }
 
-    public Map<String, LinkedList<XmlAdaptedWish>> getWishMap() {
+    public Map<String, XmlAdaptedWishWrapper> getWishMap() {
         return wishMap;
     }
 
@@ -53,8 +57,8 @@ public class XmlWishTransactions {
      */
     public void addWish(Wish wish) {
         String wishName = getKey(wish);
-        LinkedList<XmlAdaptedWish> wishList = getWishList(wishName);
-        setValueOfKey(wish, updateWishes(wishList, wish));
+        XmlAdaptedWishWrapper xmlAdaptedWishes = getWishList(wishName);
+        setValueOfKey(wish, updateWishes(xmlAdaptedWishes, wish));
     }
 
     /**
@@ -62,8 +66,8 @@ public class XmlWishTransactions {
      * @param key name of the wish.
      * @return wishlist stored at {@code key}.
      */
-    private LinkedList<XmlAdaptedWish> getWishList(String key) {
-        return wishMap.getOrDefault(key, new LinkedList<>());
+    private XmlAdaptedWishWrapper getWishList(String key) {
+        return wishMap.getOrDefault(key, new XmlAdaptedWishWrapper());
     }
 
     /**
@@ -93,11 +97,11 @@ public class XmlWishTransactions {
      */
     public void updateWish(Wish target, Wish editedWish) {
         // get a reference to the stored wishes
-        LinkedList<XmlAdaptedWish> wishes = wishMap.get(getKey(target));
+        XmlAdaptedWishWrapper xmlAdaptedWishes = wishMap.get(getKey(target));
         // change the key of the target wish
         changeKey(target, editedWish);
         // update the stored wishes
-        setValueOfKey(editedWish, updateWishes(wishes, editedWish));
+        setValueOfKey(editedWish, updateWishes(xmlAdaptedWishes, editedWish));
     }
 
     /**
@@ -106,8 +110,8 @@ public class XmlWishTransactions {
      * @param editedWish wish to be updated to.
      * @return an updated log of saving history.
      */
-    private LinkedList<XmlAdaptedWish> updateWishes(LinkedList<XmlAdaptedWish> existingWishes, Wish editedWish) {
-        existingWishes.add(new XmlAdaptedWish(editedWish));
+    private XmlAdaptedWishWrapper updateWishes(XmlAdaptedWishWrapper existingWishes, Wish editedWish) {
+        existingWishes.getXmlAdaptedWishes().add(new XmlAdaptedWish(editedWish));
         return existingWishes;
     }
 
@@ -128,7 +132,7 @@ public class XmlWishTransactions {
      * @param wish an existing wish.
      * @param wishes value to be changed to.
      */
-    private void setValueOfKey(Wish wish, LinkedList<XmlAdaptedWish> wishes) {
+    private void setValueOfKey(Wish wish, XmlAdaptedWishWrapper wishes) {
         wishMap.put(getKey(wish), wishes);
     }
 
@@ -157,7 +161,7 @@ public class XmlWishTransactions {
      */
     private HashMap<String, LinkedList<Wish>> toWishMap() throws IllegalValueException {
         HashMap<String, LinkedList<Wish>> convertedMap = new HashMap<>();
-        for (Map.Entry<String, LinkedList<XmlAdaptedWish>> entries : wishMap.entrySet()) {
+        for (Map.Entry<String, XmlAdaptedWishWrapper> entries : wishMap.entrySet()) {
             convertedMap.put(entries.getKey(), toWishList(entries.getValue()));
         }
         return convertedMap;
@@ -170,7 +174,7 @@ public class XmlWishTransactions {
      */
     public LinkedList<Wish> toCurrentStateWishTransactionList() throws IllegalValueException {
         LinkedList<Wish> wishes = new LinkedList<>();
-        for (Map.Entry<String, LinkedList<XmlAdaptedWish>> entries : wishMap.entrySet()) {
+        for (Map.Entry<String, XmlAdaptedWishWrapper> entries : wishMap.entrySet()) {
             wishes.addAll(toWishList(entries.getValue()));
         }
         return wishes;
@@ -195,9 +199,9 @@ public class XmlWishTransactions {
      * @return a list of wishes.
      * @throws IllegalValueException if {@code xmlAdaptedWish} is not correctly formatted.
      */
-    private LinkedList<Wish> toWishList(LinkedList<XmlAdaptedWish> wishList) throws IllegalValueException {
+    private LinkedList<Wish> toWishList(XmlAdaptedWishWrapper wishList) throws IllegalValueException {
         LinkedList<Wish> wishes = new LinkedList<>();
-        for (XmlAdaptedWish xmlAdaptedWish : wishList) {
+        for (XmlAdaptedWish xmlAdaptedWish : wishList.getXmlAdaptedWishes()) {
             wishes.add(xmlAdaptedWish.toModelType());
         }
         return wishes;
@@ -209,11 +213,12 @@ public class XmlWishTransactions {
             return true;
         }
 
-        if (!(other instanceof XmlAdaptedWish)) {
+        if (!(other instanceof XmlWishTransactions)) {
             return false;
         }
 
         XmlWishTransactions otherMap = (XmlWishTransactions) other;
         return Objects.equals(wishMap, otherMap);
     }
+
 }
