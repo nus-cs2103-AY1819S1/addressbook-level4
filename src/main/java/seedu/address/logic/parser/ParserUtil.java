@@ -72,7 +72,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code address} is invalid.
      */
-    public static Description parseAddress(String address) throws ParseException {
+    public static Description parseDescription(String address) throws ParseException {
         requireNonNull(address);
         String trimmedAddress = address.trim();
         if (!Description.isValidDescription(trimmedAddress)) {
@@ -87,7 +87,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code email} is invalid.
      */
-    public static PriorityValue parseEmail(String email) throws ParseException {
+    public static PriorityValue parsePriorityValue(String email) throws ParseException {
         requireNonNull(email);
         String trimmedEmail = email.trim();
         if (!PriorityValue.isValidPriorityValue(trimmedEmail)) {

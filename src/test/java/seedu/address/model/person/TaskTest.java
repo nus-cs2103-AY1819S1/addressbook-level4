@@ -2,7 +2,7 @@ package seedu.address.model.person;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DUEDATE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LABEL_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
@@ -51,7 +51,7 @@ public class TaskTest {
         // same name, same due date, different attributes -> returns true
         editedAlice = new TaskBuilder(A_TASK)
                 .withPriorityValue(VALID_PRIORITY_VALUE_BOB)
-                .withDescription(VALID_ADDRESS_BOB)
+                .withDescription(VALID_DESCRIPTION_BOB)
                 .withLabels(VALID_LABEL_HUSBAND)
                 .build();
         assertTrue(A_TASK.isSameTask(editedAlice));
@@ -59,14 +59,14 @@ public class TaskTest {
         // same name, same priority value, different attributes -> returns true
         editedAlice = new TaskBuilder(A_TASK)
                 .withDueDate(VALID_DUEDATE_BOB)
-                .withDescription(VALID_ADDRESS_BOB)
+                .withDescription(VALID_DESCRIPTION_BOB)
                 .withLabels(VALID_LABEL_HUSBAND)
                 .build();
         assertTrue(A_TASK.isSameTask(editedAlice));
 
         // same name, same due date, same priority value, different attributes -> returns true
         editedAlice = new TaskBuilder(A_TASK)
-                .withDescription(VALID_ADDRESS_BOB)
+                .withDescription(VALID_DESCRIPTION_BOB)
                 .withLabels(VALID_LABEL_HUSBAND)
                 .build();
         assertTrue(A_TASK.isSameTask(editedAlice));
@@ -103,7 +103,7 @@ public class TaskTest {
         assertFalse(A_TASK.equals(editedAlice));
 
         // different description -> returns false
-        editedAlice = new TaskBuilder(A_TASK).withDescription(VALID_ADDRESS_BOB).build();
+        editedAlice = new TaskBuilder(A_TASK).withDescription(VALID_DESCRIPTION_BOB).build();
         assertFalse(A_TASK.equals(editedAlice));
 
         // different labels -> returns false

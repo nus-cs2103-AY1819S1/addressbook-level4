@@ -23,14 +23,14 @@ public class AddCommand extends Command {
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_DUE_DATE + "PHONE "
-            + PREFIX_PRIORITY_VALUE + "EMAIL "
-            + PREFIX_DESCRIPTION + "ADDRESS "
+            + PREFIX_PRIORITY_VALUE + "PRIORITY VALUE "
+            + PREFIX_DESCRIPTION + "DESCRIPTION "
             + "[" + PREFIX_LABEL + "LABEL]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_DUE_DATE + "02-12-18 1330 "
-            + PREFIX_PRIORITY_VALUE + "johnd@example.com "
-            + PREFIX_DESCRIPTION + "311, Clementi Ave 2, #02-25 "
+            + PREFIX_PRIORITY_VALUE + "2 "
+            + PREFIX_DESCRIPTION + "[description of task] "
             + PREFIX_LABEL + "friends "
             + PREFIX_LABEL + "owesMoney";
 

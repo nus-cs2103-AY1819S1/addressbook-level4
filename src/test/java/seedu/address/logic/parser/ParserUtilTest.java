@@ -25,13 +25,13 @@ import seedu.address.testutil.Assert;
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_DUEDATE = "+651234";
-    private static final String INVALID_ADDRESS = " ";
+    private static final String INVALID_DESCRIPTION = " ";
     private static final String INVALID_PRIORITY_VALUE = "0";
     private static final String INVALID_LABEL = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_DUEDATE = "05-05-18";
-    private static final String VALID_ADDRESS = "123 Main Street #0505";
+    private static final String VALID_DESCRIPTION = "Description of Task R";
     private static final String VALID_PRIORITY_VALUE = "8";
     private static final String VALID_LABEL_1 = "friend";
     private static final String VALID_LABEL_2 = "neighbour";
@@ -111,48 +111,48 @@ public class ParserUtilTest {
 
     @Test
     public void parseAddress_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress((String) null));
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseDescription((String) null));
     }
 
     @Test
     public void parseAddress_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseAddress(INVALID_ADDRESS));
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseDescription(INVALID_DESCRIPTION));
     }
 
     @Test
     public void parseAddress_validValueWithoutWhitespace_returnsAddress() throws Exception {
-        Description expectedAddress = new Description(VALID_ADDRESS);
-        assertEquals(expectedAddress, ParserUtil.parseAddress(VALID_ADDRESS));
+        Description expectedAddress = new Description(VALID_DESCRIPTION);
+        assertEquals(expectedAddress, ParserUtil.parseDescription(VALID_DESCRIPTION));
     }
 
     @Test
     public void parseAddress_validValueWithWhitespace_returnsTrimmedAddress() throws Exception {
-        String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
-        Description expectedAddress = new Description(VALID_ADDRESS);
-        assertEquals(expectedAddress, ParserUtil.parseAddress(addressWithWhitespace));
+        String addressWithWhitespace = WHITESPACE + VALID_DESCRIPTION + WHITESPACE;
+        Description expectedAddress = new Description(VALID_DESCRIPTION);
+        assertEquals(expectedAddress, ParserUtil.parseDescription(addressWithWhitespace));
     }
 
     @Test
     public void parseEmail_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseEmail((String) null));
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parsePriorityValue((String) null));
     }
 
     @Test
     public void parseEmail_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseEmail(INVALID_PRIORITY_VALUE));
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parsePriorityValue(INVALID_PRIORITY_VALUE));
     }
 
     @Test
     public void parseEmail_validValueWithoutWhitespace_returnsEmail() throws Exception {
         PriorityValue expectedEmail = new PriorityValue(VALID_PRIORITY_VALUE);
-        assertEquals(expectedEmail, ParserUtil.parseEmail(VALID_PRIORITY_VALUE));
+        assertEquals(expectedEmail, ParserUtil.parsePriorityValue(VALID_PRIORITY_VALUE));
     }
 
     @Test
     public void parseEmail_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
         String emailWithWhitespace = WHITESPACE + VALID_PRIORITY_VALUE + WHITESPACE;
         PriorityValue expectedEmail = new PriorityValue(VALID_PRIORITY_VALUE);
-        assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
+        assertEquals(expectedEmail, ParserUtil.parsePriorityValue(emailWithWhitespace));
     }
 
     @Test
