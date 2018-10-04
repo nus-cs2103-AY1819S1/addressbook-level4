@@ -23,6 +23,7 @@ import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.PopUpManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyScheduler;
 import seedu.address.model.Scheduler;
@@ -55,6 +56,7 @@ public class MainApp extends Application {
     protected Model model;
     protected Config config;
     protected UserPrefs userPrefs;
+    protected PopUpManager popUp;
 
 
     @Override
@@ -78,6 +80,8 @@ public class MainApp extends Application {
         logic = new LogicManager(model);
 
         ui = new UiManager(logic, config, userPrefs);
+
+        popUp = initPopUpManager();
 
         initEventsCenter();
     }
@@ -221,10 +225,16 @@ public class MainApp extends Application {
         EventsCenter.getInstance().registerHandler(this);
     }
 
+    private PopUpManager initPopUpManager() {
+        popUp = new PopUpManager(model.getScheduler());
+        return popUp;
+    }
+
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting AddressBook " + MainApp.VERSION);
         ui.start(primaryStage);
+        popUp.startRunning();
     }
 
     @Override
