@@ -26,9 +26,9 @@ public class FindEventByTimeCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds events which occur on the given date "
             + " and between the specified times"
             + "Parameters: "
-            + PREFIX_DATE + "DATE "
-            + PREFIX_TIME_START + "STARTTIME "
-            + PREFIX_TIME_END + "ENDTIME ";
+            + PREFIX_DATE + "dd-MM-yyyy "
+            + PREFIX_TIME_START + "HH:mm "
+            + PREFIX_TIME_END + "HH:mm";
     public static final String MESSAGE_SUCCESS = "%1$d events on %2$s between %3$s and %4$s found.";
 
     private final LocalDate date;

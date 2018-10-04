@@ -9,8 +9,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.Address;
@@ -180,12 +182,13 @@ public class Event {
     }
 
     /**
-     * Adds a new poll to the event.
+     * Adds a new poll to the event and returns the poll.
      */
-    public void addPoll(String pollName) {
+    public Poll addPoll(String pollName) {
         int id = polls.size() + 1;
         Poll poll = new Poll(id, pollName);
         polls.add(poll);
+        return poll;
     }
 
     /**
@@ -265,11 +268,28 @@ public class Event {
         return Objects.hash(name, location, tags);
     }
 
+    public String getInfo() {
+        final StringBuilder builder = new StringBuilder();
+        List<String> pollList = polls.stream()
+                .map(p -> p.getPollName())
+                .collect(Collectors.toList());
+        String personNameList = personList.getNameList();
+        builder.append("People attending: " + '\n')
+                .append(personNameList + '\n')
+                .append("Polls: " + '\n');
+        Integer index = 1;
+        for (String poll : pollList) {
+            builder.append(index.toString() + ": " + poll + '\n');
+            index += 1;
+        }
+        return builder.toString();
+    }
+
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Address: ")
+                .append(" Location: ")
                 .append(getLocation())
                 .append(" Tags: ");
         getTags().forEach(builder::append);

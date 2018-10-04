@@ -45,7 +45,7 @@ public class SetTimeCommandTest {
     }
 
     @Test
-    public void execute_EndTimeBeforeStartTime() {
+    public void execute_endTimeBeforeStartTime() {
         SetTimeCommand command = new SetTimeCommand(endTime, startTime);
         Person user = new PersonBuilder().build();
         model.setCurrentUser(user);

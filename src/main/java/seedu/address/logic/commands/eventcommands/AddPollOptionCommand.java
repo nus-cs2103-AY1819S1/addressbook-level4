@@ -25,9 +25,9 @@ public class AddPollOptionCommand extends Command {
 
     public static final String COMMAND_WORD = "addOption";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Event organiser adds option to the specified pol.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Event organiser adds option to the specified poll.\n"
             + "Parameters: "
-            + PREFIX_INDEX + "INDEX "
+            + PREFIX_INDEX + "INDEX OF POLL "
             + PREFIX_POLL_OPTION + "OPTION ";
     public static final String MESSAGE_SUCCESS = "Poll option %1$s added to poll %2$d";
 

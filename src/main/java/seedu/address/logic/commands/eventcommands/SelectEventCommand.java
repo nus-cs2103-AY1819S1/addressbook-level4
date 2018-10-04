@@ -8,6 +8,7 @@ import java.util.List;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.DisplayPollEvent;
 import seedu.address.commons.events.ui.JumpToEventListRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
@@ -50,6 +51,7 @@ public class SelectEventCommand extends Command {
         model.setSelectedEvent(event);
 
         EventsCenter.getInstance().post(new JumpToEventListRequestEvent(targetIndex));
+        EventsCenter.getInstance().post(new DisplayPollEvent(event.getInfo()));
         return new CommandResult(String.format(MESSAGE_SELECT_EVENT_SUCCESS, targetIndex.getOneBased()));
 
     }

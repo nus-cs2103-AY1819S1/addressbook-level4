@@ -2,6 +2,7 @@
 package seedu.address.logic.commands.eventcommands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -24,7 +25,9 @@ public class SetDateCommand extends Command {
 
     public static final String COMMAND_WORD = "setDate";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Confirms the date for the pre-selected event.";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Confirms the date for the pre-selected event."
+            + "Parameters: "
+            + PREFIX_DATE + "dd-MM-yyyy ";
     public static final String MESSAGE_SUCCESS = "Date %1$s set for %2$s";
 
     private final LocalDate date;
@@ -56,10 +59,7 @@ public class SetDateCommand extends Command {
             throw new CommandException(Messages.MESSAGE_NO_EVENT_SELECTED);
         }
 
-        //List<Event> lastShownList = model.getFilteredEventList();
-        //int index = lastShownList.indexOf(event);
         event.setDate(date);
-        //model.updateEvent(index, event);
         model.updateEvent(event, event);
         model.commitAddressBook();
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
