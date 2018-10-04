@@ -21,8 +21,4 @@ public interface ReadOnlyAddressBook {
      */
     ObservableList<Doctor> getDoctorList();
 
-    /**
-     * Returns an unmodifiable view of the
-     */
-
 }

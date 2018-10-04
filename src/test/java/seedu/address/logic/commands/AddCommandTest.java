@@ -19,6 +19,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
@@ -145,27 +146,37 @@ public class AddCommandTest {
         }
 
         @Override
+        public void enqueue(Person target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPatientInPatientQueue() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
 
         //@@author jjlee050
-
         @Override
         public ObservableList<Doctor> getFilteredDoctorList() {
             throw new AssertionError("This method should not be called.");
         }
+
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
         //@@author jjlee050
-
         @Override
         public void updateFilteredDoctorList(Predicate<Doctor> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
         @Override
         public boolean canUndoAddressBook() {
             throw new AssertionError("This method should not be called.");
@@ -191,22 +202,58 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        //@@author iamjackslayer
         @Override
-        public void enqueue(Person patient) {
+        public boolean hasAppointment(Appointment appt) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void enqueueIntoPreferenceQueue(Person patient) {
+        public void cancelAppointment(Appointment appt) {
             throw new AssertionError("This method should not be called.");
         }
+
         @Override
-        public boolean hasPatientInMainQueue() {
+        public void addAppointment(Appointment appt) {
             throw new AssertionError("This method should not be called.");
         }
+
         @Override
-        public boolean hasPatientInPreferenceQueue() {
+        public void updateAppointment(Appointment appt, Appointment editedAppt) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Appointment> getFilteredAppointmentList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredAppointmentList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canUndoSchedule() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedoSchedule() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoSchedule() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoSchedule() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commitSchedule() {
             throw new AssertionError("This method should not be called.");
         }
     }
