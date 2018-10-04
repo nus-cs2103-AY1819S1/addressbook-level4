@@ -37,7 +37,7 @@ public class TypicalTasks {
             .withPriorityValue("3").withDescription("Call number +6562353535")
             .withStatus(Status.IN_PROGRESS).build();
     public static final Task D_TASK = new TaskBuilder().withName("Do CS2106 tutorial").withDueDate("04-12-18")
-            .withPriorityValue("4").withDescription("Preferably before the tutorial").withLabels("friends").build();
+            .withPriorityValue("4").withDescription("Preferably before it").withLabels("friends").build();
     public static final Task E_TASK = new TaskBuilder().withName("Edit research report").withDueDate("05-12-18")
             .withPriorityValue("5").withDescription("Add more words")
             .withStatus(Status.FINISHED).build();
