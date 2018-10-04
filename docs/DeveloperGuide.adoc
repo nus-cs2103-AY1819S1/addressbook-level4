@@ -101,6 +101,7 @@ Use case ends.
 * 1. User requests to add a task in the list
 * 2. Application adds the task
 Use case ends.
+
 #### Extensions
 * 1. The task already exists.
 * 2. Application shows an error message.
@@ -116,6 +117,7 @@ Use case resumes at step 1 in MSS.
 * 1. User requests to delete a task with a particular index
 * 2. Application deletes the task
 Use case ends.
+
 #### Extensions
 * 1a. A task with the specified index does not exist.
      * 1a1. Application shows an error message.
@@ -162,6 +164,7 @@ Use case resumes at step 1 in MSS.
 #### MSS
 * 1. User marks tasks as complete.
 * 2. Application reports both points earned and current points to user.
+
 #### Extensions
 * 2a. User earns enough points to level up
     * 2a1. Application displays a congratulatory message, current points, and points earned to user.
@@ -170,6 +173,7 @@ Use case resumes at step 1 in MSS.
 #### MSS
 * 1. User requests for statistics.
 * 2. Application fetches data and displays statistics.
+
 #### Extensions
 * 2a. There are no statistics.
     * 2a1. Application displays a flavour text explaining that the user needs to complete a task first to get statistics.
@@ -178,6 +182,7 @@ Use case resumes at step 1 in MSS.
 #### MSS
 * 1. User fails to complete tasks on time
 * 2. Application displays points lost and current current points to user.
+
 ### Extensions
 * 2a. User loses enough points that it level down.
     * 2a1. Application displays a warning message, current points, and points lost to user.
@@ -300,6 +305,7 @@ Coverage reporting could be useful for a team repository that hosts the final ve
 Optionally, you can set up AppVeyor as a second CI (see UsingAppVeyor.adoc).
 
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
+
 #### 1.4.4. Getting started with coding
 When you are ready to start coding,
 
@@ -363,6 +369,7 @@ Set the destination to Save as PDF, then click Save to save a copy of the file i
 
 chrome save as pdf
 Figure 10. Saving documentation as PDF files in Chrome
+
 ### 4.4. Site-wide Documentation Settings
 The build.gradle file specifies some project-specific asciidoc attributes which affects how all documentation files within this project are rendered.
 
