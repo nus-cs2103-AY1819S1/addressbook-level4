@@ -5,7 +5,8 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
 
-import com.sun.xml.bind.marshaller.MinimumEscapeHandler;
+import java.util.ArrayList;
+
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
@@ -19,8 +20,6 @@ import seedu.address.model.person.Person;
 import seedu.address.testutil.EventBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TypicalIndexes;
-
-import java.util.ArrayList;
 
 public class VoteCommandTest {
     private static final String OPTION_NAME = "Generic option";
