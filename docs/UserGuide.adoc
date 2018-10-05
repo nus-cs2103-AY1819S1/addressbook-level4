@@ -431,19 +431,41 @@ Format: `exit`
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
+
+=== Commands for controlling playback
+* *Play track* : `play t/[TRACK]`
+* *Play playlist* : `play p/[PLAYLIST]`
+* *Pause track* : `pause`
+* *Continue track* : `play`
+* *Stop playing* : `stop`
+* *Seek time point* : `seek ti/TIME` +
+Eg. seek ti/01:10
+* *Step* : `step [s/SECONDS]` +
+Eg. step s/100
+* *Stepback* : `stepback [s/SECONDS]` +
+Eg. stepback s/100
+* *Replay* : `replay`
+
+=== Commands for controlling sequence of playback
+* *Skip to the next track* : `next`
+* *Skip to the previous track* : `prev`
+* *Repeat track* : `repeat track`
+* *Repeat playlist* : `repeat playlist`
+* *Turn off the repeat mode* : `repeat off`
+* *Shuffle the playlist* : `shuffle`
+* *Turn off the shuffle mode* : `shuffle off`
+
+=== Commands for managing playlists in library
+* *List all playlists* : `playlist list`
+* *Search for a playlist* : `playlist search q/QUERY` +
+Eg. playlist search q/Fav
+* *Create a playlist* : `playlist new p/PLAYLIST` +
+Eg. playlist new p/Favourites
+* *Delete a playlist* : `playlist del p/PLAYLIST` +
+Eg. playlist del p/Favourites
+
+=== Commands for managing tracks in playlist
+* *Add a track into a playlist* : `track add p/PLAYLIST t/TRACK` +
+Eg. track add p/Favourites n/Some Song.mp3
+* *Delete a track from a playlist* : `track del p/PLAYLIST i/INDEX` +
+Eg. track del p/Favourites i/1
