@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= Student Schedule Planner - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,9 +13,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-T12-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T12-3`      Since: `Aug 2018`      Licence: `MIT`
 
 == Setting up
 
@@ -820,13 +820,14 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
+* have a need to manage their schedule for daily tasks
+* have a want to view and be reminded of important things
+* able to set priority level on their schedule
 * prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* want a customizable schedule planner
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: Student Scheduler Planner manages schedules faster than a typical mouse/GUI driven
+ app yet retains some GUI interface to allow users to have an easier view.
 
 [appendix]
 == User Stories
@@ -836,17 +837,76 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |student |add exam dates for each modules |easily check the exam dates for each modules, and how much time is there left
 
-|`* * *` |user |add a new person |
+|`* * *` |student |access my exam date list |know when I should turned up for exam
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |student |modify exam dates if the school changed the actual date |update my own schedule of exam dates
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |student |delete exam dates if the school cancelled the exam |update my own schedule of exam dates
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |student |search exam dates |find if there is an exam on a particular date
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |student |add deadlines module-wise |keep track of upcoming deadlines for each modules
+
+|`* * *` |student |view deadlines module-wise |keep track of upcoming deadlines for each module
+
+|`* * *` |student |update deadlines module-wise |keep track of updated deadlines for each module
+
+|`* * *` |student |delete deadlines module-wise |keep track of updated deadlines for each module
+
+|`* * *` |student |search deadlines module-wise |find if there is any deadlines for each module on a particular date
+
+|`* * *` |student |add task to to-do list |keep track of tasks to do
+
+|`* * *` |student |view tasks in to-do list |know when the deadlines of my tasks are
+
+|`* * *` |student |modify tasks in to-do list |adjust or change my tasks according to my schedule
+
+|`* * *` |student |delete completed tasks in to-do list |keep my to-do list clean and neat
+
+|`* * *` |student |view overdue tasks at the main page |take note of the deadlines that I missed and try to make up
+
+|`* * *` |student |sort tasks by priority |know what tasks I should do first
+
+|`* * *` |student |view tasks for today |have a study/life plan for this day
+
+|`* * *` |student |view tasks for next 7 days |have a relatively clear plan of this week
+
+|`* * *` |student |view tasks for future (more than 7 days) |record events that I can't miss in future
+
+|`* * *` |student |search my tasks by keywords |find specific tasks easily
+
+|`* * *` |student |view all commands |to guide me so that I could use the application
+
+|`* * *` |student |view a calendar of all to-do tasks |have an overview of all the tasks to do
+
+|`* * *` |student |view a history of all my commands in user-friendliness format |view what changes I had made before
+
+|`* * *` |student |clear the screen |have my command-line interface cleaned of commands and result
+
+|`* *` |student |sort tasks by category |know what I need to do for each aspect of my life
+
+|`* *` |student |create a "workshop" list |record all the workshops that I have signed up
+
+|`* *` |student |customise the theme of the student schedule planner |personalise how my student schedule planner looks like
+
+|`* *` |student |undo my command |correct my mistake
+
+|`* *` |student |redo my command |correct my accidental "undo"
+
+|`* *` |student |add and view subtasks under each task |know specifically what tasks requires
+E.g CS2103T Project -Write User guide -Review Pull Requests -Peer Evaluation
+
+|`*` |student |add my tasks that are non-school related |have a schedule mixed with both school and non-school related tasks
+
+|`*` |student |list my tasks that are non-school related |view my upcoming schedule of non-school related tasks
+
+|`*` |student |update my tasks that are non-school related |update my upcoming schedule of non-school related tasks
+
+|`*` |student |delete my non-school related tasks if they are done |update my upcoming schedule of non-school related tasks
+
+|`*` |student |search for my non-school related tasks |to find a particular non-school related tasks
 |=======================================================================
 
 _{More to be added}_
@@ -854,47 +914,159 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Student Schedule Planner` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add Exam
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to add exam into Student Schedule Planner.
+2.  Student Schedule Planner add the exam into exam list.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. The add Exam command did not follow the correct format.
++
+[none]
+** 1a1. Student Schedule Planner shows an error message.
++
+Use case resume at step 1.
+
+[discrete]
+=== Use case: List Exam
+
+*MSS*
+
+1.  User requests to view exam list from Student Schedule Planner.
+2.  Student Schedule Planner display the exam list.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+*Extensions*
+
+[none]
+* 1a. The list exam command did not follow the correct format.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 1a1. Student Schedule Planner shows an error message.
 +
-Use case resumes at step 2.
+Use case resume at step 1.
+[none]
+* 2a1. The list is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: Modify Exam
+
+*MSS*
+
+1.  User requests to list exam list from Student Schedule Planner.
+2.  Student Schedule Planner display the exam list.
+3.  User request to edit a specific exam in the list.
+4.  Student Schedule Planner updates the exam.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list exam command did not follow the correct format.
++
+[none]
+** 1a1. Student Schedule Planner shows an error message.
++
+Use case resume at step 1.
+[none]
+* 2a1. The list is empty.
++
+Use case ends.
+[none]
+* 3a. The Modify exam command did not follow the correct format.
++
+[none]
+** 3a1. Student Schedule Planner shows an error message.
++
+Use case resume at step 3.
+
+[discrete]
+=== Use case: Delete Exam
+
+*MSS*
+
+1.  User requests to list exam list from Student Schedule Planner.
+2.  Student Schedule Planner display the exam list.
+3.  User request to delete a specific exam in the list.
+4.  Student Schedule Planner delete the exam.
++
+Use case ends.
+
+[discrete]
+*Extensions*
+
+[none]
+* 1a. The list exam command did not follow the correct format.
++
+[none]
+** 1a1. Student Schedule Planner shows an error message.
++
+Use case resume at step 1.
+[none]
+* 2a1. The list is empty.
++
+Use case ends.
+[none]
+* 3a. The Delete exam command did not follow the correct format.
++
+[none]
+** 3a1. Student Schedule Planner shows an error message.
++
+Use case resume at step 3.
+
+[discrete]
+=== Use case: Search Exam
+
+*MSS*
+
+1.  User requests to search a specific exam from Student Schedule Planner.
+2.  Student Schedule Planner filter the exam by the given parameter.
+3.  Student Schedule Planner display the filtered exam.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The search exam command did not follow the correct format.
++
+[none]
+** 1a1. Student Schedule Planner shows an error message.
++
+Use case resume at step 1.
+[none]
+* 3a. The filtered exam list is empty and thus display empty list.
++
+Use case ends.
 
 _{More to be added}_
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should work on most Mainstream OS as long as it has Java `9` or higher installed.
+.  Each command execution time should not take more than 3 seconds.
 
 _{More to be added}_
 
 [appendix]
 == Glossary
+
+[[MSS]] MSS::
+Main Success Scenario (MSS) is the steps of a scenario to be followed to accomplish the objective goal.
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
