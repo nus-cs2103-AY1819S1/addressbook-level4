@@ -30,4 +30,14 @@ public class PlayablePlaylist implements Playable {
         System.out.println("playableplaylist stop");
         current.stop();
     }
+
+    @Override
+    public void pause() {
+        System.out.println("playableplaylist pause");
+        if (current == null) {
+            currentIndex = 0;
+            current = playlist.get(currentIndex);
+        }
+        current.pause();
+    }
 }
