@@ -4,7 +4,7 @@ package seedu.address.player;
  * The actual implemented player to be used by Logic component
  */
 public class JxMusicPlayer implements Player {
-    private PlayablePlaylist pp;
+    private static PlayablePlaylist pp;
     @Override
     public void play() {
         // todo take in Playlist model as parameter, then construct PlayablePlaylist from it
@@ -16,5 +16,10 @@ public class JxMusicPlayer implements Player {
     public void stop() {
         System.out.println("jxmusicplayer stop");
         pp.stop();
+    }
+    @Override
+    public void pause() {
+        System.out.println("jxmusicplayer pause");
+        pp.pause();
     }
 }
