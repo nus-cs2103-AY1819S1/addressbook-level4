@@ -11,8 +11,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.AnakinComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AnakinChangedEvent;
-import seedu.address.model.AnakinDeck.AnakinCard;
-import seedu.address.model.AnakinDeck.AnakinDeck;
+import seedu.address.model.anakindeck.AnakinCard;
+import seedu.address.model.anakindeck.AnakinDeck;
 
 /**
  * Represents the in-memory model of Anakin data.
@@ -87,23 +87,29 @@ public class AnakinModelManager extends AnakinComponentManager implements Anakin
 
     @Override
     public boolean hasCard(AnakinCard card) {
-        // TODO
-        return true;
+        requireAllNonNull(card);
+        return versionedAnakin.hasCard(card);
     }
 
     @Override
     public void deleteCard(AnakinCard card) {
-        // TODO
+        versionedAnakin.removeCard(card);
+        indicateAnakinChanged();
     }
 
     @Override
     public void addCard(AnakinCard card) {
-        // TODO
+        versionedAnakin.addCard(card);
+        updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
+        indicateAnakinChanged();
     }
 
     @Override
     public void updateCard(AnakinCard target, AnakinCard editedCard) {
-        // TODO
+        requireAllNonNull(target, editedCard);
+
+        versionedAnakin.updateCard(target, editedCard);
+        indicateAnakinChanged();
     }
 
     //=========== Filtered Deck List Accessors =============================================================

@@ -5,10 +5,11 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.AnakinDeck.AnakinCard;
-import seedu.address.model.AnakinDeck.AnakinDeck;
-import seedu.address.model.AnakinDeck.AnakinUniqueCardList;
-import seedu.address.model.AnakinDeck.AnakinUniqueDeckList;
+import seedu.address.model.anakindeck.AnakinCard;
+import seedu.address.model.anakindeck.AnakinDeck;
+import seedu.address.model.anakindeck.AnakinExceptions.DeckNotFoundException;
+import seedu.address.model.anakindeck.AnakinUniqueCardList;
+import seedu.address.model.anakindeck.AnakinUniqueDeckList;
 
 /**
  * Wraps all data at the Anakin level
@@ -18,6 +19,7 @@ public class Anakin implements AnakinReadOnlyAnakin {
 
     private final AnakinUniqueDeckList decks;
 
+    private boolean isInsideDeck;
     // Represent the current list of cards (when user get into a deck)
     private AnakinUniqueCardList cards;
 
@@ -39,7 +41,7 @@ public class Anakin implements AnakinReadOnlyAnakin {
      */
     public Anakin(AnakinReadOnlyAnakin toBeCopied) {
         this();
-
+        resetData(toBeCopied);
     }
 
     //// list overwrite operations
@@ -59,6 +61,35 @@ public class Anakin implements AnakinReadOnlyAnakin {
         requireNonNull(newData);
 
         setDecks(newData.getDeckList());
+    }
+
+    //// navigating operations
+
+    /**
+     * Navigating into a deck
+     */
+    public void getIntoDeck(AnakinDeck deck) {
+        requireNonNull(deck);
+        isInsideDeck = true;
+        cards = deck.getCards();
+    }
+
+    /**
+     * Navigating out of the current deck
+     */
+    public void getOutOfDeck() {
+        if (!isInsideDeck()) {
+            throw new DeckNotFoundException();
+        }
+        isInsideDeck = false;
+        cards = null;
+    }
+
+    /**
+     * Return true if user is inside a deck
+     */
+    public boolean isInsideDeck() {
+        return isInsideDeck;
     }
 
     //// deck-level operations
@@ -105,6 +136,9 @@ public class Anakin implements AnakinReadOnlyAnakin {
      */
     public boolean hasCard(AnakinCard card) {
         requireNonNull(card);
+        if (!isInsideDeck()) {
+            throw new DeckNotFoundException();
+        }
         return cards.contains(card);
     }
 
@@ -113,6 +147,9 @@ public class Anakin implements AnakinReadOnlyAnakin {
      * The card must not already exist in the current deck.
      */
     public void addCard(AnakinCard c) {
+        if (!isInsideDeck()) {
+            throw new DeckNotFoundException();
+        }
         cards.add(c);
     }
 
@@ -123,7 +160,9 @@ public class Anakin implements AnakinReadOnlyAnakin {
      */
     public void updateCard(AnakinCard target, AnakinCard editedCard) {
         requireNonNull(editedCard);
-
+        if (!isInsideDeck()) {
+            throw new DeckNotFoundException();
+        }
         cards.setCard(target, editedCard);
     }
 
@@ -132,6 +171,9 @@ public class Anakin implements AnakinReadOnlyAnakin {
      * {@code key} must exist in the currentDeck.
      */
     public void removeCard(AnakinCard key) {
+        if (!isInsideDeck()) {
+            throw new DeckNotFoundException();
+        }
         cards.remove(key);
     }
 
@@ -146,6 +188,14 @@ public class Anakin implements AnakinReadOnlyAnakin {
     @Override
     public ObservableList<AnakinDeck> getDeckList() {
         return decks.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<AnakinCard> getCardList() {
+        if (!isInsideDeck()) {
+            throw new DeckNotFoundException();
+        }
+        return cards.asUnmodifiableObservableList();
     }
 
     @Override
