@@ -24,4 +24,10 @@ public class PlayablePlaylist implements Playable {
         }
         current.play();
     }
+
+    @Override
+    public void stop() {
+        System.out.println("playableplaylist stop");
+        current.stop();
+    }
 }

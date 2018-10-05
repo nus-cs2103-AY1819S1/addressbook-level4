@@ -12,4 +12,9 @@ public class JxMusicPlayer implements Player {
         pp = new PlayablePlaylist();
         pp.play();
     }
+    @Override
+    public void stop() {
+        System.out.println("jxmusicplayer stop");
+        pp.stop();
+    }
 }
