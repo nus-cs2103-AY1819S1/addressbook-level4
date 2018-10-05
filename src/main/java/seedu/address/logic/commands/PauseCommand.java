@@ -4,6 +4,9 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.player.JxMusicPlayer;
 
+/**
+ * Pauses track that is currently playing
+ */
 public class PauseCommand extends Command {
 
     public static final String COMMAND_WORD = "pause";

@@ -51,10 +51,10 @@ public class AddressBookParser {
         switch (commandWord) {
 
         case PlayPlaylistCommand.COMMAND_WORD:
-            return new PlayPlaylistCommand(); // todo parse(argument)
+            return new PlayPlaylistCommand(); // todo parse (argument)
 
         case PauseCommand.COMMAND_WORD:
-            return new PauseCommand();  // todo parse(argument)
+            return new PauseCommand(); // todo parse (argument)
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
