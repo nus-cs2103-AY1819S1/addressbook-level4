@@ -30,32 +30,32 @@ public class RecipeTest {
     @Test
     public void isSameRecipe() {
         // same object -> returns true
-        assertTrue(ALICE.isSameRecipe(ALICE));
+        assertTrue(ALICE.isSame(ALICE));
 
         // null -> returns false
-        assertFalse(ALICE.isSameRecipe(null));
+        assertFalse(ALICE.isSame(null));
 
         // different phone and email -> returns false
         Recipe editedAlice = new RecipeBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.isSameRecipe(editedAlice));
+        assertFalse(ALICE.isSame(editedAlice));
 
         // different name -> returns false
         editedAlice = new RecipeBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSameRecipe(editedAlice));
+        assertFalse(ALICE.isSame(editedAlice));
 
         // same name, same phone, different attributes -> returns true
         editedAlice = new RecipeBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameRecipe(editedAlice));
+        assertTrue(ALICE.isSame(editedAlice));
 
         // same name, same email, different attributes -> returns true
         editedAlice = new RecipeBuilder(ALICE).withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameRecipe(editedAlice));
+        assertTrue(ALICE.isSame(editedAlice));
 
         // same name, same phone, same email, different attributes -> returns true
         editedAlice = new RecipeBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameRecipe(editedAlice));
+        assertTrue(ALICE.isSame(editedAlice));
     }
 
     @Test

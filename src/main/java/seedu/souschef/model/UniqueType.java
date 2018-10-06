@@ -6,5 +6,6 @@ package seedu.souschef.model;
 public abstract class UniqueType {
     public abstract boolean isSame(UniqueType uniqueType);
 
+    @Override
     public abstract boolean equals(Object o);
 }

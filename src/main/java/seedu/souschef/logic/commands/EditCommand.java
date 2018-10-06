@@ -78,7 +78,7 @@ public class EditCommand extends Command {
         Recipe recipeToEdit = lastShownList.get(index.getZeroBased());
         Recipe editedRecipe = createEditedRecipe(recipeToEdit, editRecipeDescriptor);
 
-        if (!recipeToEdit.isSameRecipe(editedRecipe) && model.hasRecipe(editedRecipe)) {
+        if (!recipeToEdit.isSame(editedRecipe) && model.hasRecipe(editedRecipe)) {
             throw new CommandException(MESSAGE_DUPLICATE_RECIPE);
         }
 

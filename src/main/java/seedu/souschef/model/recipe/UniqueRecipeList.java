@@ -13,14 +13,14 @@ import seedu.souschef.model.recipe.exceptions.RecipeNotFoundException;
 
 /**
  * A list of recipes that enforces uniqueness between its elements and does not allow nulls.
- * A recipe is considered unique by comparing using {@code Recipe#isSameRecipe(Recipe)}. As such, adding and updating of
- * recipes uses Recipe#isSameRecipe(Recipe) for equality so as to ensure that the recipe being added or updated is
+ * A recipe is considered unique by comparing using {@code Recipe#isSame(Recipe)}. As such, adding and updating of
+ * recipes uses Recipe#isSame(Recipe) for equality so as to ensure that the recipe being added or updated is
  * unique in terms of identity in the UniqueRecipeList. However, the removal of a recipe uses Recipe#equals(Object) so
  * as to ensure that the recipe with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
- * @see Recipe#isSameRecipe(Recipe)
+ * @see Recipe#isSame(Recipe)
  */
 public class UniqueRecipeList implements Iterable<Recipe> {
 
@@ -31,7 +31,7 @@ public class UniqueRecipeList implements Iterable<Recipe> {
      */
     public boolean contains(Recipe toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameRecipe);
+        return internalList.stream().anyMatch(toCheck::isSame);
     }
 
     /**
@@ -59,7 +59,7 @@ public class UniqueRecipeList implements Iterable<Recipe> {
             throw new RecipeNotFoundException();
         }
 
-        if (!target.isSameRecipe(editedRecipe) && contains(editedRecipe)) {
+        if (!target.isSame(editedRecipe) && contains(editedRecipe)) {
             throw new DuplicateRecipeException();
         }
 
@@ -125,7 +125,7 @@ public class UniqueRecipeList implements Iterable<Recipe> {
     private boolean recipesAreUnique(List<Recipe> recipes) {
         for (int i = 0; i < recipes.size() - 1; i++) {
             for (int j = i + 1; j < recipes.size(); j++) {
-                if (recipes.get(i).isSameRecipe(recipes.get(j))) {
+                if (recipes.get(i).isSame(recipes.get(j))) {
                     return false;
                 }
             }

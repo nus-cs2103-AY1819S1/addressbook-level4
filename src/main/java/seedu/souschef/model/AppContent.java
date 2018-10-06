@@ -10,7 +10,7 @@ import seedu.souschef.model.recipe.UniqueRecipeList;
 
 /**
  * Wraps all data at the application content level
- * Duplicates are not allowed (by .isSameRecipe comparison)
+ * Duplicates are not allowed (by .isSame comparison)
  */
 public class AppContent implements ReadOnlyAppContent {
 
