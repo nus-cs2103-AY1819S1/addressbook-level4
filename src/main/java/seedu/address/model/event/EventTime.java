@@ -4,12 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents an Event's time in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidTime(String)}
  */
-public class Time {
+public class EventTime {
 
     public static final String MESSAGE_TIME_CONSTRAINTS =
             "Times should be in the 24-hour format HHMM, should be in the range 0000 to 2359, and it should not be " +
@@ -22,24 +23,24 @@ public class Time {
     public static final String TIME_VALIDATION_REGEX = "^(20|21|22|23|[01]\\d)" +
             "(([0-5]\\d){1})$";
 
-    public final LocalTime time;
+    public final LocalTime eventTime;
 
     /**
-     * Constructs a {@code Time}.
+     * Constructs a {@code EventTime}.
      *
-     * @param time A valid time.
+     * @param eventTime A valid time.
      */
-    public Time(String time) {
-        requireNonNull(time);
-        checkArgument(isValidTime(time), MESSAGE_TIME_CONSTRAINTS);
-        this.time = LocalTime.parse(getHour(time) + ":" + getMinute(time));
+    public EventTime(String eventTime) {
+        requireNonNull(eventTime);
+        checkArgument(isValidTime(eventTime), MESSAGE_TIME_CONSTRAINTS);
+        this.eventTime = LocalTime.parse(getHour(eventTime) + ":" + getMinute(eventTime));
     }
 
-    public String getHour(String time) {
+    public static String getHour(String time) {
         return time.substring(0,2);
     }
 
-    public String getMinute(String time) {
+    public static String getMinute(String time) {
         return time.substring(2,4);
     }
 
@@ -47,24 +48,36 @@ public class Time {
      * Returns true if a given string is a valid time.
      */
     public static boolean isValidTime(String test) {
-        return test.matches(TIME_VALIDATION_REGEX);
+        if (!test.matches(TIME_VALIDATION_REGEX)) {
+            return false;
+        }
+
+        try {
+            LocalTime.parse(getHour(test) + ":" + getMinute(test));
+        } catch (DateTimeParseException dte) {
+            return false;
+        }
+        return true;
     }
 
+    /**
+     * @return String representation of time in HH:MM
+     */
     @Override
     public String toString() {
-        return time.toString();
+        return eventTime.toString();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Time // instanceof handles nulls
-                && time.equals(((Time) other).time)); // state check
+                || (other instanceof EventTime // instanceof handles nulls
+                && eventTime.equals(((EventTime) other).eventTime)); // state check
     }
 
     @Override
     public int hashCode() {
-        return time.hashCode();
+        return eventTime.hashCode();
     }
 
 }

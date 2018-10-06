@@ -13,6 +13,11 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventAddress;
+import seedu.address.model.event.EventDate;
+import seedu.address.model.event.EventDescription;
+import seedu.address.model.event.EventName;
+import seedu.address.model.event.EventTime;
 
 /**
  * Parses input arguments and creates a new AddEventCommand object
@@ -37,13 +42,13 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEventCommand.MESSAGE_USAGE));
         }
 
-        String name = argMultimap.getValue(PREFIX_NAME).get();
-        String desc = argMultimap.getValue(PREFIX_EVENT_DESCRIPTION).get();
-        String date = argMultimap.getValue(PREFIX_DATE).get();
-        String time = argMultimap.getValue(PREFIX_TIME).get();
-        String address = argMultimap.getValue(PREFIX_ADDRESS).get();
+        EventName eventName = ParserUtil.parseEventName(argMultimap.getValue(PREFIX_NAME).get());
+        EventDescription eventDesc = ParserUtil.parseEventDescription(argMultimap.getValue(PREFIX_EVENT_DESCRIPTION).get());
+        EventDate eventDate = ParserUtil.parseEventDate(argMultimap.getValue(PREFIX_DATE).get());
+        EventTime eventTime = ParserUtil.parseEventTime(argMultimap.getValue(PREFIX_TIME).get());
+        EventAddress eventAddress = ParserUtil.parseEventAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
 
-        Event newEvent = new Event(name, desc, date, time, address);
+        Event newEvent = new Event(eventName, eventDesc, eventDate, eventTime, eventAddress);
 
         return new AddEventCommand(newEvent);
     }
