@@ -2,13 +2,14 @@ package seedu.address.model.event;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Objects;
+
 /**
  * Represents an Event in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Event {
 
-    // todo: define Event attributes
     // identity fields
     private final String name;
     private final String desc;
@@ -77,14 +78,23 @@ public class Event {
 
     @Override
     public int hashCode() {
-        // todo: define Event hashcode
-        return 0;
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(name, desc, date, time, address);
     }
 
     @Override
     public String toString() {
-        // todo: define string return
-        return null;
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName())
+                .append(" Description: ")
+                .append(getDesc())
+                .append(" Date: ")
+                .append(getDate())
+                .append(" Time: ")
+                .append(getTime())
+                .append(" Address: ")
+                .append(getAddress());
+        return builder.toString();
     }
 
 }
