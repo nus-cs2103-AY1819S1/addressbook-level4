@@ -6,9 +6,9 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.SchedulePlanner;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.SchedulePlanner;
 import seedu.address.model.UserPrefs;
 
 public class ClearCommandTest {
