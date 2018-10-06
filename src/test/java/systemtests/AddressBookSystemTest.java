@@ -40,6 +40,7 @@ import seedu.souschef.logic.commands.ListCommand;
 import seedu.souschef.logic.commands.SelectCommand;
 import seedu.souschef.model.AppContent;
 import seedu.souschef.model.Model;
+import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.testutil.TypicalRecipes;
 import seedu.souschef.ui.BrowserPanel;
 import seedu.souschef.ui.CommandBox;
@@ -286,7 +287,7 @@ public abstract class AddressBookSystemTest {
     /**
      * Returns a defensive copy of the current model.
      */
-    protected Model getModel() {
+    protected Model<Recipe> getModel() {
         return testApp.getModel();
     }
 }

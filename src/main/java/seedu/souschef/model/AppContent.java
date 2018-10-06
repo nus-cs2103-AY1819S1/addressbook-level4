@@ -58,6 +58,9 @@ public class AppContent implements ReadOnlyAppContent {
     }
 
     //// recipe-level operations
+    public UniqueList<Recipe> getRecipes() {
+        return recipes;
+    }
 
     /**
      * Returns true if a recipe with the same identity as {@code recipe} exists in the application content.

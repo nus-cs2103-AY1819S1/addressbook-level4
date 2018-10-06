@@ -34,7 +34,7 @@ import seedu.souschef.testutil.RecipeBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model<Recipe> model = new ModelManager<>(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -45,8 +45,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
-        Model expectedModel = new ModelManager(new AppContent(model.getAppContent()), new UserPrefs());
-        expectedModel.updateRecipe(model.getFilteredRecipeList().get(0), editedRecipe);
+        Model<Recipe> expectedModel = new ModelManager<>(new AppContent(model.getAppContent()), new UserPrefs());
+        expectedModel.update(model.getFilteredRecipeList().get(0), editedRecipe);
         expectedModel.commitAppContent();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -68,7 +68,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
         Model expectedModel = new ModelManager(new AppContent(model.getAppContent()), new UserPrefs());
-        expectedModel.updateRecipe(lastRecipe, editedRecipe);
+        expectedModel.update(lastRecipe, editedRecipe);
         expectedModel.commitAppContent();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -99,7 +99,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
         Model expectedModel = new ModelManager(new AppContent(model.getAppContent()), new UserPrefs());
-        expectedModel.updateRecipe(model.getFilteredRecipeList().get(0), editedRecipe);
+        expectedModel.update(model.getFilteredRecipeList().get(0), editedRecipe);
         expectedModel.commitAppContent();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -159,7 +159,7 @@ public class EditCommandTest {
         EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder(editedRecipe).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_RECIPE, descriptor);
         Model expectedModel = new ModelManager(new AppContent(model.getAppContent()), new UserPrefs());
-        expectedModel.updateRecipe(recipeToEdit, editedRecipe);
+        expectedModel.update(recipeToEdit, editedRecipe);
         expectedModel.commitAppContent();
 
         // edit -> first recipe edited
@@ -204,7 +204,7 @@ public class EditCommandTest {
 
         showPersonAtIndex(model, INDEX_SECOND_RECIPE);
         Recipe recipeToEdit = model.getFilteredRecipeList().get(INDEX_FIRST_RECIPE.getZeroBased());
-        expectedModel.updateRecipe(recipeToEdit, editedRecipe);
+        expectedModel.update(recipeToEdit, editedRecipe);
         expectedModel.commitAppContent();
 
         // edit -> edits second recipe in unfiltered recipe list / first recipe in filtered recipe list

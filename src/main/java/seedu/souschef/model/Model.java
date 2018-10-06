@@ -8,7 +8,7 @@ import seedu.souschef.model.recipe.Recipe;
 /**
  * The API of the Model component.
  */
-public interface Model {
+public interface Model<T extends UniqueType> {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Recipe> PREDICATE_SHOW_ALL_RECIPES = unused -> true;
 
@@ -21,19 +21,19 @@ public interface Model {
     /**
      * Returns true if a recipe with the same identity as {@code recipe} exists in the application content.
      */
-    boolean hasRecipe(Recipe recipe);
+    boolean has(T t);
 
     /**
      * Deletes the given recipe.
      * The recipe must exist in the application content.
      */
-    void deleteRecipe(Recipe target);
+    void delete(T target);
 
     /**
      * Adds the given recipe.
      * {@code recipe} must not already exist in the application content.
      */
-    void addRecipe(Recipe recipe);
+    void add(T recipe);
 
     /**
      * Replaces the given recipe {@code target} with {@code editedRecipe}.
@@ -41,7 +41,7 @@ public interface Model {
      * The recipe identity of {@code editedRecipe} must not be the same as another existing recipe in the application
      * content.
      */
-    void updateRecipe(Recipe target, Recipe editedRecipe);
+    void update(T target, T edited);
 
     /** Returns an unmodifiable view of the filtered recipe list */
     ObservableList<Recipe> getFilteredRecipeList();

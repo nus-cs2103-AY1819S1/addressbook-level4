@@ -26,7 +26,7 @@ import seedu.souschef.model.recipe.Recipe;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model<Recipe> model = new ModelManager<>(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -37,7 +37,7 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_RECIPE_SUCCESS, recipeToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getAppContent(), new UserPrefs());
-        expectedModel.deleteRecipe(recipeToDelete);
+        expectedModel.delete(recipeToDelete);
         expectedModel.commitAppContent();
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -61,7 +61,7 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_RECIPE_SUCCESS, recipeToDelete);
 
         Model expectedModel = new ModelManager(model.getAppContent(), new UserPrefs());
-        expectedModel.deleteRecipe(recipeToDelete);
+        expectedModel.delete(recipeToDelete);
         expectedModel.commitAppContent();
         showNoPerson(expectedModel);
 
@@ -86,7 +86,7 @@ public class DeleteCommandTest {
         Recipe recipeToDelete = model.getFilteredRecipeList().get(INDEX_FIRST_RECIPE.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_RECIPE);
         Model expectedModel = new ModelManager(model.getAppContent(), new UserPrefs());
-        expectedModel.deleteRecipe(recipeToDelete);
+        expectedModel.delete(recipeToDelete);
         expectedModel.commitAppContent();
 
         // delete -> first recipe deleted
@@ -128,7 +128,7 @@ public class DeleteCommandTest {
 
         showPersonAtIndex(model, INDEX_SECOND_RECIPE);
         Recipe recipeToDelete = model.getFilteredRecipeList().get(INDEX_FIRST_RECIPE.getZeroBased());
-        expectedModel.deleteRecipe(recipeToDelete);
+        expectedModel.delete(recipeToDelete);
         expectedModel.commitAppContent();
 
         // delete -> deletes second recipe in unfiltered recipe list / first recipe in filtered recipe list

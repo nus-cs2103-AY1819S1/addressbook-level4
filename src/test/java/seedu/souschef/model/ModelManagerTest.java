@@ -14,29 +14,30 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.souschef.model.recipe.NameContainsKeywordsPredicate;
+import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.testutil.AppContentBuilder;
 
 public class ModelManagerTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private ModelManager modelManager = new ModelManager();
+    private ModelManager<Recipe> modelManager = new ModelManager<>();
 
     @Test
     public void hasRecipe_nullRecipe_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        modelManager.hasRecipe(null);
+        modelManager.has(null);
     }
 
     @Test
     public void hasRecipe_recipeNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasRecipe(ALICE));
+        assertFalse(modelManager.has(ALICE));
     }
 
     @Test
     public void hasRecipe_recipeInAddressBook_returnsTrue() {
-        modelManager.addRecipe(ALICE);
-        assertTrue(modelManager.hasRecipe(ALICE));
+        modelManager.add(ALICE);
+        assertTrue(modelManager.has(ALICE));
     }
 
     @Test

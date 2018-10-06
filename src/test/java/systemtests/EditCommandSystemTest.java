@@ -73,7 +73,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         /* Case: redo editing the last recipe in the list -> last recipe edited again */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        model.updateRecipe(
+        model.update(
                 getModel().getFilteredRecipeList().get(INDEX_FIRST_RECIPE.getZeroBased()), editedRecipe);
         assertCommandSuccess(command, model, expectedResultMessage);
 
@@ -233,8 +233,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      */
     private void assertCommandSuccess(String command, Index toEdit, Recipe editedRecipe,
             Index expectedSelectedCardIndex) {
-        Model expectedModel = getModel();
-        expectedModel.updateRecipe(expectedModel.getFilteredRecipeList().get(toEdit.getZeroBased()), editedRecipe);
+        Model<Recipe> expectedModel = getModel();
+        expectedModel.update(expectedModel.getFilteredRecipeList().get(toEdit.getZeroBased()), editedRecipe);
         expectedModel.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
 
         assertCommandSuccess(command, expectedModel,

@@ -25,6 +25,7 @@ import seedu.souschef.model.Model;
 import seedu.souschef.model.ModelManager;
 import seedu.souschef.model.ReadOnlyAppContent;
 import seedu.souschef.model.UserPrefs;
+import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.util.SampleDataUtil;
 import seedu.souschef.storage.AddressBookStorage;
 import seedu.souschef.storage.JsonUserPrefsStorage;
@@ -98,7 +99,7 @@ public class MainApp extends Application {
             initialData = new AppContent();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager<Recipe>(initialData, userPrefs);
     }
 
     private void initLogging(Config config) {

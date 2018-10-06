@@ -16,6 +16,7 @@ import seedu.souschef.model.Model;
 import seedu.souschef.model.ModelManager;
 import seedu.souschef.model.ReadOnlyAppContent;
 import seedu.souschef.model.UserPrefs;
+import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.storage.UserPrefsStorage;
 import seedu.souschef.storage.XmlSerializableAddressBook;
 import seedu.souschef.testutil.TestUtil;
@@ -91,8 +92,8 @@ public class TestApp extends MainApp {
     /**
      * Returns a defensive copy of the model.
      */
-    public Model getModel() {
-        Model copy = new ModelManager((model.getAppContent()), new UserPrefs());
+    public Model<Recipe> getModel() {
+        Model<Recipe> copy = new ModelManager<>((model.getAppContent()), new UserPrefs());
         ModelHelper.setFilteredList(copy, model.getFilteredRecipeList());
         return copy;
     }

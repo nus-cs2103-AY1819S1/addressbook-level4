@@ -17,11 +17,12 @@ import seedu.souschef.model.recipe.Recipe;
 /**
  * Represents the in-memory model of the application content data.
  */
-public class ModelManager extends ComponentManager implements Model {
+public class ModelManager<T extends UniqueType> extends ComponentManager implements Model<T> {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final VersionedAppContent versionedAppContent;
     private final FilteredList<Recipe> filteredRecipes;
+    private final UniqueList<T> uniqueList;
 
     /**
      * Initializes a ModelManager with the given appContent and userPrefs.
@@ -34,6 +35,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAppContent = new VersionedAppContent(appContent);
         filteredRecipes = new FilteredList<>(versionedAppContent.getRecipeList());
+        uniqueList = (UniqueList<T>) versionedAppContent.getRecipes();
     }
 
     public ModelManager() {
@@ -57,29 +59,28 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public boolean hasRecipe(Recipe recipe) {
-        requireNonNull(recipe);
-        return versionedAppContent.hasRecipe(recipe);
+    public boolean has(T element) {
+        requireNonNull(element);
+        return uniqueList.contains(element);
     }
 
     @Override
-    public void deleteRecipe(Recipe target) {
-        versionedAppContent.removeRecipe(target);
+    public void delete(T target) {
+        uniqueList.remove(target);
         indicateAppContentChanged();
     }
 
     @Override
-    public void addRecipe(Recipe recipe) {
-        versionedAppContent.addRecipe(recipe);
+    public void add(T target) {
+        uniqueList.add(target);
         updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
         indicateAppContentChanged();
     }
 
     @Override
-    public void updateRecipe(Recipe target, Recipe editedRecipe) {
-        requireAllNonNull(target, editedRecipe);
-
-        versionedAppContent.updateRecipe(target, editedRecipe);
+    public void update(T target, T edited) {
+        requireAllNonNull(target, edited);
+        uniqueList.set(target, edited);
         indicateAppContentChanged();
     }
 

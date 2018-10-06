@@ -67,7 +67,7 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model<Recipe> model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Recipe> lastShownList = model.getFilteredRecipeList();
 
@@ -78,11 +78,11 @@ public class EditCommand extends Command {
         Recipe recipeToEdit = lastShownList.get(index.getZeroBased());
         Recipe editedRecipe = createEditedRecipe(recipeToEdit, editRecipeDescriptor);
 
-        if (!recipeToEdit.isSame(editedRecipe) && model.hasRecipe(editedRecipe)) {
+        if (!recipeToEdit.isSame(editedRecipe) && model.has(editedRecipe)) {
             throw new CommandException(MESSAGE_DUPLICATE_RECIPE);
         }
 
-        model.updateRecipe(recipeToEdit, editedRecipe);
+        model.update(recipeToEdit, editedRecipe);
         model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
         model.commitAppContent();
         return new CommandResult(String.format(MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe));

@@ -32,7 +32,7 @@ public class AddCommandIntegrationTest {
         Recipe validRecipe = new RecipeBuilder().build();
 
         Model expectedModel = new ModelManager(model.getAppContent(), new UserPrefs());
-        expectedModel.addRecipe(validRecipe);
+        expectedModel.add(validRecipe);
         expectedModel.commitAppContent();
 
         assertCommandSuccess(new AddCommand(validRecipe), model, commandHistory,

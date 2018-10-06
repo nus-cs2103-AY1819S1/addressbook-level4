@@ -119,7 +119,7 @@ public class CommandTestUtil {
      * Updates {@code model}'s filtered list to show only the recipe at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
+    public static void showPersonAtIndex(Model<Recipe> model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredRecipeList().size());
 
         Recipe recipe = model.getFilteredRecipeList().get(targetIndex.getZeroBased());
@@ -132,9 +132,9 @@ public class CommandTestUtil {
     /**
      * Deletes the first recipe in {@code model}'s filtered list from {@code model}'s address book.
      */
-    public static void deleteFirstPerson(Model model) {
+    public static void deleteFirstPerson(Model<Recipe> model) {
         Recipe firstRecipe = model.getFilteredRecipeList().get(0);
-        model.deleteRecipe(firstRecipe);
+        model.delete(firstRecipe);
         model.commitAppContent();
     }
 

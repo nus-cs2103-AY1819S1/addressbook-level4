@@ -117,7 +117,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      */
     private Recipe removeRecipe(Model model, Index index) {
         Recipe targetRecipe = getRecipe(model, index);
-        model.deleteRecipe(targetRecipe);
+        model.delete(targetRecipe);
         return targetRecipe;
     }
 
