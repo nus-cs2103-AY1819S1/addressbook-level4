@@ -105,10 +105,10 @@ public class AddressBookParser {
         case CreateCalendarCommand.COMMAND_WORD:
             return new CreateCalendarCommandParser().parse(arguments);
 
-            case ImportCommand.COMMAND_WORD:
-                return new ImportCommandParser().parse(arguments);
+        case ImportCommand.COMMAND_WORD:
+            return new ImportCommandParser().parse(arguments);
 
-                default:
+        default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }

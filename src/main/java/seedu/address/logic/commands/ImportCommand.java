@@ -1,16 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ROOM;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SCHOOL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -18,8 +11,8 @@ import java.io.IOException;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
 
+//@@author kengwoon
 /**
  * Imports a .txt file to update the address book.
  */
@@ -55,13 +48,13 @@ public class ImportCommand extends Command {
             FileReader fr = new FileReader(file.getName());
             BufferedReader br = new BufferedReader(fr);
             String input;
-            while( (input = br.readLine() ) != null) {
+            while ((input = br.readLine()) != null) {
             }
             br.close();
 
             model.commitAddressBook();
             return new CommandResult(String.format(MESSAGE_SUCCESS, file.getName()));
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             throw new CommandException(MESSAGE_FILE_NOT_FOUND);
         } catch (IOException e) {
             throw new CommandException(MESSAGE_FILE_EMPTY);
