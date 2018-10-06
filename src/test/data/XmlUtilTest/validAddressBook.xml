@@ -47,6 +47,7 @@
         <phone isPrivate="false">8482424</phone>
         <email isPrivate="false">stefan@example.com</email>
         <address isPrivate="false">little india</address>
+
     </persons>
     <persons>
         <name>Martin Mueller</name>
