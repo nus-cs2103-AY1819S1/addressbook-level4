@@ -2,12 +2,14 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.calendar.Month;
 import seedu.address.model.calendar.Year;
@@ -221,6 +223,22 @@ public class ParserUtil {
             throw new ParseException(Year.MESSAGE_YEAR_CONSTRAINTS);
         }
         return new Year(trimmedYear);
+    }
+
+    //@@author kengwoon
+    /**
+     * Parses a {@code String file} into a {@code File}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code file} is invalid.
+     */
+    public static File parseFile(String file) throws ParseException {
+        requireNonNull(file);
+        String trimmedFile = file.trim();
+        if (!file.contains(".txt")) {
+            throw new ParseException(ImportCommand.MESSAGE_USAGE);
+        }
+        return new File(trimmedFile);
     }
 
 }

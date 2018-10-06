@@ -29,7 +29,7 @@ public class ImportCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Imports a .txt file to update the address book. "
             + "Parameters: "
             + "import "
-            + "FILENAME.txt";
+            + "f/FILENAME.txt";
 
     public static final String MESSAGE_SUCCESS = "%1$s file read and database updated.";
     public static final String MESSAGE_FILE_NOT_FOUND = "File not found.";
@@ -52,7 +52,7 @@ public class ImportCommand extends Command {
         try {
             FileReader fr = new FileReader(file.getName());
             BufferedReader br = new BufferedReader(fr);
-            
+
 
             model.commitAddressBook();
             return new CommandResult(String.format(MESSAGE_SUCCESS, file.getName()));
