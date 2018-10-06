@@ -61,10 +61,10 @@ public class JoinEventCommandTest {
     public void execute_alreadyJoinedJoinEvent() {
         JoinEventCommand command = new JoinEventCommand(TypicalIndexes.INDEX_FIRST);
         Person user = new PersonBuilder().build();
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         model.setCurrentUser(user);
         model.getEvent(TypicalIndexes.INDEX_FIRST).addPerson(user);
         String expectedMessage = String.format(Messages.MESSAGE_ALREADY_JOINED);
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
-
 }
