@@ -232,6 +232,22 @@ public class Event {
     }
 
     /**
+     * Updates the person in the event participant list, organiser, and polls.
+     */
+    public boolean updatePerson(Person target, Person editedPerson) {
+        boolean changed = false;
+        if (organiser.equals(target)) {
+            setOrganiser(editedPerson);
+            changed = true;
+        }
+        if (personList.contains(target)) {
+            personList.setPerson(target, editedPerson);
+            changed = true;
+        }
+        return changed;
+    }
+
+    /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */

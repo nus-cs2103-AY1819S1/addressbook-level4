@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.Poll;
@@ -45,7 +46,7 @@ public class XmlAdaptedEvent {
     @XmlElement
     private List<XmlAdaptedPoll> polls = new ArrayList<>();
     @XmlElement
-    private List<XmlAdaptedPerson> personList = new ArrayList<>();
+    private List<XmlAdaptedPerson> participants = new ArrayList<>();
 
     /**
      * Constructs an XmlAdaptedPerson.
@@ -79,7 +80,7 @@ public class XmlAdaptedEvent {
             this.polls = polls;
         }
         if (personList != null) {
-            this.personList = personList;
+            this.participants = personList;
         }
     }
 
@@ -107,7 +108,7 @@ public class XmlAdaptedEvent {
         polls = source.getPolls().stream()
                 .map(XmlAdaptedPoll::new)
                 .collect(Collectors.toList());
-        personList = source.getPersonList()
+        participants = source.getPersonList()
                 .asUnmodifiableObservableList()
                 .stream()
                 .map(XmlAdaptedPerson::new)
@@ -119,7 +120,7 @@ public class XmlAdaptedEvent {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted event.
      */
-    public Event toModelType() throws IllegalValueException {
+    public Event toModelType(ObservableList<Person> personList) throws IllegalValueException {
         final List<Tag> eventTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             eventTags.add(tag.toModelType());
@@ -142,7 +143,8 @@ public class XmlAdaptedEvent {
         }
         final Address modelAddress = new Address(address);
 
-        final Person modelOrganiser = organiser.toModelType();
+        //dangerous
+        final Person modelOrganiser = personList.get(personList.indexOf(organiser.toModelType()));
 
         Event event = new Event(modelName, modelAddress, modelTags);
         event.setOrganiser(modelOrganiser);
@@ -165,8 +167,11 @@ public class XmlAdaptedEvent {
         event.setPolls(modelPolls);
 
         final ArrayList<Person> modelPersonList = new ArrayList<>();
-        for (XmlAdaptedPerson person : personList) {
-            modelPersonList.add(person.toModelType());
+        for (XmlAdaptedPerson person : participants) {
+            //danger
+            int modelPersonIndex = personList.indexOf(person.toModelType());
+            Person modelPerson = personList.get(modelPersonIndex);
+            modelPersonList.add(modelPerson);
         }
         event.setPersonList(modelPersonList);
         return event;

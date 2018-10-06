@@ -66,5 +66,4 @@ public class JoinEventCommandTest {
         String expectedMessage = String.format(Messages.MESSAGE_ALREADY_JOINED);
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
-
 }
