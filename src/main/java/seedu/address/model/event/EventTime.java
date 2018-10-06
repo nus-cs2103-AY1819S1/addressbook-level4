@@ -13,8 +13,8 @@ import java.time.format.DateTimeParseException;
 public class EventTime {
 
     public static final String MESSAGE_TIME_CONSTRAINTS =
-            "Times should be in the 24-hour format HHMM, should be in the range 0000 to 2359, and it should not be " +
-                    "blank";
+            "Times should be in the 24-hour format HHMM, should be in the range 0000 to 2359, " +
+                    "and it should not be blank";
 
     /**
      * A blank string " " is considered invalid.
@@ -37,11 +37,11 @@ public class EventTime {
     }
 
     public static String getHour(String time) {
-        return time.substring(0,2);
+        return time.substring(0, 2);
     }
 
     public static String getMinute(String time) {
-        return time.substring(2,4);
+        return time.substring(2, 4);
     }
 
     /**
