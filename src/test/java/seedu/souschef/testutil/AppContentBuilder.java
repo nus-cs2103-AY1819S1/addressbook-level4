@@ -24,7 +24,7 @@ public class AppContentBuilder {
      * Adds a new {@code Recipe} to the {@code AppContent} that we are building.
      */
     public AppContentBuilder withRecipe(Recipe recipe) {
-        appContent.addRecipe(recipe);
+        appContent.getRecipes().add(recipe);
         return this;
     }
 

@@ -2,8 +2,6 @@ package seedu.souschef.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
-
 import javafx.collections.ObservableList;
 
 import seedu.souschef.model.recipe.Recipe;
@@ -39,22 +37,12 @@ public class AppContent implements ReadOnlyAppContent {
     }
 
     //// list overwrite operations
-
-    /**
-     * Replaces the contents of the recipe list with {@code recipes}.
-     * {@code recipes} must not contain duplicate recipes.
-     */
-    public void setRecipes(List<Recipe> recipes) {
-        this.recipes.set(recipes);
-    }
-
     /**
      * Resets the existing data of this {@code AppContent} with {@code newData}.
      */
     public void resetData(ReadOnlyAppContent newData) {
         requireNonNull(newData);
-
-        setRecipes(newData.getRecipeList());
+        this.recipes.set(newData.getRecipeList());
     }
 
     //// recipe-level operations
@@ -62,44 +50,7 @@ public class AppContent implements ReadOnlyAppContent {
         return recipes;
     }
 
-    /**
-     * Returns true if a recipe with the same identity as {@code recipe} exists in the application content.
-     */
-    public boolean hasRecipe(Recipe recipe) {
-        requireNonNull(recipe);
-        return recipes.contains(recipe);
-    }
-
-    /**
-     * Adds a recipe to the application content.
-     * The recipe must not already exist in the application content.
-     */
-    public void addRecipe(Recipe p) {
-        recipes.add(p);
-    }
-
-    /**
-     * Replaces the given recipe {@code target} in the list with {@code editedRecipe}.
-     * {@code target} must exist in the application content.
-     * The recipe identity of {@code editedRecipe} must not be the same as another existing recipe in the application
-     * content.
-     */
-    public void updateRecipe(Recipe target, Recipe editedRecipe) {
-        requireNonNull(editedRecipe);
-
-        recipes.set(target, editedRecipe);
-    }
-
-    /**
-     * Removes {@code key} from this {@code AppContent}.
-     * {@code key} must exist in the application content.
-     */
-    public void removeRecipe(Recipe key) {
-        recipes.remove(key);
-    }
-
     //// util methods
-
     @Override
     public String toString() {
         return recipes.asUnmodifiableObservableList().size() + " recipes";
