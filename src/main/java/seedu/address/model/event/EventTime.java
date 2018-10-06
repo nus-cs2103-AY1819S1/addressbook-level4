@@ -20,8 +20,8 @@ public class EventTime {
      * A blank string " " is considered invalid.
      * Format must be in HHMM, without any separators.
      */
-    public static final String TIME_VALIDATION_REGEX = "^(20|21|22|23|[01]\\d)" +
-            "(([0-5]\\d){1})$";
+    public static final String TIME_VALIDATION_REGEX = "^(20|21|22|23|[01]\\d)"
+            + "(([0-5]\\d){1})$";
 
     public final LocalTime eventTime;
 
