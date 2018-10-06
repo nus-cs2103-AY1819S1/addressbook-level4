@@ -17,15 +17,15 @@ By: `Team W12-1`      Since: `Sep 2018`      Licence: `MIT`
 
 == Introduction
 
-Lost and Found is made for lost and found (duh) administrators...
+Lost and Found is made for lost and found (duh) administrators... +
 ...with a fear of mice (no pun intended).
 
 It won't deter mice, but it makes you finish your job twice as fast.
 
 == Quick Start
 
-.  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Ensure you have Java version `9` or later installed in your computer.
+.  Download the latest `Lost and Found.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Lost and Found app.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -47,7 +47,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/Wallet`.
 * Parameters in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/Wallet t/brown` or as `n/Wallet`.
 * Parameters with `…` after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/yellow`, `t/yellow t/empty` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME t/TAG`, `t/TAG n/NAME` is also acceptable.
@@ -56,89 +56,68 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 === Viewing help : `help`
 Format: `help`
 
-=== Listing all item : `list`
+=== Listing all articles : `list`
 Shows a list of all articles in the app. +
 Format: `list`
 
-=== Editing an item : `edit` [coming in v1.1]
-Edits an existing item in the lost and found book +
-Format `edit INDEX [i/ITEMTYPE] [l/LOCATION] [t/DATE_AND_TIME] [n/NAME_OF_PERSON][p/PHONE][e/EMAIL][t/TAG][d/DESCRIPTION]`
+=== Editing an article : `edit`
+Edits an existing article in the article list +
+Format `edit INDEX [n/NAME] [t/TAG]...`
 
-* Edits the article at the specific INDEX. The index reffers to the index number shown in the displayed article entries. The index must be a positive integer 1, 2, 3, ...
+* Edits the article at the specific INDEX. The index refers to the index number shown in the displayed article list. The index must be a positive integer 1, 2, 3, ...
 * At least one of the optional fields must be provided.
-* When editing tags, the existing tags of the article will be removed i.e. adding of tags ins not cumulative
-* You can remove all the article's tags by typing t/ without specifying any tags after it
+* When editing tags, the existing tags of the article will be removed i.e. adding of tags is not cumulative.
+* You can remove all the article's tags by typing t/ without specifying any tags after it.
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` edits the phone number and email address of the first item to be 91234567 and johndoe@example.com respectively
-* `edit 2 n/Betsy Crower t/` edits the name of the second item to be Betsy Crower and clears all existing tags.
+* `edit 2 n/Bag t/` edits the name of the second article to be `Bag` and clears all existing tags.
 
-=== 3.5 Locating items by keywords: `find` [coming in v1.2]
-Finds items with the keyword in all fields +
+=== 3.5 Locating articles by keywords: `find`
+Finds articles with the keyword in all fields +
 format: `find KEYWORD [MORE_KEYWORDS]`
 
-* The search is case sensitive e.g. wallet will match Wallet
-* The order of the keywords does not matter. e.g. Hans Bo will match Bo Hans
-* All fields will be searched
-* Only full words will be matched e.g. Han will not match Hans
-* Person matching at least one keyword will be returned (i.e. OR search), e.g. Hans Bo will return Hans Gruber, Bo Yang
+* The search is case sensitive e.g. wallet will NOT match Wallet.
+* The order of the keywords does not matter. e.g. Overpriced iPhone will match iPhone Overpriced.
+* All fields will be searched.
+* Only full words will be matched. e.g. Phone will not match iPhone.
+* Person matching at least one keyword will be returned, e.g. Overpriced iPhone will return Cheap iPhone, Overpriced Phone
 
 Examples:
 
-* `find John` returns john and John Doe
-* `find wallet blue big-sized` returns any items having field wallet, blue, and big-sized
-
-=== Locating items by field: `find-(FIELD)` [coming in v1.2]
-Finds item whose keywords matches the field. +
-Format: `find-FIELD KEYWORD [find-(FIELD) MORE KEYWORDS]`
-
-* There can be multiple `find-(FIELD)` in a statement
-* The search is case insensitive e.g. hans will match Hans
-* The order of the keywords does not matter. e.g. Hans Bo will match Bo Hans
-* Depending on the find-field command, the respective field will be searched
-* Only full words will be matched e.g. Han will not match Hans
-* Items matching at least one keyword will be returned (i.e. OR search) e.g. Hans Bo wil return Hans Gruber, Bo Yang
-
-Examples:
-
-* `find-n John` returns John and John Doe
-* `find-n Betsy Tim John` returns any person having names Betsy, Tim or John
-* `find-i Wallet find-l computing` returns an article with wallet in itemtype and computing in location
+* `find Jacket` returns Jacket and Torn Jacket
+* `find wallet blue big-sized` returns any articles having field wallet, blue, or big-sized
 
 === Deleting an article: `delete`
-Deletes the specified article from the entries. +
+Deletes the specified article from the article list. +
 Format: `delete INDEX`
 
 * Deletes the article at the specified INDEX
-* The index refers to the index number shown in the displayed item list.
+* The index refers to the index number shown in the displayed article list.
 * The index must be a positive number 1, 2, 3, ...
 
 Examples:
 
 * `delete 2` deletes the second article in the list
 
-=== Selecting an article: `select` [coming in v1.2]
+=== Selecting an article: `select`
 Selects the article identified by the index number used in the displayed articles. +
 Format: `select INDEX`
 
 * Selects the article and shows a more detailed description of the article at the specified INDEX.
-* The index refers to the index number= shown in the displayed list.
+* The index refers to the index number shown in the displayed list.
 * The index must be a positive integer 1, 2, 3, ...
 
 Examples:
 
-* `select 2` selects the second article in the entries.
+* `select 2` selects the second article in the list.
 
-=== Add photo of item: `photo` [coming in v1.3]
-Format: `photo INDEX [RET] /path/to/photo
-
-=== Resolve claimed articles: `resolve` [coming in v1.2]
-Mark an article as resolved and remove it from active entries. +
+=== Resolve claimed articles: `resolve`
+Mark an article as resolved and remove it from active list. +
 Format: `resolve INDEX`
 
-* Resolve the item at the specified index
-* The index refers to the index number shown in the displayed item list.
+* Resolve the article at the specified index
+* The index refers to the index number shown in the displayed article list.
 * The index must be a positive integer 1, 2, 3, ...
 
 === Listing entered commands: `history`
@@ -147,17 +126,11 @@ Format: `history`
 
 ===  Undoing previous command: `undo`
 Restores the app to the state before the previous undoable command was executed. +
-Format: `undo [N]`
-
-* reverses N command
-* when N is empty defaults to 1
+Format: `undo`
 
 ===  Redoing previous command: `redo`
 Reverses the undo command. +
-Format: `redo [N]`
-
-* reverses N undo command
-* when N is empty defaults to 1
+Format: `redo`
 
 === Clearing all entries: `clear`
 Clears all article entries. +
@@ -173,7 +146,7 @@ There is no need to save manually.
 
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
+*Q*: How do I transfer my data to another computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Lost and Found folder.
 
 == Command Summary
