@@ -80,8 +80,15 @@ public class CommandTestUtil {
     public static final String EVENT_ADDRESS_DESC_DOCTORAPPT = " " + PREFIX_ADDRESS + VALID_EVENT_ADDRESS_DOCTORAPPT;
     public static final String EVENT_ADDRESS_DESC_MEETING = " " + PREFIX_ADDRESS + VALID_EVENT_ADDRESS_MEETING;
 
+    public static final String INVALID_EVENT_NAME_DESC = " " + PREFIX_NAME + "Consultation-"; // - not allowed in
+    // event names
+    public static final String INVALID_EVENT_DESC_DESC = " " + PREFIX_EVENT_DESCRIPTION + "Important*"; // * not allowed
+    public static final String INVALID_EVENT_DATE_DESC = " " + PREFIX_DATE + "2018-09-32";
+    public static final String INVALID_EVENT_TIME_DESC = " " + PREFIX_TIME + "12:00"; // colon not allowed
+    public static final String INVALID_EVENT_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed
 
-    public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
+
+    public static final String PREAMBLE_WHITESPACE = "\r  \t  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
