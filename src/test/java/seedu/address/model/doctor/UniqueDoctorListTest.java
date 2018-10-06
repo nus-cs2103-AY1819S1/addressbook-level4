@@ -47,7 +47,7 @@ public class UniqueDoctorListTest {
     @Test
     public void contains_doctorWithSameIdentityFieldsInList_returnsTrue() {
         uniqueDoctorList.add(ADAM);
-        Doctor editedAdam = new DoctorBuilder(ADAM).withPassword("doctor1")
+        Doctor editedAdam = new DoctorBuilder(ADAM).withId(1)
                 .build();
         assertTrue(uniqueDoctorList.contains(editedAdam));
     }
