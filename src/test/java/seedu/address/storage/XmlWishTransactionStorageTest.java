@@ -84,4 +84,28 @@ public class XmlWishTransactionStorageTest {
         read = xmlWishTransactionStorage.readWishTransaction().get(); //file path not specified
         assertEquals(original, read);
     }
+
+    @Test
+    public void saveWishTransaction_nullWishTransaction_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        saveWishTransaction(null, "SomeFile.xml");
+    }
+
+    /**
+     * Saves {@code wishTransaction} at the specified {@code filePath}.
+     */
+    private void saveWishTransaction(WishTransaction wishTransaction, String filePath) {
+        try {
+            new XmlWishTransactionStorage(Paths.get(filePath))
+                    .saveWishTransaction(wishTransaction, addToTestDataPathIfNotNull(filePath));
+        } catch (IOException ioe) {
+            throw new AssertionError("There should not be an error writing to the file.", ioe);
+        }
+    }
+
+    @Test
+    public void saveWishBook_nullFilePath_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        saveWishTransaction(new WishTransaction(), null);
+    }
 }
