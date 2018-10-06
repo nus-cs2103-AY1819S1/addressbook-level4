@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -33,6 +34,7 @@ public class ImportCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "%1$s file read and database updated.";
     public static final String MESSAGE_FILE_NOT_FOUND = "File not found.";
+    public static final String MESSAGE_FILE_EMPTY = "Unable to read. File is empty.";
 
     private final File file;
 
@@ -52,12 +54,18 @@ public class ImportCommand extends Command {
         try {
             FileReader fr = new FileReader(file.getName());
             BufferedReader br = new BufferedReader(fr);
-
+            String input;
+            while( (input = br.readLine() ) != null) {
+                
+            }
+            br.close();
 
             model.commitAddressBook();
             return new CommandResult(String.format(MESSAGE_SUCCESS, file.getName()));
-        } catch(FileNotFoundException e){
+        } catch (FileNotFoundException e){
             throw new CommandException(MESSAGE_FILE_NOT_FOUND);
+        } catch (IOException e) {
+            throw new CommandException(MESSAGE_FILE_EMPTY);
         }
     }
 
