@@ -105,6 +105,13 @@ public class Wish {
     }
 
     /**
+     * Returns the progress for {@code wish}, ranges from 0.0 to 1.0.
+     */
+    public Double getProgress() {
+        return getSavedAmount().value / getPrice().value;
+    }
+
+    /**
      * Returns true if both persons have the same identity and data fields.
      * This defines a stronger notion of equality between two persons.
      */
