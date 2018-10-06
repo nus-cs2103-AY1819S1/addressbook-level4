@@ -10,7 +10,7 @@ import java.time.format.DateTimeParseException;
  * Represents an Event's date in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
-public class Date {
+public class EventDate {
 
     public static final String MESSAGE_DATE_CONSTRAINTS =
             "Dates should be in the format YYYY-MM-DD, and it should not be blank";
@@ -24,17 +24,17 @@ public class Date {
             "(02-(0[1-9]|[1-2][0-9]))|" +
             "((0[469]|11)-(0[1-9]|[1-2][0-9]|30)))$";
 
-    public final LocalDate date;
+    public final LocalDate eventDate;
 
     /**
-     * Constructs a {@code Date}.
+     * Constructs a {@code EventDate}.
      *
-     * @param date A valid date.
+     * @param eventDate A valid date.
      */
-    public Date(String date) {
-        requireNonNull(date);
-        checkArgument(isValidDate(date), MESSAGE_DATE_CONSTRAINTS);
-        this.date = LocalDate.parse(date);
+    public EventDate(String eventDate) {
+        requireNonNull(eventDate);
+        checkArgument(isValidDate(eventDate), MESSAGE_DATE_CONSTRAINTS);
+        this.eventDate = LocalDate.parse(eventDate);
     }
 
     /**
@@ -56,19 +56,19 @@ public class Date {
 
     @Override
     public String toString() {
-        return date.toString();
+        return eventDate.toString();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Date // instanceof handles nulls
-                && date.equals(((Date) other).date)); // state check
+                || (other instanceof EventDate // instanceof handles nulls
+                && eventDate.equals(((EventDate) other).eventDate)); // state check
     }
 
     @Override
     public int hashCode() {
-        return date.hashCode();
+        return eventDate.hashCode();
     }
 
 }

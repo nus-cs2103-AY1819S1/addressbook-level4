@@ -30,11 +30,12 @@ public class ScheduledEventUtil {
      */
     public static String getEventDetails(Event event) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NAME + event.getName() + " ");
-        sb.append(PREFIX_EVENT_DESCRIPTION + event.getDesc() + " ");
-        sb.append(PREFIX_DATE + event.getDate() + " ");
-        sb.append(PREFIX_TIME + event.getTime() + " ");
-        sb.append(PREFIX_ADDRESS + event.getAddress() + " ");
+        sb.append(PREFIX_NAME + event.getEventName().eventName + " ");
+        sb.append(PREFIX_EVENT_DESCRIPTION + event.getEventDescription().eventDescription + " ");
+        sb.append(PREFIX_DATE + event.getEventDate().eventDate.toString() + " ");
+        // replace extra colon to simulate user input
+        sb.append(PREFIX_TIME + event.getEventTime().eventTime.toString().replace(":","") + " ");
+        sb.append(PREFIX_ADDRESS + event.getEventAddress().eventAddress + " ");
 
         return sb.toString();
     }

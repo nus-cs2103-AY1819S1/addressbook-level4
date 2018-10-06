@@ -2,16 +2,11 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_DOCTORAPPT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_MEETING;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_DOCTORAPPT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_MEETING;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESC_DOCTORAPPT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESC_MEETING;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_DOCTORAPPT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_MEETING;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_DOCTORAPPT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_MEETING;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_ADDRESS_DOCTORAPPT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DATE_DOCTORAPPT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DESC_DOCTORAPPT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_NAME_DOCTORAPPT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_TIME_DOCTORAPPT;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -22,6 +17,12 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventAddress;
+import seedu.address.model.event.EventDate;
+import seedu.address.model.event.EventDescription;
+import seedu.address.model.event.EventName;
+import seedu.address.model.event.EventTime;
+import seedu.address.testutil.ScheduledEventBuilder;
 
 public class AddEventCommandTest {
 
@@ -30,20 +31,20 @@ public class AddEventCommandTest {
 
     @Test
     public void execute_failure() {
-        Event emptyEvent = new Event(VALID_NAME_DOCTORAPPT, VALID_DESC_DOCTORAPPT, VALID_DATE_DOCTORAPPT,
-                VALID_TIME_DOCTORAPPT, VALID_ADDRESS_DOCTORAPPT);
-        AddEventCommand addEventCommand = new AddEventCommand(emptyEvent);
+        Event defaultEvent = new Event(new EventName(VALID_EVENT_NAME_DOCTORAPPT),
+                new EventDescription(VALID_EVENT_DESC_DOCTORAPPT),
+                new EventDate(VALID_EVENT_DATE_DOCTORAPPT),
+                new EventTime(VALID_EVENT_TIME_DOCTORAPPT), new EventAddress(VALID_EVENT_ADDRESS_DOCTORAPPT));
+        AddEventCommand addEventCommand = new AddEventCommand(defaultEvent);
 
         assertCommandFailure(addEventCommand, model, commandHistory,
-                addEventCommand.MESSAGE_METHOD_NOT_IMPLEMENTED_YET + emptyEvent);
+                addEventCommand.MESSAGE_METHOD_NOT_IMPLEMENTED_YET + defaultEvent);
     }
 
     @Test
     public void equals() {
-        Event firstEvent = new Event(VALID_NAME_DOCTORAPPT, VALID_DESC_DOCTORAPPT, VALID_DATE_DOCTORAPPT,
-                VALID_TIME_DOCTORAPPT, VALID_ADDRESS_DOCTORAPPT);
-        Event secondEvent = new Event(VALID_NAME_MEETING, VALID_DESC_MEETING, VALID_DATE_MEETING, VALID_TIME_MEETING,
-                VALID_ADDRESS_MEETING);
+        Event firstEvent = new ScheduledEventBuilder().withEventName("event").build();
+        Event secondEvent = new ScheduledEventBuilder().withEventName("a different event").build();
         AddEventCommand addFirstEventCommand = new AddEventCommand(firstEvent);
         AddEventCommand addSecondEventCommand = new AddEventCommand(secondEvent);
 

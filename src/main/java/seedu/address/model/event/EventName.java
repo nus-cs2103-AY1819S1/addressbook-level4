@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents an Event's name in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
-public class Name {
+public class EventName {
 
     public static final String MESSAGE_NAME_CONSTRAINTS =
             "Event names should only contain alphanumeric characters and spaces, and it should not be blank";
@@ -18,17 +18,17 @@ public class Name {
      */
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum}\\s]*";
 
-    public final String name;
+    public final String eventName;
 
     /**
-     * Constructs a {@code Name}.
+     * Constructs a {@code EventName}.
      *
-     * @param name A valid name.
+     * @param eventName A valid name.
      */
-    public Name(String name) {
-        requireNonNull(name);
-        checkArgument(isValidName(name), MESSAGE_NAME_CONSTRAINTS);
-        this.name = name;
+    public EventName(String eventName) {
+        requireNonNull(eventName);
+        checkArgument(isValidName(eventName), MESSAGE_NAME_CONSTRAINTS);
+        this.eventName = eventName;
     }
 
     /**
@@ -40,19 +40,19 @@ public class Name {
 
     @Override
     public String toString() {
-        return name;
+        return eventName;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Name // instanceof handles nulls
-                && name.equals(((Name) other).name)); // state check
+                || (other instanceof EventName // instanceof handles nulls
+                && eventName.equals(((EventName) other).eventName)); // state check
     }
 
     @Override
     public int hashCode() {
-        return name.hashCode();
+        return eventName.hashCode();
     }
 
 }

@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents an Event's description in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}
  */
-public class Description {
+public class EventDescription {
 
     public static final String MESSAGE_DESCRIPTION_CONSTRAINTS =
             "Event descriptions should only contain alphanumeric characters and spaces, and it should not be blank";
@@ -18,17 +18,17 @@ public class Description {
      */
     public static final String DESCRIPTION_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum}\\s]*";
 
-    public final String description;
+    public final String eventDescription;
 
     /**
-     * Constructs a {@code Description}.
+     * Constructs a {@code EventDescription}.
      *
-     * @param description A valid description.
+     * @param eventDescription A valid description.
      */
-    public Description(String description) {
-        requireNonNull(description);
-        checkArgument(isValidDescription(description), MESSAGE_DESCRIPTION_CONSTRAINTS);
-        this.description = description;
+    public EventDescription(String eventDescription) {
+        requireNonNull(eventDescription);
+        checkArgument(isValidDescription(eventDescription), MESSAGE_DESCRIPTION_CONSTRAINTS);
+        this.eventDescription = eventDescription;
     }
 
     /**
@@ -40,19 +40,19 @@ public class Description {
 
     @Override
     public String toString() {
-        return description;
+        return eventDescription;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Description // instanceof handles nulls
-                && description.equals(((Description) other).description)); // state check
+                || (other instanceof EventDescription // instanceof handles nulls
+                && eventDescription.equals(((EventDescription) other).eventDescription)); // state check
     }
 
     @Override
     public int hashCode() {
-        return description.hashCode();
+        return eventDescription.hashCode();
     }
 
 }
