@@ -56,7 +56,6 @@ public class ImportCommand extends Command {
             BufferedReader br = new BufferedReader(fr);
             String input;
             while( (input = br.readLine() ) != null) {
-                
             }
             br.close();
 
