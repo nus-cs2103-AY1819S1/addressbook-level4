@@ -19,10 +19,10 @@ public class EventDate {
      * A blank string " " is considered invalid.
      * Format must be in YYYY-MM-DD, using only - as the separator.
      */
-    public static final String DATE_VALIDATION_REGEX = "^[0-9]{4}-" +
-            "(((0[13578]|(10|12))-(0[1-9]|[1-2][0-9]|3[0-1]))|" +
-            "(02-(0[1-9]|[1-2][0-9]))|" +
-            "((0[469]|11)-(0[1-9]|[1-2][0-9]|30)))$";
+    public static final String DATE_VALIDATION_REGEX = "^[0-9]{4}-"
+            + "(((0[13578]|(10|12))-(0[1-9]|[1-2][0-9]|3[0-1]))|"
+            + "(02-(0[1-9]|[1-2][0-9]))|"
+            + "((0[469]|11)-(0[1-9]|[1-2][0-9]|30)))$";
 
     public final LocalDate eventDate;
 

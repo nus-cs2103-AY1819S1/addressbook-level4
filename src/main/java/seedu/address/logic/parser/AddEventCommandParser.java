@@ -43,7 +43,8 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
         }
 
         EventName eventName = ParserUtil.parseEventName(argMultimap.getValue(PREFIX_NAME).get());
-        EventDescription eventDesc = ParserUtil.parseEventDescription(argMultimap.getValue(PREFIX_EVENT_DESCRIPTION).get());
+        EventDescription eventDesc =
+                ParserUtil.parseEventDescription(argMultimap.getValue(PREFIX_EVENT_DESCRIPTION).get());
         EventDate eventDate = ParserUtil.parseEventDate(argMultimap.getValue(PREFIX_DATE).get());
         EventTime eventTime = ParserUtil.parseEventTime(argMultimap.getValue(PREFIX_TIME).get());
         EventAddress eventAddress = ParserUtil.parseEventAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
