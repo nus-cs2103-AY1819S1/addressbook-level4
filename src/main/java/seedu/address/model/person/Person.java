@@ -24,18 +24,20 @@ public class Person {
 
     // Data fields
     private final Address address;
+    private final Education education;
     private final Grades grades;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Grades grades, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, grades, tags);
+    public Person(Name name, Phone phone, Email email, Address address, Education education, Grades grades, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, education, grades, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.education = education;
         this.grades = grades;
         this.tags.addAll(tags);
         this.tuitionFee = new Fees(21.034567890);
@@ -56,6 +58,8 @@ public class Person {
     public Address getAddress() {
         return address;
     }
+
+    public Education getEducation(){ return education; }
 
     public Grades getGrades() {
         return grades;
@@ -106,6 +110,7 @@ public class Person {
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
+                && otherPerson.getEducation().equals(getEducation())
                 && otherPerson.getGrades().equals(getGrades())
                 && otherPerson.getTags().equals(getTags());
     }
@@ -113,7 +118,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, grades, tags);
+        return Objects.hash(name, phone, email, address, education, grades, tags);
     }
 
     @Override
@@ -126,6 +131,8 @@ public class Person {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" Education: ")
+                .append(getEducation())
                 .append(" Grades: ")
                 .append(getGrades())
                 .append(" Tags: ");
