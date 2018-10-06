@@ -77,7 +77,7 @@ public class AddressBookParser {
 
         case TotalsCommand.COMMAND_WORD:
             return new TotalsCommand();
-            
+
         case LoginCommand.COMMAND_WORD:
             return new LoginCommandParser().parse(arguments);
 
