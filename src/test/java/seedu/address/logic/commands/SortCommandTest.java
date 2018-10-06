@@ -3,14 +3,15 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_SORTED_OVERVIEW;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.CARL;
-import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_SORTED_OVERVIEW;
 
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -22,7 +23,7 @@ import seedu.address.testutil.AddressBookBuilder;
  * Contains integration tests (interaction with the Model) for {@code SortCommand}.
  */
 class SortCommandTest {
-    Model model = new ModelManager(new AddressBookBuilder().withPerson(CARL).withPerson(BENSON)
+    private Model model = new ModelManager(new AddressBookBuilder().withPerson(CARL).withPerson(BENSON)
             .withPerson(ALICE).build(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 

@@ -32,22 +32,34 @@ class PersonPropertyComparatorTest {
         assertEquals(addressComparator, PersonPropertyComparator.getPersonPropertyComparator("ADdReSS"));
 
         // misspellings
-        assertThrows(IllegalArgumentException.class, () -> PersonPropertyComparator.getPersonPropertyComparator("ame"));
-        assertThrows(IllegalArgumentException.class, () -> PersonPropertyComparator.getPersonPropertyComparator("pone"));
-        assertThrows(IllegalArgumentException.class, () -> PersonPropertyComparator.getPersonPropertyComparator("emai"));
-        assertThrows(IllegalArgumentException.class, () -> PersonPropertyComparator.getPersonPropertyComparator("addess"));
+        assertThrows(IllegalArgumentException.class,
+                () -> PersonPropertyComparator.getPersonPropertyComparator("ame"));
+        assertThrows(IllegalArgumentException.class,
+                () -> PersonPropertyComparator.getPersonPropertyComparator("pone"));
+        assertThrows(IllegalArgumentException.class,
+                () -> PersonPropertyComparator.getPersonPropertyComparator("emai"));
+        assertThrows(IllegalArgumentException.class,
+                () -> PersonPropertyComparator.getPersonPropertyComparator("addess"));
 
         // multiple arguments
-        assertThrows(IllegalArgumentException.class, () -> PersonPropertyComparator.getPersonPropertyComparator("name phone"));
-        assertThrows(IllegalArgumentException.class, () -> PersonPropertyComparator.getPersonPropertyComparator("phone email"));
-        assertThrows(IllegalArgumentException.class, () -> PersonPropertyComparator.getPersonPropertyComparator("email address"));
-        assertThrows(IllegalArgumentException.class, () -> PersonPropertyComparator.getPersonPropertyComparator("address name"));
+        assertThrows(IllegalArgumentException.class,
+                () -> PersonPropertyComparator.getPersonPropertyComparator("name phone"));
+        assertThrows(IllegalArgumentException.class,
+                () -> PersonPropertyComparator.getPersonPropertyComparator("phone email"));
+        assertThrows(IllegalArgumentException.class,
+                () -> PersonPropertyComparator.getPersonPropertyComparator("email address"));
+        assertThrows(IllegalArgumentException.class,
+                () -> PersonPropertyComparator.getPersonPropertyComparator("address name"));
 
         // empty arguments
-        assertThrows(IllegalArgumentException.class, () -> PersonPropertyComparator.getPersonPropertyComparator(""));
-        assertThrows(IllegalArgumentException.class, () -> PersonPropertyComparator.getPersonPropertyComparator(" "));
-        assertThrows(IllegalArgumentException.class, () -> PersonPropertyComparator.getPersonPropertyComparator("\n"));
-        assertThrows(IllegalArgumentException.class, () -> PersonPropertyComparator.getPersonPropertyComparator("\t"));
+        assertThrows(IllegalArgumentException.class,
+                () -> PersonPropertyComparator.getPersonPropertyComparator(""));
+        assertThrows(IllegalArgumentException.class,
+                () -> PersonPropertyComparator.getPersonPropertyComparator(" "));
+        assertThrows(IllegalArgumentException.class,
+                () -> PersonPropertyComparator.getPersonPropertyComparator("\n"));
+        assertThrows(IllegalArgumentException.class,
+                () -> PersonPropertyComparator.getPersonPropertyComparator("\t"));
     }
 
     @Test
