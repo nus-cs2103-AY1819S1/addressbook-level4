@@ -34,7 +34,7 @@ public class ScheduledEventUtil {
         sb.append(PREFIX_EVENT_DESCRIPTION + event.getEventDescription().eventDescription + " ");
         sb.append(PREFIX_DATE + event.getEventDate().eventDate.toString() + " ");
         // replace extra colon to simulate user input
-        sb.append(PREFIX_TIME + event.getEventTime().eventTime.toString().replace(":","") + " ");
+        sb.append(PREFIX_TIME + event.getEventTime().eventTime.toString().replace(":", "") + " ");
         sb.append(PREFIX_ADDRESS + event.getEventAddress().eventAddress + " ");
 
         return sb.toString();
