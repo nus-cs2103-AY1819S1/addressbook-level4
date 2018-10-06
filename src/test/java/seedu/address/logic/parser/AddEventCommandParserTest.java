@@ -15,15 +15,14 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_ADDRESS_D
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DATE_DOCTORAPPT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DESC_DOCTORAPPT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_NAME_DOCTORAPPT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_TIME_DOCTORAPPT;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_DATE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_DESC_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_TIME_DESC;
-
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_TIME_DOCTORAPPT;
 
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
