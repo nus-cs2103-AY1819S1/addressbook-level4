@@ -37,6 +37,5 @@ public class AverageStatistics extends Statistics {
     @Override
     public void compute() {
         // placeholder
-        int x = 0;
     }
 }

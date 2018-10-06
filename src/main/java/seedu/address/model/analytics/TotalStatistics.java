@@ -28,6 +28,5 @@ public class TotalStatistics extends Statistics {
     @Override
     public void compute() {
         // placeholder
-        int x = 0;
     }
 }
