@@ -132,7 +132,7 @@ public class AddressBookTest {
     @Test
     public void hasDoctor_doctorWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addDoctor(ADAM);
-        Doctor editedAdam = new DoctorBuilder(ADAM).withPassword("doctor1").build();
+        Doctor editedAdam = new DoctorBuilder(ADAM).withId(1).build();
         assertTrue(addressBook.hasDoctor(editedAdam));
     }
 

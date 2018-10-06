@@ -13,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
 
@@ -210,4 +211,71 @@ public class ModelManager extends ComponentManager implements Model {
                 && filteredDoctors.equals(other.filteredDoctors);
     }
 
+    //=========== For scheduling appointments =================================================================
+    //Everything below is TODO
+
+    /** Clears existing backing model and replaces with the provided new data. */
+    //void resetData(ReadOnlySchedule newData);
+
+    /** Returns the schedule */
+    //ReadOnlySchedule getSchedule();
+
+    @Override
+    public boolean hasAppointment(Appointment appt) {
+        //to do
+        return false;
+    }
+
+    @Override
+    public void cancelAppointment(Appointment appt) {
+        //to do
+    }
+
+    @Override
+    public void addAppointment(Appointment appt) {
+        //to do
+    }
+
+    @Override
+    public void updateAppointment(Appointment appt, Appointment editedAppt) {
+        //to do
+    }
+
+    @Override
+    public ObservableList<Appointment> getFilteredAppointmentList() {
+        //to do
+        return null;
+    }
+
+    @Override
+    public void updateFilteredAppointmentList(Predicate<Person> predicate) {
+        //to do
+    }
+
+    @Override
+    public boolean canUndoSchedule() {
+        //to do
+        return false;
+    }
+
+    @Override
+    public boolean canRedoSchedule() {
+        //to do
+        return false;
+    }
+
+    @Override
+    public void undoSchedule() {
+        //to do
+    }
+
+    @Override
+    public void redoSchedule() {
+        //to do
+    }
+
+    @Override
+    public void commitSchedule() {
+        //to do
+    }
 }

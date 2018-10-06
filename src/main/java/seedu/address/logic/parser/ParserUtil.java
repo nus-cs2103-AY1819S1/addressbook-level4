@@ -9,9 +9,13 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.doctor.Doctor;
+import seedu.address.model.doctor.Id;
+import seedu.address.model.doctor.Password;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
@@ -108,6 +112,35 @@ public class ParserUtil {
             throw new ParseException(Tag.MESSAGE_TAG_CONSTRAINTS);
         }
         return new Tag(trimmedTag);
+    }
+
+    /**
+     * Parses a {@code String password} into a {@code Password}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code password} is invalid.
+     */
+    public static Password parsePassword(String password) throws ParseException {
+        requireNonNull(password);
+        if (!Password.isValidPassword(password)) {
+            throw new ParseException(Password.MESSAGE_PASSWORD_CONSTRAINTS);
+        }
+        return new Password(password);
+    }
+
+    /**
+     * Parse {@code role, @code name, @code password} into either a {@code Doctor} or {@code Receptionist}
+     * @param role The type of user (Doctor, Receptionist)
+     * @param name The user valid name.
+     * @param password The user valid password.
+     * @return A valid person with its role object.
+     */
+    public static Person parseRole(String role, Name name, Password password) {
+        if (role.equals("doctor")) {
+            return new Doctor(new Id(0), name, password);
+        } else {
+            return null;
+        }
     }
 
     /**

@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
 
@@ -112,6 +113,72 @@ public interface Model {
      * Saves the current address book state for undo/redo.
      */
     void commitAddressBook();
+
+    //=========== For scheduling ============================================================================
+
+    /** Clears existing backing model and replaces with the provided new data. */
+    //void resetData(ReadOnlySchedule newData);
+
+    /** Returns the schedule */
+    //ReadOnlySchedule getSchedule();
+
+    /**
+     * Returns true if an appointment with the same identity as {@code appointment} exists in the schedule.
+     */
+    boolean hasAppointment(Appointment appt);
+
+    /**
+     * Cancels the given appointment.
+     * The appointment must exist in the schedule.
+     */
+    void cancelAppointment(Appointment appt);
+
+    /**
+     * Adds the given appointment.
+     * {@code appt} must not already exist in the schedule.
+     */
+    void addAppointment(Appointment appt);
+
+    /**
+     * Replaces the given appointment {@code appt} with {@code editedAppt}.
+     * {@code appt} must exist in the schedule.
+     * The appointment timing of {@code editedAppt} must not be the same as another existing appointment.
+     */
+    void updateAppointment(Appointment appt, Appointment editedAppt);
+
+    /** Returns an unmodifiable view of the appointment list. */
+    ObservableList<Appointment> getFilteredAppointmentList();
+
+    /**
+     * Updates the filter of the filtered appointment list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredAppointmentList(Predicate<Person> predicate);
+
+    /**
+     * Returns true if the model has previous schedule states to restore.
+     */
+    boolean canUndoSchedule();
+
+    /**
+     * Returns true if the model has undone schedule states to restore.
+     */
+    boolean canRedoSchedule();
+
+    /**
+     * Restores the model's schedule to its previous state.
+     */
+    void undoSchedule();
+
+    /**
+     * Restores the model's schedule to its previously undone state.
+     */
+    void redoSchedule();
+
+    /**
+     * Saves the current schedule state for undo/redo.
+     */
+    void commitSchedule();
 
     /**
      * Enqueues the given person.
