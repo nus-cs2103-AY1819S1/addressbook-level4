@@ -19,6 +19,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.analytics.Analytics;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
@@ -31,6 +33,7 @@ public class AddCommandTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private CommandHistory commandHistory = new CommandHistory();
+    private Analytics analytics = new Analytics();
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
@@ -43,7 +46,7 @@ public class AddCommandTest {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Person validPerson = new PersonBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory, analytics);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
@@ -58,7 +61,7 @@ public class AddCommandTest {
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
-        addCommand.execute(modelStub, commandHistory);
+        addCommand.execute(modelStub, commandHistory, analytics);
     }
 
     @Test
@@ -198,6 +201,61 @@ public class AddCommandTest {
 
         @Override
         public void commitAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasAppointment(Appointment appt) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void cancelAppointment(Appointment appt) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addAppointment(Appointment appt) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateAppointment(Appointment appt, Appointment editedAppt) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Appointment> getFilteredAppointmentList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredAppointmentList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canUndoSchedule() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedoSchedule() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoSchedule() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoSchedule() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commitSchedule() {
             throw new AssertionError("This method should not be called.");
         }
     }
