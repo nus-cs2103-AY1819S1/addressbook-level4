@@ -2,6 +2,8 @@ package seedu.address.model;
 
 import java.util.ArrayList;
 
+import seedu.address.model.person.Person;
+
 /**
  * The main and only queue of the app.
  */
@@ -21,4 +23,7 @@ public class PatientQueue<E> {
         return !list.isEmpty();
     }
 
+    public boolean hasParticularPatient(E patient) {
+        return list.contains(patient);
+    }
 }
