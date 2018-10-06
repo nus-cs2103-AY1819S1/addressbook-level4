@@ -33,6 +33,7 @@ public class EventAddressTest {
         assertTrue(EventAddress.isValidAddress("Blk 456, Den Road, #01-355"));
         assertTrue(EventAddress.isValidAddress("-")); // one character
         assertTrue(EventAddress.isValidAddress("NUS")); // one word
-        assertTrue(EventAddress.isValidAddress("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long address
+        assertTrue(EventAddress.isValidAddress("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA"));
+        // long address
     }
 }
