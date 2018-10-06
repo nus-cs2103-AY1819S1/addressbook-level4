@@ -35,7 +35,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
-    private EventListPanel eventListPanel;
+    private CalendarEventListPanel calendarEventListPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
@@ -122,13 +122,13 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        eventListPanel = new EventListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
+        calendarEventListPanel = new CalendarEventListPanel(logic.getFilteredCalendarEventList());
+        personListPanelPlaceholder.getChildren().add(calendarEventListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getSchedulerFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(logic);
@@ -187,8 +187,8 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    public EventListPanel getEventListPanel() {
-        return eventListPanel;
+    public CalendarEventListPanel getCalendarEventListPanel() {
+        return calendarEventListPanel;
     }
 
     void releaseResources() {
