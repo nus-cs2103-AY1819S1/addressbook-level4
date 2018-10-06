@@ -3,6 +3,7 @@ package seedu.address;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.function.Supplier;
+import java.util.logging.Logger;
 
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -39,6 +40,8 @@ public class TestApp extends MainApp {
     protected Path saveFileLocation = SAVE_LOCATION_FOR_TESTING;
     protected Path saveWishTransactionFileLocation = SAVE_LOCATION_FOR_WISHTRANSACTION_TESTING;
 
+    private Logger logger;
+
     public TestApp() {
     }
 
@@ -52,6 +55,9 @@ public class TestApp extends MainApp {
             createDataFileWithData(new XmlSerializableWishBook(this.initialDataSupplier.get()),
                     saveFileLocation);
         }
+
+        this.logger = Logger.getLogger(TestApp.APP_TITLE);
+        logger.info("Test App constructor called with saveFileLocation of " + saveFileLocation.toString());
     }
 
     @Override
@@ -110,7 +116,7 @@ public class TestApp extends MainApp {
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
-        Model copy = new ModelManager((model.getWishBook()), new UserPrefs());
+        Model copy = new ModelManager((model.getWishBook()), model.getWishTransaction(), new UserPrefs());
         ModelHelper.setFilteredList(copy, model.getFilteredWishList());
         return copy;
     }

@@ -134,7 +134,7 @@ public class WishTransaction implements ActionCommandListener<WishTransaction> {
     @Override
     public void updateWish(Wish target, Wish editedWish) {
         // get a reference to the stored wishes
-        LinkedList<Wish> wishes = wishMap.get(getKey(target));
+        LinkedList<Wish> wishes = getWishList(getKey(target));
         // change the key of the target wish
         changeKey(target, editedWish);
         // update the stored wishes
@@ -168,9 +168,6 @@ public class WishTransaction implements ActionCommandListener<WishTransaction> {
      * @throws NoSuchElementException if key does not exist.
      */
     private void removeWish(String key) throws NoSuchElementException {
-        if (!wishMap.containsKey(key)) {
-            throw new NoSuchElementException(key);
-        }
         wishMap.remove(key);
     }
 

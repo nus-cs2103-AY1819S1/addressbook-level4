@@ -72,9 +72,9 @@ public class MainApp extends Application {
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs);
-
         wishTransaction = initWishTransaction(storage, userPrefs);
+
+        model = initModelManager(storage, userPrefs);
 
         logic = new LogicManager(model);
 
@@ -105,7 +105,7 @@ public class MainApp extends Application {
             initialData = new WishBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialData, wishTransaction, userPrefs);
     }
 
     /**
