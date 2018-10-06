@@ -13,8 +13,8 @@ import java.time.format.DateTimeParseException;
 public class EventTime {
 
     public static final String MESSAGE_TIME_CONSTRAINTS =
-            "Times should be in the 24-hour format HHMM, should be in the range 0000 to 2359, " +
-                    "and it should not be blank";
+            "Times should be in the 24-hour format HHMM, should be in the range 0000 to 2359, "
+                    + "and it should not be blank";
 
     /**
      * A blank string " " is considered invalid.
