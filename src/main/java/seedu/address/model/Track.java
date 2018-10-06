@@ -14,7 +14,7 @@ public class Track {
     private final File file;
 
     public Track(String trackname) throws Exception {
-        this(new File("library/" + trackname));
+        this(new File(Library.LIBRARYDIR + trackname));
     }
 
     public Track(File file) throws Exception {

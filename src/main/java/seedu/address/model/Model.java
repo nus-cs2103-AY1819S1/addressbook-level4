@@ -3,76 +3,51 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
+import seedu.address.model.playlist.Playlist;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    /** {@code Predicate} that always evaluate to true **/
+    Predicate<Playlist> PREDICATE_SHOW_ALL_PLAYLISTS = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyAddressBook newData);
+    void resetData(ReadOnlyLibrary newData);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the Library */
+    ReadOnlyLibrary getLibrary();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a playlist with the same identity as {@code playlist} exists in the library.
      */
-    boolean hasPerson(Person person);
+    boolean hasPlaylist(Playlist playlist);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given playlist.
+     * The playlist must exist in the library.
      */
-    void deletePerson(Person target);
+    void deletePlaylist(Playlist target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given playlist.
+     * {@code playlist} must not already exist in the library.
      */
-    void addPerson(Person person);
+    void addPlaylist(Playlist playlist);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given playlist {@code target} with {@code editedPlaylist}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The playlist identity of {@code editedPlaylist} must not be the same as another existing playlist in the address book.
      */
-    void updatePerson(Person target, Person editedPerson);
+    void updatePlaylist(Playlist target, Playlist editedPlaylist);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered playlist list */
+    ObservableList<Playlist> getFilteredPlaylistList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered playlist list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
-
-    /**
-     * Returns true if the model has previous address book states to restore.
-     */
-    boolean canUndoAddressBook();
-
-    /**
-     * Returns true if the model has undone address book states to restore.
-     */
-    boolean canRedoAddressBook();
-
-    /**
-     * Restores the model's address book to its previous state.
-     */
-    void undoAddressBook();
-
-    /**
-     * Restores the model's address book to its previously undone state.
-     */
-    void redoAddressBook();
-
-    /**
-     * Saves the current address book state for undo/redo.
-     */
-    void commitAddressBook();
+    void updateFilteredPlaylistList(Predicate<Playlist> predicate);
 }

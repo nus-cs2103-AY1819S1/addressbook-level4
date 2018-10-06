@@ -8,13 +8,13 @@ import seedu.address.commons.util.CollectionUtil;
 /**
  * Represents a playlist in JxMusic
  */
-public class Playlist {
+public class Playlist1 {
     // playlist name
     private final String name;
     // playlist's list of track
     private List<Track> tracks;
 
-    public Playlist(String name) {
+    public Playlist1(String name) {
         CollectionUtil.requireAllNonNull(name);
         this.name = name;
     }

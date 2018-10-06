@@ -11,122 +11,93 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.model.person.Person;
+import seedu.address.commons.events.model.LibraryChangedEvent;
+import seedu.address.model.playlist.Playlist;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the library data.
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAddressBook versionedAddressBook;
-    private final FilteredList<Person> filteredPersons;
+    private final Library library;
+    private final FilteredList<Playlist> filteredPlaylists;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given library and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyLibrary readOnlyLibrary, UserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(readOnlyLibrary, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with library: " + readOnlyLibrary + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedAddressBook(addressBook);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        library = new Library(readOnlyLibrary);
+        filteredPlaylists = new FilteredList<>(library.getPlaylistList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new Library(), new UserPrefs());
     }
 
     @Override
-    public void resetData(ReadOnlyAddressBook newData) {
-        versionedAddressBook.resetData(newData);
-        indicateAddressBookChanged();
+    public void resetData(ReadOnlyLibrary newData) {
+        library.resetData(newData);
+        indicateModelChanged();
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
+    public ReadOnlyLibrary getLibrary() {
+        return library;
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(versionedAddressBook));
+    private void indicateModelChanged() {
+        raise(new LibraryChangedEvent(library));
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return versionedAddressBook.hasPerson(person);
+    public boolean hasPlaylist(Playlist playlist) {
+        requireNonNull(playlist);
+        return library.hasPlaylist(playlist);
     }
 
     @Override
-    public void deletePerson(Person target) {
-        versionedAddressBook.removePerson(target);
-        indicateAddressBookChanged();
+    public void deletePlaylist(Playlist target) {
+        library.removePlaylist(target);
+        indicateModelChanged();
     }
 
     @Override
-    public void addPerson(Person person) {
-        versionedAddressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        indicateAddressBookChanged();
+    public void addPlaylist(Playlist playlist) {
+        library.addPlaylist(playlist);
+        updateFilteredPlaylistList(PREDICATE_SHOW_ALL_PLAYLISTS);
+        indicateModelChanged();
     }
 
     @Override
-    public void updatePerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void updatePlaylist(Playlist target, Playlist editedPlaylist) {
+        requireAllNonNull(target, editedPlaylist);
 
-        versionedAddressBook.updatePerson(target, editedPerson);
-        indicateAddressBookChanged();
+        library.updatePlaylist(target, editedPlaylist);
+        indicateModelChanged();
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Playlist List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Playlist} backed by the internal list of
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return FXCollections.unmodifiableObservableList(filteredPersons);
+    public ObservableList<Playlist> getFilteredPlaylistList() {
+        return FXCollections.unmodifiableObservableList(filteredPlaylists);
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredPlaylistList(Predicate<Playlist> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
-    }
-
-    //=========== Undo/Redo =================================================================================
-
-    @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
-    }
-
-    @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
-    }
-
-    @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
-        indicateAddressBookChanged();
-    }
-
-    @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
-        indicateAddressBookChanged();
-    }
-
-    @Override
-    public void commitAddressBook() {
-        versionedAddressBook.commit();
+        filteredPlaylists.setPredicate(predicate);
     }
 
     @Override
@@ -143,8 +114,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
-                && filteredPersons.equals(other.filteredPersons);
+        return library.equals(other.library)
+                && filteredPlaylists.equals(other.filteredPlaylists);
     }
 
 }
