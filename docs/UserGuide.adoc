@@ -114,6 +114,25 @@ Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
 
+=== Locating persons by email address: `find/e`
+
+Finds a person through his/her email address. +
+Format: `find/e EMAIL`
+
+****
+* The search is case insensitive. e.g `abc@example.com` will match `ABc@example.com`
+* Only the email is searched.
+* Only full words will be matched. e.g. `abc@example` will not match `abcd@example.com`
+* Person matching the email will be returned.
+****
+
+Examples:
+
+* `find/e John@example.com` +
+Returns `John Doe` whose email address is `John@example.com`
+* `find/e TIM@EXAmple.Com` +
+Returns `Tim` whose email address is `tim@example.com`
+
 === Deleting a person : `delete`
 
 Deletes the specified person from the address book. +
@@ -154,6 +173,24 @@ Selects the 2nd person in the address book.
 `select 1` +
 Selects the 1st person in the results of the `find` command.
 
+
+
+
+
+=== Making list by limit fee command: `filterByFee`
+
+Making list of according to minimal limit fee +
+Format: `filterByFee [minimal fee to be filtered]`
+
+****
+* filter result: list the person's name whose fee is not less than minimal fee.
+****
+
+[NOTE]
+====
+If no one is qualified then shows cannot find.
+====
+
 === Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
@@ -163,6 +200,40 @@ Format: `history`
 ====
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
+
+=== Analyzing grades commands : `grades`
+
+Analyze the grades of students +
+Format: `grades ACTION [parameters]`
+
+****
+* grades sort: list the details of students sorting by grades.
+****
+
+[NOTE]
+====
+Regard the mark of the student who doesn't have a grade as 0.
+====
+
+
+
+
+
+=======
+=== Retrieving earnings : `earnings`
+
+Retrieve the total earnings within a range of date in the current year. +
+Format: `from/DDMM to/DDMM`
+
+[NOTE]
+====
+DDMM is the format of date to be entered
+====
+
+Example:
+
+* `earnings from/0204 to/2504` +
+This input returns the total amount of tuition fees earned from 2 February 2018 to 25 April 2018 inclusive.
 
 // tag::undoredo[]
 === Undoing previous command : `undo`
@@ -256,5 +327,6 @@ e.g. `find James Jake`
 * *Select* : `select INDEX` +
 e.g.`select 2`
 * *History* : `history`
+* *Earnings* : `earnings from/DDMM to/DDMM`
 * *Undo* : `undo`
 * *Redo* : `redo`
