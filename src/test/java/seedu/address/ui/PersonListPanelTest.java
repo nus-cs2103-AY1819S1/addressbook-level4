@@ -99,6 +99,7 @@ public class PersonListPanelTest extends GuiUnitTest {
             builder.append("<phone>000</phone>\n");
             builder.append("<email>a@aa</email>\n");
             builder.append("<address>a</address>\n");
+            builder.append("<education>Secondary 4<education>\n");
             builder.append("<grades>99</grades>\n");
             builder.append("</persons>\n");
         }

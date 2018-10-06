@@ -35,6 +35,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label address;
     @FXML
+    private Label education;
+    @FXML
     private Label email;
     @FXML
     private Label grades;
@@ -48,6 +50,7 @@ public class PersonCard extends UiPart<Region> {
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
+        education.setText(person.getEducation().value);
         email.setText(person.getEmail().value);
         grades.setText(person.getGrades().value);
         person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
