@@ -2,20 +2,24 @@ package seedu.address.model.doctor;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.HashSet;
 import java.util.Objects;
 
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 
 //@@author jjlee050
 /**
  * Represents a Doctor in the ClinicIO.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Doctor {
+public class Doctor extends Person {
 
     // Identity fields
     private final Id id;
-    private final Name name;
     private final Password password;
 
     //Data fields
@@ -25,19 +29,15 @@ public class Doctor {
      * Every field must be present and not null.
      */
     public Doctor(Id id, Name name, Password password) {
+        super(name, new Phone("999"), new Email("alice@live.com"), new Address("1"), new HashSet<>());
         requireAllNonNull(id, name, password);
         this.id = id;
-        this.name = name;
         this.password = password;
         //this.shift = shift;
     }
 
     public Id getId() {
         return id;
-    }
-
-    public Name getName() {
-        return name;
     }
 
     public Password getPassword() {
@@ -59,8 +59,8 @@ public class Doctor {
 
         return otherDoctor != null
                 && otherDoctor.getId().equals(getId())
-                && otherDoctor.getName().equals(getName())
-                && otherDoctor.getPassword().equals(getPassword());
+                && (otherDoctor.getName().equals(getName())
+                || otherDoctor.getPassword().equals(getPassword()));
     }
 
     /**
@@ -86,7 +86,7 @@ public class Doctor {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(id, name, password);
+        return Objects.hash(id, password);
     }
 
     @Override
