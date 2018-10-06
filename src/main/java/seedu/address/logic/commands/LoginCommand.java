@@ -10,6 +10,7 @@ import java.util.List;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
+import seedu.address.model.analytics.Analytics;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
 
@@ -43,7 +44,7 @@ public class LoginCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history, Analytics analytics) {
         requireNonNull(model);
         if (toAuthenticate instanceof Doctor) {
             Doctor thisDoctor = (Doctor) toAuthenticate;
