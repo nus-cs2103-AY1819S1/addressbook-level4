@@ -14,8 +14,6 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_DATE_DE
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_DESC_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_TIME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
-import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.EVENT_TIME_DESC_DOCTORAPPT;
 import static seedu.address.logic.commands.CommandTestUtil.EVENT_TIME_DESC_MEETING;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_ADDRESS_DOCTORAPPT;
@@ -23,6 +21,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DATE_DOCT
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DESC_DOCTORAPPT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_NAME_DOCTORAPPT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_TIME_DOCTORAPPT;
+
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalEvents.DOCTORAPPT;
@@ -47,33 +49,39 @@ public class AddEventCommandParserTest {
         Event expectedEvent = new ScheduledEventBuilder(DOCTORAPPT).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + EVENT_NAME_DESC_DOCTORAPPT + EVENT_DESC_DESC_DOCTORAPPT
-                + EVENT_DATE_DESC_DOCTORAPPT + EVENT_TIME_DESC_DOCTORAPPT + EVENT_ADDRESS_DESC_DOCTORAPPT,
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + EVENT_NAME_DESC_DOCTORAPPT
+                        + EVENT_DESC_DESC_DOCTORAPPT + EVENT_DATE_DESC_DOCTORAPPT + EVENT_TIME_DESC_DOCTORAPPT
+                        + EVENT_ADDRESS_DESC_DOCTORAPPT,
                 new AddEventCommand(expectedEvent));
 
         // multiple names - only the last name accepted
-        assertParseSuccess(parser, EVENT_NAME_DESC_MEETING + EVENT_NAME_DESC_DOCTORAPPT + EVENT_DESC_DESC_DOCTORAPPT
-                        + EVENT_DATE_DESC_DOCTORAPPT + EVENT_TIME_DESC_DOCTORAPPT + EVENT_ADDRESS_DESC_DOCTORAPPT,
+        assertParseSuccess(parser, EVENT_NAME_DESC_MEETING + EVENT_NAME_DESC_DOCTORAPPT
+                        + EVENT_DESC_DESC_DOCTORAPPT + EVENT_DATE_DESC_DOCTORAPPT + EVENT_TIME_DESC_DOCTORAPPT
+                        + EVENT_ADDRESS_DESC_DOCTORAPPT,
                 new AddEventCommand(expectedEvent));
 
         // multiple event descriptions - only the last description accepted
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + EVENT_NAME_DESC_DOCTORAPPT + EVENT_DESC_DESC_MEETING
-                        + EVENT_DESC_DESC_DOCTORAPPT + EVENT_DATE_DESC_DOCTORAPPT + EVENT_TIME_DESC_DOCTORAPPT + EVENT_ADDRESS_DESC_DOCTORAPPT,
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + EVENT_NAME_DESC_DOCTORAPPT
+                        + EVENT_DESC_DESC_MEETING + EVENT_DESC_DESC_DOCTORAPPT + EVENT_DATE_DESC_DOCTORAPPT
+                        + EVENT_TIME_DESC_DOCTORAPPT + EVENT_ADDRESS_DESC_DOCTORAPPT,
                 new AddEventCommand(expectedEvent));
 
         // multiple dates - last date accepted
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + EVENT_NAME_DESC_DOCTORAPPT + EVENT_DESC_DESC_DOCTORAPPT
-                        + EVENT_DATE_DESC_MEETING + EVENT_DATE_DESC_DOCTORAPPT + EVENT_TIME_DESC_DOCTORAPPT + EVENT_ADDRESS_DESC_DOCTORAPPT,
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + EVENT_NAME_DESC_DOCTORAPPT
+                        + EVENT_DESC_DESC_DOCTORAPPT + EVENT_DATE_DESC_MEETING + EVENT_DATE_DESC_DOCTORAPPT
+                        + EVENT_TIME_DESC_DOCTORAPPT + EVENT_ADDRESS_DESC_DOCTORAPPT,
                 new AddEventCommand(expectedEvent));
 
         // multiple times - last time accepted
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + EVENT_NAME_DESC_DOCTORAPPT + EVENT_DESC_DESC_DOCTORAPPT
-                        + EVENT_DATE_DESC_DOCTORAPPT + EVENT_TIME_DESC_MEETING + EVENT_TIME_DESC_DOCTORAPPT + EVENT_ADDRESS_DESC_DOCTORAPPT,
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + EVENT_NAME_DESC_DOCTORAPPT
+                        + EVENT_DESC_DESC_DOCTORAPPT + EVENT_DATE_DESC_DOCTORAPPT + EVENT_TIME_DESC_MEETING
+                        + EVENT_TIME_DESC_DOCTORAPPT + EVENT_ADDRESS_DESC_DOCTORAPPT,
                 new AddEventCommand(expectedEvent));
 
         // multiple addresses - last address accepted
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + EVENT_NAME_DESC_DOCTORAPPT + EVENT_DESC_DESC_DOCTORAPPT
-                        + EVENT_DATE_DESC_DOCTORAPPT + EVENT_TIME_DESC_DOCTORAPPT + EVENT_ADDRESS_DESC_MEETING + EVENT_ADDRESS_DESC_DOCTORAPPT,
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + EVENT_NAME_DESC_DOCTORAPPT
+                        + EVENT_DESC_DESC_DOCTORAPPT + EVENT_DATE_DESC_DOCTORAPPT + EVENT_TIME_DESC_DOCTORAPPT
+                        + EVENT_ADDRESS_DESC_MEETING + EVENT_ADDRESS_DESC_DOCTORAPPT,
                 new AddEventCommand(expectedEvent));
     }
 
@@ -151,8 +159,8 @@ public class AddEventCommandParserTest {
                 EventName.MESSAGE_NAME_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + EVENT_NAME_DESC_DOCTORAPPT + EVENT_DATE_DESC_DOCTORAPPT
-                        + EVENT_TIME_DESC_DOCTORAPPT + EVENT_ADDRESS_DESC_DOCTORAPPT,
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + EVENT_NAME_DESC_DOCTORAPPT
+                        + EVENT_DATE_DESC_DOCTORAPPT + EVENT_TIME_DESC_DOCTORAPPT + EVENT_ADDRESS_DESC_DOCTORAPPT,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEventCommand.MESSAGE_USAGE));
     }
 }
