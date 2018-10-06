@@ -8,8 +8,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.Scheduler;
 import seedu.address.model.ReadOnlyScheduler;
+import seedu.address.model.Scheduler;
 import seedu.address.model.calendarevent.CalendarEvent;
 
 /**
@@ -36,14 +36,17 @@ public class XmlSerializableScheduler {
      */
     public XmlSerializableScheduler(ReadOnlyScheduler src) {
         this();
-        calendarEvents.addAll(src.getCalendarEventList().stream().map(XmlAdaptedCalendarEvent::new).collect(Collectors.toList()));
+        calendarEvents.addAll(src.getCalendarEventList()
+            .stream()
+            .map(XmlAdaptedCalendarEvent::new)
+            .collect(Collectors.toList()));
     }
 
     /**
      * Converts this scheduler into the model's {@code Scheduler} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
-     * {@code XmlAdaptedCalendarEvent}.
+     *                               {@code XmlAdaptedCalendarEvent}.
      */
     public Scheduler toModelType() throws IllegalValueException {
         Scheduler scheduler = new Scheduler();

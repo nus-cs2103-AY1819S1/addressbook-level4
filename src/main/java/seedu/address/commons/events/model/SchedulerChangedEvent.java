@@ -3,7 +3,9 @@ package seedu.address.commons.events.model;
 import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.ReadOnlyScheduler;
 
-/** Indicates the Scheduler in the model has changed*/
+/**
+ * Indicates the Scheduler in the model has changed
+ */
 public class SchedulerChangedEvent extends BaseEvent {
 
     public final ReadOnlyScheduler data;

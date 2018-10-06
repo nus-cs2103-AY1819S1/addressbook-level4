@@ -11,10 +11,10 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
-import seedu.address.model.ReadOnlyScheduler;
-import seedu.address.model.Scheduler;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.ReadOnlyScheduler;
+import seedu.address.model.Scheduler;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.XmlSerializableScheduler;
@@ -31,7 +31,7 @@ public class TestApp extends MainApp {
     public static final String APP_TITLE = "Test App";
 
     protected static final Path DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
-            TestUtil.getFilePathInSandboxFolder("pref_testing.json");
+        TestUtil.getFilePathInSandboxFolder("pref_testing.json");
     protected Supplier<ReadOnlyScheduler> initialDataSupplier = () -> null;
     protected Path saveFileLocation = SAVE_LOCATION_FOR_TESTING;
 
@@ -46,7 +46,7 @@ public class TestApp extends MainApp {
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
             createDataFileWithData(new XmlSerializableScheduler(this.initialDataSupplier.get()),
-                    this.saveFileLocation);
+                this.saveFileLocation);
         }
     }
 

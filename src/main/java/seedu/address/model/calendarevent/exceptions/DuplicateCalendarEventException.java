@@ -1,8 +1,8 @@
 package seedu.address.model.calendarevent.exceptions;
 
 /**
- * Signals that the operation will result in duplicate Calendar Events (Calendar Events are considered duplicates if they have the same
- * identity).
+ * Signals that the operation will result in duplicate Calendar Events (Calendar Events are considered duplicates if
+ * they have the same identity).
  */
 public class DuplicateCalendarEventException extends RuntimeException {
     public DuplicateCalendarEventException() {

@@ -29,40 +29,40 @@ public class VersionedSchedulerTest {
 
         versionedAddressBook.commit();
         assertAddressBookListStatus(versionedAddressBook,
-                Collections.singletonList(emptyAddressBook),
-                emptyAddressBook,
-                Collections.emptyList());
+            Collections.singletonList(emptyAddressBook),
+            emptyAddressBook,
+            Collections.emptyList());
     }
 
     @Test
     public void commit_multipleAddressBookPointerAtEndOfStateList_noStatesRemovedCurrentStateSaved() {
         VersionedScheduler versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+            emptyAddressBook, addressBookWithAmy, addressBookWithBob);
 
         versionedAddressBook.commit();
         assertAddressBookListStatus(versionedAddressBook,
-                Arrays.asList(emptyAddressBook, addressBookWithAmy, addressBookWithBob),
-                addressBookWithBob,
-                Collections.emptyList());
+            Arrays.asList(emptyAddressBook, addressBookWithAmy, addressBookWithBob),
+            addressBookWithBob,
+            Collections.emptyList());
     }
 
     @Test
     public void commit_multipleAddressBookPointerNotAtEndOfStateList_statesAfterPointerRemovedCurrentStateSaved() {
         VersionedScheduler versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+            emptyAddressBook, addressBookWithAmy, addressBookWithBob);
         shiftCurrentStatePointerLeftwards(versionedAddressBook, 2);
 
         versionedAddressBook.commit();
         assertAddressBookListStatus(versionedAddressBook,
-                Collections.singletonList(emptyAddressBook),
-                emptyAddressBook,
-                Collections.emptyList());
+            Collections.singletonList(emptyAddressBook),
+            emptyAddressBook,
+            Collections.emptyList());
     }
 
     @Test
     public void canUndo_multipleAddressBookPointerAtEndOfStateList_returnsTrue() {
         VersionedScheduler versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+            emptyAddressBook, addressBookWithAmy, addressBookWithBob);
 
         assertTrue(versionedAddressBook.canUndo());
     }
@@ -70,7 +70,7 @@ public class VersionedSchedulerTest {
     @Test
     public void canUndo_multipleAddressBookPointerAtStartOfStateList_returnsTrue() {
         VersionedScheduler versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+            emptyAddressBook, addressBookWithAmy, addressBookWithBob);
         shiftCurrentStatePointerLeftwards(versionedAddressBook, 1);
 
         assertTrue(versionedAddressBook.canUndo());
@@ -86,7 +86,7 @@ public class VersionedSchedulerTest {
     @Test
     public void canUndo_multipleAddressBookPointerAtStartOfStateList_returnsFalse() {
         VersionedScheduler versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+            emptyAddressBook, addressBookWithAmy, addressBookWithBob);
         shiftCurrentStatePointerLeftwards(versionedAddressBook, 2);
 
         assertFalse(versionedAddressBook.canUndo());
@@ -95,7 +95,7 @@ public class VersionedSchedulerTest {
     @Test
     public void canRedo_multipleAddressBookPointerNotAtEndOfStateList_returnsTrue() {
         VersionedScheduler versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+            emptyAddressBook, addressBookWithAmy, addressBookWithBob);
         shiftCurrentStatePointerLeftwards(versionedAddressBook, 1);
 
         assertTrue(versionedAddressBook.canRedo());
@@ -104,7 +104,7 @@ public class VersionedSchedulerTest {
     @Test
     public void canRedo_multipleAddressBookPointerAtStartOfStateList_returnsTrue() {
         VersionedScheduler versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+            emptyAddressBook, addressBookWithAmy, addressBookWithBob);
         shiftCurrentStatePointerLeftwards(versionedAddressBook, 2);
 
         assertTrue(versionedAddressBook.canRedo());
@@ -120,7 +120,7 @@ public class VersionedSchedulerTest {
     @Test
     public void canRedo_multipleAddressBookPointerAtEndOfStateList_returnsFalse() {
         VersionedScheduler versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+            emptyAddressBook, addressBookWithAmy, addressBookWithBob);
 
         assertFalse(versionedAddressBook.canRedo());
     }
@@ -128,26 +128,26 @@ public class VersionedSchedulerTest {
     @Test
     public void undo_multipleAddressBookPointerAtEndOfStateList_success() {
         VersionedScheduler versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+            emptyAddressBook, addressBookWithAmy, addressBookWithBob);
 
         versionedAddressBook.undo();
         assertAddressBookListStatus(versionedAddressBook,
-                Collections.singletonList(emptyAddressBook),
-                addressBookWithAmy,
-                Collections.singletonList(addressBookWithBob));
+            Collections.singletonList(emptyAddressBook),
+            addressBookWithAmy,
+            Collections.singletonList(addressBookWithBob));
     }
 
     @Test
     public void undo_multipleAddressBookPointerNotAtStartOfStateList_success() {
         VersionedScheduler versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+            emptyAddressBook, addressBookWithAmy, addressBookWithBob);
         shiftCurrentStatePointerLeftwards(versionedAddressBook, 1);
 
         versionedAddressBook.undo();
         assertAddressBookListStatus(versionedAddressBook,
-                Collections.emptyList(),
-                emptyAddressBook,
-                Arrays.asList(addressBookWithAmy, addressBookWithBob));
+            Collections.emptyList(),
+            emptyAddressBook,
+            Arrays.asList(addressBookWithAmy, addressBookWithBob));
     }
 
     @Test
@@ -160,7 +160,7 @@ public class VersionedSchedulerTest {
     @Test
     public void undo_multipleAddressBookPointerAtStartOfStateList_throwsNoUndoableStateException() {
         VersionedScheduler versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+            emptyAddressBook, addressBookWithAmy, addressBookWithBob);
         shiftCurrentStatePointerLeftwards(versionedAddressBook, 2);
 
         assertThrows(VersionedScheduler.NoUndoableStateException.class, versionedAddressBook::undo);
@@ -169,27 +169,27 @@ public class VersionedSchedulerTest {
     @Test
     public void redo_multipleAddressBookPointerNotAtEndOfStateList_success() {
         VersionedScheduler versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+            emptyAddressBook, addressBookWithAmy, addressBookWithBob);
         shiftCurrentStatePointerLeftwards(versionedAddressBook, 1);
 
         versionedAddressBook.redo();
         assertAddressBookListStatus(versionedAddressBook,
-                Arrays.asList(emptyAddressBook, addressBookWithAmy),
-                addressBookWithBob,
-                Collections.emptyList());
+            Arrays.asList(emptyAddressBook, addressBookWithAmy),
+            addressBookWithBob,
+            Collections.emptyList());
     }
 
     @Test
     public void redo_multipleAddressBookPointerAtStartOfStateList_success() {
         VersionedScheduler versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+            emptyAddressBook, addressBookWithAmy, addressBookWithBob);
         shiftCurrentStatePointerLeftwards(versionedAddressBook, 2);
 
         versionedAddressBook.redo();
         assertAddressBookListStatus(versionedAddressBook,
-                Collections.singletonList(emptyAddressBook),
-                addressBookWithAmy,
-                Collections.singletonList(addressBookWithBob));
+            Collections.singletonList(emptyAddressBook),
+            addressBookWithAmy,
+            Collections.singletonList(addressBookWithBob));
     }
 
     @Test
@@ -202,7 +202,7 @@ public class VersionedSchedulerTest {
     @Test
     public void redo_multipleAddressBookPointerAtEndOfStateList_throwsNoRedoableStateException() {
         VersionedScheduler versionedAddressBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+            emptyAddressBook, addressBookWithAmy, addressBookWithBob);
 
         assertThrows(VersionedScheduler.NoRedoableStateException.class, versionedAddressBook::redo);
     }
@@ -230,7 +230,7 @@ public class VersionedSchedulerTest {
 
         // different current pointer index -> returns false
         VersionedScheduler differentCurrentStatePointer = prepareAddressBookList(
-                addressBookWithAmy, addressBookWithBob);
+            addressBookWithAmy, addressBookWithBob);
         shiftCurrentStatePointerLeftwards(versionedAddressBook, 1);
         assertFalse(versionedAddressBook.equals(differentCurrentStatePointer));
     }

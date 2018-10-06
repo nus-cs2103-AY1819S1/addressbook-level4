@@ -16,11 +16,11 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyScheduler;
 import seedu.address.model.Scheduler;
-import seedu.address.model.Model;
 import seedu.address.model.calendarevent.CalendarEvent;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.CalendarEventBuilder;
 
 public class AddCommandTest {
 
@@ -40,7 +40,7 @@ public class AddCommandTest {
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        CalendarEvent validCalendarEvent = new PersonBuilder().build();
+        CalendarEvent validCalendarEvent = new CalendarEventBuilder().build();
 
         CommandResult commandResult = new AddCommand(validCalendarEvent).execute(modelStub, commandHistory);
 
@@ -51,7 +51,7 @@ public class AddCommandTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        CalendarEvent validCalendarEvent = new PersonBuilder().build();
+        CalendarEvent validCalendarEvent = new CalendarEventBuilder().build();
         AddCommand addCommand = new AddCommand(validCalendarEvent);
         ModelStub modelStub = new ModelStubWithPerson(validCalendarEvent);
 
@@ -62,8 +62,8 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        CalendarEvent alice = new PersonBuilder().withName("Alice").build();
-        CalendarEvent bob = new PersonBuilder().withName("Bob").build();
+        CalendarEvent alice = new CalendarEventBuilder().withName("Alice").build();
+        CalendarEvent bob = new CalendarEventBuilder().withName("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 

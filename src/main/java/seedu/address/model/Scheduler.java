@@ -16,18 +16,12 @@ public class Scheduler implements ReadOnlyScheduler {
 
     private final UniqueCalendarEventList calendarEvents;
 
-    /*
-     * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
-     */
     {
         calendarEvents = new UniqueCalendarEventList();
     }
 
-    public Scheduler() {}
+    public Scheduler() {
+    }
 
     /**
      * Creates an Scheduler using the Calendar Events in the {@code toBeCopied}
@@ -60,7 +54,7 @@ public class Scheduler implements ReadOnlyScheduler {
 
     /**
      * Returns true if a calendar event with the same identity as {@code calendarevent} exists in the scheduler
-     *
+     * <p>
      * .
      */
     public boolean hasCalendarEvent(CalendarEvent calendarEvent) {
@@ -70,10 +64,10 @@ public class Scheduler implements ReadOnlyScheduler {
 
     /**
      * Adds a calendar event to the scheduler
-     *
+     * <p>
      * .
      * The calendar event must not already exist in the scheduler
-     *
+     * <p>
      * .
      */
     public void addCalendarEvent(CalendarEvent p) {
@@ -83,8 +77,9 @@ public class Scheduler implements ReadOnlyScheduler {
     /**
      * Replaces the given calendar event {@code target} in the list with {@code editedCalendarEvent}.
      * {@code target} must exist in the scheduler.
-     * The calendar event identity of {@code editedCalendarEvent} must not be the same as another existing calendar event in the scheduler
-     *
+     * The calendar event identity of {@code editedCalendarEvent} must not be the same as another existing calendar
+     * event in the scheduler
+     * <p>
      * .
      */
     public void updateCalendarEvent(CalendarEvent target, CalendarEvent editedCalendarEvent) {
@@ -96,7 +91,7 @@ public class Scheduler implements ReadOnlyScheduler {
     /**
      * Removes {@code key} from this {@code Scheduler}.
      * {@code key} must exist in the scheduler
-     *
+     * <p>
      * .
      */
     public void removeCalendarEvent(CalendarEvent key) {
@@ -119,8 +114,8 @@ public class Scheduler implements ReadOnlyScheduler {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Scheduler // instanceof handles nulls
-                && calendarEvents.equals(((Scheduler) other).calendarEvents));
+            || (other instanceof Scheduler // instanceof handles nulls
+            && calendarEvents.equals(((Scheduler) other).calendarEvents));
     }
 
     @Override

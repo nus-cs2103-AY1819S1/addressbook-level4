@@ -20,7 +20,7 @@ import seedu.address.storage.XmlAdaptedCalendarEvent;
 import seedu.address.storage.XmlAdaptedTag;
 import seedu.address.storage.XmlSerializableScheduler;
 import seedu.address.testutil.AddressBookBuilder;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.CalendarEventBuilder;
 import seedu.address.testutil.TestUtil;
 
 public class XmlUtilTest {
@@ -29,8 +29,10 @@ public class XmlUtilTest {
     private static final Path EMPTY_FILE = TEST_DATA_FOLDER.resolve("empty.xml");
     private static final Path MISSING_FILE = TEST_DATA_FOLDER.resolve("missing.xml");
     private static final Path VALID_FILE = TEST_DATA_FOLDER.resolve("validScheduler.xml");
-    private static final Path MISSING_CALENDAR_EVENT_FIELD_FILE = TEST_DATA_FOLDER.resolve("missingCalendarEventField.xml");
-    private static final Path INVALID_CALENDAR_EVENT_FIELD_FILE = TEST_DATA_FOLDER.resolve("invalidCalendarEventField.xml");
+    private static final Path MISSING_CALENDAR_EVENT_FIELD_FILE = TEST_DATA_FOLDER
+        .resolve("missingCalendarEventField" + ".xml");
+    private static final Path INVALID_CALENDAR_EVENT_FIELD_FILE = TEST_DATA_FOLDER
+        .resolve("invalidCalendarEventField" + ".xml");
     private static final Path VALID_CALENDAR_EVENT_FILE = TEST_DATA_FOLDER.resolve("validCalendarEvent.xml");
     private static final Path TEMP_FILE = TestUtil.getFilePathInSandboxFolder("tempScheduler.xml");
 
@@ -39,7 +41,7 @@ public class XmlUtilTest {
     private static final String VALID_NAME = "Hans Muster";
     private static final String VALID_PHONE = "9482424";
     private static final String VALID_EMAIL = "hans@example";
-    private static final String VALID_ADDRESS = "4th street";
+    private static final String VALID_LOCATION = "4th street";
     private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("friends"));
 
     @Rule
@@ -77,41 +79,29 @@ public class XmlUtilTest {
 
     @Test
     public void xmlAdaptedCalendarEventFromFile_fileWithMissingCalendarEventField_validResult() throws Exception {
-        XmlAdaptedCalendarEvent actualCalendarEvent
-                = XmlUtil.getDataFromFile(
-                MISSING_CALENDAR_EVENT_FIELD_FILE, XmlAdaptedCalendarEventWithRootElement.class);
-        XmlAdaptedCalendarEvent expectedCalendarEvent
-                = new XmlAdaptedCalendarEvent(
-                null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        assertEquals(expectedCalendarEvent
-                , actualCalendarEvent
-        );
+        XmlAdaptedCalendarEvent actualCalendarEvent = XmlUtil.getDataFromFile(
+            MISSING_CALENDAR_EVENT_FIELD_FILE, XmlAdaptedCalendarEventWithRootElement.class);
+        XmlAdaptedCalendarEvent expectedCalendarEvent = new XmlAdaptedCalendarEvent(
+            null, VALID_PHONE, VALID_EMAIL, VALID_LOCATION, VALID_TAGS);
+        assertEquals(expectedCalendarEvent, actualCalendarEvent);
     }
 
     @Test
     public void xmlAdaptedCalendarEventFromFile_fileWithInvalidCalendarEventField_validResult() throws Exception {
-        XmlAdaptedCalendarEvent actualCalendarEvent
-                = XmlUtil.getDataFromFile(
-                INVALID_CALENDAR_EVENT_FIELD_FILE, XmlAdaptedCalendarEventWithRootElement.class);
-        XmlAdaptedCalendarEvent expectedCalendarEvent
-                = new XmlAdaptedCalendarEvent(
-                VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        assertEquals(expectedCalendarEvent
-                , actualCalendarEvent
-        );
+        XmlAdaptedCalendarEvent actualCalendarEvent =
+            XmlUtil.getDataFromFile(INVALID_CALENDAR_EVENT_FIELD_FILE, XmlAdaptedCalendarEventWithRootElement.class);
+        XmlAdaptedCalendarEvent expectedCalendarEvent = new XmlAdaptedCalendarEvent(
+            VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_LOCATION, VALID_TAGS);
+        assertEquals(expectedCalendarEvent, actualCalendarEvent);
     }
 
     @Test
     public void xmlAdaptedCalendarEventFromFile_fileWithValidCalendarEvent_validResult() throws Exception {
-        XmlAdaptedCalendarEvent actualCalendarEvent
-                = XmlUtil.getDataFromFile(
-                VALID_CALENDAR_EVENT_FILE, XmlAdaptedCalendarEventWithRootElement.class);
-        XmlAdaptedCalendarEvent expectedCalendarEvent
-                = new XmlAdaptedCalendarEvent(
-                VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        assertEquals(expectedCalendarEvent
-                , actualCalendarEvent
-        );
+        XmlAdaptedCalendarEvent actualCalendarEvent = XmlUtil.getDataFromFile(
+            VALID_CALENDAR_EVENT_FILE, XmlAdaptedCalendarEventWithRootElement.class);
+        XmlAdaptedCalendarEvent expectedCalendarEvent = new XmlAdaptedCalendarEvent(
+            VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_LOCATION, VALID_TAGS);
+        assertEquals(expectedCalendarEvent, actualCalendarEvent);
     }
 
     @Test
@@ -142,7 +132,7 @@ public class XmlUtilTest {
 
         AddressBookBuilder builder = new AddressBookBuilder(new Scheduler());
         dataToWrite = new XmlSerializableScheduler(
-                builder.withPerson(new PersonBuilder().build()).build());
+            builder.withPerson(new CalendarEventBuilder().build()).build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableScheduler.class);
@@ -150,9 +140,11 @@ public class XmlUtilTest {
     }
 
     /**
-     * Test class annotated with {@code XmlRootElement} to allow unmarshalling of .xml data to {@code XmlAdaptedCalendarEvent}
+     * Test class annotated with {@code XmlRootElement} to allow unmarshalling of .xml data to {@code
+     * XmlAdaptedCalendarEvent}
      * objects.
      */
     @XmlRootElement(name = "calendarEvent")
-    private static class XmlAdaptedCalendarEventWithRootElement extends XmlAdaptedCalendarEvent {}
+    private static class XmlAdaptedCalendarEventWithRootElement extends XmlAdaptedCalendarEvent {
+    }
 }

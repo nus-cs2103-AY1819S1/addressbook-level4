@@ -39,11 +39,12 @@ public class XmlSchedulerStorage implements SchedulerStorage {
 
     /**
      * Similar to {@link #readScheduler()}
+     *
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
     public Optional<ReadOnlyScheduler> readScheduler(Path filePath) throws DataConversionException,
-                                                                                 FileNotFoundException {
+        FileNotFoundException {
         requireNonNull(filePath);
 
         if (!Files.exists(filePath)) {
@@ -67,6 +68,7 @@ public class XmlSchedulerStorage implements SchedulerStorage {
 
     /**
      * Similar to {@link #saveScheduler(ReadOnlyScheduler)}
+     *
      * @param filePath location of the data. Cannot be null
      */
     public void saveScheduler(ReadOnlyScheduler scheduler, Path filePath) throws IOException {

@@ -18,14 +18,14 @@ public class NameContainsKeywordsPredicate implements Predicate<CalendarEvent> {
     @Override
     public boolean test(CalendarEvent calendarEvent) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(calendarEvent.getName().fullName, keyword));
+            .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(calendarEvent.getName().fullName, keyword));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof NameContainsKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((NameContainsKeywordsPredicate) other).keywords)); // state check
+            || (other instanceof NameContainsKeywordsPredicate // instanceof handles nulls
+            && keywords.equals(((NameContainsKeywordsPredicate) other).keywords)); // state check
     }
 
 }

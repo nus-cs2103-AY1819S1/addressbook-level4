@@ -9,13 +9,19 @@ import seedu.address.model.calendarevent.CalendarEvent;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<CalendarEvent> PREDICATE_SHOW_ALL_CALENDAR_EVENTS = unused -> true;
 
-    /** Clears existing backing model and replaces with the provided new data. */
+    /**
+     * Clears existing backing model and replaces with the provided new data.
+     */
     void resetData(ReadOnlyScheduler newData);
 
-    /** Returns the Scheduler */
+    /**
+     * Returns the Scheduler
+     */
     ReadOnlyScheduler getScheduler();
 
     /**
@@ -38,15 +44,19 @@ public interface Model {
     /**
      * Replaces the given calendar event {@code target} with {@code editedCalendarEvent}.
      * {@code target} must exist in the scheduler.
-     * The calendar event identity of {@code editedCalendarEvent} must not be the same as another existing calendar event in the scheduler.
+     * The calendar event identity of {@code editedCalendarEvent} must not be the same as another existing calendar
+     * event in the scheduler.
      */
     void updateCalendarEvent(CalendarEvent target, CalendarEvent editedCalendarEvent);
 
-    /** Returns an unmodifiable view of the filtered calendar event list */
+    /**
+     * Returns an unmodifiable view of the filtered calendar event list
+     */
     ObservableList<CalendarEvent> getFilteredCalendarEventList();
 
     /**
      * Updates the filter of the filtered calendar event list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredCalendarEventList(Predicate<CalendarEvent> predicate);

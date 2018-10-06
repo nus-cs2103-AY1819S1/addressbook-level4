@@ -16,7 +16,7 @@ public class XmlFileStorage {
      * Saves the given scheduler data to the specified file.
      */
     public static void saveDataToFile(Path file, XmlSerializableScheduler scheduler)
-            throws FileNotFoundException {
+        throws FileNotFoundException {
         try {
             XmlUtil.saveDataToFile(file, scheduler);
         } catch (JAXBException e) {
@@ -28,7 +28,7 @@ public class XmlFileStorage {
      * Returns scheduler in the file or an empty scheduler
      */
     public static XmlSerializableScheduler loadDataFromSaveFile(Path file) throws DataConversionException,
-                                                                            FileNotFoundException {
+        FileNotFoundException {
         try {
             return XmlUtil.getDataFromFile(file, XmlSerializableScheduler.class);
         } catch (JAXBException e) {

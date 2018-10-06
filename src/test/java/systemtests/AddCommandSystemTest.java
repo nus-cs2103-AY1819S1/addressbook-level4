@@ -37,13 +37,13 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
-import seedu.address.model.calendarevent.Address;
 import seedu.address.model.calendarevent.CalendarEvent;
 import seedu.address.model.calendarevent.Email;
+import seedu.address.model.calendarevent.Location;
 import seedu.address.model.calendarevent.Name;
 import seedu.address.model.calendarevent.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.CalendarEventBuilder;
 import seedu.address.testutil.PersonUtil;
 
 public class AddCommandSystemTest extends SchedulerSystemTest {
@@ -54,12 +54,13 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add a calendar event without tags to a non-empty scheduler, command with leading spaces and trailing spaces
+        /* Case: add a calendar event without tags to a non-empty scheduler, command with leading spaces and trailing
+         spaces
          * -> added
          */
         CalendarEvent toAdd = AMY;
         String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
-                + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
+            + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
@@ -73,16 +74,18 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: add a calendar event with all fields same as another calendar event in the scheduler except name -> added */
-        toAdd = new PersonBuilder(AMY).withName(VALID_NAME_BOB).build();
+        /* Case: add a calendar event with all fields same as another calendar event in the scheduler except name ->
+        added */
+        toAdd = new CalendarEventBuilder(AMY).withName(VALID_NAME_BOB).build();
         command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + TAG_DESC_FRIEND;
+            + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a calendar event with all fields same as another calendar event in the scheduler except phone and email
+        /* Case: add a calendar event with all fields same as another calendar event in the scheduler except phone
+        and email
          * -> added
          */
-        toAdd = new PersonBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        toAdd = new CalendarEventBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
@@ -93,7 +96,7 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
         /* Case: add a calendarevent with tags, command with parameters in random order -> added */
         toAdd = BOB;
         command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
-                + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
+            + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a calendarevent, missing tags -> added */
@@ -105,9 +108,11 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         assertCommandSuccess(IDA);
 
-        /* ------------------------ Perform add operation while a calendarevent card is selected --------------------------- */
+        /* ------------------------ Perform add operation while a calendarevent card is selected
+        --------------------------- */
 
-        /* Case: selects first card in the calendarevent list, add a calendarevent -> added, card selection remains unchanged */
+        /* Case: selects first card in the calendarevent list, add a calendarevent -> added, card selection remains
+        unchanged */
         selectPerson(Index.fromOneBased(1));
         assertCommandSuccess(CARL);
 
@@ -118,17 +123,17 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: add a duplicate calendarevent except with different phone -> rejected */
-        toAdd = new PersonBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
+        toAdd = new CalendarEventBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: add a duplicate calendarevent except with different email -> rejected */
-        toAdd = new PersonBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
+        toAdd = new CalendarEventBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: add a duplicate calendarevent except with different address -> rejected */
-        toAdd = new PersonBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
+        toAdd = new CalendarEventBuilder(HOON).withLocation(VALID_ADDRESS_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
@@ -170,11 +175,11 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
 
         /* Case: invalid address -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + INVALID_ADDRESS_DESC;
-        assertCommandFailure(command, Address.MESSAGE_ADDRESS_CONSTRAINTS);
+        assertCommandFailure(command, Location.MESSAGE_LOCATION_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + INVALID_TAG_DESC;
+            + INVALID_TAG_DESC;
         assertCommandFailure(command, Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
@@ -190,6 +195,7 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
      * 6. Status bar's sync status changes.<br>
      * Verifications 1, 3 and 4 are performed by
      * {@code SchedulerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     *
      * @see SchedulerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(CalendarEvent toAdd) {
@@ -199,6 +205,7 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
     /**
      * Performs the same verification as {@code assertCommandSuccess(CalendarEvent)}. Executes {@code command}
      * instead.
+     *
      * @see AddCommandSystemTest#assertCommandSuccess(CalendarEvent)
      */
     private void assertCommandSuccess(String command, CalendarEvent toAdd) {
@@ -215,6 +222,7 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
      * 1. Result display box displays {@code expectedResultMessage}.<br>
      * 2. {@code Storage} and {@code CalendarEventListPanel} equal to the corresponding components in
      * {@code expectedModel}.<br>
+     *
      * @see AddCommandSystemTest#assertCommandSuccess(String, CalendarEvent)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
@@ -234,6 +242,7 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
      * 5. Browser url, selected card and status bar remain unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
      * {@code SchedulerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     *
      * @see SchedulerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {

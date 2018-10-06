@@ -19,7 +19,7 @@ public class ModelHelper {
      */
     public static void setFilteredList(Model model, List<CalendarEvent> toDisplay) {
         Optional<Predicate<CalendarEvent>> predicate =
-                toDisplay.stream().map(ModelHelper::getPredicateMatching).reduce(Predicate::or);
+            toDisplay.stream().map(ModelHelper::getPredicateMatching).reduce(Predicate::or);
         model.updateFilteredCalendarEventList(predicate.orElse(PREDICATE_MATCHING_NO_PERSONS));
     }
 

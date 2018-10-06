@@ -17,8 +17,8 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.Scheduler;
 import seedu.address.model.ReadOnlyScheduler;
+import seedu.address.model.Scheduler;
 
 public class XmlSchedulerStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlSchedulerStorageTest");
@@ -41,8 +41,8 @@ public class XmlSchedulerStorageTest {
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
         return prefsFileInTestDataFolder != null
-                ? TEST_DATA_FOLDER.resolve(prefsFileInTestDataFolder)
-                : null;
+            ? TEST_DATA_FOLDER.resolve(prefsFileInTestDataFolder)
+            : null;
     }
 
     @Test
@@ -70,8 +70,7 @@ public class XmlSchedulerStorageTest {
     @Test
     public void readScheduler_invalidAndValidPersonScheduler_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readScheduler("invalidAndValidCalendarEvent" +
-                "Scheduler.xml");
+        readScheduler("invalidAndValidCalendarEvent" + "Scheduler.xml");
     }
 
     @Test
@@ -112,7 +111,7 @@ public class XmlSchedulerStorageTest {
     private void saveScheduler(ReadOnlyScheduler scheduler, String filePath) {
         try {
             new XmlSchedulerStorage(Paths.get(filePath))
-                    .saveScheduler(scheduler, addToTestDataPathIfNotNull(filePath));
+                .saveScheduler(scheduler, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

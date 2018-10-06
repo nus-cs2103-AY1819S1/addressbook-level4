@@ -12,7 +12,7 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs {
 
     private GuiSettings guiSettings;
-    private Path schedulerFilePath = Paths.get("data" , "scheduler.xml");
+    private Path schedulerFilePath = Paths.get("data", "scheduler.xml");
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);
@@ -50,7 +50,7 @@ public class UserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return Objects.equals(guiSettings, o.guiSettings)
-                && Objects.equals(schedulerFilePath, o.schedulerFilePath);
+            && Objects.equals(schedulerFilePath, o.schedulerFilePath);
     }
 
     @Override

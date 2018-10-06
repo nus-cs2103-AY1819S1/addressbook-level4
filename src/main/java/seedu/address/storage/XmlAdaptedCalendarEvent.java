@@ -10,9 +10,9 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.calendarevent.Address;
 import seedu.address.model.calendarevent.CalendarEvent;
 import seedu.address.model.calendarevent.Email;
+import seedu.address.model.calendarevent.Location;
 import seedu.address.model.calendarevent.Name;
 import seedu.address.model.calendarevent.Phone;
 import seedu.address.model.tag.Tag;
@@ -31,7 +31,7 @@ public class XmlAdaptedCalendarEvent {
     @XmlElement(required = true)
     private String email;
     @XmlElement(required = true)
-    private String address;
+    private String location;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -40,16 +40,18 @@ public class XmlAdaptedCalendarEvent {
      * Constructs an XmlAdaptedCalendarEvent.
      * This is the no-arg constructor that is required by JAXB.
      */
-    public XmlAdaptedCalendarEvent() {}
+    public XmlAdaptedCalendarEvent() {
+    }
 
     /**
      * Constructs an {@code XmlAdaptedCalendarEvent} with the given calendar event details.
      */
-    public XmlAdaptedCalendarEvent(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedCalendarEvent(String name, String phone, String email, String location,
+                                   List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
+        this.location = location;
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
@@ -64,10 +66,10 @@ public class XmlAdaptedCalendarEvent {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
-        address = source.getAddress().value;
+        location = source.getLocation().value;
         tagged = source.getTags().stream()
-                .map(XmlAdaptedTag::new)
-                .collect(Collectors.toList());
+            .map(XmlAdaptedTag::new)
+            .collect(Collectors.toList());
     }
 
     /**
@@ -105,16 +107,17 @@ public class XmlAdaptedCalendarEvent {
         }
         final Email modelEmail = new Email(email);
 
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+        if (location == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                Location.class.getSimpleName()));
         }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
+        if (!Location.isValidLocation(location)) {
+            throw new IllegalValueException(Location.MESSAGE_LOCATION_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
+        final Location modelLocation = new Location(location);
 
         final Set<Tag> modelTags = new HashSet<>(calendarEventTags);
-        return new CalendarEvent(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new CalendarEvent(modelName, modelPhone, modelEmail, modelLocation, modelTags);
     }
 
     @Override
@@ -129,9 +132,9 @@ public class XmlAdaptedCalendarEvent {
 
         XmlAdaptedCalendarEvent otherCalendarEvent = (XmlAdaptedCalendarEvent) other;
         return Objects.equals(name, otherCalendarEvent.name)
-                && Objects.equals(phone, otherCalendarEvent.phone)
-                && Objects.equals(email, otherCalendarEvent.email)
-                && Objects.equals(address, otherCalendarEvent.address)
-                && tagged.equals(otherCalendarEvent.tagged);
+            && Objects.equals(phone, otherCalendarEvent.phone)
+            && Objects.equals(email, otherCalendarEvent.email)
+            && Objects.equals(location, otherCalendarEvent.location)
+            && tagged.equals(otherCalendarEvent.tagged);
     }
 }

@@ -16,9 +16,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.model.calendarevent.exceptions.DuplicateCalendarEventException;
 import seedu.address.model.calendarevent.exceptions.CalendarEventNotFoundException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.calendarevent.exceptions.DuplicateCalendarEventException;
+import seedu.address.testutil.CalendarEventBuilder;
 
 public class UniqueCalendarEventListTest {
     @Rule
@@ -46,7 +46,8 @@ public class UniqueCalendarEventListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniqueCalendarEventList.add(ALICE);
-        CalendarEvent editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        CalendarEvent editedAlice =
+            new CalendarEventBuilder(ALICE).withLocation(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(uniqueCalendarEventList.contains(editedAlice));
     }
@@ -94,7 +95,8 @@ public class UniqueCalendarEventListTest {
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
         uniqueCalendarEventList.add(ALICE);
-        CalendarEvent editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        CalendarEvent editedAlice =
+            new CalendarEventBuilder(ALICE).withLocation(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         uniqueCalendarEventList.setCalendarEvent(ALICE, editedAlice);
         UniqueCalendarEventList expectedUniqueCalendarEventList = new UniqueCalendarEventList();

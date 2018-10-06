@@ -85,8 +85,8 @@ public class VersionedScheduler extends Scheduler {
 
         // state check
         return super.equals(otherVersionedScheduler)
-                && schedulerStateList.equals(otherVersionedScheduler.schedulerStateList)
-                && currentStatePointer == otherVersionedScheduler.currentStatePointer;
+            && schedulerStateList.equals(otherVersionedScheduler.schedulerStateList)
+            && currentStatePointer == otherVersionedScheduler.currentStatePointer;
     }
 
     /**

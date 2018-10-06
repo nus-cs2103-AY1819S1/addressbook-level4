@@ -12,10 +12,10 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import guitests.guihandles.CalendarEventCardHandle;
-import guitests.guihandles.CalendarEventListPanelHandle;
 import org.junit.Test;
 
+import guitests.guihandles.CalendarEventCardHandle;
+import guitests.guihandles.CalendarEventListPanelHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
@@ -26,7 +26,7 @@ import seedu.address.storage.XmlSerializableScheduler;
 
 public class CalendarEventListPanelTest extends GuiUnitTest {
     private static final ObservableList<CalendarEvent> TYPICAL_CALENDAR_EVENTS =
-            FXCollections.observableList(getTypicalCalendarEvents());
+        FXCollections.observableList(getTypicalCalendarEvents());
 
     private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_PERSON);
 
@@ -56,13 +56,15 @@ public class CalendarEventListPanelTest extends GuiUnitTest {
         postNow(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 
-        CalendarEventCardHandle expectedPerson = calendarEventListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
+        CalendarEventCardHandle expectedPerson =
+            calendarEventListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
         CalendarEventCardHandle selectedPerson = calendarEventListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedPerson, selectedPerson);
     }
 
     /**
-     * Verifies that creating and deleting large number of calendar events in {@code CalendarEventListPanel} requires lesser than
+     * Verifies that creating and deleting large number of calendar events in {@code CalendarEventListPanel} requires
+     * lesser than
      * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
     @Test
@@ -76,18 +78,20 @@ public class CalendarEventListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Returns a list of calendar events containing {@code calendarEventCount} calendar events that is used to populate the
+     * Returns a list of calendar events containing {@code calendarEventCount} calendar events that is used to
+     * populate the
      * {@code CalendarEventListPanel}.
      */
     private ObservableList<CalendarEvent> createBackingList(int calendarEventCount) throws Exception {
         Path xmlFile = createXmlFileWithCalendarEvents(calendarEventCount);
         XmlSerializableScheduler xmlScheduler =
-                XmlUtil.getDataFromFile(xmlFile, XmlSerializableScheduler.class);
+            XmlUtil.getDataFromFile(xmlFile, XmlSerializableScheduler.class);
         return FXCollections.observableArrayList(xmlScheduler.toModelType().getCalendarEventList());
     }
 
     /**
-     * Returns a .xml file containing {@code calendarEventCount} calendar events. This file will be deleted when the JVM terminates.
+     * Returns a .xml file containing {@code calendarEventCount} calendar events. This file will be deleted when the
+     * JVM terminates.
      */
     private Path createXmlFileWithCalendarEvents(int calendarEventCount) throws Exception {
         StringBuilder builder = new StringBuilder();
@@ -111,7 +115,8 @@ public class CalendarEventListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Initializes {@code calendarEventListPanelHandle} with a {@code CalendarEventListPanel} backed by {@code backingList}.
+     * Initializes {@code calendarEventListPanelHandle} with a {@code CalendarEventListPanel} backed by {@code
+     * backingList}.
      * Also shows the {@code Stage} that displays only {@code CalendarEventListPanel}.
      */
     private void initUi(ObservableList<CalendarEvent> backingList) {
@@ -119,6 +124,6 @@ public class CalendarEventListPanelTest extends GuiUnitTest {
         uiPartRule.setUiPart(calendarEventListPanel);
 
         calendarEventListPanelHandle = new CalendarEventListPanelHandle(getChildNode(calendarEventListPanel.getRoot(),
-                CalendarEventListPanelHandle.CALENDAR_EVENT_LIST_VIEW_ID));
+            CalendarEventListPanelHandle.CALENDAR_EVENT_LIST_VIEW_ID));
     }
 }

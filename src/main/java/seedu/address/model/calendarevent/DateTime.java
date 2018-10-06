@@ -1,21 +1,26 @@
-package seedu.address.model.person;
+package seedu.address.model.calendarevent;
+
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
+/**
+ * Represents a Calendar Event's datetime fields in the scheduler.
+ * Guarantees: immutable; is valid as declared in {@link #isValidDateTime(int, int, int, int, int)}
+ */
 public class DateTime {
 
-    public LocalDateTime date;
+    private LocalDateTime date;
+
     /**
      * Constructs a {@code DateTime}
      * Wrapper class for LocalDateTime
      *
-     * @param year A valid year
-     * @param month A valid month
-     * @param day A valid day
-     * @param hour A valid hour
+     * @param year   A valid year
+     * @param month  A valid month
+     * @param day    A valid day
+     * @param hour   A valid hour
      * @param minute A valid minute
      */
     public DateTime(int year, int month, int day, int hour, int minute) throws DateTimeException {
@@ -71,6 +76,9 @@ public class DateTime {
         return date.toString();
     }
 
+    /**
+     * Returns if a given datetime is a valid datetime.
+     */
     public static boolean isValidDateTime(int year, int month, int day, int hour, int minute) {
         try {
             DateTime dateTime = new DateTime(year, month, day, hour, minute);

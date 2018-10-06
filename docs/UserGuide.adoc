@@ -58,7 +58,7 @@ Format: `help`
 
 === Adding a calendarEvent: `add`
 
-Adds a calendarEvent to the address book +
+Adds a calendarEvent to the location book +
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
 [TIP]
@@ -71,12 +71,12 @@ Examples:
 
 === Listing all calendarEvents : `list`
 
-Shows a list of all calendarEvents in the address book. +
+Shows a list of all calendarEvents in the location book. +
 Format: `list`
 
 === Editing a calendarEvent : `edit`
 
-Edits an existing calendarEvent in the address book. +
+Edits an existing calendarEvent in the location book. +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 ****
@@ -90,7 +90,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 Examples:
 
 * `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st calendarEvent to be `91234567` and `johndoe@example.com` respectively.
+Edits the phone number and email location of the 1st calendarEvent to be `91234567` and `johndoe@example.com` respectively.
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd calendarEvent to be `Betsy Crower` and clears all existing tags.
 
@@ -116,7 +116,7 @@ Returns any calendarEvent having names `Betsy`, `Tim`, or `John`
 
 === Deleting a calendarEvent : `delete`
 
-Deletes the specified calendarEvent from the address book. +
+Deletes the specified calendarEvent from the location book. +
 Format: `delete INDEX`
 
 ****
@@ -129,7 +129,7 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd calendarEvent in the address book.
+Deletes the 2nd calendarEvent in the location book.
 * `find Betsy` +
 `delete 1` +
 Deletes the 1st calendarEvent in the results of the `find` command.
@@ -149,7 +149,7 @@ Examples:
 
 * `list` +
 `select 2` +
-Selects the 2nd calendarEvent in the address book.
+Selects the 2nd calendarEvent in the location book.
 * `find Betsy` +
 `select 1` +
 Selects the 1st calendarEvent in the results of the `find` command.
@@ -167,12 +167,12 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Restores the location book to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the location book's content (`add`, `delete`, `edit` and `clear`).
 ====
 
 Examples:
@@ -216,7 +216,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from the location book. +
 Format: `clear`
 
 === Exiting the program : `exit`

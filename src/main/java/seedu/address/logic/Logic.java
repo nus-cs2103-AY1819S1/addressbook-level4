@@ -12,16 +12,21 @@ import seedu.address.model.calendarevent.CalendarEvent;
 public interface Logic {
     /**
      * Executes the command and returns the result.
+     *
      * @param commandText The command as entered by the user.
      * @return the result of the command execution.
      * @throws CommandException If an error occurs during command execution.
-     * @throws ParseException If an error occurs during parsing.
+     * @throws ParseException   If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
-    /** Returns an unmodifiable view of the filtered list of calendar events */
+    /**
+     * Returns an unmodifiable view of the filtered list of calendar events
+     */
     ObservableList<CalendarEvent> getFilteredCalendarEventList();
 
-    /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
+    /**
+     * Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object
+     */
     ListElementPointer getHistorySnapshot();
 }

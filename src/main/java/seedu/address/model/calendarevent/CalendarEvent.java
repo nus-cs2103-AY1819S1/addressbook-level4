@@ -21,18 +21,18 @@ public class CalendarEvent {
     private final Email email;
 
     // Data fields
-    private final Address address;
+    private final Location location;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public CalendarEvent(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public CalendarEvent(Name name, Phone phone, Email email, Location location, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, location, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
+        this.location = location;
         this.tags.addAll(tags);
     }
 
@@ -48,8 +48,8 @@ public class CalendarEvent {
         return email;
     }
 
-    public Address getAddress() {
-        return address;
+    public Location getLocation() {
+        return location;
     }
 
     /**
@@ -70,8 +70,9 @@ public class CalendarEvent {
         }
 
         return otherCalendarEvent != null
-                && otherCalendarEvent.getName().equals(getName())
-                && (otherCalendarEvent.getPhone().equals(getPhone()) || otherCalendarEvent.getEmail().equals(getEmail()));
+            && otherCalendarEvent.getName().equals(getName())
+            && (otherCalendarEvent.getPhone().equals(getPhone())
+            || otherCalendarEvent.getEmail().equals(getEmail()));
     }
 
     /**
@@ -90,29 +91,29 @@ public class CalendarEvent {
 
         CalendarEvent otherCalendarEvent = (CalendarEvent) other;
         return otherCalendarEvent.getName().equals(getName())
-                && otherCalendarEvent.getPhone().equals(getPhone())
-                && otherCalendarEvent.getEmail().equals(getEmail())
-                && otherCalendarEvent.getAddress().equals(getAddress())
-                && otherCalendarEvent.getTags().equals(getTags());
+            && otherCalendarEvent.getPhone().equals(getPhone())
+            && otherCalendarEvent.getEmail().equals(getEmail())
+            && otherCalendarEvent.getLocation().equals(getLocation())
+            && otherCalendarEvent.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, location, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
-                .append(" Tags: ");
+            .append(" Phone: ")
+            .append(getPhone())
+            .append(" Email: ")
+            .append(getEmail())
+            .append(" Location: ")
+            .append(getLocation())
+            .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

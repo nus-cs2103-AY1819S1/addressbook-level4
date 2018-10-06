@@ -28,7 +28,7 @@ public class XmlUtil {
      */
     @SuppressWarnings("unchecked")
     public static <T> T getDataFromFile(Path file, Class<T> classToConvert)
-            throws FileNotFoundException, JAXBException {
+        throws FileNotFoundException, JAXBException {
 
         requireNonNull(file);
         requireNonNull(classToConvert);

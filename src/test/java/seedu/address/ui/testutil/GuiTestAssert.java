@@ -29,20 +29,23 @@ public class GuiTestAssert {
     /**
      * Asserts that {@code actualCard} displays the details of {@code expectedCalendarEvent}.
      */
-    public static void assertCardDisplaysPerson(CalendarEvent expectedCalendarEvent, CalendarEventCardHandle actualCard) {
+    public static void assertCardDisplaysPerson(CalendarEvent expectedCalendarEvent,
+                                                CalendarEventCardHandle actualCard) {
         assertEquals(expectedCalendarEvent.getName().fullName, actualCard.getName());
         assertEquals(expectedCalendarEvent.getPhone().value, actualCard.getPhone());
         assertEquals(expectedCalendarEvent.getEmail().value, actualCard.getEmail());
-        assertEquals(expectedCalendarEvent.getAddress().value, actualCard.getAddress());
+        assertEquals(expectedCalendarEvent.getLocation().value, actualCard.getAddress());
         assertEquals(expectedCalendarEvent.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
-                actualCard.getTags());
+            actualCard.getTags());
     }
 
     /**
-     * Asserts that the list in {@code calendarEventListPanelHandle} displays the details of {@code calendarEvents} correctly and
+     * Asserts that the list in {@code calendarEventListPanelHandle} displays the details of {@code calendarEvents}
+     * correctly and
      * in the correct order.
      */
-    public static void assertListMatching(CalendarEventListPanelHandle calendarEventListPanelHandle, CalendarEvent... calendarEvents) {
+    public static void assertListMatching(CalendarEventListPanelHandle calendarEventListPanelHandle,
+                                          CalendarEvent... calendarEvents) {
         for (int i = 0; i < calendarEvents.length; i++) {
             calendarEventListPanelHandle.navigateToCard(i);
             assertCardDisplaysPerson(calendarEvents[i], calendarEventListPanelHandle.getPersonCardHandle(i));
@@ -50,10 +53,12 @@ public class GuiTestAssert {
     }
 
     /**
-     * Asserts that the list in {@code calendarEventListPanelHandle} displays the details of {@code calendarEvents} correctly and
+     * Asserts that the list in {@code calendarEventListPanelHandle} displays the details of {@code calendarEvents}
+     * correctly and
      * in the correct order.
      */
-    public static void assertListMatching(CalendarEventListPanelHandle calendarEventListPanelHandle, List<CalendarEvent> calendarEvents) {
+    public static void assertListMatching(CalendarEventListPanelHandle calendarEventListPanelHandle,
+                                          List<CalendarEvent> calendarEvents) {
         assertListMatching(calendarEventListPanelHandle, calendarEvents.toArray(new CalendarEvent[0]));
     }
 
