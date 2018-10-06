@@ -46,7 +46,7 @@ public class Time {
     /**
      * Returns true if a given string is a valid time.
      */
-    public boolean isValidTime(String test) {
+    public static boolean isValidTime(String test) {
         return test.matches(TIME_VALIDATION_REGEX);
     }
 

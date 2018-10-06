@@ -40,7 +40,7 @@ public class Date {
     /**
      * Returns true if a given string is a valid date.
      */
-    public boolean isValidDate(String test) throws DateTimeParseException {
+    public static boolean isValidDate(String test) throws DateTimeParseException {
         if (!test.matches(DATE_VALIDATION_REGEX)) {
             return false;
         }
@@ -48,9 +48,10 @@ public class Date {
         // includes checks for leap years
         try {
             LocalDate.parse(test);
-        } catch (DateTimeParseException) {
+        } catch (DateTimeParseException dte) {
             return false;
         }
+        return true;
     }
 
     @Override
