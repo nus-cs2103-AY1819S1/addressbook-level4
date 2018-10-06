@@ -51,7 +51,9 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedScheduler;
     }
 
-    /** Raises an event to indicate the model has changed */
+    /**
+     * Raises an event to indicate the model has changed
+     */
     private void indicateSchedulerChanged() {
         raise(new SchedulerChangedEvent(versionedScheduler));
     }
@@ -144,7 +146,7 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedScheduler.equals(other.versionedScheduler)
-                && filteredCalendarEvents.equals(other.filteredCalendarEvents);
+            && filteredCalendarEvents.equals(other.filteredCalendarEvents);
     }
 
 }

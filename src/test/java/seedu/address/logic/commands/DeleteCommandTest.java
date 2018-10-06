@@ -31,10 +31,12 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        CalendarEvent calendarEventToDelete = model.getFilteredCalendarEventList().get(INDEX_FIRST_PERSON.getZeroBased());
+        CalendarEvent calendarEventToDelete =
+            model.getFilteredCalendarEventList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_CALENDAR_EVENT_SUCCESS, calendarEventToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_CALENDAR_EVENT_SUCCESS,
+            calendarEventToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getScheduler(), new UserPrefs());
         expectedModel.deleteCalendarEvent(calendarEventToDelete);
@@ -48,17 +50,20 @@ public class DeleteCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredCalendarEventList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_CALENDAR_EVENTS_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, commandHistory,
+            Messages.MESSAGE_INVALID_CALENDAR_EVENTS_DISPLAYED_INDEX);
     }
 
     @Test
     public void execute_validIndexFilteredList_success() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
-        CalendarEvent calendarEventToDelete = model.getFilteredCalendarEventList().get(INDEX_FIRST_PERSON.getZeroBased());
+        CalendarEvent calendarEventToDelete =
+            model.getFilteredCalendarEventList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_CALENDAR_EVENT_SUCCESS, calendarEventToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_CALENDAR_EVENT_SUCCESS,
+            calendarEventToDelete);
 
         Model expectedModel = new ModelManager(model.getScheduler(), new UserPrefs());
         expectedModel.deleteCalendarEvent(calendarEventToDelete);
@@ -78,12 +83,14 @@ public class DeleteCommandTest {
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_CALENDAR_EVENTS_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, commandHistory,
+            Messages.MESSAGE_INVALID_CALENDAR_EVENTS_DISPLAYED_INDEX);
     }
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
-        CalendarEvent calendarEventToDelete = model.getFilteredCalendarEventList().get(INDEX_FIRST_PERSON.getZeroBased());
+        CalendarEvent calendarEventToDelete =
+            model.getFilteredCalendarEventList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
         Model expectedModel = new ModelManager(model.getScheduler(), new UserPrefs());
         expectedModel.deleteCalendarEvent(calendarEventToDelete);
@@ -107,7 +114,8 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
         // execution failed -> address book state not added into model
-        assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_CALENDAR_EVENTS_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, commandHistory,
+            Messages.MESSAGE_INVALID_CALENDAR_EVENTS_DISPLAYED_INDEX);
 
         // single address book state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
@@ -127,18 +135,21 @@ public class DeleteCommandTest {
         Model expectedModel = new ModelManager(model.getScheduler(), new UserPrefs());
 
         showPersonAtIndex(model, INDEX_SECOND_PERSON);
-        CalendarEvent calendarEventToDelete = model.getFilteredCalendarEventList().get(INDEX_FIRST_PERSON.getZeroBased());
+        CalendarEvent calendarEventToDelete =
+            model.getFilteredCalendarEventList().get(INDEX_FIRST_PERSON.getZeroBased());
         expectedModel.deleteCalendarEvent(calendarEventToDelete);
         expectedModel.commitScheduler();
 
-        // delete -> deletes second calendarevent in unfiltered calendarevent list / first calendarevent in filtered calendarevent list
+        // delete -> deletes second calendarevent in unfiltered calendarevent list / first calendarevent in filtered
+        // calendarevent list
         deleteCommand.execute(model, commandHistory);
 
         // undo -> reverts addressbook back to previous state and filtered calendarevent list to show all persons
         expectedModel.undoScheduler();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        assertNotEquals(calendarEventToDelete, model.getFilteredCalendarEventList().get(INDEX_FIRST_PERSON.getZeroBased()));
+        assertNotEquals(calendarEventToDelete,
+            model.getFilteredCalendarEventList().get(INDEX_FIRST_PERSON.getZeroBased()));
         // redo -> deletes same second calendarevent in unfiltered calendarevent list
         expectedModel.redoScheduler();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);

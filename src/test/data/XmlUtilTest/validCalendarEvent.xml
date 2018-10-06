@@ -3,6 +3,6 @@
     <name>Hans Muster</name>
     <phone>9482424</phone>
     <email>hans@example</email>
-    <address>4th street</address>
+    <location>4th street</location>
     <tagged>friends</tagged>
 </calendarEvent>

@@ -1,13 +1,13 @@
-package seedu.address.model.person;
-
-import org.junit.Test;
-import seedu.address.testutil.Assert;
-
-import java.time.DateTimeException;
-import java.util.Date;
+package seedu.address.model.calendarevent;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+import java.time.DateTimeException;
+
+import org.junit.Test;
+
+import seedu.address.testutil.Assert;
 
 public class DateTimeTest {
 
@@ -18,14 +18,14 @@ public class DateTimeTest {
         int validDay = 1;
         int validHour = 1;
         int validMinute = 1;
-        Assert.assertThrows(DateTimeException.class,
-                () -> new DateTime(invalidYear, validMonth, validDay, validHour, validMinute));
+        Assert.assertThrows(DateTimeException.class, () -> new DateTime(invalidYear, validMonth, validDay, validHour,
+            validMinute));
     }
 
     @Test
     public void isValidDateTime() {
         // invalid DateTime
-        assertFalse(DateTime.isValidDateTime(-1, 1,1, 1, 1)); // negative
+        assertFalse(DateTime.isValidDateTime(-1, 1, 1, 1, 1)); // negative
         assertFalse(DateTime.isValidDateTime(2018, 13, 1, 1, 1)); // invalid month
         assertFalse(DateTime.isValidDateTime(2018, 1, 32, 1, 1)); // invalid day
         assertFalse(DateTime.isValidDateTime(2018, 4, 31, 1, 1)); // invalid day (30-day)

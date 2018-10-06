@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.calendarevent.CalendarEvent;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.CalendarEventBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -29,21 +29,21 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_newPerson_success() {
-        CalendarEvent validCalendarEvent = new PersonBuilder().build();
+        CalendarEvent validCalendarEvent = new CalendarEventBuilder().build();
 
         Model expectedModel = new ModelManager(model.getScheduler(), new UserPrefs());
         expectedModel.addCalendarEvent(validCalendarEvent);
         expectedModel.commitScheduler();
 
         assertCommandSuccess(new AddCommand(validCalendarEvent), model, commandHistory,
-                String.format(AddCommand.MESSAGE_SUCCESS, validCalendarEvent), expectedModel);
+            String.format(AddCommand.MESSAGE_SUCCESS, validCalendarEvent), expectedModel);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         CalendarEvent calendarEventInList = model.getScheduler().getCalendarEventList().get(0);
         assertCommandFailure(new AddCommand(calendarEventInList), model, commandHistory,
-                AddCommand.MESSAGE_DUPLICATE_PERSON);
+            AddCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
 }

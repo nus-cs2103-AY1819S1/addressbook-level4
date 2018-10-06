@@ -3,10 +3,10 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.calendarevent.Address;
-import seedu.address.model.calendarevent.Email;
-import seedu.address.model.calendarevent.Name;
 import seedu.address.model.calendarevent.CalendarEvent;
+import seedu.address.model.calendarevent.Email;
+import seedu.address.model.calendarevent.Location;
+import seedu.address.model.calendarevent.Name;
 import seedu.address.model.calendarevent.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -14,42 +14,42 @@ import seedu.address.model.util.SampleDataUtil;
 /**
  * A utility class to help with building CalendarEvent objects.
  */
-public class PersonBuilder {
+public class CalendarEventBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_LOCATION = "123, Jurong West Ave 6, #08-111";
 
     private Name name;
     private Phone phone;
     private Email email;
-    private Address address;
+    private Location location;
     private Set<Tag> tags;
 
-    public PersonBuilder() {
+    public CalendarEventBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
-        address = new Address(DEFAULT_ADDRESS);
+        location = new Location(DEFAULT_LOCATION);
         tags = new HashSet<>();
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code calendarEventToCopy}.
+     * Initializes the CalendarEventBuilder with the data of {@code calendarEventToCopy}.
      */
-    public PersonBuilder(CalendarEvent calendarEventToCopy) {
+    public CalendarEventBuilder(CalendarEvent calendarEventToCopy) {
         name = calendarEventToCopy.getName();
         phone = calendarEventToCopy.getPhone();
         email = calendarEventToCopy.getEmail();
-        address = calendarEventToCopy.getAddress();
+        location = calendarEventToCopy.getLocation();
         tags = new HashSet<>(calendarEventToCopy.getTags());
     }
 
     /**
      * Sets the {@code Name} of the {@code CalendarEvent} that we are building.
      */
-    public PersonBuilder withName(String name) {
+    public CalendarEventBuilder withName(String name) {
         this.name = new Name(name);
         return this;
     }
@@ -57,23 +57,23 @@ public class PersonBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code CalendarEvent} that we are building.
      */
-    public PersonBuilder withTags(String ... tags) {
+    public CalendarEventBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
 
     /**
-     * Sets the {@code Address} of the {@code CalendarEvent} that we are building.
+     * Sets the {@code Location} of the {@code CalendarEvent} that we are building.
      */
-    public PersonBuilder withAddress(String address) {
-        this.address = new Address(address);
+    public CalendarEventBuilder withLocation(String location) {
+        this.location = new Location(location);
         return this;
     }
 
     /**
      * Sets the {@code Phone} of the {@code CalendarEvent} that we are building.
      */
-    public PersonBuilder withPhone(String phone) {
+    public CalendarEventBuilder withPhone(String phone) {
         this.phone = new Phone(phone);
         return this;
     }
@@ -81,13 +81,13 @@ public class PersonBuilder {
     /**
      * Sets the {@code Email} of the {@code CalendarEvent} that we are building.
      */
-    public PersonBuilder withEmail(String email) {
+    public CalendarEventBuilder withEmail(String email) {
         this.email = new Email(email);
         return this;
     }
 
     public CalendarEvent build() {
-        return new CalendarEvent(name, phone, email, address, tags);
+        return new CalendarEvent(name, phone, email, location, tags);
     }
 
 }

@@ -20,10 +20,10 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.calendarevent.Address;
-import seedu.address.model.calendarevent.Email;
-import seedu.address.model.calendarevent.Name;
 import seedu.address.model.calendarevent.CalendarEvent;
+import seedu.address.model.calendarevent.Email;
+import seedu.address.model.calendarevent.Location;
+import seedu.address.model.calendarevent.Name;
 import seedu.address.model.calendarevent.Phone;
 import seedu.address.model.tag.Tag;
 
@@ -35,17 +35,17 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the event identified "
-            + "by the index number used in the displayed event list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+        + "by the index number used in the displayed event list. "
+        + "Existing values will be overwritten by the input values.\n"
+        + "Parameters: INDEX (must be a positive integer) "
+        + "[" + PREFIX_NAME + "NAME] "
+        + "[" + PREFIX_PHONE + "PHONE] "
+        + "[" + PREFIX_EMAIL + "EMAIL] "
+        + "[" + PREFIX_ADDRESS + "ADDRESS] "
+        + "[" + PREFIX_TAG + "TAG]...\n"
+        + "Example: " + COMMAND_WORD + " 1 "
+        + PREFIX_PHONE + "91234567 "
+        + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_CALENDAR_EVENT_SUCCESS = "Edited Event: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -55,7 +55,7 @@ public class EditCommand extends Command {
     private final EditCalendarEventDescriptor editCalendarEventDescriptor;
 
     /**
-     * @param index of the calendar event in the filtered calendar event list to edit
+     * @param index                       of the calendar event in the filtered calendar event list to edit
      * @param editCalendarEventDescriptor details to edit the calendar event with
      */
     public EditCommand(Index index, EditCalendarEventDescriptor editCalendarEventDescriptor) {
@@ -78,7 +78,8 @@ public class EditCommand extends Command {
         CalendarEvent calendarEventToEdit = lastShownList.get(index.getZeroBased());
         CalendarEvent editedCalendarEvent = createEditedCalendarEvent(calendarEventToEdit, editCalendarEventDescriptor);
 
-        if (!calendarEventToEdit.isSameCalendarEvent(editedCalendarEvent) && model.hasCalendarEvent(editedCalendarEvent)) {
+        if (!calendarEventToEdit.isSameCalendarEvent(editedCalendarEvent)
+            && model.hasCalendarEvent(editedCalendarEvent)) {
             throw new CommandException(MESSAGE_DUPLICATE_CALENDAR_EVENT);
         }
 
@@ -92,16 +93,17 @@ public class EditCommand extends Command {
      * Creates and returns a {@code CalendarEvent} with the details of {@code calendarEventToEdit}
      * edited with {@code editCalendarEventDescriptor}.
      */
-    private static CalendarEvent createEditedCalendarEvent(CalendarEvent calendarEventToEdit, EditCalendarEventDescriptor editCalendarEventDescriptor) {
+    private static CalendarEvent createEditedCalendarEvent(CalendarEvent calendarEventToEdit,
+                                                           EditCalendarEventDescriptor editCalendarEventDescriptor) {
         assert calendarEventToEdit != null;
 
         Name updatedName = editCalendarEventDescriptor.getName().orElse(calendarEventToEdit.getName());
         Phone updatedPhone = editCalendarEventDescriptor.getPhone().orElse(calendarEventToEdit.getPhone());
         Email updatedEmail = editCalendarEventDescriptor.getEmail().orElse(calendarEventToEdit.getEmail());
-        Address updatedAddress = editCalendarEventDescriptor.getAddress().orElse(calendarEventToEdit.getAddress());
+        Location updatedLocation = editCalendarEventDescriptor.getLocation().orElse(calendarEventToEdit.getLocation());
         Set<Tag> updatedTags = editCalendarEventDescriptor.getTags().orElse(calendarEventToEdit.getTags());
 
-        return new CalendarEvent(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new CalendarEvent(updatedName, updatedPhone, updatedEmail, updatedLocation, updatedTags);
     }
 
     @Override
@@ -119,7 +121,7 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editCalendarEventDescriptor.equals(e.editCalendarEventDescriptor);
+            && editCalendarEventDescriptor.equals(e.editCalendarEventDescriptor);
     }
 
     /**
@@ -130,10 +132,11 @@ public class EditCommand extends Command {
         private Name name;
         private Phone phone;
         private Email email;
-        private Address address;
+        private Location location;
         private Set<Tag> tags;
 
-        public EditCalendarEventDescriptor() {}
+        public EditCalendarEventDescriptor() {
+        }
 
         /**
          * Copy constructor.
@@ -143,7 +146,7 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
-            setAddress(toCopy.address);
+            setLocation(toCopy.location);
             setTags(toCopy.tags);
         }
 
@@ -151,7 +154,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, location, tags);
         }
 
         public void setName(Name name) {
@@ -178,12 +181,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(email);
         }
 
-        public void setAddress(Address address) {
-            this.address = address;
+        public void setLocation(Location location) {
+            this.location = location;
         }
 
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
+        public Optional<Location> getLocation() {
+            return Optional.ofNullable(location);
         }
 
         /**
@@ -219,10 +222,10 @@ public class EditCommand extends Command {
             EditCalendarEventDescriptor e = (EditCalendarEventDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
-                    && getTags().equals(e.getTags());
+                && getPhone().equals(e.getPhone())
+                && getEmail().equals(e.getEmail())
+                && getLocation().equals(e.getLocation())
+                && getTags().equals(e.getTags());
         }
     }
 }

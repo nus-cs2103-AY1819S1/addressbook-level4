@@ -23,13 +23,14 @@ import seedu.address.model.calendarevent.CalendarEvent;
 public class DeleteCommandSystemTest extends SchedulerSystemTest {
 
     private static final String MESSAGE_INVALID_DELETE_COMMAND_FORMAT =
-            String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
+        String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
 
     @Test
     public void delete() {
         /* ----------------- Performing delete operation while an unfiltered list is being shown -------------------- */
 
-        /* Case: delete the first calendarevent in the list, command with leading spaces and trailing spaces -> deleted */
+        /* Case: delete the first calendarevent in the list, command with leading spaces and trailing spaces ->
+        deleted */
         Model expectedModel = getModel();
         String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_PERSON.getOneBased() + "       ";
         CalendarEvent deletedCalendarEvent = removePerson(expectedModel, INDEX_FIRST_PERSON);
@@ -58,13 +59,15 @@ public class DeleteCommandSystemTest extends SchedulerSystemTest {
 
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
-        /* Case: filtered calendarevent list, delete index within bounds of address book and calendarevent list -> deleted */
+        /* Case: filtered calendarevent list, delete index within bounds of address book and calendarevent list ->
+        deleted */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         Index index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredCalendarEventList().size());
         assertCommandSuccess(index);
 
-        /* Case: filtered calendarevent list, delete index within bounds of address book but out of bounds of calendarevent list
+        /* Case: filtered calendarevent list, delete index within bounds of address book but out of bounds of
+        calendarevent list
          * -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
@@ -72,9 +75,11 @@ public class DeleteCommandSystemTest extends SchedulerSystemTest {
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_CALENDAR_EVENTS_DISPLAYED_INDEX);
 
-        /* --------------------- Performing delete operation while a calendarevent card is selected ------------------------ */
+        /* --------------------- Performing delete operation while a calendarevent card is selected
+        ------------------------ */
 
-        /* Case: delete the selected calendarevent -> calendarevent list panel selects the calendarevent before the deleted calendarevent */
+        /* Case: delete the selected calendarevent -> calendarevent list panel selects the calendarevent before the
+        deleted calendarevent */
         showAllPersons();
         expectedModel = getModel();
         Index selectedIndex = getLastIndex(expectedModel);
@@ -97,7 +102,7 @@ public class DeleteCommandSystemTest extends SchedulerSystemTest {
 
         /* Case: invalid index (size + 1) -> rejected */
         Index outOfBoundsIndex = Index.fromOneBased(
-                getModel().getScheduler().getCalendarEventList().size() + 1);
+            getModel().getScheduler().getCalendarEventList().size() + 1);
         command = DeleteCommand.COMMAND_WORD + " " + outOfBoundsIndex.getOneBased();
         assertCommandFailure(command, MESSAGE_INVALID_CALENDAR_EVENTS_DISPLAYED_INDEX);
 
@@ -113,6 +118,7 @@ public class DeleteCommandSystemTest extends SchedulerSystemTest {
 
     /**
      * Removes the {@code CalendarEvent} at the specified {@code index} in {@code model}'s address book.
+     *
      * @return the removed calendarevent
      */
     private CalendarEvent removePerson(Model model, Index index) {
@@ -122,8 +128,10 @@ public class DeleteCommandSystemTest extends SchedulerSystemTest {
     }
 
     /**
-     * Deletes the calendarevent at {@code toDelete} by creating a default {@code DeleteCommand} using {@code toDelete} and
+     * Deletes the calendarevent at {@code toDelete} by creating a default {@code DeleteCommand} using {@code
+     * toDelete} and
      * performs the same verification as {@code assertCommandSuccess(String, Model, String)}.
+     *
      * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
      */
     private void assertCommandSuccess(Index toDelete) {
@@ -132,7 +140,7 @@ public class DeleteCommandSystemTest extends SchedulerSystemTest {
         String expectedResultMessage = String.format(MESSAGE_DELETE_CALENDAR_EVENT_SUCCESS, deletedCalendarEvent);
 
         assertCommandSuccess(
-                DeleteCommand.COMMAND_WORD + " " + toDelete.getOneBased(), expectedModel, expectedResultMessage);
+            DeleteCommand.COMMAND_WORD + " " + toDelete.getOneBased(), expectedModel, expectedResultMessage);
     }
 
     /**
@@ -144,6 +152,7 @@ public class DeleteCommandSystemTest extends SchedulerSystemTest {
      * 5. Asserts that the command box has the default style class.<br>
      * Verifications 1 and 2 are performed by
      * {@code SchedulerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.
+     *
      * @see SchedulerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
@@ -153,11 +162,12 @@ public class DeleteCommandSystemTest extends SchedulerSystemTest {
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String)} except that the browser url
      * and selected card are expected to update accordingly depending on the card at {@code expectedSelectedCardIndex}.
+     *
      * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
      * @see SchedulerSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
-            Index expectedSelectedCardIndex) {
+                                      Index expectedSelectedCardIndex) {
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
 
@@ -179,6 +189,7 @@ public class DeleteCommandSystemTest extends SchedulerSystemTest {
      * 4. Asserts that the command box has the error style.<br>
      * Verifications 1 and 2 are performed by
      * {@code SchedulerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     *
      * @see SchedulerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {

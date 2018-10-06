@@ -41,7 +41,8 @@ public class FindCommandSystemTest extends SchedulerSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find calendarevent where calendarevent list is not displaying the calendarevent we are finding -> 1 calendarevent found */
+        /* Case: find calendarevent where calendarevent list is not displaying the calendarevent we are finding -> 1
+        calendarevent found */
         command = FindCommand.COMMAND_WORD + " Carl";
         ModelHelper.setFilteredList(expectedModel, CARL);
         assertCommandSuccess(command, expectedModel);
@@ -89,7 +90,8 @@ public class FindCommandSystemTest extends SchedulerSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find calendarevent in address book, keyword is same as name but of different case -> 1 calendarevent found */
+        /* Case: find calendarevent in address book, keyword is same as name but of different case -> 1 calendarevent
+         found */
         command = FindCommand.COMMAND_WORD + " MeIeR";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
@@ -117,7 +119,7 @@ public class FindCommandSystemTest extends SchedulerSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find address of calendarevent in address book -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getAddress().value;
+        command = FindCommand.COMMAND_WORD + " " + DANIEL.getLocation().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -156,17 +158,19 @@ public class FindCommandSystemTest extends SchedulerSystemTest {
 
     /**
      * Executes {@code command} and verifies that the command box displays an empty string, the result display
-     * box displays {@code Messages#MESSAGE_CALENDAR_EVENTS_LISTED_OVERVIEW} with the number of people in the filtered list,
+     * box displays {@code Messages#MESSAGE_CALENDAR_EVENTS_LISTED_OVERVIEW} with the number of people in the
+     * filtered list,
      * and the model related components equal to {@code expectedModel}.
      * These verifications are done by
      * {@code SchedulerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the status bar remains unchanged, and the command box has the default style class, and the
      * selected card updated accordingly, depending on {@code cardStatus}.
+     *
      * @see SchedulerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command, Model expectedModel) {
         String expectedResultMessage = String.format(
-                MESSAGE_CALENDAR_EVENTS_LISTED_OVERVIEW, expectedModel.getFilteredCalendarEventList().size());
+            MESSAGE_CALENDAR_EVENTS_LISTED_OVERVIEW, expectedModel.getFilteredCalendarEventList().size());
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
@@ -181,6 +185,7 @@ public class FindCommandSystemTest extends SchedulerSystemTest {
      * {@code SchedulerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the browser url, selected card and status bar remain unchanged, and the command box has the
      * error style.
+     *
      * @see SchedulerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {

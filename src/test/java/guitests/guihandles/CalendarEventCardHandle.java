@@ -39,10 +39,10 @@ public class CalendarEventCardHandle extends NodeHandle<Node> {
 
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
         tagLabels = tagsContainer
-                .getChildrenUnmodifiable()
-                .stream()
-                .map(Label.class::cast)
-                .collect(Collectors.toList());
+            .getChildrenUnmodifiable()
+            .stream()
+            .map(Label.class::cast)
+            .collect(Collectors.toList());
     }
 
     public String getId() {
@@ -67,9 +67,9 @@ public class CalendarEventCardHandle extends NodeHandle<Node> {
 
     public List<String> getTags() {
         return tagLabels
-                .stream()
-                .map(Label::getText)
-                .collect(Collectors.toList());
+            .stream()
+            .map(Label::getText)
+            .collect(Collectors.toList());
     }
 
     /**
@@ -77,11 +77,11 @@ public class CalendarEventCardHandle extends NodeHandle<Node> {
      */
     public boolean equals(CalendarEvent calendarEvent) {
         return getName().equals(calendarEvent.getName().fullName)
-                && getAddress().equals(calendarEvent.getAddress().value)
-                && getPhone().equals(calendarEvent.getPhone().value)
-                && getEmail().equals(calendarEvent.getEmail().value)
-                && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(calendarEvent.getTags().stream()
-                        .map(tag -> tag.tagName)
-                        .collect(Collectors.toList())));
+            && getAddress().equals(calendarEvent.getLocation().value)
+            && getPhone().equals(calendarEvent.getPhone().value)
+            && getEmail().equals(calendarEvent.getEmail().value)
+            && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(calendarEvent.getTags().stream()
+            .map(tag -> tag.tagName)
+            .collect(Collectors.toList())));
     }
 }

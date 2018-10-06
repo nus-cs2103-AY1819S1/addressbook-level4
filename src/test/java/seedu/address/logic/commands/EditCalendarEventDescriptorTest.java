@@ -19,7 +19,8 @@ public class EditCalendarEventDescriptorTest {
     @Test
     public void equals() {
         // same values -> returns true
-        EditCommand.EditCalendarEventDescriptor descriptorWithSameValues = new EditCommand.EditCalendarEventDescriptor(DESC_AMY);
+        EditCommand.EditCalendarEventDescriptor descriptorWithSameValues =
+            new EditCommand.EditCalendarEventDescriptor(DESC_AMY);
         assertTrue(DESC_AMY.equals(descriptorWithSameValues));
 
         // same object -> returns true
@@ -35,7 +36,8 @@ public class EditCalendarEventDescriptorTest {
         assertFalse(DESC_AMY.equals(DESC_BOB));
 
         // different name -> returns false
-        EditCommand.EditCalendarEventDescriptor editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
+        EditCommand.EditCalendarEventDescriptor editedAmy =
+            new EditPersonDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different phone -> returns false

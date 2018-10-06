@@ -16,9 +16,9 @@ public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all events whose names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+        + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
+        + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
+        + "Example: " + COMMAND_WORD + " alice bob charlie";
 
     private final NameContainsKeywordsPredicate predicate;
 
@@ -31,13 +31,14 @@ public class FindCommand extends Command {
         requireNonNull(model);
         model.updateFilteredCalendarEventList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_CALENDAR_EVENTS_LISTED_OVERVIEW, model.getFilteredCalendarEventList().size()));
+            String.format(Messages.MESSAGE_CALENDAR_EVENTS_LISTED_OVERVIEW,
+                model.getFilteredCalendarEventList().size()));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FindCommand // instanceof handles nulls
-                && predicate.equals(((FindCommand) other).predicate)); // state check
+            || (other instanceof FindCommand // instanceof handles nulls
+            && predicate.equals(((FindCommand) other).predicate)); // state check
     }
 }

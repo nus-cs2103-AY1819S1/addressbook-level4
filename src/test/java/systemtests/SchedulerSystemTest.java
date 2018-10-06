@@ -18,13 +18,13 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import guitests.guihandles.CalendarEventListPanelHandle;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 
 import guitests.guihandles.BrowserPanelHandle;
+import guitests.guihandles.CalendarEventListPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
@@ -38,8 +38,8 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
-import seedu.address.model.Scheduler;
 import seedu.address.model.Model;
+import seedu.address.model.Scheduler;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
@@ -54,7 +54,7 @@ public abstract class SchedulerSystemTest {
 
     private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
     private static final List<String> COMMAND_BOX_ERROR_STYLE =
-            Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
+        Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
 
     private MainWindowHandle mainWindowHandle;
     private TestApp testApp;
@@ -143,7 +143,8 @@ public abstract class SchedulerSystemTest {
      */
     protected void showAllPersons() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getScheduler().getCalendarEventList().size(), getModel().getFilteredCalendarEventList().size());
+        assertEquals(getModel().getScheduler().getCalendarEventList().size(),
+            getModel().getFilteredCalendarEventList().size());
     }
 
     /**
@@ -151,7 +152,8 @@ public abstract class SchedulerSystemTest {
      */
     protected void showPersonsWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredCalendarEventList().size() < getModel().getScheduler().getCalendarEventList().size());
+        assertTrue(getModel().getFilteredCalendarEventList().size()
+            < getModel().getScheduler().getCalendarEventList().size());
     }
 
     /**
@@ -176,7 +178,7 @@ public abstract class SchedulerSystemTest {
      * and the calendarevent list panel displays the persons in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
-            Model expectedModel) {
+                                                     Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new Scheduler(expectedModel.getScheduler()), testApp.readStorageAddressBook());
@@ -184,7 +186,8 @@ public abstract class SchedulerSystemTest {
     }
 
     /**
-     * Calls {@code BrowserPanelHandle}, {@code CalendarEventListPanelHandle} and {@code StatusBarFooterHandle} to remember
+     * Calls {@code BrowserPanelHandle}, {@code CalendarEventListPanelHandle} and {@code StatusBarFooterHandle} to
+     * remember
      * their current state.
      */
     private void rememberStates() {
@@ -198,6 +201,7 @@ public abstract class SchedulerSystemTest {
     /**
      * Asserts that the previously selected card is now deselected and the browser's url remains displaying the details
      * of the previously selected calendarevent.
+     *
      * @see BrowserPanelHandle#isUrlChanged()
      */
     protected void assertSelectedCardDeselected() {
@@ -206,8 +210,10 @@ public abstract class SchedulerSystemTest {
     }
 
     /**
-     * Asserts that the browser's url is changed to display the details of the calendarevent in the calendarevent list panel at
+     * Asserts that the browser's url is changed to display the details of the calendarevent in the calendarevent
+     * list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
+     *
      * @see BrowserPanelHandle#isUrlChanged()
      * @see CalendarEventListPanelHandle#isSelectedPersonCardChanged()
      */
@@ -227,6 +233,7 @@ public abstract class SchedulerSystemTest {
 
     /**
      * Asserts that the browser's url and the selected card in the calendarevent list panel remain unchanged.
+     *
      * @see BrowserPanelHandle#isUrlChanged()
      * @see CalendarEventListPanelHandle#isSelectedPersonCardChanged()
      */
@@ -279,7 +286,7 @@ public abstract class SchedulerSystemTest {
         assertListMatching(getPersonListPanel(), getModel().getFilteredCalendarEventList());
         assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
-                getStatusBarFooter().getSaveLocation());
+            getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 

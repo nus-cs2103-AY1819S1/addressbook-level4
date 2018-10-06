@@ -32,7 +32,7 @@ public interface Storage extends SchedulerStorage, UserPrefsStorage {
 
     /**
      * Saves the current version of the Scheduler to the hard disk.
-     *   Creates the data file if it is missing.
+     * Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
     void handleSchedulerChangedEvent(SchedulerChangedEvent sce);

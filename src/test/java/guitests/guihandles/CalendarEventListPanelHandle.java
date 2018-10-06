@@ -25,7 +25,8 @@ public class CalendarEventListPanelHandle extends NodeHandle<ListView<CalendarEv
     /**
      * Returns a handle to the selected {@code CalendarEventCardHandle}.
      * A maximum of 1 item can be selected at any time.
-     * @throws AssertionError if no card is selected, or more than 1 card is selected.
+     *
+     * @throws AssertionError        if no card is selected, or more than 1 card is selected.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
     public CalendarEventCardHandle getHandleToSelectedCard() {
@@ -36,10 +37,10 @@ public class CalendarEventListPanelHandle extends NodeHandle<ListView<CalendarEv
         }
 
         return getAllCardNodes().stream()
-                .map(CalendarEventCardHandle::new)
-                .filter(handle -> handle.equals(selectedCalendarEventList.get(0)))
-                .findFirst()
-                .orElseThrow(IllegalStateException::new);
+            .map(CalendarEventCardHandle::new)
+            .filter(handle -> handle.equals(selectedCalendarEventList.get(0)))
+            .findFirst()
+            .orElseThrow(IllegalStateException::new);
     }
 
     /**
@@ -99,14 +100,15 @@ public class CalendarEventListPanelHandle extends NodeHandle<ListView<CalendarEv
 
     /**
      * Returns the calendarevent card handle of a calendarevent associated with the {@code index} in the list.
+     *
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
     public CalendarEventCardHandle getPersonCardHandle(int index) {
         return getAllCardNodes().stream()
-                .map(CalendarEventCardHandle::new)
-                .filter(handle -> handle.equals(getPerson(index)))
-                .findFirst()
-                .orElseThrow(IllegalStateException::new);
+            .map(CalendarEventCardHandle::new)
+            .filter(handle -> handle.equals(getPerson(index)))
+            .findFirst()
+            .orElseThrow(IllegalStateException::new);
     }
 
     private CalendarEvent getPerson(int index) {
@@ -146,7 +148,7 @@ public class CalendarEventListPanelHandle extends NodeHandle<ListView<CalendarEv
             return lastRememberedSelectedPersonCard.isPresent();
         } else {
             return !lastRememberedSelectedPersonCard.isPresent()
-                    || !lastRememberedSelectedPersonCard.get().equals(selectedItems.get(0));
+                || !lastRememberedSelectedPersonCard.get().equals(selectedItems.get(0));
         }
     }
 

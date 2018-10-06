@@ -9,20 +9,20 @@ import org.junit.Test;
 
 import guitests.guihandles.CalendarEventCardHandle;
 import seedu.address.model.calendarevent.CalendarEvent;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.CalendarEventBuilder;
 
 public class CalendarEventCardTest extends GuiUnitTest {
 
     @Test
     public void display() {
         // no tags
-        CalendarEvent calendarEventWithNoTags = new PersonBuilder().withTags(new String[0]).build();
+        CalendarEvent calendarEventWithNoTags = new CalendarEventBuilder().withTags(new String[0]).build();
         CalendarEventCard calendarEventCard = new CalendarEventCard(calendarEventWithNoTags, 1);
         uiPartRule.setUiPart(calendarEventCard);
         assertCardDisplay(calendarEventCard, calendarEventWithNoTags, 1);
 
         // with tags
-        CalendarEvent calendarEventWithTags = new PersonBuilder().build();
+        CalendarEvent calendarEventWithTags = new CalendarEventBuilder().build();
         calendarEventCard = new CalendarEventCard(calendarEventWithTags, 2);
         uiPartRule.setUiPart(calendarEventCard);
         assertCardDisplay(calendarEventCard, calendarEventWithTags, 2);
@@ -30,7 +30,7 @@ public class CalendarEventCardTest extends GuiUnitTest {
 
     @Test
     public void equals() {
-        CalendarEvent calendarEvent = new PersonBuilder().build();
+        CalendarEvent calendarEvent = new CalendarEventBuilder().build();
         CalendarEventCard calendarEventCard = new CalendarEventCard(calendarEvent, 0);
 
         // same calendarevent, same index -> returns true
@@ -47,7 +47,7 @@ public class CalendarEventCardTest extends GuiUnitTest {
         assertFalse(calendarEventCard.equals(0));
 
         // different calendarevent, same index -> returns false
-        CalendarEvent differentCalendarEvent = new PersonBuilder().withName("differentName").build();
+        CalendarEvent differentCalendarEvent = new CalendarEventBuilder().withName("differentName").build();
         assertFalse(calendarEventCard.equals(new CalendarEventCard(differentCalendarEvent, 0)));
 
         // same calendarevent, different index -> returns false
@@ -55,10 +55,12 @@ public class CalendarEventCardTest extends GuiUnitTest {
     }
 
     /**
-     * Asserts that {@code calendarEventCard} displays the details of {@code expectedCalendarEvent} correctly and matches
+     * Asserts that {@code calendarEventCard} displays the details of {@code expectedCalendarEvent} correctly and
+     * matches
      * {@code expectedId}.
      */
-    private void assertCardDisplay(CalendarEventCard calendarEventCard, CalendarEvent expectedCalendarEvent, int expectedId) {
+    private void assertCardDisplay(CalendarEventCard calendarEventCard, CalendarEvent expectedCalendarEvent,
+                                   int expectedId) {
         guiRobot.pauseForHuman();
 
         CalendarEventCardHandle calendarEventCardHandle = new CalendarEventCardHandle(calendarEventCard.getRoot());
