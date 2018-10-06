@@ -47,11 +47,22 @@ public class UniqueRecipeList implements Iterable<Recipe> {
     }
 
     /**
+     * Removes the equivalent recipe from the list.
+     * The recipe must exist in the list.
+     */
+    public void remove(Recipe toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new RecipeNotFoundException();
+        }
+    }
+
+    /**
      * Replaces the recipe {@code target} in the list with {@code editedRecipe}.
      * {@code target} must exist in the list.
      * The recipe identity of {@code editedRecipe} must not be the same as another existing recipe in the list.
      */
-    public void setRecipe(Recipe target, Recipe editedRecipe) {
+    public void set(Recipe target, Recipe editedRecipe) {
         requireAllNonNull(target, editedRecipe);
 
         int index = internalList.indexOf(target);
@@ -66,18 +77,7 @@ public class UniqueRecipeList implements Iterable<Recipe> {
         internalList.set(index, editedRecipe);
     }
 
-    /**
-     * Removes the equivalent recipe from the list.
-     * The recipe must exist in the list.
-     */
-    public void remove(Recipe toRemove) {
-        requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
-            throw new RecipeNotFoundException();
-        }
-    }
-
-    public void setRecipes(UniqueRecipeList replacement) {
+    public void set(UniqueRecipeList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -86,7 +86,7 @@ public class UniqueRecipeList implements Iterable<Recipe> {
      * Replaces the contents of this list with {@code recipes}.
      * {@code recipes} must not contain duplicate recipes.
      */
-    public void setRecipes(List<Recipe> recipes) {
+    public void set(List<Recipe> recipes) {
         requireAllNonNull(recipes);
         if (!recipesAreUnique(recipes)) {
             throw new DuplicateRecipeException();

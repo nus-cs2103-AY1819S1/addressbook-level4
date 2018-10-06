@@ -16,6 +16,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.souschef.model.UniqueList;
+import seedu.souschef.model.exceptions.DuplicateException;
+import seedu.souschef.model.exceptions.NotFoundException;
 import seedu.souschef.model.recipe.exceptions.DuplicateRecipeException;
 import seedu.souschef.model.recipe.exceptions.RecipeNotFoundException;
 import seedu.souschef.testutil.RecipeBuilder;
@@ -24,7 +27,8 @@ public class UniqueRecipeListTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final UniqueRecipeList uniqueRecipeList = new UniqueRecipeList();
+
+    private final UniqueList<Recipe> uniqueRecipeList = new UniqueList<>();
 
     @Test
     public void contains_nullRecipe_throwsNullPointerException() {
@@ -60,33 +64,33 @@ public class UniqueRecipeListTest {
     @Test
     public void add_duplicateRecipe_throwsDuplicateRecipeException() {
         uniqueRecipeList.add(ALICE);
-        thrown.expect(DuplicateRecipeException.class);
+        thrown.expect(DuplicateException.class);
         uniqueRecipeList.add(ALICE);
     }
 
     @Test
     public void setRecipe_nullTargetRecipe_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueRecipeList.setRecipe(null, ALICE);
+        uniqueRecipeList.set(null, ALICE);
     }
 
     @Test
     public void setRecipe_nullEditedRecipe_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueRecipeList.setRecipe(ALICE, null);
+        uniqueRecipeList.set(ALICE, null);
     }
 
     @Test
     public void setRecipe_targetRecipeNotInList_throwsRecipeNotFoundException() {
-        thrown.expect(RecipeNotFoundException.class);
-        uniqueRecipeList.setRecipe(ALICE, ALICE);
+        thrown.expect(NotFoundException.class);
+        uniqueRecipeList.set(ALICE, ALICE);
     }
 
     @Test
     public void setRecipe_editedRecipeIsSameRecipe_success() {
         uniqueRecipeList.add(ALICE);
-        uniqueRecipeList.setRecipe(ALICE, ALICE);
-        UniqueRecipeList expectedUniqueRecipeList = new UniqueRecipeList();
+        uniqueRecipeList.set(ALICE, ALICE);
+        UniqueList<Recipe> expectedUniqueRecipeList = new UniqueList<>();
         expectedUniqueRecipeList.add(ALICE);
         assertEquals(expectedUniqueRecipeList, uniqueRecipeList);
     }
@@ -96,8 +100,8 @@ public class UniqueRecipeListTest {
         uniqueRecipeList.add(ALICE);
         Recipe editedAlice = new RecipeBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        uniqueRecipeList.setRecipe(ALICE, editedAlice);
-        UniqueRecipeList expectedUniqueRecipeList = new UniqueRecipeList();
+        uniqueRecipeList.set(ALICE, editedAlice);
+        UniqueList<Recipe> expectedUniqueRecipeList = new UniqueList<>();
         expectedUniqueRecipeList.add(editedAlice);
         assertEquals(expectedUniqueRecipeList, uniqueRecipeList);
     }
@@ -105,8 +109,8 @@ public class UniqueRecipeListTest {
     @Test
     public void setRecipe_editedRecipeHasDifferentIdentity_success() {
         uniqueRecipeList.add(ALICE);
-        uniqueRecipeList.setRecipe(ALICE, BOB);
-        UniqueRecipeList expectedUniqueRecipeList = new UniqueRecipeList();
+        uniqueRecipeList.set(ALICE, BOB);
+        UniqueList<Recipe> expectedUniqueRecipeList = new UniqueList<>();
         expectedUniqueRecipeList.add(BOB);
         assertEquals(expectedUniqueRecipeList, uniqueRecipeList);
     }
@@ -115,8 +119,8 @@ public class UniqueRecipeListTest {
     public void setRecipe_editedRecipeHasNonUniqueIdentity_throwsDuplicateRecipeException() {
         uniqueRecipeList.add(ALICE);
         uniqueRecipeList.add(BOB);
-        thrown.expect(DuplicateRecipeException.class);
-        uniqueRecipeList.setRecipe(ALICE, BOB);
+        thrown.expect(DuplicateException.class);
+        uniqueRecipeList.set(ALICE, BOB);
     }
 
     @Test
@@ -127,7 +131,7 @@ public class UniqueRecipeListTest {
 
     @Test
     public void remove_recipeDoesNotExist_throwsRecipeNotFoundException() {
-        thrown.expect(RecipeNotFoundException.class);
+        thrown.expect(NotFoundException.class);
         uniqueRecipeList.remove(ALICE);
     }
 
@@ -135,37 +139,37 @@ public class UniqueRecipeListTest {
     public void remove_existingRecipe_removesRecipe() {
         uniqueRecipeList.add(ALICE);
         uniqueRecipeList.remove(ALICE);
-        UniqueRecipeList expectedUniqueRecipeList = new UniqueRecipeList();
+        UniqueList<Recipe> expectedUniqueRecipeList = new UniqueList<>();
         assertEquals(expectedUniqueRecipeList, uniqueRecipeList);
     }
 
     @Test
     public void setrecipes_nullUniqueRecipeList_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueRecipeList.setRecipes((UniqueRecipeList) null);
+        uniqueRecipeList.set((UniqueList<Recipe>) null);
     }
 
     @Test
     public void setRecipes_uniqueRecipeList_replacesOwnListWithProvidedUniqueRecipeList() {
         uniqueRecipeList.add(ALICE);
-        UniqueRecipeList expectedUniqueRecipeList = new UniqueRecipeList();
+        UniqueList<Recipe> expectedUniqueRecipeList = new UniqueList<>();
         expectedUniqueRecipeList.add(BOB);
-        uniqueRecipeList.setRecipes(expectedUniqueRecipeList);
+        uniqueRecipeList.set(expectedUniqueRecipeList);
         assertEquals(expectedUniqueRecipeList, uniqueRecipeList);
     }
 
     @Test
     public void setRecipes_nullList_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueRecipeList.setRecipes((List<Recipe>) null);
+        uniqueRecipeList.set((List<Recipe>) null);
     }
 
     @Test
     public void setRecipes_list_replacesOwnListWithProvidedList() {
         uniqueRecipeList.add(ALICE);
         List<Recipe> recipeList = Collections.singletonList(BOB);
-        uniqueRecipeList.setRecipes(recipeList);
-        UniqueRecipeList expectedUniqueRecipeList = new UniqueRecipeList();
+        uniqueRecipeList.set(recipeList);
+        UniqueList<Recipe> expectedUniqueRecipeList = new UniqueList<>();
         expectedUniqueRecipeList.add(BOB);
         assertEquals(expectedUniqueRecipeList, uniqueRecipeList);
     }
@@ -173,8 +177,8 @@ public class UniqueRecipeListTest {
     @Test
     public void setRecipes_listWithDuplicateRecipes_throwsDuplicateRecipeException() {
         List<Recipe> listWithDuplicateRecipes = Arrays.asList(ALICE, ALICE);
-        thrown.expect(DuplicateRecipeException.class);
-        uniqueRecipeList.setRecipes(listWithDuplicateRecipes);
+        thrown.expect(DuplicateException.class);
+        uniqueRecipeList.set(listWithDuplicateRecipes);
     }
 
     @Test

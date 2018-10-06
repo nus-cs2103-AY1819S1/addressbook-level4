@@ -5,16 +5,17 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+
 import seedu.souschef.model.recipe.Recipe;
-import seedu.souschef.model.recipe.UniqueRecipeList;
 
 /**
- * Wraps all data at the application content level
+ * Wraps all data at the application
+ * content level
  * Duplicates are not allowed (by .isSame comparison)
  */
 public class AppContent implements ReadOnlyAppContent {
 
-    private final UniqueRecipeList recipes;
+    private final UniqueList<Recipe> recipes;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -24,7 +25,7 @@ public class AppContent implements ReadOnlyAppContent {
      *   among constructors.
      */
     {
-        recipes = new UniqueRecipeList();
+        recipes = new UniqueList<>();
     }
 
     public AppContent() {}
@@ -44,7 +45,7 @@ public class AppContent implements ReadOnlyAppContent {
      * {@code recipes} must not contain duplicate recipes.
      */
     public void setRecipes(List<Recipe> recipes) {
-        this.recipes.setRecipes(recipes);
+        this.recipes.set(recipes);
     }
 
     /**
@@ -83,7 +84,7 @@ public class AppContent implements ReadOnlyAppContent {
     public void updateRecipe(Recipe target, Recipe editedRecipe) {
         requireNonNull(editedRecipe);
 
-        recipes.setRecipe(target, editedRecipe);
+        recipes.set(target, editedRecipe);
     }
 
     /**

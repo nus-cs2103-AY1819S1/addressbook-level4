@@ -19,6 +19,7 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.souschef.model.exceptions.DuplicateException;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.recipe.exceptions.DuplicateRecipeException;
 import seedu.souschef.testutil.RecipeBuilder;
@@ -56,7 +57,7 @@ public class AddressBookTest {
         List<Recipe> newRecipes = Arrays.asList(ALICE, editedAlice);
         AppContentStub newData = new AppContentStub(newRecipes);
 
-        thrown.expect(DuplicateRecipeException.class);
+        thrown.expect(DuplicateException.class);
         addressBook.resetData(newData);
     }
 
