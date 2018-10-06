@@ -212,6 +212,67 @@ public class AddCommandTest {
         public boolean hasPatientInPreferenceQueue() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean hasPatientInPatientQueue() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        //@@author gingivitiss
+        @Override
+        public boolean hasAppointment(Appointment appt) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void cancelAppointment(Appointment appt) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addAppointment(Appointment appt) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateAppointment(Appointment appt, Appointment editedAppt) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Appointment> getFilteredAppointmentList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredAppointmentList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canUndoSchedule() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedoSchedule() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoSchedule() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoSchedule() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commitSchedule() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

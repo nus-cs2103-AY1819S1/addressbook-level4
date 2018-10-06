@@ -134,6 +134,12 @@ public class ModelManager extends ComponentManager implements Model {
     public boolean hasPatientInPreferenceQueue() {
         return preferenceQueue.hasPatient();
     }
+
+    @Override
+    public boolean hasPatientInPatientQueue() {
+        return hasPatientInPreferenceQueue() || hasPatientInMainQueue();
+    }
+
     //@@author jjlee050
     @Override
     public void updateDoctor(Doctor target, Doctor editedDoctor) {
