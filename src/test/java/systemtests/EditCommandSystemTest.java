@@ -12,24 +12,24 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_ANIME;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_METAL;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.TRACK_DESC_ALIEZ;
+import static seedu.address.logic.commands.CommandTestUtil.TRACK_DESC_EXISTENCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_METAL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TRACK_ALIEZ;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BOB;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalPlaylists.AMY;
+import static seedu.address.testutil.TypicalPlaylists.BOB;
+import static seedu.address.testutil.TypicalPlaylists.KEYWORD_MATCHING_SONG;
 
 import org.junit.Test;
 
@@ -39,13 +39,9 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.Name;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.PlaylistBuilder;
 import seedu.address.testutil.PersonUtil;
 
 public class EditCommandSystemTest extends AddressBookSystemTest {
@@ -60,103 +56,103 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
          * -> edited
          */
         Index index = INDEX_FIRST_PERSON;
-        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
-                + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
-        Person editedPerson = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
+        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_METAL + "  "
+                + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + TRACK_DESC_EXISTENCE + " ";
+        Person editedPerson = new PlaylistBuilder(BOB).withTags(VALID_TRACK_ALIEZ).build();
         assertCommandSuccess(command, index, editedPerson);
 
-        /* Case: undo editing the last person in the list -> last person restored */
+        /* Case: undo editing the last playlist in the list -> last playlist restored */
         command = UndoCommand.COMMAND_WORD;
         String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: redo editing the last person in the list -> last person edited again */
+        /* Case: redo editing the last playlist in the list -> last playlist edited again */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         model.updatePerson(
                 getModel().getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()), editedPerson);
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: edit a person with new values same as existing values -> edited */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        /* Case: edit a playlist with new values same as existing values -> edited */
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE;
         assertCommandSuccess(command, index, BOB);
 
-        /* Case: edit a person with new values same as another person's values but with different name -> edited */
-        assertTrue(getModel().getAddressBook().getPersonList().contains(BOB));
+        /* Case: edit a playlist with new values same as another playlist's values but with different name -> edited */
+        assertTrue(getModel().getAddressBook().getPlaylistList().contains(BOB));
         index = INDEX_SECOND_PERSON;
         assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), BOB);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedPerson = new PersonBuilder(BOB).withName(VALID_NAME_AMY).build();
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_ANIME + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE;
+        editedPerson = new PlaylistBuilder(BOB).withName(VALID_NAME_AMY).build();
         assertCommandSuccess(command, index, editedPerson);
 
-        /* Case: edit a person with new values same as another person's values but with different phone and email
+        /* Case: edit a playlist with new values same as another playlist's values but with different phone and email
          * -> edited
          */
         index = INDEX_SECOND_PERSON;
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedPerson = new PersonBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_AMY + EMAIL_DESC_AMY
+                + ADDRESS_DESC_BOB + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE;
+        editedPerson = new PlaylistBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
         assertCommandSuccess(command, index, editedPerson);
 
         /* Case: clear tags -> cleared */
         index = INDEX_FIRST_PERSON;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
         Person personToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
-        editedPerson = new PersonBuilder(personToEdit).withTags().build();
+        editedPerson = new PlaylistBuilder(personToEdit).withTags().build();
         assertCommandSuccess(command, index, editedPerson);
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
-        /* Case: filtered person list, edit index within bounds of address book and person list -> edited */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        /* Case: filtered playlist list, edit index within bounds of address book and playlist list -> edited */
+        showPersonsWithName(KEYWORD_MATCHING_SONG);
         index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_METAL;
         personToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
-        editedPerson = new PersonBuilder(personToEdit).withName(VALID_NAME_BOB).build();
+        editedPerson = new PlaylistBuilder(personToEdit).withName(VALID_NAME_METAL).build();
         assertCommandSuccess(command, index, editedPerson);
 
-        /* Case: filtered person list, edit index within bounds of address book but out of bounds of person list
+        /* Case: filtered playlist list, edit index within bounds of address book but out of bounds of playlist list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAddressBook().getPersonList().size();
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
+        showPersonsWithName(KEYWORD_MATCHING_SONG);
+        int invalidIndex = getModel().getAddressBook().getPlaylistList().size();
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_METAL,
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
-        /* --------------------- Performing edit operation while a person card is selected -------------------------- */
+        /* --------------------- Performing edit operation while a playlist card is selected -------------------------- */
 
-        /* Case: selects first card in the person list, edit a person -> edited, card selection remains unchanged but
+        /* Case: selects first card in the playlist list, edit a playlist -> edited, card selection remains unchanged but
          * browser url changes
          */
         showAllPersons();
         index = INDEX_FIRST_PERSON;
         selectPerson(index);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_ANIME + PHONE_DESC_AMY + EMAIL_DESC_AMY
+                + ADDRESS_DESC_AMY + TRACK_DESC_ALIEZ;
         // this can be misleading: card selection actually remains unchanged but the
-        // browser's url is updated to reflect the new person's name
+        // browser's url is updated to reflect the new playlist's name
         assertCommandSuccess(command, index, AMY, index);
 
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
 
         /* Case: invalid index (0) -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " 0" + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " 0" + NAME_DESC_METAL,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (-1) -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " -1" + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " -1" + NAME_DESC_METAL,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (size + 1) -> rejected */
         invalidIndex = getModel().getFilteredPersonList().size() + 1;
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_METAL,
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
         /* Case: missing index -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + NAME_DESC_METAL,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: missing all fields -> rejected */
@@ -183,33 +179,33 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_TAG_DESC,
                 Tag.MESSAGE_TAG_CONSTRAINTS);
 
-        /* Case: edit a person with new values same as another person's values -> rejected */
+        /* Case: edit a playlist with new values same as another playlist's values -> rejected */
         executeCommand(PersonUtil.getAddCommand(BOB));
-        assertTrue(getModel().getAddressBook().getPersonList().contains(BOB));
+        assertTrue(getModel().getAddressBook().getPlaylistList().contains(BOB));
         index = INDEX_FIRST_PERSON;
         assertFalse(getModel().getFilteredPersonList().get(index.getZeroBased()).equals(BOB));
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 
-        /* Case: edit a person with new values same as another person's values but with different tags -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
+        /* Case: edit a playlist with new values same as another playlist's values but with different tags -> rejected */
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + TRACK_DESC_EXISTENCE;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 
-        /* Case: edit a person with new values same as another person's values but with different address -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        /* Case: edit a playlist with new values same as another playlist's values but with different address -> rejected */
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_AMY + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 
-        /* Case: edit a person with new values same as another person's values but with different phone -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        /* Case: edit a playlist with new values same as another playlist's values but with different phone -> rejected */
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_AMY + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 
-        /* Case: edit a person with new values same as another person's values but with different email -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        /* Case: edit a playlist with new values same as another playlist's values but with different email -> rejected */
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_BOB + EMAIL_DESC_AMY
+                + ADDRESS_DESC_BOB + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
@@ -226,7 +222,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} and in addition,<br>
      * 1. Asserts that result display box displays the success message of executing {@code EditCommand}.<br>
-     * 2. Asserts that the model related components are updated to reflect the person at index {@code toEdit} being
+     * 2. Asserts that the model related components are updated to reflect the playlist at index {@code toEdit} being
      * updated to values specified {@code editedPerson}.<br>
      * @param toEdit the index of the current model's filtered list.
      * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)

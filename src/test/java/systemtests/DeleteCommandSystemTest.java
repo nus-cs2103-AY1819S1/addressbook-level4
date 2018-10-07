@@ -8,7 +8,7 @@ import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TestUtil.getPerson;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalPlaylists.KEYWORD_MATCHING_SONG;
 
 import org.junit.Test;
 
@@ -18,7 +18,6 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
 
 public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
@@ -29,52 +28,52 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     public void delete() {
         /* ----------------- Performing delete operation while an unfiltered list is being shown -------------------- */
 
-        /* Case: delete the first person in the list, command with leading spaces and trailing spaces -> deleted */
+        /* Case: delete the first playlist in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
         String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_PERSON.getOneBased() + "       ";
         Person deletedPerson = removePerson(expectedModel, INDEX_FIRST_PERSON);
         String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
-        /* Case: delete the last person in the list -> deleted */
+        /* Case: delete the last playlist in the list -> deleted */
         Model modelBeforeDeletingLast = getModel();
         Index lastPersonIndex = getLastIndex(modelBeforeDeletingLast);
         assertCommandSuccess(lastPersonIndex);
 
-        /* Case: undo deleting the last person in the list -> last person restored */
+        /* Case: undo deleting the last playlist in the list -> last playlist restored */
         command = UndoCommand.COMMAND_WORD;
         expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
 
-        /* Case: redo deleting the last person in the list -> last person deleted again */
+        /* Case: redo deleting the last playlist in the list -> last playlist deleted again */
         command = RedoCommand.COMMAND_WORD;
         removePerson(modelBeforeDeletingLast, lastPersonIndex);
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
 
-        /* Case: delete the middle person in the list -> deleted */
+        /* Case: delete the middle playlist in the list -> deleted */
         Index middlePersonIndex = getMidIndex(getModel());
         assertCommandSuccess(middlePersonIndex);
 
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
-        /* Case: filtered person list, delete index within bounds of address book and person list -> deleted */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        /* Case: filtered playlist list, delete index within bounds of address book and playlist list -> deleted */
+        showPersonsWithName(KEYWORD_MATCHING_SONG);
         Index index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
         assertCommandSuccess(index);
 
-        /* Case: filtered person list, delete index within bounds of address book but out of bounds of person list
+        /* Case: filtered playlist list, delete index within bounds of address book but out of bounds of playlist list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAddressBook().getPersonList().size();
+        showPersonsWithName(KEYWORD_MATCHING_SONG);
+        int invalidIndex = getModel().getAddressBook().getPlaylistList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
-        /* --------------------- Performing delete operation while a person card is selected ------------------------ */
+        /* --------------------- Performing delete operation while a playlist card is selected ------------------------ */
 
-        /* Case: delete the selected person -> person list panel selects the person before the deleted person */
+        /* Case: delete the selected playlist -> playlist list panel selects the playlist before the deleted playlist */
         showAllPersons();
         expectedModel = getModel();
         Index selectedIndex = getLastIndex(expectedModel);
@@ -97,7 +96,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: invalid index (size + 1) -> rejected */
         Index outOfBoundsIndex = Index.fromOneBased(
-                getModel().getAddressBook().getPersonList().size() + 1);
+                getModel().getAddressBook().getPlaylistList().size() + 1);
         command = DeleteCommand.COMMAND_WORD + " " + outOfBoundsIndex.getOneBased();
         assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
@@ -113,7 +112,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
     /**
      * Removes the {@code Person} at the specified {@code index} in {@code model}'s address book.
-     * @return the removed person
+     * @return the removed playlist
      */
     private Person removePerson(Model model, Index index) {
         Person targetPerson = getPerson(model, index);
@@ -122,7 +121,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Deletes the person at {@code toDelete} by creating a default {@code DeleteCommand} using {@code toDelete} and
+     * Deletes the playlist at {@code toDelete} by creating a default {@code DeleteCommand} using {@code toDelete} and
      * performs the same verification as {@code assertCommandSuccess(String, Model, String)}.
      * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
      */

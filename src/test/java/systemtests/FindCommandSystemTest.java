@@ -3,10 +3,10 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalPersons.CARL;
-import static seedu.address.testutil.TypicalPersons.DANIEL;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalPlaylists.METAL;
+import static seedu.address.testutil.TypicalPlaylists.POP;
+import static seedu.address.testutil.TypicalPlaylists.ROCK;
+import static seedu.address.testutil.TypicalPlaylists.KEYWORD_MATCHING_SONG;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,28 +28,28 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         /* Case: find multiple persons in address book, command with leading spaces and trailing spaces
          * -> 2 persons found
          */
-        String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER + "   ";
+        String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SONG + "   ";
         Model expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL); // first names of Benson and Daniel are "Meier"
+        ModelHelper.setFilteredList(expectedModel, METAL, ROCK); // first names of Benson and Daniel are "Meier"
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: repeat previous find command where person list is displaying the persons we are finding
+        /* Case: repeat previous find command where playlist list is displaying the persons we are finding
          * -> 2 persons found
          */
-        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
+        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SONG;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find person where person list is not displaying the person we are finding -> 1 person found */
+        /* Case: find playlist where playlist list is not displaying the playlist we are finding -> 1 playlist found */
         command = FindCommand.COMMAND_WORD + " Carl";
-        ModelHelper.setFilteredList(expectedModel, CARL);
+        ModelHelper.setFilteredList(expectedModel, POP);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple persons in address book, 2 keywords -> 2 persons found */
         command = FindCommand.COMMAND_WORD + " Benson Daniel";
-        ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL);
+        ModelHelper.setFilteredList(expectedModel, METAL, ROCK);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -80,72 +80,72 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
 
-        /* Case: find same persons in address book after deleting 1 of them -> 1 person found */
+        /* Case: find same persons in address book after deleting 1 of them -> 1 playlist found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
-        assertFalse(getModel().getAddressBook().getPersonList().contains(BENSON));
-        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
+        assertFalse(getModel().getAddressBook().getPlaylistList().contains(METAL));
+        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SONG;
         expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        ModelHelper.setFilteredList(expectedModel, ROCK);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find person in address book, keyword is same as name but of different case -> 1 person found */
+        /* Case: find playlist in address book, keyword is same as name but of different case -> 1 playlist found */
         command = FindCommand.COMMAND_WORD + " MeIeR";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find person in address book, keyword is substring of name -> 0 persons found */
+        /* Case: find playlist in address book, keyword is substring of name -> 0 persons found */
         command = FindCommand.COMMAND_WORD + " Mei";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find person in address book, name is substring of keyword -> 0 persons found */
+        /* Case: find playlist in address book, name is substring of keyword -> 0 persons found */
         command = FindCommand.COMMAND_WORD + " Meiers";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find person not in address book -> 0 persons found */
+        /* Case: find playlist not in address book -> 0 persons found */
         command = FindCommand.COMMAND_WORD + " Mark";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find phone number of person in address book -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getPhone().value;
+        /* Case: find phone number of playlist in address book -> 0 persons found */
+        command = FindCommand.COMMAND_WORD + " " + ROCK.getPhone().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find address of person in address book -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getAddress().value;
+        /* Case: find address of playlist in address book -> 0 persons found */
+        command = FindCommand.COMMAND_WORD + " " + ROCK.getAddress().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find email of person in address book -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getEmail().value;
+        /* Case: find email of playlist in address book -> 0 persons found */
+        command = FindCommand.COMMAND_WORD + " " + ROCK.getEmail().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find tags of person in address book -> 0 persons found */
-        List<Tag> tags = new ArrayList<>(DANIEL.getTags());
+        /* Case: find tags of playlist in address book -> 0 persons found */
+        List<Tag> tags = new ArrayList<>(ROCK.getTags());
         command = FindCommand.COMMAND_WORD + " " + tags.get(0).tagName;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find while a person is selected -> selected card deselected */
+        /* Case: find while a playlist is selected -> selected card deselected */
         showAllPersons();
         selectPerson(Index.fromOneBased(1));
-        assertFalse(getPersonListPanel().getHandleToSelectedCard().getName().equals(DANIEL.getName().fullName));
+        assertFalse(getPersonListPanel().getHandleToSelectedCard().getName().equals(ROCK.getName().nameString));
         command = FindCommand.COMMAND_WORD + " Daniel";
-        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        ModelHelper.setFilteredList(expectedModel, ROCK);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardDeselected();
 
-        /* Case: find person in empty address book -> 0 persons found */
+        /* Case: find playlist in empty address book -> 0 persons found */
         deleteAllPersons();
-        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
+        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SONG;
         expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        ModelHelper.setFilteredList(expectedModel, ROCK);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 

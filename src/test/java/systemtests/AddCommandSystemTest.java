@@ -10,24 +10,24 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_ANIME;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_METAL;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.TRACK_DESC_ALIEZ;
+import static seedu.address.logic.commands.CommandTestUtil.TRACK_DESC_EXISTENCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_METAL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BOB;
-import static seedu.address.testutil.TypicalPersons.CARL;
-import static seedu.address.testutil.TypicalPersons.HOON;
-import static seedu.address.testutil.TypicalPersons.IDA;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalPlaylists.ANIME;
+import static seedu.address.testutil.TypicalPlaylists.AMY;
+import static seedu.address.testutil.TypicalPlaylists.BOB;
+import static seedu.address.testutil.TypicalPlaylists.POP;
+import static seedu.address.testutil.TypicalPlaylists.HOON;
+import static seedu.address.testutil.TypicalPlaylists.IDA;
+import static seedu.address.testutil.TypicalPlaylists.KEYWORD_MATCHING_SONG;
 
 import org.junit.Test;
 
@@ -37,13 +37,10 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.Name;
+import seedu.address.model.playlist.Person;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.PlaylistBuilder;
 import seedu.address.testutil.PersonUtil;
 
 public class AddCommandSystemTest extends AddressBookSystemTest {
@@ -54,12 +51,12 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add a person without tags to a non-empty address book, command with leading spaces and trailing spaces
+        /* Case: add a playlist without tags to a non-empty address book, command with leading spaces and trailing spaces
          * -> added
          */
         Person toAdd = AMY;
-        String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
-                + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
+        String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_ANIME + "  " + PHONE_DESC_AMY + " "
+                + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + TRACK_DESC_ALIEZ + " ";
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
@@ -73,66 +70,66 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: add a person with all fields same as another person in the address book except name -> added */
-        toAdd = new PersonBuilder(AMY).withName(VALID_NAME_BOB).build();
-        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + TAG_DESC_FRIEND;
+        /* Case: add a playlist with all fields same as another playlist in the address book except name -> added */
+        toAdd = new PlaylistBuilder(AMY).withName(VALID_NAME_METAL).build();
+        command = AddCommand.COMMAND_WORD + NAME_DESC_METAL + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
+                + TRACK_DESC_ALIEZ;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a person with all fields same as another person in the address book except phone and email
+        /* Case: add a playlist with all fields same as another playlist in the address book except phone and email
          * -> added
          */
-        toAdd = new PersonBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        toAdd = new PlaylistBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty address book -> added */
         deleteAllPersons();
-        assertCommandSuccess(ALICE);
+        assertCommandSuccess(ANIME);
 
-        /* Case: add a person with tags, command with parameters in random order -> added */
+        /* Case: add a playlist with tags, command with parameters in random order -> added */
         toAdd = BOB;
-        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
-                + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
+        command = AddCommand.COMMAND_WORD + TRACK_DESC_ALIEZ + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_METAL
+                + TRACK_DESC_EXISTENCE + EMAIL_DESC_BOB;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a person, missing tags -> added */
+        /* Case: add a playlist, missing tags -> added */
         assertCommandSuccess(HOON);
 
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
-        /* Case: filters the person list before adding -> added */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        /* Case: filters the playlist list before adding -> added */
+        showPersonsWithName(KEYWORD_MATCHING_SONG);
         assertCommandSuccess(IDA);
 
-        /* ------------------------ Perform add operation while a person card is selected --------------------------- */
+        /* ------------------------ Perform add operation while a playlist card is selected --------------------------- */
 
-        /* Case: selects first card in the person list, add a person -> added, card selection remains unchanged */
+        /* Case: selects first card in the playlist list, add a playlist -> added, card selection remains unchanged */
         selectPerson(Index.fromOneBased(1));
-        assertCommandSuccess(CARL);
+        assertCommandSuccess(POP);
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
-        /* Case: add a duplicate person -> rejected */
+        /* Case: add a duplicate playlist -> rejected */
         command = PersonUtil.getAddCommand(HOON);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
-        /* Case: add a duplicate person except with different phone -> rejected */
-        toAdd = new PersonBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
+        /* Case: add a duplicate playlist except with different phone -> rejected */
+        toAdd = new PlaylistBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
-        /* Case: add a duplicate person except with different email -> rejected */
-        toAdd = new PersonBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
+        /* Case: add a duplicate playlist except with different email -> rejected */
+        toAdd = new PlaylistBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
-        /* Case: add a duplicate person except with different address -> rejected */
-        toAdd = new PersonBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
+        /* Case: add a duplicate playlist except with different address -> rejected */
+        toAdd = new PlaylistBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
-        /* Case: add a duplicate person except with different tags -> rejected */
+        /* Case: add a duplicate playlist except with different tags -> rejected */
         command = PersonUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
@@ -141,15 +138,15 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing phone -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_ANIME + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing email -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_ANIME + PHONE_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing address -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_ANIME + PHONE_DESC_AMY + EMAIL_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
@@ -161,19 +158,19 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_ANIME + INVALID_PHONE_DESC + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, Phone.MESSAGE_PHONE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_ANIME + PHONE_DESC_AMY + INVALID_EMAIL_DESC + ADDRESS_DESC_AMY;
         assertCommandFailure(command, Email.MESSAGE_EMAIL_CONSTRAINTS);
 
         /* Case: invalid address -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + INVALID_ADDRESS_DESC;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_ANIME + PHONE_DESC_AMY + EMAIL_DESC_AMY + INVALID_ADDRESS_DESC;
         assertCommandFailure(command, Address.MESSAGE_ADDRESS_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
+        command = AddCommand.COMMAND_WORD + NAME_DESC_ANIME + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
                 + INVALID_TAG_DESC;
         assertCommandFailure(command, Tag.MESSAGE_TAG_CONSTRAINTS);
     }
