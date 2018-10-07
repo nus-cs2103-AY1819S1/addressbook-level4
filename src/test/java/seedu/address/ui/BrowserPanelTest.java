@@ -26,10 +26,10 @@ import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PrescriptionBuilder;
 
 //@@author snajef
-/** 
+/**
  * Test driver class for the BrowserPanel class.
  * @author Darien Chong
- * 
+ *
  */
 public class BrowserPanelTest extends GuiUnitTest {
     private static final ObservableList<Person> TYPICAL_PERSONS = FXCollections.observableList(getTypicalPersons());
@@ -64,7 +64,7 @@ public class BrowserPanelTest extends GuiUnitTest {
         browserPanelHandle = new BrowserPanelHandle(getChildNode(browserPanel.getRoot(),
                 BrowserPanelHandle.PRESCRIPTION_TABLE_VIEW_ID));
     }
-    
+
     @Test(expected = UnsupportedOperationException.class)
     public void setCurrentSelection_notNull_throwsUnsupportedOperationException() {
         browserPanel.setCurrentSelection(ALICE);
