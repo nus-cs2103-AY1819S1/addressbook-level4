@@ -51,14 +51,14 @@ public class UiPartTest {
     @Test
     public void constructor_validFileUrl_loadsFile() {
         URL validFileUrl = getTestFileUrl(VALID_FILE_PATH);
-        assertEquals(VALID_FILE_ROOT, new TestUiPart<TestFxmlObject>(validFileUrl).getRoot());
+        assertEquals(VALID_FILE_ROOT, new TestUiPart<Object>(validFileUrl).getRoot());
     }
 
     @Test
     public void constructor_validFileWithFxRootUrl_loadsFile() {
         URL validFileUrl = getTestFileUrl(VALID_FILE_WITH_FX_ROOT_PATH);
         TestFxmlObject root = new TestFxmlObject();
-        assertEquals(VALID_FILE_ROOT, new TestUiPart<TestFxmlObject>(validFileUrl, root).getRoot());
+        assertEquals(VALID_FILE_ROOT, new TestUiPart<Object>(validFileUrl, root).getRoot());
     }
 
     @Test
