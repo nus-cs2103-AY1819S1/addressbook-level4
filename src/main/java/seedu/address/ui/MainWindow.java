@@ -50,7 +50,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane calendarEventListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -124,7 +124,7 @@ public class MainWindow extends UiPart<Stage> {
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         calendarEventListPanel = new CalendarEventListPanel(logic.getFilteredCalendarEventList());
-        personListPanelPlaceholder.getChildren().add(calendarEventListPanel.getRoot());
+        calendarEventListPanelPlaceholder.getChildren().add(calendarEventListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

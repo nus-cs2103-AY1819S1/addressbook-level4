@@ -33,7 +33,7 @@ public class CalendarEventCard extends UiPart<Region> {
     @FXML
     private Label phone;
     @FXML
-    private Label location;
+    private Label venue;
     @FXML
     private Label email;
     @FXML
@@ -45,7 +45,7 @@ public class CalendarEventCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(calendarEvent.getName().fullName);
         phone.setText(calendarEvent.getPhone().value);
-        location.setText(calendarEvent.getLocation().value);
+        venue.setText(calendarEvent.getLocation().value);
         email.setText(calendarEvent.getEmail().value);
         calendarEvent.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
