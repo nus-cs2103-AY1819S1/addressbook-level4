@@ -4,11 +4,6 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
-We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
-
 == Project Team
 
 === Afiq Lattif
@@ -16,16 +11,16 @@ image::afiqlattif.png[width="150", align="left"]
 {empty}[https://github.com/afiqlattif[github]] [<<afiqlattif#, portfolio>>]
 
 Role: Developer +
-Responsibilities: -
+Responsibilities: Volunteer Management Feature
 
 '''
 
 === Sem Jing Han
-image::kratious.jpg[width="150", align="left"]
+image::kratious.png[width="150", align="left"]
 {empty}[http://github.com/kratious[github]] [<<semjinghan#, portfolio>>]
 
 Role: Developer +
-Responsibilities: -
+Responsibilities: Event Management Feature
 
 '''
 
@@ -34,7 +29,7 @@ image::imarbles.png[width="150", align="left"]
 {empty}[https://github.com/iMarbles[github]] [<<amabelyeo#, portfolio>>]
 
 Role: Developer +
-Responsibilities: -
+Responsibilities: Assignment of Volunteers Feature
 
 '''
 
@@ -43,7 +38,7 @@ image::sharan8.png[width="150", align="left"]
 {empty}[https://github.com/sharan8[github]] [<<thangavelsharan#, portfolio>>]
 
 Role: Developer +
-Responsibilities: -
+Responsibilities: Statistics Feature
 
 '''
 
@@ -52,6 +47,6 @@ image::yl_coder.jpg[width="150", align="left"]
 {empty}[https://github.com/Scrubbius[github]] [<<ngohwenjun#, portfolio>>]
 
 Role: Developer +
-Responsibilities: -
+Responsibilities: Data Management Feature
 
 '''
