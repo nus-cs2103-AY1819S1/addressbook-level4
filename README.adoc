@@ -2,14 +2,14 @@
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 image:https://travis-ci.org/CS2103-AY1819S1-W14-2/main.svg?branch=master["Build Status", link="https://travis-ci.org/CS2103-AY1819S1-W14-2/main"]
-image:https://coveralls.io/repos/github/CS2103-AY1819S1-W14-2/main/badge.svg?branch=master]["Coverage Status", link="https://coveralls.io/github/CS2103-AY1819S1-W14-2/main"]
+image:https://coveralls.io/repos/github/CS2103-AY1819S1-W14-2/main/badge.svg?branch=master&service=github]["Coverage Status", link="https://coveralls.io/github/CS2103-AY1819S1-W14-2/main"]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::images/UI.png[width="600"]
+image::images/Ui.png[width="600"]
 endif::[]
 
 == Introduction

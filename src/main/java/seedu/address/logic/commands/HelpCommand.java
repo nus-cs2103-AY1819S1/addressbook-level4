@@ -22,6 +22,9 @@ public class HelpCommand extends Command {
 
     public final boolean isSummarized;
 
+    /**
+     * Creates a command that requests for help based on {@param args}
+     */
     public HelpCommand(String[] args) {
         if (args.length == 1 && args[0].isEmpty()) {
             isSummarized = true;

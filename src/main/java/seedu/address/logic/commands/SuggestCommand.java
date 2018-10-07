@@ -23,6 +23,10 @@ public class SuggestCommand extends Command {
 
     private final String[] suggestions;
 
+    /**
+     * Creates a SuggestCommand to suggest all prefix matches commands.
+     * @param prefix
+     */
     public SuggestCommand(String prefix) {
         requireNonNull(prefix);
         if (!prefix.matches("[a-zA-Z]+")) {
@@ -33,10 +37,19 @@ public class SuggestCommand extends Command {
             -> s.matches("^" + prefix + ".*")).toArray(String[]::new);
     }
 
+    /**
+     * Combines the commandWords into a standardized format for listing
+     * @param commandWords
+     * @return
+     */
     public static String combineCommandWords(String... commandWords) {
         return String.join(", ", commandWords);
     }
 
+    /**
+     * A prefix with no match is invalid.
+     * @return
+     */
     public boolean isPrefixValid() {
         return suggestions.length > 0;
     }

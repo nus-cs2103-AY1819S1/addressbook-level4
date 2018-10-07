@@ -164,8 +164,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Handle request for help
-     * @param event
+     * Handle request for help with level of detail specified by {@param event}
      */
     public void handleHelp(ShowHelpRequestEvent event) {
         if (event.isSummarized) {
