@@ -26,7 +26,8 @@ import seedu.address.model.person.Person;
  */
 public class BrowserPanel extends UiPart<Region> {
     private static final String FXML = "BrowserPanel.fxml";
-    private static final String MESSAGE_CURRENT_SELECTION_NOT_NULL = "There was an attempt to set the current selection, but it is not null.";
+    private static final String MESSAGE_CURRENT_SELECTION_NOT_NULL = "There was an attempt "
+        + "to set the current selection, but it is not null.";
     private final Logger logger = LogsCenter.getLogger(getClass());
     private final String loggingPrefix = "[" + getClass().getName() + "]: ";
 
