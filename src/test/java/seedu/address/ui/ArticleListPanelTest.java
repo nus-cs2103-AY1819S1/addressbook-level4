@@ -4,8 +4,8 @@ import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.EventsUtil.postNow;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ARTICLE;
 import static seedu.address.testutil.TypicalArticles.getTypicalArticles;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ARTICLE;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysArticle;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
@@ -56,7 +56,8 @@ public class ArticleListPanelTest extends GuiUnitTest {
         postNow(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 
-        ArticleCardHandle expectedArticle = articleListPanelHandle.getArticleCardHandle(INDEX_SECOND_ARTICLE.getZeroBased());
+        ArticleCardHandle expectedArticle = articleListPanelHandle
+                .getArticleCardHandle(INDEX_SECOND_ARTICLE.getZeroBased());
         ArticleCardHandle selectedArticle = articleListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedArticle, selectedArticle);
     }

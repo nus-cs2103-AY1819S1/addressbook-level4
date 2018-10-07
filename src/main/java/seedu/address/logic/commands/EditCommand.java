@@ -21,9 +21,9 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.article.Address;
+import seedu.address.model.article.Article;
 import seedu.address.model.article.Email;
 import seedu.address.model.article.Name;
-import seedu.address.model.article.Article;
 import seedu.address.model.article.Phone;
 import seedu.address.model.tag.Tag;
 

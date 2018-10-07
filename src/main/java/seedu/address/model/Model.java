@@ -38,7 +38,8 @@ public interface Model {
     /**
      * Replaces the given article {@code target} with {@code editedArticle}.
      * {@code target} must exist in the address book.
-     * The article identity of {@code editedArticle} must not be the same as another existing article in the address book.
+     * The article identity of {@code editedArticle} must not be the same as another existing article in the address
+     * book.
      */
     void updateArticle(Article target, Article editedArticle);
 

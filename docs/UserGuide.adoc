@@ -124,6 +124,7 @@ Format: `resolve INDEX`
 Lists all the commands that you have entered in reverse chronological order. +
 Format: `history`
 
+// tag::undoredo[]
 ===  Undoing previous command: `undo`
 Restores the app to the state before the previous undoable command was executed. +
 Format: `undo`
@@ -131,6 +132,7 @@ Format: `undo`
 ===  Redoing previous command: `redo`
 Reverses the undo command. +
 Format: `redo`
+// end::undoredo[]
 
 === Clearing all entries: `clear`
 Clears all article entries. +

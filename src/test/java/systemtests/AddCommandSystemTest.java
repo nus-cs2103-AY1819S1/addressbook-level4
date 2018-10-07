@@ -38,9 +38,9 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.article.Address;
+import seedu.address.model.article.Article;
 import seedu.address.model.article.Email;
 import seedu.address.model.article.Name;
-import seedu.address.model.article.Article;
 import seedu.address.model.article.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.ArticleBuilder;
@@ -105,7 +105,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         showArticlesWithName(KEYWORD_MATCHING_MEIER);
         assertCommandSuccess(IDA);
 
-        /* ------------------------ Perform add operation while a article card is selected --------------------------- */
+        /* ------------------------ Perform add operation while a article card is selected -------------------------- */
 
         /* Case: selects first card in the article list, add a article -> added, card selection remains unchanged */
         selectArticle(Index.fromOneBased(1));

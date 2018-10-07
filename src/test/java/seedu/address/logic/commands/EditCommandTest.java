@@ -11,9 +11,9 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showArticleAtIndex;
+import static seedu.address.testutil.TypicalArticles.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ARTICLE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ARTICLE;
-import static seedu.address.testutil.TypicalArticles.getTypicalAddressBook;
 
 import org.junit.Test;
 
@@ -26,8 +26,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.article.Article;
-import seedu.address.testutil.EditArticleDescriptorBuilder;
 import seedu.address.testutil.ArticleBuilder;
+import seedu.address.testutil.EditArticleDescriptorBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.

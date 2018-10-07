@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showArticleAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ARTICLE;
 import static seedu.address.testutil.TypicalArticles.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ARTICLE;
 
 import org.junit.Before;
 import org.junit.Test;

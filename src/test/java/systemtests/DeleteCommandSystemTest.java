@@ -4,11 +4,11 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ARTICLE_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_ARTICLE_SUCCESS;
+import static seedu.address.testutil.TestUtil.getArticle;
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TestUtil.getArticle;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ARTICLE;
 import static seedu.address.testutil.TypicalArticles.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ARTICLE;
 
 import org.junit.Test;
 
@@ -31,7 +31,9 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: delete the first article in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
-        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_ARTICLE.getOneBased() + "       ";
+        String command = "     " + DeleteCommand.COMMAND_WORD
+                + "      " + INDEX_FIRST_ARTICLE.getOneBased()
+                + "       ";
         Article deletedArticle = removeArticle(expectedModel, INDEX_FIRST_ARTICLE);
         String expectedResultMessage = String.format(MESSAGE_DELETE_ARTICLE_SUCCESS, deletedArticle);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
@@ -72,7 +74,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_ARTICLE_DISPLAYED_INDEX);
 
-        /* --------------------- Performing delete operation while a article card is selected ------------------------ */
+        /* --------------------- Performing delete operation while a article card is selected ----------------------- */
 
         /* Case: delete the selected article -> article list panel selects the article before the deleted article */
         showAllArticles();
