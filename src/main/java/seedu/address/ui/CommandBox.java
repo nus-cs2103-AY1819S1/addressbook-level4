@@ -29,8 +29,9 @@ public class CommandBox extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private final Logic logic;
     private final List<String> commands = new ArrayList<>(Arrays.asList(
-            "add", "clear", "delete", "edit", "exit", "find", "help", "history",
-            "list", "redo", "register-patient", "register-doctor", "select", "undo"));
+            "add", "clear", "delete", "delete-patient", "delete-doctor", "edit", "exit", 
+            "find", "help", "history", "list", "redo", "register-patient", "register-doctor", 
+            "select", "undo"));
     private ListElementPointer historySnapshot;
 
     @FXML
