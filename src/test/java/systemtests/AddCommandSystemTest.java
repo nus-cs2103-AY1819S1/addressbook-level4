@@ -179,13 +179,13 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Executes the {@code AddCommand} that adds {@code toAdd} to the model and asserts that the,<br>
+     * Executes the {@code AddCommand} that adds {@code toAdd} to the recipeModel and asserts that the,<br>
      * 1. Command box displays an empty string.<br>
      * 2. Command box has the default style class.<br>
      * 3. Result display box displays the success message of executing {@code AddCommand} with the details of
      * {@code toAdd}.<br>
      * 4. {@code Storage} and {@code RecipeListPanel} equal to the corresponding components in
-     * the current model added with {@code toAdd}.<br>
+     * the current recipeModel added with {@code toAdd}.<br>
      * 5. Browser url and selected card remain unchanged.<br>
      * 6. Status bar's sync status changes.<br>
      * Verifications 1, 3 and 4 are performed by

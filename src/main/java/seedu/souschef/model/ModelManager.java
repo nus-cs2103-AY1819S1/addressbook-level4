@@ -14,7 +14,7 @@ import seedu.souschef.commons.core.LogsCenter;
 import seedu.souschef.commons.events.model.AppContentChangedEvent;
 
 /**
- * Represents one domain of the in-memory model of the application content data.
+ * Represents one domain of the in-memory recipeModel of the application content data.
  */
 public class ModelManager<T extends UniqueType> extends ComponentManager implements Model<T> {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -62,7 +62,7 @@ public class ModelManager<T extends UniqueType> extends ComponentManager impleme
         return versionedAppContent;
     }
 
-    /** Raises an event to indicate the model has changed */
+    /** Raises an event to indicate the recipeModel has changed */
     private void indicateAppContentChanged() {
         raise(new AppContentChangedEvent(versionedAppContent));
     }

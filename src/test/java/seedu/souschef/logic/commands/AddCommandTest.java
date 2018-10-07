@@ -17,10 +17,10 @@
 //import javafx.collections.ObservableList;
 //import seedu.souschef.logic.CommandHistory;
 //import seedu.souschef.logic.commands.exceptions.CommandException;
-//import seedu.souschef.model.AppContent;
-//import seedu.souschef.model.Model;
-//import seedu.souschef.model.ReadOnlyAppContent;
-//import seedu.souschef.model.recipe.Recipe;
+//import seedu.souschef.recipeModel.AppContent;
+//import seedu.souschef.recipeModel.Model;
+//import seedu.souschef.recipeModel.ReadOnlyAppContent;
+//import seedu.souschef.recipeModel.recipe.Recipe;
 //import seedu.souschef.testutil.RecipeBuilder;
 //
 //public class AddCommandTest {
@@ -86,7 +86,7 @@
 //    }
 //
 //    /**
-//     * A default model stub that have all of the methods failing.
+//     * A default recipeModel stub that have all of the methods failing.
 //     */
 //    private class ModelStub implements Model {
 //        @Override

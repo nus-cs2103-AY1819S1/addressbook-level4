@@ -97,7 +97,7 @@ public class CommandTestUtil {
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
             String expectedMessage) {
-        // we are unable to defensively copy the model for comparison later, so we can
+        // we are unable to defensively copy the recipeModel for comparison later, so we can
         // only do so by copying its components.
         AppContent expectedAddressBook = new AppContent(actualModel.getAppContent());
         List<Recipe> expectedFilteredList = new ArrayList<>(actualModel.getFilteredList());
@@ -116,8 +116,8 @@ public class CommandTestUtil {
     }
 
     /**
-     * Updates {@code model}'s filtered list to show only the recipe at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * Updates {@code recipeModel}'s filtered list to show only the recipe at the given {@code targetIndex} in the
+     * {@code recipeModel}'s address book.
      */
     public static void showPersonAtIndex(Model<Recipe> model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredList().size());
@@ -130,7 +130,7 @@ public class CommandTestUtil {
     }
 
     /**
-     * Deletes the first recipe in {@code model}'s filtered list from {@code model}'s address book.
+     * Deletes the first recipe in {@code recipeModel}'s filtered list from {@code recipeModel}'s address book.
      */
     public static void deleteFirstPerson(Model<Recipe> model) {
         Recipe firstRecipe = model.getFilteredList().get(0);

@@ -112,7 +112,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Removes the {@code Recipe} at the specified {@code index} in {@code model}'s address book.
+     * Removes the {@code Recipe} at the specified {@code index} in {@code recipeModel}'s address book.
      * @return the removed recipe
      */
     private Recipe removeRecipe(Model model, Index index) {

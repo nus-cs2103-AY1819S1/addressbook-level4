@@ -174,7 +174,7 @@ public abstract class AddressBookSystemTest {
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
      * {@code expectedResultMessage}, the storage contains the same recipe objects as {@code expectedModel}
-     * and the recipe list panel displays the recipes in the model correctly.
+     * and the recipe list panel displays the recipes in the recipeModel correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
             Model expectedModel) {
@@ -285,7 +285,7 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Returns a defensive copy of the current model.
+     * Returns a defensive copy of the current recipeModel.
      */
     protected Model<Recipe> getModel() {
         return testApp.getModel();

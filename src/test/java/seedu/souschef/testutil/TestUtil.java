@@ -33,21 +33,21 @@ public class TestUtil {
     }
 
     /**
-     * Returns the middle index of the recipe in the {@code model}'s recipe list.
+     * Returns the middle index of the recipe in the {@code recipeModel}'s recipe list.
      */
     public static Index getMidIndex(Model model) {
         return Index.fromOneBased(model.getFilteredList().size() / 2);
     }
 
     /**
-     * Returns the last index of the recipe in the {@code model}'s recipe list.
+     * Returns the last index of the recipe in the {@code recipeModel}'s recipe list.
      */
     public static Index getLastIndex(Model model) {
         return Index.fromOneBased(model.getFilteredList().size());
     }
 
     /**
-     * Returns the recipe in the {@code model}'s recipe list at {@code index}.
+     * Returns the recipe in the {@code recipeModel}'s recipe list at {@code index}.
      */
     public static Recipe getRecipe(Model<Recipe> model, Index index) {
         return model.getFilteredList().get(index.getZeroBased());

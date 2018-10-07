@@ -15,7 +15,7 @@ public class ModelHelper {
     private static final Predicate<Recipe> PREDICATE_MATCHING_NO_RECIPES = unused -> false;
 
     /**
-     * Updates {@code model}'s filtered list to display only {@code toDisplay}.
+     * Updates {@code recipeModel}'s filtered list to display only {@code toDisplay}.
      */
     public static void setFilteredList(Model model, List<Recipe> toDisplay) {
         Optional<Predicate<Recipe>> predicate =

@@ -22,7 +22,8 @@ import seedu.souschef.logic.Logic;
 import seedu.souschef.logic.LogicManager;
 import seedu.souschef.model.AppContent;
 import seedu.souschef.model.Model;
-import seedu.souschef.model.ModelManager;
+import seedu.souschef.model.ModelSet;
+import seedu.souschef.model.ModelSetCoordinator;
 import seedu.souschef.model.ReadOnlyAppContent;
 import seedu.souschef.model.UserPrefs;
 import seedu.souschef.model.recipe.Recipe;
@@ -48,7 +49,7 @@ public class MainApp extends Application {
     protected Ui ui;
     protected Logic logic;
     protected Storage storage;
-    protected Model model;
+    protected ModelSet modelSet;
     protected Config config;
     protected UserPrefs userPrefs;
 
@@ -68,9 +69,10 @@ public class MainApp extends Application {
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs);
+        modelSet = initModelManager(storage, userPrefs);
+        Model<Recipe> recipeModel = modelSet.getRecipeModel();
 
-        logic = new LogicManager(model);
+        logic = new LogicManager(recipeModel);
 
         ui = new UiManager(logic, config, userPrefs);
 
@@ -82,7 +84,7 @@ public class MainApp extends Application {
      * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
-    private Model initModelManager(Storage storage, UserPrefs userPrefs) {
+    private ModelSet initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<ReadOnlyAppContent> addressBookOptional;
         ReadOnlyAppContent initialData;
         try {
@@ -99,7 +101,7 @@ public class MainApp extends Application {
             initialData = new AppContent();
         }
 
-        return new ModelManager<Recipe>(initialData, userPrefs);
+        return new ModelSetCoordinator(initialData, userPrefs);
     }
 
     private void initLogging(Config config) {

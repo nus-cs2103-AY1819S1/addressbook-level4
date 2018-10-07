@@ -11,7 +11,7 @@ public interface Model<T extends UniqueType> {
     /** {@code Predicate} that always evaluate to true */
     Predicate<UniqueType> PREDICATE_SHOW_ALL = unused -> true;
 
-    /** Clears existing backing model and replaces with the provided new data. */
+    /** Clears existing backing recipeModel and replaces with the provided new data. */
     void resetData(ReadOnlyAppContent newData);
 
     /** Returns the AppContent */
@@ -52,22 +52,22 @@ public interface Model<T extends UniqueType> {
     void updateFilteredList(Predicate<? extends UniqueType> predicate);
 
     /**
-     * Returns true if the model has previous application content states to restore.
+     * Returns true if the recipeModel has previous application content states to restore.
      */
     boolean canUndoAppContent();
 
     /**
-     * Returns true if the model has undone application content states to restore.
+     * Returns true if the recipeModel has undone application content states to restore.
      */
     boolean canRedoAppContent();
 
     /**
-     * Restores the model's application content to its previous state.
+     * Restores the recipeModel's application content to its previous state.
      */
     void undoAppContent();
 
     /**
-     * Restores the model's application content to its previously undone state.
+     * Restores the recipeModel's application content to its previously undone state.
      */
     void redoAppContent();
 

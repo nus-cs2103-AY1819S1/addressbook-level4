@@ -40,7 +40,7 @@ public class XmlSerializableAddressBook {
     }
 
     /**
-     * Converts this addressbook into the model's {@code AppContent} object.
+     * Converts this addressbook into the recipeModel's {@code AppContent} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
      * {@code XmlAdaptedRecipe}.

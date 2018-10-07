@@ -157,7 +157,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
     /**
      * Executes {@code command} and verifies that the command box displays an empty string, the result display
      * box displays {@code Messages#MESSAGE_RECIPES_LISTED_OVERVIEW} with the number of people in the filtered list,
-     * and the model related components equal to {@code expectedModel}.
+     * and the recipeModel related components equal to {@code expectedModel}.
      * These verifications are done by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the status bar remains unchanged, and the command box has the default style class, and the
@@ -176,7 +176,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
 
     /**
      * Executes {@code command} and verifies that the command box displays {@code command}, the result display
-     * box displays {@code expectedResultMessage} and the model related components equal to the current model.
+     * box displays {@code expectedResultMessage} and the recipeModel related components equal to the current recipeModel.
      * These verifications are done by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the browser url, selected card and status bar remain unchanged, and the command box has the

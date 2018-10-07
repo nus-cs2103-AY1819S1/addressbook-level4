@@ -31,15 +31,15 @@ public class UndoCommandTest {
 
     @Test
     public void execute() {
-        // multiple undoable states in model
+        // multiple undoable states in recipeModel
         expectedModel.undoAppContent();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        // single undoable state in model
+        // single undoable state in recipeModel
         expectedModel.undoAppContent();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        // no undoable states in model
+        // no undoable states in recipeModel
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
     }
 }

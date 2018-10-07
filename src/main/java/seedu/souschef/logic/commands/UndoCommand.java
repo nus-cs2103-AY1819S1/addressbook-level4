@@ -8,7 +8,7 @@ import seedu.souschef.logic.commands.exceptions.CommandException;
 import seedu.souschef.model.Model;
 
 /**
- * Reverts the {@code model}'s address book to its previous state.
+ * Reverts the {@code recipeModel}'s address book to its previous state.
  */
 public class UndoCommand extends Command {
 
