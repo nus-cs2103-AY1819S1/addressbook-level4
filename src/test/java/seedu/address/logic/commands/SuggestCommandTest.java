@@ -35,10 +35,10 @@ public class SuggestCommandTest {
         assertSuggestCommandSuccessBehavior("e", "edit", "exit");
         assertSuggestCommandSuccessBehavior("f", "find");
         assertSuggestCommandSuccessBehavior("h", "help", "history");
-        assertSuggestCommandSuccessBehavior("l", "list");
         assertSuggestCommandSuccessBehavior("r", "redo");
         assertSuggestCommandSuccessBehavior("s", "select");
         assertSuggestCommandSuccessBehavior("u", "undo");
+        assertSuggestCommandSuccessBehavior("v", "viewAll");
 
         assertSuggestCommandSuccessBehavior("a j\\km bu/ni i?@w 359h", "add");
     }
