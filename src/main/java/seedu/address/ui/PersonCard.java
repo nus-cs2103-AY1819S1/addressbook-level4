@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.Map;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -13,6 +14,9 @@ import seedu.address.model.person.Person;
 public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
+
+    private static final Map<String, String> COLORS = Map.of("Doctor", "178c05",
+            "Patient", "bb3e3b");
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -47,7 +51,14 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
-        person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        person.getTags().forEach(tag -> {
+            String tagName = tag.tagName;
+            tags.getChildren().add(new Label(tagName));
+            if (COLORS.containsKey(tagName)) {
+                tags.getChildren().get(tags.getChildren().size() - 1).setStyle("-fx-background-color: #"
+                        + COLORS.get(tagName));
+            }
+        });
     }
 
     @Override
