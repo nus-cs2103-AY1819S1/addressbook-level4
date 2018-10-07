@@ -78,14 +78,14 @@ public class BrowserPanelTest extends GuiUnitTest {
 
         assertTrue(browserPanelHandle.getBackingListOfPrescriptions()
                                      .equals(ALICE.getPrescriptionList()
-                                                  .getViewOfPrescriptionList()));
+                                                  .getObservableCopyOfPrescriptionList()));
     }
 
     @Test
     public void addmeds_displayUpdates() {
         ObservableList<Prescription> toCompareWith = FXCollections.observableArrayList();
         toCompareWith.addAll(ALICE.getPrescriptionList()
-                                  .getViewOfPrescriptionList());
+                                  .getObservableCopyOfPrescriptionList());
         toCompareWith.add(prescription);
 
         ALICE.getPrescriptionList()

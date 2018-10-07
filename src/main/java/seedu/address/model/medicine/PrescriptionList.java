@@ -96,8 +96,16 @@ public class PrescriptionList {
         return medicineList.stream();
     }
 
-    /** Helper method to return a view of the medication list. */
-    public ObservableList<Prescription> getViewOfPrescriptionList() {
-        return FXCollections.observableArrayList(medicineList);
+    /**
+     * Helper method to return a copy of the medication list.
+     *
+     * This is a sort of compromise due to the requirements of JavaFX's TableView class,
+     * which requires the backing list to be modifiable to allow sorting by column.
+     * However, we don't want to allow a UI component to have modify-access to an internal of
+     * the PrescriptionList class.
+     * Hence, we provide an observable copy of the internal list.
+     */
+    public ObservableList<Prescription> getObservableCopyOfPrescriptionList() {
+        return FXCollections.observableArrayList(new ArrayList<>(medicineList));
     }
 }

@@ -96,8 +96,8 @@ public class BrowserPanel extends UiPart<Region> {
         }
 
         // The AddressBook works by re-creating the Person object from scratch, hence
-        // our current pointer is outdated, so we have to find our new Person object and update our table to point
-        // to his medication list.
+        // our current pointer is outdated, and we have to find our new Person object and update our table to point
+        // to a view of his medication list.
         currentSelection = persons.filtered(person -> currentSelection.isSamePerson(person)).get(0);
         resetTableView(currentSelection);
     }
@@ -109,7 +109,7 @@ public class BrowserPanel extends UiPart<Region> {
 
     /** Resets the table view given a {@code PrescriptionList}. */
     public void resetTable(PrescriptionList prescriptionList) {
-        ObservableList<Prescription> pxs = prescriptionList.getViewOfPrescriptionList();
+        ObservableList<Prescription> pxs = prescriptionList.getObservableCopyOfPrescriptionList();
         prescriptionTableView.setItems(pxs);
 
         drugNameCol.setCellValueFactory(
