@@ -1,8 +1,8 @@
-package seedu.address.commons.util;
+package seedu.jxmusic.commons.util;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.jxmusic.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Arrays;
 import java.util.Collection;

@@ -1,12 +1,12 @@
-package seedu.address.storage;
+package seedu.jxmusic.storage;
 
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
 
 import javax.xml.bind.JAXBException;
 
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.util.XmlUtil;
+import seedu.jxmusic.commons.exceptions.DataConversionException;
+import seedu.jxmusic.commons.util.XmlUtil;
 
 /**
  * Stores addressbook data in an XML file
@@ -25,7 +25,7 @@ public class XmlFileStorage {
     }
 
     /**
-     * Returns address book in the file or an empty address book
+     * Returns jxmusic book in the file or an empty jxmusic book
      */
     public static XmlSerializableAddressBook loadDataFromSaveFile(Path file) throws DataConversionException,
                                                                             FileNotFoundException {

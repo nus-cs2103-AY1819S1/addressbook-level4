@@ -1,11 +1,11 @@
-package seedu.address.storage;
+package seedu.jxmusic.storage;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.model.Library;
-import seedu.address.model.Track;
+import seedu.jxmusic.model.Library;
+import seedu.jxmusic.model.Track;
 
 /**
  * Scan through the library directory to get all the MP3 files.

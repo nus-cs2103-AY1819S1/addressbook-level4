@@ -1,4 +1,4 @@
-package seedu.address.commons.events;
+package seedu.jxmusic.commons.events;
 
 /**
  * The base class for all event classes.

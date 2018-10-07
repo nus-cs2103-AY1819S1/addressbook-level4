@@ -1,13 +1,13 @@
-package seedu.address.ui;
+package seedu.jxmusic.ui;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.testutil.EventsUtil.postNow;
+import static seedu.jxmusic.testutil.EventsUtil.postNow;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import guitests.guihandles.ResultDisplayHandle;
-import seedu.address.commons.events.ui.NewResultAvailableEvent;
+import seedu.jxmusic.commons.events.ui.NewResultAvailableEvent;
 
 public class ResultDisplayTest extends GuiUnitTest {
 

@@ -1,17 +1,17 @@
-package seedu.address.logic.commands;
+package seedu.jxmusic.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalPlaylists.getTypicalAddressBook;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.jxmusic.testutil.TypicalPlaylists.getTypicalAddressBook;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
+import seedu.jxmusic.logic.CommandHistory;
+import seedu.jxmusic.model.Model;
+import seedu.jxmusic.model.ModelManager;
+import seedu.jxmusic.model.UserPrefs;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.

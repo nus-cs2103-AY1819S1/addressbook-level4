@@ -1,12 +1,12 @@
-package seedu.address.logic.commands;
+package seedu.jxmusic.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.jxmusic.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -14,18 +14,18 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.CollectionUtil;
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.Name;
-import seedu.address.model.playlist.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.jxmusic.commons.core.Messages;
+import seedu.jxmusic.commons.core.index.Index;
+import seedu.jxmusic.commons.util.CollectionUtil;
+import seedu.jxmusic.logic.CommandHistory;
+import seedu.jxmusic.logic.commands.exceptions.CommandException;
+import seedu.jxmusic.model.Model;
+import seedu.jxmusic.model.Name;
+import seedu.jxmusic.model.playlist.Phone;
+import seedu.jxmusic.model.tag.Tag;
 
 /**
- * Edits the details of an existing playlist in the address book.
+ * Edits the details of an existing playlist in the jxmusic book.
  */
 public class EditCommand extends Command {
 
@@ -46,7 +46,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This playlist already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This playlist already exists in the jxmusic book.";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;

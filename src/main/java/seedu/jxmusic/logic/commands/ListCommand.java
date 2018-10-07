@@ -1,13 +1,13 @@
-package seedu.address.logic.commands;
+package seedu.jxmusic.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.jxmusic.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
+import seedu.jxmusic.logic.CommandHistory;
+import seedu.jxmusic.model.Model;
 
 /**
- * Lists all persons in the address book to the user.
+ * Lists all persons in the jxmusic book to the user.
  */
 public class ListCommand extends Command {
 

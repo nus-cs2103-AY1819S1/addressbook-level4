@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.jxmusic.ui;
 
 import java.util.logging.Logger;
 
@@ -10,8 +10,8 @@ import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.NewResultAvailableEvent;
+import seedu.jxmusic.commons.core.LogsCenter;
+import seedu.jxmusic.commons.events.ui.NewResultAvailableEvent;
 
 /**
  * A ui for the status bar that is displayed at the header of the application.

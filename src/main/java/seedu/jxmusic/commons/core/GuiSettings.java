@@ -1,4 +1,4 @@
-package seedu.address.commons.core;
+package seedu.jxmusic.commons.core;
 
 import java.awt.Point;
 import java.io.Serializable;

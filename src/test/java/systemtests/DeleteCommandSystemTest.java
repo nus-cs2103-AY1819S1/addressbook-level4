@@ -1,23 +1,23 @@
 package systemtests;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
-import static seedu.address.testutil.TestUtil.getLastIndex;
-import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TestUtil.getPerson;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalPlaylists.KEYWORD_MATCHING_SONG;
+import static seedu.jxmusic.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.jxmusic.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.jxmusic.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
+import static seedu.jxmusic.testutil.TestUtil.getLastIndex;
+import static seedu.jxmusic.testutil.TestUtil.getMidIndex;
+import static seedu.jxmusic.testutil.TestUtil.getPerson;
+import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.jxmusic.testutil.TypicalPlaylists.KEYWORD_MATCHING_SONG;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
+import seedu.jxmusic.commons.core.Messages;
+import seedu.jxmusic.commons.core.index.Index;
+import seedu.jxmusic.logic.commands.DeleteCommand;
+import seedu.jxmusic.logic.commands.RedoCommand;
+import seedu.jxmusic.logic.commands.UndoCommand;
+import seedu.jxmusic.model.Model;
 
 public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
@@ -57,13 +57,13 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
-        /* Case: filtered playlist list, delete index within bounds of address book and playlist list -> deleted */
+        /* Case: filtered playlist list, delete index within bounds of jxmusic book and playlist list -> deleted */
         showPersonsWithName(KEYWORD_MATCHING_SONG);
         Index index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
         assertCommandSuccess(index);
 
-        /* Case: filtered playlist list, delete index within bounds of address book but out of bounds of playlist list
+        /* Case: filtered playlist list, delete index within bounds of jxmusic book but out of bounds of playlist list
          * -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_SONG);
@@ -111,7 +111,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Removes the {@code Person} at the specified {@code index} in {@code model}'s address book.
+     * Removes the {@code Person} at the specified {@code index} in {@code model}'s jxmusic book.
      * @return the removed playlist
      */
     private Person removePerson(Model model, Index index) {

@@ -1,4 +1,4 @@
-package seedu.address.logic.parser;
+package seedu.jxmusic.logic.parser;
 
 /**
  * Contains Command Line Interface (CLI) syntax definitions common to multiple commands

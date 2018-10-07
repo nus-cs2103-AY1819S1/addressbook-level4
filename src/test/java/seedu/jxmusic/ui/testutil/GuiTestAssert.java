@@ -1,4 +1,4 @@
-package seedu.address.ui.testutil;
+package seedu.jxmusic.ui.testutil;
 
 import static org.junit.Assert.assertEquals;
 

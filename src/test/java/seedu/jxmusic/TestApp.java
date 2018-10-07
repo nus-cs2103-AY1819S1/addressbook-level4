@@ -1,4 +1,4 @@
-package seedu.address;
+package seedu.jxmusic;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -6,19 +6,19 @@ import java.util.function.Supplier;
 
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import seedu.address.commons.core.Config;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.util.FileUtil;
-import seedu.address.commons.util.XmlUtil;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyLibrary;
-import seedu.address.model.UserPrefs;
-import seedu.address.storage.UserPrefsStorage;
-import seedu.address.storage.XmlSerializableAddressBook;
-import seedu.address.testutil.TestUtil;
+import seedu.jxmusic.commons.core.Config;
+import seedu.jxmusic.commons.core.GuiSettings;
+import seedu.jxmusic.commons.exceptions.DataConversionException;
+import seedu.jxmusic.commons.util.FileUtil;
+import seedu.jxmusic.commons.util.XmlUtil;
+import seedu.jxmusic.model.AddressBook;
+import seedu.jxmusic.model.Model;
+import seedu.jxmusic.model.ModelManager;
+import seedu.jxmusic.model.ReadOnlyLibrary;
+import seedu.jxmusic.model.UserPrefs;
+import seedu.jxmusic.storage.UserPrefsStorage;
+import seedu.jxmusic.storage.XmlSerializableAddressBook;
+import seedu.jxmusic.testutil.TestUtil;
 import systemtests.ModelHelper;
 
 /**
@@ -69,7 +69,7 @@ public class TestApp extends MainApp {
     }
 
     /**
-     * Returns a defensive copy of the address book data stored inside the storage file.
+     * Returns a defensive copy of the jxmusic book data stored inside the storage file.
      */
     public AddressBook readStorageAddressBook() {
         try {

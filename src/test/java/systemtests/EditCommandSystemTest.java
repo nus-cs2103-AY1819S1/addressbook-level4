@@ -3,46 +3,46 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_ANIME;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_METAL;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TRACK_DESC_ALIEZ;
-import static seedu.address.logic.commands.CommandTestUtil.TRACK_DESC_EXISTENCE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_METAL;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TRACK_ALIEZ;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPlaylists.AMY;
-import static seedu.address.testutil.TypicalPlaylists.BOB;
-import static seedu.address.testutil.TypicalPlaylists.KEYWORD_MATCHING_SONG;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.NAME_DESC_ANIME;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.NAME_DESC_METAL;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.TRACK_DESC_ALIEZ;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.TRACK_DESC_EXISTENCE;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_NAME_METAL;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_ALIEZ;
+import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.jxmusic.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.jxmusic.testutil.TypicalPlaylists.AMY;
+import static seedu.jxmusic.testutil.TypicalPlaylists.BOB;
+import static seedu.jxmusic.testutil.TypicalPlaylists.KEYWORD_MATCHING_SONG;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.Name;
-import seedu.address.model.tag.Tag;
-import seedu.address.testutil.PlaylistBuilder;
-import seedu.address.testutil.PersonUtil;
+import seedu.jxmusic.commons.core.Messages;
+import seedu.jxmusic.commons.core.index.Index;
+import seedu.jxmusic.logic.commands.EditCommand;
+import seedu.jxmusic.logic.commands.RedoCommand;
+import seedu.jxmusic.logic.commands.UndoCommand;
+import seedu.jxmusic.model.Model;
+import seedu.jxmusic.model.Name;
+import seedu.jxmusic.model.tag.Tag;
+import seedu.jxmusic.testutil.PlaylistBuilder;
+import seedu.jxmusic.testutil.PersonUtil;
 
 public class EditCommandSystemTest extends AddressBookSystemTest {
 
@@ -105,7 +105,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
-        /* Case: filtered playlist list, edit index within bounds of address book and playlist list -> edited */
+        /* Case: filtered playlist list, edit index within bounds of jxmusic book and playlist list -> edited */
         showPersonsWithName(KEYWORD_MATCHING_SONG);
         index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
@@ -114,7 +114,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         editedPerson = new PlaylistBuilder(personToEdit).withName(VALID_NAME_METAL).build();
         assertCommandSuccess(command, index, editedPerson);
 
-        /* Case: filtered playlist list, edit index within bounds of address book but out of bounds of playlist list
+        /* Case: filtered playlist list, edit index within bounds of jxmusic book but out of bounds of playlist list
          * -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_SONG);
@@ -171,7 +171,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_EMAIL_DESC,
                 Email.MESSAGE_EMAIL_CONSTRAINTS);
 
-        /* Case: invalid address -> rejected */
+        /* Case: invalid jxmusic -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_ADDRESS_DESC,
                 Address.MESSAGE_ADDRESS_CONSTRAINTS);
 
@@ -193,7 +193,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 + ADDRESS_DESC_BOB + TRACK_DESC_EXISTENCE;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 
-        /* Case: edit a playlist with new values same as another playlist's values but with different address -> rejected */
+        /* Case: edit a playlist with new values same as another playlist's values but with different jxmusic -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_AMY + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);

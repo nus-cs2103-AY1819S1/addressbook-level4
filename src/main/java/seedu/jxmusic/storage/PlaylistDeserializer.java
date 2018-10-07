@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.jxmusic.storage;
 
 import java.lang.reflect.Type;
 
@@ -9,8 +9,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
-import seedu.address.model.Playlist1;
-import seedu.address.model.Track;
+import seedu.jxmusic.model.Playlist1;
+import seedu.jxmusic.model.Track;
 
 /**
  * Deserializer for the playlist

@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.jxmusic.ui;
 
 import java.util.logging.Logger;
 
@@ -9,14 +9,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import seedu.address.MainApp;
-import seedu.address.commons.core.ComponentManager;
-import seedu.address.commons.core.Config;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.storage.DataSavingExceptionEvent;
-import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.Logic;
-import seedu.address.model.UserPrefs;
+import seedu.jxmusic.MainApp;
+import seedu.jxmusic.commons.core.ComponentManager;
+import seedu.jxmusic.commons.core.Config;
+import seedu.jxmusic.commons.core.LogsCenter;
+import seedu.jxmusic.commons.events.storage.DataSavingExceptionEvent;
+import seedu.jxmusic.commons.util.StringUtil;
+import seedu.jxmusic.logic.Logic;
+import seedu.jxmusic.model.UserPrefs;
 
 /**
  * The manager of the UI component.

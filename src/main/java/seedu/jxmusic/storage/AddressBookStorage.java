@@ -1,14 +1,14 @@
-package seedu.address.storage;
+package seedu.jxmusic.storage;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyLibrary;
+import seedu.jxmusic.commons.exceptions.DataConversionException;
+import seedu.jxmusic.model.ReadOnlyLibrary;
 
 /**
- * Represents a storage for {@link seedu.address.model.AddressBook}.
+ * Represents a storage for {@link seedu.jxmusic.model.AddressBook}.
  */
 public interface AddressBookStorage {
 

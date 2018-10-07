@@ -1,4 +1,4 @@
-package seedu.address.player;
+package seedu.jxmusic.player;
 
 /**
  * The actual implemented player to be used by Logic component

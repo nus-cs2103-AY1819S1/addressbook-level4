@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.jxmusic.ui;
 
 import java.util.Optional;
 
@@ -8,8 +8,8 @@ import org.junit.Rule;
 import guitests.GuiRobot;
 import guitests.guihandles.exceptions.NodeNotFoundException;
 import javafx.scene.Node;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.ui.testutil.UiPartRule;
+import seedu.jxmusic.commons.core.EventsCenter;
+import seedu.jxmusic.ui.testutil.UiPartRule;
 
 /**
  * A GUI unit test class for AddressBook.

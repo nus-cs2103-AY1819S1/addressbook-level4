@@ -1,10 +1,10 @@
-package seedu.address.logic.parser;
+package seedu.jxmusic.logic.parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.jxmusic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.jxmusic.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,24 +14,24 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.SelectCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.NameContainsKeywordsPredicate;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.PlaylistBuilder;
-import seedu.address.testutil.PersonUtil;
+import seedu.jxmusic.logic.commands.AddCommand;
+import seedu.jxmusic.logic.commands.ClearCommand;
+import seedu.jxmusic.logic.commands.DeleteCommand;
+import seedu.jxmusic.logic.commands.EditCommand;
+import seedu.jxmusic.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.jxmusic.logic.commands.ExitCommand;
+import seedu.jxmusic.logic.commands.FindCommand;
+import seedu.jxmusic.logic.commands.HelpCommand;
+import seedu.jxmusic.logic.commands.HistoryCommand;
+import seedu.jxmusic.logic.commands.ListCommand;
+import seedu.jxmusic.logic.commands.RedoCommand;
+import seedu.jxmusic.logic.commands.SelectCommand;
+import seedu.jxmusic.logic.commands.UndoCommand;
+import seedu.jxmusic.logic.parser.exceptions.ParseException;
+import seedu.jxmusic.model.NameContainsKeywordsPredicate;
+import seedu.jxmusic.testutil.EditPersonDescriptorBuilder;
+import seedu.jxmusic.testutil.PlaylistBuilder;
+import seedu.jxmusic.testutil.PersonUtil;
 
 public class AddressBookParserTest {
     @Rule

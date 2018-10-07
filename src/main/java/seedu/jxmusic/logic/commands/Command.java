@@ -1,8 +1,8 @@
-package seedu.address.logic.commands;
+package seedu.jxmusic.logic.commands;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
+import seedu.jxmusic.logic.CommandHistory;
+import seedu.jxmusic.logic.commands.exceptions.CommandException;
+import seedu.jxmusic.model.Model;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.

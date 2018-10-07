@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.jxmusic.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 

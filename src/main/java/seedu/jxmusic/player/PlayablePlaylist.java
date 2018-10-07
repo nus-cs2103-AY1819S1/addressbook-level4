@@ -1,4 +1,4 @@
-package seedu.address.player;
+package seedu.jxmusic.player;
 
 import java.util.Arrays;
 import java.util.List;

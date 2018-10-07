@@ -1,9 +1,9 @@
-package seedu.address.storage;
+package seedu.jxmusic.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalPlaylists.getTypicalAddressBook;
+import static seedu.jxmusic.testutil.TypicalPlaylists.getTypicalAddressBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -14,12 +14,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.commons.events.model.LibraryChangedEvent;
-import seedu.address.commons.events.storage.DataSavingExceptionEvent;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyLibrary;
-import seedu.address.model.UserPrefs;
-import seedu.address.ui.testutil.EventsCollectorRule;
+import seedu.jxmusic.commons.events.model.LibraryChangedEvent;
+import seedu.jxmusic.commons.events.storage.DataSavingExceptionEvent;
+import seedu.jxmusic.model.AddressBook;
+import seedu.jxmusic.model.ReadOnlyLibrary;
+import seedu.jxmusic.model.UserPrefs;
+import seedu.jxmusic.ui.testutil.EventsCollectorRule;
 
 public class StorageManagerTest {
 

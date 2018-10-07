@@ -1,9 +1,9 @@
-package seedu.address.model;
+package seedu.jxmusic.model;
 
 import javafx.collections.ObservableList;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of an jxmusic book
  */
 public interface ReadOnlyLibrary {
 

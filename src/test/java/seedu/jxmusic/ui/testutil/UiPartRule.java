@@ -1,4 +1,4 @@
-package seedu.address.ui.testutil;
+package seedu.jxmusic.ui.testutil;
 
 import java.util.concurrent.TimeoutException;
 
@@ -6,7 +6,7 @@ import org.testfx.api.FxToolkit;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import seedu.address.ui.UiPart;
+import seedu.jxmusic.ui.UiPart;
 
 /**
  * Provides an isolated stage to test an individual {@code UiPart}.

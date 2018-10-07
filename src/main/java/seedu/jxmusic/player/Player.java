@@ -1,4 +1,4 @@
-package seedu.address.player;
+package seedu.jxmusic.player;
 
 /**
  * The API of the Player component.

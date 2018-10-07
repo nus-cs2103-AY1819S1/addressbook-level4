@@ -1,11 +1,11 @@
-package seedu.address.logic.commands;
+package seedu.jxmusic.logic.commands;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
-import seedu.address.player.JxMusicPlayer;
+import seedu.jxmusic.logic.CommandHistory;
+import seedu.jxmusic.model.Model;
+import seedu.jxmusic.player.JxMusicPlayer;
 
 /**
- * Lists all persons in the address book to the user.
+ * Lists all persons in the jxmusic book to the user.
  */
 public class StopCommand extends Command {
 

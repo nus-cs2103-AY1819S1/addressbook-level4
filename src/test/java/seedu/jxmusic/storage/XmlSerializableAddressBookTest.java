@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.jxmusic.storage;
 
 import static org.junit.Assert.assertEquals;
 
@@ -9,10 +9,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.util.XmlUtil;
-import seedu.address.model.AddressBook;
-import seedu.address.testutil.TypicalPlaylists;
+import seedu.jxmusic.commons.exceptions.IllegalValueException;
+import seedu.jxmusic.commons.util.XmlUtil;
+import seedu.jxmusic.model.AddressBook;
+import seedu.jxmusic.testutil.TypicalPlaylists;
 
 public class XmlSerializableAddressBookTest {
 

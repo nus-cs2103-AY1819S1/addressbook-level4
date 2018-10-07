@@ -1,7 +1,7 @@
-package seedu.address.model;
+package seedu.jxmusic.model;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.jxmusic.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -9,9 +9,9 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import seedu.address.commons.core.ComponentManager;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.LibraryChangedEvent;
+import seedu.jxmusic.commons.core.ComponentManager;
+import seedu.jxmusic.commons.core.LogsCenter;
+import seedu.jxmusic.commons.events.model.LibraryChangedEvent;
 
 /**
  * Represents the in-memory model of the library data.

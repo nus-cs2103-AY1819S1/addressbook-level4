@@ -1,14 +1,14 @@
-package seedu.address.logic.commands;
+package seedu.jxmusic.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PLAYLISTS;
+import static seedu.jxmusic.model.Model.PREDICATE_SHOW_ALL_PLAYLISTS;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
+import seedu.jxmusic.logic.CommandHistory;
+import seedu.jxmusic.logic.commands.exceptions.CommandException;
+import seedu.jxmusic.model.Model;
 
 /**
- * Reverts the {@code model}'s address book to its previous state.
+ * Reverts the {@code model}'s jxmusic book to its previous state.
  */
 public class UndoCommand extends Command {
 

@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.jxmusic.ui;
 
 import static org.junit.Assert.assertEquals;
 
@@ -9,11 +9,11 @@ import org.junit.Test;
 
 import guitests.guihandles.CommandBoxHandle;
 import javafx.scene.input.KeyCode;
-import seedu.address.logic.Logic;
-import seedu.address.logic.LogicManager;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
+import seedu.jxmusic.logic.Logic;
+import seedu.jxmusic.logic.LogicManager;
+import seedu.jxmusic.logic.commands.ListCommand;
+import seedu.jxmusic.model.Model;
+import seedu.jxmusic.model.ModelManager;
 
 public class CommandBoxTest extends GuiUnitTest {
 

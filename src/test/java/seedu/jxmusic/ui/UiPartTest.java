@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.jxmusic.ui;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -11,8 +11,8 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import javafx.fxml.FXML;
-import seedu.address.MainApp;
-import seedu.address.testutil.Assert;
+import seedu.jxmusic.MainApp;
+import seedu.jxmusic.testutil.Assert;
 
 public class UiPartTest {
 

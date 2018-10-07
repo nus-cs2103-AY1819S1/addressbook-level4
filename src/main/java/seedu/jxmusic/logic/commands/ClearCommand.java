@@ -1,13 +1,13 @@
-package seedu.address.logic.commands;
+package seedu.jxmusic.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
+import seedu.jxmusic.logic.CommandHistory;
+import seedu.jxmusic.model.AddressBook;
+import seedu.jxmusic.model.Model;
 
 /**
- * Clears the address book.
+ * Clears the jxmusic book.
  */
 public class ClearCommand extends Command {
 

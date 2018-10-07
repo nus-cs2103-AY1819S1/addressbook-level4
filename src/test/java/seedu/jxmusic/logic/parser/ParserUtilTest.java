@@ -1,10 +1,10 @@
-package seedu.address.logic.parser;
+package seedu.jxmusic.logic.parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.jxmusic.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -15,10 +15,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Name;
-import seedu.address.model.tag.Tag;
-import seedu.address.testutil.Assert;
+import seedu.jxmusic.logic.parser.exceptions.ParseException;
+import seedu.jxmusic.model.Name;
+import seedu.jxmusic.model.tag.Tag;
+import seedu.jxmusic.testutil.Assert;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";

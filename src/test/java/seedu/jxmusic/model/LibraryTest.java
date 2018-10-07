@@ -1,11 +1,11 @@
-package seedu.address.model;
+package seedu.jxmusic.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TRACK_ALIEZ;
-import static seedu.address.testutil.TypicalPlaylists.ANIME;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_ALIEZ;
+import static seedu.jxmusic.testutil.TypicalPlaylists.ANIME;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -18,8 +18,8 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.exceptions.DuplicatePlaylistException;
-import seedu.address.testutil.PlaylistBuilder;
+import seedu.jxmusic.model.exceptions.DuplicatePlaylistException;
+import seedu.jxmusic.testutil.PlaylistBuilder;
 
 public class LibraryTest {
 

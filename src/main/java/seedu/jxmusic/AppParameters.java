@@ -1,4 +1,4 @@
-package seedu.address;
+package seedu.jxmusic;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -7,8 +7,8 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.util.FileUtil;
+import seedu.jxmusic.commons.core.LogsCenter;
+import seedu.jxmusic.commons.util.FileUtil;
 
 /**
  * Represents the parsed command-line parameters given to the application.

@@ -1,15 +1,15 @@
-package seedu.address.model;
+package seedu.jxmusic.model;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.jxmusic.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.exceptions.DuplicatePlaylistException;
-import seedu.address.model.exceptions.PlaylistNotFoundException;
+import seedu.jxmusic.model.exceptions.DuplicatePlaylistException;
+import seedu.jxmusic.model.exceptions.PlaylistNotFoundException;
 
 /**
  * A list of playlists that enforces uniqueness between its elements and does not allow nulls.

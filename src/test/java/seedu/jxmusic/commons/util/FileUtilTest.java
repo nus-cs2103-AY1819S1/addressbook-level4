@@ -1,11 +1,11 @@
-package seedu.address.commons.util;
+package seedu.jxmusic.commons.util;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import seedu.address.testutil.Assert;
+import seedu.jxmusic.testutil.Assert;
 
 public class FileUtilTest {
 

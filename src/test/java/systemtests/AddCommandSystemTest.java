@@ -1,47 +1,47 @@
 package systemtests;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_ANIME;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_METAL;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TRACK_DESC_ALIEZ;
-import static seedu.address.logic.commands.CommandTestUtil.TRACK_DESC_EXISTENCE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_METAL;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalPlaylists.ANIME;
-import static seedu.address.testutil.TypicalPlaylists.AMY;
-import static seedu.address.testutil.TypicalPlaylists.BOB;
-import static seedu.address.testutil.TypicalPlaylists.POP;
-import static seedu.address.testutil.TypicalPlaylists.HOON;
-import static seedu.address.testutil.TypicalPlaylists.IDA;
-import static seedu.address.testutil.TypicalPlaylists.KEYWORD_MATCHING_SONG;
+import static seedu.jxmusic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.NAME_DESC_ANIME;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.NAME_DESC_METAL;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.TRACK_DESC_ALIEZ;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.TRACK_DESC_EXISTENCE;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_NAME_METAL;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.jxmusic.testutil.TypicalPlaylists.ANIME;
+import static seedu.jxmusic.testutil.TypicalPlaylists.AMY;
+import static seedu.jxmusic.testutil.TypicalPlaylists.BOB;
+import static seedu.jxmusic.testutil.TypicalPlaylists.POP;
+import static seedu.jxmusic.testutil.TypicalPlaylists.HOON;
+import static seedu.jxmusic.testutil.TypicalPlaylists.IDA;
+import static seedu.jxmusic.testutil.TypicalPlaylists.KEYWORD_MATCHING_SONG;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.Name;
-import seedu.address.model.playlist.Person;
-import seedu.address.model.tag.Tag;
-import seedu.address.testutil.PlaylistBuilder;
-import seedu.address.testutil.PersonUtil;
+import seedu.jxmusic.commons.core.Messages;
+import seedu.jxmusic.commons.core.index.Index;
+import seedu.jxmusic.logic.commands.AddCommand;
+import seedu.jxmusic.logic.commands.RedoCommand;
+import seedu.jxmusic.logic.commands.UndoCommand;
+import seedu.jxmusic.model.Model;
+import seedu.jxmusic.model.Name;
+import seedu.jxmusic.model.playlist.Person;
+import seedu.jxmusic.model.tag.Tag;
+import seedu.jxmusic.testutil.PlaylistBuilder;
+import seedu.jxmusic.testutil.PersonUtil;
 
 public class AddCommandSystemTest extends AddressBookSystemTest {
 
@@ -51,7 +51,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add a playlist without tags to a non-empty address book, command with leading spaces and trailing spaces
+        /* Case: add a playlist without tags to a non-empty jxmusic book, command with leading spaces and trailing spaces
          * -> added
          */
         Person toAdd = AMY;
@@ -70,20 +70,20 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: add a playlist with all fields same as another playlist in the address book except name -> added */
+        /* Case: add a playlist with all fields same as another playlist in the jxmusic book except name -> added */
         toAdd = new PlaylistBuilder(AMY).withName(VALID_NAME_METAL).build();
         command = AddCommand.COMMAND_WORD + NAME_DESC_METAL + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
                 + TRACK_DESC_ALIEZ;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a playlist with all fields same as another playlist in the address book except phone and email
+        /* Case: add a playlist with all fields same as another playlist in the jxmusic book except phone and email
          * -> added
          */
         toAdd = new PlaylistBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add to empty address book -> added */
+        /* Case: add to empty jxmusic book -> added */
         deleteAllPersons();
         assertCommandSuccess(ANIME);
 
@@ -124,7 +124,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
-        /* Case: add a duplicate playlist except with different address -> rejected */
+        /* Case: add a duplicate playlist except with different jxmusic -> rejected */
         toAdd = new PlaylistBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
@@ -145,7 +145,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         command = AddCommand.COMMAND_WORD + NAME_DESC_ANIME + PHONE_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
-        /* Case: missing address -> rejected */
+        /* Case: missing jxmusic -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_ANIME + PHONE_DESC_AMY + EMAIL_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
@@ -165,7 +165,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         command = AddCommand.COMMAND_WORD + NAME_DESC_ANIME + PHONE_DESC_AMY + INVALID_EMAIL_DESC + ADDRESS_DESC_AMY;
         assertCommandFailure(command, Email.MESSAGE_EMAIL_CONSTRAINTS);
 
-        /* Case: invalid address -> rejected */
+        /* Case: invalid jxmusic -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_ANIME + PHONE_DESC_AMY + EMAIL_DESC_AMY + INVALID_ADDRESS_DESC;
         assertCommandFailure(command, Address.MESSAGE_ADDRESS_CONSTRAINTS);
 

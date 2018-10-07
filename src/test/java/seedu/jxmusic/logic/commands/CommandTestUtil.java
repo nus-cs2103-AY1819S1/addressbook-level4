@@ -1,24 +1,24 @@
-package seedu.address.logic.commands;
+package seedu.jxmusic.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TRACK;
+import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_TRACK;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.NameContainsKeywordsPredicate;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.jxmusic.commons.core.index.Index;
+import seedu.jxmusic.logic.CommandHistory;
+import seedu.jxmusic.logic.commands.exceptions.CommandException;
+import seedu.jxmusic.model.AddressBook;
+import seedu.jxmusic.model.Model;
+import seedu.jxmusic.model.NameContainsKeywordsPredicate;
+import seedu.jxmusic.testutil.EditPersonDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -78,7 +78,7 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book and the filtered playlist list in the {@code actualModel} remain unchanged <br>
+     * - the jxmusic book and the filtered playlist list in the {@code actualModel} remain unchanged <br>
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
@@ -103,7 +103,7 @@ public class CommandTestUtil {
 
     /**
      * Updates {@code model}'s filtered list to show only the playlist at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s jxmusic book.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
@@ -116,7 +116,7 @@ public class CommandTestUtil {
     }
 
     /**
-     * Deletes the first playlist in {@code model}'s filtered list from {@code model}'s address book.
+     * Deletes the first playlist in {@code model}'s filtered list from {@code model}'s jxmusic book.
      */
     public static void deleteFirstPerson(Model model) {
         Person firstPerson = model.getFilteredPersonList().get(0);

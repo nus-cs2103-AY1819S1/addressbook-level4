@@ -1,4 +1,4 @@
-package seedu.address.commons.util;
+package seedu.jxmusic.commons.util;
 
 import static org.junit.Assert.assertEquals;
 
@@ -15,13 +15,13 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.model.AddressBook;
-import seedu.address.storage.XmlAdaptedPerson;
-import seedu.address.storage.XmlAdaptedTag;
-import seedu.address.storage.XmlSerializableAddressBook;
-import seedu.address.testutil.LibraryBuilder;
-import seedu.address.testutil.PlaylistBuilder;
-import seedu.address.testutil.TestUtil;
+import seedu.jxmusic.model.AddressBook;
+import seedu.jxmusic.storage.XmlAdaptedPerson;
+import seedu.jxmusic.storage.XmlAdaptedTag;
+import seedu.jxmusic.storage.XmlSerializableAddressBook;
+import seedu.jxmusic.testutil.LibraryBuilder;
+import seedu.jxmusic.testutil.PlaylistBuilder;
+import seedu.jxmusic.testutil.TestUtil;
 
 public class XmlUtilTest {
 

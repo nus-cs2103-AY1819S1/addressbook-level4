@@ -1,21 +1,21 @@
-package seedu.address.logic;
+package seedu.jxmusic.logic;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.jxmusic.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.jxmusic.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
+import seedu.jxmusic.logic.commands.CommandResult;
+import seedu.jxmusic.logic.commands.HistoryCommand;
+import seedu.jxmusic.logic.commands.ListCommand;
+import seedu.jxmusic.logic.commands.exceptions.CommandException;
+import seedu.jxmusic.logic.parser.exceptions.ParseException;
+import seedu.jxmusic.model.Model;
+import seedu.jxmusic.model.ModelManager;
+import seedu.jxmusic.model.UserPrefs;
 
 
 public class LogicManagerTest {
@@ -90,7 +90,7 @@ public class LogicManagerTest {
      * Executes the command, confirms that the result message is correct and that the expected exception is thrown,
      * and also confirms that the following two parts of the LogicManager object's state are as expected:<br>
      *      - the internal model manager data are same as those in the {@code expectedModel} <br>
-     *      - {@code expectedModel}'s address book was saved to the storage file.
+     *      - {@code expectedModel}'s jxmusic book was saved to the storage file.
      */
     private void assertCommandBehavior(Class<?> expectedException, String inputCommand,
                                            String expectedMessage, Model expectedModel) {

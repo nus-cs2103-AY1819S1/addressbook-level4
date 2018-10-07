@@ -1,16 +1,16 @@
-package seedu.address.testutil;
+package seedu.jxmusic.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_METAL;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TRACK_EXISTENCE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TRACK_ALIEZ;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_NAME_METAL;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_EXISTENCE;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_ALIEZ;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.Library;
-import seedu.address.model.Playlist;
+import seedu.jxmusic.model.Library;
+import seedu.jxmusic.model.Playlist;
 
 /**
  * A utility class containing a list of {@code Playlist} objects to be used in tests.

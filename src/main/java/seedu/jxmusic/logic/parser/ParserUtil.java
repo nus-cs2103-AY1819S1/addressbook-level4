@@ -1,4 +1,4 @@
-package seedu.address.logic.parser;
+package seedu.jxmusic.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
@@ -6,11 +6,11 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Name;
-import seedu.address.model.tag.Tag;
+import seedu.jxmusic.commons.core.index.Index;
+import seedu.jxmusic.commons.util.StringUtil;
+import seedu.jxmusic.logic.parser.exceptions.ParseException;
+import seedu.jxmusic.model.Name;
+import seedu.jxmusic.model.tag.Tag;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -63,10 +63,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}.
+     * Parses a {@code String jxmusic} into an {@code Address}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code address} is invalid.
+     * @throws ParseException if the given {@code jxmusic} is invalid.
      */
     public static Address parseAddress(String address) throws ParseException {
         requireNonNull(address);

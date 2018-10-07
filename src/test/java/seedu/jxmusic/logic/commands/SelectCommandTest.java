@@ -1,27 +1,27 @@
-package seedu.address.logic.commands;
+package seedu.jxmusic.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
-import static seedu.address.testutil.TypicalPlaylists.getTypicalAddressBook;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.jxmusic.testutil.TypicalPlaylists.getTypicalAddressBook;
 
 import org.junit.Rule;
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.ui.testutil.EventsCollectorRule;
+import seedu.jxmusic.commons.core.Messages;
+import seedu.jxmusic.commons.core.index.Index;
+import seedu.jxmusic.commons.events.ui.JumpToListRequestEvent;
+import seedu.jxmusic.logic.CommandHistory;
+import seedu.jxmusic.model.Model;
+import seedu.jxmusic.model.ModelManager;
+import seedu.jxmusic.model.UserPrefs;
+import seedu.jxmusic.ui.testutil.EventsCollectorRule;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
@@ -64,7 +64,7 @@ public class SelectCommandTest {
         showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
 
         Index outOfBoundsIndex = INDEX_SECOND_PERSON;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of jxmusic book list
         assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getPlaylistList().size());
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);

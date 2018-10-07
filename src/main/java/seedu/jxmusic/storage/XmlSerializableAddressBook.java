@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.jxmusic.storage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,9 +7,9 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyLibrary;
+import seedu.jxmusic.commons.exceptions.IllegalValueException;
+import seedu.jxmusic.model.AddressBook;
+import seedu.jxmusic.model.ReadOnlyLibrary;
 
 /**
  * An Immutable AddressBook that is serializable to XML format

@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.jxmusic.ui;
 
 import java.net.URL;
 import java.util.logging.Logger;
@@ -10,9 +10,9 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
-import seedu.address.MainApp;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.jxmusic.MainApp;
+import seedu.jxmusic.commons.core.LogsCenter;
+import seedu.jxmusic.commons.events.ui.PersonPanelSelectionChangedEvent;
 
 /**
  * The Browser Panel of the App.

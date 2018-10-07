@@ -1,9 +1,9 @@
-package seedu.address.logic;
+package seedu.jxmusic.logic;
 
 import javafx.collections.ObservableList;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.jxmusic.logic.commands.CommandResult;
+import seedu.jxmusic.logic.commands.exceptions.CommandException;
+import seedu.jxmusic.logic.parser.exceptions.ParseException;
 
 /**
  * API of the Logic component

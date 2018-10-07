@@ -1,32 +1,32 @@
-package seedu.address.logic.commands;
+package seedu.jxmusic.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_METAL;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TRACK_ALIEZ;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPlaylists.getTypicalAddressBook;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.DESC_AMY;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.DESC_BOB;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_NAME_METAL;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_ALIEZ;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.jxmusic.testutil.TypicalPlaylists.getTypicalAddressBook;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.PlaylistBuilder;
+import seedu.jxmusic.commons.core.Messages;
+import seedu.jxmusic.commons.core.index.Index;
+import seedu.jxmusic.logic.CommandHistory;
+import seedu.jxmusic.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.jxmusic.model.AddressBook;
+import seedu.jxmusic.model.Model;
+import seedu.jxmusic.model.ModelManager;
+import seedu.jxmusic.model.UserPrefs;
+import seedu.jxmusic.testutil.EditPersonDescriptorBuilder;
+import seedu.jxmusic.testutil.PlaylistBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
@@ -117,7 +117,7 @@ public class EditCommandTest {
     public void execute_duplicatePersonFilteredList_failure() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
-        // edit playlist in filtered list into a duplicate in address book
+        // edit playlist in filtered list into a duplicate in jxmusic book
         Person personInList = model.getAddressBook().getPlaylistList().get(INDEX_SECOND_PERSON.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(personInList).build());
@@ -136,13 +136,13 @@ public class EditCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of address book
+     * but smaller than size of jxmusic book
      */
     @Test
     public void execute_invalidPersonIndexFilteredList_failure() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of jxmusic book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPlaylistList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
@@ -179,10 +179,10 @@ public class EditCommandTest {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_METAL).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
-        // execution failed -> address book state not added into model
+        // execution failed -> jxmusic book state not added into model
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
-        // single address book state in model -> undoCommand and redoCommand fail
+        // single jxmusic book state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }

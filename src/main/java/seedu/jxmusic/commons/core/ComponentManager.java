@@ -1,6 +1,6 @@
-package seedu.address.commons.core;
+package seedu.jxmusic.commons.core;
 
-import seedu.address.commons.events.BaseEvent;
+import seedu.jxmusic.commons.events.BaseEvent;
 
 /**
  * Base class for *Manager classes

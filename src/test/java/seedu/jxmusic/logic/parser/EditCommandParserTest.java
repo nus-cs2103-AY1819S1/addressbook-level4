@@ -1,44 +1,44 @@
-package seedu.address.logic.parser;
+package seedu.jxmusic.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_ANIME;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TRACK_DESC_ALIEZ;
-import static seedu.address.logic.commands.CommandTestUtil.TRACK_DESC_EXISTENCE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TRACK_EXISTENCE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TRACK_ALIEZ;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.jxmusic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.NAME_DESC_ANIME;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.TRACK_DESC_ALIEZ;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.TRACK_DESC_EXISTENCE;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_EXISTENCE;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_ALIEZ;
+import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.jxmusic.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.jxmusic.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.Name;
-import seedu.address.model.tag.Tag;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.jxmusic.commons.core.index.Index;
+import seedu.jxmusic.logic.commands.EditCommand;
+import seedu.jxmusic.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.jxmusic.model.Name;
+import seedu.jxmusic.model.tag.Tag;
+import seedu.jxmusic.testutil.EditPersonDescriptorBuilder;
 
 public class EditCommandParserTest {
 
@@ -81,7 +81,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_NAME_CONSTRAINTS); // invalid name
         assertParseFailure(parser, "1" + INVALID_PHONE_DESC, Phone.MESSAGE_PHONE_CONSTRAINTS); // invalid phone
         assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_EMAIL_CONSTRAINTS); // invalid email
-        assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Address.MESSAGE_ADDRESS_CONSTRAINTS); // invalid address
+        assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Address.MESSAGE_ADDRESS_CONSTRAINTS); // invalid jxmusic
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS); // invalid tag
 
         // invalid phone followed by valid email
@@ -149,7 +149,7 @@ public class EditCommandParserTest {
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // address
+        // jxmusic
         userInput = targetIndex.getOneBased() + ADDRESS_DESC_AMY;
         descriptor = new EditPersonDescriptorBuilder().withAddress(VALID_ADDRESS_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);

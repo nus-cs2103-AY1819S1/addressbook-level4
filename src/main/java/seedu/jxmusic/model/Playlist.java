@@ -1,6 +1,6 @@
-package seedu.address.model;
+package seedu.jxmusic.model;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.jxmusic.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Represents a Playlist in the address book.
+ * Represents a Playlist in the jxmusic book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Playlist {

@@ -1,7 +1,7 @@
-package seedu.address.commons.events.ui;
+package seedu.jxmusic.commons.events.ui;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.events.BaseEvent;
+import seedu.jxmusic.commons.core.index.Index;
+import seedu.jxmusic.commons.events.BaseEvent;
 
 /**
  * Indicates a request to jump to the list of persons

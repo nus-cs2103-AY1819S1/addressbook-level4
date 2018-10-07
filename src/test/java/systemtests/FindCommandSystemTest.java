@@ -1,31 +1,31 @@
 package systemtests;
 
 import static org.junit.Assert.assertFalse;
-import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalPlaylists.METAL;
-import static seedu.address.testutil.TypicalPlaylists.POP;
-import static seedu.address.testutil.TypicalPlaylists.ROCK;
-import static seedu.address.testutil.TypicalPlaylists.KEYWORD_MATCHING_SONG;
+import static seedu.jxmusic.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
+import static seedu.jxmusic.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.jxmusic.testutil.TypicalPlaylists.METAL;
+import static seedu.jxmusic.testutil.TypicalPlaylists.POP;
+import static seedu.jxmusic.testutil.TypicalPlaylists.ROCK;
+import static seedu.jxmusic.testutil.TypicalPlaylists.KEYWORD_MATCHING_SONG;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.tag.Tag;
+import seedu.jxmusic.commons.core.index.Index;
+import seedu.jxmusic.logic.commands.DeleteCommand;
+import seedu.jxmusic.logic.commands.FindCommand;
+import seedu.jxmusic.logic.commands.RedoCommand;
+import seedu.jxmusic.logic.commands.UndoCommand;
+import seedu.jxmusic.model.Model;
+import seedu.jxmusic.model.tag.Tag;
 
 public class FindCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void find() {
-        /* Case: find multiple persons in address book, command with leading spaces and trailing spaces
+        /* Case: find multiple persons in jxmusic book, command with leading spaces and trailing spaces
          * -> 2 persons found
          */
         String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SONG + "   ";
@@ -47,23 +47,23 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple persons in address book, 2 keywords -> 2 persons found */
+        /* Case: find multiple persons in jxmusic book, 2 keywords -> 2 persons found */
         command = FindCommand.COMMAND_WORD + " Benson Daniel";
         ModelHelper.setFilteredList(expectedModel, METAL, ROCK);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple persons in address book, 2 keywords in reversed order -> 2 persons found */
+        /* Case: find multiple persons in jxmusic book, 2 keywords in reversed order -> 2 persons found */
         command = FindCommand.COMMAND_WORD + " Daniel Benson";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple persons in address book, 2 keywords with 1 repeat -> 2 persons found */
+        /* Case: find multiple persons in jxmusic book, 2 keywords with 1 repeat -> 2 persons found */
         command = FindCommand.COMMAND_WORD + " Daniel Benson Daniel";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple persons in address book, 2 matching keywords and 1 non-matching keyword
+        /* Case: find multiple persons in jxmusic book, 2 matching keywords and 1 non-matching keyword
          * -> 2 persons found
          */
         command = FindCommand.COMMAND_WORD + " Daniel Benson NonMatchingKeyWord";
@@ -80,7 +80,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
 
-        /* Case: find same persons in address book after deleting 1 of them -> 1 playlist found */
+        /* Case: find same persons in jxmusic book after deleting 1 of them -> 1 playlist found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
         assertFalse(getModel().getAddressBook().getPlaylistList().contains(METAL));
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SONG;
@@ -89,44 +89,44 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find playlist in address book, keyword is same as name but of different case -> 1 playlist found */
+        /* Case: find playlist in jxmusic book, keyword is same as name but of different case -> 1 playlist found */
         command = FindCommand.COMMAND_WORD + " MeIeR";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find playlist in address book, keyword is substring of name -> 0 persons found */
+        /* Case: find playlist in jxmusic book, keyword is substring of name -> 0 persons found */
         command = FindCommand.COMMAND_WORD + " Mei";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find playlist in address book, name is substring of keyword -> 0 persons found */
+        /* Case: find playlist in jxmusic book, name is substring of keyword -> 0 persons found */
         command = FindCommand.COMMAND_WORD + " Meiers";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find playlist not in address book -> 0 persons found */
+        /* Case: find playlist not in jxmusic book -> 0 persons found */
         command = FindCommand.COMMAND_WORD + " Mark";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find phone number of playlist in address book -> 0 persons found */
+        /* Case: find phone number of playlist in jxmusic book -> 0 persons found */
         command = FindCommand.COMMAND_WORD + " " + ROCK.getPhone().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find address of playlist in address book -> 0 persons found */
+        /* Case: find jxmusic of playlist in jxmusic book -> 0 persons found */
         command = FindCommand.COMMAND_WORD + " " + ROCK.getAddress().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find email of playlist in address book -> 0 persons found */
+        /* Case: find email of playlist in jxmusic book -> 0 persons found */
         command = FindCommand.COMMAND_WORD + " " + ROCK.getEmail().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find tags of playlist in address book -> 0 persons found */
+        /* Case: find tags of playlist in jxmusic book -> 0 persons found */
         List<Tag> tags = new ArrayList<>(ROCK.getTags());
         command = FindCommand.COMMAND_WORD + " " + tags.get(0).tagName;
         assertCommandSuccess(command, expectedModel);
@@ -141,7 +141,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardDeselected();
 
-        /* Case: find playlist in empty address book -> 0 persons found */
+        /* Case: find playlist in empty jxmusic book -> 0 persons found */
         deleteAllPersons();
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SONG;
         expectedModel = getModel();

@@ -1,14 +1,14 @@
-package seedu.address.model.util;
+package seedu.jxmusic.model.util;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import seedu.address.model.Library;
-import seedu.address.model.ReadOnlyLibrary;
-import seedu.address.model.Track;
-import seedu.address.model.Name;
-import seedu.address.model.Playlist;
+import seedu.jxmusic.model.Library;
+import seedu.jxmusic.model.ReadOnlyLibrary;
+import seedu.jxmusic.model.Track;
+import seedu.jxmusic.model.Name;
+import seedu.jxmusic.model.Playlist;
 
 /**
  * Contains utility methods for populating {@code Library} with sample data.

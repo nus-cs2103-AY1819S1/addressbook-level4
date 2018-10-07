@@ -1,9 +1,9 @@
-package seedu.address.logic.commands;
+package seedu.jxmusic.logic.commands;
 
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.ui.ExitAppRequestEvent;
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
+import seedu.jxmusic.commons.core.EventsCenter;
+import seedu.jxmusic.commons.events.ui.ExitAppRequestEvent;
+import seedu.jxmusic.logic.CommandHistory;
+import seedu.jxmusic.model.Model;
 
 /**
  * Terminates the program.

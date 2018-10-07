@@ -1,14 +1,14 @@
-package seedu.address.logic.commands;
+package seedu.jxmusic.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
-import seedu.address.model.NameContainsKeywordsPredicate;
+import seedu.jxmusic.commons.core.Messages;
+import seedu.jxmusic.logic.CommandHistory;
+import seedu.jxmusic.model.Model;
+import seedu.jxmusic.model.NameContainsKeywordsPredicate;
 
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
+ * Finds and lists all persons in jxmusic book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {

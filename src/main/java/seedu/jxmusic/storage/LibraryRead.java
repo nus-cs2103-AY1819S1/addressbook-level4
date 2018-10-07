@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.jxmusic.storage;
 
 import java.io.FileReader;
 import java.io.Reader;
@@ -8,8 +8,8 @@ import java.nio.file.Paths;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import seedu.address.model.Library;
-import seedu.address.model.Playlist1;
+import seedu.jxmusic.model.Library;
+import seedu.jxmusic.model.Playlist1;
 
 /**
  * Read the library.json file and scan all the mp3 files from the library directory, a combination of

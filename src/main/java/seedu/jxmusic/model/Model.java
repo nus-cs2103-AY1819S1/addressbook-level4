@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.jxmusic.model;
 
 import java.util.function.Predicate;
 
@@ -36,8 +36,8 @@ public interface Model {
 
     /**
      * Replaces the given playlist {@code target} with {@code editedPlaylist}.
-     * {@code target} must exist in the address book.
-     * The playlist identity of {@code editedPlaylist} must not be the same as another existing playlist in the address book.
+     * {@code target} must exist in the jxmusic book.
+     * The playlist identity of {@code editedPlaylist} must not be the same as another existing playlist in the jxmusic book.
      */
     void updatePlaylist(Playlist target, Playlist editedPlaylist);
 

@@ -1,4 +1,4 @@
-package seedu.address.model.exceptions;
+package seedu.jxmusic.model.exceptions;
 
 /**
  * Signals that the operation will result in duplicate Playlists (Playlists are considered duplicates if they have the same

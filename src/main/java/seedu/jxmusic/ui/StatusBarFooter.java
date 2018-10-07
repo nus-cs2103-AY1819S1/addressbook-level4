@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.jxmusic.ui;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -13,8 +13,8 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.LibraryChangedEvent;
+import seedu.jxmusic.commons.core.LogsCenter;
+import seedu.jxmusic.commons.events.model.LibraryChangedEvent;
 
 /**
  * A ui for the status bar that is displayed at the footer of the application.

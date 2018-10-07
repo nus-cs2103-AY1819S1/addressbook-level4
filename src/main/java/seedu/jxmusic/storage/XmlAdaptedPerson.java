@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.jxmusic.storage;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -9,9 +9,9 @@ import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.Name;
-import seedu.address.model.tag.Tag;
+import seedu.jxmusic.commons.exceptions.IllegalValueException;
+import seedu.jxmusic.model.Name;
+import seedu.jxmusic.model.tag.Tag;
 
 /**
  * JAXB-friendly version of the Person.

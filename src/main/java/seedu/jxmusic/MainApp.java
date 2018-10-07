@@ -1,4 +1,4 @@
-package seedu.address;
+package seedu.jxmusic;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -10,30 +10,30 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-import seedu.address.commons.core.Config;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.Version;
-import seedu.address.commons.events.ui.ExitAppRequestEvent;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.util.ConfigUtil;
-import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.Logic;
-import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.Storage;
-import seedu.address.storage.StorageManager;
-import seedu.address.storage.UserPrefsStorage;
-import seedu.address.storage.XmlAddressBookStorage;
-import seedu.address.ui.Ui;
-import seedu.address.ui.UiManager;
+import seedu.jxmusic.commons.core.Config;
+import seedu.jxmusic.commons.core.EventsCenter;
+import seedu.jxmusic.commons.core.LogsCenter;
+import seedu.jxmusic.commons.core.Version;
+import seedu.jxmusic.commons.events.ui.ExitAppRequestEvent;
+import seedu.jxmusic.commons.exceptions.DataConversionException;
+import seedu.jxmusic.commons.util.ConfigUtil;
+import seedu.jxmusic.commons.util.StringUtil;
+import seedu.jxmusic.logic.Logic;
+import seedu.jxmusic.logic.LogicManager;
+import seedu.jxmusic.model.AddressBook;
+import seedu.jxmusic.model.Model;
+import seedu.jxmusic.model.ModelManager;
+import seedu.jxmusic.model.ReadOnlyAddressBook;
+import seedu.jxmusic.model.UserPrefs;
+import seedu.jxmusic.model.util.SampleDataUtil;
+import seedu.jxmusic.storage.AddressBookStorage;
+import seedu.jxmusic.storage.JsonUserPrefsStorage;
+import seedu.jxmusic.storage.Storage;
+import seedu.jxmusic.storage.StorageManager;
+import seedu.jxmusic.storage.UserPrefsStorage;
+import seedu.jxmusic.storage.XmlAddressBookStorage;
+import seedu.jxmusic.ui.Ui;
+import seedu.jxmusic.ui.UiManager;
 
 /**
  * The main entry point to the application.
@@ -77,9 +77,9 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s jxmusic book and {@code userPrefs}. <br>
+     * The data from the sample jxmusic book will be used instead if {@code storage}'s jxmusic book is not found,
+     * or an empty jxmusic book will be used instead if errors occur when reading {@code storage}'s jxmusic book.
      */
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;

@@ -1,12 +1,12 @@
-package seedu.address.model.playlist;
+package seedu.jxmusic.model.playlist;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import seedu.address.model.Name;
-import seedu.address.testutil.Assert;
+import seedu.jxmusic.model.Name;
+import seedu.jxmusic.testutil.Assert;
 
 public class NameTest {
 

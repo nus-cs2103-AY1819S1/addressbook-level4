@@ -1,9 +1,9 @@
-package seedu.address.model;
+package seedu.jxmusic.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.commons.util.CollectionUtil;
+import seedu.jxmusic.commons.util.CollectionUtil;
 
 /**
  * Represents a playlist in JxMusic

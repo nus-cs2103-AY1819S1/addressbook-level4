@@ -1,4 +1,4 @@
-package seedu.address.model.playlist;
+package seedu.jxmusic.model.playlist;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -9,8 +9,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.model.NameContainsKeywordsPredicate;
-import seedu.address.testutil.PlaylistBuilder;
+import seedu.jxmusic.model.NameContainsKeywordsPredicate;
+import seedu.jxmusic.testutil.PlaylistBuilder;
 
 public class NameContainsKeywordsPredicateTest {
 
@@ -68,7 +68,7 @@ public class NameContainsKeywordsPredicateTest {
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("Carol"));
         assertFalse(predicate.test(new PlaylistBuilder().withName("Alice Bob").build()));
 
-        // Keywords match phone, email and address, but does not match name
+        // Keywords match phone, email and jxmusic, but does not match name
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
         assertFalse(predicate.test(new PlaylistBuilder().withName("Alice").build()));
     }

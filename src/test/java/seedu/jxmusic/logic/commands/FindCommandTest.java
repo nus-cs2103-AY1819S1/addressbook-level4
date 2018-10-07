@@ -1,25 +1,25 @@
-package seedu.address.logic.commands;
+package seedu.jxmusic.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPlaylists.POP;
-import static seedu.address.testutil.TypicalPlaylists.CHINESE;
-import static seedu.address.testutil.TypicalPlaylists.CLASSICS;
-import static seedu.address.testutil.TypicalPlaylists.getTypicalAddressBook;
+import static seedu.jxmusic.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.jxmusic.testutil.TypicalPlaylists.POP;
+import static seedu.jxmusic.testutil.TypicalPlaylists.CHINESE;
+import static seedu.jxmusic.testutil.TypicalPlaylists.CLASSICS;
+import static seedu.jxmusic.testutil.TypicalPlaylists.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collections;
 
 import org.junit.Test;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.NameContainsKeywordsPredicate;
+import seedu.jxmusic.logic.CommandHistory;
+import seedu.jxmusic.model.Model;
+import seedu.jxmusic.model.ModelManager;
+import seedu.jxmusic.model.UserPrefs;
+import seedu.jxmusic.model.NameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.

@@ -1,8 +1,8 @@
-package seedu.address.logic.commands;
+package seedu.jxmusic.logic.commands;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
-import seedu.address.player.JxMusicPlayer;
+import seedu.jxmusic.logic.CommandHistory;
+import seedu.jxmusic.model.Model;
+import seedu.jxmusic.player.JxMusicPlayer;
 
 /**
  * Pauses track that is currently playing

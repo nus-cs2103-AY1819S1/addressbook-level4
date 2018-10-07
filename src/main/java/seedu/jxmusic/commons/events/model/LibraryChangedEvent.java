@@ -1,7 +1,7 @@
-package seedu.address.commons.events.model;
+package seedu.jxmusic.commons.events.model;
 
-import seedu.address.commons.events.BaseEvent;
-import seedu.address.model.ReadOnlyLibrary;
+import seedu.jxmusic.commons.events.BaseEvent;
+import seedu.jxmusic.model.ReadOnlyLibrary;
 
 /** Indicates the Library in the model has changed*/
 public class LibraryChangedEvent extends BaseEvent {
