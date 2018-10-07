@@ -33,6 +33,12 @@ public class Amount {
         return possibleAmount.matches(AMOUNT_REGEX);
     }
 
+    public static Amount add(Amount a1, Amount a2) {
+        requireNonNull(a1);
+        requireNonNull(a2);
+        return new Amount(Double.toString(a1.value + a2.value));
+    }
+
     @Override
     public String toString() {
         return String.format("%.2f", value);
