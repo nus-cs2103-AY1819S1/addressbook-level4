@@ -23,7 +23,7 @@ import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.logic.commands.EditCommand.EditRecipeDescriptor;
 import seedu.souschef.model.AppContent;
 import seedu.souschef.model.Model;
-import seedu.souschef.model.ModelManager;
+import seedu.souschef.model.ModelSetCoordinator;
 import seedu.souschef.model.UserPrefs;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.testutil.EditRecipeDescriptorBuilder;
@@ -34,7 +34,7 @@ import seedu.souschef.testutil.RecipeBuilder;
  */
 public class EditCommandTest {
 
-    private Model<Recipe> model = new ModelManager<>(getTypicalAddressBook(), new UserPrefs());
+    private Model<Recipe> model = new ModelSetCoordinator(getTypicalAddressBook(), new UserPrefs()).getRecipeModel();
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -45,7 +45,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
-        Model<Recipe> expectedModel = new ModelManager<>(new AppContent(model.getAppContent()), new UserPrefs());
+        Model<Recipe> expectedModel = new ModelSetCoordinator(new AppContent(model.getAppContent()), new UserPrefs()).getRecipeModel();
         expectedModel.update(model.getFilteredList().get(0), editedRecipe);
         expectedModel.commitAppContent();
 
@@ -67,7 +67,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
-        Model expectedModel = new ModelManager(new AppContent(model.getAppContent()), new UserPrefs());
+        Model<Recipe> expectedModel =
+                new ModelSetCoordinator(new AppContent(model.getAppContent()), new UserPrefs()).getRecipeModel();
         expectedModel.update(lastRecipe, editedRecipe);
         expectedModel.commitAppContent();
 
@@ -81,7 +82,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
-        Model expectedModel = new ModelManager(new AppContent(model.getAppContent()), new UserPrefs());
+        Model<Recipe> expectedModel = new ModelSetCoordinator(new AppContent(model.getAppContent()), new UserPrefs()).getRecipeModel();
         expectedModel.commitAppContent();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -98,7 +99,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
-        Model expectedModel = new ModelManager(new AppContent(model.getAppContent()), new UserPrefs());
+        Model<Recipe> expectedModel = new ModelSetCoordinator(new AppContent(model.getAppContent()), new UserPrefs()).getRecipeModel();
         expectedModel.update(model.getFilteredList().get(0), editedRecipe);
         expectedModel.commitAppContent();
 
@@ -158,7 +159,7 @@ public class EditCommandTest {
         Recipe recipeToEdit = model.getFilteredList().get(INDEX_FIRST_RECIPE.getZeroBased());
         EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder(editedRecipe).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_RECIPE, descriptor);
-        Model expectedModel = new ModelManager(new AppContent(model.getAppContent()), new UserPrefs());
+        Model<Recipe> expectedModel = new ModelSetCoordinator(new AppContent(model.getAppContent()), new UserPrefs()).getRecipeModel();
         expectedModel.update(recipeToEdit, editedRecipe);
         expectedModel.commitAppContent();
 
@@ -200,7 +201,7 @@ public class EditCommandTest {
         Recipe editedRecipe = new RecipeBuilder().build();
         EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder(editedRecipe).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_RECIPE, descriptor);
-        Model expectedModel = new ModelManager(new AppContent(model.getAppContent()), new UserPrefs());
+        Model<Recipe> expectedModel = new ModelSetCoordinator(new AppContent(model.getAppContent()), new UserPrefs()).getRecipeModel();
 
         showPersonAtIndex(model, INDEX_SECOND_RECIPE);
         Recipe recipeToEdit = model.getFilteredList().get(INDEX_FIRST_RECIPE.getZeroBased());

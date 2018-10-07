@@ -17,16 +17,18 @@ import org.junit.Test;
 
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.model.Model;
-import seedu.souschef.model.ModelManager;
+import seedu.souschef.model.ModelSetCoordinator;
 import seedu.souschef.model.UserPrefs;
 import seedu.souschef.model.recipe.NameContainsKeywordsPredicate;
+import seedu.souschef.model.recipe.Recipe;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model<Recipe> model = new ModelSetCoordinator(getTypicalAddressBook(), new UserPrefs()).getRecipeModel();
+    private Model<Recipe> expectedModel =
+            new ModelSetCoordinator(getTypicalAddressBook(), new UserPrefs()).getRecipeModel();
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

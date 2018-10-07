@@ -36,21 +36,6 @@ public class ModelManager<T extends UniqueType> extends ComponentManager impleme
         uniqueList = ul;
     }
 
-    public ModelManager(ReadOnlyAppContent appContent, UserPrefs userPrefs) {
-        super();
-        requireAllNonNull(appContent, userPrefs);
-
-        logger.fine("Initializing with application content: " + appContent + " and user prefs " + userPrefs);
-
-        versionedAppContent = new VersionedAppContent(appContent);
-        filteredList = new FilteredList<T>((ObservableList<T>) versionedAppContent.getObserableRecipeList());
-        uniqueList = (UniqueList<T>) versionedAppContent.getRecipes();
-    }
-
-    public ModelManager() {
-        this(new AppContent(), new UserPrefs());
-    }
-
     @Override
     public void resetData(ReadOnlyAppContent newData) {
         versionedAppContent.resetData(newData);

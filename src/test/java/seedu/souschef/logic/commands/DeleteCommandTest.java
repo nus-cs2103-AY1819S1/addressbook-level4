@@ -17,6 +17,7 @@ import seedu.souschef.commons.core.index.Index;
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.ModelManager;
+import seedu.souschef.model.ModelSetCoordinator;
 import seedu.souschef.model.UserPrefs;
 import seedu.souschef.model.recipe.Recipe;
 
@@ -26,7 +27,7 @@ import seedu.souschef.model.recipe.Recipe;
  */
 public class DeleteCommandTest {
 
-    private Model<Recipe> model = new ModelManager<>(getTypicalAddressBook(), new UserPrefs());
+    private Model<Recipe> model = new ModelSetCoordinator(getTypicalAddressBook(), new UserPrefs()).getRecipeModel();
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -36,7 +37,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_RECIPE_SUCCESS, recipeToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAppContent(), new UserPrefs());
+        Model<Recipe> expectedModel = new ModelSetCoordinator(model.getAppContent(), new UserPrefs()).getRecipeModel();
         expectedModel.delete(recipeToDelete);
         expectedModel.commitAppContent();
 
@@ -60,7 +61,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_RECIPE_SUCCESS, recipeToDelete);
 
-        Model expectedModel = new ModelManager(model.getAppContent(), new UserPrefs());
+        Model<Recipe> expectedModel = new ModelSetCoordinator(model.getAppContent(), new UserPrefs()).getRecipeModel();
         expectedModel.delete(recipeToDelete);
         expectedModel.commitAppContent();
         showNoPerson(expectedModel);
@@ -85,7 +86,7 @@ public class DeleteCommandTest {
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Recipe recipeToDelete = model.getFilteredList().get(INDEX_FIRST_RECIPE.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_RECIPE);
-        Model expectedModel = new ModelManager(model.getAppContent(), new UserPrefs());
+        Model<Recipe> expectedModel = new ModelSetCoordinator(model.getAppContent(), new UserPrefs()).getRecipeModel();
         expectedModel.delete(recipeToDelete);
         expectedModel.commitAppContent();
 
@@ -124,7 +125,7 @@ public class DeleteCommandTest {
     @Test
     public void executeUndoRedo_validIndexFilteredList_samePersonDeleted() throws Exception {
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_RECIPE);
-        Model expectedModel = new ModelManager(model.getAppContent(), new UserPrefs());
+        Model<Recipe> expectedModel = new ModelSetCoordinator(model.getAppContent(), new UserPrefs()).getRecipeModel();
 
         showPersonAtIndex(model, INDEX_SECOND_RECIPE);
         Recipe recipeToDelete = model.getFilteredList().get(INDEX_FIRST_RECIPE.getZeroBased());

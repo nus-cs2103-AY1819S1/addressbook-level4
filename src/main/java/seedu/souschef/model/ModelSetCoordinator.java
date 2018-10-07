@@ -37,13 +37,29 @@ public class ModelSetCoordinator implements ModelSet {
         return versionedAppContent;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof ModelSetCoordinator)) {
+            return false;
+        }
+
+        // state check
+        ModelSetCoordinator other = (ModelSetCoordinator) obj;
+        return versionedAppContent.equals(other.versionedAppContent)
+                && recipeModel.equals(other.recipeModel);
+    }
+
     public Model<Recipe> getRecipeModel() {
         return recipeModel;
     }
 
     private ModelManager<Recipe> initRecipeModel() {
-        return new ModelManager<>(versionedAppContent,
-                versionedAppContent.getRecipes());
+        return new ModelManager<>(versionedAppContent, versionedAppContent.getRecipes());
     }
 
     // More to be added

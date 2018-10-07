@@ -6,12 +6,12 @@ import org.junit.Test;
 
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.model.Model;
-import seedu.souschef.model.ModelManager;
+import seedu.souschef.model.ModelSetCoordinator;
 
 public class HistoryCommandTest {
     private CommandHistory history = new CommandHistory();
-    private Model model = new ModelManager();
-    private Model expectedModel = new ModelManager();
+    private Model model = new ModelSetCoordinator().getRecipeModel();
+    private Model expectedModel = new ModelSetCoordinator().getRecipeModel();
 
     @Test
     public void execute() {

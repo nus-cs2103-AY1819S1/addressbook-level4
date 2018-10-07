@@ -14,15 +14,16 @@ import seedu.souschef.logic.commands.ListCommand;
 import seedu.souschef.logic.commands.exceptions.CommandException;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
-import seedu.souschef.model.ModelManager;
+import seedu.souschef.model.ModelSetCoordinator;
 import seedu.souschef.model.UserPrefs;
+import seedu.souschef.model.recipe.Recipe;
 
 
 public class LogicManagerTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private Model model = new ModelManager();
+    private Model<Recipe> model = new ModelSetCoordinator().getRecipeModel();
     private Logic logic = new LogicManager(model);
 
     @Test
@@ -82,7 +83,7 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(Class, String, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAppContent(), new UserPrefs());
+        Model<Recipe> expectedModel = new ModelSetCoordinator(model.getAppContent(), new UserPrefs()).getRecipeModel();
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
 

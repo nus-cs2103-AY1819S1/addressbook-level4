@@ -10,6 +10,7 @@ import org.junit.Test;
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.ModelManager;
+import seedu.souschef.model.ModelSetCoordinator;
 import seedu.souschef.model.UserPrefs;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.testutil.RecipeBuilder;
@@ -19,19 +20,19 @@ import seedu.souschef.testutil.RecipeBuilder;
  */
 public class AddCommandIntegrationTest {
 
-    private Model model;
+    private Model<Recipe> model;
     private CommandHistory commandHistory = new CommandHistory();
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelSetCoordinator(getTypicalAddressBook(), new UserPrefs()).getRecipeModel();
     }
 
     @Test
     public void execute_newPerson_success() {
         Recipe validRecipe = new RecipeBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAppContent(), new UserPrefs());
+        Model<Recipe> expectedModel = new ModelSetCoordinator(model.getAppContent(), new UserPrefs()).getRecipeModel();
         expectedModel.add(validRecipe);
         expectedModel.commitAppContent();
 
