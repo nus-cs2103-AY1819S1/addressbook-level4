@@ -17,7 +17,7 @@ import seedu.address.model.ReadOnlySchedulePlanner;
 import seedu.address.model.SchedulePlanner;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.UserPrefsStorage;
-import seedu.address.storage.XmlSerializableAddressBook;
+import seedu.address.storage.XmlSerializableSchedulePlanner;
 import seedu.address.testutil.TestUtil;
 import systemtests.ModelHelper;
 
@@ -45,7 +45,7 @@ public class TestApp extends MainApp {
 
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
-            createDataFileWithData(new XmlSerializableAddressBook(this.initialDataSupplier.get()),
+            createDataFileWithData(new XmlSerializableSchedulePlanner(this.initialDataSupplier.get()),
                     this.saveFileLocation);
         }
     }
@@ -69,11 +69,11 @@ public class TestApp extends MainApp {
     }
 
     /**
-     * Returns a defensive copy of the address book data stored inside the storage file.
+     * Returns a defensive copy of the schedule planner data stored inside the storage file.
      */
-    public SchedulePlanner readStorageAddressBook() {
+    public SchedulePlanner readStorageSchedulePlanner() {
         try {
-            return new SchedulePlanner(storage.readAddressBook().get());
+            return new SchedulePlanner(storage.readSchedulePlanner().get());
         } catch (DataConversionException dce) {
             throw new AssertionError("Data is not in the SchedulePlanner format.", dce);
         } catch (IOException ioe) {
@@ -85,7 +85,7 @@ public class TestApp extends MainApp {
      * Returns the file path of the storage file.
      */
     public Path getStorageSaveLocation() {
-        return storage.getAddressBookFilePath();
+        return storage.getSchedulePlannerFilePath();
     }
 
     /**
