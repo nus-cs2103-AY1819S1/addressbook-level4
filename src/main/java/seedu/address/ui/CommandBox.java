@@ -15,6 +15,7 @@ import seedu.address.commons.events.ui.SuggestCommandEvent;
 import seedu.address.logic.ListElementPointer;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.SuggestCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -61,6 +62,10 @@ public class CommandBox extends UiPart<Region> {
             keyEvent.consume();
             navigateToNextInput();
             break;
+        case TAB:
+            keyEvent.consume();
+            suggestCommand();
+            break;
         default:
             // let JavaFx handle the keypress
         }
@@ -90,6 +95,20 @@ public class CommandBox extends UiPart<Region> {
         }
 
         replaceText(historySnapshot.next());
+    }
+
+    /**
+     * Suggests commands with the text in the box as arguments. Does not behave like an actual command.
+     */
+    private void suggestCommand() {
+        SuggestCommand suggestCommand = new SuggestCommand(commandTextField.getText());
+        if (!suggestCommand.isPrefixValid()) {
+            return;
+        }
+        CommandResult commandResult = suggestCommand.execute(null, null);
+        replaceText(pendingText);
+        pendingText = "";
+        raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
     }
 
     /**
