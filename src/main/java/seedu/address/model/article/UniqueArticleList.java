@@ -8,15 +8,15 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.article.exceptions.DuplicateArticleException;
 import seedu.address.model.article.exceptions.ArticleNotFoundException;
+import seedu.address.model.article.exceptions.DuplicateArticleException;
 
 /**
  * A list of articles that enforces uniqueness between its elements and does not allow nulls.
- * A article is considered unique by comparing using {@code Article#isSameArticle(Article)}. As such, adding and updating of
- * articles uses Article#isSameArticle(Article) for equality so as to ensure that the article being added or updated is
- * unique in terms of identity in the UniqueArticleList. However, the removal of a article uses Article#equals(Object) so
- * as to ensure that the article with exactly the same fields will be removed.
+ * A article is considered unique by comparing using {@code Article#isSameArticle(Article)}. As such, adding and
+ * updating of articles uses Article#isSameArticle(Article) for equality so as to ensure that the article being added
+ * or updated is unique in terms of identity in the UniqueArticleList. However, the removal of a article uses
+ * Article#equals(Object) so as to ensure that the article with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *

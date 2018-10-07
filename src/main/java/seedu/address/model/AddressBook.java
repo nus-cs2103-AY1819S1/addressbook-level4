@@ -77,7 +77,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Replaces the given article {@code target} in the list with {@code editedArticle}.
      * {@code target} must exist in the address book.
-     * The article identity of {@code editedArticle} must not be the same as another existing article in the address book.
+     * The article identity of {@code editedArticle} must not be the same as another existing article in the address
+     * book.
      */
     public void updateArticle(Article target, Article editedArticle) {
         requireNonNull(editedArticle);

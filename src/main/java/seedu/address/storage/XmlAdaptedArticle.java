@@ -11,9 +11,9 @@ import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.article.Address;
+import seedu.address.model.article.Article;
 import seedu.address.model.article.Email;
 import seedu.address.model.article.Name;
-import seedu.address.model.article.Article;
 import seedu.address.model.article.Phone;
 import seedu.address.model.tag.Tag;
 
