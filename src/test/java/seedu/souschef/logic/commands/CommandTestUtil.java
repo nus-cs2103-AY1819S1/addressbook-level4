@@ -100,7 +100,7 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         AppContent expectedAddressBook = new AppContent(actualModel.getAppContent());
-        List<Recipe> expectedFilteredList = new ArrayList<>(actualModel.getFilteredRecipeList());
+        List<Recipe> expectedFilteredList = new ArrayList<>(actualModel.getFilteredList());
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -110,7 +110,7 @@ public class CommandTestUtil {
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedAddressBook, actualModel.getAppContent());
-            assertEquals(expectedFilteredList, actualModel.getFilteredRecipeList());
+            assertEquals(expectedFilteredList, actualModel.getFilteredList());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }
@@ -120,20 +120,20 @@ public class CommandTestUtil {
      * {@code model}'s address book.
      */
     public static void showPersonAtIndex(Model<Recipe> model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredRecipeList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredList().size());
 
-        Recipe recipe = model.getFilteredRecipeList().get(targetIndex.getZeroBased());
+        Recipe recipe = model.getFilteredList().get(targetIndex.getZeroBased());
         final String[] splitName = recipe.getName().fullName.split("\\s+");
-        model.updateFilteredRecipeList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredRecipeList().size());
+        assertEquals(1, model.getFilteredList().size());
     }
 
     /**
      * Deletes the first recipe in {@code model}'s filtered list from {@code model}'s address book.
      */
     public static void deleteFirstPerson(Model<Recipe> model) {
-        Recipe firstRecipe = model.getFilteredRecipeList().get(0);
+        Recipe firstRecipe = model.getFilteredList().get(0);
         model.delete(firstRecipe);
         model.commitAppContent();
     }

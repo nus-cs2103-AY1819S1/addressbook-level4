@@ -2,7 +2,7 @@ package seedu.souschef.model;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.souschef.model.Model.PREDICATE_SHOW_ALL_RECIPES;
+import static seedu.souschef.model.Model.PREDICATE_SHOW_ALL;
 import static seedu.souschef.testutil.TypicalRecipes.ALICE;
 import static seedu.souschef.testutil.TypicalRecipes.BENSON;
 
@@ -43,7 +43,7 @@ public class ModelManagerTest {
     @Test
     public void getFilteredRecipeList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        modelManager.getFilteredRecipeList().remove(0);
+        modelManager.getFilteredList().remove(0);
     }
 
     @Test
@@ -71,11 +71,11 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredRecipeList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        modelManager.updateFilteredList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
+        modelManager.updateFilteredList(PREDICATE_SHOW_ALL);
 
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();

@@ -61,7 +61,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         /* Case: filtered recipe list, delete index within bounds of address book and recipe list -> deleted */
         showRecipesWithName(KEYWORD_MATCHING_MEIER);
         Index index = INDEX_FIRST_RECIPE;
-        assertTrue(index.getZeroBased() < getModel().getFilteredRecipeList().size());
+        assertTrue(index.getZeroBased() < getModel().getFilteredList().size());
         assertCommandSuccess(index);
 
         /* Case: filtered recipe list, delete index within bounds of address book but out of bounds of recipe list

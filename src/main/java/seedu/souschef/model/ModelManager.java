@@ -12,7 +12,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.souschef.commons.core.ComponentManager;
 import seedu.souschef.commons.core.LogsCenter;
 import seedu.souschef.commons.events.model.AppContentChangedEvent;
-import seedu.souschef.model.recipe.Recipe;
 
 /**
  * Represents the in-memory model of the application content data.
@@ -20,8 +19,8 @@ import seedu.souschef.model.recipe.Recipe;
 public class ModelManager<T extends UniqueType> extends ComponentManager implements Model<T> {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAppContent versionedAppContent;
-    private final FilteredList<Recipe> filteredRecipes;
+    private VersionedAppContent versionedAppContent;
+    private final FilteredList<T> filteredList;
     private final UniqueList<T> uniqueList;
 
     /**
@@ -34,7 +33,7 @@ public class ModelManager<T extends UniqueType> extends ComponentManager impleme
         logger.fine("Initializing with application content: " + appContent + " and user prefs " + userPrefs);
 
         versionedAppContent = new VersionedAppContent(appContent);
-        filteredRecipes = new FilteredList<>(versionedAppContent.getRecipeList());
+        filteredList = new FilteredList<T>((ObservableList<T>) versionedAppContent.getRecipeList());
         uniqueList = (UniqueList<T>) versionedAppContent.getRecipes();
     }
 
@@ -73,7 +72,7 @@ public class ModelManager<T extends UniqueType> extends ComponentManager impleme
     @Override
     public void add(T target) {
         uniqueList.add(target);
-        updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
+        updateFilteredList(PREDICATE_SHOW_ALL);
         indicateAppContentChanged();
     }
 
@@ -91,14 +90,14 @@ public class ModelManager<T extends UniqueType> extends ComponentManager impleme
      * {@code versionedAppContent}
      */
     @Override
-    public ObservableList<Recipe> getFilteredRecipeList() {
-        return FXCollections.unmodifiableObservableList(filteredRecipes);
+    public ObservableList<T> getFilteredList() {
+        return FXCollections.unmodifiableObservableList(filteredList);
     }
 
     @Override
-    public void updateFilteredRecipeList(Predicate<Recipe> predicate) {
+    public void updateFilteredList(Predicate predicate) {
         requireNonNull(predicate);
-        filteredRecipes.setPredicate(predicate);
+        filteredList.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -145,7 +144,7 @@ public class ModelManager<T extends UniqueType> extends ComponentManager impleme
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedAppContent.equals(other.versionedAppContent)
-                && filteredRecipes.equals(other.filteredRecipes);
+                && filteredList.equals(other.filteredList);
     }
 
 }

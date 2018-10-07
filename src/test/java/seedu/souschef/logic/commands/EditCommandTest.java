@@ -46,7 +46,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
         Model<Recipe> expectedModel = new ModelManager<>(new AppContent(model.getAppContent()), new UserPrefs());
-        expectedModel.update(model.getFilteredRecipeList().get(0), editedRecipe);
+        expectedModel.update(model.getFilteredList().get(0), editedRecipe);
         expectedModel.commitAppContent();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -54,8 +54,8 @@ public class EditCommandTest {
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index indexLastPerson = Index.fromOneBased(model.getFilteredRecipeList().size());
-        Recipe lastRecipe = model.getFilteredRecipeList().get(indexLastPerson.getZeroBased());
+        Index indexLastPerson = Index.fromOneBased(model.getFilteredList().size());
+        Recipe lastRecipe = model.getFilteredList().get(indexLastPerson.getZeroBased());
 
         RecipeBuilder personInList = new RecipeBuilder(lastRecipe);
         Recipe editedRecipe = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
@@ -77,7 +77,7 @@ public class EditCommandTest {
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_RECIPE, new EditRecipeDescriptor());
-        Recipe editedRecipe = model.getFilteredRecipeList().get(INDEX_FIRST_RECIPE.getZeroBased());
+        Recipe editedRecipe = model.getFilteredList().get(INDEX_FIRST_RECIPE.getZeroBased());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
@@ -91,7 +91,7 @@ public class EditCommandTest {
     public void execute_filteredList_success() {
         showPersonAtIndex(model, INDEX_FIRST_RECIPE);
 
-        Recipe recipeInFilteredList = model.getFilteredRecipeList().get(INDEX_FIRST_RECIPE.getZeroBased());
+        Recipe recipeInFilteredList = model.getFilteredList().get(INDEX_FIRST_RECIPE.getZeroBased());
         Recipe editedRecipe = new RecipeBuilder(recipeInFilteredList).withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_RECIPE,
                 new EditRecipeDescriptorBuilder().withName(VALID_NAME_BOB).build());
@@ -99,7 +99,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
         Model expectedModel = new ModelManager(new AppContent(model.getAppContent()), new UserPrefs());
-        expectedModel.update(model.getFilteredRecipeList().get(0), editedRecipe);
+        expectedModel.update(model.getFilteredList().get(0), editedRecipe);
         expectedModel.commitAppContent();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -107,7 +107,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() {
-        Recipe firstRecipe = model.getFilteredRecipeList().get(INDEX_FIRST_RECIPE.getZeroBased());
+        Recipe firstRecipe = model.getFilteredList().get(INDEX_FIRST_RECIPE.getZeroBased());
         EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder(firstRecipe).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_RECIPE, descriptor);
 
@@ -128,7 +128,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredRecipeList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredList().size() + 1);
         EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
@@ -155,7 +155,7 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Recipe editedRecipe = new RecipeBuilder().build();
-        Recipe recipeToEdit = model.getFilteredRecipeList().get(INDEX_FIRST_RECIPE.getZeroBased());
+        Recipe recipeToEdit = model.getFilteredList().get(INDEX_FIRST_RECIPE.getZeroBased());
         EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder(editedRecipe).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_RECIPE, descriptor);
         Model expectedModel = new ModelManager(new AppContent(model.getAppContent()), new UserPrefs());
@@ -176,7 +176,7 @@ public class EditCommandTest {
 
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredRecipeList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredList().size() + 1);
         EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
@@ -203,7 +203,7 @@ public class EditCommandTest {
         Model expectedModel = new ModelManager(new AppContent(model.getAppContent()), new UserPrefs());
 
         showPersonAtIndex(model, INDEX_SECOND_RECIPE);
-        Recipe recipeToEdit = model.getFilteredRecipeList().get(INDEX_FIRST_RECIPE.getZeroBased());
+        Recipe recipeToEdit = model.getFilteredList().get(INDEX_FIRST_RECIPE.getZeroBased());
         expectedModel.update(recipeToEdit, editedRecipe);
         expectedModel.commitAppContent();
 
@@ -214,7 +214,7 @@ public class EditCommandTest {
         expectedModel.undoAppContent();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        assertNotEquals(model.getFilteredRecipeList().get(INDEX_FIRST_RECIPE.getZeroBased()), recipeToEdit);
+        assertNotEquals(model.getFilteredList().get(INDEX_FIRST_RECIPE.getZeroBased()), recipeToEdit);
         // redo -> edits same second recipe in unfiltered recipe list
         expectedModel.redoAppContent();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);

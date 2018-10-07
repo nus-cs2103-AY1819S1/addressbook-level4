@@ -144,7 +144,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showAllRecipes() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getAppContent().getRecipeList().size(), getModel().getFilteredRecipeList().size());
+        assertEquals(getModel().getAppContent().getRecipeList().size(), getModel().getFilteredList().size());
     }
 
     /**
@@ -152,7 +152,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showRecipesWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredRecipeList().size() < getModel().getAppContent().getRecipeList().size());
+        assertTrue(getModel().getFilteredList().size() < getModel().getAppContent().getRecipeList().size());
     }
 
     /**
@@ -181,7 +181,7 @@ public abstract class AddressBookSystemTest {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new AppContent(expectedModel.getAppContent()), testApp.readStorageAddressBook());
-        assertListMatching(getRecipeListPanel(), expectedModel.getFilteredRecipeList());
+        assertListMatching(getRecipeListPanel(), expectedModel.getFilteredList());
     }
 
     /**
@@ -277,7 +277,7 @@ public abstract class AddressBookSystemTest {
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        assertListMatching(getRecipeListPanel(), getModel().getFilteredRecipeList());
+        assertListMatching(getRecipeListPanel(), getModel().getFilteredList());
         assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());

@@ -20,7 +20,7 @@ public class ModelHelper {
     public static void setFilteredList(Model model, List<Recipe> toDisplay) {
         Optional<Predicate<Recipe>> predicate =
                 toDisplay.stream().map(ModelHelper::getPredicateMatching).reduce(Predicate::or);
-        model.updateFilteredRecipeList(predicate.orElse(PREDICATE_MATCHING_NO_RECIPES));
+        model.updateFilteredList(predicate.orElse(PREDICATE_MATCHING_NO_RECIPES));
     }
 
     /**

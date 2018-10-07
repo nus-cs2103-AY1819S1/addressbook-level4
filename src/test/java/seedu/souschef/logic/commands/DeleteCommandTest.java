@@ -31,7 +31,7 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Recipe recipeToDelete = model.getFilteredRecipeList().get(INDEX_FIRST_RECIPE.getZeroBased());
+        Recipe recipeToDelete = model.getFilteredList().get(INDEX_FIRST_RECIPE.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_RECIPE);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_RECIPE_SUCCESS, recipeToDelete);
@@ -45,7 +45,7 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredRecipeList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
@@ -55,7 +55,7 @@ public class DeleteCommandTest {
     public void execute_validIndexFilteredList_success() {
         showPersonAtIndex(model, INDEX_FIRST_RECIPE);
 
-        Recipe recipeToDelete = model.getFilteredRecipeList().get(INDEX_FIRST_RECIPE.getZeroBased());
+        Recipe recipeToDelete = model.getFilteredList().get(INDEX_FIRST_RECIPE.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_RECIPE);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_RECIPE_SUCCESS, recipeToDelete);
@@ -83,7 +83,7 @@ public class DeleteCommandTest {
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
-        Recipe recipeToDelete = model.getFilteredRecipeList().get(INDEX_FIRST_RECIPE.getZeroBased());
+        Recipe recipeToDelete = model.getFilteredList().get(INDEX_FIRST_RECIPE.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_RECIPE);
         Model expectedModel = new ModelManager(model.getAppContent(), new UserPrefs());
         expectedModel.delete(recipeToDelete);
@@ -103,7 +103,7 @@ public class DeleteCommandTest {
 
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredRecipeList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
         // execution failed -> address book state not added into model
@@ -127,7 +127,7 @@ public class DeleteCommandTest {
         Model expectedModel = new ModelManager(model.getAppContent(), new UserPrefs());
 
         showPersonAtIndex(model, INDEX_SECOND_RECIPE);
-        Recipe recipeToDelete = model.getFilteredRecipeList().get(INDEX_FIRST_RECIPE.getZeroBased());
+        Recipe recipeToDelete = model.getFilteredList().get(INDEX_FIRST_RECIPE.getZeroBased());
         expectedModel.delete(recipeToDelete);
         expectedModel.commitAppContent();
 
@@ -138,7 +138,7 @@ public class DeleteCommandTest {
         expectedModel.undoAppContent();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        assertNotEquals(recipeToDelete, model.getFilteredRecipeList().get(INDEX_FIRST_RECIPE.getZeroBased()));
+        assertNotEquals(recipeToDelete, model.getFilteredList().get(INDEX_FIRST_RECIPE.getZeroBased()));
         // redo -> deletes same second recipe in unfiltered recipe list
         expectedModel.redoAppContent();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
@@ -170,8 +170,8 @@ public class DeleteCommandTest {
      * Updates {@code model}'s filtered list to show no one.
      */
     private void showNoPerson(Model model) {
-        model.updateFilteredRecipeList(p -> false);
+        model.updateFilteredList(p -> false);
 
-        assertTrue(model.getFilteredRecipeList().isEmpty());
+        assertTrue(model.getFilteredList().isEmpty());
     }
 }

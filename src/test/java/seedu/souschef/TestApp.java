@@ -94,7 +94,7 @@ public class TestApp extends MainApp {
      */
     public Model<Recipe> getModel() {
         Model<Recipe> copy = new ModelManager<>((model.getAppContent()), new UserPrefs());
-        ModelHelper.setFilteredList(copy, model.getFilteredRecipeList());
+        ModelHelper.setFilteredList(copy, model.getFilteredList());
         return copy;
     }
 

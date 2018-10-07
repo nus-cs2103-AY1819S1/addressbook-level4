@@ -120,12 +120,12 @@
 //        }
 //
 //        @Override
-//        public ObservableList<Recipe> getFilteredRecipeList() {
+//        public ObservableList<Recipe> getFilteredList() {
 //            throw new AssertionError("This method should not be called.");
 //        }
 //
 //        @Override
-//        public void updateFilteredRecipeList(Predicate<Recipe> predicate) {
+//        public void updateFilteredList(Predicate<Recipe> predicate) {
 //            throw new AssertionError("This method should not be called.");
 //        }
 //

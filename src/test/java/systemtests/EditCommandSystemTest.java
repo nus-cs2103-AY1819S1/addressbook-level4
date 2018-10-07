@@ -24,7 +24,7 @@ import static seedu.souschef.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.souschef.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.souschef.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.souschef.model.Model.PREDICATE_SHOW_ALL_RECIPES;
+import static seedu.souschef.model.Model.PREDICATE_SHOW_ALL;
 import static seedu.souschef.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
 import static seedu.souschef.testutil.TypicalIndexes.INDEX_SECOND_RECIPE;
 import static seedu.souschef.testutil.TypicalRecipes.AMY;
@@ -74,7 +74,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         model.update(
-                getModel().getFilteredRecipeList().get(INDEX_FIRST_RECIPE.getZeroBased()), editedRecipe);
+                getModel().getFilteredList().get(INDEX_FIRST_RECIPE.getZeroBased()), editedRecipe);
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: edit a recipe with new values same as existing values -> edited */
@@ -85,7 +85,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         /* Case: edit a recipe with new values same as another recipe's values but with different name -> edited */
         assertTrue(getModel().getAppContent().getRecipeList().contains(BOB));
         index = INDEX_SECOND_RECIPE;
-        assertNotEquals(getModel().getFilteredRecipeList().get(index.getZeroBased()), BOB);
+        assertNotEquals(getModel().getFilteredList().get(index.getZeroBased()), BOB);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedRecipe = new RecipeBuilder(BOB).withName(VALID_NAME_AMY).build();
@@ -103,7 +103,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         /* Case: clear tags -> cleared */
         index = INDEX_FIRST_RECIPE;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
-        Recipe recipeToEdit = getModel().getFilteredRecipeList().get(index.getZeroBased());
+        Recipe recipeToEdit = getModel().getFilteredList().get(index.getZeroBased());
         editedRecipe = new RecipeBuilder(recipeToEdit).withTags().build();
         assertCommandSuccess(command, index, editedRecipe);
 
@@ -112,9 +112,9 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         /* Case: filtered recipe list, edit index within bounds of address book and recipe list -> edited */
         showRecipesWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_RECIPE;
-        assertTrue(index.getZeroBased() < getModel().getFilteredRecipeList().size());
+        assertTrue(index.getZeroBased() < getModel().getFilteredList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
-        recipeToEdit = getModel().getFilteredRecipeList().get(index.getZeroBased());
+        recipeToEdit = getModel().getFilteredList().get(index.getZeroBased());
         editedRecipe = new RecipeBuilder(recipeToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedRecipe);
 
@@ -151,7 +151,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (size + 1) -> rejected */
-        invalidIndex = getModel().getFilteredRecipeList().size() + 1;
+        invalidIndex = getModel().getFilteredList().size() + 1;
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
 
@@ -187,7 +187,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         executeCommand(RecipeUtil.getAddCommand(BOB));
         assertTrue(getModel().getAppContent().getRecipeList().contains(BOB));
         index = INDEX_FIRST_RECIPE;
-        assertFalse(getModel().getFilteredRecipeList().get(index.getZeroBased()).equals(BOB));
+        assertFalse(getModel().getFilteredList().get(index.getZeroBased()).equals(BOB));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_RECIPE);
@@ -234,8 +234,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
     private void assertCommandSuccess(String command, Index toEdit, Recipe editedRecipe,
             Index expectedSelectedCardIndex) {
         Model<Recipe> expectedModel = getModel();
-        expectedModel.update(expectedModel.getFilteredRecipeList().get(toEdit.getZeroBased()), editedRecipe);
-        expectedModel.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
+        expectedModel.update(expectedModel.getFilteredList().get(toEdit.getZeroBased()), editedRecipe);
+        expectedModel.updateFilteredList(PREDICATE_SHOW_ALL);
 
         assertCommandSuccess(command, expectedModel,
                 String.format(EditCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe), expectedSelectedCardIndex);
@@ -266,7 +266,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
         executeCommand(command);
-        expectedModel.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
+        expectedModel.updateFilteredList(PREDICATE_SHOW_ALL);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
         if (expectedSelectedCardIndex != null) {
