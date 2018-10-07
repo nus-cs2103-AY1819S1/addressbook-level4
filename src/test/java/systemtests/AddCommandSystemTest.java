@@ -40,7 +40,7 @@ import seedu.address.model.Model;
 import seedu.address.model.calendarevent.CalendarEvent;
 import seedu.address.model.calendarevent.Email;
 import seedu.address.model.calendarevent.Location;
-import seedu.address.model.calendarevent.Name;
+import seedu.address.model.calendarevent.Title;
 import seedu.address.model.calendarevent.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.CalendarEventBuilder;
@@ -163,7 +163,7 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
 
         /* Case: invalid name -> rejected */
         command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
-        assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
+        assertCommandFailure(command, Title.MESSAGE_TITLE_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;

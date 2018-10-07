@@ -43,7 +43,7 @@ public class CalendarEventCard extends UiPart<Region> {
         super(FXML);
         this.calendarEvent = calendarEvent;
         id.setText(displayedIndex + ". ");
-        name.setText(calendarEvent.getName().fullName);
+        name.setText(calendarEvent.getName().fullTitle);
         phone.setText(calendarEvent.getPhone().value);
         venue.setText(calendarEvent.getLocation().value);
         email.setText(calendarEvent.getEmail().value);

@@ -16,7 +16,7 @@ import seedu.address.model.tag.Tag;
 public class CalendarEvent {
 
     // Identity fields
-    private final Name name;
+    private final Title name;
     private final Phone phone;
     private final Email email;
 
@@ -27,7 +27,7 @@ public class CalendarEvent {
     /**
      * Every field must be present and not null.
      */
-    public CalendarEvent(Name name, Phone phone, Email email, Location location, Set<Tag> tags) {
+    public CalendarEvent(Title name, Phone phone, Email email, Location location, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, location, tags);
         this.name = name;
         this.phone = phone;
@@ -36,7 +36,7 @@ public class CalendarEvent {
         this.tags.addAll(tags);
     }
 
-    public Name getName() {
+    public Title getName() {
         return name;
     }
 

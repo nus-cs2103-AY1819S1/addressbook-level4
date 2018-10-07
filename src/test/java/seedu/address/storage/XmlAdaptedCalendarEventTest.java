@@ -13,12 +13,12 @@ import org.junit.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.calendarevent.Email;
 import seedu.address.model.calendarevent.Location;
-import seedu.address.model.calendarevent.Name;
+import seedu.address.model.calendarevent.Title;
 import seedu.address.model.calendarevent.Phone;
 import seedu.address.testutil.Assert;
 
 public class XmlAdaptedCalendarEventTest {
-    private static final String INVALID_NAME = "R@chel";
+    private static final String INVALID_NAME = " ";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_LOCATION = " ";
     private static final String INVALID_EMAIL = "example.com";
@@ -42,7 +42,7 @@ public class XmlAdaptedCalendarEventTest {
     public void toModelType_invalidName_throwsIllegalValueException() {
         XmlAdaptedCalendarEvent person =
             new XmlAdaptedCalendarEvent(INVALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_LOCATION, VALID_TAGS);
-        String expectedMessage = Name.MESSAGE_NAME_CONSTRAINTS;
+        String expectedMessage = Title.MESSAGE_TITLE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
@@ -50,7 +50,7 @@ public class XmlAdaptedCalendarEventTest {
     public void toModelType_nullName_throwsIllegalValueException() {
         XmlAdaptedCalendarEvent person = new XmlAdaptedCalendarEvent(null, VALID_PHONE, VALID_EMAIL, VALID_LOCATION,
             VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 

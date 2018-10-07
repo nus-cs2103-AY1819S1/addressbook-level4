@@ -69,7 +69,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentScheduler, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
+        String[] keywords = ALICE.getName().fullTitle.split("\\s+");
         modelManager.updateFilteredCalendarEventList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(scheduler, userPrefs)));
 

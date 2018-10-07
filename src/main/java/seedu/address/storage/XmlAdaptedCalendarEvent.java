@@ -13,7 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.calendarevent.CalendarEvent;
 import seedu.address.model.calendarevent.Email;
 import seedu.address.model.calendarevent.Location;
-import seedu.address.model.calendarevent.Name;
+import seedu.address.model.calendarevent.Title;
 import seedu.address.model.calendarevent.Phone;
 import seedu.address.model.tag.Tag;
 
@@ -63,7 +63,7 @@ public class XmlAdaptedCalendarEvent {
      * @param source future changes to this will not affect the created XmlAdaptedCalendarEvent
      */
     public XmlAdaptedCalendarEvent(CalendarEvent source) {
-        name = source.getName().fullName;
+        name = source.getName().fullTitle;
         phone = source.getPhone().value;
         email = source.getEmail().value;
         location = source.getLocation().value;
@@ -84,12 +84,12 @@ public class XmlAdaptedCalendarEvent {
         }
 
         if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName()));
         }
-        if (!Name.isValidName(name)) {
-            throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
+        if (!Title.isValidTitle(name)) {
+            throw new IllegalValueException(Title.MESSAGE_TITLE_CONSTRAINTS);
         }
-        final Name modelName = new Name(name);
+        final Title modelName = new Title(name);
 
         if (phone == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));

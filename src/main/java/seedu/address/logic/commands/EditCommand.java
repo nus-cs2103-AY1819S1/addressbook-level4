@@ -23,7 +23,7 @@ import seedu.address.model.Model;
 import seedu.address.model.calendarevent.CalendarEvent;
 import seedu.address.model.calendarevent.Email;
 import seedu.address.model.calendarevent.Location;
-import seedu.address.model.calendarevent.Name;
+import seedu.address.model.calendarevent.Title;
 import seedu.address.model.calendarevent.Phone;
 import seedu.address.model.tag.Tag;
 
@@ -97,7 +97,7 @@ public class EditCommand extends Command {
                                                            EditCalendarEventDescriptor editCalendarEventDescriptor) {
         assert calendarEventToEdit != null;
 
-        Name updatedName = editCalendarEventDescriptor.getName().orElse(calendarEventToEdit.getName());
+        Title updatedName = editCalendarEventDescriptor.getName().orElse(calendarEventToEdit.getName());
         Phone updatedPhone = editCalendarEventDescriptor.getPhone().orElse(calendarEventToEdit.getPhone());
         Email updatedEmail = editCalendarEventDescriptor.getEmail().orElse(calendarEventToEdit.getEmail());
         Location updatedLocation = editCalendarEventDescriptor.getLocation().orElse(calendarEventToEdit.getLocation());
@@ -129,7 +129,7 @@ public class EditCommand extends Command {
      * corresponding field value of the calendar event.
      */
     public static class EditCalendarEventDescriptor {
-        private Name name;
+        private Title name;
         private Phone phone;
         private Email email;
         private Location location;
@@ -157,11 +157,11 @@ public class EditCommand extends Command {
             return CollectionUtil.isAnyNonNull(name, phone, email, location, tags);
         }
 
-        public void setName(Name name) {
+        public void setName(Title name) {
             this.name = name;
         }
 
-        public Optional<Name> getName() {
+        public Optional<Title> getName() {
             return Optional.ofNullable(name);
         }
 

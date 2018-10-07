@@ -6,7 +6,7 @@ import java.util.Set;
 import seedu.address.model.calendarevent.CalendarEvent;
 import seedu.address.model.calendarevent.Email;
 import seedu.address.model.calendarevent.Location;
-import seedu.address.model.calendarevent.Name;
+import seedu.address.model.calendarevent.Title;
 import seedu.address.model.calendarevent.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -21,14 +21,14 @@ public class CalendarEventBuilder {
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_LOCATION = "123, Jurong West Ave 6, #08-111";
 
-    private Name name;
+    private Title name;
     private Phone phone;
     private Email email;
     private Location location;
     private Set<Tag> tags;
 
     public CalendarEventBuilder() {
-        name = new Name(DEFAULT_NAME);
+        name = new Title(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         location = new Location(DEFAULT_LOCATION);
@@ -47,10 +47,10 @@ public class CalendarEventBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code CalendarEvent} that we are building.
+     * Sets the {@code Title} of the {@code CalendarEvent} that we are building.
      */
     public CalendarEventBuilder withName(String name) {
-        this.name = new Name(name);
+        this.name = new Title(name);
         return this;
     }
 

@@ -8,7 +8,7 @@ import seedu.address.logic.commands.EditCommand.EditCalendarEventDescriptor;
 import seedu.address.model.calendarevent.CalendarEvent;
 import seedu.address.model.calendarevent.Email;
 import seedu.address.model.calendarevent.Location;
-import seedu.address.model.calendarevent.Name;
+import seedu.address.model.calendarevent.Title;
 import seedu.address.model.calendarevent.Phone;
 import seedu.address.model.tag.Tag;
 
@@ -40,10 +40,10 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code EditCalendarEventDescriptor} that we are building.
+     * Sets the {@code Title} of the {@code EditCalendarEventDescriptor} that we are building.
      */
     public EditPersonDescriptorBuilder withName(String name) {
-        descriptor.setName(new Name(name));
+        descriptor.setName(new Title(name));
         return this;
     }
 
