@@ -247,6 +247,17 @@ public class Event {
         return changed;
     }
 
+    public boolean containsPerson(Person target) {
+        boolean contains = false;
+        if (organiser.equals(target)) {
+            contains = true;
+        }
+        if (personList.contains(target)) {
+            contains = true;
+        }
+        return contains;
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.

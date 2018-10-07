@@ -33,7 +33,7 @@ public class XmlAdaptedEvent {
     @XmlElement(required = true)
     private String address;
     @XmlElement(required = true)
-    private XmlAdaptedPerson organiser;
+    private String organiser;
     @XmlElement(required = false)
     private String startTime = "";
     @XmlElement(required = false)
@@ -46,7 +46,16 @@ public class XmlAdaptedEvent {
     @XmlElement
     private List<XmlAdaptedPoll> polls = new ArrayList<>();
     @XmlElement
-    private List<XmlAdaptedPerson> participants = new ArrayList<>();
+    private List<XmlPersonIndex> participants = new ArrayList<>();
+
+    private static ObservableList<Person> personList;
+
+    public static void setPersonList(ObservableList<Person> organiserPersonList) {
+        personList = organiserPersonList;
+        XmlAdaptedPoll.setPersonList(personList);
+        XmlAdaptedPollEntry.setPersonList(personList);
+        XmlPersonIndex.setPersonList(personList);
+    }
 
     /**
      * Constructs an XmlAdaptedPerson.
@@ -58,9 +67,9 @@ public class XmlAdaptedEvent {
      * Constructs an {@code XmlAdaptedEvent} with the given event details.
      */
 
-    public XmlAdaptedEvent(String name, String address, XmlAdaptedPerson organiser, String date,
+    public XmlAdaptedEvent(String name, String address, String organiser, String date,
                            String startTime, String endTime, List<XmlAdaptedTag> tagged,
-                           List<XmlAdaptedPoll> polls, List<XmlAdaptedPerson> personList) {
+                           List<XmlAdaptedPoll> polls, List<XmlPersonIndex> personList) {
         this.name = name;
         this.address = address;
         this.organiser = organiser;
@@ -92,7 +101,8 @@ public class XmlAdaptedEvent {
     public XmlAdaptedEvent(Event source) {
         name = source.getName().fullName;
         address = source.getLocation().value;
-        organiser = new XmlAdaptedPerson(source.getOrganiser());
+        organiser = String.valueOf(personList.indexOf(source.getOrganiser()));
+        //organiser = new XmlAdaptedPerson(source.getOrganiser());
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
@@ -111,7 +121,9 @@ public class XmlAdaptedEvent {
         participants = source.getPersonList()
                 .asUnmodifiableObservableList()
                 .stream()
-                .map(XmlAdaptedPerson::new)
+                .map(person -> String.valueOf(personList.indexOf(person)))
+                .map(XmlPersonIndex::new)
+                //.map(XmlAdaptedPerson::new)
                 .collect(Collectors.toList());
     }
 
@@ -143,8 +155,7 @@ public class XmlAdaptedEvent {
         }
         final Address modelAddress = new Address(address);
 
-        //dangerous
-        final Person modelOrganiser = personList.get(personList.indexOf(organiser.toModelType()));
+        final Person modelOrganiser = personList.get(Integer.valueOf(organiser));
 
         Event event = new Event(modelName, modelAddress, modelTags);
         event.setOrganiser(modelOrganiser);
@@ -162,15 +173,15 @@ public class XmlAdaptedEvent {
 
         final ArrayList<Poll> modelPolls = new ArrayList<>();
         for (XmlAdaptedPoll poll : polls) {
-            modelPolls.add(poll.toModelType());
+            modelPolls.add(poll.toModelType(personList));
         }
         event.setPolls(modelPolls);
 
         final ArrayList<Person> modelPersonList = new ArrayList<>();
-        for (XmlAdaptedPerson person : participants) {
-            //danger
-            int modelPersonIndex = personList.indexOf(person.toModelType());
-            Person modelPerson = personList.get(modelPersonIndex);
+
+        //need to catch exceptions
+        for (XmlPersonIndex personIndex : participants) {
+            Person modelPerson = personIndex.toModelType();
             modelPersonList.add(modelPerson);
         }
         event.setPersonList(modelPersonList);

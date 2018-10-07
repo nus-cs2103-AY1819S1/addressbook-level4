@@ -16,7 +16,7 @@ import seedu.address.model.tag.Tag;
 public class Person {
 
     // Identity fields
-    private final Name name;
+    private Name name;
     private final Phone phone;
     private final Email email;
 
@@ -53,6 +53,10 @@ public class Person {
 
     public Name getName() {
         return name;
+    }
+
+    public void setName(Name name) {
+        this.name = name;
     }
 
     public Phone getPhone() {

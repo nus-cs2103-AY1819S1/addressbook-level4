@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Person;
 
@@ -22,7 +23,13 @@ public class XmlAdaptedPollEntry {
     private String name;
 
     @XmlElement(required = false)
-    private List<XmlAdaptedPerson> personList = new ArrayList<>();
+    private List<XmlPersonIndex> voterList = new ArrayList<>();
+
+    private static ObservableList<Person> personList;
+
+    public static void setPersonList(ObservableList<Person> organiserPersonList) {
+        personList = organiserPersonList;
+    }
 
     /**
      * Constructs an XmlAdaptedPollEntry.
@@ -33,11 +40,12 @@ public class XmlAdaptedPollEntry {
     /**
      * Constructs an {@code XmlAdaptedPollEntry} with the given poll entry details.
      */
-    public XmlAdaptedPollEntry(String name, LinkedList<Person> personList) {
+    public XmlAdaptedPollEntry(String name, LinkedList<Person> voterList) {
         this.name = name;
-        if (personList != null) {
-            this.personList = personList.stream()
-                    .map(XmlAdaptedPerson::new)
+        if (voterList != null) {
+            this.voterList = voterList.stream()
+                    .map(person -> String.valueOf(personList.indexOf(person)))
+                    .map(XmlPersonIndex::new)
                     .collect(Collectors.toList());
         }
     }
@@ -46,11 +54,12 @@ public class XmlAdaptedPollEntry {
         return name;
     }
 
-    public LinkedList<Person> getPersonList() throws IllegalValueException {
+    public LinkedList<Person> getPersonList(ObservableList<Person> personList) throws IllegalValueException {
         LinkedList<Person> persons = new LinkedList<>();
-        for (XmlAdaptedPerson p : personList) {
+        for (XmlPersonIndex personIndex : voterList) {
             try {
-                persons.add(p.toModelType());
+                Person modelPerson = personIndex.toModelType();
+                persons.add(modelPerson);
             } catch (IllegalValueException e) {
                 throw e;
             }
@@ -70,6 +79,6 @@ public class XmlAdaptedPollEntry {
 
         XmlAdaptedPollEntry otherPollEntry = (XmlAdaptedPollEntry) other;
         return Objects.equals(name, otherPollEntry.name)
-                && personList.equals(otherPollEntry.personList);
+                && voterList.equals(otherPollEntry.voterList);
     }
 }
