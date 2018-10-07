@@ -33,9 +33,9 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.article.Address;
+import seedu.address.model.article.Article;
 import seedu.address.model.article.Email;
 import seedu.address.model.article.Name;
-import seedu.address.model.article.Article;
 import seedu.address.model.article.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.ArticleBuilder;

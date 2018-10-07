@@ -28,11 +28,11 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.article.NameContainsKeywordsPredicate;
 import seedu.address.model.article.Article;
-import seedu.address.testutil.EditArticleDescriptorBuilder;
+import seedu.address.model.article.NameContainsKeywordsPredicate;
 import seedu.address.testutil.ArticleBuilder;
 import seedu.address.testutil.ArticleUtil;
+import seedu.address.testutil.EditArticleDescriptorBuilder;
 
 public class AddressBookParserTest {
     @Rule

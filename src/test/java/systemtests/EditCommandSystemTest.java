@@ -25,11 +25,11 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ARTICLES;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ARTICLE;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ARTICLE;
 import static seedu.address.testutil.TypicalArticles.AMY;
 import static seedu.address.testutil.TypicalArticles.BOB;
 import static seedu.address.testutil.TypicalArticles.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ARTICLE;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ARTICLE;
 
 import org.junit.Test;
 
@@ -40,9 +40,9 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.article.Address;
+import seedu.address.model.article.Article;
 import seedu.address.model.article.Email;
 import seedu.address.model.article.Name;
-import seedu.address.model.article.Article;
 import seedu.address.model.article.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.ArticleBuilder;
@@ -126,7 +126,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_ARTICLE_DISPLAYED_INDEX);
 
-        /* --------------------- Performing edit operation while a article card is selected -------------------------- */
+        /* --------------------- Performing edit operation while a article card is selected ------------------------- */
 
         /* Case: selects first card in the article list, edit a article -> edited, card selection remains unchanged but
          * browser url changes
@@ -197,7 +197,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ARTICLE);
 
-        /* Case: edit a article with new values same as another article's values but with different address -> rejected */
+        /* Case: edit article with new values same as another article's values but with different address -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ARTICLE);

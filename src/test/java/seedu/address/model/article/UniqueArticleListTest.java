@@ -16,8 +16,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.model.article.exceptions.DuplicateArticleException;
 import seedu.address.model.article.exceptions.ArticleNotFoundException;
+import seedu.address.model.article.exceptions.DuplicateArticleException;
 import seedu.address.testutil.ArticleBuilder;
 
 public class UniqueArticleListTest {
