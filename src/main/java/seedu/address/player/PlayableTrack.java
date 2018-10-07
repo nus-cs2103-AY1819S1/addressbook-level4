@@ -35,6 +35,12 @@ public class PlayableTrack implements Playable {
         mediaPlayer.stop();
     }
 
+    @Override
+    public void pause() {
+        System.out.println("playabletrack pause");
+        mediaPlayer.pause();
+    }
+
     public void setOnEndOfMedia(Runnable runnable) {
         mediaPlayer.setOnEndOfMedia(runnable);
     }
