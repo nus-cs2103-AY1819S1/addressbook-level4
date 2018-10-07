@@ -40,7 +40,7 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlySchedulePlanner getSampleAddressBook() {
+    public static ReadOnlySchedulePlanner getSampleSchedulePlanner() {
         SchedulePlanner sampleAb = new SchedulePlanner();
         for (Task sampleTask : getSampleTasks()) {
             sampleAb.addTask(sampleTask);

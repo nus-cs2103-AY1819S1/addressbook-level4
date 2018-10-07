@@ -12,6 +12,7 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs {
 
     private GuiSettings guiSettings;
+    //private Path schedulePlannerFilePath = Paths.get("data" , "addressbook.xml");
     private Path schedulePlannerFilePath = Paths.get("addressbook.xml");
 
     public UserPrefs() {
