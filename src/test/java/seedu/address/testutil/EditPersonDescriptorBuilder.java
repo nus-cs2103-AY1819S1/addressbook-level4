@@ -8,8 +8,8 @@ import seedu.address.logic.commands.EditCommand.EditCalendarEventDescriptor;
 import seedu.address.model.calendarevent.CalendarEvent;
 import seedu.address.model.calendarevent.Email;
 import seedu.address.model.calendarevent.Location;
-import seedu.address.model.calendarevent.Title;
 import seedu.address.model.calendarevent.Phone;
+import seedu.address.model.calendarevent.Title;
 import seedu.address.model.tag.Tag;
 
 /**

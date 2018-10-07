@@ -11,8 +11,8 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.calendarevent.Email;
 import seedu.address.model.calendarevent.Location;
-import seedu.address.model.calendarevent.Title;
 import seedu.address.model.calendarevent.Phone;
+import seedu.address.model.calendarevent.Title;
 import seedu.address.model.tag.Tag;
 
 /**

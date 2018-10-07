@@ -40,7 +40,8 @@ public class BrowserPanelTest extends GuiUnitTest {
 
         // associated web page of a calendarevent
         postNow(selectionChangedEventStub);
-        URL expectedPersonUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + ALICE.getName().fullTitle.replaceAll(" ", "%20"));
+        URL expectedPersonUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + ALICE.getName().fullTitle.replaceAll(" ", "%20"
+        ));
 
         waitUntilBrowserLoaded(browserPanelHandle);
         assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());

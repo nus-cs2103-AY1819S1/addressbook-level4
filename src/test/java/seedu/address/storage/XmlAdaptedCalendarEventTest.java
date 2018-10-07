@@ -13,8 +13,8 @@ import org.junit.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.calendarevent.Email;
 import seedu.address.model.calendarevent.Location;
-import seedu.address.model.calendarevent.Title;
 import seedu.address.model.calendarevent.Phone;
+import seedu.address.model.calendarevent.Title;
 import seedu.address.testutil.Assert;
 
 public class XmlAdaptedCalendarEventTest {
