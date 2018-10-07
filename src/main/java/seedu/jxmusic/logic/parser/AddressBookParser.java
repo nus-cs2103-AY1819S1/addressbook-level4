@@ -19,7 +19,9 @@ import seedu.jxmusic.logic.commands.ListCommand;
 import seedu.jxmusic.logic.commands.PauseCommand;
 import seedu.jxmusic.logic.commands.PlayPlaylistCommand;
 import seedu.jxmusic.logic.commands.RedoCommand;
+import seedu.jxmusic.logic.commands.SeekCommand;
 import seedu.jxmusic.logic.commands.SelectCommand;
+import seedu.jxmusic.logic.commands.StopCommand;
 import seedu.jxmusic.logic.commands.UndoCommand;
 import seedu.jxmusic.logic.parser.exceptions.ParseException;
 
@@ -58,6 +60,10 @@ public class AddressBookParser {
 
         case StopCommand.COMMAND_WORD:
             return new StopCommand();
+
+        case SeekCommand.COMMAND_WORD:
+            //double time = arguments.toInt() sth like this, change the string to time in double
+            //return new SeekCommand(time);
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);

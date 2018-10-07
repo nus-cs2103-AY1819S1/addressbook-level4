@@ -3,6 +3,8 @@ package seedu.jxmusic.player;
 import java.util.Arrays;
 import java.util.List;
 
+import javafx.util.Duration;
+
 /**
  * Playlist1 structure used by Player
  */
@@ -39,5 +41,11 @@ public class PlayablePlaylist implements Playable {
             current = playlist.get(currentIndex);
         }
         current.pause();
+    }
+
+    @Override
+    public void seek(Duration time) {
+        System.out.println("playableplaylist seek to " + time.toSeconds() + " second(s)");
+        current.seek(time);
     }
 }

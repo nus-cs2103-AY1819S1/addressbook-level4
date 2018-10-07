@@ -1,5 +1,7 @@
 package seedu.jxmusic.player;
 
+import javafx.util.Duration;
+
 /**
  * The actual implemented player to be used by Logic component
  */
@@ -22,5 +24,11 @@ public class JxMusicPlayer implements Player {
     public void pause() {
         System.out.println("jxmusicplayer pause");
         pp.pause();
+    }
+
+    @Override
+    public void seek(Duration time) {
+        System.out.println("jxmusicplayer seek to " + time.toSeconds() + " second(s)");
+        pp.seek(time);
     }
 }

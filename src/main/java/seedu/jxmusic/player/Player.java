@@ -1,5 +1,7 @@
 package seedu.jxmusic.player;
 
+import javafx.util.Duration;
+
 /**
  * The API of the Player component.
  */
@@ -8,4 +10,5 @@ public interface Player {
     // void play(Track track);
     void stop();
     void pause();
+    void seek(Duration time);
 }

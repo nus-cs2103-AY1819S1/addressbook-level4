@@ -43,6 +43,12 @@ public class PlayableTrack implements Playable {
         mediaPlayer.pause();
     }
 
+    @Override
+    public void seek(Duration time) {
+        System.out.println("playabletrack seek to " + time.toSeconds() + " second(s)");
+        mediaPlayer.seek(time);
+    }
+
     public void setOnEndOfMedia(Runnable runnable) {
         mediaPlayer.setOnEndOfMedia(runnable);
     }
