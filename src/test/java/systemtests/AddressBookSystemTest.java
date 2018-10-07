@@ -40,7 +40,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.Model;
 import seedu.address.model.SchedulePlanner;
-import seedu.address.testutil.TypicalPersons;
+import seedu.address.testutil.TypicalTasks;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
 
@@ -85,7 +85,7 @@ public abstract class AddressBookSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected SchedulePlanner getInitialData() {
-        return TypicalPersons.getTypicalAddressBook();
+        return TypicalTasks.getTypicalAddressBook();
     }
 
     /**
@@ -179,7 +179,7 @@ public abstract class AddressBookSystemTest {
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new SchedulePlanner(expectedModel.getSchedulePlanner()), testApp.readStorageAddressBook());
+        assertEquals(new SchedulePlanner(expectedModel.getSchedulePlanner()), testApp.readStorageSchedulePlanner());
         assertListMatching(getPersonListPanel(), expectedModel.getFilteredTaskList());
     }
 
