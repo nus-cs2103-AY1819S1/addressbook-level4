@@ -6,25 +6,6 @@ import static seedu.jxmusic.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-<<<<<<< HEAD:src/main/java/seedu/address/logic/parser/AddressBookParser.java
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.PauseCommand;
-import seedu.address.logic.commands.PlayPlaylistCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.SelectCommand;
-import seedu.address.logic.commands.StopCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-=======
 import seedu.jxmusic.logic.commands.AddCommand;
 import seedu.jxmusic.logic.commands.ClearCommand;
 import seedu.jxmusic.logic.commands.Command;
@@ -41,7 +22,6 @@ import seedu.jxmusic.logic.commands.RedoCommand;
 import seedu.jxmusic.logic.commands.SelectCommand;
 import seedu.jxmusic.logic.commands.UndoCommand;
 import seedu.jxmusic.logic.parser.exceptions.ParseException;
->>>>>>> origin/david:src/main/java/seedu/jxmusic/logic/parser/AddressBookParser.java
 
 /**
  * Parses user input.
