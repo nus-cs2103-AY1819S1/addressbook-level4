@@ -26,12 +26,12 @@ import seedu.address.model.ReadOnlySchedulePlanner;
 import seedu.address.model.SchedulePlanner;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.SchedulePlannerStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
-import seedu.address.storage.XmlAddressBookStorage;
+import seedu.address.storage.XmlSchedulePlannerStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -61,8 +61,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new XmlAddressBookStorage(userPrefs.getSchedulePlannerFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        SchedulePlannerStorage schedulePlannerStorage = new XmlSchedulePlannerStorage(userPrefs.getSchedulePlannerFilePath());
+        storage = new StorageManager(schedulePlannerStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -81,14 +81,14 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlySchedulePlanner> addressBookOptional;
+        Optional<ReadOnlySchedulePlanner> schedulePlannerOptional;
         ReadOnlySchedulePlanner initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
+            schedulePlannerOptional = storage.readSchedulePlanner();
+            if (!schedulePlannerOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample SchedulePlanner");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = schedulePlannerOptional.orElseGet(SampleDataUtil::getSampleSchedulePlanner);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty SchedulePlanner");
             initialData = new SchedulePlanner();
