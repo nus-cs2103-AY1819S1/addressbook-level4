@@ -45,8 +45,8 @@ import seedu.address.model.task.Email;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Phone;
 import seedu.address.model.task.Task;
-import seedu.address.testutil.TaskBuilder;
 import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.TaskBuilder;
 
 public class EditCommandSystemTest extends AddressBookSystemTest {
 

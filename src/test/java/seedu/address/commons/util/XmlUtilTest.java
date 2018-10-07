@@ -16,8 +16,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.SchedulePlanner;
-import seedu.address.storage.XmlAdaptedTask;
 import seedu.address.storage.XmlAdaptedTag;
+import seedu.address.storage.XmlAdaptedTask;
 import seedu.address.storage.XmlSerializableSchedulePlanner;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.TaskBuilder;
@@ -126,7 +126,8 @@ public class XmlUtilTest {
         FileUtil.createFile(TEMP_FILE);
         XmlSerializableSchedulePlanner dataToWrite = new XmlSerializableSchedulePlanner(new SchedulePlanner());
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-        XmlSerializableSchedulePlanner dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableSchedulePlanner.class);
+        XmlSerializableSchedulePlanner dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE,
+                XmlSerializableSchedulePlanner.class);
         assertEquals(dataToWrite, dataFromFile);
 
         AddressBookBuilder builder = new AddressBookBuilder(new SchedulePlanner());
