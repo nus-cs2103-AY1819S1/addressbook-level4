@@ -19,8 +19,6 @@ import org.junit.rules.ExpectedException;
 import seedu.souschef.model.UniqueList;
 import seedu.souschef.model.exceptions.DuplicateException;
 import seedu.souschef.model.exceptions.NotFoundException;
-import seedu.souschef.model.recipe.exceptions.DuplicateRecipeException;
-import seedu.souschef.model.recipe.exceptions.RecipeNotFoundException;
 import seedu.souschef.testutil.RecipeBuilder;
 
 public class UniqueRecipeListTest {

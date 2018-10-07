@@ -226,8 +226,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} and in addition,<br>
      * 1. Asserts that result display box displays the success message of executing {@code EditCommand}.<br>
-     * 2. Asserts that the recipeModel related components are updated to reflect the recipe at index {@code toEdit} being
-     * updated to values specified {@code editedRecipe}.<br>
+     * 2. Asserts that the recipeModel related components are updated to reflect the recipe
+     * at index {@code toEdit} being updated to values specified {@code editedRecipe}.<br>
      * @param toEdit the index of the current recipeModel's filtered list.
      * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
      */

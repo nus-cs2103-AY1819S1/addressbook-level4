@@ -32,7 +32,8 @@ public class SelectCommandTest {
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
     private Model<Recipe> model = new ModelSetCoordinator(getTypicalAddressBook(), new UserPrefs()).getRecipeModel();
-    private Model<Recipe> expectedModel = new ModelSetCoordinator(getTypicalAddressBook(), new UserPrefs()).getRecipeModel();
+    private Model<Recipe> expectedModel = new ModelSetCoordinator(getTypicalAddressBook(),
+            new UserPrefs()).getRecipeModel();
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

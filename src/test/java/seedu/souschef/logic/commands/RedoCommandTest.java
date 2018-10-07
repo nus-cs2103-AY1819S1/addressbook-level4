@@ -16,7 +16,8 @@ import seedu.souschef.model.recipe.Recipe;
 
 public class RedoCommandTest {
 
-    private final Model<Recipe> model = new ModelSetCoordinator(getTypicalAddressBook(), new UserPrefs()).getRecipeModel();
+    private final Model<Recipe> model = new ModelSetCoordinator(getTypicalAddressBook(),
+            new UserPrefs()).getRecipeModel();
     private final Model<Recipe> expectedModel =
             new ModelSetCoordinator(getTypicalAddressBook(), new UserPrefs()).getRecipeModel();
     private final CommandHistory commandHistory = new CommandHistory();

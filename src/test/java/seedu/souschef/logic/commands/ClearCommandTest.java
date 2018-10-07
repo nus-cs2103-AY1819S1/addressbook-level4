@@ -8,7 +8,6 @@ import org.junit.Test;
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.model.AppContent;
 import seedu.souschef.model.Model;
-import seedu.souschef.model.ModelManager;
 import seedu.souschef.model.ModelSetCoordinator;
 import seedu.souschef.model.UserPrefs;
 import seedu.souschef.model.recipe.Recipe;
@@ -29,7 +28,8 @@ public class ClearCommandTest {
     @Test
     public void execute_nonEmptyAddressBook_success() {
         Model<Recipe> model = new ModelSetCoordinator(getTypicalAddressBook(), new UserPrefs()).getRecipeModel();
-        Model<Recipe> expectedModel = new ModelSetCoordinator(getTypicalAddressBook(), new UserPrefs()).getRecipeModel();
+        Model<Recipe> expectedModel = new ModelSetCoordinator(getTypicalAddressBook(),
+                new UserPrefs()).getRecipeModel();
         expectedModel.resetData(new AppContent());
         expectedModel.commitAppContent();
 

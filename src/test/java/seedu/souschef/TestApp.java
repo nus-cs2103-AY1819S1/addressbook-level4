@@ -13,8 +13,6 @@ import seedu.souschef.commons.util.FileUtil;
 import seedu.souschef.commons.util.XmlUtil;
 import seedu.souschef.model.AppContent;
 import seedu.souschef.model.Model;
-import seedu.souschef.model.ModelManager;
-import seedu.souschef.model.ModelSet;
 import seedu.souschef.model.ModelSetCoordinator;
 import seedu.souschef.model.ReadOnlyAppContent;
 import seedu.souschef.model.UserPrefs;

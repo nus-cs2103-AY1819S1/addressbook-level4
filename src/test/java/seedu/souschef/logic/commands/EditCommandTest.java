@@ -45,7 +45,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
-        Model<Recipe> expectedModel = new ModelSetCoordinator(new AppContent(model.getAppContent()), new UserPrefs()).getRecipeModel();
+        Model<Recipe> expectedModel = new ModelSetCoordinator(new AppContent(model.getAppContent()),
+                new UserPrefs()).getRecipeModel();
         expectedModel.update(model.getFilteredList().get(0), editedRecipe);
         expectedModel.commitAppContent();
 
@@ -82,7 +83,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
-        Model<Recipe> expectedModel = new ModelSetCoordinator(new AppContent(model.getAppContent()), new UserPrefs()).getRecipeModel();
+        Model<Recipe> expectedModel = new ModelSetCoordinator(new AppContent(model.getAppContent()),
+                new UserPrefs()).getRecipeModel();
         expectedModel.commitAppContent();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -99,7 +101,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
-        Model<Recipe> expectedModel = new ModelSetCoordinator(new AppContent(model.getAppContent()), new UserPrefs()).getRecipeModel();
+        Model<Recipe> expectedModel = new ModelSetCoordinator(new AppContent(model.getAppContent()),
+                new UserPrefs()).getRecipeModel();
         expectedModel.update(model.getFilteredList().get(0), editedRecipe);
         expectedModel.commitAppContent();
 
@@ -159,7 +162,8 @@ public class EditCommandTest {
         Recipe recipeToEdit = model.getFilteredList().get(INDEX_FIRST_RECIPE.getZeroBased());
         EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder(editedRecipe).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_RECIPE, descriptor);
-        Model<Recipe> expectedModel = new ModelSetCoordinator(new AppContent(model.getAppContent()), new UserPrefs()).getRecipeModel();
+        Model<Recipe> expectedModel = new ModelSetCoordinator(new AppContent(model.getAppContent()),
+                new UserPrefs()).getRecipeModel();
         expectedModel.update(recipeToEdit, editedRecipe);
         expectedModel.commitAppContent();
 
@@ -201,7 +205,8 @@ public class EditCommandTest {
         Recipe editedRecipe = new RecipeBuilder().build();
         EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder(editedRecipe).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_RECIPE, descriptor);
-        Model<Recipe> expectedModel = new ModelSetCoordinator(new AppContent(model.getAppContent()), new UserPrefs()).getRecipeModel();
+        Model<Recipe> expectedModel = new ModelSetCoordinator(new AppContent(model.getAppContent()),
+                new UserPrefs()).getRecipeModel();
 
         showPersonAtIndex(model, INDEX_SECOND_RECIPE);
         Recipe recipeToEdit = model.getFilteredList().get(INDEX_FIRST_RECIPE.getZeroBased());
