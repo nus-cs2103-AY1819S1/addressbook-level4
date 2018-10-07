@@ -33,7 +33,7 @@ public class ModelManager<T extends UniqueType> extends ComponentManager impleme
         logger.fine("Initializing with application content: " + appContent + " and user prefs " + userPrefs);
 
         versionedAppContent = new VersionedAppContent(appContent);
-        filteredList = new FilteredList<T>((ObservableList<T>) versionedAppContent.getRecipeList());
+        filteredList = new FilteredList<T>((ObservableList<T>) versionedAppContent.getObserableRecipeList());
         uniqueList = (UniqueList<T>) versionedAppContent.getRecipes();
     }
 

@@ -36,7 +36,7 @@ public class XmlSerializableAddressBook {
      */
     public XmlSerializableAddressBook(ReadOnlyAppContent src) {
         this();
-        recipes.addAll(src.getRecipeList().stream().map(XmlAdaptedRecipe::new).collect(Collectors.toList()));
+        recipes.addAll(src.getObserableRecipeList().stream().map(XmlAdaptedRecipe::new).collect(Collectors.toList()));
     }
 
     /**

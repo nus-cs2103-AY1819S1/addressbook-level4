@@ -144,7 +144,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showAllRecipes() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getAppContent().getRecipeList().size(), getModel().getFilteredList().size());
+        assertEquals(getModel().getAppContent().getObserableRecipeList().size(), getModel().getFilteredList().size());
     }
 
     /**
@@ -152,7 +152,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showRecipesWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredList().size() < getModel().getAppContent().getRecipeList().size());
+        assertTrue(getModel().getFilteredList().size() < getModel().getAppContent().getObserableRecipeList().size());
     }
 
     /**
@@ -168,7 +168,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void deleteAllRecipes() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getAppContent().getRecipeList().size());
+        assertEquals(0, getModel().getAppContent().getObserableRecipeList().size());
     }
 
     /**

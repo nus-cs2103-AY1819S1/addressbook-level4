@@ -83,7 +83,7 @@ public class RecipeListPanelTest extends GuiUnitTest {
         Path xmlFile = createXmlFileWithRecipes(recipeCount);
         XmlSerializableAddressBook xmlAddressBook =
                 XmlUtil.getDataFromFile(xmlFile, XmlSerializableAddressBook.class);
-        return FXCollections.observableArrayList(xmlAddressBook.toModelType().getRecipeList());
+        return FXCollections.observableArrayList(xmlAddressBook.toModelType().getObserableRecipeList());
     }
 
     /**

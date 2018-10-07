@@ -14,6 +14,6 @@ public class AppContentChangedEvent extends BaseEvent {
 
     @Override
     public String toString() {
-        return "number of recipes " + data.getRecipeList().size();
+        return "number of recipes " + data.getObserableRecipeList().size();
     }
 }

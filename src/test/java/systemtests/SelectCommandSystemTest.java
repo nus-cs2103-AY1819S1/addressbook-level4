@@ -58,7 +58,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
          * -> rejected
          */
         showRecipesWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAppContent().getRecipeList().size();
+        int invalidIndex = getModel().getAppContent().getObserableRecipeList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
 
         /* Case: filtered recipe list, select index within bounds of address book and recipe list -> selected */

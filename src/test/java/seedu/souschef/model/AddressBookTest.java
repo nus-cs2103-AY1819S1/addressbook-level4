@@ -32,7 +32,7 @@ public class AddressBookTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getRecipeList());
+        assertEquals(Collections.emptyList(), addressBook.getObserableRecipeList());
     }
 
     @Test
@@ -88,7 +88,7 @@ public class AddressBookTest {
     @Test
     public void getRecipeList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getRecipeList().remove(0);
+        addressBook.getObserableRecipeList().remove(0);
     }
 
     /**
@@ -102,7 +102,7 @@ public class AddressBookTest {
         }
 
         @Override
-        public ObservableList<Recipe> getRecipeList() {
+        public ObservableList<Recipe> getObserableRecipeList() {
             return recipes;
         }
     }
