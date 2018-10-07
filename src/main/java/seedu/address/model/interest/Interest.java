@@ -6,11 +6,15 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 /**
  * Represents an Interest in the address book.
  * Guarantees: immutable; name is valid as declared in {@link #isValidInterestName(String)}
+ *
+ * @author agendazhang
+ *
  */
 public class Interest {
 
     public static final String MESSAGE_INTEREST_CONSTRAINTS = "Interest names should be alphanumeric";
     public static final String INTEREST_VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final String VALID_INTEREST_STUDY = "study";
 
     public final String interestName;
 
@@ -19,10 +23,14 @@ public class Interest {
      *
      * @param interestName A valid Interest name.
      */
-    public Interest(String tagName) {
-        requireNonNull(tagName);
-        checkArgument(isValidInterestName(tagName), MESSAGE_INTEREST_CONSTRAINTS);
-        this.interestName = tagName;
+    public Interest(String interestName) {
+        requireNonNull(interestName);
+        checkArgument(isValidInterestName(interestName), MESSAGE_INTEREST_CONSTRAINTS);
+        this.interestName = interestName;
+    }
+
+    public Interest() {
+        this.interestName = VALID_INTEREST_STUDY;
     }
 
     /**

@@ -42,6 +42,34 @@ public class XmlAdaptedPerson {
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
+    public String getName() {
+        return name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getSchedule() {
+        return schedule;
+    }
+
+    public List<XmlAdaptedInterest> getInterests() {
+        return interests;
+    }
+
+    public List<XmlAdaptedTag> getTagged() {
+        return tagged;
+    }
+
     /**
      * Constructs an XmlAdaptedPerson.
      * This is the no-arg constructor that is required by JAXB.
@@ -60,6 +88,9 @@ public class XmlAdaptedPerson {
         this.address = address;
         if (interests != null) {
             this.interests = new ArrayList<>(interests);
+        } else {
+            Interest interest = new Interest();
+            this.interests.add(new XmlAdaptedInterest(interest));
         }
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
@@ -125,8 +156,6 @@ public class XmlAdaptedPerson {
         }
         final Email modelEmail = new Email(email);
 
-
-
         if (address == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
         }
@@ -142,7 +171,14 @@ public class XmlAdaptedPerson {
             modelSchedule = new Schedule(schedule);
         }
 
-        final Set<Interest> modelInterests = new HashSet<>(personInterests);
+        final Set<Interest> modelInterests;
+        if (interests == null) {
+            modelInterests = new HashSet<>();
+            modelInterests.add(new Interest());
+        } else {
+            modelInterests = new HashSet<>(personInterests);
+        }
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelInterests, modelTags, modelSchedule);
     }

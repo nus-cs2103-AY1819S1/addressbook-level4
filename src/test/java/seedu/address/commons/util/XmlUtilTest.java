@@ -84,7 +84,7 @@ public class XmlUtilTest {
                 MISSING_PERSON_FIELD_FILE, XmlAdaptedPersonWithRootElement.class);
         XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
                 null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_INTERESTS, VALID_TAGS);
-        assertEquals(expectedPerson, actualPerson);
+        assertEqualXmlAdaptedPerson(expectedPerson, actualPerson);
     }
 
     @Test
@@ -93,7 +93,7 @@ public class XmlUtilTest {
                 INVALID_PERSON_FIELD_FILE, XmlAdaptedPersonWithRootElement.class);
         XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
                 VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_INTERESTS, VALID_TAGS);
-        assertEquals(expectedPerson, actualPerson);
+        assertEqualXmlAdaptedPerson(expectedPerson, actualPerson);
     }
 
     @Test
@@ -102,7 +102,7 @@ public class XmlUtilTest {
                 VALID_PERSON_FILE, XmlAdaptedPersonWithRootElement.class);
         XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
                 VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_INTERESTS, VALID_TAGS);
-        assertEquals(expectedPerson, actualPerson);
+        assertEqualXmlAdaptedPerson(expectedPerson, actualPerson);
     }
 
     @Test
@@ -138,6 +138,16 @@ public class XmlUtilTest {
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
         assertEquals(dataToWrite, dataFromFile);
+    }
+
+    private void assertEqualXmlAdaptedPerson (XmlAdaptedPerson expectedPerson, XmlAdaptedPerson actualPerson) {
+        assertEquals(expectedPerson.getName(), actualPerson.getName());
+        assertEquals(expectedPerson.getPhone(), actualPerson.getPhone());
+        assertEquals(expectedPerson.getEmail(), actualPerson.getEmail());
+        assertEquals(expectedPerson.getAddress(), actualPerson.getAddress());
+        assertEquals(expectedPerson.getSchedule(), actualPerson.getSchedule());
+        assertEquals(expectedPerson.getInterests(), actualPerson.getInterests());
+        assertEquals(expectedPerson.getTagged(), actualPerson.getTagged());
     }
 
     /**
