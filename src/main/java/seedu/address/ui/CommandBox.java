@@ -124,7 +124,7 @@ public class CommandBox extends UiPart<Region> {
      * Suggests commands with the text in the box as arguments. Does not behave like an actual command.
      */
     private void suggestCommand() {
-        SuggestCommand suggestCommand = new SuggestCommand(commandTextField.getText());
+        SuggestCommand suggestCommand = new SuggestCommand(commandTextField.getText().split(" ")[0]);
         if (!suggestCommand.isPrefixValid()) {
             return;
         }
