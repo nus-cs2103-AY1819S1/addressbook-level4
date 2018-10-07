@@ -13,31 +13,32 @@ import javafx.scene.layout.Region;
 import seedu.jxmusic.commons.core.LogsCenter;
 import seedu.jxmusic.commons.events.ui.JumpToListRequestEvent;
 import seedu.jxmusic.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.jxmusic.model.Playlist;
 
 /**
  * Panel containing the list of persons.
  */
-public class PersonListPanel extends UiPart<Region> {
+public class PlaylistsPanel extends UiPart<Region> {
     private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(PlaylistsPanel.class);
 
     @FXML
-    private ListView<Person> personListView;
+    private ListView<Playlist> playlistsView;
 
-    public PersonListPanel(ObservableList<Person> personList) {
+    public PlaylistsPanel(ObservableList<Playlist> playlists) {
         super(FXML);
-        setConnections(personList);
+        setConnections(playlists);
         registerAsAnEventHandler(this);
     }
 
-    private void setConnections(ObservableList<Person> personList) {
-        personListView.setItems(personList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+    private void setConnections(ObservableList<Playlist> playlists) {
+        playlistsView.setItems(playlists);
+        playlistsView.setCellFactory(listView -> new PlaylistsViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
-        personListView.getSelectionModel().selectedItemProperty()
+        playlistsView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
                         logger.fine("Selection in playlist list panel changed to : '" + newValue + "'");
@@ -47,12 +48,12 @@ public class PersonListPanel extends UiPart<Region> {
     }
 
     /**
-     * Scrolls to the {@code PersonCard} at the {@code index} and selects it.
+     * Scrolls to the {@code PlaylistCard} at the {@code index} and selects it.
      */
     private void scrollTo(int index) {
         Platform.runLater(() -> {
-            personListView.scrollTo(index);
-            personListView.getSelectionModel().clearAndSelect(index);
+            playlistsView.scrollTo(index);
+            playlistsView.getSelectionModel().clearAndSelect(index);
         });
     }
 
@@ -63,18 +64,18 @@ public class PersonListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PlaylistCard}.
      */
-    class PersonListViewCell extends ListCell<Person> {
+    class PlaylistsViewCell extends ListCell<Playlist> {
         @Override
-        protected void updateItem(Person person, boolean empty) {
-            super.updateItem(person, empty);
+        protected void updateItem(Playlist playlist, boolean empty) {
+            super.updateItem(playlist, empty);
 
-            if (empty || person == null) {
+            if (empty || playlist == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+                setGraphic(new PlaylistCard(playlist, getIndex() + 1).getRoot());
             }
         }
     }

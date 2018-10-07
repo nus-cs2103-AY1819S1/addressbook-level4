@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import seedu.jxmusic.logic.commands.CommandResult;
 import seedu.jxmusic.logic.commands.exceptions.CommandException;
 import seedu.jxmusic.logic.parser.exceptions.ParseException;
+import seedu.jxmusic.model.Playlist;
 
 /**
  * API of the Logic component
@@ -19,7 +20,7 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    ObservableList<Playlist> getFilteredPlaylist();
 
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();

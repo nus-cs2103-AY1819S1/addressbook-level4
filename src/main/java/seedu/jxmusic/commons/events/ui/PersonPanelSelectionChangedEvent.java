@@ -1,6 +1,7 @@
 package seedu.jxmusic.commons.events.ui;
 
 import seedu.jxmusic.commons.events.BaseEvent;
+import seedu.jxmusic.model.Playlist;
 
 /**
  * Represents a selection change in the Person List Panel
@@ -8,9 +9,9 @@ import seedu.jxmusic.commons.events.BaseEvent;
 public class PersonPanelSelectionChangedEvent extends BaseEvent {
 
 
-    private final Person newSelection;
+    private final Playlist newSelection;
 
-    public PersonPanelSelectionChangedEvent(Person newSelection) {
+    public PersonPanelSelectionChangedEvent(Playlist newSelection) {
         this.newSelection = newSelection;
     }
 
@@ -19,7 +20,7 @@ public class PersonPanelSelectionChangedEvent extends BaseEvent {
         return getClass().getSimpleName();
     }
 
-    public Person getNewSelection() {
+    public Playlist getNewSelection() {
         return newSelection;
     }
 }

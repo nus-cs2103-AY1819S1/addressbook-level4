@@ -10,57 +10,57 @@ import org.junit.Test;
 import guitests.guihandles.PersonCardHandle;
 import seedu.jxmusic.testutil.PlaylistBuilder;
 
-public class PersonCardTest extends GuiUnitTest {
+public class PlaylistCardTest extends GuiUnitTest {
 
     @Test
     public void display() {
         // no tags
         Person personWithNoTags = new PlaylistBuilder().withTags(new String[0]).build();
-        PersonCard personCard = new PersonCard(personWithNoTags, 1);
-        uiPartRule.setUiPart(personCard);
-        assertCardDisplay(personCard, personWithNoTags, 1);
+        PlaylistCard playlistCard = new PlaylistCard(personWithNoTags, 1);
+        uiPartRule.setUiPart(playlistCard);
+        assertCardDisplay(playlistCard, personWithNoTags, 1);
 
         // with tags
         Person personWithTags = new PlaylistBuilder().build();
-        personCard = new PersonCard(personWithTags, 2);
-        uiPartRule.setUiPart(personCard);
-        assertCardDisplay(personCard, personWithTags, 2);
+        playlistCard = new PlaylistCard(personWithTags, 2);
+        uiPartRule.setUiPart(playlistCard);
+        assertCardDisplay(playlistCard, personWithTags, 2);
     }
 
     @Test
     public void equals() {
         Person person = new PlaylistBuilder().build();
-        PersonCard personCard = new PersonCard(person, 0);
+        PlaylistCard playlistCard = new PlaylistCard(person, 0);
 
         // same playlist, same index -> returns true
-        PersonCard copy = new PersonCard(person, 0);
-        assertTrue(personCard.equals(copy));
+        PlaylistCard copy = new PlaylistCard(person, 0);
+        assertTrue(playlistCard.equals(copy));
 
         // same object -> returns true
-        assertTrue(personCard.equals(personCard));
+        assertTrue(playlistCard.equals(playlistCard));
 
         // null -> returns false
-        assertFalse(personCard.equals(null));
+        assertFalse(playlistCard.equals(null));
 
         // different types -> returns false
-        assertFalse(personCard.equals(0));
+        assertFalse(playlistCard.equals(0));
 
         // different playlist, same index -> returns false
         Person differentPerson = new PlaylistBuilder().withName("differentName").build();
-        assertFalse(personCard.equals(new PersonCard(differentPerson, 0)));
+        assertFalse(playlistCard.equals(new PlaylistCard(differentPerson, 0)));
 
         // same playlist, different index -> returns false
-        assertFalse(personCard.equals(new PersonCard(person, 1)));
+        assertFalse(playlistCard.equals(new PlaylistCard(person, 1)));
     }
 
     /**
-     * Asserts that {@code personCard} displays the details of {@code expectedPerson} correctly and matches
+     * Asserts that {@code playlistCard} displays the details of {@code expectedPerson} correctly and matches
      * {@code expectedId}.
      */
-    private void assertCardDisplay(PersonCard personCard, Person expectedPerson, int expectedId) {
+    private void assertCardDisplay(PlaylistCard playlistCard, Person expectedPerson, int expectedId) {
         guiRobot.pauseForHuman();
 
-        PersonCardHandle personCardHandle = new PersonCardHandle(personCard.getRoot());
+        PersonCardHandle personCardHandle = new PersonCardHandle(playlistCard.getRoot());
 
         // verify id is displayed correctly
         assertEquals(Integer.toString(expectedId) + ". ", personCardHandle.getId());
