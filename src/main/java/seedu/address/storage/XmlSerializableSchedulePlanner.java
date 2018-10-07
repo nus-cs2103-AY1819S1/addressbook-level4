@@ -16,38 +16,38 @@ import seedu.address.model.task.Task;
  * An Immutable SchedulePlanner that is serializable to XML format
  */
 @XmlRootElement(name = "addressbook")
-public class XmlSerializableAddressBook {
+public class XmlSerializableSchedulePlanner {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate task(s).";
 
     @XmlElement
-    private List<XmlAdaptedPerson> persons;
+    private List<XmlAdaptedTask> persons;
 
     /**
-     * Creates an empty XmlSerializableAddressBook.
+     * Creates an empty XmlSerializableSchedulePlanner.
      * This empty constructor is required for marshalling.
      */
-    public XmlSerializableAddressBook() {
+    public XmlSerializableSchedulePlanner() {
         persons = new ArrayList<>();
     }
 
     /**
      * Conversion
      */
-    public XmlSerializableAddressBook(ReadOnlySchedulePlanner src) {
+    public XmlSerializableSchedulePlanner(ReadOnlySchedulePlanner src) {
         this();
-        persons.addAll(src.getTaskList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+        persons.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
     }
 
     /**
      * Converts this addressbook into the model's {@code SchedulePlanner} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
-     * {@code XmlAdaptedPerson}.
+     * {@code XmlAdaptedTask}.
      */
     public SchedulePlanner toModelType() throws IllegalValueException {
         SchedulePlanner addressBook = new SchedulePlanner();
-        for (XmlAdaptedPerson p : persons) {
+        for (XmlAdaptedTask p : persons) {
             Task task = p.toModelType();
             if (addressBook.hasTask(task)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
@@ -63,9 +63,9 @@ public class XmlSerializableAddressBook {
             return true;
         }
 
-        if (!(other instanceof XmlSerializableAddressBook)) {
+        if (!(other instanceof XmlSerializableSchedulePlanner)) {
             return false;
         }
-        return persons.equals(((XmlSerializableAddressBook) other).persons);
+        return persons.equals(((XmlSerializableSchedulePlanner) other).persons);
     }
 }

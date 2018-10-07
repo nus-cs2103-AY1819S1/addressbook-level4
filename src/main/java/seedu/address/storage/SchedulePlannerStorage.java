@@ -11,12 +11,12 @@ import seedu.address.model.SchedulePlanner;
 /**
  * Represents a storage for {@link SchedulePlanner}.
  */
-public interface AddressBookStorage {
+public interface SchedulePlannerStorage {
 
     /**
      * Returns the file path of the data file.
      */
-    Path getAddressBookFilePath();
+    Path getSchedulePlannerFilePath();
 
     /**
      * Returns SchedulePlanner data as a {@link ReadOnlySchedulePlanner}.
@@ -24,23 +24,23 @@ public interface AddressBookStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlySchedulePlanner> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlySchedulePlanner> readSchedulePlanner() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getSchedulePlannerFilePath()
      */
-    Optional<ReadOnlySchedulePlanner> readAddressBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlySchedulePlanner> readSchedulePlanner(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlySchedulePlanner} to the storage.
-     * @param addressBook cannot be null.
+     * @param schedulePlanner cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlySchedulePlanner addressBook) throws IOException;
+    void saveSchedulePlanner(ReadOnlySchedulePlanner schedulePlanner) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlySchedulePlanner)
+     * @see #saveSchedulePlanner(ReadOnlySchedulePlanner)
      */
-    void saveAddressBook(ReadOnlySchedulePlanner addressBook, Path filePath) throws IOException;
+    void saveSchedulePlanner(ReadOnlySchedulePlanner schedulePlanner, Path filePath) throws IOException;
 
 }

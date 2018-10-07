@@ -18,31 +18,31 @@ import seedu.address.model.ReadOnlySchedulePlanner;
 /**
  * A class to access SchedulePlanner data stored as an xml file on the hard disk.
  */
-public class XmlAddressBookStorage implements AddressBookStorage {
+public class XmlSchedulePlannerStorage implements SchedulePlannerStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(XmlAddressBookStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(XmlSchedulePlannerStorage.class);
 
     private Path filePath;
 
-    public XmlAddressBookStorage(Path filePath) {
+    public XmlSchedulePlannerStorage(Path filePath) {
         this.filePath = filePath;
     }
 
-    public Path getAddressBookFilePath() {
+    public Path getSchedulePlannerFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlySchedulePlanner> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlySchedulePlanner> readSchedulePlanner() throws DataConversionException, IOException {
+        return readSchedulePlanner(filePath);
     }
 
     /**
-     * Similar to {@link #readAddressBook()}
+     * Similar to {@link #readSchedulePlanner()}
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlySchedulePlanner> readAddressBook(Path filePath) throws DataConversionException,
+    public Optional<ReadOnlySchedulePlanner> readSchedulePlanner(Path filePath) throws DataConversionException,
                                                                                  FileNotFoundException {
         requireNonNull(filePath);
 
@@ -51,7 +51,7 @@ public class XmlAddressBookStorage implements AddressBookStorage {
             return Optional.empty();
         }
 
-        XmlSerializableAddressBook xmlAddressBook = XmlFileStorage.loadDataFromSaveFile(filePath);
+        XmlSerializableSchedulePlanner xmlAddressBook = XmlFileStorage.loadDataFromSaveFile(filePath);
         try {
             return Optional.of(xmlAddressBook.toModelType());
         } catch (IllegalValueException ive) {
@@ -61,20 +61,20 @@ public class XmlAddressBookStorage implements AddressBookStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlySchedulePlanner addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveSchedulePlanner(ReadOnlySchedulePlanner schedulePlanner) throws IOException {
+        saveSchedulePlanner(schedulePlanner, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlySchedulePlanner)}
+     * Similar to {@link #saveSchedulePlanner(ReadOnlySchedulePlanner)}
      * @param filePath location of the data. Cannot be null
      */
-    public void saveAddressBook(ReadOnlySchedulePlanner addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveSchedulePlanner(ReadOnlySchedulePlanner schedulePlanner, Path filePath) throws IOException {
+        requireNonNull(schedulePlanner);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        XmlFileStorage.saveDataToFile(filePath, new XmlSerializableAddressBook(addressBook));
+        XmlFileStorage.saveDataToFile(filePath, new XmlSerializableSchedulePlanner(schedulePlanner));
     }
 
 }

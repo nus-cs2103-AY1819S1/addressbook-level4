@@ -21,13 +21,13 @@ import seedu.address.model.UserPrefs;
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private SchedulePlannerStorage schedulePlannerStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(SchedulePlannerStorage schedulePlannerStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.schedulePlannerStorage = schedulePlannerStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -52,40 +52,40 @@ public class StorageManager extends ComponentManager implements Storage {
     // ================ SchedulePlanner methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getSchedulePlannerFilePath() {
+        return schedulePlannerStorage.getSchedulePlannerFilePath();
     }
 
     @Override
-    public Optional<ReadOnlySchedulePlanner> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlySchedulePlanner> readSchedulePlanner() throws DataConversionException, IOException {
+        return readSchedulePlanner(schedulePlannerStorage.getSchedulePlannerFilePath());
     }
 
     @Override
-    public Optional<ReadOnlySchedulePlanner> readAddressBook(Path filePath) throws DataConversionException,
+    public Optional<ReadOnlySchedulePlanner> readSchedulePlanner(Path filePath) throws DataConversionException,
             IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return schedulePlannerStorage.readSchedulePlanner(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlySchedulePlanner addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveSchedulePlanner(ReadOnlySchedulePlanner schedulePlanner) throws IOException {
+        saveSchedulePlanner(schedulePlanner, schedulePlannerStorage.getSchedulePlannerFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlySchedulePlanner addressBook, Path filePath) throws IOException {
+    public void saveSchedulePlanner(ReadOnlySchedulePlanner schedulePlanner, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        schedulePlannerStorage.saveSchedulePlanner(schedulePlanner, filePath);
     }
 
 
     @Override
     @Subscribe
-    public void handleAddressBookChangedEvent(SchedulePlannerChangedEvent event) {
+    public void handleSchedulePlannerChangedEvent(SchedulePlannerChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
-            saveAddressBook(event.data);
+            saveSchedulePlanner(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }
