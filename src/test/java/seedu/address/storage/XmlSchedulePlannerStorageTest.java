@@ -36,8 +36,8 @@ public class XmlSchedulePlannerStorageTest {
     }
 
     private java.util.Optional<ReadOnlySchedulePlanner> readAddressBook(String filePath) throws Exception {
-        return new XmlSchedulePlannerStorage(Paths.get(filePath)).
-                readSchedulePlanner(addToTestDataPathIfNotNull(filePath));
+        return new XmlSchedulePlannerStorage(Paths.get(filePath))
+                .readSchedulePlanner(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
