@@ -66,7 +66,7 @@ public class SelectCommandTest {
 
         Index outOfBoundsIndex = INDEX_SECOND_RECIPE;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAppContent().getObserableRecipeList().size());
+        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAppContent().getObservableRecipeList().size());
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
     }

@@ -42,7 +42,7 @@ public class AppContent implements ReadOnlyAppContent {
      */
     public void resetData(ReadOnlyAppContent newData) {
         requireNonNull(newData);
-        this.recipes.set(newData.getObserableRecipeList());
+        this.recipes.set(newData.getObservableRecipeList());
     }
 
     //// recipe-level operations
@@ -58,7 +58,7 @@ public class AppContent implements ReadOnlyAppContent {
     }
 
     @Override
-    public ObservableList<Recipe> getObserableRecipeList() {
+    public ObservableList<Recipe> getObservableRecipeList() {
         return recipes.asUnmodifiableObservableList();
     }
 

@@ -9,7 +9,6 @@ import org.junit.Test;
 
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.model.Model;
-import seedu.souschef.model.ModelManager;
 import seedu.souschef.model.ModelSetCoordinator;
 import seedu.souschef.model.UserPrefs;
 import seedu.souschef.model.recipe.Recipe;
@@ -42,7 +41,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Recipe recipeInList = model.getAppContent().getObserableRecipeList().get(0);
+        Recipe recipeInList = model.getAppContent().getObservableRecipeList().get(0);
         assertCommandFailure(new AddCommand(recipeInList), model, commandHistory,
                 AddCommand.MESSAGE_DUPLICATE_RECIPE);
     }

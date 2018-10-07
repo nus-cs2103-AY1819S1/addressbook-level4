@@ -120,7 +120,7 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_RECIPE);
 
         // edit recipe in filtered list into a duplicate in address book
-        Recipe recipeInList = model.getAppContent().getObserableRecipeList().get(INDEX_SECOND_RECIPE.getZeroBased());
+        Recipe recipeInList = model.getAppContent().getObservableRecipeList().get(INDEX_SECOND_RECIPE.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_RECIPE,
                 new EditRecipeDescriptorBuilder(recipeInList).build());
 
@@ -145,7 +145,7 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_RECIPE);
         Index outOfBoundIndex = INDEX_SECOND_RECIPE;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAppContent().getObserableRecipeList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getAppContent().getObservableRecipeList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditRecipeDescriptorBuilder().withName(VALID_NAME_BOB).build());

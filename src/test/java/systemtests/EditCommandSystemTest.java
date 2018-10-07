@@ -83,7 +83,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, index, BOB);
 
         /* Case: edit a recipe with new values same as another recipe's values but with different name -> edited */
-        assertTrue(getModel().getAppContent().getObserableRecipeList().contains(BOB));
+        assertTrue(getModel().getAppContent().getObservableRecipeList().contains(BOB));
         index = INDEX_SECOND_RECIPE;
         assertNotEquals(getModel().getFilteredList().get(index.getZeroBased()), BOB);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
@@ -122,7 +122,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
          * -> rejected
          */
         showRecipesWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAppContent().getObserableRecipeList().size();
+        int invalidIndex = getModel().getAppContent().getObservableRecipeList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
 
@@ -185,7 +185,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: edit a recipe with new values same as another recipe's values -> rejected */
         executeCommand(RecipeUtil.getAddCommand(BOB));
-        assertTrue(getModel().getAppContent().getObserableRecipeList().contains(BOB));
+        assertTrue(getModel().getAppContent().getObservableRecipeList().contains(BOB));
         index = INDEX_FIRST_RECIPE;
         assertFalse(getModel().getFilteredList().get(index.getZeroBased()).equals(BOB));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
