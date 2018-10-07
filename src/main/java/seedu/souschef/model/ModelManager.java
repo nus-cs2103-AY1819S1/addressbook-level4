@@ -14,18 +14,28 @@ import seedu.souschef.commons.core.LogsCenter;
 import seedu.souschef.commons.events.model.AppContentChangedEvent;
 
 /**
- * Represents the in-memory model of the application content data.
+ * Represents one domain of the in-memory model of the application content data.
  */
 public class ModelManager<T extends UniqueType> extends ComponentManager implements Model<T> {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private VersionedAppContent versionedAppContent;
+    private final VersionedAppContent versionedAppContent;
     private final FilteredList<T> filteredList;
     private final UniqueList<T> uniqueList;
 
     /**
      * Initializes a ModelManager with the given appContent and userPrefs.
      */
+    public ModelManager(VersionedAppContent appContent, UniqueList<T> ul) {
+        super();
+        requireAllNonNull(appContent, ul);
+        logger.fine("Initializing with application content: " + appContent + " and unique list " + ul);
+
+        versionedAppContent = appContent;
+        filteredList = new FilteredList<>(ul.asUnmodifiableObservableList());
+        uniqueList = ul;
+    }
+
     public ModelManager(ReadOnlyAppContent appContent, UserPrefs userPrefs) {
         super();
         requireAllNonNull(appContent, userPrefs);
