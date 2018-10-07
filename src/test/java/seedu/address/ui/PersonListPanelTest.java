@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
+import static seedu.address.testutil.TypicalTasks.getTypicalPersons;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
@@ -22,9 +22,9 @@ import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.task.Task;
-import seedu.address.storage.XmlSerializableAddressBook;
+import seedu.address.storage.XmlSerializableSchedulePlanner;
 
-public class TaskListPanelTest extends GuiUnitTest {
+public class PersonListPanelTest extends GuiUnitTest {
     private static final ObservableList<Task> TYPICAL_TASKS =
             FXCollections.observableList(getTypicalPersons());
 
@@ -81,8 +81,8 @@ public class TaskListPanelTest extends GuiUnitTest {
      */
     private ObservableList<Task> createBackingList(int personCount) throws Exception {
         Path xmlFile = createXmlFileWithPersons(personCount);
-        XmlSerializableAddressBook xmlAddressBook =
-                XmlUtil.getDataFromFile(xmlFile, XmlSerializableAddressBook.class);
+        XmlSerializableSchedulePlanner xmlAddressBook =
+                XmlUtil.getDataFromFile(xmlFile, XmlSerializableSchedulePlanner.class);
         return FXCollections.observableArrayList(xmlAddressBook.toModelType().getTaskList());
     }
 
