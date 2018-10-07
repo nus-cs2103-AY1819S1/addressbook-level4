@@ -4,6 +4,8 @@ import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -31,6 +33,7 @@ public class CommandBox extends UiPart<Region> {
     private final Logic logic;
     private ListElementPointer historySnapshot;
     private String pendingText = "";
+    private int caretPosition = 0;
 
     @FXML
     private TextField commandTextField;
@@ -40,6 +43,7 @@ public class CommandBox extends UiPart<Region> {
         this.logic = logic;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        commandTextField.caretPositionProperty().addListener((unused1) -> updateCaretPosition());
         historySnapshot = logic.getHistorySnapshot();
 
         registerAsAnEventHandler(this);
@@ -64,6 +68,7 @@ public class CommandBox extends UiPart<Region> {
             break;
         case TAB:
             keyEvent.consume();
+            preventTabNavigation();
             suggestCommand();
             break;
         default:
@@ -95,6 +100,24 @@ public class CommandBox extends UiPart<Region> {
         }
 
         replaceText(historySnapshot.next());
+    }
+
+    /**
+     * Keeps track of any change in caret position while the commandTextField is focused.
+     */
+    private void updateCaretPosition() {
+        if (!commandTextField.isFocused()) {
+            return;
+        }
+        caretPosition = commandTextField.getCaretPosition();
+    }
+
+    /**
+     * Negates the effect of tab navigation
+     */
+    private void preventTabNavigation() {
+        commandTextField.requestFocus();
+        commandTextField.positionCaret(caretPosition);
     }
 
     /**
