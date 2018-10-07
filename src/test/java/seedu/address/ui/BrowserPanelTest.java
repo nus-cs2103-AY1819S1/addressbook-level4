@@ -25,6 +25,12 @@ import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PrescriptionBuilder;
 
+//@@author snajef
+/** 
+ * Test driver class for the BrowserPanel class.
+ * @author Darien Chong
+ * 
+ */
 public class BrowserPanelTest extends GuiUnitTest {
     private static final ObservableList<Person> TYPICAL_PERSONS = FXCollections.observableList(getTypicalPersons());
     private static final int PERFORMANCE_TEST_TIMEOUT = 2500;
@@ -54,8 +60,14 @@ public class BrowserPanelTest extends GuiUnitTest {
     private void initUi(ObservableList<Person> backingList) {
         browserPanel = new BrowserPanel(backingList);
         uiPartRule.setUiPart(browserPanel);
+        browserPanel.setCurrentSelection(ALICE);
         browserPanelHandle = new BrowserPanelHandle(getChildNode(browserPanel.getRoot(),
                 BrowserPanelHandle.PRESCRIPTION_TABLE_VIEW_ID));
+    }
+    
+    @Test(expected = UnsupportedOperationException.class)
+    public void setCurrentSelection_notNull_throwsUnsupportedOperationException() {
+        browserPanel.setCurrentSelection(ALICE);
     }
 
     @Test
@@ -78,7 +90,6 @@ public class BrowserPanelTest extends GuiUnitTest {
 
         ALICE.getPrescriptionList()
              .add(prescription);
-        browserPanel.setCurrentSelection(ALICE);
         postNow(addmedsCommandSuccessEventStub);
 
         assertTrue(browserPanelHandle.getBackingListOfPrescriptions()

@@ -26,6 +26,7 @@ import seedu.address.model.person.Person;
  */
 public class BrowserPanel extends UiPart<Region> {
     private static final String FXML = "BrowserPanel.fxml";
+    private static final String MESSAGE_CURRENT_SELECTION_NOT_NULL = "There was an attempt to set the current selection, but it is not null.";
     private final Logger logger = LogsCenter.getLogger(getClass());
     private final String loggingPrefix = "[" + getClass().getName() + "]: ";
 
@@ -165,22 +166,26 @@ public class BrowserPanel extends UiPart<Region> {
      * Should only be used for testing purposes.
      * Will only work if the current selection is null.
      */
-    public void setCurrentSelection(Person p) {
-        currentSelection = (currentSelection == null ? p : currentSelection);
+    public void setCurrentSelection(Person p) throws UnsupportedOperationException {
+        if (currentSelection != null) {
+            throw new UnsupportedOperationException(MESSAGE_CURRENT_SELECTION_NOT_NULL);
+        }
+
+        currentSelection = p;
     }
 
     /**
      * Helper method to check if a given {@code Calendar} is after another given {@code Calendar}.
-     * @return true iff left is strictly after right.
+     * @return true iff {@code firstDate} is strictly after {@code secondDate}..
      */
-    private boolean isAfter(Calendar left, Calendar right) {
-        if (left.get(Calendar.YEAR) < right.get(Calendar.YEAR)) {
+    private boolean isAfter(Calendar firstDate, Calendar secondDate) {
+        if (firstDate.get(Calendar.YEAR) < secondDate.get(Calendar.YEAR)) {
             return false;
-        } else if (left.get(Calendar.YEAR) > right.get(Calendar.YEAR)) {
+        } else if (firstDate.get(Calendar.YEAR) > secondDate.get(Calendar.YEAR)) {
             return true;
         }
 
-        if (left.get(Calendar.DAY_OF_YEAR) <= right.get(Calendar.DAY_OF_YEAR)) {
+        if (firstDate.get(Calendar.DAY_OF_YEAR) <= secondDate.get(Calendar.DAY_OF_YEAR)) {
             return false;
         }
 
