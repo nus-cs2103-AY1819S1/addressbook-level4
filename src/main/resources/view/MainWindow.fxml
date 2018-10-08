@@ -45,7 +45,7 @@
           </VBox>
 
           <SplitPane orientation="VERTICAL">
-            <StackPane />
+            <StackPane fx:id="articleDetailsPlaceholder" />
 
             <SplitPane>
               <StackPane fx:id="browserPlaceholder" />
