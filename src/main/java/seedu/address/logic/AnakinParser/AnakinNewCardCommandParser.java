@@ -1,18 +1,19 @@
 package seedu.address.logic.AnakinParser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
+import static seedu.address.commons.core.AnakinMessages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
+
+import java.util.stream.Stream;
 
 import seedu.address.logic.AnakinCommands.AnakinNewCardCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.anakindeck.*;
-
-import java.util.stream.Stream;
-
+import seedu.address.model.anakindeck.AnakinAnswer;
+import seedu.address.model.anakindeck.AnakinCard;
+import seedu.address.model.anakindeck.AnakinQuestion;
 
 /**
  * Parses input arguments and creates a new AnakinNewCardCommand object
