@@ -49,7 +49,6 @@ public class AddUserCommandParser implements Parser<AddUserCommand> {
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Interest> interestList = ParserUtil.parseInterests(argMultimap.getAllValues(PREFIX_INTEREST));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-
         Schedule schedule = null;
         if (argMultimap.getValue(PREFIX_TIMETABLE).isPresent()) {
             String link = argMultimap.getValue(PREFIX_TIMETABLE).get();
@@ -62,6 +61,7 @@ public class AddUserCommandParser implements Parser<AddUserCommand> {
         } else {
             schedule = new Schedule();
         }
+        
         Person person = new Person(name, phone, email, address, interestList, tagList, schedule);
         return new AddUserCommand(person);
     }
