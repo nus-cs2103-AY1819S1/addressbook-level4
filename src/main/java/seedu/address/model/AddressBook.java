@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Random;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.UniquePersonList;
@@ -86,9 +87,15 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.setPerson(target, editedWord);
     }
 
-    public Word getTrivia() {
+    public void setTrivia() {
         ObservableList<Word> triviaRef = persons.asUnmodifiableObservableList();
-        triviaQ = triviaRef.get(0);
+        int length = triviaRef.size();
+        Random random = new Random();
+        triviaQ = triviaRef.get(random.nextInt(length));
+
+    }
+    public Word getTrivia() {
+        requireNonNull(triviaQ);
         return triviaQ;
     }
 

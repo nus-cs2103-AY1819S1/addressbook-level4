@@ -15,6 +15,7 @@ public class TriviaCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
+        model.setTrivia();
         Word triviaQ = model.getTrivia();
         Meaning QMeaning = triviaQ.getMeaning();
 
