@@ -47,7 +47,7 @@ public class AnakinParser {
             return new AnakinDelDeckCommandParser().parse(arguments);
 
         case AnakinNewCardCommand.COMMAND_WORD:
-            return new AnakinDelDeckCommandParser().parse(arguments);
+            return new AnakinNewCardCommandParser().parse(arguments);
         // TO DO
             /*
         case EditCommand.COMMAND_WORD:
