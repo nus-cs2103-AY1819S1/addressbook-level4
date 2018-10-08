@@ -10,6 +10,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
@@ -95,10 +96,7 @@ public class BrowserPanel extends UiPart<Region> {
             return;
         }
 
-        // The AddressBook works by re-creating the Person object from scratch, hence
-        // our current pointer is outdated, and we have to find our new Person object and update our table to point
-        // to a view of his medication list.
-        currentSelection = persons.filtered(person -> currentSelection.isSamePerson(person)).get(0);
+        currentSelection = getNewReferenceToPerson(currentSelection);
         resetTableView(currentSelection);
     }
 
@@ -109,57 +107,39 @@ public class BrowserPanel extends UiPart<Region> {
 
     /** Resets the table view given a {@code PrescriptionList}. */
     public void resetTable(PrescriptionList prescriptionList) {
-        ObservableList<Prescription> pxs = prescriptionList.getObservableCopyOfPrescriptionList();
-        prescriptionTableView.setItems(pxs);
+        setDataSourceForTable(prescriptionList.getObservableCopyOfPrescriptionList());
+        setDataSourcesForTableColumns();
+    }
 
-        drugNameCol.setCellValueFactory(
-            param -> new SimpleStringProperty(param.getValue()
-                .getDrugName()
-                .toString()));
+    /**
+     * The AddressBook {@code Person} object is immutable, hence any changes
+     * results in a wholly new {@code Person} object being created. This method
+     * helps to refresh our reference to the currently selected {@code Person} object
+     * to point to the new {@code Person} object.
+     */
+    private Person getNewReferenceToPerson(Person p) {
+        return persons.filtered(person -> currentSelection.isSamePerson(person)).get(0);
+    }
+    /**
+     * Sets the data source for the {@code TableView}.
+     * @param source to use for the table.
+     */
+    private void setDataSourceForTable(ObservableList<Prescription> source) {
+        prescriptionTableView.setItems(source);
+    }
 
-        dosageCol.setCellValueFactory(
-            param -> new SimpleStringProperty(Double.toString(param.getValue()
-                .getDose()
-                .getDose())));
-
-        dosageUnitCol.setCellValueFactory(
-            param -> new SimpleStringProperty(param.getValue()
-                .getDose()
-                .getDoseUnit()));
-
-        dosesPerDayCol.setCellValueFactory(
-            param -> new SimpleStringProperty(Integer.toString(param.getValue()
-                .getDose()
-                .getDosesPerDay())));
-
-        startDateCol.setCellValueFactory(
-            param -> new SimpleStringProperty(param.getValue()
-                .getDuration()
-                .getStartDateAsString()));
-
-        endDateCol.setCellValueFactory(
-            param -> new SimpleStringProperty(param.getValue()
-                .getDuration()
-                .getEndDateAsString()));
-
-        durationCol.setCellValueFactory(
-            param -> new SimpleStringProperty(param.getValue()
-                .getDuration()
-                .getDurationAsString()));
-
-        activePrescriptionCol.setCellValueFactory(
-            param -> {
-                Calendar today = Calendar.getInstance();
-                Calendar endDate = Calendar.getInstance();
-                try {
-                    endDate.setTime(Duration.DATE_FORMAT.parse(param.getValue().getDuration().getEndDateAsString()));
-                } catch (ParseException e) {
-                    logger.log(Level.SEVERE, loggingPrefix + "An exception has occurred: ", e);
-                    return new SimpleStringProperty("An error has occurred.");
-                }
-
-                return new SimpleStringProperty((isAfter(today, endDate) ? "No" : "Yes"));
-            });
+    /**
+     * Helper method to set all the data sources for each column.
+     */
+    private void setDataSourcesForTableColumns() {
+        drugNameCol.setCellValueFactory(param -> getDrugNameAsSimpleStringProperty(param));
+        dosageCol.setCellValueFactory(param -> getDosageAsSimpleStringProperty(param));
+        dosageUnitCol.setCellValueFactory(param -> getDosageUnitAsSimpleStringProperty(param));
+        dosesPerDayCol.setCellValueFactory(param -> getDosesPerDayAsSimpleStringProperty(param));
+        startDateCol.setCellValueFactory(param -> getStartDateAsSimpleStringProperty(param));
+        endDateCol.setCellValueFactory(param -> getEndDateAsSimpleStringProperty(param));
+        durationCol.setCellValueFactory(param -> getDurationAsSimpleStringProperty(param));
+        activePrescriptionCol.setCellValueFactory(param -> getActiveStatusAsSimpleStringProperty(param));
     }
 
     /**
@@ -173,6 +153,79 @@ public class BrowserPanel extends UiPart<Region> {
         }
 
         currentSelection = p;
+    }
+
+    /**
+     * Helper method to help extract the drug name in the required format for
+     * the cell value factory for the Drug Name column.
+     */
+    private SimpleStringProperty getDrugNameAsSimpleStringProperty(CellDataFeatures<Prescription, String> param) {
+        return new SimpleStringProperty(param.getValue().getDrugName().toString());
+    }
+
+    /**
+     * Helper method to help extract the dosage in the required format for
+     * the cell value factory for the Drug Name column.
+     */
+    private SimpleStringProperty getDosageAsSimpleStringProperty(CellDataFeatures<Prescription, String> param) {
+        return new SimpleStringProperty(Double.toString(param.getValue().getDose().getDose()));
+    }
+
+    /**
+     * Helper method to help extract the dosage unit in the required format for
+     * the cell value factory for the Drug Name column.
+     */
+    private SimpleStringProperty getDosageUnitAsSimpleStringProperty(CellDataFeatures<Prescription, String> param) {
+        return new SimpleStringProperty(param.getValue().getDose().getDoseUnit());
+    }
+
+    /**
+     * Helper method to help extract the doses per day in the required format for
+     * the cell value factory for the Drug Name column.
+     */
+    private SimpleStringProperty getDosesPerDayAsSimpleStringProperty(CellDataFeatures<Prescription, String> param) {
+        return new SimpleStringProperty(Integer.toString(param.getValue().getDose().getDosesPerDay()));
+    }
+
+    /**
+     * Helper method to help extract the start date in the required format for
+     * the cell value factory for the Drug Name column.
+     */
+    private SimpleStringProperty getStartDateAsSimpleStringProperty(CellDataFeatures<Prescription, String> param) {
+        return new SimpleStringProperty(param.getValue().getDuration().getStartDateAsString());
+    }
+
+    /**
+     * Helper method to help extract the end date in the required format for
+     * the cell value factory for the Drug Name column.
+     */
+    private SimpleStringProperty getEndDateAsSimpleStringProperty(CellDataFeatures<Prescription, String> param) {
+        return new SimpleStringProperty(param.getValue().getDuration().getEndDateAsString());
+    }
+
+    /**
+     * Helper method to help extract the duration in months/weeks/days in the required format for
+     * the cell value factory for the Drug Name column.
+     */
+    private SimpleStringProperty getDurationAsSimpleStringProperty(CellDataFeatures<Prescription, String> param) {
+        return new SimpleStringProperty(param.getValue().getDuration().getDurationAsString());
+    }
+
+    /**
+     * Helper method to help extract the active status of the prescription in the required format for
+     * the cell value factory for the Drug Name column.
+     */
+    private SimpleStringProperty getActiveStatusAsSimpleStringProperty(CellDataFeatures<Prescription, String> param) {
+        Calendar today = Calendar.getInstance();
+        Calendar endDate = Calendar.getInstance();
+        try {
+            endDate.setTime(Duration.DATE_FORMAT.parse(param.getValue().getDuration().getEndDateAsString()));
+        } catch (ParseException e) {
+            logger.log(Level.SEVERE, loggingPrefix + "An exception has occurred: ", e);
+            return new SimpleStringProperty("An error has occurred.");
+        }
+
+        return new SimpleStringProperty((isAfter(today, endDate) ? "No" : "Yes"));
     }
 
     /**
