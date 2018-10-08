@@ -3,11 +3,11 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.SchedulePlanner;
 
 /**
- * Clears the address book.
+ * Clears the Schedule Planner.
  */
 public class ClearCommand extends Command {
 
@@ -18,8 +18,8 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.resetData(new AddressBook());
-        model.commitAddressBook();
+        model.resetData(new SchedulePlanner());
+        model.commitSchedulePlanner();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
