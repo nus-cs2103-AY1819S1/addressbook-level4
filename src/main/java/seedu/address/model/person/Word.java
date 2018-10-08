@@ -18,7 +18,6 @@ public class Word {
     // Identity fields
     private final Name name;
     private final Phone phone;
-    private final Email email;
 
     // Data fields
     private final Address address;
@@ -27,11 +26,10 @@ public class Word {
     /**
      * Every field must be present and not null.
      */
-    public Word(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Word(Name name, Phone phone, Address address, Set<Tag> tags) {
+        requireAllNonNull(name, phone, address, tags);
         this.name = name;
         this.phone = phone;
-        this.email = email;
         this.address = address;
         this.tags.addAll(tags);
     }
@@ -42,10 +40,6 @@ public class Word {
 
     public Phone getPhone() {
         return phone;
-    }
-
-    public Email getEmail() {
-        return email;
     }
 
     public Address getAddress() {
@@ -91,7 +85,6 @@ public class Word {
         Word otherWord = (Word) other;
         return otherWord.getName().equals(getName())
                 && otherWord.getPhone().equals(getPhone())
-                && otherWord.getEmail().equals(getEmail())
                 && otherWord.getAddress().equals(getAddress())
                 && otherWord.getTags().equals(getTags());
     }
@@ -99,7 +92,7 @@ public class Word {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, address, tags);
     }
 
     @Override
@@ -108,8 +101,6 @@ public class Word {
         builder.append(getName())
                 .append(" Phone: ")
                 .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Tags: ");

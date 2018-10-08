@@ -82,7 +82,6 @@ public class PersonCardHandle extends NodeHandle<Node> {
         return getName().equals(word.getName().fullName)
                 && getAddress().equals(word.getAddress().value)
                 && getPhone().equals(word.getPhone().value)
-                && getEmail().equals(word.getEmail().value)
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(word.getTags().stream()
                         .map(tag -> tag.tagName)
                         .collect(Collectors.toList())));
