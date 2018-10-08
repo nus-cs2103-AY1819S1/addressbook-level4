@@ -96,8 +96,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (interests.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> interestSet = interests.size() == 1 &&
-                interests.contains("") ? Collections.emptySet() : interests;
+        Collection<String> interestSet = interests.size() == 1
+                && interests.contains("") ? Collections.emptySet() : interests;
         return Optional.of(ParserUtil.parseInterests(interestSet));
     }
 

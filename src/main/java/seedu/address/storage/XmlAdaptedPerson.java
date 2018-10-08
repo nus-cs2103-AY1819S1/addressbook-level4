@@ -42,34 +42,6 @@ public class XmlAdaptedPerson {
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
-    public String getName() {
-        return name;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public String getSchedule() {
-        return schedule;
-    }
-
-    public List<XmlAdaptedInterest> getInterests() {
-        return interests;
-    }
-
-    public List<XmlAdaptedTag> getTagged() {
-        return tagged;
-    }
-
     /**
      * Constructs an XmlAdaptedPerson.
      * This is the no-arg constructor that is required by JAXB.
@@ -181,6 +153,34 @@ public class XmlAdaptedPerson {
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelInterests, modelTags, modelSchedule);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getSchedule() {
+        return schedule;
+    }
+
+    public List<XmlAdaptedInterest> getInterests() {
+        return interests;
+    }
+
+    public List<XmlAdaptedTag> getTagged() {
+        return tagged;
     }
 
     @Override
