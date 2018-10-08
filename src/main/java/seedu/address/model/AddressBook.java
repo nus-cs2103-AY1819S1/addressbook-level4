@@ -16,7 +16,7 @@ import seedu.address.model.person.Word;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
-
+    private Word triviaQ;
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -84,6 +84,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedWord);
 
         persons.setPerson(target, editedWord);
+    }
+
+    public Word getTrivia() {
+        ObservableList<Word> triviaRef = persons.asUnmodifiableObservableList();
+        triviaQ = triviaRef.get(0);
+        return triviaQ;
     }
 
     /**

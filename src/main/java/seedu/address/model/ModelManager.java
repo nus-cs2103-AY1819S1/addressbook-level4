@@ -95,6 +95,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public Word getTrivia() {
+        return versionedAddressBook.getTrivia();
+    }
+
+    @Override
     public void updateFilteredPersonList(Predicate<Word> predicate) {
         requireNonNull(predicate);
         filteredWords.setPredicate(predicate);
