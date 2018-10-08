@@ -21,6 +21,7 @@ public class AnakinNewCardCommandParser implements AnakinParserInterface<AnakinN
     /**
      * Parses the given {@code String} of arguments in the context of the AnakinNewCardCommand
      * and returns an AnakinNewCardCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public AnakinNewCardCommand parse(String args) throws ParseException {
