@@ -141,7 +141,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * Executes {@code command} and in addition,<br>
      * 1. Asserts that the command box displays an empty string.<br>
      * 2. Asserts that the result display box displays {@code expectedResultMessage}.<br>
-     * 3. Asserts that the browser url and selected card remains unchanged.<br>
+     * 3. Asserts that the article details and selected card remains unchanged.<br>
      * 4. Asserts that the status bar's sync status changes.<br>
      * 5. Asserts that the command box has the default style class.<br>
      * Verifications 1 and 2 are performed by
@@ -153,8 +153,9 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Performs the same verification as {@code assertCommandSuccess(String, Model, String)} except that the browser url
-     * and selected card are expected to update accordingly depending on the card at {@code expectedSelectedCardIndex}.
+     * Performs the same verification as {@code assertCommandSuccess(String, Model, String)} except that the article
+     * details and selected card are expected to update accordingly depending on the card
+     * at {@code expectedSelectedCardIndex}.
      * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
      * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
      */
@@ -177,7 +178,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * Executes {@code command} and in addition,<br>
      * 1. Asserts that the command box displays {@code command}.<br>
      * 2. Asserts that result display box displays {@code expectedResultMessage}.<br>
-     * 3. Asserts that the browser url, selected card and status bar remain unchanged.<br>
+     * 3. Asserts that the article details, selected card and status bar remain unchanged.<br>
      * 4. Asserts that the command box has the error style.<br>
      * Verifications 1 and 2 are performed by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>

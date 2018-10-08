@@ -48,7 +48,7 @@
             <StackPane fx:id="articleDetailsPlaceholder" />
 
             <SplitPane>
-              <StackPane fx:id="browserPlaceholder" />
+              <StackPane />
 
               <StackPane />
             </SplitPane>
