@@ -3,21 +3,21 @@ package systemtests;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.DRUG_ALLERGY_DESC_ASPIRIN;
+import static seedu.address.logic.commands.CommandTestUtil.DRUG_ALLERGY_DESC_PENICILLIN;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_DRUG_ALLERGY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.NRIC_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NRIC_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
@@ -56,12 +56,13 @@ public class CheckinCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------------ Perform checkin operations on the shown unfiltered list ------------------------- */
 
-        /* Case: checks in a person without tags to a non-empty HMS, command with leading spaces and trailing spaces
+        /* Case: checks in a person without drug allergies to a non-empty HMS, command with leading spaces and trailing
+         spaces
          * -> added
          */
         Person toCheckin = AMY;
         String command = "   " + CheckinCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
-                + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + TAG_DESC_FRIEND + " " + NRIC_DESC_AMY;
+                + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + DRUG_ALLERGY_DESC_ASPIRIN + " " + NRIC_DESC_AMY;
         assertCommandSuccess(command, toCheckin);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
@@ -78,7 +79,7 @@ public class CheckinCommandSystemTest extends AddressBookSystemTest {
         /* Case: add a person with all fields same as another person in the HMS except name -> added */
         toCheckin = new PersonBuilder(AMY).withName(VALID_NAME_BOB).build();
         command = CheckinCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + TAG_DESC_FRIEND + NRIC_DESC_AMY;
+                + DRUG_ALLERGY_DESC_ASPIRIN + NRIC_DESC_AMY;
         assertCommandSuccess(command, toCheckin);
 
         /* Case: add a person with all fields same as another person in the HMS except phone and email
@@ -92,10 +93,11 @@ public class CheckinCommandSystemTest extends AddressBookSystemTest {
         deleteAllPersons();
         assertCommandSuccess(ALICE);
 
-        /* Case: add a person with tags, command with parameters in random order -> added */
+        /* Case: add a person with drug allergies, command with parameters in random order -> added */
         toCheckin = BOB;
-        command = CheckinCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
-                + TAG_DESC_HUSBAND + EMAIL_DESC_BOB + NRIC_DESC_BOB;
+        command = CheckinCommand.COMMAND_WORD + DRUG_ALLERGY_DESC_ASPIRIN + PHONE_DESC_BOB + ADDRESS_DESC_BOB
+                + NAME_DESC_BOB
+                + DRUG_ALLERGY_DESC_PENICILLIN + EMAIL_DESC_BOB + NRIC_DESC_BOB;
         assertCommandSuccess(command, toCheckin);
 
         /* Case: add a person, missing tags -> added */
@@ -182,10 +184,10 @@ public class CheckinCommandSystemTest extends AddressBookSystemTest {
                 + EMAIL_DESC_AMY + INVALID_ADDRESS_DESC;
         assertCommandFailure(command, Address.MESSAGE_ADDRESS_CONSTRAINTS);
 
-        /* Case: invalid tag -> rejected */
+        /* Case: invalid drug allergy -> rejected */
         command = CheckinCommand.COMMAND_WORD + NRIC_DESC_AMY + NAME_DESC_AMY + PHONE_DESC_AMY
                 + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + INVALID_TAG_DESC;
+                + INVALID_DRUG_ALLERGY_DESC;
         assertCommandFailure(command, Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
