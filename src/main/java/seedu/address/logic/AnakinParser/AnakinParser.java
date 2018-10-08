@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import seedu.address.logic.AnakinCommands.AnakinCommand;
 import seedu.address.logic.AnakinCommands.AnakinDelDeckCommand;
 import seedu.address.logic.AnakinCommands.AnakinNewDeckCommand;
+import seedu.address.logic.AnakinCommands.AnakinNewCardCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -40,13 +41,15 @@ public class AnakinParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AnakinNewDeckCommand.COMMAND_WORD:
-            return new AnakinNewDeckCommandParser().parse(arguments);
+            case AnakinNewDeckCommand.COMMAND_WORD:
+                return new AnakinNewDeckCommandParser().parse(arguments);
 
-        case AnakinDelDeckCommand.COMMAND_WORD:
-            return new AnakinDelDeckCommandParser().parse(arguments);
+            case AnakinDelDeckCommand.COMMAND_WORD:
+                return new AnakinDelDeckCommandParser().parse(arguments);
 
-        // TO DO
+            case AnakinNewCardCommand.COMMAND_WORD:
+                return new AnakinDelDeckCommandParser().parse(arguments);
+            // TO DO
             /*
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
@@ -73,8 +76,8 @@ public class AnakinParser {
             return new HelpCommand();
 
 */
-        default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 
