@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import seedu.address.commons.util.HashUtil;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.doctor.Doctor;
@@ -51,9 +52,9 @@ public class SampleDataUtil {
     public static List<Doctor> getSampleDoctors() {
         return new ArrayList<>(Arrays.asList(
                 new Doctor(new Id(1), new Name("Adam Bell"),
-                        new Password("doctor1")),
+                        new Password(HashUtil.hashToString("doctor1"))),
                 new Doctor(new Id(2), new Name("Chip Dale"),
-                        new Password("doctor2"))));
+                        new Password(HashUtil.hashToString("doctor2")))));
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {

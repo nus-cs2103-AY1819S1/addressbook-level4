@@ -37,7 +37,8 @@ public class Password {
      * Returns true if a given string is a valid password.
      */
     public static boolean isValidPassword(String test) {
-        return test.matches(PASSWORD_VALIDATION_REGEX);
+        //return test.matches(PASSWORD_VALIDATION_REGEX);
+        return !test.isEmpty();
     }
 
     //@@author jjlee050-reused

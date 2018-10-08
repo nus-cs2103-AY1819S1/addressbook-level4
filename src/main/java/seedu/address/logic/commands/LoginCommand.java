@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 
 import java.util.List;
 
+import seedu.address.commons.util.HashUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.doctor.Doctor;
@@ -49,7 +50,7 @@ public class LoginCommand extends Command {
             Doctor thisDoctor = (Doctor) toAuthenticate;
             List<Doctor> doctorsList = model.getFilteredDoctorList();
             for (Doctor d : doctorsList) {
-                if ((d.getName().equals(thisDoctor.getName()) && (d.getPassword().equals(thisDoctor.getPassword())))) {
+                if ((d.getName().equals(thisDoctor.getName()) && (HashUtil.verifyPassword(thisDoctor.getPassword().password, d.getPassword().password)))) {
                     return new CommandResult(MESSAGE_SUCCESS);
                 }
             }
