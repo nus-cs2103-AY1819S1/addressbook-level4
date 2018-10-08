@@ -32,7 +32,7 @@ public interface Model<T extends UniqueType> {
      * Adds the given recipe.
      * {@code recipe} must not already exist in the application content.
      */
-    void add(T recipe);
+    void add(T target);
 
     /**
      * Replaces the given recipe {@code target} with {@code editedRecipe}.
