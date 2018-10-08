@@ -6,7 +6,9 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.interest.Interest;
 
 /**
- * JAXB-friendly adapted version of the Tag.
+ * JAXB-friendly adapted version of the Interest.
+ *
+ * @author agendazhang
  */
 public class XmlAdaptedInterest {
 
