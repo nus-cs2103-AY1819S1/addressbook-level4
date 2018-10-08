@@ -52,7 +52,7 @@ public class AddEventCommand extends Command {
             toAdd.setOrganiser(user);
             model.addEvent(toAdd);
             model.commitAddressBook();
-            history.setSelectedEvent(toAdd);
+            model.setSelectedEvent(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (NoUserLoggedInException e) {
             throw new CommandException(Messages.MESSAGE_NO_USER_LOGGED_IN);

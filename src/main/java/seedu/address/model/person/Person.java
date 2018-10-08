@@ -147,8 +147,11 @@ public class Person {
                 .append(getAddress())
                 .append(" Interests: ");
         getInterests().forEach(builder::append);
-        builder.append(" Tags: ");
+        builder.append(" Schedule: ")
+                .append(getSchedule().valueToString())
+                .append(" Tags: ");
         getTags().forEach(builder::append);
+        
         return builder.toString();
     }
 

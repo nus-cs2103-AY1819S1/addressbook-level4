@@ -91,6 +91,8 @@ public class TimeTableUtil {
 
         } catch (IOException e) {
             throw new ParseException(INVALID_URL, 0);
+        } catch (Exception e) {
+            throw new ParseException(INVALID_URL, 0);
         }
 
     }

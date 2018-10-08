@@ -9,6 +9,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.NoEventSelectedException;
 import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
@@ -38,24 +39,21 @@ public class AddPollCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        Event event = history.getSelectedEvent();
-        if (event == null) {
-            throw new CommandException(Messages.MESSAGE_NO_EVENT_SELECTED);
-        }
-
         try {
+            Event event = model.getSelectedEvent();
             Person person = model.getCurrentUser();
             if (!person.equals(event.getOrganiser())) {
                 throw new CommandException(Messages.MESSAGE_NOT_EVENT_ORGANISER);
             }
+            event.addPoll(pollName);
+            model.commitAddressBook();
+            model.updateEvent(event, event);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, pollName, event));
         } catch (NoUserLoggedInException e) {
             throw new CommandException(Messages.MESSAGE_NO_USER_LOGGED_IN);
+        } catch (NoEventSelectedException e) {
+            throw new CommandException(Messages.MESSAGE_NO_EVENT_SELECTED);
         }
-
-        event.addPoll(pollName);
-        model.commitAddressBook();
-        model.updateEvent(event, event);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, pollName, event));
     }
 
     @Override

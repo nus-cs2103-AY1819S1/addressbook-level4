@@ -854,7 +854,7 @@ Users able to search for events by attributes (date, time, location, interest) a
 - [ ] V1.3: Application able to generate poll options based on application recommendation for time and location.
 
 #### Yao Feng : Add scheduling and recommend best time feature
-- [ ] V1.1: Users able to login.
+- [x] V1.1: Users able to login.
 - [ ] V1.2: Organisers can search for event participants based on interests, friendships, schedule and address.
 - [ ] V1.3: Users can rate the event after it is held.
 

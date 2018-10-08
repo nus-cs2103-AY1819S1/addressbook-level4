@@ -45,7 +45,7 @@ public class SelectCommand extends Command {
 
         //to be changed to login feature
         Person person = model.getPerson(targetIndex);
-        history.setSelectedPerson(person);
+        model.setCurrentUser(person);
 
         EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
         return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));

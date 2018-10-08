@@ -13,6 +13,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.NoEventSelectedException;
 import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
@@ -47,13 +48,10 @@ public class VoteCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        Event event = history.getSelectedEvent();
-        if (event == null) {
-            throw new CommandException(Messages.MESSAGE_NO_EVENT_SELECTED);
-        }
         try {
+            Event event = model.getSelectedEvent();
             Poll poll = event.getPoll(pollIndex);
-            Person person = history.getSelectedPerson();
+            Person person = model.getCurrentUser();
             poll.addVote(optionName, person);
             model.commitAddressBook();
             model.updateEvent(event, event);
@@ -67,6 +65,8 @@ public class VoteCommand extends Command {
             throw new CommandException(Messages.MESSAGE_NO_SUCH_OPTION);
         } catch (NoUserLoggedInException e) {
             throw new CommandException(Messages.MESSAGE_NO_USER_LOGGED_IN);
+        } catch (NoEventSelectedException e) {
+            throw new CommandException(Messages.MESSAGE_NO_EVENT_SELECTED);
         }
     }
 

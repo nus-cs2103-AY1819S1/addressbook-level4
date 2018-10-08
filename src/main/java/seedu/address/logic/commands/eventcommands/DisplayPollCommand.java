@@ -11,6 +11,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.NoEventSelectedException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.Poll;
@@ -37,11 +38,8 @@ public class DisplayPollCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        Event event = history.getSelectedEvent();
-        if (event == null) {
-            throw new CommandException(Messages.MESSAGE_NO_EVENT_SELECTED);
-        }
         try {
+            Event event = model.getSelectedEvent();
             Poll poll = event.getPoll(targetIndex);
             String result = String.format(MESSAGE_SUCCESS, targetIndex.getOneBased(), event);
             String pollDisplayResult = poll.displayPoll();
@@ -49,6 +47,8 @@ public class DisplayPollCommand extends Command {
             return new CommandResult(result);
         } catch (IndexOutOfBoundsException e) {
             throw new CommandException(Messages.MESSAGE_NO_POLL_AT_INDEX);
+        } catch (NoEventSelectedException e) {
+            throw new CommandException(Messages.MESSAGE_NO_EVENT_SELECTED);
         }
     }
 

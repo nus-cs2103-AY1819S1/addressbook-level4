@@ -22,6 +22,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.NoEventSelectedException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.event.Event;
@@ -202,6 +203,16 @@ public class LoginCommandTest {
 
         @Override
         public Person getCurrentUser() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedEvent(Event event) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Event getSelectedEvent() throws NoEventSelectedException {
             throw new AssertionError("This method should not be called.");
         }
     }

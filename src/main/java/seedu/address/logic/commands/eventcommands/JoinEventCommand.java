@@ -49,7 +49,7 @@ public class JoinEventCommand extends Command {
         }
 
         Event event = model.getEvent(targetIndex);
-        history.setSelectedEvent(event);
+        model.setSelectedEvent(event);
 
         try {
             //Person person = history.getSelectedPerson();

@@ -11,6 +11,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.NoEventSelectedException;
 import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
@@ -43,23 +44,20 @@ public class SetDateCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        event = history.getSelectedEvent();
-        if (event == null) {
-            throw new CommandException(Messages.MESSAGE_NO_EVENT_SELECTED);
-        }
-
         try {
-            Person person = history.getSelectedPerson();
+            event = model.getSelectedEvent();
+            Person person = model.getCurrentUser();
             if (!person.equals(event.getOrganiser())) {
                 throw new CommandException(Messages.MESSAGE_NOT_EVENT_ORGANISER);
             }
         } catch (NoUserLoggedInException e) {
             throw new CommandException(Messages.MESSAGE_NO_USER_LOGGED_IN);
+        } catch (NoEventSelectedException e) {
+            throw new CommandException(Messages.MESSAGE_NO_EVENT_SELECTED);
         }
 
         //List<Event> lastShownList = model.getFilteredEventList();
         //int index = lastShownList.indexOf(event);
-
         event.setDate(date);
         //model.updateEvent(index, event);
         model.updateEvent(event, event);

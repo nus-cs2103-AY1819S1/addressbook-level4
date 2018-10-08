@@ -1,5 +1,7 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * @author adjscent
  */
@@ -35,6 +37,7 @@ public class Schedule {
     }
 
     public Schedule(String schedule) {
+        requireNonNull(schedule);
         assert (schedule.length() == TOTAL);
         value = new int[DAY][HOUR];
 

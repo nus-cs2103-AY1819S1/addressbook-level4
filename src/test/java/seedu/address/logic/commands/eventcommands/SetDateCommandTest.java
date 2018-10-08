@@ -33,9 +33,9 @@ public class SetDateCommandTest {
         SetDateCommand command = new SetDateCommand(date);
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         Person user = new PersonBuilder().build();
-        commandHistory.setSelectedPerson(user);
+        model.setCurrentUser(user);
         Event event = model.getFilteredEventList().get(0);
-        commandHistory.setSelectedEvent(event);
+        model.setSelectedEvent(event);
         String expectedMessage = String.format(command.MESSAGE_SUCCESS, date.format(dateFormat), event);
         expectedModel.updateEvent(event, event);
         expectedModel.commitAddressBook();
@@ -46,7 +46,7 @@ public class SetDateCommandTest {
     public void execute_noUserSetDate() {
         SetDateCommand command = new SetDateCommand(date);
         Event event = new EventBuilder().build();
-        commandHistory.setSelectedEvent(event);
+        model.setSelectedEvent(event);
         String expectedMessage = String.format(Messages.MESSAGE_NO_USER_LOGGED_IN);
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
@@ -62,12 +62,12 @@ public class SetDateCommandTest {
     public void execute_notEventOrganiserSetDate() {
         SetDateCommand command = new SetDateCommand(date);
         Person user = new PersonBuilder().build();
-        commandHistory.setSelectedPerson(user);
+        model.setCurrentUser(user);
         Person anotherUser = new PersonBuilder(user).withName("Bob").build();
         EventBuilder eventBuilder = new EventBuilder();
         eventBuilder.withOrganiser(anotherUser);
         Event event = eventBuilder.build();
-        commandHistory.setSelectedEvent(event);
+        model.setSelectedEvent(event);
         String expectedMessage = String.format(Messages.MESSAGE_NOT_EVENT_ORGANISER);
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
