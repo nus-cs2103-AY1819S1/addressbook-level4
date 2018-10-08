@@ -151,7 +151,6 @@ public class Person {
         getInterests().forEach(builder::append);
         builder.append(" Tags: ");
         getTags().forEach(builder::append);
-        
         return builder.toString();
     }
 }

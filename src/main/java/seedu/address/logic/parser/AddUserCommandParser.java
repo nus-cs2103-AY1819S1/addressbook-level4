@@ -61,7 +61,6 @@ public class AddUserCommandParser implements Parser<AddUserCommand> {
         } else {
             schedule = new Schedule();
         }
-        
         Person person = new Person(name, phone, email, address, interestList, tagList, schedule);
         return new AddUserCommand(person);
     }
