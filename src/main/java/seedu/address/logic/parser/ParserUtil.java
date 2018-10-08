@@ -7,9 +7,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.HashUtil;
+
 import seedu.address.commons.util.StringUtil;
+
 import seedu.address.logic.parser.exceptions.ParseException;
+
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.doctor.Id;
 import seedu.address.model.doctor.Password;

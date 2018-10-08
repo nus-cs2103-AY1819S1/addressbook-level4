@@ -12,14 +12,25 @@ import seedu.address.testutil.Assert;
 public class PasswordTest {
 
     @Test
-    public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new Password(null));
+    public void constructor_nullPassword_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> new Password(null, false));
+    }
+
+    @Test
+    public void constructor_nullHashedPassword_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> new Password(null, true));
     }
 
     @Test
     public void constructor_invalidPassword_throwsIllegalArgumentException() {
         String invalidName = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Password(invalidName));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Password(invalidName, false));
+    }
+
+    @Test
+    public void constructor_invalidHashedPassword_throwsIllegalArgumentException() {
+        String invalidName = "";
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Password(invalidName, true));
     }
 
     @Test

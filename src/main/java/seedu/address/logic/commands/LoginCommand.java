@@ -15,6 +15,7 @@ import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
 
 //@@author jjlee050
+
 /**
  * Authenticate user and provide them access to ClinicIO based on the role.
  */
@@ -23,12 +24,12 @@ public class LoginCommand extends Command {
     public static final String COMMAND_WORD = "login";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Authenticate user to provide"
-        + "user access to ClinicIO based on the roles.\n"
-        + "Parameters: " + COMMAND_WORD
-        + "[" + PREFIX_ROLE + "ROLE]"
-        + "[" + PREFIX_NAME + "NAME]"
-        + "[" + PREFIX_PASSWORD + "PASSWORD]\n"
-        + "Example: login r/doctor n/Adam Bell pass/doctor1";
+            + "user access to ClinicIO based on the roles.\n"
+            + "Parameters: " + COMMAND_WORD
+            + "[" + PREFIX_ROLE + "ROLE]"
+            + "[" + PREFIX_NAME + "NAME]"
+            + "[" + PREFIX_PASSWORD + "PASSWORD]\n"
+            + "Example: login r/doctor n/Adam Bell pass/doctor1";
 
     public static final String MESSAGE_SUCCESS = "Login successful.";
     public static final String MESSAGE_FAILURE = "Login failed. Please try again.";
@@ -50,7 +51,8 @@ public class LoginCommand extends Command {
             Doctor thisDoctor = (Doctor) toAuthenticate;
             List<Doctor> doctorsList = model.getFilteredDoctorList();
             for (Doctor d : doctorsList) {
-                if ((d.getName().equals(thisDoctor.getName()) && (HashUtil.verifyPassword(thisDoctor.getPassword().password, d.getPassword().password)))) {
+                if ((d.getName().equals(thisDoctor.getName()) && (HashUtil
+                        .verifyPassword(thisDoctor.getPassword().password, d.getPassword().password)))) {
                     return new CommandResult(MESSAGE_SUCCESS);
                 }
             }

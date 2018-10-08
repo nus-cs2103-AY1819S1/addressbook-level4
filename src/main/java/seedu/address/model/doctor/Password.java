@@ -37,14 +37,14 @@ public class Password {
         }
         this.password = password;
     }
-    
+
     /**
      * Returns true if a given string is a valid password.
      */
-    public static boolean isValidPassword(String test) { 
+    public static boolean isValidPassword(String test) {
         return test.matches(PASSWORD_VALIDATION_REGEX);
     }
-    
+
     /**
      * Returns true if a given string is a valid hashed password.
      */
