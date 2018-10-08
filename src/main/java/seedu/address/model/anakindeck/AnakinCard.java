@@ -42,7 +42,7 @@ public class AnakinCard {
             return true;
         }
 
-        return otherCard.getQuestion().equals(getQuestion());
+        return otherCard.getQuestion().equals(question);
     }
 
     @Override
@@ -63,9 +63,9 @@ public class AnakinCard {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("Question: ")
-                .append(getQuestion())
+                .append(question)
                 .append(" Answer: ")
-                .append(getAnswer());
+                .append(answer);
         return builder.toString();
     }
 }
