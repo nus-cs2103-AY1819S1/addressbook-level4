@@ -8,6 +8,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ICNUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STOCK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MINIMUM_STOCK_QUANTITY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE_PER_UNIT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUMBER;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,9 +24,12 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.MedicineNameContainsKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Patient;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.MedicineDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -65,6 +74,20 @@ public class CommandTestUtil {
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
 
+    public static final String VALID_MEDICINENAME_PANADOL = "Panadol";
+    public static final String VALID_MEDICINENAME_ZYRTEC = "Zyrtec";
+    public static final String VALID_MINIMUMSTOCKQUANTITY_PANADOL = "100";
+    public static final String VALID_MINIMUMSTOCKQUANTITY_ZYRTEC = "250";
+    public static final String VALID_PRICEPERUNIT_PANADOL = "1";
+    public static final String VALID_PRICEPERUNIT_ZYRTEC = "2";
+    public static final String VALID_SERIALNUMBER_PANADOL = "00293756";
+    public static final String VALID_SERIALNUMBER_ZYRTEC = "12348293";
+    public static final String VALID_STOCK_PANADOL = "1000";
+    public static final String VALID_STOCK_ZYRTEC = "2000";
+
+    public static final EditMedicineCommand.MedicineDescriptor DESC_PANADOL;
+    public static final EditMedicineCommand.MedicineDescriptor DESC_ZYRTEC;
+
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
@@ -72,6 +95,16 @@ public class CommandTestUtil {
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        DESC_PANADOL = new MedicineDescriptorBuilder().withMedicineName(VALID_MEDICINENAME_PANADOL)
+                .withMinimumStockQuantity(VALID_MINIMUMSTOCKQUANTITY_PANADOL)
+                .withPricePerUnit(VALID_PRICEPERUNIT_PANADOL)
+                .withSerialNumber(VALID_SERIALNUMBER_PANADOL)
+                .withStock(VALID_STOCK_PANADOL).build();
+        DESC_ZYRTEC = new MedicineDescriptorBuilder().withMedicineName(VALID_MEDICINENAME_ZYRTEC)
+                .withMinimumStockQuantity(VALID_MINIMUMSTOCKQUANTITY_ZYRTEC)
+                .withPricePerUnit(VALID_PRICEPERUNIT_ZYRTEC)
+                .withSerialNumber(VALID_SERIALNUMBER_ZYRTEC)
+                .withStock(VALID_STOCK_ZYRTEC).build();
     }
 
     /**
@@ -105,7 +138,8 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
-        List<Patient> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        List<Patient> expectedFilteredPatientList = new ArrayList<>(actualModel.getFilteredPersonList());
+        List<Medicine> expectedFilteredMedicineList = new ArrayList<>(actualModel.getFilteredMedicineList());
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -115,7 +149,8 @@ public class CommandTestUtil {
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedAddressBook, actualModel.getAddressBook());
-            assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+            assertEquals(expectedFilteredPatientList, actualModel.getFilteredPersonList());
+            assertEquals(expectedFilteredMedicineList, actualModel.getFilteredMedicineList());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }
@@ -143,4 +178,26 @@ public class CommandTestUtil {
         model.commitAddressBook();
     }
 
+    /**
+     * Updates {@code model}'s filtered list to show only the medicine at the given {@code targetIndex} in the
+     * {@code model}'s records.
+     */
+    public static void showMedicineAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredMedicineList().size());
+
+        Medicine medicine = model.getFilteredMedicineList().get(targetIndex.getZeroBased());
+        final String[] splitName = medicine.getMedicineName().fullName.split("\\s+");
+        model.updateFilteredMedicineList(new MedicineNameContainsKeywordsPredicate((Arrays.asList(splitName[0]))));
+
+        assertEquals(1, model.getFilteredMedicineList().size());
+    }
+
+    /**
+     * Deletes the first medicine in {@code model}'s filtered list from {@code model}'s records.
+     */
+    public static void deleteFirstMedicine(Model model) {
+        Medicine firstMedicine = model.getFilteredMedicineList().get(0);
+        model.deleteMedicine(firstMedicine);
+        model.commitAddressBook();
+    }
 }
