@@ -3,7 +3,6 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
 
-import java.io.File;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.ImportContactsCommand;
@@ -27,10 +26,9 @@ public class ImportContactsCommandParser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     ImportContactsCommand.MESSAGE_USAGE));
         }
+        String filePath = ParserUtil.parseFilePath(argMultimap.getValue(PREFIX_FILE).get());
 
-        File file = ParserUtil.parseFilePath(argMultimap.getValue(PREFIX_FILE).get());
-
-        return new ImportContactsCommand(file);
+        return new ImportContactsCommand(filePath);
     }
 
     /**
