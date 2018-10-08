@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import seedu.souschef.commons.core.LogsCenter;
 import seedu.souschef.model.recipe.Recipe;
+import seedu.souschef.model.tag.Tag;
 
 /**
  * Represents the in-memory recipeModel of the application content data.
@@ -14,6 +15,7 @@ public class ModelSetCoordinator implements ModelSet {
     private static final Logger logger = LogsCenter.getLogger(ModelSetCoordinator.class);
 
     private final Model<Recipe> recipeModel;
+    private final Model<Tag> tagModel;
 
     private final VersionedAppContent versionedAppContent;
 
@@ -26,6 +28,7 @@ public class ModelSetCoordinator implements ModelSet {
         versionedAppContent = new VersionedAppContent(appContent);
 
         recipeModel = new ModelManager<>(versionedAppContent, versionedAppContent.getRecipes());
+        tagModel = new ModelManager<>(versionedAppContent, versionedAppContent.getTags());
         // More to be added
     }
 
@@ -56,6 +59,10 @@ public class ModelSetCoordinator implements ModelSet {
 
     public Model<Recipe> getRecipeModel() {
         return recipeModel;
+    }
+
+    public Model<Tag> getTagModel() {
+        return tagModel;
     }
     // More to be added
 }

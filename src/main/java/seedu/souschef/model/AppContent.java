@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import javafx.collections.ObservableList;
 
 import seedu.souschef.model.recipe.Recipe;
+import seedu.souschef.model.tag.Tag;
 
 /**
  * Wraps all data at the application
@@ -14,6 +15,7 @@ import seedu.souschef.model.recipe.Recipe;
 public class AppContent implements ReadOnlyAppContent {
 
     private final UniqueList<Recipe> recipes;
+    private final UniqueList<Tag> tags;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -24,6 +26,7 @@ public class AppContent implements ReadOnlyAppContent {
      */
     {
         recipes = new UniqueList<>();
+        tags = new UniqueList<>();
     }
 
     public AppContent() {}
@@ -43,11 +46,17 @@ public class AppContent implements ReadOnlyAppContent {
     public void resetData(ReadOnlyAppContent newData) {
         requireNonNull(newData);
         this.recipes.set(newData.getObservableRecipeList());
+        this.tags.set(newData.getObservableTagList());
     }
 
     //// recipe-level operations
     public UniqueList<Recipe> getRecipes() {
         return recipes;
+    }
+
+    //// tag-level operations
+    public UniqueList<Tag> getTags() {
+        return tags;
     }
 
     //// util methods
@@ -60,6 +69,11 @@ public class AppContent implements ReadOnlyAppContent {
     @Override
     public ObservableList<Recipe> getObservableRecipeList() {
         return recipes.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Tag> getObservableTagList() {
+        return tags.asUnmodifiableObservableList();
     }
 
     @Override
