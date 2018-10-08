@@ -85,7 +85,7 @@ Format: `edit INDEX [n/NAME] [p/PRIORITYLEVEL] [c/CATEGORY]... [d/DEADLINE]`
 * Edits the task at the specified `INDEX`. The index refers to the index number shown in the displayed task list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing categories, the existing categories of the person will be removed i.e adding of categories is not cumulative.
+* When editing categories, the existing categories of the task will be removed i.e adding of categories is not cumulative.
 * You can remove all the task's categories by typing `c/` without specifying any categories after it.
 ****
 

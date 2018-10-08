@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalTasks.getTypicalAddressBook;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,8 +11,8 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.task.Task;
+import seedu.address.testutil.TaskBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -29,21 +29,21 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_newPerson_success() {
-        Person validPerson = new PersonBuilder().build();
+        Task validTask = new TaskBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addPerson(validPerson);
-        expectedModel.commitAddressBook();
+        Model expectedModel = new ModelManager(model.getSchedulePlanner(), new UserPrefs());
+        expectedModel.addTask(validTask);
+        expectedModel.commitSchedulePlanner();
 
-        assertCommandSuccess(new AddCommand(validPerson), model, commandHistory,
-                String.format(AddCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
+        assertCommandSuccess(new AddCommand(validTask), model, commandHistory,
+                String.format(AddCommand.MESSAGE_SUCCESS, validTask), expectedModel);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Person personInList = model.getAddressBook().getPersonList().get(0);
-        assertCommandFailure(new AddCommand(personInList), model, commandHistory,
-                AddCommand.MESSAGE_DUPLICATE_PERSON);
+        Task taskInList = model.getSchedulePlanner().getTaskList().get(0);
+        assertCommandFailure(new AddCommand(taskInList), model, commandHistory,
+                AddCommand.MESSAGE_DUPLICATE_TASK);
     }
 
 }

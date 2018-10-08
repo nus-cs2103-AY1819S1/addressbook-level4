@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.deleteFirstPerson;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalTasks.getTypicalAddressBook;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -32,11 +32,11 @@ public class UndoCommandTest {
     @Test
     public void execute() {
         // multiple undoable states in model
-        expectedModel.undoAddressBook();
+        expectedModel.undoSchedulePlanner();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // single undoable state in model
-        expectedModel.undoAddressBook();
+        expectedModel.undoSchedulePlanner();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // no undoable states in model
