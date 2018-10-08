@@ -24,14 +24,18 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyTriviaBundle;
+import seedu.address.model.TriviaBundle;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
+import seedu.address.storage.TriviaBundleStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.XmlAddressBookStorage;
+import seedu.address.storage.XmlTriviaBundleStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -54,7 +58,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing 3VIA app ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -63,7 +67,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new XmlAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        TriviaBundleStorage triviaBundleStorage = new XmlTriviaBundleStorage(userPrefs.getTriviaBundleFilePath());
+        storage = new StorageManager(addressBookStorage, triviaBundleStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -83,22 +88,32 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
+        Optional<ReadOnlyTriviaBundle> triviaBundleOptional;
+
         ReadOnlyAddressBook initialData;
+        ReadOnlyTriviaBundle initialTriviaBundleData;
         try {
             addressBookOptional = storage.readAddressBook();
+            triviaBundleOptional = storage.readTriviaBundle();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
+            if (!triviaBundleOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample TriviaBundle");
+            }
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialTriviaBundleData = triviaBundleOptional.orElseGet(SampleDataUtil::getSampleTriviaBundle);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
+            initialTriviaBundleData = new TriviaBundle();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
+            initialTriviaBundleData = new TriviaBundle();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialData, initialTriviaBundleData, userPrefs);
     }
 
     private void initLogging(Config config) {
@@ -179,13 +194,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting 3VIA app " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping 3VIA app ] =============================");
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);

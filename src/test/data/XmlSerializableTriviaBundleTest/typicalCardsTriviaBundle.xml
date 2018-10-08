@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- TriviaBundle save file which contains the same Card values as in TypicalCards#getTypicalTriviaBundle() -->
+<triviabundle>
+    <cards>
+        <question>Why is the earth round?</question>
+        <answer>Because of gravity!</answer>
+        <tagged>Physics</tagged>
+    </cards>
+    <cards>
+        <question>What are the ways to merge to branches?</question>
+        <answer>rebase and merge</answer>
+        <tagged>Git</tagged>
+    </cards>
+    <cards>
+        <question>What is the formula for force?</question>
+        <answer>force = mass * acceleration</answer>
+        <tagged>Physics</tagged>
+    </cards>
+    <cards>
+        <question>Name of Singapore's capital</question>
+        <answer>Singapore</answer>
+        <tagged>GeneralKnowledge</tagged>
+    </cards>
+    <cards>
+        <question>Which git command will get a copy of an online repository to your computer?</question>
+        <answer>git clone</answer>
+        <tagged>Git</tagged>
+    </cards>
+    <cards>
+        <question>Formula of density</question>
+        <answer>desnity = mass / volume</answer>
+        <tagged>Physics</tagged>
+    </cards>
+    <cards>
+        <question>Tallest building in the world?</question>
+        <answer>Burj Khalifa</answer>
+        <tagged>GeneralKnowledge</tagged>
+    </cards>
+</triviabundle>

@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= 3VIA - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,7 +13,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-W12-3/main
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
@@ -820,13 +820,11 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* For students/learners who wants to reinforce their knowledge
 * can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+
+*Value proposition*: help students memorise and test their knowledge quickly
 
 [appendix]
 == User Stories
@@ -836,17 +834,25 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |curious learner |be able to test my knowledge |be sure that I have memorised the content
 
-|`* * *` |user |add a new person |
+|`* * *` |hardworking learner |have different testing mechanisms |reinforce my knowledge and clear any misconceptions.
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |list all the contents in a deck of cards |review all the contents in one glance
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |to search for questions |look-up answers to questions that I can’t remember
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |mass import multiple cards at the same time from a single file |input large amount of data at once
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *` |efficient user |have a timer on the time to answer each question |improve the ability to recall information quickly
+
+|`* *` |curious user |research more on the question |learn at a greater depth
+
+|`* *` |consistent user |revise on the contents which I’m not familiar with more often |memorise those content permanently
+
+|`*` |multilingual user |input text in different languages |learn another language
+
+|`*` |competitive user |have a multi player function |challenge my friends’ knowledge
 |=======================================================================
 
 _{More to be added}_
@@ -854,42 +860,164 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `3VIA` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case 1: Find more info on topic
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User: Search for a certain question using keywords.
+2. System: Shows a list of questions that meets the search criteria.
+3. User: Select a question.
+4. System: Displays the question and answer.
+5. User: Request more info regarding the question.
+6. System: Display more info.
+
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. No matches.
+[none]
+** 1a1. System: Indicates no question.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
-+
+* 2a. User wants to see more question
 [none]
-** 3a1. AddressBook shows an error message.
+** 2a1. User request for matching questions again.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case 2: Add Card
+
+*MSS*
+
+1. User: Adds question, answer and tag(s).
+2. System: Displays the question and answer added.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Incorrect format.
+[none]
+** 1a1. System: Indicates format entered is incorrect.
++
+Use case ends.
+
+[discrete]
+=== Use case 3: Basic Test
+
+*MSS*
+
+1. User: Input command.
+2. System: Displays list of questions with tag.
+3. User: Confirms questions to be tested.
+4. System: Displays question and starts the timer (if specified) for the question.
+5. User: Key in the user’s answer.
+6. System: Display the correct answer and wait for the user to determine the correctness of the question.
+7. User: User determine the correctness of the question.
+8. Repeat step 4 until all cards have been viewed and answered.
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Tag not found
+[none]
+** 2a1. System: Indicates tag not found.
++
+Use case ends.
+
+* 3a. Time limit exceeded and user did not answer the question
+[none]
+** 3a1. System: Continue to next question at step 4.
++
+Use case resumes at step 4.
+
+[discrete]
+=== Use case 4: Matching test
+
+*MSS*
+
+1. User: Start matching test.
+2. System: Shows a list of question and answer.
+3. User: Select the matching question and answer.
+4. Repeat step 3 until user matched all the questions and answers correctly.
+5. System: Record down the statistics of the test.
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. Question and answer matched wrongly.
+[none]
+** 3a1. System: Indicates that question and answer matched are wrong.
++
+Use case ends.
+
+[none]
+* 4a. User exit from the test without completing it.
+[none]
+** 4a1. System: Step 5 will not be carried out.
++
+Use case ends.
+
+[discrete]
+=== Use case 5: Import
+
+*MSS*
+
+1. User: Input import command.
+2. System: Displays the number of cards, questions and answer to be imported.
+3. User: Selects the desired questions and answers to import.
+4. System: Stores the desired questions and answers in database.
+
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Invalid file.
+[none]
+** 2a1. System: Indicates file can't be found/read.
++
+Use case ends.
+
+[none]
+* 2a. Wrong text format.
+[none]
+** 2a1. System: Indicates the format of text is incorrect.
++
+Use case ends.
+
+[none]
+* 3a. Input index is invalid.
+[none]
+** 3a1. System: Indicates the index (range) entered is invalid.
++
+Use case resumes at step 3.
+
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  The maximum number of question that the app can have should not be capped.
+.  The application should be intuitive and easy to use.
+.  The application should still work, without internet access
 
 _{More to be added}_
 
@@ -899,15 +1027,21 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[card]] Card::
+A question and answer pair.
+
+[[deck]] Deck::
+A related set of cards grouped together.
+
+[[bundle]] Bundle::
+Refers to all the cards in the application.
 
 [appendix]
 == Product Survey
 
 *Product Name*
 
-Author: ...
+Author:
 
 Pros:
 

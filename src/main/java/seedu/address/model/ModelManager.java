@@ -12,6 +12,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.TriviaBundleChangedEvent;
+import seedu.address.model.card.Card;
 import seedu.address.model.person.Person;
 
 /**
@@ -22,6 +24,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
+
+    private final VersionedTriviaBundle versionedTriviaBundle;
+    private final FilteredList<Card> filteredCards;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -34,10 +39,28 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+
+        versionedTriviaBundle = null;
+        filteredCards = null;
+    }
+
+
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyTriviaBundle triviaBundle, UserPrefs userPrefs) {
+        super();
+        requireAllNonNull(addressBook, triviaBundle, userPrefs);
+
+        logger.fine("Initializing with addressbook and trivia bundle: " + triviaBundle
+                + " and user prefs " + userPrefs);
+
+        versionedTriviaBundle = new VersionedTriviaBundle(triviaBundle);
+        filteredCards = new FilteredList<>(versionedTriviaBundle.getCardList());
+
+        versionedAddressBook = new VersionedAddressBook(addressBook);
+        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new TriviaBundle(), new UserPrefs());
     }
 
     @Override
@@ -47,8 +70,19 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void resetData(ReadOnlyTriviaBundle newData) {
+        versionedTriviaBundle.resetData(newData);
+        indicateTriviaBundleChanged();
+    }
+
+    @Override
     public ReadOnlyAddressBook getAddressBook() {
         return versionedAddressBook;
+    }
+
+    @Override
+    public ReadOnlyTriviaBundle getTriviaBundle() {
+        return versionedTriviaBundle;
     }
 
     /** Raises an event to indicate the model has changed */
@@ -56,10 +90,21 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new AddressBookChangedEvent(versionedAddressBook));
     }
 
+    /** Raises an event to indicate the model has changed */
+    private void indicateTriviaBundleChanged() {
+        raise(new TriviaBundleChangedEvent(versionedTriviaBundle));
+    }
+
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return versionedAddressBook.hasPerson(person);
+    }
+
+    @Override
+    public boolean hasCard(Card card) {
+        requireNonNull(card);
+        return versionedTriviaBundle.hasCard(card);
     }
 
     @Override
@@ -76,11 +121,18 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updatePerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void addCard(Card card) {
+        versionedTriviaBundle.addCard(card);
+        updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
+        indicateTriviaBundleChanged();
+    }
 
-        versionedAddressBook.updatePerson(target, editedPerson);
-        indicateAddressBookChanged();
+    @Override
+    public void updateCard(Card target, Card editedCard) {
+        requireAllNonNull(target, editedCard);
+
+        versionedTriviaBundle.updateCard(target, editedCard);
+        indicateTriviaBundleChanged();
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -94,10 +146,25 @@ public class ModelManager extends ComponentManager implements Model {
         return FXCollections.unmodifiableObservableList(filteredPersons);
     }
 
+    /**
+     * Returns an unmodifiable view of the list of {@code Card} backed by the internal list of
+     * {@code versionedTriviaBundle}
+     */
+    @Override
+    public ObservableList<Card> getFilteredCardList() {
+        return FXCollections.unmodifiableObservableList(filteredCards);
+    }
+
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredCardList(Predicate<Card> predicate) {
+        requireNonNull(predicate);
+        filteredCards.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -130,6 +197,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void commitTriviaBundle() {
+        versionedTriviaBundle.commit();
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
@@ -143,8 +215,11 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
-                && filteredPersons.equals(other.filteredPersons);
+        return (versionedAddressBook.equals(other.versionedAddressBook)
+                && filteredPersons.equals(other.filteredPersons))
+                && (versionedTriviaBundle == null // short circuit for regression compatibility with addressbook
+                        || (versionedTriviaBundle.equals(other.versionedTriviaBundle)
+                        && filteredCards.equals(other.filteredCards)));
     }
 
 }

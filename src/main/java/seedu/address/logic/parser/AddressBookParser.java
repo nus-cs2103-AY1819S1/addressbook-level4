@@ -20,6 +20,7 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.state.AppState;
 
 /**
  * Parses user input.
@@ -46,6 +47,11 @@ public class AddressBookParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
+        if (!AppState.isCommandPermitted(commandWord)) {
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
+
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
