@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= HealthBook - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -815,13 +815,18 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* Clinic Receptionists
+* has a need to manage a significant number of appointments
+* has a need to keep track of history of patients, appointments and prescriptions
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: 
+Our platform will allow the clinic receptionist to easily manage patient’s medical information
+and appointments with the doctors. This will allow appointments to be efficiently managed and
+information transfer to be more seamless.
 
 [appendix]
 == User Stories
@@ -831,25 +836,41 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |receptionist |register accounts for patients or doctors |keep track of their appointments and other information
 
-|`* * *` |user |add a new person |
+|`* * *` |receptionist |delete an account for patients or doctors |remove accounts that are not in use or invalid
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |receptionist |view patient’s upcoming appointments, recent visits and follow-ups requests on the landing page |easily look through the patients information
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |receptionist |add prescription to patient after appointment |keep their latest completed appointment updated
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |receptionist |delete prescription to patient after appointment |remove any discrepancies found
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |receptionist |edit prescription to patient after appointment |amend any discrepancies found
+
+|`* * *` |receptionist |check prescription provided by doctor |follow up with the patients if they wish to check their prescription
+
+|`* * *` |receptionist |add patient details (especially medical history) to patient’s profile |allow the doctors to find the patients records easily
+
+|`* * *` |receptionist |delete patient details (especially medical history) from patient's profile |allow the doctors to find the most updated patients records
+
+|`* * *` |receptionist |view patient’s details prior to appointment |provide information to the doctor, allowing them to know the full extent of patient’s health condition
+
+|`* * *` |receptionist |remind a particular patient of their next appointment |prevent him/her from forgetting their appointments
+
+|`* * *` |receptionist |remind all patients of their next appointment |prevent them from forgetting their appointments
+
+|`* * *` |receptionist |book an doctor’s appointment for patient |reserve an appointment with doctor for the patient
+
+|`* * *` |receptionist |edit an doctor’s appointment for patient |edit a reserve slot for an appointment with doctor for the patient
+
+|`* * *` |receptionist |delete an doctor’s appointment for patient |remove a reserve slot for an appointment with doctor for the patient
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `HealthBook` and the *Actor* is the `receptionist`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete person
