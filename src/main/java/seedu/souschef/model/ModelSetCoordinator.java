@@ -25,7 +25,7 @@ public class ModelSetCoordinator implements ModelSet {
         logger.fine("Initializing with application content: " + appContent + " and user prefs " + userPrefs);
         versionedAppContent = new VersionedAppContent(appContent);
 
-        recipeModel = initRecipeModel();
+        recipeModel = new ModelManager<>(versionedAppContent, versionedAppContent.getRecipes());
         // More to be added
     }
 
@@ -57,10 +57,5 @@ public class ModelSetCoordinator implements ModelSet {
     public Model<Recipe> getRecipeModel() {
         return recipeModel;
     }
-
-    private ModelManager<Recipe> initRecipeModel() {
-        return new ModelManager<>(versionedAppContent, versionedAppContent.getRecipes());
-    }
-
     // More to be added
 }
