@@ -1,6 +1,5 @@
 package systemtests;
 
-import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -21,7 +20,6 @@ import org.junit.ClassRule;
 
 import guitests.guihandles.ArticleDetailsPanelHandle;
 import guitests.guihandles.ArticleListPanelHandle;
-import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
@@ -66,7 +64,6 @@ public abstract class AddressBookSystemTest {
         testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
-        waitUntilBrowserLoaded(getBrowserPanel());
         assertApplicationStartingStateIsCorrect();
     }
 
@@ -106,10 +103,6 @@ public abstract class AddressBookSystemTest {
         return mainWindowHandle.getMainMenu();
     }
 
-    public BrowserPanelHandle getBrowserPanel() {
-        return mainWindowHandle.getBrowserPanel();
-    }
-
     public ArticleDetailsPanelHandle getArticleDetailsPanel() {
         return mainWindowHandle.getArticleDetailsPanel();
     }
@@ -132,8 +125,6 @@ public abstract class AddressBookSystemTest {
         clockRule.setInjectedClockToCurrentTime();
 
         mainWindowHandle.getCommandBox().run(command);
-
-        waitUntilBrowserLoaded(getBrowserPanel());
     }
 
     /**
@@ -182,13 +173,12 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Calls {@code ArticleDetailsPanelHandle}, {@code BrowserPanelHandle}, {@code ArticleListPanelHandle} and
+     * Calls {@code ArticleDetailsPanelHandle}, {@code ArticleListPanelHandle} and
      * {@code StatusBarFooterHandle} to remember their current state.
      */
     private void rememberStates() {
         StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
         getArticleDetailsPanel().rememberDetails();
-        getBrowserPanel().rememberUrl();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
         getArticleListPanel().rememberSelectedArticleCard();
