@@ -82,10 +82,10 @@ public class XmlAdaptedDoctor {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Password.class.getSimpleName()));
         }
-        if (!Password.isValidPassword(password)) {
+        if (!Password.isValidHashedPassword(password)) {
             throw new IllegalValueException(Password.MESSAGE_PASSWORD_CONSTRAINTS);
         }
-        final Password modelPassword = new Password(password);
+        final Password modelPassword = new Password(password, true);
 
         return new Doctor(modelId, modelName, modelPassword);
     }

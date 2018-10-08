@@ -26,17 +26,29 @@ public class Password {
      * Constructs a {@code Password}.
      *
      * @param password A valid password.
+     * @param isHashed Check if the password is hashed.
      */
-    public Password(String password) {
+    public Password(String password, boolean isHashed) {
         requireNonNull(password);
-        checkArgument(isValidPassword(password), MESSAGE_PASSWORD_CONSTRAINTS);
+        if (!isHashed) {
+            checkArgument(isValidPassword(password), MESSAGE_PASSWORD_CONSTRAINTS);
+        } else {
+            checkArgument(isValidHashedPassword(password), MESSAGE_PASSWORD_CONSTRAINTS);
+        }
         this.password = password;
     }
-
+    
     /**
      * Returns true if a given string is a valid password.
      */
-    public static boolean isValidPassword(String test) {
+    public static boolean isValidPassword(String test) { 
+        return test.matches(PASSWORD_VALIDATION_REGEX);
+    }
+    
+    /**
+     * Returns true if a given string is a valid hashed password.
+     */
+    public static boolean isValidHashedPassword(String test) {
         //return test.matches(PASSWORD_VALIDATION_REGEX);
         return !test.isEmpty();
     }

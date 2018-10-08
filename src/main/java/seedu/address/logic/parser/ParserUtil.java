@@ -126,7 +126,7 @@ public class ParserUtil {
         if (!Password.isValidPassword(password)) {
             throw new ParseException(Password.MESSAGE_PASSWORD_CONSTRAINTS);
         }
-        return new Password(password);
+        return new Password(password, false);
     }
 
     /**
