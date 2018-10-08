@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import seedu.address.model.Model;
-import seedu.address.model.recipe.Recipe;
+import seedu.souschef.model.Model;
+import seedu.souschef.model.recipe.Recipe;
 
 /**
  * Contains helper methods to set up {@code Model} for testing.
