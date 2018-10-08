@@ -5,15 +5,14 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ICNUMBER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MINIMUM_STOCK_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STOCK;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MINIMUM_STOCK_QUANTITY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE_PER_UNIT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUMBER;
-
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STOCK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -74,16 +73,27 @@ public class CommandTestUtil {
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
 
-    public static final String VALID_MEDICINENAME_PANADOL = "Panadol";
-    public static final String VALID_MEDICINENAME_ZYRTEC = "Zyrtec";
-    public static final String VALID_MINIMUMSTOCKQUANTITY_PANADOL = "100";
-    public static final String VALID_MINIMUMSTOCKQUANTITY_ZYRTEC = "250";
-    public static final String VALID_PRICEPERUNIT_PANADOL = "1";
-    public static final String VALID_PRICEPERUNIT_ZYRTEC = "2";
-    public static final String VALID_SERIALNUMBER_PANADOL = "00293756";
-    public static final String VALID_SERIALNUMBER_ZYRTEC = "12348293";
+    public static final String VALID_MEDICINE_NAME_PANADOL = "Panadol";
+    public static final String VALID_MEDICINE_NAME_ZYRTEC = "Zyrtec";
+    public static final String VALID_MINIMUM_STOCK_QUANTITY_PANADOL = "100";
+    public static final String VALID_MINIMUM_STOCK_QUANTITY_ZYRTEC = "250";
+    public static final String VALID_PRICE_PER_UNIT_PANADOL = "1";
+    public static final String VALID_PRICE_PER_UNIT_ZYRTEC = "2";
+    public static final String VALID_SERIAL_NUMBER_PANADOL = "00293756";
+    public static final String VALID_SERIAL_NUMBER_ZYRTEC = "12348293";
     public static final String VALID_STOCK_PANADOL = "1000";
     public static final String VALID_STOCK_ZYRTEC = "2000";
+
+    public static final String INVALID_MEDICINE_NAME_DESC =
+            " " + PREFIX_MEDICINE_NAME + "Dermasone#"; // '#' not allowed in medicine names
+    public static final String INVALID_MINIMUM_STOCK_QUANTITY_DESC =
+            " " + PREFIX_MINIMUM_STOCK_QUANTITY + "12s"; // 's' not allowed in minimum stock quantity
+    public static final String INVALID_PRICE_PER_UNIT_DESC =
+            " " + PREFIX_PRICE_PER_UNIT + "34#"; // '#' not allowed in price per unit
+    public static final String INVALID_SERIAL_NUMBER_DESC =
+            " " + PREFIX_SERIAL_NUMBER + "2308!239"; // '!' not allowed in serial number
+    public static final String INVALID_STOCK_DESC =
+            " " + PREFIX_STOCK + "23e2"; // 'e' not allowed in stock number
 
     public static final EditMedicineCommand.MedicineDescriptor DESC_PANADOL;
     public static final EditMedicineCommand.MedicineDescriptor DESC_ZYRTEC;
@@ -95,15 +105,15 @@ public class CommandTestUtil {
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
-        DESC_PANADOL = new MedicineDescriptorBuilder().withMedicineName(VALID_MEDICINENAME_PANADOL)
-                .withMinimumStockQuantity(VALID_MINIMUMSTOCKQUANTITY_PANADOL)
-                .withPricePerUnit(VALID_PRICEPERUNIT_PANADOL)
-                .withSerialNumber(VALID_SERIALNUMBER_PANADOL)
+        DESC_PANADOL = new MedicineDescriptorBuilder().withMedicineName(VALID_MEDICINE_NAME_PANADOL)
+                .withMinimumStockQuantity(VALID_MINIMUM_STOCK_QUANTITY_PANADOL)
+                .withPricePerUnit(VALID_PRICE_PER_UNIT_PANADOL)
+                .withSerialNumber(VALID_SERIAL_NUMBER_PANADOL)
                 .withStock(VALID_STOCK_PANADOL).build();
-        DESC_ZYRTEC = new MedicineDescriptorBuilder().withMedicineName(VALID_MEDICINENAME_ZYRTEC)
-                .withMinimumStockQuantity(VALID_MINIMUMSTOCKQUANTITY_ZYRTEC)
-                .withPricePerUnit(VALID_PRICEPERUNIT_ZYRTEC)
-                .withSerialNumber(VALID_SERIALNUMBER_ZYRTEC)
+        DESC_ZYRTEC = new MedicineDescriptorBuilder().withMedicineName(VALID_MEDICINE_NAME_ZYRTEC)
+                .withMinimumStockQuantity(VALID_MINIMUM_STOCK_QUANTITY_ZYRTEC)
+                .withPricePerUnit(VALID_PRICE_PER_UNIT_ZYRTEC)
+                .withSerialNumber(VALID_SERIAL_NUMBER_ZYRTEC)
                 .withStock(VALID_STOCK_ZYRTEC).build();
     }
 

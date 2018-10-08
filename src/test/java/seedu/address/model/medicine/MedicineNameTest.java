@@ -36,7 +36,7 @@ public class MedicineNameTest {
         assertTrue(MedicineName.isValidMedicineName("12345")); // numbers only
         assertTrue(MedicineName.isValidMedicineName("penicillin 23")); // alphanumeric characters
         assertTrue(MedicineName.isValidMedicineName("Mescaline Bioline")); // with capital letters
-        assertTrue(MedicineName.isValidMedicineName("Alcoholic Methylbenzene " +
-                "with 2nd group substituted with OH group")); // long names
+        assertTrue(MedicineName.isValidMedicineName("Alcoholic Methylbenzene "
+                + "with 2nd group substituted with OH group")); // long names
     }
 }

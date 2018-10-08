@@ -91,13 +91,19 @@ public class EditMedicineCommand extends Command {
     private static Medicine createEditedMedicine(Medicine medicineToEdit, MedicineDescriptor medicineDescriptor) {
         assert medicineToEdit != null;
 
-        MedicineName updatedMedicineName = medicineDescriptor.getMedicineName().orElse(medicineToEdit.getMedicineName());
-        MinimumStockQuantity updatedMinimumStockQuantity = medicineDescriptor.getMinimumStockQuantity().orElse(medicineToEdit.getMinimumStockQuantity());
-        PricePerUnit updatedPricePerUnit = medicineDescriptor.getPricePerUnit().orElse(medicineToEdit.getPricePerUnit());
-        SerialNumber updatedSerialNumber = medicineDescriptor.getSerialNumber().orElse(medicineToEdit.getSerialNumber());
-        Stock updatedStock = medicineDescriptor.getStock().orElse(medicineToEdit.getStock());
+        MedicineName updatedMedicineName = medicineDescriptor.getMedicineName()
+                .orElse(medicineToEdit.getMedicineName());
+        MinimumStockQuantity updatedMinimumStockQuantity = medicineDescriptor.getMinimumStockQuantity()
+                .orElse(medicineToEdit.getMinimumStockQuantity());
+        PricePerUnit updatedPricePerUnit = medicineDescriptor.getPricePerUnit()
+                .orElse(medicineToEdit.getPricePerUnit());
+        SerialNumber updatedSerialNumber = medicineDescriptor.getSerialNumber()
+                .orElse(medicineToEdit.getSerialNumber());
+        Stock updatedStock = medicineDescriptor.getStock()
+                .orElse(medicineToEdit.getStock());
 
-        return new Medicine(updatedMedicineName, updatedMinimumStockQuantity, updatedPricePerUnit, updatedSerialNumber, updatedStock);
+        return new Medicine(updatedMedicineName, updatedMinimumStockQuantity,
+                updatedPricePerUnit, updatedSerialNumber, updatedStock);
     }
 
     @Override

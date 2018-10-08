@@ -1,9 +1,5 @@
 package seedu.address.testutil;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import seedu.address.logic.commands.EditMedicineCommand.MedicineDescriptor;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.MedicineName;

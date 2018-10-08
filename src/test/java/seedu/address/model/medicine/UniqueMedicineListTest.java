@@ -1,7 +1,5 @@
 package seedu.address.model.medicine;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 public class UniqueMedicineListTest {

@@ -17,8 +17,8 @@ public class MinimumStockQuantityTest {
     @Test
     public void constructor_invalidMinimumStockQuantity_throwsIllegalArgumentException() {
         String invalidMinimumStockQuantity = "";
-        Assert.assertThrows(IllegalArgumentException.class,
-                () -> new MinimumStockQuantity(invalidMinimumStockQuantity));
+        Assert.assertThrows(IllegalArgumentException.class, () ->
+                new MinimumStockQuantity(invalidMinimumStockQuantity));
     }
 
     @Test
