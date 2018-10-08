@@ -115,6 +115,11 @@ public class EditCommand extends Command {
     }
 
     @Override
+    public String toString() {
+        return editPersonDescriptor.toString();
+    }
+
+    @Override
     public boolean equals(Object other) {
         // short circuit if same object
         if (other == this) {
@@ -241,6 +246,23 @@ public class EditCommand extends Command {
          */
         public Optional<Set<Tag>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        }
+
+        @Override
+        public String toString() {
+            final StringBuilder builder = new StringBuilder();
+            builder.append(getName())
+                    .append(" Phone: ")
+                    .append(getPhone())
+                    .append(" Email: ")
+                    .append(getEmail())
+                    .append(" Address: ")
+                    .append(getAddress())
+                    .append(" Interests: ");
+            interests.forEach(builder::append);
+            builder.append(" Tags: ");
+            tags.forEach(builder::append);
+            return builder.toString();
         }
 
         @Override

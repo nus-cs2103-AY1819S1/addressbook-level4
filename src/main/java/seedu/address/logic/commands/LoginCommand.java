@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INTEREST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
@@ -53,6 +54,11 @@ public class LoginCommand extends Command {
 
         model.setCurrentUser(toLogin);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toLogin.getName()));
+    }
+
+    @Override
+    public String toString() {
+        return toLogin.toString();
     }
 
     @Override
