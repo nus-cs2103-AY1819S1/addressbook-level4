@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= JxMusic - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,19 +12,19 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-T13-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103-AY1819S1-T13-3`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+JxMusic is for those who *prefer to use a desktop app for listening to music*. More importantly, JxMusic is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, JxMusci can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `jxmusic.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your JxMusic player.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,9 +33,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`playlist list`* : lists all playlists
+* **`playlist new`**`p/playlist1` : creates a new playlist named `playlist1` to the JxMusic Player.
+* *`shuffle`* : switches on shuffle mode to play tracks in random order
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -46,10 +46,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `playlist new p/PLAYLIST`, `PLAYLIST` is a parameter which can be used as `playlist new p/playlist1`.
+* Items in square brackets are optional e.g `stepback [s/SECONDS]` can be used as `stepback` or as `stepback s/20`.
 ====
 
 === Viewing help : `help`
@@ -431,19 +429,41 @@ Format: `exit`
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
+
+=== Commands for controlling playback
+* *Play track* : `play t/[TRACK]`
+* *Play playlist* : `play p/[PLAYLIST]`
+* *Pause track* : `pause`
+* *Continue track* : `play`
+* *Stop playing* : `stop`
+* *Seek time point* : `seek ti/TIME` +
+eg. `seek ti/01:10`
+* *Step* : `step [s/SECONDS]` +
+eg. `step s/100`
+* *Stepback* : `stepback [s/SECONDS]` +
+eg. `stepback s/100`
+* *Replay* : `replay`
+
+=== Commands for controlling sequence of playback
+* *Skip to next track* : `next`
+* *Skip to previous track* : `prev`
+* *Repeat track* : `repeat track`
+* *Repeat playlist* : `repeat playlist`
+* *Turn off repeat mode* : `repeat off`
+* *Shuffle playlist* : `shuffle`
+* *Turn off shuffle mode* : `shuffle off`
+
+=== Commands for managing playlists in library
+* *List all playlists* : `playlist list`
+* *Search for playlist* : `playlist search q/QUERY` +
+eg. `playlist search q/Fav`
+* *Create playlist* : `playlist new p/PLAYLIST` +
+eg. `playlist new p/Favourites`
+* *Delete playlist* : `playlist del p/PLAYLIST` +
+eg. `playlist del p/Favourites`
+
+=== Commands for managing tracks in playlist
+* *Add track to playlist* : `track add p/PLAYLIST t/TRACK` +
+eg. `track add p/Favourites n/Some Song.mp3`
+* *Delete track from playlist* : `track del p/PLAYLIST i/INDEX` +
+eg. `track del p/Favourites i/1`
