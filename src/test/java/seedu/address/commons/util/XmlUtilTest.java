@@ -140,6 +140,11 @@ public class XmlUtilTest {
         assertEquals(dataToWrite, dataFromFile);
     }
 
+    /**
+     * Asserts that the expected {@code XmlAdaptedPerson} equals the actual {@code XmlAdaptedPerson}.
+     *
+     * @author agendazhang
+     */
     private void assertEqualXmlAdaptedPerson (XmlAdaptedPerson expectedPerson, XmlAdaptedPerson actualPerson) {
         assertEquals(expectedPerson.getName(), actualPerson.getName());
         assertEquals(expectedPerson.getPhone(), actualPerson.getPhone());

@@ -73,7 +73,8 @@ public class LoginCommandParserTest {
         Person expectedPersonMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + TAG_DESC_HUSBAND + INTEREST_DESC_STUDY + TAG_DESC_FRIEND, new LoginCommand(expectedPersonMultipleTags));
+                + TAG_DESC_HUSBAND + INTEREST_DESC_STUDY + TAG_DESC_FRIEND,
+                new LoginCommand(expectedPersonMultipleTags));
     }
 
     @Test
