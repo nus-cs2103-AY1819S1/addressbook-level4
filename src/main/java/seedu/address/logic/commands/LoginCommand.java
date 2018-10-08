@@ -12,6 +12,7 @@ import seedu.address.commons.util.HashUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.doctor.Doctor;
+import seedu.address.model.doctor.Password;
 import seedu.address.model.person.Person;
 
 //@@author jjlee050
@@ -51,8 +52,8 @@ public class LoginCommand extends Command {
             Doctor thisDoctor = (Doctor) toAuthenticate;
             List<Doctor> doctorsList = model.getFilteredDoctorList();
             for (Doctor d : doctorsList) {
-                if ((d.getName().equals(thisDoctor.getName()) && (HashUtil
-                        .verifyPassword(thisDoctor.getPassword().password, d.getPassword().password)))) {
+                if ((d.getName().equals(thisDoctor.getName()) && (Password
+                        .isSameAsHashPassword(thisDoctor.getPassword().password, d.getPassword().password)))) {
                     return new CommandResult(MESSAGE_SUCCESS);
                 }
             }
