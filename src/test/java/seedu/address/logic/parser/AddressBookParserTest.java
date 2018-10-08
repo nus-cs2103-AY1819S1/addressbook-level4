@@ -240,7 +240,7 @@ public class AddressBookParserTest {
 
         parser.parseCommand(command);
     }
-    
+
     @Test
     public void parseCommand_undoCommandWordAlias_returnsUndoCommand() throws Exception {
         assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD_ALIAS) instanceof UndoCommand);
