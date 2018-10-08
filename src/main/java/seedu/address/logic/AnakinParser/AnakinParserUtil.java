@@ -5,6 +5,9 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.AnakinVersionedAnakin;
+import seedu.address.model.anakindeck.AnakinAnswer;
+import seedu.address.model.anakindeck.AnakinQuestion;
 import seedu.address.model.person.Name;
 
 /**
@@ -40,5 +43,33 @@ public class AnakinParserUtil {
             throw new ParseException(Name.MESSAGE_NAME_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String question} into a {@code AnakinQuestion}
+     *
+     * @throws ParseException
+     */
+    public static AnakinQuestion parseQuestion(String question) throws ParseException {
+        requireNonNull(question);
+        String trimmed = question.trim();
+        if (!AnakinQuestion.isValidQuestion(trimmed)) {
+            throw new ParseException(AnakinQuestion.MESSAGE_QUESTION_CONSTRAINTS);
+        }
+        return new AnakinQuestion(trimmed);
+    }
+
+    /**
+     * Parses a {@code String answer} into a {@code AnakinAnswer}
+     *
+     * @throws ParseException
+     */
+    public static AnakinAnswer parseAnswer(String answer) throws ParseException {
+        requireNonNull(answer);
+        String trimmed = answer.trim();
+        if (!AnakinAnswer.isValidAnswer(trimmed)) {
+            throw new ParseException(AnakinAnswer.MESSAGE_ANSWER_CONSTRAINTS);
+        }
+        return new AnakinAnswer(trimmed);
     }
 }
