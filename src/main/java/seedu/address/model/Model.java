@@ -4,6 +4,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.exceptions.NoEventSelectedException;
 import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
@@ -129,4 +130,13 @@ public interface Model {
      */
     Person getPerson(Index targetIndex);
 
+    /**
+     * Sets the selected event.
+     */
+    void setSelectedEvent(Event currentEvent);
+
+    /**
+     * Gets the selected event.
+     */
+    Event getSelectedEvent() throws NoEventSelectedException;
 }

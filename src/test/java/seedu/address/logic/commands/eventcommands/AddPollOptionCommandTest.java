@@ -30,7 +30,7 @@ public class AddPollOptionCommandTest {
         AddPollOptionCommand command = new AddPollOptionCommand(index, OPTION_NAME);
         Event event = model.getFilteredEventList().get(0);
         event.addPoll("Generic poll");
-        commandHistory.setSelectedEvent(event);
+        model.setSelectedEvent(event);
         String expectedMessage = String.format(command.MESSAGE_SUCCESS, OPTION_NAME, index.getOneBased());
         expectedModel.updateEvent(event, event);
         expectedModel.commitAddressBook();
@@ -49,7 +49,7 @@ public class AddPollOptionCommandTest {
         VoteCommand command = new VoteCommand(TypicalIndexes.INDEX_FIRST, OPTION_NAME);
         EventBuilder eventBuilder = new EventBuilder();
         Event event = eventBuilder.build();
-        commandHistory.setSelectedEvent(event);
+        model.setSelectedEvent(event);
         String expectedMessage = String.format(Messages.MESSAGE_NO_POLL_AT_INDEX);
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }

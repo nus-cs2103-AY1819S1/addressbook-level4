@@ -8,21 +8,19 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.function.Predicate;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ModelStub;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.NoEventSelectedException;
 import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
@@ -60,7 +58,7 @@ public class AddEventCommandTest {
     public void execute_duplicateEvent_throwsCommandException() throws Exception {
         Event validEvent = new EventBuilder().build();
         AddEventCommand addEventCommand = new AddEventCommand(validEvent);
-        AddEventCommandTest.ModelStub modelStub = new AddEventCommandTest.ModelStubWithEvent(validEvent);
+        ModelStub modelStub = new AddEventCommandTest.ModelStubWithEvent(validEvent);
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddEventCommand.MESSAGE_DUPLICATE_EVENT);
@@ -104,134 +102,9 @@ public class AddEventCommandTest {
     }
 
     /**
-     * A default model stub that have all of the methods failing.
-     */
-    private class ModelStub implements Model {
-        @Override
-        public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Person getPerson(Index index) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void resetData(ReadOnlyAddressBook newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasEvent(Event event) {
-            return false;
-        }
-
-        @Override
-        public void deletePerson(Person target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updatePerson(Person target, Person editedPerson) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Event> getFilteredEventList() {
-            return null;
-        }
-
-        @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredEventList(Predicate<Event> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean canUndoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean canRedoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void undoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void redoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void commitAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addEvent(Event toAdd) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Event getEvent(Index targetIndex) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteEvent(Event event) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateEvent(Event event, Event editedEvent) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateEvent(int index, Event editedEvent) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setCurrentUser(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Person getCurrentUser() throws NoUserLoggedInException {
-            throw new AssertionError("This method should not be called.");
-        }
-    }
-
-    /**
      * A Model stub that contains a single event.
      */
-    private class ModelStubWithEvent extends AddEventCommandTest.ModelStub {
+    private class ModelStubWithEvent extends ModelStub {
         private final Event event;
 
         ModelStubWithEvent(Event event) {
@@ -249,9 +122,10 @@ public class AddEventCommandTest {
     /**
      * A Model stub that always accept the event being added.
      */
-    private class ModelStubAcceptingEventAdded extends AddEventCommandTest.ModelStub {
+    private class ModelStubAcceptingEventAdded extends ModelStub {
         final ArrayList<Event> eventsAdded = new ArrayList<>();
         private Person currentUser = null;
+        private Event currentEvent;
 
         @Override
         public boolean hasEvent(Event event) {
@@ -288,6 +162,16 @@ public class AddEventCommandTest {
             return currentUser;
         }
 
+        public void setSelectedEvent(Event currentEvent) {
+            this.currentEvent = currentEvent;
+        }
+
+        public Event getSelectedEvent() throws NoEventSelectedException {
+            if (currentEvent == null) {
+                throw new NoEventSelectedException();
+            }
+            return currentEvent;
+        }
     }
 
 }

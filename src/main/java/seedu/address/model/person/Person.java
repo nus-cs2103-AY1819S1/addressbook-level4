@@ -145,6 +145,8 @@ public class Person {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" Schedule: ")
+                .append(getSchedule().valueToString())
                 .append(" Interests: ");
         getInterests().forEach(builder::append);
         builder.append(" Tags: ");

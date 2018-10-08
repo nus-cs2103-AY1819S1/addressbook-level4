@@ -31,11 +31,11 @@ public class VoteCommandTest {
         Index index = TypicalIndexes.INDEX_FIRST;
         VoteCommand command = new VoteCommand(index, OPTION_NAME);
         Person user = new PersonBuilder().build();
-        commandHistory.setSelectedPerson(user);
+        model.setCurrentUser(user);
         Event event = model.getFilteredEventList().get(0);
         event.addPoll("Generic poll");
         event.getPoll(index).addOption(OPTION_NAME);
-        commandHistory.setSelectedEvent(event);
+        model.setSelectedEvent(event);
         String expectedMessage = String.format(command.MESSAGE_SUCCESS, OPTION_NAME, index.getOneBased());
         expectedModel.commitAddressBook();
         expectedModel.updateEvent(event, event);
@@ -53,11 +53,11 @@ public class VoteCommandTest {
     public void execute_noPollVoteOption() {
         VoteCommand command = new VoteCommand(TypicalIndexes.INDEX_FIRST, OPTION_NAME);
         Person user = new PersonBuilder().build();
-        commandHistory.setSelectedPerson(user);
+        model.setCurrentUser(user);
         EventBuilder eventBuilder = new EventBuilder();
         eventBuilder.withOrganiser(user);
         Event event = eventBuilder.build();
-        commandHistory.setSelectedEvent(event);
+        model.setSelectedEvent(event);
         String expectedMessage = String.format(Messages.MESSAGE_NO_POLL_AT_INDEX);
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
@@ -66,11 +66,11 @@ public class VoteCommandTest {
     public void execute_noOptionVoteOption() {
         VoteCommand command = new VoteCommand(TypicalIndexes.INDEX_FIRST, OPTION_NAME);
         Person user = new PersonBuilder().build();
-        commandHistory.setSelectedPerson(user);
+        model.setCurrentUser(user);
         EventBuilder eventBuilder = new EventBuilder();
         eventBuilder.withOrganiser(user);
         Event event = eventBuilder.withPoll().build();
-        commandHistory.setSelectedEvent(event);
+        model.setSelectedEvent(event);
         String expectedMessage = String.format(Messages.MESSAGE_NO_SUCH_OPTION);
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
@@ -80,7 +80,7 @@ public class VoteCommandTest {
         VoteCommand command = new VoteCommand(TypicalIndexes.INDEX_FIRST, OPTION_NAME);
         EventBuilder eventBuilder = new EventBuilder();
         Event event = eventBuilder.withPoll().build();
-        commandHistory.setSelectedEvent(event);
+        model.setSelectedEvent(event);
         String expectedMessage = String.format(Messages.MESSAGE_NO_USER_LOGGED_IN);
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
