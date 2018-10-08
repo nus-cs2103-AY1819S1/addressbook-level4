@@ -65,7 +65,7 @@ public class Word {
 
         return otherWord != null
                 && otherWord.getName().equals(getName())
-                && (otherWord.getPhone().equals(getPhone()) || otherWord.getEmail().equals(getEmail()));
+                && (otherWord.getPhone().equals(getPhone()));
     }
 
     /**
