@@ -1,9 +1,14 @@
 package seedu.address.model;
 
+import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.model.person.Word;
+
+import seedu.address.model.tag.Tag;
+
 
 /**
  * The API of the Model component.
@@ -75,4 +80,11 @@ public interface Model {
      * Saves the current address book state for undo/redo.
      */
     void commitAddressBook();
+
+    /**
+     *
+     * @param tags set of tags that is entered by the user
+     * @return whether the tag has existed in the list
+     */
+    boolean hasTag(Set<Tag> tags);
 }
