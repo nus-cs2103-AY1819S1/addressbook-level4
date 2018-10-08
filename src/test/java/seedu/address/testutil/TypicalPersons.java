@@ -42,7 +42,7 @@ public class TypicalPersons {
             .withAddress("311, Clementi Ave 2, #02-25")
             .withEmail("johnd@example.com")
             .withPhone("98765432")
-            .withInterests("play")
+            .withInterests("study")
             .withTags("owesMoney", "friends")
             .build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz")
@@ -76,7 +76,7 @@ public class TypicalPersons {
             .withTags(VALID_TAG_FRIEND).build();
     public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB)
             .withPhone(VALID_PHONE_BOB)
-            .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withInterests(VALID_INTEREST_PLAY)
+            .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withInterests(VALID_INTEREST_STUDY)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
     public static final Person CHARLIE = new PersonBuilder().withName(VALID_NAME_BOB)

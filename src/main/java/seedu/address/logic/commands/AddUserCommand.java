@@ -68,6 +68,11 @@ public class AddUserCommand extends Command {
     }
 
     @Override
+    public String toString() {
+        return toAdd.toString();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddUserCommand // instanceof handles nulls
