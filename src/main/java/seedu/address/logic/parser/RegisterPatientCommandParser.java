@@ -17,6 +17,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -43,11 +44,12 @@ public class RegisterPatientCommandParser implements Parser<RegisterPatientComma
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        Remark remark = new Remark(""); //register patient currently doesn't support register remark
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         tagList.add(new Tag("Patient"));
         String telegramId = "123123";
 
-        Patient person = new Patient(name, phone, email, address, tagList, telegramId);
+        Patient person = new Patient(name, phone, email, address, remark, tagList, telegramId);
 
         return new RegisterPatientCommand(person);
     }

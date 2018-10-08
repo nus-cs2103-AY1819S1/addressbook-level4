@@ -11,6 +11,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -25,8 +26,8 @@ public class Patient extends Person {
     private Stack<Appointment> pastAppointments;
 
     // Constructor
-    public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags, String telegramId) {
-        super(name, phone, email, address, tags);
+    public Patient(Name name, Phone phone, Email email, Address address, Remark remark, Set<Tag> tags, String telegramId) {
+        super(name, phone, email, address, remark, tags);
         setTelegramId(telegramId);
         upcomingAppointments = new LinkedList<>();
         pastAppointments = new Stack<>();
