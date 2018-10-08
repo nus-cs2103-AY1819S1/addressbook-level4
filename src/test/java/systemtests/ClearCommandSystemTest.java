@@ -10,7 +10,7 @@ import seedu.souschef.logic.commands.ClearCommand;
 import seedu.souschef.logic.commands.RedoCommand;
 import seedu.souschef.logic.commands.UndoCommand;
 import seedu.souschef.model.Model;
-import seedu.souschef.model.ModelManager;
+import seedu.souschef.model.ModelSetCoordinator;
 
 public class ClearCommandSystemTest extends AddressBookSystemTest {
 
@@ -33,7 +33,7 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
         /* Case: redo clearing address book -> cleared */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, expectedResultMessage, new ModelManager());
+        assertCommandSuccess(command, expectedResultMessage, new ModelSetCoordinator().getRecipeModel());
         assertSelectedCardUnchanged();
 
         /* Case: selects first card in recipe list and clears address book -> cleared and no card selected */
@@ -58,19 +58,20 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
 
     /**
      * Executes {@code command} and verifies that the command box displays an empty string, the result display
-     * box displays {@code ClearCommand#MESSAGE_SUCCESS} and the model related components equal to an empty model.
+     * box displays {@code ClearCommand#MESSAGE_SUCCESS} and the recipeModel related components
+     * equal to an empty recipeModel.
      * These verifications are done by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the command box has the default style class and the status bar's sync status changes.
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command) {
-        assertCommandSuccess(command, ClearCommand.MESSAGE_SUCCESS, new ModelManager());
+        assertCommandSuccess(command, ClearCommand.MESSAGE_SUCCESS, new ModelSetCoordinator().getRecipeModel());
     }
 
     /**
      * Performs the same verification as {@code assertCommandSuccess(String)} except that the result box displays
-     * {@code expectedResultMessage} and the model related components equal to {@code expectedModel}.
+     * {@code expectedResultMessage} and the recipeModel related components equal to {@code expectedModel}.
      * @see ClearCommandSystemTest#assertCommandSuccess(String)
      */
     private void assertCommandSuccess(String command, String expectedResultMessage, Model expectedModel) {
@@ -82,7 +83,8 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
 
     /**
      * Executes {@code command} and verifies that the command box displays {@code command}, the result display
-     * box displays {@code expectedResultMessage} and the model related components equal to the current model.
+     * box displays {@code expectedResultMessage} and the recipeModel related components
+     * equal to the current recipeModel.
      * These verifications are done by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the browser url, selected card and status bar remain unchanged, and the command box has the

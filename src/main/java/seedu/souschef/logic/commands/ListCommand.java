@@ -1,7 +1,7 @@
 package seedu.souschef.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.souschef.model.Model.PREDICATE_SHOW_ALL_RECIPES;
+import static seedu.souschef.model.Model.PREDICATE_SHOW_ALL;
 
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.model.Model;
@@ -19,7 +19,7 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
+        model.updateFilteredList(PREDICATE_SHOW_ALL);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

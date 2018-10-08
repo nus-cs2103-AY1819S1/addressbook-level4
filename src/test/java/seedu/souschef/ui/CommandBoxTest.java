@@ -13,7 +13,8 @@ import seedu.souschef.logic.Logic;
 import seedu.souschef.logic.LogicManager;
 import seedu.souschef.logic.commands.ListCommand;
 import seedu.souschef.model.Model;
-import seedu.souschef.model.ModelManager;
+import seedu.souschef.model.ModelSetCoordinator;
+import seedu.souschef.model.recipe.Recipe;
 
 public class CommandBoxTest extends GuiUnitTest {
 
@@ -27,7 +28,7 @@ public class CommandBoxTest extends GuiUnitTest {
 
     @Before
     public void setUp() {
-        Model model = new ModelManager();
+        Model<Recipe> model = new ModelSetCoordinator().getRecipeModel();
         Logic logic = new LogicManager(model);
 
         CommandBox commandBox = new CommandBox(logic);

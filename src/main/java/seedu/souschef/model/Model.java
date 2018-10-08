@@ -3,16 +3,15 @@ package seedu.souschef.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.souschef.model.recipe.Recipe;
 
 /**
  * The API of the Model component.
  */
-public interface Model {
+public interface Model<T extends UniqueType> {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Recipe> PREDICATE_SHOW_ALL_RECIPES = unused -> true;
+    Predicate<UniqueType> PREDICATE_SHOW_ALL = unused -> true;
 
-    /** Clears existing backing model and replaces with the provided new data. */
+    /** Clears existing backing recipeModel and replaces with the provided new data. */
     void resetData(ReadOnlyAppContent newData);
 
     /** Returns the AppContent */
@@ -21,19 +20,19 @@ public interface Model {
     /**
      * Returns true if a recipe with the same identity as {@code recipe} exists in the application content.
      */
-    boolean hasRecipe(Recipe recipe);
+    boolean has(T t);
 
     /**
      * Deletes the given recipe.
      * The recipe must exist in the application content.
      */
-    void deleteRecipe(Recipe target);
+    void delete(T target);
 
     /**
      * Adds the given recipe.
      * {@code recipe} must not already exist in the application content.
      */
-    void addRecipe(Recipe recipe);
+    void add(T target);
 
     /**
      * Replaces the given recipe {@code target} with {@code editedRecipe}.
@@ -41,34 +40,34 @@ public interface Model {
      * The recipe identity of {@code editedRecipe} must not be the same as another existing recipe in the application
      * content.
      */
-    void updateRecipe(Recipe target, Recipe editedRecipe);
+    void update(T target, T edited);
 
     /** Returns an unmodifiable view of the filtered recipe list */
-    ObservableList<Recipe> getFilteredRecipeList();
+    ObservableList<T> getFilteredList();
 
     /**
      * Updates the filter of the filtered recipe list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredRecipeList(Predicate<Recipe> predicate);
+    void updateFilteredList(Predicate<? extends UniqueType> predicate);
 
     /**
-     * Returns true if the model has previous application content states to restore.
+     * Returns true if the recipeModel has previous application content states to restore.
      */
     boolean canUndoAppContent();
 
     /**
-     * Returns true if the model has undone application content states to restore.
+     * Returns true if the recipeModel has undone application content states to restore.
      */
     boolean canRedoAppContent();
 
     /**
-     * Restores the model's application content to its previous state.
+     * Restores the recipeModel's application content to its previous state.
      */
     void undoAppContent();
 
     /**
-     * Restores the model's application content to its previously undone state.
+     * Restores the recipeModel's application content to its previously undone state.
      */
     void redoAppContent();
 

@@ -43,7 +43,7 @@ public class SampleDataUtil {
     public static ReadOnlyAppContent getSampleAddressBook() {
         AppContent sampleAb = new AppContent();
         for (Recipe sampleRecipe : getSampleRecipes()) {
-            sampleAb.addRecipe(sampleRecipe);
+            sampleAb.getRecipes().add(sampleRecipe);
         }
         return sampleAb;
     }

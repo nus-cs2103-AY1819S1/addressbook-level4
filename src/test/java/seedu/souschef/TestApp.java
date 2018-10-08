@@ -13,9 +13,10 @@ import seedu.souschef.commons.util.FileUtil;
 import seedu.souschef.commons.util.XmlUtil;
 import seedu.souschef.model.AppContent;
 import seedu.souschef.model.Model;
-import seedu.souschef.model.ModelManager;
+import seedu.souschef.model.ModelSetCoordinator;
 import seedu.souschef.model.ReadOnlyAppContent;
 import seedu.souschef.model.UserPrefs;
+import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.storage.UserPrefsStorage;
 import seedu.souschef.storage.XmlSerializableAddressBook;
 import seedu.souschef.testutil.TestUtil;
@@ -89,11 +90,12 @@ public class TestApp extends MainApp {
     }
 
     /**
-     * Returns a defensive copy of the model.
+     * Returns a defensive copy of the recipeModel.
      */
-    public Model getModel() {
-        Model copy = new ModelManager((model.getAppContent()), new UserPrefs());
-        ModelHelper.setFilteredList(copy, model.getFilteredRecipeList());
+    public Model<Recipe> getModel() {
+        Model<Recipe> copy = new ModelSetCoordinator(modelSet.getAppContent(), new UserPrefs())
+                        .getRecipeModel();
+        ModelHelper.setFilteredList(copy, modelSet.getRecipeModel().getFilteredList());
         return copy;
     }
 

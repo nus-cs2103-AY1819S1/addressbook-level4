@@ -14,15 +14,16 @@ import seedu.souschef.logic.commands.ListCommand;
 import seedu.souschef.logic.commands.exceptions.CommandException;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
-import seedu.souschef.model.ModelManager;
+import seedu.souschef.model.ModelSetCoordinator;
 import seedu.souschef.model.UserPrefs;
+import seedu.souschef.model.recipe.Recipe;
 
 
 public class LogicManagerTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private Model model = new ModelManager();
+    private Model<Recipe> model = new ModelSetCoordinator().getRecipeModel();
     private Logic logic = new LogicManager(model);
 
     @Test
@@ -82,14 +83,14 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(Class, String, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAppContent(), new UserPrefs());
+        Model<Recipe> expectedModel = new ModelSetCoordinator(model.getAppContent(), new UserPrefs()).getRecipeModel();
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
 
     /**
      * Executes the command, confirms that the result message is correct and that the expected exception is thrown,
      * and also confirms that the following two parts of the LogicManager object's state are as expected:<br>
-     *      - the internal model manager data are same as those in the {@code expectedModel} <br>
+     *      - the internal recipeModel manager data are same as those in the {@code expectedModel} <br>
      *      - {@code expectedModel}'s address book was saved to the storage file.
      */
     private void assertCommandBehavior(Class<?> expectedException, String inputCommand,

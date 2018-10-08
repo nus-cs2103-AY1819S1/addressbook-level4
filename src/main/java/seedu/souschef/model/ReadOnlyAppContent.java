@@ -12,6 +12,6 @@ public interface ReadOnlyAppContent {
      * Returns an unmodifiable view of the respective list.
      * This list will not contain any duplicate recipes.
      */
-    ObservableList<Recipe> getRecipeList();
+    ObservableList<Recipe> getObservableRecipeList();
 
 }

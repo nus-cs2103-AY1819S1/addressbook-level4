@@ -3,7 +3,7 @@ package seedu.souschef.commons.events.model;
 import seedu.souschef.commons.events.BaseEvent;
 import seedu.souschef.model.ReadOnlyAppContent;
 
-/** Indicates the AppContent in the model has changed*/
+/** Indicates the AppContent in the recipeModel has changed*/
 public class AppContentChangedEvent extends BaseEvent {
 
     public final ReadOnlyAppContent data;
@@ -14,6 +14,6 @@ public class AppContentChangedEvent extends BaseEvent {
 
     @Override
     public String toString() {
-        return "number of recipes " + data.getRecipeList().size();
+        return "number of recipes " + data.getObservableRecipeList().size();
     }
 }

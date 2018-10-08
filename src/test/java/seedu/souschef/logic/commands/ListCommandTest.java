@@ -10,22 +10,23 @@ import org.junit.Test;
 
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.model.Model;
-import seedu.souschef.model.ModelManager;
+import seedu.souschef.model.ModelSetCoordinator;
 import seedu.souschef.model.UserPrefs;
+import seedu.souschef.model.recipe.Recipe;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
  */
 public class ListCommandTest {
 
-    private Model model;
-    private Model expectedModel;
+    private Model<Recipe> model;
+    private Model<Recipe> expectedModel;
     private CommandHistory commandHistory = new CommandHistory();
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAppContent(), new UserPrefs());
+        model = new ModelSetCoordinator(getTypicalAddressBook(), new UserPrefs()).getRecipeModel();
+        expectedModel = new ModelSetCoordinator(model.getAppContent(), new UserPrefs()).getRecipeModel();
     }
 
     @Test

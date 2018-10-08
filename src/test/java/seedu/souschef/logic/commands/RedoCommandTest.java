@@ -10,13 +10,16 @@ import org.junit.Test;
 
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.model.Model;
-import seedu.souschef.model.ModelManager;
+import seedu.souschef.model.ModelSetCoordinator;
 import seedu.souschef.model.UserPrefs;
+import seedu.souschef.model.recipe.Recipe;
 
 public class RedoCommandTest {
 
-    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private final Model<Recipe> model = new ModelSetCoordinator(getTypicalAddressBook(),
+            new UserPrefs()).getRecipeModel();
+    private final Model<Recipe> expectedModel =
+            new ModelSetCoordinator(getTypicalAddressBook(), new UserPrefs()).getRecipeModel();
     private final CommandHistory commandHistory = new CommandHistory();
 
     @Before
@@ -35,15 +38,15 @@ public class RedoCommandTest {
 
     @Test
     public void execute() {
-        // multiple redoable states in model
+        // multiple redoable states in recipeModel
         expectedModel.redoAppContent();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        // single redoable state in model
+        // single redoable state in recipeModel
         expectedModel.redoAppContent();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        // no redoable state in model
+        // no redoable state in recipeModel
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
 }

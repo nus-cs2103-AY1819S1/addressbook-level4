@@ -2,7 +2,7 @@ package seedu.souschef.model;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.souschef.model.Model.PREDICATE_SHOW_ALL_RECIPES;
+import static seedu.souschef.model.Model.PREDICATE_SHOW_ALL;
 import static seedu.souschef.testutil.TypicalRecipes.ALICE;
 import static seedu.souschef.testutil.TypicalRecipes.BENSON;
 
@@ -14,35 +14,36 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.souschef.model.recipe.NameContainsKeywordsPredicate;
+import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.testutil.AppContentBuilder;
 
 public class ModelManagerTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private ModelManager modelManager = new ModelManager();
+    private ModelManager<Recipe> modelManager = (ModelManager<Recipe>) new ModelSetCoordinator().getRecipeModel();
 
     @Test
     public void hasRecipe_nullRecipe_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        modelManager.hasRecipe(null);
+        modelManager.has(null);
     }
 
     @Test
     public void hasRecipe_recipeNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasRecipe(ALICE));
+        assertFalse(modelManager.has(ALICE));
     }
 
     @Test
     public void hasRecipe_recipeInAddressBook_returnsTrue() {
-        modelManager.addRecipe(ALICE);
-        assertTrue(modelManager.hasRecipe(ALICE));
+        modelManager.add(ALICE);
+        assertTrue(modelManager.has(ALICE));
     }
 
     @Test
     public void getFilteredRecipeList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        modelManager.getFilteredRecipeList().remove(0);
+        modelManager.getFilteredList().remove(0);
     }
 
     @Test
@@ -52,8 +53,9 @@ public class ModelManagerTest {
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
+        modelManager = (ModelManager<Recipe>) new ModelSetCoordinator(addressBook, userPrefs).getRecipeModel();
+        ModelManager modelManagerCopy = (ModelManager<Recipe>) new ModelSetCoordinator(addressBook,
+                userPrefs).getRecipeModel();
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -66,19 +68,19 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelSetCoordinator(differentAddressBook, userPrefs).getRecipeModel()));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredRecipeList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+        modelManager.updateFilteredList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        assertFalse(modelManager.equals(new ModelSetCoordinator(addressBook, userPrefs).getRecipeModel()));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
+        modelManager.updateFilteredList(PREDICATE_SHOW_ALL);
 
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertTrue(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        assertTrue(modelManager.equals(new ModelSetCoordinator(addressBook, userPrefs).getRecipeModel()));
     }
 }

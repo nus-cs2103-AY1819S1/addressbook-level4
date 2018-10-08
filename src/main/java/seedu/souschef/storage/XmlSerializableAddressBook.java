@@ -36,11 +36,11 @@ public class XmlSerializableAddressBook {
      */
     public XmlSerializableAddressBook(ReadOnlyAppContent src) {
         this();
-        recipes.addAll(src.getRecipeList().stream().map(XmlAdaptedRecipe::new).collect(Collectors.toList()));
+        recipes.addAll(src.getObservableRecipeList().stream().map(XmlAdaptedRecipe::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this addressbook into the model's {@code AppContent} object.
+     * Converts this addressbook into the recipeModel's {@code AppContent} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
      * {@code XmlAdaptedRecipe}.
@@ -49,10 +49,10 @@ public class XmlSerializableAddressBook {
         AppContent addressBook = new AppContent();
         for (XmlAdaptedRecipe p : recipes) {
             Recipe recipe = p.toModelType();
-            if (addressBook.hasRecipe(recipe)) {
+            if (addressBook.getRecipes().contains(recipe)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_RECIPE);
             }
-            addressBook.addRecipe(recipe);
+            addressBook.getRecipes().add(recipe);
         }
         return addressBook;
     }

@@ -19,8 +19,9 @@ import seedu.souschef.commons.core.index.Index;
 import seedu.souschef.commons.events.ui.JumpToListRequestEvent;
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.model.Model;
-import seedu.souschef.model.ModelManager;
+import seedu.souschef.model.ModelSetCoordinator;
 import seedu.souschef.model.UserPrefs;
+import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.ui.testutil.EventsCollectorRule;
 
 /**
@@ -30,13 +31,14 @@ public class SelectCommandTest {
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model<Recipe> model = new ModelSetCoordinator(getTypicalAddressBook(), new UserPrefs()).getRecipeModel();
+    private Model<Recipe> expectedModel = new ModelSetCoordinator(getTypicalAddressBook(),
+            new UserPrefs()).getRecipeModel();
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Index lastPersonIndex = Index.fromOneBased(model.getFilteredRecipeList().size());
+        Index lastPersonIndex = Index.fromOneBased(model.getFilteredList().size());
 
         assertExecutionSuccess(INDEX_FIRST_RECIPE);
         assertExecutionSuccess(INDEX_THIRD_RECIPE);
@@ -45,7 +47,7 @@ public class SelectCommandTest {
 
     @Test
     public void execute_invalidIndexUnfilteredList_failure() {
-        Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredRecipeList().size() + 1);
+        Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredList().size() + 1);
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
     }
@@ -65,7 +67,7 @@ public class SelectCommandTest {
 
         Index outOfBoundsIndex = INDEX_SECOND_RECIPE;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAppContent().getRecipeList().size());
+        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAppContent().getObservableRecipeList().size());
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
     }

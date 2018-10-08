@@ -71,7 +71,7 @@ public class XmlAdaptedRecipe {
     }
 
     /**
-     * Converts this jaxb-friendly adapted recipe object into the model's Recipe object.
+     * Converts this jaxb-friendly adapted recipe object into the recipeModel's Recipe object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted recipe
      */
