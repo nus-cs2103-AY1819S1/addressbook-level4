@@ -49,7 +49,6 @@ public class Password {
      * Returns true if a given string is a valid hashed password.
      */
     public static boolean isValidHashedPassword(String test) {
-        //return test.matches(PASSWORD_VALIDATION_REGEX);
         return !test.isEmpty();
     }
 
