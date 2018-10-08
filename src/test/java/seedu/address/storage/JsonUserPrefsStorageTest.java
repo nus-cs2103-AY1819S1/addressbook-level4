@@ -82,7 +82,8 @@ public class JsonUserPrefsStorageTest {
     private UserPrefs getTypicalUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setGuiSettings(1000, 500, 300, 100);
-        userPrefs.setAddressBookFilePath(Paths.get("addressbook.xml"));
+        userPrefs.setSchedulePlannerFilePath(Paths.get("addressbook.xml"));
+        //userPrefs.setSchedulePlannerFilePath(Paths.get("data\\addressbook.xml"));
         return userPrefs;
     }
 
