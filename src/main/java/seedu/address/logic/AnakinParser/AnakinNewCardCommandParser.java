@@ -1,5 +1,9 @@
 package seedu.address.logic.AnakinParser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
+
 import seedu.address.logic.AnakinCommands.AnakinNewCardCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -8,9 +12,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.anakindeck.*;
 
 import java.util.stream.Stream;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
 
 
 /**
