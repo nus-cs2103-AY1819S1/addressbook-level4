@@ -1,10 +1,10 @@
 package seedu.address.logic.commands;
 
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Phone;
 
 /**
  * Deletes a patient from health book.
