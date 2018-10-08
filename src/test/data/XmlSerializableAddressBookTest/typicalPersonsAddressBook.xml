@@ -50,11 +50,11 @@
     <doctors>
         <id>1</id>
         <name>Adam Bell</name>
-        <password>doctor1</password>
+        <password>$2b$08$kjCPCAJ5eEpDD5qh49JNMuG7DmWmmJLuKAWtegLty9T.ri/9bF3ti</password>
     </doctors>
     <doctors>
         <id>2</id>
         <name>Ben Hill</name>
-        <password>doctor2</password>
+        <password>$2b$08$KyxDFM2P0SF3KE5QjJ6si.cyZ4jMRuTxBvg2.Ly7pxUzhQrCLGvUW</password>
     </doctors>
 </addressbook>

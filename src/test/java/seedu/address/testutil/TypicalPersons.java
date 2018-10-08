@@ -58,9 +58,9 @@ public class TypicalPersons {
             .build();
 
     public static final Doctor ADAM = new DoctorBuilder().withId(1).withName("Adam Bell")
-            .withPassword("doctor1").build();
+            .withPassword("$2b$08$kjCPCAJ5eEpDD5qh49JNMuG7DmWmmJLuKAWtegLty9T.ri/9bF3ti", true).build();
     public static final Doctor BEN = new DoctorBuilder().withId(2).withName("Ben Hill")
-            .withPassword("doctor2").build();
+            .withPassword("$2b$08$KyxDFM2P0SF3KE5QjJ6si.cyZ4jMRuTxBvg2.Ly7pxUzhQrCLGvUW", true).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
