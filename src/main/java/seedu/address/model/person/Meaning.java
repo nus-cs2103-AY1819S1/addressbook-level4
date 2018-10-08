@@ -13,7 +13,7 @@ public class Meaning {
 
     public Meaning(String meaning){
         requireNonNull(meaning);
-
+        checkArgument(isValidMeaning(meaning), MESSAGE_MEANING_CONSTRAINTS);
         fullMeaning = meaning;
     }
 
