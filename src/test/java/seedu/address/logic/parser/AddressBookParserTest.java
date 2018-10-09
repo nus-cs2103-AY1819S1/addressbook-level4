@@ -225,7 +225,7 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_importContactsCommand_throwsParseException() throws Exception {
+    public void parseCommand_importContactsCommand() throws Exception {
         String csvFilePath = Paths
                 .get("src", "test", "data", "ImportContactsTest")
                 .resolve("ImportContacts.csv")
