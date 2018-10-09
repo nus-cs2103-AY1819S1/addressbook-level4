@@ -1,7 +1,7 @@
 package seedu.address.model;
 
-import seedu.address.model.person.IcNumber;
 import seedu.address.model.medicine.MedicineName;
+import seedu.address.model.person.IcNumber;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.servedPatient;
 
