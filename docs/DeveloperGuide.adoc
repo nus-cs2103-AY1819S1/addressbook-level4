@@ -848,6 +848,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user who wants to cook more than one serving of dishes |get the accordingly calculated missing amount of ingredients |-
 |=======================================================================
+// tag::mealplanner[]
 === Meal Planner
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
@@ -862,6 +863,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |meticulous user |view the time taken for each recipe |I can plan ahead for meal preparations to fit my schedule
 |=======================================================================
+// end::mealplanner[]
 === User Profiling
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
