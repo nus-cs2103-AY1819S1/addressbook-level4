@@ -14,7 +14,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Pakorn Ueareeworakul
-image::nyxf4ll.jpeg[width="150", align="left"]
+image::nyxf4ll.png[width="150", align="left"]
 {empty}[https://github.com/NyxF4ll[github]]
 
 Role: Developer +
@@ -23,7 +23,7 @@ Responsibilities: Model
 '''
 
 === Ooi Heng Seng Jeffrey
-image::jeffreyooi.jpg[width="150", align="left"]
+image::jeffreyooi.png[width="150", align="left"]
 {empty}[https://github.com/jeffreyooi[github]]
 
 Role: Developer +
@@ -32,7 +32,7 @@ Responsibilities: UI
 '''
 
 === Koh Zheng Wei
-image::zenious.jpeg[width="150", align="left"]
+image::zenious.png[width="150", align="left"]
 {empty}[http://github.com/Zenious[github]]
 
 Role: Developer +
@@ -41,7 +41,7 @@ Responsibilities: Storage
 '''
 
 === Zhuang Xinjie Derek
-image::derek-hardy.jpg[width="150", align="left"]
+image::derek-hardy.png[width="150", align="left"]
 {empty}[https://github.com/Derek-Hardy[github]]
 
 Role: Developer +
@@ -50,7 +50,7 @@ Responsibilities: Logic
 '''
 
 === Tan Kuan Wei Benjamin
-image::betakuwe.jpg[width="150", align="left"]
+image::betakuwe.png[width="150", align="left"]
 {empty}[https://github.com/betakuwe[github]]
 
 Role: Developer +
