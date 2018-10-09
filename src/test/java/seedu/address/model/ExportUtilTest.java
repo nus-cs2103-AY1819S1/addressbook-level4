@@ -30,53 +30,53 @@ public class ExportUtilTest {
     public TemporaryFolder folder = new TemporaryFolder();
 
     // Load the CSV file containing expected content for the tests below.
-    final File expected = new File("./src/test/java/seedu/address/model/ExpectedExportUtilsTest.csv");
+    final File expected = new File("./src/test/java/seedu/address/model/ExpectedExportUtilTest.csv");
 
     @Test
     public void writeLine_identicalRow_returnsTrue() throws IOException {
-        final File actual = folder.newFile("ActualExportUtilsTest.csv");
+        final File actual = folder.newFile("ActualExportUtilTest.csv");
         ExportUtil.writeLine(new FileWriter(actual), "a, b, c");
         assertTrue(FileUtil.areIdenticalFiles(expected, actual));
     }
 
     @Test
     public void writeLine_emptyRow_returnsFalse() throws IOException {
-        final File actual = folder.newFile("ActualExportUtilsTest.csv");
+        final File actual = folder.newFile("ActualExportUtilTest.csv");
         ExportUtil.writeLine(new FileWriter(actual), "");
         assertFalse(FileUtil.areIdenticalFiles(expected, actual));
     }
 
     @Test
     public void writeLine_nullLine_throwsIllegalArgumentException() throws IOException {
-        final File actual = folder.newFile("ActualExportUtilsTest.csv");
+        final File actual = folder.newFile("ActualExportUtilTest.csv");
         thrown.expect(IllegalArgumentException.class);
         ExportUtil.writeLine(new FileWriter(actual), null);
     }
 
     @Test
     public void writeLine_identicalLength_returnsFalse() throws IOException {
-        final File actual = folder.newFile("ActualExportUtilsTest.csv");
+        final File actual = folder.newFile("ActualExportUtilTest.csv");
         ExportUtil.writeLine(new FileWriter(actual), "x, x, x");
         assertFalse(FileUtil.areIdenticalFiles(expected, actual));
     }
 
     @Test
     public void writeLine_greaterLength_returnsFalse() throws IOException {
-        final File actual = folder.newFile("ActualExportUtilsTest.csv");
+        final File actual = folder.newFile("ActualExportUtilTest.csv");
         ExportUtil.writeLine(new FileWriter(actual), "a, b, c, d, e, f, g, h");
         assertFalse(FileUtil.areIdenticalFiles(expected, actual));
     }
 
     @Test
     public void writeLine_lessLength_returnsFalse() throws IOException {
-        final File actual = folder.newFile("ActualExportUtilsTest.csv");
+        final File actual = folder.newFile("ActualExportUtilTest.csv");
         ExportUtil.writeLine(new FileWriter(actual), "a");
         assertFalse(FileUtil.areIdenticalFiles(expected, actual));
     }
 
     @Test
     public void writeLines_identicalContent_returnsTrue() throws IOException {
-        final File actual = folder.newFile("ActualExportUtilsTest.csv");
+        final File actual = folder.newFile("ActualExportUtilTest.csv");
         ArrayList<String> testRow = new ArrayList<String>(Arrays.asList("a, b, c"));
         ExportUtil.writeLines(new FileWriter(actual), testRow);
         assertTrue(FileUtil.areIdenticalFiles(expected, actual));
@@ -84,7 +84,7 @@ public class ExportUtilTest {
 
     @Test
     public void writeLines_greaterRows_returnsFalse() throws IOException {
-        final File actual = folder.newFile("ActualExportUtilsTest.csv");
+        final File actual = folder.newFile("ActualExportUtilTest.csv");
         ArrayList<String> testRows = new ArrayList<String>(Arrays.asList("a, b, c", "d, e, f", "g, h, i", "j, k, l"));
         ExportUtil.writeLines(new FileWriter(actual), testRows);
         assertFalse(FileUtil.areIdenticalFiles(expected, actual));
@@ -92,14 +92,14 @@ public class ExportUtilTest {
 
     @Test
     public void writeLines_nullRows_throwsNullPointerException() throws IOException {
-        final File actual = folder.newFile("ActualExportUtilsTest.csv");
+        final File actual = folder.newFile("ActualExportUtilTest.csv");
         thrown.expect(NullPointerException.class);
         ExportUtil.writeLines(new FileWriter(actual), null);
     }
 
     @Test
     public void writeLines_emptyRows_throwsIllegalArgumentException() throws IOException {
-        final File actual = folder.newFile("ActualExportUtilsTest.csv");
+        final File actual = folder.newFile("ActualExportUtilTest.csv");
         thrown.expect(IllegalArgumentException.class);
         ExportUtil.writeLines(new FileWriter(actual), new ArrayList<>());
     }
