@@ -61,18 +61,20 @@ public class PasswordTest {
     public void isValidHashedPassword() {
         // null name
         Assert.assertThrows(NullPointerException.class, () -> Password.isValidHashedPassword(null));
-        
+
+        // Invalid hashed password
         assertFalse(Password.isValidHashedPassword("")); //Empty string
-        
-        //TODO: Am i suppose to assert false if string is "" or spaces? 
+
+        // Valid hashed password
+        //TODO: Am i suppose to assert false if string is "" or spaces?
         assertTrue(Password.isValidHashedPassword(HashUtil.hashToString(""))); // empty string
         assertTrue(Password.isValidHashedPassword(HashUtil.hashToString(" "))); // spaces only
-        assertTrue(Password.isValidHashedPassword(HashUtil.hashToString("joseph"))); 
+        assertTrue(Password.isValidHashedPassword(HashUtil.hashToString("joseph")));
         assertTrue(Password.isValidHashedPassword(HashUtil.hashToString("peterjack")));
-        assertTrue(Password.isValidHashedPassword(HashUtil.hashToString("81920543"))); 
+        assertTrue(Password.isValidHashedPassword(HashUtil.hashToString("81920543")));
         assertTrue(Password.isValidHashedPassword(HashUtil.hashToString("123456789012")));
-        assertTrue(Password.isValidHashedPassword(HashUtil.hashToString("CapitalTan"))); 
-        assertTrue(Password.isValidHashedPassword(HashUtil.hashToString("Capital123"))); 
+        assertTrue(Password.isValidHashedPassword(HashUtil.hashToString("CapitalTan")));
+        assertTrue(Password.isValidHashedPassword(HashUtil.hashToString("Capital123")));
 
     }
 

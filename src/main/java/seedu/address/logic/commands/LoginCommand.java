@@ -8,8 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 
 import java.util.List;
 
-import seedu.address.commons.util.HashUtil;
 import seedu.address.logic.CommandHistory;
+
 import seedu.address.model.Model;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.doctor.Password;
