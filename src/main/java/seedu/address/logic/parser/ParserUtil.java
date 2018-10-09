@@ -138,11 +138,16 @@ public class ParserUtil {
      * @param password The user valid password.
      * @return A valid person with its role object.
      */
-    public static Person parseRole(String role, Name name, Password password) {
+    public static Person parseRole(String role, Name name, Password password) throws ParseException {
+        requireNonNull(role);
+        requireNonNull(name);
+        requireNonNull(password);
         if (role.equals("doctor")) {
             return new Doctor(new Id(0), name, password);
-        } else {
+        } else if (role.equals("receptionist")){
             return null;
+        } else {
+            throw new ParseException("No role existed.");
         }
     }
 

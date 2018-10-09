@@ -15,7 +15,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.doctor.Password;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -30,12 +32,18 @@ public class ParserUtilTest {
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
 
+    private static final String INVALID_ROLE = "abc";
+    private static final String INVALID_PASSWORD = "";
+
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+
+    private static final String VALID_ROLE = "doctor";
+    private static final String VALID_PASSWORD = "doctor1";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -204,5 +212,54 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseRole_allNullFields_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
+        ParserUtil.parseRole(null, null, null);
+    }
+
+    @Test
+    public void parseRole_someNullFields_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
+        
+        // null role
+        ParserUtil.parseRole(null, new Name(VALID_NAME), new Password(VALID_PASSWORD, false));
+        
+        // null password
+        ParserUtil.parseRole(VALID_ROLE, new Name(VALID_NAME), null);
+        
+        // null name
+        ParserUtil.parseRole(VALID_ROLE, null, new Password(VALID_PASSWORD, false));
+    }
+
+    @Test
+    public void parseRole_allInvalidFields_throwsParseException() throws Exception {
+        Assert.assertThrows(IllegalArgumentException.class, () -> 
+                ParserUtil.parseRole("receptionst",
+                        new Name(INVALID_NAME),
+                        new Password(INVALID_PASSWORD, false)));
+    }
+    
+    @Test
+    public void parseRole_someInvalidFields_throwsParseException() throws Exception {
+        // Invalid password
+        Assert.assertThrows(IllegalArgumentException.class, () ->
+                ParserUtil.parseRole(VALID_ROLE,
+                        new Name(VALID_NAME),
+                        new Password(INVALID_PASSWORD, false)));
+        
+        // Invalid role
+        Assert.assertThrows(IllegalArgumentException.class, () ->
+                ParserUtil.parseRole(INVALID_ROLE,
+                        new Name(INVALID_NAME),
+                        new Password(INVALID_PASSWORD, false)));
+        
+        // Invalid name
+        Assert.assertThrows(IllegalArgumentException.class, () ->
+                ParserUtil.parseRole(VALID_ROLE,
+                        new Name(INVALID_NAME),
+                        new Password(VALID_PASSWORD, false)));
     }
 }
