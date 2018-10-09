@@ -1,7 +1,6 @@
 package seedu.address.logic;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.commons.core.Messages.MESSAGE_MISSING_PARAMETERS;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import org.junit.Rule;
@@ -30,13 +29,6 @@ public class LogicManagerTest {
         String invalidCommand = "uicfhmowqewca";
         assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
         assertHistoryCorrect(invalidCommand);
-    }
-
-    @Test
-    public void execute_commandExecutionError_throwsCommandException() {
-        String deletePatientCommand = "delete-patient n/John";
-        assertCommandException(deletePatientCommand, MESSAGE_MISSING_PARAMETERS);
-        assertHistoryCorrect(deletePatientCommand);
     }
 
     @Test
