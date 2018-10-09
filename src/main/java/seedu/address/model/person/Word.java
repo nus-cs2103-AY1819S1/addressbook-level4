@@ -18,6 +18,8 @@ public class Word {
     // Identity fields
     private final Name name;
     private final Phone phone;
+    private final Email email;
+    private final Meaning meaning;
 
     // Data fields
     private final Address address;
@@ -26,20 +28,31 @@ public class Word {
     /**
      * Every field must be present and not null.
      */
-    public Word(Name name, Phone phone, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, address, tags);
+    public Word(Name name, Meaning meaning, Phone phone, Email email, Address address, Set<Tag> tags) {
+        requireAllNonNull(name, meaning, phone, email, address, tags);
         this.name = name;
+        this.meaning = meaning;
         this.phone = phone;
+        this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+
     }
 
     public Name getName() {
         return name;
     }
 
+    public Meaning getMeaning(){
+        return meaning;
+    }
+
     public Phone getPhone() {
         return phone;
+    }
+
+    public Email getEmail() {
+        return email;
     }
 
     public Address getAddress() {
@@ -65,7 +78,7 @@ public class Word {
 
         return otherWord != null
                 && otherWord.getName().equals(getName())
-                && (otherWord.getPhone().equals(getPhone()));
+                && (otherWord.getPhone().equals(getPhone()) || otherWord.getEmail().equals(getEmail()));
     }
 
     /**
@@ -85,6 +98,7 @@ public class Word {
         Word otherWord = (Word) other;
         return otherWord.getName().equals(getName())
                 && otherWord.getPhone().equals(getPhone())
+                && otherWord.getEmail().equals(getEmail())
                 && otherWord.getAddress().equals(getAddress())
                 && otherWord.getTags().equals(getTags());
     }
@@ -92,15 +106,19 @@ public class Word {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, address, tags);
+        return Objects.hash(name, phone, email, address, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append(" Meaning: ")
+                .append(getMeaning())
                 .append(" Phone: ")
                 .append(getPhone())
+                .append(" Email: ")
+                .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Tags: ");

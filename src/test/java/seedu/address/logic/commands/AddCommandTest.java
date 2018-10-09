@@ -126,6 +126,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setTrivia() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Word getTrivia() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<Word> predicate) {
             throw new AssertionError("This method should not be called.");
         }
