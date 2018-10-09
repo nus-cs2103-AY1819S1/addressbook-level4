@@ -11,6 +11,7 @@ import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.Receipt;
 import seedu.address.model.person.Patient;
 
 //integrate select command
@@ -46,10 +47,9 @@ public class ReceiptCommand extends Command {
         if (index.getZeroBased() >= filteredPatientList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
+        Receipt receipt;
 
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(index));
-        //implement the pdf
-        return new CommandResult(String.format(MESSAGE_SUCCESS, index.getOneBased()));
+        return new CommandResult(receipt.display());
 
     }
 
