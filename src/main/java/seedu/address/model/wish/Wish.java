@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.commons.core.amount.Amount;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -34,7 +35,6 @@ public class Wish {
         requireAllNonNull(name, price, email, url, tags);
         if (isSavedAmountGreaterThanOrEqualToPrice(savedAmount, price)) {
             fulfilled = true;
-
         } else {
             fulfilled = false;
         }
@@ -102,6 +102,20 @@ public class Wish {
         return otherWish != null
                 && otherWish.getName().equals(getName())
                 && (otherWish.getPrice().equals(getPrice()) || otherWish.getEmail().equals(getEmail()));
+    }
+
+    /**
+     * Returns the progress for {@code wish}, ranges from 0.0 to 1.0.
+     */
+    public Double getProgress() {
+        return getSavedAmount().value / getPrice().value;
+    }
+
+    /**
+     * Returns the {@code savedAmount} - {@code price} for {@code wish}.
+     */
+    public Amount getSavedAmountToPriceDifference() {
+        return Amount.add(new Amount(savedAmount.toString()), new Amount(price.toString()));
     }
 
     /**
