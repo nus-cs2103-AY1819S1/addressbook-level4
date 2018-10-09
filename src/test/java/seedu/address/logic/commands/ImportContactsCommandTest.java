@@ -33,6 +33,6 @@ public class ImportContactsCommandTest {
     @Test
     public void execute_importContactsCommand() {
         assertCommandFailure(new ImportContactsCommand(readFile("importContacts.csv").get()),
-                model, commandHistory, ImportContactsCommand.MESSAGE_SUCCESS);
+                model, commandHistory, ImportContactsCommand.MESSAGE_TEST_EXCEPTION);
     }
 }
