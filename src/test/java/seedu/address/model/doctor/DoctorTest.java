@@ -31,13 +31,14 @@ public class DoctorTest {
         assertFalse(ADAM.isSameDoctor(null));
 
         // different password and id -> returns false
-        Doctor editedAdam = new DoctorBuilder(ADAM).withId(VALID_ID_BEN).withPassword(VALID_HASH_PASSWORD_BEN, true).build();
+        Doctor editedAdam = new DoctorBuilder(ADAM).withId(VALID_ID_BEN)
+                .withPassword(VALID_HASH_PASSWORD_BEN, true).build();
         assertFalse(ADAM.isSameDoctor(editedAdam));
 
         // different id -> returns false
         editedAdam = new DoctorBuilder(ADAM).withId(VALID_ID_BEN).build();
         assertFalse(ADAM.isSameDoctor(editedAdam));
-        
+
         // same id, same password, different attributes -> returns true
         editedAdam = new DoctorBuilder(ADAM).withName(VALID_NAME_BEN).build();
         assertTrue(ADAM.isSameDoctor(editedAdam));
