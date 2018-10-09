@@ -40,11 +40,11 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.task.Address;
-import seedu.address.model.task.Email;
+import seedu.address.model.task.Date;
 import seedu.address.model.task.Name;
-import seedu.address.model.task.Phone;
+import seedu.address.model.task.Priority;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.Venue;
 import seedu.address.testutil.PersonUtil;
 import seedu.address.testutil.TaskBuilder;
 
@@ -169,15 +169,15 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: invalid phone -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_PHONE_DESC,
-                Phone.MESSAGE_PHONE_CONSTRAINTS);
+                Date.MESSAGE_PHONE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_EMAIL_DESC,
-                Email.MESSAGE_EMAIL_CONSTRAINTS);
+                Priority.MESSAGE_EMAIL_CONSTRAINTS);
 
         /* Case: invalid address -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_ADDRESS_DESC,
-                Address.MESSAGE_ADDRESS_CONSTRAINTS);
+                Venue.MESSAGE_ADDRESS_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_TAG_DESC,

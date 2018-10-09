@@ -4,11 +4,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
-import seedu.address.model.task.Address;
-import seedu.address.model.task.Email;
+import seedu.address.model.task.Date;
 import seedu.address.model.task.Name;
-import seedu.address.model.task.Phone;
+import seedu.address.model.task.Priority;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.Venue;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
@@ -22,17 +22,17 @@ public class TaskBuilder {
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
     private Name name;
-    private Phone phone;
-    private Email email;
-    private Address address;
+    private Date date;
+    private Priority priority;
+    private Venue venue;
     private Set<Tag> tags;
 
     public TaskBuilder() {
         name = new Name(
                 DEFAULT_NAME);
-        phone = new Phone(DEFAULT_PHONE);
-        email = new Email(DEFAULT_EMAIL);
-        address = new Address(DEFAULT_ADDRESS);
+        date = new Date(DEFAULT_PHONE);
+        priority = new Priority(DEFAULT_EMAIL);
+        venue = new Venue(DEFAULT_ADDRESS);
         tags = new HashSet<>();
     }
 
@@ -41,9 +41,9 @@ public class TaskBuilder {
      */
     public TaskBuilder(Task taskToCopy) {
         name = taskToCopy.getName();
-        phone = taskToCopy.getPhone();
-        email = taskToCopy.getEmail();
-        address = taskToCopy.getAddress();
+        date = taskToCopy.getDate();
+        priority = taskToCopy.getPriority();
+        venue = taskToCopy.getVenue();
         tags = new HashSet<>(taskToCopy.getTags());
     }
 
@@ -64,31 +64,31 @@ public class TaskBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code Task} that we are building.
+     * Sets the {@code Venue} of the {@code Task} that we are building.
      */
     public TaskBuilder withAddress(String address) {
-        this.address = new Address(address);
+        this.venue = new Venue(address);
         return this;
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Task} that we are building.
+     * Sets the {@code Date} of the {@code Task} that we are building.
      */
     public TaskBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
+        this.date = new Date(phone);
         return this;
     }
 
     /**
-     * Sets the {@code Email} of the {@code Task} that we are building.
+     * Sets the {@code Priority} of the {@code Task} that we are building.
      */
     public TaskBuilder withEmail(String email) {
-        this.email = new Email(email);
+        this.priority = new Priority(email);
         return this;
     }
 
     public Task build() {
-        return new Task(name, phone, email, address, tags);
+        return new Task(name, date, priority, venue, tags);
     }
 
 }

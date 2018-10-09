@@ -3,48 +3,48 @@
 <addressbook>
     <persons>
         <name>Alice Pauline</name>
-        <phone>94351253</phone>
-        <email>alice@example.com</email>
-        <address>123, Jurong West Ave 6, #08-111</address>
+        <date>94351253</date>
+        <priority>alice@example.com</priority>
+        <venue>123, Jurong West Ave 6, #08-111</venue>
         <tagged>friends</tagged>
     </persons>
     <persons>
         <name>Benson Meier</name>
-        <phone>98765432</phone>
-        <email>johnd@example.com</email>
-        <address>311, Clementi Ave 2, #02-25</address>
+        <date>98765432</date>
+        <priority>johnd@example.com</priority>
+        <venue>311, Clementi Ave 2, #02-25</venue>
         <tagged>owesMoney</tagged>
         <tagged>friends</tagged>
     </persons>
     <persons>
         <name>Carl Kurz</name>
-        <phone>95352563</phone>
-        <email>heinz@example.com</email>
-        <address>wall street</address>
+        <date>95352563</date>
+        <priority>heinz@example.com</priority>
+        <venue>wall street</venue>
     </persons>
     <persons>
         <name>Daniel Meier</name>
-        <phone>87652533</phone>
-        <email>cornelia@example.com</email>
-        <address>10th street</address>
+        <date>87652533</date>
+        <priority>cornelia@example.com</priority>
+        <venue>10th street</venue>
         <tagged>friends</tagged>
     </persons>
     <persons>
         <name>Elle Meyer</name>
-        <phone>9482224</phone>
-        <email>werner@example.com</email>
-        <address>michegan ave</address>
+        <date>9482224</date>
+        <priority>werner@example.com</priority>
+        <venue>michegan ave</venue>
     </persons>
     <persons>
         <name>Fiona Kunz</name>
-        <phone>9482427</phone>
-        <email>lydia@example.com</email>
-        <address>little tokyo</address>
+        <date>9482427</date>
+        <priority>lydia@example.com</priority>
+        <venue>little tokyo</venue>
     </persons>
     <persons>
         <name>George Best</name>
-        <phone>9482442</phone>
-        <email>anna@example.com</email>
-        <address>4th street</address>
+        <date>9482442</date>
+        <priority>anna@example.com</priority>
+        <venue>4th street</venue>
     </persons>
 </addressbook>
