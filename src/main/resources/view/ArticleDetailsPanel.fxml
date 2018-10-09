@@ -8,17 +8,17 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 
 <StackPane fx:id="detailsPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-  <GridPane>
+  <GridPane hgap="15" gridLinesVisible="true">
     <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" />
+      <ColumnConstraints hgrow="NEVER" />
       <ColumnConstraints hgrow="SOMETIMES" />
     </columnConstraints>
     <rowConstraints>
       <RowConstraints vgrow="SOMETIMES" />
       <RowConstraints vgrow="SOMETIMES" />
     </rowConstraints>
-    <Label text="Name:" styleClass="cell_big_label" />
-    <Label text="Tags:" styleClass="cell_big_label"
+    <Label text="Name:" styleClass="cell_big_label" GridPane.halignment="RIGHT" />
+    <Label text="Tags:" styleClass="cell_big_label" GridPane.halignment="RIGHT"
            GridPane.rowIndex="1" />
     <Label fx:id="articleDetails" styleClass="cell_small_label"
            GridPane.columnIndex="1" />

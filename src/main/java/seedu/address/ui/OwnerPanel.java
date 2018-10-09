@@ -13,7 +13,7 @@ import seedu.address.commons.events.ui.ArticlePanelSelectionChangedEvent;
 import seedu.address.model.article.Article;
 
 /**
- * The Article Details Panel of the App.
+ * The Owner Panel of the App.
  */
 public class OwnerPanel extends UiPart<Region> {
 
