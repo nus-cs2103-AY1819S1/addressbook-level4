@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSE_UNIT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DRUGNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MED_HISTORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -44,6 +45,9 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
+    public static final String VALID_DIAGNOSIS = "Amy has a case of acute bronchitis, referred to Dr. Zhang";
+
+
     public static final String VALID_DRUGNAME = "Paracetamol";
     public static final int VALID_DOSE = 2;
     public static final String VALID_DOSE_UNIT = "tablets";
@@ -63,6 +67,9 @@ public class CommandTestUtil {
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
+
+    public static final String VALID_DIAGNOSIS_DESC = " " + PREFIX_MED_HISTORY + VALID_DIAGNOSIS;
+
     public static final String VALID_PRESCRIPTION_DESC = " " + PREFIX_DRUGNAME + VALID_DRUGNAME
             + " " + PREFIX_QUANTITY + VALID_DOSE
             + " " + PREFIX_DOSE_UNIT + VALID_DOSE_UNIT
@@ -70,6 +77,7 @@ public class CommandTestUtil {
             + " " + PREFIX_DURATION + VALID_DURATION_IN_DAYS;
 
     public static final String EMPTY_PRESCRIPTION_DESC = "";
+
     public static final String INVALID_PRESCRIPTION_DESC_MISSING_DRUGNAME = " " + PREFIX_QUANTITY + VALID_DOSE
             + " " + PREFIX_DOSE_UNIT + VALID_DOSE_UNIT
             + " " + PREFIX_DOSES_PER_DAY + VALID_DOSES_PER_DAY

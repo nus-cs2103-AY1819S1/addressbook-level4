@@ -120,8 +120,8 @@ public class PersonBuilder {
     /**
      * Sets the {@code ArrayList<Diagnosis> medicalhistory} of the {@code Person} that we are building.
      */
-    public PersonBuilder withMedicalHistory(String... records) {
-        this.medicalHistory = SampleDataUtil.getSampleMedicalHistory(records);
+    public PersonBuilder withMedicalHistory(MedicalHistory mh) {
+        this.medicalHistory = mh;
         return this;
     }
 
