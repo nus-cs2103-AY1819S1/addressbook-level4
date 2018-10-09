@@ -15,7 +15,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Bark HyeHyeon
 image::barkhyehyeon.png[width="150", align="left"]
-{empty}[http://github.com/barkhyehyeon[github]]
+{empty}[http://github.com/barkhyehyeon[github]] [<<barkhyehyeon#, portfolio>>]
 
 Role: Developer, Integration, Documentation +
 Responsibilities: Ingredient Management
@@ -24,7 +24,7 @@ Responsibilities: Ingredient Management
 
 === Benn Tay Guobin
 image::benntay.png[width="150", align="left"]
-{empty}[http://github.com/benntay[github]]
+{empty}[http://github.com/benntay[github]] [<<benntay#, portfolio>>]
 
 Role: Developer, Testing, Code Quality +
 Responsibilities: Meal Planner
@@ -33,7 +33,7 @@ Responsibilities: Meal Planner
 
 === Lim Shi Min
 image::limshiminjonathan.png[width="150", align="left"]
-{empty}[https://github.com/limshiminjonathan[github]]
+{empty}[https://github.com/limshiminjonathan[github]] [<<limshiminjonathan#, portfolio>>]
 
 Role: Developer, Documentation, Deliverables and deadlines +
 Responsibilities: User Profiling
@@ -42,7 +42,7 @@ Responsibilities: User Profiling
 
 === Ng Zhen Wei Alec
 image::alecngzw.png[width="150", align="left"]
-{empty}[http://github.com/alecngzw[github]]
+{empty}[http://github.com/alecngzw[github]] [<<alecngzw#, portfolio>>]
 
 Role: Developer, Integration, Code Quality +
 Responsibilities: Health Management
@@ -51,7 +51,7 @@ Responsibilities: Health Management
 
 === Yuen Jun Rong
 image::junrong09.png[width="150", align="left"]
-{empty}[http://github.com/junrong09[github]]
+{empty}[http://github.com/junrong09[github]] [<<junrong09#, portfolio>>]
 
 Role: Team lead, Scheduling and tracking, Developer +
 Responsibilities: Recipes Management and cook-mode
