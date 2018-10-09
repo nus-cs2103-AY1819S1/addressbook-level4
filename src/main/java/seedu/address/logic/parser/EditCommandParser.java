@@ -7,6 +7,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INTEREST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SCHEDULE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SCHEDULE_UPDATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMETABLE;
 
@@ -21,6 +23,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.interest.Interest;
+import seedu.address.model.person.Schedule;
 import seedu.address.model.person.TimeTable;
 import seedu.address.model.tag.Tag;
 
@@ -39,7 +42,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
-                PREFIX_ADDRESS, PREFIX_INTEREST, PREFIX_TAG, PREFIX_TIMETABLE);
+                PREFIX_ADDRESS, PREFIX_INTEREST, PREFIX_TAG, PREFIX_TIMETABLE, PREFIX_SCHEDULE_UPDATE, PREFIX_SCHEDULE);
 
         Index index;
 
@@ -71,6 +74,28 @@ public class EditCommandParser implements Parser<EditCommand> {
                 e.printStackTrace();
             }
         }
+
+        if (argMultimap.getValue(PREFIX_SCHEDULE).isPresent()) {
+            String scheduleString = argMultimap.getValue(PREFIX_SCHEDULE).get();
+            try {
+                editPersonDescriptor.setSchedule(ParserUtil.parseSchedule(scheduleString));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (argMultimap.getValue(PREFIX_SCHEDULE_UPDATE).isPresent()) {
+            String link = argMultimap.getValue(PREFIX_SCHEDULE_UPDATE).get();
+            try {
+                Schedule s = new Schedule();
+                String[] parms = link.split(" ");
+                s.setTimeDay(parms[0].trim(), parms[1].trim(), true);
+                editPersonDescriptor.setUpdateSchedule(s);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
 
         // This one is for schedule to schedule
         //editPersonDescriptor.setSchedule(ParserUtil.parseSchedule(argMultimap.getValue(PREFIX_TIMETABLE).get()));

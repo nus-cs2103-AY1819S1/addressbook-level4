@@ -193,4 +193,14 @@ public class Schedule {
         }
     }
 
+    /** Use the updateschedule as a bit flipper
+     *
+     */
+    public void xor(Schedule updateSchedule) {
+        for (int i = 0; i < value.length; i++) {
+            for (int j = 0; j < value[i].length; j++) {
+                this.value[i][j] ^= (updateSchedule.value[i][j]);
+            }
+        }
+    }
 }
