@@ -231,7 +231,6 @@ public class AddressBookParserTest {
                 .resolve("ImportContacts.csv")
                 .toFile()
                 .getAbsolutePath();
-        System.out.println(csvFilePath);
 
         ImportContactsCommand command = (ImportContactsCommand) parser.parseCommand(
                 ImportContactsCommand.COMMAND_WORD + " file/" + csvFilePath);
