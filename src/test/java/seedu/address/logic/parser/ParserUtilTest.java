@@ -17,10 +17,13 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.doctor.Doctor;
+import seedu.address.model.doctor.Id;
 import seedu.address.model.doctor.Password;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
@@ -42,7 +45,9 @@ public class ParserUtilTest {
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 
-    private static final String VALID_ROLE = "doctor";
+    private static final int VALID_ID=1;
+    private static final String VALID_ROLE_DOCTOR = "doctor";
+    private static final String VALID_ROLE_RECEPTIONIST = "receptionist";
     private static final String VALID_PASSWORD = "doctor1";
 
     private static final String WHITESPACE = " \t\r\n";
@@ -228,14 +233,14 @@ public class ParserUtilTest {
         ParserUtil.parseRole(null, new Name(VALID_NAME), new Password(VALID_PASSWORD, false));
         
         // null password
-        ParserUtil.parseRole(VALID_ROLE, new Name(VALID_NAME), null);
+        ParserUtil.parseRole(VALID_ROLE_DOCTOR, new Name(VALID_NAME), null);
         
         // null name
-        ParserUtil.parseRole(VALID_ROLE, null, new Password(VALID_PASSWORD, false));
+        ParserUtil.parseRole(VALID_ROLE_DOCTOR, null, new Password(VALID_PASSWORD, false));
     }
 
     @Test
-    public void parseRole_allInvalidFields_throwsParseException() throws Exception {
+    public void parseRole_allInvalidFields_throwsParseException() {
         Assert.assertThrows(IllegalArgumentException.class, () -> 
                 ParserUtil.parseRole("receptionst",
                         new Name(INVALID_NAME),
@@ -243,10 +248,10 @@ public class ParserUtilTest {
     }
     
     @Test
-    public void parseRole_someInvalidFields_throwsParseException() throws Exception {
+    public void parseRole_someInvalidFields_throwsParseException() {
         // Invalid password
         Assert.assertThrows(IllegalArgumentException.class, () ->
-                ParserUtil.parseRole(VALID_ROLE,
+                ParserUtil.parseRole(VALID_ROLE_DOCTOR,
                         new Name(VALID_NAME),
                         new Password(INVALID_PASSWORD, false)));
         
@@ -258,8 +263,26 @@ public class ParserUtilTest {
         
         // Invalid name
         Assert.assertThrows(IllegalArgumentException.class, () ->
-                ParserUtil.parseRole(VALID_ROLE,
+                ParserUtil.parseRole(VALID_ROLE_DOCTOR,
                         new Name(INVALID_NAME),
                         new Password(VALID_PASSWORD, false)));
+    }
+
+    @Test
+    public void parseRole_validFieldsWithoutWhitespace_returnsPerson() throws Exception{
+        Person expectedDoctor = new Doctor(new Id(VALID_ID), new Name(VALID_NAME), new Password(VALID_PASSWORD, false));
+        assertEquals(expectedDoctor, ParserUtil.parseRole(VALID_ROLE_DOCTOR, new Name(VALID_NAME), new Password(VALID_PASSWORD, false)));
+        
+        //TODO: Receptionist
+    }
+
+    @Test
+    public void parseRole_validFieldsWithWhitespace_returnsPerson() throws Exception{
+        String nameWithWhitespace = WHITESPACE + VALID_NAME + WHITESPACE;
+        Name name = new Name(VALID_NAME);
+        Person expectedDoctor = new Doctor(new Id(VALID_ID), name, new Password(VALID_PASSWORD, false));
+        assertEquals(expectedDoctor, ParserUtil.parseRole(VALID_ROLE_DOCTOR, ParserUtil.parseName(nameWithWhitespace), new Password(VALID_PASSWORD, false)));
+
+        //TODO: Receptionist
     }
 }
