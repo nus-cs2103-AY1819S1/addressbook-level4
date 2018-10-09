@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -16,11 +14,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  */
 @XmlRootElement
-// This annotation is required because JAXB is stupid as FUCK and can't
-// differentiate between members and their getters.
-@XmlAccessorType(XmlAccessType.FIELD)
 public class XmlAdaptedPrescriptionList implements Iterable<XmlAdaptedPrescription> {
-    @XmlElement
+    @XmlElement(required = true)
     private List<XmlAdaptedPrescription> prescription;
 
     public XmlAdaptedPrescriptionList() {

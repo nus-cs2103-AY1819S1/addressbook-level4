@@ -11,6 +11,7 @@ import java.util.Set;
 
 import seedu.address.logic.commands.CheckinCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.ViewmhCommand;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -24,6 +25,10 @@ public class PersonUtil {
      */
     public static String getCheckinCommand(Person person) {
         return CheckinCommand.COMMAND_WORD + " " + getPersonDetails(person);
+    }
+
+    public static String getViewmhCommand(Person person) {
+        return ViewmhCommand.COMMAND_WORD + " " + PREFIX_NRIC + person.getNric();
     }
 
     /**

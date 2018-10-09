@@ -54,7 +54,7 @@ public class XmlAdaptedPerson {
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
     public XmlAdaptedPerson(String nric, String name, String phone, String email, String address,
-            List<XmlAdaptedTag> tagged) {
+        List<XmlAdaptedTag> tagged) {
         this.nric = nric;
         this.name = name;
         this.phone = phone;
@@ -69,7 +69,7 @@ public class XmlAdaptedPerson {
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
     public XmlAdaptedPerson(String nric, String name, String phone, String email, String address,
-            List<XmlAdaptedTag> tagged, List<XmlAdaptedPrescription> prescriptions) {
+        List<XmlAdaptedTag> tagged, List<XmlAdaptedPrescription> prescriptions) {
         this(nric, name, phone, email, address, tagged);
         if (prescriptions != null) {
             this.prescriptions.setPrescription(prescriptions);
@@ -91,9 +91,9 @@ public class XmlAdaptedPerson {
         address = source.getAddress().value;
         tagged = source.getTags().stream().map(XmlAdaptedTag::new).collect(Collectors.toList());
         this.prescriptions.setPrescription(source.getPrescriptionList()
-                .stream()
-                .map(XmlAdaptedPrescription::new)
-                .collect(Collectors.toList()));
+            .stream()
+            .map(XmlAdaptedPrescription::new)
+            .collect(Collectors.toList()));
 
     }
 
@@ -101,8 +101,7 @@ public class XmlAdaptedPerson {
      * Converts this jaxb-friendly adapted person object into the model's Person
      * object.
      *
-     * @throws IllegalValueException
-     *             if there were any data constraints violated in the adapted person
+     * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Person toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
@@ -174,10 +173,10 @@ public class XmlAdaptedPerson {
 
         XmlAdaptedPerson otherPerson = (XmlAdaptedPerson) other;
         return Objects.equals(name, otherPerson.name)
-                && Objects.equals(phone, otherPerson.phone)
-                && Objects.equals(email, otherPerson.email)
-                && Objects.equals(address, otherPerson.address)
-                && tagged.equals(otherPerson.tagged)
-                && prescriptions.equals(otherPerson.prescriptions);
+            && Objects.equals(phone, otherPerson.phone)
+            && Objects.equals(email, otherPerson.email)
+            && Objects.equals(address, otherPerson.address)
+            && tagged.equals(otherPerson.tagged)
+            && prescriptions.equals(otherPerson.prescriptions);
     }
 }

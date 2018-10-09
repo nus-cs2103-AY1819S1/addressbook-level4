@@ -6,36 +6,25 @@ import java.util.Objects;
 /**
  * The data structure that stores the medical diagnoses of a patient.
  */
-public class MedicalHistory extends ArrayList {
-    private ArrayList<Diagnosis> medicalRecords;
+public class MedicalHistory extends ArrayList<Diagnosis> {
 
     public MedicalHistory() {
-        this.medicalRecords = new ArrayList<>();
+        super();
     }
 
-    public MedicalHistory(ArrayList<Diagnosis> mr) {
-        Objects.requireNonNull(mr);
-        this.medicalRecords = mr;
-    }
-
-    public ArrayList<Diagnosis> getMedicalRecords() {
-        return medicalRecords;
-    }
-
-    /**
-     * Adds an additional diagnosis to an existing medical record.
-     *
-     * @param d The newest diagnosis addition.
-     */
-    public void addRecord(Diagnosis d) {
-        this.medicalRecords.add(d);
+    public MedicalHistory(ArrayList<Diagnosis> records) {
+        Objects.requireNonNull(records);
+        this.addAll(records);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (Diagnosis d : medicalRecords) {
-            sb.append(d.toString()).append("\n");
+        sb.append("\nMedical History: \n");
+
+        for (int i = 1; i <= this.size(); i++) {
+            String recordEntry = String.format("%s | %s\n", i, this.get(i - 1));
+            sb.append(recordEntry);
         }
 
         return sb.toString().trim();
@@ -48,6 +37,6 @@ public class MedicalHistory extends ArrayList {
         }
 
         return (o instanceof MedicalHistory)
-                && medicalRecords.equals(o); //todo check implementation here of equals
+                && super.equals(o);
     }
 }
