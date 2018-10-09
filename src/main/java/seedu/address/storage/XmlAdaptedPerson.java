@@ -1,20 +1,22 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 import javax.xml.bind.annotation.XmlElement;
-
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.Payment;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.syllabusbook.SyllabusBook;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -23,6 +25,8 @@ import seedu.address.model.tag.Tag;
 public class XmlAdaptedPerson {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
+
+    private  final Logger logger = LogsCenter.getLogger(XmlAdaptedPerson.class);
 
     @XmlElement(required = true)
     private String name;
@@ -36,6 +40,15 @@ public class XmlAdaptedPerson {
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
+    @XmlElement
+    private List<XmlAdaptedPay> payments = new ArrayList<>();
+  
+    @XmlElement
+    private XmlAdaptedSyllabusBook syllabusBook;
+  
+    //   @XmlElement
+    //   private List<XmlAdaptedPay> pay = new ArrayList<>();
+
     /**
      * Constructs an XmlAdaptedPerson.
      * This is the no-arg constructor that is required by JAXB.
@@ -43,7 +56,8 @@ public class XmlAdaptedPerson {
     public XmlAdaptedPerson() {}
 
     /**
-     * Constructs an {@code XmlAdaptedPerson} with the given person details.
+     * Constructs an {@code XmlAdaptedPerson} with the given person details. Does not support syllabus and
+     * payment
      */
     public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
         this.name = name;
@@ -68,6 +82,16 @@ public class XmlAdaptedPerson {
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
+        payments = source.getPayments().stream()
+                .map(XmlAdaptedPay::new)
+                .collect(Collectors.toList());
+        syllabusBook = new XmlAdaptedSyllabusBook(source.getSyllabusBook());
+
+
+   //     pay = source.getPayments().stream()
+   //             .map(source1 -> new XmlAdaptedPay(source1))
+   //             .collect(Collectors.toList());
+
     }
 
     /**
@@ -80,6 +104,12 @@ public class XmlAdaptedPerson {
         for (XmlAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
         }
+
+        final ArrayList<Payment> paymentList = new ArrayList<>();
+        for (XmlAdaptedPay payment : payments) {
+           paymentList.add(payment.toModelType());
+        }
+
 
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
@@ -108,16 +138,24 @@ public class XmlAdaptedPerson {
         if (address == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
         }
+
         if (!Address.isValidAddress(address)) {
             throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
         }
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+
+        if (syllabusBook == null) {
+            return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, paymentList);
+        } else {
+            return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags,
+                    syllabusBook.toModelType(), paymentList);
+        }
     }
 
     @Override
+    // Equals do not compare syllabus and payment for now
     public boolean equals(Object other) {
         if (other == this) {
             return true;
@@ -132,6 +170,7 @@ public class XmlAdaptedPerson {
                 && Objects.equals(phone, otherPerson.phone)
                 && Objects.equals(email, otherPerson.email)
                 && Objects.equals(address, otherPerson.address)
+  //              && pay.equals(otherPerson.pay)
                 && tagged.equals(otherPerson.tagged);
     }
 }
