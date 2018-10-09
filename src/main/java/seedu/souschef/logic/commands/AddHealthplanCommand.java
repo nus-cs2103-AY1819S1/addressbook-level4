@@ -58,11 +58,6 @@ public class AddHealthplanCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasPlan(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PLAN);
-        }
-
-        model.addPlan(toAdd);
         model.commitAppContent();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

@@ -9,16 +9,16 @@ import javafx.collections.ObservableList;
 import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.healthplan.HealthPlanList;
 import seedu.souschef.model.recipe.Recipe;
-import seedu.souschef.model.recipe.UniqueRecipeList;
 
 
 /**
- * Wraps all data at the application content level
- * Duplicates are not allowed (by .isSameRecipe comparison)
+ * Wraps all data at the application
+ * content level
+ * Duplicates are not allowed (by .isSame comparison)
  */
 public class AppContent implements ReadOnlyAppContent {
 
-    private final UniqueRecipeList recipes;
+    private final UniqueList<Recipe> recipes;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -28,7 +28,7 @@ public class AppContent implements ReadOnlyAppContent {
      *   among constructors.
      */
     {
-        recipes = new UniqueRecipeList();
+        recipes = new UniqueList<>();
     }
 
     private final HealthPlanList list;
@@ -48,65 +48,22 @@ public class AppContent implements ReadOnlyAppContent {
     }
 
     //// list overwrite operations
-
-    /**
-     * Replaces the contents of the recipe list with {@code recipes}.
-     * {@code recipes} must not contain duplicate recipes.
-     */
-    public void setRecipes(List<Recipe> recipes) {
-        this.recipes.setRecipes(recipes);
-    }
-
     /**
      * Resets the existing data of this {@code AppContent} with {@code newData}.
      */
     public void resetData(ReadOnlyAppContent newData) {
         requireNonNull(newData);
 
-        setRecipes(newData.getRecipeList());
+        this.recipes.set(newData.getObservableRecipeList());
 
     }
 
     //// recipe-level operations
-
-    /**
-     * Returns true if a recipe with the same identity as {@code recipe} exists in the application content.
-     */
-    public boolean hasRecipe(Recipe recipe) {
-        requireNonNull(recipe);
-        return recipes.contains(recipe);
-    }
-
-    /**
-     * Adds a recipe to the application content.
-     * The recipe must not already exist in the application content.
-     */
-    public void addRecipe(Recipe p) {
-        recipes.add(p);
-    }
-
-    /**
-     * Replaces the given recipe {@code target} in the list with {@code editedRecipe}.
-     * {@code target} must exist in the application content.
-     * The recipe identity of {@code editedRecipe} must not be the same as another existing recipe in the application
-     * content.
-     */
-    public void updateRecipe(Recipe target, Recipe editedRecipe) {
-        requireNonNull(editedRecipe);
-
-        recipes.setRecipe(target, editedRecipe);
-    }
-
-    /**
-     * Removes {@code key} from this {@code AppContent}.
-     * {@code key} must exist in the application content.
-     */
-    public void removeRecipe(Recipe key) {
-        recipes.remove(key);
+    public UniqueList<Recipe> getRecipes() {
+        return recipes;
     }
 
     //// util methods
-
     @Override
     public String toString() {
         return recipes.asUnmodifiableObservableList().size() + " recipes";
@@ -114,7 +71,7 @@ public class AppContent implements ReadOnlyAppContent {
     }
 
     @Override
-    public ObservableList<Recipe> getRecipeList() {
+    public ObservableList<Recipe> getObservableRecipeList() {
         return recipes.asUnmodifiableObservableList();
     }
 

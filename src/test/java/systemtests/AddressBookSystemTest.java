@@ -40,6 +40,7 @@ import seedu.souschef.logic.commands.ListCommand;
 import seedu.souschef.logic.commands.SelectCommand;
 import seedu.souschef.model.AppContent;
 import seedu.souschef.model.Model;
+import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.testutil.TypicalRecipes;
 import seedu.souschef.ui.BrowserPanel;
 import seedu.souschef.ui.CommandBox;
@@ -143,7 +144,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showAllRecipes() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getAppContent().getRecipeList().size(), getModel().getFilteredRecipeList().size());
+        assertEquals(getModel().getAppContent().getObservableRecipeList().size(), getModel().getFilteredList().size());
     }
 
     /**
@@ -151,7 +152,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showRecipesWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredRecipeList().size() < getModel().getAppContent().getRecipeList().size());
+        assertTrue(getModel().getFilteredList().size() < getModel().getAppContent().getObservableRecipeList().size());
     }
 
     /**
@@ -167,20 +168,20 @@ public abstract class AddressBookSystemTest {
      */
     protected void deleteAllRecipes() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getAppContent().getRecipeList().size());
+        assertEquals(0, getModel().getAppContent().getObservableRecipeList().size());
     }
 
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
      * {@code expectedResultMessage}, the storage contains the same recipe objects as {@code expectedModel}
-     * and the recipe list panel displays the recipes in the model correctly.
+     * and the recipe list panel displays the recipes in the recipeModel correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new AppContent(expectedModel.getAppContent()), testApp.readStorageAddressBook());
-        assertListMatching(getRecipeListPanel(), expectedModel.getFilteredRecipeList());
+        assertListMatching(getRecipeListPanel(), expectedModel.getFilteredList());
     }
 
     /**
@@ -276,7 +277,7 @@ public abstract class AddressBookSystemTest {
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        assertListMatching(getRecipeListPanel(), getModel().getFilteredRecipeList());
+        assertListMatching(getRecipeListPanel(), getModel().getFilteredList());
         assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());
@@ -284,9 +285,9 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Returns a defensive copy of the current model.
+     * Returns a defensive copy of the current recipeModel.
      */
-    protected Model getModel() {
+    protected Model<Recipe> getModel() {
         return testApp.getModel();
     }
 }

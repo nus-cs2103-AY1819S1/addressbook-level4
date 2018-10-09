@@ -48,14 +48,14 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model<Recipe> model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasRecipe(toAdd)) {
+        if (model.has(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_RECIPE);
         }
 
-        model.addRecipe(toAdd);
+        model.add(toAdd);
         model.commitAppContent();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

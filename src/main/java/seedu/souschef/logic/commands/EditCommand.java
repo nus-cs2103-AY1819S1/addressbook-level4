@@ -6,7 +6,7 @@ import static seedu.souschef.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.souschef.model.Model.PREDICATE_SHOW_ALL_RECIPES;
+import static seedu.souschef.model.Model.PREDICATE_SHOW_ALL;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -67,9 +67,9 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model<Recipe> model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Recipe> lastShownList = model.getFilteredRecipeList();
+        List<Recipe> lastShownList = model.getFilteredList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
@@ -78,12 +78,12 @@ public class EditCommand extends Command {
         Recipe recipeToEdit = lastShownList.get(index.getZeroBased());
         Recipe editedRecipe = createEditedRecipe(recipeToEdit, editRecipeDescriptor);
 
-        if (!recipeToEdit.isSameRecipe(editedRecipe) && model.hasRecipe(editedRecipe)) {
+        if (!recipeToEdit.isSame(editedRecipe) && model.has(editedRecipe)) {
             throw new CommandException(MESSAGE_DUPLICATE_RECIPE);
         }
 
-        model.updateRecipe(recipeToEdit, editedRecipe);
-        model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
+        model.update(recipeToEdit, editedRecipe);
+        model.updateFilteredList(PREDICATE_SHOW_ALL);
         model.commitAppContent();
         return new CommandResult(String.format(MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe));
     }

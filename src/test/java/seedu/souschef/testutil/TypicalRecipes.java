@@ -65,7 +65,7 @@ public class TypicalRecipes {
     public static AppContent getTypicalAddressBook() {
         AppContent ab = new AppContent();
         for (Recipe recipe : getTypicalRecipes()) {
-            ab.addRecipe(recipe);
+            ab.getRecipes().add(recipe);
         }
         return ab;
     }

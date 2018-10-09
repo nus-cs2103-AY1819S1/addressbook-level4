@@ -1,14 +1,14 @@
 package seedu.souschef.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.souschef.model.Model.PREDICATE_SHOW_ALL_RECIPES;
+import static seedu.souschef.model.Model.PREDICATE_SHOW_ALL;
 
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.logic.commands.exceptions.CommandException;
 import seedu.souschef.model.Model;
 
 /**
- * Reverts the {@code model}'s address book to its previous state.
+ * Reverts the {@code recipeModel}'s address book to its previous state.
  */
 public class UndoCommand extends Command {
 
@@ -25,7 +25,7 @@ public class UndoCommand extends Command {
         }
 
         model.undoAppContent();
-        model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
+        model.updateFilteredList(PREDICATE_SHOW_ALL);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
