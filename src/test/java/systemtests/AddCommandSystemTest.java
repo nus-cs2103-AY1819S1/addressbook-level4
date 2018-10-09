@@ -54,8 +54,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
          * -> added
          */
         Word toAdd = AMY;
-        String command = "   " + AddCommand.COMMAND_WORD + " " + NAME_DESC_AMY + "  " + MEANING_DESC + "  " + PHONE_DESC_AMY + " "
-                + ADDRESS_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
+        String command = "   " + AddCommand.COMMAND_WORD + " " + NAME_DESC_AMY + "  " + MEANING_DESC + "  "
+                + PHONE_DESC_AMY + " " + ADDRESS_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
@@ -88,8 +88,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: add a word with tags, command with parameters in random order -> added */
         toAdd = BOB;
-        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + MEANING_DESC + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
-                + TAG_DESC_HUSBAND;
+        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + MEANING_DESC + PHONE_DESC_BOB
+                + ADDRESS_DESC_BOB + NAME_DESC_BOB + TAG_DESC_HUSBAND;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a word, missing tags -> added */
