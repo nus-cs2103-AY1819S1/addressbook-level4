@@ -34,7 +34,7 @@ public class StatusBarFooterHandle extends NodeHandle<Node> {
     }
 
     /**
-     * Returns the text of the 'save location' portion of the status bar.
+     * Returns the text of the 'saveAppContent location' portion of the status bar.
      */
     public String getSaveLocation() {
         return saveLocationNode.getText();
@@ -56,14 +56,15 @@ public class StatusBarFooterHandle extends NodeHandle<Node> {
     }
 
     /**
-     * Remembers the content of the 'save location' portion of the status bar.
+     * Remembers the content of the 'saveAppContent location' portion of the status bar.
      */
     public void rememberSaveLocation() {
         lastRememberedSaveLocation = getSaveLocation();
     }
 
     /**
-     * Returns true if the current content of the 'save location' is different from the value remembered by the most
+     * Returns true if the current content of the 'saveAppContent location'
+     * is different from the value remembered by the most
      * recent {@code rememberSaveLocation()} call.
      */
     public boolean isSaveLocationChanged() {

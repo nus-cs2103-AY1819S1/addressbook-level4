@@ -16,7 +16,7 @@ public interface GenericStorage {
     /**
      * Returns the file path of the data file.
      */
-    Path getFilePath();
+    Path getAppContentFilePath();
 
     /**
      * Returns AppContent data as a {@link ReadOnlyAppContent}.
@@ -24,25 +24,25 @@ public interface GenericStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyAppContent> read() throws DataConversionException, IOException;
+    Optional<ReadOnlyAppContent> readAppContent() throws DataConversionException, IOException;
 
     /**
-     * @see #getFilePath()
+     * @see #getAppContentFilePath()
      */
-    Optional<ReadOnlyAppContent> read(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyAppContent> readAppContent(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyAppContent} to the storage.
      * @param addressBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void save(ReadOnlyAppContent addressBook) throws IOException;
+    void saveAppContent(ReadOnlyAppContent addressBook) throws IOException;
 
     /**
-     * @see #save(ReadOnlyAppContent)
+     * @see #saveAppContent(ReadOnlyAppContent)
      */
 
-    void save(ReadOnlyAppContent addressBook, Path filePath) throws IOException;
+    void saveAppContent(ReadOnlyAppContent addressBook, Path filePath) throws IOException;
 
 
 

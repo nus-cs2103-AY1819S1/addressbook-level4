@@ -30,21 +30,21 @@ public class XmlHealthPlanStorage extends XmlGeneralStorage {
     public XmlHealthPlanStorage(Path filePath) {
 
         super(filePath);
-        this.filePath = super.getFilePath();
+        this.filePath = super.getAppContentFilePath();
     }
 
-    public Path getFilePath() {
+    public Path getAppContentFilePath() {
         return filePath;
     }
 
 
     /**
-     * Similar to {@link #read()}
+     * Similar to {@link #readAppContent()}
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
     @Override
-    public Optional<ReadOnlyAppContent> read(Path filePath) throws DataConversionException,
+    public Optional<ReadOnlyAppContent> readAppContent(Path filePath) throws DataConversionException,
             FileNotFoundException {
         requireNonNull(filePath);
 
@@ -64,11 +64,11 @@ public class XmlHealthPlanStorage extends XmlGeneralStorage {
 
 
     /**
-     * Similar to {@link #save(ReadOnlyAppContent)}
+     * Similar to {@link #saveAppContent(ReadOnlyAppContent)}
      * @param filePath location of the data. Cannot be null
      */
     @Override
-    public void save(ReadOnlyAppContent appContent, Path filePath) throws IOException {
+    public void saveAppContent(ReadOnlyAppContent appContent, Path filePath) throws IOException {
         requireNonNull(appContent);
         requireNonNull(filePath);
 

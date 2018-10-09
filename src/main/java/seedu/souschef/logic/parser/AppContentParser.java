@@ -7,7 +7,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.souschef.logic.commands.AddCommand;
-import seedu.souschef.logic.commands.AddHealthplanCommand;
 import seedu.souschef.logic.commands.ClearCommand;
 import seedu.souschef.logic.commands.Command;
 import seedu.souschef.logic.commands.DeleteCommand;
@@ -52,10 +51,6 @@ public class AppContentParser {
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
-
-        case AddHealthplanCommand.COMMAND_WORD:
-            return new AddHpCommandParser().parse(arguments);
-
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);

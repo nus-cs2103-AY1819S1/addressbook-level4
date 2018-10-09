@@ -65,28 +65,29 @@ public class StorageManagerTest {
          * More extensive testing of UserPref saving/reading is done in {@link XmlAddressBookStorageTest} class.
          */
         AppContent original = getTypicalAddressBook();
-        storageManager.save(original);
-        ReadOnlyAppContent retrieved = storageManager.read().get();
+        storageManager.saveAppContent(original);
+        ReadOnlyAppContent retrieved = storageManager.readAppContent().get();
         assertEquals(original, new AppContent(retrieved));
     }
 
     @Test
     public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getFilePath());
+        assertNotNull(storageManager.getAppContentFilePath());
     }
 
     @Test
     public void handleAddressBookChangedEvent_exceptionThrown_eventRaised() {
-        // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
+        // Create a StorageManager while injecting a stub that  throws an exception when the
+        // saveAppContent method is called
         Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub(Paths.get("dummy")),
                                              new JsonUserPrefsStorage(Paths.get("dummy")));
-        storage.handleAddressBookChangedEvent(new AppContentChangedEvent(new AppContent()));
+        storage.handleAppContentChangedEvent(new AppContentChangedEvent(new AppContent()));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }
 
 
     /**
-     * A Stub class to throw an exception when the save method is called
+     * A Stub class to throw an exception when the saveAppContent method is called
      */
     class XmlAddressBookStorageExceptionThrowingStub extends XmlGeneralStorage {
 
@@ -95,7 +96,7 @@ public class StorageManagerTest {
         }
 
         @Override
-        public void save(ReadOnlyAppContent addressBook, Path filePath) throws IOException {
+        public void saveAppContent(ReadOnlyAppContent addressBook, Path filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }

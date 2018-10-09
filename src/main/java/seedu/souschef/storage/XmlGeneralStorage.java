@@ -25,24 +25,25 @@ public abstract class XmlGeneralStorage implements GenericStorage {
         this.filePath = filePath;
     }
 
-    public Path getFilePath() {
+    public Path getAppContentFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyAppContent> read() throws DataConversionException, IOException {
-        return read(filePath);
+    public Optional<ReadOnlyAppContent> readAppContent() throws DataConversionException, IOException {
+        return readAppContent(filePath);
     }
     @Override
-    public Optional<ReadOnlyAppContent> read(Path filePath) throws DataConversionException, FileNotFoundException {
+    public Optional<ReadOnlyAppContent> readAppContent(Path filePath) throws DataConversionException,
+            FileNotFoundException {
         return Optional.empty();
     }
 
     @Override
-    public void save(ReadOnlyAppContent appContent) throws IOException {
-        save(appContent, filePath);
+    public void saveAppContent(ReadOnlyAppContent appContent) throws IOException {
+        saveAppContent(appContent, filePath);
     }
     @Override
-    public abstract void save(ReadOnlyAppContent appContent, Path filePath) throws IOException;
+    public abstract void saveAppContent(ReadOnlyAppContent appContent, Path filePath) throws IOException;
 
 }

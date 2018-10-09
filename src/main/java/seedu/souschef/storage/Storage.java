@@ -22,13 +22,13 @@ public interface Storage extends GenericStorage, UserPrefsStorage {
     void saveUserPrefs(UserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getFilePath();
+    Path getAppContentFilePath();
 
     @Override
-    Optional<ReadOnlyAppContent> read() throws DataConversionException, IOException;
+    Optional<ReadOnlyAppContent> readAppContent() throws DataConversionException, IOException;
 
     @Override
-    void save(ReadOnlyAppContent appContent) throws IOException;
+    void saveAppContent(ReadOnlyAppContent appContent) throws IOException;
 
 
     /**
@@ -36,5 +36,5 @@ public interface Storage extends GenericStorage, UserPrefsStorage {
      *   Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    void handleAddressBookChangedEvent(AppContentChangedEvent abce);
+    void handleAppContentChangedEvent(AppContentChangedEvent abce);
 }

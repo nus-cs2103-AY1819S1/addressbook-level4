@@ -90,7 +90,7 @@ public class MainApp extends Application {
         Optional<ReadOnlyAppContent> addressBookOptional;
         ReadOnlyAppContent initialData;
         try {
-            addressBookOptional = storage.read();
+            addressBookOptional = storage.readAppContent();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AppContent");
             }
@@ -141,7 +141,7 @@ public class MainApp extends Application {
         try {
             ConfigUtil.saveConfig(initializedConfig, configFilePathUsed);
         } catch (IOException e) {
-            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
+            logger.warning("Failed to saveAppContent config file : " + StringUtil.getDetails(e));
         }
         return initializedConfig;
     }
@@ -172,7 +172,7 @@ public class MainApp extends Application {
         try {
             storage.saveUserPrefs(initializedPrefs);
         } catch (IOException e) {
-            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
+            logger.warning("Failed to saveAppContent config file : " + StringUtil.getDetails(e));
         }
 
         return initializedPrefs;
@@ -195,7 +195,7 @@ public class MainApp extends Application {
         try {
             storage.saveUserPrefs(userPrefs);
         } catch (IOException e) {
-            logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
+            logger.severe("Failed to saveAppContent preferences " + StringUtil.getDetails(e));
         }
         Platform.exit();
         System.exit(0);

@@ -50,39 +50,39 @@ public class StorageManager extends ComponentManager implements Storage {
 
 
     @Override
-    public Path getFilePath() {
-        return genericStorage.getFilePath();
+    public Path getAppContentFilePath() {
+        return genericStorage.getAppContentFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAppContent> read() throws DataConversionException, IOException {
-        return read(genericStorage.getFilePath());
+    public Optional<ReadOnlyAppContent> readAppContent() throws DataConversionException, IOException {
+        return readAppContent(genericStorage.getAppContentFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAppContent> read(Path filePath) throws DataConversionException, IOException {
-        logger.fine("Attempting to read data from file: " + filePath);
-        return genericStorage.read(filePath);
+    public Optional<ReadOnlyAppContent> readAppContent(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to readAppContent data from file: " + filePath);
+        return genericStorage.readAppContent(filePath);
     }
 
     @Override
-    public void save(ReadOnlyAppContent appContent) throws IOException {
-        save(appContent, genericStorage.getFilePath());
+    public void saveAppContent(ReadOnlyAppContent appContent) throws IOException {
+        saveAppContent(appContent, genericStorage.getAppContentFilePath());
     }
 
     @Override
-    public void save(ReadOnlyAppContent appContent, Path filePath) throws IOException {
+    public void saveAppContent(ReadOnlyAppContent appContent, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        genericStorage.save(appContent, filePath);
+        genericStorage.saveAppContent(appContent, filePath);
     }
 
 
     @Override
     @Subscribe
-    public void handleAddressBookChangedEvent(AppContentChangedEvent event) {
+    public void handleAppContentChangedEvent(AppContentChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
-            save(event.data);
+            saveAppContent(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }

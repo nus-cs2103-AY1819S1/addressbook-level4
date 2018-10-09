@@ -76,7 +76,7 @@ public class TestApp extends MainApp {
      */
     public AppContent readStorageAddressBook() {
         try {
-            return new AppContent(storage.read().get());
+            return new AppContent(storage.readAppContent().get());
         } catch (DataConversionException dce) {
             throw new AssertionError("Data is not in the AppContent format.", dce);
         } catch (IOException ioe) {
@@ -88,7 +88,7 @@ public class TestApp extends MainApp {
      * Returns the file path of the storage file.
      */
     public Path getStorageSaveLocation() {
-        return storage.getFilePath();
+        return storage.getAppContentFilePath();
     }
 
     /**
