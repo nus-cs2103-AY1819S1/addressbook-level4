@@ -58,30 +58,38 @@ public class CommandTestUtil {
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     // Events
-    public static final String VALID_NAME_DOCTORAPPT = "Doctor appointment";
-    public static final String VALID_NAME_MEETING = "Meeting";
-    public static final String VALID_DESC_DOCTORAPPT = "Consultation";
-    public static final String VALID_DESC_MEETING = "Group meeting desc";
-    public static final String VALID_DATE_DOCTORAPPT = "2018-09-01";
-    public static final String VALID_DATE_MEETING = "2018-09-09";
-    public static final String VALID_TIME_DOCTORAPPT = "1400";
-    public static final String VALID_TIME_MEETING = "0900";
-    public static final String VALID_ADDRESS_DOCTORAPPT = "Blk 312, Amy Street 1";
-    public static final String VALID_ADDRESS_MEETING = "Block 123, Bobby Street 3";
+    public static final String VALID_EVENT_NAME_DOCTORAPPT = "Doctor appointment";
+    public static final String VALID_EVENT_NAME_MEETING = "Meeting";
+    public static final String VALID_EVENT_DESC_DOCTORAPPT = "Consultation";
+    public static final String VALID_EVENT_DESC_MEETING = "Group meeting desc";
+    public static final String VALID_EVENT_DATE_DOCTORAPPT = "2018-09-01";
+    public static final String VALID_EVENT_DATE_MEETING = "2018-09-09";
+    public static final String VALID_EVENT_TIME_DOCTORAPPT = "1400";
+    public static final String VALID_EVENT_TIME_MEETING = "0900";
+    public static final String VALID_EVENT_ADDRESS_DOCTORAPPT = "Blk 312, Amy Street 1";
+    public static final String VALID_EVENT_ADDRESS_MEETING = "Block 123, Bobby Street 3";
 
-    public static final String NAME_DESC_DOCTORAPPT = " " + PREFIX_NAME + VALID_NAME_DOCTORAPPT;
-    public static final String NAME_DESC_MEETING = " " + PREFIX_NAME + VALID_NAME_MEETING;
-    public static final String DESC_DESC_DOCTORAPPT = " " + PREFIX_EVENT_DESCRIPTION + VALID_DESC_DOCTORAPPT;
-    public static final String DESC_DESC_MEETING = " " + PREFIX_EVENT_DESCRIPTION + VALID_DESC_MEETING;
-    public static final String DATE_DESC_DOCTORAPPT = " " + PREFIX_DATE + VALID_DATE_DOCTORAPPT;
-    public static final String DATE_DESC_MEETING = " " + PREFIX_DATE + VALID_DATE_MEETING;
-    public static final String TIME_DESC_DOCTORAPPT = " " + PREFIX_TIME + VALID_TIME_DOCTORAPPT;
-    public static final String TIME_DESC_MEETING = " " + PREFIX_TIME + VALID_TIME_MEETING;
-    public static final String ADDRESS_DESC_DOCTORAPPT = " " + PREFIX_ADDRESS + VALID_ADDRESS_DOCTORAPPT;
-    public static final String ADDRESS_DESC_MEETING = " " + PREFIX_ADDRESS + VALID_ADDRESS_MEETING;
+    public static final String EVENT_NAME_DESC_DOCTORAPPT = " " + PREFIX_NAME + VALID_EVENT_NAME_DOCTORAPPT;
+    public static final String EVENT_NAME_DESC_MEETING = " " + PREFIX_NAME + VALID_EVENT_NAME_MEETING;
+    public static final String EVENT_DESC_DESC_DOCTORAPPT =
+            " " + PREFIX_EVENT_DESCRIPTION + VALID_EVENT_DESC_DOCTORAPPT;
+    public static final String EVENT_DESC_DESC_MEETING = " " + PREFIX_EVENT_DESCRIPTION + VALID_EVENT_DESC_MEETING;
+    public static final String EVENT_DATE_DESC_DOCTORAPPT = " " + PREFIX_DATE + VALID_EVENT_DATE_DOCTORAPPT;
+    public static final String EVENT_DATE_DESC_MEETING = " " + PREFIX_DATE + VALID_EVENT_DATE_MEETING;
+    public static final String EVENT_TIME_DESC_DOCTORAPPT = " " + PREFIX_TIME + VALID_EVENT_TIME_DOCTORAPPT;
+    public static final String EVENT_TIME_DESC_MEETING = " " + PREFIX_TIME + VALID_EVENT_TIME_MEETING;
+    public static final String EVENT_ADDRESS_DESC_DOCTORAPPT = " " + PREFIX_ADDRESS + VALID_EVENT_ADDRESS_DOCTORAPPT;
+    public static final String EVENT_ADDRESS_DESC_MEETING = " " + PREFIX_ADDRESS + VALID_EVENT_ADDRESS_MEETING;
+
+    public static final String INVALID_EVENT_NAME_DESC = " " + PREFIX_NAME + "Consultation-"; // - not allowed in
+    // event names
+    public static final String INVALID_EVENT_DESC_DESC = " " + PREFIX_EVENT_DESCRIPTION + "Important*"; // * not allowed
+    public static final String INVALID_EVENT_DATE_DESC = " " + PREFIX_DATE + "2018-09-32";
+    public static final String INVALID_EVENT_TIME_DESC = " " + PREFIX_TIME + "12:00"; // colon not allowed
+    public static final String INVALID_EVENT_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed
 
 
-    public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
+    public static final String PREAMBLE_WHITESPACE = "\r  \t  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
