@@ -1,0 +1,30 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "barkhyehyeon",
+      "displayName": "BARK HYEHYEON",
+      "authorNames": ["barkhyehyeon"]
+    },
+    {
+      "githubId": "benntay",
+      "displayName": "BENN TAY GUOBIN",
+      "authorNames": ["benntay"]
+    },
+    {
+      "githubId": "limshiminjonathan",
+      "displayName": "LIM SHI MIN",
+      "authorNames": ["limshiminjonathan", "Lim Shi Min Jonathan", "Noobscrub95"]
+    },
+    {
+      "githubId": "alecngzw",
+      "displayName": "NG ZHEN WEI ALEC",
+      "authorNames": ["alecngzw", "Ng Zhen Wei Alec"]
+    },
+    {
+      "githubId": "junrong09",
+      "displayName": "YUEN JUN RONG",
+      "authorNames": ["junrong09", "Jun Rong"]
+    }
+  ]
+}
