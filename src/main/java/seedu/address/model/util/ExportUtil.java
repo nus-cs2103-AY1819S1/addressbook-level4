@@ -3,6 +3,7 @@ package seedu.address.model.util;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Contains utility methods for exporting data.
@@ -39,9 +40,7 @@ public class ExportUtil {
      */
     public static void writeLines(FileWriter writer, ArrayList<String> lines) throws IOException,
         NullPointerException, IllegalArgumentException {
-        if (lines == null) {
-            throw new NullPointerException();
-        }
+        Objects.requireNonNull(lines);
 
         int numLines = lines.size();
         if (numLines < 1) {
@@ -72,11 +71,8 @@ public class ExportUtil {
      * @return true if {@code line} is valid. false otherwise.
      */
     public static boolean isValidLine(String line) {
-        if (line == null || getNumberOfLines(line) != 1) {
-            return false;
-        }
-
-        return true;
+        Objects.requireNonNull(line);
+        return getNumberOfLines(line) == 1;
     }
 
     /**
