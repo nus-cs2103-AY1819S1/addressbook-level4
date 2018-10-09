@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <task>
     <name>Hans Muster</name>
-    <phone>9482424</phone>
-    <email>hans@example</email>
-    <address>4th street</address>
+    <date>9482424</date>
+    <priority>hans@example</priority>
+    <venue>4th street</venue>
     <tagged>friends</tagged>
 </task>
