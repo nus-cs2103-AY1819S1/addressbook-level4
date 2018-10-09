@@ -9,13 +9,14 @@ import static seedu.address.model.AnakinModel.PREDICATE_SHOW_ALL_CARDS;
 import java.util.List;
 import java.util.Optional;
 
-import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.AnakinMessages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
+import seedu.address.model.Anakin;
 import seedu.address.model.AnakinModel;
 import seedu.address.model.anakindeck.AnakinAnswer;
 import seedu.address.model.anakindeck.AnakinCard;
@@ -64,7 +65,7 @@ public class AnakinEditCardCommand extends AnakinCommand {
         List<AnakinCard> lastShownList = model.getFilteredCardList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
+            throw new CommandException(AnakinMessages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
         }
 
         AnakinCard cardToEdit = lastShownList.get(index.getZeroBased());
