@@ -11,11 +11,11 @@ import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.task.Venue;
 import seedu.address.model.task.Date;
-import seedu.address.model.task.Priority;
 import seedu.address.model.task.Name;
+import seedu.address.model.task.Priority;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.Venue;
 
 /**
  * JAXB-friendly version of the Task.
@@ -98,7 +98,8 @@ public class XmlAdaptedTask {
         final Date modelDate = new Date(date);
 
         if (priority == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Priority.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Priority.class.getSimpleName()));
         }
         if (!Priority.isValidEmail(priority)) {
             throw new IllegalValueException(Priority.MESSAGE_EMAIL_CONSTRAINTS);
