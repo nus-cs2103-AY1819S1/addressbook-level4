@@ -21,25 +21,25 @@ import seedu.address.model.medicine.Prescription;
 public class XmlAdaptedPrescription {
     public static final String MESSAGE_END_DATE_MUST_BE_AFTER_START_DATE = "End date must be after start date!";
 
-    @XmlElement
+    @XmlElement(required = true)
     private String drugName;
 
-    @XmlElement
+    @XmlElement(required = true)
     private double dosage;
 
-    @XmlElement
+    @XmlElement(required = true)
     private String doseUnit;
 
-    @XmlElement
+    @XmlElement(required = true)
     private int dosesPerDay;
 
-    @XmlElement
+    @XmlElement(required = true)
     private String startDate;
 
-    @XmlElement
+    @XmlElement(required = true)
     private String endDate;
 
-    @XmlElement
+    @XmlElement(required = true)
     private double durationInMilliseconds;
 
     /**
@@ -52,7 +52,7 @@ public class XmlAdaptedPrescription {
      * Constructs a {@code XmlAdaptedPrescription} with the given details.
      */
     public XmlAdaptedPrescription(String drugName, double dosage, String doseUnit, int dosesPerDay, String startDate,
-            String endDate, double durationInMilliseconds) throws IllegalValueException {
+        String endDate, double durationInMilliseconds) throws IllegalValueException {
         this.drugName = drugName;
         this.dosage = dosage;
         this.doseUnit = doseUnit;
@@ -84,8 +84,6 @@ public class XmlAdaptedPrescription {
 
     /**
      * Converts a given Prescription into this class for JAXB use.
-     *
-     * @param source future changes to this will not affect the created
      */
     public XmlAdaptedPrescription(Prescription source) {
         drugName = source.getDrugName();
@@ -100,7 +98,7 @@ public class XmlAdaptedPrescription {
     /**
      * Converts this JAXB-friendly adapted Prescription object into the model's Prescription object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted Prescription
+     * @throws IllegalValueException if there were any data constraints violated in the adapted Prescription.
      */
     public Prescription toModelType() throws IllegalValueException {
         Dose dose = new Dose(dosage, doseUnit, dosesPerDay);
@@ -133,11 +131,11 @@ public class XmlAdaptedPrescription {
         }
 
         return drugName.equals(((XmlAdaptedPrescription) other).drugName)
-                && dosage == ((XmlAdaptedPrescription) other).dosage
-                && doseUnit.equals(((XmlAdaptedPrescription) other).doseUnit)
-                && dosesPerDay == ((XmlAdaptedPrescription) other).dosesPerDay
-                && areDatesEqual(startDate, (((XmlAdaptedPrescription) other).startDate))
-                && areDatesEqual(endDate, (((XmlAdaptedPrescription) other).endDate));
+            && dosage == ((XmlAdaptedPrescription) other).dosage
+            && doseUnit.equals(((XmlAdaptedPrescription) other).doseUnit)
+            && dosesPerDay == ((XmlAdaptedPrescription) other).dosesPerDay
+            && areDatesEqual(startDate, (((XmlAdaptedPrescription) other).startDate))
+            && areDatesEqual(endDate, (((XmlAdaptedPrescription) other).endDate));
         // Note we don't test for equality of duration in milliseconds, because it tends
         // to get truncated and rounded when we convert from duration in days and back.
     }
