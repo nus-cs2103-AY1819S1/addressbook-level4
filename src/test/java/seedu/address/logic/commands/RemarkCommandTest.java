@@ -3,7 +3,11 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_REMARK_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_REMARK_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -32,7 +36,7 @@ public class RemarkCommandTest {
     private RemarkCommand remarkCommand = new RemarkCommand(INDEX_FIRST_PERSON, new Remark(VALID_REMARK_AMY));
 
     @Test
-    public void execute_AddRemarkUnfilteredList_success() {
+    public void execute_addRemarkUnfilteredList_success() {
         Person editedPerson = new PersonBuilder().withRemark(VALID_REMARK_BOB).build();
         RemarkCommand remarkCommand = new RemarkCommand(INDEX_FIRST_PERSON, new Remark(VALID_REMARK_BOB));
 
@@ -46,7 +50,7 @@ public class RemarkCommandTest {
     }
 
     @Test
-    public void execute_DeleteRemarkUnfilteredList_success() {
+    public void execute_deleteRemarkUnfilteredList_success() {
         Person editedPerson = new PersonBuilder().withRemark("").build();
         RemarkCommand remarkCommand = new RemarkCommand(INDEX_FIRST_PERSON, new Remark(VALID_REMARK_BOB));
 
