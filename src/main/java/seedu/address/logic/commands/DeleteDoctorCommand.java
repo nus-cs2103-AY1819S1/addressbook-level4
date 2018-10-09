@@ -9,12 +9,12 @@ import seedu.address.model.person.Phone;
 /**
  * Deletes a patient from health book.
  */
-public class DeletePatientCommand extends DeleteCommand {
+public class DeleteDoctorCommand extends DeleteCommand {
 
-    public static final String COMMAND_WORD = "delete-patient";
+    public static final String COMMAND_WORD = "delete-doctor";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the patient identified by name and phone. "
+            + ": Deletes the doctor identified by name and phone. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE \n"
@@ -22,7 +22,7 @@ public class DeletePatientCommand extends DeleteCommand {
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 ";
 
-    public DeletePatientCommand(Name name, Phone phone) {
+    public DeleteDoctorCommand(Name name, Phone phone) {
         super(name, phone);
     }
 }

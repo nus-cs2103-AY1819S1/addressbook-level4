@@ -6,32 +6,32 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.DeletePatientCommand;
+import seedu.address.logic.commands.DeleteDoctorCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 
 /**
- * Parses input arguments and creates a new DeletePatientCommand object
+ * Parses input arguments and creates a new DeleteDoctorCommand object
  */
-public class DeletePatientCommandParser implements Parser<DeletePatientCommand> {
+public class DeleteDoctorCommandParser implements Parser<DeleteDoctorCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the DeletePatientCommand
-     * and returns an DeletePatientCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the DeleteDoctorCommand
+     * and returns an DeleteDoctorCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public DeletePatientCommand parse(String args) throws ParseException {
+    public DeleteDoctorCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePatientCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteDoctorCommand.MESSAGE_USAGE));
         }
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        return new DeletePatientCommand(name, phone);
+        return new DeleteDoctorCommand(name, phone);
     }
 
     /**
