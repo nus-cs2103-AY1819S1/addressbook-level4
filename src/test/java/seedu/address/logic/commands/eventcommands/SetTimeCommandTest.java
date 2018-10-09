@@ -27,7 +27,7 @@ public class SetTimeCommandTest {
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
     private LocalTime startTime = LocalTime.of(18, 00);
-    private LocalTime endTime = LocalTime.of(17, 30);
+    private LocalTime endTime = LocalTime.of(19, 30);
 
     @Test
     public void execute_timeAcceptedSetTime() {
@@ -42,6 +42,17 @@ public class SetTimeCommandTest {
         expectedModel.commitAddressBook();
         expectedModel.updateEvent(event, event);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_endTimeBeforeStartTime() {
+        SetTimeCommand command = new SetTimeCommand(endTime, startTime);
+        Person user = new PersonBuilder().build();
+        model.setCurrentUser(user);
+        Event event = model.getFilteredEventList().get(0);
+        model.setSelectedEvent(event);
+        String expectedMessage = String.format(Messages.MESSAGE_END_BEFORE_START_TIME);
+        assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
 
     @Test

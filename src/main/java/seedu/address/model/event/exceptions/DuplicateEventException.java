@@ -1,5 +1,5 @@
 //@@author theJrLinguist
-package seedu.address.model.event;
+package seedu.address.model.event.exceptions;
 
 /**
  * Signals that the operation will result in duplicate Events (Events are considered duplicates if they have the same

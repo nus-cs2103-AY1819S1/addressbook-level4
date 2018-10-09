@@ -25,6 +25,9 @@ public class EventInTimeFramePredicate implements Predicate<Event> {
 
     @Override
     public boolean test(Event event) {
+        if (!event.isDateSet() || !event.isTimeSet()) {
+            return false;
+        }
         return event.getDate().equals(date)
                 && (startTime.isBefore(event.getStartTime())
                 || startTime.equals(event.getStartTime()))
