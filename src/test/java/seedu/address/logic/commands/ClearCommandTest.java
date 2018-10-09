@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalTasks.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalTasks.getTypicalSchedulePlanner;
 
 import org.junit.Test;
 
@@ -16,7 +16,7 @@ public class ClearCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_emptyAddressBook_success() {
+    public void execute_emptySchedulePlanner_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
         expectedModel.commitSchedulePlanner();
@@ -25,9 +25,9 @@ public class ClearCommandTest {
     }
 
     @Test
-    public void execute_nonEmptyAddressBook_success() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    public void execute_nonEmptySchedulePlanner_success() {
+        Model model = new ModelManager(getTypicalSchedulePlanner(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalSchedulePlanner(), new UserPrefs());
         expectedModel.resetData(new SchedulePlanner());
         expectedModel.commitSchedulePlanner();
 

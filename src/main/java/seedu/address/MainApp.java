@@ -77,9 +77,10 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s schedule planner and {@code userPrefs}. <br>
+     * The data from the sample schedule planner will be used instead if {@code storage}'s schedule planner is not
+     * found, or an empty schedule planner will be used instead if errors occur when reading {@code storage}'s
+     * schedule planner.
      */
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<ReadOnlySchedulePlanner> schedulePlannerOptional;
@@ -185,7 +186,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Schedule Planner ] =============================");
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);

@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalTasks.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalTasks.getTypicalSchedulePlanner;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,11 +24,11 @@ public class AddCommandIntegrationTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalSchedulePlanner(), new UserPrefs());
     }
 
     @Test
-    public void execute_newPerson_success() {
+    public void execute_newTask_success() {
         Task validTask = new TaskBuilder().build();
 
         Model expectedModel = new ModelManager(model.getSchedulePlanner(), new UserPrefs());
@@ -40,7 +40,7 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_duplicateTask_throwsCommandException() {
         Task taskInList = model.getSchedulePlanner().getTaskList().get(0);
         assertCommandFailure(new AddCommand(taskInList), model, commandHistory,
                 AddCommand.MESSAGE_DUPLICATE_TASK);

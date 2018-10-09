@@ -15,20 +15,20 @@ import seedu.address.model.task.Task;
 /**
  * An Immutable SchedulePlanner that is serializable to XML format
  */
-@XmlRootElement(name = "addressbook")
+@XmlRootElement(name = "scheduleplanner")
 public class XmlSerializableSchedulePlanner {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate task(s).";
+    public static final String MESSAGE_DUPLICATE_TASK = "Tasks list contains duplicate task(s).";
 
     @XmlElement
-    private List<XmlAdaptedTask> persons;
+    private List<XmlAdaptedTask> tasks;
 
     /**
      * Creates an empty XmlSerializableSchedulePlanner.
      * This empty constructor is required for marshalling.
      */
     public XmlSerializableSchedulePlanner() {
-        persons = new ArrayList<>();
+        tasks = new ArrayList<>();
     }
 
     /**
@@ -36,7 +36,7 @@ public class XmlSerializableSchedulePlanner {
      */
     public XmlSerializableSchedulePlanner(ReadOnlySchedulePlanner src) {
         this();
-        persons.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+        tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,10 +47,10 @@ public class XmlSerializableSchedulePlanner {
      */
     public SchedulePlanner toModelType() throws IllegalValueException {
         SchedulePlanner addressBook = new SchedulePlanner();
-        for (XmlAdaptedTask p : persons) {
+        for (XmlAdaptedTask p : tasks) {
             Task task = p.toModelType();
             if (addressBook.hasTask(task)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_TASK);
             }
             addressBook.addTask(task);
         }
@@ -66,6 +66,6 @@ public class XmlSerializableSchedulePlanner {
         if (!(other instanceof XmlSerializableSchedulePlanner)) {
             return false;
         }
-        return persons.equals(((XmlSerializableSchedulePlanner) other).persons);
+        return tasks.equals(((XmlSerializableSchedulePlanner) other).tasks);
     }
 }

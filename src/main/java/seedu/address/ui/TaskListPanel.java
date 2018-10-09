@@ -16,29 +16,29 @@ import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.address.model.task.Task;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of tasks.
  */
-public class PersonListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+public class TaskListPanel extends UiPart<Region> {
+    private static final String FXML = "TaskListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
 
     @FXML
-    private ListView<Task> personListView;
+    private ListView<Task> taskListView;
 
-    public PersonListPanel(ObservableList<Task> taskList) {
+    public TaskListPanel(ObservableList<Task> taskList) {
         super(FXML);
         setConnections(taskList);
         registerAsAnEventHandler(this);
     }
 
     private void setConnections(ObservableList<Task> taskList) {
-        personListView.setItems(taskList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        taskListView.setItems(taskList);
+        taskListView.setCellFactory(listView -> new TaskListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
-        personListView.getSelectionModel().selectedItemProperty()
+        taskListView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
                         logger.fine("Selection in task list panel changed to : '" + newValue + "'");
@@ -52,8 +52,8 @@ public class PersonListPanel extends UiPart<Region> {
      */
     private void scrollTo(int index) {
         Platform.runLater(() -> {
-            personListView.scrollTo(index);
-            personListView.getSelectionModel().clearAndSelect(index);
+            taskListView.scrollTo(index);
+            taskListView.getSelectionModel().clearAndSelect(index);
         });
     }
 
@@ -66,7 +66,7 @@ public class PersonListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Task} using a {@code PersonCard}.
      */
-    class PersonListViewCell extends ListCell<Task> {
+    class TaskListViewCell extends ListCell<Task> {
         @Override
         protected void updateItem(Task task, boolean empty) {
             super.updateItem(task, empty);

@@ -19,7 +19,7 @@ import seedu.address.model.Model;
 import seedu.address.model.SchedulePlanner;
 import seedu.address.model.task.NameContainsKeywordsPredicate;
 import seedu.address.model.task.Task;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditTaskDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -61,10 +61,10 @@ public class CommandTestUtil {
     public static final EditCommand.EditTaskDescriptor DESC_BOB;
 
     static {
-        DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
+        DESC_AMY = new EditTaskDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
                 .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
+        DESC_BOB = new EditTaskDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
@@ -92,14 +92,14 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book and the filtered task list in the {@code actualModel} remain unchanged <br>
+     * - the schedule planner and the filtered task list in the {@code actualModel} remain unchanged <br>
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
             String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        SchedulePlanner expectedAddressBook = new SchedulePlanner(actualModel.getSchedulePlanner());
+        SchedulePlanner expectedSchedulePlanner = new SchedulePlanner(actualModel.getSchedulePlanner());
         List<Task> expectedFilteredList = new ArrayList<>(actualModel.getFilteredTaskList());
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
@@ -109,7 +109,7 @@ public class CommandTestUtil {
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedAddressBook, actualModel.getSchedulePlanner());
+            assertEquals(expectedSchedulePlanner, actualModel.getSchedulePlanner());
             assertEquals(expectedFilteredList, actualModel.getFilteredTaskList());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
@@ -117,9 +117,9 @@ public class CommandTestUtil {
 
     /**
      * Updates {@code model}'s filtered list to show only the task at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s schedule planner.
      */
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
+    public static void showTaskAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredTaskList().size());
 
         Task task = model.getFilteredTaskList().get(targetIndex.getZeroBased());
@@ -130,9 +130,9 @@ public class CommandTestUtil {
     }
 
     /**
-     * Deletes the first task in {@code model}'s filtered list from {@code model}'s address book.
+     * Deletes the first task in {@code model}'s filtered list from {@code model}'s schedule planner.
      */
-    public static void deleteFirstPerson(Model model) {
+    public static void deleteFirstTask(Model model) {
         Task firstTask = model.getFilteredTaskList().get(0);
         model.deleteTask(firstTask);
         model.commitSchedulePlanner();
