@@ -47,7 +47,7 @@ public class ExportUtilTest {
     }
 
     @Test
-    public void writeLine_nullLine_throwsIllegalArgumentException() throws IOException {
+    public void writeLine_nullRow_throwsIllegalArgumentException() throws IOException {
         final File actual = folder.newFile("ActualExportUtilTest.csv");
         thrown.expect(IllegalArgumentException.class);
         ExportUtil.writeLine(new FileWriter(actual), null);
