@@ -228,7 +228,7 @@ public class AddressBookParserTest {
     public void parseCommand_importContactsCommand() throws Exception {
         String csvFilePath = Paths
                 .get("src", "test", "data", "ImportContactsTest")
-                .resolve("importContacts.csv")
+                .resolve("ImportContacts.csv")
                 .toFile()
                 .getAbsolutePath();
 
