@@ -27,7 +27,7 @@ import seedu.address.testutil.Assert;
 
 public class ParserUtilTest {
 
-    private static final String INEXISTENT_DATE_TIMESTAMP = "31-04-2019@11:55";
+    private static final String INVALID_DATE_TIMESTAMP = "31-04-2019@11:55";
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
@@ -222,8 +222,8 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseTimeStamp_inexistentDate_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseEmail(INEXISTENT_DATE_TIMESTAMP));
+    public void parseTimeStamp_invalidDate_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseEmail(INVALID_DATE_TIMESTAMP));
     }
     /* @@author */
 
