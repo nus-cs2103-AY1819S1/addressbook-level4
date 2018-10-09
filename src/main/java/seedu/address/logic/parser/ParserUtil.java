@@ -141,7 +141,7 @@ public class ParserUtil {
         }
         return trimmedFilePath;
     }
-    
+
     /**
      * Parses a {@code String eventName} into a {@code EventName}.
      * Leading and trailing whitespaces will be trimmed.
