@@ -52,12 +52,21 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the medicine list with {@code medicines}.
+     * {@code medicines} must not contain duplicate medicines.
+     */
+    public void setMedicines(List<Medicine> medicines) {
+        this.medicines.setMedicines(medicines);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setMedicines(newData.getMedicineList());
     }
 
     //// patient-level operations

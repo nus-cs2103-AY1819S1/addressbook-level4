@@ -1,20 +1,31 @@
 package seedu.address.storage;
 
-import javax.xml.bind.annotation.XmlValue;
+import static seedu.address.storage.XmlAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.medicine.SerialNumber;
+import seedu.address.model.person.medicalrecord.Message;
 import seedu.address.model.person.medicalrecord.Note;
+import seedu.address.model.person.medicalrecord.Quantity;
 
 /**
  * JAXB-friendly adapted version of the Note.
  */
 public class XmlAdaptedNote {
 
-    @XmlValue
+    @XmlElement (required = true)
     private String noteMessage;
 
+    @XmlElement
+    private Map<String, String> dispensedMedicines;
+
     /**
-     * Constructs an XmlAdaptedTag.
+     * Constructs an XmlAdaptedNote.
      * This is the no-arg constructor that is required by JAXB.
      */
     public XmlAdaptedNote() {}
@@ -22,8 +33,14 @@ public class XmlAdaptedNote {
     /**
      * Constructs a {@code XmlAdaptedTag} with the given {@code tagName}.
      */
-    public XmlAdaptedNote(String noteMessage) {
+    public XmlAdaptedNote(String noteMessage, Map<SerialNumber, Quantity> dispensedMedicines) {
         this.noteMessage = noteMessage;
+        if (dispensedMedicines != null) {
+            this.dispensedMedicines = new HashMap<>();
+            dispensedMedicines.forEach(((serialNumber, quantity) -> {
+                this.dispensedMedicines.put(serialNumber.value, quantity.value);
+            }));
+        }
     }
 
     /**
@@ -32,7 +49,12 @@ public class XmlAdaptedNote {
      * @param source future changes to this will not affect the created
      */
     public XmlAdaptedNote(Note source) {
-        noteMessage = source.value;
+        noteMessage = source.getMessage().value;
+        Map<SerialNumber, Quantity> map = source.getDispensedMedicines();
+        this.dispensedMedicines = new HashMap<>();
+        map.forEach(((serialNumber, quantity) -> {
+            dispensedMedicines.put(serialNumber.value, quantity.value);
+        }));
     }
 
     /**
@@ -41,10 +63,22 @@ public class XmlAdaptedNote {
      * @throws IllegalValueException if there were any data constraints violated in the adapted patient
      */
     public Note toModelType() throws IllegalValueException {
-        if (!Note.isValidNote(noteMessage)) {
-            throw new IllegalValueException(Note.MESSAGE_NOTE_CONSTRAINTS);
+
+        if (noteMessage == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Message.class.getSimpleName()));
         }
-        return new Note(noteMessage);
+        if (!Message.isValidMessage(noteMessage)) {
+            throw new IllegalValueException(Message.MESSAGE_MESSAGE_CONSTRAINTS);
+        }
+        final Message modelMessage = new Message(noteMessage);
+
+        final Map<SerialNumber, Quantity> modelDispensedMedicines = new HashMap<>();
+        this.dispensedMedicines.forEach((serialNumber, quantity) -> {
+            modelDispensedMedicines.put(new SerialNumber(serialNumber), new Quantity(quantity));
+        });
+
+        return new Note(modelMessage, modelDispensedMedicines);
     }
 
     @Override

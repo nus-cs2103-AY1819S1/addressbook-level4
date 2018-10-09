@@ -1,50 +1,54 @@
 package seedu.address.model.person.medicalrecord;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
+import java.util.Map;
+import java.util.Objects;
+
+import seedu.address.model.medicine.SerialNumber;
 
 /**
  * Represents a note object belonging to a patient.
  */
 public class Note {
 
-    public static final String MESSAGE_NOTE_CONSTRAINTS =
-            "Notes should not be blank, and first character should not be a whitespace.";
-    public static final String NOTE_VALIDATION_REGEX = "[^\\s].*";
-    public final String value;
+    // Items belonging to a note object
+    private Message message;
+    private Map<SerialNumber, Quantity> dispensedMedicines;
 
-    /**
-     * Constructs a {@code Note}.
-     *
-     * @param note A valid note.
-     */
-    public Note(String note) {
-        requireNonNull(note);
-        checkArgument(isValidNote(note), MESSAGE_NOTE_CONSTRAINTS);
-        value = note;
+    public Note(Message message, Map<SerialNumber, Quantity> dispensedMedicines) {
+        this.message = message;
+        this.dispensedMedicines = dispensedMedicines;
     }
 
-    /**
-     * Returns true if a given string is a valid note.
-     */
-    public static boolean isValidNote(String test) {
-        return test.matches(NOTE_VALIDATION_REGEX);
+    public Message getMessage() {
+        return message;
+    }
+
+    public void setMessage(Message message) {
+        this.message = message;
+    }
+
+    public Map<SerialNumber, Quantity> getDispensedMedicines() {
+        return dispensedMedicines;
+    }
+
+    public void setDispensedMedicines(Map<SerialNumber, Quantity> dispensedMedicines) {
+        this.dispensedMedicines = dispensedMedicines;
     }
 
     @Override
     public String toString() {
-        return value;
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Note // instanceof handles nulls
-                && value.equals(((Note) other).value)); // state check
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Note: ")
+                .append(" Message: ")
+                .append(getMessage())
+                .append(" Dispensed Medicines: ")
+                .append(getDispensedMedicines());
+        return builder.toString();
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(message, dispensedMedicines);
     }
 }
