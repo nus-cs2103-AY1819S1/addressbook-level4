@@ -6,7 +6,7 @@
         <phone>94351253</phone>
         <email>alice@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
-        <remark></remark>
+        <remark>Likes to read</remark>
         <tagged>friends</tagged>
     </persons>
     <persons>
@@ -38,6 +38,7 @@
         <phone>9482224</phone>
         <email>werner@example.com</email>
         <address>michegan ave</address>
+        <remark>Likes to swim</remark>
     </persons>
     <persons>
         <name>Fiona Kunz</name>

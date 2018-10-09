@@ -37,13 +37,14 @@ public class RemarkCommandTest {
 
     @Test
     public void execute_addRemarkUnfilteredList_success() {
-        Person editedPerson = new PersonBuilder().withRemark(VALID_REMARK_BOB).build();
-        RemarkCommand remarkCommand = new RemarkCommand(INDEX_FIRST_PERSON, new Remark(VALID_REMARK_BOB));
+        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person editedPerson = new PersonBuilder(firstPerson).withRemark(VALID_REMARK_BOB).build();
+        RemarkCommand remarkCommand = new RemarkCommand(INDEX_FIRST_PERSON, new Remark(editedPerson.getRemark().value));
 
         String expectedMessage = String.format(RemarkCommand.MESSAGE_ADD_REMARK_SUCCESS, editedPerson);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.updatePerson(model.getFilteredPersonList().get(0), editedPerson);
+        expectedModel.updatePerson(firstPerson, editedPerson);
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(remarkCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -51,13 +52,14 @@ public class RemarkCommandTest {
 
     @Test
     public void execute_deleteRemarkUnfilteredList_success() {
-        Person editedPerson = new PersonBuilder().withRemark("").build();
-        RemarkCommand remarkCommand = new RemarkCommand(INDEX_FIRST_PERSON, new Remark(VALID_REMARK_BOB));
+        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person editedPerson = new PersonBuilder(firstPerson).withRemark("").build();
+        RemarkCommand remarkCommand = new RemarkCommand(INDEX_FIRST_PERSON, new Remark(editedPerson.getRemark().value));
 
         String expectedMessage = String.format(RemarkCommand.MESSAGE_DELETE_REMARK_SUCCESS, editedPerson);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.updatePerson(model.getFilteredPersonList().get(0), editedPerson);
+        expectedModel.updatePerson(firstPerson, editedPerson);
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(remarkCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -109,8 +111,8 @@ public class RemarkCommandTest {
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
 
-        Person editedPerson = new PersonBuilder().withRemark(VALID_REMARK_BOB).build();
         Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person editedPerson = new PersonBuilder(personToEdit).withRemark(VALID_REMARK_BOB).build();
         RemarkCommand remarkCommand = new RemarkCommand(INDEX_FIRST_PERSON, new Remark(VALID_REMARK_BOB));
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updatePerson(personToEdit, editedPerson);
@@ -150,13 +152,13 @@ public class RemarkCommandTest {
      * 4. Redo the edit. This ensures {@code RedoCommand} edits the person object regardless of indexing.
      */
     @Test
-    public void executeUndoRedo_validIndexFilteredList_samePersonEdited() throws Exception {
-        Person editedPerson = new PersonBuilder().withRemark(VALID_REMARK_BOB).build();
+    public void executeUndoRedo_validIndexFilteredList_samePersonDeleted() throws Exception {
         RemarkCommand remarkCommand = new RemarkCommand(INDEX_FIRST_PERSON, new Remark(VALID_REMARK_BOB));
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
         showPersonAtIndex(model, INDEX_SECOND_PERSON);
         Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person editedPerson = new PersonBuilder(personToEdit).withRemark(VALID_REMARK_BOB).build();
         expectedModel.updatePerson(personToEdit, editedPerson);
         expectedModel.commitAddressBook();
 

@@ -54,9 +54,7 @@ public class Person {
         return address;
     }
 
-    public Remark getRemark() {
-        return remark;
-    }
+    public Remark getRemark() { return remark; }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -99,13 +97,14 @@ public class Person {
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
+                && otherPerson.getRemark().equals(getRemark())
                 && otherPerson.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, remark, tags);
     }
 
     @Override
@@ -118,6 +117,8 @@ public class Person {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" Remark: ")
+                .append(getRemark())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
