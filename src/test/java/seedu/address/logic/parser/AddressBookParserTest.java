@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
@@ -29,6 +30,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.ViewmhCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.medicalhistory.Diagnosis;
 import seedu.address.model.medicine.Prescription;
@@ -98,8 +100,10 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_viewmh() throws Exception {
-        //TODO after settling parser
-        // test that typing viewmh returns an instance of viewmhCommand
+        Person person = new PersonBuilder().build();
+        ViewmhCommand command = (ViewmhCommand) parser.parseCommand(
+                ViewmhCommand.COMMAND_WORD + " " + PREFIX_NRIC + person.getNric());
+        assertEquals(new ViewmhCommand(person.getNric()), command);
     }
 
     @Test
