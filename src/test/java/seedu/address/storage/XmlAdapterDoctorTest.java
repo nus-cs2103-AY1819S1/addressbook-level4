@@ -17,7 +17,7 @@ import seedu.address.testutil.Assert;
 public class XmlAdapterDoctorTest {
     private static final int INVALID_ID = -1;
     private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_PASSWORD = " ";
+    private static final String INVALID_PASSWORD = "";
 
     private static final int VALID_ID = BEN.getId().id;
     private static final String VALID_NAME = BEN.getName().toString();
