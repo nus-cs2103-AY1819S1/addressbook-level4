@@ -20,7 +20,6 @@ import seedu.address.model.ReadOnlyBudgetBook;
  */
 public class XmlBudgetBookStorage implements BudgetBookStorage {
 
-
     private static final Logger logger = LogsCenter.getLogger(XmlBudgetBookStorage.class);
 
     private Path filePath;
