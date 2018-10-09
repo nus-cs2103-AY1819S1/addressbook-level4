@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Encapsulates methods required for data export functionality.
+ * Contains utility methods for exporting data.
  * @@author arsalanc-v2
  */
 public class ExportUtils {
@@ -68,8 +68,8 @@ public class ExportUtils {
 
     /**
      * Checks if a string is a valid line.
-     * @param line
-     * @return true if line is valid. False otherwise.
+     * @param line A String.
+     * @return true if line is valid. false otherwise.
      */
     public static boolean isValidLine(String line) {
         if (line == null) {

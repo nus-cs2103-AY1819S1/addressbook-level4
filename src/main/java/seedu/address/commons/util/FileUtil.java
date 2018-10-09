@@ -89,7 +89,7 @@ public class FileUtil {
      * @@author arsalanc-v2
      * @param file1
      * @param file2
-     * @return True if file1 and file2 are identical in length and content. False otherwise.
+     * @return true if file1 and file2 are identical in content. false otherwise.
      * @throws IOException
      */
     public static boolean areIdenticalFiles(File file1, File file2) throws IOException {
