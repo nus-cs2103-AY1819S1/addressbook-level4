@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Haoxuan
-image::harryqu123.jpg[width="150", align="left"]
+image::harryqu123.png[width="150", align="left"]
 {empty}[https://github.com/Harryqu123[github]]
 
 Role: Group Member
