@@ -138,7 +138,6 @@ public class Schedule {
         return dayNum;
     }
 
-
     /**
      * Allow schedule array to be stored as a string
      *
@@ -169,7 +168,6 @@ public class Schedule {
         return newSchedule;
     }
 
-
     /** ORs the Schedules
      * @param schedule
      */
@@ -181,16 +179,14 @@ public class Schedule {
         }
     }
 
-
-    /** Get the negate of the schedule
+    /** Use the updateschedule as a bit flipper
      *
      */
-    private void negate() {
+    public void xor(Schedule updateSchedule) {
         for (int i = 0; i < value.length; i++) {
             for (int j = 0; j < value[i].length; j++) {
-                this.value[i][j] = ~(this.value[i][j]);
+                this.value[i][j] ^= (updateSchedule.value[i][j]);
             }
         }
     }
-
 }

@@ -9,6 +9,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Schedule;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -22,11 +23,28 @@ public class PersonBuilder {
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_INTERESTS = "study";
+    public static final String DEFAULT_SCHEDULE = "0000000000000000000000"
+        +
+        "000000000000000000000000000000000000000000000000000"
+        +
+        "000000000000000000000000000000000000000000000000000"
+        +
+        "000000000000000000000000000000000000000000000000000"
+        +
+        "000000000000000000000000000000000000000000000000000"
+        +
+        "000000000000000000000000000000000000000000000000000"
+        +
+        "000000000000000000000000000000000000000000000000000"
+        +
+        "00000000";
+
 
     private Name name;
     private Phone phone;
     private Email email;
     private Address address;
+    private Schedule schedule;
     private Set<Interest> interests;
     private Set<Tag> tags;
 
@@ -38,6 +56,7 @@ public class PersonBuilder {
         interests = new HashSet<>();
         interests.add(new Interest(DEFAULT_INTERESTS));
         tags = new HashSet<>();
+        schedule = new Schedule(DEFAULT_SCHEDULE);
     }
 
     /**
@@ -50,6 +69,7 @@ public class PersonBuilder {
         address = personToCopy.getAddress();
         interests = new HashSet<>(personToCopy.getInterests());
         tags = new HashSet<>(personToCopy.getTags());
+        schedule = new Schedule(personToCopy.getSchedule().valueToString());
     }
 
     /**
@@ -101,10 +121,19 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code Schedule} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withSchedule(String schedule) {
+        this.schedule = new Schedule(schedule);
+        return this;
+    }
+
+
+    /**
      * Builds a person.
      */
     public Person build() {
-        return new Person(name, phone, email, address, interests, tags);
+        return new Person(name, phone, email, address, interests, tags, schedule);
     }
 
 }

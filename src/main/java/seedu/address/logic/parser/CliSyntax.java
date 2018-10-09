@@ -16,6 +16,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_TIME_START = new Prefix("t1/");
     public static final Prefix PREFIX_TIME_END = new Prefix("t2/");
     public static final Prefix PREFIX_TIMETABLE = new Prefix("tt/");
+    public static final Prefix PREFIX_SCHEDULE_UPDATE = new Prefix("su/");
+    public static final Prefix PREFIX_SCHEDULE = new Prefix("s/");
     public static final Prefix PREFIX_INDEX = new Prefix("i/");
     public static final Prefix PREFIX_POLL_OPTION = new Prefix("o/");
 }
