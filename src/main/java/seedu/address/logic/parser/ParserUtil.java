@@ -52,10 +52,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
+     * Parses a {@code String meaning} into a {@code Meaning}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws ParseException if the given {@code meaning} is invalid.
      */
 
     public static Meaning parseMeaning(String meaning) throws ParseException {
@@ -66,6 +66,13 @@ public class ParserUtil {
         }
         return new Meaning(trimmedMeaning);
     }
+
+    /**
+     * Parses a {@code String phone} into a {@code Phone}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code phone} is invalid.
+     */
 
     public static Phone parsePhone(String phone) throws ParseException {
         requireNonNull(phone);
