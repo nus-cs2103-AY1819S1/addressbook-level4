@@ -23,6 +23,21 @@ public class PersonBuilder {
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_INTERESTS = "study";
+    public static final String DEFAULT_SCHEDULE = "0000000000000000000000"
+        +
+        "000000000000000000000000000000000000000000000000000"
+        +
+        "000000000000000000000000000000000000000000000000000"
+        +
+        "000000000000000000000000000000000000000000000000000"
+        +
+        "000000000000000000000000000000000000000000000000000"
+        +
+        "000000000000000000000000000000000000000000000000000"
+        +
+        "000000000000000000000000000000000000000000000000000"
+        +
+        "00000000";
 
 
     private Name name;
@@ -41,6 +56,7 @@ public class PersonBuilder {
         interests = new HashSet<>();
         interests.add(new Interest(DEFAULT_INTERESTS));
         tags = new HashSet<>();
+        schedule = new Schedule(DEFAULT_SCHEDULE);
     }
 
     /**
@@ -53,6 +69,7 @@ public class PersonBuilder {
         address = personToCopy.getAddress();
         interests = new HashSet<>(personToCopy.getInterests());
         tags = new HashSet<>(personToCopy.getTags());
+        schedule = new Schedule(personToCopy.getSchedule().valueToString());
     }
 
     /**
@@ -116,7 +133,7 @@ public class PersonBuilder {
      * Builds a person.
      */
     public Person build() {
-        return new Person(name, phone, email, address, interests, tags);
+        return new Person(name, phone, email, address, interests, tags, schedule);
     }
 
 }

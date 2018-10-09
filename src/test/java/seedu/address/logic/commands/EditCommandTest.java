@@ -76,7 +76,7 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_scheduleFieldsSpecifiedUnfilteredList_success() {
+    public void executeScheduleFieldsSpecifiedUnfilteredList_success() {
         Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
         Person lastPerson = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
 
