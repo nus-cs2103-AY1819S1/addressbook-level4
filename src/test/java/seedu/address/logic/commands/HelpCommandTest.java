@@ -37,7 +37,7 @@ public class HelpCommandTest {
     }
 
     @Test
-    public void execute_helpmore_success() {
+    public void execute_helpMore_success() {
         String[] args = {" more"};
         assertCommandSuccess(new HelpCommand(args), model, commandHistory, SHOWING_HELP_MESSAGE, expectedModel);
 

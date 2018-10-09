@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
@@ -123,6 +124,50 @@ public class CommandBoxTest extends GuiUnitTest {
         commandBoxHandle.run(thirdCommand);
         assertInputHistory(KeyCode.DOWN, "");
         assertInputHistory(KeyCode.UP, thirdCommand);
+    }
+
+    /**
+     * The commandResult of pressing tab is tested by SuggestCommandTest
+     */
+    @Test
+    public void handleKeyPress_tab() {
+        //Check that tab does not do anything on an invalid command
+        commandBoxHandle.run(COMMAND_THAT_FAILS);
+        assertEquals(errorStyleOfCommandBox, commandBoxHandle.getStyleClass());
+        guiRobot.push(KeyCode.TAB);
+        assertEquals(errorStyleOfCommandBox, commandBoxHandle.getStyleClass());
+        assertEquals(COMMAND_THAT_FAILS, commandBoxHandle.getInput());
+        assertTrue(commandBoxHandle.isFocused());
+
+        //Check that tab does not execute commands
+        guiRobot.push(KeyCode.ESCAPE);
+        guiRobot.push(KeyCode.H);
+        guiRobot.push(KeyCode.E);
+        guiRobot.push(KeyCode.L);
+        guiRobot.push(KeyCode.P);
+        guiRobot.push(KeyCode.TAB);
+        assertEquals(defaultStyleOfCommandBox, commandBoxHandle.getStyleClass());
+        assertEquals("help", commandBoxHandle.getInput());
+        assertTrue(commandBoxHandle.isFocused());
+
+        //Check that tab does complete commands
+        guiRobot.push(KeyCode.ESCAPE);
+        guiRobot.push(KeyCode.D);
+        guiRobot.push(KeyCode.E);
+        guiRobot.push(KeyCode.L);
+        guiRobot.push(KeyCode.E);
+        guiRobot.push(KeyCode.TAB);
+        assertEquals(defaultStyleOfCommandBox, commandBoxHandle.getStyleClass());
+        assertEquals("delete", commandBoxHandle.getInput());
+        assertTrue(commandBoxHandle.isFocused());
+
+        //Check that tab does not complete when there are multiple commands
+        guiRobot.push(KeyCode.ESCAPE);
+        guiRobot.push(KeyCode.H);
+        guiRobot.push(KeyCode.TAB);
+        assertEquals(defaultStyleOfCommandBox, commandBoxHandle.getStyleClass());
+        assertEquals("h", commandBoxHandle.getInput());
+        assertTrue(commandBoxHandle.isFocused());
     }
 
     /**
