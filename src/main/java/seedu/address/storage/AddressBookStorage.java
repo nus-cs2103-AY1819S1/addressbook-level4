@@ -42,4 +42,9 @@ public interface AddressBookStorage {
      */
     void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException;
 
+    /**
+     * Delete AddressBook in the storage.
+     * @throws IOException if file is unable to be written.
+     */
+    void deleteAddressBook(Path filePath) throws IOException;
 }

@@ -11,6 +11,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.AddressBookExportEvent;
+import seedu.address.commons.events.model.UserPrefsChangeEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -50,6 +51,7 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
 
+
     // ================ AddressBook methods ==============================
 
     @Override
@@ -79,6 +81,12 @@ public class StorageManager extends ComponentManager implements Storage {
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
+    @Override
+    public void deleteAddressBook(Path filePath) throws IOException {
+        logger.fine("Deleting addressbook at: "+filePath);
+        addressBookStorage.deleteAddressBook(filePath);
+    }
+
 
     @Override
     @Subscribe
@@ -101,4 +109,17 @@ public class StorageManager extends ComponentManager implements Storage {
             raise(new DataSavingExceptionEvent(e));
         }
     }
+
+    @Subscribe
+    public void handleUserPrefsChangeEvent(UserPrefsChangeEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Updating User Prefs"));
+        try {
+            saveAddressBook(event.data, event.newPath);
+            deleteAddressBook(event.oldPath);
+            saveUserPrefs(event.userPrefs);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
+    }
+
 }

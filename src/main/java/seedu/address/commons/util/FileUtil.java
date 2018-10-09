@@ -80,4 +80,12 @@ public class FileUtil {
         Files.write(file, content.getBytes(CHARSET));
     }
 
+
+    /**
+     * Delete file if exists
+     */
+    public static void deleteFile(Path file) throws IOException {
+        Files.deleteIfExists(file);
+    }
+
 }
