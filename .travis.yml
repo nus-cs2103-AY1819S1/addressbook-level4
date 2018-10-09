@@ -10,6 +10,7 @@ script: >-
 deploy:
   skip_cleanup: true
   provider: script
+  github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
   script: ./config/travis/deploy_github_pages.sh
   on:
     branch: master
