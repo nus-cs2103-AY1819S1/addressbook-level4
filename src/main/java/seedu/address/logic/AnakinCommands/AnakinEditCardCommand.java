@@ -2,14 +2,13 @@ package seedu.address.logic.AnakinCommands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DECK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.model.AnakinModel.PREDICATE_SHOW_ALL_CARDS;
 
 import java.util.List;
 import java.util.Optional;
 
-import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.AnakinMessages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
@@ -32,11 +31,9 @@ public class AnakinEditCardCommand extends AnakinCommand {
             + "by the index number used in the deck. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_DECK + "INDEX_OF_DECK] "
             + "[" + PREFIX_QUESTION + "QUESTION] "
             + "[" + PREFIX_ANSWER + "ANSWER]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_DECK + "1 "
             + PREFIX_QUESTION + "Why is Earth round?";
 
     public static final String MESSAGE_EDIT_CARD_SUCCESS = "Edited Card: %1$s";
@@ -64,7 +61,7 @@ public class AnakinEditCardCommand extends AnakinCommand {
         List<AnakinCard> lastShownList = model.getFilteredCardList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
+            throw new CommandException(AnakinMessages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
         }
 
         AnakinCard cardToEdit = lastShownList.get(index.getZeroBased());
