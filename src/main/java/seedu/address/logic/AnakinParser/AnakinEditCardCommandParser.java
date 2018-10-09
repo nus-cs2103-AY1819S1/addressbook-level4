@@ -33,7 +33,8 @@ public class AnakinEditCardCommandParser implements AnakinParserInterface<Anakin
         try {
             index = AnakinParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AnakinEditCardCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AnakinEditCardCommand.MESSAGE_USAGE), pe);
         }
 
         EditCardDescriptor editCardDescriptor = new EditCardDescriptor();
