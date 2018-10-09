@@ -10,7 +10,7 @@ import seedu.address.model.person.medicalrecord.Note;
  * Represents a patient that has already consulted the doctor in the address book.
  * It has all the necessary data needed to generate any object that inherits from Document.
  */
-public class servedPatient {
+public class ServedPatient {
 
     private final Name name;
     private final IcNumber icNumber;
@@ -23,17 +23,23 @@ public class servedPatient {
      *
      * @param patient A valid patient.
      */
-    public servedPatient(Patient patient) {
+    public ServedPatient(Patient patient) {
         requireNonNull(patient);
         this.name = patient.getName();
         this.icNumber = patient.getIcNumber();
         this.note = patient.getMedicalRecord().getNotes();
     }
 
-    public Name getName() { return name; }
+    public Name getName() {
+        return name;
+    }
 
-    public IcNumber getIcNumber() { return icNumber; }
+    public IcNumber getIcNumber() {
+        return icNumber;
+    }
 
-    public List<Note> getNote() { return note; }
+    public List<Note> getNote() {
+        return note;
+    }
 
 }
