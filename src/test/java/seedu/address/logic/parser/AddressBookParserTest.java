@@ -7,7 +7,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_REMARK_AMY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 
 import java.util.Arrays;
 import java.util.List;
@@ -122,7 +121,7 @@ public class AddressBookParserTest {
     public void parseCommand_remarkCommandWord_returnsRemarkCommand() throws Exception {
         final Remark remark = new Remark(VALID_REMARK_AMY);
         RemarkCommand command = (RemarkCommand) parser.parseCommand(RemarkCommand.COMMAND_WORD
-                + " " + INDEX_FIRST_PERSON.getOneBased() +" " + PREFIX_REMARK + remark.value);
+                + " " + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_REMARK + remark.value);
         assertEquals(new RemarkCommand(INDEX_FIRST_PERSON, new Remark(VALID_REMARK_AMY)), command);
     }
 
