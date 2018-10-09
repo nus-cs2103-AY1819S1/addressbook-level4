@@ -62,7 +62,7 @@ public abstract class UiPart<T> {
 
     /**
      * Raises the event via {@link EventsCenter#post(BaseEvent)}
-     * @param event
+     * @param event Event to be raised
      */
     protected void raise(BaseEvent event) {
         EventsCenter.getInstance().post(event);
