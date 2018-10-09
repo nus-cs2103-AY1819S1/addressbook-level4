@@ -837,6 +837,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 === Ingredient Management
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
+
 |`* * *` |user |limit the search result of recipes to what I have in my inventory |cook a meal without buying additional ingredients
 
 |`* * *` |user |Be informed of the name/amount of ingredients that I am lacking |so that I can buy the shortfall
@@ -850,6 +851,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 === Meal Planner
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
+
 |`* * *` |user |plan my meals for breakfast, lunch and dinner |I can remember my meals for each day
 
 |`* * *` |fickle-minded user |edit my meal plans |I can add different recipes if I change my mind
@@ -859,11 +861,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |health-conscious user |view the nutritional value of each recipe |I can choose recipes according to my nutritional needs
 
 |`*` |meticulous user |view the time taken for each recipe |I can plan ahead for meal preparations to fit my schedule
-
 |=======================================================================
 === User Profiling
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
+
 |`* * *`|undecided user |get random recipe suggestions |get new ideas on what to cook
 
 |`* * *` |user |get suggestions to cook based on my viewing and cooking history |learn to cook similar dishes that I may like
@@ -878,7 +880,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 
-|`* * *` |Indian |search for recipes of Indian dishes	|prepare a wholesome meal for my family
+|`* * *` |indian |search for recipes of Indian dishes	|prepare a wholesome meal for my family
 
 |`* * *` |vegetarian |search for vegan option |prepare self-make food for my dietary requirements
 
@@ -897,11 +899,17 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 === Health Planner
 |========================================================================
 |Priority | As a... |I want to ... | So that I can...
+
 |`* * *`|new user| be able to easily use the interface without hassle | easily learn the interface without difficulty
-|`* *`|Health-conscious user| be able to view the nutritional breakdown| Know what food to cut down or replace
-|`* *`|Fickle user | be able to change plans or make new plans on the go | make changes when errors are made
-|`* *`|User trying to be more healthy | be recommended healthy recipes by the system | save the effort needed to search online
-|`*`| Experimental user| be able to have many plans | try out different plans on the go
+
+|`* *`|health-conscious user| be able to view the nutritional breakdown| Know what food to cut down or replace
+
+|`* *`|fickle user | be able to change plans or make new plans on the go | make changes when errors are made
+
+|`* *`|user trying to be more healthy | be recommended healthy recipes by the system | save the effort needed to
+search online
+
+|`*`|experimental user| be able to have many plans | try out different plans on the go
 |========================================================================
 
 
@@ -1070,7 +1078,7 @@ Use case ends.
 
 1. User lists a selection of recipes (Based on his search parameters).
 2. User selects a recipe to view.
-3. User likes that recipe, and adds it to their "Favoure Recipe" list.
+3. User likes that recipe, and adds it to their "Favourite Recipe" list.
 +
 Use case ends.
 
@@ -1166,7 +1174,7 @@ Use case ends.
 
 1. User requests to create a plan.
 2. User enters details for the plan.
-3. AddressBook creates the plan.
+3. System creates the plan.
 +
 Use case ends.
 
@@ -1176,7 +1184,7 @@ Use case ends.
 * 2a. User enters invalid details.
 +
 [none]
-** 2a1. AddressBook shows error message.
+** 2a1. System shows error message.
 +
 Use case resumes at 2.
 
@@ -1186,10 +1194,10 @@ Use case resumes at 2.
 *MSS*
 
 1. User requests to edit a plan.
-2. AddressBook retrieves the list of plans by user.
+2. System retrieves the list of plans by user.
 3. User select the plan to edit.
 4. User enters the new details to the plan.
-5. AddressBook updates the details.
+5. System updates the details.
 +
 Use case ends.
 
@@ -1204,7 +1212,7 @@ Use case ends.
 * 4a. Invalid details.
 +
 [none]
-** 4a1. AddressBook shows an error message.
+** 4a1. System shows an error message.
 +
 Use case returns to 4.
 
@@ -1214,9 +1222,9 @@ Use case returns to 4.
 *MSS*
 
 1. User requests to delete plan.
-2. AddressBook shows list of plans.
+2. System shows list of plans.
 3. User selects plan to delete.
-4. AddressBook deletes the selected plan.
+4. System deletes the selected plan.
 +
 Use case ends.
 
@@ -1233,11 +1241,11 @@ Use case ends.
 *MSS*
 
 1. User request to enter intake.
-2. AddressBook shows list of plans.
+2. System shows list of plans.
 3. User selects plan from list.
-4. AddressBook shows list of recipes to select.
+4. System shows list of recipes to select.
 5. User selects recipe to add into list.
-6. AddressBook adds the recipe to list.
+6. System adds the recipe to list.
 +
 Use case ends.
 
@@ -1259,9 +1267,9 @@ Use case ends.
 *MSS*
 
 1. User request to remove recipe from intake list.
-2. AddressBook shows list of recipes.
+2. System shows list of recipes.
 3. User selects recipe from the list.
-4. AddressBook removes the selected recipe from the list.
+4. System removes the selected recipe from the list.
 +
 Use case ends.
 
@@ -1278,8 +1286,8 @@ Use case ends.
 *MSS*
 
 1. User requests to view nutritional intake entered.
-2. AddressBook retrieves the list of intakes to show the user.
-3. AddressBook retrieves the nutritional facts based on the recipes in the list to show the user.
+2. System retrieves the list of intakes to show the user.
+3. System retrieves the nutritional facts based on the recipes in the list to show the user.
 
 *Extensions*
 
@@ -1294,9 +1302,10 @@ Use case ends.
 *MSS*
 
 1. User requests to compare the entered data against set target.
-2. AddressBook shows Target set by User.
-3. AddressBook calculates and shows the actual intake by user.
-4. AddressBook calculates the difference in the 2 scores and shows the user the percentage difference(positive or negative) from set target.
+2. System shows Target set by User.
+3. System calculates and shows the actual intake by user.
+4. System calculates the difference in the 2 scores and shows the user the percentage difference(positive or negative)
+from set target.
 +
 Use case ends.
 
