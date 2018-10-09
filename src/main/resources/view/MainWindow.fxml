@@ -12,8 +12,10 @@
 
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
 <fx:root xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         type="javafx.stage.Stage" minWidth="800" minHeight="600" onCloseRequest="#handleExit">
+         type="javafx.stage.Stage" minWidth="800" minHeight="800" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -47,11 +49,15 @@
           </VBox>
 
           <SplitPane orientation="VERTICAL">
-            <AnchorPane>
-              <Label text="Details" alignment="CENTER" styleClass="cell_big_label"
-                     AnchorPane.topAnchor="5" AnchorPane.leftAnchor="5" AnchorPane.rightAnchor="5" />
+            <AnchorPane minHeight="300">
+              <HBox alignment="CENTER"
+                    AnchorPane.topAnchor="5" AnchorPane.leftAnchor="5" AnchorPane.rightAnchor="5">
+                <ImageView fitHeight="150" fitWidth="200" preserveRatio="true">
+                  <Image url="/images/address_book_32.png" />
+                </ImageView>
+              </HBox>
               <StackPane fx:id="articleDetailsPanelPlaceholder"
-                         AnchorPane.topAnchor="20" AnchorPane.leftAnchor="15"
+                         AnchorPane.topAnchor="200" AnchorPane.leftAnchor="15"
                          AnchorPane.rightAnchor="15" AnchorPane.bottomAnchor="15" />
             </AnchorPane>
 
