@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.AnakinCommands.AnakinCommand;
+import seedu.address.logic.AnakinCommands.AnakinDelCardCommand;
 import seedu.address.logic.AnakinCommands.AnakinDelDeckCommand;
 import seedu.address.logic.AnakinCommands.AnakinNewCardCommand;
 import seedu.address.logic.AnakinCommands.AnakinNewDeckCommand;
@@ -48,6 +49,9 @@ public class AnakinParser {
 
         case AnakinNewCardCommand.COMMAND_WORD:
             return new AnakinNewCardCommandParser().parse(arguments);
+
+        case AnakinDelCardCommand.COMMAND_WORD:
+            return new AnakinDelCardCommandParser().parse(arguments);
         // TO DO
             /*
         case EditCommand.COMMAND_WORD:
