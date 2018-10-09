@@ -26,7 +26,8 @@ public class Patient extends Person {
     private Stack<Appointment> pastAppointments;
 
     // Constructor
-    public Patient(Name name, Phone phone, Email email, Address address, Remark remark, Set<Tag> tags, String telegramId) {
+    public Patient(Name name, Phone phone, Email email, Address address, Remark remark,
+                   Set<Tag> tags, String telegramId) {
         super(name, phone, email, address, remark, tags);
         setTelegramId(telegramId);
         upcomingAppointments = new LinkedList<>();
