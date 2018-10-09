@@ -18,7 +18,7 @@ Responsibilities: UI
 '''
 
 === Chow Keng Ji
-image::thejrlinguist.jpg[width="150", align="left"]
+image::thejrlinguist.png[width="150", align="left"]
 {empty}[http://github.com/thejrlinguist[github]] [<<thejrlinguist#, portfolio>>]
 
 Responsibilities: Model (Event)
