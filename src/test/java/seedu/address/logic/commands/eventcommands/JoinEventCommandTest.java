@@ -57,6 +57,7 @@ public class JoinEventCommandTest {
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
 
+    /**
     @Test
     public void execute_alreadyJoinedJoinEvent() {
         JoinEventCommand command = new JoinEventCommand(TypicalIndexes.INDEX_FIRST);
@@ -67,4 +68,5 @@ public class JoinEventCommandTest {
         String expectedMessage = String.format(Messages.MESSAGE_ALREADY_JOINED);
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
+    */
 }
