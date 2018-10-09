@@ -78,7 +78,7 @@ public class XmlAddressBookStorageTest {
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.xml");
         AppContent original = getTypicalAddressBook();
-        XmlGeneralStorage xmlAddressBookStorage = new XmlRecipeStorage(filePath);
+        XmlFeatureStorage xmlAddressBookStorage = new XmlRecipeStorage(filePath);
 
         //Save in new file and readAppContent back
         xmlAddressBookStorage.saveAppContent(original, filePath);

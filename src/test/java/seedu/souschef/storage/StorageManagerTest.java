@@ -33,7 +33,7 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        XmlGeneralStorage addressBookStorage = new XmlRecipeStorage(getTempFilePath("ab"));
+        XmlFeatureStorage addressBookStorage = new XmlRecipeStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
     }
@@ -72,7 +72,7 @@ public class StorageManagerTest {
 
     @Test
     public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAppContentFilePath());
+        assertNotNull(storageManager.getFeatureFilePath());
     }
 
     @Test
@@ -89,7 +89,7 @@ public class StorageManagerTest {
     /**
      * A Stub class to throw an exception when the saveAppContent method is called
      */
-    class XmlAddressBookStorageExceptionThrowingStub extends XmlGeneralStorage {
+    class XmlAddressBookStorageExceptionThrowingStub extends XmlRecipeStorage {
 
         public XmlAddressBookStorageExceptionThrowingStub(Path filePath) {
             super(filePath);

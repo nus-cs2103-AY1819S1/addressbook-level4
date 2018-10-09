@@ -11,12 +11,12 @@ import seedu.souschef.model.ReadOnlyAppContent;
 /**
  * Represents a storage for {@link AppContent}.
  */
-public interface GenericStorage {
+public interface FeatureStorage {
 
     /**
      * Returns the file path of the data file.
      */
-    Path getAppContentFilePath();
+    Path getFeatureFilePath();
 
     /**
      * Returns AppContent data as a {@link ReadOnlyAppContent}.
@@ -27,7 +27,7 @@ public interface GenericStorage {
     Optional<ReadOnlyAppContent> readAppContent() throws DataConversionException, IOException;
 
     /**
-     * @see #getAppContentFilePath()
+     * @see #getFeatureFilePath()
      */
     Optional<ReadOnlyAppContent> readAppContent(Path filePath) throws DataConversionException, IOException;
 

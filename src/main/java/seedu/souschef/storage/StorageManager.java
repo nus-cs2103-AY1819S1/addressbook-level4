@@ -21,13 +21,13 @@ import seedu.souschef.model.UserPrefs;
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private GenericStorage genericStorage;
+    private FeatureStorage featureStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(GenericStorage genericStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(FeatureStorage featureStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.genericStorage = genericStorage;
+        this.featureStorage = featureStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -50,30 +50,30 @@ public class StorageManager extends ComponentManager implements Storage {
 
 
     @Override
-    public Path getAppContentFilePath() {
-        return genericStorage.getAppContentFilePath();
+    public Path getFeatureFilePath() {
+        return featureStorage.getFeatureFilePath();
     }
 
     @Override
     public Optional<ReadOnlyAppContent> readAppContent() throws DataConversionException, IOException {
-        return readAppContent(genericStorage.getAppContentFilePath());
+        return readAppContent(featureStorage.getFeatureFilePath());
     }
 
     @Override
     public Optional<ReadOnlyAppContent> readAppContent(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to readAppContent data from file: " + filePath);
-        return genericStorage.readAppContent(filePath);
+        return featureStorage.readAppContent(filePath);
     }
 
     @Override
     public void saveAppContent(ReadOnlyAppContent appContent) throws IOException {
-        saveAppContent(appContent, genericStorage.getAppContentFilePath());
+        saveAppContent(appContent, featureStorage.getFeatureFilePath());
     }
 
     @Override
     public void saveAppContent(ReadOnlyAppContent appContent, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        genericStorage.saveAppContent(appContent, filePath);
+        featureStorage.saveAppContent(appContent, filePath);
     }
 
 

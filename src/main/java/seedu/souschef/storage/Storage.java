@@ -13,7 +13,7 @@ import seedu.souschef.model.UserPrefs;
 /**
  * API of the Storage component
  */
-public interface Storage extends GenericStorage, UserPrefsStorage {
+public interface Storage extends FeatureStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -22,7 +22,7 @@ public interface Storage extends GenericStorage, UserPrefsStorage {
     void saveUserPrefs(UserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAppContentFilePath();
+    Path getFeatureFilePath();
 
     @Override
     Optional<ReadOnlyAppContent> readAppContent() throws DataConversionException, IOException;

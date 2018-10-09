@@ -88,7 +88,7 @@ public class TestApp extends MainApp {
      * Returns the file path of the storage file.
      */
     public Path getStorageSaveLocation() {
-        return storage.getAppContentFilePath();
+        return storage.getFeatureFilePath();
     }
 
     /**

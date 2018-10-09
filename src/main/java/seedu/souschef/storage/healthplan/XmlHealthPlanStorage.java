@@ -15,13 +15,13 @@ import seedu.souschef.commons.exceptions.IllegalValueException;
 import seedu.souschef.commons.util.FileUtil;
 import seedu.souschef.model.ReadOnlyAppContent;
 import seedu.souschef.storage.XmlFileStorage;
-import seedu.souschef.storage.XmlGeneralStorage;
+import seedu.souschef.storage.XmlFeatureStorage;
 import seedu.souschef.storage.XmlSerializableGeneric;
 
 /**
  * A class to access AppContent data stored as an xml file on the hard disk.
  */
-public class XmlHealthPlanStorage extends XmlGeneralStorage {
+public class XmlHealthPlanStorage extends XmlFeatureStorage {
 
     private static final Logger logger = LogsCenter.getLogger(XmlHealthPlanStorage.class);
 
@@ -30,10 +30,10 @@ public class XmlHealthPlanStorage extends XmlGeneralStorage {
     public XmlHealthPlanStorage(Path filePath) {
 
         super(filePath);
-        this.filePath = super.getAppContentFilePath();
+        this.filePath = super.getFeatureFilePath();
     }
 
-    public Path getAppContentFilePath() {
+    public Path getFeatureFilePath() {
         return filePath;
     }
 

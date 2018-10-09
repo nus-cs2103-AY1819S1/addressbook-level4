@@ -15,28 +15,19 @@ import seedu.souschef.commons.exceptions.IllegalValueException;
 import seedu.souschef.commons.util.FileUtil;
 import seedu.souschef.model.ReadOnlyAppContent;
 import seedu.souschef.storage.XmlFileStorage;
-import seedu.souschef.storage.XmlGeneralStorage;
+import seedu.souschef.storage.XmlFeatureStorage;
 import seedu.souschef.storage.XmlSerializableGeneric;
 
 /**
  * A class to access AppContent data stored as an xml file on the hard disk.
  */
-public class XmlRecipeStorage extends XmlGeneralStorage {
+public class XmlRecipeStorage extends XmlFeatureStorage {
 
     private static final Logger logger = LogsCenter.getLogger(XmlRecipeStorage.class);
 
-    private Path filePath;
-
     public XmlRecipeStorage(Path filePath) {
-
         super(filePath);
-        this.filePath = super.getAppContentFilePath();
     }
-
-    public Path getAppContentFilePath() {
-        return filePath;
-    }
-
 
     /**
      * Similar to {@link #readAppContent()}
@@ -62,7 +53,6 @@ public class XmlRecipeStorage extends XmlGeneralStorage {
         }
     }
 
-
     /**
      * Similar to {@link #saveAppContent(ReadOnlyAppContent)}
      * @param filePath location of the data. Cannot be null
@@ -75,11 +65,4 @@ public class XmlRecipeStorage extends XmlGeneralStorage {
         FileUtil.createIfMissing(filePath);
         XmlFileStorage.saveDataToFile(filePath, new XmlSerializableAddressBook(appContent));
     }
-
-
-
-
-
-
-
 }

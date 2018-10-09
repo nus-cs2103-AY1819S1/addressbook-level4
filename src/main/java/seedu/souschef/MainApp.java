@@ -29,7 +29,7 @@ import seedu.souschef.model.ReadOnlyAppContent;
 import seedu.souschef.model.UserPrefs;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.util.SampleDataUtil;
-import seedu.souschef.storage.GenericStorage;
+import seedu.souschef.storage.FeatureStorage;
 import seedu.souschef.storage.JsonUserPrefsStorage;
 import seedu.souschef.storage.Storage;
 import seedu.souschef.storage.StorageManager;
@@ -66,7 +66,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        GenericStorage addressBookStorage = new XmlRecipeStorage(userPrefs.getAddressBookFilePath());
+        FeatureStorage addressBookStorage = new XmlRecipeStorage(userPrefs.getAddressBookFilePath());
         storage = new StorageManager(addressBookStorage, userPrefsStorage);
 
         initLogging(config);

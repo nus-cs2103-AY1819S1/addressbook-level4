@@ -13,19 +13,19 @@ import seedu.souschef.model.ReadOnlyAppContent;
  * This class is for the general extension of all XmlStorage subtypes that may extend the
  * functionality to generalize the function calls
  */
-public abstract class XmlGeneralStorage implements GenericStorage {
+public abstract class XmlFeatureStorage implements FeatureStorage {
 
-    private Path filePath;
+    protected Path filePath;
 
-    public XmlGeneralStorage(){
+    protected XmlFeatureStorage(){
 
     }
 
-    public XmlGeneralStorage(Path filePath) {
+    protected XmlFeatureStorage(Path filePath) {
         this.filePath = filePath;
     }
 
-    public Path getAppContentFilePath() {
+    public Path getFeatureFilePath() {
         return filePath;
     }
 
@@ -34,10 +34,8 @@ public abstract class XmlGeneralStorage implements GenericStorage {
         return readAppContent(filePath);
     }
     @Override
-    public Optional<ReadOnlyAppContent> readAppContent(Path filePath) throws DataConversionException,
-            FileNotFoundException {
-        return Optional.empty();
-    }
+    public abstract Optional<ReadOnlyAppContent> readAppContent(Path filePath) throws DataConversionException,
+            FileNotFoundException;
 
     @Override
     public void saveAppContent(ReadOnlyAppContent appContent) throws IOException {
