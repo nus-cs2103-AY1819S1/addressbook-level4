@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.address.model.util;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Contains utility methods for exporting data.
  * @@author arsalanc-v2
  */
-public class ExportUtils {
+public class ExportUtil {
 
     /**
      * Writes a single line to a file.
