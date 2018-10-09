@@ -62,8 +62,8 @@ public class XmlSerializableAddressBook {
             }
             addressBook.addPerson(person);
         }
-        XmlAdaptedEvent.setPersonList(addressBook.getPersonList());
 
+        XmlAdaptedEvent.setPersonList(addressBook.getPersonList());
         for (XmlAdaptedEvent p : events) {
             Event event = p.toModelType(addressBook.getPersonList());
             if (addressBook.hasEvent(event)) {

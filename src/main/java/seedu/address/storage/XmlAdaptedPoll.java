@@ -29,12 +29,6 @@ public class XmlAdaptedPoll {
     @XmlElement(required = false)
     private List<XmlAdaptedPollEntry> options = new ArrayList<>();
 
-    private static ObservableList<Person> personList;
-
-    public static void setPersonList(ObservableList<Person> organiserPersonList) {
-        personList = organiserPersonList;
-    }
-
     /**
      * Constructs an XmlAdaptedPerson.
      * This is the no-arg constructor that is required by JAXB.

@@ -243,7 +243,5 @@ public class EditCommand extends Command {
                 && getAddress().equals(e.getAddress())
                 && getTags().equals(e.getTags());
         }
-
-
     }
 }

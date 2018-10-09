@@ -52,7 +52,6 @@ public class XmlAdaptedEvent {
 
     public static void setPersonList(ObservableList<Person> organiserPersonList) {
         personList = organiserPersonList;
-        XmlAdaptedPoll.setPersonList(personList);
         XmlAdaptedPollEntry.setPersonList(personList);
         XmlPersonIndex.setPersonList(personList);
     }
