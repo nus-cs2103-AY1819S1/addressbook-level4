@@ -14,6 +14,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.interest.Interest;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -137,6 +138,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String interest} into a {@code Interest}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code interest} is invalid.
+     */
+    public static Interest parseInterest(String interest) throws ParseException {
+        requireNonNull(interest);
+        String trimmedInterest = interest.trim();
+        if (!Interest.isValidInterestName(trimmedInterest)) {
+            throw new ParseException(Interest.MESSAGE_INTEREST_CONSTRAINTS);
+        }
+        return new Interest(trimmedInterest);
+    }
+
+    /**
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -166,6 +182,18 @@ public class ParserUtil {
         }
         return new Schedule(schedule);
 
+    }
+
+    /**
+     * Parses {@code Collection<String> interests} into a {@code Set<Interest>}.
+     */
+    public static Set<Interest> parseInterests(Collection<String> interests) throws ParseException {
+        requireNonNull(interests);
+        final Set<Interest> interestSet = new HashSet<>();
+        for (String interestName : interests) {
+            interestSet.add(parseInterest(interestName));
+        }
+        return interestSet;
     }
 
     /**

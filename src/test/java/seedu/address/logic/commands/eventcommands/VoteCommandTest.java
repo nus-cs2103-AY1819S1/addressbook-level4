@@ -3,6 +3,7 @@ package seedu.address.logic.commands.eventcommands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalEvents.getAddressBookWithParticipant;
 import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
 
 import java.util.ArrayList;
@@ -24,8 +25,8 @@ import seedu.address.testutil.TypicalIndexes;
 public class VoteCommandTest {
     private static final String OPTION_NAME = "Generic option";
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getAddressBookWithParticipant(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getAddressBookWithParticipant(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -37,7 +38,6 @@ public class VoteCommandTest {
         Event event = model.getFilteredEventList().get(0);
         event.addPoll("Generic poll");
         event.getPoll(index).addOption(OPTION_NAME);
-        event.addPerson(user);
         model.setSelectedEvent(event);
         String expectedMessage = String.format(command.MESSAGE_SUCCESS, OPTION_NAME, index.getOneBased());
         expectedModel.commitAddressBook();
@@ -58,9 +58,8 @@ public class VoteCommandTest {
         Person user = new PersonBuilder().build();
         model.setCurrentUser(user);
         EventBuilder eventBuilder = new EventBuilder();
-        eventBuilder.withOrganiser(user);
+        eventBuilder.withParticipant().withOrganiser(user);
         Event event = eventBuilder.build();
-        event.addPerson(user);
         model.setSelectedEvent(event);
         String expectedMessage = String.format(Messages.MESSAGE_NO_POLL_AT_INDEX);
         assertCommandFailure(command, model, commandHistory, expectedMessage);
@@ -72,9 +71,8 @@ public class VoteCommandTest {
         Person user = new PersonBuilder().build();
         model.setCurrentUser(user);
         EventBuilder eventBuilder = new EventBuilder();
-        eventBuilder.withOrganiser(user);
+        eventBuilder.withParticipant().withOrganiser(user);
         Event event = eventBuilder.withPoll().build();
-        event.addPerson(user);
         model.setSelectedEvent(event);
         String expectedMessage = String.format(Messages.MESSAGE_NO_SUCH_OPTION);
         assertCommandFailure(command, model, commandHistory, expectedMessage);
@@ -92,6 +90,7 @@ public class VoteCommandTest {
 
     @Test
     public void execute_haveNotJoinedVoteOption() {
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         Index index = TypicalIndexes.INDEX_FIRST;
         VoteCommand command = new VoteCommand(index, OPTION_NAME);
         Person user = new PersonBuilder().build();

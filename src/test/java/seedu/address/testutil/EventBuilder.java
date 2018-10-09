@@ -104,6 +104,14 @@ public class EventBuilder {
     }
 
     /**
+     * Adds one person as a participant to the event.
+     */
+    public EventBuilder withParticipant() {
+        personList.add(new PersonBuilder().build());
+        return this;
+    }
+
+    /**
      * Builds an event.
      */
     public Event build() {

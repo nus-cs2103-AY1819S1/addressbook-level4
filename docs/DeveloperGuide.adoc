@@ -853,17 +853,17 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 Users able to search for events by attributes (date, time, location, interest) and retrieve joined events.
 - [ ] V1.3: Application able to generate poll options based on application recommendation for time and location.
 
-#### Yao Feng : Add scheduling and recommend best time feature
-- [ ] V1.1: Users able to login.
-- [ ] V1.2: Organisers can search for event participants based on interests, friendships, schedule and address.
-- [ ] V1.3: Users can rate the event after it is held.
+#### Yao Feng : Add login function and improve on search functions
+- [x] V1.1: Basic login command.
+- [ ] V1.2: Search for users based on phone number, interests, friendships, schedule, and address.
+- [ ] V1.3: Improved login command with password.
 
-#### Zhang Cheng :
+#### Zhang Cheng : Add features for networking among users
 - [ ] V1.1: Users able to specify their interests.
 - [ ] V1.2: Users able to specify friendships with other people.
 - [ ] V1.3: Users able to form groups and find mutual friends.
 
-#### Adeel :
+#### Adeel : Add location-related features
 - [ ] V1.1: Add feature of nearest MRT for each individual.
 - [ ] V1.2: Implement recommendation of best meet-up location via MRT lines.
 - [ ] V1.3: Implement Google maps visualisation.
@@ -893,17 +893,21 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *`|Busy User|Have a platform to search for all the events that occur during my free time.| Easily find a event that I have time to go for.
 
-|`* * *`|Tech-savvy User| Have a platform that supports CLI| Easily write scripts to automatic the task that I want to accomplish on a regular basis.
+|`* * *`|Tech-savvy User| Have a platform that supports CLI.| Easily write scripts to automatic the task that I want to accomplish on a regular basis.
 
 |`* * *`|User|Keep track of all the events that I can gone to.| Have a record of the events that I have been to.
 
 |`* * *`|User|Visualise the event location on Google maps.| Find out exactly how to get to that location.
 
-|`* * *`|User|A social media kind of platform which specialises on organising events| Know the events that my friends are going to and let my friends know about the events that I am going to.
+|`* * *`|User|A social media kind of platform which specialises on organising events.| Know the events that my friends are going to and let my friends know about the events that I am going to.
+
+|`* * *`|User|Easily find other users based on their particulars.| Find my friends and family members, or anyone that might be of interest to me.
+
+|`* * *`|User|Create an individual profile with some security features.| I can access and make changes to my own profile easily, but other people will not have access to it.
 
 |`* * *`|NUS student|Have a platform that utilises NUSMODS's schedule.| Conveniently update my schedule using NUSMODS's schedule.
 
-|`* * *`|NUS student|Have a platform that can facilitate the task of finding the ideal time and location for project group meet-ups| Easily organise project group meet-ups instead of asking each individual group mates one by one.
+|`* * *`|NUS student|Have a platform that can facilitate the task of finding the ideal time and location for project group meet-ups.| Easily organise project group meet-ups instead of asking each individual group mates one by one.
 
 |`* *`|Event Organiser|Find people who live close to a specific location and people who are available at a specific time.| Find people who are at least able to attend the event.
 
@@ -926,7 +930,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 *MSS:*
 
-1.	User creates new user profile by specifying his/her contact detail, address, weekly schedule, interest, people they know, their relationship to that person, and affiliate groups.
+1.	User creates new user profile by specifying his/her contact detail, address, schedule, and interests.
 2.	System checks that the details are valid.
 3.	System informs the user that the profile has been successfully created.
 
@@ -946,7 +950,33 @@ Steps 2a1 - 2a2 are repeated until the details entered are valid.
 Use case resumes from step 3.
 
 [discrete]
-=== Use case: U02 – Delete a user
+=== Use case: U02 - Log in to a user account
+
+*Actor: User*
+
+*MSS:*
+
+1.	User creates logs in using his/her name, contact detail, address, and email
+2.	System checks that the details are valid.
+3.	System informs the user that he/she has successfully logged in.
+
++
+Use case ends.
+
+*Extensions:*
+
+* 2a. User enters invalid details.
++
+** 2a1. System will prompt user to re-enter their details.
++
+** 2a2. User enters profile details again.
++
+Steps 2a1 - 2a2 are repeated until the details entered are valid.
++
+Use case resumes from step 3.
+
+[discrete]
+=== Use case: U03 – Delete a user
 
 *Actor: User*
 
@@ -973,7 +1003,7 @@ Steps 2a1 – 2a2 are repeated until the current user and the user profile that 
 Use case resumes from step 3.
 
 [discrete]
-=== Use case: U03 – Create new event
+=== Use case: U04 – Create new event
 
 *Actor: User*
 
@@ -1001,7 +1031,7 @@ Steps 2a1 - 2a2 are repeated until the details entered are valid.
 Use case resumes from step 3.
 
 [discrete]
-=== Use case: U04 – Delete an event
+=== Use case: U05 – Delete an event
 
 *Actor: User*
 
@@ -1029,7 +1059,7 @@ Use case ends.
 Use case resumes from step 3.
 
 [discrete]
-=== Use case: U05 - User joins an event
+=== Use case: U06 - User joins an event
 
 *Actor: User*
 
@@ -1052,7 +1082,7 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: U06 – User invites other to join him/her event
+=== Use case: U07 – User invites other to join him/her event
 
 *Actor: Event organiser, another user that will be invited to join the event organiser’s event*
 
@@ -1062,12 +1092,12 @@ Use case resumes at step 2.
 
 1.	Event organiser searches for other users.
 2.	System shows user all the other users.
-3.	User chooses a user that he/she wants to invite
-4.	System informs the event organiser that an invitation has been sent to the user
-5.	System informs the user of an invitation to join an event
-6.	User being invited choose to accept the event invitation
+3.	User chooses a user that he/she wants to invite.
+4.	System informs the event organiser that an invitation has been sent to the user.
+5.	System informs the user of an invitation to join an event.
+6.	User being invited choose to accept the event invitation.
 7.	System informs the user that he/she has successfully joined the event.
-8.	System informs the event organiser that a new user has joined his/her event
+8.	System informs the event organiser that a new user has joined his/her event.
 
 +
 Use case ends.
@@ -1075,18 +1105,18 @@ Use case ends.
 Use
 *Extensions:*
 
-* 1a. Event organiser may specify extra details to filter search results
+* 1a. Event organiser may specify extra details to filter search results.
 +
 Use case resumes at step 2.
 
-* 6a. User being invited may choose to deny the event invitation
+* 6a. User being invited may choose to deny the event invitation.
 +
-** 6a1. System informs the user that he/she has rejected the event invitation
+** 6a1. System informs the user that he/she has rejected the event invitation.
 +
 Use case ends.
 
 [discrete]
-=== Use case: U07 – User who is keen on joining an event chooses their preferred date, time and location for the event, given that the event organiser has created a polling session for this event
+=== Use case: U08 – User who is keen on joining an event chooses their preferred date, time and location for the event, given that the event organiser has created a polling session for this event
 
 *Actor: Event organiser, user who is keen to join an event*
 
@@ -1104,7 +1134,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: U08 – Event organiser gets the recommended date, time and location for his event from the system’s algorithm and the polling session. Thereafter, chooses the date, time and location for his event
+=== Use case: U09 – Event organiser gets the recommended date, time and location for his event from the system’s algorithm and the polling session. Thereafter, chooses the date, time and location for his event
 
 *Actor: Event organiser*
 
@@ -1114,14 +1144,14 @@ Use case ends.
 
 1.	Event organiser asks the systems to recommend the date and time for the event based on the schedules of the current users that have indicated that they are going.
 2.	System shows a few recommendations for the date and time.
-3.	Event organiser checks the polling result for the date and time
+3.	Event organiser checks the polling result for the date and time.
 4.	System shows the top choices for the date and time from the polling session.
 5.	Event organiser chooses the date time for his date and time for the event.
 6.	System informs user that the date and time has been successfully updated.
-7.	System updates the date and time for the event
+7.	System updates the date and time for the event.
 8.	Event organiser Event organiser asks the systems to recommend the date and time for the event on the address of the current users that have indicated that they are going.
 9.	System shows a few recommendations for the location.
-10.	Event organiser checks the polling result for the date and time
+10.	Event organiser checks the polling result for the date and time.
 11.	System shows the top choices for location from the polling session.
 12.	Event organiser chooses the location for the event.
 13.	System informs the location has been successfully updated.
@@ -1156,42 +1186,13 @@ highest votes.
 +
 Use case resumes from step 12.
 
-////
-*MSS*
-
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
-
-_{More to be added}_
-////
 [appendix]
 == Non Functional Requirements
-////
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
-////
-. Commands should be intuitive for users to pick up easily.
+.  Commands should be intuitive for users to pick up easily.
+.  Allows a limited form of security by ensuring that users are only able to log in to their own accounts.
 
 [appendix]
 == Glossary

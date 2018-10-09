@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INTEREST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -21,6 +22,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.interest.Interest;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -45,6 +47,7 @@ public class EditCommand extends Command {
         + "[" + PREFIX_EMAIL + "EMAIL] "
         + "[" + PREFIX_ADDRESS + "ADDRESS] "
         + "[" + PREFIX_TIMETABLE + "TIMETABLE] "
+        + "[" + PREFIX_INTEREST + "INTEREST] "
         + "[" + PREFIX_TAG + "TAG]...\n"
         + "Example: " + COMMAND_WORD + " 1 "
         + PREFIX_PHONE + "91234567 "
@@ -106,10 +109,17 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
+        Set<Interest> updatedInterests = editPersonDescriptor.getInterests().orElse(personToEdit.getInterests());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         Schedule updatedSchedule = editPersonDescriptor.getSchedule().orElse(personToEdit.getSchedule());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedSchedule);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedInterests, updatedTags,
+                updatedSchedule);
+    }
+
+    @Override
+    public String toString() {
+        return editPersonDescriptor.toString();
     }
 
     @Override
@@ -140,6 +150,7 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Schedule schedule;
+        private Set<Interest> interests;
         private Set<Tag> tags;
 
         public EditPersonDescriptor() {
@@ -154,6 +165,7 @@ public class EditCommand extends Command {
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
+            setInterests(toCopy.interests);
             setTags(toCopy.tags);
             setSchedule(toCopy.schedule);
         }
@@ -206,6 +218,23 @@ public class EditCommand extends Command {
         }
 
         /**
+         * Sets {@code interests} to this object's {@code interests}.
+         * A defensive copy of {@code interests} is used internally.
+         */
+        public void setInterests(Set<Interest> interests) {
+            this.interests = (interests != null) ? new HashSet<>(interests) : null;
+        }
+
+        /**
+         * Returns an unmodifiable interest set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code interests} is null.
+         */
+        public Optional<Set<Interest>> getInterests() {
+            return (interests != null) ? Optional.of(Collections.unmodifiableSet(interests)) : Optional.empty();
+        }
+
+        /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
          */
@@ -241,6 +270,7 @@ public class EditCommand extends Command {
                 && getPhone().equals(e.getPhone())
                 && getEmail().equals(e.getEmail())
                 && getAddress().equals(e.getAddress())
+                && getInterests().equals(e.getInterests())
                 && getTags().equals(e.getTags());
         }
     }

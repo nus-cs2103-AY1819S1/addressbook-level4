@@ -13,7 +13,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Allow a person to login to the address book.
+ * Allow a person to login to EventOrganiser.
  */
 public class LoginCommand extends Command {
     public static final String COMMAND_ALIAS = "l";
@@ -53,6 +53,11 @@ public class LoginCommand extends Command {
 
         model.setCurrentUser(toLogin);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toLogin.getName()));
+    }
+
+    @Override
+    public String toString() {
+        return toLogin.toString();
     }
 
     @Override
