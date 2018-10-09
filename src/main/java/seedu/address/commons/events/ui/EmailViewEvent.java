@@ -1,9 +1,10 @@
 package seedu.address.commons.events.ui;
 
-import seedu.address.commons.events.BaseEvent;
-
 import org.simplejavamail.email.Email;
 
+import seedu.address.commons.events.BaseEvent;
+
+//@@author EatOrBeEaten
 /**
  * Indicates a request to view email.
  */
@@ -23,5 +24,5 @@ public class EmailViewEvent extends BaseEvent {
     public Email getEmail() {
         return email;
     }
-    
+
 }
