@@ -5,6 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_ADAM;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ADAM;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalPersons.ADAM;
 import static seedu.address.testutil.TypicalPersons.ALICE;
@@ -75,7 +77,7 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicateDoctors_throwsDuplicateDoctorException() {
         // Two doctors with the same identity fields
-        Doctor editedAdam = new DoctorBuilder(ADAM).withName("Adam Bell").build();
+        Doctor editedAdam = new DoctorBuilder(ADAM).withName(VALID_NAME_ADAM).build();
         List<Doctor> newDoctors = Arrays.asList(ADAM, editedAdam);
         AddressBookStub newData = new AddressBookStub(new ArrayList<>(), newDoctors);
 
@@ -132,7 +134,7 @@ public class AddressBookTest {
     @Test
     public void hasDoctor_doctorWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addDoctor(ADAM);
-        Doctor editedAdam = new DoctorBuilder(ADAM).withId(1).build();
+        Doctor editedAdam = new DoctorBuilder(ADAM).withId(VALID_ID_ADAM).build();
         assertTrue(addressBook.hasDoctor(editedAdam));
     }
 
