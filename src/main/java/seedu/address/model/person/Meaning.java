@@ -3,6 +3,9 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * represents a Word's meaning in addressbook
+ */
 public class Meaning {
 
     public static final String MESSAGE_MEANING_CONSTRAINTS = "Meaning of a word should not be left blank";
@@ -11,7 +14,7 @@ public class Meaning {
 
     public final String fullMeaning;
 
-    public Meaning(String meaning){
+    public Meaning(String meaning) {
         requireNonNull(meaning);
         checkArgument(isValidMeaning(meaning), MESSAGE_MEANING_CONSTRAINTS);
         fullMeaning = meaning;

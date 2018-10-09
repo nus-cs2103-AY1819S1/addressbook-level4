@@ -159,9 +159,13 @@ public class EditCommand extends Command {
             return Optional.ofNullable(name);
         }
 
-        public void setMeaning(Meaning meaning) { this.meaning = meaning; }
+        public void setMeaning(Meaning meaning) {
+            this.meaning = meaning;
+        }
 
-        public Optional<Meaning> getMeaning() { return Optional.ofNullable(meaning); }
+        public Optional<Meaning> getMeaning() {
+            return Optional.ofNullable(meaning);
+        }
 
         public void setPhone(Phone phone) {
             this.phone = phone;

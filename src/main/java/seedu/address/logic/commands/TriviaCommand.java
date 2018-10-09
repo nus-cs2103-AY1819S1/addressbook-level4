@@ -22,8 +22,8 @@ public class TriviaCommand extends Command {
         requireNonNull(model);
         model.setTrivia();
         Word triviaQ = model.getTrivia();
-        Meaning QMeaning = triviaQ.getMeaning();
+        Meaning qMeaning = triviaQ.getMeaning();
 
-        return new CommandResult(MESSAGE_SUCCESS + QMeaning.toString());
+        return new CommandResult(MESSAGE_SUCCESS + qMeaning.toString());
     }
 }

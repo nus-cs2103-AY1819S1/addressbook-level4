@@ -9,7 +9,7 @@ import seedu.address.model.person.Word;
 /**
  *  Answers the current trivia question
  */
-public class TriviaAnsCommand extends Command{
+public class TriviaAnsCommand extends Command {
     public static final String COMMAND_WORD = "answer";
 
     public static final String MESSAGE_SUCCESS = "Correct! Type trivia to answer another question!";
