@@ -115,7 +115,8 @@ public class BrowserPanel extends UiPart<Region> {
         notes = makeBranch("Notes", medicalRecords);
         List<Note> noteList = patientClicked.getMedicalRecord().getNotes();
         for (Note note: noteList) {
-            makeBranch(note.value, notes);
+            System.out.println(note);
+            makeBranch(note.getMessage().value, notes);
         }
 
         treeView.setRoot(root);

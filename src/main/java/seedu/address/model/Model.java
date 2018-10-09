@@ -14,7 +14,7 @@ public interface Model {
     Predicate<Patient> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Patient> PREDICATE_SHOW_ALL_MEDICINES = unused -> true;
+    Predicate<Medicine> PREDICATE_SHOW_ALL_MEDICINES = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);

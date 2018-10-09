@@ -52,7 +52,7 @@ public class UniqueMedicineList implements Iterable<Medicine> {
      * {@code target} must exist in the list.
      * The medicine identity of {@code editedMedicine} must not be the same as another existing medicine in the list.
      */
-    public void setPerson(Medicine target, Medicine editedMedicine) {
+    public void setMedicine(Medicine target, Medicine editedMedicine) {
         requireAllNonNull(target, editedMedicine);
 
         int index = internalList.indexOf(target);
@@ -78,7 +78,7 @@ public class UniqueMedicineList implements Iterable<Medicine> {
         }
     }
 
-    public void setPersons(UniqueMedicineList replacement) {
+    public void setMedicines(UniqueMedicineList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -87,13 +87,13 @@ public class UniqueMedicineList implements Iterable<Medicine> {
      * Replaces the contents of this list with {@code patients}.
      * {@code patients} must not contain duplicate patients.
      */
-    public void setPersons(List<Medicine> patients) {
-        requireAllNonNull(patients);
-        if (!personsAreUnique(patients)) {
+    public void setMedicines(List<Medicine> medicines) {
+        requireAllNonNull(medicines);
+        if (!medicinesAreUnique(medicines)) {
             throw new DuplicateMedicineException();
         }
 
-        internalList.setAll(patients);
+        internalList.setAll(medicines);
     }
 
     /**
@@ -123,10 +123,10 @@ public class UniqueMedicineList implements Iterable<Medicine> {
     /**
      * Returns true if {@code patients} contains only unique patients.
      */
-    private boolean personsAreUnique(List<Medicine> patients) {
-        for (int i = 0; i < patients.size() - 1; i++) {
-            for (int j = i + 1; j < patients.size(); j++) {
-                if (patients.get(i).isSameMedicine(patients.get(j))) {
+    private boolean medicinesAreUnique(List<Medicine> medicines) {
+        for (int i = 0; i < medicines.size() - 1; i++) {
+            for (int j = i + 1; j < medicines.size(); j++) {
+                if (medicines.get(i).isSameMedicine(medicines.get(j))) {
                     return false;
                 }
             }
