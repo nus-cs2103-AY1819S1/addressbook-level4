@@ -30,7 +30,7 @@ public class ExportUtilTest {
     public TemporaryFolder folder = new TemporaryFolder();
 
     // Load the CSV file containing expected content for the tests below.
-    final File expected = new File("./src/test/java/seedu/address/model/ExpectedExportUtilTest.csv");
+    private final File expected = new File("./src/test/java/seedu/address/model/ExpectedExportUtilTest.csv");
 
     @Test
     public void writeLine_identicalRow_returnsTrue() throws IOException {
