@@ -22,17 +22,17 @@ public class PricePerUnitTest {
 
     @Test
     public void isValidPricePerUnit() {
-        // null phone number
+        // null price per unit
         Assert.assertThrows(NullPointerException.class, () -> PricePerUnit.isValidPricePerUnit(null));
 
-        // invalid phone numbers
+        // invalid price per unit
         assertFalse(PricePerUnit.isValidPricePerUnit("")); // empty string
         assertFalse(PricePerUnit.isValidPricePerUnit(" ")); // spaces only
         assertFalse(PricePerUnit.isValidPricePerUnit("ppu")); // non-numeric
         assertFalse(PricePerUnit.isValidPricePerUnit("9011p041")); // alphabets within digits
         assertFalse(PricePerUnit.isValidPricePerUnit("9312 1534")); // spaces within digits
 
-        // valid phone numbers
+        // valid price per unit
         assertTrue(PricePerUnit.isValidPricePerUnit("911"));
         assertTrue(PricePerUnit.isValidPricePerUnit("124293842033123")); // long price per unit
     }
