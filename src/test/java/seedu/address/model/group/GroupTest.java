@@ -8,7 +8,9 @@ import static seedu.address.testutil.TypicalMeetings.URGENT;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.Test;
+
 import seedu.address.testutil.GroupBuilder;
+
 
 public class GroupTest {
 
