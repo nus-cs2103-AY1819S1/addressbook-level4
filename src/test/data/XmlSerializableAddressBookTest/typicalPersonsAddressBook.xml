@@ -7,7 +7,7 @@
         <phone>94351253</phone>
         <email>alice@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
-        <tagged>friends</tagged>
+        <tagged>aspirin</tagged>
     </persons>
     <persons>
     	<nric>S2345678B</nric>
@@ -15,8 +15,8 @@
         <phone>98765432</phone>
         <email>johnd@example.com</email>
         <address>311, Clementi Ave 2, #02-25</address>
-        <tagged>owesMoney</tagged>
-        <tagged>friends</tagged>
+        <tagged>insulin</tagged>
+        <tagged>aspirin</tagged>
     </persons>
     <persons>
     	<nric>S3456789C</nric>
@@ -31,7 +31,7 @@
         <phone>87652533</phone>
         <email>cornelia@example.com</email>
         <address>10th street</address>
-        <tagged>friends</tagged>
+        <tagged>aspirin</tagged>
     </persons>
     <persons>
     	<nric>S5678901E</nric>
