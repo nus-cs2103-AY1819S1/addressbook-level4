@@ -7,6 +7,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
@@ -28,6 +29,9 @@ public class ArticleDetailsPanel extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
+    @FXML
+    private TextArea description;
+
     public ArticleDetailsPanel() {
         super(FXML);
         registerAsAnEventHandler(this);
@@ -43,6 +47,7 @@ public class ArticleDetailsPanel extends UiPart<Region> {
             articleDetails.setText(article.getName().fullName);
             tags.getChildren().clear();
             article.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+            description.setText(article.getAddress().value);
         });
     }
 

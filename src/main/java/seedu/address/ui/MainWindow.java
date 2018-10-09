@@ -33,12 +33,7 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
 
-    // Independent Ui parts residing in this Ui container
-    private ArticleDetailsPanel articleDetailsPanel;
-    private FinderPanel finderPanel;
-    private OwnerPanel ownerPanel;
     private ArticleListPanel articleListPanel;
-    private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
 
@@ -72,7 +67,7 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
-        this.config = config;
+        Config config1 = config;
         this.prefs = prefs;
 
         // Configure the UI
@@ -127,13 +122,14 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        articleDetailsPanel = new ArticleDetailsPanel();
+        // Independent Ui parts residing in this Ui container
+        ArticleDetailsPanel articleDetailsPanel = new ArticleDetailsPanel();
         articleDetailsPanelPlaceholder.getChildren().add(articleDetailsPanel.getRoot());
 
-        finderPanel = new FinderPanel();
+        FinderPanel finderPanel = new FinderPanel();
         finderPanelPlaceholder.getChildren().add(finderPanel.getRoot());
 
-        ownerPanel = new OwnerPanel();
+        OwnerPanel ownerPanel = new OwnerPanel();
         ownerPanelPlaceholder.getChildren().add(ownerPanel.getRoot());
 
         articleListPanel = new ArticleListPanel(logic.getFilteredArticleList());
