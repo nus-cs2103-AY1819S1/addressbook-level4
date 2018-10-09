@@ -243,11 +243,17 @@ Format: +
 * Search result that aligns with keywords after “optional” are placed higher in order.
 ****
 
+// tag::mealplanner[]
 === Meal Planner Commands
 ****
 * DATE should be entered in the format *yyyy-mm-dd*
 * TIME can be specified with the following keywords: *breakfast*, *lunch*, *dinner*
 ****
+==== Display MealPlanner: `planner`
+
+Lists the dates which currently have allotted recipes at any meal slot, and shows the saved recipes at their respective meal slots.
+
+Format: `planner`
 
 ==== Delete recipe: `delete`
 
@@ -261,6 +267,7 @@ Clears all the meal slots of the meal planner.
 
 Format: `clearall`
 
+// end::mealplanner[]
 === Cook-Mode Commands
 ==== Next Instruction
 Proceed to next instruction. +
