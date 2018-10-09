@@ -36,14 +36,14 @@ public class ExportUtilTest {
     public void writeLine_identicalRow_returnsTrue() throws IOException {
         final File actual = folder.newFile("ActualExportUtilTest.csv");
         ExportUtil.writeLine(new FileWriter(actual), "a, b, c");
-        assertTrue(FileUtil.areIdenticalFiles(expected, actual));
+        assertTrue(FileUtil.areFilesIdentical(expected, actual));
     }
 
     @Test
     public void writeLine_emptyRow_returnsFalse() throws IOException {
         final File actual = folder.newFile("ActualExportUtilTest.csv");
         ExportUtil.writeLine(new FileWriter(actual), "");
-        assertFalse(FileUtil.areIdenticalFiles(expected, actual));
+        assertFalse(FileUtil.areFilesIdentical(expected, actual));
     }
 
     @Test
@@ -57,21 +57,21 @@ public class ExportUtilTest {
     public void writeLine_identicalLength_returnsFalse() throws IOException {
         final File actual = folder.newFile("ActualExportUtilTest.csv");
         ExportUtil.writeLine(new FileWriter(actual), "x, x, x");
-        assertFalse(FileUtil.areIdenticalFiles(expected, actual));
+        assertFalse(FileUtil.areFilesIdentical(expected, actual));
     }
 
     @Test
     public void writeLine_greaterLength_returnsFalse() throws IOException {
         final File actual = folder.newFile("ActualExportUtilTest.csv");
         ExportUtil.writeLine(new FileWriter(actual), "a, b, c, d, e, f, g, h");
-        assertFalse(FileUtil.areIdenticalFiles(expected, actual));
+        assertFalse(FileUtil.areFilesIdentical(expected, actual));
     }
 
     @Test
     public void writeLine_lessLength_returnsFalse() throws IOException {
         final File actual = folder.newFile("ActualExportUtilTest.csv");
         ExportUtil.writeLine(new FileWriter(actual), "a");
-        assertFalse(FileUtil.areIdenticalFiles(expected, actual));
+        assertFalse(FileUtil.areFilesIdentical(expected, actual));
     }
 
     @Test
@@ -79,7 +79,7 @@ public class ExportUtilTest {
         final File actual = folder.newFile("ActualExportUtilTest.csv");
         ArrayList<String> testRow = new ArrayList<String>(Arrays.asList("a, b, c"));
         ExportUtil.writeLines(new FileWriter(actual), testRow);
-        assertTrue(FileUtil.areIdenticalFiles(expected, actual));
+        assertTrue(FileUtil.areFilesIdentical(expected, actual));
     }
 
     @Test
@@ -87,7 +87,7 @@ public class ExportUtilTest {
         final File actual = folder.newFile("ActualExportUtilTest.csv");
         ArrayList<String> testRows = new ArrayList<String>(Arrays.asList("a, b, c", "d, e, f", "g, h, i", "j, k, l"));
         ExportUtil.writeLines(new FileWriter(actual), testRows);
-        assertFalse(FileUtil.areIdenticalFiles(expected, actual));
+        assertFalse(FileUtil.areFilesIdentical(expected, actual));
     }
 
     @Test
