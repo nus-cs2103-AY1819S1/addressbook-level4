@@ -12,22 +12,22 @@ import seedu.address.model.Model;
 import seedu.address.model.article.Article;
 
 /**
- * Deletes an article identified using it's displayed index from the address book.
+ * Resolves an article identified using it's displayed index from the address book.
  */
-public class DeleteCommand extends Command {
+public class ResolveCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = "resolve";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the article identified by the index number used in the displayed article list.\n"
+            + ": Resolves the person identified by the index number used in the displayed article list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_ARTICLE_SUCCESS = "Deleted Article: %1$s";
+    public static final String MESSAGE_RESOLVED_ARTICLE_SUCCESS = "Resolved Article: %1$s";
 
     private final Index targetIndex;
 
-    public DeleteCommand(Index targetIndex) {
+    public ResolveCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -43,13 +43,13 @@ public class DeleteCommand extends Command {
         Article articleToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteArticle(articleToDelete);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_DELETE_ARTICLE_SUCCESS, articleToDelete));
+        return new CommandResult(String.format(MESSAGE_RESOLVED_ARTICLE_SUCCESS, articleToDelete));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+                || (other instanceof ResolveCommand // instanceof handles nulls
+                && targetIndex.equals(((ResolveCommand) other).targetIndex)); // state check
     }
 }
