@@ -72,11 +72,7 @@ public class ExportUtil {
      * @return true if {@code line} is valid. false otherwise.
      */
     public static boolean isValidLine(String line) {
-        if (line == null) {
-            return false;
-        }
-
-        if (getNumberOfLines(line) != 1) {
+        if (line == null || getNumberOfLines(line) != 1) {
             return false;
         }
 
