@@ -225,23 +225,19 @@ public class AddressBookParserTest {
         assertTrue(parser.parseCommand("undo 3") instanceof UndoCommand);
     }
 
-    /**
     @Test
     public void parseCommand_importContactsCommand_throwsParseException() throws Exception {
-        thrown.expect(CommandException.class);
-        thrown.expectMessage(String.format(ImportContactsCommand.MESSAGE_TEST_EXCEPTION, ""));
-
         String csvFilePath = Paths
                 .get("src", "test", "data", "ImportContactsTest")
                 .resolve("ImportContacts.csv")
                 .toFile()
                 .getAbsolutePath();
 
-        String command = ImportContactsCommand.COMMAND_WORD + " file/" + csvFilePath;
+        ImportContactsCommand command = (ImportContactsCommand) parser.parseCommand(
+                ImportContactsCommand.COMMAND_WORD + " file/" + csvFilePath);
 
-        parser.parseCommand(command);
+        assertEquals(new ImportContactsCommand(csvFilePath), command);
     }
-     */
 
     @Test
     public void parseCommand_undoCommandWordAlias_returnsUndoCommand() throws Exception {

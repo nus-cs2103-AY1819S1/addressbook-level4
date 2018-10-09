@@ -19,21 +19,20 @@ public class ImportContactsCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
-    private Optional<String> readFile(String userPrefsFileInTestDataFolder) {
-        Path csvFilePath = addToTestDataPathIfNotNull(userPrefsFileInTestDataFolder);
+    private Optional<String> readFile(String contactsFileInTestDataFolder) {
+        Path csvFilePath = addToTestDataPathIfNotNull(contactsFileInTestDataFolder);
         return Optional.ofNullable(csvFilePath.toString());
     }
 
-    private Path addToTestDataPathIfNotNull(String userPrefsFileInTestDataFolder) {
-        return userPrefsFileInTestDataFolder != null
-                ? TEST_DATA_FOLDER.resolve(userPrefsFileInTestDataFolder)
+    private Path addToTestDataPathIfNotNull(String contactsFileInTestDataFolder) {
+        return contactsFileInTestDataFolder != null
+                ? TEST_DATA_FOLDER.resolve(contactsFileInTestDataFolder)
                 : null;
     }
 
     @Test
     public void execute_importContactsCommand() {
         assertCommandFailure(new ImportContactsCommand(readFile("importContacts.csv").get()),
-                model, commandHistory, ImportContactsCommand.MESSAGE_TEST_EXCEPTION);
+                model, commandHistory, ImportContactsCommand.MESSAGE_SUCCESS);
     }
-
 }
