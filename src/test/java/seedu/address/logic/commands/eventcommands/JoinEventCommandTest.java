@@ -3,7 +3,7 @@ package seedu.address.logic.commands.eventcommands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalEvents.getAddressBookWithParticipant;
 
 import org.junit.Test;
 
@@ -23,18 +23,18 @@ import seedu.address.testutil.TypicalPersons;
 public class JoinEventCommandTest {
     private static final Index INVALID_INDEX = Index.fromOneBased(100);
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getAddressBookWithParticipant(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getAddressBookWithParticipant(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void execute_acceptedJoinEvent() {
         JoinEventCommand command = new JoinEventCommand(TypicalIndexes.INDEX_FIRST);
-        Person user = TypicalPersons.ALICE;
+        Person user = TypicalPersons.BENSON;
         model.setCurrentUser(user);
         Event event = model.getEvent(TypicalIndexes.INDEX_FIRST);
         String expectedMessage = String.format(command.MESSAGE_SUCCESS, event);
-        expectedMessage += "\n" + "People attending: [Alice Pauline]";
+        expectedMessage += "\n" + "People attending: [Alice Pauline, Benson Meier]";
         expectedModel.commitAddressBook();
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -62,9 +62,8 @@ public class JoinEventCommandTest {
         JoinEventCommand command = new JoinEventCommand(TypicalIndexes.INDEX_FIRST);
         Person user = new PersonBuilder().build();
         model.setCurrentUser(user);
-        Event eventCopy = new EventBuilder(model.getEvent(TypicalIndexes.INDEX_FIRST)).build();
-        eventCopy.addPerson(user);
-        model.updateEvent(TypicalIndexes.INDEX_FIRST.getZeroBased(), eventCopy);
+        Event event = model.getEvent(TypicalIndexes.INDEX_FIRST);
+        model.updateEvent(TypicalIndexes.INDEX_FIRST.getZeroBased(), event);
         String expectedMessage = String.format(Messages.MESSAGE_ALREADY_JOINED);
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
