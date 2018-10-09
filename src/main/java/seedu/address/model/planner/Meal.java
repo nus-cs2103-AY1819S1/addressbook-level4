@@ -52,7 +52,7 @@ public enum Meal {
             return BREAKFAST;
         } else if (s.equalsIgnoreCase("lunch")) {
             return LUNCH;
-        } else if (s.equalsIgnoreCase("dinner")){
+        } else if (s.equalsIgnoreCase("dinner")) {
             return DINNER;
         } else {
             throw new IllegalArgumentException("Valid meal slots: breakfast, lunch, dinner");
