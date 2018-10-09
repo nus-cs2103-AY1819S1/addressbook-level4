@@ -25,7 +25,7 @@ public class ExportUtil {
             throw new IllegalArgumentException();
         }
 
-        writer.append(line);
+        writer.append(line + "\n");
         writer.flush();
         writer.close();
     }
@@ -53,11 +53,7 @@ public class ExportUtil {
                 throw new IllegalArgumentException();
             }
 
-            // add a newline character at the end of every line except the last.
-            if (i < numLines - 1) {
-                line = line + "\n";
-            }
-
+            line += "\n";
             writer.append(line);
         }
 
