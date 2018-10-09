@@ -1,8 +1,11 @@
 package seedu.address.testutil;
 
-import seedu.address.model.group.Date;
+import static seedu.address.logic.parser.ParserUtil.parseTimeStamp;
+
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.group.Description;
 import seedu.address.model.group.Meeting;
+import seedu.address.model.group.TimeStamp;
 import seedu.address.model.group.Title;
 import seedu.address.model.person.Address;
 
@@ -12,18 +15,18 @@ import seedu.address.model.person.Address;
 public class MeetingBuilder {
 
     public static final String DEFAULT_TITLE = "Weekly meetup";
-    public static final String DEFAULT_DATE = "22-02-2017";
+    public static final String DEFAULT_TIMESTAMP = "22-01-2017@10:10";
     public static final String DEFAULT_LOCATION = "COM1-0202";
     public static final String DEFAULT_DESCRIPTION = "To discuss the individual progress";
 
     private Title title;
-    private Date date;
+    private TimeStamp time;
     private Address location;
     private Description description;
 
-    public MeetingBuilder() {
+    public MeetingBuilder() throws ParseException {
         title = new Title(DEFAULT_TITLE);
-        date = new Date(DEFAULT_DATE);
+        time = parseTimeStamp(DEFAULT_TIMESTAMP);
         location = new Address(DEFAULT_LOCATION);
         description = new Description(DEFAULT_DESCRIPTION);
     }
@@ -33,7 +36,7 @@ public class MeetingBuilder {
      */
     public MeetingBuilder(Meeting meetingToCopy) {
         title = meetingToCopy.getTitle();
-        date = meetingToCopy.getDate();
+        time = meetingToCopy.getTime();
         location = meetingToCopy.getLocation();
         description = meetingToCopy.getDescription();
     }
@@ -49,8 +52,8 @@ public class MeetingBuilder {
     /**
      * Sets the {@code Date} of the {@code Meeting} that we are building.
      */
-    public MeetingBuilder withDate(String date) {
-        this.date = new Date(date);
+    public MeetingBuilder withTime(String time) throws ParseException {
+        this.time = parseTimeStamp(time);
         return this;
     }
 
@@ -76,7 +79,7 @@ public class MeetingBuilder {
      * @return The new meeting
      */
     public Meeting build() {
-        Meeting meeting = new Meeting(title, date, location, description);
+        Meeting meeting = new Meeting(title, time, location, description);
         return meeting;
     }
 }

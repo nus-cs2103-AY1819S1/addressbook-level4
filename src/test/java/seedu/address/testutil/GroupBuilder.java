@@ -9,8 +9,6 @@ import seedu.address.model.group.Title;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
-
-
 /**
  * A utility class to help with building Group objects.
  */
