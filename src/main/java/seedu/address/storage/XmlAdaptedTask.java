@@ -11,10 +11,10 @@ import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.task.Address;
-import seedu.address.model.task.Email;
+import seedu.address.model.task.Venue;
+import seedu.address.model.task.Date;
+import seedu.address.model.task.Priority;
 import seedu.address.model.task.Name;
-import seedu.address.model.task.Phone;
 import seedu.address.model.task.Task;
 
 /**
@@ -27,11 +27,11 @@ public class XmlAdaptedTask {
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
-    private String phone;
+    private String date;
     @XmlElement(required = true)
-    private String email;
+    private String priority;
     @XmlElement(required = true)
-    private String address;
+    private String venue;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -45,11 +45,11 @@ public class XmlAdaptedTask {
     /**
      * Constructs an {@code XmlAdaptedTask} with the given task details.
      */
-    public XmlAdaptedTask(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedTask(String name, String date, String priority, String venue, List<XmlAdaptedTag> tagged) {
         this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
+        this.date = date;
+        this.priority = priority;
+        this.venue = venue;
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
@@ -62,9 +62,9 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(Task source) {
         name = source.getName().fullName;
-        phone = source.getPhone().value;
-        email = source.getEmail().value;
-        address = source.getAddress().value;
+        date = source.getDate().value;
+        priority = source.getPriority().value;
+        venue = source.getVenue().value;
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
@@ -89,32 +89,32 @@ public class XmlAdaptedTask {
         }
         final Name modelName = new Name(name);
 
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+        if (date == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
         }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_PHONE_CONSTRAINTS);
+        if (!Date.isValidPhone(date)) {
+            throw new IllegalValueException(Date.MESSAGE_PHONE_CONSTRAINTS);
         }
-        final Phone modelPhone = new Phone(phone);
+        final Date modelDate = new Date(date);
 
-        if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+        if (priority == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Priority.class.getSimpleName()));
         }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_EMAIL_CONSTRAINTS);
+        if (!Priority.isValidEmail(priority)) {
+            throw new IllegalValueException(Priority.MESSAGE_EMAIL_CONSTRAINTS);
         }
-        final Email modelEmail = new Email(email);
+        final Priority modelPriority = new Priority(priority);
 
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+        if (venue == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Venue.class.getSimpleName()));
         }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
+        if (!Venue.isValidAddress(venue)) {
+            throw new IllegalValueException(Venue.MESSAGE_ADDRESS_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
+        final Venue modelVenue = new Venue(venue);
 
         final Set<Tag> modelTags = new HashSet<>(taskTags);
-        return new Task(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Task(modelName, modelDate, modelPriority, modelVenue, modelTags);
     }
 
     @Override
@@ -129,9 +129,9 @@ public class XmlAdaptedTask {
 
         XmlAdaptedTask otherTask = (XmlAdaptedTask) other;
         return Objects.equals(name, otherTask.name)
-                && Objects.equals(phone, otherTask.phone)
-                && Objects.equals(email, otherTask.email)
-                && Objects.equals(address, otherTask.address)
+                && Objects.equals(date, otherTask.date)
+                && Objects.equals(priority, otherTask.priority)
+                && Objects.equals(venue, otherTask.venue)
                 && tagged.equals(otherTask.tagged);
     }
 }
