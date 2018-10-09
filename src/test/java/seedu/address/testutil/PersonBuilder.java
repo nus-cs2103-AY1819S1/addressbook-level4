@@ -9,6 +9,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Schedule;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -23,10 +24,12 @@ public class PersonBuilder {
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_INTERESTS = "study";
 
+
     private Name name;
     private Phone phone;
     private Email email;
     private Address address;
+    private Schedule schedule;
     private Set<Interest> interests;
     private Set<Tag> tags;
 
@@ -99,6 +102,15 @@ public class PersonBuilder {
         this.email = new Email(email);
         return this;
     }
+
+    /**
+     * Sets the {@code Schedule} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withSchedule(String schedule) {
+        this.schedule = new Schedule(schedule);
+        return this;
+    }
+
 
     /**
      * Builds a person.
