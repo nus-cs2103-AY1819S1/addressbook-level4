@@ -21,6 +21,7 @@ public class HelpCommand extends Command {
 
 
     public final boolean isSummarized;
+    public final String commandWord;
 
     /**
      * Creates a command that requests for help based on {@param args}
@@ -28,11 +29,17 @@ public class HelpCommand extends Command {
     public HelpCommand(String[] args) {
         if (args.length == 1 && args[0].isEmpty()) {
             isSummarized = true;
+            commandWord = "";
         } else if (args.length == 1 && args[0].equals(MORE_HELP_FLAG)) {
             isSummarized = false;
+            commandWord = args[0];
+        } else if (args.length == 1 && AllCommandWords.isCommandWord(args[0])) {
+            isSummarized = false;
+            commandWord = "";
         } else {
             //error
             isSummarized = false;
+            commandWord = "";
         }
     }
 
