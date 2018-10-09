@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Logger;
 
@@ -11,27 +13,27 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
+import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.XmlToHmtl;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.CcaPanelSelectionChangedEvent;
-import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.cca.Cca;
-import seedu.address.model.person.Person;
 
 /**
  * The Browser Panel of the App.
+ *
+ * @author ericyjw
  */
 public class BudgetBrowserPanel extends UiPart<Region> {
 
     public static final String BUDGET_PAGE = "./data/ccabook.html";
-//    public static final String SEARCH_PAGE_URL =
-//        "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
+    public static final String DEFAULT_PAGE = "default.html";
 
     private static final String FXML = "BudgetBrowserPanel.fxml";
 
-    public final Cca cca;
+//    public final Cca cca;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -55,10 +57,10 @@ public class BudgetBrowserPanel extends UiPart<Region> {
     @FXML
     private WebView browser;
 
-    public BudgetBrowserPanel(Cca cca) {
+    public BudgetBrowserPanel() {
         super(FXML);
-        this.cca = cca;
-//        ccaName.setText(cca.getCcaName());
+
+        //        ccaName.setText(cca.getCcaName());
 //        head.setText(cca.getHead());
 //        viceHead.setText(cca.getViceHead());
 //        budget.setText(String.valueOf(cca.getGivenBudget()));
@@ -66,21 +68,25 @@ public class BudgetBrowserPanel extends UiPart<Region> {
 //        transaction.setText(cca.getTransactionLog());
 
         // To prevent triggering events for typing inside the loaded Web page.
-
         getRoot().setOnKeyPressed(Event::consume);
 
         loadDefaultPage();
         registerAsAnEventHandler(this);
     }
 
-    //private void loadPersonPage(Person person) {
-//        loadPage(SEARCH_PAGE_URL + person.getName().fullName);
-//    }
-
     private void loadCcaBudgetPage(Cca cca) {
         String chosen = cca.getCcaName();
         XmlToHmtl.convertCcaBook(chosen);
-        loadPage(BUDGET_PAGE);
+        File budgetFile = new File("./data/ccabook.html");
+        try {
+            URL url = budgetFile.toURI().toURL();
+            loadPage(url.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            loadPage("https://www.google.com");
+        }
+        //loadPage(BUDGET_PAGE);
+
     }
 
     public void loadPage(String url) {
@@ -91,7 +97,7 @@ public class BudgetBrowserPanel extends UiPart<Region> {
      * Loads a default HTML file with a background that matches the general theme.
      */
     private void loadDefaultPage() {
-        URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + BUDGET_PAGE);
+        URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
         loadPage(defaultPage.toExternalForm());
     }
 
@@ -103,7 +109,7 @@ public class BudgetBrowserPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(CcaPanelSelectionChangedEvent event) {
+    private void handleCcaPanelSelectionChangedEvent(CcaPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadCcaBudgetPage(event.getNewSelection());
     }

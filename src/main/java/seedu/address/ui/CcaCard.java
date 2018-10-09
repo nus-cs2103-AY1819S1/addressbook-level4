@@ -8,7 +8,9 @@ import javafx.scene.layout.Region;
 import seedu.address.model.cca.Cca;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Cca}.
+ *
+ * @author ericyjw
  */
 public class CcaCard extends UiPart<Region> {
 

@@ -19,6 +19,13 @@ public abstract class UiPart<T> {
     /** Resource folder where FXML files are stored. */
     public static final String FXML_FILE_FOLDER = "/view/";
 
+    /**
+     * Resource folder where CCA Budget html files are stored.
+     *
+     * @author ericyjw
+     */
+    public static final String CCA_BUDGET_HTML_FOLDER = "./data";
+
     private final FXMLLoader fxmlLoader = new FXMLLoader();
 
     /**

@@ -2,23 +2,19 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextInputControl;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
 /**
- * The Main Window. Provides the basic application layout containing
- * a menu bar and space where other JavaFX elements can be placed.
+ * The Budget Window. Displays the CCAs available and the budget information of each CCA
+ *
+ * @author ericyjw
  */
 public class BudgetWindow extends UiPart<Stage> {
 
@@ -29,15 +25,15 @@ public class BudgetWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
+    private BudgetBrowserPanel budgetBrowserPanel;
     private CcaListPanel ccaListPanel;
     private UserPrefs prefs;
 
     @FXML
     private StackPane browserPlaceholder;
 
-    @FXML
-    private StackPane commandBoxPlaceholder;
+//    @FXML
+//    private StackPane commandBoxPlaceholder;
 
     @FXML
     private MenuItem budgetMenuItem;
@@ -45,11 +41,11 @@ public class BudgetWindow extends UiPart<Stage> {
     @FXML
     private StackPane ccaListPanelPlaceholder;
 
-    @FXML
-    private StackPane resultDisplayPlaceholder;
+//    @FXML
+//    private StackPane resultDisplayPlaceholder;
 
-    @FXML
-    private StackPane statusbarPlaceholder;
+//    @FXML
+//    private StackPane statusbarPlaceholder;
 
     public BudgetWindow(Stage root) {
         super(FXML, root);
@@ -66,20 +62,20 @@ public class BudgetWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        budgetBrowserPanel = new BudgetBrowserPanel();
+        browserPlaceholder.getChildren().add(budgetBrowserPanel.getRoot());
 
         ccaListPanel = new CcaListPanel(logic.getFilteredCcaList());
         ccaListPanelPlaceholder.getChildren().add(ccaListPanel.getRoot());
 
-        ResultDisplay resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+//        ResultDisplay resultDisplay = new ResultDisplay();
+//        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getBudgetBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+//        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getBudgetBookFilePath());
+//        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(logic);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+//        CommandBox commandBox = new CommandBox(logic);
+//        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
     /**
@@ -95,7 +91,7 @@ public class BudgetWindow extends UiPart<Stage> {
     }
 
     void releaseResources() {
-        browserPanel.freeResources();
+        budgetBrowserPanel.freeResources();
     }
 
     /**

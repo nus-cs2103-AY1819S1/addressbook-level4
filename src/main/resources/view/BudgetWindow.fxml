@@ -3,9 +3,7 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
-<?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
@@ -26,18 +24,18 @@
             <VBox>
                 <MenuBar fx:id="menuBar" VBox.vgrow="NEVER"/>
 
-                <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
-                    <padding>
-                        <Insets top="5" right="10" bottom="5" left="10"/>
-                    </padding>
-                </StackPane>
+                <!--<StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">-->
+                <!--<padding>-->
+                <!--<Insets top="5" right="10" bottom="5" left="10"/>-->
+                <!--</padding>-->
+                <!--</StackPane>-->
 
-                <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                           minHeight="100" prefHeight="100" maxHeight="100">
-                    <padding>
-                        <Insets top="5" right="10" bottom="5" left="10"/>
-                    </padding>
-                </StackPane>
+                <!--<StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"-->
+                <!--minHeight="100" prefHeight="100" maxHeight="100">-->
+                <!--<padding>-->
+                <!--<Insets top="5" right="10" bottom="5" left="10"/>-->
+                <!--</padding>-->
+                <!--</StackPane>-->
 
                 <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
                     <VBox fx:id="ccaList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
@@ -54,7 +52,7 @@
                     </StackPane>
                 </SplitPane>
 
-                <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER"/>
+                <!--<StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER"/>-->
             </VBox>
         </Scene>
     </scene>
