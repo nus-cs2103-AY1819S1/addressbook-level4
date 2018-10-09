@@ -10,10 +10,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
-import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.XmlToHmtl;
@@ -33,39 +30,13 @@ public class BudgetBrowserPanel extends UiPart<Region> {
 
     private static final String FXML = "BudgetBrowserPanel.fxml";
 
-//    public final Cca cca;
-
     private final Logger logger = LogsCenter.getLogger(getClass());
-
-    @FXML
-    private Label id;
-    @FXML
-    private Label ccaName;
-    @FXML
-    private Label head;
-    @FXML
-    private Label viceHead;
-    @FXML
-    private Label budget;
-    @FXML
-    private Label outstanding;
-    @FXML
-    private Label transaction;
-    @FXML
-    private FlowPane tags;
 
     @FXML
     private WebView browser;
 
     public BudgetBrowserPanel() {
         super(FXML);
-
-        //        ccaName.setText(cca.getCcaName());
-//        head.setText(cca.getHead());
-//        viceHead.setText(cca.getViceHead());
-//        budget.setText(String.valueOf(cca.getGivenBudget()));
-//        outstanding.setText(String.valueOf(cca.getOutstanding()));
-//        transaction.setText(cca.getTransactionLog());
 
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
@@ -74,18 +45,21 @@ public class BudgetBrowserPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
+    /**
+     * Load the budget page of a chosen CCA
+     *
+     * @param cca chosen CCA
+     */
     private void loadCcaBudgetPage(Cca cca) {
         String chosen = cca.getCcaName();
         XmlToHmtl.convertCcaBook(chosen);
-        File budgetFile = new File("./data/ccabook.html");
+        File budgetFile = new File(BUDGET_PAGE);
         try {
             URL url = budgetFile.toURI().toURL();
             loadPage(url.toString());
         } catch (MalformedURLException e) {
             e.printStackTrace();
-            loadPage("https://www.google.com");
         }
-        //loadPage(BUDGET_PAGE);
 
     }
 

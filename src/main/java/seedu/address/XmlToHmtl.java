@@ -20,6 +20,8 @@ import org.xml.sax.SAXException;
 
 /**
  * To convert XML files to HTML
+ *
+ * @author ericyjw
  */
 public class XmlToHmtl {
 
@@ -39,12 +41,10 @@ public class XmlToHmtl {
 
             File xmlFile = new File(ccaBook);
             File xslFile = new File(ccaBookXsl);
-            Transformer transformer =
-                tFactory.newTransformer
+            Transformer transformer = tFactory.newTransformer
                     (new javax.xml.transform.stream.StreamSource(xslFile));
 
-            transformer.transform
-                (new javax.xml.transform.stream.StreamSource(xmlFile),
+            transformer.transform(new javax.xml.transform.stream.StreamSource(xmlFile),
                     new javax.xml.transform.stream.StreamResult(new FileOutputStream(outputHtml)));
             System.out.println("HTML produced!");
         } catch (Exception e) {
