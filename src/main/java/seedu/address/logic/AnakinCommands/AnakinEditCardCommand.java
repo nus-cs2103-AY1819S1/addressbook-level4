@@ -33,11 +33,9 @@ public class AnakinEditCardCommand extends AnakinCommand {
             + "by the index number used in the deck. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_DECK + "INDEX_OF_DECK] "
             + "[" + PREFIX_QUESTION + "QUESTION] "
             + "[" + PREFIX_ANSWER + "ANSWER]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_DECK + "1 "
             + PREFIX_QUESTION + "Why is Earth round?";
 
     public static final String MESSAGE_EDIT_CARD_SUCCESS = "Edited Card: %1$s";
