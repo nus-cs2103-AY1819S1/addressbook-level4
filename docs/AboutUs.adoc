@@ -11,34 +11,29 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Haoxuan
-image::haoxuan.jpg[width="150", align="left"]
+image::harryqu123.png[width="150", align="left"]
 {empty}[https://github.com/Harryqu123[github]]
 
-Role: Group Member
-
+In charge of: Deliverables and deadlines
 '''
 
 === Alexander Ehrs
-image::alexander.jpg[width="150", align="left"]
+image::alexehrs.png[width="150", align="left"]
 {empty}[http://github.com/alexehrs[github]]
 
-Role: Group Member +
-Responsibilities: TBD
-
+In charge of: Documentation
 '''
 
 === Russell Ong
-image::RussellOng95.jpg[width="150", align="left"]
+image::russellong95.png[width="150", align="left"]
 {empty}[https://github.com/RussellOng95[github]]
 
-Role: Group Member
-
+In charge of: Team Lead and Testing
 '''
 
 === Daniel Koh
-image::danielkoh.jpg[width="160", align="left"]
+image::danielkoh94.png[width="160", align="left"]
 {empty}[https://github.com/danielkoh94[github]]
 
-Role: Group Member
-
+In charge of: Coding Quality
 '''
