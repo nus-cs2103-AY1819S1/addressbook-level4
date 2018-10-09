@@ -173,6 +173,9 @@ public class MainWindow extends UiPart<Stage> {
         } else {
             showHelpWindow();
         }
+        if (!event.commandWord.isEmpty()) {
+            helpWindow.scrollTo(event.commandWord);
+        }
     }
 
     /**

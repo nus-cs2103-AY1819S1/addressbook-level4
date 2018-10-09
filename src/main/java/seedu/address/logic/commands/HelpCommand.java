@@ -45,7 +45,7 @@ public class HelpCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
-        EventsCenter.getInstance().post(new ShowHelpRequestEvent(isSummarized));
+        EventsCenter.getInstance().post(new ShowHelpRequestEvent(isSummarized, commandWord));
         if (isSummarized) {
             return new CommandResult(SHOWING_SHORT_HELP_MESSAGE);
         } else {

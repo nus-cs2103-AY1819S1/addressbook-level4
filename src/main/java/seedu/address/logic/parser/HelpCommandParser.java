@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import seedu.address.logic.commands.AllCommandWords;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -31,7 +32,8 @@ public class HelpCommandParser implements Parser<HelpCommand> {
      */
     private static boolean matchesExpectedFormat(String[] options) {
         return options.length == 1 && options[0].isEmpty()
-                || options.length == 1 && options[0].equals(HelpCommand.MORE_HELP_FLAG);
+                || options.length == 1 && options[0].equals(HelpCommand.MORE_HELP_FLAG)
+                || options.length == 1 && AllCommandWords.isCommandWord(options[0]);
     }
 
 }
