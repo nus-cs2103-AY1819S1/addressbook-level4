@@ -35,6 +35,10 @@ public interface AnakinModel {
 
     void deleteCard(AnakinCard card);
 
+    void goIntoDeck(AnakinDeck deck);
+
+    void getOutOfDeck();
+
     void updateCard(AnakinCard target, AnakinCard editedCard);
 
     ObservableList<AnakinDeck> getFilteredDeckList();

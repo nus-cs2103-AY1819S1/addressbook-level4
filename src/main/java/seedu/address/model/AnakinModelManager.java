@@ -112,6 +112,17 @@ public class AnakinModelManager extends AnakinComponentManager implements Anakin
         indicateAnakinChanged();
     }
 
+    @Override
+    public void goIntoDeck(AnakinDeck deck) {
+        requireAllNonNull(deck);
+        versionedAnakin.getIntoDeck(deck);
+    }
+
+    @Override
+    public void getOutOfDeck() {
+        versionedAnakin.getOutOfDeck();
+    }
+
     //=========== Filtered Deck List Accessors =============================================================
 
     /**
