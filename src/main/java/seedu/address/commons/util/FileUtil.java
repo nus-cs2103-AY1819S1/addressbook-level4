@@ -88,10 +88,10 @@ public class FileUtil {
      * @@author arsalanc-v2
      * @param file1
      * @param file2
-     * @return true if file1 and file2 are identical in content. false otherwise.
+     * @return true if {@code file1} and {@code file2} are identical in content. false otherwise.
      * @throws IOException
      */
-    public static boolean areIdenticalFiles(File file1, File file2) throws IOException {
+    public static boolean areFilesIdentical(File file1, File file2) throws IOException {
         FileInputStream inputStream1 = new FileInputStream(file1);
         FileInputStream inputStream2 = new FileInputStream(file2);
 
