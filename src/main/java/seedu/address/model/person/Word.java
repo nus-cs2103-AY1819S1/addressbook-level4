@@ -18,6 +18,7 @@ public class Word {
     // Identity fields
     private final Name name;
     private final Phone phone;
+    private final Email email;
     private final Meaning meaning;
 
     // Data fields
@@ -27,7 +28,7 @@ public class Word {
     /**
      * Every field must be present and not null.
      */
-    public Word(Name name, Meaning meaning, Phone phone, Address address, Set<Tag> tags) {
+    public Word(Name name, Meaning meaning, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, meaning, phone, email, address, tags);
         this.name = name;
         this.meaning = meaning;
