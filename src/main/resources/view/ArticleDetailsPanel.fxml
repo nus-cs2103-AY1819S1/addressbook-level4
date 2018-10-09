@@ -2,7 +2,27 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.ColumnConstraints?>
 
-<StackPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-  <Label fx:id="articleDetails" styleClass="cell_big_label"/>
+<StackPane fx:id="detailsPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <GridPane>
+    <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" />
+      <ColumnConstraints hgrow="SOMETIMES" />
+    </columnConstraints>
+    <rowConstraints>
+      <RowConstraints vgrow="SOMETIMES" />
+      <RowConstraints vgrow="SOMETIMES" />
+    </rowConstraints>
+    <Label text="Name:" styleClass="cell_big_label" />
+    <Label text="Tags:" styleClass="cell_big_label"
+           GridPane.rowIndex="1" />
+    <Label fx:id="articleDetails" styleClass="cell_small_label"
+           GridPane.columnIndex="1" />
+    <FlowPane fx:id="tags" alignment="CENTER_LEFT"
+              GridPane.rowIndex="1" GridPane.columnIndex="1" />
+  </GridPane>
 </StackPane>

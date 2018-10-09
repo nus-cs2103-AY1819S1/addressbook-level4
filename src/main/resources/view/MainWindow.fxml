@@ -10,6 +10,8 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Label?>
 <fx:root xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          type="javafx.stage.Stage" minWidth="800" minHeight="600" onCloseRequest="#handleExit">
   <icons>
@@ -45,12 +47,30 @@
           </VBox>
 
           <SplitPane orientation="VERTICAL">
-            <StackPane fx:id="articleDetailsPlaceholder" />
+            <AnchorPane>
+              <Label text="Details" alignment="CENTER" styleClass="cell_big_label"
+                     AnchorPane.topAnchor="5" AnchorPane.leftAnchor="5" AnchorPane.rightAnchor="5" />
+              <StackPane fx:id="articleDetailsPanelPlaceholder"
+                         AnchorPane.topAnchor="20" AnchorPane.leftAnchor="15"
+                         AnchorPane.rightAnchor="15" AnchorPane.bottomAnchor="15" />
+            </AnchorPane>
 
             <SplitPane>
-              <StackPane />
+              <AnchorPane>
+                <Label text="Finder" alignment="CENTER" styleClass="cell_big_label"
+                       AnchorPane.topAnchor="5" AnchorPane.leftAnchor="5" AnchorPane.rightAnchor="5" />
+                <StackPane fx:id="finderPanelPlaceholder"
+                           AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
+                           AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0" />
+              </AnchorPane>
 
-              <StackPane />
+              <AnchorPane>
+                <Label text="Owner" alignment="CENTER" styleClass="cell_big_label"
+                       AnchorPane.topAnchor="5" AnchorPane.leftAnchor="5" AnchorPane.rightAnchor="5" />
+                <StackPane fx:id="ownerPanelPlaceholder"
+                           AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
+                           AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0" />
+              </AnchorPane>
             </SplitPane>
           </SplitPane>
         </SplitPane>
