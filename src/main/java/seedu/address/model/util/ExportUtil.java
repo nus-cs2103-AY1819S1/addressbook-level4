@@ -69,7 +69,7 @@ public class ExportUtil {
     /**
      * Checks if a string is a valid line.
      * @param line A String.
-     * @return true if line is valid. false otherwise.
+     * @return true if {@code line} is valid. false otherwise.
      */
     public static boolean isValidLine(String line) {
         if (line == null) {
