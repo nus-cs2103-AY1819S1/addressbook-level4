@@ -10,6 +10,11 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.event.EventAddress;
+import seedu.address.model.event.EventDate;
+import seedu.address.model.event.EventDescription;
+import seedu.address.model.event.EventName;
+import seedu.address.model.event.EventTime;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -135,5 +140,80 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_FILE);
         }
         return trimmedFilePath;
+    }
+    
+    /**
+     * Parses a {@code String eventName} into a {@code EventName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code eventName} is invalid.
+     */
+    public static EventName parseEventName(String eventName) throws ParseException {
+        requireNonNull(eventName);
+        String trimmedName = eventName.trim();
+        if (!EventName.isValidName(trimmedName)) {
+            throw new ParseException(EventName.MESSAGE_NAME_CONSTRAINTS);
+        }
+        return new EventName(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String eventDescription} into a {@code EventDescription}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code eventDescription} is invalid.
+     */
+    public static EventDescription parseEventDescription(String eventDescription) throws ParseException {
+        requireNonNull(eventDescription);
+        String trimmedDescription = eventDescription.trim();
+        if (!EventDescription.isValidDescription(trimmedDescription)) {
+            throw new ParseException(EventDescription.MESSAGE_DESCRIPTION_CONSTRAINTS);
+        }
+        return new EventDescription(trimmedDescription);
+    }
+
+    /**
+     * Parses a {@code String eventDate} into a {@code EventDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code eventDate} is invalid.
+     */
+    public static EventDate parseEventDate(String eventDate) throws ParseException {
+        requireNonNull(eventDate);
+        String trimmedDate = eventDate.trim();
+        if (!EventDate.isValidDate(trimmedDate)) {
+            throw new ParseException(EventDate.MESSAGE_DATE_CONSTRAINTS);
+        }
+        return new EventDate(trimmedDate);
+    }
+
+    /**
+     * Parses a {@code String eventTime} into a {@code EventTime}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code eventTime} is invalid.
+     */
+    public static EventTime parseEventTime(String eventTime) throws ParseException {
+        requireNonNull(eventTime);
+        String trimmedTime = eventTime.trim();
+        if (!EventTime.isValidTime(trimmedTime)) {
+            throw new ParseException(EventTime.MESSAGE_TIME_CONSTRAINTS);
+        }
+        return new EventTime(trimmedTime);
+    }
+
+    /**
+     * Parses a {@code String eventAddress} into an {@code EventAddress}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code eventAddress} is invalid.
+     */
+    public static EventAddress parseEventAddress(String eventAddress) throws ParseException {
+        requireNonNull(eventAddress);
+        String trimmedAddress = eventAddress.trim();
+        if (!EventAddress.isValidAddress(trimmedAddress)) {
+            throw new ParseException(EventAddress.MESSAGE_ADDRESS_CONSTRAINTS);
+        }
+        return new EventAddress(trimmedAddress);
     }
 }
