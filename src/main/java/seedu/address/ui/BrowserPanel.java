@@ -78,7 +78,7 @@ public class BrowserPanel extends UiPart<Region> {
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
         logger.info(loggingPrefix + LogsCenter.getEventHandlingLogMessage(event));
         currentSelection = event.getNewSelection();
-        resetTableView(currentSelection);
+        refreshTableView(currentSelection);
     }
 
     /**
@@ -97,16 +97,21 @@ public class BrowserPanel extends UiPart<Region> {
         }
 
         currentSelection = getNewReferenceToPerson(currentSelection);
-        resetTableView(currentSelection);
+        refreshTableView(currentSelection);
     }
 
-    /** Resets the table view given a {@code Person}. */
-    private void resetTableView(Person person) {
-        resetTable(person.getPrescriptionList());
+    /**
+     * Refreshes the table view given a {@code Person}.
+     */
+    private void refreshTableView(Person person) {
+        refreshTableView(person.getPrescriptionList());
     }
 
-    /** Resets the table view given a {@code PrescriptionList}. */
-    public void resetTable(PrescriptionList prescriptionList) {
+    /**
+     * Refreshes the table view given a {@code PrescriptionList}.
+     * Overloaded method for convenience.
+     */
+    private void refreshTableView(PrescriptionList prescriptionList) {
         setDataSourceForTable(prescriptionList.getObservableCopyOfPrescriptionList());
         setDataSourcesForTableColumns();
     }
