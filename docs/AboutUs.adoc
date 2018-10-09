@@ -4,7 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-Sous chef is the work from a committed team of software developers.
+Sous chef is a project from a committed team of software developers.
 Our team ,
 https://CS2103-AY1819S1-W10-4.github.io/docs/Team.html[W10-4], has created this application
 with the difficulty of young adults managing a healthy lifestyle in mind.
@@ -14,7 +14,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Bark HyeHyeon
-image::barkhyehyeon.jpg[width="150", align="left"]
+image::barkhyehyeon.png[width="150", align="left"]
 {empty}[http://github.com/barkhyehyeon[github]]
 
 Role: Developer, Integration, Documentation +
@@ -23,7 +23,7 @@ Responsibilities: Ingredient Management
 '''
 
 === Benn Tay Guobin
-image::benntayguobin.jpg[width="150", align="left"]
+image::benntay.png[width="150", align="left"]
 {empty}[http://github.com/benntay[github]]
 
 Role: Developer, Testing, Code Quality +
@@ -32,17 +32,17 @@ Responsibilities: Meal Planner
 '''
 
 === Lim Shi Min
-image::LimShiMinJonathan.jpg[width="150", align="left"]
-{empty}[https://github.com/LimShiMinJonathan[github]]
+image::limshiminjonathan.png[width="150", align="left"]
+{empty}[https://github.com/limshiminjonathan[github]]
 
 Role: Developer, Documentation, Deliverables and deadlines +
-Responsibilities: Dev Ops + Threading
+Responsibilities: User Profiling
 
 '''
 
 === Ng Zhen Wei Alec
-image::AlecNgZW.jpg[width="150", align="left"]
-{empty}[http://github.com/AlecNgZW[github]]
+image::alecngzw.png[width="150", align="left"]
+{empty}[http://github.com/alecngzw[github]]
 
 Role: Developer, Integration, Code Quality +
 Responsibilities: Health Management
@@ -50,7 +50,7 @@ Responsibilities: Health Management
 '''
 
 === Yuen Jun Rong
-image::junrong09.jpg[width="150", align="left"]
+image::junrong09.png[width="150", align="left"]
 {empty}[http://github.com/junrong09[github]]
 
 Role: Team lead, Scheduling and tracking, Developer +

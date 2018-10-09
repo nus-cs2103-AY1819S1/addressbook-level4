@@ -1,24 +1,24 @@
 package systemtests;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_RECIPE_SUCCESS;
-import static seedu.address.testutil.TestUtil.getLastIndex;
-import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TestUtil.getRecipe;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
-import static seedu.address.testutil.TypicalRecipes.KEYWORD_MATCHING_MEIER;
+import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX;
+import static seedu.souschef.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.souschef.logic.commands.DeleteCommand.MESSAGE_DELETE_RECIPE_SUCCESS;
+import static seedu.souschef.testutil.TestUtil.getLastIndex;
+import static seedu.souschef.testutil.TestUtil.getMidIndex;
+import static seedu.souschef.testutil.TestUtil.getRecipe;
+import static seedu.souschef.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
+import static seedu.souschef.testutil.TypicalRecipes.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.recipe.Recipe;
+import seedu.souschef.commons.core.Messages;
+import seedu.souschef.commons.core.index.Index;
+import seedu.souschef.logic.commands.DeleteCommand;
+import seedu.souschef.logic.commands.RedoCommand;
+import seedu.souschef.logic.commands.UndoCommand;
+import seedu.souschef.model.Model;
+import seedu.souschef.model.recipe.Recipe;
 
 public class DeleteCommandSystemTest extends AddressBookSystemTest {
 

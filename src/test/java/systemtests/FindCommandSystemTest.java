@@ -1,25 +1,25 @@
 package systemtests;
 
 import static org.junit.Assert.assertFalse;
-import static seedu.address.commons.core.Messages.MESSAGE_RECIPES_LISTED_OVERVIEW;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalRecipes.BENSON;
-import static seedu.address.testutil.TypicalRecipes.CARL;
-import static seedu.address.testutil.TypicalRecipes.DANIEL;
-import static seedu.address.testutil.TypicalRecipes.KEYWORD_MATCHING_MEIER;
+import static seedu.souschef.commons.core.Messages.MESSAGE_RECIPES_LISTED_OVERVIEW;
+import static seedu.souschef.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.souschef.testutil.TypicalRecipes.BENSON;
+import static seedu.souschef.testutil.TypicalRecipes.CARL;
+import static seedu.souschef.testutil.TypicalRecipes.DANIEL;
+import static seedu.souschef.testutil.TypicalRecipes.KEYWORD_MATCHING_MEIER;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.tag.Tag;
+import seedu.souschef.commons.core.index.Index;
+import seedu.souschef.logic.commands.DeleteCommand;
+import seedu.souschef.logic.commands.FindCommand;
+import seedu.souschef.logic.commands.RedoCommand;
+import seedu.souschef.logic.commands.UndoCommand;
+import seedu.souschef.model.Model;
+import seedu.souschef.model.tag.Tag;
 
 public class FindCommandSystemTest extends AddressBookSystemTest {
 
