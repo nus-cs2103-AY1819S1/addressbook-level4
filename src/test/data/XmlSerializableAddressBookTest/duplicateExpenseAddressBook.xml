@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+
+    <expenses>
+        <name>Alice Pauline</name>
+        <category>94351253</category>
+        <cost>1.00</cost>
+		<date>01-10-2018</date>
+        <tagged>friends</tagged>
+    </expenses>
+
+    <!-- Expense with same identity as Alice Pauline -->
+    <expenses>
+        <name>Alice Pauline</name>
+		    <date>01-10-2018</date>
+        <category>94351253</category>
+        <cost>1.00</cost>
+    </expenses>
+
+    <username>duplicateExpenseAddressBook</username>
+
+</addressbook>

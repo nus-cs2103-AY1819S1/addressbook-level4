@@ -1,57 +1,62 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addressbook>
-    <persons>
+    <expenses>
         <name>Hans Muster</name>
-        <phone isPrivate="false">9482424</phone>
-        <email isPrivate="false">hans@example.com</email>
-        <address isPrivate="false">4th street</address>
-    </persons>
-    <persons>
+        <category isPrivate="false">School</category>
+        <cost isPrivate="false">200.00</cost>
+		<date isPrivate="false">01-10-2018</date>
+    </expenses>
+    <expenses>
         <name>Ruth Mueller</name>
-        <phone isPrivate="false">87249245</phone>
-        <email isPrivate="false">ruth@example.com</email>
-        <address isPrivate="false">81th street</address>
-    </persons>
-    <persons>
+        <category isPrivate="false">Gamble</category>
+        <cost isPrivate="false">1000.00</cost>
+		<date isPrivate="false">01-10-2018</date>
+    </expenses>
+    <expenses>
         <name>Heinz Kurz</name>
-        <phone isPrivate="false">95352563</phone>
-        <email isPrivate="false">heinz@example.com</email>
-        <address isPrivate="false">wall street</address>
-    </persons>
-    <persons>
+        <category isPrivate="false">Entertainment</category>
+        <cost isPrivate="false">222.00</cost>
+		<date isPrivate="false">01-10-2018</date>
+    </expenses>
+    <expenses>
         <name>Cornelia Meier</name>
-        <phone isPrivate="false">87652533</phone>
-        <email isPrivate="false">cornelia@example.com</email>
-        <address isPrivate="false">10th street</address>
-    </persons>
-    <persons>
+        <category isPrivate="false">Shopping</category>
+        <cost isPrivate="false">123.00</cost>
+		<date isPrivate="false">01-10-2018</date>
+    </expenses>
+    <expenses>
         <name>Werner Meyer</name>
-        <phone isPrivate="false">9482224</phone>
-        <email isPrivate="false">werner@example.com</email>
-        <address isPrivate="false">michegan ave</address>
-    </persons>
-    <persons>
+        <category isPrivate="false">Book</category>
+        <cost isPrivate="false">12.00</cost>
+		<date isPrivate="false">01-10-2018</date>
+    </expenses>
+    <expenses>
         <name>Lydia Kunz</name>
-        <phone isPrivate="false">9482427</phone>
-        <email isPrivate="false">lydia@example.com</email>
-        <address isPrivate="false">little tokyo</address>
-    </persons>
-    <persons>
+        <category isPrivate="false">Cloth</category>
+        <cost isPrivate="false">1.00</cost>
+		<date isPrivate="false">01-10-2018</date>
+    </expenses>
+    <expenses>
         <name>Anna Best</name>
-        <phone isPrivate="false">9482442</phone>
-        <email isPrivate="false">anna@example.com</email>
-        <address isPrivate="false">4th street</address>
-    </persons>
-    <persons>
+        <category isPrivate="false">Food</category>
+        <cost isPrivate="false">3.00</cost>
+		<date isPrivate="false">01-10-2018</date>
+    </expenses>
+    <expenses>
         <name>Stefan Meier</name>
-        <phone isPrivate="false">8482424</phone>
-        <email isPrivate="false">stefan@example.com</email>
-        <address isPrivate="false">little india</address>
-    </persons>
-    <persons>
+        <category isPrivate="false">School</category>
+        <cost isPrivate="false">200.00</cost>
+		<date isPrivate="false">01-10-2018</date>
+    </expenses>
+    <expenses>
         <name>Martin Mueller</name>
-        <phone isPrivate="false">8482131</phone>
-        <email isPrivate="false">hans@example.com</email>
-        <address isPrivate="false">chicago ave</address>
-    </persons>
+        <category isPrivate="false">Travel</category>
+        <cost isPrivate="false">123.00</cost>
+		<date isPrivate="false">01-10-2018</date>
+    </expenses>
+    <username>validAddressBook</username>
+    <budget>
+        <budgetCap>28.00</budgetCap>
+        <currentExpenses>26.00</currentExpenses>
+    </budget>
 </addressbook>

@@ -1,7 +1,7 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalExpenses.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
@@ -10,12 +10,15 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
+import seedu.address.model.exceptions.NoUserSelectedException;
+import seedu.address.model.exceptions.NonExistentUserException;
+import seedu.address.model.exceptions.UserAlreadyExistsException;
+import seedu.address.testutil.ModelUtil;
 
 public class ClearCommandSystemTest extends AddressBookSystemTest {
 
     @Test
-    public void clear() {
+    public void clear() throws NoUserSelectedException, UserAlreadyExistsException, NonExistentUserException {
         final Model defaultModel = getModel();
 
         /* Case: clear non-empty address book, command with leading spaces and trailing alphanumeric characters and
@@ -33,18 +36,18 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
         /* Case: redo clearing address book -> cleared */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, expectedResultMessage, new ModelManager());
+        assertCommandSuccess(command, expectedResultMessage, ModelUtil.modelWithTestUser());
         assertSelectedCardUnchanged();
 
-        /* Case: selects first card in person list and clears address book -> cleared and no card selected */
+        /* Case: selects first card in expense list and clears address book -> cleared and no card selected */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
-        selectPerson(Index.fromOneBased(1));
+        selectExpense(Index.fromOneBased(1));
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardDeselected();
 
-        /* Case: filters the person list before clearing -> entire address book cleared */
+        /* Case: filters the expense list before clearing -> entire address book cleared */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showExpensesWithName(KEYWORD_MATCHING_MEIER);
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 
@@ -64,8 +67,9 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
      * Also verifies that the command box has the default style class and the status bar's sync status changes.
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandSuccess(String command) {
-        assertCommandSuccess(command, ClearCommand.MESSAGE_SUCCESS, new ModelManager());
+    private void assertCommandSuccess(String command) throws UserAlreadyExistsException, NonExistentUserException,
+            NoUserSelectedException {
+        assertCommandSuccess(command, ClearCommand.MESSAGE_SUCCESS, ModelUtil.modelWithTestUser());
     }
 
     /**
@@ -73,7 +77,8 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
      * {@code expectedResultMessage} and the model related components equal to {@code expectedModel}.
      * @see ClearCommandSystemTest#assertCommandSuccess(String)
      */
-    private void assertCommandSuccess(String command, String expectedResultMessage, Model expectedModel) {
+    private void assertCommandSuccess(String command, String expectedResultMessage, Model expectedModel) throws
+            NoUserSelectedException {
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
@@ -89,7 +94,7 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
      * error style.
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandFailure(String command, String expectedResultMessage) {
+    private void assertCommandFailure(String command, String expectedResultMessage) throws NoUserSelectedException {
         Model expectedModel = getModel();
 
         executeCommand(command);

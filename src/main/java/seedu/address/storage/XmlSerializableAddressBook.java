@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.expense.Expense;
 
 /**
  * An Immutable AddressBook that is serializable to XML format
@@ -18,17 +18,21 @@ import seedu.address.model.person.Person;
 @XmlRootElement(name = "addressbook")
 public class XmlSerializableAddressBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_EXPENSE = "Expenses list contains duplicate expense(s).";
 
     @XmlElement
-    private List<XmlAdaptedPerson> persons;
+    private List<XmlAdaptedExpense> expenses;
+    @XmlElement
+    private XmlAdaptedUsername username;
+    @XmlElement
+    private XmlAdaptedBudget budget;
 
     /**
      * Creates an empty XmlSerializableAddressBook.
      * This empty constructor is required for marshalling.
      */
     public XmlSerializableAddressBook() {
-        persons = new ArrayList<>();
+        expenses = new ArrayList<>();
     }
 
     /**
@@ -36,23 +40,28 @@ public class XmlSerializableAddressBook {
      */
     public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
         this();
-        persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+        this.username = new XmlAdaptedUsername(src.getUsername());
+        expenses.addAll(src.getExpenseList().stream().map(XmlAdaptedExpense::new).collect(Collectors.toList()));
+        this.budget = new XmlAdaptedBudget(src.getMaximumBudget());
     }
 
     /**
      * Converts this addressbook into the model's {@code AddressBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
-     * {@code XmlAdaptedPerson}.
+     * {@code XmlAdaptedExpense}.
      */
     public AddressBook toModelType() throws IllegalValueException {
-        AddressBook addressBook = new AddressBook();
-        for (XmlAdaptedPerson p : persons) {
-            Person person = p.toModelType();
-            if (addressBook.hasPerson(person)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+        AddressBook addressBook = new AddressBook(username.toModelType());
+        for (XmlAdaptedExpense p : expenses) {
+            Expense expense = p.toModelType();
+            if (addressBook.hasExpense(expense)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_EXPENSE);
             }
-            addressBook.addPerson(person);
+            addressBook.addExpense(expense);
+        }
+        if (this.budget != null) {
+            addressBook.modifyMaximumBudget(this.budget.toModelType());
         }
         return addressBook;
     }
@@ -66,6 +75,6 @@ public class XmlSerializableAddressBook {
         if (!(other instanceof XmlSerializableAddressBook)) {
             return false;
         }
-        return persons.equals(((XmlSerializableAddressBook) other).persons);
+        return expenses.equals(((XmlSerializableAddressBook) other).expenses);
     }
 }

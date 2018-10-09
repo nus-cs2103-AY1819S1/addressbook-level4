@@ -6,44 +6,45 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.expense.Category;
+import seedu.address.model.expense.Cost;
+import seedu.address.model.expense.Date;
+import seedu.address.model.expense.Expense;
+import seedu.address.model.expense.Name;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.user.Username;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
-    public static Person[] getSamplePersons() {
-        return new Person[] {
-            new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                new Address("Blk 30 Geylang Street 29, #06-40"),
+    public static Expense[] getSampleExpenses() {
+        return new Expense[] {
+            new Expense(new Name("Alex Yeoh"), new Category("School"),
+                new Cost("1.00"),
                 getTagSet("friends")),
-            new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
-                new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
+            new Expense(new Name("Bernice Yu"), new Category("Food"),
+                new Cost("2.00"),
                 getTagSet("colleagues", "friends")),
-            new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
+            new Expense(new Name("Charlotte Oliveiro"), new Category("Entertainment"),
+                new Cost("3.50"), new Date("01-10-2018"),
                 getTagSet("neighbours")),
-            new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
-                new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
+            new Expense(new Name("David Li"), new Category("Shopping"),
+                new Cost("4.00"), new Date("01-10-2018"),
                 getTagSet("family")),
-            new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
-                new Address("Blk 47 Tampines Street 20, #17-35"),
+            new Expense(new Name("Irfan Ibrahim"), new Category("Tax"),
+                new Cost("9.00"), new Date("01-09-2018"),
                 getTagSet("classmates")),
-            new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                new Address("Blk 45 Aljunied Street 85, #11-31"),
+            new Expense(new Name("Roy Balakrishnan"), new Category("Book"),
+                new Cost("10.00"), new Date("01-09-2018"),
                 getTagSet("colleagues"))
         };
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
-        for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
+        AddressBook sampleAb = new AddressBook(new Username("sample"));
+        for (Expense sampleExpense : getSampleExpenses()) {
+            sampleAb.addExpense(sampleExpense);
         }
         return sampleAb;
     }

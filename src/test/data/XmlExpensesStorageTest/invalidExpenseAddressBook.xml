@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+    <!-- Expense with invalid name field -->
+    <expenses>
+        <name>Ha!ns Mu@ster</name>
+        <category isPrivate="false">School</category>
+        <cost isPrivate="false">1.00</cost>
+    </expenses>
+    <username>invalidExpenseAddressBook</username>
+</addressbook>

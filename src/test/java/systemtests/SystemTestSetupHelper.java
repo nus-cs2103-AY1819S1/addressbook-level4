@@ -4,12 +4,15 @@ import java.nio.file.Path;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Supplier;
 
+import org.junit.Assert;
 import org.testfx.api.FxToolkit;
 
 import guitests.guihandles.MainWindowHandle;
 import javafx.stage.Stage;
 import seedu.address.TestApp;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.exceptions.NonExistentUserException;
+import seedu.address.testutil.TypicalExpenses;
 
 /**
  * Contains helper methods that system tests require.
@@ -48,6 +51,17 @@ public class SystemTestSetupHelper {
      * Encapsulates the primary stage of {@code TestApp} in a {@code MainWindowHandle} and returns it.
      */
     public MainWindowHandle setupMainWindowHandle() {
+        try {
+            FxToolkit.setupFixture(() -> {
+                try {
+                    testApp.getActualModel().loadUserData(TypicalExpenses.SAMPLE_USERNAME);
+                } catch (NonExistentUserException e) {
+                    Assert.fail(e.getMessage());
+                }
+            });
+        } catch (TimeoutException e) {
+            Assert.fail(e.getMessage());
+        }
         try {
             FxToolkit.setupStage((stage) -> {
                 mainWindowHandle = new MainWindowHandle(stage);

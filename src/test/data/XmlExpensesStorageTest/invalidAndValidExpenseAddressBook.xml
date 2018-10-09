@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+    <!-- Valid Expense -->
+    <expenses>
+        <name>Hans Muster</name>
+        <category isPrivate="false">School</category>
+        <cost isPrivate="false">1.00</cost>
+    </expenses>
+    <!-- Expense with invalid category field -->
+    <expenses>
+        <name>Hans Muster</name>
+        <category isPrivate="false"> </category>
+        <cost isPrivate="false">1.00</cost>
+    </expenses>
+    <username>invalidAndValidExpenseAddressBook</username>
+</addressbook>
