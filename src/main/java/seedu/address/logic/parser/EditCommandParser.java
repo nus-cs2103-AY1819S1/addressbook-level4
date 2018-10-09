@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INTEREST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -19,6 +20,7 @@ import seedu.address.commons.util.TimeTableUtil;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.interest.Interest;
 import seedu.address.model.person.TimeTable;
 import seedu.address.model.tag.Tag;
 
@@ -37,7 +39,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
-                PREFIX_ADDRESS, PREFIX_TAG, PREFIX_TIMETABLE);
+                PREFIX_ADDRESS, PREFIX_INTEREST, PREFIX_TAG, PREFIX_TIMETABLE);
 
         Index index;
 
@@ -73,6 +75,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         // This one is for schedule to schedule
         //editPersonDescriptor.setSchedule(ParserUtil.parseSchedule(argMultimap.getValue(PREFIX_TIMETABLE).get()));
 
+        parseInterestsForEdit(argMultimap.getAllValues(PREFIX_INTEREST)).ifPresent(editPersonDescriptor::setInterests);
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
@@ -80,6 +83,22 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         return new EditCommand(index, editPersonDescriptor);
+    }
+
+    /**
+     * Parses {@code Collection<String> interests} into a {@code Set<Interests>} if {@code interests} is non-empty.
+     * If {@code interests} contain only one element which is an empty string, it will be parsed into a
+     * {@code Set<Interests>} containing zero interests.
+     */
+    private Optional<Set<Interest>> parseInterestsForEdit(Collection<String> interests) throws ParseException {
+        assert interests != null;
+
+        if (interests.isEmpty()) {
+            return Optional.empty();
+        }
+        Collection<String> interestSet = interests.size() == 1
+                && interests.contains("") ? Collections.emptySet() : interests;
+        return Optional.of(ParserUtil.parseInterests(interestSet));
     }
 
     /**

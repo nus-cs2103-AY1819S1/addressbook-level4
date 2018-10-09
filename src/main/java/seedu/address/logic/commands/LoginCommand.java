@@ -56,6 +56,11 @@ public class LoginCommand extends Command {
     }
 
     @Override
+    public String toString() {
+        return toLogin.toString();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof LoginCommand // instanceof handles nulls
