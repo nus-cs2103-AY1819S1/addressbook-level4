@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.person.Patient;
 
 /**
@@ -19,9 +20,13 @@ import seedu.address.model.person.Patient;
 public class XmlSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate patient(s).";
+    public static final String MESSAGE_DUPLICATE_MEDICINE = "Medicines list contains duplicate medicine(s).";
 
     @XmlElement
     private List<XmlAdaptedPerson> patients;
+
+    @XmlElement
+    private List<XmlAdaptedMedicine> medicines;
 
     /**
      * Creates an empty XmlSerializableAddressBook.
@@ -29,6 +34,7 @@ public class XmlSerializableAddressBook {
      */
     public XmlSerializableAddressBook() {
         patients = new ArrayList<>();
+        medicines = new ArrayList<>();
     }
 
     /**
@@ -37,6 +43,7 @@ public class XmlSerializableAddressBook {
     public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
         this();
         patients.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+        medicines.addAll(src.getMedicineList().stream().map(XmlAdaptedMedicine::new).collect(Collectors.toList()));
     }
 
     public List<XmlAdaptedPerson> getPatients() {
@@ -57,6 +64,13 @@ public class XmlSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
             addressBook.addPerson(patient);
+        }
+        for (XmlAdaptedMedicine m : medicines) {
+            Medicine medicine = m.toModelType();
+            if (addressBook.hasMedicine(medicine)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_MEDICINE);
+            }
+            addressBook.addMedicine(medicine);
         }
         return addressBook;
     }
