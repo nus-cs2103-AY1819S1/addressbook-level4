@@ -9,10 +9,10 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.article.Article;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Resolves an article identified using it's displayed index from the address book.
  */
 public class ResolveCommand extends Command {
 
@@ -23,7 +23,7 @@ public class ResolveCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_RESOLVED_PERSON_SUCCESS = "Resolved Article: %1$s";
+    public static final String MESSAGE_RESOLVED_ARTICLE_SUCCESS = "Resolved Article: %1$s";
 
     private final Index targetIndex;
 
@@ -34,16 +34,16 @@ public class ResolveCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Article> lastShownList = model.getFilteredArticleList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_ARTICLE_DISPLAYED_INDEX);
         }
 
-        Person personToResolve = lastShownList.get(targetIndex.getZeroBased());
-        model.deletePerson(personToResolve);
+        Article articleToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.deleteArticle(articleToDelete);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_RESOLVED_PERSON_SUCCESS, personToResolve));
+        return new CommandResult(String.format(MESSAGE_RESOLVED_ARTICLE_SUCCESS, articleToDelete));
     }
 
     @Override

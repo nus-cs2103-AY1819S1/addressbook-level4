@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.article.Article;
 
 /**
- * Deletes a article identified using it's displayed index from the address book.
+ * Deletes an article identified using it's displayed index from the address book.
  */
 public class DeleteCommand extends Command {
 
