@@ -11,10 +11,10 @@ import java.util.stream.Collectors;
 import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.task.Venue;
-import seedu.address.model.task.Priority;
-import seedu.address.model.task.Name;
 import seedu.address.model.task.Date;
+import seedu.address.model.task.Name;
+import seedu.address.model.task.Priority;
+import seedu.address.model.task.Venue;
 import seedu.address.testutil.Assert;
 
 public class XmlAdaptedTaskTest {

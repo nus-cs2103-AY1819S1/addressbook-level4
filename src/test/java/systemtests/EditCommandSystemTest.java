@@ -40,11 +40,11 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.task.Venue;
-import seedu.address.model.task.Priority;
-import seedu.address.model.task.Name;
 import seedu.address.model.task.Date;
+import seedu.address.model.task.Name;
+import seedu.address.model.task.Priority;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.Venue;
 import seedu.address.testutil.PersonUtil;
 import seedu.address.testutil.TaskBuilder;
 
