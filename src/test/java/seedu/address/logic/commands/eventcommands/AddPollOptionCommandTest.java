@@ -14,7 +14,9 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.event.Event;
+import seedu.address.model.person.Person;
 import seedu.address.testutil.EventBuilder;
+import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TypicalIndexes;
 
 public class AddPollOptionCommandTest {
@@ -30,6 +32,8 @@ public class AddPollOptionCommandTest {
         AddPollOptionCommand command = new AddPollOptionCommand(index, OPTION_NAME);
         Event event = model.getFilteredEventList().get(0);
         event.addPoll("Generic poll");
+        Person user = new PersonBuilder().build();
+        model.setCurrentUser(user);
         model.setSelectedEvent(event);
         String expectedMessage = String.format(command.MESSAGE_SUCCESS, OPTION_NAME, index.getOneBased());
         expectedModel.updateEvent(event, event);
@@ -46,9 +50,11 @@ public class AddPollOptionCommandTest {
 
     @Test
     public void execute_noPollAddPollOption() {
-        VoteCommand command = new VoteCommand(TypicalIndexes.INDEX_FIRST, OPTION_NAME);
+        AddPollOptionCommand command = new AddPollOptionCommand(TypicalIndexes.INDEX_FIRST, OPTION_NAME);
         EventBuilder eventBuilder = new EventBuilder();
         Event event = eventBuilder.build();
+        Person user = new PersonBuilder().build();
+        model.setCurrentUser(user);
         model.setSelectedEvent(event);
         String expectedMessage = String.format(Messages.MESSAGE_NO_POLL_AT_INDEX);
         assertCommandFailure(command, model, commandHistory, expectedMessage);

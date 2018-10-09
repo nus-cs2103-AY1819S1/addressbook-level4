@@ -2,6 +2,8 @@
 package seedu.address.logic.commands.eventcommands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME_END;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME_START;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -24,8 +26,11 @@ public class SetTimeCommand extends Command {
 
     public static final String COMMAND_WORD = "setTime";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Confirms the time for the pre-selected event.";
-    public static final String MESSAGE_SUCCESS = "Time from %1$s to $2$s set for %3$s";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Confirms the time for the pre-selected event."
+            + "Parameters (use 24-hr format): "
+            + PREFIX_TIME_START + "HH:mm "
+            + PREFIX_TIME_END + "HH:mm";
+    public static final String MESSAGE_SUCCESS = "Time from %1$s to %2$s set for %3$s";
 
     private final LocalTime startTime;
     private final LocalTime endTime;
@@ -59,8 +64,11 @@ public class SetTimeCommand extends Command {
             throw new CommandException(Messages.MESSAGE_NO_EVENT_SELECTED);
         }
 
-        event.setStartTime(startTime);
-        event.setEndTime(endTime);
+        try {
+            event.setTime(startTime, endTime);
+        } catch (IllegalArgumentException e) {
+            throw new CommandException(Messages.MESSAGE_END_BEFORE_START_TIME);
+        }
 
         model.updateEvent(event, event);
         model.commitAddressBook();

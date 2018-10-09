@@ -58,6 +58,9 @@ public class EventBuilder {
         tags = new HashSet<>(eventToCopy.getTags());
         polls = new ArrayList<>(eventToCopy.getPolls());
         personList = eventToCopy.getPersonList();
+        startTime = eventToCopy.getStartTime();
+        endTime = eventToCopy.getEndTime();
+        date = eventToCopy.getDate();
     }
 
     /**
@@ -101,13 +104,20 @@ public class EventBuilder {
     }
 
     /**
+     * Adds one person as a participant to the event.
+     */
+    public EventBuilder withParticipant() {
+        personList.add(new PersonBuilder().build());
+        return this;
+    }
+
+    /**
      * Builds an event.
      */
     public Event build() {
         Event event = new Event(name, address, tags);
         event.setDate(date);
-        event.setStartTime(startTime);
-        event.setEndTime(endTime);
+        event.setTime(startTime, endTime);
         event.setOrganiser(organiser);
         event.setPolls(polls);
         event.setPersonList(personList);
