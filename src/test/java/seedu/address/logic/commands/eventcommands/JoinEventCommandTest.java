@@ -5,6 +5,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalEvents.getTypicalAddressBook;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
@@ -30,11 +31,11 @@ public class JoinEventCommandTest {
     @Test
     public void execute_acceptedJoinEvent() {
         JoinEventCommand command = new JoinEventCommand(TypicalIndexes.INDEX_FIRST);
-        Person user = TypicalPersons.BENSON;
+        Person user = TypicalPersons.ALICE;
         model.setCurrentUser(user);
         Event event = model.getEvent(TypicalIndexes.INDEX_FIRST);
         String expectedMessage = String.format(command.MESSAGE_SUCCESS, event);
-        expectedMessage += "\n" + "People attending: [Alice Pauline, Benson Meier]";
+        expectedMessage += "\n" + "People attending: [Alice Pauline]";
         expectedModel.commitAddressBook();
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -57,16 +58,15 @@ public class JoinEventCommandTest {
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
 
-    /**
     @Test
     public void execute_alreadyJoinedJoinEvent() {
         JoinEventCommand command = new JoinEventCommand(TypicalIndexes.INDEX_FIRST);
         Person user = new PersonBuilder().build();
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         model.setCurrentUser(user);
-        model.getEvent(TypicalIndexes.INDEX_FIRST).addPerson(user);
+        Event eventCopy = new EventBuilder(model.getEvent(TypicalIndexes.INDEX_FIRST)).build();
+        eventCopy.addPerson(user);
+        model.updateEvent(TypicalIndexes.INDEX_FIRST.getZeroBased(), eventCopy);
         String expectedMessage = String.format(Messages.MESSAGE_ALREADY_JOINED);
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
-    */
 }
