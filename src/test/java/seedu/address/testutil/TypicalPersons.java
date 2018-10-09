@@ -2,8 +2,6 @@ package seedu.address.testutil;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MEANING;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
@@ -25,38 +23,35 @@ import seedu.address.model.person.Word;
 public class TypicalPersons {
 
     public static final Word ALICE = new PersonBuilder().withName("Alice Pauline").withMeaning("Test")
-            .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
-            .withPhone("94351253")
+            .withAddress("123, Jurong West Ave 6, #08-111").withPhone("94351253")
             .withTags("friends").build();
     public static final Word BENSON = new PersonBuilder().withName("Benson Meier").withMeaning("Test")
             .withAddress("311, Clementi Ave 2, #02-25")
-            .withEmail("johnd@example.com").withPhone("98765432")
+            .withPhone("98765432")
             .withTags("owesMoney", "friends").build();
     public static final Word CARL = new PersonBuilder().withName("Carl Kurz").withMeaning("Test")
-            .withPhone("95352563").withEmail("heinz@example.com").withAddress("wall street").build();
+            .withPhone("95352563").withAddress("wall street").build();
     public static final Word DANIEL = new PersonBuilder().withName("Daniel Meier").withMeaning("Test")
-            .withPhone("87652533").withEmail("cornelia@example.com")
+            .withPhone("87652533")
             .withAddress("10th street").withTags("friends").build();
     public static final Word ELLE = new PersonBuilder().withName("Elle Meyer").withMeaning("Test")
-            .withPhone("9482224").withEmail("werner@example.com").withAddress("michegan ave").build();
+            .withPhone("9482224").withAddress("michegan ave").build();
     public static final Word FIONA = new PersonBuilder().withName("Fiona Kunz").withMeaning("Test")
-            .withPhone("9482427").withEmail("lydia@example.com").withAddress("little tokyo").build();
+            .withPhone("9482427").withAddress("little tokyo").build();
     public static final Word GEORGE = new PersonBuilder().withName("George Best").withMeaning("Test")
-            .withPhone("9482442").withEmail("anna@example.com").withAddress("4th street").build();
+            .withPhone("9482442").withAddress("4th street").build();
 
     // Manually added
     public static final Word HOON = new PersonBuilder().withName("Hoon Meier").withMeaning("Test")
-            .withPhone("8482424").withEmail("stefan@example.com").withAddress("little india").build();
+            .withPhone("8482424").withAddress("little india").build();
     public static final Word IDA = new PersonBuilder().withName("Ida Mueller").withMeaning("Test")
-            .withPhone("8482131").withEmail("hans@example.com").withAddress("chicago ave").build();
+            .withPhone("8482131").withAddress("chicago ave").build();
 
     // Manually added - Word's details found in {@code CommandTestUtil}
     public static final Word AMY = new PersonBuilder().withName(VALID_NAME_AMY).withMeaning(VALID_MEANING)
-            .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
-            .withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
+            .withPhone(VALID_PHONE_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
     public static final Word BOB = new PersonBuilder().withName(VALID_NAME_BOB).withMeaning(VALID_MEANING)
-            .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
-            .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+            .withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER

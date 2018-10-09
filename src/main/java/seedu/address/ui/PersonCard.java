@@ -13,8 +13,8 @@ import seedu.address.model.person.Word;
 public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
-    private static final String[] TAG_COLOR_STYLES =
-            { "teal", "red", "yellow", "blue", "orange", "brown", "green", "pink", "black", "grey" };
+    private static final String[] TAG_COLOR_STYLES = { "teal", "red", "yellow", "blue", "orange", "brown",
+        "green", "pink", "black", "grey" };
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -37,8 +37,6 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label address;
     @FXML
-    private Label email;
-    @FXML
     private FlowPane tags;
 
     public PersonCard(Word word, int displayedIndex) {
@@ -48,7 +46,6 @@ public class PersonCard extends UiPart<Region> {
         name.setText(word.getName().fullName);
         phone.setText(word.getPhone().value);
         address.setText(word.getAddress().value);
-        email.setText(word.getEmail().value);
         initTags(word);
     }
 

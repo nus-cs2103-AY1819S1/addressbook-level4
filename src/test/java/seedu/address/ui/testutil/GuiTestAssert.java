@@ -23,7 +23,6 @@ public class GuiTestAssert {
     public static void assertCardEquals(PersonCardHandle expectedCard, PersonCardHandle actualCard) {
         assertEquals(expectedCard.getId(), actualCard.getId());
         assertEquals(expectedCard.getAddress(), actualCard.getAddress());
-        assertEquals(expectedCard.getEmail(), actualCard.getEmail());
         assertEquals(expectedCard.getName(), actualCard.getName());
         assertEquals(expectedCard.getPhone(), actualCard.getPhone());
         assertEquals(expectedCard.getTags(), actualCard.getTags());
@@ -38,7 +37,6 @@ public class GuiTestAssert {
     public static void assertCardDisplaysPerson(Word expectedWord, PersonCardHandle actualCard) {
         assertEquals(expectedWord.getName().fullName, actualCard.getName());
         assertEquals(expectedWord.getPhone().value, actualCard.getPhone());
-        assertEquals(expectedWord.getEmail().value, actualCard.getEmail());
         assertEquals(expectedWord.getAddress().value, actualCard.getAddress());
 
         assertTagsEqual(expectedWord, actualCard);
@@ -52,26 +50,26 @@ public class GuiTestAssert {
      */
     private static String getTagColorStyleFor(String tagName) {
         switch (tagName) {
-            case "classmates":
-            case "owesMoney":
-                return "teal";
+        case "classmates":
+        case "owesMoney":
+            return "teal";
 
-            case "colleagues":
-            case "neighbours":
-                return "yellow";
+        case "colleagues":
+        case "neighbours":
+            return "yellow";
 
-            case "family":
-            case "friend":
-                return "orange";
+        case "family":
+        case "friend":
+            return "orange";
 
-            case "friends":
-                return "brown";
+        case "friends":
+            return "brown";
 
-            case "husband":
-                return "grey";
+        case "husband":
+            return "grey";
 
-            default:
-                throw new AssertionError(tagName + " does not have a color assigned.");
+        default:
+            throw new AssertionError(tagName + " does not have a color assigned.");
         }
     }
 
