@@ -3,8 +3,8 @@
     <!-- Task with invalid name field -->
     <persons>
         <name>Ha!ns Mu@ster</name>
-        <phone isPrivate="false">9482424</phone>
-        <email isPrivate="false">hans@example.com</email>
-        <address isPrivate="false">4th street</address>
+        <date isPrivate="false">9482424</date>
+        <priority isPrivate="false">hans@example.com</priority>
+        <venue isPrivate="false">4th street</venue>
     </persons>
 </addressbook>
