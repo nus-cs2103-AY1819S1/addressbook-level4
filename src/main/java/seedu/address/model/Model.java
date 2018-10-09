@@ -5,7 +5,6 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.person.Patient;
-import seedu.address.model.person.servedPatient;
 
 /**
  * The API of the Model component.

@@ -1,14 +1,14 @@
 package seedu.address.model;
 
+import seedu.address.model.person.IcNumber;
 import seedu.address.model.medicine.MedicineName;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.IcNumber;
 import seedu.address.model.person.servedPatient;
 
 /**
  * Represents the receipt for the served patients.
  */
-public class Receipt implements Document{
+public class Receipt implements Document {
     private final Name name;
     private final IcNumber icNumber;
     private MedicineName medicineName;
@@ -29,11 +29,15 @@ public class Receipt implements Document{
         //need to know how the medicine and quantities are stored
     }
 
+    /**
+     * Previews the content of the receipt object generated for the specified servedPatient.
+     *
+     */
     public String display() {
         StringBuilder sb = new StringBuilder();
         sb.append("Name: " + name + "\n");
         sb.append("NRIC: " + icNumber + "\n");
         sb.append("Medicine dispensed: \n");
-        return sb.substring(0, sb.length() -1 );
+        return sb.substring(0, sb.length() - 1);
     }
 }
