@@ -1,5 +1,8 @@
 package seedu.address.ui;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -25,6 +28,10 @@ public class CommandBox extends UiPart<Region> {
 
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private final Logic logic;
+    private final List<String> commands = new ArrayList<>(Arrays.asList(
+            "add", "clear", "delete-patient", "delete-doctor", "edit", "exit",
+            "find", "help", "history", "list", "redo", "register-patient", "register-doctor",
+            "select", "undo"));
     private ListElementPointer historySnapshot;
 
     @FXML
@@ -48,12 +55,15 @@ public class CommandBox extends UiPart<Region> {
             // As up and down buttons will alter the position of the caret,
             // consuming it causes the caret's position to remain unchanged
             keyEvent.consume();
-
             navigateToPreviousInput();
             break;
         case DOWN:
             keyEvent.consume();
             navigateToNextInput();
+            break;
+        case TAB:
+            keyEvent.consume();
+            filterCommands(commandTextField.getText());
             break;
         default:
             // let JavaFx handle the keypress
@@ -84,6 +94,20 @@ public class CommandBox extends UiPart<Region> {
         }
 
         replaceText(historySnapshot.next());
+    }
+
+    /**
+     * Filter list of commands to find nearest command
+     * to the given input of at least one character
+     */
+    private void filterCommands(String text) {
+        String nearestCommand = commands.stream()
+                .filter(command -> command.startsWith(text))
+                .findFirst()
+                .orElse("No commands beginning with '" + text + "'");
+        replaceText(nearestCommand);
+        commandTextField.requestFocus();
+        commandTextField.end();
     }
 
     /**
