@@ -2,7 +2,6 @@ package seedu.address.logic.AnakinCommands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DECK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.model.AnakinModel.PREDICATE_SHOW_ALL_CARDS;
 
@@ -16,7 +15,6 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
-import seedu.address.model.Anakin;
 import seedu.address.model.AnakinModel;
 import seedu.address.model.anakindeck.AnakinAnswer;
 import seedu.address.model.anakindeck.AnakinCard;
