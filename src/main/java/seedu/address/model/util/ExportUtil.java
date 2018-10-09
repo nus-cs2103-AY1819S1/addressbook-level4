@@ -47,7 +47,7 @@ public class ExportUtil {
             throw new IllegalArgumentException();
         }
 
-        for (int i = 0; i < lines.size(); i++) {
+        for (int i = 0; i < numLines; i++) {
             String line = lines.get(i);
             if (!isValidLine(line)) {
                 throw new IllegalArgumentException();
