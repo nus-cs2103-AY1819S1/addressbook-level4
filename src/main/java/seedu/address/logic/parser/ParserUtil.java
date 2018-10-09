@@ -131,7 +131,7 @@ public class ParserUtil {
         requireNonNull(filePath);
         String trimmedFilePath = filePath.trim();
         File contactsFile = new File(trimmedFilePath);
-        if (!contactsFile.isFile()) {
+        if (!contactsFile.isAbsolute()|| !contactsFile.isFile()) {
             throw new ParseException(MESSAGE_INVALID_FILE);
         }
         return trimmedFilePath;
