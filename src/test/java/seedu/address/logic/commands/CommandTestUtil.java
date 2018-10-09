@@ -37,6 +37,15 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
+    public static final int VALID_ID_ADAM = 1;
+    public static final int VALID_ID_BEN = 2;
+    public static final String VALID_NAME_ADAM = "Adam Bell";
+    public static final String VALID_NAME_BEN = "Ben Hill";
+    public static final String VALID_HASH_PASSWORD_ADAM = "$2b$08$kjCPCAJ5eEpDD5qh49JNMuG7DmWmmJLuKAWtegLty9T"
+            + ".ri/9bF3ti";
+    public static final String VALID_HASH_PASSWORD_BEN = "$2b$08$KyxDFM2P0SF3KE5QjJ6si.cyZ4jMRuTxBvg2.Ly7pxUz"
+        + "hQrCLGvUW";
+
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
@@ -51,7 +60,8 @@ public class CommandTestUtil {
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
+    public static final String INVALID_ADDRESS_DESC =
+            " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
@@ -70,12 +80,12 @@ public class CommandTestUtil {
     }
 
     /**
-     * Executes the given {@code command}, confirms that <br>
-     * - the result message matches {@code expectedMessage} <br>
-     * - the {@code actualModel} matches {@code expectedModel} <br>
-     * - the {@code actualCommandHistory} remains unchanged.
+     * Executes the given {@code command}, confirms that <br> - the result message matches {@code
+     * expectedMessage} <br> - the {@code actualModel} matches {@code expectedModel} <br> - the {@code
+     * actualCommandHistory} remains unchanged.
      */
-    public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
+    public static void assertCommandSuccess(Command command, Model actualModel,
+            CommandHistory actualCommandHistory,
             String expectedMessage, Model expectedModel) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
@@ -89,13 +99,13 @@ public class CommandTestUtil {
     }
 
     /**
-     * Executes the given {@code command}, confirms that <br>
-     * - a {@code CommandException} is thrown <br>
-     * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book and the filtered person list in the {@code actualModel} remain unchanged <br>
-     * - {@code actualCommandHistory} remains unchanged.
+     * Executes the given {@code command}, confirms that <br> - a {@code CommandException} is thrown <br> -
+     * the CommandException message matches {@code expectedMessage} <br> - the address book and the filtered
+     * person list in the {@code actualModel} remain unchanged <br> - {@code actualCommandHistory} remains
+     * unchanged.
      */
-    public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
+    public static void assertCommandFailure(Command command, Model actualModel,
+            CommandHistory actualCommandHistory,
             String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
