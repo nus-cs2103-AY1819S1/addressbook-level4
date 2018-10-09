@@ -142,7 +142,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void updateMedicine(Medicine target, Medicine editedMedicine) {
         requireNonNull(editedMedicine);
 
-        medicines.setPerson(target, editedMedicine);
+        medicines.setMedicine(target, editedMedicine);
     }
 
     //// util methods
