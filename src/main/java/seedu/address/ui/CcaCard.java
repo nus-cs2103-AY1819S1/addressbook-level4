@@ -27,7 +27,7 @@ public class CcaCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label ccaName;
     @FXML
     private Label id;
 
@@ -35,7 +35,7 @@ public class CcaCard extends UiPart<Region> {
         super(FXML);
         this.cca = cca;
         id.setText(displayedIndex + ". ");
-        name.setText(cca.getCcaName());
+        ccaName.setText(cca.getCcaName());
     }
 
     @Override
