@@ -144,7 +144,7 @@ public class ParserUtil {
         requireNonNull(password);
         if (role.equals("doctor")) {
             return new Doctor(new Id(1), name, password);
-        } else if (role.equals("receptionist")){
+        } else if (role.equals("receptionist")) {
             return null;
         } else {
             throw new ParseException("No role existed.");
