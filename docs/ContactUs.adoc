@@ -4,4 +4,4 @@
 
 * *Bug reports, Suggestions* : Post in our https://github.com/CS2103-AY1819S1-T10-3/main/issues[issue tracker] if you noticed bugs or have suggestions on how to improve.
 * *Contributing* : We welcome pull requests. Follow the process described https://github.com/oss-generic/process[here]
-* *Email us* : You can also reach us at `alexander.ehrs [at] gmail.com`, `haoxuanqu [at] gmail.com`
+* *Email us* : You can also reach us at `alexander.ehrs [at] gmail.com`, `haoxuanqu [at] gmail.com`, `digivicer [at] hotmail.com`, `danielkoh554 [at] hotmail.com`, 
