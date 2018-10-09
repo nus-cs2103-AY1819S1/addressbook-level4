@@ -1,0 +1,13 @@
+{
+  "ignoreGlobList": ["**.adoc", "collate**"],
+  "formats": ["gradle", "jade", "java", "js", "md", "scss", "yml"],
+  "ignoreCommitList": [],
+  "authors":
+  [
+    {
+      "githubId": "junrong09",
+      "displayName": "YUEN JUN RONG",
+      "authorNames": ["junrong09", "Jun Rong"]
+    }
+  ]
+}
