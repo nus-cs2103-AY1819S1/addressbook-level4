@@ -26,12 +26,12 @@ public class ReceiptCommand extends Command {
             + " index. Includes information like the date of visit, consultation fee, medicine sold etc. \n"
             + "Example: " + COMMAND_WORD + "<person's index>";
 
-    public static final String MESSAGE_SUCCESS = "Receipt generated for patient: %1$s !";
+    public static final String MESSAGE_SUCCESS = "Receipt generated for patient!";
 
     private final Index index;
 
     /**
-     * Creates a ReceiptCommand for the {@code Patient} specified by {@code index}
+     * Creates a ReceiptCommand for the {@code servedPatient} specified by {@code index}
      */
     public ReceiptCommand(Index index) {
         requireNonNull(index);
@@ -47,9 +47,10 @@ public class ReceiptCommand extends Command {
         if (index.getZeroBased() >= filteredPatientList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-        Receipt receipt;
+        final Receipt receipt;
 
-        return new CommandResult(receipt.display());
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(index));
+        return new CommandResult(String.format(MESSAGE_SUCCESS));
 
     }
 
