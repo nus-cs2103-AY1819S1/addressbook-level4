@@ -110,6 +110,24 @@ public class ModelManager extends ComponentManager implements Model {
         return FXCollections.unmodifiableObservableList(filteredWords);
     }
 
+    /**
+     * Returns the current trivia question
+     *
+     */
+    @Override
+    public Word getTrivia() {
+        return versionedAddressBook.getTrivia();
+    }
+
+    /**
+     * Sets the trivia question
+     */
+    @Override
+    public void setTrivia() {
+        versionedAddressBook.setTrivia();
+    }
+
+
     @Override
     public void updateFilteredPersonList(Predicate<Word> predicate) {
         requireNonNull(predicate);

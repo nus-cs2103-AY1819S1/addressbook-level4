@@ -142,5 +142,10 @@ High (Need to have) - PPP, Medium (Nice to have) - PP, Low (Not very needed) - P
 |PP
 |English speaker
 |Play a game
+<<<<<<< HEAD
+|Improve my English further
+
+=======
 |Improve my E   nglish further
+>>>>>>> 76e33b251ae2106a7b1f743b846beccfba3d4aa2
 |===

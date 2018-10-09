@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Random;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.UniquePersonList;
@@ -19,7 +20,7 @@ import seedu.address.model.tag.Tag;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
-
+    private Word triviaQ;
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -99,6 +100,18 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedWord);
 
         persons.setPerson(target, editedWord);
+    }
+
+    public void setTrivia() {
+        ObservableList<Word> triviaRef = persons.asUnmodifiableObservableList();
+        int length = triviaRef.size();
+        Random random = new Random();
+        triviaQ = triviaRef.get(random.nextInt(length));
+
+    }
+    public Word getTrivia() {
+        requireNonNull(triviaQ);
+        return triviaQ;
     }
 
     /**

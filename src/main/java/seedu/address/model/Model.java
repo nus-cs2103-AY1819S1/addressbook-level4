@@ -50,6 +50,10 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered word list */
     ObservableList<Word> getFilteredPersonList();
 
+    Word getTrivia();
+
+    void setTrivia();
+
     /**
      * Updates the filter of the filtered word list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.

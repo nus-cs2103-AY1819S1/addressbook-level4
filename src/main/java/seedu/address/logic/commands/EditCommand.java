@@ -20,6 +20,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Meaning;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Word;
@@ -92,11 +93,12 @@ public class EditCommand extends Command {
         assert wordToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(wordToEdit.getName());
+        Meaning updatedMeaning = editPersonDescriptor.getMeaning().orElse(wordToEdit.getMeaning());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(wordToEdit.getPhone());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(wordToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(wordToEdit.getTags());
 
-        return new Word(updatedName, updatedPhone, updatedAddress, updatedTags);
+        return new Word(updatedName, updatedMeaning, updatedPhone, updatedAddress, updatedTags);
     }
 
     @Override
@@ -123,6 +125,7 @@ public class EditCommand extends Command {
      */
     public static class EditPersonDescriptor {
         private Name name;
+        private Meaning meaning;
         private Phone phone;
         private Address address;
         private Set<Tag> tags;
@@ -135,6 +138,7 @@ public class EditCommand extends Command {
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setName(toCopy.name);
+            setMeaning(toCopy.meaning);
             setPhone(toCopy.phone);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
@@ -144,7 +148,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, address, tags);
+            return CollectionUtil.isAnyNonNull(name, meaning, phone, address, tags);
         }
 
         public void setName(Name name) {
@@ -153,6 +157,14 @@ public class EditCommand extends Command {
 
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
+        }
+
+        public void setMeaning(Meaning meaning) {
+            this.meaning = meaning;
+        }
+
+        public Optional<Meaning> getMeaning() {
+            return Optional.ofNullable(meaning);
         }
 
         public void setPhone(Phone phone) {
@@ -204,6 +216,7 @@ public class EditCommand extends Command {
             EditPersonDescriptor e = (EditPersonDescriptor) other;
 
             return getName().equals(e.getName())
+                    && getMeaning().equals(e.getMeaning())
                     && getPhone().equals(e.getPhone())
                     && getAddress().equals(e.getAddress())
                     && getTags().equals(e.getTags());

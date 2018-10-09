@@ -18,6 +18,7 @@ public class Word {
     // Identity fields
     private final Name name;
     private final Phone phone;
+    private final Meaning meaning;
 
     // Data fields
     private final Address address;
@@ -26,9 +27,10 @@ public class Word {
     /**
      * Every field must be present and not null.
      */
-    public Word(Name name, Phone phone, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, address, tags);
+    public Word(Name name, Meaning meaning, Phone phone, Address address, Set<Tag> tags) {
+        requireAllNonNull(name, meaning, phone, address, tags);
         this.name = name;
+        this.meaning = meaning;
         this.phone = phone;
         this.address = address;
         this.tags.addAll(tags);
@@ -36,6 +38,10 @@ public class Word {
 
     public Name getName() {
         return name;
+    }
+
+    public Meaning getMeaning() {
+        return meaning;
     }
 
     public Phone getPhone() {
@@ -92,13 +98,15 @@ public class Word {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, address, tags);
+        return Objects.hash(name, meaning, phone, address, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append(" Meaning: ")
+                .append(getMeaning())
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Address: ")

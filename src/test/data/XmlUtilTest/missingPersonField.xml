@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!-- Word with missing name field -->
 <word>
+    <meaning>Test</meaning>
     <phone>9482424</phone>
     <address>4th street</address>
     <tagged>friends</tagged>
