@@ -15,8 +15,8 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.AnakinDeck.AnakinDeck;
-import seedu.address.model.AnakinDeck.Name;
+import seedu.address.model.anakindeck.AnakinDeck;
+import seedu.address.model.anakindeck.Name;
 
 
 /**

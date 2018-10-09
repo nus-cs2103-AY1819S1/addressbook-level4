@@ -3,8 +3,8 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.AnakinDeck.AnakinCard;
-import seedu.address.model.AnakinDeck.AnakinDeck;
+import seedu.address.model.anakindeck.AnakinCard;
+import seedu.address.model.anakindeck.AnakinDeck;
 
 /**
  * The API of the AnakinModel component
@@ -17,9 +17,9 @@ public interface AnakinModel {
     /** {@code Predicate} that always evaluate to true */
     Predicate<AnakinCard> PREDICATE_SHOW_ALL_CARDS = unused -> true;
 
-    void resetData(Anakin_ReadOnlyAnakin newData);
+    void resetData(AnakinReadOnlyAnakin newData);
 
-    Anakin_ReadOnlyAnakin getAnakin();
+    AnakinReadOnlyAnakin getAnakin();
 
     boolean hasDeck(AnakinDeck deck);
 

@@ -1,4 +1,4 @@
-package seedu.address.model.AnakinDeck;
+package seedu.address.model.anakindeck;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -35,15 +35,14 @@ public class AnakinCard {
     }
 
     /**
-     * Returns true if 2 cards are the same, or have same identity fields.
+     * Returns true if 2 cards are the same, or have same question.
      */
     public boolean isSameCard(AnakinCard otherCard) {
         if (otherCard == this) {
             return true;
         }
 
-        return otherCard.getQuestion().equals(getQuestion())
-                && otherCard.getAnswer().equals(getAnswer());
+        return otherCard.getQuestion().equals(question);
     }
 
     @Override
@@ -57,16 +56,16 @@ public class AnakinCard {
 
     @Override
     public int hashCode() {
-        return Objects.hash(question, answer);
+        return Objects.hash(question);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("Question: ")
-                .append(getQuestion())
+                .append(question)
                 .append(" Answer: ")
-                .append(getAnswer());
+                .append(answer);
         return builder.toString();
     }
 }
