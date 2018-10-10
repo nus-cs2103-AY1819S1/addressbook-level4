@@ -68,10 +68,9 @@ public abstract class AddressBookSystemTest {
     public void setUp() {
         setupHelper = new SystemTestSetupHelper();
         testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
-        mainWindowHandle = setupHelper.setupMainWindowHandle();
-
-        waitUntilBrowserLoaded(getBrowserPanel());
-        assertApplicationStartingStateIsCorrect();
+        //mainWindowHandle = setupHelper.setupMainWindowHandle();
+        //waitUntilBrowserLoaded(getBrowserPanel());
+        //assertApplicationStartingStateIsCorrect();
     }
 
     @After
