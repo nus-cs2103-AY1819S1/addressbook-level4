@@ -1,23 +1,30 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_VALUES;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE_TIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REPEAT_TYPE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REPEAT_UNTIL_DATE_TIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE_TIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
 
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.event.DateTime;
+import seedu.address.model.event.Description;
+import seedu.address.model.event.Event;
+import seedu.address.model.event.EventName;
+import seedu.address.model.event.Priority;
+import seedu.address.model.event.RepeatType;
+import seedu.address.model.event.Venue;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -31,22 +38,46 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_EVENT_NAME, PREFIX_START_DATE_TIME,
+                        PREFIX_END_DATE_TIME, PREFIX_DESCRIPTION, PREFIX_PRIORITY,
+                        PREFIX_VENUE, PREFIX_REPEAT_TYPE, PREFIX_REPEAT_UNTIL_DATE_TIME);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_EVENT_NAME) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        EventName eventName = ParserUtil.parseEventName(argMultimap.getValue(PREFIX_EVENT_NAME).get());
 
-        Person person = new Person(name, phone, email, address, tagList);
+        DateTime startDateTime = argMultimap.getValue(PREFIX_START_DATE_TIME).isPresent()
+                ? ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_START_DATE_TIME).get())
+                : new DateTime(LocalDateTime.now().truncatedTo(ChronoUnit.HOURS).plusHours(1));
+        DateTime endDateTime = argMultimap.getValue(PREFIX_END_DATE_TIME).isPresent()
+                ? ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_END_DATE_TIME).get())
+                : new DateTime(LocalDateTime.now().truncatedTo(ChronoUnit.HOURS).plusHours(2));
+        Description description = argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()
+                ? ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get())
+                : new Description("");
+        Priority priority = argMultimap.getValue(PREFIX_PRIORITY).isPresent()
+                ? ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get())
+                : Priority.NONE;
+        Venue venue = argMultimap.getValue(PREFIX_VENUE).isPresent()
+                ? ParserUtil.parseVenue(argMultimap.getValue(PREFIX_VENUE).get())
+                : new Venue("");
+        RepeatType repeatType = argMultimap.getValue(PREFIX_REPEAT_TYPE).isPresent()
+                ? ParserUtil.parseRepeatType(argMultimap.getValue(PREFIX_REPEAT_TYPE).get())
+                : RepeatType.NONE;
+        DateTime repeatUntilDateTime = argMultimap.getValue(PREFIX_REPEAT_UNTIL_DATE_TIME).isPresent()
+                ? ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_REPEAT_UNTIL_DATE_TIME).get())
+                : endDateTime;
 
-        return new AddCommand(person);
+        if (!Event.isValidEventDateTime(startDateTime, endDateTime)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_VALUES, Event.MESSAGE_DATETIME_CONSTRAINTS));
+        }
+
+        Event event = new Event(UUID.randomUUID(), eventName, startDateTime, endDateTime, description, priority,
+                venue, repeatType, repeatUntilDateTime);
+
+        return new AddCommand(event);
     }
 
     /**

@@ -53,21 +53,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code name} is invalid.
-     */
-    public static Name parseName(String name) throws ParseException {
-        requireNonNull(name);
-        String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_NAME_CONSTRAINTS);
-        }
-        return new Name(trimmedName);
-    }
-
-    /**
      * Parses a {@code String phone} into a {@code Phone}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -155,13 +140,13 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String eventDescription} into a {@code Description}.
+     * Parses a {@code String description} into a {@code Description}.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static Description parseEventDescription(String eventDescription) {
-        requireNonNull(eventDescription);
-        String trimmedEventDescription = eventDescription.trim();
-        return new Description(trimmedEventDescription);
+    public static Description parseDescription(String description) {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+        return new Description(trimmedDescription);
     }
 
     /**

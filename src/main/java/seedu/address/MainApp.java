@@ -20,23 +20,18 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.PopUpManager;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyScheduler;
 import seedu.address.model.Scheduler;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.util.SampleAddressBookDataUtil;
 import seedu.address.model.util.SampleSchedulerDataUtil;
-import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.SchedulerStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
-import seedu.address.storage.XmlAddressBookStorage;
 import seedu.address.storage.XmlSchedulerStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
@@ -61,7 +56,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing Scheduler ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -69,9 +64,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new XmlAddressBookStorage(userPrefs.getAddressBookFilePath());
         SchedulerStorage schedulerStorage = new XmlSchedulerStorage(userPrefs.getSchedulerFilePath());
-        storage = new StorageManager(schedulerStorage, addressBookStorage, userPrefsStorage);
+        storage = new StorageManager(schedulerStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -93,9 +87,8 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
         ReadOnlyScheduler initialSchedulerData = initSchedulerData(storage);
-        ReadOnlyAddressBook initialAddressBookData = initAddressBookData(storage);
 
-        return new ModelManager(initialSchedulerData, initialAddressBookData, userPrefs);
+        return new ModelManager(initialSchedulerData, userPrefs);
     }
 
     /**
@@ -121,32 +114,6 @@ public class MainApp extends Application {
             initialSchedulerData = new Scheduler();
         }
         return initialSchedulerData;
-    }
-
-    /**
-     * Returns a {@code ReadOnlyAddressBook}.
-     * The file {@code SampleAddressBookDataUtil#getSampleAddressBook} will be used
-     * if there is no address book present in storage.
-     * A new AddressBook will be used if error occurs.
-     */
-    private ReadOnlyAddressBook initAddressBookData(Storage storage) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialAddressBookData;
-        try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Address Book data file not found. Will be starting with a sample AddressBook");
-            }
-            initialAddressBookData = addressBookOptional.orElseGet(SampleAddressBookDataUtil::getSampleAddressBook);
-        } catch (DataConversionException e) {
-            logger.warning("Address Book data file not in the correct format. Will be starting with"
-                    + " an empty AddressBook");
-            initialAddressBookData = new AddressBook();
-        } catch (IOException e) {
-            logger.warning("Problem while address book data from the file. Will be starting with an empty AddressBook");
-            initialAddressBookData = new AddressBook();
-        }
-        return initialAddressBookData;
     }
 
     private void initLogging(Config config) {
@@ -232,14 +199,14 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting Scheduler " + MainApp.VERSION);
         ui.start(primaryStage);
         popUp.startRunning();
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Scheduler ] =============================");
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);

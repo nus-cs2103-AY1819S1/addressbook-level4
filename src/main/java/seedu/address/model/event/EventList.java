@@ -36,6 +36,14 @@ public class EventList implements Iterable<Event> {
     }
 
     /**
+     * Adds a list of events to the list.
+     */
+    public void addEvents(List<Event> listToAdd) {
+        requireNonNull(listToAdd);
+        internalList.addAll(listToAdd);
+    }
+
+    /**
      * Replaces the event {@code target} in the list with {@code editedEvent}.
      * {@code target} must exist in the list.
      * The event identity of {@code editedEvent} must not be the same as another existing event in the list.

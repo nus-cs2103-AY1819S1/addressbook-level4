@@ -28,8 +28,7 @@ public class StorageManager extends ComponentManager implements Storage {
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(SchedulerStorage schedulerStorage, AddressBookStorage addressBookStorage,
-                          UserPrefsStorage userPrefsStorage) {
+    public StorageManager(SchedulerStorage schedulerStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.schedulerStorage = schedulerStorage;
         this.addressBookStorage = addressBookStorage;

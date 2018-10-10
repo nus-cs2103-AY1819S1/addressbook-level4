@@ -2,11 +2,10 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotEquals;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -16,14 +15,12 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyScheduler;
+import seedu.address.model.Scheduler;
 import seedu.address.model.event.Event;
-import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.EventBuilder;
 
 public class AddCommandTest {
 
@@ -35,129 +32,65 @@ public class AddCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullEvent_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new AddCommand(null);
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    public void execute_eventAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingEventAdded modelStub = new ModelStubAcceptingEventAdded();
+        Event validEvent = new EventBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddCommand(validEvent).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validEvent), commandResult.feedbackToUser);
+        assertEquals(List.of(validEvent), modelStub.eventsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+        Event validEvent = new EventBuilder().build();
+        AddCommand addCommand = new AddCommand(validEvent);
+        ModelStub modelStub = new ModelStubWithEvent(validEvent);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
+        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_EVENT);
         addCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Event study = new EventBuilder().withEventName("study").build();
+        Event play = new EventBuilder().withEventName("play").build();
+        AddCommand addStudyCommand = new AddCommand(study);
+        AddCommand addPlayCommand = new AddCommand(play);
 
-        // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        // same object -> equals
+        assertEquals(addStudyCommand, addStudyCommand);
 
-        // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        // same values -> equals
+        AddCommand addStudyCommandCopy = new AddCommand(study);
+        assertEquals(addStudyCommand, addStudyCommandCopy);
 
-        // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        // different types -> not equals
+        assertNotEquals(1, addStudyCommand);
 
-        // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        // null -> not equals
+        assertNotEquals(null, addStudyCommand);
 
-        // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        // different event -> not equals
+        assertNotEquals(addStudyCommand, addPlayCommand);
     }
 
     /**
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
-        @Override
-        public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
 
         @Override
-        public void resetData(ReadOnlyAddressBook newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deletePerson(Person target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updatePerson(Person target, Person editedPerson) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean canUndoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean canRedoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void undoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void redoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void commitAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteTag(Tag tag) {
+        public void resetData(ReadOnlyScheduler newData) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -167,7 +100,52 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addEvent(Event event) {
+        public boolean hasEvent(Event event) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteEvent(Event target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addEvents(List<Event> events) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateEvent(Event target, Event editedEvent) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Event> getFilteredEventList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredEventList(Predicate<Event> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canUndoScheduler() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedoScheduler() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoScheduler() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoScheduler() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -177,55 +155,56 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasEvent(Event event) {
+        public void deleteTag(Tag tag) {
             throw new AssertionError("This method should not be called.");
         }
+
     }
 
     /**
      * A Model stub that contains a single person.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ModelStubWithEvent extends ModelStub {
+        private final Event event;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithEvent(Event event) {
+            requireNonNull(event);
+            this.event = event;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasEvent(Event event) {
+            requireNonNull(event);
+            return this.event.isSameEvent(event);
         }
     }
 
     /**
-     * A Model stub that always accepts the person being added.
+     * A Model stub that always accepts the event being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingEventAdded extends ModelStub {
+        final ArrayList<Event> eventsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasEvent(Event event) {
+            requireNonNull(event);
+            return eventsAdded.stream().anyMatch(event::isSameEvent);
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addEvents(List<Event> events) {
+            requireNonNull(events);
+            eventsAdded.addAll(events);
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitScheduler() {
             // called by {@code AddCommand#execute()}
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyScheduler getScheduler() {
+            return new Scheduler();
         }
     }
 

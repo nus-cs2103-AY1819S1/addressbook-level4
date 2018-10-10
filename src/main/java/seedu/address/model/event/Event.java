@@ -9,9 +9,13 @@ import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
+
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents an Event in the scheduler.
@@ -34,6 +38,7 @@ public class Event {
     private final Venue venue;
     private final RepeatType repeatType;
     private final DateTime repeatUntilDateTime;
+    private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
@@ -91,6 +96,14 @@ public class Event {
     }
 
     /**
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Tag> getTags() {
+        return Collections.unmodifiableSet(tags);
+    }
+
+    /**
      * Returns true if end datetime is after start datetime
      */
     public static boolean isValidEventDateTime(DateTime startDateTime, DateTime endDateTime) {
@@ -100,7 +113,7 @@ public class Event {
     /**
      * Generate all repeated events from {@code targetEvent} according to its repeat type.
      * {@code targetEvent} must have a valid event repeat type.
-     * Returns an unmodifable list of repeated events.
+     * Returns an unmodifiable list of repeated events.
      */
     public static List<Event> generateAllRepeatedEvents(Event targetEvent) {
         switch(targetEvent.getRepeatType()) {
@@ -121,7 +134,7 @@ public class Event {
      * Generate all events that are repeated daily from {@code targetEvent}.
      * Returns a list of events that are repeated daily.
      */
-    private static List<Event> generateDailyRepeatEvents(Event targetEvent) {
+    protected static List<Event> generateDailyRepeatEvents(Event targetEvent) {
         List<Event> repeatedEventList = new ArrayList<>();
         LocalDateTime repeatStartDateTime = targetEvent.getStartDateTime().value;
         LocalDateTime repeatUntilDateTime = targetEvent.getRepeatUntilDateTime().value;
@@ -148,7 +161,7 @@ public class Event {
      * Generate all events that are repeated weekly from {@code targetEvent}.
      * Returns a list of events that are repeated weekly.
      */
-    private static List<Event> generateWeeklyRepeatEvents(Event targetEvent) {
+    protected static List<Event> generateWeeklyRepeatEvents(Event targetEvent) {
         List<Event> repeatedEventList = new ArrayList<>();
         LocalDateTime repeatStartDateTime = targetEvent.getStartDateTime().value;
         LocalDateTime repeatUntilDateTime = targetEvent.getRepeatUntilDateTime().value;
@@ -175,7 +188,7 @@ public class Event {
      * Generate all events that are repeated monthly from {@code targetEvent}.
      * Returns a list of events that are repeated monthly.
      */
-    private static List<Event> generateMonthlyRepeatEvents(Event targetEvent) {
+    protected static List<Event> generateMonthlyRepeatEvents(Event targetEvent) {
         List<Event> repeatedEventList = new ArrayList<>();
         LocalDateTime repeatStartDateTime = targetEvent.getStartDateTime().value;
         LocalDateTime repeatUntilDateTime = targetEvent.getRepeatUntilDateTime().value;
@@ -213,7 +226,7 @@ public class Event {
      * Generate all events that are repeated yearly from {@code targetEvent}.
      * Returns a list of events that are repeated yearly.
      */
-    private static List<Event> generateYearlyRepeatEvents(Event targetEvent) {
+    protected static List<Event> generateYearlyRepeatEvents(Event targetEvent) {
         List<Event> repeatedEventList = new ArrayList<>();
         LocalDateTime repeatStartDateTime = targetEvent.getStartDateTime().value;
         LocalDateTime repeatUntilDateTime = targetEvent.getRepeatUntilDateTime().value;
@@ -303,10 +316,16 @@ public class Event {
                 .append(getEndDateTime())
                 .append(" description: ")
                 .append(getDescription())
-                .append(" recurring type: ")
+                .append(" priority: ")
+                .append(getPriority())
+                .append(" venue: ")
+                .append(getVenue())
+                .append(" repeat type: ")
                 .append(getRepeatType())
                 .append(" repeat until: ")
-                .append(getRepeatUntilDateTime());
+                .append(getRepeatUntilDateTime())
+                .append(" Tags: ");
+        getTags().forEach(builder::append);
         return builder.toString();
     }
 

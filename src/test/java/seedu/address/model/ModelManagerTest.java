@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 //import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 //import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_UNUSED;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-import static seedu.address.testutil.TypicalEvents.CS2103_TUTORIAL;
+import static seedu.address.testutil.TypicalEvents.JANUARY_1_2018_SINGLE;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 //import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BENSON;
@@ -86,7 +86,7 @@ assertEquals(expectedModelManager, modelManager);
 
     @Test
     public void equals() {
-        Scheduler scheduler = new SchedulerBuilder().withEvent(CS2103_TUTORIAL).build();
+        Scheduler scheduler = new SchedulerBuilder().withEvent(JANUARY_1_2018_SINGLE).build();
         Scheduler differentScheduler = new Scheduler();
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         AddressBook differentAddressBook = new AddressBook();

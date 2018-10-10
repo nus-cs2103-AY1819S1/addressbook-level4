@@ -2,11 +2,14 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventList;
+import seedu.address.model.tag.Tag;
 
 /**
  * Wraps all data at the scheduler level
@@ -72,10 +75,17 @@ public class Scheduler implements ReadOnlyScheduler {
     }
 
     /**
+     * Adds a list of event to the scheduler.
+     */
+    public void addEvents(List<Event> events) {
+        this.events.addEvents(events);
+    }
+
+    /**
      * Replaces the given event {@code target} in the list with {@code editedEvent}.
      * {@code target} must exist in the scheduler.
      */
-    public void updateEvents(Event targetEvent, Event editedEvent) {
+    public void updateEvent(Event targetEvent, Event editedEvent) {
         requireNonNull(editedEvent);
         events.setEvent(targetEvent, editedEvent);
     }
@@ -89,6 +99,27 @@ public class Scheduler implements ReadOnlyScheduler {
     }
 
     //// util methods
+    /**
+     * Removes {@code tag} from {@code event} in this {@code Scheduler}.
+     */
+    private void removeTagFromEvent(Tag tag, Event event) {
+        // TODO: to fix tags
+        Set<Tag> newTags = new HashSet<>(event.getTags());
+        if (!newTags.remove(tag)) {
+            return;
+        }
+        Event newEvent =
+                new Event(event.getUuid(), event.getEventName(), event.getStartDateTime(), event.getEndDateTime(),
+                        event.getDescription(), event.getPriority(), event.getVenue(),
+                        event.getRepeatType(), event.getRepeatUntilDateTime());
+        updateEvent(event, newEvent);
+    }
+    /**
+     * Removes {@code tag} from all events in this {@code Scheduler}.
+     */
+    public void removeTag(Tag tag) {
+        events.forEach(event -> removeTagFromEvent(tag, event));
+    }
 
     @Override
     public String toString() {

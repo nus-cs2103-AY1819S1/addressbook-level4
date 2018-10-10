@@ -13,26 +13,26 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
-import seedu.address.model.person.Person;
+import seedu.address.model.event.Event;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of events.
  */
-public class PersonListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+public class EventListPanel extends UiPart<Region> {
+    private static final String FXML = "EventListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(EventListPanel.class);
 
     @FXML
-    private ListView<Person> personListView;
+    private ListView<Event> personListView;
 
-    public PersonListPanel(ObservableList<Person> personList) {
+    public EventListPanel(ObservableList<Event> eventList) {
         super(FXML);
-        setConnections(personList);
+        setConnections(eventList);
         registerAsAnEventHandler(this);
     }
 
-    private void setConnections(ObservableList<Person> personList) {
-        personListView.setItems(personList);
+    private void setConnections(ObservableList<Event> eventList) {
+        personListView.setItems(eventList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
@@ -66,9 +66,9 @@ public class PersonListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
-    class PersonListViewCell extends ListCell<Person> {
+    class PersonListViewCell extends ListCell<Event> {
         @Override
-        protected void updateItem(Person person, boolean empty) {
+        protected void updateItem(Event person, boolean empty) {
             super.updateItem(person, empty);
 
             if (empty || person == null) {

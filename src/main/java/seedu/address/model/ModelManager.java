@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -11,139 +12,44 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.SchedulerChangedEvent;
 import seedu.address.model.event.Event;
-import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents the in-memory model of the scheduler and address book data.
+ * Represents the in-memory model of the scheduler data.
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final VersionedScheduler versionedScheduler;
-    private final VersionedAddressBook versionedAddressBook;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Event> filteredEvents;
 
     /**
-     * Initializes a ModelManager with the given scheduler, addressBook and userPrefs.
+     * Initializes a ModelManager with the given scheduler and userPrefs.
      */
-    public ModelManager(ReadOnlyScheduler scheduler, ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyScheduler scheduler, UserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(scheduler, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook
-                + ", scheduler: " + scheduler
+        logger.fine("Initializing with scheduler: " + scheduler
                 + " and user prefs " + userPrefs);
 
         versionedScheduler = new VersionedScheduler(scheduler);
-        versionedAddressBook = new VersionedAddressBook(addressBook);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredEvents = new FilteredList<>(versionedScheduler.getEventList());
     }
 
     public ModelManager() {
-        this(new Scheduler(), new AddressBook(), new UserPrefs());
+        this(new Scheduler(), new UserPrefs());
     }
 
     //=========== AddressBook methods =======================================================================
 
     @Override
-    public void resetData(ReadOnlyAddressBook newData) {
-        versionedAddressBook.resetData(newData);
-        indicateAddressBookChanged();
+    public void resetData(ReadOnlyScheduler newData) {
+        versionedScheduler.resetData(newData);
+        indicateSchedulerChanged();
     }
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
-    }
-
-    /** Raises an event to indicate the model has changed due to address book change */
-    private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(versionedAddressBook));
-    }
-
-    @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return versionedAddressBook.hasPerson(person);
-    }
-
-    @Override
-    public void deletePerson(Person target) {
-        versionedAddressBook.removePerson(target);
-        indicateAddressBookChanged();
-    }
-
-    @Override
-    public void addPerson(Person person) {
-        versionedAddressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        indicateAddressBookChanged();
-    }
-
-    @Override
-    public void updatePerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        versionedAddressBook.updatePerson(target, editedPerson);
-        indicateAddressBookChanged();
-    }
-
-    @Override
-    public void deleteTag(Tag tag) {
-        versionedAddressBook.removeTag(tag);
-    }
-
-    //=========== Filtered Person List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return FXCollections.unmodifiableObservableList(filteredPersons);
-    }
-
-    @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
-    }
-
-    //=========== Undo/Redo =================================================================================
-
-    @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
-    }
-
-    @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
-    }
-
-    @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
-        indicateAddressBookChanged();
-    }
-
-    @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
-        indicateAddressBookChanged();
-    }
-
-    @Override
-    public void commitAddressBook() {
-        versionedAddressBook.commit();
-    }
-
-    //=========== Scheduler methods =========================================================================
 
     @Override
     public ReadOnlyScheduler getScheduler() {
@@ -162,8 +68,69 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void addEvent(Event event) {
-        versionedScheduler.addEvent(event);
+    public void deleteEvent(Event target) {
+        versionedScheduler.removeEvent(target);
+        indicateSchedulerChanged();
+    }
+
+    @Override
+    public void addEvents(List<Event> events) {
+        versionedScheduler.addEvents(events);
+        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        indicateSchedulerChanged();
+    }
+
+    @Override
+    public void updateEvent(Event target, Event editedEvent) {
+        requireAllNonNull(target, editedEvent);
+
+        versionedScheduler.updateEvent(target, editedEvent);
+        indicateSchedulerChanged();
+    }
+
+    @Override
+    public void deleteTag(Tag tag) {
+        versionedScheduler.removeTag(tag);
+    }
+
+    //=========== Filtered Person List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Event} backed by the internal list of
+     * {@code versionedScheduler}
+     */
+    @Override
+    public ObservableList<Event> getFilteredEventList() {
+        return FXCollections.unmodifiableObservableList(filteredEvents);
+    }
+
+    @Override
+    public void updateFilteredEventList(Predicate<Event> predicate) {
+        requireNonNull(predicate);
+        filteredEvents.setPredicate(predicate);
+    }
+
+    //=========== Undo/Redo =================================================================================
+
+    @Override
+    public boolean canUndoScheduler() {
+        return versionedScheduler.canUndo();
+    }
+
+    @Override
+    public boolean canRedoScheduler() {
+        return versionedScheduler.canRedo();
+    }
+
+    @Override
+    public void undoScheduler() {
+        versionedScheduler.undo();
+        indicateSchedulerChanged();
+    }
+
+    @Override
+    public void redoScheduler() {
+        versionedScheduler.redo();
         indicateSchedulerChanged();
     }
 
@@ -188,8 +155,7 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedScheduler.equals(other.versionedScheduler)
-                && versionedAddressBook.equals(other.versionedAddressBook)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredEvents.equals(other.filteredEvents);
     }
 
 }

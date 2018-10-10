@@ -41,8 +41,8 @@ public class BrowserPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
-    private void loadPersonPage(Person person) {
-        loadPage(SEARCH_PAGE_URL + person.getName().fullName);
+    private void loadPersonPage(seedu.address.model.event.Event person) {
+        loadPage(SEARCH_PAGE_URL + person.getEventName().value);
     }
 
     public void loadPage(String url) {
