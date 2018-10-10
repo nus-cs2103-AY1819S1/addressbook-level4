@@ -21,6 +21,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
     private static final String EMAIL_FIELD_ID = "#email";
     private static final String EDUCATION_FIELD_ID = "#education";
     private static final String GRADES_FIELD_ID = "#grades";
+    private static final String TIME_FIELD_ID = "#time";
     private static final String TAGS_FIELD_ID = "#tags";
 
     private final Label idLabel;
@@ -30,6 +31,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
     private final Label emailLabel;
     private final Label educationLabel;
     private final Label gradesLabel;
+    private final Label timeLabel;
     private final List<Label> tagLabels;
 
     public PersonCardHandle(Node cardNode) {
@@ -42,6 +44,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
         emailLabel = getChildNode(EMAIL_FIELD_ID);
         educationLabel = getChildNode(EDUCATION_FIELD_ID);
         gradesLabel = getChildNode(GRADES_FIELD_ID);
+        timeLabel = getChildNode(TIME_FIELD_ID);
 
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
         tagLabels = tagsContainer
@@ -77,6 +80,8 @@ public class PersonCardHandle extends NodeHandle<Node> {
         return gradesLabel.getText();
     }
 
+    public String getTime() { return timeLabel.getText(); }
+
     public List<String> getTags() {
         return tagLabels
                 .stream()
@@ -94,6 +99,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
                 && getEmail().equals(person.getEmail().value)
                 && getEducation().equals(person.getEducation())
                 && getGrades().equals(person.getGrades())
+                && getTime().equals(person.getTime())
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(person.getTags().stream()
                         .map(tag -> tag.tagName)
                         .collect(Collectors.toList())));

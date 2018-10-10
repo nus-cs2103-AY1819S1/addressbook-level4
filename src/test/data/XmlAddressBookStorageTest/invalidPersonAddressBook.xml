@@ -8,5 +8,6 @@
         <address isPrivate="false">4th street</address>
         <education isPrivate="false">Secondary 2</education>
         <grades isPrivate="false">99</grades>
+        <time isPrivate="false">Monday 1300-1500</time>
     </persons>
 </addressbook>
