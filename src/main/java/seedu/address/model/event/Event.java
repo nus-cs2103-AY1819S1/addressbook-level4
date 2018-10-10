@@ -247,6 +247,9 @@ public class Event {
         return changed;
     }
 
+    /**
+     * Returns true if the target person is the event organiser is or is an event participant.
+     */
     public boolean containsPerson(Person target) {
         boolean contains = false;
         if (organiser.equals(target)) {

@@ -1,22 +1,21 @@
 //@@theJrLinguist
 package seedu.address.storage;
 
+import javax.xml.bind.annotation.XmlValue;
+
 import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Person;
 
-import javax.xml.bind.annotation.XmlValue;
-
+/**
+ * JAXB-friendly index which refers to a person in the organiser.
+ */
 public class XmlPersonIndex {
-
-    @XmlValue
-    private String index;
 
     private static ObservableList<Person> personList;
 
-    public static void setPersonList(ObservableList<Person> organiserPersonList) {
-        personList = organiserPersonList;
-    }
+    @XmlValue
+    private String index;
 
     /**
      * Constructs an XmlPersonIndex.
@@ -32,12 +31,19 @@ public class XmlPersonIndex {
     }
 
     /**
+     * Provides reference to the person list of the event organiser.
+     */
+    public static void setPersonList(ObservableList<Person> organiserPersonList) {
+        personList = organiserPersonList;
+    }
+
+    /**
      * Returns a model Person.
      */
-    public Person toModelType() throws IllegalValueException  {
+    public Person toModelType() throws IllegalValueException {
         try {
             return personList.get(Integer.valueOf(index));
-        } catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             throw new IllegalValueException("No such person exists in the event organiser");
         }
     }

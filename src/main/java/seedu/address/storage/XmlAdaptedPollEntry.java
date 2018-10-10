@@ -18,18 +18,13 @@ import seedu.address.model.person.Person;
  */
 public class XmlAdaptedPollEntry {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Poll option's %s field is missing!";
+    private static ObservableList<Person> personList;
 
     @XmlElement(required = true)
     private String name;
 
     @XmlElement(required = false)
     private List<XmlPersonIndex> voterList = new ArrayList<>();
-
-    private static ObservableList<Person> personList;
-
-    public static void setPersonList(ObservableList<Person> organiserPersonList) {
-        personList = organiserPersonList;
-    }
 
     /**
      * Constructs an XmlAdaptedPollEntry.
@@ -48,6 +43,13 @@ public class XmlAdaptedPollEntry {
                     .map(XmlPersonIndex::new)
                     .collect(Collectors.toList());
         }
+    }
+
+    /**
+     * Provides reference to the person list of the event organiser.
+     */
+    public static void setPersonList(ObservableList<Person> organiserPersonList) {
+        personList = organiserPersonList;
     }
 
     public String getOptionName() {

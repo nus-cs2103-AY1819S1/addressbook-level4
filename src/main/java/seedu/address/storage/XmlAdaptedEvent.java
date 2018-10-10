@@ -27,6 +27,7 @@ import seedu.address.model.tag.Tag;
 public class XmlAdaptedEvent {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Event's %s field is missing!";
+    private static ObservableList<Person> personList;
 
     @XmlElement(required = true)
     private String name;
@@ -47,14 +48,6 @@ public class XmlAdaptedEvent {
     private List<XmlAdaptedPoll> polls = new ArrayList<>();
     @XmlElement
     private List<XmlPersonIndex> participants = new ArrayList<>();
-
-    private static ObservableList<Person> personList;
-
-    public static void setPersonList(ObservableList<Person> organiserPersonList) {
-        personList = organiserPersonList;
-        XmlAdaptedPollEntry.setPersonList(personList);
-        XmlPersonIndex.setPersonList(personList);
-    }
 
     /**
      * Constructs an XmlAdaptedPerson.
@@ -127,11 +120,20 @@ public class XmlAdaptedEvent {
     }
 
     /**
+     * Provides reference to the person list of the event organiser.
+     */
+    public static void setPersonList(ObservableList<Person> organiserPersonList) {
+        personList = organiserPersonList;
+        XmlAdaptedPollEntry.setPersonList(personList);
+        XmlPersonIndex.setPersonList(personList);
+    }
+
+    /**
      * Converts this jaxb-friendly adapted event object into the model's Event object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted event.
      */
-    public Event toModelType(ObservableList<Person> personList) throws IllegalValueException {
+    public Event toModelType() throws IllegalValueException {
         final List<Tag> eventTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             eventTags.add(tag.toModelType());

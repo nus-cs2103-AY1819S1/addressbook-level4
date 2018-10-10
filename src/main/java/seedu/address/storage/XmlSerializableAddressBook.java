@@ -65,7 +65,7 @@ public class XmlSerializableAddressBook {
 
         XmlAdaptedEvent.setPersonList(addressBook.getPersonList());
         for (XmlAdaptedEvent p : events) {
-            Event event = p.toModelType(addressBook.getPersonList());
+            Event event = p.toModelType();
             if (addressBook.hasEvent(event)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
