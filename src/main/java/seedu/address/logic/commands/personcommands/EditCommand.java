@@ -91,12 +91,12 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        personToEdit.editPerson(editedPerson);
+        //personToEdit.editPerson(editedPerson);
 
-        model.updatePerson(personToEdit, personToEdit);
+        model.updatePerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, personToEdit));
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
 
     /**

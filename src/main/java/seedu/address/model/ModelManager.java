@@ -121,8 +121,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook.updatePerson(target, editedPerson);
         for (Event event : filteredEvents) {
-            //boolean changed = event.updatePerson(target, editedPerson);
-            if (event.containsPerson(target)) {
+            boolean changed = event.updatePerson(target, editedPerson);
+            if (changed || event.containsPerson(target)) {
                 versionedAddressBook.updateEvent(event, event);
             }
         }

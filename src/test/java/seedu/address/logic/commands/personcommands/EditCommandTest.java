@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.personcommands;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
@@ -19,6 +20,8 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.personcommands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -138,7 +141,6 @@ public class EditCommandTest {
      * Edit filtered list where index is larger than size of filtered list,
      * but smaller than size of address book
      */
-    /**
     @Test
     public void execute_invalidPersonIndexFilteredList_failure() {
         showPersonAtIndex(model, INDEX_FIRST);
@@ -195,7 +197,6 @@ public class EditCommandTest {
      * unfiltered list is different from the index at the filtered list.
      * 4. Redo the edit. This ensures {@code RedoCommand} edits the person object regardless of indexing.
      */
-    /**
     @Test
     public void executeUndoRedo_validIndexFilteredList_samePersonEdited() throws Exception {
         Person editedPerson = new PersonBuilder().build();
@@ -220,7 +221,6 @@ public class EditCommandTest {
         expectedModel.redoAddressBook();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
-    */
 
     @Test
     public void equals() {

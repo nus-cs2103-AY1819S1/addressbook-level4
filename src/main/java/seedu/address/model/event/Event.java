@@ -244,6 +244,9 @@ public class Event {
             personList.setPerson(target, editedPerson);
             changed = true;
         }
+        for (Poll poll : polls) {
+            poll.updatePerson(target, editedPerson);
+        }
         return changed;
     }
 
