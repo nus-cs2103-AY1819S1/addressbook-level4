@@ -34,18 +34,27 @@ public class ServedPatient {
         return patient.getIcNumber();
     }
 
+    /**
+     * Skeleton to add add note content.
+     */
     public String addNoteContent(String content) {
-        NoteContent += " " + content;
+        NoteContent += " filler" + content;
         return NoteContent;
     }
 
+    /**
+     * Skeleton to add referral content.
+     */
     public String addReferralContent(String content) {
-        ReferralContent += " " + content;
+        ReferralContent += " filler" + content;
         return ReferralContent;
     }
 
+    /**
+     * Skeleton to add Mc Content.
+     */
     public String addMcContent(String content) {
-        McContent += " " + content;
+        McContent += " filler" + content;
         return McContent;
     }
 }

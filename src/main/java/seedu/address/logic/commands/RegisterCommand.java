@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -11,7 +13,6 @@ import seedu.address.model.PatientQueue;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.ServedPatient;
 
-import java.util.List;
 
 /**
  * Registers a patient to the end of the current queue.
