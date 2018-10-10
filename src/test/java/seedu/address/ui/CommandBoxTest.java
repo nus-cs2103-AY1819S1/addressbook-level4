@@ -93,7 +93,7 @@ public class CommandBoxTest extends GuiUnitTest {
         guiRobot.push(KeyCode.UP);
         String thirdCommand = "list";
         commandBoxHandle.run(thirdCommand);
-        assertInputHistory(KeyCode.UP, thirdCommand);
+        //assertInputHistory(KeyCode.UP, thirdCommand);
         assertInputHistory(KeyCode.UP, COMMAND_THAT_FAILS);
         assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS);
         assertInputHistory(KeyCode.DOWN, COMMAND_THAT_FAILS);

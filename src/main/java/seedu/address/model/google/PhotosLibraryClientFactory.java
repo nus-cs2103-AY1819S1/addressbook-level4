@@ -1,5 +1,12 @@
 package seedu.address.model.google;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.security.GeneralSecurityException;
+import java.util.List;
+
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
@@ -19,18 +26,14 @@ import com.google.common.collect.ImmutableList;
 import com.google.photos.library.v1.PhotosLibraryClient;
 import com.google.photos.library.v1.PhotosLibrarySettings;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.security.GeneralSecurityException;
-import java.util.List;
-
 //@@author chivent
 //TODO: credit --> https://github.com/google/java-photoslibrary/tree/master/sample
 //TODO: Remove comments in later future
 //TODO: Store files elsewhere [TBD]
 
+/**
+ * Factory to create instance of PhotosLibraryClient
+ */
 public class PhotosLibraryClientFactory {
 
 
@@ -42,8 +45,8 @@ public class PhotosLibraryClientFactory {
                     "email");
 
     //for storing serializable data in key-value form
-    private static final File DATA_STORE = new File(PhotosLibraryClientFactory.
-            class.getResource("/").getPath(), "user_credentials");
+    private static final File DATA_STORE = new File(PhotosLibraryClientFactory
+            .class.getResource("/").getPath(), "user_credentials");
 
     private static File credentialFile = new File(PhotosLibraryClientFactory
             .class.getClassLoader().getResource("client_credentials.json").getPath());
@@ -51,6 +54,12 @@ public class PhotosLibraryClientFactory {
     private PhotosLibraryClientFactory() {
     }
 
+    /**
+     * Creates and returns a new GoogleClientInstance
+     * @return GoogleClientInstance
+     * @throws IOException when files cannot be read
+     * @throws GeneralSecurityException when there is an error with authentication
+     */
     public static GoogleClientInstance createClient() throws IOException, GeneralSecurityException {
 
         DataStoreFactory dataStoreFactory = new FileDataStoreFactory(DATA_STORE);
