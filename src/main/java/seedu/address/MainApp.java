@@ -35,6 +35,8 @@ import seedu.address.storage.XmlAddressBookStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
+// Travis test commit
+
 /**
  * The main entry point to the application.
  */
@@ -74,6 +76,7 @@ public class MainApp extends Application {
         ui = new UiManager(logic, config, userPrefs);
 
         initEventsCenter();
+
     }
 
     /**
