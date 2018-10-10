@@ -30,15 +30,15 @@ public class UserPrefs {
     public void setGuiSettings(double width, double height, int x, int y) {
         guiSettings = new GuiSettings(width, height, x, y);
     }
-  
+    
     public Path getWishTransactionFilePath() {
         return wishTransactionFilePath;
     }
-
+    
     public void setWishTransactionFilePath(Path wishTransactionFilePath) {
         this.wishTransactionFilePath = wishTransactionFilePath;
     }
-  
+    
     public Path getWishBookFilePath() {
         return wishBookFilePath;
     }
