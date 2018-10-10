@@ -59,17 +59,18 @@ Format: `help`
 === Adding a task: `add task`
 
 Adds a task to the schedule planner +
-Format: `add n/NAME p/PRIORITYLEVEL [c/CATEGORY]... [d/DEADLINE]`
+Format: `add n/NAME p/PRIORITYLEVEL [t/TAG]... [d/DEADLINE]`
 
 [TIP]
-A task can have any number of categories (including 0)
+A task can have any number of tags (including 0).
 
 * The priority level must be an integer between 1 to 3, where 3 denotes highest priority.
 
-Examples:
+Example:
 
-* `add n/Buy Apples p/1 c/Groceries d/270319`
-* `add n/Buy Apples c/Groceries d/270319 p/1`
+* `add n/Buy Apples p/1 t/Groceries d/270319` +
+Adds a task named "Buy Apples" with priority level "1", tag "Groceries" and deadline of 27th March 2019.
+
 
 === Listing all tasks : `list task`
 
@@ -79,7 +80,7 @@ Format: `list task`
 === Editing a task : `edit`
 
 Edits an existing task in the schedule planner. +
-Format: `edit INDEX [n/NAME] [p/PRIORITYLEVEL] [c/CATEGORY]... [d/DEADLINE]`
+Format: `edit INDEX [n/NAME] [p/PRIORITYLEVEL] [t/TAGS]... [d/DEADLINE]`
 
 ****
 * Edits the task at the specified `INDEX`. The index refers to the index number shown in the displayed task list. The index *must be a positive integer* 1, 2, 3, ...
@@ -91,7 +92,7 @@ Format: `edit INDEX [n/NAME] [p/PRIORITYLEVEL] [c/CATEGORY]... [d/DEADLINE]`
 
 Examples:
 
-* `edit ask 1 n/CS2103T Milestone 2 p/3 c/School Work d/270398` +
+* `edit ask 1 n/CS2103T Milestone 2 p/3 t/School Work d/270398` +
 Edits the name, priority level, category and deadline of the 1st task to be CS2103 Milestone 2, 3, School Work and 270398 respectively.
 
 * `edit 2 c/ d/` +
@@ -117,21 +118,21 @@ Returns `meet john` and `email John`
 * `search task CS2103 group meeting` +
 Returns any task containing words `CS2103`, `group`, or `meeting`
 
-=== Searching tasks by category: `search category`
+=== Searching tasks by category: `search tag`
 
-Finds tasks whose category contain any of the given keywords. +
-Format: `search category KEYWORD`
+Finds tasks whose tags contain any of the given keywords. +
+Format: `search tag KEYWORD`
 
 ****
-* The search is case insensitive. e.g `apples` will match `Apples`
+* The search is case insensitive. e.g `apples` will match `Apples`.
 * Only the category is searched.
-* Only full words will be matched e.g. `apple` will not match `apples`
+* Only full words will be matched e.g. `apple` will not match `apples`.
 ****
 
 Examples:
 
-* `search category tutorial` +
-Returns any task whose categories contain `tutorial`
+* `search tag tutorial` +
+Returns any task which has the tag "tutorial"
 
 === Deleting a task : `delete task`
 
@@ -186,69 +187,8 @@ Shows a list of existing categories. +
 Format: `list category`
 
 ****
-* The categories will be listed in alphabetical order
+* The categories will be listed in alphabetical order.
 ****
-
-=== Adding an exam : `add exam`
-
-Adds an exam to the list of exams. +
-Format: `add exam e/EXAMNAME d/DATE`
-
-****
-* DATE *must be in the format DDMMYY format*.
-****
-
-Examples:
-
-* `add exam CS2103T 270398` +
-Adds an exam named "CS2103T" on 27th March 1998.
-
-* `add exam CS9999 270399` +
-Adds an exam named "CS9999" on 27th March 1999.
-
-=== View exam date : `list exam`
-
-Shows a list of all the exam dates. +
-Format: `list exam`
-
-=== Modify exam date : `modify exam`
-
-Modifies an existing exam in the list of exams. +
-Format: `modify exam INDEX e/EXAMNAME d/DATE`
-
-****
-* Edits the exam at the specified INDEX.
-* The index refers to the index number shown in the displayed exam list.
-* The index must be a positive integer 1, 2, 3, …
-* At least one of the optional fields must be provided.
-* Existing value will be updated to the input values.
-* d/DATE must follow the DDMMYY format.
-****
-
-Examples:
-
-* `modify exam 1 e/CS2100 d/270300` +
-Modifies the exam at INDEX 1 to have the name "CS2100" and date of 27th March 2000.
-
-* `modify exam 2 e/CS2929 d/270301` +
-Modifies the exam at INDEX 2 to have the name "CS2929" and date of 27th March 2001.
-
-=== Delete exam : `delete exam`
-
-Deletes an existing exam from the exam list. +
-Format: `delete exam INDEX`
-
-****
-* Deletes the exam at the specified INDEX.
-* The index refers to the index number shown in the displayed exam list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Example:
-
-* `list exam` +
-* `delete 2` +
-Deletes the exam at the second index of the exam list.
 
 === Listing entered commands : `history`
 
@@ -338,24 +278,19 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add task* `add task n/NAME p/PRIORITYLEVEL [d/DEADLINE] [c/CATEGORY]...` +
-e.g. `add task n/buy apples p/1 d/111118 c/groceries`
+* *Add task* `add task n/NAME p/PRIORITYLEVEL [d/DEADLINE] [t/TAG]...` +
+e.g. `add task n/buy apples p/1 d/111118 t/groceries`
 * *Clear* : `clear`
 * *Delete task* : `delete task INDEX` +
 e.g. `delete task 3`
-* *Edit task* : `edit INDEX [n/NAME] [p/PRIORITYLEVEL] [d/DEADLINE] [c/CATEGORY]...` +
+* *Edit task* : `edit INDEX [n/NAME] [p/PRIORITYLEVEL] [d/DEADLINE] [t/TAGS]...` +
 e.g. `edit 2 n/buy bread d/211118`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
 * *List tasks* : `list task`
 * *List overdue tasks* : `list overdue`
 * *Sort tasks by priority* : `sort priority`
-* *List categories* : `list category`
-* *Add exam* : `add exam`
-* *List exam* : `list exam`
-* *Modify exam date* : `modify exam` +
-e.g. `modify exam 1 CS9998 270397`
-* *Delete exam* : `delete exam`
+* *List tags* : `list tags`
 * *Help* : `help`
 * *History* : `history`
 * *Undo* : `undo`
