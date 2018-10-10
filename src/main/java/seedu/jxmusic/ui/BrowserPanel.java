@@ -13,6 +13,7 @@ import javafx.scene.web.WebView;
 import seedu.jxmusic.MainApp;
 import seedu.jxmusic.commons.core.LogsCenter;
 import seedu.jxmusic.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.jxmusic.model.Playlist;
 
 /**
  * The Browser Panel of the App.
@@ -40,8 +41,8 @@ public class BrowserPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
-    private void loadPersonPage(Person person) {
-        loadPage(SEARCH_PAGE_URL + person.getName().nameString);
+    private void loadPersonPage(Playlist playlist) {
+        loadPage(SEARCH_PAGE_URL + playlist.getName().nameString);
     }
 
     public void loadPage(String url) {
