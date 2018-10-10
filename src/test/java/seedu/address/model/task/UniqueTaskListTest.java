@@ -43,12 +43,15 @@ public class UniqueTaskListTest {
         assertTrue(uniqueTaskList.contains(ALICE));
     }
 
+    // OLD TEST
+    /*     
+    public void contains_taskWithSameIdentityFieldsInList_returnsTrue() 
+    */
     @Test
-    public void contains_taskWithSameIdentityFieldsInList_returnsTrue() {
+    public void contains_taskWithNotAllSameFieldsInList_returnsFalse() {
         uniqueTaskList.add(ALICE);
-        Task editedAlice = new TaskBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
-        assertTrue(uniqueTaskList.contains(editedAlice));
+        Task editedAlice = new TaskBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        assertFalse(uniqueTaskList.contains(editedAlice));
     }
 
     @Test
