@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+/*
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -14,14 +15,16 @@ public class CreateConvertCommand extends Command {
 
     CreateConvertCommand(String name, List<String> cmds) {
         if(cmds.isEmpty()) {
-            throw new IllegalArgumentException("nothing inside the command arguments");
+            throw new IllegalArgumentException
+            ("nothing inside the command arguments");
         } else {
             this.cmds = cmds;
             this.name = name;
         }
     }
 
-    private void checkSigleValidation(String arg) throws IllegalArgumentException {
+    private void checkSigleValidation(String arg)
+    throws IllegalArgumentException {
         //just a template, not only this
         if(arg == "") {
             throw new IllegalArgumentException();
@@ -42,8 +45,10 @@ public class CreateConvertCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history)
+    throws CommandException {
         JsonConvertArgsStorage.storeArgument(name, cmds);
         return null;
     }
 }
+*/
