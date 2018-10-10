@@ -14,14 +14,14 @@ import seedu.souschef.model.recipe.Recipe;
 /**
  * Parses input arguments and creates a new DeleteCommand object
  */
-public class DeleteCommandParser implements Parser<DeleteCommand> {
+public class DeleteCommandParser implements Parser<DeleteCommand<Recipe>> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
      * and returns an DeleteCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public DeleteCommand parseRecipe(Model model, String args) throws ParseException {
+    public DeleteCommand<Recipe> parseRecipe(Model model, String args) throws ParseException {
         try {
             Index targetIndex = ParserUtil.parseIndex(args);
             requireNonNull(model);
@@ -32,7 +32,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             }
             Recipe toDelete = lastShownList.get(targetIndex.getZeroBased());
 
-            return new DeleteCommand(toDelete);
+            return new DeleteCommand<Recipe>(toDelete);
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);

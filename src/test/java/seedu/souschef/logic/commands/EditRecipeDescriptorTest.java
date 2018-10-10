@@ -12,6 +12,7 @@ import static seedu.souschef.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import org.junit.Test;
 
+import seedu.souschef.logic.EditRecipeDescriptor;
 import seedu.souschef.logic.commands.EditCommand.EditRecipeDescriptor;
 import seedu.souschef.testutil.EditRecipeDescriptorBuilder;
 

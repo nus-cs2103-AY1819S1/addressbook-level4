@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import seedu.souschef.logic.commands.Command;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
+import seedu.souschef.model.UniqueType;
 import seedu.souschef.model.recipe.Recipe;
 
 /**
@@ -17,9 +18,9 @@ public class CommandParserTestUtil {
      * Asserts that the parsing of {@code userInput} by {@code parser} is successful and the command created
      * equals to {@code expectedCommand}.
      */
-    public static void assertParseSuccess(Parser parser, String userInput, Command expectedCommand) {
+    public static void assertParseSuccess(Parser parser, String userInput, Command<UniqueType> expectedCommand) {
         try {
-            Command command = parser.parseRecipe(model, userInput);
+            Command<UniqueType> command = parser.parseRecipe(model, userInput);
             assertEquals(expectedCommand, command);
         } catch (ParseException pe) {
             throw new IllegalArgumentException("Invalid userInput.", pe);

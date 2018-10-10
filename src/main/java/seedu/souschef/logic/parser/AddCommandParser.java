@@ -32,7 +32,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      * and returns an AddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddCommand parseRecipe(Model model, String args) throws ParseException {
+    public AddCommand<Recipe> parseRecipe(Model model, String args) throws ParseException {
         requireNonNull(model);
 
         ArgumentMultimap argMultimap =
@@ -54,7 +54,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        return new AddCommand(model, toAdd);
+        return new AddCommand<Recipe>(model, toAdd);
     }
 
     /**

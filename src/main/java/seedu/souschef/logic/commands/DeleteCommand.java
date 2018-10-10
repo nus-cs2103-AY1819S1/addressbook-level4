@@ -2,12 +2,12 @@ package seedu.souschef.logic.commands;
 
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.model.Model;
-import seedu.souschef.model.recipe.Recipe;
+import seedu.souschef.model.UniqueType;
 
 /**
  * Deletes a recipe identified using it's displayed index from the address book.
  */
-public class DeleteCommand extends Command {
+public class DeleteCommand<T extends UniqueType> extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
@@ -18,9 +18,9 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_DELETE_RECIPE_SUCCESS = "Deleted Recipe: %1$s";
 
-    private final Recipe toDelete;
+    private final T toDelete;
 
-    public DeleteCommand(Recipe toDelete) {
+    public DeleteCommand(T toDelete) {
         this.toDelete = toDelete;
     }
 
@@ -35,6 +35,6 @@ public class DeleteCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteCommand // instanceof handles nulls
-                && toDelete.equals(((DeleteCommand) other).toDelete)); // state check
+                && toDelete.equals(((DeleteCommand<T>) other).toDelete)); // state check
     }
 }

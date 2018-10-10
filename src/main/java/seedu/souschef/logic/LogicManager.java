@@ -11,6 +11,7 @@ import seedu.souschef.logic.commands.exceptions.CommandException;
 import seedu.souschef.logic.parser.AppContentParser;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
+import seedu.souschef.model.UniqueType;
 import seedu.souschef.model.recipe.Recipe;
 
 /**
@@ -33,7 +34,7 @@ public class LogicManager extends ComponentManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
-            Command command = appContentParser.parseCommand(model, commandText, history);
+            Command<UniqueType> command = appContentParser.parseCommand(model, commandText, history);
             return command.execute(model, history);
         } finally {
             history.add(commandText);

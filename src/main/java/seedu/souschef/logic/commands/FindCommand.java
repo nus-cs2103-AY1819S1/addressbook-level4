@@ -1,17 +1,17 @@
 package seedu.souschef.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-
 import seedu.souschef.commons.core.Messages;
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.model.Model;
+import seedu.souschef.model.UniqueType;
 import seedu.souschef.model.recipe.NameContainsKeywordsPredicate;
+import seedu.souschef.model.recipe.Recipe;
 
 /**
  * Finds and lists all recipes in address book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class FindCommand extends Command {
+public class FindCommand<T extends UniqueType> extends Command {
 
     public static final String COMMAND_WORD = "find";
 
@@ -28,7 +28,6 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
-        requireNonNull(model);
         model.updateFilteredList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_RECIPES_LISTED_OVERVIEW, model.getFilteredList().size()));
@@ -38,6 +37,6 @@ public class FindCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FindCommand // instanceof handles nulls
-                && predicate.equals(((FindCommand) other).predicate)); // state check
+                && predicate.equals(((FindCommand<Recipe>) other).predicate)); // state check
     }
 }

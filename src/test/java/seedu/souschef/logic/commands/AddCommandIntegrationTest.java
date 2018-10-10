@@ -34,7 +34,7 @@ public class AddCommandIntegrationTest {
         expectedModel.add(validRecipe);
         expectedModel.commitAppContent();
 
-        assertCommandSuccess(new AddCommand(model, validRecipe), model, commandHistory,
+        assertCommandSuccess(new AddCommand<Recipe>(model, validRecipe), model, commandHistory,
                 String.format(AddCommand.MESSAGE_SUCCESS, validRecipe), expectedModel);
     }
 
