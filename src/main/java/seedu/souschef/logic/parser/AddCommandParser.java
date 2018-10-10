@@ -51,10 +51,10 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Recipe toAdd = new Recipe(name, phone, email, address, tagList);
         if (model.has(toAdd)) {
-            //throw new CommandException(MESSAGE_DUPLICATE_RECIPE);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        return new AddCommand(toAdd);
+        return new AddCommand(model, toAdd);
     }
 
     /**

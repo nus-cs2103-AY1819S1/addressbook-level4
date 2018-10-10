@@ -15,7 +15,6 @@ import seedu.souschef.model.recipe.Recipe;
  * Adds a recipe to the address book.
  */
 public class AddCommand extends Command {
-    private Model model;
 
     public static final String COMMAND_WORD = "add";
 
@@ -37,14 +36,16 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New recipe added: %1$s";
     public static final String MESSAGE_DUPLICATE_RECIPE = "This recipe already exists in the address book";
 
+    private final Model model;
     private final Recipe toAdd;
 
     /**
      * Creates an AddCommand to add the specified {@code Recipe}
      */
-    public AddCommand(Recipe recipe) {
-        requireNonNull(recipe);
-        toAdd = recipe;
+    public AddCommand(Model model, Recipe toAdd) {
+        requireNonNull(toAdd);
+        this.model = model;
+        this.toAdd = toAdd;
     }
 
     @Override

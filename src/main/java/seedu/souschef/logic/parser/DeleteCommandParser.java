@@ -28,7 +28,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             List<Recipe> lastShownList = model.getFilteredList();
 
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                //throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
             }
             Recipe toDelete = lastShownList.get(targetIndex.getZeroBased());
 
