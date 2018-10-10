@@ -100,28 +100,27 @@ public class XmlWishBookStorageTest {
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
+    public void saveWishBook_nullAddressBook_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(null, "SomeFile.xml");
+        saveWishBook(null, "SomeFile.xml");
     }
 
     /**
-     * Saves {@code addressBook} at the specified {@code filePath}.
+     * Saves {@code wishbook} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyWishBook addressBook, String filePath) {
+    private void saveWishBook(ReadOnlyWishBook wishBook, String filePath) {
         try {
             new XmlWishBookStorage(Paths.get(filePath))
-                    .saveWishBook(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveWishBook(wishBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_throwsNullPointerException() {
+    public void saveWishBook_nullFilePath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(new WishBook(), null);
+        saveWishBook(new WishBook(), null);
     }
-
 
 }
