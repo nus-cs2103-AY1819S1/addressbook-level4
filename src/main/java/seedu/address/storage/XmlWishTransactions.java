@@ -102,7 +102,7 @@ public class XmlWishTransactions {
         }
 
         XmlWishTransactions otherMap = (XmlWishTransactions) other;
-        return Objects.equals(wishMap, otherMap);
+        return Objects.equals(wishMap.keySet(), otherMap.wishMap.keySet());
     }
 
 }

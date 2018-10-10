@@ -163,7 +163,9 @@ public class XmlUtilTest {
                 .getDataFromFile(VALID_WISHTRANSACTION_FILE, XmlWishTransactions.class)
                 .toModelType();
         Wish containedWish = getWish();
-        assertTrue(retrievedWishTransaction.getWishMap().containsValue(containedWish));
+        String key = containedWish.getName().fullName;
+        assertTrue(retrievedWishTransaction.getWishMap().containsKey(key));
+        assertTrue(retrievedWishTransaction.getWishMap().get(key).contains(containedWish));
     }
 
     private static Wish getWish() {
