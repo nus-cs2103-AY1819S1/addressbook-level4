@@ -91,7 +91,7 @@ public class TaskListPanelTest extends GuiUnitTest {
     private Path createXmlFileWithTasks(int taskCount) throws Exception {
         StringBuilder builder = new StringBuilder();
         builder.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
-        builder.append("<schedulePlanner>\n");
+        builder.append("<scheduleplanner>\n");
         for (int i = 0; i < taskCount; i++) {
             builder.append("<tasks>\n");
             builder.append("<name>").append(i).append("a</name>\n");
@@ -100,7 +100,7 @@ public class TaskListPanelTest extends GuiUnitTest {
             builder.append("<address>a</address>\n");
             builder.append("</tasks>\n");
         }
-        builder.append("</addressbook>\n");
+        builder.append("</scheduleplanner>\n");
 
         Path manyTasksFile = Paths.get(TEST_DATA_FOLDER + "manyTasks.xml");
         FileUtil.createFile(manyTasksFile);
