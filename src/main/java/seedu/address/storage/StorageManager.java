@@ -9,25 +9,35 @@ import com.google.common.eventbus.Subscribe;
 
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.WishBookChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyWishBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.WishTransaction;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of WishBook data in local storage.
  */
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private WishBookStorage wishBookStorage;
+    private WishTransactionStorage wishTransactionStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(WishBookStorage wishBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.wishBookStorage = wishBookStorage;
+        this.userPrefsStorage = userPrefsStorage;
+    }
+
+    public StorageManager(WishBookStorage wishBookStorage, WishTransactionStorage wishTransactionStorage,
+                          UserPrefsStorage userPrefsStorage) {
+        super();
+        this.wishBookStorage = wishBookStorage;
+        this.wishTransactionStorage = wishTransactionStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -48,43 +58,93 @@ public class StorageManager extends ComponentManager implements Storage {
         userPrefsStorage.saveUserPrefs(userPrefs);
     }
 
-
-    // ================ AddressBook methods ==============================
+    // ================ WishTransaction methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getWishTransactionFilePath() {
+        return wishTransactionStorage.getWishTransactionFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<WishTransaction> readWishTransaction() throws DataConversionException, IOException {
+        return wishTransactionStorage.readWishTransaction(getWishTransactionFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
-        logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+    public Optional<WishTransaction> readWishTransaction(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read wishTransaction data from file: " + filePath);
+        return wishTransactionStorage.readWishTransaction(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveWishTransaction(WishTransaction wishTransaction) throws IOException {
+        saveWishTransaction(wishTransaction, getWishTransactionFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveWishTransaction(WishTransaction wishTransaction, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        wishTransactionStorage.saveWishTransaction(wishTransaction, filePath);
+    }
+
+    // ================ WishBook methods ==============================
+
+    @Override
+    public Path getWishBookFilePath() {
+        return wishBookStorage.getWishBookFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyWishBook> readWishBook() throws DataConversionException, IOException {
+        return readWishBook(wishBookStorage.getWishBookFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyWishBook> readWishBook(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return wishBookStorage.readWishBook(filePath);
+    }
+
+    @Override
+    public void saveWishBook(ReadOnlyWishBook wishBook) throws IOException {
+        saveWishBook(wishBook, wishBookStorage.getWishBookFilePath());
+    }
+
+    @Override
+    public void saveWishBook(ReadOnlyWishBook wishBook, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        wishBookStorage.saveWishBook(wishBook, filePath);
+    }
+
+    @Override
+    public void backupWishBook(ReadOnlyWishBook wishBook) throws IOException {
+        backupWishBook(wishBook, wishBookStorage.getWishBookFilePath());
+    }
+
+    @Override
+    public void backupWishBook(ReadOnlyWishBook wishBook, Path filePath) throws IOException {
+        logger.fine("Attempting to write to backup data file: " + filePath);
+        wishBookStorage.backupWishBook(wishBook, filePath);
+    }
+
+    @Override
+    public void saveBackup() throws IOException, DataConversionException {
+        wishBookStorage.saveBackup();
+    }
+
+    @Override
+    public void saveBackup(Path path) throws IOException, DataConversionException {
+        logger.fine("Attempting to save backup file: " + path);
+        wishBookStorage.saveBackup(path);
     }
 
 
     @Override
     @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
+    public void handleWishBookChangedEvent(WishBookChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
-            saveAddressBook(event.data);
+            backupWishBook(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }

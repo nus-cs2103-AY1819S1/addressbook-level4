@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<wishbook>
+
+    <wishes>
+        <name>Alice Pauline</name>
+        <price>94351253</price>
+        <savedAmount>0.00</savedAmount>
+        <email>alice@example.com</email>
+        <url>https://www.amazon.com/gp/product/B07D998212</url>
+        <remark></remark>
+        <tagged>friends</tagged>
+    </wishes>
+
+    <!-- Person with same identity as Alice Pauline -->
+    <wishes>
+        <name>Alice Pauline</name>
+        <price>94351253</price>
+        <savedAmount>0.00</savedAmount>
+        <email>pauline@example.com</email>
+        <remark></remark>
+        <url>https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV</url>
+    </wishes>
+
+</wishbook>

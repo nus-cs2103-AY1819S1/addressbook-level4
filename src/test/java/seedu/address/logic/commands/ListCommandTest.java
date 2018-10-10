@@ -1,9 +1,10 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.logic.commands.CommandTestUtil.showWishAtIndex;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_WISH;
+import static seedu.address.testutil.TypicalWishes.getTypicalWishBook;
+import static seedu.address.testutil.TypicalWishes.getTypicalWishTransaction;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,18 +25,20 @@ public class ListCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalWishBook(), getTypicalWishTransaction(), new UserPrefs());
+        expectedModel = new ModelManager(model.getWishBook(), model.getWishTransaction(), new UserPrefs());
     }
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListCommand(), model, commandHistory, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListCommand(ListCommand.ListType.SHOW_ALL),
+                model, commandHistory, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        assertCommandSuccess(new ListCommand(), model, commandHistory, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        showWishAtIndex(model, INDEX_FIRST_WISH);
+        assertCommandSuccess(new ListCommand(ListCommand.ListType.SHOW_ALL),
+                model, commandHistory, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }
