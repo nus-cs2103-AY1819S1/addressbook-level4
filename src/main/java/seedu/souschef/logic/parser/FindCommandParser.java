@@ -14,7 +14,7 @@ import seedu.souschef.model.recipe.Recipe;
 /**
  * Parses input arguments and creates a new FindCommand object
  */
-public class FindCommandParser implements Parser {
+public class FindCommandParser implements Parser<FindCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand

@@ -10,7 +10,6 @@ import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TAG;
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.UniqueType;
-import seedu.souschef.model.recipe.Recipe;
 
 /**
  * Adds a recipe to the address book.
@@ -60,6 +59,6 @@ public class AddCommand<T extends UniqueType> extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand<Recipe>) other).toAdd));
+                && toAdd.equals(((AddCommand<T>) other).toAdd));
     }
 }

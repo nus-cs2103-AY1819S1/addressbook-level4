@@ -5,7 +5,6 @@ import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.UniqueType;
 import seedu.souschef.model.recipe.NameContainsKeywordsPredicate;
-import seedu.souschef.model.recipe.Recipe;
 
 /**
  * Finds and lists all recipes in address book whose name contains any of the argument keywords.
@@ -37,6 +36,6 @@ public class FindCommand<T extends UniqueType> extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FindCommand // instanceof handles nulls
-                && predicate.equals(((FindCommand<Recipe>) other).predicate)); // state check
+                && predicate.equals(((FindCommand<T>) other).predicate)); // state check
     }
 }
