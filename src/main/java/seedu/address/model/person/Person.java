@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.appointment.AppointmentsList;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicine.PrescriptionList;
 import seedu.address.model.tag.Tag;
@@ -27,6 +28,7 @@ public class Person {
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
     private final PrescriptionList prescriptionList;
+    private final AppointmentsList appointmentsList;
     private final MedicalHistory medicalHistory = new MedicalHistory();
 
     /**
@@ -41,11 +43,12 @@ public class Person {
         this.address = address;
         this.tags.addAll(tags);
         prescriptionList = new PrescriptionList();
+        appointmentsList = new AppointmentsList();
     }
 
     public Person(Nric nric, Name name, Phone phone, Email email, Address address, Set<Tag> tags,
-            PrescriptionList prescriptionList) {
-        requireAllNonNull(nric, name, phone, email, address, tags, prescriptionList);
+            PrescriptionList prescriptionList, AppointmentsList appointmentsList) {
+        requireAllNonNull(nric, name, phone, email, address, tags, prescriptionList, appointmentsList);
         this.nric = nric;
         this.name = name;
         this.phone = phone;
@@ -53,6 +56,7 @@ public class Person {
         this.address = address;
         this.tags.addAll(tags);
         this.prescriptionList = prescriptionList;
+        this.appointmentsList = appointmentsList;
     }
 
     /**
@@ -69,14 +73,15 @@ public class Person {
         this.tags.addAll(tags);
         this.medicalHistory.addAll(medicalHistory);
         this.prescriptionList = new PrescriptionList();
+        this.appointmentsList = new AppointmentsList();
     }
 
     /**
      * Overloaded constructor to generate a person that has existing medicalhistory.
      */
     public Person(Nric nric, Name name, Phone phone, Email email, Address address, Set<Tag> tags,
-                  MedicalHistory medicalHistory, PrescriptionList prescriptionList) {
-        requireAllNonNull(nric, name, phone, email, address, tags, medicalHistory, prescriptionList);
+                  MedicalHistory medicalHistory, PrescriptionList prescriptionList, AppointmentsList appointmentsList) {
+        requireAllNonNull(nric, name, phone, email, address, tags, medicalHistory, prescriptionList, appointmentsList);
         this.nric = nric;
         this.name = name;
         this.phone = phone;
@@ -85,6 +90,24 @@ public class Person {
         this.tags.addAll(tags);
         this.medicalHistory.addAll(medicalHistory);
         this.prescriptionList = prescriptionList;
+        this.appointmentsList = appointmentsList;
+    }
+
+    /**
+     * Overloaded constructor to generate a person that has existing medicalhistory.
+     */
+    public Person(Nric nric, Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+                  AppointmentsList appointmentsList) {
+        requireAllNonNull(nric, name, phone, email, address, tags, appointmentsList);
+        this.nric = nric;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.prescriptionList = new PrescriptionList();
+        this.appointmentsList = new AppointmentsList();
+
     }
 
     public Nric getNric() {
@@ -114,6 +137,8 @@ public class Person {
     public MedicalHistory getMedicalHistory() {
         return medicalHistory;
     }
+
+    public AppointmentsList getAppointmentsList() { return appointmentsList; }
 
     /**
      * Returns an immutable tag set, which throws
