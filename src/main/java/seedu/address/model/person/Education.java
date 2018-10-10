@@ -1,5 +1,7 @@
 package seedu.address.model.person;
 
+import java.util.Objects;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -10,13 +12,21 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Education {
     public static final String MESSAGE_EDUCATION_CONSTRAINTS =
             "Education can take any values, and it should not be blank";
+
+    public static final String MESSAGE_GRADE_CONSTRAINTS =
+            "The educational grade and/or level is invalid";
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String EDUCATION_VALIDATION_REGEX = "[^\\s].*";
+    public static final String EDUCATION_VALIDATION_REGEX = "[\\S+]{2,3}[\\s][1-6]";
 
-    public final String value;
+    enum EducationalLevel {
+        PRIMARY, SECONDARY, JC
+    }
+
+    public EducationalLevel educationalLevel;
+    public int educationalGrade;
 
     /**
      * Constructs an {@code Education}.
@@ -26,30 +36,65 @@ public class Education {
     public Education(String education) {
         requireNonNull(education);
         checkArgument(isValidEducation(education), MESSAGE_EDUCATION_CONSTRAINTS);
-        value = education;
+
+        String[] splittedEducation = education.split("\\s+");
+        setEducationalLevelAndGrade(splittedEducation);
+    }
+
+    public void setEducationalLevelAndGrade(String[] education) {
+        educationalGrade = Integer.valueOf(education[1]);
+
+        switch (education[0]) {
+        case "pri":
+            educationalLevel = EducationalLevel.PRIMARY;
+            break;
+        case "sec":
+            educationalLevel = EducationalLevel.SECONDARY;
+            break;
+        case "jc":
+            educationalLevel = EducationalLevel.JC;
+            break;
+        }
     }
 
     /**
      * Returns true if a given string is a valid education.
      */
     public static boolean isValidEducation(String test) {
-        return test.matches(EDUCATION_VALIDATION_REGEX);
+        if (!test.matches(EDUCATION_VALIDATION_REGEX)) {
+            return false;
+        }
+
+        String[] splitTest = test.split("\\s+");
+        int grade = Integer.valueOf(splitTest[1]);
+
+        if (splitTest[0].equals("pri")) {
+            return grade <= 6;
+        } else if(splitTest[0].equals("sec")) {
+            return grade <= 5;
+        } else if (splitTest[0].equals("jc")){
+            return grade <= 2;
+        } else {
+            return false;
+        }
     }
+
 
     @Override
     public String toString() {
-        return value;
+        return educationalLevel.toString() + " " + educationalGrade;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Education // instanceof handles nulls
-                && value.equals(((Education) other).value)); // state check
+                && educationalLevel.equals(((Education) other).educationalLevel)
+                && educationalGrade == ((Education) other).educationalGrade); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return Objects.hash(educationalLevel, educationalGrade);
     }
 }
