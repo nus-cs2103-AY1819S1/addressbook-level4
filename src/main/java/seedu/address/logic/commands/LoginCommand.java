@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 
+import com.oracle.tools.packager.Log;
 import java.util.List;
 
 import seedu.address.logic.CommandHistory;
@@ -60,4 +61,12 @@ public class LoginCommand extends Command {
         }
         return new CommandResult(MESSAGE_FAILURE);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof LoginCommand // instanceof handles nulls
+                && toAuthenticate.equals(((LoginCommand) other).toAuthenticate)); // state check
+    }
+    
 }
