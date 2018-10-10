@@ -127,50 +127,6 @@ public class CommandBoxTest extends GuiUnitTest {
     }
 
     /**
-     * The commandResult of pressing tab is tested by SuggestCommandTest
-     */
-    @Test
-    public void handleKeyPress_tab() {
-        //Check that tab does not do anything on an invalid command
-        commandBoxHandle.run(COMMAND_THAT_FAILS);
-        assertEquals(errorStyleOfCommandBox, commandBoxHandle.getStyleClass());
-        guiRobot.push(KeyCode.TAB);
-        assertEquals(errorStyleOfCommandBox, commandBoxHandle.getStyleClass());
-        assertEquals(COMMAND_THAT_FAILS, commandBoxHandle.getInput());
-        assertTrue(commandBoxHandle.isFocused());
-
-        //Check that tab does not execute commands
-        guiRobot.push(KeyCode.ESCAPE);
-        guiRobot.push(KeyCode.H);
-        guiRobot.push(KeyCode.E);
-        guiRobot.push(KeyCode.L);
-        guiRobot.push(KeyCode.P);
-        guiRobot.push(KeyCode.TAB);
-        assertEquals(defaultStyleOfCommandBox, commandBoxHandle.getStyleClass());
-        assertEquals("help", commandBoxHandle.getInput());
-        assertTrue(commandBoxHandle.isFocused());
-
-        //Check that tab does complete commands
-        guiRobot.push(KeyCode.ESCAPE);
-        guiRobot.push(KeyCode.D);
-        guiRobot.push(KeyCode.E);
-        guiRobot.push(KeyCode.L);
-        guiRobot.push(KeyCode.E);
-        guiRobot.push(KeyCode.TAB);
-        assertEquals(defaultStyleOfCommandBox, commandBoxHandle.getStyleClass());
-        assertEquals("delete", commandBoxHandle.getInput());
-        assertTrue(commandBoxHandle.isFocused());
-
-        //Check that tab does not complete when there are multiple commands
-        guiRobot.push(KeyCode.ESCAPE);
-        guiRobot.push(KeyCode.H);
-        guiRobot.push(KeyCode.TAB);
-        assertEquals(defaultStyleOfCommandBox, commandBoxHandle.getStyleClass());
-        assertEquals("h", commandBoxHandle.getInput());
-        assertTrue(commandBoxHandle.isFocused());
-    }
-
-    /**
      * Runs a command that fails, then verifies that <br>
      *      - the text remains <br>
      *      - the command box's style is the same as {@code errorStyleOfCommandBox}.
@@ -199,4 +155,5 @@ public class CommandBoxTest extends GuiUnitTest {
         guiRobot.push(keycode);
         assertEquals(expectedCommand, commandBoxHandle.getInput());
     }
+
 }

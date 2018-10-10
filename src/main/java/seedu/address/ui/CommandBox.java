@@ -127,8 +127,10 @@ public class CommandBox extends UiPart<Region> {
             return;
         }
         CommandResult commandResult = suggestCommand.execute(null, null);
-        replaceText(pendingText);
-        pendingText = "";
+        if (!pendingText.isEmpty()) {
+            replaceText(pendingText);
+            pendingText = "";
+        }
         raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
     }
 
