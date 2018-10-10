@@ -37,6 +37,9 @@ public class Education {
         setEducationalLevelAndGrade(education);
     }
 
+    /**
+     * Sets the Educational Level and Grade based on user input.
+     */
     public void setEducationalLevelAndGrade(String education) {
         String[] splittedEducation = education.split("\\s+");
         educationalGrade = Integer.valueOf(splittedEducation[1]);
