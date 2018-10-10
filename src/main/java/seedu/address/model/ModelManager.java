@@ -293,4 +293,5 @@ public class ModelManager extends ComponentManager implements Model {
     private void indicateEmailSaved() {
         raise(new EmailSavedEvent(emailModel));
     }
+
 }
