@@ -9,7 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import seedu.jxmusic.model.Library;
-import seedu.jxmusic.model.Playlist1;
+import seedu.jxmusic.model.Playlist;
 
 /**
  * Read the library.json file and scan all the mp3 files from the library directory, a combination of
@@ -24,7 +24,7 @@ public class LibraryRead {
         // Configure Gson
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(Library.class, new LibraryDeserializer());
-        gsonBuilder.registerTypeAdapter(Playlist1.class, new PlaylistDeserializer());
+        gsonBuilder.registerTypeAdapter(Playlist.class, new PlaylistDeserializer());
         Gson gson = gsonBuilder.create();
 
         // The JSON data

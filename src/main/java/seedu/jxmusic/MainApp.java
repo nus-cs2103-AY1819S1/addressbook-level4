@@ -26,12 +26,12 @@ import seedu.jxmusic.model.ModelManager;
 import seedu.jxmusic.model.ReadOnlyAddressBook;
 import seedu.jxmusic.model.UserPrefs;
 import seedu.jxmusic.model.util.SampleDataUtil;
-import seedu.jxmusic.storage.AddressBookStorage;
+import seedu.jxmusic.storage.LibraryStorage;
 import seedu.jxmusic.storage.JsonUserPrefsStorage;
 import seedu.jxmusic.storage.Storage;
 import seedu.jxmusic.storage.StorageManager;
 import seedu.jxmusic.storage.UserPrefsStorage;
-import seedu.jxmusic.storage.XmlAddressBookStorage;
+import seedu.jxmusic.storage.JsonLibraryStorage;
 import seedu.jxmusic.ui.Ui;
 import seedu.jxmusic.ui.UiManager;
 
@@ -62,8 +62,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new XmlAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        LibraryStorage libraryStorage = new JsonLibraryStorage(userPrefs.getAddressBookFilePath());
+        storage = new StorageManager(libraryStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -85,7 +85,7 @@ public class MainApp extends Application {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
+            addressBookOptional = storage.readLibrary();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }

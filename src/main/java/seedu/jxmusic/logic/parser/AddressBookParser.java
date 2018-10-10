@@ -56,6 +56,9 @@ public class AddressBookParser {
         case PauseCommand.COMMAND_WORD:
             return new PauseCommand(); // todo parse (argument)
 
+        case StopCommand.COMMAND_WORD:
+            return new StopCommand();
+
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 

@@ -11,7 +11,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
 import seedu.jxmusic.model.Library;
-import seedu.jxmusic.model.Playlist1;
+import seedu.jxmusic.model.Playlist;
 
 /**
  * This is a deserializer for library class
@@ -22,8 +22,8 @@ public class LibraryDeserializer implements JsonDeserializer<Library> {
             throws JsonParseException {
         final JsonObject jsonObject = json.getAsJsonObject();
         // Delegate the deserialization to the context
-        Playlist1[] playlist1 = context.deserialize(jsonObject.get("playlists"), Playlist1[].class);
-        List<Playlist1> playListList = Arrays.asList(playlist1);
+        Playlist[] playlist = context.deserialize(jsonObject.get("playlists"), Playlist[].class);
+        List<Playlist> playListList = Arrays.asList(playlist);
         final Library library = new Library();
         library.setPlaylists(playListList);
         return library;
