@@ -66,7 +66,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        WishBookStorage wishBookStorage = new XmlWishBookStorage(userPrefs.getAddressBookFilePath());
+        WishBookStorage wishBookStorage = new XmlWishBookStorage(userPrefs.getWishBookFilePath());
         WishTransactionStorage wishTransactionStorage =
                 new XmlWishTransactionStorage(userPrefs.getWishTransactionFilePath());
         storage = new StorageManager(wishBookStorage, wishTransactionStorage, userPrefsStorage);
@@ -218,7 +218,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Wish Book ] =============================");
         ui.stop();
         try {
             storage.saveBackup();
