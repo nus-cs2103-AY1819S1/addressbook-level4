@@ -29,10 +29,8 @@ public class UserPrefs {
 
     public Path getWishTransactionFilePath() { return wishTransactionFilePath; }
 
-    public void setWishTransactionFilePath(Path wishTransactionFilePath) {
-        this.wishTransactionFilePath = wishTransactionFilePath;
-    }
-    
+    public void setWishTransactionFilePath(Path wishTransactionFilePath) { this.wishTransactionFilePath = wishTransactionFilePath; }
+
     public Path getWishBookFilePath() { return wishBookFilePath; }
 
     public void setWishBookFilePath(Path wishBookFilePath) { this.wishBookFilePath = wishBookFilePath; }
