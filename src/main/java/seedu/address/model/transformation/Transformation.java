@@ -3,7 +3,6 @@ package seedu.address.model.transformation;
 //@author Jeffry
 
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -14,25 +13,30 @@ public class Transformation {
     private String operation;
     private String[] args;
 
-    public Transformation(String operation, String... args){
+    public Transformation(String operation, String... args) {
         this.operation = operation;
         this.args = args;
     }
 
-    //@author (tian yang?)
+    //@author tianyang
     /**
-     * form a list of a String to pass to processbuilder
+     * print out the transformation
      * @return
      */
     @Override
     public String toString() {
         String result = operation;
-        for(int i = 0; i < args.length; i ++) {
+        for (int i = 0; i < args.length; i++) {
             result += "\n -" + args[i];
         }
         return result; //whoever is in charge do this
     }
 
+    //@author tianyang
+    /**
+     * return a list of String that contains all the arguments and the operation
+     * @return
+     */
     public List<String> toList() {
         List<String> list = Arrays.asList(args);
         list.add(0, operation);
