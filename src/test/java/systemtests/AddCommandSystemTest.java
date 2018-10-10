@@ -197,19 +197,6 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Performs the same verification as {@code assertCommandSuccess(Person)}. Executes {@code command}
-     * instead.
-     * @see AddCommandSystemTest#assertCommandSuccess(Person)
-     */
-    private void assertCommandSuccess(String command, Person toAdd) {
-        Model expectedModel = getModel();
-        expectedModel.addPerson(toAdd);
-        String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, toAdd);
-
-        assertCommandSuccess(command, expectedModel, expectedResultMessage);
-    }
-
-    /**
      * Performs the same verification as {@code assertCommandSuccess(String, Person)} except asserts that
      * the,<br>
      * 1. Result display box displays {@code expectedResultMessage}.<br>
@@ -223,6 +210,19 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertSelectedCardUnchanged();
         assertCommandBoxShowsDefaultStyle();
         assertStatusBarUnchangedExceptSyncStatus();
+    }
+
+    /**
+     * Performs the same verification as {@code assertCommandSuccess(Person)}. Executes {@code command}
+     * instead.
+     * @see AddCommandSystemTest#assertCommandSuccess(Person)
+     */
+    private void assertCommandSuccess(String command, Person toAdd) {
+        Model expectedModel = getModel();
+        expectedModel.addPerson(toAdd);
+        String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, toAdd);
+
+        assertCommandSuccess(command, expectedModel, expectedResultMessage);
     }
 
     /**
