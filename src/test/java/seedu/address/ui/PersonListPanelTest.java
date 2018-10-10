@@ -14,8 +14,8 @@ import java.nio.file.Paths;
 
 import org.junit.Test;
 
-import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
+import guitests.guihandles.TaskCardHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
@@ -43,7 +43,7 @@ public class PersonListPanelTest extends GuiUnitTest {
         for (int i = 0; i < TYPICAL_TASKS.size(); i++) {
             personListPanelHandle.navigateToCard(TYPICAL_TASKS.get(i));
             Task expectedTask = TYPICAL_TASKS.get(i);
-            PersonCardHandle actualCard = personListPanelHandle.getPersonCardHandle(i);
+            TaskCardHandle actualCard = personListPanelHandle.getTaskCardHandle(i);
 
             assertCardDisplaysPerson(expectedTask, actualCard);
             assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
@@ -56,13 +56,13 @@ public class PersonListPanelTest extends GuiUnitTest {
         postNow(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 
-        PersonCardHandle expectedPerson = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
-        PersonCardHandle selectedPerson = personListPanelHandle.getHandleToSelectedCard();
-        assertCardEquals(expectedPerson, selectedPerson);
+        TaskCardHandle expectedTask = personListPanelHandle.getTaskCardHandle(INDEX_SECOND_PERSON.getZeroBased());
+        TaskCardHandle selectedTask = personListPanelHandle.getHandleToSelectedCard();
+        assertCardEquals(expectedTask, selectedTask);
     }
 
     /**
-     * Verifies that creating and deleting large number of persons in {@code PersonListPanel} requires lesser than
+     * Verifies that creating and deleting large number of tasks in {@code PersonListPanel} requires lesser than
      * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
     @Test
