@@ -11,10 +11,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Education {
     public static final String MESSAGE_EDUCATION_CONSTRAINTS =
-            "Education can take any values, and it should not be blank";
+            "Education should contain level and grade, separated by a space in between.";
 
-    public static final String MESSAGE_GRADE_CONSTRAINTS =
-            "The educational grade and/or level is invalid";
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
