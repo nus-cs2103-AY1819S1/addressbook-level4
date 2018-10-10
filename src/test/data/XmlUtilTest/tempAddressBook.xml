@@ -6,6 +6,7 @@
         <lastName>Doe</lastName>
         <education>Secondary 4</education>
         <grades>99</grades>
+        <time>Monday 1300-1500</time>
         <githubUsername></githubUsername>
         <street></street>
         <postalCode></postalCode>
