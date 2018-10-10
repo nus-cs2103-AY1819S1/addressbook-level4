@@ -21,7 +21,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.WishTransaction;
 
 public class XmlWishTransactionStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src","test", "data", "XmlWishTransactionStorageTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlWishTransactionStorageTest");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -58,8 +58,7 @@ public class XmlWishTransactionStorageTest {
     }
 
     @Test
-    public void readAndSaveWishTransaction() throws Exception{
-//        Path filePath = testFolder.getRoot().toPath().resolve("TempWishTransaction.xml");
+    public void readAndSaveWishTransaction() throws Exception {
         Path filePath = TEST_DATA_FOLDER.resolve("TempWishTransaction.xml");
         WishTransaction original = getTypicalWishTransaction();
 

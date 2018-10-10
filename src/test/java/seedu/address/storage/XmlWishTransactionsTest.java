@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.WishTransaction;
 
@@ -27,7 +28,7 @@ public class XmlWishTransactionsTest extends XmlWishTransactions {
     }
 
     @Test
-    public void shouldConvertCorrectly_XmlWishTransactions() throws IllegalValueException {
+    public void shouldConvertCorrectlyXmlWishTransactions() throws IllegalValueException {
         WishTransaction wishTransaction = emptyXmlWishTransactions.toModelType();
         assertEquals(wishTransaction, new WishTransaction());
 

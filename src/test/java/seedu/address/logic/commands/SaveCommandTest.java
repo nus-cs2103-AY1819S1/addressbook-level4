@@ -46,7 +46,8 @@ public class SaveCommandTest {
         String expectedMessage = String.format(MESSAGE_SAVE_SUCCESS, amountToSave,
                 editedWishIndex.getOneBased());
 
-        Model expectedModel = new ModelManager(new WishBook(model.getWishBook()), model.getWishTransaction(), new UserPrefs());
+        Model expectedModel = new ModelManager(
+                new WishBook(model.getWishBook()), model.getWishTransaction(), new UserPrefs());
         expectedModel.updateWish(firstWish, editedWish);
         expectedModel.commitWishBook();
 
@@ -69,7 +70,8 @@ public class SaveCommandTest {
         String expectedMessage = String.format(MESSAGE_SAVE_SUCCESS, amountToSave,
                 editedWishIndex.getOneBased());
 
-        Model expectedModel = new ModelManager(new WishBook(model.getWishBook()), model.getWishTransaction(), new UserPrefs());
+        Model expectedModel = new ModelManager(
+                new WishBook(model.getWishBook()), model.getWishTransaction(), new UserPrefs());
         expectedModel.updateWish(firstWish, editedWish);
         expectedModel.commitWishBook();
 
@@ -125,7 +127,8 @@ public class SaveCommandTest {
         String expectedMessage = String.format(MESSAGE_SAVE_SUCCESS, amountToSave,
                 editedWishIndex.getOneBased());
 
-        Model expectedModel = new ModelManager(new WishBook(model.getWishBook()), model.getWishTransaction(), new UserPrefs());
+        Model expectedModel = new ModelManager(
+                new WishBook(model.getWishBook()), model.getWishTransaction(), new UserPrefs());
         expectedModel.updateWish(firstWish, editedWish);
         expectedModel.commitWishBook();
 

@@ -96,7 +96,7 @@ public class StorageManagerTest {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link XmlWishTransactionStorage} class.
-         * More extensive testing of WishTransaction saving/reading is done in {@link XmlWishTransactionStorageTest} class.
+         * More extensive testing of WishTransaction saving/reading is done in {@link XmlWishTransactionStorageTest}.
          */
         WishTransaction original = getTypicalWishTransaction();
         storageManager.saveWishTransaction(original);

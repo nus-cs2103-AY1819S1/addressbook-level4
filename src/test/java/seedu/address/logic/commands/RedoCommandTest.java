@@ -16,8 +16,10 @@ import seedu.address.model.UserPrefs;
 
 public class RedoCommandTest {
 
-    private final Model model = new ModelManager(getTypicalWishBook(), getTypicalWishTransaction(), new UserPrefs());
-    private final Model expectedModel = new ModelManager(getTypicalWishBook(), getTypicalWishTransaction(), new UserPrefs());
+    private final Model model = new ModelManager(
+            getTypicalWishBook(), getTypicalWishTransaction(), new UserPrefs());
+    private final Model expectedModel = new ModelManager(
+            getTypicalWishBook(), getTypicalWishTransaction(), new UserPrefs());
     private final CommandHistory commandHistory = new CommandHistory();
 
     @Before

@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 import seedu.address.model.WishBook;
 import seedu.address.model.WishTransaction;
 import seedu.address.model.wish.Wish;
@@ -183,7 +184,8 @@ public class XmlUtilTest {
         FileUtil.createFile(TEMP_WISHTRANSACTION_FILE);
         XmlWishTransactions dataToWrite = new XmlWishTransactions(new WishTransaction());
         XmlUtil.saveDataToFile(TEMP_WISHTRANSACTION_FILE, dataToWrite);
-        XmlWishTransactions dataFromFile = XmlUtil.getDataFromFile(TEMP_WISHTRANSACTION_FILE, XmlWishTransactions.class);
+        XmlWishTransactions dataFromFile = XmlUtil
+                .getDataFromFile(TEMP_WISHTRANSACTION_FILE, XmlWishTransactions.class);
         assertEquals(dataToWrite, dataFromFile);
 
         WishBookBuilder builder = new WishBookBuilder(new WishBook());

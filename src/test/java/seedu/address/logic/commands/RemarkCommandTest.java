@@ -6,7 +6,6 @@ import static seedu.address.logic.commands.CommandTestUtil.SAMPLE_REMARK_1;
 import static seedu.address.logic.commands.CommandTestUtil.SAMPLE_REMARK_2;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_WISH;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_WISH;
-import static seedu.address.testutil.TypicalWishes.getTypicalWishTransaction;
 
 import org.junit.Test;
 
@@ -18,7 +17,8 @@ import seedu.address.model.wish.Remark;
 import seedu.address.testutil.TypicalWishes;
 
 public class RemarkCommandTest {
-    private Model model = new ModelManager(TypicalWishes.getTypicalWishBook(), TypicalWishes.getTypicalWishTransaction(), new UserPrefs());
+    private Model model = new ModelManager(
+            TypicalWishes.getTypicalWishBook(), TypicalWishes.getTypicalWishTransaction(), new UserPrefs());
 
     @Test
     public void equals() {
