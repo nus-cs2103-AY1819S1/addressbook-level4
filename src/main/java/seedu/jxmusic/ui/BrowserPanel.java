@@ -12,7 +12,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.jxmusic.MainApp;
 import seedu.jxmusic.commons.core.LogsCenter;
-import seedu.jxmusic.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.jxmusic.commons.events.ui.PlaylistPanelSelectionChangedEvent;
 import seedu.jxmusic.model.Playlist;
 
 /**
@@ -41,7 +41,7 @@ public class BrowserPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
-    private void loadPersonPage(Playlist playlist) {
+    private void loadPlaylistPage(Playlist playlist) {
         loadPage(SEARCH_PAGE_URL + playlist.getName().nameString);
     }
 
@@ -65,8 +65,8 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
+    private void handlePlaylistPanelSelectionChangedEvent(PlaylistPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        loadPersonPage(event.getNewSelection());
+        loadPlaylistPage(event.getNewSelection());
     }
 }

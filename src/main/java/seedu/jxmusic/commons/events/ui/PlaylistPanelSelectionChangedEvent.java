@@ -6,12 +6,12 @@ import seedu.jxmusic.model.Playlist;
 /**
  * Represents a selection change in the Person List Panel
  */
-public class PersonPanelSelectionChangedEvent extends BaseEvent {
+public class PlaylistPanelSelectionChangedEvent extends BaseEvent {
 
 
     private final Playlist newSelection;
 
-    public PersonPanelSelectionChangedEvent(Playlist newSelection) {
+    public PlaylistPanelSelectionChangedEvent(Playlist newSelection) {
         this.newSelection = newSelection;
     }
 

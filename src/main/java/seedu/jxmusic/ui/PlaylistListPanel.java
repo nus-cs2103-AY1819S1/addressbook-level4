@@ -12,20 +12,20 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.jxmusic.commons.core.LogsCenter;
 import seedu.jxmusic.commons.events.ui.JumpToListRequestEvent;
-import seedu.jxmusic.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.jxmusic.commons.events.ui.PlaylistPanelSelectionChangedEvent;
 import seedu.jxmusic.model.Playlist;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of playlists.
  */
-public class PlaylistsPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PlaylistsPanel.class);
+public class PlaylistListPanel extends UiPart<Region> {
+    private static final String FXML = "PlaylistListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(PlaylistListPanel.class);
 
     @FXML
     private ListView<Playlist> playlistsView;
 
-    public PlaylistsPanel(ObservableList<Playlist> playlists) {
+    public PlaylistListPanel(ObservableList<Playlist> playlists) {
         super(FXML);
         setConnections(playlists);
         registerAsAnEventHandler(this);
@@ -42,7 +42,7 @@ public class PlaylistsPanel extends UiPart<Region> {
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
                         logger.fine("Selection in playlist list panel changed to : '" + newValue + "'");
-                        raise(new PersonPanelSelectionChangedEvent(newValue));
+                        raise(new PlaylistPanelSelectionChangedEvent(newValue));
                     }
                 });
     }
@@ -64,7 +64,7 @@ public class PlaylistsPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PlaylistCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Playlist} using a {@code PlaylistCard}.
      */
     class PlaylistsViewCell extends ListCell<Playlist> {
         @Override

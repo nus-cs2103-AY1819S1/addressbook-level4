@@ -8,11 +8,11 @@ import javafx.scene.layout.Region;
 import seedu.jxmusic.model.Playlist;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Playlist}.
  */
 public class PlaylistCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "PlaylistListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -31,22 +31,15 @@ public class PlaylistCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
-    @FXML
-    private Label tracks;
-    @FXML
-    private Label address;
-    @FXML
-    private Label email;
-    @FXML
-    private FlowPane tags;
+    private FlowPane tracks;
 
     public PlaylistCard(Playlist playlist, int displayedIndex) {
         super(FXML);
         this.playlist = playlist;
         id.setText(displayedIndex + ". ");
         name.setText(playlist.getName().nameString);
-        tracks.setText(playlist.getTracks().toString());
+        playlist.getTracks().forEach(track ->
+                tracks.getChildren().add(new Label(track.getFileName())));
         //phone.setText(playlist.getPhone().value);
         //address.setText(person.getAddress().value);
         //email.setText(person.getEmail().value);
@@ -73,7 +66,7 @@ public class PlaylistCard extends UiPart<Region> {
         /*
         PlaylistCard card = (PlaylistCard) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+                && playlist.equals(card.playlist);
          */
     }
 }
