@@ -80,9 +80,9 @@ public class TaskListPanelTest extends GuiUnitTest {
      */
     private ObservableList<Task> createBackingList(int taskCount) throws Exception {
         Path xmlFile = createXmlFileWithTasks(taskCount);
-        XmlSerializableSchedulePlanner xmlAddressBook =
+        XmlSerializableSchedulePlanner xmlSchedulePlanner =
                 XmlUtil.getDataFromFile(xmlFile, XmlSerializableSchedulePlanner.class);
-        return FXCollections.observableArrayList(xmlAddressBook.toModelType().getTaskList());
+        return FXCollections.observableArrayList(xmlSchedulePlanner.toModelType().getTaskList());
     }
 
     /**
@@ -99,7 +99,7 @@ public class TaskListPanelTest extends GuiUnitTest {
             //builder.append("<priority>a@aa</priority>\n");
             builder.append("<priority>1</priority>\n");
             builder.append("<venue>a</venue>\n");
-            builder.append("</persons>\n");
+            builder.append("</tasks>\n");
         }
         builder.append("</scheduleplanner>\n");
 

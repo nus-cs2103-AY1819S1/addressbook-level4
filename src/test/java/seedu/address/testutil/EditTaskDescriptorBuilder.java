@@ -50,7 +50,7 @@ public class EditTaskDescriptorBuilder {
     /**
      * Sets the {@code Date} of the {@code EditTaskDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withPhone(String phone) {
+    public EditTaskDescriptorBuilder withPhone(String phone) {
         descriptor.setDate(new Date(phone));
         return this;
     }
@@ -58,7 +58,7 @@ public class EditTaskDescriptorBuilder {
     /**
      * Sets the {@code Priority} of the {@code EditTaskDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withEmail(String email) {
+    public EditTaskDescriptorBuilder withEmail(String email) {
         descriptor.setPriority(new Priority(email));
         return this;
     }
@@ -66,7 +66,7 @@ public class EditTaskDescriptorBuilder {
     /**
      * Sets the {@code Venue} of the {@code EditTaskDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withAddress(String address) {
+    public EditTaskDescriptorBuilder withAddress(String address) {
         descriptor.setVenue(new Venue(address));
         return this;
     }

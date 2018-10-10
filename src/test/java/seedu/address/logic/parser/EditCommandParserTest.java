@@ -41,7 +41,7 @@ import seedu.address.model.task.Date;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Priority;
 import seedu.address.model.task.Venue;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditTaskDescriptorBuilder;
 
 public class EditCommandParserTest {
 
