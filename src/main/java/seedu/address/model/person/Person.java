@@ -26,19 +26,22 @@ public class Person {
     private final Address address;
     private final Education education;
     private final Grades grades;
+    private final Time time;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Education education, Grades grades, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, education, grades, tags);
+    public Person(Name name, Phone phone, Email email, Address address, Education education,
+                  Grades grades, Time time, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, education, grades, time, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.education = education;
         this.grades = grades;
+        this.time = time;
         this.tags.addAll(tags);
         this.tuitionFee = new Fees(21.034567890);
     }
@@ -64,6 +67,8 @@ public class Person {
     public Grades getGrades() {
         return grades;
     }
+
+    public Time getTime() { return time; }
 
     public Fees getFees() {
         return tuitionFee;
@@ -112,13 +117,14 @@ public class Person {
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getEducation().equals(getEducation())
                 && otherPerson.getGrades().equals(getGrades())
+                && otherPerson.getTime().equals(getTime())
                 && otherPerson.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, education, grades, tags);
+        return Objects.hash(name, phone, email, address, education, grades, time, tags);
     }
 
     @Override
@@ -135,6 +141,8 @@ public class Person {
                 .append(getEducation())
                 .append(" Grades: ")
                 .append(getGrades())
+                .append(" Time: ")
+                .append(getTime())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

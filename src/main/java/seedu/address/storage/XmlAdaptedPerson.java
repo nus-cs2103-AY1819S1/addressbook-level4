@@ -17,6 +17,7 @@ import seedu.address.model.person.Grades;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Time;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -38,6 +39,8 @@ public class XmlAdaptedPerson {
     private String education;
     @XmlElement(required = true)
     private String grades;
+    @XmlElement(required = true)
+    private String time;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -52,13 +55,14 @@ public class XmlAdaptedPerson {
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
     public XmlAdaptedPerson(String name, String phone, String email, String address, String education,
-                            String grades, List<XmlAdaptedTag> tagged) {
+                            String grades, String time, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.education = education;
         this.grades = grades;
+        this.time = time;
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
@@ -76,6 +80,7 @@ public class XmlAdaptedPerson {
         address = source.getAddress().value;
         education = source.getEducation().value;
         grades = source.getGrades().value;
+        time = source.getTime().value;
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
@@ -140,8 +145,17 @@ public class XmlAdaptedPerson {
         }
         final Grades modelGrades = new Grades(grades);
 
+        if (time == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Time.class.getSimpleName()));
+        }
+        if (!Time.isValidTime(time)) {
+            throw new IllegalValueException(Time.MESSAGE_TIME_CONSTRAINTS);
+        }
+        final Time modelTime = new Time(time);
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelEducation, modelGrades, modelTags);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelEducation, modelGrades,
+                modelTime, modelTags);
     }
 
     @Override
@@ -161,6 +175,7 @@ public class XmlAdaptedPerson {
                 && Objects.equals(address, otherPerson.address)
                 && Objects.equals(education, otherPerson.education)
                 && Objects.equals(grades, otherPerson.grades)
+                && Objects.equals(time, otherPerson.time)
                 && tagged.equals(otherPerson.tagged);
     }
 }

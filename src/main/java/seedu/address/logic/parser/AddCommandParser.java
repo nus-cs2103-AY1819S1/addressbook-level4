@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -21,6 +22,7 @@ import seedu.address.model.person.Grades;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Time;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -35,9 +37,10 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
-                                            PREFIX_ADDRESS,PREFIX_EDUCATION, PREFIX_GRADES, PREFIX_TAG);
+                                            PREFIX_ADDRESS,PREFIX_EDUCATION, PREFIX_GRADES, PREFIX_TIME, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_GRADES, PREFIX_EDUCATION)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL,
+                PREFIX_GRADES, PREFIX_EDUCATION, PREFIX_TIME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -46,11 +49,12 @@ public class AddCommandParser implements Parser<AddCommand> {
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Grades grades = ParserUtil.parseGrades(argMultimap.getValue(PREFIX_GRADES).get());
         Education education = ParserUtil.parseEducation(argMultimap.getValue(PREFIX_EDUCATION).get());
+        Grades grades = ParserUtil.parseGrades(argMultimap.getValue(PREFIX_GRADES).get());
+        Time time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, phone, email, address, education, grades, tagList);
+        Person person = new Person(name, phone, email, address, education, grades, time, tagList);
 
         return new AddCommand(person);
     }
