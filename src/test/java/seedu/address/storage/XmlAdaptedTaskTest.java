@@ -72,7 +72,7 @@ public class XmlAdaptedTaskTest {
     public void toModelType_invalidEmail_throwsIllegalValueException() {
         XmlAdaptedTask person =
                 new XmlAdaptedTask(VALID_NAME, VALID_PHONE, INVALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = Priority.MESSAGE_EMAIL_CONSTRAINTS;
+        String expectedMessage = Priority.MESSAGE_PRIORITY_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
