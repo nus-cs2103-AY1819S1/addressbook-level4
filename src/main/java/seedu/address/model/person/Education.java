@@ -36,15 +36,14 @@ public class Education {
     public Education(String education) {
         requireNonNull(education);
         checkArgument(isValidEducation(education), MESSAGE_EDUCATION_CONSTRAINTS);
-
-        String[] splittedEducation = education.split("\\s+");
-        setEducationalLevelAndGrade(splittedEducation);
+        setEducationalLevelAndGrade(education);
     }
 
-    public void setEducationalLevelAndGrade(String[] education) {
-        educationalGrade = Integer.valueOf(education[1]);
+    public void setEducationalLevelAndGrade(String education) {
+        String[] splittedEducation = education.split("\\s+");
+        educationalGrade = Integer.valueOf(splittedEducation[1]);
 
-        switch (education[0]) {
+        switch (splittedEducation[0]) {
         case "pri":
             educationalLevel = EducationalLevel.PRIMARY;
             break;
