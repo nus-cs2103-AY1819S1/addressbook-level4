@@ -171,17 +171,17 @@ Format: `login`: allows the user to login to their Google Photos
 
 === Traversing Google Photos: `google`
 
-Format: `google cd [DIRECTORY_NAME]`: applies the cd command, but within Google Photos
+Format: `google cd [DIRECTORY_NAME]`: applies the cd command, but within Google Photos +
 Format: `google ls`: applies the ls command, but within Google Photos
 
 === Downloading photo from Google Photos: `download`
 
-Format: `download [IMAGE_NAME]`: downloads the selected photo to current local directory
+Format: `download [IMAGE_NAME]`: downloads the selected photo to current local directory +
 Format: `download all`: downloads all photos in current google directory to current local directory
 
 === Uploading photo from Google Photos: `upload`
 
-Format: `upload [IMAGE_NAME]`: downloads the selected photo to current google directory
+Format: `upload [IMAGE_NAME]`: downloads the selected photo to current google directory +
 Format: `upload all`: downloads all photos in current local directory to current google directory
 
 == FAQ
