@@ -47,7 +47,7 @@ public class CdCommand extends Command {
         return new CommandResult(newCurrDirectory.toString());
     }
 
-    public Path getPath(){
+    public Path getPath() {
         return this.toDirectories;
     }
 }
