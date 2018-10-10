@@ -11,7 +11,7 @@ import seedu.address.commons.core.amount.Amount;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Wish in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Wish {
@@ -91,8 +91,8 @@ public class Wish {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both wishes of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two wishe.
      */
     public boolean isSameWish(Wish otherWish) {
         if (otherWish == this) {
@@ -119,8 +119,8 @@ public class Wish {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both wishes have the same identity and data fields.
+     * This defines a stronger notion of equality between two wishes.
      */
     @Override
     public boolean equals(Object other) {

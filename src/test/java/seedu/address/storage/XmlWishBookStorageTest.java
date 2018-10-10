@@ -62,13 +62,13 @@ public class XmlWishBookStorageTest {
     }
 
     @Test
-    public void readWishBook_invalidPersonWishBook_throwDataConversionException() throws Exception {
+    public void readWishBook_invalidWishWishBook_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
         readWishBook("invalidWishWishBook.xml");
     }
 
     @Test
-    public void readWishBook_invalidAndValidPersonWishBook_throwDataConversionException() throws Exception {
+    public void readWishBook_invalidAndValidWishWishBook_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
         readWishBook("invalidAndValidWishWishBook.xml");
     }

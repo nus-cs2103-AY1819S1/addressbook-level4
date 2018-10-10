@@ -122,7 +122,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 Shows a history of savings you have allocated, from newest to oldest. +
 Format: `history -s`
 
-=== Locating persons by name: `find`
+=== Locating wishes by name: `find`
 
 Finds wishes which satisfy the given search predicate. +
 Format: `find SEARCH_PREDICATE [MORE_SEARCH_PREDICATES]`

@@ -10,7 +10,7 @@ import seedu.address.model.wish.Wish;
 
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Wish}.
  */
 public class WishCard extends UiPart<Region> {
 

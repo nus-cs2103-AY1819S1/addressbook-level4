@@ -85,7 +85,7 @@ public class WishListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Returns a .xml file containing {@code wishCount} persons. This file will be deleted when the JVM terminates.
+     * Returns a .xml file containing {@code wishCount} wishes. This file will be deleted when the JVM terminates.
      */
     private Path createXmlFileWithWishes(int wishCount) throws Exception {
         StringBuilder builder = new StringBuilder();
