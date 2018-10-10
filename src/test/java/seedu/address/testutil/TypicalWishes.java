@@ -19,7 +19,7 @@ import seedu.address.model.WishBook;
 import seedu.address.model.wish.Wish;
 
 /**
- * A utility class containing a list of {@code Person} objects to be used in tests.
+ * A utility class containing a list of {@code Wish} objects to be used in tests.
  */
 public class TypicalWishes {
 
@@ -85,7 +85,7 @@ public class TypicalWishes {
             .withSavedAmountIncrement("0.00")
             .build();
 
-    // Manually added - Person's details found in {@code CommandTestUtil}
+    // Manually added - Wish's details found in {@code CommandTestUtil}
     public static final Wish AMY = new WishBuilder().withName(VALID_NAME_AMY).withPrice(VALID_PRICE_AMY)
             .withEmail(VALID_EMAIL_AMY).withUrl(VALID_URL_AMY).withTags(VALID_TAG_FRIEND)
             .withSavedAmountIncrement("0.00").build();
@@ -99,7 +99,7 @@ public class TypicalWishes {
     private TypicalWishes() {} // prevents instantiation1
 
     /**
-     * Returns an {@code WishBook} with all the typical persons.
+     * Returns an {@code WishBook} with all the typical wishes.
      */
     public static WishBook getTypicalWishBook() {
         WishBook ab = new WishBook();

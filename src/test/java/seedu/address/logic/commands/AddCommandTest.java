@@ -50,10 +50,10 @@ public class AddCommandTest {
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() throws Exception {
+    public void execute_duplicateWish_throwsCommandException() throws Exception {
         Wish validWish = new WishBuilder().build();
         AddCommand addCommand = new AddCommand(validWish);
-        ModelStub modelStub = new ModelStubWithPerson(validWish);
+        ModelStub modelStub = new ModelStubWithWish(validWish);
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_WISH);
@@ -157,10 +157,10 @@ public class AddCommandTest {
     /**
      * A Model stub that contains a single wish.
      */
-    private class ModelStubWithPerson extends ModelStub {
+    private class ModelStubWithWish extends ModelStub {
         private final Wish wish;
 
-        ModelStubWithPerson(Wish wish) {
+        ModelStubWithWish(Wish wish) {
             requireNonNull(wish);
             this.wish = wish;
         }
