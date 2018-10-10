@@ -14,8 +14,8 @@ import java.nio.file.Paths;
 
 import org.junit.Test;
 
-import guitests.guihandles.TaskCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
+import guitests.guihandles.TaskCardHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
