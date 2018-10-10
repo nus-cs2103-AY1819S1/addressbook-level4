@@ -12,12 +12,6 @@ public class PreviewImage implements PreviewableImage {
     private final Image image;
     private final TransformationSet transformationSet;
 
-
-    PreviewImage() {
-        this.image = new Image("https://via.placeholder.com/500x500");
-        this.transformationSet = new TransformationSet();
-    }
-    
     public PreviewImage(Image image, TransformationSet transformationSet) {
         this.image = image;
         this.transformationSet = transformationSet;
@@ -32,6 +26,12 @@ public class PreviewImage implements PreviewableImage {
         this.image = previewableImage.getImage();
         this.transformationSet = previewableImage.getTransformationSet();
     }
+
+    public PreviewImage() {
+        this.image = new Image("https://via.placeholder.com/500x500");
+        this.transformationSet = new TransformationSet();
+    }
+
 
     public Image getImage() {
         return image;
