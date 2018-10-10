@@ -45,6 +45,9 @@ public class CdCommand extends Command {
         Path newCurrDirectory = dir.toPath().normalize();
         model.updateUserPrefs(newCurrDirectory);
         return new CommandResult(newCurrDirectory.toString());
+    }
 
+    public Path getPath(){
+        return this.toDirectories;
     }
 }
