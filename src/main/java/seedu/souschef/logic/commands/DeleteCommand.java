@@ -18,14 +18,16 @@ public class DeleteCommand<T extends UniqueType> extends Command {
 
     public static final String MESSAGE_DELETE_RECIPE_SUCCESS = "Deleted Recipe: %1$s";
 
+    private final Model model;
     private final T toDelete;
 
-    public DeleteCommand(T toDelete) {
+    public DeleteCommand(Model model, T toDelete) {
+        this.model = model;
         this.toDelete = toDelete;
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(CommandHistory history) {
         model.delete(toDelete);
         model.commitAppContent();
         return new CommandResult(String.format(MESSAGE_DELETE_RECIPE_SUCCESS, toDelete));

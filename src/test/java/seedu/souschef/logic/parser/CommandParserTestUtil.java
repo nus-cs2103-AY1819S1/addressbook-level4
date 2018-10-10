@@ -20,7 +20,7 @@ public class CommandParserTestUtil {
      */
     public static void assertParseSuccess(Parser parser, String userInput, Command<UniqueType> expectedCommand) {
         try {
-            Command<UniqueType> command = parser.parseRecipe(model, userInput);
+            Command<Recipe> command = parser.parseRecipe(model, userInput);
             assertEquals(expectedCommand, command);
         } catch (ParseException pe) {
             throw new IllegalArgumentException("Invalid userInput.", pe);

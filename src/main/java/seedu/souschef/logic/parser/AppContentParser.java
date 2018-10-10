@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.logic.commands.Command;
 import seedu.souschef.logic.parser.exceptions.ParseException;
-import seedu.souschef.model.Model;
+import seedu.souschef.model.ModelSet;
 
 /**
  * Parses user input.
@@ -22,18 +22,18 @@ public class AppContentParser {
     /**
      * Parses user input into command for execution.
      *
-     * @param model
+     * @param modelSet
      * @param userInput full user input string
      * @param history
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(Model model, String userInput, CommandHistory history) throws ParseException {
+    public Command parseCommand(ModelSet modelSet, String userInput, CommandHistory history) throws ParseException {
         String context = history.getContext();
         if (userInput.charAt(0) == '-') {
             return null;
         } else if (context == null || context.equals("recipe")) {
-            return new RecipeParser().parseCommand(model, userInput);
+            return new RecipeParser().parseCommand(modelSet.getRecipeModel(), userInput);
         } else {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

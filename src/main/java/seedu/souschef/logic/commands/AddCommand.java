@@ -39,6 +39,8 @@ public class AddCommand<T extends UniqueType> extends Command {
     private final Model model;
     private final T toAdd;
 
+
+
     /**
      * Creates an AddCommand to add the specified {@code Recipe}
      */
@@ -49,7 +51,7 @@ public class AddCommand<T extends UniqueType> extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(CommandHistory history) {
         model.add(toAdd);
         model.commitAppContent();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

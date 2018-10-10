@@ -32,7 +32,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             }
             Recipe toDelete = lastShownList.get(targetIndex.getZeroBased());
 
-            return new DeleteCommand<Recipe>(toDelete);
+            return new DeleteCommand<>(model, toDelete);
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);

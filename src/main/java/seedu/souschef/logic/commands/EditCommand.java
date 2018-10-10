@@ -36,20 +36,23 @@ public class EditCommand<T extends UniqueType> extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_RECIPE = "This recipe already exists in the address book.";
 
+    private final Model model;
     private final T toEdit;
     private final T edited;
 
     /**
+     * @param model
      * @param toEdit of the recipe in the filtered recipe list to edit
      * @param edited details to edit the recipe with
      */
-    public EditCommand(T toEdit, T edited) {
+    public EditCommand(Model model, T toEdit, T edited) {
+        this.model = model;
         this.toEdit = toEdit;
         this.edited = edited;
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(CommandHistory history) throws CommandException {
         model.update(toEdit, edited);
         model.updateFilteredList(PREDICATE_SHOW_ALL);
         model.commitAppContent();

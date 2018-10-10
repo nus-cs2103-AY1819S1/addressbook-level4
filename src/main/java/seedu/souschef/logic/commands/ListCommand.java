@@ -16,9 +16,14 @@ public class ListCommand<T extends UniqueType> extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all recipes";
 
+    private final Model model;
+
+    public ListCommand(Model model) {
+        this.model = model;
+    }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredList(PREDICATE_SHOW_ALL);
         return new CommandResult(MESSAGE_SUCCESS);

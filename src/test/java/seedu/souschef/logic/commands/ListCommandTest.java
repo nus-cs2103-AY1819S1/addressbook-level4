@@ -31,14 +31,14 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListCommand<Recipe>(), model, commandHistory, ListCommand.MESSAGE_SUCCESS,
+        assertCommandSuccess(new ListCommand<Recipe>(model), model, commandHistory, ListCommand.MESSAGE_SUCCESS,
                 expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showPersonAtIndex(model, INDEX_FIRST_RECIPE);
-        assertCommandSuccess(new ListCommand<Recipe>(), model, commandHistory, ListCommand.MESSAGE_SUCCESS,
+        assertCommandSuccess(new ListCommand<Recipe>(model), model, commandHistory, ListCommand.MESSAGE_SUCCESS,
                 expectedModel);
     }
 }

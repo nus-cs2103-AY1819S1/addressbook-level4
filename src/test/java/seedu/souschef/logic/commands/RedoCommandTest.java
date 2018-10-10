@@ -40,13 +40,13 @@ public class RedoCommandTest {
     public void execute() {
         // multiple redoable states in recipeModel
         expectedModel.redoAppContent();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new RedoCommand(model), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // single redoable state in recipeModel
         expectedModel.redoAppContent();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new RedoCommand(model), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // no redoable state in recipeModel
-        assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
+        assertCommandFailure(new RedoCommand(model), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
 }

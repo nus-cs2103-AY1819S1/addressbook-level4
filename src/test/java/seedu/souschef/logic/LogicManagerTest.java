@@ -13,6 +13,7 @@ import seedu.souschef.logic.commands.ListCommand;
 import seedu.souschef.logic.commands.exceptions.CommandException;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
+import seedu.souschef.model.ModelSet;
 import seedu.souschef.model.ModelSetCoordinator;
 import seedu.souschef.model.UserPrefs;
 import seedu.souschef.model.recipe.Recipe;
@@ -22,8 +23,8 @@ public class LogicManagerTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private Model<Recipe> model = new ModelSetCoordinator().getRecipeModel();
-    private Logic logic = new LogicManager(model);
+    private ModelSet modelSet = new ModelSetCoordinator();
+    private Logic logic = new LogicManager(modelSet);
 
     @Test
     public void execute_invalidCommandFormat_throwsParseException() {
@@ -42,7 +43,7 @@ public class LogicManagerTest {
     @Test
     public void execute_validCommand_success() {
         String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, modelSet.getRecipeModel());
         //assertHistoryCorrect(listCommand);
     }
 
@@ -82,7 +83,8 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(Class, String, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
-        Model<Recipe> expectedModel = new ModelSetCoordinator(model.getAppContent(), new UserPrefs()).getRecipeModel();
+        Model<Recipe> expectedModel = new ModelSetCoordinator(modelSet.getRecipeModel().getAppContent(),
+                new UserPrefs()).getRecipeModel();
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
 
@@ -104,7 +106,7 @@ public class LogicManagerTest {
             assertEquals(expectedMessage, e.getMessage());
         }
 
-        assertEquals(expectedModel, model);
+        assertEquals(expectedModel, modelSet.getRecipeModel());
     }
 
     /**

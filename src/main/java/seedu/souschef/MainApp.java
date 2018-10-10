@@ -21,12 +21,10 @@ import seedu.souschef.commons.util.StringUtil;
 import seedu.souschef.logic.Logic;
 import seedu.souschef.logic.LogicManager;
 import seedu.souschef.model.AppContent;
-import seedu.souschef.model.Model;
 import seedu.souschef.model.ModelSet;
 import seedu.souschef.model.ModelSetCoordinator;
 import seedu.souschef.model.ReadOnlyAppContent;
 import seedu.souschef.model.UserPrefs;
-import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.util.SampleDataUtil;
 import seedu.souschef.storage.AddressBookStorage;
 import seedu.souschef.storage.JsonUserPrefsStorage;
@@ -70,9 +68,8 @@ public class MainApp extends Application {
         initLogging(config);
 
         modelSet = initModelManager(storage, userPrefs);
-        Model<Recipe> recipeModel = modelSet.getRecipeModel();
 
-        logic = new LogicManager(recipeModel);
+        logic = new LogicManager(modelSet);
 
         ui = new UiManager(logic, config, userPrefs);
 
