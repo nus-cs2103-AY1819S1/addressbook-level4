@@ -32,11 +32,7 @@ Piconso is for those who *prefer to use a desktop app for editing images*. More 
 
 ====
 *Command Format*
-
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Items in square brackets are the parameters to be supplied by the user e.g `add [TRANSFORMATION]`
 ====
 
 === Viewing help : `help`
@@ -46,15 +42,7 @@ Format: `help [COMMAND]`: show explanation for certain command
 
 Examples:
 
-* `help open`
-
-=== Opening an image: `open`
-
-Format: `open [FILE_NAME]`: opens an image for editing
-
-Examples:
-
-* `open img00001.jpg`
+* `help add`
 
 === Applying a transformation to an image : `add`
 
@@ -167,15 +155,34 @@ Examples:
 
 === Changing directories : `cd`
 
-Format: `cd`: changes directory
+Format: `cd [DIRECTORY_NAME]`: changes directory
 
 === Listing files in directory : `ls`
 
 Format: `ls`: lists files in the current directory
 
-=== Exiting the apllication: `exit`
+=== Exiting the application: `exit`
 
 Format: `exit`: closes the application
+
+=== Logging in to Google Photos: `login`
+
+Format: `login`: allows the user to login to their Google Photos
+
+=== Traversing Google Photos: `google`
+
+Format: `google cd [DIRECTORY_NAME]`: applies the cd command, but within Google Photos +
+Format: `google ls`: applies the ls command, but within Google Photos
+
+=== Downloading photo from Google Photos: `download`
+
+Format: `download [IMAGE_NAME]`: downloads the selected photo to current local directory +
+Format: `download all`: downloads all photos in current google directory to current local directory
+
+=== Uploading photo from Google Photos: `upload`
+
+Format: `upload [IMAGE_NAME]`: downloads the selected photo to current google directory +
+Format: `upload all`: downloads all photos in current local directory to current google directory
 
 == FAQ
 
@@ -186,7 +193,7 @@ Format: `exit`: closes the application
 
 * *Add* `add [TRANSFORMATION]` +
 e.g. `add -rotate left 180`
-* *Cd* : `cd`
+* *Cd* : `cd [DIRECTORY_NAME]`
 * *Clear* : `clear`
 * *Deselect* : `deselect [IMAGE_NAME]/deselect -all` +
 e.g. `deselect exampleImage`
@@ -200,4 +207,7 @@ e.g. `open exampleImage.jpg`
 e.g. `save exampleImage.jpg`
 * *Select* : `select [IMAGE_NAME]/select -all`
 e.g. `select exampleImage.jpg`
-* *Undo* : `undo`
+* *Login* : `login`
+* *Google* : `google cd [DIRECTORY_NAME]`, `google ls`
+* *Download* : `download [IMAGE_NAME]/all`
+* *Undo* : `undo [IMAGE_NAME]/all`
