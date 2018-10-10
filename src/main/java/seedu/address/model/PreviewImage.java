@@ -26,6 +26,11 @@ public class PreviewImage implements PreviewableImage {
         this.image = previewableImage.getImage();
         this.transformationSet = previewableImage.getTransformationSet();
     }
+    
+    public PreviewImage() {
+        this.image = new Image("https://via.placeholder.com/500x500");
+        this.transformationSet = new TransformationSet();
+    }
 
     public Image getImage() {
         return image;
