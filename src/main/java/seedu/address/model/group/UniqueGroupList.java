@@ -25,6 +25,9 @@ public class UniqueGroupList implements Iterable<Tag> {
 
     private final ObservableList<Tag> internalList = FXCollections.observableArrayList();
 
+    /**
+     * Returns true if the list contains an equivalent group as the given argument
+     */
     public boolean contains(Tag toCheck) {
         requireNonNull(toCheck);
         // TODO: change to internalList stream when group is implemented properly
@@ -36,6 +39,10 @@ public class UniqueGroupList implements Iterable<Tag> {
         return false;
     }
 
+    /**
+     * Adds a group to the list.
+     * The group must not already exist in the list.
+     */
     public void add(Tag toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
@@ -44,6 +51,11 @@ public class UniqueGroupList implements Iterable<Tag> {
         internalList.add(toAdd);
     }
 
+    /**
+     * Replaces the group {@code target} in the list with the {@code editedTag}.
+     * {@code target} must exist in the list.
+     * The group identity of {@code editedTag} must not be the same as another existing group in the list.
+     */
     public void setGroup(Tag target, Tag editedTag) {
         requireAllNonNull(target, editedTag);
 
@@ -61,6 +73,10 @@ public class UniqueGroupList implements Iterable<Tag> {
         internalList.set(index, editedTag);
     }
 
+    /**
+     * Removes the equivalent group from the list.
+     * The group must exist in the list.
+     */
     public void remove(Tag toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
@@ -74,6 +90,10 @@ public class UniqueGroupList implements Iterable<Tag> {
         internalList.setAll(replacement.internalList);
     }
 
+    /**
+     * Replaces the contents of this list with {@code groups}.
+     * {@code groups} must not contain duplicate groups.
+     */
     public void setGroups(List<Tag> groups) {
         requireAllNonNull(groups);
         if (!groupsAreUnique(groups)) {
