@@ -4,7 +4,8 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-JxMusic(AddressBook - Level 4) was developed by the CS2103-AY1819S1-T13-3 https://github.com/orgs/CS2103-AY1819S1-T13-3/teams/developers[developers team]. +
+JxMusic(AddressBook - Level 4) was developed by the CS2103-Ay1819S1-T13-3 developer (are we supposed to add links) (https://se-edu.github.io/docs/Team.html[se-edu]) team. +
+_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
@@ -23,7 +24,7 @@ image::hidingmode.png[width="150", align="left"]
 {empty}[http://github.com/hidingmode[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Model refactoring
+Responsibilities:__
 
 '''
 
@@ -32,7 +33,7 @@ image::handshou.png[width="150", align="left"]
 {empty}[http://github.com/handshou[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: ___
+Responsibilities: __
 
 '''
 
@@ -41,7 +42,7 @@ image::nancyquris.png[width="150", align="left"]
 {empty}[http://github.com/NancyQuris[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI refactoring
+Responsibilities: __
 
 '''
 
@@ -50,7 +51,7 @@ image::haydenphillips.png[width="150", align="left"]
 {empty}[http://github.com/HaydenPhillips[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Logic refactoring
+Responsibilities: __
 
 '''
 
@@ -59,6 +60,6 @@ image::gongjie663746.png[width="150", align="left"]
 {empty}[http://github.com/Gongjie663746[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Storage refactoring
+Responsibilities: __
 
 '''

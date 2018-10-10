@@ -1,4 +1,4 @@
-﻿= JxMusic - Developer Guide
+﻿= AddressBook Level 4 - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -15,7 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S1-T13-3/main
 
-By: `CS2103-AY1819S1-T13-3`      Since: `Aug 2018`      Licence: `MIT`
+By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Setting up
 
@@ -74,9 +74,9 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the CS2103-AY1819S1-T13-3 branding and refer to the `CS2103-AY1819S1-T13-3/main` repo.
+After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
 
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `CS2103-AY1819S1-T13-3/main`), you should do the following:
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
 
 . Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
@@ -820,13 +820,13 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to listen to music on computers
+* has a need to manage a significant number of contacts
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: listen to music and manage playlists faster than a typical mouse/GUI driven app
+*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -863,8 +863,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 *MSS*
 
-1.  User requests to list playlists.
-2.  System displays names of all playlists in library.
+1.  User requests to list all the playlists.
+2.  System displays names of all playlists in the library.
 +
 Use case ends.
 
@@ -873,7 +873,7 @@ Use case ends.
 
 *MSS*
 
-1.  User enters the command `search`.
+1.  User enters the command "search".
 2.	System displays "Enter playlist name:".
 3.	User enters a sequence of characters.
 4.	System displays all playlists that include the sequence of characters, in lexicographical order.
@@ -883,7 +883,7 @@ Use case ends.
 *Extensions*
 
 [none]
-* 4a. There is no list that matches the name.
+* 4a. There is no list matches the name.
 +
 [none]
 ** 4a1. System displays "not found" message.
@@ -891,12 +891,12 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Create playlist
+=== Use case: Create a playlist
 
 *MSS*
 
 1.  User requests to create a new playlist.
-2.  System creates a new playlist and saves it to library.
+2.  System creates a new playlist and saves it to libaray.
 +
 Use case ends.
 
@@ -915,7 +915,7 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to delete a playlist.
+1.  User requests delete a playlist.
 2.  System deletes the playlist.
 +
 Use case ends.
@@ -923,7 +923,7 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a. Playlist is not found.
+* 2a. Playlist not found.
 +
 [none]
 ** 2a1. System displays an error message.
@@ -942,7 +942,7 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to add a track into a playlist.
+1.  User enters commands to add a track into a playlist.
 2.	System searches for the track.
 3. 	System searches for the playlist.
 4. 	System adds the track to the playlist.
@@ -956,14 +956,14 @@ Use case ends.
 * 2a. The track does not exist.
 +
 [none]
-** 2a1. System displays an error message.
+** 2a1. System displays error message.
 +
 Use case ends.
 
 * 3a. The playlist does not exist.
 +
 [none]
-** 3a1. System displays an error message.
+** 3a1. System displays error message.
 +
 Use case ends.
 
@@ -972,7 +972,7 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to delete a track from a playlist.
+1.  User enters commands to delete a track from a playlist.
 2. 	System deletes the track.
 +
 Use case ends.
@@ -983,7 +983,7 @@ Use case ends.
 * 2a. The track does not exist.
 +
 [none]
-** 2a1. System displays an error message.
+** 2a1. System displays error message.
 +
 Use case ends.
 
@@ -1000,7 +1000,7 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a. No track is in current playlist.
+* 2a. No track in current playlist.
 +
 [none]
 ** 2a1. System goes back to the status before step 1.
@@ -1012,7 +1012,7 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to play a playlist.
+1.  User requests to play tracks in a playlist.
 2.  System searches for the playlist.
 3.  System plays the tracks of the playlist.
 +
@@ -1060,7 +1060,7 @@ Use case ends.
 *MSS*
 
 1.  User requests to seek the play timeline to a certain point.
-2.  System jumps to the point and plays from the point.
+2.  System jumps to the point and play from the point.
 +
 Use case ends.
 
@@ -1079,7 +1079,7 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to step forward/backward a range of time in the playing of current track.
+1.  User requests to step forward/backwards a range of time in the playing of current track.
 2.  System jumps to the point and plays from the point.
 +
 Use case ends.
@@ -1109,8 +1109,8 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to skip the next/previous track.
-2.	System goes to the next/previous track and plays the track.
+1.  User enters commands to skip the next/previous track.
+2.	System goes to the next/previous track and play the track.
 +
 Use case ends.
 
@@ -1135,11 +1135,11 @@ Use case ends.
 *MSS*
 
 1.  User requests to repeat track.
-2.	System changes to "repeat track" mode and current track will be played repeatedly.
+2.	System changes to "repeat track" mode and current track will be played repeatly.
 3.	User requests to repeat playlist.
 4.	System changes to "repeat playlist" mode and the current playlist will start over after playing all tracks.
-5.	User enters the command `repeat off`.
-6.	System changes to "repeat off" mode and the play will stop after playing all the tracks.
+5.	User enters the repeat off command.
+6.	System changes to "repeat off" mode and the playlist will stop after playing all the tracks.
 +
 Use case ends.
 
@@ -1148,7 +1148,7 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to shuffle the playlist.
+1.  User requests shuffle the playlist.
 2.  System randomly reorders the sequence of tracks inside the playlist.
 +
 Use case ends.
@@ -1157,19 +1157,19 @@ Use case ends.
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should only support .mp3 file.
-.  Should be able to hold up to 1000 playlists and 1000 tracks in total without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+
+_{More to be added}_
 
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-Track:: music
-Playlist:: list of tracks
-Library:: list of playlists and also name of folder which contains all tracks .mp3 files and library.json
 
+[[private-contact-detail]] Private contact detail::
+A contact detail that is not meant to be shared with others
 
 [appendix]
 == Product Survey
