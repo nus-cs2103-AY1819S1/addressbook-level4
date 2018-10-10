@@ -14,6 +14,7 @@ import seedu.address.logic.commands.EarningsCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FilterByFeeCommand;
+import seedu.address.logic.commands.FilterByGradeCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindEmailCommand;
 import seedu.address.logic.commands.GradesCommand;
@@ -100,7 +101,11 @@ public class AddressBookParser {
         case FilterByFeeCommand.COMMAND_WORD:
             return new FilterByFeeCommandParser().parse(arguments);
 
-        default:
+        case FilterByGradeCommand.COMMAND_WORD:
+            return new FilterByGradeCommandParser().parse(arguments);
+
+
+            default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
