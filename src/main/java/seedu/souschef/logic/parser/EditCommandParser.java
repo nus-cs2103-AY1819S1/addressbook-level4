@@ -17,6 +17,7 @@ import seedu.souschef.commons.core.index.Index;
 import seedu.souschef.logic.commands.EditCommand;
 import seedu.souschef.logic.commands.EditCommand.EditRecipeDescriptor;
 import seedu.souschef.logic.parser.exceptions.ParseException;
+import seedu.souschef.model.Model;
 import seedu.souschef.model.tag.Tag;
 
 /**
@@ -29,7 +30,7 @@ public class EditCommandParser implements Parser<EditCommand> {
      * and returns an EditCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public EditCommand parse(String args) throws ParseException {
+    public EditCommand parseRecipe(Model model, String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);

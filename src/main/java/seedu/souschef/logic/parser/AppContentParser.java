@@ -21,6 +21,7 @@ import seedu.souschef.logic.commands.SelectCommand;
 import seedu.souschef.logic.commands.SurpriseCommand;
 import seedu.souschef.logic.commands.UndoCommand;
 import seedu.souschef.logic.parser.exceptions.ParseException;
+import seedu.souschef.model.Model;
 
 /**
  * Parses user input.
@@ -35,11 +36,12 @@ public class AppContentParser {
     /**
      * Parses user input into command for execution.
      *
+     * @param model
      * @param userInput full user input string
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput) throws ParseException {
+    public Command parseCommand(Model model, String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -50,22 +52,22 @@ public class AppContentParser {
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+            return new AddCommandParser().parseRecipe(model, arguments);
 
         case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+            return new EditCommandParser().parseRecipe(model, arguments);
 
         case SelectCommand.COMMAND_WORD:
-            return new SelectCommandParser().parse(arguments);
+            return new SelectCommandParser().parseRecipe(model, arguments);
 
         case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+            return new DeleteCommandParser().parseRecipe(model, arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
+            return new FindCommandParser().parseRecipe(model, arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();

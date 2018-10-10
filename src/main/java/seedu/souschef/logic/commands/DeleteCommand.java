@@ -1,13 +1,6 @@
 package seedu.souschef.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.List;
-
-import seedu.souschef.commons.core.Messages;
-import seedu.souschef.commons.core.index.Index;
 import seedu.souschef.logic.CommandHistory;
-import seedu.souschef.logic.commands.exceptions.CommandException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.recipe.Recipe;
 
@@ -25,31 +18,23 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_DELETE_RECIPE_SUCCESS = "Deleted Recipe: %1$s";
 
-    private final Index targetIndex;
+    private final Recipe toDelete;
 
-    public DeleteCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+    public DeleteCommand(Recipe toDelete) {
+        this.toDelete = toDelete;
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        requireNonNull(model);
-        List<Recipe> lastShownList = model.getFilteredList();
-
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
-        }
-
-        Recipe recipeToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.delete(recipeToDelete);
+    public CommandResult execute(Model model, CommandHistory history) {
+        model.delete(toDelete);
         model.commitAppContent();
-        return new CommandResult(String.format(MESSAGE_DELETE_RECIPE_SUCCESS, recipeToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_RECIPE_SUCCESS, toDelete));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+                && toDelete.equals(((DeleteCommand) other).toDelete)); // state check
     }
 }

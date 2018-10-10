@@ -1,5 +1,6 @@
 package seedu.souschef.logic.parser;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -12,6 +13,7 @@ import java.util.stream.Stream;
 
 import seedu.souschef.logic.commands.AddCommand;
 import seedu.souschef.logic.parser.exceptions.ParseException;
+import seedu.souschef.model.Model;
 import seedu.souschef.model.recipe.Address;
 import seedu.souschef.model.recipe.Email;
 import seedu.souschef.model.recipe.Name;
@@ -23,13 +25,16 @@ import seedu.souschef.model.tag.Tag;
  * Parses input arguments and creates a new AddCommand object
  */
 public class AddCommandParser implements Parser<AddCommand> {
+    private Model model;
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddCommand parse(String args) throws ParseException {
+    public AddCommand parseRecipe(Model model, String args) throws ParseException {
+        requireNonNull(model);
+
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
@@ -44,9 +49,12 @@ public class AddCommandParser implements Parser<AddCommand> {
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Recipe recipe = new Recipe(name, phone, email, address, tagList);
+        Recipe toAdd = new Recipe(name, phone, email, address, tagList);
+        if (model.has(toAdd)) {
+            //throw new CommandException(MESSAGE_DUPLICATE_RECIPE);
+        }
 
-        return new AddCommand(recipe);
+        return new AddCommand(toAdd);
     }
 
     /**

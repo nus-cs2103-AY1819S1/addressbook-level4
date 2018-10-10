@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 import seedu.souschef.logic.commands.FindCommand;
 import seedu.souschef.logic.parser.exceptions.ParseException;
+import seedu.souschef.model.Model;
 import seedu.souschef.model.recipe.NameContainsKeywordsPredicate;
 
 /**
@@ -18,7 +19,7 @@ public class FindCommandParser implements Parser<FindCommand> {
      * and returns an FindCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public FindCommand parse(String args) throws ParseException {
+    public FindCommand parseRecipe(Model model, String args) throws ParseException {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(

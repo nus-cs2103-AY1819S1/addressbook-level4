@@ -5,6 +5,7 @@ import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMA
 import seedu.souschef.commons.core.index.Index;
 import seedu.souschef.logic.commands.SelectCommand;
 import seedu.souschef.logic.parser.exceptions.ParseException;
+import seedu.souschef.model.Model;
 
 /**
  * Parses input arguments and creates a new SelectCommand object
@@ -16,7 +17,7 @@ public class SelectCommandParser implements Parser<SelectCommand> {
      * and returns an SelectCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public SelectCommand parse(String args) throws ParseException {
+    public SelectCommand parseRecipe(Model model, String args) throws ParseException {
         try {
             Index index = ParserUtil.parseIndex(args);
             return new SelectCommand(index);
