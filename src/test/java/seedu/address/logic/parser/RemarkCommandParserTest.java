@@ -18,7 +18,7 @@ public class RemarkCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemarkCommand.MESSAGE_USAGE);
 
-    private RemarkCommandParser parser = new RemarkCommandParser(); 
+    private RemarkCommandParser parser = new RemarkCommandParser();
 
     @Test
     public void parse_missingParts_failure() {
