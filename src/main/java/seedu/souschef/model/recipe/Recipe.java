@@ -2,6 +2,7 @@ package seedu.souschef.model.recipe;
 
 import static seedu.souschef.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -20,9 +21,12 @@ public class Recipe extends UniqueType {
     private final Name name;
     private final Phone phone;
     private final Email email;
+    private final CookTime cookTime;
+    private final Difficulty difficulty;
 
     // Data fields
     private final Address address;
+    private final ArrayList<Instruction> instructions = new ArrayList<>();
     private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -35,6 +39,14 @@ public class Recipe extends UniqueType {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+
+        //this.cookTime = cookTime;
+        //this.difficulty = difficulty;
+        //this.instructions.addAll(instructions);
+
+        this.cookTime = new CookTime("PT20H");
+        this.difficulty = new Difficulty(3);
+        this.instructions.add(new Instruction("Instruction placeholder 123."));
     }
 
     public Name getName() {
@@ -49,8 +61,20 @@ public class Recipe extends UniqueType {
         return email;
     }
 
+    public CookTime getCookTime() {
+        return cookTime;
+    }
+
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
+
     public Address getAddress() {
         return address;
+    }
+
+    public ArrayList<Instruction> getInstructions() {
+        return instructions;
     }
 
     /**
@@ -72,7 +96,9 @@ public class Recipe extends UniqueType {
 
         return otherRecipe != null
                 && otherRecipe.getName().equals(getName())
-                && (otherRecipe.getPhone().equals(getPhone()) || otherRecipe.getEmail().equals(getEmail()));
+                && (otherRecipe.getPhone().equals(getPhone()) || otherRecipe.getEmail().equals(getEmail()))
+                && otherRecipe.getCookTime().equals(getCookTime())
+                && otherRecipe.getDifficulty().equals(getDifficulty());
     }
 
     /**
@@ -107,14 +133,17 @@ public class Recipe extends UniqueType {
         return otherRecipe.getName().equals(getName())
                 && otherRecipe.getPhone().equals(getPhone())
                 && otherRecipe.getEmail().equals(getEmail())
+                && otherRecipe.getCookTime().equals(getCookTime())
+                && otherRecipe.getDifficulty().equals(getDifficulty())
                 && otherRecipe.getAddress().equals(getAddress())
-                && otherRecipe.getTags().equals(getTags());
+                && otherRecipe.getTags().equals(getTags())
+                && otherRecipe.getInstructions().equals(getInstructions());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, cookTime, difficulty, address, tags, instructions);
     }
 
     @Override
@@ -125,10 +154,16 @@ public class Recipe extends UniqueType {
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
+                .append(" CookTime: ")
+                .append(getCookTime())
+                .append(" Difficulty: ")
+                .append(getDifficulty())
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
+        builder.append(" Instructions: ");
+        getInstructions().forEach(builder::append);
         return builder.toString();
     }
 
