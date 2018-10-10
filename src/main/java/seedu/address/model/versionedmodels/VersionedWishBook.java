@@ -1,12 +1,15 @@
-package seedu.address.model;
+package seedu.address.model.versionedmodels;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import seedu.address.model.ReadOnlyWishBook;
+import seedu.address.model.WishBook;
+
 /**
  * {@code WishBook} that keeps track of its own history.
  */
-public class VersionedWishBook extends WishBook {
+public class VersionedWishBook extends WishBook implements VersionedModel {
 
     private final List<ReadOnlyWishBook> addressBookStateList;
     private int currentStatePointer;
@@ -23,6 +26,7 @@ public class VersionedWishBook extends WishBook {
      * Saves a copy of the current {@code WishBook} state at the end of the state list.
      * Undone states are removed from the state list.
      */
+    @Override
     public void commit() {
         removeStatesAfterCurrentPointer();
         addressBookStateList.add(new WishBook(this));
@@ -36,6 +40,7 @@ public class VersionedWishBook extends WishBook {
     /**
      * Restores the address book to its previous state.
      */
+    @Override
     public void undo() {
         if (!canUndo()) {
             throw new NoUndoableStateException();
@@ -47,6 +52,7 @@ public class VersionedWishBook extends WishBook {
     /**
      * Restores the address book to its previously undone state.
      */
+    @Override
     public void redo() {
         if (!canRedo()) {
             throw new NoRedoableStateException();
@@ -89,21 +95,4 @@ public class VersionedWishBook extends WishBook {
                 && currentStatePointer == otherVersionedAddressBook.currentStatePointer;
     }
 
-    /**
-     * Thrown when trying to {@code undo()} but can't.
-     */
-    public static class NoUndoableStateException extends RuntimeException {
-        private NoUndoableStateException() {
-            super("Current state pointer at start of addressBookState list, unable to undo.");
-        }
-    }
-
-    /**
-     * Thrown when trying to {@code redo()} but can't.
-     */
-    public static class NoRedoableStateException extends RuntimeException {
-        private NoRedoableStateException() {
-            super("Current state pointer at end of addressBookState list, unable to redo.");
-        }
-    }
 }

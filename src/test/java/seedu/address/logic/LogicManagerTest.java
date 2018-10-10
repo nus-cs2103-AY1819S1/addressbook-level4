@@ -47,7 +47,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredWishList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         logic.getFilteredWishList().remove(0);
     }
@@ -82,7 +82,7 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(Class, String, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getWishBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getWishBook(), model.getWishTransaction(), new UserPrefs());
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
 

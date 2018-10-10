@@ -1,4 +1,4 @@
-= SaveGoals - User Guide
+= WishBook - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -17,13 +17,13 @@ endif::[]
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
-SaveGoals (SG) is a piggy bank in a digital app form, made for people who need a user-friendly solution for keeping track of their disposable income. Not only does SG keep records of your savings, it also allows users to set items as goals for users to work towards, serving as a way to cultivate the habit of saving. SG is made for people who have material wants in life, but are uncertain of purchasing said wants, by helping them to reserve disposable income so that they know they can spend on their wants. So what are you waiting for? Go to Section 2, <<Quick Start>> and start saving!
+WishBook (WB) is a piggy bank in a digital app form, made for people who need a user-friendly solution for keeping track of their disposable income. Not only does WB keep records of your savings, it also allows users to set items as goals for users to work towards, serving as a way to cultivate the habit of saving. WB is made for people who have material wants in life, but are uncertain of purchasing said wants, by helping them to reserve disposable income so that they know they can spend on their wants. So what are you waiting for? Go to Section 2, <<Quick Start>> and start saving!
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `savegoals.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Save Goals app.
+.  Download the latest `wishbook.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your WishBook app.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -57,8 +57,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a person: `add`
-Adds a person to the wish list +
+=== Adding a wish: `add`
+Adds a wish to the wish list +
 Format: `add n/WISH_NAME p/PRICE t/[d/TIME_GIVEN]/[d/END_DATE]`
 
 [TIP]
@@ -70,16 +70,6 @@ Examples:
 * `add n/smallRice p/999 d/2d`
 * `add n/kfcBook_13inch p/2300 d/6m3w`
 * `add n/prinkles p/1.95 d/24/04/2020`
-
-=== Listing all persons : `list`
-
-Shows a list of all the goals you have set, sorted by date by default. +
-Format: `list`
-
-=== Viewing your saving history: `history -s`
-
-Shows a history of wishes you have accomplished, from newest to oldest. +
-Format: `history -s`
 
 === Editing a wish : `edit`
 
@@ -102,7 +92,37 @@ Edits the name of the wish and the tag of the 1st goal to be Macbook Pro and Bro
 * `edit 2 p/22 d/22w` +
 Edits the price and time given to accomplish the 2nd goal to 22 (in the chosen currency) and 22 weeks respectively.
 
-=== Locating persons by name: `find`
+=== Listing all wishes : `list`
+
+Shows a list of all the wishes you have set, sorted by date by default. +
+Format: `list`
+
+=== Listing completed wishes : `list -c`
+
+Shows a list of all the wishes that have been completed, sorted by date by default. +
+Format: `list -c`
+
+=== Listing uncompleted wishes : `list -u`
+
+Shows a list of all the wishes that are still in progress, sorted by date by default. +
+Format: `list -u`
+
+=== Listing history of entered commands : `history -c`
+
+Lists all the commands that you have entered in reverse chronological order. +
+Format: `history -c`
+
+[NOTE]
+====
+Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+====
+
+=== Viewing your saving history: `history -s`
+
+Shows a history of savings you have allocated, from newest to oldest. +
+Format: `history -s`
+
+=== Locating wishes by name: `find`
 
 Finds wishes which satisfy the given search predicate. +
 Format: `find SEARCH_PREDICATE [MORE_SEARCH_PREDICATES]`
@@ -149,7 +169,7 @@ Deletes the 2nd wish in the list.
 `delete 1` +
 Deletes the 1st wish in the results of the find command (if any).
 
-=== Selecting a person : `select`
+=== Selecting a wish : `select`
 
 Selects the wish identified by the index number used in the displayed wish list. +
 Format: `select INDEX`
@@ -173,37 +193,53 @@ Selects the 1st wish in the results of the `find` command.
 === Save money for a particular wish: `save`
 
 Channels savings for a specified wish. +
-Format: `save AMOUNT [INDEX]`
+Format: `save [INDEX] AMOUNT`
 
 ****
-* `INDEX` should be a positive integer 1, 2, 3…
-* `AMOUNT` should be a positive value to the smallest denomination of the currency.
+* `INDEX` should be a positive integer 1, 2, 3… no larger than the number of wishes
 * If no `INDEX` is specified, money will be transferred to the wish which has the closest due date.
+* If `AMOUNT` is negative, money will be removed from savings for that wish. +
+* If `AMOUNT` brings the savings value to below 0, `AMOUNT` will not be accepted.
+* If wish at `INDEX` is already fulfilled, `AMOUNT` will not accepted.
+****
+
+Examples: +
+
+* `save 1 s/1000` +
+Attempt to save $1000 for the wish at index 1.
+
+* `save 1 s/-100.50` +
+ Attempt to remove $100.50 from the savings for the wish at index 1.
+
+=== Editing a remark for a wish : `remark`
+
+Edits the remark for a wish specified in the index. +
+Format: `remark INDEX r/[REMARK]`
+
+****
+* `INDEX` refers to the index number shown in the displayed list.
+* `INDEX` must be a positive integer 1, 2, 3...
 ****
 
 Examples:
-* `save 1000 1` +
-Adds $1000 into the item at index 1.
 
-=== Listing entered commands : `history -c`
+* `list` +
+`remark 1 r/Buying this for dad.` +
+Edits the remark for the first wish to `Buying this for dad.`
 
-Lists all the commands that you have entered in reverse chronological order. +
-Format: `history -c`
-
-[NOTE]
-====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
+* `list` +
+`remark 1 r/` +
+Removes the remark for the first wish (if any).
 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores SaveGoals to the state before the previous undoable command was executed. +
+Restores WishBook to the state before the previous undoable command was executed. +
 Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: commands that modify SaveGoals content (`add, delete, edit, save`).
+Undoable commands: commands that modify WishBook content (`add, delete, edit, save`).
 ====
 
 Examples:
@@ -247,7 +283,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 === Clearing all entries : `clear`
 
-Clears all entries from SaveGoals. +
+Clears all entries from WishBook. +
 Format: `clear`
 
 === Exiting the program : `exit`
@@ -257,7 +293,7 @@ Format: `exit`
 
 === Saving the data
 
-SaveGoals data are saved in the hard disk automatically after any command that changes the data. +
+WishBook data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]
@@ -269,7 +305,7 @@ _{explain how the user can enable/disable data encryption}_
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Wish Book folder.
 
 == Command Summary
 
@@ -283,13 +319,16 @@ e.g. `edit 1 n/Macbook Pro t/Broke wishes`
 * *Find* : `find SEARCH_PREDICATE [MORE_SEARCH_PREDICATES]` +
 e.g. `find 22d`
 * *List* : `list`
+* *List completed* : `list -c`
+* *List uncompleted* : `list -u`
 * *Help* : `help`
 * *Select* : `select INDEX` +
 e.g.`select 2`
 * *Save* : `save AMOUNT [INDEX]` +
 e.g. `save 1000 1`
-* *Savings History* : `history -s`
 * *Command History* : `history -c`
+* *Savings History* : `history -s`
+* *Remark* : `remark INDEX r/[REMARK]`
 * *Undo* : `undo`
 * *Redo* : `redo`
 * *Exit* : `exit`

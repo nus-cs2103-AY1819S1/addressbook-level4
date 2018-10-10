@@ -10,7 +10,10 @@ import seedu.address.model.wish.Wish;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Wish> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Wish> PREDICATE_SHOW_ALL_WISHES = unused -> true;
+
+    /** Returns the WishTransaction */
+    WishTransaction getWishTransaction();
 
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyWishBook newData);
@@ -36,9 +39,9 @@ public interface Model {
     void addWish(Wish wish);
 
     /**
-     * Replaces the given wish {@code target} with {@code editedPerson}.
+     * Replaces the given wish {@code target} with {@code editedWish}.
      * {@code target} must exist in the wish book.
-     * The wish identity of {@code editedPerson} must not be the same as another existing wish in the wish book.
+     * The wish identity of {@code editedWish} must not be the same as another existing wish in the wish book.
      */
     void updateWish(Wish target, Wish editedWish);
 

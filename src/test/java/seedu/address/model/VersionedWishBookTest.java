@@ -14,6 +14,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import seedu.address.model.versionedmodels.VersionedWishBook;
 import seedu.address.testutil.WishBookBuilder;
 
 public class VersionedWishBookTest {
@@ -26,7 +27,6 @@ public class VersionedWishBookTest {
     @Test
     public void commit_singleWishBook_noStatesRemovedCurrentStateSaved() {
         VersionedWishBook versionedWishBook = prepareWishBookList(emptyWishBook);
-
         versionedWishBook.commit();
         assertWishBookListStatus(versionedWishBook,
                 Collections.singletonList(emptyWishBook),
@@ -272,15 +272,15 @@ public class VersionedWishBookTest {
     }
 
     /**
-     * Creates and returns a {@code VersionedWishBook} with the {@code addressBookStates} added into it, and the
+     * Creates and returns a {@code VersionedWishBook} with the {@code wishBookStates} added into it, and the
      * {@code VersionedWishBook#currentStatePointer} at the end of list.
      */
-    private VersionedWishBook prepareWishBookList(ReadOnlyWishBook... addressBookStates) {
-        assertFalse(addressBookStates.length == 0);
+    private VersionedWishBook prepareWishBookList(ReadOnlyWishBook... wishBookStates) {
+        assertFalse(wishBookStates.length == 0);
 
-        VersionedWishBook versionedWishBook = new VersionedWishBook(addressBookStates[0]);
-        for (int i = 1; i < addressBookStates.length; i++) {
-            versionedWishBook.resetData(addressBookStates[i]);
+        VersionedWishBook versionedWishBook = new VersionedWishBook(wishBookStates[0]);
+        for (int i = 1; i < wishBookStates.length; i++) {
+            versionedWishBook.resetData(wishBookStates[i]);
             versionedWishBook.commit();
         }
 

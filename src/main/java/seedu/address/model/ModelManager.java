@@ -9,10 +9,13 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.WishBookChangedEvent;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.versionedmodels.VersionedWishBook;
+import seedu.address.model.versionedmodels.VersionedWishTransaction;
 import seedu.address.model.wish.Wish;
 import seedu.address.model.wish.exceptions.DuplicateWishException;
 
@@ -24,28 +27,55 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final VersionedWishBook versionedWishBook;
+    private final VersionedWishTransaction versionedWishTransaction;
     private final FilteredList<Wish> filteredWishes;
 
     /**
      * Initializes a ModelManager with the given wishBook and userPrefs.
      */
-    public ModelManager(ReadOnlyWishBook wishBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyWishBook wishBook, WishTransaction wishTransaction, UserPrefs userPrefs) {
         super();
-        requireAllNonNull(wishBook, userPrefs);
+        requireAllNonNull(wishBook, wishTransaction, userPrefs);
 
-        logger.fine("Initializing with wish book: " + wishBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing wish book: " + wishBook
+                + ", wish transaction: " + wishTransaction
+                + ", user prefs " + userPrefs);
 
         versionedWishBook = new VersionedWishBook(wishBook);
+        versionedWishTransaction = getWishTransaction(wishBook, wishTransaction);
         filteredWishes = new FilteredList<>(versionedWishBook.getWishList());
     }
 
     public ModelManager() {
-        this(new WishBook(), new UserPrefs());
+        this(new WishBook(), new WishTransaction(), new UserPrefs());
+    }
+
+    /**
+     * @see ModelManager#getWishTransaction(ReadOnlyWishBook, WishTransaction)
+     */
+    public VersionedWishTransaction getWishTransaction() {
+        return getWishTransaction(versionedWishBook, versionedWishTransaction);
+    }
+
+    /**
+     * Returns {@code VersionedWishTransaction} initialized with data from {@code wishBook} or {@code wishTransaction}.
+     */
+    private VersionedWishTransaction getWishTransaction(ReadOnlyWishBook wishBook, WishTransaction wishTransaction) {
+        if (wishTransaction == null) {
+            return initWishTransactionWithWishBookData(wishBook);
+        } else {
+            return new VersionedWishTransaction(wishTransaction);
+        }
+    }
+
+    private VersionedWishTransaction initWishTransactionWithWishBookData(ReadOnlyWishBook wishBook) {
+        return new VersionedWishTransaction(wishBook);
     }
 
     @Override
     public void resetData(ReadOnlyWishBook newData) {
         versionedWishBook.resetData(newData);
+        versionedWishTransaction.resetData();
         indicateWishBookChanged();
     }
 
@@ -68,38 +98,43 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void deleteWish(Wish target) {
         versionedWishBook.removeWish(target);
+        versionedWishTransaction.removeWish(target);
         indicateWishBookChanged();
+
+        //TODO
+
     }
 
     @Override
     public void addWish(Wish wish) {
         versionedWishBook.addWish(wish);
-        updateFilteredWishList(PREDICATE_SHOW_ALL_PERSONS);
+        versionedWishTransaction.addWish(wish);
+        updateFilteredWishList(PREDICATE_SHOW_ALL_WISHES);
         indicateWishBookChanged();
     }
 
     @Override
     public void updateWish(Wish target, Wish editedWish) {
         requireAllNonNull(target, editedWish);
-
+        versionedWishTransaction.updateWish(target, editedWish);
         versionedWishBook.updateWish(target, editedWish);
         indicateWishBookChanged();
     }
 
     /**
      * Removes {@code tag} from all {@code wish}s in this {@code WishBook}.
-     * @throws DuplicateWishException if there's a duplicate {@code Person} in this {@code WishBook}.
+     * @throws DuplicateWishException if there's a duplicate {@code Wish} in this {@code WishBook}.
      */
     public void deleteTag(Tag tag) throws DuplicateWishException {
-
         versionedWishBook.removeTagFromAll(tag);
+        versionedWishTransaction.removeTagFromAll(tag);
         indicateWishBookChanged();
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Wish List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Wish} backed by the internal list of
      * {@code versionedWishBook}
      */
     @Override
@@ -128,18 +163,21 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void undoWishBook() {
         versionedWishBook.undo();
+        versionedWishTransaction.undo();
         indicateWishBookChanged();
     }
 
     @Override
     public void redoWishBook() {
         versionedWishBook.redo();
+        versionedWishTransaction.redo();
         indicateWishBookChanged();
     }
 
     @Override
     public void commitWishBook() {
         versionedWishBook.commit();
+        versionedWishTransaction.commit();
     }
 
     @Override

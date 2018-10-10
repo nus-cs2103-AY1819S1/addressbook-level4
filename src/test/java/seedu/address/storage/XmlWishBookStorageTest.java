@@ -62,66 +62,65 @@ public class XmlWishBookStorageTest {
     }
 
     @Test
-    public void readAddressBook_invalidPersonAddressBook_throwDataConversionException() throws Exception {
+    public void readWishBook_invalidWishWishBook_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
         readWishBook("invalidWishWishBook.xml");
     }
 
     @Test
-    public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() throws Exception {
+    public void readWishBook_invalidAndValidWishWishBook_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
         readWishBook("invalidAndValidWishWishBook.xml");
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
-        Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.xml");
+    public void readAndSaveWishBook_allInOrder_success() throws Exception {
+        Path filePath = testFolder.getRoot().toPath().resolve("TempWishBook.xml");
         WishBook original = getTypicalWishBook();
-        XmlWishBookStorage xmlAddressBookStorage = new XmlWishBookStorage(filePath);
+        XmlWishBookStorage xmlWishBookStorage = new XmlWishBookStorage(filePath);
 
         //Save in new file and read back
-        xmlAddressBookStorage.saveWishBook(original, filePath);
-        ReadOnlyWishBook readBack = xmlAddressBookStorage.readWishBook(filePath).get();
+        xmlWishBookStorage.saveWishBook(original, filePath);
+        ReadOnlyWishBook readBack = xmlWishBookStorage.readWishBook(filePath).get();
         assertEquals(original, new WishBook(readBack));
 
         //Modify data, overwrite exiting file, and read back
         original.addWish(HOON);
         original.removeWish(ALICE);
-        xmlAddressBookStorage.saveWishBook(original, filePath);
-        readBack = xmlAddressBookStorage.readWishBook(filePath).get();
+        xmlWishBookStorage.saveWishBook(original, filePath);
+        readBack = xmlWishBookStorage.readWishBook(filePath).get();
         assertEquals(original, new WishBook(readBack));
 
         //Save and read without specifying file path
         original.addWish(IDA);
-        xmlAddressBookStorage.saveWishBook(original); //file path not specified
-        readBack = xmlAddressBookStorage.readWishBook().get(); //file path not specified
+        xmlWishBookStorage.saveWishBook(original); //file path not specified
+        readBack = xmlWishBookStorage.readWishBook().get(); //file path not specified
         assertEquals(original, new WishBook(readBack));
 
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
+    public void saveWishBook_nullAddressBook_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(null, "SomeFile.xml");
+        saveWishBook(null, "SomeFile.xml");
     }
 
     /**
-     * Saves {@code addressBook} at the specified {@code filePath}.
+     * Saves {@code wishbook} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyWishBook addressBook, String filePath) {
+    private void saveWishBook(ReadOnlyWishBook wishBook, String filePath) {
         try {
             new XmlWishBookStorage(Paths.get(filePath))
-                    .saveWishBook(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveWishBook(wishBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_throwsNullPointerException() {
+    public void saveWishBook_nullFilePath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(new WishBook(), null);
+        saveWishBook(new WishBook(), null);
     }
-
 
 }
