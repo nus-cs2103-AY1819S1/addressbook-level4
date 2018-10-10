@@ -29,7 +29,7 @@ Interested? Jump to <<Quick Start>> to get started!
 .  Copy the file to the folder which you want to use as the home folder for your Expense Tracker.
 .  Double-click the `expensetracker.jar` file to start the app. The GUI should appear in a few seconds and look like this:
 +
-image::Ui.png[width="790"]
+image::UI.png[width="790"]
 +
 .  Type the command `singup USERNAME` in the command box (the box where it says "Enter command here...") and press kbd:[Enter] to execute it, where USERNAME is the username of your choice. E.g. `signup username123`
 .  Type the command `login USERNAME` in the command box and press kbd:[Enter] to execute it, where USERNAME is the username you signed up with in the previous step. e.g. `login username123` +
