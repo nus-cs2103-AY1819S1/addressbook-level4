@@ -1,8 +1,9 @@
 package seedu.address.logic.commands;
 
-//import static org.junit.Assert.assertEquals;
-//import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.nio.file.Path;
@@ -38,43 +39,39 @@ public class CdCommandTest {
         String nextDir = homeDirectory + "/" + nextDirectory.getPath().toString();
         String prevDir = homeDirectory + "/" + prevDirectory.getPath().toString();
 
-        // same destination -> returns true
+        // same directory -> returns true
         assertTrue(Paths.get(currDir).normalize().equals(model.getCurrDirectory()));
 
+        // change to Desktop
         model.updateUserPrefs(model.getCurrDirectory().resolve("Desktop").normalize());
         assertTrue(Paths.get(nextDir).normalize().equals(model.getCurrDirectory()));
 
+        // change to previous directory
         model.updateUserPrefs(model.getCurrDirectory().resolve("..").normalize());
         assertTrue(Paths.get(currDir).normalize().equals(model.getCurrDirectory()));
 
+        // change to previous directory
         model.updateUserPrefs(model.getCurrDirectory().resolve("..").normalize());
         assertTrue(Paths.get(prevDir).normalize().equals(model.getCurrDirectory()));
 
-        /*// same values -> returns true
-        FindCommand findFirstCommandCopy = new FindCommand(firstPredicate);
-        assertTrue(findFirstCommand.equals(findFirstCommandCopy));
+        // different paths -> returns false
+        assertFalse(Paths.get(currDir).normalize().equals(model.getCurrDirectory()));
+        assertFalse(Paths.get(nextDir).normalize().equals(model.getCurrDirectory()));
 
-        // different types -> returns false
-        assertFalse(findFirstCommand.equals(1));
-
-        // null -> returns false
-        assertFalse(findFirstCommand.equals(null));
-
-        // different person -> returns false
-        assertFalse(findFirstCommand.equals(findSecondCommand));*/
-    }
-
-    /*@Test
-    public void execute_zeroKeywords_noPersonFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-        NameContainsKeywordsPredicate predicate = preparePredicate(" ");
-        FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredPersonList(predicate);
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
+        // different object -> returns false
+        assertFalse(currDirectory.equals(nextDirectory));
     }
 
     @Test
+    public void execute_notDirectory() {
+        String expectedMessage = CdCommand.MESSAGE_FAILURE;
+        Path directory = Paths.get("testFolder");
+        CdCommand command = new CdCommand(directory);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Paths.get(System.getProperty("user.home")), model.getCurrDirectory());
+    }
+
+    /*@Test
     public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
@@ -82,12 +79,6 @@ public class CdCommandTest {
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredPersonList());
-    }
-
-    *//**
-     * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
-     *//*
-    private NameContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }*/
+
 }
