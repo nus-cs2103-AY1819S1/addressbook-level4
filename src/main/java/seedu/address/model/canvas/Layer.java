@@ -18,15 +18,16 @@ public class Layer {
     private int y;
     private int height;
     private int width;
-
+    private String name;
     private TransformationSet history;
 
-    public Layer(Image image) {
+    public Layer(Image image, String name) {
         this.image = requireNonNull(image);
         this.x = 0;
         this.y = 0;
         this.height = (int) image.getHeight();
         this.width = (int) image.getWidth();
+        this.name = name;
         history = new TransformationSet();
     }
 
