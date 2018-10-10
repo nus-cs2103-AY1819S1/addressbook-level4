@@ -11,11 +11,11 @@ import javafx.collections.ObservableList;
 import seedu.address.model.tag.Tag;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A person is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
- * persons uses Person#isSamePerson(Person) for equality so as to ensure that the person being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a person uses Person#equals(Object) so
- * as to ensure that the person with exactly the same fields will be removed.
+ * A list of groups that enforces uniqueness between its elements and does not allow nulls.
+ * A group is considered unique by comparing using tagName. As such, adding and updating of
+ * groups uses tagName for equality so as to ensure that the group being added or updated is
+ * unique in terms of identity in the UniqueGroupList. However, the removal of a group uses equals so
+ * as to ensure that the group with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
