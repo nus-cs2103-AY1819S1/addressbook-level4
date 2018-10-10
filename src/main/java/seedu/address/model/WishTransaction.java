@@ -84,8 +84,6 @@ public class WishTransaction implements ActionCommandListener<WishTransaction> {
         String wishName = getKey(wish);
         LinkedList<Wish> wishList = updateWishes(getWishList(wishName), wish);
         setValueOfKey(wish, wishList);
-        logger.info("Adding wish " + getKey(wish) + " to wishMap");
-        logger.info("Initial size of wishlist: " + (wishList.size() - 1) + " Final size of wishlist: " + wishList.size());
     }
 
     /**

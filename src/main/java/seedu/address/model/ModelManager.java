@@ -37,7 +37,9 @@ public class ModelManager extends ComponentManager implements Model {
         super();
         requireAllNonNull(wishBook, wishTransaction, userPrefs);
 
-        logger.fine("Initializing wish book: " + wishBook + ", wish transaction: " + wishTransaction + ", user prefs " + userPrefs);
+        logger.fine("Initializing wish book: " + wishBook
+                + ", wish transaction: " + wishTransaction
+                + ", user prefs " + userPrefs);
 
         versionedWishBook = new VersionedWishBook(wishBook);
         versionedWishTransaction = getWishTransaction(wishBook, wishTransaction);

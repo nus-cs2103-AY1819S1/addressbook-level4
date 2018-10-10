@@ -67,7 +67,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
         WishBookStorage wishBookStorage = new XmlWishBookStorage(userPrefs.getAddressBookFilePath());
-        WishTransactionStorage wishTransactionStorage = new XmlWishTransactionStorage(userPrefs.getWishTransactionFilePath());
+        WishTransactionStorage wishTransactionStorage =
+                new XmlWishTransactionStorage(userPrefs.getWishTransactionFilePath());
         storage = new StorageManager(wishBookStorage, wishTransactionStorage, userPrefsStorage);
 
         initLogging(config);

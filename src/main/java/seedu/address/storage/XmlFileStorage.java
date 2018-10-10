@@ -13,8 +13,6 @@ import seedu.address.commons.util.XmlUtil;
  */
 public class XmlFileStorage {
 
-    // ================ XmlSerializableWishBook methods ==============================
-
     /**
      * Saves the given wishBook data to the specified file.
      */
@@ -22,6 +20,18 @@ public class XmlFileStorage {
             throws FileNotFoundException {
         try {
             XmlUtil.saveDataToFile(file, wishBook);
+        } catch (JAXBException e) {
+            throw new AssertionError("Unexpected exception " + e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Saves the given wish transaction data to the specified file.
+     */
+    public static void saveDataToFile(Path file, XmlWishTransactions xmlWishTransactions)
+            throws FileNotFoundException {
+        try {
+            XmlUtil.saveDataToFile(file, xmlWishTransactions);
         } catch (JAXBException e) {
             throw new AssertionError("Unexpected exception " + e.getMessage(), e);
         }
@@ -51,20 +61,6 @@ public class XmlFileStorage {
             return XmlUtil.getDataFromFile(file, XmlSerializableWishBook.class);
         } catch (JAXBException e) {
             throw new DataConversionException(e);
-        }
-    }
-
-    // ================ XmlWishTransactions methods ==============================
-
-    /**
-     * Saves the given wish transaction data to the specified file.
-     */
-    public static void saveDataToFile(Path file, XmlWishTransactions xmlWishTransactions)
-            throws FileNotFoundException {
-        try {
-            XmlUtil.saveDataToFile(file, xmlWishTransactions);
-        } catch (JAXBException e) {
-            throw new AssertionError("Unexpected exception " + e.getMessage(), e);
         }
     }
 
