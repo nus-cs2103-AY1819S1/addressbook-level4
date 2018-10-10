@@ -56,6 +56,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         Word toAdd = AMY;
         String command = "   " + AddCommand.COMMAND_WORD + " " + NAME_DESC_AMY + "  " + MEANING_DESC + "  "
                 + PHONE_DESC_AMY + " " + ADDRESS_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
+
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
@@ -114,7 +115,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: add a duplicate word except with different phone -> rejected */
-        toAdd = new PersonBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
+        // Took out "phone" field @russellong95
+        toAdd = new PersonBuilder(HOON).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
