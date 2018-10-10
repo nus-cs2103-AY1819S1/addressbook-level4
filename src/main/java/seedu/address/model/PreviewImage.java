@@ -32,7 +32,6 @@ public class PreviewImage implements PreviewableImage {
         this.transformationSet = new TransformationSet();
     }
 
-
     public Image getImage() {
         return image;
     }
