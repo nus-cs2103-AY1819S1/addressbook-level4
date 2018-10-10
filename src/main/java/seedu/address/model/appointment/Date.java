@@ -31,7 +31,7 @@ public class Date {
      */
     public Date(int day, int month, int year) {
         requireAllNonNull(day, month, year);
-        checkArgument(isValidDay(day, month), MESSAGE_DAY_CONSTRAINTS);
+        checkArgument(isValidDay(day, month, year), MESSAGE_DAY_CONSTRAINTS);
         checkArgument(isValidMonth(month), MESSAGE_MONTH_CONSTRAINTS);
         checkArgument(isValidYear(year), MESSAGE_YEAR_CONSTRAINTS);
         this.day = day;
@@ -57,14 +57,17 @@ public class Date {
      * @param month Determines validity of day.
      * @return Validity of day.
      */
-    public static boolean isValidDay(int day, int month) {
+    public static boolean isValidDay(int day, int month, int year) {
         if (day <= 0 || day > 31) {
             return false;
         }
-        if (month == 2 && day > 29) { //february has 28/29 days
+        if (month == 2 && day > 30 && isLeapYear(year)) { //if leap year
             return false;
         }
-        if (month % 2 == 0 && month < 9 && day > 30) {
+        if (month == 2 && day > 28 && !isLeapYear(year)) {
+            return false;
+        }
+        if (month % 2 == 0 && month < 9 && day > 30) { //before september
             return false;
         }
         if (month % 2 == 1 && month >= 9 && day > 30) {
@@ -74,15 +77,32 @@ public class Date {
     }
 
     /**
+     * Returns true if it is a Gregorian leap year.
+     * @param year The year to check if leap year.
+     */
+    public static boolean isLeapYear(int year) {
+        //Solution below adapted from https://en.wikipedia.org/wiki/Leap_year
+        if (year % 4 != 0) {
+            return false;
+        }
+        else if (year % 100 != 0) {
+            return true;
+        }
+        else if (year % 400 != 0) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    /**
      * Returns true if such a month exists.
      * @param month The month to validate.
      * @return Validity of month.
      */
     public static boolean isValidMonth(int month) {
-        if (month >= 1 && month <= 12) {
-            return true;
-        }
-        return false;
+        return month >= 1 && month <= 12;
     }
 
     /**
