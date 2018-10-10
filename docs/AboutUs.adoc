@@ -23,7 +23,7 @@ image::choojeremy.png[width="150", align="left"]
 {empty}[https://jch.ooo[Website]] [http://github.com/ChooJeremy[github]]
 
 Role: Team Lead +
-Responsibilities: Git, UI
+Responsibilities: Git, Logic
 
 '''
 
@@ -32,7 +32,8 @@ image::elliottan.png[width="150", align="left"]
 {empty}[http://github.com/elliottan[github]]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Storage, Data
+Secondary Responsibilities: Model
 
 '''
 
@@ -41,7 +42,7 @@ image::rnardha.png[width="150", align="left"]
 {empty}[http://github.com/RnardHa[github]]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: UI
 
 '''
 
@@ -59,6 +60,6 @@ image::kokjianyu.png[width="150", align="left"]
 {empty}[http://github.com/KokJianYu[github]]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: Model
 
 '''
