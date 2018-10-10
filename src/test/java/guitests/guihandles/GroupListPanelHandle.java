@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import seedu.address.model.tag.Tag;
 
+/**
+ * Provides a handle for {@code GroupListPanel} containing the list of {@code GroupCard}
+ */
 public class GroupListPanelHandle extends NodeHandle<ListView<Tag>> {
     public static final String GROUP_LIST_VIEW_ID = "#groupListView";
 

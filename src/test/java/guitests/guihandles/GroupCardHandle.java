@@ -4,6 +4,9 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import seedu.address.model.tag.Tag;
 
+/**
+ * Provides a handle to a group card in the group list panel.
+ */
 public class GroupCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String GROUP_FIELD_ID = "#group";

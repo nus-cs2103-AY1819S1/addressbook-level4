@@ -53,8 +53,8 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).withGrouptags(VALID_GROUPTAG_CCA)
-                .build();
+        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+                .withGrouptags(VALID_GROUPTAG_CCA).build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
         // HACK
         // TODO: change to correctly take in groups
