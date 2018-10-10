@@ -10,10 +10,12 @@ import com.google.gson.GsonBuilder;
 
 import seedu.jxmusic.model.Library;
 import seedu.jxmusic.model.Playlist;
+import seedu.jxmusic.storage.jsonserdes.LibraryDeserializer;
+import seedu.jxmusic.storage.jsonserdes.PlaylistDeserializer;
 
 /**
  * Read the library.json file and scan all the mp3 files from the library directory, a combination of
- * LibraryDeserializer and LibraryScanner
+ * LibraryDeserializer and TracksScanner
  */
 public class LibraryRead {
     /**
@@ -33,7 +35,7 @@ public class LibraryRead {
         try (Reader reader = new FileReader(s + "library.json")) {
             // Parse JSON to Java
             Library library = gson.fromJson(reader, Library.class);
-            LibraryScanner.scan(library);
+            library.setTracks(TracksScanner.scan(Paths.get(Library.LIBRARYDIR)));
         }
     }
 }

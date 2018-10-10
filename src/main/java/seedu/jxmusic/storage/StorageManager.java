@@ -16,7 +16,7 @@ import seedu.jxmusic.model.ReadOnlyLibrary;
 import seedu.jxmusic.model.UserPrefs;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of Library data in local storage.
  */
 public class StorageManager extends ComponentManager implements Storage {
 
@@ -49,7 +49,7 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ Library methods ==============================
 
     @Override
     public Path getLibraryFilePath() {
@@ -81,7 +81,7 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     @Subscribe
-    public void handleAddressBookChangedEvent(LibraryChangedEvent event) {
+    public void handleLibraryChangedEvent(LibraryChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
             saveLibrary(event.data);

@@ -28,12 +28,12 @@ public interface Storage extends LibraryStorage, UserPrefsStorage {
     Optional<ReadOnlyLibrary> readLibrary() throws DataConversionException, IOException;
 
     @Override
-    void saveLibrary(ReadOnlyLibrary addressBook) throws IOException;
+    void saveLibrary(ReadOnlyLibrary library) throws IOException;
 
     /**
-     * Saves the current version of the Address Book to the hard disk.
+     * Saves the current version of the Library to the hard disk.
      *   Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    void handleAddressBookChangedEvent(LibraryChangedEvent abce);
+    void handleLibraryChangedEvent(LibraryChangedEvent lce);
 }

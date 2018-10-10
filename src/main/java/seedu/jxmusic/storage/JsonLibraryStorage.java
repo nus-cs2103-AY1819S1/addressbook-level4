@@ -6,7 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import seedu.jxmusic.commons.core.LogsCenter;
@@ -14,6 +16,7 @@ import seedu.jxmusic.commons.exceptions.DataConversionException;
 import seedu.jxmusic.commons.util.FileUtil;
 import seedu.jxmusic.model.Library;
 import seedu.jxmusic.model.ReadOnlyLibrary;
+import seedu.jxmusic.model.Track;
 
 /**
  * A class to access library data stored as an json file on the hard disk.
@@ -51,18 +54,20 @@ public class JsonLibraryStorage implements LibraryStorage {
             return Optional.empty();
         }
 
-        Library jsonLibrary = null;
+        Library loadedLibrary = null;
         try {
-            jsonLibrary = JsonFileStorage.loadDataFromSaveFile(filePath);
+            loadedLibrary = JsonFileStorage.loadDataFromFile(filePath);
+            Set<Track> trackSet = TracksScanner.scan(Paths.get(Library.LIBRARYDIR));
+            loadedLibrary.setTracks(trackSet);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return Optional.of(jsonLibrary);
+        return Optional.of(loadedLibrary);
     }
 
     @Override
-    public void saveLibrary(ReadOnlyLibrary addressBook) throws IOException {
-        saveLibrary(addressBook, filePath);
+    public void saveLibrary(ReadOnlyLibrary library) throws IOException {
+        saveLibrary(library, filePath);
     }
 
     /**

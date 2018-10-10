@@ -1,4 +1,4 @@
-package seedu.jxmusic.storage;
+package seedu.jxmusic.storage.jsonserdes;
 
 import java.lang.reflect.Type;
 import java.util.Arrays;

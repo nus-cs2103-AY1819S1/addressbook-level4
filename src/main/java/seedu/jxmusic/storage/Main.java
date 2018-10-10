@@ -15,6 +15,10 @@ import com.google.gson.GsonBuilder;
 import seedu.jxmusic.model.Library;
 import seedu.jxmusic.model.Name;
 import seedu.jxmusic.model.Playlist;
+import seedu.jxmusic.storage.jsonserdes.LibraryDeserializer;
+import seedu.jxmusic.storage.jsonserdes.LibrarySerializer;
+import seedu.jxmusic.storage.jsonserdes.PlaylistDeserializer;
+import seedu.jxmusic.storage.jsonserdes.PlaylistSerializer;
 
 /**
  * tries out the serializers
@@ -41,7 +45,7 @@ public class Main {
         try (Reader reader = new FileReader(s + "library.json")) {
             // Parse JSON to Java
             Library library = gson.fromJson(reader, Library.class);
-            LibraryScanner.scan(library);
+            library.setTracks(TracksScanner.scan(Paths.get(Library.LIBRARYDIR)));
 
             List<Playlist> newplaylistlist = new ArrayList<>();
             Name nameNewplaylist = new Name("asdf");

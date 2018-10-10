@@ -20,10 +20,10 @@ import seedu.jxmusic.commons.util.ConfigUtil;
 import seedu.jxmusic.commons.util.StringUtil;
 import seedu.jxmusic.logic.Logic;
 import seedu.jxmusic.logic.LogicManager;
-import seedu.jxmusic.model.AddressBook;
+import seedu.jxmusic.model.Library;
 import seedu.jxmusic.model.Model;
 import seedu.jxmusic.model.ModelManager;
-import seedu.jxmusic.model.ReadOnlyAddressBook;
+import seedu.jxmusic.model.ReadOnlyLibrary;
 import seedu.jxmusic.model.UserPrefs;
 import seedu.jxmusic.model.util.SampleDataUtil;
 import seedu.jxmusic.storage.LibraryStorage;
@@ -54,7 +54,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing JxMusic ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -62,7 +62,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        LibraryStorage libraryStorage = new JsonLibraryStorage(userPrefs.getAddressBookFilePath());
+        LibraryStorage libraryStorage = new JsonLibraryStorage(userPrefs.getLibraryFilePath());
         storage = new StorageManager(libraryStorage, userPrefsStorage);
 
         initLogging(config);
@@ -82,20 +82,20 @@ public class MainApp extends Application {
      * or an empty jxmusic book will be used instead if errors occur when reading {@code storage}'s jxmusic book.
      */
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyLibrary> libraryOptional;
+        ReadOnlyLibrary initialData;
         try {
-            addressBookOptional = storage.readLibrary();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            libraryOptional = storage.readLibrary();
+            if (!libraryOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample Library");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = libraryOptional.orElseGet(SampleDataUtil::getSampleLibrary);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Data file not in the correct format. Will be starting with an empty Library");
+            initialData = new Library();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Problem while reading from the file. Will be starting with an empty Library");
+            initialData = new Library();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -159,7 +159,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty Library");
             initializedPrefs = new UserPrefs();
         }
 
@@ -179,13 +179,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting JxMusic " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping JxMusic ] =============================");
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);
