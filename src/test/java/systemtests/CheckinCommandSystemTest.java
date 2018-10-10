@@ -36,8 +36,6 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CheckinCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -52,8 +50,6 @@ public class CheckinCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void checkin() {
-        Model model = getModel();
-
         /* ------------------------ Perform checkin operations on the shown unfiltered list ------------------------- */
 
         /* Case: checks in a person without drug allergies to a non-empty HMS, command with leading spaces and trailing
@@ -64,17 +60,6 @@ public class CheckinCommandSystemTest extends AddressBookSystemTest {
         String command = "   " + CheckinCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
                 + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + DRUG_ALLERGY_DESC_ASPIRIN + " " + NRIC_DESC_AMY;
         assertCommandSuccess(command, toCheckin);
-
-        /* Case: undo adding Amy to the list -> Amy deleted */
-        command = UndoCommand.COMMAND_WORD;
-        String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, model, expectedResultMessage);
-
-        /* Case: redo adding Amy to the list -> Amy added again */
-        command = RedoCommand.COMMAND_WORD;
-        model.addPerson(toCheckin);
-        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: add a person with all fields same as another person in the HMS except name -> added */
         toCheckin = new PersonBuilder(AMY).withName(VALID_NAME_BOB).build();
