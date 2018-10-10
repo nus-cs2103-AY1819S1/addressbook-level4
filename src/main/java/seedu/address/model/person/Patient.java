@@ -175,4 +175,11 @@ public class Patient {
         return builder.toString();
     }
 
+    public String toNameAndIc() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName() + " [")
+                .append(getIcNumber()+ "]");
+        return builder.toString();
+    }
+
 }

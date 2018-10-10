@@ -1,5 +1,8 @@
 package seedu.address.model;
 
+import seedu.address.commons.core.index.Index;
+import seedu.address.model.person.Patient;
+
 /**
  * The API of the PatientQueue component.
  */
@@ -15,30 +18,30 @@ public interface PatientQueue {
      * Enqueue a patient.
      * @return Position of enqueued patient in the queue.
      */
-    int enqueue(String patientName);
+    int enqueue(Patient patient);
 
     /**
      * Add a patient to the queue at a specified index.
      */
-    void addAtIndex(String patientName, int index);
+    void addAtIndex(Patient patient, int index);
 
     /**
-     * Delete a patient in the queue with a specified name.
-     * @return String representation of the removed patient.
+     * Delete a patient in the queue with a specified patient.
+     * @return Patient object removed.
      */
-    String removePatient(String patientName);
+    Patient removePatient(Patient patient);
 
     /**
      * Dequeue a patient.
-     * @return String representation of the patient dequeued.
+     * @return Patient object removed from front of the queue.
      */
-    String dequeue();
+    Patient dequeue();
 
     /**
      * Removes a patient from the queue at a specified index.
-     * @return String representation of the patient removed.
+     * @return Patient object removed at specified index.
      */
-    String removeAtIndex(int index);
+    Patient removeAtIndex(int index);
 
     /**
      * @return Length of the current queue.
@@ -55,5 +58,5 @@ public interface PatientQueue {
      * Checks whether queue contains specified patient.
      * @return true if queue contains patient.
      */
-    boolean contains(String patientName);
+    boolean contains(Patient patient);
 }
