@@ -87,10 +87,10 @@ Format: `edit INDEX [n/WISH_NAME] [p/PRICE] [d/TIME_GIVEN]/[d/END_DATE] [t/TAG]`
 Examples:
 
 * `edit 1 n/Macbook Pro t/Broke wishes` +
-Edits the name of the wish and the tag of the 1st goal to be Macbook Pro and Broke wishes respectively
+Edits the name of the wish and the tag of the 1st wish to be Macbook Pro and Broke wishes respectively
 
 * `edit 2 p/22 d/22w` +
-Edits the price and time given to accomplish the 2nd goal to 22 (in the chosen currency) and 22 weeks respectively.
+Edits the price and time given to accomplish the 2nd wish to 22 (in the chosen currency) and 22 weeks respectively.
 
 === Listing all wishes : `list`
 
@@ -193,7 +193,7 @@ Selects the 1st wish in the results of the `find` command.
 === Save money for a particular wish: `save`
 
 Channels savings for a specified wish. +
-Format: `save [INDEX] AMOUNT`
+Format: `save INDEX [s/AMOUNT]`
 
 ****
 * `INDEX` should be a positive integer 1, 2, 3… no larger than the number of wishes
@@ -324,11 +324,11 @@ e.g. `find 22d`
 * *Help* : `help`
 * *Select* : `select INDEX` +
 e.g.`select 2`
-* *Save* : `save AMOUNT [INDEX]` +
-e.g. `save 1000 1`
+* *Save* : `save INDEX [s/AMOUNT]` +
+e.g. `save 1 s/1000`
 * *Command History* : `history -c`
 * *Savings History* : `history -s`
-* *Remark* : `remark INDEX r/[REMARK]`
+* *Remark* : `remark INDEX [r/REMARK]`
 * *Undo* : `undo`
 * *Redo* : `redo`
 * *Exit* : `exit`
