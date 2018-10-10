@@ -5,6 +5,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.address.model.tag.Tag;
 
+/**
+ * An UI component that displays information of a {@code Group}
+ * {@author jeffreyooi}
+ */
 public class GroupCard extends UiPart<Region> {
 
     private static final String FXML = "GroupListCard.fxml";

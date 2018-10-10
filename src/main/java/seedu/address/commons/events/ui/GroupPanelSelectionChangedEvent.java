@@ -5,6 +5,7 @@ import seedu.address.model.tag.Tag;
 
 /**
  * Represents a selection change in the Group List Panel
+ * {@author jeffreyooi}
  */
 public class GroupPanelSelectionChangedEvent extends BaseEvent {
 

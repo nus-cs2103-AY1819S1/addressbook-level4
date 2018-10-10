@@ -17,6 +17,7 @@ import seedu.address.model.tag.Tag;
 
 /**
  * Panel containing the list of groups.
+ * {@author jeffreyooi}
  */
 public class GroupListPanel extends UiPart<Region> {
     private static final String FXML = "GroupListPanel.fxml";
