@@ -15,8 +15,8 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.souschef.commons.core.index.Index;
-import seedu.souschef.logic.commands.EditCommand;
 import seedu.souschef.logic.EditRecipeDescriptor;
+import seedu.souschef.logic.commands.EditCommand;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.recipe.Address;

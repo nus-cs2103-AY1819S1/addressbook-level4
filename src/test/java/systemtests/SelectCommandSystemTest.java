@@ -11,7 +11,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
     @Test
     public void select() {
         /* ------------------------ Perform select operations on the shown unfiltered list --------------------------
-         *  *//*
+         * *//*
 
         *//* Case: select the first card in the recipe list, command with leading spaces and trailing spaces
          * -> selected

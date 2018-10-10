@@ -77,7 +77,8 @@ public class CommandTestUtil {
      * - the {@code actualModel} matches {@code expectedModel} <br>
      * - the {@code actualCommandHistory} remains unchanged.
      */
-    public static void assertCommandSuccess(Command<UniqueType> command, Model actualModel, CommandHistory actualCommandHistory,
+    public static void assertCommandSuccess(Command<UniqueType> command, Model actualModel,
+                                            CommandHistory actualCommandHistory,
                                             String expectedMessage, Model expectedModel) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
@@ -97,7 +98,8 @@ public class CommandTestUtil {
      * - the address book and the filtered recipe list in the {@code actualModel} remain unchanged <br>
      * - {@code actualCommandHistory} remains unchanged.
      */
-    public static void assertCommandFailure(Command<UniqueType> command, Model actualModel, CommandHistory actualCommandHistory,
+    public static void assertCommandFailure(Command<UniqueType> command, Model actualModel,
+                                            CommandHistory actualCommandHistory,
                                             String expectedMessage) {
         // we are unable to defensively copy the recipeModel for comparison later, so we can
         // only do so by copying its components.

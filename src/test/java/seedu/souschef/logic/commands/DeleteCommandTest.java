@@ -107,7 +107,7 @@ public class DeleteCommandTest {
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);*/
     }
 
-     /**
+    /**
      * 1. Deletes a {@code Recipe} from a filtered list.
      * 2. Undo the deletion.
      * 3. The unfiltered list should be shown now. Verify that the index of the previously deleted recipe in the
@@ -159,7 +159,7 @@ public class DeleteCommandTest {
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));*/
     }
 
-     /**
+    /**
      * Updates {@code recipeModel}'s filtered list to show no one.
      **/
     private void showNoPerson(Model model) {

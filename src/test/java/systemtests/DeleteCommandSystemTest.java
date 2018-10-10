@@ -19,7 +19,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     @Test
     public void delete() {
         /* ----------------- Performing delete operation while an unfiltered list is being shown --------------------
-         *  *//*
+         * *//*
 
         *//* Case: delete the first recipe in the list, command with leading spaces and trailing spaces -> deleted *//*
         Model expectedModel = getModel();
@@ -65,7 +65,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         //assertCommandFailure(command, MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
 
-        *//* --------------------- Performing delete operation while a recipe card is selected ------------------------ *//*
+        *//* --------------------- Performing delete operation while a recipe card is selected
+        ------------------------ *//*
 
         *//* Case: delete the selected recipe -> recipe list panel selects the recipe before the deleted recipe *//*
         showAllRecipes();
@@ -78,7 +79,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         expectedResultMessage = String.format(MESSAGE_DELETE_RECIPE_SUCCESS, deletedRecipe);
         assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
 
-        *//* --------------------------------- Performing invalid delete operation ------------------------------------ *//*
+        *//* --------------------------------- Performing invalid delete operation
+        ------------------------------------ *//*
 
         *//* Case: invalid index (0) -> rejected *//*
         command = DeleteCommand.COMMAND_WORD + " 0";
@@ -125,8 +127,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         String expectedResultMessage = String.format(MESSAGE_DELETE_RECIPE_SUCCESS, deletedRecipe);
 
         assertCommandSuccess(
-                DeleteCommand.COMMAND_WORD + " " + toDelete.getOneBased(), expectedModel
-                , expectedResultMessage);
+                DeleteCommand.COMMAND_WORD + " " + toDelete.getOneBased(), expectedModel,
+                expectedResultMessage);
     }
 
     /**

@@ -12,7 +12,7 @@ import seedu.souschef.model.recipe.Recipe;
  * Contains helper methods for testing command parsers.
  */
 public class CommandParserTestUtil {
-    private static  Model<Recipe> model;
+    private static Model<Recipe> model;
 
     /**
      * Asserts that the parsing of {@code userInput} by {@code parser} is successful and the command created
