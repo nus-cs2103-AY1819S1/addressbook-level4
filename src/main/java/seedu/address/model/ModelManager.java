@@ -115,6 +115,11 @@ public class ModelManager extends ComponentManager implements Model {
     public void enqueue(Person patient) {
         mainQueue.add(patient);
     }
+
+    /**
+     * Enqueues patient who is consulting a particular doctor into the 'special' queue.
+     * @param patient
+     */
     @Override
     public void enqueueIntoPreferenceQueue(Person patient) {
         preferenceQueue.add(patient);

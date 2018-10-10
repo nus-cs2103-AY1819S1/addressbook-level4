@@ -16,7 +16,7 @@ public class PreferenceQueueTest {
     }
     @Test
     public void hasPatient_patientInPreferenceQueue_returnTrue() {
-        modelManager.enqueue(ALICE);
+        modelManager.enqueueIntoPreferenceQueue(ALICE);
         assertTrue(modelManager.hasPatientInPreferenceQueue());
     }
 }
