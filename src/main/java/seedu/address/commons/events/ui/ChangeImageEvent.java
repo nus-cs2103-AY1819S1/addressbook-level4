@@ -1,9 +1,9 @@
 package seedu.address.commons.events.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import javafx.scene.image.Image;
 import seedu.address.commons.events.BaseEvent;
-
-import static java.util.Objects.requireNonNull;
 
 //@author Jeffry
 /**
