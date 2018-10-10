@@ -1,52 +1,8 @@
 package seedu.souschef.logic.parser;
 
-import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.souschef.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.souschef.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.souschef.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.souschef.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.souschef.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.souschef.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.souschef.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.souschef.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.souschef.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.souschef.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.souschef.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.souschef.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.souschef.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.souschef.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.souschef.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.souschef.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.souschef.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.souschef.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.souschef.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.souschef.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.souschef.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.souschef.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.souschef.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.souschef.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.souschef.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.souschef.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
-import static seedu.souschef.testutil.TypicalIndexes.INDEX_SECOND_RECIPE;
-import static seedu.souschef.testutil.TypicalIndexes.INDEX_THIRD_RECIPE;
-
-import org.junit.Test;
-
-import seedu.souschef.commons.core.index.Index;
-import seedu.souschef.logic.commands.EditCommand;
-import seedu.souschef.logic.commands.EditCommand.EditRecipeDescriptor;
-import seedu.souschef.model.recipe.Address;
-import seedu.souschef.model.recipe.Email;
-import seedu.souschef.model.recipe.Name;
-import seedu.souschef.model.recipe.Phone;
-import seedu.souschef.model.recipe.Recipe;
-import seedu.souschef.model.tag.Tag;
-import seedu.souschef.testutil.EditRecipeDescriptorBuilder;
-
 public class EditCommandParserTest {
 
-    private static final String TAG_EMPTY = " " + PREFIX_TAG;
+    /*private static final String TAG_EMPTY = " " + PREFIX_TAG;
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
@@ -209,5 +165,5 @@ public class EditCommandParserTest {
         EditCommand<Recipe> expectedCommand = new EditCommand<Recipe>(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
-    }
+    }*/
 }

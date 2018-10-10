@@ -14,6 +14,7 @@ import java.util.List;
 
 import seedu.souschef.commons.core.index.Index;
 import seedu.souschef.logic.CommandHistory;
+import seedu.souschef.logic.EditRecipeDescriptor;
 import seedu.souschef.logic.commands.exceptions.CommandException;
 import seedu.souschef.model.AppContent;
 import seedu.souschef.model.Model;
@@ -58,8 +59,8 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditRecipeDescriptor DESC_AMY;
-    public static final EditCommand.EditRecipeDescriptor DESC_BOB;
+    public static final EditRecipeDescriptor DESC_AMY;
+    public static final EditRecipeDescriptor DESC_BOB;
 
     static {
         DESC_AMY = new EditRecipeDescriptorBuilder().withName(VALID_NAME_AMY)
