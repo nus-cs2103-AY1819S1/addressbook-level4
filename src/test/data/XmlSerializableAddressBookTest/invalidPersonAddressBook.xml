@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addressbook>
-    <!-- Word with invalid email field -->
-    <words>
-        <name>Hans Muster</name>
+    <!-- Word with invalid name field -->
+    <persons>
+        <name>Han!s Muster</name>
         <phone isPrivate="false">9482424</phone>
         <address isPrivate="false">4th street</address>
-    </words>
+        <meaning isPrivate="false">testing</meaning>
+
+    </persons>
 </addressbook>
