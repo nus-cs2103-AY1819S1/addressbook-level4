@@ -1,7 +1,11 @@
 package seedu.address.ui;
 
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
+
 import javafx.application.Platform;
+
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
@@ -10,8 +14,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ChangeImageEvent;
-
-import java.util.logging.Logger;
 
 /**
  * An UI component that displays an Image.
@@ -24,7 +26,8 @@ public class ImagePanel extends UiPart<Region> {
      * An image panel for showing the previews
      */
 
-    private final ObjectProperty<Image> image = new SimpleObjectProperty<Image>(new Image("https://via.placeholder.com/500x500"));
+    private final ObjectProperty<Image> image = new SimpleObjectProperty<Image>(
+            new Image("https://via.placeholder.com/500x500"));
     private final String name;
     @FXML
     private ImageView imageView;
@@ -39,7 +42,7 @@ public class ImagePanel extends UiPart<Region> {
     @Subscribe
     private void handlePreviewImageEvent(ChangeImageEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        if(this.name.equals(event.target)){
+        if (this.name.equals(event.target)) {
             Platform.runLater(() -> image.setValue(event.image));
         }
     }
