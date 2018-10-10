@@ -23,13 +23,13 @@ public class ModelManagerTest {
     private ModelManager modelManager = new ModelManager();
 
     @Test
-    public void hasPerson_nullWish_throwsNullPointerException() {
+    public void hasWish_nullWish_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         modelManager.hasWish(null);
     }
 
     @Test
-    public void hasPerson_wishNotInWishBook_returnsFalse() {
+    public void hasWish_wishNotInWishBook_returnsFalse() {
         assertFalse(modelManager.hasWish(ALICE));
     }
 
@@ -80,7 +80,7 @@ public class ModelManagerTest {
 
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
+        differentUserPrefs.setWishBookFilePath(Paths.get("differentFilePath"));
         assertTrue(modelManager.equals(new ModelManager(wishBook, wishTransaction, differentUserPrefs)));
     }
 }
