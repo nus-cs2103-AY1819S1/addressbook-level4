@@ -43,8 +43,9 @@ import seedu.address.model.task.Email;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Phone;
 import seedu.address.model.task.Task;
-import seedu.address.testutil.TaskUtil;
 import seedu.address.testutil.TaskBuilder;
+import seedu.address.testutil.TaskUtil;
+
 
 public class AddCommandSystemTest extends SchedulePlannerSystemTest {
 

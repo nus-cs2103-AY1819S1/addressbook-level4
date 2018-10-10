@@ -18,7 +18,9 @@ public class TaskListPanelHandle extends NodeHandle<ListView<Task>> {
 
     private Optional<Task> lastRememberedSelectedTaskCard;
 
-    public TaskListPanelHandle(ListView<Task> taskListPanelNode) { super(taskListPanelNode); }
+    public TaskListPanelHandle(ListView<Task> taskListPanelNode) {
+        super(taskListPanelNode);
+    }
 
     /**
      * Returns a handle to the selected {@code TaskCardHandle}.
