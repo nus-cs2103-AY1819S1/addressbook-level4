@@ -10,10 +10,10 @@ import seedu.souschef.model.Model;
  * Clears the address book.
  */
 public class ClearCommand extends Command {
-    private final Model model;
-
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
+
+    private final Model model;
 
     public ClearCommand(Model model) {
         this.model = model;
