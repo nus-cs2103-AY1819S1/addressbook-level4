@@ -10,29 +10,29 @@ import java.util.Set;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Task in the address book.
+ * Represents a Task in the venue book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Task {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
-    private final Email email;
+    private final Date date;
+    private final Priority priority;
 
     // Data fields
-    private final Address address;
+    private final Venue venue;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Task(Name name, Date date, Priority priority, Venue venue, Set<Tag> tags) {
+        requireAllNonNull(name, date, priority, venue, tags);
         this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
+        this.date = date;
+        this.priority = priority;
+        this.venue = venue;
         this.tags.addAll(tags);
     }
 
@@ -40,16 +40,16 @@ public class Task {
         return name;
     }
 
-    public Phone getPhone() {
-        return phone;
+    public Date getDate() {
+        return date;
     }
 
-    public Email getEmail() {
-        return email;
+    public Priority getPriority() {
+        return priority;
     }
 
-    public Address getAddress() {
-        return address;
+    public Venue getVenue() {
+        return venue;
     }
 
     /**
@@ -71,7 +71,7 @@ public class Task {
 
         return otherTask != null
                 && otherTask.getName().equals(getName())
-                && (otherTask.getPhone().equals(getPhone()) || otherTask.getEmail().equals(getEmail()));
+                && (otherTask.getDate().equals(getDate()) || otherTask.getPriority().equals(getPriority()));
     }
 
     /**
@@ -90,28 +90,28 @@ public class Task {
 
         Task otherTask = (Task) other;
         return otherTask.getName().equals(getName())
-                && otherTask.getPhone().equals(getPhone())
-                && otherTask.getEmail().equals(getEmail())
-                && otherTask.getAddress().equals(getAddress())
+                && otherTask.getDate().equals(getDate())
+                && otherTask.getPriority().equals(getPriority())
+                && otherTask.getVenue().equals(getVenue())
                 && otherTask.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, date, priority, venue, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" Date: ")
+                .append(getDate())
+                .append(" Priority: ")
+                .append(getPriority())
+                .append(" Venue: ")
+                .append(getVenue())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

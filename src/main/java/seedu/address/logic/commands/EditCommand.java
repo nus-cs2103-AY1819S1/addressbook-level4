@@ -21,14 +21,14 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.task.Address;
-import seedu.address.model.task.Email;
+import seedu.address.model.task.Date;
 import seedu.address.model.task.Name;
-import seedu.address.model.task.Phone;
+import seedu.address.model.task.Priority;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.Venue;
 
 /**
- * Edits the details of an existing task in the address book.
+ * Edits the details of an existing task in the venue book.
  */
 public class EditCommand extends Command {
 
@@ -49,7 +49,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the venue book.";
 
     private final Index index;
     private final EditTaskDescriptor editTaskDescriptor;
@@ -96,12 +96,12 @@ public class EditCommand extends Command {
         assert taskToEdit != null;
 
         Name updatedName = editTaskDescriptor.getName().orElse(taskToEdit.getName());
-        Phone updatedPhone = editTaskDescriptor.getPhone().orElse(taskToEdit.getPhone());
-        Email updatedEmail = editTaskDescriptor.getEmail().orElse(taskToEdit.getEmail());
-        Address updatedAddress = editTaskDescriptor.getAddress().orElse(taskToEdit.getAddress());
+        Date updatedDate = editTaskDescriptor.getDate().orElse(taskToEdit.getDate());
+        Priority updatedPriority = editTaskDescriptor.getPriority().orElse(taskToEdit.getPriority());
+        Venue updatedVenue = editTaskDescriptor.getVenue().orElse(taskToEdit.getVenue());
         Set<Tag> updatedTags = editTaskDescriptor.getTags().orElse(taskToEdit.getTags());
 
-        return new Task(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Task(updatedName, updatedDate, updatedPriority, updatedVenue, updatedTags);
     }
 
     @Override
@@ -128,9 +128,9 @@ public class EditCommand extends Command {
      */
     public static class EditTaskDescriptor {
         private Name name;
-        private Phone phone;
-        private Email email;
-        private Address address;
+        private Date date;
+        private Priority priority;
+        private Venue venue;
         private Set<Tag> tags;
 
         public EditTaskDescriptor() {}
@@ -141,9 +141,9 @@ public class EditCommand extends Command {
          */
         public EditTaskDescriptor(EditTaskDescriptor toCopy) {
             setName(toCopy.name);
-            setPhone(toCopy.phone);
-            setEmail(toCopy.email);
-            setAddress(toCopy.address);
+            setDate(toCopy.date);
+            setPriority(toCopy.priority);
+            setVenue(toCopy.venue);
             setTags(toCopy.tags);
         }
 
@@ -151,7 +151,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, date, priority, venue, tags);
         }
 
         public void setName(Name name) {
@@ -162,28 +162,28 @@ public class EditCommand extends Command {
             return Optional.ofNullable(name);
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public void setDate(Date date) {
+            this.date = date;
         }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
+        public Optional<Date> getDate() {
+            return Optional.ofNullable(date);
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
+        public void setPriority(Priority priority) {
+            this.priority = priority;
         }
 
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
+        public Optional<Priority> getPriority() {
+            return Optional.ofNullable(priority);
         }
 
-        public void setAddress(Address address) {
-            this.address = address;
+        public void setVenue(Venue venue) {
+            this.venue = venue;
         }
 
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
+        public Optional<Venue> getVenue() {
+            return Optional.ofNullable(venue);
         }
 
         /**
@@ -219,9 +219,9 @@ public class EditCommand extends Command {
             EditTaskDescriptor e = (EditTaskDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
+                    && getDate().equals(e.getDate())
+                    && getPriority().equals(e.getPriority())
+                    && getVenue().equals(e.getVenue())
                     && getTags().equals(e.getTags());
         }
     }
