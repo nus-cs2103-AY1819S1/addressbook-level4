@@ -123,12 +123,15 @@ Each of the four components
 _{To be updated}_
 
 [[Design-Model]]
+=== Model component
 _{To be updated}_
 
 [[Design-Storage]]
+=== Storage component
 _{To be updated}_
 
 [[Design-Commons]]
+=== Commons component
 _{To be updated}_
 
 == Implementation
