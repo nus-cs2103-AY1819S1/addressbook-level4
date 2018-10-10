@@ -8,38 +8,38 @@ import seedu.jxmusic.commons.exceptions.DataConversionException;
 import seedu.jxmusic.model.ReadOnlyLibrary;
 
 /**
- * Represents a storage for {@link seedu.jxmusic.model.AddressBook}.
+ * Represents a storage for {@link seedu.jxmusic.model.Library}.
  */
-public interface AddressBookStorage {
+public interface LibraryStorage {
 
     /**
      * Returns the file path of the data file.
      */
-    Path getAddressBookFilePath();
+    Path getLibraryFilePath();
 
     /**
-     * Returns AddressBook data as a {@link ReadOnlyLibrary}.
+     * Returns Library data as a {@link ReadOnlyLibrary}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyLibrary> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyLibrary> readLibrary() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getLibraryFilePath()
      */
-    Optional<ReadOnlyLibrary> readAddressBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyLibrary> readLibrary(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyLibrary} to the storage.
-     * @param addressBook cannot be null.
+     * @param library cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyLibrary addressBook) throws IOException;
+    void saveLibrary(ReadOnlyLibrary library) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyLibrary)
+     * @see #saveLibrary(ReadOnlyLibrary)
      */
-    void saveAddressBook(ReadOnlyLibrary addressBook, Path filePath) throws IOException;
+    void saveLibrary(ReadOnlyLibrary library, Path filePath) throws IOException;
 
 }

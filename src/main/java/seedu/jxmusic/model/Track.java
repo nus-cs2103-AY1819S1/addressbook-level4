@@ -15,7 +15,7 @@ public class Track {
     private final File file;
     // fileName not appended with MP3_EXTENSION
     private final String fileName;
-    private static final String MP3_EXTENSION = ".mp3";
+    public static final String MP3_EXTENSION = ".mp3";
 
     /**
      * Constructs a {@code Track}.

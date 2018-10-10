@@ -16,18 +16,18 @@ import seedu.jxmusic.model.ReadOnlyLibrary;
 import seedu.jxmusic.model.UserPrefs;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of Library data in local storage.
  */
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private LibraryStorage libraryStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(LibraryStorage libraryStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.libraryStorage = libraryStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -49,42 +49,42 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ Library methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getLibraryFilePath() {
+        return libraryStorage.getLibraryFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyLibrary> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyLibrary> readLibrary() throws DataConversionException, IOException {
+        return readLibrary(libraryStorage.getLibraryFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyLibrary> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyLibrary> readLibrary(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return libraryStorage.readLibrary(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyLibrary addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveLibrary(ReadOnlyLibrary library) throws IOException {
+        saveLibrary(library, libraryStorage.getLibraryFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyLibrary addressBook, Path filePath) throws IOException {
+    public void saveLibrary(ReadOnlyLibrary library, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        libraryStorage.saveLibrary(library, filePath);
     }
 
 
     @Override
     @Subscribe
-    public void handleAddressBookChangedEvent(LibraryChangedEvent event) {
+    public void handleLibraryChangedEvent(LibraryChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
-            saveAddressBook(event.data);
+            saveLibrary(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }
