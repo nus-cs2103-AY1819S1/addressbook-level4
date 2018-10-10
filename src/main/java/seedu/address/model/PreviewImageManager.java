@@ -3,7 +3,7 @@ package seedu.address.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.scene.image.Image;
+//import javafx.scene.image.Image;
 
 //@author Ivan
 
@@ -20,7 +20,7 @@ public class PreviewImageManager {
     // private constructor
     private PreviewImageManager() {
         previewImageStateList = new ArrayList<>();
-        previewImageStateList.add(new PreviewImage(new Image("https://via.placeholder.com/500x500")));
+        //previewImageStateList.add(new PreviewImage(new Image("https://via.placeholder.com/500x500")));
         currentStatePointer = 0;
     }
 
