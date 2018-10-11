@@ -1,8 +1,8 @@
-= AddressBook Level 4 - Developer Guide
+= Heart² - Developer Guide
 :site-section: DeveloperGuide
 :toc:
-:toc-title:
-:toc-placement: preamble
+:toc-title: What's in this Developer Guide:
+:toc-placement: macro
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -13,11 +13,24 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-F10-3/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team Heart²`      Since: `Aug 2018`      Licence: `MIT`
 
-== Setting up
+== Introduction
+
+Welcome to *_Heart²_*! _Heart²_ is a desktop software intended to make the job of wedding planning agencies simpler.
+It provides simple yet powerful features to efficiently manage clients' and agency companies' profiles.
+Users can find suitable wedding service providers for couples using just a few keystrokes with our enterprise featureset.
+
+This developer guide is a self-contained resource designed to align all developers around a common vision. It helps
+developers of all levels learn more about the workings behind the scenes and how to make use of them effectively.
+
+So if you want to know how to make _Heart²_ even better, here's where you start!
+
+toc::[]
+
+== Setting Up
 
 === Prerequisites
 
@@ -820,13 +833,15 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
+* has a need to plan for events (weddings)
 * has a need to manage a significant number of contacts
+* has a need to link contacts together
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: simplify the process of wedding management for the user, his clients and service providers
 
 [appendix]
 == User Stories
@@ -836,62 +851,289 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |on-task project manager |add new clients with the type of services they request for |get the required service providers for the event accordingly
 
-|`* * *` |user |add a new person |
+|`* * *` |thoughtful project manager |add new service providers with the type of services they can offer and their costs |match the service providers to the clients accordingly
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |efficient project manager |search the database for the service provider that best suits the requirements based on filters |find the most suitable service provider for my clients
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |goal-driven project manager |be able to set individual checkpoints and reminders for the many components that a project may have |have a clearer picture on the progress of all the different projects
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |flexible project manager |update the database of service providers’ data |have an up-to-date database that accurately reflects my service providers
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |busy project manager |easily see all unserviced clients |I can quickly complete assigning service providers to them
+
+|`* * *` |organised project manager |view the availability of my service providers |I will not assign service providers to clients when they are unavailable
+
+|`* * *` |responsible project head |provide authentication for the project managers and staff |our clients’ and service providers’ data are only accessible by those who has access to them
+
+|`* * *` |organised project manager |be able to archive previous projects in a separate location |they would not clutter my workspace but would still be available for review in the future
+
+|`* *` |organised project manager|access clients and service providers separately |I can look through their data more efficiently
+
+|`* *` |modular project manager|offer packages to clients |clients with no particular preferences can be attended to efficiently
+
+|`*` |efficient project manager |create templates |I can easily serve customers of similar request types
+
+|`*` |customer-first project manager |have a ratings and feedback system given by clients for the service providers |I can sieve out the better service providers for future clients
+
+|`*` |profit-motivated marketing head |calculate the rough estimate of the cost of each project |source for service providers that would maximise my profits
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Heart²` application, and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add Client/Service Provider
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to add a new Client/Service Provider
+2.  System adds the new Client/Service Provider into the database
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. The new Client/Service Provider's syntax is not entered correct.
++
+[none]
+** 1a1. System shows a feedback to the user that the Client/Service Provider was not entered correctly.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+
+[discrete]
+=== Use case: Update Client/Service Provider
+
+*MSS*
+
+1.  User requests to update an existing Client/Service Provider
+2.  System updates the existing Client/Service Provider according to the User's requests
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The Client/Service Provider does not exist.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 1a1. System shows a feedback to the user that the Client/Service Provider does not exist.
 +
-Use case resumes at step 2.
+Use case ends.
 
-_{More to be added}_
+
+[discrete]
+=== Use case: Delete Client/Service Provider
+
+*MSS*
+
+1.  User requests to delete an existing Client/Service Provider
+2.  System deletes the Client/Service Provider specified
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The Client/Service Provider does not exist.
++
+[none]
+** 1a1. System shows a feedback to the user that the Client/Service Provider does not exist
++
+Use case ends.
+
+
+[discrete]
+=== Use case: Login
+
+*MSS*
+
+1.  User requests to log in with his username and password
+2.  System validates the information entered and allows the user access to the System
+3.  User is successfully logged in
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User enters an incorrect username
+
++
+[none]
+** 1a1. The system display an error message and prompts the user to re-enter his username
++
+[none]
+** Use case resumes from step 1.
+
+[none]
+* 1b. User enters an incorrect password
+
++
+[none]
+** 1b1. The system will request the user to re-enter his password
++
+[none]
+** 1b2. The user attempts to enter his password
++
+[none]
+*** 1b2.1 The system determines that the password is incorrect and provides the option for user to retrieve his forgotten password
++
+[none]
+** Steps 1b1 and 1b2 are repeated until the user enters his correct password
++
+[none]
+** Use case resumes from step 3.
+
++
+Use case ends.
+
+
+[discrete]
+=== Use case: Logout
+
+*MSS*
+
+1.  User requests to logout from the System
+2.  System logs User out
+3.  User is successfully logged out
++
+Use case ends.
+
+[discrete]
+=== Use case: List all the Clients or Service Providers
+
+*MSS*
+
+1.  User enters the list command and requests to view either all the Clients, or all the Service Providers
+2.  System returns either a list with all the Clients' names and contact numbers, or all the Service Providers' names and contact numbers
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. There is no Client or no Service Provider available
++
+[none]
+** 2a1. System returns a message to feedback to User that no Client or no Service Provider exist
+
++
+Use case ends.
+
+
+[discrete]
+=== Use case: Filter and show a specific Client’s or Service Provider’s info
+
+*MSS*
+
+1.  User requests to view either a specific Client’s or the Service Provider’s info
+2.  The System displays the info related to the party back to the user
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User enters a Client or Service Provider that does not exist
++
+[none]
+** 1a1. System prompts the User that such a Client or Service Provider does not exist
++
+Use case ends.
+
+[discrete]
+=== Use case: Match the most suitable Service Provider to a Client's needs
+
+*MSS*
+
+1.  User attempts to match a Client's need to an available Service Provider
+3.  System matches a Service Provider that it deemed the most suitable to the Client
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The Client has no need. That is to say, the Client is not looking for any Service Provider
++
+[none]
+** 1a1. System recognises that the Client has no need, and return a message to feedback to the User
++
+Use case ends.
+[none]
++
+* 2a. There is no Service Provider available that matches the Client's need
++
+[none]
+** 2a1. System feedback to the User that no Service Provider is available for the current Client's need
++
+Use case ends.
+
+[discrete]
+=== Use case: Auto-complete typed command
+
+*MSS*
+
+1.  User types a letter (or letters) into the command line
+2.  System suggests a list of commands that starts with the letter(s) that the User has typed
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. There is no command that starts with the letter(s) that the User has typed
++
+[none]
+** 2a1. System does not suggest anything to the User
++
+Use case ends.
+
+
+
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+[Discrete]
+==== Availability
+.  Application should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
+.  Application should only be available for Wedding Managers with login credentials
+.  Application should be available 24hrs everyday without down time
+.  Data stored into the Application should be available to Users without corruption
 
-_{More to be added}_
+[Discrete]
+==== Performance
+.  Application should be able to hold up to 1000 Clients and 1000 Service Providers without a noticeable sluggishness in performance for typical usage.
+
+[Discrete]
+==== Usability
+.  Application should be intuitive and easy to use for users after following the User Guide
+.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  A user without any technical knowledge should be able to use the program efficiently with the help of the user guide.
+
+[Discrete]
+==== Reliability
+.  Application should be able to match Service Provider to Client's needs correctly.
+.  Application should be able to perform all the commands without fail.
+
+[Discrete]
+==== Scalability
+.  Application should be able to scale automatically even after reaching 1000 Clients or 1000 Service Providers.
+.  Huge number of Clients and Service Providers's data may cause some waiting time for commands to process, but Application should still be able to execute all the commands without fail.
+
+[Discrete]
+==== Data Integrity
+.  Only authorized Users with specific login credentials should be able to add, update, or delete data directly from the Application.
+.  All monetary amounts should be accurate to 2 decimal places.
+
+
 
 [appendix]
 == Glossary
@@ -902,10 +1144,24 @@ Windows, Linux, Unix, OS-X
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
 
+[[client]] Client::
+The Client is the primary receiver and the party that requires the services of the Project Manager and Service Providers. The Client puts up requests to the Project Manager to handle their wedding event.
+
+[[service-provider]] Service Provider::
+The Service Providers are what the Project Manager needs to connect his Clients to, to fulfil the Clients' needs and wants. Service Providers provide goods and services required for the clients’ weddings and they depend on the Project Manager to look for suitable Clients.
+
+[[project-manager]] Project Manager::
+The User of the application; the Project Manager of a wedding planning company that needs to engage his Clients with his Service Providers, managing a large amount of wedding requests at a time.
+
+[[event]] Event::
+A single request related to the wedding that the Client expects. The Project Manager plans for and provide this request from a Service Provider. The event encapsulates many different services, such as: wedding photography, formal wedding attire rental, banquet catering, invitation printing, and many others.
+
 [appendix]
 == Product Survey
 
 *Product Name*
+
+(This section is to be filled in later)
 
 Author: ...
 
