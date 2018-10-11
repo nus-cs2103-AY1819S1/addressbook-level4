@@ -9,7 +9,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
 
-
+//@author benedictcss
 /**
  * Changes the current directory.
  */
@@ -35,7 +35,7 @@ public class CdCommand extends Command {
         requireNonNull(model);
 
         String currDirectory = model.getCurrDirectory().toString();
-        String newDir = currDirectory + "\\" + toDirectories.toString();
+        String newDir = currDirectory + "/" + toDirectories.toString();
 
         File dir = new File(newDir);
         if (!dir.isDirectory()) {
@@ -45,6 +45,9 @@ public class CdCommand extends Command {
         Path newCurrDirectory = dir.toPath().normalize();
         model.updateUserPrefs(newCurrDirectory);
         return new CommandResult(newCurrDirectory.toString());
+    }
 
+    public Path getPath() {
+        return this.toDirectories;
     }
 }

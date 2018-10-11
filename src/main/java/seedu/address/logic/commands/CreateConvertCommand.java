@@ -1,6 +1,9 @@
 package seedu.address.logic.commands;
 
+<<<<<<< HEAD
 import java.util.Iterator;
+=======
+>>>>>>> 6af3a1442e46f36312d26fdfec2a2eb823de766b
 import java.util.List;
 
 import seedu.address.logic.CommandHistory;
@@ -9,7 +12,12 @@ import seedu.address.model.Model;
 import seedu.address.storage.JsonConvertArgsStorage;
 
 /**
+<<<<<<< HEAD
  * the class is the command that create a new convert command
+=======
+ * @author Zhang Tianyang
+ * the class to create the convert command
+>>>>>>> 6af3a1442e46f36312d26fdfec2a2eb823de766b
  */
 public class CreateConvertCommand extends Command {
     private List<String> cmds;
