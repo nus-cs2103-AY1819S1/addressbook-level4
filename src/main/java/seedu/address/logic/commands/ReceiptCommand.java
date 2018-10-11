@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
@@ -12,7 +12,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.Receipt;
-import seedu.address.model.person.Patient;
+import seedu.address.model.person.ServedPatient;
 
 //integrate select command
 /**
@@ -42,12 +42,16 @@ public class ReceiptCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        List<Patient> filteredPatientList = model.getFilteredPersonList();
+        ArrayList<ServedPatient> servedPatientList = new ArrayList<>(); //where is my served patient list? :(
 
-        if (index.getZeroBased() >= filteredPatientList.size()) {
+        if (index.getZeroBased() >= servedPatientList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
         final Receipt receipt;
+
+        ServedPatient servedPatient = servedPatientList.get(index.getZeroBased());
+        receipt = new Receipt(servedPatient);
+        receipt.generate();
 
         EventsCenter.getInstance().post(new JumpToListRequestEvent(index));
         return new CommandResult(String.format(MESSAGE_SUCCESS));
