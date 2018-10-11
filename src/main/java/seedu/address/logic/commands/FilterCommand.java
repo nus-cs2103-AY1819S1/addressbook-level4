@@ -49,13 +49,15 @@ public class FilterCommand extends Command {
         }
         if (flagList.contains("f/")) {
             int index = flagList.indexOf("f/");
-            String day = flagList.get(index + 1);
+
+            // Can accept small letters too
+            String day = flagList.get(index + 1).toUpperCase();
             System.out.println("day: " + day);
             String startTime = flagList.get(index + 2);
             System.out.println("startTime: " + startTime);
             String endTime = flagList.get(index + 3);
             System.out.println("endTime: " + endTime);
-            this.predicate = new CarparkHasFreeParkingPredicate("YES");
+            this.predicate = new CarparkHasFreeParkingPredicate(day, startTime, endTime);
             model.updateFilteredCarparkList(predicate);
         }
         return new CommandResult(
