@@ -20,20 +20,25 @@ public class RecipeListPanel extends GenericListPanel<Recipe> {
     private static final String FXML = "RecipeListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(RecipeListPanel.class);
 
+    @FXML
+    protected ListView<Recipe> recipeListView;
+
     public RecipeListPanel(ObservableList<Recipe> recipeList) {
         super(FXML);
         setConnections(recipeList);
         registerAsAnEventHandler(this);
     }
 
+    @Override
     protected void setConnections(ObservableList<Recipe> recipeList) {
-        personListView.setItems(recipeList);
-        personListView.setCellFactory(listView -> new RecipeListViewCell());
+        recipeListView.setItems(recipeList);
+        recipeListView.setCellFactory(listView -> new RecipeListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
+    @Override
     protected void setEventHandlerForSelectionChangeEvent() {
-        personListView.getSelectionModel().selectedItemProperty()
+        recipeListView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
                         logger.fine("Selection in recipe list panel changed to : '" + newValue + "'");
@@ -42,6 +47,19 @@ public class RecipeListPanel extends GenericListPanel<Recipe> {
                 });
     }
 
+    /**
+     * Scrolls to the {@code Card} at the {@code index} and selects it.
+     * To be used in handleJumpToListRequestEvent().
+     */
+    @Override
+    void scrollTo(int index) {
+        Platform.runLater(() -> {
+            recipeListView.scrollTo(index);
+            recipeListView.getSelectionModel().clearAndSelect(index);
+        });
+    }
+
+    @Override
     @Subscribe
     protected void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
