@@ -3,7 +3,7 @@ package seedu.address.model;
 import seedu.address.model.medicine.MedicineName;
 import seedu.address.model.person.IcNumber;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.servedPatient;
+import seedu.address.model.person.ServedPatient;
 
 /**
  * Represents the receipt for the served patients.
@@ -18,7 +18,7 @@ public class Receipt implements Document {
      * Creates a receipt object for the specified servedPatient.
      * @param servedPatient the patient who has already consulted the doctor.
      */
-    public Receipt(servedPatient servedPatient) {
+    public Receipt(ServedPatient servedPatient) {
         this.name = servedPatient.getName();
         this.icNumber = servedPatient.getIcNumber();
     }

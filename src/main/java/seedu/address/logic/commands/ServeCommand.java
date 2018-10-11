@@ -6,6 +6,8 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.PatientQueue;
+import seedu.address.model.person.Patient;
+import seedu.address.model.person.ServedPatient;
 
 
 /**
@@ -21,15 +23,16 @@ public class ServeCommand extends QueueCommand {
     public static final String MESSAGE_EMPTY_QUEUE = "Patient Queue is empty!";
 
     @Override
-    public CommandResult execute(Model model, PatientQueue patientQueue, CommandHistory history)
-            throws CommandException {
+    public CommandResult execute(Model model, PatientQueue patientQueue, ServedPatient currentPatient,
+                                 CommandHistory history) throws CommandException {
         requireNonNull(patientQueue);
 
         if (patientQueue.isEmpty()) {
             throw new CommandException(MESSAGE_EMPTY_QUEUE);
         }
 
-        String patient = patientQueue.dequeue();
-        return new CommandResult(MESSAGE_SUCCESS + patient);
+        Patient patient = patientQueue.dequeue();
+        currentPatient = new ServedPatient(patient);
+        return new CommandResult(MESSAGE_SUCCESS + patient.toNameAndIc());
     }
 }
