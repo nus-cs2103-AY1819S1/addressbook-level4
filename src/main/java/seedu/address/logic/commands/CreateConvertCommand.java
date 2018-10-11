@@ -1,9 +1,6 @@
 package seedu.address.logic.commands;
 
-<<<<<<< HEAD
 import java.util.Iterator;
-=======
->>>>>>> 6af3a1442e46f36312d26fdfec2a2eb823de766b
 import java.util.List;
 
 import seedu.address.logic.CommandHistory;
