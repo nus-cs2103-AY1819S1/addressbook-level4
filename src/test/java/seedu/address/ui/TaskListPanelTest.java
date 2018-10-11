@@ -4,9 +4,9 @@ import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.EventsUtil.postNow;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalTasks.getTypicalPersons;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TASK;
+import static seedu.address.testutil.TypicalTasks.getTypicalTasks;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysTask;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.nio.file.Path;
@@ -14,8 +14,9 @@ import java.nio.file.Paths;
 
 import org.junit.Test;
 
-import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.TaskCardHandle;
+import guitests.guihandles.TaskListPanelHandle;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
@@ -24,28 +25,27 @@ import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.task.Task;
 import seedu.address.storage.XmlSerializableSchedulePlanner;
 
-public class PersonListPanelTest extends GuiUnitTest {
-    private static final ObservableList<Task> TYPICAL_TASKS =
-            FXCollections.observableList(getTypicalPersons());
+public class TaskListPanelTest extends GuiUnitTest {
+    private static final ObservableList<Task> TYPICAL_TASKS = FXCollections.observableList(getTypicalTasks());
 
-    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_PERSON);
+    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_TASK);
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "sandbox");
 
     private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
 
-    private PersonListPanelHandle personListPanelHandle;
+    private TaskListPanelHandle taskListPanelHandle;
 
     @Test
     public void display() {
         initUi(TYPICAL_TASKS);
 
         for (int i = 0; i < TYPICAL_TASKS.size(); i++) {
-            personListPanelHandle.navigateToCard(TYPICAL_TASKS.get(i));
+            taskListPanelHandle.navigateToCard(TYPICAL_TASKS.get(i));
             Task expectedTask = TYPICAL_TASKS.get(i);
-            TaskCardHandle actualCard = personListPanelHandle.getTaskCardHandle(i);
+            TaskCardHandle actualCard = taskListPanelHandle.getTaskCardHandle(i);
 
-            assertCardDisplaysPerson(expectedTask, actualCard);
+            assertCardDisplaysTask(expectedTask, actualCard);
             assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
         }
     }
@@ -56,13 +56,14 @@ public class PersonListPanelTest extends GuiUnitTest {
         postNow(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 
-        TaskCardHandle expectedTask = personListPanelHandle.getTaskCardHandle(INDEX_SECOND_PERSON.getZeroBased());
-        TaskCardHandle selectedTask = personListPanelHandle.getHandleToSelectedCard();
+        TaskCardHandle expectedTask = taskListPanelHandle.getTaskCardHandle(INDEX_SECOND_TASK.getZeroBased());
+        TaskCardHandle selectedTask = taskListPanelHandle.getHandleToSelectedCard();
+
         assertCardEquals(expectedTask, selectedTask);
     }
 
     /**
-     * Verifies that creating and deleting large number of tasks in {@code PersonListPanel} requires lesser than
+     * Verifies that creating and deleting large number of tasks in {@code TaskListPanel} requires lesser than
      * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
     @Test
@@ -76,50 +77,50 @@ public class PersonListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Returns a list of persons containing {@code personCount} persons that is used to populate the
-     * {@code PersonListPanel}.
+     * Returns a list of tasks containing {@code taskCount} tasks that is used to populate the
+     * {@code TaskListPanel}.
      */
-    private ObservableList<Task> createBackingList(int personCount) throws Exception {
-        Path xmlFile = createXmlFileWithPersons(personCount);
+    private ObservableList<Task> createBackingList(int taskCount) throws Exception {
+        Path xmlFile = createXmlFileWithTasks(taskCount);
         XmlSerializableSchedulePlanner xmlAddressBook =
                 XmlUtil.getDataFromFile(xmlFile, XmlSerializableSchedulePlanner.class);
         return FXCollections.observableArrayList(xmlAddressBook.toModelType().getTaskList());
     }
 
     /**
-     * Returns a .xml file containing {@code personCount} persons. This file will be deleted when the JVM terminates.
+     * Returns a .xml file containing {@code taskCount} tasks. This file will be deleted when the JVM terminates.
      */
-    private Path createXmlFileWithPersons(int personCount) throws Exception {
+    private Path createXmlFileWithTasks(int taskCount) throws Exception {
         StringBuilder builder = new StringBuilder();
         builder.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
-        builder.append("<addressbook>\n");
-        for (int i = 0; i < personCount; i++) {
-            builder.append("<persons>\n");
+        builder.append("<scheduleplanner>\n");
+        for (int i = 0; i < taskCount; i++) {
+            builder.append("<tasks>\n");
             builder.append("<name>").append(i).append("a</name>\n");
             builder.append("<date>000</date>\n");
             //builder.append("<priority>a@aa</priority>\n");
             builder.append("<priority>1</priority>\n");
             builder.append("<venue>a</venue>\n");
-            builder.append("</persons>\n");
+            builder.append("</tasks>\n");
         }
-        builder.append("</addressbook>\n");
+        builder.append("</scheduleplanner>\n");
 
-        Path manyPersonsFile = Paths.get(TEST_DATA_FOLDER + "manyPersons.xml");
-        FileUtil.createFile(manyPersonsFile);
-        FileUtil.writeToFile(manyPersonsFile, builder.toString());
-        manyPersonsFile.toFile().deleteOnExit();
-        return manyPersonsFile;
+        Path manyTasksFile = Paths.get(TEST_DATA_FOLDER + "manyTasks.xml");
+        FileUtil.createFile(manyTasksFile);
+        FileUtil.writeToFile(manyTasksFile, builder.toString());
+        manyTasksFile.toFile().deleteOnExit();
+        return manyTasksFile;
     }
 
     /**
-     * Initializes {@code personListPanelHandle} with a {@code PersonListPanel} backed by {@code backingList}.
-     * Also shows the {@code Stage} that displays only {@code PersonListPanel}.
+     * Initializes {@code taskListPanelHandle} with a {@code TaskListPanel} backed by {@code backingList}.
+     * Also shows the {@code Stage} that displays only {@code TaskListPanel}.
      */
     private void initUi(ObservableList<Task> backingList) {
-        PersonListPanel personListPanel = new PersonListPanel(backingList);
-        uiPartRule.setUiPart(personListPanel);
+        TaskListPanel taskListPanel = new TaskListPanel(backingList);
+        uiPartRule.setUiPart(taskListPanel);
 
-        personListPanelHandle = new PersonListPanelHandle(getChildNode(personListPanel.getRoot(),
-                PersonListPanelHandle.PERSON_LIST_VIEW_ID));
+        taskListPanelHandle = new TaskListPanelHandle(getChildNode(taskListPanel.getRoot(),
+                TaskListPanelHandle.TASK_LIST_VIEW_ID));
     }
 }

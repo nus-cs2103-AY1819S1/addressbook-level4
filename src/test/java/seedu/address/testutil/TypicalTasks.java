@@ -62,15 +62,15 @@ public class TypicalTasks {
     /**
      * Returns an {@code SchedulePlanner} with all the typical persons.
      */
-    public static SchedulePlanner getTypicalAddressBook() {
+    public static SchedulePlanner getTypicalSchedulePlanner() {
         SchedulePlanner ab = new SchedulePlanner();
-        for (Task task : getTypicalPersons()) {
+        for (Task task : getTypicalTasks()) {
             ab.addTask(task);
         }
         return ab;
     }
 
-    public static List<Task> getTypicalPersons() {
+    public static List<Task> getTypicalTasks() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 }

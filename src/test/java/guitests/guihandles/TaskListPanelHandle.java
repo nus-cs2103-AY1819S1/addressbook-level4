@@ -9,17 +9,17 @@ import javafx.scene.control.ListView;
 import seedu.address.model.task.Task;
 
 /**
- * Provides a handle for {@code PersonListPanel} containing the list of {@code TaskCard}.
+ * Provides a handle for {@code TaskListPanel} containing the list of {@code TaskCard}.
  */
-public class PersonListPanelHandle extends NodeHandle<ListView<Task>> {
-    public static final String PERSON_LIST_VIEW_ID = "#personListView";
+public class TaskListPanelHandle extends NodeHandle<ListView<Task>> {
+    public static final String TASK_LIST_VIEW_ID = "#taskListView";
 
     private static final String CARD_PANE_ID = "#cardPane";
 
     private Optional<Task> lastRememberedSelectedTaskCard;
 
-    public PersonListPanelHandle(ListView<Task> personListPanelNode) {
-        super(personListPanelNode);
+    public TaskListPanelHandle(ListView<Task> taskListPanelNode) {
+        super(taskListPanelNode);
     }
 
     /**

@@ -28,7 +28,7 @@ public class TaskTest {
     }
 
     @Test
-    public void isSamePerson() {
+    public void isSameTask() {
         // same object -> returns true
         assertTrue(ALICE.isSameTask(ALICE));
 

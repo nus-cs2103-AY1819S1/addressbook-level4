@@ -5,9 +5,10 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.TaskCardHandle;
+import guitests.guihandles.TaskListPanelHandle;
+
 import seedu.address.model.task.Task;
 
 /**
@@ -29,7 +30,7 @@ public class GuiTestAssert {
     /**
      * Asserts that {@code actualCard} displays the details of {@code expectedTask}.
      */
-    public static void assertCardDisplaysPerson(Task expectedTask, TaskCardHandle actualCard) {
+    public static void assertCardDisplaysTask(Task expectedTask, TaskCardHandle actualCard) {
         assertEquals(expectedTask.getName().fullName, actualCard.getName());
         assertEquals(expectedTask.getDate().value, actualCard.getPhone());
         assertEquals(expectedTask.getPriority().value, actualCard.getEmail());
@@ -39,29 +40,29 @@ public class GuiTestAssert {
     }
 
     /**
-     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code tasks} correctly and
+     * Asserts that the list in {@code taskListPanelHandle} displays the details of {@code tasks} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(PersonListPanelHandle personListPanelHandle, Task... tasks) {
+    public static void assertListMatching(TaskListPanelHandle taskListPanelHandle, Task... tasks) {
         for (int i = 0; i < tasks.length; i++) {
-            personListPanelHandle.navigateToCard(i);
-            assertCardDisplaysPerson(tasks[i], personListPanelHandle.getTaskCardHandle(i));
+            taskListPanelHandle.navigateToCard(i);
+            assertCardDisplaysTask(tasks[i], taskListPanelHandle.getTaskCardHandle(i));
         }
     }
 
     /**
-     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code tasks} correctly and
+     * Asserts that the list in {@code taskListPanelHandle} displays the details of {@code tasks} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(PersonListPanelHandle personListPanelHandle, List<Task> tasks) {
-        assertListMatching(personListPanelHandle, tasks.toArray(new Task[0]));
+    public static void assertListMatching(TaskListPanelHandle taskListPanelHandle, List<Task> tasks) {
+        assertListMatching(taskListPanelHandle, tasks.toArray(new Task[0]));
     }
 
     /**
-     * Asserts the size of the list in {@code personListPanelHandle} equals to {@code size}.
+     * Asserts the size of the list in {@code taskListPanelHandle} equals to {@code size}.
      */
-    public static void assertListSize(PersonListPanelHandle personListPanelHandle, int size) {
-        int numberOfPeople = personListPanelHandle.getListSize();
+    public static void assertListSize(TaskListPanelHandle taskListPanelHandle, int size) {
+        int numberOfPeople = taskListPanelHandle.getListSize();
         assertEquals(size, numberOfPeople);
     }
 

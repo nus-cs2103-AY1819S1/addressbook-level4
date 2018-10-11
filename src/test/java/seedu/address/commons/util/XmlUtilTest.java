@@ -19,7 +19,7 @@ import seedu.address.model.SchedulePlanner;
 import seedu.address.storage.XmlAdaptedTag;
 import seedu.address.storage.XmlAdaptedTask;
 import seedu.address.storage.XmlSerializableSchedulePlanner;
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.SchedulePlannerBuilder;
 import seedu.address.testutil.TaskBuilder;
 import seedu.address.testutil.TestUtil;
 
@@ -77,30 +77,30 @@ public class XmlUtilTest {
     }
 
     @Test
-    public void xmlAdaptedPersonFromFile_fileWithMissingPersonField_validResult() throws Exception {
-        XmlAdaptedTask actualPerson = XmlUtil.getDataFromFile(
+    public void xmlAdaptedTaskFromFile_fileWithMissingTaskField_validResult() throws Exception {
+        XmlAdaptedTask actualTask = XmlUtil.getDataFromFile(
                 MISSING_TASK_FIELD_FILE, XmlAdaptedTaskWithRootElement.class);
-        XmlAdaptedTask expectedPerson = new XmlAdaptedTask(
+        XmlAdaptedTask expectedTask = new XmlAdaptedTask(
                 null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        assertEquals(expectedPerson, actualPerson);
+        assertEquals(expectedTask, actualTask);
     }
 
     @Test
-    public void xmlAdaptedPersonFromFile_fileWithInvalidPersonField_validResult() throws Exception {
-        XmlAdaptedTask actualPerson = XmlUtil.getDataFromFile(
+    public void xmlAdaptedTaskFromFile_fileWithInvalidTaskField_validResult() throws Exception {
+        XmlAdaptedTask actualTask = XmlUtil.getDataFromFile(
                 INVALID_TASK_FIELD_FILE, XmlAdaptedTaskWithRootElement.class);
-        XmlAdaptedTask expectedPerson = new XmlAdaptedTask(
+        XmlAdaptedTask expectedTask = new XmlAdaptedTask(
                 VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        assertEquals(expectedPerson, actualPerson);
+        assertEquals(expectedTask, actualTask);
     }
 
     @Test
-    public void xmlAdaptedPersonFromFile_fileWithValidPerson_validResult() throws Exception {
-        XmlAdaptedTask actualPerson = XmlUtil.getDataFromFile(
+    public void xmlAdaptedTaskFromFile_fileWithValidTask_validResult() throws Exception {
+        XmlAdaptedTask actualTask = XmlUtil.getDataFromFile(
                 VALID_TASK_FILE, XmlAdaptedTaskWithRootElement.class);
-        XmlAdaptedTask expectedPerson = new XmlAdaptedTask(
+        XmlAdaptedTask expectedTask = new XmlAdaptedTask(
                 VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        assertEquals(expectedPerson, actualPerson);
+        assertEquals(expectedTask, actualTask);
     }
 
     @Test
@@ -130,9 +130,9 @@ public class XmlUtilTest {
                 XmlSerializableSchedulePlanner.class);
         assertEquals(dataToWrite, dataFromFile);
 
-        AddressBookBuilder builder = new AddressBookBuilder(new SchedulePlanner());
+        SchedulePlannerBuilder builder = new SchedulePlannerBuilder(new SchedulePlanner());
         dataToWrite = new XmlSerializableSchedulePlanner(
-                builder.withPerson(new TaskBuilder().build()).build());
+                builder.withTask(new TaskBuilder().build()).build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableSchedulePlanner.class);

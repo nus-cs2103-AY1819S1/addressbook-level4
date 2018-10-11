@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addressbook>
-    <!-- Task with invalid priority field -->
-    <persons>
+<scheduleplanner>
+    <!-- Task with invalid email field -->
+    <tasks>
         <name>Hans Muster</name>
         <date isPrivate="false">9482424</date>
         <priority isPrivate="false">hans@exam!32ple</priority>
         <venue isPrivate="false">4th street</venue>
-    </persons>
-</addressbook>
+    </tasks>
+</scheduleplanner>

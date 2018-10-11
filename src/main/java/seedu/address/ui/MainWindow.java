@@ -35,7 +35,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
+    private TaskListPanel taskListPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
@@ -122,8 +122,8 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        personListPanel = new PersonListPanel(logic.getFilteredTaskList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
+        personListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -187,8 +187,8 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public TaskListPanel getTaskListPanel() {
+        return taskListPanel;
     }
 
     void releaseResources() {
