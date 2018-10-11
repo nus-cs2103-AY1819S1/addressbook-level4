@@ -66,5 +66,4 @@ public class Time {
     public int hashCode() {
         return value.hashCode();
     }
-
 }
