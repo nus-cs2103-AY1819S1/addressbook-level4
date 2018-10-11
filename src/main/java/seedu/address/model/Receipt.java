@@ -11,8 +11,7 @@ import seedu.address.model.person.ServedPatient;
 public class Receipt implements Document {
     private final Name name;
     private final IcNumber icNumber;
-    private MedicineName medicineName;
-    private int quantity;
+    private final String noteContent;
 
     /**
      * Creates a receipt object for the specified servedPatient.
@@ -21,19 +20,16 @@ public class Receipt implements Document {
     public Receipt(ServedPatient servedPatient) {
         this.name = servedPatient.getName();
         this.icNumber = servedPatient.getIcNumber();
-    }
-
-    @Override
-    public void generate() {
-
-        //need to know how the medicine and quantities are stored
+        this.noteContent = servedPatient.getNoteContent();
     }
 
     /**
-     * Previews the content of the receipt object generated for the specified servedPatient.
+     * Generates the content of the receipt object generated for the specified servedPatient.
      *
      */
-    public String display() {
+    @Override
+    public String generate() {
+        //dissect contents of note to extract medicines dispensed
         StringBuilder sb = new StringBuilder();
         sb.append("Name: " + name + "\n");
         sb.append("NRIC: " + icNumber + "\n");

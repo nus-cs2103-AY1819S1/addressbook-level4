@@ -176,7 +176,7 @@ public class Patient {
     }
 
     /**
-     * A more console view of patient.
+     * Console view of patient.
      * @return String representation of patient with Name and IcNumber.
      */
     public String toNameAndIc() {

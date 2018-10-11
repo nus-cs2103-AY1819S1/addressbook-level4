@@ -16,8 +16,8 @@ public class ServedPatient {
     // add more fields as required
 
     /**
-     * Constructs a servedPatient object from a patient object to extract all the information necessary for printing
-     * a document.
+     * Constructs a servedPatient object from a patient object to extract all the information
+     * necessary for printing a document.
      *
      * @param patient A valid patient.
      */
@@ -35,7 +35,7 @@ public class ServedPatient {
     }
 
     /**
-     * Skeleton to add add note content.
+     * Skeleton to add note content.
      */
     public String addNoteContent(String content) {
         NoteContent += " filler" + content;
@@ -56,5 +56,37 @@ public class ServedPatient {
     public String addMcContent(String content) {
         McContent += " filler" + content;
         return McContent;
+    }
+
+    /**
+     * Returns the note content for the {@code served patient}.
+     */
+    public String getNoteContent() {
+        return this.NoteContent;
+    }
+    /**
+     * Returns the MC content for the {@code served patient}.
+     */
+    public String getMcContent() {
+        return this.McContent;
+    }
+
+    /**
+     * Returns the referral content for the {@code served patient}.
+     */
+    public String getReferralContent() {
+        return this.ReferralContent;
+    }
+
+
+    /**
+     * Console view of a served patient.
+     * @return String representation of patient with Name and IcNumber.
+     */
+    public String toNameAndIc() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName() + " [")
+                .append(getIcNumber() + "]");
+        return builder.toString();
     }
 }
