@@ -7,6 +7,9 @@ import static seedu.address.testutil.TypicalCarparks.ALICE;
 import static seedu.address.testutil.TypicalCarparks.BENSON;
 
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -68,8 +71,10 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
 
         // different filteredList -> returns false
-        String keyword = ALICE.getCarparkNumber().value;
-        modelManager.updateFilteredCarparkList(new CarparkContainsKeywordsPredicate(keyword));
+        List<String> temp = new ArrayList<>();
+        temp.add(ALICE.getCarparkNumber().value);
+        String[] keywords = temp.toArray(new String[0]);
+        modelManager.updateFilteredCarparkList(new CarparkContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
