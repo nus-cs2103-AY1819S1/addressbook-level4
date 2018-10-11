@@ -5,7 +5,6 @@ import static seedu.jxmusic.testutil.TypicalPlaylists.getTypicalAddressBook;
 
 import org.junit.Test;
 
-import seedu.jxmusic.logic.CommandHistory;
 import seedu.jxmusic.model.AddressBook;
 import seedu.jxmusic.model.Model;
 import seedu.jxmusic.model.ModelManager;

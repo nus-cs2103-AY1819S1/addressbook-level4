@@ -6,13 +6,17 @@ import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_TRACK;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.jxmusic.logic.commands.AddCommand;
 import seedu.jxmusic.logic.parser.exceptions.ParseException;
 import seedu.jxmusic.model.Name;
+import seedu.jxmusic.model.Playlist;
+import seedu.jxmusic.model.Track;
 import seedu.jxmusic.model.tag.Tag;
 
 /**
@@ -35,14 +39,11 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        List<Track> trackList = ParserUtil.parseTrack(argMultimap.getAllValues(PREFIX_TRACK));
 
-        Person person = new Person(name, phone, email, address, tagList);
+        Playlist playlist = new Playlist(name, trackList);
 
-        return new AddCommand(person);
+        return new AddCommand(playlist);
     }
 
     /**

@@ -122,7 +122,7 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        playlistListPanel = new PlaylistListPanel(logic.getFilteredPlaylist());
+        playlistListPanel = new PlaylistListPanel(logic.getFilteredPlaylistList());
         playlistListPanelPlaceholder.getChildren().add(playlistListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();

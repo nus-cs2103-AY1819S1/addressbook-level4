@@ -2,15 +2,17 @@ package seedu.jxmusic.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import seedu.jxmusic.commons.core.index.Index;
 import seedu.jxmusic.commons.util.StringUtil;
 import seedu.jxmusic.logic.parser.exceptions.ParseException;
 import seedu.jxmusic.model.Name;
-import seedu.jxmusic.model.tag.Tag;
+import seedu.jxmusic.model.Track;
+//import seedu.jxmusic.model.tag.Tag;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -48,74 +50,29 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code phone} is invalid.
-     */
-    public static Phone parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_PHONE_CONSTRAINTS);
-        }
-        return new Phone(trimmedPhone);
-    }
-
-    /**
-     * Parses a {@code String jxmusic} into an {@code Address}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code jxmusic} is invalid.
-     */
-    public static Address parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
-        }
-        return new Address(trimmedAddress);
-    }
-
-    /**
-     * Parses a {@code String email} into an {@code Email}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code email} is invalid.
-     */
-    public static Email parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_EMAIL_CONSTRAINTS);
-        }
-        return new Email(trimmedEmail);
-    }
-
-    /**
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code tag} is invalid.
      */
-    public static Tag parseTag(String tag) throws ParseException {
-        requireNonNull(tag);
-        String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_TAG_CONSTRAINTS);
-        }
-        return new Tag(trimmedTag);
+    public static Track parseTrack(String track) throws ParseException {
+        requireNonNull(track);
+        String trimmedTrack = track.trim();
+//        if (!Track.isValidTrackName(trimmedTrack)) {
+//            throw new ParseException(Track.MESSAGE_TRACK_CONSTRAINTS); // todo isValidTrackName.
+//        }
+        return new Track(new Name(track));
     }
 
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
+    public static List<Track> parseTrack(Collection<String> track) throws ParseException {
+        requireNonNull(track);
+        final List<Track> trackList = new ArrayList<>();
+        for (String trackName : track) {
+            trackList.add(parseTrack(trackName));
         }
-        return tagSet;
+        return trackList;
     }
 }

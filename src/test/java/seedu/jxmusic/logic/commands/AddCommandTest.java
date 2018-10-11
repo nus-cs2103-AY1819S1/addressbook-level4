@@ -14,7 +14,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
-import seedu.jxmusic.logic.CommandHistory;
 import seedu.jxmusic.logic.commands.exceptions.CommandException;
 import seedu.jxmusic.model.AddressBook;
 import seedu.jxmusic.model.Model;

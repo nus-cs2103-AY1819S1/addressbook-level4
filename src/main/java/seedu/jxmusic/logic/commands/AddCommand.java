@@ -7,7 +7,6 @@ import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_TAG;
 
-import seedu.jxmusic.logic.CommandHistory;
 import seedu.jxmusic.logic.commands.exceptions.CommandException;
 import seedu.jxmusic.model.Model;
 import seedu.jxmusic.model.Playlist;
@@ -48,7 +47,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
         if (model.hasPlaylist(toAdd)) {

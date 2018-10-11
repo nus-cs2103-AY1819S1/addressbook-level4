@@ -20,8 +20,8 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Playlist> getFilteredPlaylist();
+    ObservableList<Playlist> getFilteredPlaylistList();
 
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
-    ListElementPointer getHistorySnapshot();
+//    ListElementPointer getHistorySnapshot();
 }

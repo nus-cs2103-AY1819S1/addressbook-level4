@@ -1,6 +1,5 @@
 package seedu.jxmusic.logic.commands;
 
-import seedu.jxmusic.logic.CommandHistory;
 import seedu.jxmusic.model.Model;
 import seedu.jxmusic.player.JxMusicPlayer;
 
@@ -15,7 +14,7 @@ public class PauseCommand extends Command {
 
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model) {
         new JxMusicPlayer().pause();
         return new CommandResult(MESSAGE_SUCCESS);
     }

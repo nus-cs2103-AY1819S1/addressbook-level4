@@ -17,7 +17,6 @@ import org.junit.Test;
 import seedu.jxmusic.commons.core.Messages;
 import seedu.jxmusic.commons.core.index.Index;
 import seedu.jxmusic.commons.events.ui.JumpToListRequestEvent;
-import seedu.jxmusic.logic.CommandHistory;
 import seedu.jxmusic.model.Model;
 import seedu.jxmusic.model.ModelManager;
 import seedu.jxmusic.model.UserPrefs;

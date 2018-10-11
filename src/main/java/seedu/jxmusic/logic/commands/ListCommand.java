@@ -1,9 +1,8 @@
 package seedu.jxmusic.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.jxmusic.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.jxmusic.model.Model.PREDICATE_SHOW_ALL_PLAYLISTS;
 
-import seedu.jxmusic.logic.CommandHistory;
 import seedu.jxmusic.model.Model;
 
 /**
@@ -17,9 +16,9 @@ public class ListCommand extends Command {
 
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredPlaylistList(PREDICATE_SHOW_ALL_PLAYLISTS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

@@ -13,9 +13,7 @@ import static seedu.jxmusic.testutil.TypicalPlaylists.KEYWORD_MATCHING_SONG;
 import org.junit.Test;
 
 import seedu.jxmusic.commons.core.index.Index;
-import seedu.jxmusic.logic.commands.RedoCommand;
 import seedu.jxmusic.logic.commands.SelectCommand;
-import seedu.jxmusic.logic.commands.UndoCommand;
 import seedu.jxmusic.model.Model;
 
 public class SelectCommandSystemTest extends AddressBookSystemTest {

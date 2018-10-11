@@ -19,7 +19,6 @@ import org.junit.Test;
 
 import seedu.jxmusic.commons.core.Messages;
 import seedu.jxmusic.commons.core.index.Index;
-import seedu.jxmusic.logic.CommandHistory;
 import seedu.jxmusic.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.jxmusic.model.AddressBook;
 import seedu.jxmusic.model.Model;

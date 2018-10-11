@@ -8,7 +8,6 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import seedu.jxmusic.commons.events.ui.ExitAppRequestEvent;
-import seedu.jxmusic.logic.CommandHistory;
 import seedu.jxmusic.model.Model;
 import seedu.jxmusic.model.ModelManager;
 import seedu.jxmusic.ui.testutil.EventsCollectorRule;

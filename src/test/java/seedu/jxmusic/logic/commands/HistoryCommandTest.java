@@ -4,7 +4,6 @@ import static seedu.jxmusic.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import org.junit.Test;
 
-import seedu.jxmusic.logic.CommandHistory;
 import seedu.jxmusic.model.Model;
 import seedu.jxmusic.model.ModelManager;
 

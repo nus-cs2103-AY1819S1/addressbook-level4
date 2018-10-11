@@ -15,8 +15,6 @@ import org.junit.Test;
 import seedu.jxmusic.commons.core.Messages;
 import seedu.jxmusic.commons.core.index.Index;
 import seedu.jxmusic.logic.commands.DeleteCommand;
-import seedu.jxmusic.logic.commands.RedoCommand;
-import seedu.jxmusic.logic.commands.UndoCommand;
 import seedu.jxmusic.model.Model;
 
 public class DeleteCommandSystemTest extends AddressBookSystemTest {

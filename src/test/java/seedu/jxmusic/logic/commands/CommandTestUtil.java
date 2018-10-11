@@ -13,7 +13,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.jxmusic.commons.core.index.Index;
-import seedu.jxmusic.logic.CommandHistory;
 import seedu.jxmusic.logic.commands.exceptions.CommandException;
 import seedu.jxmusic.model.AddressBook;
 import seedu.jxmusic.model.Model;

@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.jxmusic.logic.commands.CommandResult;
-import seedu.jxmusic.logic.commands.HistoryCommand;
 import seedu.jxmusic.logic.commands.ListCommand;
 import seedu.jxmusic.logic.commands.exceptions.CommandException;
 import seedu.jxmusic.logic.parser.exceptions.ParseException;

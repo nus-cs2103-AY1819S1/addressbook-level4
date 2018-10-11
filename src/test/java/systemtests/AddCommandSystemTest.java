@@ -34,8 +34,6 @@ import org.junit.Test;
 import seedu.jxmusic.commons.core.Messages;
 import seedu.jxmusic.commons.core.index.Index;
 import seedu.jxmusic.logic.commands.AddCommand;
-import seedu.jxmusic.logic.commands.RedoCommand;
-import seedu.jxmusic.logic.commands.UndoCommand;
 import seedu.jxmusic.model.Model;
 import seedu.jxmusic.model.Name;
 import seedu.jxmusic.model.playlist.Person;

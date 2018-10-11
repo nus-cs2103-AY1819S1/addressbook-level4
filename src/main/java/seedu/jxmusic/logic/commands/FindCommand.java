@@ -3,7 +3,6 @@ package seedu.jxmusic.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.jxmusic.commons.core.Messages;
-import seedu.jxmusic.logic.CommandHistory;
 import seedu.jxmusic.model.Model;
 import seedu.jxmusic.model.NameContainsKeywordsPredicate;
 
@@ -27,11 +26,11 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredPersonList(predicate);
+        model.updateFilteredPlaylistList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
+                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPlaylistList().size()));
     }
 
     @Override

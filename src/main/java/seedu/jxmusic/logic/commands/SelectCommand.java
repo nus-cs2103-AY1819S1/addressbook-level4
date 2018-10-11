@@ -8,9 +8,9 @@ import seedu.jxmusic.commons.core.EventsCenter;
 import seedu.jxmusic.commons.core.Messages;
 import seedu.jxmusic.commons.core.index.Index;
 import seedu.jxmusic.commons.events.ui.JumpToListRequestEvent;
-import seedu.jxmusic.logic.CommandHistory;
 import seedu.jxmusic.logic.commands.exceptions.CommandException;
 import seedu.jxmusic.model.Model;
+import seedu.jxmusic.model.Playlist;
 
 /**
  * Selects a playlist identified using it's displayed index from the jxmusic book.
@@ -33,10 +33,10 @@ public class SelectCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        List<Person> filteredPersonList = model.getFilteredPersonList();
+        List<Playlist> filteredPersonList = model.getFilteredPlaylistList();
 
         if (targetIndex.getZeroBased() >= filteredPersonList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);

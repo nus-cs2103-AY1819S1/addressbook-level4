@@ -15,7 +15,6 @@ import java.util.Collections;
 
 import org.junit.Test;
 
-import seedu.jxmusic.logic.CommandHistory;
 import seedu.jxmusic.model.Model;
 import seedu.jxmusic.model.ModelManager;
 import seedu.jxmusic.model.UserPrefs;

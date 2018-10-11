@@ -16,8 +16,6 @@ import org.junit.Test;
 import seedu.jxmusic.commons.core.index.Index;
 import seedu.jxmusic.logic.commands.DeleteCommand;
 import seedu.jxmusic.logic.commands.FindCommand;
-import seedu.jxmusic.logic.commands.RedoCommand;
-import seedu.jxmusic.logic.commands.UndoCommand;
 import seedu.jxmusic.model.Model;
 import seedu.jxmusic.model.tag.Tag;
 
