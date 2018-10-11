@@ -25,7 +25,6 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.carpark.Carpark;
 import seedu.address.model.carpark.CarparkContainsKeywordsPredicate;
-//import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -89,32 +88,30 @@ public class CommandTestUtil {
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
-    public static final String INVALID_CARPARK_NO_DESC = " " + PREFIX_CAR_NUM + "TJ@1"; // '@' not allowed in carpark number.
-    public static final String INVALID_CARPARK_TYPE_DESC = " " + PREFIX_CAR_TYPE + "!@a"; // '!@' not allowed in carpark type.
-    public static final String INVALID_COORDINATE_DESC = " " + PREFIX_COORD + "asd!"; // wrong format, has number.
-    public static final String INVALID_FREE_PARKING_DESC = " " + PREFIX_FREE_PARK + "!"; // '!' not allowed
-    public static final String INVALID_LOTS_AVAILABLE_DESC = " " + PREFIX_LOTS_AVAILABLE + "asd"; // missing '@' symbol
-    public static final String INVALID_NIGHT_PARKING_DESC = " " + PREFIX_NIGHT_PARK + "%^&"; // missing '@' symbol
-    public static final String INVALID_SHORT_TERM_DESC = " " + PREFIX_SHORT_TERM + "!@#"; // missing '@' symbol
-    public static final String INVALID_TOTAL_LOTS_DESC = " " + PREFIX_TOTAL_LOTS + "asd!@#"; // missing '@' symbol
-    public static final String INVALID_TYPE_OF_PARKING_LOTS_DESC = " " + PREFIX_TYPE_PARK + "!@#"; // missing '@' symbol
-    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
-
+    // '@' not allowed in carpark number.
+    public static final String INVALID_CARPARK_NO_DESC = " " + PREFIX_CAR_NUM + "TJ@1";
+    // '!@' not allowed in carpark type.
+    public static final String INVALID_CARPARK_TYPE_DESC = " " + PREFIX_CAR_TYPE + "!@a";
+    // wrong format, has number.
+    public static final String INVALID_COORDINATE_DESC = " " + PREFIX_COORD + "asd!";
+    // '!' not allowed
+    public static final String INVALID_FREE_PARKING_DESC = " " + PREFIX_FREE_PARK + "!";
+    // missing '@' symbol
+    public static final String INVALID_LOTS_AVAILABLE_DESC = " " + PREFIX_LOTS_AVAILABLE + "asd";
+    // missing '@' symbol
+    public static final String INVALID_NIGHT_PARKING_DESC = " " + PREFIX_NIGHT_PARK + "%^&";
+    // missing '@' symbol
+    public static final String INVALID_SHORT_TERM_DESC = " " + PREFIX_SHORT_TERM + "!@#";
+    // missing '@' symbol
+    public static final String INVALID_TOTAL_LOTS_DESC = " " + PREFIX_TOTAL_LOTS + "asd!@#";
+    // missing '@' symbol
+    public static final String INVALID_TYPE_OF_PARKING_LOTS_DESC = " " + PREFIX_TYPE_PARK + "!@#";
+    // empty string not allowed for addresses
+    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS;
+    // '*' not allowed in tags
+    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*";
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
-
-//    public static final EditCommand.EditCarparkDescriptor DESC_AMY;
-//    public static final EditCommand.EditCarparkDescriptor DESC_BOB;
-//
-//    static {
-//        DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_CARPARK_NUMBER_1)
-//                .withPhone(VALID_CARPARK_TYPE_1).withEmail(VALID_COORDINATE_1).withAddress(VALID_ADDRESS_1)
-//                .withTags(VALID_TAG_FRIEND).build();
-//        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_CARPARK_NUMBER_2)
-//                .withPhone(VALID_CARPARK_TYPE_2).withEmail(VALID_COORDINATE_2).withAddress(VALID_ADDRESS_2)
-//                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
-//    }
 
     /**
      * Executes the given {@code command}, confirms that <br>

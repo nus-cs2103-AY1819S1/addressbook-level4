@@ -4,11 +4,11 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_CARPARK_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_CARPARK_SUCCESS;
+import static seedu.address.testutil.TestUtil.getCarpark;
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TestUtil.getCarpark;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARPARK;
 import static seedu.address.testutil.TypicalCarparks.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARPARK;
 
 import org.junit.Test;
 
@@ -27,11 +27,11 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void delete() {
-        /* ----------------- Performing delete operation while an unfiltered list is being shown -------------------- */
+        /* ----------------- Performing delete operation while an unfiltered list is being shown ------------------- */
 
         /* Case: delete the first carpark in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
-        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_CARPARK.getOneBased() + "       ";
+        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_CARPARK.getOneBased() + "      ";
         Carpark deletedPerson = removeCarpark(expectedModel, INDEX_FIRST_CARPARK);
         String expectedResultMessage = String.format(MESSAGE_DELETE_CARPARK_SUCCESS, deletedPerson);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
@@ -72,7 +72,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_CARPARK_DISPLAYED_INDEX);
 
-        /* --------------------- Performing delete operation while a carpark card is selected ------------------------ */
+        /* --------------------- Performing delete operation while a carpark card is selected ---------------------- */
 
         /* Case: delete the selected carpark -> carpark list panel selects the carpark before the deleted carpark */
         showAllPersons();
@@ -85,7 +85,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         expectedResultMessage = String.format(MESSAGE_DELETE_CARPARK_SUCCESS, deletedPerson);
         assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
 
-        /* --------------------------------- Performing invalid delete operation ------------------------------------ */
+        /* --------------------------------- Performing invalid delete operation ----------------------------------- */
 
         /* Case: invalid index (0) -> rejected */
         command = DeleteCommand.COMMAND_WORD + " 0";

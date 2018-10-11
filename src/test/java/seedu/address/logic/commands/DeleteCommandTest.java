@@ -6,9 +6,9 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showCarparkAtIndex;
+import static seedu.address.testutil.TypicalCarparks.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARPARK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARPARK;
-import static seedu.address.testutil.TypicalCarparks.getTypicalAddressBook;
 
 import org.junit.Test;
 

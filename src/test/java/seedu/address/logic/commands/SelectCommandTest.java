@@ -6,10 +6,12 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showCarparkAtIndex;
+import static seedu.address.testutil.TypicalCarparks.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARPARK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARPARK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_CARPARK;
-import static seedu.address.testutil.TypicalCarparks.getTypicalAddressBook;
+
+import java.io.IOException;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -22,8 +24,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.ui.testutil.EventsCollectorRule;
-
-import java.io.IOException;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.

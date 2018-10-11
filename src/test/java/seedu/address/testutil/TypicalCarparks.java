@@ -2,12 +2,12 @@ package seedu.address.testutil;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_COORDINATE_1;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_COORDINATE_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CARPARK_NUMBER_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CARPARK_NUMBER_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CARPARK_TYPE_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CARPARK_TYPE_2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COORDINATE_1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COORDINATE_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FREE_PARKING_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FREE_PARKING_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LOTS_AVAILABLE_1;
@@ -16,8 +16,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NIGHT_PARKING_1
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NIGHT_PARKING_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SHORT_TERM_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SHORT_TERM_2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TOTAL_LOTS_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TOTAL_LOTS_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TYPE_OF_PARKING_1;
@@ -28,7 +26,17 @@ import java.util.ArrayList;
 
 import seedu.address.commons.util.GsonUtil;
 import seedu.address.model.AddressBook;
-import seedu.address.model.carpark.*;
+import seedu.address.model.carpark.Address;
+import seedu.address.model.carpark.Carpark;
+import seedu.address.model.carpark.CarparkNumber;
+import seedu.address.model.carpark.CarparkType;
+import seedu.address.model.carpark.Coordinate;
+import seedu.address.model.carpark.FreeParking;
+import seedu.address.model.carpark.LotsAvailable;
+import seedu.address.model.carpark.NightParking;
+import seedu.address.model.carpark.ShortTerm;
+import seedu.address.model.carpark.TotalLots;
+import seedu.address.model.carpark.TypeOfParking;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
@@ -86,13 +94,15 @@ public class TypicalCarparks {
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Carpark AMY = new CarparkBuilder().withCarparkNumber(VALID_CARPARK_NUMBER_1)
             .withAddress(VALID_ADDRESS_1).withCarparkType(VALID_CARPARK_TYPE_1)
-            .withCoordinate(VALID_COORDINATE_1).withLotsAvailable(VALID_LOTS_AVAILABLE_1).withTotalLots(VALID_TOTAL_LOTS_1)
-            .withFreeParking(VALID_FREE_PARKING_1).withNightParking(VALID_NIGHT_PARKING_1).withShortTerm(VALID_SHORT_TERM_1)
+            .withCoordinate(VALID_COORDINATE_1).withLotsAvailable(VALID_LOTS_AVAILABLE_1)
+            .withTotalLots(VALID_TOTAL_LOTS_1).withFreeParking(VALID_FREE_PARKING_1)
+            .withNightParking(VALID_NIGHT_PARKING_1).withShortTerm(VALID_SHORT_TERM_1)
             .withTypeOfParking(VALID_TYPE_OF_PARKING_1).build();
     public static final Carpark BOB = new CarparkBuilder().withCarparkNumber(VALID_CARPARK_NUMBER_2)
             .withAddress(VALID_ADDRESS_2).withCarparkType(VALID_CARPARK_TYPE_2)
-            .withCoordinate(VALID_COORDINATE_2).withLotsAvailable(VALID_LOTS_AVAILABLE_2).withTotalLots(VALID_TOTAL_LOTS_2)
-            .withFreeParking(VALID_FREE_PARKING_2).withNightParking(VALID_NIGHT_PARKING_2).withShortTerm(VALID_SHORT_TERM_2)
+            .withCoordinate(VALID_COORDINATE_2).withLotsAvailable(VALID_LOTS_AVAILABLE_2)
+            .withTotalLots(VALID_TOTAL_LOTS_2).withFreeParking(VALID_FREE_PARKING_2)
+            .withNightParking(VALID_NIGHT_PARKING_2).withShortTerm(VALID_SHORT_TERM_2)
             .withTypeOfParking(VALID_TYPE_OF_PARKING_2).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER*/
@@ -110,7 +120,7 @@ public class TypicalCarparks {
         return ab;
     }
 
-    public static ArrayList<Carpark> getTypicalCarparks()  {
+    public static ArrayList<Carpark> getTypicalCarparks() {
         try {
             //return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
             ArrayList<ArrayList<String>> info = GsonUtil.fetchCarparkInfo();

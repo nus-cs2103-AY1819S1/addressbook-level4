@@ -74,8 +74,6 @@ public class FindCommandTest {
         expectedModel.updateFilteredCarparkList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredCarparkList());
-
-//        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredCarparkList());
     }
 
     /**

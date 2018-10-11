@@ -14,11 +14,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditCarparkDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -28,24 +25,13 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.carpark.Carpark;
 import seedu.address.model.carpark.CarparkContainsKeywordsPredicate;
-//import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.CarparkBuilder;
-import seedu.address.testutil.PersonUtil;
 
 public class AddressBookParserTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     private final AddressBookParser parser = new AddressBookParser();
-
-//    @Test
-//    public void parseCommand_add() throws Exception {
-//        Carpark carpark = new CarparkBuilder().build();
-//        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(carpark));
-//        assertEquals(new AddCommand(carpark), command);
-//    }
 
     @Test
     public void parseCommand_clear() throws Exception {
@@ -60,14 +46,6 @@ public class AddressBookParserTest {
         assertEquals(new DeleteCommand(INDEX_FIRST_CARPARK), command);
     }
 
-//    @Test
-//    public void parseCommand_edit() throws Exception {
-//        Carpark carpark = new CarparkBuilder().build();
-//        EditCarparkDescriptor descriptor = new EditPersonDescriptorBuilder(carpark).build();
-//        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-//                + INDEX_FIRST_CARPARK.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-//        assertEquals(new EditCommand(INDEX_FIRST_CARPARK, descriptor), command);
-//    }
 
     @Test
     public void parseCommand_exit() throws Exception {

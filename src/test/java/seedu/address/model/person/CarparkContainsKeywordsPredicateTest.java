@@ -19,14 +19,17 @@ public class CarparkContainsKeywordsPredicateTest {
         List<String> firstPredicateKeywordList = Collections.singletonList("first");
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
-        CarparkContainsKeywordsPredicate firstPredicate = new CarparkContainsKeywordsPredicate(firstPredicateKeywordList);
-        CarparkContainsKeywordsPredicate secondPredicate = new CarparkContainsKeywordsPredicate(secondPredicateKeywordList);
+        CarparkContainsKeywordsPredicate firstPredicate = new CarparkContainsKeywordsPredicate(
+                firstPredicateKeywordList);
+        CarparkContainsKeywordsPredicate secondPredicate = new CarparkContainsKeywordsPredicate(
+                secondPredicateKeywordList);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        CarparkContainsKeywordsPredicate firstPredicateCopy = new CarparkContainsKeywordsPredicate(firstPredicateKeywordList);
+        CarparkContainsKeywordsPredicate firstPredicateCopy = new CarparkContainsKeywordsPredicate(
+                firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -42,7 +45,8 @@ public class CarparkContainsKeywordsPredicateTest {
     @Test
     public void test_nameContainsKeywords_returnsTrue() {
         // One keyword
-        CarparkContainsKeywordsPredicate predicate = new CarparkContainsKeywordsPredicate(Collections.singletonList("Alice"));
+        CarparkContainsKeywordsPredicate predicate = new CarparkContainsKeywordsPredicate(
+                Collections.singletonList("Alice"));
         assertTrue(predicate.test(new CarparkBuilder().withCarparkNumber("Alice Bob").build()));
 
         // Multiple keywords

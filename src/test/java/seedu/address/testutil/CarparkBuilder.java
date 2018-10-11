@@ -165,6 +165,9 @@ public class CarparkBuilder {
         return this;
     }
 
+    /**
+     * Builds a {@code Carpark} that we are building.
+     */
     public Carpark build() {
         return new Carpark(address, carparkNumber, carparkType, coordinate,
             freeParking, lotsAvailable, nightParking, shortTerm, totalLots, typeOfParking, tags);
