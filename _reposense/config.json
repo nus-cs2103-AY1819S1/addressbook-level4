@@ -1,0 +1,26 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "Alvinnyk",
+	  "displayName": "Alvin"
+    },
+	{
+      "githubId": "dlworldpeace",
+	  "displayName": "Delong"
+    },
+	{
+      "githubId": "Lexzt",
+	  "displayName": "Keith"
+    },
+	{
+      "githubId": "YurouTang",
+	  "displayName": "Yurou"
+    },
+    {
+      "githubId": "ZhuanYu",
+      "displayName": "Zhuan Yu",
+      "authorNames": ["Zhuan Yu", "ZhuanYu"]
+    }
+  ]
+}
