@@ -1,6 +1,5 @@
 package seedu.souschef.commons.events.ui;
 
-import seedu.souschef.commons.events.BaseEvent;
 import seedu.souschef.model.recipe.Recipe;
 
 /**

@@ -2,11 +2,8 @@ package seedu.souschef.ui;
 
 import com.google.common.eventbus.Subscribe;
 
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.souschef.commons.events.ui.JumpToListRequestEvent;
 import seedu.souschef.model.UniqueType;
