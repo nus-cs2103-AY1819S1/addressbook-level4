@@ -22,13 +22,20 @@ public class ImagePanel extends UiPart<Region> {
 
     private static final String FXML = "ImagePanel.fxml";
     private final Logger logger = LogsCenter.getLogger(getClass());
+
     /**
      * An image panel for showing the previews
      */
-
     private final ObjectProperty<Image> image = new SimpleObjectProperty<Image>(
             new Image("https://via.placeholder.com/500x500"));
+
+<<<<<<< HEAD
+    private final ObjectProperty<Image> image = new SimpleObjectProperty<Image>(
+            new Image("https://via.placeholder.com/500x500"));
+=======
+>>>>>>> 6af3a1442e46f36312d26fdfec2a2eb823de766b
     private final String name;
+
     @FXML
     private ImageView imageView;
 

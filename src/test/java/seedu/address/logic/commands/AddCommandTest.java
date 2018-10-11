@@ -20,6 +20,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.google.GoogleClientInstance;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -130,28 +131,38 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean canUndoAddressBook() {
-            throw new AssertionError("This method should not be called.");
+        public GoogleClientInstance getGoogleClientInstance() {
+            return null;
         }
 
         @Override
-        public boolean canRedoAddressBook() {
-            throw new AssertionError("This method should not be called.");
+        public void setGoogleClientInstance(GoogleClientInstance instance) {
+
         }
 
         @Override
-        public void undoAddressBook() {
-            throw new AssertionError("This method should not be called.");
+        public boolean canUndoPreviewImageManager() {
+            return false;
         }
 
         @Override
-        public void redoAddressBook() {
-            throw new AssertionError("This method should not be called.");
+        public boolean canRedoPreviewImageManager() {
+            return false;
         }
 
         @Override
-        public void commitAddressBook() {
-            throw new AssertionError("This method should not be called.");
+        public void undoPreviewImageManager() {
+
+        }
+
+        @Override
+        public void redoPreviewImageManager() {
+
+        }
+
+        @Override
+        public void commitPreviewImageManager() {
+
         }
 
         @Override
@@ -198,11 +209,6 @@ public class AddCommandTest {
         public void addPerson(Person person) {
             requireNonNull(person);
             personsAdded.add(person);
-        }
-
-        @Override
-        public void commitAddressBook() {
-            // called by {@code AddCommand#execute()}
         }
 
         @Override

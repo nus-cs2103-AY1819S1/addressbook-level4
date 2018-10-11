@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.google.GoogleClientInstance;
 import seedu.address.model.person.Person;
 
 /**
@@ -53,29 +54,39 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
-     * Returns true if the model has previous address book states to restore.
+     * Get GoogleClientInstance.
      */
-    boolean canUndoAddressBook();
+    GoogleClientInstance getGoogleClientInstance();
 
     /**
-     * Returns true if the model has undone address book states to restore.
+     * Set GoogleClientInstance.
      */
-    boolean canRedoAddressBook();
+    void setGoogleClientInstance(GoogleClientInstance instance);
 
     /**
-     * Restores the model's address book to its previous state.
+     * Returns true if the model has previous PreviewImage states to restore.
      */
-    void undoAddressBook();
+    boolean canUndoPreviewImageManager();
 
     /**
-     * Restores the model's address book to its previously undone state.
+     * Returns true if the model has undone PreviewImage states to restore.
      */
-    void redoAddressBook();
+    boolean canRedoPreviewImageManager();
 
     /**
-     * Saves the current address book state for undo/redo.
+     * Restores the model's PreviewImage to its previous state.
      */
-    void commitAddressBook();
+    void undoPreviewImageManager();
+
+    /**
+     * Restores the model's PreviewImage to its previously undone state.
+     */
+    void redoPreviewImageManager();
+
+    /**
+     * Saves the current PreviewImage state for undo/redo.
+     */
+    void commitPreviewImageManager();
 
     /**
      * Updates the userPrefs current directory.
