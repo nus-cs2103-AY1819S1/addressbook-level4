@@ -1,0 +1,16 @@
+{
+  "formats": ["adoc", "cs", "css", "fxml", "gradle", "html", "java", "js", "json", "jsp", "md", "py", "tag", "xml"],
+  "authors":
+  [
+    {
+      "githubId": "Gongjie663746",
+      "displayName": "Qi Gongjie",
+      "authorNames": ["Gongjie"],
+    }
+    {
+      "githubId": "NancyQuris",
+      "displayName": "Liu Yingnan",
+      "authorNames": ["Liu Yingnan"],
+    }
+  ]
+}
