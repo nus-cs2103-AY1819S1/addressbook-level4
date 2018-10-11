@@ -86,6 +86,12 @@ public class Date {
                 && fullDate.get(Calendar.YEAR) == otherDate.fullDate.get(Calendar.YEAR);
     }
 
+    /**
+     *
+     * @param a - First Date to compare
+     * @param b - Second Date to compare
+     * @return 1 if b is after a, -1 if b is before a and 0 if they are equal
+     */
     public static int compare(Date a, Date b) {
         if (b.fullDate.after(a.fullDate)) {
             return 1;

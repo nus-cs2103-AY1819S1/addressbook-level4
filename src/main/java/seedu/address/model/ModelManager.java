@@ -18,6 +18,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.UserLoggedInEvent;
+import seedu.address.logic.commands.StatsCommand.StatsMode;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
@@ -32,10 +33,13 @@ import seedu.address.model.user.Username;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private Predicate<Expense> expenseStatPredicate;
     private VersionedAddressBook versionedAddressBook;
     private FilteredList<Expense> filteredExpenses;
     private Username username;
+
+    private StatsMode statsMode;
+    private Predicate<Expense> expenseStatPredicate;
+
     private final Map<Username, ReadOnlyAddressBook> addressBooks;
 
     /**
@@ -210,11 +214,11 @@ public class ModelManager extends ComponentManager implements Model {
         if (this.filteredExpenses == null) {
             throw new NoUserSelectedException();
         }
-        FilteredList<Expense> filteredList= new FilteredList<>(versionedAddressBook.getExpenseList());
+        FilteredList<Expense> filteredList = new FilteredList<>(versionedAddressBook.getExpenseList());
         filteredList.setPredicate(expenseStatPredicate);
 
         SortedList<Expense> sortedList = new SortedList<>(filteredList);
-        Comparator<Expense> byDate = (Expense a, Expense b) -> Date.compare(a.getDate(), b.getDate());
+        Comparator<Expense> byDate = (Expense a, Expense b) -> (-1 * Date.compare(a.getDate(), b.getDate()));
         sortedList.setComparator(byDate);
 
         return FXCollections.unmodifiableObservableList(sortedList);
@@ -226,6 +230,16 @@ public class ModelManager extends ComponentManager implements Model {
             throw new NoUserSelectedException();
         }
         expenseStatPredicate = predicate;
+    }
+
+    @Override
+    public void updateStatsMode(StatsMode mode) {
+        this.statsMode = mode;
+    }
+
+    @Override
+    public StatsMode getStatsMode() {
+        return this.statsMode;
     }
 
     //@@author

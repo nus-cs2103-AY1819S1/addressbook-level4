@@ -1,6 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NUMBER_OF_DAYS_OR_MONTHS;
 
 import java.util.Calendar;
 import java.util.function.Predicate;
@@ -22,19 +25,80 @@ public class StatsCommand extends Command {
     public static final String COMMAND_ALIAS = "st";
 
     public static final String MESSAGE_SUCCESS = "Opened the stats window";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Opens stats window. "
+            + "Parameters: "
+            + PREFIX_NUMBER_OF_DAYS_OR_MONTHS + "NUMBER_OF_DAYS_OR_MONTHS "
+            + PREFIX_MODE + "FORMAT (either 'm' or 'd')\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_NUMBER_OF_DAYS_OR_MONTHS + "7 "
+            + PREFIX_MODE + "d";
 
+    public static final String MESSAGE_PARAMETERS_FORMAT = "Command should be in format: \n"
+            + COMMAND_WORD + " "
+            + PREFIX_NUMBER_OF_DAYS_OR_MONTHS + "NUMBER_OF_DAYS_OR_MONTHS "
+            + PREFIX_MODE + "FORMAT (either 'm' or 'd')\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_NUMBER_OF_DAYS_OR_MONTHS + "7 "
+            + PREFIX_MODE + "d";
+
+    /**
+     *  Enum for StatsMode. StatsMode can either be MONTH or DAY
+     */
+    public enum StatsMode {
+        MONTH, DAY
+    }
+
+    private int numberOfDaysOrMonths;
+    private StatsMode mode;
+
+    public StatsCommand(int numberOfDaysOrMonths, String mode) {
+        requireNonNull(numberOfDaysOrMonths, mode);
+        checkArgument(isValidMode(mode), MESSAGE_PARAMETERS_FORMAT);
+        checkArgument(isValidNumber(numberOfDaysOrMonths), MESSAGE_PARAMETERS_FORMAT);
+        this.numberOfDaysOrMonths = numberOfDaysOrMonths;
+        if (mode.equals("d")) {
+            this.mode = StatsMode.DAY;
+        } else {
+            this.mode = StatsMode.MONTH;
+        }
+    }
+
+    public StatsCommand() {
+        this(7, "d");
+    }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws NoUserSelectedException {
         requireNonNull(model);
-        model.updateExpenseStats(isPastSevenDays());
+        model.updateExpenseStats(getStatsPredicate());
+        model.updateStatsMode(this.mode);
         EventsCenter.getInstance().post(new ShowStatsRequestEvent());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
-    private Predicate<Expense> isPastSevenDays() {
+    private Predicate<Expense> getStatsPredicate() {
         Calendar now = Calendar.getInstance();
-        now.add(Calendar.DAY_OF_MONTH, -7);
+        if (this.mode == StatsMode.DAY) {
+            now.add(Calendar.DAY_OF_MONTH, this.numberOfDaysOrMonths * -1);
+        } else {
+            now.add(Calendar.MONTH, this.numberOfDaysOrMonths * -1);
+        }
         return e -> e.getDate().fullDate.after(now);
+    }
+
+    private boolean isValidMode(String mode) {
+        return mode.equals("d") || mode.equals("m");
+    }
+
+    private boolean isValidNumber(int num) {
+        return num > 0;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof StatsCommand // instanceof handles nulls
+                && numberOfDaysOrMonths == (((StatsCommand) other).numberOfDaysOrMonths)
+                && mode.equals(((StatsCommand) other).mode));
     }
 }
