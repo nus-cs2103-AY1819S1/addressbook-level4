@@ -24,7 +24,7 @@ public class ModelManager<T extends UniqueType> extends ComponentManager impleme
     private final UniqueList<T> uniqueList;
 
     /**
-     * Initializes a ModelManager with the given appContent and userPrefs.
+     * Initializes a ModelManager with the given appContent and its uniqueType.
      */
     public ModelManager(VersionedAppContent appContent, UniqueList<T> ul) {
         super();
