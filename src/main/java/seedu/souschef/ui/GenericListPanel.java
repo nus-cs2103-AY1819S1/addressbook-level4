@@ -13,9 +13,6 @@ import seedu.souschef.model.UniqueType;
 
 public abstract class GenericListPanel<T extends UniqueType> extends UiPart<Region> {
 
-    @FXML
-    protected ListView<T> personListView;
-
     public GenericListPanel(String fxmlFileName) {
         super(fxmlFileName);
     }
@@ -35,12 +32,7 @@ public abstract class GenericListPanel<T extends UniqueType> extends UiPart<Regi
      * Scrolls to the {@code Card} at the {@code index} and selects it.
      * To be used in handleJumpToListRequestEvent().
      */
-    void scrollTo(int index) {
-        Platform.runLater(() -> {
-            personListView.scrollTo(index);
-            personListView.getSelectionModel().clearAndSelect(index);
-        });
-    }
+    abstract void scrollTo(int index);
 
     @Subscribe
     abstract void handleJumpToListRequestEvent(JumpToListRequestEvent event);
