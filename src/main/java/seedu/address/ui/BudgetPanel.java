@@ -9,7 +9,8 @@ import javafx.scene.layout.Region;
 public class BudgetPanel extends UiPart<Region> {
     private static final String FXML = "BudgetPanel.fxml";
 
-    public BudgetPanel () {
+    public BudgetPanel() {
         super(FXML);
+
     }
 }

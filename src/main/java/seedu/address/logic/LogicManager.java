@@ -12,6 +12,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
@@ -50,7 +51,14 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getFilteredExpenseList();
     }
 
+    //@@author winsonhys
+    @Override
+    public Budget getMaximumBudget() {
+        return model.getMaximumBudget();
+    }
+
     //@@author jonathantjm
+    @Override
     public LinkedHashMap<String, Double> getExpenseStats() throws NoUserSelectedException {
         ObservableList<Expense> expenseList = model.getExpenseStats();
         LinkedHashMap<String, Double> stats = new LinkedHashMap<>();

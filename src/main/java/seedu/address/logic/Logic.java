@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
@@ -25,6 +26,8 @@ public interface Logic {
      */
     CommandResult execute(String commandText) throws CommandException, ParseException, NoUserSelectedException,
             UserAlreadyExistsException, NonExistentUserException;
+
+    Budget getMaximumBudget();
 
     /** Returns an unmodifiable view of the filtered list of expenses */
     ObservableList<Expense> getFilteredExpenseList() throws NoUserSelectedException;

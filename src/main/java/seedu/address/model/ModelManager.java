@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -16,6 +17,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.UserLoggedInEvent;
+import seedu.address.commons.events.model.budget.BudgetNewMonthCheck;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
@@ -236,6 +238,7 @@ public class ModelManager extends ComponentManager implements Model {
         try {
             indicateUserLoggedIn();
             indicateAddressBookChanged();
+            indicateMonthCheck();
         } catch (NoUserSelectedException nuse) {
             throw new IllegalStateException(nuse.getMessage());
         }
@@ -260,6 +263,15 @@ public class ModelManager extends ComponentManager implements Model {
         }
         raise(new UserLoggedInEvent(this.username));
     }
+
+    //@@author winsonhys
+    /**
+     * Raises an event to check if it is the start of a new month.
+     */
+    protected void indicateMonthCheck() {
+        raise(new BudgetNewMonthCheck(LocalDate.now()));
+    }
+
 
     @Override
     public Model copy(UserPrefs userPrefs) throws NoUserSelectedException {

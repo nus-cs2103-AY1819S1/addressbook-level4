@@ -4,21 +4,38 @@ package seedu.address.model.budget;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.time.LocalDate;
+import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
+
+import seedu.address.commons.core.ComponentManager;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.budget.BudgetNewMonthCheck;
+import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.model.expense.Expense;
+import seedu.address.storage.StorageManager;
 
 
 /**
  * Represents maximum budget of an expense tracker
  * Guarantees: details are present and not null, field values are validated, mutable.
  */
-public class Budget {
+public class Budget extends ComponentManager {
     public static final String MESSAGE_BUDGET_CONSTRAINTS =
         "Cost should only take values in the following format: {int}.{digit}{digit}";
 
+    public static final String MESSAGE_NEXT_MONTH = String.format("It is the end of the month. Please set a new "
+        + "budget");
+
     public static final String BUDGET_VALIDATION_REGEX = "(\\d+).(\\d)(\\d)";
+
+    private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
+
 
     private double budgetCap;
     private double currentExpenses;
+    private LocalDate currentMonth;
 
 
 
@@ -31,6 +48,7 @@ public class Budget {
         requireNonNull(budget);
         checkArgument(isValidBudget(budget), BUDGET_VALIDATION_REGEX);
         this.budgetCap = Double.parseDouble(budget);
+        this.currentMonth = LocalDate.now().withDayOfMonth(1);
         this.currentExpenses = 0.0;
     }
 
@@ -63,10 +81,14 @@ public class Budget {
     }
 
     /**
-     * Returns the most recent timestamp in which the budget is modified/created
+     * Returns the current date in which the budget is created
      *
-     * @return a Calendar object that consists of the most recent timestamp.
+     * @return a LocalDate object that consists of the most recent timestamp.
      */
+
+    public LocalDate getCurrentMonth() {
+        return this.currentMonth;
+    }
 
     /**
      * Attemps to add expense
@@ -118,5 +140,25 @@ public class Budget {
     @Override
     public String toString() {
         return String.format("$%f", this.budgetCap);
+    }
+
+    /**
+     * Updates the current budget with the new budget if it is the start of a new month. Does nothing if not
+     * @param event an Event that is raised every time the app initializes to check for start of new month.
+     */
+    @Subscribe
+    public void handleBudgetDateUpdateEvent(BudgetNewMonthCheck event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
+
+        if (this.currentMonth.getMonthValue() != 12
+            && event.newDate.getMonthValue() - this.currentMonth.getMonthValue() < 1 ) {
+            logger.info("It is not the end of the month, nothing happens");
+            return;
+        }
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "New month, budget has updated"));
+        raise(new NewResultAvailableEvent("As this is a new month, please update your budget"));
+        this.currentMonth = event.newDate.withDayOfMonth(1);
+        this.clearSpending();
+
     }
 }
