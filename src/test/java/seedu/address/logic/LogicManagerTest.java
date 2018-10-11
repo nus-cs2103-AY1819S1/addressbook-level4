@@ -6,6 +6,9 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.text.SimpleDateFormat;
+import java.util.LinkedHashMap;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -13,6 +16,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.StatsCommand.StatsMode;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -21,6 +25,8 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
+import seedu.address.model.expense.Expense;
+import seedu.address.testutil.ExpenseBuilder;
 import seedu.address.testutil.ModelUtil;
 
 public class LogicManagerTest {
@@ -60,10 +66,37 @@ public class LogicManagerTest {
         logic.getFilteredExpenseList().remove(0);
     }
 
-
     @Test
     public void getExpenseStats_returnsEmptyMapWhenNoEntries() throws NoUserSelectedException {
         assertTrue(logic.getExpenseStats().size() == 0);
+    }
+
+    @Test
+    public void getExpenseStats_returnsMapWithCorrectEntries() throws NoUserSelectedException {
+        Expense validExpense = new ExpenseBuilder().build();
+        model.addExpense(validExpense);
+        model.updateStatsMode(StatsMode.DAY);
+        LinkedHashMap<String, Double> map = logic.getExpenseStats();
+        assertTrue(map.size() > 0);
+        assertTrue(map.containsKey(validExpense.getDate().toString()));
+        assertTrue(map.get(validExpense.getDate().toString()) == validExpense.getCost().getCostValue());
+
+        model.updateStatsMode(StatsMode.MONTH);
+        map = logic.getExpenseStats();
+        String month = new SimpleDateFormat("MMM-YYYY").format(validExpense.getDate().fullDate.getTime());
+        assertTrue(map.size() > 0);
+        assertTrue(map.containsKey(month));
+        assertTrue(map.get(month) == validExpense.getCost().getCostValue());
+
+        model.deleteExpense(validExpense);
+    }
+
+    @Test
+    public void getExpenseStats_returnsCorrectStatsMode() throws NoUserSelectedException {
+        model.updateStatsMode(StatsMode.DAY);
+        assertTrue(logic.getStatsMode() == StatsMode.DAY);
+        model.updateStatsMode(StatsMode.MONTH);
+        assertTrue(logic.getStatsMode() == StatsMode.MONTH);
     }
 
     /**

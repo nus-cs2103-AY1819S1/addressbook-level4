@@ -13,6 +13,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.logic.commands.StatsCommand.StatsMode;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
@@ -105,6 +106,15 @@ public class ModelManagerTest {
     public void updateExpenseStats_noUserSelected_throwsNoUserSelectedException() throws Exception {
         thrown.expect(NoUserSelectedException.class);
         modelManagerLoggedOut.updateExpenseStats(unused -> true);
+    }
+
+
+    @Test
+    public void getExpenseStats_returnsCorrectStatsMode() {
+        modelManager.updateStatsMode(StatsMode.DAY);
+        assertTrue(modelManager.getStatsMode() == StatsMode.DAY);
+        modelManager.updateStatsMode(StatsMode.MONTH);
+        assertTrue(modelManager.getStatsMode() == StatsMode.MONTH);
     }
 
     @Test

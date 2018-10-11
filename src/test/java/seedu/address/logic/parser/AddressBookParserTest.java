@@ -157,9 +157,9 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_stats() throws Exception {
         assertTrue(parser.parseCommand(StatsCommand.COMMAND_WORD) instanceof StatsCommand);
-        assertTrue(parser.parseCommand(StatsCommand.COMMAND_WORD + " 3") instanceof StatsCommand);
+        assertTrue(parser.parseCommand(StatsCommand.COMMAND_WORD + " n/7 m/m") instanceof StatsCommand);
         assertTrue(parser.parseCommand(StatsCommand.COMMAND_ALIAS) instanceof StatsCommand);
-        assertTrue(parser.parseCommand(StatsCommand.COMMAND_ALIAS + " 3") instanceof StatsCommand);
+        assertTrue(parser.parseCommand(StatsCommand.COMMAND_ALIAS + " n/7 m/m") instanceof StatsCommand);
     }
 
     @Test
