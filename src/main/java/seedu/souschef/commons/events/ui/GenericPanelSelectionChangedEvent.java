@@ -1,12 +1,13 @@
 package seedu.souschef.commons.events.ui;
 
 import seedu.souschef.commons.events.BaseEvent;
+import seedu.souschef.model.UniqueType;
 import seedu.souschef.model.recipe.Recipe;
 
 /**
  * Represents a selection change in the List Panel
  */
-public class GenericPanelSelectionChangedEvent<T> extends BaseEvent {
+public class GenericPanelSelectionChangedEvent<T extends UniqueType> extends BaseEvent {
 
 
     protected final T newSelection;
