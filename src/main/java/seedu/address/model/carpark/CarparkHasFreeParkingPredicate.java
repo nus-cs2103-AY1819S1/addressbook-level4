@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.function.Predicate;
 
 /**
- * To be added
+ * Tests that a {@code Carpark} has free parking.
  */
 public class CarparkHasFreeParkingPredicate implements Predicate<Carpark> {
     private final String day;

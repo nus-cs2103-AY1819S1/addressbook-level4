@@ -16,7 +16,7 @@ import seedu.address.model.carpark.CarparkHasNightParkingPredicate;
 
 
 /**
- * To be added
+ * Filters car parks using to flags
  */
 public class FilterCommand extends Command {
     public static final String COMMAND_WORD = "filter";
@@ -26,11 +26,13 @@ public class FilterCommand extends Command {
             + "Parameters: Tags ... \n"
             + "Example: " + COMMAND_WORD + "f/TRUE";
 
-    //public static final String MESSAGE_FILTER_CARPARK_SUCCESS = "Filtered Carparks.";
+    //public static final String MESSAGE_FILTER_CARPARK_SUCCESS = "Filtered Car Parks.";
     private Predicate predicate;
-
     private String[] flags;
 
+    /**
+     * Creates a FilterCommand with the relevant flags
+     */
     public FilterCommand(String[] flags) {
         this.flags = flags;
         this.predicate = null;
@@ -53,10 +55,13 @@ public class FilterCommand extends Command {
             // Can accept small letters too
             String day = flagList.get(index + 1).toUpperCase();
             System.out.println("day: " + day);
+
             String startTime = flagList.get(index + 2);
             System.out.println("startTime: " + startTime);
+
             String endTime = flagList.get(index + 3);
             System.out.println("endTime: " + endTime);
+
             this.predicate = new CarparkHasFreeParkingPredicate(day, startTime, endTime);
             model.updateFilteredCarparkList(predicate);
         }
