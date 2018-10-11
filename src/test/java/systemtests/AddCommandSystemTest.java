@@ -114,32 +114,33 @@ public class AddCommandSystemTest extends SchedulePlannerSystemTest {
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
+        // OLD TESTS
         /* Case: add a duplicate task -> rejected */
-        command = TaskUtil.getAddCommand(HOON);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
+        //command = TaskUtil.getAddCommand(HOON);
+        //assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
 
-        /* Case: add a duplicate task except with different phone -> accepted */
+        /* Case: add a duplicate task except with different phone -> rejected */
         //commented off as task are unique when one field is different
         //toAdd = new TaskBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
-        //command = PersonUtil.getAddCommand(toAdd);
+        //command = TaskUtil.getAddCommand(toAdd);
         //assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
 
         /* Case: add a duplicate task except with different email -> rejected */
-        //commented off as task are unique when one field is different
         //toAdd = new TaskBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
-        //command = PersonUtil.getAddCommand(toAdd);
+        //command = TaskUtil.getAddCommand(toAdd);
         //assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
 
         /* Case: add a duplicate task except with different address -> rejected */
         //commented off as task are unique when one field is different
         //toAdd = new TaskBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
-        //command = PersonUtil.getAddCommand(toAdd);
+        //command = TaskUtil.getAddCommand(toAdd);
         //assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
 
         /* Case: add a duplicate task except with different tags -> rejected */
         //commented off as task are unique when one field is different
-        //command = PersonUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
+        //command = TaskUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
         //assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
+        // OLD TESTS
 
         /* Case: missing name -> rejected */
         command = AddCommand.COMMAND_WORD + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;

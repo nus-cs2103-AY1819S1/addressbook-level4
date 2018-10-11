@@ -48,7 +48,7 @@ public class TaskListPanel extends UiPart<Region> {
     }
 
     /**
-     * Scrolls to the {@code PersonCard} at the {@code index} and selects it.
+     * Scrolls to the {@code TaskCard} at the {@code index} and selects it.
      */
     private void scrollTo(int index) {
         Platform.runLater(() -> {
@@ -64,7 +64,7 @@ public class TaskListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Task} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Task} using a {@code TaskCard}.
      */
     class TaskListViewCell extends ListCell<Task> {
         @Override

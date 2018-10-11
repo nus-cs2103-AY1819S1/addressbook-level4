@@ -16,6 +16,7 @@ import org.junit.Test;
 
 import guitests.guihandles.TaskCardHandle;
 import guitests.guihandles.TaskListPanelHandle;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
@@ -57,6 +58,7 @@ public class TaskListPanelTest extends GuiUnitTest {
 
         TaskCardHandle expectedTask = taskListPanelHandle.getTaskCardHandle(INDEX_SECOND_TASK.getZeroBased());
         TaskCardHandle selectedTask = taskListPanelHandle.getHandleToSelectedCard();
+
         assertCardEquals(expectedTask, selectedTask);
     }
 

@@ -615,11 +615,11 @@ image::getting-started-ui-tag-after.png[width="300"]
 +
 ****
 * Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
+** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/TaskCard.java[the `TaskCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
 ** Use the .css attribute `-fx-background-color` to add a color.
 ** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
 * Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
+** You can modify the existing test methods for `TaskCard` 's to include testing the tag's color as well.
 ** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
 *** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
 ****
@@ -737,17 +737,17 @@ Let's teach the application to parse arguments that our `remark` command will ac
 for `RemarkCommandParser`.
 . Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
 
-===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each task later.
+===== [Step 3] Ui: Add a placeholder for remark in `TaskCard`
+Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/TaskCard.java[`TaskCard`] s to display a remark for each task later.
 
 **Main:**
 
 . Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
+. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/TaskCard.java[`TaskCard`] to tie the variable to the actual label.
 
 **Tests:**
 
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
+. Modify link:{repoURL}/src/test/java/guitests/guihandles/TaskCardHandle.java[`TaskCardHandle`] so that future tests can read the contents of the remark label.
 
 ===== [Step 4] Model: Add `Remark` class
 We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/task/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
@@ -789,12 +789,12 @@ Since `Person` can now have a `Remark`, we should add a helper method to link:{r
 . Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the task that it is currently building.
 . Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
 
-===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
+===== [Step 7] Ui: Connect `Remark` field to `TaskCard`
+Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/TaskCard.java[`TaskCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
 
 **Main:**
 
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
+. Modify link:{repoURL}/src/main/java/seedu/address/ui/TaskCard.java[`TaskCard`]'s constructor to bind the `Remark` field to the `Task` 's remark.
 
 **Tests:**
 
