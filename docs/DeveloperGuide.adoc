@@ -882,7 +882,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |Employee |View all projects that I am a part of |Find out more about my projects and employees in the project team
 
-|`* * *` |Employee |View all tasks assigned to me by a project |Check what I have to do for a particular project 
+|`* * *` |Employee |View all tasks assigned to me by a project |Check what I have to do for a particular project
 
 |`* *` |Employee with "Department Manager" rights |See the total manpower strength in each department |Allocate manpower to department in need for more employees
 
