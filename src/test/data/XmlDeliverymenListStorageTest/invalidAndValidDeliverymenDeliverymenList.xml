@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<deliverymenlist>
+    <!-- Valid Person -->
+    <deliverymen>
+        <name>Hans Muster</name>
+    </deliverymen>
+    <!-- Person with invalid phone field -->
+    <deliverymen>
+        <name>Hans Muster</name>
+    </deliverymen>
+</deliverymenlist>

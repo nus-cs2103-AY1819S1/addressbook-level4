@@ -13,6 +13,10 @@ public class UserPrefs {
 
     private GuiSettings guiSettings;
     private Path addressBookFilePath = Paths.get("data" , "addressbook.xml");
+    private Path routeListFilePath = Paths.get("data", "routelist.xml");
+    private Path usersListFilePath = Paths.get("data", "users.xml");
+
+    private Path deliverymenListFilePath = Paths.get("data" , "deliverymen.xml");
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);
@@ -36,6 +40,29 @@ public class UserPrefs {
 
     public void setAddressBookFilePath(Path addressBookFilePath) {
         this.addressBookFilePath = addressBookFilePath;
+    }
+
+    public Path getRouteListFilePath() {
+        return routeListFilePath;
+    }
+
+    public void setRouteListFilePath(Path routeListFilePath) {
+        this.routeListFilePath = routeListFilePath;
+    }
+
+    public Path getUsersListFilePath() {
+        return usersListFilePath;
+    }
+
+    public void setUsersListFilePath(Path usersListFilePath) {
+        this.usersListFilePath = usersListFilePath;
+    }
+    public Path getDeliverymenListFilePath() {
+        return deliverymenListFilePath;
+    }
+
+    public void setDeliverymenListFilePath(Path deliverymenListFilePath) {
+        this.deliverymenListFilePath = deliverymenListFilePath;
     }
 
     @Override
@@ -63,6 +90,7 @@ public class UserPrefs {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings.toString());
         sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nLocal data file location : " + usersListFilePath);
         return sb.toString();
     }
 

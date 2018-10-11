@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<orderbook>
+    <!-- Valid Order -->
+    <orders>
+        <name>Hans Muster</name>
+        <phone isPrivate="false">9482424</phone>
+        <address isPrivate="false">4th street</address>
+        <food>milo</food>
+    </orders>
+    <!-- Person with invalid phone field -->
+    <orders>
+        <name>Hans Muster</name>
+        <phone isPrivate="false">948asdf2424</phone>
+        <address isPrivate="false">4th street</address>
+        <food>milo</food>
+    </orders>
+</orderbook>

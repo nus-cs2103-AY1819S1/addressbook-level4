@@ -13,9 +13,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-T16-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T16-3`      Since: `Oct 2018`      Licence: `MIT`
 
 == Setting up
 
@@ -820,13 +820,15 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
+* Business Owners and Delivery Man
+* Needs to manage a large collection of orders
+* Needs to dispatch orders to relevant delivery man
+* Wants to view route information and calculate timings
+* Wants insights on purchases and order history
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+
+*Value proposition*: Integrate end-to-end systems and streamline food delivery management
 
 [appendix]
 == User Stories
@@ -836,62 +838,192 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |new manager |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |manager |login/logout of application |able to protect my data and access it when I need do
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |manager |add a new customer order | can track the current orders I
+have
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |manager |add or remove a deliveryman | can manage the deliverymen available to dispatch orders
+
+|`* * *` |manager |assign orders to available deliverymen | can send out orders and fulfil customer requests
+
+|`* * *` |manager |delete an order | can cancel orders that should not be in the queue
+
+|`* * *` |manager |find an order using phone number | can find specific orders quickly
+
+|`* *` |manager |update my menu (add/remove food items) | can manage the food items I have and expand by business
+
+|`* *` |manager |view a basic route for order | have a clearer idea on how to dispatch my deliverymen
+
+|`* *` |manager |find orders by more files (name, food item etc.) | have more options to locate specific orders
+
+|`* *` |manager |trace status of orders (estimated timeline)  | can have visibility on when orders will be delivered
+
+|`* *` |manager |have a dashboard to view succesful and failed orders  | can have insights on how my outlet is doing
+
+|`* *` |manager |have a dynamic indication of which deliveryman is available  | can send out multiple orders to many deliverymen and have improved service
+
+|`* *` |manager |view individual customer order history  | gain insights on
+what specific customers are ordering
+
+|`* *` |manager |see a thumbnail of deliveryman  | can easily tell who is who in one glance
+
+|`*` |manager |sms confirmation on succesful order  | have visibility on how my order delivery service is doing
+
+|`*` |manager |view a map with placeholders showing orders/deliverymen routes  | have immediate view on delivery status and gain insights on my service
+
+|`* * *` |new deliveryman |see usage instructions |refer to instructions when I forget how to use the App
+
+|`* * *` |deliveryman |login/logout of application |able to protect my data and access it when I need do
+
+|`* * *` |deliveryman |list assigned orders |can tell what are the jobs I need to complete
+
+|`* * *` |deliveryman |get customer contact for orders |can contact customer if there is a need (delivery delay/incorrect address/queries etc.)
+
+|`* *` |deliveryman |view delivery route for orders |dont have to consult external service to know how to reach the destination
+
+|`* *` |deliveryman |confirm succesful order in system |the manager can track the completion of orders
+
+|`*` |deliveryman |send feedback on delivery process |the manager can relate and improve the dispatch service
+
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For the use cases below, the *System* is FoodZoom and the *Actor* is the Managers)
 
 [discrete]
-=== Use case: Delete person
+=== Use Case: Add Order
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  Manager requests to add order to the FoodZoom
+2.  FoodZoom checks the format of the add command
+3.  FoodZoom adds the order to the database
+4.  FoodZoom shows success message to the manager
 +
 Use case ends.
 
 *Extensions*
 
-[none]
-* 2a. The list is empty.
+* 2a. Add command is invalid
+* 2b. FoodZoom shows an error message to the manager
 +
 Use case ends.
 
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use Case: Find orders by phone number
+
+*MSS*
+
+1.  Manager request to list orders by phone number
+2.  FoodZoom shows a list of orders and their status
+3.  Use case ends.
+
+*Extensions*
+
+* 1a. The phone number not found in the list of orders.
++
+Use case ends.
+
+[discrete]
+=== Use Case: Assign Order to Delivery man
+
+*MSS*
+
+1. Manager requests to view pending orders
+2. FoodZoom lists all orders
+3. Manager adds pending orders to planner
+4. FoodZoom shows travel route and timing details to Manager for all orders added
+5. Manager requests to add route to available deliverymen
+6. FoodZoom adds route to delivery man and displays on same screen
+7. Manager requests to show routing information
+8. Manager shown a screen showing what each deliveryman is assigned
++
+Use case ends.
+
+*Extension*
+
+* 2a.  No available orders
++
+Use case ends.
+
+* 4a.  Travel Details cannot be fetched
+** 4b.  FoodZoom shows relevant error message to user
++
+Use case ends.
+
+*	5a. No available delivery-men
+**	5b. FoodZoom shows error message
++
+Use case ends.
+
+[discrete]
+=== Use Case: Delete Order
+
+*MSS*
+
+1.  Manager requests to find the order by phone number
+2.  FoodZoom shows the order
+3.  Manager requests to delete the order
+4.  FoodZoom deletes the order
+5.  FoodZoom shows message order successfully deleted
++
+Use case ends.
+
+*Extension*
+
+* The order does not exist.
+** 1a. FoodZoom shows message that order does not exist
++
+Use case ends
+
+(For the use cases below, the *System* is FoodZoom and the *Actor* is the Delivery-men)
+
+[discrete]
+=== Use Case: View Assigned Route
+
+*MSS*
+
+1.  Delivery man logs in to the app
+2.  FoodZoom shows if delivery man has routes available
+3.  Delivery man requests for assigned route
+4.  FoodZoom shows the assigned route
+5.  Delivery man looks through each destination and checks address info
+6.  Delivery man checks for status of food
+7.  Deliveryman logs out to collect food & leave for delivery
++
+Use case ends.
+
+*Extensions*
+
+* 2a. Delivery man doesn't have any routes
++
+Use case ends
+
+* 4a. Location info is unclear to deliveryman
+** 4b. Delivery man searches for order to get customer's contact
+** 4c. Delivery man contacts customer to clarify location
++
+Use case ends
+
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. Should be able to hold up to 1000 orders and should respond within 2 seconds
+. The system should work on both 32-bit and 64-bit environments.
+. The system should only show data to the people with the <<appropriate-roles,appropriate roles>>
+. The system should persist data about orders for the past year
 
-_{More to be added}_
+
 
 [appendix]
 == Glossary
@@ -899,8 +1031,9 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[appropriate-roles]] Appropriate roles::
+Manager, Delivery Men
+
 
 [appendix]
 == Product Survey

@@ -11,13 +11,14 @@ import guitests.guihandles.CommandBoxHandle;
 import javafx.scene.input.KeyCode;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.order.ListCommand;
+import seedu.address.logic.commands.order.OrderCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
 public class CommandBoxTest extends GuiUnitTest {
 
-    private static final String COMMAND_THAT_SUCCEEDS = ListCommand.COMMAND_WORD;
+    private static final String COMMAND_THAT_SUCCEEDS = OrderCommand.COMMAND_WORD + " " + ListCommand.COMMAND_WORD;
     private static final String COMMAND_THAT_FAILS = "invalid command";
 
     private ArrayList<String> defaultStyleOfCommandBox;
@@ -91,7 +92,7 @@ public class CommandBoxTest extends GuiUnitTest {
 
         // insert command in the middle of retrieving previous commands
         guiRobot.push(KeyCode.UP);
-        String thirdCommand = "list";
+        String thirdCommand = "/order list";
         commandBoxHandle.run(thirdCommand);
         assertInputHistory(KeyCode.UP, thirdCommand);
         assertInputHistory(KeyCode.UP, COMMAND_THAT_FAILS);
@@ -127,8 +128,8 @@ public class CommandBoxTest extends GuiUnitTest {
 
     /**
      * Runs a command that fails, then verifies that <br>
-     *      - the text remains <br>
-     *      - the command box's style is the same as {@code errorStyleOfCommandBox}.
+     * - the text remains <br>
+     * - the command box's style is the same as {@code errorStyleOfCommandBox}.
      */
     private void assertBehaviorForFailedCommand() {
         commandBoxHandle.run(COMMAND_THAT_FAILS);
@@ -138,8 +139,8 @@ public class CommandBoxTest extends GuiUnitTest {
 
     /**
      * Runs a command that succeeds, then verifies that <br>
-     *      - the text is cleared <br>
-     *      - the command box's style is the same as {@code defaultStyleOfCommandBox}.
+     * - the text is cleared <br>
+     * - the command box's style is the same as {@code defaultStyleOfCommandBox}.
      */
     private void assertBehaviorForSuccessfulCommand() {
         commandBoxHandle.run(COMMAND_THAT_SUCCEEDS);
