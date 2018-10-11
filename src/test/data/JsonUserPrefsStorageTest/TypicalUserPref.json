@@ -7,5 +7,5 @@
       "y": 100
     }
   },
-  "addressBookFilePath": "data\\scheduler.xml"
+  "schedulerFilePath": "data\\scheduler.xml"
 }
