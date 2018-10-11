@@ -6,6 +6,7 @@ import static java.util.Objects.requireNonNull;
 import javafx.scene.image.Image;
 import seedu.address.model.transformation.TransformationSet;
 
+
 /**
  * Represents a layer in a canvas.
  * Guarantees that the image in the layer is not null.
@@ -13,7 +14,6 @@ import seedu.address.model.transformation.TransformationSet;
 
 public class Layer {
     private final Image image;
-
     private int x;
     private int y;
     private int height;

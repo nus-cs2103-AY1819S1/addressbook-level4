@@ -1,6 +1,10 @@
 package seedu.address.model.transformation;
 
 //@@uthor j-lum
+
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Represents a single transformation to a single layer in a canvas.
  */
@@ -17,6 +21,21 @@ public class Transformation {
     //@@author lancelotwillow
     @Override
     public String toString() {
-        return super.toString(); //whoever is in charge do this
+        String result = operation;
+        for (int i = 0; i < args.length; i++) {
+            result += "\n -" + args[i];
+        }
+        return result; //whoever is in charge do this
+    }
+
+    //@author lancelotwillow
+    /**
+     * return a list of String that contains all the arguments and the operation
+     * @return
+     */
+    public List<String> toList() {
+        List<String> list = Arrays.asList(args);
+        list.add(0, operation);
+        return list;
     }
 }
