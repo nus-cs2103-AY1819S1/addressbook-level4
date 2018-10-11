@@ -164,11 +164,11 @@ public class AddCommandTest {
         }
 
         //@@author jjlee050
-
         @Override
         public void updateFilteredDoctorList(Predicate<Doctor> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
         @Override
         public boolean canUndoAddressBook() {
             throw new AssertionError("This method should not be called.");
@@ -204,10 +204,12 @@ public class AddCommandTest {
         public void enqueueIntoPreferenceQueue(Person patient) {
             throw new AssertionError("This method should not be called.");
         }
+
         @Override
         public boolean hasPatientInMainQueue() {
             throw new AssertionError("This method should not be called.");
         }
+
         @Override
         public boolean hasPatientInPreferenceQueue() {
             throw new AssertionError("This method should not be called.");
