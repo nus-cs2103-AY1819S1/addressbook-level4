@@ -42,11 +42,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
-<<<<<<< HEAD
         this.userPrefs = userPrefs;
-=======
         sortedPersons = new SortedList<>(filteredPersons);
->>>>>>> master
     }
 
     public ModelManager() {

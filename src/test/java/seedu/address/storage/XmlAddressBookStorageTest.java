@@ -2,12 +2,14 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.HOON;
 import static seedu.address.testutil.TypicalPersons.IDA;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -117,11 +119,46 @@ public class XmlAddressBookStorageTest {
         }
     }
 
+    /**
+     * Delete {@code addressBook} at the specified {@code filePath}.
+     */
+    private void deleteAddressBook(String filePath) {
+        try {
+            new XmlAddressBookStorage(Paths.get(filePath))
+                    .deleteAddressBook(addToTestDataPathIfNotNull(filePath));
+        } catch (IOException ioe) {
+            throw new AssertionError("There should not be an error deleting to the file.", ioe);
+        }
+    }
+
     @Test
     public void saveAddressBook_nullFilePath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         saveAddressBook(new AddressBook(), null);
     }
 
+    @Test
+    public void deleteAddressBook_success() throws Exception {
+        Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.xml");
+        AddressBook original = getTypicalAddressBook();
+        XmlAddressBookStorage xmlAddressBookStorage = new XmlAddressBookStorage(filePath);
+        xmlAddressBookStorage.saveAddressBook(original, filePath);
 
+        xmlAddressBookStorage.deleteAddressBook(filePath);
+        boolean afterDelete = Files.exists(filePath);
+        assertFalse("Delete Address Book Fail!", afterDelete);
+    }
+
+    @Test
+    public void deleteAddressBook_nullFilePath_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        deleteAddressBook(null);
+    }
+
+    @Test
+    public void getAddressBookFilePath() {
+        Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.xml");
+        XmlAddressBookStorage xmlAddressBookStorage = new XmlAddressBookStorage(filePath);
+        assertEquals(xmlAddressBookStorage.getAddressBookFilePath(), filePath);
+    }
 }
