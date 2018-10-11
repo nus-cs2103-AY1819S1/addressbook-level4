@@ -44,11 +44,11 @@ public class Meeting {
             return NO_MEETING_MSG;
         }
         StringBuilder sb = new StringBuilder();
-        sb.append(" " + value.charAt(0) + value.charAt(1) + "/"
-                + value.charAt(2) + value.charAt(3) + "/"
-                + value.charAt(4) + value.charAt(5) + " at "
-                + value.charAt(6) + value.charAt(7)
-                + value.charAt(8) + value.charAt(9));
+        sb.append(" " + value.substring(0,2) + "/"
+                + value.substring(2,4) + "/"
+                + value.substring(4,6) + " at "
+                + value.substring(6,8)
+                + value.substring(8,10));
         return sb.toString();
     }
 
