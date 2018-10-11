@@ -36,6 +36,8 @@ public class XmlAdaptedPerson {
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
+    @XmlElement
+    private List<XmlAdaptedTag> grouped = new ArrayList<>();
 
     /**
      * Constructs an XmlAdaptedPerson.
@@ -47,7 +49,7 @@ public class XmlAdaptedPerson {
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
     public XmlAdaptedPerson(String name, String phone, String email, String address,
-                            List<XmlAdaptedTag> tagged) {
+                            List<XmlAdaptedTag> tagged, List<XmlAdaptedTag> groupTags) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -55,7 +57,9 @@ public class XmlAdaptedPerson {
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
-
+        if (groupTags != null) {
+            this.grouped = new ArrayList<>(groupTags);
+        }
     }
 
     /**
@@ -71,6 +75,9 @@ public class XmlAdaptedPerson {
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
+        grouped = source.getGroupTags().stream()
+                .map(XmlAdaptedTag::new)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -84,6 +91,10 @@ public class XmlAdaptedPerson {
             personTags.add(tag.toModelType());
         }
 
+        final List<Tag> personGroupTags = new ArrayList<>();
+        for (XmlAdaptedTag groupTag : grouped) {
+            personGroupTags.add(groupTag.toModelType());
+        }
 
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
@@ -118,7 +129,8 @@ public class XmlAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        final Set<Tag> modelGroupTags = new HashSet<>(personGroupTags);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelGroupTags);
     }
 
     @Override
@@ -136,6 +148,7 @@ public class XmlAdaptedPerson {
                 && Objects.equals(phone, otherPerson.phone)
                 && Objects.equals(email, otherPerson.email)
                 && Objects.equals(address, otherPerson.address)
-                && tagged.equals(otherPerson.tagged);
+                && tagged.equals(otherPerson.tagged)
+                && grouped.equals(otherPerson.grouped);
     }
 }
