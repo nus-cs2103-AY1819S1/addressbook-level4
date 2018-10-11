@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a car park's coordinate in the address book.
+ * Represents a car park's coordinate.
  * Guarantees: immutable; is valid as declared in {@link #isValidCoord(String)}
  */
 public class Coordinate {

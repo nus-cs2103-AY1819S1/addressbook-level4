@@ -10,7 +10,7 @@ import java.util.Set;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Carpark in the address book.
+ * Represents a car park.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Carpark {
