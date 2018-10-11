@@ -17,36 +17,36 @@ import seedu.address.testutil.TypicalTasks;
 public class XmlSerializableSchedulePlannerTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlSerializableSchedulePlannerTest");
-    private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalPersonsSchedulePlanner.xml");
-    private static final Path INVALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("invalidPersonSchedulePlanner.xml");
-    private static final Path DUPLICATE_PERSON_FILE = TEST_DATA_FOLDER.resolve("duplicatePersonSchedulePlanner.xml");
+    private static final Path TYPICAL_TASK_FILE = TEST_DATA_FOLDER.resolve("typicalTasksSchedulePlanner.xml");
+    private static final Path INVALID_TASK_FILE = TEST_DATA_FOLDER.resolve("invalidTaskSchedulePlanner.xml");
+    private static final Path DUPLICATE_TASK_FILE = TEST_DATA_FOLDER.resolve("duplicateTaskSchedulePlanner.xml");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void toModelType_typicalPersonsFile_success() throws Exception {
-        XmlSerializableSchedulePlanner dataFromFile = XmlUtil.getDataFromFile(TYPICAL_PERSONS_FILE,
+    public void toModelType_typicalTasksFile_success() throws Exception {
+        XmlSerializableSchedulePlanner dataFromFile = XmlUtil.getDataFromFile(TYPICAL_TASK_FILE,
                 XmlSerializableSchedulePlanner.class);
-        SchedulePlanner addressBookFromFile = dataFromFile.toModelType();
-        SchedulePlanner typicalPersonsAddressBook = TypicalTasks.getTypicalAddressBook();
-        assertEquals(addressBookFromFile, typicalPersonsAddressBook);
+        SchedulePlanner schedulePlannerFromFile = dataFromFile.toModelType();
+        SchedulePlanner typicalTasksSchedulePlanner = TypicalTasks.getTypicalSchedulePlanner();
+        assertEquals(schedulePlannerFromFile, typicalTasksSchedulePlanner);
     }
 
     @Test
-    public void toModelType_invalidPersonFile_throwsIllegalValueException() throws Exception {
-        XmlSerializableSchedulePlanner dataFromFile = XmlUtil.getDataFromFile(INVALID_PERSON_FILE,
+    public void toModelType_invalidTaskFile_throwsIllegalValueException() throws Exception {
+        XmlSerializableSchedulePlanner dataFromFile = XmlUtil.getDataFromFile(INVALID_TASK_FILE,
                 XmlSerializableSchedulePlanner.class);
         thrown.expect(IllegalValueException.class);
         dataFromFile.toModelType();
     }
 
     @Test
-    public void toModelType_duplicatePersons_throwsIllegalValueException() throws Exception {
-        XmlSerializableSchedulePlanner dataFromFile = XmlUtil.getDataFromFile(DUPLICATE_PERSON_FILE,
+    public void toModelType_duplicateTasks_throwsIllegalValueException() throws Exception {
+        XmlSerializableSchedulePlanner dataFromFile = XmlUtil.getDataFromFile(DUPLICATE_TASK_FILE,
                 XmlSerializableSchedulePlanner.class);
         thrown.expect(IllegalValueException.class);
-        thrown.expectMessage(XmlSerializableSchedulePlanner.MESSAGE_DUPLICATE_PERSON);
+        thrown.expectMessage(XmlSerializableSchedulePlanner.MESSAGE_DUPLICATE_TASK);
         dataFromFile.toModelType();
     }
 

@@ -5,7 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static seedu.address.testutil.TypicalTasks.ALICE;
 import static seedu.address.testutil.TypicalTasks.HOON;
 import static seedu.address.testutil.TypicalTasks.IDA;
-import static seedu.address.testutil.TypicalTasks.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalTasks.getTypicalSchedulePlanner;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -30,12 +30,12 @@ public class XmlSchedulePlannerStorageTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
-    public void readAddressBook_nullFilePath_throwsNullPointerException() throws Exception {
+    public void readSchedulePlanner_nullFilePath_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        readAddressBook(null);
+        readSchedulePlanner(null);
     }
 
-    private java.util.Optional<ReadOnlySchedulePlanner> readAddressBook(String filePath) throws Exception {
+    private java.util.Optional<ReadOnlySchedulePlanner> readSchedulePlanner(String filePath) throws Exception {
         return new XmlSchedulePlannerStorage(Paths.get(filePath))
                 .readSchedulePlanner(addToTestDataPathIfNotNull(filePath));
     }
@@ -48,14 +48,14 @@ public class XmlSchedulePlannerStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.xml").isPresent());
+        assertFalse(readSchedulePlanner("NonExistentFile.xml").isPresent());
     }
 
     @Test
     public void read_notXmlFormat_exceptionThrown() throws Exception {
 
         thrown.expect(DataConversionException.class);
-        readAddressBook("NotXmlFormatSchedulePlanner.xml");
+        readSchedulePlanner("NotXmlFormatSchedulePlanner.xml");
 
         /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
          * That means you should not have more than one exception test in one method
@@ -63,65 +63,65 @@ public class XmlSchedulePlannerStorageTest {
     }
 
     @Test
-    public void readAddressBook_invalidPersonAddressBook_throwDataConversionException() throws Exception {
+    public void readSchedulePlanner_invalidTaskSchedulePlanner_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidTaskSchedulePlanner.xml");
+        readSchedulePlanner("invalidTaskSchedulePlanner.xml");
     }
 
     @Test
-    public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() throws Exception {
+    public void readSchedulePlanner_invalidAndValidTaskSchedulePlanner_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidAndValidTaskSchedulePlanner.xml");
+        readSchedulePlanner("invalidAndValidTaskSchedulePlanner.xml");
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
-        Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.xml");
-        SchedulePlanner original = getTypicalAddressBook();
-        XmlSchedulePlannerStorage xmlAddressBookStorage = new XmlSchedulePlannerStorage(filePath);
+    public void readAndSaveSchedulePlanner_allInOrder_success() throws Exception {
+        Path filePath = testFolder.getRoot().toPath().resolve("TempSchedulePlanner.xml");
+        SchedulePlanner original = getTypicalSchedulePlanner();
+        XmlSchedulePlannerStorage xmlSchedulePlannerStorage = new XmlSchedulePlannerStorage(filePath);
 
         //Save in new file and read back
-        xmlAddressBookStorage.saveSchedulePlanner(original, filePath);
-        ReadOnlySchedulePlanner readBack = xmlAddressBookStorage.readSchedulePlanner(filePath).get();
+        xmlSchedulePlannerStorage.saveSchedulePlanner(original, filePath);
+        ReadOnlySchedulePlanner readBack = xmlSchedulePlannerStorage.readSchedulePlanner(filePath).get();
         assertEquals(original, new SchedulePlanner(readBack));
 
         //Modify data, overwrite exiting file, and read back
         original.addTask(HOON);
         original.removeTask(ALICE);
-        xmlAddressBookStorage.saveSchedulePlanner(original, filePath);
-        readBack = xmlAddressBookStorage.readSchedulePlanner(filePath).get();
+        xmlSchedulePlannerStorage.saveSchedulePlanner(original, filePath);
+        readBack = xmlSchedulePlannerStorage.readSchedulePlanner(filePath).get();
         assertEquals(original, new SchedulePlanner(readBack));
 
         //Save and read without specifying file path
         original.addTask(IDA);
-        xmlAddressBookStorage.saveSchedulePlanner(original); //file path not specified
-        readBack = xmlAddressBookStorage.readSchedulePlanner().get(); //file path not specified
+        xmlSchedulePlannerStorage.saveSchedulePlanner(original); //file path not specified
+        readBack = xmlSchedulePlannerStorage.readSchedulePlanner().get(); //file path not specified
         assertEquals(original, new SchedulePlanner(readBack));
 
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
+    public void saveSchedulePlanner_nullSchedulePlanner_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(null, "SomeFile.xml");
+        saveSchedulePlanner(null, "SomeFile.xml");
     }
 
     /**
-     * Saves {@code addressBook} at the specified {@code filePath}.
+     * Saves {@code schedulePlanner} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlySchedulePlanner addressBook, String filePath) {
+    private void saveSchedulePlanner(ReadOnlySchedulePlanner schedulePlanner, String filePath) {
         try {
             new XmlSchedulePlannerStorage(Paths.get(filePath))
-                    .saveSchedulePlanner(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveSchedulePlanner(schedulePlanner, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_throwsNullPointerException() {
+    public void saveSchedulePlanner_nullFilePath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(new SchedulePlanner(), null);
+        saveSchedulePlanner(new SchedulePlanner(), null);
     }
 
 

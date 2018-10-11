@@ -3,15 +3,15 @@ package seedu.address.ui;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysTask;
 
 import org.junit.Test;
 
-import guitests.guihandles.PersonCardHandle;
+import guitests.guihandles.TaskCardHandle;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.TaskBuilder;
 
-public class PersonCardTest extends GuiUnitTest {
+public class TaskCardTest extends GuiUnitTest {
 
     @Test
     public void display() {
@@ -31,42 +31,42 @@ public class PersonCardTest extends GuiUnitTest {
     @Test
     public void equals() {
         Task task = new TaskBuilder().build();
-        TaskCard personCard = new TaskCard(task, 0);
+        TaskCard taskCard = new TaskCard(task, 0);
 
         // same task, same index -> returns true
         TaskCard copy = new TaskCard(task, 0);
-        assertTrue(personCard.equals(copy));
+        assertTrue(taskCard.equals(copy));
 
         // same object -> returns true
-        assertTrue(personCard.equals(personCard));
+        assertTrue(taskCard.equals(taskCard));
 
         // null -> returns false
-        assertFalse(personCard.equals(null));
+        assertFalse(taskCard.equals(null));
 
         // different types -> returns false
-        assertFalse(personCard.equals(0));
+        assertFalse(taskCard.equals(0));
 
         // different task, same index -> returns false
         Task differentTask = new TaskBuilder().withName("differentName").build();
-        assertFalse(personCard.equals(new TaskCard(differentTask, 0)));
+        assertFalse(taskCard.equals(new TaskCard(differentTask, 0)));
 
         // same task, different index -> returns false
-        assertFalse(personCard.equals(new TaskCard(task, 1)));
+        assertFalse(taskCard.equals(new TaskCard(task, 1)));
     }
 
     /**
-     * Asserts that {@code personCard} displays the details of {@code expectedTask} correctly and matches
+     * Asserts that {@code taskCard} displays the details of {@code expectedTask} correctly and matches
      * {@code expectedId}.
      */
     private void assertCardDisplay(TaskCard taskCard, Task expectedTask, int expectedId) {
         guiRobot.pauseForHuman();
 
-        PersonCardHandle personCardHandle = new PersonCardHandle(taskCard.getRoot());
+        TaskCardHandle taskCardHandle = new TaskCardHandle(taskCard.getRoot());
 
         // verify id is displayed correctly
-        assertEquals(Integer.toString(expectedId) + ". ", personCardHandle.getId());
+        assertEquals(Integer.toString(expectedId) + ". ", taskCardHandle.getId());
 
         // verify task details are displayed correctly
-        assertCardDisplaysPerson(expectedTask, personCardHandle);
+        assertCardDisplaysTask(expectedTask, taskCardHandle);
     }
 }
