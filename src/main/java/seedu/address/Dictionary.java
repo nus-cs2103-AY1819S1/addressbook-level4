@@ -12,7 +12,7 @@ import org.jsoup.nodes.Document;
 
 
 /**
- * Dictionary logic
+ * Dictionary logic Author - Russell Ong
  */
 public class Dictionary {
     /**

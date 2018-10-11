@@ -26,7 +26,7 @@ In charge of: Documentation
 
 === Russell Ong
 image::russellong95.png[width="150", align="left"]
-{empty}[https://github.com/russellong95[github]]
+{empty}[https://github.com/RussellOng95[github]]
 
 In charge of: Team Lead and Testing
 '''
