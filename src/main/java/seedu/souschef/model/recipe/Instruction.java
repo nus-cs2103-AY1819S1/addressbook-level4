@@ -64,7 +64,7 @@ public class Instruction {
                 && value.equals(((Instruction) other).value)
                 && cookTime.equals(((Instruction) other).cookTime)
                 && ingredients.equals(((Instruction) other).ingredients)
-        ); // state check
+                ); // state check
     }
 
     @Override

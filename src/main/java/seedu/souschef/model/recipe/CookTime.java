@@ -14,8 +14,8 @@ public class CookTime {
 
     public static final String MESSAGE_COOKTIME_CONSTRAINTS =
             "Cook time should only contain unit H/M/S or H & M or M & S, and a value before each unit";
-    public static final String COOKTIME_VALIDATION_REGEX
-            = "PT(((\\d+H)(\\d+M))|((\\d+M)(\\d+S))|(\\d+H)|(\\d+M)|(\\d+S))";
+    public static final String COOKTIME_VALIDATION_REGEX =
+            "PT(((\\d+H)(\\d+M))|((\\d+M)(\\d+S))|(\\d+H)|(\\d+M)|(\\d+S))";
     public final Duration value;
 
     /**
