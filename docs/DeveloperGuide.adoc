@@ -843,69 +843,87 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |User |See usage instructions |Refer to instructions when I forget how to use the application
+|Priority |As a/an ... |I want to ... |So that I can...
+|`* * *` |Employee |See usage instructions |Get help when I forget how to use a feature of the application
 
-|`* * *` |User |Log in |Access the features of the system
+|`* * *` |Employee |Log in |Access the features of the system
 
-|`* * *` |User |Be able to change my password |Ensure that my account will not be compromised
+|`* * *` |Employee |Change my password |Ensure that my account will not be compromised
 
-|`* * *` |User |Edit my contact information |Be contacted with the updated contact information in the system
+|`* * *` |Employee |View my own profile and personal information |Check if it is up-to-date
 
-|`* * *` |User |Log out |Prevent non-authorized users of my computer from using the system
+|`* * *` |Employee |Edit my contact information |Other employees using the application can see my most contact information
 
-|`* * *` |Manager |Add a new employee |Have the new hire listed in the system
+|`* * *` |Employee |Log out |Prevent non-authorized users of my computer from accessing the system
 
-|`* * *` |Manager |Delete an employee |Remove employees that have left or have been fired by the company
+|`* * *` |Employee with "Department Manager" rights |Add a new employee into my department |Have the new hire listed in the system
 
-|`* * *` |Manager |View all my employees |Find our more about my employees
+|`* * *` |Employee with "Department Manager" rights |Delete an employee from my department |Remove employees that have left or have been fired
 
-|`* * *` |Manager |Approve or reject employee requests for leave |Plan out future projects
+|`* * *` |Employee |View all other employees in the system |Find out more about employees in the company
 
-|`* * *` |Manager |See the total manpower strength in each department |Allocate manpower to department in need for more employees
+|`* * *` |Employee |View the profile of an employee in the system |Find out more a certain employee
 
-|`* * *` |Employee |Apply for leave |Ask for approval for leave from my manager
+|`* * *` |Employee |Apply for leave |Get approval for my yearly leave from my manager
 
-|`* * *` |Manager |Sort employee by their role |Find best person for each job
+|`* * *` |Employee with "Department Manager" rights |View leave application of employees in my department |See who has applied for leave
 
-|`* *` |Manager with many employees |Sort them by name |Locate an employee easily
+|`* * *` |Employee with "Department Manager" rights |Approve or reject employee requests for leave |Plan out future projects
 
-|`* *` |Manager with many employees |Filter them by department |Locate employees in a particular department easily
+|`* * *` |Employee with "Project Leader" rights |Create a new project |Have the new project listed in the application
 
-|`* *` |Manager |See leave applications from employees |Approve or reject employee requests for leave
+|`* * *` |Employee with "Project Leader" rights |Add an employee from any department into a project I created |Have the employee listed in the project team
 
-|`* *` |Manager |View summary of leaves taken by my employees in the upcoming months |Better plan upcoming projects and manpower distribution
+|`* * *` |Employee with "Project Leader" rights |Remove an employee from a project I created |Have the employee removed from the project team
 
-|`* *` |Manager with many employees |View workload of employees under me |Delegate the work evenly
+|`* * *` |Employee with "Project Leader" rights |Assign a task to an employee in one of my projects |Delegate the required work in a project to the team
+
+|`* * *` |Employee |View all projects and project teams in the company |Find out more about ongoing projects and employees in the project teams
+
+|`* * *` |Employee |View all projects that I am a part of |Find out more about my projects and employees in the project team
+
+|`* * *` |Employee |View all tasks assigned to me by a project |Check what I have to do for a particular project 
+
+|`* *` |Employee with "Department Manager" rights |See the total manpower strength in each department |Allocate manpower to department in need for more employees
+
+|`* *` |Employee |Search for employees by a certain criteria (e.g. name, department, etc.) |Find a particular employee easily
+
+|`* *` |Employee |Sort any display list of employees by a certain criteria (e.g. name, department, etc.) |Locate a particular employee easily
+
+|`* *` |Employee |Filter any list of employees by a certain criteria (e.g. name, department, etc.) |Locate employees quickly
+
+|`* *` |Employee with "Department Manager" rights |View summary of approved leaves taken by employees in my department in the upcoming months |Better plan upcoming projects and manpower distribution
+
+|`* *` |Employee with "Department Manager" rights |View workload of employees in my department |Delegate the work evenly
 
 |`* *` |Employee |See income summary |Know my monthly income.
 
-|`* *` |Manager |Promote/demote an employee |Give the employee more access to the feature of the system
+|`* *` |Employee with "Administrative" rights |Modify the access rights of an employee |Give the employee higher or lower access to features of the system, possibly in line with promotions or demotions
 
-|`* *` |Employee |Upload a profile picture |Other users can see who I am in the system
+|`* *` |Employee with "Administrative" rights |Change the department of an employee |Have the system reflect the change of an employee moving to another department
 
-|`*` |Manager |See the performance of every department/sector |Keep track of which departments are not performing
+|`* *` |Employee |Upload a profile picture |Other users can see my face when they access my profile in the system
 
-|`*` |Manager |View the profile picture |Recognise who the employee is
+|`* *` |Employee with "Department Manager" rights |View the list of past employees that have been removed from the system |Check the archives for information about previous employees
 
-|`*` |Manager |Record accomplishments of my employees |Identify the better employees
+|`*` |Employee with "Department Manager" rights |See the performance of every department/sector |Keep track of which departments are not performing
 
-|`*` |Manager |See the list of potential hires |Easily rank my top choices on who to hire
+|`*` |Employee with "Department Manager" rights |Record accomplishments of my employees |Identify the better employees
+
+|`*` |Employee with "Department Manager" rights |See the list of potential candidates for hiring |Easily rank my top choices on who to hire
 
 |`*` |Employee |Submit claim |Claim money related to company matters
 
 |`*` |Employee |Submit overtime claim |Receive my overtime pay
 
-|`*` |Manager |See the performance of individual employees |Identify underperforming employees
+|`*` |Employee with "Department Manager" rights |See the performance of individual employees |Identify underperforming employees
 
 |`*` |Employee |View current assigned tasks to me |Track which assignments I have left to finish
 
-|`*` |Manager |Send Email |Send Email to every worker of the organization
+|`*` |Employee |Write and send email |Send an email to one or more employees in the company
 
-|`*` |Manager |Find out how much I am paying my employees in total |Calculate profit margins for the organization and any bonus for my employees at the end of the year
+|`*` |Employee with "Department Manager" rights |Find out how much I am paying my employees in total |Calculate profit margins for the organization and any bonus for my employees at the end of the year
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
