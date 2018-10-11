@@ -7,6 +7,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ArticlePanelSelectionChangedEvent;
@@ -24,13 +25,25 @@ public class ArticleDetailsPanel extends UiPart<Region> {
     @FXML
     private Label articleDetails;
 
+    @FXML
+    private FlowPane tags;
+
     public ArticleDetailsPanel() {
         super(FXML);
         registerAsAnEventHandler(this);
     }
 
+    /**
+     * Load article details into the panel.
+     *
+     * @param article The article to be loaded
+     */
     private void loadArticleDetails(Article article) {
-        Platform.runLater(() -> articleDetails.setText(article.getName().fullName));
+        Platform.runLater(() -> {
+            articleDetails.setText(article.getName().fullName);
+            tags.getChildren().clear();
+            article.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        });
     }
 
     @Subscribe

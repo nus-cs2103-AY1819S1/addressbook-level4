@@ -35,13 +35,21 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private ArticleDetailsPanel articleDetailsPanel;
+    private FinderPanel finderPanel;
+    private OwnerPanel ownerPanel;
     private ArticleListPanel articleListPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
 
     @FXML
-    private StackPane articleDetailsPlaceholder;
+    private StackPane articleDetailsPanelPlaceholder;
+
+    @FXML
+    private StackPane finderPanelPlaceholder;
+
+    @FXML
+    private StackPane ownerPanelPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -120,7 +128,13 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         articleDetailsPanel = new ArticleDetailsPanel();
-        articleDetailsPlaceholder.getChildren().add(articleDetailsPanel.getRoot());
+        articleDetailsPanelPlaceholder.getChildren().add(articleDetailsPanel.getRoot());
+
+        finderPanel = new FinderPanel();
+        finderPanelPlaceholder.getChildren().add(finderPanel.getRoot());
+
+        ownerPanel = new OwnerPanel();
+        ownerPanelPlaceholder.getChildren().add(ownerPanel.getRoot());
 
         articleListPanel = new ArticleListPanel(logic.getFilteredArticleList());
         articleListPanelPlaceholder.getChildren().add(articleListPanel.getRoot());
