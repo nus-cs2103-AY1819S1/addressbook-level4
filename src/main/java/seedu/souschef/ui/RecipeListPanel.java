@@ -7,9 +7,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.Region;
 import seedu.souschef.commons.core.LogsCenter;
 import seedu.souschef.commons.events.ui.JumpToListRequestEvent;
 import seedu.souschef.commons.events.ui.RecipePanelSelectionChangedEvent;
@@ -18,12 +16,9 @@ import seedu.souschef.model.recipe.Recipe;
 /**
  * Panel containing the list of recipes.
  */
-public class RecipeListPanel extends UiPart<Region> {
+public class RecipeListPanel extends GenericListPanel<Recipe> {
     private static final String FXML = "RecipeListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(RecipeListPanel.class);
-
-    @FXML
-    private ListView<Recipe> personListView;
 
     public RecipeListPanel(ObservableList<Recipe> recipeList) {
         super(FXML);
@@ -31,13 +26,13 @@ public class RecipeListPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
-    private void setConnections(ObservableList<Recipe> recipeList) {
+    protected void setConnections(ObservableList<Recipe> recipeList) {
         personListView.setItems(recipeList);
         personListView.setCellFactory(listView -> new RecipeListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
-    private void setEventHandlerForSelectionChangeEvent() {
+    protected void setEventHandlerForSelectionChangeEvent() {
         personListView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
@@ -47,18 +42,8 @@ public class RecipeListPanel extends UiPart<Region> {
                 });
     }
 
-    /**
-     * Scrolls to the {@code RecipeCard} at the {@code index} and selects it.
-     */
-    private void scrollTo(int index) {
-        Platform.runLater(() -> {
-            personListView.scrollTo(index);
-            personListView.getSelectionModel().clearAndSelect(index);
-        });
-    }
-
     @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
+    protected void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         scrollTo(event.targetIndex);
     }
@@ -66,7 +51,7 @@ public class RecipeListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Recipe} using a {@code RecipeCard}.
      */
-    class RecipeListViewCell extends ListCell<Recipe> {
+    class RecipeListViewCell extends ListViewCell<Recipe> {
         @Override
         protected void updateItem(Recipe recipe, boolean empty) {
             super.updateItem(recipe, empty);
