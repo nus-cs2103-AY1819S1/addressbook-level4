@@ -24,7 +24,7 @@ public class StatusBarFooter extends UiPart<Region> {
     public static final String SYNC_STATUS_INITIAL = "Not updated yet in this session";
     public static final String SYNC_STATUS_UPDATED = "Last Updated: %s";
 
-    public static final String TOTAL_VOLUNTEERS_STATUS = "%d volunteer(s) total";
+    public static final String TOTAL_VOLUNTEERS_STATUS = "Total Volunteer(s): %d";
 
     /**
      * Used to generate time stamps.
@@ -87,7 +87,7 @@ public class StatusBarFooter extends UiPart<Region> {
         setTotalVolunteers(abce.data.getPersonList().size());
     }
 
-    public void setTotalVolunteers(int totalVolunteers) {
+    private void setTotalVolunteers(int totalVolunteers) {
         Platform.runLater(() -> totalVolunteersStatus.setText(String.format(TOTAL_VOLUNTEERS_STATUS, totalVolunteers)));
     }
 }
