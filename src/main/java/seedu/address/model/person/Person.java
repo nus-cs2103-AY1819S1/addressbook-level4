@@ -43,7 +43,7 @@ public class Person {
         this.grades = grades;
         this.time = time;
         this.tags.addAll(tags);
-        this.tuitionFee = new Fees(21.034567890);
+        this.tuitionFee = new Fees(education);
     }
 
     public Name getName() {
@@ -120,7 +120,8 @@ public class Person {
                 && otherPerson.getEducation().equals(getEducation())
                 && otherPerson.getGrades().equals(getGrades())
                 && otherPerson.getTime().equals(getTime())
-                && otherPerson.getTags().equals(getTags());
+                && otherPerson.getTags().equals(getTags())
+                && otherPerson.getFees() == getFees();
     }
 
     @Override

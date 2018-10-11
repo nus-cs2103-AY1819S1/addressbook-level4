@@ -78,7 +78,7 @@ public class XmlAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
-        education = source.getEducation().value;
+        education = source.getEducation().toString();
         grades = source.getGrades().value;
         time = source.getTime().value;
         tagged = source.getTags().stream()

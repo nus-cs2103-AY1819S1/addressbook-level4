@@ -219,7 +219,7 @@ Regard the mark of the student who doesn't have a grade as 0.
 
 
 
-=======
+
 === Retrieving earnings : `earnings`
 
 Retrieve the total earnings within a range of date in the current year. +
