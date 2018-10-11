@@ -2,19 +2,17 @@ package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
-
-import seedu.address.model.person.medicalrecord.Note;
-
 /**
+ * Uncompleted class, need to add more methods and fields.
  * Represents a patient that has already consulted the doctor in the address book.
  * It has all the necessary data needed to generate any object that inherits from Document.
  */
 public class ServedPatient {
 
-    private final Name name;
-    private final IcNumber icNumber;
-    private final List<Note> note;
+    private final Patient patient;
+    private String NoteContent;
+    private String ReferralContent;
+    private String McContent;
     // add more fields as required
 
     /**
@@ -25,21 +23,38 @@ public class ServedPatient {
      */
     public ServedPatient(Patient patient) {
         requireNonNull(patient);
-        this.name = patient.getName();
-        this.icNumber = patient.getIcNumber();
-        this.note = patient.getMedicalRecord().getNotes();
+        this.patient = patient;
     }
 
     public Name getName() {
-        return name;
+        return patient.getName();
     }
 
     public IcNumber getIcNumber() {
-        return icNumber;
+        return patient.getIcNumber();
     }
 
-    public List<Note> getNote() {
-        return note;
+    /**
+     * Skeleton to add add note content.
+     */
+    public String addNoteContent(String content) {
+        NoteContent += " filler" + content;
+        return NoteContent;
     }
 
+    /**
+     * Skeleton to add referral content.
+     */
+    public String addReferralContent(String content) {
+        ReferralContent += " filler" + content;
+        return ReferralContent;
+    }
+
+    /**
+     * Skeleton to add Mc Content.
+     */
+    public String addMcContent(String content) {
+        McContent += " filler" + content;
+        return McContent;
+    }
 }

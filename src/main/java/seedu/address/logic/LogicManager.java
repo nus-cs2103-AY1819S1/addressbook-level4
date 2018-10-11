@@ -15,6 +15,7 @@ import seedu.address.model.Model;
 import seedu.address.model.PatientQueue;
 import seedu.address.model.PatientQueueManager;
 import seedu.address.model.person.Patient;
+import seedu.address.model.person.ServedPatient;
 
 /**
  * The main LogicManager of the app.
@@ -26,6 +27,7 @@ public class LogicManager extends ComponentManager implements Logic {
     private final CommandHistory history;
     private final AddressBookParser addressBookParser;
     private final PatientQueue patientQueue;
+    private ServedPatient currentPatient;
 
     public LogicManager(Model model) {
         this.model = model;
@@ -40,7 +42,7 @@ public class LogicManager extends ComponentManager implements Logic {
         try {
             Command command = addressBookParser.parseCommand(commandText);
             if (command instanceof QueueCommand) {
-                return ((QueueCommand) command).execute(model, patientQueue, history);
+                return ((QueueCommand) command).execute(model, patientQueue, currentPatient, history);
             }
             return command.execute(model, history);
         } finally {
