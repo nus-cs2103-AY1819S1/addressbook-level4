@@ -126,7 +126,6 @@ public class AddCommandSystemTest extends SchedulePlannerSystemTest {
         //assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
 
         /* Case: add a duplicate task except with different email -> rejected */
-        //commented off as task are unique when one field is different       
         //toAdd = new TaskBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
         //command = TaskUtil.getAddCommand(toAdd);
         //assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);

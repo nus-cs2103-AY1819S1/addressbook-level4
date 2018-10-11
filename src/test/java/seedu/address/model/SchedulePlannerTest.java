@@ -48,7 +48,6 @@ public class SchedulePlannerTest {
         assertEquals(newData, schedulePlanner);
     }
 
-    
     // OLD TEST
     /*
     public void resetData_withDuplicateTasks_throwsDuplicateTaskException() {
