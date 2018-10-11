@@ -3,7 +3,6 @@ package seedu.address.commons.util;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,8 +10,10 @@ import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Lesson;
 import seedu.address.model.person.TimeTable;
+
 
 /**
  * @author adjscent
@@ -79,20 +80,20 @@ public class TimeTableUtil {
 
             // Redirect failure handler
             if (longUrlString.equals("") || longUrlString == null) {
-                throw new ParseException(INVALID_URL, 0);
+                throw new ParseException(INVALID_URL);
             }
 
             // Invalid short url handler
             if (longUrlString.equals(("http://modsn.us"))) {
-                throw new ParseException(INVALID_URL, 0);
+                throw new ParseException(INVALID_URL);
             }
 
             return longUrlString;
 
         } catch (IOException e) {
-            throw new ParseException(INVALID_URL, 0);
+            throw new ParseException(INVALID_URL);
         } catch (Exception e) {
-            throw new ParseException(INVALID_URL, 0);
+            throw new ParseException(INVALID_URL);
         }
 
     }
@@ -210,7 +211,7 @@ public class TimeTableUtil {
 
             return lessons;
         } catch (IOException exception) {
-            throw new ParseException(API_CALL_FAILURE, 0);
+            throw new ParseException(API_CALL_FAILURE);
         }
     }
 }

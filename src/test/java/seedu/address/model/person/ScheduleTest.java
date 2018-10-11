@@ -6,6 +6,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_SCHEDULE;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.testutil.Assert;
 
 
@@ -38,7 +39,7 @@ class ScheduleTest {
     }
 
     @Test
-    public void getTimeDay() {
+    public void getTimeDay() throws ParseException {
         Schedule s = new Schedule();
         assertFalse (s.getTimeDay("monday", "0100"));
         assertFalse (s.getTimeDay("tuesday", "0100"));
@@ -47,17 +48,19 @@ class ScheduleTest {
         assertFalse (s.getTimeDay("friday", "0100"));
         assertFalse (s.getTimeDay("saturday", "0100"));
         assertFalse (s.getTimeDay("sunday", "0100"));
-        //s.getTimeDay("unknown", "0100");
+        Assert.assertThrows(ParseException.class, () -> s
+            .setTimeDay("unknown", "0130", true)
+        );
         assertFalse (s.getTimeDay("monday", "0130"));
 
     }
 
     @Test
-    public void setTimeDay() {
+    public void setTimeDay() throws ParseException {
         Schedule s = new Schedule();
         s.setTimeDay("monday", "0100", true);
         s.setTimeDay("monday", "0130", true);
-        Assert.assertThrows(ArrayIndexOutOfBoundsException.class, () -> s
+        Assert.assertThrows(ParseException.class, () -> s
             .setTimeDay("unknown", "0130", true)
         );
     }
@@ -83,5 +86,13 @@ class ScheduleTest {
         Schedule s2 = new Schedule();
         s1.xor(s2);
         assertTrue (s1.valueToString().equals(emptyScheduleString));
+    }
+
+    @Test
+    void freeTimeToString() throws ParseException {
+        Schedule s1 = new Schedule();
+        s1.setTimeDay("monday", "1100", true);
+        s1.setTimeDay("monday", "0130", true);
+        s1.freeTimeToString();
     }
 }

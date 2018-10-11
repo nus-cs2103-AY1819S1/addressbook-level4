@@ -13,6 +13,8 @@ import seedu.address.model.person.Schedule;
 
 /**
  * Max Schedule Command
+ *
+ * @author adjscent
  */
 public class MaxScheduleCommand extends Command {
     public static final String COMMAND_WORD = "maxSchedule";
@@ -20,7 +22,7 @@ public class MaxScheduleCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Find free time between several users. "
         + "Parameters: "
         + "1 2 3 4 5 ...";
-    public static final String MESSAGE_SUCCESS = "Free time found %1$s!";
+    public static final String MESSAGE_SUCCESS = "Free time found: %1$s!";
     public static final String MESSAGE_PERSON_DOES_NOT_EXIST = "This person does not exist in the address book";
 
 
@@ -41,18 +43,20 @@ public class MaxScheduleCommand extends Command {
 
         schedule = new Schedule();
         ArrayList<Person> persons = new ArrayList<Person>();
+        String text = "";
 
         try {
             for (Index index : indexs) {
                 Person person = model.getPerson(index);
                 persons.add(person);
                 schedule = Schedule.maxSchedule(schedule, person.getSchedule());
+                text = schedule.freeTimeToString();
+
             }
         } catch (Exception e) {
             throw new CommandException(MESSAGE_PERSON_DOES_NOT_EXIST);
         }
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, schedule.valueToString()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, text));
     }
 
     @Override
