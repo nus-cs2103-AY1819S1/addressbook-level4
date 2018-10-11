@@ -7,8 +7,9 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.AddressBook;
 import seedu.address.commons.util.GsonUtil;
+
+import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.carpark.Address;
 import seedu.address.model.carpark.Carpark;
@@ -39,14 +40,11 @@ public class SampleDataUtil {
             carparkList.add(c);
         }
         return carparkList.toArray(new Carpark[0]);
-
-//        return new Carpark[0];
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() throws IOException {
         AddressBook sampleAb = new AddressBook();
         for (Carpark sampleCarpark : getSampleCarpark()) {
-//            System.out.println(sampleCarpark);
             sampleAb.addCarpark(sampleCarpark);
         }
         return sampleAb;
