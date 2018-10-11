@@ -56,7 +56,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code phone} is invalid.
      */
-    public static Date parsePhone(String phone) throws ParseException {
+    public static Date parseDate(String phone) throws ParseException {
         requireNonNull(phone);
         String trimmedPhone = phone.trim();
         if (!Date.isValidPhone(trimmedPhone)) {
@@ -71,7 +71,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code address} is invalid.
      */
-    public static Venue parseAddress(String address) throws ParseException {
+    public static Venue parseVenue(String address) throws ParseException {
         requireNonNull(address);
         String trimmedAddress = address.trim();
         if (!Venue.isValidAddress(trimmedAddress)) {
@@ -86,7 +86,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code email} is invalid.
      */
-    public static Priority parseEmail(String email) throws ParseException {
+    public static Priority parsePriority(String email) throws ParseException {
         requireNonNull(email);
         String trimmedEmail = email.trim();
         if (!Priority.isValidPriority(trimmedEmail)) {
