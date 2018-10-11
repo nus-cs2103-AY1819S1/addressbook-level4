@@ -6,10 +6,21 @@ package seedu.address.logic.parser;
 public class CliSyntax {
 
     /* Prefix definitions */
-    public static final Prefix PREFIX_NAME = new Prefix("n/");
-    public static final Prefix PREFIX_PHONE = new Prefix("p/");
-    public static final Prefix PREFIX_EMAIL = new Prefix("e/");
-    public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
-    public static final Prefix PREFIX_TAG = new Prefix("t/");
 
+    /*
+     * The prefix morphing is as follows:
+     * Email -> Priority
+     * Phone -> Date
+     * Address -> Venue
+     */
+    public static final Prefix PREFIX_NAME = new Prefix("n/");
+    public static final Prefix PREFIX_VENUE = new Prefix("v/");
+    public static final Prefix PREFIX_TAG = new Prefix("t/");
+    public static final Prefix PREFIX_DATE = new Prefix("d/");
+    public static final Prefix PREFIX_PRIORITY = new Prefix("pl/");
+
+    /* To be removed. */
+    public static final Prefix PREFIX_PHONE = new Prefix("p/");
+    public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
+    public static final Prefix PREFIX_EMAIL = new Prefix("e/");
 }

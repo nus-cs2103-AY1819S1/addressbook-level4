@@ -48,11 +48,20 @@ public class SchedulePlannerTest {
         assertEquals(newData, schedulePlanner);
     }
 
-    @Test
+    
+    // OLD TEST
+    /*
     public void resetData_withDuplicateTasks_throwsDuplicateTaskException() {
         // Two tasks with the same identity fields
         Task editedAlice = new TaskBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
+    */
+    @Test
+    public void resetData_withDuplicateTasks_throwsDuplicateTaskException() {
+        // Two tasks with the same fields
+
+        //Task editedAlice = new TaskBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        Task editedAlice = new TaskBuilder(ALICE).build();
         List<Task> newTasks = Arrays.asList(ALICE, editedAlice);
         SchedulePlannerStub newData = new SchedulePlannerStub(newTasks);
 
@@ -77,12 +86,20 @@ public class SchedulePlannerTest {
         assertTrue(schedulePlanner.hasTask(ALICE));
     }
 
-    @Test
+    // OLD TEST
+    /*
     public void hasTask_taskWithSameIdentityFieldsInSchedulePlanner_returnsTrue() {
         schedulePlanner.addTask(ALICE);
         Task editedAlice = new TaskBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(schedulePlanner.hasTask(editedAlice));
+    */
+    @Test
+    public void hasTask_taskWithNotAllSameFieldsInSchedulePlanner_returnsFalse() {
+        schedulePlanner.addTask(ALICE);
+        Task editedAlice = new TaskBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+                .build();
+        assertFalse(schedulePlanner.hasTask(editedAlice));
     }
 
     @Test

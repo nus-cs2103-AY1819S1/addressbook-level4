@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.TaskCardHandle;
 import guitests.guihandles.TaskListPanelHandle;
+
 import seedu.address.model.task.Task;
 
 /**
@@ -31,9 +32,9 @@ public class GuiTestAssert {
      */
     public static void assertCardDisplaysTask(Task expectedTask, TaskCardHandle actualCard) {
         assertEquals(expectedTask.getName().fullName, actualCard.getName());
-        assertEquals(expectedTask.getPhone().value, actualCard.getPhone());
-        assertEquals(expectedTask.getEmail().value, actualCard.getEmail());
-        assertEquals(expectedTask.getAddress().value, actualCard.getAddress());
+        assertEquals(expectedTask.getDate().value, actualCard.getPhone());
+        assertEquals(expectedTask.getPriority().value, actualCard.getEmail());
+        assertEquals(expectedTask.getVenue().value, actualCard.getAddress());
         assertEquals(expectedTask.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
                 actualCard.getTags());
     }

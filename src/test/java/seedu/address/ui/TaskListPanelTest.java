@@ -16,6 +16,7 @@ import org.junit.Test;
 
 import guitests.guihandles.TaskCardHandle;
 import guitests.guihandles.TaskListPanelHandle;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
@@ -57,6 +58,7 @@ public class TaskListPanelTest extends GuiUnitTest {
 
         TaskCardHandle expectedTask = taskListPanelHandle.getTaskCardHandle(INDEX_SECOND_TASK.getZeroBased());
         TaskCardHandle selectedTask = taskListPanelHandle.getHandleToSelectedCard();
+
         assertCardEquals(expectedTask, selectedTask);
     }
 
@@ -95,9 +97,10 @@ public class TaskListPanelTest extends GuiUnitTest {
         for (int i = 0; i < taskCount; i++) {
             builder.append("<tasks>\n");
             builder.append("<name>").append(i).append("a</name>\n");
-            builder.append("<phone>000</phone>\n");
-            builder.append("<email>a@aa</email>\n");
-            builder.append("<address>a</address>\n");
+            builder.append("<date>000</date>\n");
+            //builder.append("<priority>a@aa</priority>\n");
+            builder.append("<priority>1</priority>\n");
+            builder.append("<venue>a</venue>\n");
             builder.append("</tasks>\n");
         }
         builder.append("</scheduleplanner>\n");

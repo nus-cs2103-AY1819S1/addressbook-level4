@@ -7,20 +7,20 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Task's phone number in the Schedule Planner.
  * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
  */
-public class Phone {
+public class Date {
 
 
     public static final String MESSAGE_PHONE_CONSTRAINTS =
-            "Phone numbers should only contain numbers, and it should be at least 3 digits long";
+            "Date numbers should only contain numbers, and it should be at least 3 digits long";
     public static final String PHONE_VALIDATION_REGEX = "\\d{3,}";
     public final String value;
 
     /**
-     * Constructs a {@code Phone}.
+     * Constructs a {@code Date}.
      *
      * @param phone A valid phone number.
      */
-    public Phone(String phone) {
+    public Date(String phone) {
         requireNonNull(phone);
         checkArgument(isValidPhone(phone), MESSAGE_PHONE_CONSTRAINTS);
         value = phone;
@@ -41,8 +41,8 @@ public class Phone {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Phone // instanceof handles nulls
-                && value.equals(((Phone) other).value)); // state check
+                || (other instanceof Date // instanceof handles nulls
+                && value.equals(((Date) other).value)); // state check
     }
 
     @Override
