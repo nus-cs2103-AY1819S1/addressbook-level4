@@ -1,10 +1,12 @@
 package seedu.address.model;
 
+import java.util.ArrayList;
+import java.util.logging.Logger;
+
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.ServedPatient;
 
-import java.util.logging.Logger;
-import java.util.ArrayList;
+
 
 
 /**
