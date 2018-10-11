@@ -6,8 +6,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TestUtil.getPerson;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TestUtil.getTask;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TASK;
 import static seedu.address.testutil.TypicalTasks.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
@@ -20,7 +20,7 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.task.Task;
 
-public class DeleteCommandSystemTest extends AddressBookSystemTest {
+public class DeleteCommandSystemTest extends SchedulePlannerSystemTest {
 
     private static final String MESSAGE_INVALID_DELETE_COMMAND_FORMAT =
             String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
@@ -31,15 +31,15 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: delete the first task in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
-        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_PERSON.getOneBased() + "       ";
-        Task deletedTask = removePerson(expectedModel, INDEX_FIRST_PERSON);
+        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_TASK.getOneBased() + "       ";
+        Task deletedTask = removeTask(expectedModel, INDEX_FIRST_TASK);
         String expectedResultMessage = String.format(MESSAGE_DELETE_TASK_SUCCESS, deletedTask);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
         /* Case: delete the last task in the list -> deleted */
         Model modelBeforeDeletingLast = getModel();
-        Index lastPersonIndex = getLastIndex(modelBeforeDeletingLast);
-        assertCommandSuccess(lastPersonIndex);
+        Index lastTaskIndex = getLastIndex(modelBeforeDeletingLast);
+        assertCommandSuccess(lastTaskIndex);
 
         /* Case: undo deleting the last task in the list -> last task restored */
         command = UndoCommand.COMMAND_WORD;
@@ -48,26 +48,26 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: redo deleting the last task in the list -> last task deleted again */
         command = RedoCommand.COMMAND_WORD;
-        removePerson(modelBeforeDeletingLast, lastPersonIndex);
+        removeTask(modelBeforeDeletingLast, lastTaskIndex);
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
 
         /* Case: delete the middle task in the list -> deleted */
-        Index middlePersonIndex = getMidIndex(getModel());
-        assertCommandSuccess(middlePersonIndex);
+        Index middleTaskIndex = getMidIndex(getModel());
+        assertCommandSuccess(middleTaskIndex);
 
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
         /* Case: filtered task list, delete index within bounds of address book and task list -> deleted */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        Index index = INDEX_FIRST_PERSON;
+        showTasksWithName(KEYWORD_MATCHING_MEIER);
+        Index index = INDEX_FIRST_TASK;
         assertTrue(index.getZeroBased() < getModel().getFilteredTaskList().size());
         assertCommandSuccess(index);
 
         /* Case: filtered task list, delete index within bounds of address book but out of bounds of task list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showTasksWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getSchedulePlanner().getTaskList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
@@ -75,13 +75,13 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         /* --------------------- Performing delete operation while a task card is selected ------------------------ */
 
         /* Case: delete the selected task -> task list panel selects the task before the deleted task */
-        showAllPersons();
+        showAllTasks();
         expectedModel = getModel();
         Index selectedIndex = getLastIndex(expectedModel);
         Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);
-        selectPerson(selectedIndex);
+        selectTask(selectedIndex);
         command = DeleteCommand.COMMAND_WORD + " " + selectedIndex.getOneBased();
-        deletedTask = removePerson(expectedModel, selectedIndex);
+        deletedTask = removeTask(expectedModel, selectedIndex);
         expectedResultMessage = String.format(MESSAGE_DELETE_TASK_SUCCESS, deletedTask);
         assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
 
@@ -112,11 +112,11 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Removes the {@code Task} at the specified {@code index} in {@code model}'s address book.
+     * Removes the {@code Task} at the specified {@code index} in {@code model}'s schedule planner.
      * @return the removed task
      */
-    private Task removePerson(Model model, Index index) {
-        Task targetTask = getPerson(model, index);
+    private Task removeTask(Model model, Index index) {
+        Task targetTask = getTask(model, index);
         model.deleteTask(targetTask);
         return targetTask;
     }
@@ -128,7 +128,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      */
     private void assertCommandSuccess(Index toDelete) {
         Model expectedModel = getModel();
-        Task deletedTask = removePerson(expectedModel, toDelete);
+        Task deletedTask = removeTask(expectedModel, toDelete);
         String expectedResultMessage = String.format(MESSAGE_DELETE_TASK_SUCCESS, deletedTask);
 
         assertCommandSuccess(
@@ -143,8 +143,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * 4. Asserts that the status bar's sync status changes.<br>
      * 5. Asserts that the command box has the default style class.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code SchedulePlannerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.
+     * @see SchedulePlannerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
         assertCommandSuccess(command, expectedModel, expectedResultMessage, null);
@@ -154,7 +154,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String)} except that the browser url
      * and selected card are expected to update accordingly depending on the card at {@code expectedSelectedCardIndex}.
      * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
-     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
+     * @see SchedulePlannerSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
@@ -178,8 +178,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * 3. Asserts that the browser url, selected card and status bar remain unchanged.<br>
      * 4. Asserts that the command box has the error style.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code SchedulePlannerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see SchedulePlannerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

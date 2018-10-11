@@ -1,50 +1,50 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!-- SchedulePlanner save file which contains the same Task values as in TypicalPersons#getTypicalAddressBook() -->
-<addressbook>
-    <persons>
+<!-- SchedulePlanner save file which contains the same Task values as in TypicalTasks#getTypicalAddressBook() -->
+<scheduleplanner>
+    <tasks>
         <name>Alice Pauline</name>
         <date>94351253</date>
         <priority>1</priority>
         <venue>123, Jurong West Ave 6, #08-111</venue>
         <tagged>friends</tagged>
-    </persons>
-    <persons>
+    </tasks>
+    <tasks>
         <name>Benson Meier</name>
         <date>98765432</date>
         <priority>2</priority>
         <venue>311, Clementi Ave 2, #02-25</venue>
         <tagged>owesMoney</tagged>
         <tagged>friends</tagged>
-    </persons>
-    <persons>
+    </tasks>
+    <tasks>
         <name>Carl Kurz</name>
         <date>95352563</date>
         <priority>3</priority>
         <venue>wall street</venue>
-    </persons>
-    <persons>
+    </tasks>
+    <tasks>
         <name>Daniel Meier</name>
         <date>87652533</date>
         <priority>1</priority>
         <venue>10th street</venue>
         <tagged>friends</tagged>
-    </persons>
-    <persons>
+    </tasks>
+    <tasks>
         <name>Elle Meyer</name>
         <date>9482224</date>
         <priority>2</priority>
         <venue>michegan ave</venue>
-    </persons>
-    <persons>
+    </tasks>
+    <tasks>
         <name>Fiona Kunz</name>
         <date>9482427</date>
         <priority>3</priority>
         <venue>little tokyo</venue>
-    </persons>
-    <persons>
+    </tasks>
+    <tasks>
         <name>George Best</name>
         <date>9482442</date>
         <priority>1</priority>
         <venue>4th street</venue>
-    </persons>
-</addressbook>
+    </tasks>
+</scheduleplanner>
