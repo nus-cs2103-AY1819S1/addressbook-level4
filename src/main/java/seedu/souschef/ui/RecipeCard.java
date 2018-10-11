@@ -9,7 +9,7 @@ import seedu.souschef.model.recipe.Recipe;
 /**
  * An UI component that displays information of a {@code Recipe}.
  */
-public class RecipeCard extends GenericCard<Recipe> {//UiPart<Region> {
+public class RecipeCard extends GenericCard<Recipe> {
 
     private static final String FXML = "RecipeListCard.fxml";
 
