@@ -35,5 +35,4 @@ public interface ServedPatientList {
      * @return true if the list contains patient.
      */
     boolean contains(ServedPatient patient);
-
 }
