@@ -18,7 +18,7 @@ import org.junit.rules.ExpectedException;
 import seedu.jxmusic.model.AddressBook;
 import seedu.jxmusic.storage.XmlAdaptedPerson;
 import seedu.jxmusic.storage.XmlAdaptedTag;
-import seedu.jxmusic.storage.XmlSerializableAddressBook;
+import seedu.jxmusic.storage.JsonSerializableLibrary;
 import seedu.jxmusic.testutil.LibraryBuilder;
 import seedu.jxmusic.testutil.PlaylistBuilder;
 import seedu.jxmusic.testutil.TestUtil;
@@ -71,7 +71,7 @@ public class XmlUtilTest {
 
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
-        AddressBook dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableAddressBook.class).toModelType();
+        AddressBook dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, JsonSerializableLibrary.class).toModelType();
         assertEquals(9, dataFromFile.getPersonList().size());
     }
 
@@ -123,17 +123,17 @@ public class XmlUtilTest {
     @Test
     public void saveDataToFile_validFile_dataSaved() throws Exception {
         FileUtil.createFile(TEMP_FILE);
-        XmlSerializableAddressBook dataToWrite = new XmlSerializableAddressBook(new AddressBook());
+        JsonSerializableLibrary dataToWrite = new JsonSerializableLibrary(new AddressBook());
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
+        JsonSerializableLibrary dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, JsonSerializableLibrary.class);
         assertEquals(dataToWrite, dataFromFile);
 
         LibraryBuilder builder = new LibraryBuilder(new AddressBook());
-        dataToWrite = new XmlSerializableAddressBook(
+        dataToWrite = new JsonSerializableLibrary(
                 builder.withPerson(new PlaylistBuilder().build()).build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-        dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
+        dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, JsonSerializableLibrary.class);
         assertEquals(dataToWrite, dataFromFile);
     }
 

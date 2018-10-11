@@ -21,7 +21,7 @@ import javafx.collections.ObservableList;
 import seedu.jxmusic.commons.events.ui.JumpToListRequestEvent;
 import seedu.jxmusic.commons.util.FileUtil;
 import seedu.jxmusic.commons.util.XmlUtil;
-import seedu.jxmusic.storage.XmlSerializableAddressBook;
+import seedu.jxmusic.storage.JsonSerializableLibrary;
 
 public class PersonListPanelTest extends GuiUnitTest {
     private static final ObservableList<Person> TYPICAL_PERSONS =
@@ -80,8 +80,8 @@ public class PersonListPanelTest extends GuiUnitTest {
      */
     private ObservableList<Person> createBackingList(int personCount) throws Exception {
         Path xmlFile = createXmlFileWithPersons(personCount);
-        XmlSerializableAddressBook xmlAddressBook =
-                XmlUtil.getDataFromFile(xmlFile, XmlSerializableAddressBook.class);
+        JsonSerializableLibrary xmlAddressBook =
+                XmlUtil.getDataFromFile(xmlFile, JsonSerializableLibrary.class);
         return FXCollections.observableArrayList(xmlAddressBook.toModelType().getPersonList());
     }
 

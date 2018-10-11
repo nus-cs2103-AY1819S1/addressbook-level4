@@ -1,3 +1,5 @@
+// UNUSED COMMAND BUT CAN BE USED AS REFERENCE
+//
 //package seedu.jxmusic.logic.commands;
 //
 //import static java.util.Objects.requireNonNull;

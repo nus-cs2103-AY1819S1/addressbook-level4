@@ -32,7 +32,7 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        XmlAddressBookStorage addressBookStorage = new XmlAddressBookStorage(getTempFilePath("ab"));
+        JsonLibraryStorage addressBookStorage = new JsonLibraryStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
     }
@@ -60,24 +60,24 @@ public class StorageManagerTest {
     public void addressBookReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link XmlAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link XmlAddressBookStorageTest} class.
+         * {@link JsonLibraryStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonLibraryStorageTest} class.
          */
         AddressBook original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyLibrary retrieved = storageManager.readAddressBook().get();
+        storageManager.saveLibrary(original);
+        ReadOnlyLibrary retrieved = storageManager.readLibrary().get();
         assertEquals(original, new AddressBook(retrieved));
     }
 
     @Test
     public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+        assertNotNull(storageManager.getLibraryFilePath());
     }
 
     @Test
     public void handleAddressBookChangedEvent_exceptionThrown_eventRaised() {
         // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
-        Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub(Paths.get("dummy")),
+        Storage storage = new StorageManager(new JsonLibraryStorageExceptionThrowingStub(Paths.get("dummy")),
                                              new JsonUserPrefsStorage(Paths.get("dummy")));
         storage.handleAddressBookChangedEvent(new LibraryChangedEvent(new AddressBook()));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
@@ -87,14 +87,14 @@ public class StorageManagerTest {
     /**
      * A Stub class to throw an exception when the save method is called
      */
-    class XmlAddressBookStorageExceptionThrowingStub extends XmlAddressBookStorage {
+    class JsonLibraryStorageExceptionThrowingStub extends JsonLibraryStorage {
 
-        public XmlAddressBookStorageExceptionThrowingStub(Path filePath) {
+        public JsonLibraryStorageExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyLibrary addressBook, Path filePath) throws IOException {
+        public void saveLibrary(ReadOnlyLibrary addressBook, Path filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }

@@ -4,6 +4,7 @@ import java.io.File;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 
 /**
  * Playlist1 structure used by Player
@@ -32,6 +33,7 @@ public class PlayableTrack implements Playable {
     @Override
     public void stop() {
         System.out.println("playabletrack stop");
+        mediaPlayer.setStartTime(new Duration(0));
         mediaPlayer.stop();
     }
 
@@ -39,6 +41,12 @@ public class PlayableTrack implements Playable {
     public void pause() {
         System.out.println("playabletrack pause");
         mediaPlayer.pause();
+    }
+
+    @Override
+    public void seek(Duration time) {
+        System.out.println("playabletrack seek to " + time.toSeconds() + " second(s)");
+        mediaPlayer.seek(time);
     }
 
     public void setOnEndOfMedia(Runnable runnable) {
