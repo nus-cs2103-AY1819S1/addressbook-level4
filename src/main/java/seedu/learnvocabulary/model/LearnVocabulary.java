@@ -1,0 +1,150 @@
+package seedu.learnvocabulary.model;
+
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+import java.util.Random;
+
+import javafx.collections.ObservableList;
+import seedu.learnvocabulary.model.tag.Tag;
+import seedu.learnvocabulary.model.word.UniqueWordList;
+import seedu.learnvocabulary.model.word.Word;
+
+
+/**
+ * Wraps all data at the learnvocabulary-book level
+ * Duplicates are not allowed (by .isSameWord comparison)
+ */
+public class LearnVocabulary implements ReadOnlyLearnVocabulary {
+
+    private final UniqueWordList words;
+    private Word triviaQ;
+    /*
+     * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
+     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
+     *
+     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
+     *   among constructors.
+     */
+    {
+        words = new UniqueWordList();
+    }
+
+    public LearnVocabulary() {}
+
+    /**
+     * Creates an LearnVocabulary using the Words in the {@code toBeCopied}
+     */
+    public LearnVocabulary(ReadOnlyLearnVocabulary toBeCopied) {
+        this();
+        resetData(toBeCopied);
+    }
+
+    //// list overwrite operations
+
+    /**
+     * Replaces the contents of the word list with {@code words}.
+     * {@code words} must not contain duplicate words.
+     */
+    public void setWords(List<Word> words) {
+        this.words.setWords(words);
+    }
+
+    /**
+     * Resets the existing data of this {@code LearnVocabulary} with {@code newData}.
+     */
+    public void resetData(ReadOnlyLearnVocabulary newData) {
+        requireNonNull(newData);
+
+        setWords(newData.getWordList());
+    }
+
+    //// word-level operations
+
+    /**
+     * Returns true if a word with the same identity as {@code word} exists in the learnvocabulary book.
+     */
+    public boolean hasWord(Word word) {
+        requireNonNull(word);
+        return words.contains(word);
+    }
+
+    /**
+     * Returns true if a tag with the same identity as {@code tag} exists in the learnvocabulary book.
+     */
+    public boolean hasTag(Tag tag) {
+        requireNonNull(tag);
+        for (Word word: words) {
+            if (word.getTags().contains(tag)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    /**
+     * Adds a word to the learnvocabulary book.
+     * The word must not already exist in the learnvocabulary book.
+     */
+    public void addWord(Word p) {
+        words.add(p);
+    }
+
+    /**
+     * Replaces the given word {@code target} in the list with {@code editedWord}.
+     * {@code target} must exist in the learnvocabulary book.
+     * The word identity of {@code editedWord} must not be
+     * the same as another existing word in the learnvocabulary book.
+     */
+    public void updateWord(Word target, Word editedWord) {
+        requireNonNull(editedWord);
+
+        words.setWord(target, editedWord);
+    }
+
+    public void setTrivia() {
+        ObservableList<Word> triviaRef = words.asUnmodifiableObservableList();
+        int length = triviaRef.size();
+        Random random = new Random();
+        triviaQ = triviaRef.get(random.nextInt(length));
+
+    }
+    public Word getTrivia() {
+        requireNonNull(triviaQ);
+        return triviaQ;
+    }
+
+    /**
+     * Removes {@code key} from this {@code LearnVocabulary}.
+     * {@code key} must exist in the learnvocabulary book.
+     */
+    public void removeWord(Word key) {
+        words.remove(key);
+    }
+
+    //// util methods
+
+    @Override
+    public String toString() {
+        return words.asUnmodifiableObservableList().size() + " words";
+        // TODO: refine later
+    }
+
+    @Override
+    public ObservableList<Word> getWordList() {
+        return words.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof LearnVocabulary // instanceof handles nulls
+                && words.equals(((LearnVocabulary) other).words));
+    }
+
+    @Override
+    public int hashCode() {
+        return words.hashCode();
+    }
+
+
+}
