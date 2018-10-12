@@ -3,48 +3,48 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.MEANING_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BOB;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.MEANING_DESC;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
+import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.learnvocabulary.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.learnvocabulary.model.Model.PREDICATE_SHOW_ALL_WORDS;
+import static seedu.learnvocabulary.testutil.TypicalIndexes.INDEX_FIRST_WORD;
+import static seedu.learnvocabulary.testutil.TypicalIndexes.INDEX_SECOND_WORD;
+import static seedu.learnvocabulary.testutil.TypicalWords.AMY;
+import static seedu.learnvocabulary.testutil.TypicalWords.BOB;
+import static seedu.learnvocabulary.testutil.TypicalWords.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Word;
-import seedu.address.model.tag.Tag;
-import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.PersonUtil;
+import seedu.learnvocabulary.commons.core.Messages;
+import seedu.learnvocabulary.commons.core.index.Index;
+import seedu.learnvocabulary.logic.commands.EditCommand;
+import seedu.learnvocabulary.logic.commands.RedoCommand;
+import seedu.learnvocabulary.logic.commands.UndoCommand;
+import seedu.learnvocabulary.model.Model;
+import seedu.learnvocabulary.model.tag.Tag;
+import seedu.learnvocabulary.model.word.Address;
+import seedu.learnvocabulary.model.word.Name;
+import seedu.learnvocabulary.model.word.Phone;
+import seedu.learnvocabulary.model.word.Word;
+import seedu.learnvocabulary.testutil.WordBuilder;
+import seedu.learnvocabulary.testutil.WordUtil;
 
-public class EditCommandSystemTest extends AddressBookSystemTest {
+public class EditCommandSystemTest extends LearnVocabularySystemTest {
 
     @Test
     public void edit() {
@@ -55,10 +55,10 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         /* Case: edit all fields, command with leading spaces, trailing spaces and multiple spaces between each field
          * -> edited
          */
-        Index index = INDEX_FIRST_PERSON;
+        Index index = INDEX_FIRST_WORD;
         String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
                 + MEANING_DESC + " " + PHONE_DESC_BOB + " " + ADDRESS_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
-        Word editedWord = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
+        Word editedWord = new WordBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
         assertCommandSuccess(command, index, editedWord);
 
         /* Case: undo editing the last word in the list -> last word restored */
@@ -69,8 +69,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         /* Case: redo editing the last word in the list -> last word edited again */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        model.updatePerson(
-                getModel().getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()), editedWord);
+        model.updateWord(
+                getModel().getFilteredWordList().get(INDEX_FIRST_WORD.getZeroBased()), editedWord);
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: edit a word with new values same as existing values -> edited */
@@ -79,57 +79,57 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, index, BOB);
 
         /* Case: edit a word with new values same as another word's values but with different name -> edited */
-        assertTrue(getModel().getAddressBook().getPersonList().contains(BOB));
-        index = INDEX_SECOND_PERSON;
-        assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), BOB);
+        assertTrue(getModel().getLearnVocabulary().getWordList().contains(BOB));
+        index = INDEX_SECOND_WORD;
+        assertNotEquals(getModel().getFilteredWordList().get(index.getZeroBased()), BOB);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + MEANING_DESC + PHONE_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedWord = new PersonBuilder(BOB).withName(VALID_NAME_AMY).build();
+        editedWord = new WordBuilder(BOB).withName(VALID_NAME_AMY).build();
         assertCommandSuccess(command, index, editedWord);
 
         /* Case: edit a word with new values same as another word's values but with different phone
          * -> edited
          */
-        index = INDEX_SECOND_PERSON;
+        index = INDEX_SECOND_WORD;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + MEANING_DESC + PHONE_DESC_AMY
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedWord = new PersonBuilder(BOB).withPhone(VALID_PHONE_AMY).build();
+        editedWord = new WordBuilder(BOB).withPhone(VALID_PHONE_AMY).build();
         assertCommandSuccess(command, index, editedWord);
 
         /* Case: clear tags -> cleared */
-        index = INDEX_FIRST_PERSON;
+        index = INDEX_FIRST_WORD;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
-        Word wordToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
-        editedWord = new PersonBuilder(wordToEdit).withTags().build();
+        Word wordToEdit = getModel().getFilteredWordList().get(index.getZeroBased());
+        editedWord = new WordBuilder(wordToEdit).withTags().build();
         assertCommandSuccess(command, index, editedWord);
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
-        /* Case: filtered word list, edit index within bounds of address book and word list -> edited */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        index = INDEX_FIRST_PERSON;
-        assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
+        /* Case: filtered word list, edit index within bounds of learnvocabulary book and word list -> edited */
+        showWordsWithName(KEYWORD_MATCHING_MEIER);
+        index = INDEX_FIRST_WORD;
+        assertTrue(index.getZeroBased() < getModel().getFilteredWordList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
-        wordToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
-        editedWord = new PersonBuilder(wordToEdit).withName(VALID_NAME_BOB).build();
+        wordToEdit = getModel().getFilteredWordList().get(index.getZeroBased());
+        editedWord = new WordBuilder(wordToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedWord);
 
-        /* Case: filtered word list, edit index within bounds of address book but out of bounds of word list
+        /* Case: filtered word list, edit index within bounds of learnvocabulary book but out of bounds of word list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAddressBook().getPersonList().size();
+        showWordsWithName(KEYWORD_MATCHING_MEIER);
+        int invalidIndex = getModel().getLearnVocabulary().getWordList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
-                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+                Messages.MESSAGE_INVALID_WORDS_DISPLAYED_INDEX);
 
         /* --------------------- Performing edit operation while a word card is selected -------------------------- */
 
         /* Case: selects first card in the word list, edit a word -> edited, card selection remains unchanged but
          * browser url changes
          */
-        showAllPersons();
-        index = INDEX_FIRST_PERSON;
-        selectPerson(index);
+        showAllWords();
+        index = INDEX_FIRST_WORD;
+        selectWord(index);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + MEANING_DESC + PHONE_DESC_AMY
                 + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
         // this can be misleading: card selection actually remains unchanged but the
@@ -147,57 +147,58 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (size + 1) -> rejected */
-        invalidIndex = getModel().getFilteredPersonList().size() + 1;
+        invalidIndex = getModel().getFilteredWordList().size() + 1;
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
-                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+                Messages.MESSAGE_INVALID_WORDS_DISPLAYED_INDEX);
 
         /* Case: missing index -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + NAME_DESC_BOB,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: missing all fields -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_WORD.getOneBased(),
                 EditCommand.MESSAGE_NOT_EDITED);
 
         /* Case: invalid name -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_NAME_DESC,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_WORD.getOneBased() + INVALID_NAME_DESC,
                 Name.MESSAGE_NAME_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_PHONE_DESC,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_WORD.getOneBased() + INVALID_PHONE_DESC,
                 Phone.MESSAGE_PHONE_CONSTRAINTS);
 
-        /* Case: invalid address -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_ADDRESS_DESC,
+        /* Case: invalid learnvocabulary -> rejected */
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_WORD.getOneBased() + INVALID_ADDRESS_DESC,
                 Address.MESSAGE_ADDRESS_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_TAG_DESC,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_WORD.getOneBased() + INVALID_TAG_DESC,
                 Tag.MESSAGE_TAG_CONSTRAINTS);
 
         /* Case: edit a word with new values same as another word's values -> rejected */
-        executeCommand(PersonUtil.getAddCommand(BOB));
-        assertTrue(getModel().getAddressBook().getPersonList().contains(BOB));
-        index = INDEX_FIRST_PERSON;
-        assertFalse(getModel().getFilteredPersonList().get(index.getZeroBased()).equals(BOB));
+        executeCommand(WordUtil.getAddCommand(BOB));
+        assertTrue(getModel().getLearnVocabulary().getWordList().contains(BOB));
+        index = INDEX_FIRST_WORD;
+        assertFalse(getModel().getFilteredWordList().get(index.getZeroBased()).equals(BOB));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + MEANING_DESC + PHONE_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_WORD);
 
         /* Case: edit a word with new values same as another word's values but with different tags -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + MEANING_DESC + PHONE_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_WORD);
 
-        /* Case: edit a word with new values same as another word's values but with different address -> rejected */
+        /* Case: edit a word with new values same as another
+        word's values but with different learnvocabulary -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + MEANING_DESC + PHONE_DESC_BOB
                 + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_WORD);
 
         /* Case: edit a word with new values same as another word's values but with different phone -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + MEANING_DESC + PHONE_DESC_AMY
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_WORD);
 
     }
 
@@ -222,11 +223,11 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
     private void assertCommandSuccess(String command, Index toEdit, Word editedWord,
             Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
-        expectedModel.updatePerson(expectedModel.getFilteredPersonList().get(toEdit.getZeroBased()), editedWord);
-        expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        expectedModel.updateWord(expectedModel.getFilteredWordList().get(toEdit.getZeroBased()), editedWord);
+        expectedModel.updateFilteredWordList(PREDICATE_SHOW_ALL_WORDS);
 
         assertCommandSuccess(command, expectedModel,
-                String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedWord), expectedSelectedCardIndex);
+                String.format(EditCommand.MESSAGE_EDIT_WORD_SUCCESS, editedWord), expectedSelectedCardIndex);
     }
 
     /**
@@ -247,14 +248,14 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * 4. Asserts that the status bar's sync status changes.<br>
      * 5. Asserts that the command box has the default style class.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
+     * {@code LearnVocabularySystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see LearnVocabularySystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see LearnVocabularySystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
         executeCommand(command);
-        expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        expectedModel.updateFilteredWordList(PREDICATE_SHOW_ALL_WORDS);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
         if (expectedSelectedCardIndex != null) {
@@ -272,8 +273,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * 3. Asserts that the browser url, selected card and status bar remain unchanged.<br>
      * 4. Asserts that the command box has the error style.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code LearnVocabularySystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see LearnVocabularySystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();
