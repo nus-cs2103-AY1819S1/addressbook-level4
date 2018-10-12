@@ -3,7 +3,7 @@ package seedu.address.model;
 import seedu.address.model.person.ServedPatient;
 
 /**
- * The API of the ServedPatient component.
+ * The API of the ServedPatientList component.
  */
 public interface ServedPatientList {
 

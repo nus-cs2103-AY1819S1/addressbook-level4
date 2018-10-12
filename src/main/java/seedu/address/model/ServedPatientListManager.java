@@ -6,9 +6,6 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.ServedPatient;
 
-
-
-
 /**
  * Represents the list of served patients during runtime.
  */
