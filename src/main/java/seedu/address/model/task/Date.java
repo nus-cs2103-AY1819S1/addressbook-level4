@@ -49,7 +49,6 @@ public class Date {
         int month = Integer.parseInt(monthString);
         String yearString = test.substring(4, 6);
         int year = Integer.parseInt(yearString) + 2000;
-        
         if (month > 12 || month == 0) {
             return false;
         } else if (day == 0) {
