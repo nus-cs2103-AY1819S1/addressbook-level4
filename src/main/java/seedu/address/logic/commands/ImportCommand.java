@@ -85,7 +85,7 @@ public class ImportCommand extends Command {
             if (doc.getElementsByTagName("persons").getLength() != 0) {
                 importContacts(doc, model);
             } else {
-                importCCA(doc, model);
+                importCca(doc, model);
             }
 
             model.commitAddressBook();
@@ -108,7 +108,12 @@ public class ImportCommand extends Command {
                 && file.equals(((ImportCommand) other).file));
     }
 
-    private void importCCA(Document doc, Model model) {
+    /**
+     * Imports XML file as CCA list to update database.
+     * @param doc
+     * @param model
+     */
+    private void importCca(Document doc, Model model) {
         List<Person> fullList = model.getAddressBook().getPersonList();
         List<Person> originalList = new ArrayList<>();
         List<Person> editedList = new ArrayList<>();
@@ -127,13 +132,18 @@ public class ImportCommand extends Command {
             for (Person p : fullList) {
                 if (new ContactContainsRoomPredicate(roomsList).test(p)) {
                     originalList.add(p);
-                    editedList.add(addCCAtoPerson(this.cca, p));
+                    editedList.add(addCcaToPerson(this.cca, p));
                 }
             }
             model.updateMultiplePersons(originalList, editedList);
         }
     }
 
+    /**
+     * Imports XML file as contacts list to update database.
+     * @param doc
+     * @param model
+     */
     private void importContacts(Document doc, Model model) {
         personList.clear();
         NodeList nList = doc.getElementsByTagName("persons");
@@ -161,7 +171,13 @@ public class ImportCommand extends Command {
         model.addMultiplePersons(personList);
     }
 
-    private Person addCCAtoPerson(String cca, Person p) {
+    /**
+     * Adds specified cca to specified person.
+     * @param cca
+     * @param p
+     * @return Edited person with updated ccas.
+     */
+    private Person addCcaToPerson(String cca, Person p) {
         Set<Tag> newTags = new HashSet<>();
         newTags.addAll(p.getTags());
         newTags.add(new Tag(cca));
