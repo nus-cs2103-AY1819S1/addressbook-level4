@@ -12,7 +12,7 @@ import seedu.jxmusic.commons.core.GuiSettings;
 public class UserPrefs {
 
     private GuiSettings guiSettings;
-    private Path libraryFilePath = Paths.get("data" , "library.xml");
+    private Path libraryFilePath = Paths.get("data" , "library.json");
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);

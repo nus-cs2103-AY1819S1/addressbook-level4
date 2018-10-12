@@ -2,10 +2,11 @@ package seedu.jxmusic.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.jxmusic.testutil.TypicalPlaylists.ANIME;
-import static seedu.jxmusic.testutil.TypicalPlaylists.HOON;
-import static seedu.jxmusic.testutil.TypicalPlaylists.IDA;
-import static seedu.jxmusic.testutil.TypicalPlaylists.getTypicalAddressBook;
+import static seedu.jxmusic.testutil.TypicalPlaylists.METAL;
+import static seedu.jxmusic.testutil.TypicalPlaylists.POP;
+import static seedu.jxmusic.testutil.TypicalPlaylists.ROCK;
+
+import static seedu.jxmusic.testutil.TypicalPlaylists.getTypicalLibrary;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -17,7 +18,7 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.jxmusic.commons.exceptions.DataConversionException;
-import seedu.jxmusic.model.AddressBook;
+import seedu.jxmusic.model.Library;
 import seedu.jxmusic.model.ReadOnlyLibrary;
 
 public class JsonLibraryStorageTest {
@@ -30,12 +31,12 @@ public class JsonLibraryStorageTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
-    public void readAddressBook_nullFilePath_throwsNullPointerException() throws Exception {
+    public void readLibrary_nullFilePath_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        readAddressBook(null);
+        readLibrary(null);
     }
 
-    private java.util.Optional<ReadOnlyLibrary> readAddressBook(String filePath) throws Exception {
+    private java.util.Optional<ReadOnlyLibrary> readLibrary(String filePath) throws Exception {
         return new JsonLibraryStorage(Paths.get(filePath)).readLibrary(addToTestDataPathIfNotNull(filePath));
     }
 
@@ -47,14 +48,14 @@ public class JsonLibraryStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.xml").isPresent());
+        assertFalse(readLibrary("NonExistentFile.json").isPresent());
     }
 
     @Test
     public void read_notXmlFormat_exceptionThrown() throws Exception {
 
         thrown.expect(DataConversionException.class);
-        readAddressBook("NotXmlFormatAddressBook.xml");
+        readLibrary("NotjsonFormatLibrary.json");
 
         /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
          * That means you should not have more than one exception test in one method
@@ -62,65 +63,65 @@ public class JsonLibraryStorageTest {
     }
 
     @Test
-    public void readAddressBook_invalidPersonAddressBook_throwDataConversionException() throws Exception {
+    public void readLibrary_invalidPlaylistLibrary_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidPersonAddressBook.xml");
+        readLibrary("invalidPlaylistLibrary.json");
     }
 
     @Test
-    public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() throws Exception {
+    public void readLibrary_invalidAndValidPlaylistLibrary_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidAndValidPersonAddressBook.xml");
+        readLibrary("invalidAndValidPlaylistLibrary.json");
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
-        Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.xml");
-        AddressBook original = getTypicalAddressBook();
-        JsonLibraryStorage xmlAddressBookStorage = new JsonLibraryStorage(filePath);
+    public void readAndSaveLibrary_allInOrder_success() throws Exception {
+        Path filePath = testFolder.getRoot().toPath().resolve("TempLibrary.json");
+        Library original = getTypicalLibrary();
+        JsonLibraryStorage jsonLibraryStorage = new JsonLibraryStorage(filePath);
 
         //Save in new file and read back
-        xmlAddressBookStorage.saveLibrary(original, filePath);
-        ReadOnlyLibrary readBack = xmlAddressBookStorage.readLibrary(filePath).get();
-        assertEquals(original, new AddressBook(readBack));
+        jsonLibraryStorage.saveLibrary(original, filePath);
+        ReadOnlyLibrary readBack = jsonLibraryStorage.readLibrary(filePath).get();
+        assertEquals(original, new Library(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addPerson(HOON);
-        original.removePerson(ANIME);
-        xmlAddressBookStorage.saveLibrary(original, filePath);
-        readBack = xmlAddressBookStorage.readLibrary(filePath).get();
-        assertEquals(original, new AddressBook(readBack));
+        original.addPlaylist(METAL);
+        original.removePlaylist(POP);
+        jsonLibraryStorage.saveLibrary(original, filePath);
+        readBack = jsonLibraryStorage.readLibrary(filePath).get();
+        assertEquals(original, new Library(readBack));
 
         //Save and read without specifying file path
-        original.addPerson(IDA);
-        xmlAddressBookStorage.saveLibrary(original); //file path not specified
-        readBack = xmlAddressBookStorage.readLibrary().get(); //file path not specified
-        assertEquals(original, new AddressBook(readBack));
+        original.addPlaylist(ROCK);
+        jsonLibraryStorage.saveLibrary(original); //file path not specified
+        readBack = jsonLibraryStorage.readLibrary().get(); //file path not specified
+        assertEquals(original, new Library(readBack));
 
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
+    public void saveLibrary_nullLibrary_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(null, "SomeFile.xml");
+        saveLibrary(null, "SomeFile.json");
     }
 
     /**
-     * Saves {@code addressBook} at the specified {@code filePath}.
+     * Saves {@code library} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyLibrary addressBook, String filePath) {
+    private void saveLibrary(ReadOnlyLibrary library, String filePath) {
         try {
             new JsonLibraryStorage(Paths.get(filePath))
-                    .saveLibrary(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveLibrary(library, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_throwsNullPointerException() {
+    public void saveLibrary_nullFilePath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(new AddressBook(), null);
+        saveLibrary(new Library(), null);
     }
 
 
