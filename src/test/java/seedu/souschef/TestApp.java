@@ -76,7 +76,7 @@ public class TestApp extends MainApp {
      */
     public AppContent readStorageAddressBook() {
         try {
-            return new AppContent(storage.readAppContent().get());
+            return new AppContent(storage.readFeature().get());
         } catch (DataConversionException dce) {
             throw new AssertionError("Data is not in the AppContent format.", dce);
         } catch (IOException ioe) {

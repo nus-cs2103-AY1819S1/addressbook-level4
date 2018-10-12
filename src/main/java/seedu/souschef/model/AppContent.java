@@ -31,9 +31,9 @@ public class AppContent implements ReadOnlyAppContent {
         recipes = new UniqueList<>();
     }
 
-    private final HealthPlanList list;
+    private final UniqueList<HealthPlan> healthPlans;
     {
-        list = new HealthPlanList();
+        healthPlans = new UniqueList<>();
     }
 
     public AppContent() {}
@@ -44,7 +44,7 @@ public class AppContent implements ReadOnlyAppContent {
     public AppContent(ReadOnlyAppContent toBeCopied) {
         this();
         resetData(toBeCopied);
-        resetDataHp(toBeCopied);
+
     }
 
     //// list overwrite operations
@@ -55,6 +55,19 @@ public class AppContent implements ReadOnlyAppContent {
         requireNonNull(newData);
 
         this.recipes.set(newData.getObservableRecipeList());
+        this.healthPlans.set(newData.getHealthPlanList());
+
+    }
+
+    public void includeData(ReadOnlyAppContent newData) {
+        requireNonNull(newData);
+        if(newData.getObservableRecipeList().size()>0){
+            this.recipes.set(newData.getObservableRecipeList());
+        }
+        if(newData.getHealthPlanList().size()>0){
+            this.healthPlans.set(newData.getHealthPlanList());
+        }
+
 
     }
 
@@ -87,64 +100,16 @@ public class AppContent implements ReadOnlyAppContent {
         return recipes.hashCode();
     }
 
-    //healthplan
 
-
-    public void setPlan(List<HealthPlan> plans) {
-        this.list.setPlan(plans);
+    //healthplan level operations
+    public UniqueList<HealthPlan> getHealthPlans() {
+        return healthPlans;
     }
-
-    /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
-     */
-    public void resetDataHp(ReadOnlyAppContent newData) {
-        requireNonNull(newData);
-
-        setPlan(newData.getHealthPlanList());
-    }
-
-
-    //// person-level operations
-
-    /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
-     */
-    public boolean hasPlan(HealthPlan plan) {
-        requireNonNull(plan);
-        return list.contains(plan);
-    }
-
-
-    public void addPlan(HealthPlan p) {
-        list.add(p);
-    }
-
-    /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     */
-    public void updatePlan(HealthPlan target, HealthPlan editedPerson) {
-        requireNonNull(editedPerson);
-
-        list.setPlan(target, editedPerson);
-    }
-
-    /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
-     */
-    public void removePlan(HealthPlan key) {
-        list.remove(key);
-    }
-
-    //// util methods
-
 
 
     @Override
     public ObservableList<HealthPlan> getHealthPlanList() {
-        return list.asUnmodifiableObservableList();
+        return healthPlans.asUnmodifiableObservableList();
     }
 
 

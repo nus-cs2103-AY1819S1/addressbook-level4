@@ -22,6 +22,7 @@ import javafx.collections.ObservableList;
 import seedu.souschef.commons.events.ui.JumpToListRequestEvent;
 import seedu.souschef.commons.util.FileUtil;
 import seedu.souschef.commons.util.XmlUtil;
+import seedu.souschef.model.AppContent;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.storage.recipe.XmlSerializableAddressBook;
 

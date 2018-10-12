@@ -9,6 +9,7 @@ import seedu.souschef.commons.exceptions.DataConversionException;
 
 import seedu.souschef.commons.util.XmlUtil;
 
+import seedu.souschef.storage.healthplan.XmlSerializableHealthPlan;
 import seedu.souschef.storage.recipe.XmlSerializableAddressBook;
 
 
@@ -21,7 +22,7 @@ public class XmlFileStorage {
      * Constants to access the specific portions of the xml files
      */
     public static final String TYPE_RECIPE = "recipe";
-
+    public static final String TYPE_HEALTHPLAN = "healthplan";
 
 
     /**
@@ -57,6 +58,8 @@ public class XmlFileStorage {
         try {
             if (TYPE_RECIPE.equals(type)) {
                 return XmlUtil.getDataFromFile(file, XmlSerializableAddressBook.class);
+            } else if(TYPE_HEALTHPLAN.equals(type)){
+                return XmlUtil.getDataFromFile(file, XmlSerializableHealthPlan.class);
             }
 
         } catch (JAXBException e) {

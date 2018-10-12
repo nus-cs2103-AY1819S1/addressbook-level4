@@ -13,6 +13,7 @@ import seedu.souschef.commons.core.LogsCenter;
 import seedu.souschef.commons.exceptions.DataConversionException;
 import seedu.souschef.commons.exceptions.IllegalValueException;
 import seedu.souschef.commons.util.FileUtil;
+import seedu.souschef.model.AppContent;
 import seedu.souschef.model.ReadOnlyAppContent;
 import seedu.souschef.storage.XmlFileStorage;
 import seedu.souschef.storage.XmlFeatureStorage;
@@ -25,17 +26,29 @@ public class XmlRecipeStorage extends XmlFeatureStorage {
 
     private static final Logger logger = LogsCenter.getLogger(XmlRecipeStorage.class);
 
-    public XmlRecipeStorage(Path filePath) {
+    public XmlRecipeStorage(Path filePath, AppContent appContent) {
+        super(filePath, appContent);
+    }
+
+    public XmlRecipeStorage (Path filePath){
         super(filePath);
     }
 
+
+    public Optional<ReadOnlyAppContent> readFeature()  throws DataConversionException,
+            FileNotFoundException  {
+       return readFeature(this.filePath);
+    }
+
+
     /**
-     * Similar to {@link #readAppContent()}
+     * Similar to {@link #readFeature()}
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
     @Override
-    public Optional<ReadOnlyAppContent> readAppContent(Path filePath) throws DataConversionException,
+    public Optional<ReadOnlyAppContent> readFeature(Path filePath)
+            throws DataConversionException,
             FileNotFoundException {
         requireNonNull(filePath);
 
@@ -43,9 +56,11 @@ public class XmlRecipeStorage extends XmlFeatureStorage {
             logger.info("AppContent file " + filePath + " not found");
             return Optional.empty();
         }
-        XmlSerializableGeneric xmlRecipeBook = new XmlSerializableAddressBook();
-        xmlRecipeBook = XmlFileStorage.loadDataFromSaveFile(filePath, "recipe");
+        XmlSerializableGeneric xmlRecipeBook;
+               xmlRecipeBook = new XmlSerializableAddressBook(
+                       (XmlSerializableAddressBook) XmlFileStorage.loadDataFromSaveFile(filePath, "recipe"));
         try {
+            setAppContent(xmlRecipeBook.getAppContent());
             return Optional.of(xmlRecipeBook.toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
@@ -54,11 +69,11 @@ public class XmlRecipeStorage extends XmlFeatureStorage {
     }
 
     /**
-     * Similar to {@link #saveAppContent(ReadOnlyAppContent)}
+     * Similar to {@link #saveFeature(ReadOnlyAppContent, Path)} (ReadOnlyAppContent)}
      * @param filePath location of the data. Cannot be null
      */
     @Override
-    public void saveAppContent(ReadOnlyAppContent appContent, Path filePath) throws IOException {
+    public void saveFeature(ReadOnlyAppContent appContent, Path filePath) throws IOException {
         requireNonNull(appContent);
         requireNonNull(filePath);
 

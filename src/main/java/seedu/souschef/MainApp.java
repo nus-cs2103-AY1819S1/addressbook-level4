@@ -34,6 +34,7 @@ import seedu.souschef.storage.JsonUserPrefsStorage;
 import seedu.souschef.storage.Storage;
 import seedu.souschef.storage.StorageManager;
 import seedu.souschef.storage.UserPrefsStorage;
+import seedu.souschef.storage.healthplan.XmlHealthPlanStorage;
 import seedu.souschef.storage.recipe.XmlRecipeStorage;
 import seedu.souschef.ui.Ui;
 import seedu.souschef.ui.UiManager;
@@ -66,16 +67,32 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        FeatureStorage addressBookStorage = new XmlRecipeStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        AppContent appContent= new AppContent();
+        //first storage
+        FeatureStorage recipeStorage = new XmlRecipeStorage(userPrefs.getAddressBookFilePath());
+        //storage will collectively have the contents details via the appContent;
+        FeatureStorage healthPlanStorage = new XmlHealthPlanStorage(userPrefs.getHealthplanPath());
 
+
+        //storage = new StorageManager(recipeStorage, userPrefsStorage);
+        storage = new StorageManager(userPrefsStorage,appContent);
+
+
+        storage.include(recipeStorage);
+        storage.include(healthPlanStorage);
+
+        storage.setMainFeatureStorage(recipeStorage);
         initLogging(config);
 
+        //model segment
         modelSet = initModelManager(storage, userPrefs);
         Model<Recipe> recipeModel = modelSet.getRecipeModel();
 
+
+        //logic
         logic = new LogicManager(recipeModel);
 
+        //ui
         ui = new UiManager(logic, config, userPrefs);
 
         initEventsCenter();
@@ -87,14 +104,15 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private ModelSet initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyAppContent> addressBookOptional;
-        ReadOnlyAppContent initialData;
+        Optional<ReadOnlyAppContent> readOnlyAppContent;
+       ReadOnlyAppContent initialData;
         try {
-            addressBookOptional = storage.readAppContent();
-            if (!addressBookOptional.isPresent()) {
+
+            readOnlyAppContent = storage.readAll();
+            if (!readOnlyAppContent.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AppContent");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = readOnlyAppContent.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AppContent");
             initialData = new AppContent();

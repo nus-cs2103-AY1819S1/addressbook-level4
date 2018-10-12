@@ -1,5 +1,7 @@
 package seedu.souschef.model.healthplan;
 
+import seedu.souschef.model.UniqueType;
+
 import static seedu.souschef.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
@@ -8,7 +10,7 @@ import java.util.Objects;
  *  class to handle the overall frame of health plans
  * Health plan enum
  */
-public class HealthPlan {
+public class HealthPlan extends UniqueType {
     // Identity fields
     private final HealthPlanName name;
     private final TargetWeight tWeight;
@@ -69,6 +71,19 @@ public class HealthPlan {
 
         return otherPlan != null
                 && otherPlan.getHealthPlanName().equals(getHealthPlanName());
+    }
+
+    /**
+     * check if the current plan is same as provided
+     * method check if plan is same
+     */
+    @Override
+    public boolean isSame(UniqueType uniqueType) {
+        if (uniqueType instanceof HealthPlan) {
+            return isSame((HealthPlan) uniqueType);
+        } else {
+            return false;
+        }
     }
 
 

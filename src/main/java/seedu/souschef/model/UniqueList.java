@@ -98,6 +98,10 @@ public class UniqueList<T extends UniqueType> implements Iterable<T> {
         return FXCollections.unmodifiableObservableList(internalList);
     }
 
+    public int size(){
+        return internalList.size();
+    }
+
     @Override
     public Iterator<T> iterator() {
         return internalList.iterator();

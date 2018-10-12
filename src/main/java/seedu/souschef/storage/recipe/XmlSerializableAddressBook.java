@@ -17,12 +17,14 @@ import seedu.souschef.storage.XmlSerializableGeneric;
  * An Immutable AppContent that is serializable to XML format
  */
 @XmlRootElement(name = "addressbook")
-public class XmlSerializableAddressBook extends XmlSerializableGeneric {
+public class XmlSerializableAddressBook implements XmlSerializableGeneric {
 
     public static final String MESSAGE_DUPLICATE_RECIPE = "Recipes list contains duplicate recipe(s).";
 
     @XmlElement
     private List<XmlAdaptedRecipe> recipes;
+
+    private AppContent appContent;
 
     /**
      * Creates an empty XmlSerializableAddressBook.
@@ -30,6 +32,29 @@ public class XmlSerializableAddressBook extends XmlSerializableGeneric {
      */
     public XmlSerializableAddressBook() {
         recipes = new ArrayList<>();
+        appContent = new AppContent();
+
+    }
+
+
+    public XmlSerializableAddressBook(XmlSerializableAddressBook ab) {
+
+        recipes = ab.recipes;
+       this.appContent = ab.appContent;
+        recipes.addAll(ab.appContent.getObservableRecipeList().stream().map(XmlAdaptedRecipe::new)
+                .collect(Collectors.toList()));
+    }
+
+    public XmlSerializableAddressBook(AppContent appContent){
+        this();
+        if(appContent!= null){
+        this.appContent= appContent;}
+        else{
+            appContent = new AppContent();
+
+        }
+        recipes.addAll(appContent.getObservableRecipeList().stream().map(XmlAdaptedRecipe::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -37,7 +62,17 @@ public class XmlSerializableAddressBook extends XmlSerializableGeneric {
      */
     public XmlSerializableAddressBook(ReadOnlyAppContent src) {
         this();
+        if(appContent!= null){
+            this.appContent= (AppContent) src;}
+        else{
+            appContent = new AppContent();
+
+        }
         recipes.addAll(src.getObservableRecipeList().stream().map(XmlAdaptedRecipe::new).collect(Collectors.toList()));
+    }
+
+    public AppContent getAppContent() {
+        return appContent;
     }
 
     /**
@@ -48,15 +83,17 @@ public class XmlSerializableAddressBook extends XmlSerializableGeneric {
      */
     @Override
     public AppContent toModelType() throws IllegalValueException {
-        AppContent addressBook = new AppContent();
+        //problem area:
+        //this.appContent is returning null at this point
+
         for (XmlAdaptedRecipe p : recipes) {
             Recipe recipe = p.toModelType();
-            if (addressBook.getRecipes().contains(recipe)) {
+            if (this.appContent.getRecipes().contains(recipe)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_RECIPE);
             }
-            addressBook.getRecipes().add(recipe);
+            appContent.getRecipes().add(recipe);
         }
-        return addressBook;
+        return appContent;
     }
 
     @Override

@@ -37,7 +37,7 @@ public class XmlAddressBookStorageTest {
     }
 
     private java.util.Optional<ReadOnlyAppContent> readAddressBook(String filePath) throws Exception {
-        return new XmlRecipeStorage(Paths.get(filePath)).readAppContent(addToTestDataPathIfNotNull(filePath));
+        return new XmlRecipeStorage(Paths.get(filePath),new AppContent()).readFeature(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -78,25 +78,26 @@ public class XmlAddressBookStorageTest {
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.xml");
         AppContent original = getTypicalAddressBook();
-        XmlFeatureStorage xmlAddressBookStorage = new XmlRecipeStorage(filePath);
+        XmlFeatureStorage xmlAddressBookStorage = new XmlRecipeStorage(filePath,new AppContent());
 
         //Save in new file and readAppContent back
-        xmlAddressBookStorage.saveAppContent(original, filePath);
-        ReadOnlyAppContent readBack = xmlAddressBookStorage.readAppContent(filePath).get();
+        xmlAddressBookStorage.saveFeature(original, filePath);
+        ReadOnlyAppContent readBack = xmlAddressBookStorage.readFeature(filePath).get();
         assertEquals(original, new AppContent(readBack));
 
-        //Modify data, overwrite exiting file, and readAppContent back
+        //Modify data, ove
+        // rwrite exiting file, and readAppContent back
 
         original.getRecipes().add(HOON);
         original.getRecipes().remove(ALICE);
-        xmlAddressBookStorage.saveAppContent(original, filePath);
-        readBack = xmlAddressBookStorage.readAppContent(filePath).get();
+        xmlAddressBookStorage.saveFeature(original, filePath);
+        readBack = xmlAddressBookStorage.readFeature(filePath).get();
         assertEquals(original, new AppContent(readBack));
 
         //Save and readAppContent without specifying file path
         original.getRecipes().add(IDA);
-        xmlAddressBookStorage.saveAppContent(original); //file path not specified
-        readBack = xmlAddressBookStorage.readAppContent().get(); //file path not specified
+        xmlAddressBookStorage.saveFeature(original); //file path not specified
+        readBack = xmlAddressBookStorage.readFeature().get(); //file path not specified
 
         assertEquals(original, new AppContent(readBack));
 
@@ -113,8 +114,8 @@ public class XmlAddressBookStorageTest {
      */
     private void saveAddressBook(ReadOnlyAppContent addressBook, String filePath) {
         try {
-            new XmlRecipeStorage(Paths.get(filePath))
-                    .saveAppContent(addressBook, addToTestDataPathIfNotNull(filePath));
+            new XmlRecipeStorage(Paths.get(filePath),new AppContent())
+                    .saveFeature(addressBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

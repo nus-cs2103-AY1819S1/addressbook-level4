@@ -33,7 +33,7 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        XmlFeatureStorage addressBookStorage = new XmlRecipeStorage(getTempFilePath("ab"));
+        XmlFeatureStorage addressBookStorage = new XmlRecipeStorage(getTempFilePath("ab"),new AppContent());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
     }
@@ -65,8 +65,8 @@ public class StorageManagerTest {
          * More extensive testing of UserPref saving/reading is done in {@link XmlAddressBookStorageTest} class.
          */
         AppContent original = getTypicalAddressBook();
-        storageManager.saveAppContent(original);
-        ReadOnlyAppContent retrieved = storageManager.readAppContent().get();
+        storageManager.saveFeature(original);
+        ReadOnlyAppContent retrieved = storageManager.readFeature().get();
         assertEquals(original, new AppContent(retrieved));
     }
 
@@ -79,7 +79,8 @@ public class StorageManagerTest {
     public void handleAddressBookChangedEvent_exceptionThrown_eventRaised() {
         // Create a StorageManager while injecting a stub that  throws an exception when the
         // saveAppContent method is called
-        Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub(Paths.get("dummy")),
+        Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub(Paths.get("dummy")
+                ,new AppContent()),
                                              new JsonUserPrefsStorage(Paths.get("dummy")));
         storage.handleAppContentChangedEvent(new AppContentChangedEvent(new AppContent()));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
@@ -91,12 +92,12 @@ public class StorageManagerTest {
      */
     class XmlAddressBookStorageExceptionThrowingStub extends XmlRecipeStorage {
 
-        public XmlAddressBookStorageExceptionThrowingStub(Path filePath) {
-            super(filePath);
+        public XmlAddressBookStorageExceptionThrowingStub(Path filePath, AppContent appContent) {
+            super(filePath, appContent);
         }
 
         @Override
-        public void saveAppContent(ReadOnlyAppContent addressBook, Path filePath) throws IOException {
+        public void saveFeature(ReadOnlyAppContent addressBook, Path filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }

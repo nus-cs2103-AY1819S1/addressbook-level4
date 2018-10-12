@@ -22,7 +22,7 @@ import seedu.souschef.storage.XmlSerializableGeneric;
  * xml health plan
  */
 @XmlRootElement(name = "healthplans")
-public class XmlSerializableHealthPlan extends XmlSerializableGeneric {
+public class XmlSerializableHealthPlan implements XmlSerializableGeneric {
 
 
     public static final String MESSAGE_DUPLICATE_PLAN = "Persons list contains duplicate plan(s).";
@@ -30,6 +30,8 @@ public class XmlSerializableHealthPlan extends XmlSerializableGeneric {
 
     @XmlElement
     private List<XmlAdaptedHealthPlan> hp;
+
+    private AppContent appContent;
 
     public XmlSerializableHealthPlan() {
         hp = new ArrayList<>();
@@ -41,7 +43,16 @@ public class XmlSerializableHealthPlan extends XmlSerializableGeneric {
      */
     public XmlSerializableHealthPlan(ReadOnlyAppContent src) {
         this();
+        appContent = (AppContent)src;
         hp.addAll(src.getHealthPlanList().stream().map(XmlAdaptedHealthPlan::new).collect(Collectors.toList()));
+    }
+
+    public XmlSerializableHealthPlan(XmlSerializableHealthPlan ab) {
+
+        hp = ab.hp;
+        this.appContent = ab.appContent;
+        hp.addAll(ab.appContent.getHealthPlanList().stream().map(XmlAdaptedHealthPlan::new)
+                .collect(Collectors.toList()));
     }
 
 
@@ -51,15 +62,20 @@ public class XmlSerializableHealthPlan extends XmlSerializableGeneric {
      * change to model
      */
     public AppContent toModelType() throws IllegalValueException {
-        AppContent hpb = new AppContent();
+
         for (XmlAdaptedHealthPlan p : hp) {
             HealthPlan plan = p.toModelType();
-            if (hpb.hasPlan(plan)) {
+            if (appContent.getHealthPlans().contains(plan)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PLAN);
             }
-            hpb.addPlan(plan);
+            appContent.getHealthPlans().add(plan);
         }
-        return hpb;
+        return appContent;
+    }
+
+    @Override
+    public AppContent getAppContent() {
+        return appContent;
     }
 
     @Override
