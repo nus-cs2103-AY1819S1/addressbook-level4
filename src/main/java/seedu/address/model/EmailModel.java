@@ -17,4 +17,5 @@ public class EmailModel {
     public Email getEmail() {
         return email;
     }
+
 }

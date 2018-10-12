@@ -138,8 +138,8 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public void saveEmail(EmailModel email) throws IOException {
-        emailStorage.saveEmail(email);
+    public void saveEmail(EmailModel emailModel) throws IOException {
+        emailStorage.saveEmail(emailModel);
     }
 
     @Override
@@ -148,7 +148,7 @@ public class StorageManager extends ComponentManager implements Storage {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Email composed, saving to file"));
         try {
             saveEmail(event.data);
-            raise(new EmailViewEvent(event.data.getEmail()));
+            raise(new EmailViewEvent(event.data));
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }
