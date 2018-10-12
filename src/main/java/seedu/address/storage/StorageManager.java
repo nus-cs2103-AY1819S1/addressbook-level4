@@ -110,6 +110,7 @@ public class StorageManager extends ComponentManager implements Storage {
         }
     }
 
+    @Override
     @Subscribe
     public void handleUserPrefsChangeEvent(UserPrefsChangeEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Updating User Prefs"));
