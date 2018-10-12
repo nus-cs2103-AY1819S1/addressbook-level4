@@ -71,9 +71,9 @@ public class SelectCommandTest {
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
     }
 
-    @Test
+    /*@Test
     public void equals() {
-        /*SelectCommand selectFirstCommand = new SelectCommand(model, INDEXIRST_RECIPE, );
+        SelectCommand selectFirstCommand = new SelectCommand(model, INDEXIRST_RECIPE, );
         SelectCommand selectSecondCommand = new SelectCommand(model, INDEXECOND_RECIPE, );
 
         // same object -> returns true
@@ -90,8 +90,8 @@ public class SelectCommandTest {
         assertFalse(selectFirstCommand.equals(null));
 
         // different recipe -> returns false
-        assertFalse(selectFirstCommand.equals(selectSecondCommand));*/
-    }
+        assertFalse(selectFirstCommand.equals(selectSecondCommand));
+    }*/
 
     /**
      * Executes a {@code SelectCommand} with the given {@code index}, and checks that {@code JumpToListRequestEvent}

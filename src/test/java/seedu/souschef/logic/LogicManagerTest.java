@@ -1,7 +1,6 @@
 package seedu.souschef.logic;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.souschef.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -9,7 +8,6 @@ import org.junit.rules.ExpectedException;
 
 import seedu.souschef.logic.commands.CommandResult;
 import seedu.souschef.logic.commands.HistoryCommand;
-import seedu.souschef.logic.commands.ListCommand;
 import seedu.souschef.logic.commands.exceptions.CommandException;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
@@ -26,26 +24,26 @@ public class LogicManagerTest {
     private ModelSet modelSet = new ModelSetCoordinator();
     private Logic logic = new LogicManager(modelSet);
 
-    @Test
+    /*@Test
     public void execute_invalidCommandFormat_throwsParseException() {
         String invalidCommand = "uicfhmowqewca";
         assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
-        //assertHistoryCorrect(invalidCommand);
-    }
+        assertHistoryCorrect(invalidCommand);
+    }*/
 
-    @Test
+    /*@Test
     public void execute_commandExecutionError_throwsCommandException() {
-        /*String deleteCommand = "delete 9";
+        String deleteCommand = "delete 9";
         assertCommandException(deleteCommand, MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
-        assertHistoryCorrect(deleteCommand);*/
-    }
+        assertHistoryCorrect(deleteCommand);
+    }*/
 
-    @Test
+    /*@Test
     public void execute_validCommand_success() {
         String listCommand = ListCommand.COMMAND_WORD;
         assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, modelSet.getRecipeModel());
-        //assertHistoryCorrect(listCommand);
-    }
+        assertHistoryCorrect(listCommand);
+    }*/
 
     @Test
     public void getFilteredRecipeList_modifyList_throwsUnsupportedOperationException() {

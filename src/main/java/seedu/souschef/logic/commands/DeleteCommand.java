@@ -37,6 +37,7 @@ public class DeleteCommand<T extends UniqueType> extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteCommand // instanceof handles nulls
+                && model.equals(((DeleteCommand<T>) other).model)
                 && toDelete.equals(((DeleteCommand<T>) other).toDelete)); // state check
     }
 }

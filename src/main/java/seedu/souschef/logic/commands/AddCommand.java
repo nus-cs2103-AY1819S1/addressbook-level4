@@ -61,6 +61,7 @@ public class AddCommand<T extends UniqueType> extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddCommand // instanceof handles nulls
+                && model.equals(((AddCommand<T>) other).model)
                 && toAdd.equals(((AddCommand<T>) other).toAdd));
     }
 }

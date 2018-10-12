@@ -15,10 +15,10 @@ public class SelectCommandParserTest {
 
     private SelectCommandParser parser = new SelectCommandParser();
 
-    @Test
+    /*@Test
     public void parse_validArgs_returnsSelectCommand() {
-        //assertParseSuccess(parser, "1", new SelectCommand(model, INDEX_FIRST_RECIPE));
-    }
+        assertParseSuccess(parser, "1", new SelectCommand(model, INDEX_FIRST_RECIPE));
+    }*/
 
     @Test
     public void parse_invalidArgs_throwsParseException() {

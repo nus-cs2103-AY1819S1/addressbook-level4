@@ -38,11 +38,11 @@ public class AddCommandIntegrationTest {
                 String.format(AddCommand.MESSAGE_SUCCESS, validRecipe), expectedModel);
     }
 
-    @Test
+    /*@Test
     public void execute_duplicatePerson_throwsCommandException() {
-        /*Recipe recipeInList = model.getAppContent().getObservableRecipeList().get(0);
+        Recipe recipeInList = model.getAppContent().getObservableRecipeList().get(0);
         assertCommandFailure(new AddCommand(model, recipeInList), model, commandHistory,
-                AddCommand.MESSAGE_DUPLICATE_RECIPE);*/
-    }
+                AddCommand.MESSAGE_DUPLICATE_RECIPE);
+    }*/
 
 }

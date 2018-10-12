@@ -73,7 +73,8 @@ public class EditCommand<T extends UniqueType> extends Command {
 
         // state check
         EditCommand<T> e = (EditCommand<T>) other;
-        return toEdit.equals(e.toEdit)
+        return model.equals(((EditCommand<T>) other).model)
+                && toEdit.equals(e.toEdit)
                 && edited.equals(e.edited);
     }
 }

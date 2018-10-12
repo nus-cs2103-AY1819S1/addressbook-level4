@@ -21,9 +21,9 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
 
     private final GuiRobot guiRobot = new GuiRobot();
 
-    @Test
+    /*@Test
     public void openHelpWindow() {
-        /*//use accelerator
+        //use accelerator
         getCommandBox().click();
         getMainMenu().openHelpWindowUsingAccelerator();
         assertHelpWindowOpen();
@@ -63,8 +63,8 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         // assert that the status bar too is updated correctly while the help window is open
         // note: the select command tested above does not update the status bar
         executeCommand(DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_RECIPE.getOneBased());
-        assertNotEquals(StatusBarFooter.SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());*/
-    }
+        assertNotEquals(StatusBarFooter.SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
+    }*/
 
     @Test
     public void help_multipleCommands_onlyOneHelpWindowOpen() {

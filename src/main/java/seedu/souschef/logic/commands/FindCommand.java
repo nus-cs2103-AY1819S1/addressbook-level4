@@ -38,6 +38,7 @@ public class FindCommand<T extends UniqueType> extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FindCommand // instanceof handles nulls
+                && model.equals(((FindCommand<T>) other).model)
                 && predicate.equals(((FindCommand<T>) other).predicate)); // state check
     }
 }
