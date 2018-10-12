@@ -16,7 +16,7 @@ import seedu.address.model.person.Person;
  * An Immutable AddressBook that is serializable to XML format
  */
 @XmlRootElement(name = "addressbook")
-    public class XmlSerializableAddressBook {
+public class XmlSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
 
