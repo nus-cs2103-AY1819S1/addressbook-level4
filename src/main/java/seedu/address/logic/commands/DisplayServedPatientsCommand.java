@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -7,8 +9,9 @@ import seedu.address.model.PatientQueue;
 import seedu.address.model.ServedPatientList;
 import seedu.address.model.person.ServedPatient;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ *
+ */
 public class DisplayServedPatientsCommand extends QueueCommand {
     public static final String COMMAND_WORD = "servedPatients";
     public static final String COMMAND_ALIAS = "showsp";

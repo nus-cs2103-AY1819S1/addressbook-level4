@@ -8,7 +8,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.ServedPatient;
 
 /**
- * Represents the list of served patients during runtime.
+ * Displays the current list of served patients to the user.
  */
 public class ServedPatientListManager implements ServedPatientList {
     private static final Logger logger = LogsCenter.getLogger(PatientQueueManager.class);
