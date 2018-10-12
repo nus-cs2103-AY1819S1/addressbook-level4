@@ -92,7 +92,7 @@ public class TypicalExpenses {
             .withCategory(VALID_CATEGORY_KFC)
             .withTags(VALID_TAG_FOOD).build();
 
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+    public static final String KEYWORD_MATCHING_MEIER = "n/Meier"; // A keyword that matches MEIER
 
     private TypicalExpenses() {
     } // prevents instantiation

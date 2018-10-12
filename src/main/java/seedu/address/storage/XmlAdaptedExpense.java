@@ -62,7 +62,7 @@ public class XmlAdaptedExpense {
      */
     public XmlAdaptedExpense(Expense source) {
         name = source.getName().expenseName;
-        category = source.getCategory().getName();
+        category = source.getCategory().categoryName;
         cost = source.getCost().value;
         date = source.getDate().toString();
         tagged = source.getTags().stream()

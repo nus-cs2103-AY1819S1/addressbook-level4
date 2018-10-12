@@ -5,6 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_EXPENSES_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.testutil.TypicalExpenses.BENSON;
 import static seedu.address.testutil.TypicalExpenses.CARL;
 import static seedu.address.testutil.TypicalExpenses.ELLE;
 import static seedu.address.testutil.TypicalExpenses.FIONA;
@@ -12,15 +14,19 @@ import static seedu.address.testutil.TypicalExpenses.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.exceptions.NoUserSelectedException;
-import seedu.address.model.expense.NameContainsKeywordsPredicate;
+import seedu.address.model.expense.ExpenseContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
@@ -32,10 +38,12 @@ public class FindCommandTest {
 
     @Test
     public void equals() {
-        NameContainsKeywordsPredicate firstPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("first"));
-        NameContainsKeywordsPredicate secondPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("second"));
+        ArgumentMultimap firstMap = ArgumentTokenizer.tokenize(" n/first", PREFIX_NAME);
+        ArgumentMultimap secondMap = ArgumentTokenizer.tokenize(" n/second", PREFIX_NAME);
+        ExpenseContainsKeywordsPredicate firstPredicate =
+                new ExpenseContainsKeywordsPredicate(firstMap);
+        ExpenseContainsKeywordsPredicate secondPredicate =
+                new ExpenseContainsKeywordsPredicate(secondMap);
 
         FindCommand findFirstCommand = new FindCommand(firstPredicate);
         FindCommand findSecondCommand = new FindCommand(secondPredicate);
@@ -60,7 +68,7 @@ public class FindCommandTest {
     @Test
     public void execute_zeroKeywords_noExpenseFound() throws NoUserSelectedException {
         String expectedMessage = String.format(MESSAGE_EXPENSES_LISTED_OVERVIEW, 0);
-        NameContainsKeywordsPredicate predicate = preparePredicate(" ");
+        ExpenseContainsKeywordsPredicate predicate = preparePredicate("n/ ");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredExpenseList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
@@ -68,19 +76,30 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multipleExpensesFound() throws NoUserSelectedException {
+    public void execute_multipleNameKeywords_multipleExpensesFound() throws NoUserSelectedException {
         String expectedMessage = String.format(MESSAGE_EXPENSES_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
+        ExpenseContainsKeywordsPredicate predicate = preparePredicate("n/Kurz Elle Kunz");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredExpenseList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredExpenseList());
     }
 
+    @Test
+    public void execute_oneCategoryKeyword_multipleExpensesFound() throws NoUserSelectedException {
+        String expectedMessage = String.format(MESSAGE_EXPENSES_LISTED_OVERVIEW, 1);
+        ExpenseContainsKeywordsPredicate predicate = preparePredicate("c/Food");
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredExpenseList(predicate);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(BENSON), model.getFilteredExpenseList());
+    }
+
     /**
-     * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
+     * Parses {@code userInput} into a {@code ExpenseContainsKeywordsPredicate}.
      */
-    private NameContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    private ExpenseContainsKeywordsPredicate preparePredicate(String userInput) {
+        ArgumentMultimap keywordsMap = ArgumentTokenizer.tokenize(userInput, PREFIX_NAME);
+        return new ExpenseContainsKeywordsPredicate(keywordsMap);
     }
 }

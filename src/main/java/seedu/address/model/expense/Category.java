@@ -13,7 +13,7 @@ public class Category {
     public static final String MESSAGE_CATEGORY_CONSTRAINTS =
             "Category name should not be blank.";
     public static final String CATEGORY_VALIDATION_REGEX = "\\p{Alnum}+";
-    private final String categoryName;
+    public final String categoryName;
 
     /**
      * Constructs a {@code Category}.
@@ -33,10 +33,6 @@ public class Category {
         return test.matches(CATEGORY_VALIDATION_REGEX);
     }
 
-
-    public String getName() {
-        return this.categoryName;
-    }
 
     @Override
     public String toString() {
