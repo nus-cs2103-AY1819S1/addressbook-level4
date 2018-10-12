@@ -25,6 +25,7 @@ import seedu.jxmusic.testutil.EditPersonDescriptorBuilder;
 public class CommandTestUtil {
 
     public static final String VALID_NAME_ANIME = "Anime music";
+    public static final String VALID_NAME_ANY = "";
     public static final String VALID_NAME_METAL = "METAL";
     public static final String VALID_TRACK_ALIEZ = "aliez";
     public static final String VALID_TRACK_EXISTENCE = "EXiSTENCE";

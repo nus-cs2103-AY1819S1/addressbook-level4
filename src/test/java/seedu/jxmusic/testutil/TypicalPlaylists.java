@@ -1,6 +1,6 @@
 package seedu.jxmusic.testutil;
 
-import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_NAME_ANY;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_NAME_METAL;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_EXISTENCE;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_ALIEZ;
@@ -36,7 +36,7 @@ public class TypicalPlaylists {
     public static final Playlist IDA = new PlaylistBuilder().withName("Ida Mueller").build();
 
     // Manually added - Playlist's details found in {@code CommandTestUtil}
-    public static final Playlist AMY = new PlaylistBuilder().withName(VALID_NAME_AMY)
+    public static final Playlist AMY = new PlaylistBuilder().withName(VALID_NAME_ANY)
             .withTracks(VALID_TRACK_EXISTENCE).build();
     public static final Playlist BOB = new PlaylistBuilder().withName(VALID_NAME_METAL)
             .withTracks(VALID_TRACK_ALIEZ, VALID_TRACK_EXISTENCE).build();
