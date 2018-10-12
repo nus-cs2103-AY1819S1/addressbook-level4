@@ -6,7 +6,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.PatientQueue;
-//import seedu.address.model.ServedPatientList;
+import seedu.address.model.ServedPatientList;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.ServedPatient;
 
@@ -25,7 +25,7 @@ public class ServeCommand extends QueueCommand {
 
     @Override
     public CommandResult execute(Model model, PatientQueue patientQueue, ServedPatient currentPatient,
-                                 CommandHistory history) throws CommandException {
+                                 ServedPatientList servedPatientList, CommandHistory history) throws CommandException {
         requireNonNull(patientQueue);
 
         if (patientQueue.isEmpty()) {
@@ -34,6 +34,8 @@ public class ServeCommand extends QueueCommand {
 
         Patient patient = patientQueue.dequeue();
         currentPatient = new ServedPatient(patient);
+        servedPatientList.addServedPatient(currentPatient);
+
         return new CommandResult(MESSAGE_SUCCESS + patient.toNameAndIc());
     }
 }

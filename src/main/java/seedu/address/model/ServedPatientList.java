@@ -1,17 +1,24 @@
 package seedu.address.model;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.ServedPatient;
 
 /**
- * The API of the ServedPatient component.
+ * The API of the ServedPatientList component.
  */
 public interface ServedPatientList {
 
     /**
      * Displays the served patient list.
+     * Mainly for debugging.
      * @return String representation of the current list.
      */
     String displayServedPatientList();
+
+    /**
+     * @return Length of the current ServedPatientList.
+     */
+    int getServedPatientListLength();
 
     /**
      * Add a served patient to the served patient list.
@@ -19,10 +26,10 @@ public interface ServedPatientList {
     void addServedPatient(ServedPatient patient);
 
     /**
-     * Delete a served patient in the served patient list.
-     * @return The servedPatient object that was removed.
+     * Selects a served patient in the served patient list.
+     * @return The servedPatient object that was specified bu {@code index}.
      */
-    ServedPatient removeServedPatient(ServedPatient patient);
+    ServedPatient selectServedPatient(Index index);
 
     /**
      * Checks whether the served patient list is empty.

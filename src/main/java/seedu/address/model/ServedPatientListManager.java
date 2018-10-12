@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.ServedPatient;
-
-
-
 
 /**
  * Represents the list of served patients during runtime.
@@ -26,14 +24,17 @@ public class ServedPatientListManager implements ServedPatientList {
     }
 
     @Override
+    public int getServedPatientListLength() {
+        return servedPatientList.size();
+    }
+    @Override
     public void addServedPatient(ServedPatient patient) {
         servedPatientList.add(patient);
     }
 
     @Override
-    public ServedPatient removeServedPatient(ServedPatient patient) {
-        servedPatientList.remove(patient);
-        return patient;
+    public ServedPatient selectServedPatient(Index index) {
+        return servedPatientList.get(index.getZeroBased());
     }
 
     @Override

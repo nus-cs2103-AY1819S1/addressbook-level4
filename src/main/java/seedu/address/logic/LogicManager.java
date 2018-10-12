@@ -14,6 +14,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.PatientQueue;
 import seedu.address.model.PatientQueueManager;
+import seedu.address.model.ServedPatientList;
+import seedu.address.model.ServedPatientListManager;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.ServedPatient;
 
@@ -27,6 +29,7 @@ public class LogicManager extends ComponentManager implements Logic {
     private final CommandHistory history;
     private final AddressBookParser addressBookParser;
     private final PatientQueue patientQueue;
+    private final ServedPatientList servedPatientList;
     private ServedPatient currentPatient;
 
     public LogicManager(Model model) {
@@ -34,6 +37,7 @@ public class LogicManager extends ComponentManager implements Logic {
         history = new CommandHistory();
         addressBookParser = new AddressBookParser();
         patientQueue = new PatientQueueManager();
+        servedPatientList = new ServedPatientListManager();
     }
 
     @Override
@@ -42,7 +46,8 @@ public class LogicManager extends ComponentManager implements Logic {
         try {
             Command command = addressBookParser.parseCommand(commandText);
             if (command instanceof QueueCommand) {
-                return ((QueueCommand) command).execute(model, patientQueue, currentPatient, history);
+                return ((QueueCommand) command).execute(model, patientQueue, currentPatient,
+                        servedPatientList, history);
             }
             return command.execute(model, history);
         } finally {
