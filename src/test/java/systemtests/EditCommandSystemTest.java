@@ -171,10 +171,8 @@ public class EditCommandSystemTest extends SchedulePlannerSystemTest {
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_TASK.getOneBased() + INVALID_PHONE_DESC,
                 Date.MESSAGE_PHONE_CONSTRAINTS);
 
-
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_TASK.getOneBased() + INVALID_EMAIL_DESC,
                 Priority.MESSAGE_PRIORITY_CONSTRAINTS);
-
 
         /* Case: invalid address -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_TASK.getOneBased() + INVALID_ADDRESS_DESC,

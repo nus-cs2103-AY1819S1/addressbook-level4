@@ -43,10 +43,8 @@ public class UniqueTaskListTest {
         assertTrue(uniqueTaskList.contains(ALICE));
     }
 
-    // OLD TEST
-    /*
-    public void contains_taskWithSameIdentityFieldsInList_returnsTrue() {
-    */
+    //OLD TEST
+    //public void contains_taskWithSameIdentityFieldsInList_returnsTrue()
     @Test
     public void contains_taskWithNotAllSameFieldsInList_returnsFalse() {
         uniqueTaskList.add(ALICE);
