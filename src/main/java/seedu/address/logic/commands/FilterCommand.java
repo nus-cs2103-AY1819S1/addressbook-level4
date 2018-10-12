@@ -5,14 +5,18 @@ import static java.util.Objects.requireNonNull;
 import java.util.Arrays;
 import java.util.List;
 
+import java.util.function.Predicate;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.carpark.CarparkHasFreeParkingPredicate;
 import seedu.address.model.carpark.CarparkHasNightParkingPredicate;
 
+
 /**
- * To be added
+ * Filters car parks using to flags
  */
 public class FilterCommand extends Command {
     public static final String COMMAND_WORD = "filter";
@@ -22,14 +26,16 @@ public class FilterCommand extends Command {
             + "Parameters: Tags ... \n"
             + "Example: " + COMMAND_WORD + "f/TRUE";
 
-    //public static final String MESSAGE_FILTER_CARPARK_SUCCESS = "Filtered Carparks.";
-    private final CarparkHasNightParkingPredicate predicate;
-
+    //public static final String MESSAGE_FILTER_CARPARK_SUCCESS = "Filtered Car Parks.";
+    private Predicate predicate;
     private String[] flags;
 
+    /**
+     * Creates a FilterCommand with the relevant flags
+     */
     public FilterCommand(String[] flags) {
         this.flags = flags;
-        this.predicate = new CarparkHasNightParkingPredicate("YES");
+        this.predicate = null;
     }
 
     @Override
@@ -37,8 +43,26 @@ public class FilterCommand extends Command {
 
         requireNonNull(model);
         List<String> flagList = Arrays.asList(flags);
-        System.out.println(flagList.contains("n/"));
+
+        // Currently can only have one flag at a time.
         if (flagList.contains("n/")) {
+            this.predicate = new CarparkHasNightParkingPredicate("YES");
+            model.updateFilteredCarparkList(predicate);
+        }
+        if (flagList.contains("f/")) {
+            int index = flagList.indexOf("f/");
+
+            // Can accept small letters too
+            String day = flagList.get(index + 1).toUpperCase();
+            System.out.println("day: " + day);
+
+            String startTime = flagList.get(index + 2);
+            System.out.println("startTime: " + startTime);
+
+            String endTime = flagList.get(index + 3);
+            System.out.println("endTime: " + endTime);
+
+            this.predicate = new CarparkHasFreeParkingPredicate(day, startTime, endTime);
             model.updateFilteredCarparkList(predicate);
         }
         return new CommandResult(

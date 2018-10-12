@@ -3,7 +3,7 @@ package seedu.address.model.carpark;
 import java.util.function.Predicate;
 
 /**
- * To be added
+ * Tests that a {@code Carpark} has night parking.
  */
 public class CarparkHasNightParkingPredicate implements Predicate<Carpark> {
     private final String keyword;
