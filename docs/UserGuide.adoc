@@ -18,11 +18,13 @@ By: `Team T12-1`      Since: `Sept 2018`      Licence: `MIT`
 
 == Introduction
 
-The Expense Tracker (ET) application is a desktop application which enables users to track their expenses. ET features both a Command Line Interface (CLI) and a Graphical User Interface (GUI) which provides users with the efficency of the CLI while still having the benefits of a GUI.
+The Expense Tracker application is a desktop application which enables users to track their expenses. The application features both a Command Line Interface (CLI) and a Graphical User Interface (GUI) which provides users with the efficency of the CLI while still having the benefits of a GUI.
 
 Interested? Jump to <<Quick Start>> to get started!
 
 == Quick Start
+
+Follow these steps to start using the Expense Tracker:
 
 .  Install Java version `9` (or later) on your computer.
 .  Download the latest `expensetracker.jar` file from https://github.com/CS2103-AY1819S1-T12-1/main[here]
@@ -60,6 +62,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Before a user is logged in, only `login`, `signup` and `help` commands are useable.
 * After a user is logged in, the rest of the commands will become useable.
 ====
+
+These are the features and respective commands available to use in the Expense Tracker:
 
 === Signing up a User : `signup`
 Signs up a new user to the Expense Tracker.
@@ -339,6 +343,8 @@ Format: `exit`
 *A*:  Install the app in the other computer and copy the `data` folder in your previous Expense Tracker folder over to the new Expense Tracker folder on your other Computer.
 
 == Command Summary
+
+This is a summary of the commands available in the Expense Tracker:
 
 * *SignUp* : `signup USERNAME` +
 e.g. `signup username123`
