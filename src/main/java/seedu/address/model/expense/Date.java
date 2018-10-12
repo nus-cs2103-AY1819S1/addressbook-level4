@@ -93,11 +93,11 @@ public class Date {
      * @return 1 if b is after a, -1 if b is before a and 0 if they are equal
      */
     public static int compare(Date a, Date b) {
-        if (b.fullDate.after(a.fullDate)) {
+        if (a.equals(b)) {
+            return 0;
+        } else if (b.fullDate.after(a.fullDate)) {
             return 1;
-        } else if (b.fullDate.before(a.fullDate)) {
-            return -1;
         }
-        return 0;
+        return -1;
     }
 }
