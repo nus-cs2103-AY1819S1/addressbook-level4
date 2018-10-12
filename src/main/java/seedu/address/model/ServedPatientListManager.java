@@ -17,7 +17,7 @@ public class ServedPatientListManager implements ServedPatientList {
     @Override
     public String displayServedPatientList() {
         StringBuilder sb = new StringBuilder();
-        sb.append(" Served Patient: ");
+        sb.append("Served Patient: ");
         servedPatientList.stream()
                 .forEach(x -> sb.append(x.toNameAndIc() + ", "));
         return sb.substring(0, sb.length() - 2);
