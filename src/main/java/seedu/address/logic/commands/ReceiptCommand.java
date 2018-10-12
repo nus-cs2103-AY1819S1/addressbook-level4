@@ -54,8 +54,7 @@ public class ReceiptCommand extends QueueCommand {
         generatedResult = receipt.generate();
 
         EventsCenter.getInstance().post(new JumpToListRequestEvent(index));
-        return new CommandResult(String.format(generatedResult, MESSAGE_SUCCESS));
-
+        return new CommandResult(String.format(String.join("\n", MESSAGE_SUCCESS, generatedResult)));
     }
 
     @Override

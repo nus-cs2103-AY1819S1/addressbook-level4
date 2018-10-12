@@ -20,6 +20,7 @@ import seedu.address.model.person.ServedPatient;
  */
 public class RegisterCommand extends QueueCommand {
     public static final String COMMAND_WORD = "register";
+    public static final String COMMAND_ALIAS = "reg";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enqueue a patient into the queue. "
             + "Parameters: "

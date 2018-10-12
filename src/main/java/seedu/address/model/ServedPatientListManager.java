@@ -8,7 +8,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.ServedPatient;
 
 /**
- * Represents the list of served patients during runtime.
+ * Displays the current list of served patients to the user.
  */
 public class ServedPatientListManager implements ServedPatientList {
     private static final Logger logger = LogsCenter.getLogger(PatientQueueManager.class);
@@ -17,7 +17,7 @@ public class ServedPatientListManager implements ServedPatientList {
     @Override
     public String displayServedPatientList() {
         StringBuilder sb = new StringBuilder();
-        sb.append(" Served Patient: ");
+        sb.append("Served Patient: ");
         servedPatientList.stream()
                 .forEach(x -> sb.append(x.toNameAndIc() + ", "));
         return sb.substring(0, sb.length() - 2);
@@ -30,6 +30,11 @@ public class ServedPatientListManager implements ServedPatientList {
     @Override
     public void addServedPatient(ServedPatient patient) {
         servedPatientList.add(patient);
+    }
+
+    @Override
+    public void reset() {
+        servedPatientList.clear();
     }
 
     @Override
