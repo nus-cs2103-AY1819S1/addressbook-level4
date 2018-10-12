@@ -3,6 +3,7 @@ package seedu.address.model.event;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -35,6 +36,10 @@ public class EventDate {
         requireNonNull(eventDate);
         checkArgument(isValidDate(eventDate), MESSAGE_DATE_CONSTRAINTS);
         this.eventDate = LocalDate.parse(eventDate);
+    }
+
+    public DayOfWeek getEventDay() {
+        return eventDate.getDayOfWeek();
     }
 
     /**

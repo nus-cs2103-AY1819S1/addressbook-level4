@@ -2,6 +2,7 @@ package seedu.address.model.event;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.DayOfWeek;
 import java.util.Objects;
 
 /**
@@ -14,6 +15,7 @@ public class Event {
     private final EventName eventName;
     private final EventDescription eventDescription;
     private final EventDate eventDate;
+    private final EventDay eventDay;
     private final EventTime eventTime;
 
     // data fields
@@ -28,6 +30,7 @@ public class Event {
         this.eventName = eventName;
         this.eventDescription = eventDescription;
         this.eventDate = eventDate;
+        this.eventDay = new EventDay(eventDate.getEventDay());
         this.eventTime = eventTime;
         this.eventAddress = eventAddress;
     }
@@ -52,6 +55,10 @@ public class Event {
 
     public EventAddress getEventAddress() {
         return eventAddress;
+    }
+
+    public EventDay getEventDay() {
+        return eventDay;
     }
 
     // todo: define a weaker form of equality to check clashes
@@ -91,6 +98,8 @@ public class Event {
                 .append(getEventDescription())
                 .append(" EventDate: ")
                 .append(getEventDate())
+                .append(" Event Day: ")
+                .append(getEventDay())
                 .append(" EventTime: ")
                 .append(getEventTime())
                 .append(" Address: ")
