@@ -155,6 +155,15 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author kengwoon
+    @Override
+    public void addMultiplePersons(List<Person> personList) {
+        for (Person p : personList) {
+            addPerson(p);
+        }
+        indicateAddressBookChanged();
+    }
+
     @Override
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
