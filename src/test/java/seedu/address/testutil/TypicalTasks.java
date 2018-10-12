@@ -25,27 +25,27 @@ public class TypicalTasks {
 
     public static final Task ALICE = new TaskBuilder().withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("1")
-            .withDate("94351253")
+            .withDate("120823")
             .withTags("friends").build();
     public static final Task BENSON = new TaskBuilder().withName("Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25")
-            .withEmail("2").withDate("98765432")
+            .withEmail("2").withDate("130921")
             .withTags("owesMoney", "friends").build();
-    public static final Task CARL = new TaskBuilder().withName("Carl Kurz").withDate("95352563")
+    public static final Task CARL = new TaskBuilder().withName("Carl Kurz").withDate("110434")
             .withEmail("3").withAddress("wall street").build();
-    public static final Task DANIEL = new TaskBuilder().withName("Daniel Meier").withDate("87652533")
+    public static final Task DANIEL = new TaskBuilder().withName("Daniel Meier").withDate("070503")
             .withEmail("1").withAddress("10th street").withTags("friends").build();
-    public static final Task ELLE = new TaskBuilder().withName("Elle Meyer").withDate("9482224")
+    public static final Task ELLE = new TaskBuilder().withName("Elle Meyer").withDate("040602")
             .withEmail("2").withAddress("michegan ave").build();
-    public static final Task FIONA = new TaskBuilder().withName("Fiona Kunz").withDate("9482427")
+    public static final Task FIONA = new TaskBuilder().withName("Fiona Kunz").withDate("030512")
             .withEmail("3").withAddress("little tokyo").build();
-    public static final Task GEORGE = new TaskBuilder().withName("George Best").withDate("9482442")
+    public static final Task GEORGE = new TaskBuilder().withName("George Best").withDate("030295")
             .withEmail("1").withAddress("4th street").build();
 
     // Manually added
-    public static final Task HOON = new TaskBuilder().withName("Hoon Meier").withDate("8482424")
+    public static final Task HOON = new TaskBuilder().withName("Hoon Meier").withDate("090423")
             .withEmail("1").withAddress("little india").build();
-    public static final Task IDA = new TaskBuilder().withName("Ida Mueller").withDate("8482131")
+    public static final Task IDA = new TaskBuilder().withName("Ida Mueller").withDate("121193")
             .withEmail("2").withAddress("chicago ave").build();
 
     // Manually added - Task's details found in {@code CommandTestUtil}
