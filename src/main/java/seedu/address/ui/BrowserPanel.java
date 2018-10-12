@@ -61,14 +61,6 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     /**
-     * Loads HTML body of email.
-     * @param email The composed email
-     */
-    public void loadEmail(Email email) {
-        Platform.runLater(() -> browser.getEngine().loadContent(email.getHTMLText()));
-    }
-
-    /**
      * Frees resources allocated to the browser.
      */
     public void freeResources() {
@@ -81,10 +73,19 @@ public class BrowserPanel extends UiPart<Region> {
         loadPersonPage(event.getNewSelection());
     }
 
+    //@@author EatOrBeEaten
     @Subscribe
     private void handleEmailViewEvent(EmailViewEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadEmail(event.getEmail());
+    }
+
+    /**
+     * Loads HTML body of email.
+     * @param email The composed email
+     */
+    public void loadEmail(Email email) {
+        Platform.runLater(() -> browser.getEngine().loadContent(email.getHTMLText()));
     }
 
 }
