@@ -114,20 +114,22 @@ public class ImportCommand extends Command {
      * @param model
      */
     private void importCca(Document doc, Model model) {
-        List<Person> fullList = model.getAddressBook().getPersonList();
         List<Person> originalList = new ArrayList<>();
         List<Person> editedList = new ArrayList<>();
         roomsList.clear();
         NodeList nList = doc.getElementsByTagName("CCA");
         for (int i = 0; i < nList.getLength(); i++) {
+            List<Person> fullList = model.getAddressBook().getPersonList();
             originalList.clear();
             editedList.clear();
             Node node = nList.item(i);
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
                 this.cca = element.getAttribute("cca");
-                String room = element.getElementsByTagName("room").item(0).getTextContent();
-                roomsList.add(room);
+                NodeList nodeList = element.getElementsByTagName("room");
+                for (int j = 0; j < nodeList.getLength(); j++) {
+                    roomsList.add(nodeList.item(j).getTextContent());
+                }
             }
             for (Person p : fullList) {
                 if (new ContactContainsRoomPredicate(roomsList).test(p)) {
@@ -135,7 +137,9 @@ public class ImportCommand extends Command {
                     editedList.add(addCcaToPerson(this.cca, p));
                 }
             }
-            model.updateMultiplePersons(originalList, editedList);
+            if (!originalList.isEmpty()) {
+                model.updateMultiplePersons(originalList, editedList);
+            }
         }
     }
 
