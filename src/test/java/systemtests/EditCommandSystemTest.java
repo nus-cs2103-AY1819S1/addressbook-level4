@@ -24,7 +24,7 @@ import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_NAME_METAL;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_ALIEZ;
 import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.jxmusic.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.jxmusic.model.Model.PREDICATE_SHOW_ALL_PLAYLIST;
 import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.jxmusic.testutil.TypicalPlaylists.AMY;
@@ -56,8 +56,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         Index index = INDEX_FIRST_PERSON;
         String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_METAL + "  "
                 + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + TRACK_DESC_EXISTENCE + " ";
-        Person editedPerson = new PlaylistBuilder(BOB).withTags(VALID_TRACK_ALIEZ).build();
-        assertCommandSuccess(command, index, editedPerson);
+        Person editedPlaylist = new PlaylistBuilder(BOB).withTags(VALID_TRACK_ALIEZ).build();
+        assertCommandSuccess(command, index, editedPlaylist);
 
         /* Case: undo editing the last playlist in the list -> last playlist restored */
         command = UndoCommand.COMMAND_WORD;
@@ -68,7 +68,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         model.updatePerson(
-                getModel().getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()), editedPerson);
+                getModel().getFilteredPlaylistList().get(INDEX_FIRST_PERSON.getZeroBased()), editedPlaylist);
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: edit a playlist with new values same as existing values -> edited */
@@ -79,11 +79,11 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         /* Case: edit a playlist with new values same as another playlist's values but with different name -> edited */
         assertTrue(getModel().getAddressBook().getPlaylistList().contains(BOB));
         index = INDEX_SECOND_PERSON;
-        assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), BOB);
+        assertNotEquals(getModel().getFilteredPlaylistList().get(index.getZeroBased()), BOB);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_ANIME + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE;
-        editedPerson = new PlaylistBuilder(BOB).withName(VALID_NAME_AMY).build();
-        assertCommandSuccess(command, index, editedPerson);
+        editedPlaylist = new PlaylistBuilder(BOB).withName(VALID_NAME_AMY).build();
+        assertCommandSuccess(command, index, editedPlaylist);
 
         /* Case: edit a playlist with new values same as another playlist's values but with different phone and email
          * -> edited
@@ -91,26 +91,26 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         index = INDEX_SECOND_PERSON;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_BOB + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE;
-        editedPerson = new PlaylistBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
-        assertCommandSuccess(command, index, editedPerson);
+        editedPlaylist = new PlaylistBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
+        assertCommandSuccess(command, index, editedPlaylist);
 
         /* Case: clear tags -> cleared */
         index = INDEX_FIRST_PERSON;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
-        Person personToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
-        editedPerson = new PlaylistBuilder(personToEdit).withTags().build();
-        assertCommandSuccess(command, index, editedPerson);
+        Playlist playlistToEdit = getModel().getFilteredPlaylistList().get(index.getZeroBased());
+        editedPlaylist = new PlaylistBuilder(playlistToEdit).withTags().build();
+        assertCommandSuccess(command, index, editedPlaylist);
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
         /* Case: filtered playlist list, edit index within bounds of jxmusic book and playlist list -> edited */
         showPersonsWithName(KEYWORD_MATCHING_SONG);
         index = INDEX_FIRST_PERSON;
-        assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
+        assertTrue(index.getZeroBased() < getModel().getFilteredPlaylistList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_METAL;
-        personToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
-        editedPerson = new PlaylistBuilder(personToEdit).withName(VALID_NAME_METAL).build();
-        assertCommandSuccess(command, index, editedPerson);
+        playlistToEdit = getModel().getFilteredPlaylistList().get(index.getZeroBased());
+        editedPlaylist = new PlaylistBuilder(playlistToEdit).withName(VALID_NAME_METAL).build();
+        assertCommandSuccess(command, index, editedPlaylist);
 
         /* Case: filtered playlist list, edit index within bounds of jxmusic book but out of bounds of playlist list
          * -> rejected
@@ -145,7 +145,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (size + 1) -> rejected */
-        invalidIndex = getModel().getFilteredPersonList().size() + 1;
+        invalidIndex = getModel().getFilteredPlaylistList().size() + 1;
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_METAL,
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
@@ -181,7 +181,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         executeCommand(PersonUtil.getAddCommand(BOB));
         assertTrue(getModel().getAddressBook().getPlaylistList().contains(BOB));
         index = INDEX_FIRST_PERSON;
-        assertFalse(getModel().getFilteredPersonList().get(index.getZeroBased()).equals(BOB));
+        assertFalse(getModel().getFilteredPlaylistList().get(index.getZeroBased()).equals(BOB));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
