@@ -14,9 +14,11 @@ import java.util.List;
 
 import seedu.souschef.commons.core.index.Index;
 import seedu.souschef.logic.CommandHistory;
+import seedu.souschef.logic.EditRecipeDescriptor;
 import seedu.souschef.logic.commands.exceptions.CommandException;
 import seedu.souschef.model.AppContent;
 import seedu.souschef.model.Model;
+import seedu.souschef.model.UniqueType;
 import seedu.souschef.model.recipe.NameContainsKeywordsPredicate;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.testutil.EditRecipeDescriptorBuilder;
@@ -57,8 +59,8 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditRecipeDescriptor DESC_AMY;
-    public static final EditCommand.EditRecipeDescriptor DESC_BOB;
+    public static final EditRecipeDescriptor DESC_AMY;
+    public static final EditRecipeDescriptor DESC_BOB;
 
     static {
         DESC_AMY = new EditRecipeDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -75,11 +77,12 @@ public class CommandTestUtil {
      * - the {@code actualModel} matches {@code expectedModel} <br>
      * - the {@code actualCommandHistory} remains unchanged.
      */
-    public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            String expectedMessage, Model expectedModel) {
+    public static void assertCommandSuccess(Command<UniqueType> command, Model actualModel,
+                                            CommandHistory actualCommandHistory,
+                                            String expectedMessage, Model expectedModel) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
-            CommandResult result = command.execute(actualModel, actualCommandHistory);
+            CommandResult result = command.execute(actualCommandHistory);
             assertEquals(expectedMessage, result.feedbackToUser);
             assertEquals(expectedModel, actualModel);
             assertEquals(expectedCommandHistory, actualCommandHistory);
@@ -95,8 +98,9 @@ public class CommandTestUtil {
      * - the address book and the filtered recipe list in the {@code actualModel} remain unchanged <br>
      * - {@code actualCommandHistory} remains unchanged.
      */
-    public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            String expectedMessage) {
+    public static void assertCommandFailure(Command<UniqueType> command, Model actualModel,
+                                            CommandHistory actualCommandHistory,
+                                            String expectedMessage) {
         // we are unable to defensively copy the recipeModel for comparison later, so we can
         // only do so by copying its components.
         AppContent expectedAddressBook = new AppContent(actualModel.getAppContent());
@@ -105,7 +109,7 @@ public class CommandTestUtil {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
         try {
-            command.execute(actualModel, actualCommandHistory);
+            command.execute(actualCommandHistory);
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());

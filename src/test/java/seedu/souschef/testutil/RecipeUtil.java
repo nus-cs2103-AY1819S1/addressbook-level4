@@ -8,8 +8,8 @@ import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
+import seedu.souschef.logic.EditRecipeDescriptor;
 import seedu.souschef.logic.commands.AddCommand;
-import seedu.souschef.logic.commands.EditCommand;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.tag.Tag;
 
@@ -43,7 +43,7 @@ public class RecipeUtil {
     /**
      * Returns the part of command string for the given {@code EditRecipeDescriptor}'s details.
      */
-    public static String getEditRecipeDescriptorDetails(EditCommand.EditRecipeDescriptor descriptor) {
+    public static String getEditRecipeDescriptorDetails(EditRecipeDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
