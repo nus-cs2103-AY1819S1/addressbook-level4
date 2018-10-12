@@ -82,6 +82,10 @@ public class UiManager extends ComponentManager implements Ui {
         showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
     }
 
+    public void switchToRecipeListPanel() {
+        this.mainWindow.switchToRecipeListPanel();
+    }
+
     /**
      * Shows an alert dialog on {@code owner} with the given parameters.
      * This method only returns after the user has closed the alert dialog.
