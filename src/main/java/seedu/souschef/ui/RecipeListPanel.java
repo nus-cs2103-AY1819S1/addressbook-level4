@@ -18,10 +18,10 @@ import seedu.souschef.model.recipe.Recipe;
  */
 public class RecipeListPanel extends GenericListPanel<Recipe> {
     private static final String FXML = "RecipeListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(RecipeListPanel.class);
-
     @FXML
     protected ListView<Recipe> recipeListView;
+    private final Logger logger = LogsCenter.getLogger(RecipeListPanel.class);
+
 
     public RecipeListPanel(ObservableList<Recipe> recipeList) {
         super(FXML);
