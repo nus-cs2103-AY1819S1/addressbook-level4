@@ -26,6 +26,7 @@ import seedu.address.model.calendar.Month;
 import seedu.address.model.calendar.Year;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.Assert;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -141,6 +142,11 @@ public class AddCommandTest {
 
         @Override
         public void updatePerson(Person target, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateMultiplePersons(List<Person> target, List<Person> editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
 

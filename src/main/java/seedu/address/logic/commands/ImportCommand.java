@@ -23,6 +23,7 @@ import org.xml.sax.SAXException;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.ContactContainsRoomPredicate;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -50,9 +51,13 @@ public class ImportCommand extends Command {
     public static final String MESSAGE_CONFIG_ERR = "Configuration error.";
     public static final String MESSAGE_PARSE_ERR = "Error parsing XML file.";
 
+    public static final int MAX_PEOPLE_PER_ROOM = 2;
+
     private final File file;
     private final List<Person> personList;
     private final Set<Tag> tags;
+    private final List<String> roomsList;
+    private String cca;
 
 
     /**
@@ -63,6 +68,8 @@ public class ImportCommand extends Command {
         this.file = file;
         this.personList = new ArrayList<>();
         this.tags = new HashSet<>();
+        this.roomsList = new ArrayList<>();
+        this.cca = null;
     }
 
     @Override
@@ -76,12 +83,11 @@ public class ImportCommand extends Command {
             doc.getDocumentElement().normalize();
 
             if (doc.getElementsByTagName("persons").getLength() != 0) {
-                importContacts(doc);
+                importContacts(doc, model);
             } else {
-                importCCA(doc);
+                importCCA(doc, model);
             }
 
-            model.addMultiplePersons(personList);
             model.commitAddressBook();
             return new CommandResult(String.format(MESSAGE_SUCCESS, file.getName()));
         } catch (FileNotFoundException e) {
@@ -102,21 +108,33 @@ public class ImportCommand extends Command {
                 && file.equals(((ImportCommand) other).file));
     }
 
-    private void importCCA(Document doc) {
-        personList.clear();
+    private void importCCA(Document doc, Model model) {
+        List<Person> fullList = model.getAddressBook().getPersonList();
+        List<Person> originalList = new ArrayList<>();
+        List<Person> editedList = new ArrayList<>();
+        roomsList.clear();
         NodeList nList = doc.getElementsByTagName("CCA");
         for (int i = 0; i < nList.getLength(); i++) {
+            originalList.clear();
+            editedList.clear();
             Node node = nList.item(i);
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
-                String cca = element.getAttribute("cca");
-                Room room = new Room(element.getElementsByTagName("room").item(0).getTextContent());
-                
+                this.cca = element.getAttribute("cca");
+                String room = element.getElementsByTagName("room").item(0).getTextContent();
+                roomsList.add(room);
             }
+            for (Person p : fullList) {
+                if (new ContactContainsRoomPredicate(roomsList).test(p)) {
+                    originalList.add(p);
+                    editedList.add(addCCAtoPerson(this.cca, p));
+                }
+            }
+            model.updateMultiplePersons(originalList, editedList);
         }
     }
 
-    private void importContacts(Document doc) {
+    private void importContacts(Document doc, Model model) {
         personList.clear();
         NodeList nList = doc.getElementsByTagName("persons");
         for (int i = 0; i < nList.getLength(); i++) {
@@ -140,5 +158,15 @@ public class ImportCommand extends Command {
                 personList.add(temp);
             }
         }
+        model.addMultiplePersons(personList);
+    }
+
+    private Person addCCAtoPerson(String cca, Person p) {
+        Set<Tag> newTags = new HashSet<>();
+        newTags.addAll(p.getTags());
+        newTags.add(new Tag(cca));
+        Person editedPerson = new Person(p.getName(), p.getPhone(), p.getEmail(), p.getRoom(),
+                p.getSchool(), newTags);
+        return editedPerson;
     }
 }

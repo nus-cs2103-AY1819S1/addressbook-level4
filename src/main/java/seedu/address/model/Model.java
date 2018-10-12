@@ -78,6 +78,13 @@ public interface Model {
     void updatePerson(Person target, Person editedPerson);
 
     /**
+     * Replaces the given persons {@code target} with {@code editedPerson}.
+     * {@code target} must exist in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     */
+    void updateMultiplePersons(List<Person> target, List<Person> editedPerson);
+
+    /**
      * Returns an unmodifiable view of the filtered person list
      */
     ObservableList<Person> getFilteredPersonList();

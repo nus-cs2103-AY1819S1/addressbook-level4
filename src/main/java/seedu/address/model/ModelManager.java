@@ -172,6 +172,14 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public void updateMultiplePersons(List<Person> target, List<Person> editedPerson) {
+        for (int i = 0; i < target.size(); i++) {
+            updatePerson(target.get(i), editedPerson.get(i));
+        }
+        indicateAddressBookChanged();
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
