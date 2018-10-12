@@ -13,6 +13,7 @@ import org.simplejavamail.email.Email;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import net.fortuna.ical4j.data.ParserException;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
@@ -244,6 +245,17 @@ public class ModelManager extends ComponentManager implements Model {
             indicateCalendarModelChanged();
         } catch (IOException e) {
             logger.warning("Failed to save calendar(ics) file : " + StringUtil.getDetails(e));
+        }
+    }
+
+    @Override
+    public void loadCalendar(Year year, Month month) {
+        try {
+            calendarModel.loadCalendar(year, month);
+            //TODO
+            //Raise load calendar event
+        } catch (IOException | ParserException e) {
+            logger.warning("Failed to load calendar(ics) file : " + StringUtil.getDetails(e));
         }
     }
 

@@ -137,6 +137,12 @@ public interface Model {
     void createCalendar(Year year, Month month);
 
     /**
+     * Load and parse the requested Calendar from storage.
+     * {@code year} and {@code month} must already be an existing calendar
+     */
+    void loadCalendar(Year year, Month month);
+
+    /**
      * Updates the existing calendar map inside UserPrefs Json file
      */
     void updateExistingCalendar();

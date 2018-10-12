@@ -200,6 +200,10 @@ public class AddCommandTest {
         }
 
         @Override
+        public void loadCalendar(Year year, Month month) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
         public void updateExistingCalendar() {
             throw new AssertionError("This method should not be called.");
         }

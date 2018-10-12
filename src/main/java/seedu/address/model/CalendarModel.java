@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
+import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.Calendar;
 import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.property.CalScale;
@@ -25,10 +26,15 @@ public class CalendarModel {
 
     private CalendarStorage calendarStorage;
     private Map<Year, Set<Month>> existingCalendar;
+    // Field to store calendar loaded by user if any.
+    // User can only load at most one calendar at any point of time.
+    private Calendar loadedCalendar;
 
     public CalendarModel(CalendarStorage calendarStorage, Map<Year, Set<Month>> existingCalendar) {
         this.calendarStorage = calendarStorage;
         this.existingCalendar = existingCalendar;
+        this.loadedCalendar = null;
+
     }
 
     /** Checks if calendar to be created already exists. */
@@ -43,6 +49,17 @@ public class CalendarModel {
         }
 
         return false;
+    }
+
+    /** Setter method for loadedCalendar field. */
+    private void setLoadedCalendar(Calendar calendar) {
+        this.loadedCalendar = calendar;
+
+    }
+
+    public Calendar getLoadedCalendar() {
+        return this.loadedCalendar;
+
     }
 
     /** Creates the calendar file. */
@@ -78,6 +95,14 @@ public class CalendarModel {
         } else {
             yearOfCal.add(month);
         }
+    }
+
+    /** Load and parse the requested calendar file. */
+    public void loadCalendar(Year year, Month month) throws IOException, ParserException {
+        String calendarName = month + "-" + year;
+        Calendar calendarToBeLoaded = calendarStorage.loadCalendar(calendarName);
+        setLoadedCalendar(calendarToBeLoaded);
+
     }
 
     /** Returns the updated Map: existingCalendar. */
