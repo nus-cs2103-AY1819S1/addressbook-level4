@@ -23,7 +23,7 @@ public class PlaylistListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(PlaylistListPanel.class);
 
     @FXML
-    private ListView<Playlist> playlistsView;
+    private ListView<Playlist> playlistListView;
 
     public PlaylistListPanel(ObservableList<Playlist> playlists) {
         super(FXML);
@@ -32,13 +32,13 @@ public class PlaylistListPanel extends UiPart<Region> {
     }
 
     private void setConnections(ObservableList<Playlist> playlists) {
-        playlistsView.setItems(playlists);
-        playlistsView.setCellFactory(listView -> new PlaylistsViewCell());
+        playlistListView.setItems(playlists);
+        playlistListView.setCellFactory(listView -> new PlaylistsViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
-        playlistsView.getSelectionModel().selectedItemProperty()
+        playlistListView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
                         logger.fine("Selection in playlist list panel changed to : '" + newValue + "'");
@@ -52,8 +52,8 @@ public class PlaylistListPanel extends UiPart<Region> {
      */
     private void scrollTo(int index) {
         Platform.runLater(() -> {
-            playlistsView.scrollTo(index);
-            playlistsView.getSelectionModel().clearAndSelect(index);
+            playlistListView.scrollTo(index);
+            playlistListView.getSelectionModel().clearAndSelect(index);
         });
     }
 
