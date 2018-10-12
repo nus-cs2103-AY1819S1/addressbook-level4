@@ -23,5 +23,5 @@ public interface Logic {
     ObservableList<Playlist> getFilteredPlaylistList();
 
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
-//    ListElementPointer getHistorySnapshot();
+   ListElementPointer getHistorySnapshot();
 }

@@ -21,11 +21,12 @@ public class LogicManager extends ComponentManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
+    private final CommandHistory history;
     private final LibraryParser libraryParser;
 
     public LogicManager(Model model) {
         this.model = model;
-        //history = new CommandHistory();
+        history = new CommandHistory();
         libraryParser = new LibraryParser();
     }
 
@@ -41,9 +42,8 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getFilteredPlaylistList();
     }
 
-//    @Override
-//    public ListElementPointer getHistorySnapshot() {
-//
-//        return new ListElementPointer(history.getHistory());
-//    }
+   @Override
+   public ListElementPointer getHistorySnapshot() {
+       return new ListElementPointer(history.getHistory());
+   }
 }
