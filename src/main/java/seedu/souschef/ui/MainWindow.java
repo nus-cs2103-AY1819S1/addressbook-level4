@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -21,7 +20,6 @@ import seedu.souschef.commons.events.ui.ShowHelpRequestEvent;
 import seedu.souschef.logic.Logic;
 import seedu.souschef.model.UniqueType;
 import seedu.souschef.model.UserPrefs;
-import seedu.souschef.model.recipe.Recipe;
 
 /**
  * The Main Window. Provides the basic application layout containing
