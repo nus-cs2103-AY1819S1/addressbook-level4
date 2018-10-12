@@ -385,6 +385,6 @@ e.g. `setBudget 20.00`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
-* *Statistics* : `stats`
+* *Statistics* : `stats n/NUMBER_OF_DAYS_OR_MONTHS m/MODE`
 * *Clear* : `clear`
 * *Exit* : `exit`
