@@ -10,7 +10,7 @@ import seedu.souschef.model.Model;
 /**
  * Parses input arguments and creates a new SelectCommand object
  */
-public class SelectCommandParser implements Parser<SelectCommand> {
+public class SelectCommandParser implements CommandParser<SelectCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the SelectCommand

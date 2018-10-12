@@ -14,7 +14,7 @@ import seedu.souschef.model.recipe.Recipe;
 /**
  * Parses input arguments and creates a new DeleteCommand object
  */
-public class DeleteCommandParser implements Parser<DeleteCommand> {
+public class DeleteCommandParser implements CommandParser<DeleteCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand

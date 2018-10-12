@@ -23,7 +23,7 @@ import seedu.souschef.model.recipe.Phone;
 import seedu.souschef.model.tag.Tag;
 import seedu.souschef.testutil.Assert;
 
-public class ParserUtilTest {
+public class CommandParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
