@@ -40,17 +40,17 @@ public class Date {
      * Returns true if a given string is a valid date.
      */
     public static boolean isValidDate(String test) {
+        if (!test.matches(DATE_VALIDATION_REGEX)) {
+            return false;
+        }
         String dayString = test.substring(0, 2);
         int day = Integer.parseInt(dayString);
         String monthString = test.substring(2, 4);
         int month = Integer.parseInt(monthString);
         String yearString = test.substring(4, 6);
         int year = Integer.parseInt(yearString) + 2000;
-
-
-        if (!test.matches(DATE_VALIDATION_REGEX)) {
-            return false;
-        } else if (month > 12 || month == 0) {
+        
+        if (month > 12 || month == 0) {
             return false;
         } else if (day == 0) {
             return false;
