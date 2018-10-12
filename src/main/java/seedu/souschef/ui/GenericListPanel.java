@@ -22,21 +22,21 @@ public abstract class GenericListPanel<T extends UniqueType> extends UiPart<Regi
      * To be used in constructor.
      * @param list ObservableList of UniqueType objects.
      */
-    abstract void setConnections(ObservableList<T> list);
+    protected abstract void setConnections(ObservableList<T> list);
 
     /**
      * To be used in setConnections().
      */
-    abstract void setEventHandlerForSelectionChangeEvent();
+    protected abstract void setEventHandlerForSelectionChangeEvent();
 
     /**
      * Scrolls to the {@code Card} at the {@code index} and selects it.
      * To be used in handleJumpToListRequestEvent().
      */
-    abstract void scrollTo(int index);
+    protected abstract void scrollTo(int index);
 
     @Subscribe
-    abstract void handleJumpToListRequestEvent(JumpToListRequestEvent event);
+    protected abstract void handleJumpToListRequestEvent(JumpToListRequestEvent event);
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code UniqueType} using a {@code Card}.

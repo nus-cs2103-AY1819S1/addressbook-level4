@@ -52,7 +52,7 @@ public class RecipeListPanel extends GenericListPanel<Recipe> {
      * To be used in handleJumpToListRequestEvent().
      */
     @Override
-    void scrollTo(int index) {
+    protected void scrollTo(int index) {
         Platform.runLater(() -> {
             recipeListView.scrollTo(index);
             recipeListView.getSelectionModel().clearAndSelect(index);
