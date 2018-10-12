@@ -26,6 +26,11 @@ public interface ServedPatientList {
     void addServedPatient(ServedPatient patient);
 
     /**
+     * Reset the served patient list.
+     */
+    void reset ();
+
+    /**
      * Selects a served patient in the served patient list.
      * @return The servedPatient object that was specified bu {@code index}.
      */

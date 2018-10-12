@@ -33,6 +33,11 @@ public class ServedPatientListManager implements ServedPatientList {
     }
 
     @Override
+    public void reset() {
+        servedPatientList.clear();
+    }
+
+    @Override
     public ServedPatient selectServedPatient(Index index) {
         return servedPatientList.get(index.getZeroBased());
     }
