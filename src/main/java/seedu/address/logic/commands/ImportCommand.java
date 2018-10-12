@@ -150,6 +150,7 @@ public class ImportCommand extends Command {
      * @param model
      */
     private void importContacts(Document doc, Model model) {
+        List<Person> fullList = model.getAddressBook().getPersonList();
         personList.clear();
         NodeList nList = doc.getElementsByTagName("persons");
         for (int i = 0; i < nList.getLength(); i++) {
@@ -170,7 +171,9 @@ public class ImportCommand extends Command {
                     }
                 }
                 Person temp = new Person(name, phone, email, room, school, tags);
-                personList.add(temp);
+                if (!fullList.contains(temp)) {
+                    personList.add(temp);
+                }
             }
         }
         model.addMultiplePersons(personList);
