@@ -1,8 +1,16 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -10,12 +18,6 @@ import seedu.address.model.UserPrefs;
 import seedu.address.testutil.TestUtil;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FilepathCommand}.
@@ -35,7 +37,8 @@ public class FilepathCommandTest {
     public void execute_filepath_success() {
 
         FilepathCommand filepathCommand = new FilepathCommand(NEW_PATH);
-        assertCommandSuccess(filepathCommand, model, commandHistory, FilepathCommand.MESSAGE_CHANGEPATH_SUCCESS, expectedModel);
+        assertCommandSuccess(filepathCommand, model, commandHistory,
+                String.format(FilepathCommand.MESSAGE_CHANGEPATH_SUCCESS, NEW_PATH), expectedModel);
         deleteFileIfExists(NEW_PATH);
     }
 

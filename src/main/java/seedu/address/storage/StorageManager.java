@@ -83,7 +83,7 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public void deleteAddressBook(Path filePath) throws IOException {
-        logger.fine("Deleting addressbook at: "+filePath);
+        logger.fine("Deleting addressbook at: " + filePath);
         addressBookStorage.deleteAddressBook(filePath);
     }
 

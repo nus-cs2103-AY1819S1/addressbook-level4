@@ -9,10 +9,10 @@ import seedu.address.model.UserPrefs;
 /** Indicates the User Prefs have been changed */
 public class UserPrefsChangeEvent extends BaseEvent {
 
-    public UserPrefs userPrefs;
+    public final UserPrefs userPrefs;
     public final ReadOnlyAddressBook data;
-    public Path oldPath;
-    public Path newPath;
+    public final Path oldPath;
+    public final Path newPath;
 
     public UserPrefsChangeEvent(UserPrefs userPrefs, ReadOnlyAddressBook data, Path oldPath, Path newPath) {
         this.userPrefs = userPrefs;

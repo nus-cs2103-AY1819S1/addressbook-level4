@@ -1,12 +1,10 @@
 package seedu.address.model;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.util.FileUtil;
 
 /**
  * Represents User's preferences.
