@@ -1,8 +1,7 @@
 package seedu.address.commons.events.ui;
 
-import org.simplejavamail.email.Email;
-
 import seedu.address.commons.events.BaseEvent;
+import seedu.address.model.EmailModel;
 
 //@@author EatOrBeEaten
 /**
@@ -10,10 +9,10 @@ import seedu.address.commons.events.BaseEvent;
  */
 public class EmailViewEvent extends BaseEvent {
 
-    private final Email email;
+    private final EmailModel emailModel;
 
-    public EmailViewEvent(Email email) {
-        this.email = email;
+    public EmailViewEvent(EmailModel emailModel) {
+        this.emailModel = emailModel;
     }
 
     @Override
@@ -21,8 +20,8 @@ public class EmailViewEvent extends BaseEvent {
         return getClass().getSimpleName();
     }
 
-    public Email getEmail() {
-        return email;
+    public EmailModel getEmailModel() {
+        return emailModel;
     }
 
 }

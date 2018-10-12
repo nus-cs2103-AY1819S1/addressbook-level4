@@ -3,8 +3,6 @@ package seedu.address.ui;
 import java.net.URL;
 import java.util.logging.Logger;
 
-import org.simplejavamail.email.Email;
-
 import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Platform;
@@ -16,6 +14,7 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.EmailViewEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.model.EmailModel;
 import seedu.address.model.person.Person;
 
 /**
@@ -77,15 +76,15 @@ public class BrowserPanel extends UiPart<Region> {
     @Subscribe
     private void handleEmailViewEvent(EmailViewEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        loadEmail(event.getEmail());
+        loadEmail(event.getEmailModel());
     }
 
     /**
-     * Loads HTML body of email.
-     * @param email The composed email
+     * Loads HTML text preview of email.
+     * @param emailModel The emailModel containing the saved email.
      */
-    public void loadEmail(Email email) {
-        Platform.runLater(() -> browser.getEngine().loadContent(email.getHTMLText()));
+    public void loadEmail(EmailModel emailModel) {
+        Platform.runLater(() -> browser.getEngine().loadContent(emailModel.getPreview()));
     }
 
 }
