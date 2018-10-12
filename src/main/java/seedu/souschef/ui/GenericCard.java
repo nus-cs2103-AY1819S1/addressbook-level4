@@ -23,5 +23,5 @@ public abstract class GenericCard<T extends UniqueType> extends UiPart<Region> {
     }
 
     @Override
-    abstract public boolean equals(Object other);
+    public abstract boolean equals(Object other);
 }
