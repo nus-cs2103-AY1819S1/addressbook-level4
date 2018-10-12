@@ -19,6 +19,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -87,7 +88,7 @@ public class ImportCommand extends Command {
                     Room room = new Room(element.getElementsByTagName("room").item(0).getTextContent());
                     School school = new School(element.getElementsByTagName("school").item(0).getTextContent());
                     NodeList tagged = element.getElementsByTagName("tagged");
-                    if (tagged.getLength() != 0 ) {
+                    if (tagged.getLength() != 0) {
                         for (int j = 0; j < tagged.getLength(); j++) {
                             tags.add(new Tag(tagged.item(j).getTextContent()));
                         }
