@@ -52,6 +52,7 @@ public class ImportCommand extends Command {
 
     private final File file;
     private final List<Person> personList;
+    private final Set<Tag> tags;
 
 
     /**
@@ -61,6 +62,7 @@ public class ImportCommand extends Command {
         requireNonNull(file);
         this.file = file;
         this.personList = new ArrayList<>();
+        this.tags = new HashSet<>();
     }
 
     @Override
@@ -73,29 +75,10 @@ public class ImportCommand extends Command {
             Document doc = dBuilder.parse(file);
             doc.getDocumentElement().normalize();
 
-            personList.clear();
-            Set<Tag> tags = new HashSet<>();
-            NodeList nList = doc.getElementsByTagName("persons");
-            for (int i = 0; i < nList.getLength(); i++) {
-                Node node = nList.item(i);
-                tags.clear();
-                if (node.getNodeType() == Node.ELEMENT_NODE) {
-                    Element element = (Element) node;
-
-                    Name name = new Name(element.getElementsByTagName("name").item(0).getTextContent());
-                    Phone phone = new Phone(element.getElementsByTagName("phone").item(0).getTextContent());
-                    Email email = new Email(element.getElementsByTagName("email").item(0).getTextContent());
-                    Room room = new Room(element.getElementsByTagName("room").item(0).getTextContent());
-                    School school = new School(element.getElementsByTagName("school").item(0).getTextContent());
-                    NodeList tagged = element.getElementsByTagName("tagged");
-                    if (tagged.getLength() != 0) {
-                        for (int j = 0; j < tagged.getLength(); j++) {
-                            tags.add(new Tag(tagged.item(j).getTextContent()));
-                        }
-                    }
-                    Person temp = new Person(name, phone, email, room, school, tags);
-                    personList.add(temp);
-                }
+            if (doc.getElementsByTagName("persons").getLength() != 0) {
+                importContacts(doc);
+            } else {
+                importCCA(doc);
             }
 
             model.addMultiplePersons(personList);
@@ -117,5 +100,45 @@ public class ImportCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof ImportCommand // instanceof handles nulls
                 && file.equals(((ImportCommand) other).file));
+    }
+
+    private void importCCA(Document doc) {
+        personList.clear();
+        NodeList nList = doc.getElementsByTagName("CCA");
+        for (int i = 0; i < nList.getLength(); i++) {
+            Node node = nList.item(i);
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) node;
+                String cca = element.getAttribute("cca");
+                Room room = new Room(element.getElementsByTagName("room").item(0).getTextContent());
+                
+            }
+        }
+    }
+
+    private void importContacts(Document doc) {
+        personList.clear();
+        NodeList nList = doc.getElementsByTagName("persons");
+        for (int i = 0; i < nList.getLength(); i++) {
+            Node node = nList.item(i);
+            tags.clear();
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) node;
+
+                Name name = new Name(element.getElementsByTagName("name").item(0).getTextContent());
+                Phone phone = new Phone(element.getElementsByTagName("phone").item(0).getTextContent());
+                Email email = new Email(element.getElementsByTagName("email").item(0).getTextContent());
+                Room room = new Room(element.getElementsByTagName("room").item(0).getTextContent());
+                School school = new School(element.getElementsByTagName("school").item(0).getTextContent());
+                NodeList tagged = element.getElementsByTagName("tagged");
+                if (tagged.getLength() != 0) {
+                    for (int j = 0; j < tagged.getLength(); j++) {
+                        tags.add(new Tag(tagged.item(j).getTextContent()));
+                    }
+                }
+                Person temp = new Person(name, phone, email, room, school, tags);
+                personList.add(temp);
+            }
+        }
     }
 }
