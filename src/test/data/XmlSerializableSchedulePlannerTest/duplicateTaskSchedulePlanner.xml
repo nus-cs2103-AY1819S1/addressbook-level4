@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<scheduleplanner>
+
+    <tasks>
+        <name>Alice Pauline</name>
+        <date>94351253</date>
+        <priority>1</priority>
+        <venue>123, Jurong West Ave 6, #08-111</venue>
+        <tagged>friends</tagged>
+    </tasks>
+
+    <!-- Task with same identity as Alice Pauline -->
+    <tasks>
+        <name>Alice Pauline</name>
+        <date>94351253</date>
+        <priority>1</priority>
+        <venue>123, Jurong West Ave 6, #08-111</venue>
+        <tagged>friends</tagged>
+    </tasks>
+
+</scheduleplanner>

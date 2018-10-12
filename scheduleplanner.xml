@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<scheduleplanner>
+    <tasks>
+        <name>Bernice Yu</name>
+        <date>99272758</date>
+        <priority>berniceyu@example.com</priority>
+        <venue>Blk 30 Lorong 3 Serangoon Gardens, #07-18</venue>
+        <tagged>colleagues</tagged>
+        <tagged>friends</tagged>
+    </tasks>
+    <tasks>
+        <name>Charlotte Oliveiro</name>
+        <date>93210283</date>
+        <priority>charlotte@example.com</priority>
+        <venue>Blk 11 Ang Mo Kio Street 74, #11-04</venue>
+        <tagged>neighbours</tagged>
+    </tasks>
+    <tasks>
+        <name>David Li</name>
+        <date>91031282</date>
+        <priority>lidavid@example.com</priority>
+        <venue>Blk 436 Serangoon Gardens Street 26, #16-43</venue>
+        <tagged>family</tagged>
+    </tasks>
+    <tasks>
+        <name>Irfan Ibrahim</name>
+        <date>92492021</date>
+        <priority>irfan@example.com</priority>
+        <venue>Blk 47 Tampines Street 20, #17-35</venue>
+        <tagged>classmates</tagged>
+    </tasks>
+    <tasks>
+        <name>Roy Balakrishnan</name>
+        <date>92624417</date>
+        <priority>royb@example.com</priority>
+        <venue>Blk 45 Aljunied Street 85, #11-31</venue>
+        <tagged>colleagues</tagged>
+    </tasks>
+</scheduleplanner>
