@@ -8,6 +8,10 @@ import javafx.scene.layout.Region;
 import seedu.souschef.commons.events.ui.JumpToListRequestEvent;
 import seedu.souschef.model.UniqueType;
 
+/**
+ * Panel containing the list of UniqueType cards.
+ * @param <T> A UniqueType subclass.
+ */
 public abstract class GenericListPanel<T extends UniqueType> extends UiPart<Region> {
 
     public GenericListPanel(String fxmlFileName) {
