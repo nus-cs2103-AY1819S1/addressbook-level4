@@ -4,15 +4,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_END_DATETIME;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_MA2101;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_END_DATETIME_MA2101;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_NAME_MA2101;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_UUID;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_REPEAT_TYPE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_REPEAT_UNTIL_DATETIME;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_START_DATETIME;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_VENUE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_UUID_MA2101;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_MA3220;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_REPEAT_TYPE_MA2101;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_REPEAT_UNTIL_DATETIME_MA2101;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_START_DATETIME_MA2101;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VENUE_MA2101;
 import static seedu.address.testutil.TypicalEvents.DAY2018_THREE_DAY_LIST;
 import static seedu.address.testutil.TypicalEvents.FEBRUARY_29_2016_YEARLY;
 import static seedu.address.testutil.TypicalEvents.FEBRUARY_29_FOUR_YEAR_LIST;
@@ -125,7 +125,7 @@ public class EventTest {
 
         // different uuid -> return false
         Event editedJanuaryFirst2018SingleEvent = new EventBuilder(JANUARY_1_2018_SINGLE)
-                .withUuid(VALID_EVENT_UUID).build();
+                .withUuid(VALID_EVENT_UUID_MA2101).build();
         assertNotEquals(JANUARY_1_2018_SINGLE, editedJanuaryFirst2018SingleEvent);
 
         // different eventName -> returns false
@@ -135,37 +135,37 @@ public class EventTest {
 
         // different startDateTime -> returns false
         editedJanuaryFirst2018SingleEvent = new EventBuilder(JANUARY_1_2018_SINGLE)
-                .withStartDateTime(VALID_START_DATETIME).build();
+                .withStartDateTime(VALID_START_DATETIME_MA2101).build();
         assertNotEquals(JANUARY_1_2018_SINGLE, editedJanuaryFirst2018SingleEvent);
 
         // different endDateTime -> returns false
         editedJanuaryFirst2018SingleEvent = new EventBuilder(JANUARY_1_2018_SINGLE)
-                .withEndDateTime(VALID_END_DATETIME).build();
+                .withEndDateTime(VALID_END_DATETIME_MA2101).build();
         assertNotEquals(JANUARY_1_2018_SINGLE, editedJanuaryFirst2018SingleEvent);
 
         // different description -> returns false
         editedJanuaryFirst2018SingleEvent =
-                new EventBuilder(JANUARY_1_2018_SINGLE).withDescription(VALID_DESCRIPTION).build();
+                new EventBuilder(JANUARY_1_2018_SINGLE).withDescription(VALID_DESCRIPTION_MA2101).build();
         assertNotEquals(JANUARY_1_2018_SINGLE, editedJanuaryFirst2018SingleEvent);
 
         // different priority -> returns false
         editedJanuaryFirst2018SingleEvent =
-                new EventBuilder(JANUARY_1_2018_SINGLE).withPriority(VALID_PRIORITY).build();
+                new EventBuilder(JANUARY_1_2018_SINGLE).withPriority(VALID_PRIORITY_MA3220).build();
         assertNotEquals(JANUARY_1_2018_SINGLE, editedJanuaryFirst2018SingleEvent);
 
         // different venue -> returns false
         editedJanuaryFirst2018SingleEvent =
-                new EventBuilder(JANUARY_1_2018_SINGLE).withVenue(VALID_VENUE).build();
+                new EventBuilder(JANUARY_1_2018_SINGLE).withVenue(VALID_VENUE_MA2101).build();
         assertNotEquals(JANUARY_1_2018_SINGLE, editedJanuaryFirst2018SingleEvent);
 
         // different repeat type -> returns false
         editedJanuaryFirst2018SingleEvent =
-                new EventBuilder(JANUARY_1_2018_SINGLE).withRepeatType(VALID_REPEAT_TYPE).build();
+                new EventBuilder(JANUARY_1_2018_SINGLE).withRepeatType(VALID_REPEAT_TYPE_MA2101).build();
         assertNotEquals(JANUARY_1_2018_SINGLE, editedJanuaryFirst2018SingleEvent);
 
         // different repeatUntilDateTime -> returns false
         editedJanuaryFirst2018SingleEvent = new EventBuilder(JANUARY_1_2018_SINGLE)
-                .withEndDateTime(VALID_REPEAT_UNTIL_DATETIME).build();
+                .withEndDateTime(VALID_REPEAT_UNTIL_DATETIME_MA2101).build();
         assertNotEquals(JANUARY_1_2018_SINGLE, editedJanuaryFirst2018SingleEvent);
     }
 }

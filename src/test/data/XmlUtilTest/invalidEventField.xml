@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Event with an invalid eventName field -->
+<event>
+    <uuid>aef6b77e-20a7-4de4-8402-343fbd475fd3</uuid>
+    <eventName> start blank space</eventName>
+    <startDateTime>2018-09-21T11:00</startDateTime>
+    <endDateTime>2018-09-21T12:00</endDateTime>
+    <description>F11 Tutorial slot</description>
+    <priority>LOW</priority>
+    <venue>School of Computing</venue>
+    <repeatType>NONE</repeatType>
+    <repeatUntilDateTime>2018-09-21T12:00</repeatUntilDateTime>
+</event>

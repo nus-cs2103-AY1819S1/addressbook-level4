@@ -40,6 +40,9 @@ public class EventList implements Iterable<Event> {
      */
     public void addEvents(List<Event> listToAdd) {
         requireNonNull(listToAdd);
+        if (listToAdd.size() > 100) {
+            // doSomething...[TODO]
+        }
         internalList.addAll(listToAdd);
     }
 

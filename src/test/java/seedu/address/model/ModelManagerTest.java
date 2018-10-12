@@ -1,30 +1,20 @@
 package seedu.address.model;
 
-//import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_UNUSED;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 import static seedu.address.testutil.TypicalEvents.JANUARY_1_2018_SINGLE;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-//import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BENSON;
-//import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalEvents.PLAY_JANUARY_1_2018_SINGLE;
 
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-//import seedu.address.model.person.Person;
-//import seedu.address.model.tag.Tag;
-import seedu.address.testutil.AddressBookBuilder;
-//import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.event.EventNameContainsKeywordsPredicate;
 import seedu.address.testutil.SchedulerBuilder;
 
 public class ModelManagerTest {
@@ -34,67 +24,38 @@ public class ModelManagerTest {
     private ModelManager modelManager = new ModelManager();
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasEvent_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        modelManager.hasPerson(null);
+        modelManager.hasEvent(null);
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasPerson(ALICE));
+    public void hasEvent_eventNotInScheduler_returnsFalse() {
+        assertFalse(modelManager.hasEvent(JANUARY_1_2018_SINGLE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        modelManager.addPerson(ALICE);
-        assertTrue(modelManager.hasPerson(ALICE));
+    public void hasEvent_eventInScheduler_returnsTrue() {
+        modelManager.addEvents(List.of(JANUARY_1_2018_SINGLE));
+        assertTrue(modelManager.hasEvent(JANUARY_1_2018_SINGLE));
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredEventList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        modelManager.getFilteredPersonList().remove(0);
+        modelManager.getFilteredEventList().remove(0);
     }
-
-    /*
-TODO:Now this test fails because we are removing tag from both schueduler and addressbook
-@Test
-public void deleteTag_nonExistentTag_modelUnchanged() throws Exception {
-AddressBook addressBook = new AddressBookBuilder().withPerson(AMY).withPerson(BOB).build();
-Scheduler scheduler = null;//This Line Got Problem
-UserPrefs userPrefs = new UserPrefs();
-ModelManager modelManager = new ModelManager(scheduler, addressBook, userPrefs);
-modelManager.deleteTag(new Tag(VALID_TAG_UNUSED));
-assertEquals(new ModelManager(scheduler, addressBook, userPrefs), modelManager);
-}
-TODO:Now this test fails because we are removing tag from both schueduler and addressbook
-@Test
-public void deleteTag_tagUsedByMultiplePersons_tagRemoved() throws Exception {
-AddressBook addressBook = new AddressBookBuilder().withPerson(AMY).withPerson(BOB).build();
-Scheduler scheduler = null;//This Line Got Problem
-UserPrefs userPrefs = new UserPrefs();
-ModelManager modelManager = new ModelManager(scheduler, addressBook, userPrefs);
-modelManager.deleteTag(new Tag(VALID_TAG_FRIEND));
-ModelManager expectedModelManager = new ModelManager(scheduler, addressBook, userPrefs);
-Person amyWithoutFriendTag = new PersonBuilder(AMY).withTags().build();
-Person bobWithoutFriendTag = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
-expectedModelManager.updatePerson(AMY, amyWithoutFriendTag);
-expectedModelManager.updatePerson(BOB, bobWithoutFriendTag);
-assertEquals(expectedModelManager, modelManager);
-}
-*/
 
     @Test
     public void equals() {
-        Scheduler scheduler = new SchedulerBuilder().withEvent(JANUARY_1_2018_SINGLE).build();
+        Scheduler scheduler = new SchedulerBuilder().withEvent(JANUARY_1_2018_SINGLE)
+                .withEvent(PLAY_JANUARY_1_2018_SINGLE).build();
         Scheduler differentScheduler = new Scheduler();
-        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(scheduler, addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(scheduler, addressBook, userPrefs);
+        modelManager = new ModelManager(scheduler, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(scheduler, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -107,22 +68,19 @@ assertEquals(expectedModelManager, modelManager);
         assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(scheduler, differentAddressBook, userPrefs)));
-
-        // different scheduler -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentScheduler, addressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentScheduler, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(scheduler, addressBook, userPrefs)));
+        String[] keywords = JANUARY_1_2018_SINGLE.getEventName().value.split("\\s+");
+        modelManager.updateFilteredEventList(new EventNameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        assertFalse(modelManager.equals(new ModelManager(scheduler, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
 
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertTrue(modelManager.equals(new ModelManager(scheduler, addressBook, differentUserPrefs)));
+        differentUserPrefs.setSchedulerFilePath(Paths.get("differentFilePath"));
+        assertTrue(modelManager.equals(new ModelManager(scheduler, differentUserPrefs)));
     }
 }

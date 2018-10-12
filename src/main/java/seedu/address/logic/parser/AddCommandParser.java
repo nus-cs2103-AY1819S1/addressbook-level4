@@ -42,6 +42,8 @@ public class AddCommandParser implements Parser<AddCommand> {
                         PREFIX_END_DATE_TIME, PREFIX_DESCRIPTION, PREFIX_PRIORITY,
                         PREFIX_VENUE, PREFIX_REPEAT_TYPE, PREFIX_REPEAT_UNTIL_DATE_TIME);
 
+        String temp = argMultimap.getPreamble();
+
         if (!arePrefixesPresent(argMultimap, PREFIX_EVENT_NAME) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }

@@ -4,7 +4,6 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showEventAtIndex;
 import static seedu.address.testutil.TypicalEvents.getTypicalScheduler;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -25,8 +24,8 @@ public class ListCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalScheduler(), getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getScheduler(), model.getAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalScheduler(), new UserPrefs());
+        expectedModel = new ModelManager(model.getScheduler(), new UserPrefs());
     }
 
     @Test

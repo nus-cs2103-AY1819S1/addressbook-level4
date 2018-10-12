@@ -12,7 +12,6 @@ import seedu.address.logic.parser.SchedulerParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
-import seedu.address.model.person.Person;
 
 /**
  * The main LogicManager of the app.

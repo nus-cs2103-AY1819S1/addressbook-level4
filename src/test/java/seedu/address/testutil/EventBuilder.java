@@ -16,14 +16,14 @@ import seedu.address.model.event.Venue;
  */
 public class EventBuilder {
 
-    public static final UUID DEFAULT_UUID = UUID.randomUUID();
+    public static final UUID DEFAULT_UUID = UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a625");
     public static final String DEFAULT_EVENT_NAME = "CS2103 Lecture";
     public static final LocalDateTime DEFAULT_START_DATE_TIME =
             LocalDateTime.of(2018, 9, 21, 16, 0);
     public static final LocalDateTime DEFAULT_END_DATE_TIME =
             LocalDateTime.of(2018, 9, 21, 18, 0);
     public static final String DEFAULT_DESCRIPTION = "My CS2103 Lecture";
-    public static final Priority DEFAULT_PRIORIY = Priority.NONE;
+    public static final Priority DEFAULT_PRIORITY = Priority.NONE;
     public static final String DEFAULT_VENUE = "iCube";
     public static final RepeatType DEFAULT_REPEAT_TYPE = RepeatType.NONE;
     public static final LocalDateTime DEFAULT_REPEAT_UNTIL_DATE_TIME =
@@ -45,7 +45,7 @@ public class EventBuilder {
         startDateTime = new DateTime(DEFAULT_START_DATE_TIME);
         endDateTime = new DateTime(DEFAULT_END_DATE_TIME);
         description = new Description(DEFAULT_DESCRIPTION);
-        priority = DEFAULT_PRIORIY;
+        priority = DEFAULT_PRIORITY;
         venue = new Venue(DEFAULT_VENUE);
         repeatType = DEFAULT_REPEAT_TYPE;
         repeatUntilDateTime = new DateTime(DEFAULT_REPEAT_UNTIL_DATE_TIME);

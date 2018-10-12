@@ -6,7 +6,7 @@ import seedu.address.model.event.Event;
 /**
  * A utility class to help with building Scheduler objects.
  * Example usage: <br>
- * {@code Scheduler scheduler = new SchedulerBuilder().withEvent(CS2103_TUTORIAL).build();}
+ * {@code Scheduler scheduler = new SchedulerBuilder().withEvent(JANUARY_1_2018_SINGLE).build();}
  */
 public class SchedulerBuilder {
 

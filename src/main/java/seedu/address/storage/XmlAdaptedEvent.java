@@ -1,10 +1,10 @@
 package seedu.address.storage;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.event.DateTime;
@@ -27,9 +27,11 @@ public class XmlAdaptedEvent {
     @XmlElement(required = true)
     private String eventName;
     @XmlElement(required = true)
-    private String startDateTime;
+    @XmlJavaTypeAdapter(DateTimeAdapter.class)
+    private DateTime startDateTime;
     @XmlElement(required = true)
-    private String endDateTime;
+    @XmlJavaTypeAdapter(DateTimeAdapter.class)
+    private DateTime endDateTime;
     @XmlElement(required = true)
     private String description;
     @XmlElement(required = true)
@@ -39,7 +41,8 @@ public class XmlAdaptedEvent {
     @XmlElement(required = true)
     private RepeatType repeatType;
     @XmlElement(required = true)
-    private String repeatUntilDateTime;
+    @XmlJavaTypeAdapter(DateTimeAdapter.class)
+    private DateTime repeatUntilDateTime;
 
     /**
      * Constructs an XmlAdaptedEvent.
@@ -48,11 +51,11 @@ public class XmlAdaptedEvent {
     public XmlAdaptedEvent() {}
 
     /**
-     * Constructs an {@code XmlAdaptedEvent} with the given person details.
+     * Constructs an {@code XmlAdaptedEvent} with the given event details.
      */
-    public XmlAdaptedEvent(UUID uuid, String eventName, String startDateTime, String endDateTime,
+    public XmlAdaptedEvent(UUID uuid, String eventName, DateTime startDateTime, DateTime endDateTime,
                  String description, Priority priority, String venue,
-                 RepeatType repeatType, String repeatUntilDateTime) {
+                 RepeatType repeatType, DateTime repeatUntilDateTime) {
         this.uuid = uuid;
         this.eventName = eventName;
         this.startDateTime = startDateTime;
@@ -67,24 +70,24 @@ public class XmlAdaptedEvent {
     /**
      * Converts a given Event into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedPerson
+     * @param source future changes to this will not affect the created XmlAdaptedEvent
      */
     public XmlAdaptedEvent(Event source) {
         uuid = source.getUuid();
         eventName = source.getEventName().value;
-        startDateTime = source.getStartDateTime().value.toString();
-        endDateTime = source.getEndDateTime().value.toString();
+        startDateTime = source.getStartDateTime();
+        endDateTime = source.getEndDateTime();
         description = source.getDescription().value;
         priority = source.getPriority();
         venue = source.getVenue().value;
         repeatType = source.getRepeatType();
-        repeatUntilDateTime = source.getRepeatUntilDateTime().value.toString();
+        repeatUntilDateTime = source.getRepeatUntilDateTime();
     }
 
     /**
-     * Converts this jaxb-friendly adapted person object into the model's Person object.
+     * Converts this jaxb-friendly adapted event object into the model's Event object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person
+     * @throws IllegalValueException if there were any data constraints violated in the adapted event
      */
     public Event toModelType() throws IllegalValueException {
 
@@ -106,13 +109,13 @@ public class XmlAdaptedEvent {
             throw new IllegalValueException(String.format(
                     MISSING_FIELD_MESSAGE_FORMAT, DateTime.class.getSimpleName()));
         }
-        final DateTime modelStartDateTime = new DateTime(LocalDateTime.parse(startDateTime));
+        final DateTime modelStartDateTime = startDateTime;
 
         if (endDateTime == null) {
             throw new IllegalValueException(String.format(
                     MISSING_FIELD_MESSAGE_FORMAT, DateTime.class.getSimpleName()));
         }
-        final DateTime modelEndDateTime = new DateTime(LocalDateTime.parse(endDateTime));
+        final DateTime modelEndDateTime = endDateTime;
 
         if (description == null) {
             throw new IllegalValueException(String.format(
@@ -141,7 +144,7 @@ public class XmlAdaptedEvent {
             throw new IllegalValueException(String.format(
                     MISSING_FIELD_MESSAGE_FORMAT, DateTime.class.getSimpleName()));
         }
-        final DateTime modelRepeatUntilDateTime = new DateTime(LocalDateTime.parse(repeatUntilDateTime));
+        final DateTime modelRepeatUntilDateTime = repeatUntilDateTime;
 
         return new Event(modelUuid, modelName, modelStartDateTime, modelEndDateTime, modelDescription, modelPriority,
                 modelVenue, modelRepeatType, modelRepeatUntilDateTime);

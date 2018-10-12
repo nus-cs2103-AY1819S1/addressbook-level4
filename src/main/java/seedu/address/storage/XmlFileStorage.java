@@ -14,30 +14,6 @@ import seedu.address.commons.util.XmlUtil;
 public class XmlFileStorage {
 
     /**
-     * Saves the given address book data to the specified file.
-     */
-    public static void saveAddressBookDataToFile(Path file, XmlSerializableAddressBook addressBook)
-            throws FileNotFoundException {
-        try {
-            XmlUtil.saveDataToFile(file, addressBook);
-        } catch (JAXBException e) {
-            throw new AssertionError("Unexpected exception " + e.getMessage(), e);
-        }
-    }
-
-    /**
-     * Returns address book in the file or an empty address book
-     */
-    public static XmlSerializableAddressBook loadAddressBookDataFromSaveFile(Path file) throws DataConversionException,
-                                                                            FileNotFoundException {
-        try {
-            return XmlUtil.getDataFromFile(file, XmlSerializableAddressBook.class);
-        } catch (JAXBException e) {
-            throw new DataConversionException(e);
-        }
-    }
-
-    /**
      * Saves the given scheduler data to the specified file.
      */
     public static void saveSchedulerDataToFile(Path file, XmlSerializableScheduler scheduler)

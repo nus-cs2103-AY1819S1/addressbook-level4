@@ -3,6 +3,7 @@ package seedu.address.model.event;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 /**
@@ -25,12 +26,6 @@ public class DateTime implements Comparable<DateTime> {
 
     public LocalDateTime getLocalDateTime() {
         return value;
-    }
-
-
-    @Override
-    public String toString() {
-        return value.toString();
     }
 
     @Override
@@ -70,6 +65,15 @@ public class DateTime implements Comparable<DateTime> {
         LocalDateTime currentLocalDateTime = currentDateTime.getLocalDateTime();
         long minutes = value.until(currentLocalDateTime, ChronoUnit.MINUTES);
         return (minutes >= 1);
+    }
+
+    /**
+     * Constructs a string of {@code DateTime} in a more human readable format
+     * @return a human readable date time string
+     */
+    public String getPrettyString() {
+        DateTimeFormatter prettyStringFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return value.format(prettyStringFormatter);
     }
 
 }

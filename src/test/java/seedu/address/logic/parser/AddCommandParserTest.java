@@ -1,47 +1,41 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_MA2101;
+import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_MA3220;
+import static seedu.address.logic.commands.CommandTestUtil.END_DATETIME_DESC_MA2101;
+import static seedu.address.logic.commands.CommandTestUtil.END_DATETIME_DESC_MA3220;
 import static seedu.address.logic.commands.CommandTestUtil.EVENT_NAME_DESC_MA2101;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.EVENT_NAME_DESC_MA3220;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.PRIORITY_DESC_MA2101;
+import static seedu.address.logic.commands.CommandTestUtil.PRIORITY_DESC_MA3220;
+import static seedu.address.logic.commands.CommandTestUtil.REPEAT_TYPE_DESC_MA2101;
+import static seedu.address.logic.commands.CommandTestUtil.REPEAT_TYPE_DESC_MA3220;
+import static seedu.address.logic.commands.CommandTestUtil.REPEAT_UNTIL_DATETIME_DESC_MA2101;
+import static seedu.address.logic.commands.CommandTestUtil.REPEAT_UNTIL_DATETIME_DESC_MA3220;
+import static seedu.address.logic.commands.CommandTestUtil.START_DATETIME_DESC_MA2101;
+import static seedu.address.logic.commands.CommandTestUtil.START_DATETIME_DESC_MA3220;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_PLAY;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_SCHOOL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_NAME_MA2101;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_SCHOOL;
+import static seedu.address.logic.commands.CommandTestUtil.VENUE_DESC_MA2101;
+import static seedu.address.logic.commands.CommandTestUtil.VENUE_DESC_MA3220;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalEvents.MA2101_JANUARY_1_2018_YEARLY;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalEvents.MA3220_JANUARY_1_2019_SINGLE;
 
 import org.junit.Test;
 
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.event.Event;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.event.EventName;
 import seedu.address.testutil.EventBuilder;
-import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
@@ -51,94 +45,114 @@ public class AddCommandParserTest {
         Event expectedEvent = new EventBuilder(MA2101_JANUARY_1_2018_YEARLY).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + EVENT_NAME_DESC_MA2101 + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddPersonCommand(expectedPerson));
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + EVENT_NAME_DESC_MA2101 + START_DATETIME_DESC_MA2101
+                + END_DATETIME_DESC_MA2101 + DESCRIPTION_DESC_MA2101 + PRIORITY_DESC_MA2101 + VENUE_DESC_MA2101
+                + REPEAT_TYPE_DESC_MA2101 + REPEAT_UNTIL_DATETIME_DESC_MA2101,
+                new AddCommand(expectedEvent));
 
-        // multiple names - last name accepted
-        assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddPersonCommand(expectedPerson));
+        // multiple names - last event name accepted
+        assertParseSuccess(parser, EVENT_NAME_DESC_MA3220 + EVENT_NAME_DESC_MA2101 + START_DATETIME_DESC_MA2101
+                        + END_DATETIME_DESC_MA2101 + DESCRIPTION_DESC_MA2101 + PRIORITY_DESC_MA2101 + VENUE_DESC_MA2101
+                        + REPEAT_TYPE_DESC_MA2101 + REPEAT_UNTIL_DATETIME_DESC_MA2101 + TAG_DESC_PLAY,
+                new AddCommand(expectedEvent));
 
-        // multiple phones - last phone accepted
-        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddPersonCommand(expectedPerson));
+        // multiple start date time - last start date time accepted
+        assertParseSuccess(parser, EVENT_NAME_DESC_MA2101 + START_DATETIME_DESC_MA3220 + START_DATETIME_DESC_MA2101
+                        + END_DATETIME_DESC_MA2101 + DESCRIPTION_DESC_MA2101 + PRIORITY_DESC_MA2101 + VENUE_DESC_MA2101
+                        + REPEAT_TYPE_DESC_MA2101 + REPEAT_UNTIL_DATETIME_DESC_MA2101 + TAG_DESC_PLAY,
+                new AddCommand(expectedEvent));
 
-        // multiple emails - last email accepted
-        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddPersonCommand(expectedPerson));
+        // multiple end date time - last end date time accepted
+        assertParseSuccess(parser, EVENT_NAME_DESC_MA2101 + START_DATETIME_DESC_MA2101 + END_DATETIME_DESC_MA3220
+                        + END_DATETIME_DESC_MA2101 + DESCRIPTION_DESC_MA2101 + PRIORITY_DESC_MA2101 + VENUE_DESC_MA2101
+                        + REPEAT_TYPE_DESC_MA2101 + REPEAT_UNTIL_DATETIME_DESC_MA2101 + TAG_DESC_PLAY,
+                new AddCommand(expectedEvent));
 
-        // multiple addresses - last address accepted
-        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_AMY
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddPersonCommand(expectedPerson));
+        // multiple description - last description accepted
+        assertParseSuccess(parser, EVENT_NAME_DESC_MA2101 + START_DATETIME_DESC_MA2101 + END_DATETIME_DESC_MA2101
+                        + DESCRIPTION_DESC_MA3220 + DESCRIPTION_DESC_MA2101 + PRIORITY_DESC_MA2101 + VENUE_DESC_MA2101
+                        + REPEAT_TYPE_DESC_MA2101 + REPEAT_UNTIL_DATETIME_DESC_MA2101 + TAG_DESC_PLAY,
+                new AddCommand(expectedEvent));
+
+        // multiple priority - last priority accepted
+        assertParseSuccess(parser, EVENT_NAME_DESC_MA2101 + START_DATETIME_DESC_MA2101 + END_DATETIME_DESC_MA2101
+                        + DESCRIPTION_DESC_MA2101 + PRIORITY_DESC_MA3220 + PRIORITY_DESC_MA2101 + VENUE_DESC_MA2101
+                        + REPEAT_TYPE_DESC_MA2101 + REPEAT_UNTIL_DATETIME_DESC_MA2101 + TAG_DESC_PLAY,
+                new AddCommand(expectedEvent));
+
+        // multiple venue - last venue accepted
+        assertParseSuccess(parser, EVENT_NAME_DESC_MA2101 + START_DATETIME_DESC_MA2101 + END_DATETIME_DESC_MA2101
+                        + DESCRIPTION_DESC_MA2101 + PRIORITY_DESC_MA2101 + VENUE_DESC_MA3220 + VENUE_DESC_MA2101
+                        + REPEAT_TYPE_DESC_MA2101 + REPEAT_UNTIL_DATETIME_DESC_MA2101 + TAG_DESC_PLAY,
+                new AddCommand(expectedEvent));
+
+        // multiple repeat type - last repeat type accepted
+        assertParseSuccess(parser, EVENT_NAME_DESC_MA2101 + START_DATETIME_DESC_MA2101 + END_DATETIME_DESC_MA2101
+                        + DESCRIPTION_DESC_MA2101 + PRIORITY_DESC_MA2101 + VENUE_DESC_MA2101 + REPEAT_TYPE_DESC_MA3220
+                        + REPEAT_TYPE_DESC_MA2101 + REPEAT_UNTIL_DATETIME_DESC_MA2101 + TAG_DESC_PLAY,
+                new AddCommand(expectedEvent));
+
+        // multiple repeat until date time - last repeat until date time accepted
+        assertParseSuccess(parser, EVENT_NAME_DESC_MA2101 + START_DATETIME_DESC_MA2101 + END_DATETIME_DESC_MA2101
+                        + DESCRIPTION_DESC_MA2101 + PRIORITY_DESC_MA2101 + VENUE_DESC_MA2101 + REPEAT_TYPE_DESC_MA2101
+                        + REPEAT_UNTIL_DATETIME_DESC_MA3220 + REPEAT_UNTIL_DATETIME_DESC_MA2101 + TAG_DESC_PLAY,
+                new AddCommand(expectedEvent));
 
         // multiple tags - all accepted
-        Person expectedPersonMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+        Event expectedEventMultipleTags = new EventBuilder(MA2101_JANUARY_1_2018_YEARLY) //[TODO] fix when tag done
                 .build();
-        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddPersonCommand(expectedPersonMultipleTags));
+        assertParseSuccess(parser, EVENT_NAME_DESC_MA2101 + START_DATETIME_DESC_MA2101 + END_DATETIME_DESC_MA2101
+                        + DESCRIPTION_DESC_MA2101 + PRIORITY_DESC_MA2101 + VENUE_DESC_MA2101 + REPEAT_TYPE_DESC_MA2101
+                        + REPEAT_UNTIL_DATETIME_DESC_MA2101 + TAG_DESC_PLAY + TAG_DESC_SCHOOL,
+                new AddCommand(expectedEventMultipleTags));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
-        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
-                new AddPersonCommand(expectedPerson));
+        Event expectedEvent = new EventBuilder(MA3220_JANUARY_1_2019_SINGLE).withVenue("").build();
+        assertParseSuccess(parser, EVENT_NAME_DESC_MA3220 + START_DATETIME_DESC_MA3220
+                        + END_DATETIME_DESC_MA3220 + DESCRIPTION_DESC_MA3220 + PRIORITY_DESC_MA3220
+                        + REPEAT_TYPE_DESC_MA3220 + REPEAT_UNTIL_DATETIME_DESC_MA3220 + TAG_DESC_SCHOOL,
+                new AddCommand(expectedEvent));
     }
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPersonCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
-        // missing name prefix
-        assertParseFailure(parser, VALID_NAME_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB,
-                expectedMessage);
-
-        // missing phone prefix
-        assertParseFailure(parser, NAME_DESC_BOB + VALID_PHONE_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB,
-                expectedMessage);
-
-        // missing email prefix
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + VALID_EMAIL_BOB + ADDRESS_DESC_BOB,
-                expectedMessage);
-
-        // missing address prefix
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + VALID_ADDRESS_BOB,
-                expectedMessage);
-
-        // all prefixes missing
-        assertParseFailure(parser, VALID_NAME_BOB + VALID_PHONE_BOB + VALID_EMAIL_BOB + VALID_ADDRESS_BOB,
+        // missing event name prefix
+        assertParseFailure(parser, VALID_EVENT_NAME_MA2101 + START_DATETIME_DESC_MA2101
+                        + END_DATETIME_DESC_MA2101 + DESCRIPTION_DESC_MA2101 + PRIORITY_DESC_MA2101 + VENUE_DESC_MA2101
+                        + REPEAT_TYPE_DESC_MA2101 + REPEAT_UNTIL_DATETIME_DESC_MA2101 + TAG_DESC_PLAY,
                 expectedMessage);
     }
 
     @Test
     public void parse_invalidValue_failure() {
-        // invalid name
-        assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Name.MESSAGE_NAME_CONSTRAINTS);
+        // invalid event name
+        assertParseFailure(parser, INVALID_EVENT_NAME_DESC + START_DATETIME_DESC_MA2101
+                + END_DATETIME_DESC_MA2101 + DESCRIPTION_DESC_MA2101 + PRIORITY_DESC_MA2101
+                + VENUE_DESC_MA2101 + REPEAT_TYPE_DESC_MA2101 + REPEAT_UNTIL_DATETIME_DESC_MA2101
+                + TAG_DESC_PLAY + TAG_DESC_SCHOOL, EventName.MESSAGE_EVENT_NAME_CONSTRAINTS);
 
-        // invalid phone
-        assertParseFailure(parser, NAME_DESC_BOB + INVALID_PHONE_DESC + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Phone.MESSAGE_PHONE_CONSTRAINTS);
-
-        // invalid email
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC + ADDRESS_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Email.MESSAGE_EMAIL_CONSTRAINTS);
-
-        // invalid address
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Address.MESSAGE_ADDRESS_CONSTRAINTS);
-
-        // invalid tag
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + INVALID_TAG_DESC + VALID_TAG_FRIEND, Tag.MESSAGE_TAG_CONSTRAINTS);
+        // invalid tag [TODO] FIX once tag is implemented
+        //assertParseFailure(parser, EVENT_NAME_DESC_MA2101 + START_DATETIME_DESC_MA2101
+        //        + END_DATETIME_DESC_MA2101 + DESCRIPTION_DESC_MA2101 + PRIORITY_DESC_MA2101
+        //        + VENUE_DESC_MA2101 + REPEAT_TYPE_DESC_MA2101 + REPEAT_UNTIL_DATETIME_DESC_MA2101
+        //        + INVALID_TAG_DESC + VALID_TAG_SCHOOL, Tag.MESSAGE_TAG_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC,
-                Name.MESSAGE_NAME_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_EVENT_NAME_DESC + START_DATETIME_DESC_MA2101
+                + END_DATETIME_DESC_MA2101 + DESCRIPTION_DESC_MA2101 + PRIORITY_DESC_MA2101
+                + VENUE_DESC_MA2101 + REPEAT_TYPE_DESC_MA2101 + REPEAT_UNTIL_DATETIME_DESC_MA2101
+                + INVALID_TAG_DESC + VALID_TAG_SCHOOL, EventName.MESSAGE_EVENT_NAME_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPersonCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + EVENT_NAME_DESC_MA2101
+                        + START_DATETIME_DESC_MA2101 + END_DATETIME_DESC_MA2101 + DESCRIPTION_DESC_MA2101
+                        + PRIORITY_DESC_MA2101 + VENUE_DESC_MA2101 + REPEAT_TYPE_DESC_MA2101
+                        + REPEAT_UNTIL_DATETIME_DESC_MA2101 + TAG_DESC_SCHOOL + TAG_DESC_PLAY,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 }

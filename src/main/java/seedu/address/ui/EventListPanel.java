@@ -11,8 +11,8 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.EventPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.event.Event;
 
 /**
@@ -23,7 +23,7 @@ public class EventListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(EventListPanel.class);
 
     @FXML
-    private ListView<Event> personListView;
+    private ListView<Event> eventListView;
 
     public EventListPanel(ObservableList<Event> eventList) {
         super(FXML);
@@ -32,28 +32,28 @@ public class EventListPanel extends UiPart<Region> {
     }
 
     private void setConnections(ObservableList<Event> eventList) {
-        personListView.setItems(eventList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        eventListView.setItems(eventList);
+        eventListView.setCellFactory(listView -> new EventListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
-        personListView.getSelectionModel().selectedItemProperty()
+        eventListView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
-                        logger.fine("Selection in person list panel changed to : '" + newValue + "'");
-                        raise(new PersonPanelSelectionChangedEvent(newValue));
+                        logger.fine("Selection in event list panel changed to : '" + newValue + "'");
+                        raise(new EventPanelSelectionChangedEvent(newValue));
                     }
                 });
     }
 
     /**
-     * Scrolls to the {@code PersonCard} at the {@code index} and selects it.
+     * Scrolls to the {@code EventCard} at the {@code index} and selects it.
      */
     private void scrollTo(int index) {
         Platform.runLater(() -> {
-            personListView.scrollTo(index);
-            personListView.getSelectionModel().clearAndSelect(index);
+            eventListView.scrollTo(index);
+            eventListView.getSelectionModel().clearAndSelect(index);
         });
     }
 
@@ -64,18 +64,18 @@ public class EventListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Event} using a {@code EventCard}.
      */
-    class PersonListViewCell extends ListCell<Event> {
+    class EventListViewCell extends ListCell<Event> {
         @Override
-        protected void updateItem(Event person, boolean empty) {
-            super.updateItem(person, empty);
+        protected void updateItem(Event event, boolean empty) {
+            super.updateItem(event, empty);
 
-            if (empty || person == null) {
+            if (empty || event == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+                setGraphic(new EventCard(event, getIndex() + 1).getRoot());
             }
         }
     }
