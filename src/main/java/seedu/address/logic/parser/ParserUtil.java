@@ -235,10 +235,10 @@ public class ParserUtil {
     public static File parseFile(String file) throws ParseException {
         requireNonNull(file);
         String trimmedFile = file.trim();
-        if (!file.contains(".txt")) {
+        if (!trimmedFile.contains(".xml")) {
             throw new ParseException(ImportCommand.MESSAGE_USAGE);
         }
-        return new File(trimmedFile);
+        return new File("./imports/" + trimmedFile);
     }
 
 }
