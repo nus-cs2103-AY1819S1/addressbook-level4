@@ -3,10 +3,10 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.commons.core.Messages.MESSAGE_CARPARKS_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalCarparks.BENSON;
-import static seedu.address.testutil.TypicalCarparks.CARL;
-import static seedu.address.testutil.TypicalCarparks.DANIEL;
-import static seedu.address.testutil.TypicalCarparks.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalCarparks.BRAVO;
+import static seedu.address.testutil.TypicalCarparks.CHARLIE;
+import static seedu.address.testutil.TypicalCarparks.DELTA;
+import static seedu.address.testutil.TypicalCarparks.KEYWORD_MATCHING_SENGKANG;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,47 +26,49 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
     @Test
     public void find() {
         /* Case: find multiple persons in address book, command with leading spaces and trailing spaces
-         * -> 2 persons found
+         * -> 2 car parks found
          */
-        String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER + "   ";
+        String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SENGKANG + "   ";
         Model expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL); // first names of Benson and Daniel are "Meier"
+        ModelHelper.setFilteredList(expectedModel, BRAVO, DELTA); // addresses contains sengkang
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: repeat previous find command where carpark list is displaying the persons we are finding
-         * -> 2 persons found
+        /* Case: repeat previous find command where car park list is displaying the car parks we are finding
+         * -> 2 car parks found
          */
-        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
+        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SENGKANG;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find carpark where carpark list is not displaying the carpark we are finding -> 1 carpark found */
-        command = FindCommand.COMMAND_WORD + " Carl";
-        ModelHelper.setFilteredList(expectedModel, CARL);
-        assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
-
-        /* Case: find multiple persons in address book, 2 keywords -> 2 persons found */
-        command = FindCommand.COMMAND_WORD + " Benson Daniel";
-        ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL);
-        assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
-
-        /* Case: find multiple persons in address book, 2 keywords in reversed order -> 2 persons found */
-        command = FindCommand.COMMAND_WORD + " Daniel Benson";
-        assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
-
-        /* Case: find multiple persons in address book, 2 keywords with 1 repeat -> 2 persons found */
-        command = FindCommand.COMMAND_WORD + " Daniel Benson Daniel";
-        assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
-
-        /* Case: find multiple persons in address book, 2 matching keywords and 1 non-matching keyword
-         * -> 2 persons found
+        /* Case: find car park where car park list is not displaying the car park we are finding
+         * -> 1 car park found
          */
-        command = FindCommand.COMMAND_WORD + " Daniel Benson NonMatchingKeyWord";
+        command = FindCommand.COMMAND_WORD + " U25";
+        ModelHelper.setFilteredList(expectedModel, CHARLIE);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find multiple car parks in address book, 2 keywords -> 2 car parks found */
+        command = FindCommand.COMMAND_WORD + " SK88 SK23";
+        ModelHelper.setFilteredList(expectedModel, BRAVO, DELTA);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find multiple car parks in address book, 2 keywords in reversed order -> 2 car parks found */
+        command = FindCommand.COMMAND_WORD + " SK23 SK88";
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find multiple car parks in address book, 2 keywords with 1 repeat -> 2 car parks found */
+        command = FindCommand.COMMAND_WORD + " SK23 SK88 SK23";
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find multiple car parks in address book, 2 matching keywords and 1 non-matching keyword
+         * -> 2 car parks found
+         */
+        command = FindCommand.COMMAND_WORD + " SK23 SK88 NonMatchingKeyWord";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -80,84 +82,114 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
 
-        /* Case: find same persons in address book after deleting 1 of them -> 1 carpark found */
+        /* Case: find same car parks in address book after deleting 1 of them -> 1 car park found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
-        assertFalse(getModel().getAddressBook().getCarparkList().contains(BENSON));
-        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
+        assertFalse(getModel().getAddressBook().getCarparkList().contains(BRAVO));
+        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SENGKANG;
         expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        ModelHelper.setFilteredList(expectedModel, DELTA);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find carpark in address book, keyword is same as name but of different case -> 1 carpark found */
-        command = FindCommand.COMMAND_WORD + " MeIeR";
+        /* Case: find car park in address book, keyword is same as name but of different case
+         * -> 1 car park found
+         */
+        command = FindCommand.COMMAND_WORD + " SeNgKaNg";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find carpark in address book, keyword is substring of name -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " Mei";
+        /* Case: find car park in address book, keyword is substring of name -> 0 car parks found */
+        command = FindCommand.COMMAND_WORD + " Sen";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find carpark in address book, name is substring of keyword -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " Meiers";
+        /* Case: find car park in address book, name is substring of keyword -> 0 car parks found */
+        command = FindCommand.COMMAND_WORD + " Sengkangs";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find carpark not in address book -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " Mark";
+        /* Case: find car park not in address book -> 0 car parks found */
+        command = FindCommand.COMMAND_WORD + " AK47";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find phone number of carpark in address book -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getCoordinate().value;
+        /* Case: find type of car park in address book -> 0 car parks found */
+        command = FindCommand.COMMAND_WORD + " " + DELTA.getCarparkType().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find address of carpark in address book -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getAddress().value;
+        /* Case: find coordinate of car park in address book -> 0 car parks found */
+        command = FindCommand.COMMAND_WORD + " " + DELTA.getCoordinate().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find email of carpark in address book -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getNightParking().value;
+        /* Case: find lots available of car park in address book -> 0 car parks found */
+        command = FindCommand.COMMAND_WORD + " " + DELTA.getLotsAvailable().value;
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find total lots of car park in address book -> 0 car parks found */
+        command = FindCommand.COMMAND_WORD + " " + DELTA.getTotalLots().value;
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find free parking of car park in address book -> 0 car parks found */
+        command = FindCommand.COMMAND_WORD + " " + DELTA.getFreeParking().value;
+        ModelHelper.setFilteredList(expectedModel);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find night parking of car park in address book -> 0 car parks found */
+        command = FindCommand.COMMAND_WORD + " " + DELTA.getNightParking().value;
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find short term parking of car park in address book -> 0 car parks found */
+        command = FindCommand.COMMAND_WORD + " " + DELTA.getShortTerm().value;
+        ModelHelper.setFilteredList(expectedModel);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find type of parking of car park in address book -> 0 car parks found */
+        command = FindCommand.COMMAND_WORD + " " + DELTA.getTypeOfParking().value;
+        ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find tags of carpark in address book -> 0 persons found */
-        List<Tag> tags = new ArrayList<>(DANIEL.getTags());
+        List<Tag> tags = new ArrayList<>(DELTA.getTags());
         command = FindCommand.COMMAND_WORD + " " + tags.get(0).tagName;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find while a carpark is selected -> selected card deselected */
-        showAllPersons();
-        selectPerson(Index.fromOneBased(1));
+        showAllCarparks();
+        selectCarpark(Index.fromOneBased(1));
         assertFalse(getCarparkListPanel().getHandleToSelectedCard().getCarparkNumber().equals(
-                DANIEL.getCarparkNumber().value));
-        command = FindCommand.COMMAND_WORD + " Daniel";
-        ModelHelper.setFilteredList(expectedModel, DANIEL);
+                DELTA.getCarparkNumber().value));
+        command = FindCommand.COMMAND_WORD + " SK23";
+        ModelHelper.setFilteredList(expectedModel, DELTA);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardDeselected();
 
-        /* Case: find carpark in empty address book -> 0 persons found */
-        deleteAllPersons();
-        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
+        /* Case: find car park in empty address book -> 0 persons found */
+        deleteAllCarparks();
+        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SENGKANG;
         expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        ModelHelper.setFilteredList(expectedModel, DELTA);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: mixed case command word -> rejected */
-        command = "FiNd Meier";
+        command = "FiNd Sengkang";
         assertCommandFailure(command, MESSAGE_UNKNOWN_COMMAND);
     }
 
     /**
      * Executes {@code command} and verifies that the command box displays an empty string, the result display
-     * box displays {@code Messages#MESSAGE_PERSONS_LISTED_OVERVIEW} with the number of people in the filtered list,
+     * box displays {@code Messages#MESSAGE_CARPARKS_LISTED_OVERVIEW} with the number of people in the filtered list,
      * and the model related components equal to {@code expectedModel}.
      * These verifications are done by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>

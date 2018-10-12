@@ -23,15 +23,15 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class CarparkBuilder {
 
-    public static final String DEFAULT_CARPARK_NUMBER = "Alice Pauline";
-    public static final String DEFAULT_CARPARK_TYPE = "Alice Pauline";
-    public static final String DEFAULT_COORDINATE = "Alice Pauline";
-    public static final String DEFAULT_FREE_PARKING = "Alice Pauline";
-    public static final String DEFAULT_LOTS_AVAILABLE = "Alice Pauline";
-    public static final String DEFAULT_NIGHT_PARKING = "Alice Pauline";
-    public static final String DEFAULT_SHORT_TERM = "Alice Pauline";
-    public static final String DEFAULT_TOTAL_LOTS = "Alice Pauline";
-    public static final String DEFAULT_TYPE_OF_PARKING = "Alice Pauline";
+    public static final String DEFAULT_CARPARK_NUMBER = "A1";
+    public static final String DEFAULT_CARPARK_TYPE = "DEFAULT CAR PARK";
+    public static final String DEFAULT_COORDINATE = "11111.1111, 99999.9999";
+    public static final String DEFAULT_FREE_PARKING = "YES";
+    public static final String DEFAULT_LOTS_AVAILABLE = "1";
+    public static final String DEFAULT_NIGHT_PARKING = "NO";
+    public static final String DEFAULT_SHORT_TERM = "SOME DAY";
+    public static final String DEFAULT_TOTAL_LOTS = "9000";
+    public static final String DEFAULT_TYPE_OF_PARKING = "OLD SCHOOL PARKING";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
     private CarparkNumber carparkNumber;

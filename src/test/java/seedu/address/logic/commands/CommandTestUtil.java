@@ -31,62 +31,62 @@ import seedu.address.model.carpark.CarparkContainsKeywordsPredicate;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_ADDRESS_1 = "BLK 508-517,520-533 HOUGANG AVENUE 10";
-    public static final String VALID_ADDRESS_2 = "BLK 537-543, 564-569 PASIR RIS STREET 51";
+    public static final String VALID_ADDRESS_JULIETT = "BLK 508-517,520-533 HOUGANG AVENUE 10";
+    public static final String VALID_ADDRESS_KILO = "BLK 537-543, 564-569 PASIR RIS STREET 51";
 
-    public static final String VALID_CARPARK_NUMBER_1 = "HG38";
-    public static final String VALID_CARPARK_NUMBER_2 = "PR13";
+    public static final String VALID_CARPARK_NUMBER_JULIETT = "HG38";
+    public static final String VALID_CARPARK_NUMBER_KILO = "PR13";
 
-    public static final String VALID_CARPARK_TYPE_1 = "SURFACE CAR PARK";
-    public static final String VALID_CARPARK_TYPE_2 = "SURFACE CAR PARK";
+    public static final String VALID_CARPARK_TYPE_JULIETT = "SURFACE CAR PARK";
+    public static final String VALID_CARPARK_TYPE_KILO = "SURFACE CAR PARK";
 
-    public static final String VALID_COORDINATE_1 = "34274.4064, 39391.9731";
-    public static final String VALID_COORDINATE_2 = "40942.8203, 39055.5703";
+    public static final String VALID_COORDINATE_JULIETT = "34274.4064, 39391.9731";
+    public static final String VALID_COORDINATE_KILO = "40942.8203, 39055.5703";
 
-    public static final String VALID_FREE_PARKING_1 = "SUN & PH FR 7AM-10.30PM";
-    public static final String VALID_FREE_PARKING_2 = "NO";
+    public static final String VALID_FREE_PARKING_JULIETT = "SUN & PH FR 7AM-10.30PM";
+    public static final String VALID_FREE_PARKING_KILO = "NO";
 
-    public static final String VALID_LOTS_AVAILABLE_1 = "529";
-    public static final String VALID_LOTS_AVAILABLE_2 = "0";
+    public static final String VALID_LOTS_AVAILABLE_JULIETT = "529";
+    public static final String VALID_LOTS_AVAILABLE_KILO = "0";
 
-    public static final String VALID_NIGHT_PARKING_1 = "YES";
-    public static final String VALID_NIGHT_PARKING_2 = "YES";
+    public static final String VALID_NIGHT_PARKING_JULIETT = "YES";
+    public static final String VALID_NIGHT_PARKING_KILO = "YES";
 
-    public static final String VALID_SHORT_TERM_1 = "WHOLE DAY";
-    public static final String VALID_SHORT_TERM_2 = "WHOLE DAY";
+    public static final String VALID_SHORT_TERM_JULIETT = "WHOLE DAY";
+    public static final String VALID_SHORT_TERM_KILO = "WHOLE DAY";
 
-    public static final String VALID_TOTAL_LOTS_1 = "900";
-    public static final String VALID_TOTAL_LOTS_2 = "0";
+    public static final String VALID_TOTAL_LOTS_JULIETT = "900";
+    public static final String VALID_TOTAL_LOTS_KILO = "0";
 
-    public static final String VALID_TYPE_OF_PARKING_1 = "ELECTRONIC PARKING";
-    public static final String VALID_TYPE_OF_PARKING_2 = "ELECTRONIC PARKING";
+    public static final String VALID_TYPE_OF_PARKING_JULIETT = "ELECTRONIC PARKING";
+    public static final String VALID_TYPE_OF_PARKING_KILO = "ELECTRONIC PARKING";
 
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_TAG_HOME = "Home";
+    public static final String VALID_TAG_OFFICE = "Office";
 
-    public static final String CARPARK_NO_DESC_1 = " " + PREFIX_CAR_NUM + VALID_CARPARK_NUMBER_1;
-    public static final String CARPARK_NO_DESC_2 = " " + PREFIX_CAR_NUM + VALID_CARPARK_NUMBER_2;
-    public static final String CARPARK_TYPE_DESC_1 = " " + PREFIX_CAR_TYPE + VALID_CARPARK_TYPE_1;
-    public static final String CARPARK_TYPE_DESC_2 = " " + PREFIX_CAR_TYPE + VALID_CARPARK_TYPE_2;
-    public static final String COORDINATE_DESC_1 = " " + PREFIX_COORD + VALID_COORDINATE_1;
-    public static final String COORDINATE_DESC_2 = " " + PREFIX_COORD + VALID_COORDINATE_2;
-    public static final String FREE_PARKING_DESC_1 = " " + PREFIX_FREE_PARK + VALID_FREE_PARKING_1;
-    public static final String FREE_PARKING_DESC_2 = " " + PREFIX_FREE_PARK + VALID_FREE_PARKING_2;
-    public static final String LOTS_AVAILABLE_DESC_1 = " " + PREFIX_LOTS_AVAILABLE + VALID_LOTS_AVAILABLE_1;
-    public static final String LOTS_AVAILABLE_DESC_2 = " " + PREFIX_LOTS_AVAILABLE + VALID_LOTS_AVAILABLE_2;
-    public static final String NIGHT_PARKING_DESC_1 = " " + PREFIX_NIGHT_PARK + VALID_NIGHT_PARKING_1;
-    public static final String NIGHT_PARKING_DESC_2 = " " + PREFIX_NIGHT_PARK + VALID_NIGHT_PARKING_2;
-    public static final String SHORT_TERM_DESC_1 = " " + PREFIX_SHORT_TERM + VALID_SHORT_TERM_1;
-    public static final String SHORT_TERM_DESC_2 = " " + PREFIX_SHORT_TERM + VALID_SHORT_TERM_2;
-    public static final String TOTAL_LOTS_DESC_2 = " " + PREFIX_TOTAL_LOTS + VALID_TOTAL_LOTS_1;
-    public static final String TOTAL_LOTS_DESC_1 = " " + PREFIX_TOTAL_LOTS + VALID_TOTAL_LOTS_2;
-    public static final String TYPE_OF_PARKING_DESC_1 = " " + PREFIX_TYPE_PARK + VALID_TYPE_OF_PARKING_1;
-    public static final String TYPE_OF_PARKING_DESC_2 = " " + PREFIX_TYPE_PARK + VALID_TYPE_OF_PARKING_2;
+    public static final String CARPARK_NO_DESC_JULIETT = " " + PREFIX_CAR_NUM + VALID_CARPARK_NUMBER_JULIETT;
+    public static final String CARPARK_NO_DESC_KILO = " " + PREFIX_CAR_NUM + VALID_CARPARK_NUMBER_KILO;
+    public static final String CARPARK_TYPE_DESC_JULIETT = " " + PREFIX_CAR_TYPE + VALID_CARPARK_TYPE_JULIETT;
+    public static final String CARPARK_TYPE_DESC_KILO = " " + PREFIX_CAR_TYPE + VALID_CARPARK_TYPE_KILO;
+    public static final String COORDINATE_DESC_JULIETT = " " + PREFIX_COORD + VALID_COORDINATE_JULIETT;
+    public static final String COORDINATE_DESC_KILO = " " + PREFIX_COORD + VALID_COORDINATE_KILO;
+    public static final String FREE_PARKING_DESC_JULIETT = " " + PREFIX_FREE_PARK + VALID_FREE_PARKING_JULIETT;
+    public static final String FREE_PARKING_DESC_KILO = " " + PREFIX_FREE_PARK + VALID_FREE_PARKING_KILO;
+    public static final String LOTS_AVAILABLE_DESC_JULIETT = " " + PREFIX_LOTS_AVAILABLE + VALID_LOTS_AVAILABLE_JULIETT;
+    public static final String LOTS_AVAILABLE_DESC_KILO = " " + PREFIX_LOTS_AVAILABLE + VALID_LOTS_AVAILABLE_KILO;
+    public static final String NIGHT_PARKING_DESC_JULIETT = " " + PREFIX_NIGHT_PARK + VALID_NIGHT_PARKING_JULIETT;
+    public static final String NIGHT_PARKING_DESC_KILO = " " + PREFIX_NIGHT_PARK + VALID_NIGHT_PARKING_KILO;
+    public static final String SHORT_TERM_DESC_JULIETT = " " + PREFIX_SHORT_TERM + VALID_SHORT_TERM_JULIETT;
+    public static final String SHORT_TERM_DESC_KILO = " " + PREFIX_SHORT_TERM + VALID_SHORT_TERM_KILO;
+    public static final String TOTAL_LOTS_DESC_KILO = " " + PREFIX_TOTAL_LOTS + VALID_TOTAL_LOTS_JULIETT;
+    public static final String TOTAL_LOTS_DESC_JULIETT = " " + PREFIX_TOTAL_LOTS + VALID_TOTAL_LOTS_KILO;
+    public static final String TYPE_OF_PARKING_DESC_JULIETT = " " + PREFIX_TYPE_PARK + VALID_TYPE_OF_PARKING_JULIETT;
+    public static final String TYPE_OF_PARKING_DESC_KILO = " " + PREFIX_TYPE_PARK + VALID_TYPE_OF_PARKING_KILO;
 
-    public static final String ADDRESS_DESC_1 = " " + PREFIX_ADDRESS + VALID_ADDRESS_1;
-    public static final String ADDRESS_DESC_2 = " " + PREFIX_ADDRESS + VALID_ADDRESS_2;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String ADDRESS_DESC_JULIETT = " " + PREFIX_ADDRESS + VALID_ADDRESS_JULIETT;
+    public static final String ADDRESS_DESC_KILO = " " + PREFIX_ADDRESS + VALID_ADDRESS_KILO;
+    public static final String TAG_DESC_OFFICE = " " + PREFIX_TAG + VALID_TAG_OFFICE;
+    public static final String TAG_DESC_HOME = " " + PREFIX_TAG + VALID_TAG_HOME;
 
     // '@' not allowed in carpark number.
     public static final String INVALID_CARPARK_NO_DESC = " " + PREFIX_CAR_NUM + "TJ@1";

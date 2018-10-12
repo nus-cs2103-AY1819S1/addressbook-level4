@@ -115,15 +115,6 @@ public class XmlAdaptedCarpark {
             carparkTags.add(tag.toModelType());
         }
 
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Address.class.getSimpleName()));
-        }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
-        }
-        final Address modelAddress = new Address(address);
-
         if (carparkNumber == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     CarparkNumber.class.getSimpleName()));
@@ -132,6 +123,15 @@ public class XmlAdaptedCarpark {
             throw new IllegalValueException(CarparkNumber.MESSAGE_CAR_NUM_CONSTRAINTS);
         }
         final CarparkNumber modelCarparkNumber = new CarparkNumber(carparkNumber);
+
+        if (address == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Address.class.getSimpleName()));
+        }
+        if (!Address.isValidAddress(address)) {
+            throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
+        }
+        final Address modelAddress = new Address(address);
 
         if (carparkType == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -151,14 +151,14 @@ public class XmlAdaptedCarpark {
         }
         final Coordinate modelCoordinate = new Coordinate(coordinate);
 
-        if (freeParking == null) {
+        if (totalLots == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    FreeParking.class.getSimpleName()));
+                    TotalLots.class.getSimpleName()));
         }
-        if (!FreeParking.isValidFreePark(freeParking)) {
-            throw new IllegalValueException(FreeParking.MESSAGE_FREE_PARK_CONSTRAINTS);
+        if (!TotalLots.isValidTotalLots(totalLots)) {
+            throw new IllegalValueException(TotalLots.MESSAGE_TOTAL_LOTS_CONSTRAINTS);
         }
-        final FreeParking modelFreeParking = new FreeParking(freeParking);
+        final TotalLots modelTotalLots = new TotalLots(totalLots);
 
         if (lotsAvailable == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -168,6 +168,15 @@ public class XmlAdaptedCarpark {
             throw new IllegalValueException(LotsAvailable.MESSAGE_LOTS_AVAIL_CONSTRAINTS);
         }
         final LotsAvailable modelLotsAvailable = new LotsAvailable(lotsAvailable);
+
+        if (freeParking == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    FreeParking.class.getSimpleName()));
+        }
+        if (!FreeParking.isValidFreePark(freeParking)) {
+            throw new IllegalValueException(FreeParking.MESSAGE_FREE_PARK_CONSTRAINTS);
+        }
+        final FreeParking modelFreeParking = new FreeParking(freeParking);
 
         if (nightParking == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -186,15 +195,6 @@ public class XmlAdaptedCarpark {
             throw new IllegalValueException(ShortTerm.MESSAGE_SHORT_TERM_CONSTRAINTS);
         }
         final ShortTerm modelShortTerm = new ShortTerm(shortTerm);
-
-        if (totalLots == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    TotalLots.class.getSimpleName()));
-        }
-        if (!TotalLots.isValidTotalLots(totalLots)) {
-            throw new IllegalValueException(TotalLots.MESSAGE_TOTAL_LOTS_CONSTRAINTS);
-        }
-        final TotalLots modelTotalLots = new TotalLots(totalLots);
 
         if (typeOfParking == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,

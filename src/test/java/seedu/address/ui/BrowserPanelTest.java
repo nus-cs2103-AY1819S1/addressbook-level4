@@ -3,7 +3,7 @@ package seedu.address.ui;
 import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.EventsUtil.postNow;
-import static seedu.address.testutil.TypicalCarparks.ALICE;
+import static seedu.address.testutil.TypicalCarparks.ALFA;
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
 
@@ -24,7 +24,7 @@ public class BrowserPanelTest extends GuiUnitTest {
 
     @Before
     public void setUp() {
-        selectionChangedEventStub = new CarparkPanelSelectionChangedEvent(ALICE);
+        selectionChangedEventStub = new CarparkPanelSelectionChangedEvent(ALFA);
 
         guiRobot.interact(() -> browserPanel = new BrowserPanel());
         uiPartRule.setUiPart(browserPanel);
@@ -38,10 +38,10 @@ public class BrowserPanelTest extends GuiUnitTest {
         URL expectedDefaultPageUrl = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
         assertEquals(expectedDefaultPageUrl, browserPanelHandle.getLoadedUrl());
 
-        // associated web page of a carpark
+        // associated web page of a car park
         postNow(selectionChangedEventStub);
         URL expectedPersonUrl = new URL(BrowserPanel.SEARCH_PAGE_URL
-                + ALICE.getCarparkNumber().value.replaceAll(" ", "%20"));
+                + ALFA.getCarparkNumber().value.replaceAll(" ", "%20"));
 
         waitUntilBrowserLoaded(browserPanelHandle);
         assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());

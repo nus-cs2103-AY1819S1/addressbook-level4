@@ -9,17 +9,17 @@ import javafx.scene.control.ListView;
 import seedu.address.model.carpark.Carpark;
 
 /**
- * Provides a handle for {@code PersonListPanel} containing the list of {@code PersonCard}.
+ * Provides a handle for {@code CarparkListPanel} containing the list of {@code PersonCard}.
  */
 public class CarparkListPanelHandle extends NodeHandle<ListView<Carpark>> {
-    public static final String PERSON_LIST_VIEW_ID = "#personListView";
+    public static final String CARPARK_LIST_VIEW_ID = "#carparkListView";
 
     private static final String CARD_PANE_ID = "#cardPane";
 
-    private Optional<Carpark> lastRememberedSelectedPersonCard;
+    private Optional<Carpark> lastRememberedSelectedCarparkCard;
 
-    public CarparkListPanelHandle(ListView<Carpark> personListPanelNode) {
-        super(personListPanelNode);
+    public CarparkListPanelHandle(ListView<Carpark> carparkListPanelNode) {
+        super(carparkListPanelNode);
     }
 
     /**
@@ -98,10 +98,10 @@ public class CarparkListPanelHandle extends NodeHandle<ListView<Carpark>> {
     }
 
     /**
-     * Returns the person card handle of a person associated with the {@code index} in the list.
+     * Returns the car park card handle of a car park associated with the {@code index} in the list.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
-    public CarparkCardHandle getPersonCardHandle(int index) {
+    public CarparkCardHandle getCarparkCardHandle(int index) {
         return getAllCardNodes().stream()
                 .map(CarparkCardHandle::new)
                 .filter(handle -> handle.equals(getCarpark(index)))
@@ -123,30 +123,30 @@ public class CarparkListPanelHandle extends NodeHandle<ListView<Carpark>> {
     }
 
     /**
-     * Remembers the selected {@code PersonCard} in the list.
+     * Remembers the selected {@code CarparkCard} in the list.
      */
     public void rememberSelectedCarparkCard() {
         List<Carpark> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {
-            lastRememberedSelectedPersonCard = Optional.empty();
+            lastRememberedSelectedCarparkCard = Optional.empty();
         } else {
-            lastRememberedSelectedPersonCard = Optional.of(selectedItems.get(0));
+            lastRememberedSelectedCarparkCard = Optional.of(selectedItems.get(0));
         }
     }
 
     /**
-     * Returns true if the selected {@code PersonCard} is different from the value remembered by the most recent
+     * Returns true if the selected {@code CarparkCard} is different from the value remembered by the most recent
      * {@code rememberSelectedCarparkCard()} call.
      */
     public boolean isSelectedCarparkCardChanged() {
         List<Carpark> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {
-            return lastRememberedSelectedPersonCard.isPresent();
+            return lastRememberedSelectedCarparkCard.isPresent();
         } else {
-            return !lastRememberedSelectedPersonCard.isPresent()
-                    || !lastRememberedSelectedPersonCard.get().equals(selectedItems.get(0));
+            return !lastRememberedSelectedCarparkCard.isPresent()
+                    || !lastRememberedSelectedCarparkCard.get().equals(selectedItems.get(0));
         }
     }
 

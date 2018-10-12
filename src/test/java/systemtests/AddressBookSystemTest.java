@@ -3,7 +3,6 @@ package systemtests;
 import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
@@ -43,7 +42,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.util.SampleDataUtil;
+import seedu.address.testutil.TypicalCarparks;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
 
@@ -88,11 +87,7 @@ public abstract class AddressBookSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected AddressBook getInitialData() {
-        try {
-            return (AddressBook) SampleDataUtil.getSampleAddressBook();
-        } catch (Exception e) {
-            return null; // TODO: add logger.
-        }
+        return TypicalCarparks.getTypicalAddressBook();
     }
 
     /**
@@ -146,58 +141,41 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-      * Displays all carparks in the address book.
-      */
+     * Displays all car parks in the address book.
+     */
     protected void showAllCarparks() {
-        executeCommand(ListCommand.COMMAND_WORD);
-        assertNotNull(getModel().getAddressBook().getCarparkList());
-        //assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredCarparkList().size());
-    }
-
-    /**
-     * Selects the carpark using a {@code carparkNumber}.
-     */
-    protected void selectCarpark(String carparkNumber) {
-        executeCommand(SelectCommand.COMMAND_WORD + " " + carparkNumber);
-        //assertEquals(index.getZeroBased(), getCarparkListPanel().getSelectedCardIndex());
-    }
-
-    /**
-     * Displays all persons in the address book.
-     */
-    protected void showAllPersons() {
         executeCommand(ListCommand.COMMAND_WORD);
         assertEquals(getModel().getAddressBook().getCarparkList().size(), getModel().getFilteredCarparkList().size());
     }
 
     /**
-     * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
+     * Displays all car parks with any parts of their names matching {@code keyword} (case-insensitive).
      */
-    protected void showPersonsWithName(String keyword) {
+    protected void showCarparksWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
         assertTrue(getModel().getFilteredCarparkList().size() < getModel().getAddressBook().getCarparkList().size());
     }
 
     /**
-     * Selects the carpark at {@code index} of the displayed list.
+     * Selects the car park at {@code index} of the displayed list.
      */
-    protected void selectPerson(Index index) {
+    protected void selectCarpark(Index index) {
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
         assertEquals(index.getZeroBased(), getCarparkListPanel().getSelectedCardIndex());
     }
 
     /**
-     * Deletes all persons in the address book.
+     * Deletes all car parks in the address book.
      */
-    protected void deleteAllPersons() {
+    protected void deleteAllCarparks() {
         executeCommand(ClearCommand.COMMAND_WORD);
         assertEquals(0, getModel().getAddressBook().getCarparkList().size());
     }
 
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
-     * {@code expectedResultMessage}, the storage contains the same carpark objects as {@code expectedModel}
-     * and the carpark list panel displays the persons in the model correctly.
+     * {@code expectedResultMessage}, the storage contains the same car park objects as {@code expectedModel}
+     * and the car park list panel displays the persons in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
             Model expectedModel) {
@@ -221,7 +199,7 @@ public abstract class AddressBookSystemTest {
 
     /**
      * Asserts that the previously selected card is now deselected and the browser's url remains displaying the details
-     * of the previously selected carpark.
+     * of the previously selected car park.
      * @see BrowserPanelHandle#isUrlChanged()
      */
     protected void assertSelectedCardDeselected() {
@@ -230,7 +208,7 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Asserts that the browser's url is changed to display the details of the carpark in the carpark list panel at
+     * Asserts that the browser's url is changed to display the details of the car park in the car park list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      * @see BrowserPanelHandle#isUrlChanged()
      * @see CarparkListPanelHandle#isSelectedCarparkCardChanged()
@@ -250,7 +228,7 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Asserts that the browser's url and the selected card in the carpark list panel remain unchanged.
+     * Asserts that the browser's url and the selected card in the car park list panel remain unchanged.
      * @see BrowserPanelHandle#isUrlChanged()
      * @see CarparkListPanelHandle#isSelectedCarparkCardChanged()
      */
