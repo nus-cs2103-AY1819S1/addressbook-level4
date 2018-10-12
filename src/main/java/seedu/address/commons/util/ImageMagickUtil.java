@@ -101,7 +101,7 @@ public class ImageMagickUtil {
      * check whether there are any package inside
      * @return
      */
-    public static boolean checkPackage() {
+    public static boolean hasPackage() {
         try {
             String path = getImageMagicPackgaePath();
             File file = new File(path);
@@ -110,5 +110,30 @@ public class ImageMagickUtil {
             System.err.println(e);
             return false;
         }
+    }
+
+    /**
+     * @author lancelotwillow
+     * the method is to unzip the package
+     */
+    public static void unzipPacakge() throws IOException, InterruptedException {
+        File folder = new File(getImageMagicPackgaePath());
+        File[] listOfFiles = folder.listFiles();
+        for (File file : listOfFiles) {
+            if (file.isDirectory()) {
+                return;
+            }
+        }
+        File zipfile = listOfFiles[0];
+        if (!zipfile.getName().endsWith(".tar.gz")) {
+            System.err.println("cannot find the package");
+            return;
+        }
+        System.out.println(zipfile.getAbsolutePath());
+        ProcessBuilder pb = new ProcessBuilder(
+                "tar", "zxvf", zipfile.getAbsolutePath(), "-C", folder.getAbsolutePath());
+        Process process = pb.start();
+        //process.waitFor();
+        System.out.println("check");
     }
 }
