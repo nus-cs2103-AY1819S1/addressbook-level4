@@ -3,7 +3,6 @@ package seedu.address.testutil;
 import seedu.address.model.anakindeck.AnakinDeck;
 import seedu.address.model.anakindeck.AnakinUniqueCardList;
 import seedu.address.model.anakindeck.Name;
-import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building AnakinDeck objects.

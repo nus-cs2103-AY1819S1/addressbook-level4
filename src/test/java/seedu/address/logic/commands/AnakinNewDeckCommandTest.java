@@ -131,17 +131,17 @@ public class AnakinNewDeckCommandTest {
 
 
         @Override
-        public boolean hasCard(AnakinCard card){
+        public boolean hasCard(AnakinCard card) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deleteCard(AnakinCard card){
+        public void deleteCard(AnakinCard card) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void getOutOfDeck(){
+        public void getOutOfDeck() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -151,12 +151,12 @@ public class AnakinNewDeckCommandTest {
         }
 
         @Override
-        public ObservableList<AnakinCard> getFilteredCardList(){
+        public ObservableList<AnakinCard> getFilteredCardList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<AnakinDeck> getFilteredDeckList(){
+        public ObservableList<AnakinDeck> getFilteredDeckList() {
             throw new AssertionError("This method should not be called.");
         }
 
