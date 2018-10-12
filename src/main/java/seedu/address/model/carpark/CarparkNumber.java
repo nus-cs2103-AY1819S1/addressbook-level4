@@ -4,13 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Carpark's number in the address book.
+ * Represents a car park's number.
  * Guarantees: immutable; is valid as declared in {@link #isValidCarNum(String)}
  */
 public class CarparkNumber {
 
     public static final String MESSAGE_CAR_NUM_CONSTRAINTS =
-            "Carpark number should only contain alphanumeric characters and spaces, "
+            "Car park number should only contain alphanumeric characters and spaces, "
                     + "and it should not be blank";
 
     /*
