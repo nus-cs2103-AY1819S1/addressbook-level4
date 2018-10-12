@@ -21,7 +21,7 @@ public class RecipeListPanel extends GenericListPanel<Recipe> {
     private final Logger logger = LogsCenter.getLogger(RecipeListPanel.class);
 
     @FXML
-    private ListView<Recipe> recipeListView;
+    protected ListView<Recipe> recipeListView;
 
     public RecipeListPanel(ObservableList<Recipe> recipeList) {
         super(FXML);
