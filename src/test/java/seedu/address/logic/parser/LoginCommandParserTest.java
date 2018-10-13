@@ -12,7 +12,7 @@ import seedu.address.model.person.Person;
 import seedu.address.testutil.DoctorBuilder;
 
 public class LoginCommandParserTest {
-    
+
     private LoginCommandParser parser = new LoginCommandParser();
 
     @Test
@@ -31,10 +31,10 @@ public class LoginCommandParserTest {
         Person expectedDoctor = new DoctorBuilder(ADAM).withPassword("doctor1", false).build();
         LoginCommand expectedLoginCommand = new LoginCommand(expectedDoctor);
         assertParseSuccess(parser, " r/doctor n/" + ADAM.getName() + " pass/doctor1", expectedLoginCommand);
-        
+
         // multiple whitespaces between keywords
         assertParseSuccess(parser, " \n r/doctor \n \t n/" + ADAM.getName() + " \t pass/doctor1", expectedLoginCommand);
-        
+
         // TODO: Add receptionist
     }
 }

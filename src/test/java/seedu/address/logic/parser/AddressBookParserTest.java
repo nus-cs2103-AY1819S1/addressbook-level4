@@ -111,13 +111,17 @@ public class AddressBookParserTest {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
     }
-    
+
     @Test
     public void parseCommand_login() throws Exception {
         LoginCommand command = (LoginCommand) parser.parseCommand(
                 LoginCommand.COMMAND_WORD + " r/doctor n/" + ADAM.getName().fullName + " pass/doctor1");
-        assertEquals(new LoginCommand(new Doctor(ADAM.getId(), ADAM.getName(), new Password("doctor1", false))), command);
-    
+        assertEquals(new LoginCommand(new Doctor(
+                ADAM.getId(),
+                ADAM.getName(),
+                new Password("doctor1", false))),
+                command);
+
         // TODO: Add receptionist
     }
 
