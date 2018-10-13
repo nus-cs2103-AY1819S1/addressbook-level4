@@ -129,8 +129,8 @@ public class PersonBuilder {
         this.picture = new Picture(picture);
         return this;
     }
-
     //@@author
+
     public Person build() {
         Person person = new Person(name, phone, email, address, tags);
         person.setPicture(picture);

@@ -35,7 +35,7 @@ public class PictureTest {
         // valid pictures
         assertTrue(Picture.isValidPicture("/images/test.jpg")); // jpg
         assertTrue(Picture.isValidPicture("/images/test.png")); // png
-        assertTrue(Picture.isValidPicture("https://cdn.business2community.com" +
-            "/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png")); // url image
+        assertTrue(Picture.isValidPicture("https://cdn.business2community.com"
+            + "/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png")); // url image
     }
 }
