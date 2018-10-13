@@ -3,54 +3,54 @@
  **/
 @font-face {
     font-family: 'Opensans-Regular';
-    src: url('../fonts/OpenSans-Regular.ttf'); 
+    src: url('../fonts/OpenSans-Regular.ttf');
 }
 
 @font-face {
     font-family: 'Opensans-Light';
-    src: url('../fonts/OpenSans-Light.ttf'); 
+    src: url('../fonts/OpenSans-Light.ttf');
 }
 
 @font-face {
     font-family: 'Opensans-LightItalic';
-    src: url('../fonts/OpenSans-LightItalic.ttf'); 
+    src: url('../fonts/OpenSans-LightItalic.ttf');
 }
 
 @font-face {
     font-family: 'Opensans-SemiBold';
-    src: url('../fonts/OpenSans-SemiBold.ttf'); 
+    src: url('../fonts/OpenSans-SemiBold.ttf');
 }
 
 @font-face {
     font-family: 'Opensans-SemiBoldItalic';
-    src: url('../fonts/OpenSans-SemiBoldItalic.ttf'); 
+    src: url('../fonts/OpenSans-SemiBoldItalic.ttf');
 }
 
 @font-face {
     font-family: 'Opensans-Italic';
-    src: url('../fonts/OpenSans-Italic.ttf'); 
+    src: url('../fonts/OpenSans-Italic.ttf');
 }
 
 @font-face {
     font-family: 'Opensans-ExtraBold';
-    src: url('../fonts/OpenSans-ExtraBold.ttf'); 
+    src: url('../fonts/OpenSans-ExtraBold.ttf');
 }
 
 @font-face {
     font-family: 'Opensans-ExtraBoldItalic';
-    src: url('../fonts/OpenSans-ExtraBoldItalic.ttf'); 
+    src: url('../fonts/OpenSans-ExtraBoldItalic.ttf');
 }
 
 @font-face {
     font-family: 'Opensans-Bold';
-    src: url('../fonts/OpenSans-Bold.ttf'); 
+    src: url('../fonts/OpenSans-Bold.ttf');
 }
 
 @font-face {
     font-family: 'Opensans-BoldItalic';
-    src: url('../fonts/OpenSans-BoldItalic.ttf'); 
+    src: url('../fonts/OpenSans-BoldItalic.ttf');
 }
- 
+
 .root {
     -fx-font-family: "Opensans-Regular";
     -fx-font-size: 12pt;
@@ -63,7 +63,7 @@
 .result-display {
     -fx-border-radius: 10px;
 }
- 
+
 .list-view {
     -fx-background-color: transparent;
 }
