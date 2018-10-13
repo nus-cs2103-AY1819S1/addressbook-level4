@@ -140,7 +140,14 @@ public class AddressBookParser {
 
         // Execute commands for records
         if (contextId.equals(Context.RECORD_CONTEXT_ID)) {
+            // TO_REPLACE: Change find and list to the one specific for volunteers
             switch (commandWord) {
+            case FindCommand.COMMAND_WORD:
+                return new FindCommandParser().parse(arguments);
+
+            case ListCommand.COMMAND_WORD:
+                return new ListCommand();
+
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
             }
