@@ -19,35 +19,30 @@ import seedu.address.model.category.Category;
  */
 public class CategoryManager extends ComponentManager {
     private static final Logger logger = LogsCenter.getLogger(CategoryManager.class);
-    private final FilteredList<Entry> filteredEntries;
+    private final FilteredList<MajorResumeEntry> filteredEntries;
 
     /**
      * Initializes CategoryManager with the given list of entries.
      */
-    public CategoryManager(List<Entry> entries) {
+    public CategoryManager(List<MajorResumeEntry> entries) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(entries);
 
         logger.fine("Initializing category manager of length: " + entries.size());
         filteredEntries = new FilteredList<>(entries);
     }
 
     public CategoryManager() {
-        this(new List<Entry>());
+        this(new List<MajorResumeEntry>());
     }
 
-    /** Sets the list of entries to filter from. */
-    public void setList(List<Entry> entries) {
-        filteredEntries = new FilteredList<>(entries);
-    }
-
-    /** Returns an filtered unmodifiable view of the list of {@code Entry}. */
-    public ObservableList<Entry> getList() {
+    /** Returns an filtered unmodifiable view of the list of {@code MajorResumeEntry}. */
+    public ObservableList<MajorResumeEntry> getList() {
         return FXCollections.unmodifiableObservableList(filteredEntries);
     }
 
     /** Sets the filter for category view. */
-    public void setFilter(Predicate<Entry> predicate) {
+    public void setFilter(Predicate<MajorResumeEntry> predicate) {
         requireNonNull(predicate);
         filteredEntries.setPredicate(predicate);
     }
@@ -60,12 +55,12 @@ public class CategoryManager extends ComponentManager {
         }
 
         // instanceof handles nulls
-        if (!(obj instanceof ModelManager)) {
+        if (!(obj instanceof CategoryManager)) {
             return false;
         }
 
         // state check
-        ModelManager other = (ModelManager) obj;
+        CategoryManager other = (CategoryManager) obj;
         return filteredEntries.equals(other.filteredEntries);
     }
 }

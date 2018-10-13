@@ -2,9 +2,8 @@ package seedu.address.model;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalPersons.NUS_EDUCATION;
+import static seedu.address.testutil.TypicalPersons.WORK_FACEBOOK;
 
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -14,32 +13,14 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.testutil.AddressBookBuilder;
 
 import seedu.address.model.category.CategoryManager;
 
-public class ModelManagerTest {
+public class CategoryManagerTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     private CategoryManager categoryManager = new CategoryManager();
-
-    @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        modelManager.hasPerson(null);
-    }
-
-    @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasPerson(ALICE));
-    }
-
-    @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        modelManager.addPerson(ALICE);
-        assertTrue(modelManager.hasPerson(ALICE));
-    }
 
     @Test
     public void getList_modifyList_throwsUnsupportedOperationException() {
@@ -49,30 +30,28 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        AddressBook differentAddressBook = new AddressBook();
-        UserPrefs userPrefs = new UserPrefs();
+        List<MajorResumeEntry> list = Arrays.asList([NUS_EDUCATION, WORK_FACEBOOK]);
+        List<MajorResumeEntry> list2 = Arrays.asList([NUS_EDUCATION]);
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
-        assertTrue(modelManager.equals(modelManagerCopy));
+        categoryManager = new CategoryManager(list);
+        ModelManager categoryManagerCopy = new CategoryManager(list);
+        assertTrue(categoryManager.equals(categoryManagerCopy));
 
         // same object -> returns true
-        assertTrue(modelManager.equals(modelManager));
+        assertTrue(categoryManager.equals(categoryManager));
 
         // null -> returns false
-        assertFalse(modelManager.equals(null));
+        assertFalse(categoryManager.equals(null));
 
         // different types -> returns false
-        assertFalse(modelManager.equals(5));
+        assertFalse(categoryManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+        assertFalse(categoryManager.equals(new categoryManager(list2)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        categoryManager.setFilter(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
