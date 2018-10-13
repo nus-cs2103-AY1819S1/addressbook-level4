@@ -20,7 +20,7 @@ public enum Meal {
         this.recipe = Optional.empty();
     }
 
-    public Recipe getRecipe() throws MealRecipeNotFoundException {
+    public Recipe getRecipe() {
         if (this.recipe.isPresent()) {
             return this.recipe.get();
         } else {
@@ -58,4 +58,5 @@ public enum Meal {
             throw new IllegalArgumentException("Valid meal slots: breakfast, lunch, dinner");
         }
     }
+
 }
