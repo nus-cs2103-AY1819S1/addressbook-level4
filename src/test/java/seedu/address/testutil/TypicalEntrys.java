@@ -28,9 +28,6 @@ public class TypicalEntrys {
             .withSubHeader("Bachelor of computing")
             .withTags("Machine Learning").build();
 
-
-
-
     private TypicalEntrys() {} // prevents instantiation
 
     /**
