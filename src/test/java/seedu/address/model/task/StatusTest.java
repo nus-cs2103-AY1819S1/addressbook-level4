@@ -34,7 +34,7 @@ public class StatusTest {
     }
 
     @Test
-    public void getStatusFromValue_returnsStatusObject() {
+    public void getStatusFromValue() {
         //invalid status value
         Assert.assertThrows(IllegalArgumentException.class, () -> Status.getStatusFromValue("in progress"));
         Assert.assertThrows(IllegalArgumentException.class, () -> Status.getStatusFromValue("hello"));
@@ -46,7 +46,7 @@ public class StatusTest {
     }
 
     @Test
-    public void toString_returnsValidStrings() {
+    public void toStringEquals() {
         assertEquals(Status.IN_PROGRESS.toString(), "IN PROGRESS");
         assertEquals(Status.FINISHED.toString(), "FINISHED");
         assertEquals(Status.OVERDUE.toString(), "OVERDUE");
