@@ -9,11 +9,11 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Description;
-import seedu.address.model.person.DueDate;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.PriorityValue;
 import seedu.address.model.tag.Label;
+import seedu.address.model.task.Description;
+import seedu.address.model.task.DueDate;
+import seedu.address.model.task.Name;
+import seedu.address.model.task.PriorityValue;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -72,7 +72,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code address} is invalid.
      */
-    public static Description parseAddress(String address) throws ParseException {
+    public static Description parseDescription(String address) throws ParseException {
         requireNonNull(address);
         String trimmedAddress = address.trim();
         if (!Description.isValidDescription(trimmedAddress)) {
@@ -87,7 +87,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code email} is invalid.
      */
-    public static PriorityValue parseEmail(String email) throws ParseException {
+    public static PriorityValue parsePriorityValue(String email) throws ParseException {
         requireNonNull(email);
         String trimmedEmail = email.trim();
         if (!PriorityValue.isValidPriorityValue(trimmedEmail)) {
@@ -97,29 +97,29 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Label}.
+     * Parses a {@code String label} into a {@code Label}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code tag} is invalid.
+     * @throws ParseException if the given {@code label} is invalid.
      */
-    public static Label parseTag(String tag) throws ParseException {
-        requireNonNull(tag);
-        String trimmedTag = tag.trim();
-        if (!Label.isValidLabelName(trimmedTag)) {
+    public static Label parseLabel(String label) throws ParseException {
+        requireNonNull(label);
+        String trimmedLabel = label.trim();
+        if (!Label.isValidLabelName(trimmedLabel)) {
             throw new ParseException(Label.MESSAGE_LABEL_CONSTRAINTS);
         }
-        return new Label(trimmedTag);
+        return new Label(trimmedLabel);
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Label>}.
+     * Parses {@code Collection<String> labels} into a {@code Set<Label>}.
      */
-    public static Set<Label> parseTags(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
-        final Set<Label> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
+    public static Set<Label> parseLabels(Collection<String> labels) throws ParseException {
+        requireNonNull(labels);
+        final Set<Label> labelSet = new HashSet<>();
+        for (String labelName : labels) {
+            labelSet.add(parseLabel(labelName));
         }
-        return tagSet;
+        return labelSet;
     }
 }

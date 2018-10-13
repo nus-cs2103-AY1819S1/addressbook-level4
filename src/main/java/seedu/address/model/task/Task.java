@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.task;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -67,7 +67,7 @@ public class Task {
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable label set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Label> getLabels() {
@@ -82,8 +82,8 @@ public class Task {
         return status == Status.FINISHED;
     }
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both tasks of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two tasks.
      */
     public boolean isSameTask(Task othertask) {
         if (othertask == this) {
@@ -97,8 +97,8 @@ public class Task {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both tasks have the same identity and data fields.
+     * This defines a stronger notion of equality between two tasks.
      */
     @Override
     public boolean equals(Object other) {
@@ -135,7 +135,7 @@ public class Task {
                 .append(getPriorityValue())
                 .append(" Description: ")
                 .append(getDescription())
-                .append(" Tags: ");
+                .append(" Labels: ");
         getLabels().forEach(builder::append);
         builder.append(" Status: ")
                 .append(getStatus());

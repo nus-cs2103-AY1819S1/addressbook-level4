@@ -34,14 +34,14 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: repeat previous find command where person list is displaying the persons we are finding
+        /* Case: repeat previous find command where task list is displaying the persons we are finding
          * -> 2 persons found
          */
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_TUTORIAL;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find person where person list is not displaying the person we are finding -> 1 person found */
+        /* Case: find task where task list is not displaying the task we are finding -> 1 task found */
         command = FindCommand.COMMAND_WORD + " medical";
         ModelHelper.setFilteredList(expectedModel, C_TASK);
         assertCommandSuccess(command, expectedModel);
@@ -80,7 +80,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
 
-        /* Case: find same persons in task manager after deleting 1 of them -> 1 person found */
+        /* Case: find same persons in task manager after deleting 1 of them -> 1 task found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
         assertFalse(getModel().getTaskManager().getTaskList().contains(B_TASK));
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_TUTORIAL;
@@ -89,50 +89,50 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find person in task manager, keyword is same as name but of different case -> 1 person found */
+        /* Case: find task in task manager, keyword is same as name but of different case -> 1 task found */
         command = FindCommand.COMMAND_WORD + " tuToRiaL";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find person in task manager, keyword is substring of name -> 0 persons found */
+        /* Case: find task in task manager, keyword is substring of name -> 0 persons found */
         command = FindCommand.COMMAND_WORD + " tut";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find person in task manager, name is substring of specified keyword -> 0 persons found */
+        /* Case: find task in task manager, name is substring of specified keyword -> 0 persons found */
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_TUTORIAL + "s";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find person not in task manager -> 0 persons found */
+        /* Case: find task not in task manager -> 0 persons found */
         command = FindCommand.COMMAND_WORD + " Mark";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find phone number of person in task manager -> 0 persons found */
+        /* Case: find phone number of task in task manager -> 0 persons found */
         command = FindCommand.COMMAND_WORD + " " + D_TASK.getDueDate().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find address of person in task manager -> 0 persons found */
+        /* Case: find address of task in task manager -> 0 persons found */
         command = FindCommand.COMMAND_WORD + " " + D_TASK.getDescription().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find email of person in task manager -> 0 persons found */
+        /* Case: find email of task in task manager -> 0 persons found */
         command = FindCommand.COMMAND_WORD + " " + D_TASK.getPriorityValue().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find tags of person in task manager -> 0 persons found */
-        List<Label> tags = new ArrayList<>(D_TASK.getLabels());
-        command = FindCommand.COMMAND_WORD + " " + tags.get(0).labelName;
+        /* Case: find labels of task in task manager -> 0 persons found */
+        List<Label> labels = new ArrayList<>(D_TASK.getLabels());
+        command = FindCommand.COMMAND_WORD + " " + labels.get(0).labelName;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find while a person is selected -> selected card deselected */
+        /* Case: find while a task is selected -> selected card deselected */
         showAllPersons();
         selectPerson(Index.fromOneBased(1));
         assertFalse(getPersonListPanel().getHandleToSelectedCard().getName().equals(D_TASK.getName().fullName));
@@ -141,7 +141,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardDeselected();
 
-        /* Case: find person in empty task manager -> 0 persons found */
+        /* Case: find task in empty task manager -> 0 persons found */
         deleteAllPersons();
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_TUTORIAL;
         expectedModel = getModel();

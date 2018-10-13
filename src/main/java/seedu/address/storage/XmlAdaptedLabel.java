@@ -20,7 +20,7 @@ public class XmlAdaptedLabel {
     public XmlAdaptedLabel() {}
 
     /**
-     * Constructs a {@code XmlAdaptedTag} with the given {@code labelName}.
+     * Constructs a {@code XmlAdaptedLabel} with the given {@code labelName}.
      */
     public XmlAdaptedLabel(String labelName) {
         this.labelName = labelName;
@@ -38,7 +38,7 @@ public class XmlAdaptedLabel {
     /**
      * Converts this jaxb-friendly adapted label object into the model's Label object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person
+     * @throws IllegalValueException if there were any data constraints violated in the adapted task
      */
     public Label toModelType() throws IllegalValueException {
         if (!Label.isValidLabelName(labelName)) {

@@ -20,13 +20,13 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Description;
-import seedu.address.model.person.DueDate;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.PriorityValue;
-import seedu.address.model.person.Status;
-import seedu.address.model.person.Task;
 import seedu.address.model.tag.Label;
+import seedu.address.model.task.Description;
+import seedu.address.model.task.DueDate;
+import seedu.address.model.task.Name;
+import seedu.address.model.task.PriorityValue;
+import seedu.address.model.task.Status;
+import seedu.address.model.task.Task;
 
 /**
  * Edits the details of an existing task in the description book.
@@ -44,7 +44,7 @@ public class EditCommand extends Command {
         + "[" + PREFIX_DUE_DATE + "DUE_DATE] "
         + "[" + PREFIX_PRIORITY_VALUE + "PRIORITY_VALUE] "
         + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
-        + "[" + PREFIX_LABEL + "TAG]...\n"
+        + "[" + PREFIX_LABEL + "LABEL]...\n"
         + "Example: " + COMMAND_WORD + " 1 "
         + PREFIX_DUE_DATE + "91234567 "
         + PREFIX_PRIORITY_VALUE + "johndoe@example.com";
@@ -213,7 +213,7 @@ public class EditCommand extends Command {
         }
 
         /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * Returns an unmodifiable label set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code labels} is null.
          */

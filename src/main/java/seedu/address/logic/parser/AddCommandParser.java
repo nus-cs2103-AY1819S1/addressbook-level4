@@ -12,12 +12,12 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Description;
-import seedu.address.model.person.DueDate;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.PriorityValue;
-import seedu.address.model.person.Task;
 import seedu.address.model.tag.Label;
+import seedu.address.model.task.Description;
+import seedu.address.model.task.DueDate;
+import seedu.address.model.task.Name;
+import seedu.address.model.task.PriorityValue;
+import seedu.address.model.task.Task;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -41,12 +41,13 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        DueDate phone = ParserUtil.parseDueDate(argMultimap.getValue(PREFIX_DUE_DATE).get());
-        PriorityValue email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_PRIORITY_VALUE).get());
-        Description address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_DESCRIPTION).get());
-        Set<Label> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_LABEL));
 
-        Task task = new Task(name, phone, email, address, tagList);
+        DueDate phone = ParserUtil.parseDueDate(argMultimap.getValue(PREFIX_DUE_DATE).get());
+        PriorityValue priorityValue = ParserUtil.parsePriorityValue(argMultimap.getValue(PREFIX_PRIORITY_VALUE).get());
+        Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
+        Set<Label> labelList = ParserUtil.parseLabels(argMultimap.getAllValues(PREFIX_LABEL));
+
+        Task task = new Task(name, phone, priorityValue, description, labelList);
 
         return new AddCommand(task);
     }

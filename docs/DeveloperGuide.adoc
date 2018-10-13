@@ -1,11 +1,11 @@
 # Developer Guide
-
-[TOC]
+:site-section: DeveloperGuide
+:toc:
+:toc-title:
+:repoURL: https://github.com/CS2103-AY1819S1-F11-3/main
 
 ## Disclaimer
 This guide was adapted from relevant parts of the developer guide from AB4 (https://github.com/nus-cs2103-AY1819S1/addressbook-level4). This project and AB4 are distributed under the MIT license.
-
-
 
 ## Appendix A: Target User Profile
 
@@ -24,172 +24,195 @@ Attributable to our target demographic are the following qualities:
 
 By offering a gamified experience, we hope to be able to improve the user experience and keep users motivated in completing their tasks.
 
-
 ## Appendix C: User Stories
 Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely to have) - *
-
 |===
 | Priority   | As a ...  | I want to ... | So that I can ...
-
-| *** | organised student | apply lables to my task | focus on tasks
-|*** | forgetful student | alerted of important deadlines | not forget about tasks
-| *** | busy person | easily prioritise tasks | get important things out of the way first
-| *** | organised student | have tasks organised by categories that they are under | manage different aspects of life better
-| *** | proactive individual | view the day's task at a glance | I know what I need to do
-| *** | user | see task organized between todos and dones | better organisation
-| *** | user | see a list of tasks that needs attention at present time| I may pay attention to them first
-| ** | long-sighted quantitative person |  overview of my past tasks of the week | I can track my progress and evaluate how I am doing.
-|** | user | have rewards for completing tasks | continue doing tasks
-|**| user | see list of tasks that need my attention most at the present time | pay attention to them first
-| ** | user | see QOTD for basic motivation | motivation
-| ** | user that is demoralized easily | get positive encouragement |stay motivated
-| ** | user | negative reinforcement  | stay motivated
-|**| user | statistics function | keep track of progress
-| ** | user | insights function | keep track of progress
-|**| competitive user | compete with friends | challenge myself and peers
+| * * * | organised student | apply lables to my task | focus on tasks
+| * * * | forgetful student | alerted of important deadlines | not forget about tasks
+| * * * | busy person | easily prioritise tasks | get important things out of the way first
+| * * * | organised student | have tasks organised by categories that they are under | manage
+different aspects of life better
+| * * * | proactive individual | view the day's task at a glance | I know what I need to do
+| * * * | user | see task organized between todos and dones | better organisation
+| * * * | user | see a list of tasks that needs attention at present time| I may pay attention to
+them first
+| * * | long-sighted quantitative person |  overview of my past tasks of the week | I can track
+my progress and evaluate how I am doing.
+|* * | user | have rewards for completing tasks | continue doing tasks
+|* *| user | see list of tasks that need my attention most at the present time | pay attention to
+ them first
+| * * | user | see QOTD for basic motivation | motivation
+| * * | user that is demoralized easily | get positive encouragement |stay motivated
+| * * | user | negative reinforcement  | stay motivated
+|* *| user | statistics function | keep track of progress
+| * * | user | insights function | keep track of progress
+|* *| competitive user | compete with friends | challenge myself and peers
+| * | person without arms | have the computer interpret my words | type with my toes
+| * | person who hates rules | enter tasks in a specified format and computer should interpret for me | easy addition of tasks
+| * | visual person | colour coding in tasks | visually discern between tasks
+| * | user | feedback on completion of tasks | better plan ways to handle tasks
+| * | lazy student | provide intuitive information about the chaining to tasks | easy to tell end of task
+| * | user | customize persona | make tasks seem more personal
+| * | unmotivated student | see tasks creatively explosively destroy themselves | derive more enjoyment
 |===
-
-
-
 
 ## Appendix D: Use cases
 Only features that require more than a few steps to implement will be shown.
 
 ### Use case: Display Welcome Screen
 #### MSS
-* 1. User logs in successfully
-* 2. Application fetches QOTD and shows it.
-* 3. Application then displays **10** tasks sorted by ascending deadline.
+.  User logs in successfully
+.  Application fetches QOTD and shows it.
+.  Application then displays **10** tasks sorted by ascending deadline.
+
 Use case ends.
 
 #### Extensions
 
 * 3a. There are less than **10** tasks available
-* 3a1. Let the number of tasks available be `n`, then `n` tasks will be shown.
+** 3a1. Let the number of tasks available be `n`, then `n` tasks will be shown.
+
 Use case ends.
 
 * 3b. There are multiple tasks with the same deadline.
-    * 3b1. Tie will be broken by the lexicographic order of Task name
-    * 3b2. If multiple tasks have the same lexicographic order, the outputted task will be non-deterministic
+** 3b1. Tie will be broken by the lexicographic order of Task name
+** 3b2. If multiple tasks have the same lexicographic order, the outputted task will be
+non-deterministic
+
 Use case ends.
 
 ### Use case: Display Motivational Quote (MQ) on task completion
 #### MSS
-* 1. User marks task as complete.
-* 2. Application shows MQ.
+. User marks task as complete.
+. Application shows MQ.
+
 Use case ends.
 
 #### Extensions
 
 * 1a. User marks multiple tasks as complete.
-    * 1a1. Application still shows only one MQ.
-      Use case ends.
+** 1a1. Application still shows only one MQ.
+
+Use case ends.
 
 ### Use case: List Task
 #### MSS
-* 1. User requests to list tasks, fulfilling a (potentially empty) set of criteria.
-* 2. Application shows a list of corresponding tasks.
+. User requests to list tasks, fulfilling a (potentially empty) set of criteria.
+. Application shows a list of corresponding tasks.
+
 Use case ends.
 
 #### Extensions
 * 1a. No matches found.
-    * 1a1. Application informs user that no tasks matching the specified criteria have been found.
+** 1a1. Application informs user that no tasks matching the specified criteria have been found.
+
 Use case ends.
 
 ### Use case: Add task
 #### MSS
-* 1. User requests to add a task in the list
-* 2. Application adds the task
+. User requests to add a task in the list
+. Application adds the task
+
 Use case ends.
+
 #### Extensions
-* 1. The task already exists.
-* 2. Application shows an error message.
+* 1a. The task already exists.
+** 1a1. Application shows an error message.
+
 Use case resumes at step 1 in MSS.
 
+* 1b. The user enters the add command in a wrong format.
+** 1b1. Application shows an error message.
 
-* 1. The user enters the add command in a wrong for
-* 2. Application shows an error message.
 Use case resumes at step 1 in MSS.
 
 ### Use case: Delete task
 #### MSS
-* 1. User requests to delete a task with a particular index
-* 2. Application deletes the task
+. User requests to delete a task with a particular index
+. Application deletes the task
+
 Use case ends.
+
 #### Extensions
 * 1a. A task with the specified index does not exist.
-     * 1a1. Application shows an error message.
-    Use case resumes at step 1 in MSS.
+** 1a1. Application shows an error message.
+
+Use case resumes at step 1 in MSS.
 
 * 1b. The task with the specified index is already deleted.
-    * 1b1. Application shows an error message.
+** 1b1. Application shows an error message.
+
 Use case resumes at step 1 in MSS.
 
 ### Use case: Viewing Command History
 #### MSS
-* 1. User requests to view command history.
-* 2. Application displays command history.
-  Use case ends.
+. User requests to view command history.
+. Application displays command history.
 
-#### Extensions
- * 1a. Command history is empty.
-     * 1a1. Application informs user that there is no command history.
-       Use case ends.
-
-### Use case: Undoing Last Command
-#### MSS
-* 1. User requests undoing last command.
-* 2. Application resets state to before last state-changing command.
-  Use case ends.
+Use case ends.
 
 #### Extensions
 * 1a. Command history is empty.
-    * 1a1. Application informs user that there is no past history to undo.
-      Use case ends.
+** 1a1. Application informs user that there is no command history.
+
+Use case ends.
+
+### Use case: Undoing Last Command
+#### MSS
+. User requests undoing last command.
+. Application resets state to before last state-changing command.
+
+Use case ends.
+
+#### Extensions
+* 1a. Command history is empty.
+** 1a1. Application informs user that there is no past history to undo.
+
+Use case ends.
 
 ### Use case: Redoing Last Command
 #### MSS
-* 1. User requests redoing last command.
-* 2. Application resets state to before last state-changing command was undone.
-  Use case ends.
+. User requests redoing last command.
+. Application resets state to before last state-changing command was undone.
+
+Use case ends.
 
 #### Extensions
 * 1a. The immediately preceding command (ignoring redone undos) is not an undo command
-    * 1a1. Application informs user that there is no undo to redo.
-      Use case ends.
+** 1a1. Application informs user that there is no undo to redo.
+
+Use case ends.
 
 ### Use case: Completing Task
 #### MSS
-* 1. User marks tasks as complete.
-* 2. Application reports both points earned and current points to user.
+. User marks tasks as complete.
+. Application reports both points earned and current points to user.
+
 #### Extensions
 * 2a. User earns enough points to level up
-    * 2a1. Application displays a congratulatory message, current points, and points earned to user.
+** 2a1. Application displays a congratulatory message, current points, and points earned to user.
 
 ### Use case: Display Statistics
 #### MSS
-* 1. User requests for statistics.
-* 2. Application fetches data and displays statistics.
+. User requests for statistics.
+. Application fetches data and displays statistics.
+
 #### Extensions
 * 2a. There are no statistics.
-    * 2a1. Application displays a flavour text explaining that the user needs to complete a task first to get statistics.
+** 2a1. Application displays a flavour text explaining that the user needs to complete a task first to get statistics.
+
+Use case ends.
 
 ### Use case: Failing to complete task
 #### MSS
-* 1. User fails to complete tasks on time
-* 2. Application displays points lost and current current points to user.
-### Extensions
+. User fails to complete tasks on time
+. Application displays points lost and current current points to user.
+
+#### Extensions
 * 2a. User loses enough points that it level down.
     * 2a1. Application displays a warning message, current points, and points lost to user.
-
-### Use Case: Deleting a task
-#### MSS
-* 1. User lists tasks.
-* 2. System displays list of tasks.
-* 3. User selects task to delete.
-* 4. System deletes task.
-* 5. System displays success message.
-
+Use case ends.
 
 ## Non-functional requirements
 - There should be no noticable lag when typing on the command line.
@@ -198,7 +221,7 @@ Use case resumes at step 1 in MSS.
 - Should be able to hold up to 1000 tasks without a noticable decline in performance.
 - Should not take more than 3 seconds to complete a command.
 - System should be maintainable with proper documentation.
-- Proper feedback to user when error occurs. // @jelena: Usability
+- Proper feedback to user when error occurs.
 
 ## Glossary
 
@@ -215,10 +238,6 @@ A glossary serves to ensure that all stakeholders have a common understanding of
 |Points | A unit of measurement to measure current experience
 | Level | A larger unit of measurement to measure experience.
 |===
-
-
-
-
 
 ## 1. Setting up
 
@@ -300,6 +319,7 @@ Coverage reporting could be useful for a team repository that hosts the final ve
 Optionally, you can set up AppVeyor as a second CI (see UsingAppVeyor.adoc).
 
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
+
 #### 1.4.4. Getting started with coding
 When you are ready to start coding,
 
@@ -363,6 +383,7 @@ Set the destination to Save as PDF, then click Save to save a copy of the file i
 
 chrome save as pdf
 Figure 10. Saving documentation as PDF files in Chrome
+
 ### 4.4. Site-wide Documentation Settings
 The build.gradle file specifies some project-specific asciidoc attributes which affects how all documentation files within this project are rendered.
 

@@ -10,8 +10,8 @@ import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.model.person.Task;
 import seedu.address.model.tag.Label;
+import seedu.address.model.task.Task;
 
 /**
  * A utility class for Task.
@@ -52,11 +52,11 @@ public class TaskUtil {
         descriptor.getDescription().ifPresent(address -> sb.append(PREFIX_DESCRIPTION)
             .append(address.value).append(" "));
         if (descriptor.getLabels().isPresent()) {
-            Set<Label> tags = descriptor.getLabels().get();
-            if (tags.isEmpty()) {
+            Set<Label> labels = descriptor.getLabels().get();
+            if (labels.isEmpty()) {
                 sb.append(PREFIX_LABEL);
             } else {
-                tags.forEach(s -> sb.append(PREFIX_LABEL).append(s.labelName).append(" "));
+                labels.forEach(s -> sb.append(PREFIX_LABEL).append(s.labelName).append(" "));
             }
         }
         return sb.toString();

@@ -12,7 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
-import seedu.address.model.person.Task;
+import seedu.address.model.task.Task;
 
 /**
  * Represents the in-memory model of the task manager data.

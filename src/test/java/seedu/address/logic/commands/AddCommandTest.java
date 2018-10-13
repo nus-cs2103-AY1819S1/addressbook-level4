@@ -19,7 +19,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.model.TaskManager;
-import seedu.address.model.person.Task;
+import seedu.address.model.task.Task;
 import seedu.address.testutil.TaskBuilder;
 
 public class AddCommandTest {
@@ -47,6 +47,17 @@ public class AddCommandTest {
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validTask), commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validTask), modelStub.tasksAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+    }
+
+    @Test
+    public void execute_expiredTask_throwsCommandException() throws Exception {
+        Task expiredTask = new TaskBuilder().withName("Apply moisturizer").withDueDate("01-02-1996").build();
+        AddCommand addCommand = new AddCommand(expiredTask);
+        ModelStub modelStub = new ModelStubWithTask(expiredTask);
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(AddCommand.MESSAGE_EXPIRED_TASK);
+        addCommand.execute(modelStub, commandHistory);
     }
 
     @Test
