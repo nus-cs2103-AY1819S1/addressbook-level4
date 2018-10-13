@@ -1,10 +1,11 @@
 package seedu.souschef.model.healthplan;
 
-import seedu.souschef.model.UniqueType;
-
 import static seedu.souschef.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
+
+import seedu.souschef.model.UniqueType;
+
 
 /**
  *  class to handle the overall frame of health plans

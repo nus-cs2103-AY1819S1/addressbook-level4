@@ -29,7 +29,7 @@ public class ModelSetCoordinator implements ModelSet {
         versionedAppContent = new VersionedAppContent(appContent);
 
         recipeModel = new ModelManager<>(versionedAppContent, versionedAppContent.getRecipes());
-        healthPlanModel = new ModelManager<>(versionedAppContent,versionedAppContent.getHealthPlans());
+        healthPlanModel = new ModelManager<>(versionedAppContent, versionedAppContent.getHealthPlans());
 
         // More to be added
     }
@@ -63,8 +63,5 @@ public class ModelSetCoordinator implements ModelSet {
         return recipeModel;
     }
 
-    public Model<HealthPlan> getHealthPlanModel() {
-        return healthPlanModel;
-    }
     // More to be added
 }

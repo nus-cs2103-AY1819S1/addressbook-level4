@@ -15,8 +15,8 @@ import seedu.souschef.commons.exceptions.IllegalValueException;
 import seedu.souschef.commons.util.FileUtil;
 import seedu.souschef.model.AppContent;
 import seedu.souschef.model.ReadOnlyAppContent;
-import seedu.souschef.storage.XmlFileStorage;
 import seedu.souschef.storage.XmlFeatureStorage;
+import seedu.souschef.storage.XmlFileStorage;
 import seedu.souschef.storage.XmlSerializableGeneric;
 
 /**
@@ -30,14 +30,14 @@ public class XmlRecipeStorage extends XmlFeatureStorage {
         super(filePath, appContent);
     }
 
-    public XmlRecipeStorage (Path filePath){
+    public XmlRecipeStorage (Path filePath) {
         super(filePath);
     }
 
 
-    public Optional<ReadOnlyAppContent> readFeature()  throws DataConversionException,
-            FileNotFoundException  {
-       return readFeature(this.filePath);
+    public Optional<ReadOnlyAppContent> readFeature() throws DataConversionException,
+            FileNotFoundException {
+        return readFeature(this.filePath);
     }
 
 
@@ -57,8 +57,8 @@ public class XmlRecipeStorage extends XmlFeatureStorage {
             return Optional.empty();
         }
         XmlSerializableGeneric xmlRecipeBook;
-               xmlRecipeBook = new XmlSerializableAddressBook(
-                       (XmlSerializableAddressBook) XmlFileStorage.loadDataFromSaveFile(filePath, "recipe"));
+        xmlRecipeBook = new XmlSerializableAddressBook(
+                (XmlSerializableAddressBook) XmlFileStorage.loadDataFromSaveFile(filePath, "recipe"));
         try {
             setAppContent(xmlRecipeBook.getAppContent());
             return Optional.of(xmlRecipeBook.toModelType());

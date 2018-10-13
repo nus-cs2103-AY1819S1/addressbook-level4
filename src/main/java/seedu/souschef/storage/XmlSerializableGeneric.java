@@ -8,7 +8,7 @@ import seedu.souschef.model.AppContent;
  */
 public interface XmlSerializableGeneric {
 
-     AppContent toModelType() throws IllegalValueException;
+    AppContent toModelType() throws IllegalValueException;
 
-     AppContent getAppContent();
+    AppContent getAppContent();
 }

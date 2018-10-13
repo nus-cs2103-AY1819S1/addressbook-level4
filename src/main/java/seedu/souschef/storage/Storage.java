@@ -7,7 +7,6 @@ import java.util.Optional;
 import seedu.souschef.commons.events.model.AppContentChangedEvent;
 import seedu.souschef.commons.events.storage.DataSavingExceptionEvent;
 import seedu.souschef.commons.exceptions.DataConversionException;
-import seedu.souschef.model.AppContent;
 import seedu.souschef.model.ReadOnlyAppContent;
 import seedu.souschef.model.UserPrefs;
 
@@ -27,16 +26,23 @@ public interface Storage extends FeatureStorage, UserPrefsStorage {
 
     @Override
     Optional<ReadOnlyAppContent> readFeature() throws DataConversionException, IOException;
-    
-    @Override
-    void saveFeature(ReadOnlyAppContent appContent) throws IOException;
 
     Optional<ReadOnlyAppContent> readAll() throws DataConversionException, IOException;
 
+    /**
+     * currently unused, to set the main feature storage
+     * of the the centralized storage manager to be this
+     */
     void setMainFeatureStorage(FeatureStorage featureStorage);
 
+    /**
+     * currently unused, to include a new feature storage into the list
+     * and return the new state of the storage unit
+     */
     Storage include(FeatureStorage feature);
 
+    @Override
+    void saveFeature(ReadOnlyAppContent appContent) throws IOException;
     /**
      * Saves the current version of the Address Book to the hard disk.
      *   Creates the data file if it is missing.

@@ -58,7 +58,7 @@ public class XmlFileStorage {
         try {
             if (TYPE_RECIPE.equals(type)) {
                 return XmlUtil.getDataFromFile(file, XmlSerializableAddressBook.class);
-            } else if(TYPE_HEALTHPLAN.equals(type)){
+            } else if (TYPE_HEALTHPLAN.equals(type)) {
                 return XmlUtil.getDataFromFile(file, XmlSerializableHealthPlan.class);
             }
 

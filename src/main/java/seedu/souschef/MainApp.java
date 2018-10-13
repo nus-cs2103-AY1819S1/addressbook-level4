@@ -27,13 +27,10 @@ import seedu.souschef.model.ModelSetCoordinator;
 import seedu.souschef.model.ReadOnlyAppContent;
 import seedu.souschef.model.UserPrefs;
 import seedu.souschef.model.util.SampleDataUtil;
-import seedu.souschef.storage.FeatureStorage;
 import seedu.souschef.storage.JsonUserPrefsStorage;
 import seedu.souschef.storage.Storage;
 import seedu.souschef.storage.StorageManager;
 import seedu.souschef.storage.UserPrefsStorage;
-import seedu.souschef.storage.healthplan.XmlHealthPlanStorage;
-import seedu.souschef.storage.recipe.XmlRecipeStorage;
 import seedu.souschef.ui.Ui;
 import seedu.souschef.ui.UiManager;
 
@@ -65,21 +62,13 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        AppContent appContent= new AppContent();
-        //first storage
-        FeatureStorage recipeStorage = new XmlRecipeStorage(userPrefs.getAddressBookFilePath());
-        //storage will collectively have the contents details via the appContent;
-        FeatureStorage healthPlanStorage = new XmlHealthPlanStorage(userPrefs.getHealthplanPath());
+        AppContent appContent = new AppContent();
+
 
 
         //storage = new StorageManager(recipeStorage, userPrefsStorage);
-        storage = new StorageManager(userPrefsStorage,appContent);
+        storage = new StorageManager(userPrefsStorage, userPrefs, appContent);
 
-
-        storage.include(recipeStorage);
-        storage.include(healthPlanStorage);
-
-        storage.setMainFeatureStorage(recipeStorage);
         initLogging(config);
 
         //model segment
@@ -101,7 +90,7 @@ public class MainApp extends Application {
      */
     private ModelSet initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<ReadOnlyAppContent> readOnlyAppContent;
-       ReadOnlyAppContent initialData;
+        ReadOnlyAppContent initialData;
         try {
 
             readOnlyAppContent = storage.readAll();
@@ -155,7 +144,7 @@ public class MainApp extends Application {
         try {
             ConfigUtil.saveConfig(initializedConfig, configFilePathUsed);
         } catch (IOException e) {
-            logger.warning("Failed to saveAppContent config file : " + StringUtil.getDetails(e));
+            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
         }
         return initializedConfig;
     }

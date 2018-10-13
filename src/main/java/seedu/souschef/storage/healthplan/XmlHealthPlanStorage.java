@@ -15,8 +15,8 @@ import seedu.souschef.commons.exceptions.IllegalValueException;
 import seedu.souschef.commons.util.FileUtil;
 import seedu.souschef.model.AppContent;
 import seedu.souschef.model.ReadOnlyAppContent;
-import seedu.souschef.storage.XmlFileStorage;
 import seedu.souschef.storage.XmlFeatureStorage;
+import seedu.souschef.storage.XmlFileStorage;
 import seedu.souschef.storage.XmlSerializableGeneric;
 
 /**
@@ -26,7 +26,7 @@ public class XmlHealthPlanStorage extends XmlFeatureStorage {
 
     private static final Logger logger = LogsCenter.getLogger(XmlHealthPlanStorage.class);
 
-    public XmlHealthPlanStorage(Path filePath){
+    public XmlHealthPlanStorage(Path filePath) {
         super(filePath);
     }
 
@@ -35,8 +35,8 @@ public class XmlHealthPlanStorage extends XmlFeatureStorage {
         super(filePath, appContent);
     }
 
-    public Optional<ReadOnlyAppContent> readFeature()  throws DataConversionException,
-            FileNotFoundException  {
+    public Optional<ReadOnlyAppContent> readFeature() throws DataConversionException,
+            FileNotFoundException {
         return readFeature(this.filePath);
     }
 

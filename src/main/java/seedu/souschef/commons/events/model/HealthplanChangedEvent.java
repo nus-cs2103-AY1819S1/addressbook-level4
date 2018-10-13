@@ -16,7 +16,7 @@ public class HealthplanChangedEvent extends BaseEvent {
 
     @Override
     public String toString() {
-        return "number of plans " + data.getHealthPlanList().size();
+        return "number of plans " + data.getObservableHealthPlanList().size();
     }
 
 

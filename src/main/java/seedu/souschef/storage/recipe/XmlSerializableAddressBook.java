@@ -40,16 +40,16 @@ public class XmlSerializableAddressBook implements XmlSerializableGeneric {
     public XmlSerializableAddressBook(XmlSerializableAddressBook ab) {
 
         recipes = ab.recipes;
-       this.appContent = ab.appContent;
+        this.appContent = ab.appContent;
         recipes.addAll(ab.appContent.getObservableRecipeList().stream().map(XmlAdaptedRecipe::new)
                 .collect(Collectors.toList()));
     }
 
-    public XmlSerializableAddressBook(AppContent appContent){
+    public XmlSerializableAddressBook(AppContent appContent) {
         this();
-        if(appContent!= null){
-        this.appContent= appContent;}
-        else{
+        if (appContent != null) {
+            this.appContent = appContent;
+        } else {
             appContent = new AppContent();
 
         }
@@ -62,9 +62,9 @@ public class XmlSerializableAddressBook implements XmlSerializableGeneric {
      */
     public XmlSerializableAddressBook(ReadOnlyAppContent src) {
         this();
-        if(appContent!= null){
-            this.appContent= (AppContent) src;}
-        else{
+        if (appContent != null) {
+            this.appContent = (AppContent) src;
+        } else {
             appContent = new AppContent();
 
         }

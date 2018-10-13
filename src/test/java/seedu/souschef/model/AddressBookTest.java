@@ -109,7 +109,7 @@ public class AddressBookTest {
             return recipes;
         }
         @Override
-        public ObservableList<HealthPlan> getHealthPlanList() {
+        public ObservableList<HealthPlan> getObservableHealthPlanList() {
             return plans;
         }
     }

@@ -98,7 +98,7 @@ public class UniqueList<T extends UniqueType> implements Iterable<T> {
         return FXCollections.unmodifiableObservableList(internalList);
     }
 
-    public int size(){
+    public int size() {
         return internalList.size();
     }
 

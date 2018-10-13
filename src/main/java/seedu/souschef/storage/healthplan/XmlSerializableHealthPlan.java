@@ -37,21 +37,21 @@ public class XmlSerializableHealthPlan implements XmlSerializableGeneric {
         hp = new ArrayList<>();
     }
 
-
     /**
      * construct
      */
     public XmlSerializableHealthPlan(ReadOnlyAppContent src) {
         this();
-        appContent = (AppContent)src;
-        hp.addAll(src.getHealthPlanList().stream().map(XmlAdaptedHealthPlan::new).collect(Collectors.toList()));
+        appContent = (AppContent) src;
+        hp.addAll(src.getObservableHealthPlanList().stream()
+                .map(XmlAdaptedHealthPlan::new).collect(Collectors.toList()));
     }
 
     public XmlSerializableHealthPlan(XmlSerializableHealthPlan ab) {
 
         hp = ab.hp;
         this.appContent = ab.appContent;
-        hp.addAll(ab.appContent.getHealthPlanList().stream().map(XmlAdaptedHealthPlan::new)
+        hp.addAll(ab.appContent.getObservableHealthPlanList().stream().map(XmlAdaptedHealthPlan::new)
                 .collect(Collectors.toList()));
     }
 

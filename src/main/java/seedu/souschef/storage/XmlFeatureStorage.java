@@ -23,13 +23,13 @@ public abstract class XmlFeatureStorage implements FeatureStorage {
 
     }
 
-    protected XmlFeatureStorage (Path filePath){
+    protected XmlFeatureStorage (Path filePath) {
         this();
         this.filePath = filePath;
 
     }
 
-    protected XmlFeatureStorage(Path filePath ,AppContent appContent) {
+    protected XmlFeatureStorage(Path filePath, AppContent appContent) {
         this();
         this.filePath = filePath;
         this.appContent = appContent;
@@ -40,16 +40,16 @@ public abstract class XmlFeatureStorage implements FeatureStorage {
     }
 
     public AppContent getAppContent() {
-        if (appContent!=null) {
+        if (appContent != null) {
             return appContent;
-        }else{
+        } else {
             return new AppContent();
         }
     }
 
 
     public void setAppContent(AppContent appContent) {
-        this.appContent =appContent;
+        this.appContent = appContent;
 
     }
 

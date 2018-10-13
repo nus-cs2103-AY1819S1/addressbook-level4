@@ -3,13 +3,11 @@ package seedu.souschef.storage;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
-import jdk.javadoc.doclet.Doclet;
 import seedu.souschef.commons.core.ComponentManager;
 import seedu.souschef.commons.core.LogsCenter;
 import seedu.souschef.commons.events.model.AppContentChangedEvent;
@@ -19,6 +17,8 @@ import seedu.souschef.model.AppContent;
 import seedu.souschef.model.ReadOnlyAppContent;
 import seedu.souschef.model.UserPrefs;
 import seedu.souschef.model.util.SampleDataUtil;
+import seedu.souschef.storage.healthplan.XmlHealthPlanStorage;
+import seedu.souschef.storage.recipe.XmlRecipeStorage;
 
 /**
  * Manages storage of AppContent data in local storage.
@@ -31,11 +31,18 @@ public class StorageManager extends ComponentManager implements Storage {
     private ArrayList <FeatureStorage> listOfFeatureStorage;
     private AppContent appContent;
 
-    public StorageManager(UserPrefsStorage userPrefsStorage, AppContent appContent){
+    public StorageManager(UserPrefsStorage userPrefsStorage, UserPrefs userPrefs, AppContent appContent) {
         super();
         this.appContent = appContent;
         this.userPrefsStorage = userPrefsStorage;
         this.listOfFeatureStorage = new ArrayList<>();
+
+        FeatureStorage recipeStorage = new XmlRecipeStorage(userPrefs.getAddressBookFilePath());
+
+        FeatureStorage healthPlanStorage = new XmlHealthPlanStorage(userPrefs.getHealthplanPath());
+        listOfFeatureStorage.add(recipeStorage);
+        listOfFeatureStorage.add(healthPlanStorage);
+        this.featureStorage = recipeStorage;
     }
 
 
@@ -83,8 +90,8 @@ public class StorageManager extends ComponentManager implements Storage {
         return this.getAppContent();
     }
 
-    public void setMainFeatureStorage(FeatureStorage featureStorage){
-        this.featureStorage=featureStorage;
+    public void setMainFeatureStorage(FeatureStorage featureStorage) {
+        this.featureStorage = featureStorage;
     }
 
     /**
@@ -95,12 +102,18 @@ public class StorageManager extends ComponentManager implements Storage {
         return readFeature(featureStorage.getFeatureFilePath());
     }
 
+    @Override
+    public Optional<ReadOnlyAppContent> readFeature(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to readAppContent data from file: " + filePath);
+        return featureStorage.readFeature(filePath);
+    }
+
 
     @Override
-    public Optional<ReadOnlyAppContent> readAll() throws DataConversionException, IOException{
+    public Optional<ReadOnlyAppContent> readAll() throws DataConversionException, IOException {
         ArrayList<FeatureStorage> temp = this.listOfFeatureStorage;
         AppContent readOnlyAppContent = this.appContent;
-        for(FeatureStorage f: temp){
+        for (FeatureStorage f: temp) {
             //to implement changes for specific feature storage types.
             readOnlyAppContent.includeData(readFeature(f.getFeatureFilePath())
                     .orElseGet(SampleDataUtil::getSampleAddressBook));
@@ -109,18 +122,9 @@ public class StorageManager extends ComponentManager implements Storage {
 
     }
 
-
-
     @Override
-    public Optional<ReadOnlyAppContent> readFeature(Path filePath) throws DataConversionException, IOException {
-        logger.fine("Attempting to readAppContent data from file: " + filePath);
-        return featureStorage.readFeature(filePath);
-    }
-
-
-        @Override
     public void saveFeature(ReadOnlyAppContent appContent) throws IOException {
-            saveFeature(appContent, featureStorage.getFeatureFilePath());
+        saveFeature(appContent, featureStorage.getFeatureFilePath());
     }
 
     @Override
