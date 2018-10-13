@@ -7,6 +7,8 @@ import java.util.Objects;
 
 import javafx.collections.ObservableList;
 
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.UniqueAppointmentList;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.doctor.UniqueDoctorList;
 import seedu.address.model.person.Person;
@@ -18,6 +20,7 @@ import seedu.address.model.person.UniquePersonList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
+    private final UniqueAppointmentList appointments;
     private final UniquePersonList persons;
     //@@author jjlee050
     private final UniqueDoctorList doctors;
@@ -30,6 +33,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
+        appointments = new UniqueAppointmentList();
         persons = new UniquePersonList();
         //@@author jjlee050
         doctors = new UniqueDoctorList();
@@ -166,6 +170,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Doctor> getDoctorList() {
         return doctors.asUnmodifiableObservableList();
+    }
+
+    //@@author gingivitiss
+    @Override
+    public ObservableList<Appointment> getAppointmentList() {
+        return appointments.asUnmodifiableObservableList();
     }
 
     @Override

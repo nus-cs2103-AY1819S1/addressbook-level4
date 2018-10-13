@@ -73,6 +73,17 @@ public class Appointment {
     }
 
     /**
+     * Returns true if the appointments are the same.
+     * @param  other Appointment to compare with.
+     */
+    public boolean isSameAppointment(Appointment other) {
+        if (other == this) {
+            return true;
+        }
+        return isSamePatient(other) && isSameSlot(other);
+    }
+
+    /**
      * Returns true if appointment is cancelled.
      */
     public boolean isCancelled() {
