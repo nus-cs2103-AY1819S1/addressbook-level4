@@ -169,8 +169,8 @@ public class XmlAdaptedEvent {
 
 
         final Set<Tag> modelTags = new HashSet<>(eventTags);
-        return new Event(modelEventId, modelName, modelLocation, modelStartDate, modelEndDate, modelStartTime, modelEndTime,
-                            modelDescription, modelTags);
+        return new Event(modelEventId, modelName, modelLocation, modelStartDate, modelEndDate, modelStartTime,
+                            modelEndTime, modelDescription, modelTags);
     }
 
     @Override

@@ -130,7 +130,9 @@ public class Event {
         return startTime.isLessThanOrEqualTo(endTime);
     }
 
-    public EventId getEventId() { return eventId; }
+    public EventId getEventId() {
+        return eventId;
+    }
 
     public Name getName() {
         return name;
