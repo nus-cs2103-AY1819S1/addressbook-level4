@@ -17,6 +17,9 @@ endif::[]
 
 By: `Team W16-2`      Since: `Sept 2018`      Licence: `MIT`
 
+== Introduction
+TBC
+
 == Setting up
 
 === Prerequisites
@@ -104,6 +107,7 @@ When you are ready to start coding,
 2. Take a look at <<GetStartedProgramming>>.
 
 == Design
+This section will describe the design architecture and the various components of the system.
 
 [[Design-Architecture]]
 === Architecture
