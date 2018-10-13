@@ -6,7 +6,7 @@ import static seedu.souschef.logic.parser.CommandParserTestUtil.assertParseFailu
 import org.junit.Test;
 
 import seedu.souschef.logic.commands.DeleteCommand;
-import seedu.souschef.logic.parser.commandParser.DeleteCommandParser;
+import seedu.souschef.logic.parser.commandparser.DeleteCommandParser;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
