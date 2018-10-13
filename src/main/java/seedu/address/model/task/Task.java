@@ -24,11 +24,13 @@ public class Task {
     // Data fields
     private final Description description;
     private final Set<Label> labels = new HashSet<>();
+    private final Dependency dependency;
 
     /**
      * Every field must be present and not null.
      * Status of a new task is initialized to in progress unless specified.
      */
+    //TODO: Remove the need for multiple constructors
     public Task(Name name, DueDate dueDate, PriorityValue priorityValue, Description description, Set<Label> labels) {
         requireAllNonNull(name, dueDate, priorityValue, description, labels);
         this.name = name;
@@ -37,6 +39,7 @@ public class Task {
         this.description = description;
         this.labels.addAll(labels);
         this.status = Status.IN_PROGRESS;
+        this.dependency = new Dependency();
     }
 
     public Task(Name name, DueDate dueDate, PriorityValue priorityValue, Description description, Set<Label> labels,
@@ -48,6 +51,7 @@ public class Task {
         this.description = description;
         this.labels.addAll(labels);
         this.status = status;
+        this.dependency = new Dependency();
     }
 
     public Name getName() {
@@ -77,6 +81,11 @@ public class Task {
     public Status getStatus() {
         return status;
     }
+
+    public Dependency getDependency() {
+        return dependency;
+    }
+
 
     /**
      * Returns true if both tasks of the same name have at least one other identity field that is the same.
