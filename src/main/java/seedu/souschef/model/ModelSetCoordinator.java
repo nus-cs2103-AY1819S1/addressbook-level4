@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import seedu.souschef.commons.core.LogsCenter;
 import seedu.souschef.model.healthplan.HealthPlan;
+import seedu.souschef.model.planner.Day;
 import seedu.souschef.model.recipe.Recipe;
 
 /**
@@ -15,8 +16,8 @@ public class ModelSetCoordinator implements ModelSet {
     private static final Logger logger = LogsCenter.getLogger(ModelSetCoordinator.class);
 
     private final Model<Recipe> recipeModel;
-
     private final Model<HealthPlan> healthPlanModel;
+    private final Model<Day> mealPlannerModel;
 
     private final VersionedAppContent versionedAppContent;
 
@@ -30,6 +31,7 @@ public class ModelSetCoordinator implements ModelSet {
 
         recipeModel = new ModelManager<>(versionedAppContent, versionedAppContent.getRecipes());
         healthPlanModel = new ModelManager<>(versionedAppContent, versionedAppContent.getHealthPlans());
+        mealPlannerModel = new ModelManager<>(versionedAppContent, versionedAppContent.getMealPlanner());
 
         // More to be added
     }
@@ -56,11 +58,21 @@ public class ModelSetCoordinator implements ModelSet {
         // state check
         ModelSetCoordinator other = (ModelSetCoordinator) obj;
         return versionedAppContent.equals(other.versionedAppContent)
-                && recipeModel.equals(other.recipeModel);
+                && recipeModel.equals(other.recipeModel)
+                && healthPlanModel.equals(other.healthPlanModel)
+                && mealPlannerModel.equals(other.mealPlannerModel);
     }
 
     public Model<Recipe> getRecipeModel() {
         return recipeModel;
+    }
+
+    public Model<HealthPlan> getHealthPlanModel() {
+        return healthPlanModel;
+    }
+
+    public Model<Day> getMealPlannerModel() {
+        return mealPlannerModel;
     }
 
     // More to be added
