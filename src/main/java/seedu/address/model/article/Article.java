@@ -24,6 +24,9 @@ public class Article {
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
+    // Others
+    private final boolean isResolved;
+
     /**
      * Every field must be present and not null.
      */
@@ -34,6 +37,7 @@ public class Article {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        isResolved = false;
     }
 
     public Name getName() {
@@ -58,6 +62,10 @@ public class Article {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    public boolean getIsResolved() {
+        return isResolved;
     }
 
     /**
@@ -99,7 +107,7 @@ public class Article {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, tags, isResolved);
     }
 
     @Override
@@ -112,6 +120,8 @@ public class Article {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" isResolved: ")
+                .append(getIsResolved())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
