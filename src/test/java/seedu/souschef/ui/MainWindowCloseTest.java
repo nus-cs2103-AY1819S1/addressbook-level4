@@ -33,7 +33,7 @@ public class MainWindowCloseTest extends GuiUnitTest {
         FxToolkit.setupStage(stage -> {
             this.stage = stage;
             mainWindow = new MainWindow(stage, new Config(), new UserPrefs(),
-                    new LogicManager(new ModelSetCoordinator().getRecipeModel()));
+                    new LogicManager(new ModelSetCoordinator()));
             mainWindowHandle = new EmptyMainWindowHandle(stage);
 
             stage.setScene(mainWindow.getRoot().getScene());

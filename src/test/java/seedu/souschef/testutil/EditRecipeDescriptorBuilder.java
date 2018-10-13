@@ -4,8 +4,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.souschef.logic.commands.EditCommand;
-import seedu.souschef.logic.commands.EditCommand.EditRecipeDescriptor;
+import seedu.souschef.logic.EditRecipeDescriptor;
 import seedu.souschef.model.recipe.Address;
 import seedu.souschef.model.recipe.Email;
 import seedu.souschef.model.recipe.Name;
@@ -21,18 +20,18 @@ public class EditRecipeDescriptorBuilder {
     private EditRecipeDescriptor descriptor;
 
     public EditRecipeDescriptorBuilder() {
-        descriptor = new EditCommand.EditRecipeDescriptor();
+        descriptor = new EditRecipeDescriptor();
     }
 
-    public EditRecipeDescriptorBuilder(EditCommand.EditRecipeDescriptor descriptor) {
-        this.descriptor = new EditCommand.EditRecipeDescriptor(descriptor);
+    public EditRecipeDescriptorBuilder(EditRecipeDescriptor descriptor) {
+        this.descriptor = new EditRecipeDescriptor(descriptor);
     }
 
     /**
      * Returns an {@code EditRecipeDescriptor} with fields containing {@code recipe}'s details
      */
     public EditRecipeDescriptorBuilder(Recipe recipe) {
-        descriptor = new EditCommand.EditRecipeDescriptor();
+        descriptor = new EditRecipeDescriptor();
         descriptor.setName(recipe.getName());
         descriptor.setPhone(recipe.getPhone());
         descriptor.setEmail(recipe.getEmail());
@@ -82,7 +81,7 @@ public class EditRecipeDescriptorBuilder {
         return this;
     }
 
-    public EditCommand.EditRecipeDescriptor build() {
+    public EditRecipeDescriptor build() {
         return descriptor;
     }
 }

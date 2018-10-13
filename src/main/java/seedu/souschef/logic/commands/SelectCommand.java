@@ -27,14 +27,16 @@ public class SelectCommand extends Command {
 
     public static final String MESSAGE_SELECT_RECIPE_SUCCESS = "Selected Recipe: %1$s";
 
+    private final Model model;
     private final Index targetIndex;
 
-    public SelectCommand(Index targetIndex) {
+    public SelectCommand(Model model, Index targetIndex) {
+        this.model = model;
         this.targetIndex = targetIndex;
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(CommandHistory history) throws CommandException {
         requireNonNull(model);
 
         List<Recipe> filteredRecipeList = model.getFilteredList();
