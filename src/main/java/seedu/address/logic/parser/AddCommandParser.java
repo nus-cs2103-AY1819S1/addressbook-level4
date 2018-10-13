@@ -43,20 +43,17 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         //@@author zioul123
         Optional<String> inputPhoneString = argMultimap.getValue(PREFIX_PHONE);
-        Optional<Phone> phone = inputPhoneString
-                .isPresent()
+        Optional<Phone> phone = inputPhoneString.isPresent()
                 ? Optional.of(ParserUtil.parsePhone(inputPhoneString.get()))
                 : Optional.empty();
 
         Optional<String> inputEmailString = argMultimap.getValue(PREFIX_EMAIL);
-        Optional<Email> email = inputEmailString
-                .isPresent()
+        Optional<Email> email = inputEmailString.isPresent()
                 ? Optional.of(ParserUtil.parseEmail(inputEmailString.get()))
                 : Optional.empty();
 
         Optional<String> inputAddressString = argMultimap.getValue(PREFIX_ADDRESS);
-        Optional<Address> address = inputAddressString
-                .isPresent()
+        Optional<Address> address = inputAddressString.isPresent()
                 ? Optional.of(ParserUtil.parseAddress(inputAddressString.get()))
                 : Optional.empty();
         //@@author
