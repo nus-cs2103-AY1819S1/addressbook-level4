@@ -57,7 +57,7 @@ public class CompleteCommand extends Command {
 
     /**
      * Returns a {@code Task} with it's status set to {@code Status.COMPLETED}.
-     * @param toComplete An immutable task passed to have it's attributes copied
+     * @param toComplete An immutable task passed to have its attributes copied
      * @return A new immutable task similar to toComplete but status is set to
      *         {@code Status.COMPLETED}
      */
