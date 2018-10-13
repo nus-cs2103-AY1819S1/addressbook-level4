@@ -242,7 +242,7 @@ This section describes some noteworthy details on how certain features are imple
 // tag::tags[]
 === Tags and Categories
 
-Tags and categories are single-word keywords tied to individual entries. Each `Entry` can classified under one `Category`, but can be associated with multiple `Tag`.
+Tags and categories are single-word keywords tied to individual entries. Each `ResumeEntry` can classified under one `Category`, but can be associated with multiple `Tag`.
 
 ==== Categories
 Category related functions are mainly contained in the `seedu.address.model.category` package, which includes the `Category` class and its relevant `CategoryManager`. `CategoryManager` is used by the `ModelManager` (`seedu.address.model.ModelManager`) to filter the list of entries by categories.
@@ -250,11 +250,16 @@ Category related functions are mainly contained in the `seedu.address.model.cate
 Filtering can be done by passing the relevant `Predicate<Entry>` into `CategoryManager` through `CategoryManger.setFilter()`. The relevant filtered list can be obtained by subsequently calling `CategoryManager.getList()`.
 
 ===== CategoryManager
-To use `CategoryManager` to filter out relevant entries, there are 3 main functions to keep in mind:
+To use `CategoryManager` to filter out relevant entries, there are 2 main functions to keep in mind:
 
-* `setFilter(Predicate<Entry>)`: sets the filtering criteria for the list of entries
-* `setList(List<Entry>)`: sets the source list of entries to filter
-* `getList()`: returns `unmodifiableObservableList<Entry>` of relevant entries
+* `setFilter(Predicate<ResumeEntry>)`: sets the filtering criteria for the list of entries
+* `getList()`: returns `unmodifiableObservableList<ResumeEntry>` of relevant entries
+
+If there comes a new to set a new source list for the `CategoryManager`, create a new instance with the corresponding `List<ResumeEntry>`.
+
+===== Predicates
+Availble predicates (`Predicate<ResumeEntry>`) for use:
+- `ContainsCategoryPredicate(String categoryName)`
 
 // end::tags[]
 
