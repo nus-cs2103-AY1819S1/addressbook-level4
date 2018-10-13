@@ -3,52 +3,52 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ARTICLES;
-import static seedu.address.testutil.TypicalArticles.AMY;
-import static seedu.address.testutil.TypicalArticles.BOB;
-import static seedu.address.testutil.TypicalArticles.KEYWORD_MATCHING_MEIER;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ARTICLE;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ARTICLE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.DESCRIPTION_DESC_AMY;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.DESCRIPTION_DESC_BOB;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.lostandfound.model.Model.PREDICATE_SHOW_ALL_ARTICLES;
+import static seedu.lostandfound.testutil.TypicalArticles.AMY;
+import static seedu.lostandfound.testutil.TypicalArticles.BOB;
+import static seedu.lostandfound.testutil.TypicalArticles.KEYWORD_MATCHING_MEIER;
+import static seedu.lostandfound.testutil.TypicalIndexes.INDEX_FIRST_ARTICLE;
+import static seedu.lostandfound.testutil.TypicalIndexes.INDEX_SECOND_ARTICLE;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.article.Address;
-import seedu.address.model.article.Article;
-import seedu.address.model.article.Email;
-import seedu.address.model.article.Name;
-import seedu.address.model.article.Phone;
-import seedu.address.model.tag.Tag;
-import seedu.address.testutil.ArticleBuilder;
-import seedu.address.testutil.ArticleUtil;
+import seedu.lostandfound.commons.core.Messages;
+import seedu.lostandfound.commons.core.index.Index;
+import seedu.lostandfound.logic.commands.EditCommand;
+import seedu.lostandfound.logic.commands.RedoCommand;
+import seedu.lostandfound.logic.commands.UndoCommand;
+import seedu.lostandfound.model.Model;
+import seedu.lostandfound.model.article.Article;
+import seedu.lostandfound.model.article.Description;
+import seedu.lostandfound.model.article.Email;
+import seedu.lostandfound.model.article.Name;
+import seedu.lostandfound.model.article.Phone;
+import seedu.lostandfound.model.tag.Tag;
+import seedu.lostandfound.testutil.ArticleBuilder;
+import seedu.lostandfound.testutil.ArticleUtil;
 
-public class EditCommandSystemTest extends AddressBookSystemTest {
+public class EditCommandSystemTest extends ArticleListSystemTest {
 
     @Test
     public void edit() {
@@ -61,7 +61,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
          */
         Index index = INDEX_FIRST_ARTICLE;
         String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
-                + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
+                + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + DESCRIPTION_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
         Article editedArticle = new ArticleBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
         assertCommandSuccess(command, index, editedArticle);
 
@@ -79,15 +79,15 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: edit a article with new values same as existing values -> edited */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+                + DESCRIPTION_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandSuccess(command, index, BOB);
 
         /* Case: edit a article with new values same as another article's values but with different name -> edited */
-        assertTrue(getModel().getAddressBook().getArticleList().contains(BOB));
+        assertTrue(getModel().getArticleList().getArticleList().contains(BOB));
         index = INDEX_SECOND_ARTICLE;
         assertNotEquals(getModel().getFilteredArticleList().get(index.getZeroBased()), BOB);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+                + DESCRIPTION_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedArticle = new ArticleBuilder(BOB).withName(VALID_NAME_AMY).build();
         assertCommandSuccess(command, index, editedArticle);
 
@@ -96,7 +96,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
          */
         index = INDEX_SECOND_ARTICLE;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+                + DESCRIPTION_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedArticle = new ArticleBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
         assertCommandSuccess(command, index, editedArticle);
 
@@ -109,7 +109,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
-        /* Case: filtered article list, edit index within bounds of address book and article list -> edited */
+        /* Case: filtered article list, edit index within bounds of article list and article list -> edited */
         showArticlesWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_ARTICLE;
         assertTrue(index.getZeroBased() < getModel().getFilteredArticleList().size());
@@ -118,11 +118,11 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         editedArticle = new ArticleBuilder(articleToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedArticle);
 
-        /* Case: filtered article list, edit index within bounds of address book but out of bounds of article list
+        /* Case: filtered article list, edit index within bounds of article list but out of bounds of article list
          * -> rejected
          */
         showArticlesWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAddressBook().getArticleList().size();
+        int invalidIndex = getModel().getArticleList().getArticleList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_ARTICLE_DISPLAYED_INDEX);
 
@@ -135,7 +135,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         index = INDEX_FIRST_ARTICLE;
         selectArticle(index);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
+                + DESCRIPTION_DESC_AMY + TAG_DESC_FRIEND;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new article's name
         assertCommandSuccess(command, index, AMY, index);
@@ -175,9 +175,10 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ARTICLE.getOneBased() + INVALID_EMAIL_DESC,
                 Email.MESSAGE_EMAIL_CONSTRAINTS);
 
-        /* Case: invalid address -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ARTICLE.getOneBased() + INVALID_ADDRESS_DESC,
-                Address.MESSAGE_ADDRESS_CONSTRAINTS);
+        /* Case: invalid description -> rejected */
+        assertCommandFailure(
+                EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ARTICLE.getOneBased() + INVALID_DESCRIPTION_DESC,
+                Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ARTICLE.getOneBased() + INVALID_TAG_DESC,
@@ -185,31 +186,33 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: edit a article with new values same as another article's values -> rejected */
         executeCommand(ArticleUtil.getAddCommand(BOB));
-        assertTrue(getModel().getAddressBook().getArticleList().contains(BOB));
+        assertTrue(getModel().getArticleList().getArticleList().contains(BOB));
         index = INDEX_FIRST_ARTICLE;
         assertFalse(getModel().getFilteredArticleList().get(index.getZeroBased()).equals(BOB));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+                + DESCRIPTION_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ARTICLE);
 
         /* Case: edit a article with new values same as another article's values but with different tags -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
+                + DESCRIPTION_DESC_BOB + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ARTICLE);
 
-        /* Case: edit article with new values same as another article's values but with different address -> rejected */
+        /* Case: edit article with new values same as another article's values
+         * but with different description -> rejected
+         */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+                + DESCRIPTION_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ARTICLE);
 
         /* Case: edit a article with new values same as another article's values but with different phone -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+                + DESCRIPTION_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ARTICLE);
 
         /* Case: edit a article with new values same as another article's values but with different email -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+                + DESCRIPTION_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ARTICLE);
     }
 
@@ -259,9 +262,9 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * 4. Asserts that the status bar's sync status changes.<br>
      * 5. Asserts that the command box has the default style class.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
+     * {@code ArticleListSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see ArticleListSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see ArticleListSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
@@ -284,8 +287,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * 3. Asserts that the browser url, selected card and status bar remain unchanged.<br>
      * 4. Asserts that the command box has the error style.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code ArticleListSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see ArticleListSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();
