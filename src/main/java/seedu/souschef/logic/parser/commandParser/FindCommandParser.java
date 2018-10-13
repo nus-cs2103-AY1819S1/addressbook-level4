@@ -1,4 +1,4 @@
-package seedu.souschef.logic.parser;
+package seedu.souschef.logic.parser.commandParser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;

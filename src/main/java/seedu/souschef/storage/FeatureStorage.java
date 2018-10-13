@@ -20,14 +20,13 @@ public interface FeatureStorage {
 
     AppContent getAppContent();
 
-    Optional<ReadOnlyAppContent> readFeature() throws DataConversionException, IOException;
-
     /**
      * Returns AppContent data as a {@link ReadOnlyAppContent}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
+    Optional<ReadOnlyAppContent> readFeature() throws DataConversionException, IOException;
 
     /**
      * @see #getFeatureFilePath()
@@ -42,15 +41,8 @@ public interface FeatureStorage {
     void saveFeature(ReadOnlyAppContent addressBook) throws IOException;
 
     /**
-     * @see #saveAppContent(ReadOnlyAppContent)
+     * @see #saveFeature(ReadOnlyAppContent)
      */
-
     void saveFeature(ReadOnlyAppContent addressBook, Path filePath) throws IOException;
-
-
-
-
-
-
 
 }
