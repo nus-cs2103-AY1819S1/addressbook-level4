@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Task;
-import seedu.address.model.person.UniqueTaskList;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.UniqueTaskList;
 
 /**
  * Wraps all data at the task-manager level
@@ -78,7 +78,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     /**
      * Replaces the given task {@code target} in the list with {@code editedTask}.
      * {@code target} must exist in the task manager.
-     * The task identity of {@code editedTask} must not be the same as another existing person in the task manager.
+     * The task identity of {@code editedTask} must not be the same as another existing task in the task manager.
      */
     public void updateTask(Task target, Task editedTask) {
         requireNonNull(editedTask);

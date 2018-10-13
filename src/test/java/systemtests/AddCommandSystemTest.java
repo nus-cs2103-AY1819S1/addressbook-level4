@@ -37,11 +37,11 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
-import seedu.address.model.person.Description;
-import seedu.address.model.person.DueDate;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.PriorityValue;
-import seedu.address.model.person.Task;
+import seedu.address.model.task.Description;
+import seedu.address.model.task.DueDate;
+import seedu.address.model.task.Name;
+import seedu.address.model.task.PriorityValue;
+import seedu.address.model.task.Task;
 import seedu.address.model.tag.Label;
 import seedu.address.testutil.TaskBuilder;
 import seedu.address.testutil.TaskUtil;
@@ -54,7 +54,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add a person without labels to a non-empty task manager,
+        /* Case: add a task without labels to a non-empty task manager,
          * command with leading spaces and trailing spaces
          * -> added
          */
@@ -74,14 +74,14 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: add a person with all fields same as another person in the task manager except name -> added */
+        /* Case: add a task with all fields same as another task in the task manager except name -> added */
         toAdd = new TaskBuilder(Y_TASK).withName(VALID_NAME_BOB).build();
         command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY
                 + PRIORITY_VALUE_DESC_AMY + DESCRIPTION_DESC_AMY
                 + LABEL_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a person with all fields same as another person in the task manager except phone and email
+        /* Case: add a task with all fields same as another task in the task manager except phone and email
          * -> added
          */
         toAdd = new TaskBuilder(Y_TASK).withDueDate(VALID_DUEDATE_BOB)
@@ -99,43 +99,43 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
                 + LABEL_DESC_HUSBAND + PRIORITY_VALUE_DESC_BOB;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a person, missing labels -> added */
+        /* Case: add a task, missing labels -> added */
         assertCommandSuccess(H_TASK);
 
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
-        /* Case: filters the person list before adding -> added */
+        /* Case: filters the task list before adding -> added */
         showPersonsWithName(KEYWORD_MATCHING_TUTORIAL);
         assertCommandSuccess(I_TASK);
 
-        /* ------------------------ Perform add operation while a person card is selected --------------------------- */
+        /* ------------------------ Perform add operation while a task card is selected --------------------------- */
 
-        /* Case: selects first card in the person list, add a person -> added, card selection remains unchanged */
+        /* Case: selects first card in the task list, add a task -> added, card selection remains unchanged */
         selectPerson(Index.fromOneBased(1));
         assertCommandSuccess(C_TASK);
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
-        /* Case: add a duplicate person -> rejected */
+        /* Case: add a duplicate task -> rejected */
         command = TaskUtil.getAddCommand(H_TASK);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
 
-        /* Case: add a duplicate person except with different phone -> rejected */
+        /* Case: add a duplicate task except with different phone -> rejected */
         toAdd = new TaskBuilder(H_TASK).withDueDate(VALID_DUEDATE_BOB).build();
         command = TaskUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
 
-        /* Case: add a duplicate person except with different email -> rejected */
+        /* Case: add a duplicate task except with different email -> rejected */
         toAdd = new TaskBuilder(H_TASK).withPriorityValue(VALID_PRIORITY_VALUE_BOB).build();
         command = TaskUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
 
-        /* Case: add a duplicate person except with different address -> rejected */
+        /* Case: add a duplicate task except with different address -> rejected */
         toAdd = new TaskBuilder(H_TASK).withDescription(VALID_DESCRIPTION_BOB).build();
         command = TaskUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
 
-        /* Case: add a duplicate person except with different labels -> rejected */
+        /* Case: add a duplicate task except with different labels -> rejected */
         command = TaskUtil.getAddCommand(H_TASK) + " " + PREFIX_LABEL.getPrefix() + "friends";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
 

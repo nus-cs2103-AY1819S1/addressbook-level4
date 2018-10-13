@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.model.TaskManager;
-import seedu.address.model.person.Task;
+import seedu.address.model.task.Task;
 
 /**
  * An Immutable TaskManager that is serializable to XML format

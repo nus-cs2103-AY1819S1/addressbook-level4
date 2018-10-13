@@ -17,8 +17,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.TaskManager;
-import seedu.address.model.person.Status;
-import seedu.address.model.person.Task;
+import seedu.address.model.task.Status;
+import seedu.address.model.task.Task;
 
 /**
  * A utility class containing a list of {@code Task} objects to be used in tests.
