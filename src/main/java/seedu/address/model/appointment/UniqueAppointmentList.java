@@ -1,13 +1,15 @@
 package seedu.address.model.appointment;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
+import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 
 /**
  * A list of appointments that enforces uniqueness between its elements and does not allow nulls.
@@ -40,7 +42,7 @@ public class UniqueAppointmentList implements Iterable<Appointment>{
     public void add(Appointment toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            //TODO DuplicateAppointmentException
+            throw new DuplicateAppointmentException();
         }
         internalList.add(toAdd);
     }
@@ -56,11 +58,11 @@ public class UniqueAppointmentList implements Iterable<Appointment>{
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            //TODO AppointmentNotFoundException();
+            throw new AppointmentNotFoundException();
         }
 
         if (!target.isSameAppointment(editedAppt) && contains(editedAppt)) {
-            //TODO DuplicateAppointmentException();
+            throw new DuplicateAppointmentException();
         }
 
         internalList.set(index, editedAppt);
@@ -73,7 +75,7 @@ public class UniqueAppointmentList implements Iterable<Appointment>{
     public void remove(Appointment toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            //TODO AppointmentNotFoundException();
+            throw new AppointmentNotFoundException();
         }
     }
 
@@ -89,7 +91,7 @@ public class UniqueAppointmentList implements Iterable<Appointment>{
     public void setAppointments(List<Appointment> appts) {
         requireAllNonNull(appts);
         if (!AppointmentsAreUnique(appts)) {
-            //TODO DuplicateAppointmentException();
+            throw new DuplicateAppointmentException();
         }
 
         internalList.setAll(appts);
