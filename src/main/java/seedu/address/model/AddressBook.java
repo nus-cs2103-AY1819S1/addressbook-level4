@@ -102,8 +102,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if an appointment with the same identity as {@code appt} exists in the address book.
      */
-    public boolean hasAppointment(Appointment appointment) {
-        return true;
+    public boolean hasAppointment(Appointment appt) {
+        requireNonNull(appt);
+        return appointments.contains(appt);
     }
 
     /**
