@@ -51,7 +51,7 @@ public class UniqueAppointmentList implements Iterable<Appointment>{
      * This is used for cancelling appointments as well.
      * The appointment {@code editedAppt} must not be the same as another existing appointment in the list.
      */
-    public void setPerson(Appointment target, Appointment editedAppt) {
+    public void setAppointment(Appointment target, Appointment editedAppt) {
         requireAllNonNull(target, editedAppt);
 
         int index = internalList.indexOf(target);
@@ -77,7 +77,7 @@ public class UniqueAppointmentList implements Iterable<Appointment>{
         }
     }
 
-    public void setPersons(UniqueAppointmentList replacement) {
+    public void setAppointments(UniqueAppointmentList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -86,7 +86,7 @@ public class UniqueAppointmentList implements Iterable<Appointment>{
      * Replaces the contents of this list with {@code appts}.
      * {@code appts} must not contain duplicate appointments.
      */
-    public void setPersons(List<Appointment> appts) {
+    public void setAppointments(List<Appointment> appts) {
         requireAllNonNull(appts);
         if (!AppointmentsAreUnique(appts)) {
             //TODO DuplicateAppointmentException();
