@@ -91,8 +91,8 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
         /* Case: add a calendarevent with tags, command with parameters in random order -> added */
         toAdd = TUTORIAL;
         command =
-            AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + DESCRIPTION_DESC_TUTORIAL + VENUE_DESC_TUTORIAL + TITLE_DESC_TUTORIAL
-            + TAG_DESC_HUSBAND;
+            AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + DESCRIPTION_DESC_TUTORIAL + VENUE_DESC_TUTORIAL
+                + TITLE_DESC_TUTORIAL + TAG_DESC_HUSBAND;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a calendarevent, missing tags -> added */

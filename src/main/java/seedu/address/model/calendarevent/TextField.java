@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class TextField {
 
-    public static String MESSAGE_FIELD_NAME = "Text field"; // default field name
+    public static final String MESSAGE_FIELD_NAME = "Text field"; // default field name
     public static final String MESSAGE_CONSTRAINTS = MESSAGE_FIELD_NAME
         + " should not be blank or begin with a whitespace";
 

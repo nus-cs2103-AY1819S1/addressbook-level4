@@ -45,8 +45,11 @@ public class CalendarEventTest {
 
         // same title, different description, different venue, different attributes -> returns false
         editedLecture =
-            new CalendarEventBuilder(LECTURE).withDescription(VALID_DESCRIPTION_TUTORIAL).withVenue(VALID_VENUE_TUTORIAL)
-            .withTags(VALID_TAG_HUSBAND).build();
+            new CalendarEventBuilder(LECTURE)
+                .withDescription(VALID_DESCRIPTION_TUTORIAL)
+                .withVenue(VALID_VENUE_TUTORIAL)
+                .withTags(VALID_TAG_HUSBAND)
+                .build();
         assertFalse(LECTURE.isSameCalendarEvent(editedLecture));
 
         // TODO redefine what is considered sameEvent or decide whether this test is necessary
