@@ -24,6 +24,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListDayCommand;
+import seedu.address.logic.commands.ListWeekCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -110,8 +111,15 @@ public class SchedulePlannerParserTest {
     }
 
     @Test
-    public void parseCommand_listday() throws Exception {
+    public void parseCommand_listDay() throws Exception {
         assertTrue(parser.parseCommand(ListDayCommand.COMMAND_WORD) instanceof ListDayCommand);
+        assertTrue(parser.parseCommand(ListDayCommand.COMMAND_WORD + " 3") instanceof ListDayCommand);
+    }
+
+    @Test
+    public void parseCommand_listWeek() throws Exception {
+        assertTrue(parser.parseCommand(ListWeekCommand.COMMAND_WORD) instanceof ListWeekCommand);
+        assertTrue(parser.parseCommand(ListWeekCommand.COMMAND_WORD + " 3") instanceof ListWeekCommand);
     }
 
     @Test
