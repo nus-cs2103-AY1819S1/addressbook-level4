@@ -3,8 +3,8 @@ package seedu.lostandfound.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.lostandfound.model.article.Description;
 import seedu.lostandfound.model.article.Article;
+import seedu.lostandfound.model.article.Description;
 import seedu.lostandfound.model.article.Email;
 import seedu.lostandfound.model.article.Name;
 import seedu.lostandfound.model.article.Phone;

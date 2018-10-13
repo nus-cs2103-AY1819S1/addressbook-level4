@@ -51,7 +51,8 @@ public class ArticleListTest {
     @Test
     public void resetData_withDuplicateArticles_throwsDuplicateArticleException() {
         // Two articles with the same identity fields
-        Article editedAlice = new ArticleBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
+        Article editedAlice = new ArticleBuilder(ALICE)
+                .withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Article> newArticles = Arrays.asList(ALICE, editedAlice);
         ArticleListStub newData = new ArticleListStub(newArticles);
@@ -80,7 +81,8 @@ public class ArticleListTest {
     @Test
     public void hasArticle_articleWithSameIdentityFieldsInArticleList_returnsTrue() {
         articleList.addArticle(ALICE);
-        Article editedAlice = new ArticleBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
+        Article editedAlice = new ArticleBuilder(ALICE)
+                .withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(articleList.hasArticle(editedAlice));
     }

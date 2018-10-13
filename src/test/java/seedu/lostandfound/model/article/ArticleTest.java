@@ -54,7 +54,8 @@ public class ArticleTest {
         assertTrue(ALICE.isSameArticle(editedAlice));
 
         // same name, same phone, same email, different attributes -> returns true
-        editedAlice = new ArticleBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND).build();
+        editedAlice = new ArticleBuilder(ALICE)
+                .withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameArticle(editedAlice));
     }
 

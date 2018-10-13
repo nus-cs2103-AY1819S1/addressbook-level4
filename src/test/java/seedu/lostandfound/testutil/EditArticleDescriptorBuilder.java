@@ -5,8 +5,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.lostandfound.logic.commands.EditCommand.EditArticleDescriptor;
-import seedu.lostandfound.model.article.Description;
 import seedu.lostandfound.model.article.Article;
+import seedu.lostandfound.model.article.Description;
 import seedu.lostandfound.model.article.Email;
 import seedu.lostandfound.model.article.Name;
 import seedu.lostandfound.model.article.Phone;

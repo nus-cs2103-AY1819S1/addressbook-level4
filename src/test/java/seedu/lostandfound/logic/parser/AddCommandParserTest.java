@@ -32,8 +32,8 @@ import static seedu.lostandfound.testutil.TypicalArticles.BOB;
 import org.junit.Test;
 
 import seedu.lostandfound.logic.commands.AddCommand;
-import seedu.lostandfound.model.article.Description;
 import seedu.lostandfound.model.article.Article;
+import seedu.lostandfound.model.article.Description;
 import seedu.lostandfound.model.article.Email;
 import seedu.lostandfound.model.article.Name;
 import seedu.lostandfound.model.article.Phone;
@@ -63,7 +63,7 @@ public class AddCommandParserTest {
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB
                 + DESCRIPTION_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedArticle));
 
-        // multiple descriptiones - last description accepted
+        // multiple descriptions - last description accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + DESCRIPTION_DESC_AMY
                 + DESCRIPTION_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedArticle));
 

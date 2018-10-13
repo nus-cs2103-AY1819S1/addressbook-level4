@@ -39,8 +39,8 @@ import seedu.lostandfound.logic.commands.EditCommand;
 import seedu.lostandfound.logic.commands.RedoCommand;
 import seedu.lostandfound.logic.commands.UndoCommand;
 import seedu.lostandfound.model.Model;
-import seedu.lostandfound.model.article.Description;
 import seedu.lostandfound.model.article.Article;
+import seedu.lostandfound.model.article.Description;
 import seedu.lostandfound.model.article.Email;
 import seedu.lostandfound.model.article.Name;
 import seedu.lostandfound.model.article.Phone;
@@ -176,7 +176,8 @@ public class EditCommandSystemTest extends ArticleListSystemTest {
                 Email.MESSAGE_EMAIL_CONSTRAINTS);
 
         /* Case: invalid description -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ARTICLE.getOneBased() + INVALID_DESCRIPTION_DESC,
+        assertCommandFailure(
+                EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ARTICLE.getOneBased() + INVALID_DESCRIPTION_DESC,
                 Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
@@ -197,7 +198,9 @@ public class EditCommandSystemTest extends ArticleListSystemTest {
                 + DESCRIPTION_DESC_BOB + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ARTICLE);
 
-        /* Case: edit article with new values same as another article's values but with different description -> rejected */
+        /* Case: edit article with new values same as another article's values
+         * but with different description -> rejected
+         */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + DESCRIPTION_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ARTICLE);

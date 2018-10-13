@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 
 import seedu.lostandfound.model.ArticleList;
 import seedu.lostandfound.model.ReadOnlyArticleList;
-import seedu.lostandfound.model.article.Description;
 import seedu.lostandfound.model.article.Article;
+import seedu.lostandfound.model.article.Description;
 import seedu.lostandfound.model.article.Email;
 import seedu.lostandfound.model.article.Name;
 import seedu.lostandfound.model.article.Phone;

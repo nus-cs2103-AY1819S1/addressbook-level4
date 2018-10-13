@@ -48,7 +48,8 @@ public class XmlAdaptedArticleTest {
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        XmlAdaptedArticle article = new XmlAdaptedArticle(null, VALID_PHONE, VALID_EMAIL, VALID_DESCRIPTION, VALID_TAGS);
+        XmlAdaptedArticle article = new XmlAdaptedArticle(
+                null, VALID_PHONE, VALID_EMAIL, VALID_DESCRIPTION, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, article::toModelType);
     }

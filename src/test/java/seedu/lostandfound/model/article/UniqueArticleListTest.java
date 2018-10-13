@@ -46,7 +46,8 @@ public class UniqueArticleListTest {
     @Test
     public void contains_articleWithSameIdentityFieldsInList_returnsTrue() {
         uniqueArticleList.add(ALICE);
-        Article editedAlice = new ArticleBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
+        Article editedAlice = new ArticleBuilder(ALICE)
+                .withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(uniqueArticleList.contains(editedAlice));
     }
@@ -94,7 +95,8 @@ public class UniqueArticleListTest {
     @Test
     public void setArticle_editedArticleHasSameIdentity_success() {
         uniqueArticleList.add(ALICE);
-        Article editedAlice = new ArticleBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
+        Article editedAlice = new ArticleBuilder(ALICE)
+                .withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         uniqueArticleList.setArticle(ALICE, editedAlice);
         UniqueArticleList expectedUniqueArticleList = new UniqueArticleList();
