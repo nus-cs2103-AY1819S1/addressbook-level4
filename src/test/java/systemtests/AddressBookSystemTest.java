@@ -18,7 +18,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 
-import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.GroupListPanelHandle;
 import guitests.guihandles.MainMenuHandle;
@@ -149,7 +148,7 @@ public abstract class AddressBookSystemTest {
      * Selects the person at {@code index} of the displayed list.
      */
     protected void selectPerson(Index index) {
-        executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
+        executeCommand(SelectCommand.COMMAND_WORD + " p/" + index.getOneBased());
         assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
     }
 
@@ -175,8 +174,7 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Calls {@code BrowserPanelHandle}, {@code PersonListPanelHandle} and {@code StatusBarFooterHandle} to remember
-     * their current state.
+     * Calls {@code PersonListPanelHandle} and {@code StatusBarFooterHandle} to remember their current state.
      */
     private void rememberStates() {
         StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
@@ -189,31 +187,44 @@ public abstract class AddressBookSystemTest {
     /**
      * Asserts that the previously selected card is now deselected and the browser's url remains displaying the details
      * of the previously selected person.
-     * @see BrowserPanelHandle#isUrlChanged()
      */
     protected void assertSelectedCardDeselected() {
         assertFalse(getPersonListPanel().isAnyCardSelected());
     }
 
     /**
-     * Asserts that the browser's url is changed to display the details of the person in the person list panel at
-     * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
-     * @see BrowserPanelHandle#isUrlChanged()
+     * Asserts that only the person card at {@code expectedSelectedCardIndex} is selected.
      * @see PersonListPanelHandle#isSelectedPersonCardChanged()
      */
-    protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
+    protected void assertSelectedPersonCardChanged(Index expectedSelectedCardIndex) {
         getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
-        String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
     }
 
     /**
-     * Asserts that the browser's url and the selected card in the person list panel remain unchanged.
-     * @see BrowserPanelHandle#isUrlChanged()
+     * Asserts that only the group card at {@code expectedSelectedCardIndex} is selected.
+     * @see GroupListPanelHandle#isSelectedGroupCardChanged()
+     * TODO: add check to check if person list is updated with person who are related to the group
+     */
+    protected void assertSelectedGroupCardChanged(Index expectedSelectedCardIndex) {
+        getGroupListPanel().navigateToCard(getGroupListPanel().getSelectedCardIndex());
+        assertEquals(expectedSelectedCardIndex.getZeroBased(), getGroupListPanel().getSelectedCardIndex());
+    }
+
+    /**
+     * Asserts that the selected card in the person list panel remain unchanged.
      * @see PersonListPanelHandle#isSelectedPersonCardChanged()
      */
-    protected void assertSelectedCardUnchanged() {
+    protected void assertSelectedPersonCardUnchanged() {
         assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
+    }
+
+    /**
+     * Asserts that the selected card in the group list panel remain unchanged.
+     * TODO check if person list panel is updated
+     */
+    protected void assertSelectedGroupCardUnchanged() {
+        assertFalse(getGroupListPanel().isSelectedGroupCardChanged());
     }
 
     /**
