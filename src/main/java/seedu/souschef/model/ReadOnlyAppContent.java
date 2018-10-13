@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 
 import seedu.souschef.model.healthplan.HealthPlan;
 
+import seedu.souschef.model.planner.Day;
 import seedu.souschef.model.recipe.Recipe;
 
 
@@ -24,4 +25,9 @@ public interface ReadOnlyAppContent {
      */
     ObservableList<HealthPlan> getObservableHealthPlanList();
 
+    /**
+     * Returns an unmodifiable view of the meal planner.
+     * This list will not contain any duplicate days.
+     */
+    ObservableList<Day> getObservableMealPlanner();
 }
