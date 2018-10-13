@@ -4,13 +4,17 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MAINTENANCE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WAITING_TIME;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javafx.util.Pair;
 import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ride.AttributePredicate;
+import seedu.address.model.ride.Maintenance;
 import seedu.address.model.ride.RideContainsConditionPredicate;
-import seedu.address.model.ride.WaitTimePredicate;
+import seedu.address.model.ride.WaitTime;
 
 /**
  * Parses input arguments and creates a new FilterCommand Object
@@ -29,15 +33,30 @@ public class FilterCommandParser implements Parser<FilterCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
         }
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_MAINTENANCE, PREFIX_WAITING_TIME);
-        Optional<String> maintenanceString = !argMultimap.getValue(PREFIX_MAINTENANCE).isPresent()
-                                             ? Optional.empty()
-                                             : argMultimap.getValue(PREFIX_MAINTENANCE);
-        Optional<String> waitingTimeString = !argMultimap.getValue(PREFIX_WAITING_TIME).isPresent()
-                                             ? Optional.empty()
-                                             : argMultimap.getValue(PREFIX_WAITING_TIME);
-        Pair<Character, String> waitingTimeConditions = getOperatorAndValues(waitingTimeString.get());
-        return new FilterCommand(new RideContainsConditionPredicate(
-                new WaitTimePredicate(waitingTimeConditions.getKey(), waitingTimeConditions.getValue())));
+        Optional<List<String>> maintenanceStrings = !argMultimap.getValue(PREFIX_MAINTENANCE).isPresent()
+                                                    ? Optional.empty()
+                                                    : Optional.of(argMultimap.getAllValues(PREFIX_MAINTENANCE));
+        Optional<List<String>> waitingTimeStrings = !argMultimap.getValue(PREFIX_WAITING_TIME).isPresent()
+                                                    ? Optional.empty()
+                                                    : Optional.of(argMultimap.getAllValues(PREFIX_WAITING_TIME));
+
+        List<AttributePredicate> predicates = new ArrayList<>();
+        if (maintenanceStrings.isPresent()) {
+            for (String s : maintenanceStrings.get()) {
+                Pair<Character, String> maintenanceCondition = getOperatorAndValues(s);
+                predicates.add(new AttributePredicate(maintenanceCondition.getKey(),
+                        new Maintenance(maintenanceCondition.getValue())));
+            }
+        }
+        if (waitingTimeStrings.isPresent()) {
+            for (String s : waitingTimeStrings.get()) {
+                Pair<Character, String> waitingTimeConditions = getOperatorAndValues(s);
+                predicates.add(new AttributePredicate(waitingTimeConditions.getKey(),
+                        new WaitTime(waitingTimeConditions.getValue())));
+            }
+        }
+
+        return new FilterCommand(new RideContainsConditionPredicate(predicates));
     }
 
     /**

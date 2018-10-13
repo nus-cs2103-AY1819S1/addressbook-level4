@@ -1,19 +1,24 @@
 package seedu.address.model.ride;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 /**
  * Tests that a {@code Ride}'s attributes matches the predicate given.
  */
 public class RideContainsConditionPredicate implements Predicate<Ride> {
-    private final WaitTimePredicate waitTimePredicate;
+    private final List<AttributePredicate> attributePredicates;
 
-    public RideContainsConditionPredicate(WaitTimePredicate predicate) {
-        waitTimePredicate = predicate;
+    public RideContainsConditionPredicate(List<AttributePredicate> predicates) {
+        attributePredicates = predicates;
     }
 
     @Override
     public boolean test(Ride ride) {
-        return waitTimePredicate.test(ride.getWaitingTime());
+        return attributePredicates.stream().allMatch(p -> {
+            NumericAttribute attributeToTest = p.getAttribute();
+            NumericAttribute rideAttributeToTest = ride.getAttribute(attributeToTest);
+            return p.test(rideAttributeToTest);
+        });
     }
 }
