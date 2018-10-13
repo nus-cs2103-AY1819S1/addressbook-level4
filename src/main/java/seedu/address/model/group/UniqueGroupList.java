@@ -8,6 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.group.exceptions.DuplicateGroupException;
+import seedu.address.model.group.exceptions.GroupNotFoundException;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -61,13 +63,11 @@ public class UniqueGroupList implements Iterable<Tag> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            // TODO throw exception
-            return;
+            throw new GroupNotFoundException();
         }
 
         if (!target.tagName.equals(editedTag.tagName) && contains(editedTag)) {
-            // TODO throw exception
-            return;
+            throw new DuplicateGroupException();
         }
 
         internalList.set(index, editedTag);
@@ -80,8 +80,7 @@ public class UniqueGroupList implements Iterable<Tag> {
     public void remove(Tag toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            // TODO throw exception
-            return;
+            throw new GroupNotFoundException();
         }
     }
 
@@ -98,7 +97,7 @@ public class UniqueGroupList implements Iterable<Tag> {
         requireAllNonNull(groups);
         if (!groupsAreUnique(groups)) {
             // TODO throw exception??
-            return;
+            throw new DuplicateGroupException();
         }
 
         internalList.setAll(groups);
