@@ -32,10 +32,10 @@ public class HelpCommand extends Command {
             commandWord = "";
         } else if (args.length == 1 && args[0].equals(MORE_HELP_FLAG)) {
             isSummarized = false;
-            commandWord = args[0];
+            commandWord = "";
         } else if (args.length == 1 && AllCommandWords.isCommandWord(args[0])) {
             isSummarized = false;
-            commandWord = "";
+            commandWord = args[0];
         } else {
             //error
             isSummarized = false;

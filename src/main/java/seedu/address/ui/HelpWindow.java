@@ -24,8 +24,7 @@ public class HelpWindow extends UiPart<Stage> {
     //javascript to scroll webpage to commandWord
     private static final String scrollJavaScript =
             "function scrollToElement(commandWord) {\n" +
-            "    var elem = document.querySelector('[id$=\"code-\" + commandWord + \"-code\"]');\n" +
-            "    alert(\"X\");" +
+            "    var elem = document.querySelector('[id$=code-' + commandWord + '-code]');\n" +
             "    var x = 0;\n" +
             "    var y = 0;\n" +
             "\n" +
@@ -50,6 +49,7 @@ public class HelpWindow extends UiPart<Stage> {
 
         String userGuideUrl = getClass().getResource(USERGUIDE_FILE_PATH).toString();
         browser.getEngine().load(userGuideUrl);
+        browser.getEngine().setJavaScriptEnabled(true);
         browser.getEngine().executeScript(scrollJavaScript);
     }
 
@@ -102,7 +102,7 @@ public class HelpWindow extends UiPart<Stage> {
      * @param commandWord
      */
     public void scrollTo(String commandWord) {
-        browser.getEngine().load("javascript:scrollToElement('" + commandWord + "')");
+        browser.getEngine().executeScript("scrollToElement(\""+ commandWord +"\")");
     }
 
 
