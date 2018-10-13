@@ -1,5 +1,6 @@
 package seedu.souschef.logic.parser;
 //TODO : add
+import seedu.souschef.logic.parser.commandparser.AddCommandParser;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.recipe.Recipe;
 

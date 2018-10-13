@@ -28,7 +28,7 @@ public class StorageManager extends ComponentManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private FeatureStorage featureStorage;
     private UserPrefsStorage userPrefsStorage;
-    private ArrayList <FeatureStorage> listOfFeatureStorage;
+    private ArrayList<FeatureStorage> listOfFeatureStorage;
     private AppContent appContent;
 
     public StorageManager(UserPrefsStorage userPrefsStorage, UserPrefs userPrefs, AppContent appContent) {
@@ -38,21 +38,19 @@ public class StorageManager extends ComponentManager implements Storage {
         this.listOfFeatureStorage = new ArrayList<>();
 
         FeatureStorage recipeStorage = new XmlRecipeStorage(userPrefs.getAddressBookFilePath());
-
         FeatureStorage healthPlanStorage = new XmlHealthPlanStorage(userPrefs.getHealthplanPath());
         listOfFeatureStorage.add(recipeStorage);
         listOfFeatureStorage.add(healthPlanStorage);
         this.featureStorage = recipeStorage;
     }
 
-
+    //TODO: Constructor redundant
     public StorageManager(FeatureStorage featureStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.featureStorage = featureStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.appContent = featureStorage.getAppContent();
         this.listOfFeatureStorage = new ArrayList<>();
-
     }
 
     // ================ UserPrefs methods ==============================

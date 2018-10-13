@@ -29,12 +29,10 @@ public class XmlRecipeStorage extends XmlFeatureStorage {
         super(filePath);
     }
 
-
     public Optional<ReadOnlyAppContent> readFeature() throws DataConversionException,
             FileNotFoundException {
         return readFeature(this.filePath);
     }
-
 
     /**
      * Similar to {@link #readFeature()}
