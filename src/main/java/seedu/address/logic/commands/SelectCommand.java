@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.commons.core.EventsCenter;
@@ -12,6 +13,7 @@ import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.GroupContainsPersonPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -53,6 +55,9 @@ public class SelectCommand extends Command {
             }
 
             EventsCenter.getInstance().post(new JumpToGroupListRequestEvent(targetIndex));
+            Tag group = filteredGroupList.get(targetIndex.getZeroBased());
+            final String[] keywords = { group.tagName };
+            model.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(keywords[0])));
             return new CommandResult(String.format(MESSAGE_SELECT_GROUP_SUCCESS, targetIndex.getOneBased()));
         } else {
             List<Person> filteredPersonList = model.getFilteredPersonList();
