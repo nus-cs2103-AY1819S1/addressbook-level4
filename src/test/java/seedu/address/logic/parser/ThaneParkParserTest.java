@@ -34,11 +34,11 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonUtil;
 import seedu.address.testutil.RideBuilder;
 
-public class AddressBookParserTest {
+public class ThaneParkParserTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final ThaneParkParser parser = new ThaneParkParser();
 
     @Test
     public void parseCommand_add() throws Exception {

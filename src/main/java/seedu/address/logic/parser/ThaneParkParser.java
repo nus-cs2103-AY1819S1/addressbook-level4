@@ -26,7 +26,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class ThaneParkParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -64,7 +64,7 @@ public class AddressBookParser {
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
-            
+
         case FilterCommand.COMMAND_WORD:
             return new FilterCommandParser().parse(arguments);
 

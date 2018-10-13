@@ -30,7 +30,7 @@ public class FindCommandParser implements Parser<FindCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
-        
+
         ArgumentMultimap argMutlimap = ArgumentTokenizer.tokenize(args, PREFIX_ADDRESS, PREFIX_TAG);
         Optional<Address> address = !argMutlimap.getValue(PREFIX_ADDRESS).isPresent()
                                     ? Optional.empty()
