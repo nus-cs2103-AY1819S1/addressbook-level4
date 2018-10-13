@@ -3,16 +3,20 @@ package seedu.address.model.category;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 
-import seedu.address.model.category.Category;
+import seedu.address.model.entry.MajorResumeEntry;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -24,16 +28,20 @@ public class CategoryManager extends ComponentManager {
     /**
      * Initializes CategoryManager with the given list of entries.
      */
-    public CategoryManager(List<MajorResumeEntry> entries) {
+    public CategoryManager(ObservableList<MajorResumeEntry> entries) {
         super();
         requireAllNonNull(entries);
 
         logger.fine("Initializing category manager of length: " + entries.size());
-        filteredEntries = new FilteredList<>(entries);
+        filteredEntries = new FilteredList<MajorResumeEntry>(entries);
+    }
+
+    public CategoryManager(List<MajorResumeEntry> entries) {
+        this(FXCollections.observableList(entries));
     }
 
     public CategoryManager() {
-        this(new List<MajorResumeEntry>());
+        this(new ArrayList<MajorResumeEntry>());
     }
 
     /** Returns an filtered unmodifiable view of the list of {@code MajorResumeEntry}. */

@@ -1,6 +1,7 @@
 package seedu.address.model.category;
 
 import java.util.function.Predicate;
+
 import seedu.address.model.entry.MajorResumeEntry;
 
 /**
