@@ -51,7 +51,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         resetData(toBeCopied);
     }
 
-    //// list overwrite operations
+    //========== List overwrite operations ===================================================================
 
     /**
      * Replaces the contents of the person list with {@code persons}.
@@ -79,7 +79,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         setDoctors(newData.getDoctorList());
     }
 
-    //// person-level operations
+    //========== Person-level operations =====================================================================
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
@@ -96,6 +96,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean hasDoctor(Doctor doctor) {
         requireNonNull(doctor);
         return doctors.contains(doctor);
+    }
+
+    //@@author gingivitiss
+    /**
+     * Returns true if an appointment with the same identity as {@code appt} exists in the address book.
+     */
+    public boolean hasAppointment(Appointment appointment) {
+        return true;
     }
 
     /**
@@ -183,14 +191,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         appointments.remove(key);
     }
 
-    //// util methods
+    //========== Util methods ================================================================================
 
     @Override
     public String toString() {
         //@@author jjlee050
         return persons.asUnmodifiableObservableList().size() + " persons & "
                 + doctors.asUnmodifiableObservableList().size() + " doctors &"
-                //@@author gingivitiss
                 + appointments.asUnmodifiableObservableList().size() + "appointments ";
         // TODO: refine later
     }

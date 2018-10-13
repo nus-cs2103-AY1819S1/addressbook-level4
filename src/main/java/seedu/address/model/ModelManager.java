@@ -91,8 +91,8 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author gingivitiss
     @Override
     public boolean hasAppointment(Appointment appt) {
-        //to do
-        return false;
+        requireNonNull(appt);
+        return versionedAddressBook.hasAppointment(appt);
     }
 
     //========== Delete ======================================================================================
