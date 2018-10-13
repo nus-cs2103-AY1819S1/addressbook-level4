@@ -15,11 +15,11 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.tag.Label;
 import seedu.address.model.task.Description;
 import seedu.address.model.task.DueDate;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.PriorityValue;
-import seedu.address.model.tag.Label;
 import seedu.address.testutil.Assert;
 
 public class ParserUtilTest {

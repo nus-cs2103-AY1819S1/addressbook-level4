@@ -10,13 +10,13 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.tag.Label;
 import seedu.address.model.task.Description;
 import seedu.address.model.task.DueDate;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.PriorityValue;
 import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
-import seedu.address.model.tag.Label;
 
 /**
  * JAXB-friendly version of the Task.

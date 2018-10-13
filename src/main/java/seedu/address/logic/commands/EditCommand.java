@@ -20,13 +20,13 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.tag.Label;
 import seedu.address.model.task.Description;
 import seedu.address.model.task.DueDate;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.PriorityValue;
 import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
-import seedu.address.model.tag.Label;
 
 /**
  * Edits the details of an existing task in the description book.
