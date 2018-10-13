@@ -1,0 +1,155 @@
+package seedu.address.logic.parser.eventparser;
+
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_MEETING;
+import static seedu.address.logic.commands.CommandTestUtil.ORGANISER_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.PARTICIPANT_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.START_TIME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_MEETING;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ORGANISER_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PARTICIPANT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME_START;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
+import org.junit.jupiter.api.Test;
+import seedu.address.logic.commands.eventcommands.FindEventCommand;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.eventparsers.FindEventCommandParser;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.event.EventAttributesPredicate;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Address;
+
+public class FindEventCommandParserTest {
+    private FindEventCommandParser parser = new FindEventCommandParser();
+    private static final String MESSAGE_INVALID_FORMAT =
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindEventCommand.MESSAGE_USAGE);
+
+    @Test
+    public void parse_invalidValue_failure() {
+        assertParseFailure(parser, INVALID_EVENT_NAME_DESC, Name.MESSAGE_NAME_CONSTRAINTS); // invalid name
+        assertParseFailure(parser, INVALID_ADDRESS_DESC, Address.MESSAGE_ADDRESS_CONSTRAINTS); // invalid address
+
+        // multiple invalid values, but only the first invalid value is captured
+        assertParseFailure(parser, INVALID_EVENT_NAME_DESC + VALID_ADDRESS_AMY, Name.MESSAGE_NAME_CONSTRAINTS);
+    }
+
+    @Test
+    public void parse_someFieldsSpecified_success() throws ParseException {
+        String userInput = NAME_DESC_MEETING + ADDRESS_DESC_AMY;
+
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(userInput, PREFIX_EVENT_NAME, PREFIX_ADDRESS);
+
+        EventAttributesPredicate predicate = new EventAttributesPredicate();
+        if (argMultimap.getValue(PREFIX_EVENT_NAME).isPresent()) {
+            predicate.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_EVENT_NAME).get()));
+        }
+        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
+            predicate.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+        }
+
+        FindEventCommand expectedCommand = new FindEventCommand(predicate);
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_allFieldsSpecified_success() throws ParseException {
+        String userInput = NAME_DESC_MEETING + ADDRESS_DESC_AMY + START_TIME_DESC + DATE_DESC + TAG_DESC_FRIEND
+                + ORGANISER_NAME_DESC + PARTICIPANT_NAME_DESC;
+
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(userInput, PREFIX_EVENT_NAME, PREFIX_ADDRESS, PREFIX_TAG,
+                        PREFIX_DATE, PREFIX_TIME_START, PREFIX_ORGANISER_NAME, PREFIX_PARTICIPANT_NAME);
+
+        EventAttributesPredicate predicate = new EventAttributesPredicate();
+        if (argMultimap.getValue(PREFIX_EVENT_NAME).isPresent()) {
+            predicate.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_EVENT_NAME).get()));
+        }
+        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
+            predicate.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+        }
+        if (argMultimap.getValue(PREFIX_TIME_START).isPresent()) {
+            predicate.setStartTime(ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME_START).get()));
+        }
+        if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
+            predicate.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));
+        }
+        if (argMultimap.getValue(PREFIX_ORGANISER_NAME).isPresent()) {
+            predicate.setParticipant(ParserUtil.parseName(argMultimap.getValue(PREFIX_ORGANISER_NAME).get()));
+        }
+        if (argMultimap.getValue(PREFIX_PARTICIPANT_NAME).isPresent()) {
+            predicate.setParticipant(ParserUtil.parseName(argMultimap.getValue(PREFIX_PARTICIPANT_NAME).get()));
+        }
+
+        FindEventCommand expectedCommand = new FindEventCommand(predicate);
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_oneFieldSpecified_success() throws ParseException {
+        // name
+        String userInput = NAME_DESC_MEETING;
+        EventAttributesPredicate predicate = new EventAttributesPredicate();
+        predicate.setName(ParserUtil.parseName(VALID_NAME_MEETING));
+        FindEventCommand expectedCommand = new FindEventCommand(predicate);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // address
+        userInput = ADDRESS_DESC_AMY;
+        predicate = new EventAttributesPredicate();
+        predicate.setAddress(ParserUtil.parseAddress(VALID_ADDRESS_AMY));
+        expectedCommand = new FindEventCommand(predicate);
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_multipleRepeatedFields_acceptsLast() {
+        /**
+        Index targetIndex = INDEX_FIRST;
+        String userInput = targetIndex.getOneBased() + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY
+                + TAG_DESC_FRIEND + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY + TAG_DESC_FRIEND
+                + PHONE_DESC_BOB + ADDRESS_DESC_BOB + EMAIL_DESC_BOB + TAG_DESC_HUSBAND;
+
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB)
+                .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+                .build();
+        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+         */
+    }
+
+    @Test
+    public void parse_invalidValueFollowedByValidValue_success() {
+        // no other valid values specified
+        /**
+        Index targetIndex = INDEX_FIRST;
+        String userInput = targetIndex.getOneBased() + INVALID_PHONE_DESC + PHONE_DESC_BOB;
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB).build();
+        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // other valid values specified
+        userInput = targetIndex.getOneBased() + EMAIL_DESC_BOB + INVALID_PHONE_DESC + ADDRESS_DESC_BOB
+                + PHONE_DESC_BOB;
+        descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
+                .withAddress(VALID_ADDRESS_BOB).build();
+        expectedCommand = new EditCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+         */
+    }
+}

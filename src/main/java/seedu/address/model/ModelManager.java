@@ -122,7 +122,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.updatePerson(target, editedPerson);
         for (Event event : filteredEvents) {
             boolean changed = event.updatePerson(target, editedPerson);
-            if (changed || event.containsPerson(target)) {
+            if (changed) {
                 versionedAddressBook.updateEvent(event, event);
             }
         }

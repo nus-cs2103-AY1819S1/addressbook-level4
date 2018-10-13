@@ -253,13 +253,15 @@ public class Event {
     /**
      * Returns true if the target person is the event organiser is or is an event participant.
      */
-    public boolean containsPerson(Person target) {
+    public boolean containsPerson(Name personName) {
         boolean contains = false;
-        if (organiser.equals(target)) {
+        if (organiser.getName().equals(personName)) {
             contains = true;
         }
-        if (personList.contains(target)) {
-            contains = true;
+        for (Person person : personList) {
+            if (person.getName().equals(personName)) {
+                contains = true;
+            }
         }
         return contains;
     }

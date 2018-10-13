@@ -36,7 +36,7 @@ public class FindEventByTimeCommand extends Command {
     private final LocalTime endTime;
 
     /**
-     * Creates an SetDateCommand to add a date to the specified {@code Event}
+     * Creates an FindEventByTimeCommand to add a date to the specified {@code Event}
      */
     public FindEventByTimeCommand(LocalDate date, LocalTime startTime, LocalTime endTime) {
         requireNonNull(date);
