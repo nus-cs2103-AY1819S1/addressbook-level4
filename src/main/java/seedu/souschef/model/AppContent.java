@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import javafx.collections.ObservableList;
 
-import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.healthplan.HealthPlan;
+import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.recipe.Recipe;
 
 
