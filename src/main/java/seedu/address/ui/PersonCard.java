@@ -2,6 +2,8 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -32,6 +34,8 @@ public class PersonCard extends UiPart<Region> {
 
     @FXML
     private HBox cardPane;
+    @FXML
+    private ImageView picture;
     @FXML
     private Label name;
     @FXML
@@ -68,6 +72,12 @@ public class PersonCard extends UiPart<Region> {
                 }, () -> email.setText(NO_EMAIL));
         meeting.setText(person.getMeeting().value.equals(Meeting.NO_MEETING) ? Meeting.NO_MEETING_MSG : "Meeting on"
                 + person.getMeeting().toString() + "hrs");
+
+        //@@author denzelchung
+        // set profile picture
+        Image image = new Image(person.getPicture().picture);
+        picture.setImage(image);
+        picture.setCache(true);
 
         //@@author
         initTags(person);

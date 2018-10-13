@@ -7,6 +7,8 @@ import com.google.common.collect.ImmutableMultiset;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
 import seedu.address.ui.PersonCard;
@@ -21,6 +23,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
     private static final String PHONE_FIELD_ID = "#phone";
     private static final String EMAIL_FIELD_ID = "#email";
     private static final String TAGS_FIELD_ID = "#tags";
+    private static final String PICTURE_FIELD_ID = "#picture";
 
     private final Label idLabel;
     private final Label nameLabel;
@@ -28,6 +31,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
     private final Label phoneLabel;
     private final Label emailLabel;
     private final List<Label> tagLabels;
+    private final ImageView picture;
 
     public PersonCardHandle(Node cardNode) {
         super(cardNode);
@@ -37,6 +41,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
         addressLabel = getChildNode(ADDRESS_FIELD_ID);
         phoneLabel = getChildNode(PHONE_FIELD_ID);
         emailLabel = getChildNode(EMAIL_FIELD_ID);
+        picture = getChildNode(PICTURE_FIELD_ID);
 
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
         tagLabels = tagsContainer
@@ -64,6 +69,10 @@ public class PersonCardHandle extends NodeHandle<Node> {
 
     public String getEmail() {
         return emailLabel.getText();
+    }
+
+    public Image getPicture() {
+        return picture.getImage();
     }
 
     public List<String> getTags() {
@@ -96,6 +105,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
                 && getEmail().equals(person.getEmail().isPresent()
                         ? person.getEmail().get().value
                         : PersonCard.NO_EMAIL)
+                && getPicture().equals(new Image(person.getPicture().toString()))
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(person.getTags().stream()
                 .map(tag -> tag.tagName)
                 .collect(Collectors.toList())));

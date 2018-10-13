@@ -26,9 +26,9 @@ public class Person {
     // Data fields
     private final Optional<Address> address;
     private final Set<Tag> tags = new HashSet<>();
+    private final Picture picture;
 
     private final Meeting meeting;
-
 
     /**
      * Every field must be present and not null.
@@ -39,6 +39,7 @@ public class Person {
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.picture = new Picture(Picture.DEFAULT_PICTURE);
         this.tags.addAll(tags);
         this.meeting = new Meeting(Meeting.NO_MEETING);
     }
@@ -55,6 +56,7 @@ public class Person {
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.picture = new Picture(Picture.DEFAULT_PICTURE);
         this.tags.addAll(tags);
         this.meeting = meeting;
     }
@@ -80,6 +82,12 @@ public class Person {
         return meeting;
     }
 
+    //@@author denzelchung
+    public Picture getPicture() {
+        return picture;
+    }
+
+    //@@author
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
