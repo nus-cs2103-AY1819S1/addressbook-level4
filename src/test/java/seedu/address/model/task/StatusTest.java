@@ -12,7 +12,7 @@ import seedu.address.testutil.Assert;
 public class StatusTest {
 
     @Test
-    public void valid_status_values() {
+    public void StatusContainValidValues() {
         Status[] expectedValues = {Status.IN_PROGRESS, Status.FINISHED, Status.OVERDUE};
         assertArrayEquals(expectedValues, Status.values());
     }
@@ -34,7 +34,7 @@ public class StatusTest {
     }
 
     @Test
-    public void getStatusFromValue() {
+    public void getStatusFromValue_returnsStatusObject() {
         //invalid status value
         Assert.assertThrows(IllegalArgumentException.class, () -> Status.getStatusFromValue("in progress"));
         Assert.assertThrows(IllegalArgumentException.class, () -> Status.getStatusFromValue("hello"));
@@ -46,7 +46,7 @@ public class StatusTest {
     }
 
     @Test
-    public void toStringTest() {
+    public void toString_returnsStatusValue() {
         assertEquals(Status.IN_PROGRESS.toString(), "IN PROGRESS");
         assertEquals(Status.FINISHED.toString(), "FINISHED");
         assertEquals(Status.OVERDUE.toString(), "OVERDUE");
