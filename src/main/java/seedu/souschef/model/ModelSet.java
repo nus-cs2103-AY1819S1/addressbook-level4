@@ -1,6 +1,9 @@
 package seedu.souschef.model;
 
+import seedu.souschef.model.healthplan.HealthPlan;
+import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.recipe.Recipe;
+import seedu.souschef.model.tag.Tag;
 
 /**
  * The API of the ModelSet component.
@@ -11,5 +14,11 @@ public interface ModelSet {
 
     /** Returns the model for recipes*/
     Model<Recipe> getRecipeModel();
+    Model<Tag> getTagModel();
 
+    /** Returns the model for ingredients*/
+    Model<Ingredient> getIngredientModel();
+
+    /** Returns the model for healthplans*/
+    Model<HealthPlan> getHealthPlanModel();
 }

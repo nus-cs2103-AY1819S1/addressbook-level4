@@ -3,11 +3,13 @@ package seedu.souschef.model.ingredient;
 import java.util.Date;
 import java.util.Objects;
 
+import seedu.souschef.model.UniqueType;
+
 /**
  * Represents an ingredient in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Ingredient {
+public class Ingredient extends UniqueType {
     // Identity fields
     private String name;
 
@@ -43,14 +45,19 @@ public class Ingredient {
      * Returns true if both ingredients of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two recipes.
      */
-    public boolean isSameIngredient(Ingredient otherIngredient) {
-        if (otherIngredient == this) {
+    public boolean isSame(UniqueType other) {
+        if (other == this) {
             return true;
         }
 
+        if (!(other instanceof Ingredient)) {
+            return false;
+        }
+
+        Ingredient otherIngredient = (Ingredient) other;
+
         return otherIngredient != null
-                && otherIngredient.getName().equals(getName())
-                && (otherIngredient.getAmount() == getAmount()) || otherIngredient.getUnit().equals(getUnit());
+                && otherIngredient.getName().equals(getName());
     }
 
     /**

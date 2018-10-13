@@ -5,8 +5,10 @@ import static java.util.Objects.requireNonNull;
 import javafx.collections.ObservableList;
 
 import seedu.souschef.model.healthplan.HealthPlan;
+import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.planner.Day;
 import seedu.souschef.model.recipe.Recipe;
+import seedu.souschef.model.tag.Tag;
 
 
 /**
@@ -17,8 +19,11 @@ import seedu.souschef.model.recipe.Recipe;
 public class AppContent implements ReadOnlyAppContent {
 
     private final UniqueList<Recipe> recipes;
+    private final UniqueList<Tag> tags;
+    private final UniqueList<Ingredient> ingredients;
     private final UniqueList<HealthPlan> healthPlans;
     private final UniqueList<Day> mealPlanner;
+
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -28,6 +33,8 @@ public class AppContent implements ReadOnlyAppContent {
      */
     {
         recipes = new UniqueList<>();
+        tags = new UniqueList<>();
+        ingredients = new UniqueList<>();
         healthPlans = new UniqueList<>();
         mealPlanner = new UniqueList<>();
     }
@@ -49,8 +56,8 @@ public class AppContent implements ReadOnlyAppContent {
      */
     public void resetData(ReadOnlyAppContent newData) {
         requireNonNull(newData);
-
         this.recipes.set(newData.getObservableRecipeList());
+        this.tags.set(newData.getObservableTagList());
         this.healthPlans.set(newData.getObservableHealthPlanList());
         this.mealPlanner.set(newData.getObservableMealPlanner());
     }
@@ -67,15 +74,25 @@ public class AppContent implements ReadOnlyAppContent {
         if (newData.getObservableHealthPlanList().size() > 0) {
             this.healthPlans.set(newData.getObservableHealthPlanList());
         }
+
         if (newData.getObservableMealPlanner().size() > 0) {
             this.mealPlanner.set(newData.getObservableMealPlanner());
         }
-
     }
 
     //// recipe-level operations
     public UniqueList<Recipe> getRecipes() {
         return recipes;
+    }
+
+    //// tag-level operations
+    public UniqueList<Tag> getTags() {
+        return tags;
+    }
+
+    //// ingredient-level operations
+    public UniqueList<Ingredient> getIngredients() {
+        return ingredients;
     }
 
     //healthplan level operations
@@ -99,8 +116,16 @@ public class AppContent implements ReadOnlyAppContent {
     public ObservableList<Recipe> getObservableRecipeList() {
         return recipes.asUnmodifiableObservableList();
     }
+    @Override
+    public ObservableList<Tag> getObservableTagList() {
+        return tags.asUnmodifiableObservableList();
+    }
 
     @Override
+    public ObservableList<Ingredient> getObservableIngredientList() {
+        return ingredients.asUnmodifiableObservableList();
+    }
+
     public ObservableList<HealthPlan> getObservableHealthPlanList() {
         return healthPlans.asUnmodifiableObservableList();
     }
@@ -114,27 +139,15 @@ public class AppContent implements ReadOnlyAppContent {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AppContent // instanceof handles nulls
-                && recipes.equals(((AppContent) other).recipes))
+                && recipes.equals(((AppContent) other).recipes)
                 && healthPlans.equals(((AppContent) other).healthPlans)
-                && mealPlanner.equals(((AppContent) other).mealPlanner);
+                && mealPlanner.equals(((AppContent) other).mealPlanner)
+                && ingredients.equals(((AppContent) other).ingredients));
+
     }
 
     @Override
     public int hashCode() {
         return recipes.hashCode();
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
