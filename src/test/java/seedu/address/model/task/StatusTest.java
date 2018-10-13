@@ -13,7 +13,7 @@ public class StatusTest {
 
     @Test
     public void valid_status_values() {
-        Status[] expectedValues = {Status.IN_PROGRESS, Status.FINISHED, Status.OVERDUE};
+        Status[] expectedValues = {Status.IN_PROGRESS, Status.COMPLETED, Status.OVERDUE};
         assertArrayEquals(expectedValues, Status.values());
     }
 
@@ -29,7 +29,7 @@ public class StatusTest {
 
         //valid status value
         assertTrue(Status.isValidStatus("IN PROGRESS"));
-        assertTrue(Status.isValidStatus("FINISHED"));
+        assertTrue(Status.isValidStatus("COMPLETED"));
         assertTrue(Status.isValidStatus("OVERDUE"));
     }
 
@@ -41,14 +41,14 @@ public class StatusTest {
 
         //valid status value
         assertEquals(Status.getStatusFromValue("IN PROGRESS"), Status.IN_PROGRESS);
-        assertEquals(Status.getStatusFromValue("FINISHED"), Status.FINISHED);
+        assertEquals(Status.getStatusFromValue("COMPLETED"), Status.COMPLETED);
         assertEquals(Status.getStatusFromValue("OVERDUE"), Status.OVERDUE);
     }
 
     @Test
     public void toStringTest() {
         assertEquals(Status.IN_PROGRESS.toString(), "IN PROGRESS");
-        assertEquals(Status.FINISHED.toString(), "FINISHED");
+        assertEquals(Status.COMPLETED.toString(), "COMPLETED");
         assertEquals(Status.OVERDUE.toString(), "OVERDUE");
     }
 }

@@ -40,7 +40,7 @@ public class TypicalTasks {
             .withPriorityValue("4").withDescription("Preferably before it").withLabels("friends").build();
     public static final Task E_TASK = new TaskBuilder().withName("Edit research report").withDueDate("05-12-18")
             .withPriorityValue("5").withDescription("Add more words")
-            .withStatus(Status.FINISHED).build();
+            .withStatus(Status.COMPLETED).build();
     public static final Task F_TASK = new TaskBuilder().withName("Find suitable reagents for experiment")
             .withDueDate("06-12-2018").withPriorityValue("6").withDescription("Missing spice and everything nice")
             .withStatus(Status.IN_PROGRESS).build();

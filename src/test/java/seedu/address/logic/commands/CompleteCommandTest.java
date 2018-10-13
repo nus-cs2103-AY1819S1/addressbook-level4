@@ -186,7 +186,7 @@ public class CompleteCommandTest {
                 taskToComplete.getPriorityValue(),
                 taskToComplete.getDescription(),
                 taskToComplete.getLabels(),
-                Status.FINISHED
+                Status.COMPLETED
         );
     }
 

@@ -58,7 +58,7 @@ public class CompleteCommand extends Command {
     }
 
     /**
-     * Returns a {@code Task} with it's status set to {@code Status.FINISHED}.
+     * Returns a {@code Task} with it's status set to {@code Status.COMPLETED}.
      * @param toComplete The task to o
      * @return
      */
@@ -69,7 +69,7 @@ public class CompleteCommand extends Command {
                 toComplete.getPriorityValue(),
                 toComplete.getDescription(),
                 toComplete.getLabels(),
-                Status.FINISHED);
+                Status.COMPLETED);
     }
 
     @Override

@@ -79,7 +79,7 @@ public class Task {
     }
 
     public boolean isCompleted() {
-        return status == Status.FINISHED;
+        return status == Status.COMPLETED;
     }
     /**
      * Returns true if both tasks of the same name have at least one other identity field that is the same.
