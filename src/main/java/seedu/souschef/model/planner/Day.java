@@ -2,16 +2,17 @@ package seedu.souschef.model.planner;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.souschef.model.planner.exceptions.MealRecipeNotFoundException;
+import seedu.souschef.model.UniqueType;
 import seedu.souschef.model.recipe.Recipe;
 
 /**
  * Day encapsulates 1 date and 3 meals (breakfast, lunch and dinner).
  */
-public class Day {
+public class Day extends UniqueType {
 
     // Attributes
     private LocalDate date;
@@ -43,12 +44,12 @@ public class Day {
         return this.meals.get(meal.ordinal());
     }
 
-    public Recipe getMealRecipe(Meal meal) throws MealRecipeNotFoundException {
+    public Recipe getMealRecipe(Meal meal) {
         return this.getMeal(meal).getRecipe();
     }
 
     public void setMealRecipe(Meal meal, Recipe recipe) {
-        this.getMeal(meal).setRecipe(recipe);
+        getMeal(meal).setRecipe(recipe);
     }
 
     /**
@@ -64,4 +65,29 @@ public class Day {
         }
         return true;
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.date, this.meals);
+    }
+
+    @Override
+    public boolean isSame(UniqueType uniqueType) {
+        return this.getDate().equals(((Day) uniqueType).getDate());
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Day)) {
+            return false;
+        }
+
+        Day otherDay = (Day) other;
+        return otherDay.getDate().equals(getDate());
+    }
+
 }
