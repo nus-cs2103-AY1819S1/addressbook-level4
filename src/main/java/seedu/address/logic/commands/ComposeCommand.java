@@ -45,4 +45,11 @@ public class ComposeCommand extends Command {
         model.saveEmail(toCompose);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toCompose.getSubject()));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ComposeCommand // instanceof handles nulls
+                && toCompose.equals(((ComposeCommand) other).toCompose));
+    }
 }
