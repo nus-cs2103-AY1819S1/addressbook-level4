@@ -256,9 +256,9 @@ A more detailed explanation of the command execution can be found below.
 
 The medication storage and retrieval is facilitated by the following classes:
 
-* `PrescriptionList`, a list of 
-** `Prescription` s, each of which have a 
-*** `Dose` and a 
+* `PrescriptionList`, a list of
+** `Prescription` s, each of which have a
+*** `Dose` and a
 *** `Duration`.
 
 A more detailed description of the classes follows below:
