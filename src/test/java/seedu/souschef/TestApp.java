@@ -19,7 +19,7 @@ import seedu.souschef.model.ReadOnlyAppContent;
 import seedu.souschef.model.UserPrefs;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.storage.UserPrefsStorage;
-import seedu.souschef.storage.recipe.XmlSerializableAddressBook;
+import seedu.souschef.storage.recipe.XmlSerializableRecipe;
 import seedu.souschef.testutil.TestUtil;
 
 import systemtests.ModelHelper;
@@ -48,7 +48,7 @@ public class TestApp extends MainApp {
 
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
-            createDataFileWithData(new XmlSerializableAddressBook(this.initialDataSupplier.get()),
+            createDataFileWithData(new XmlSerializableRecipe(this.initialDataSupplier.get()),
                     this.saveFileLocation);
         }
     }

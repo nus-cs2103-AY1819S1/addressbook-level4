@@ -10,7 +10,7 @@ import seedu.souschef.commons.exceptions.DataConversionException;
 import seedu.souschef.commons.util.XmlUtil;
 
 import seedu.souschef.storage.healthplan.XmlSerializableHealthPlan;
-import seedu.souschef.storage.recipe.XmlSerializableAddressBook;
+import seedu.souschef.storage.recipe.XmlSerializableRecipe;
 
 
 /**
@@ -57,7 +57,7 @@ public class XmlFileStorage {
             FileNotFoundException {
         try {
             if (TYPE_RECIPE.equals(type)) {
-                return XmlUtil.getDataFromFile(file, XmlSerializableAddressBook.class);
+                return XmlUtil.getDataFromFile(file, XmlSerializableRecipe.class);
             } else if (TYPE_HEALTHPLAN.equals(type)) {
                 return XmlUtil.getDataFromFile(file, XmlSerializableHealthPlan.class);
             }

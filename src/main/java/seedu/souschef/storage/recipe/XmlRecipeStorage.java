@@ -55,8 +55,8 @@ public class XmlRecipeStorage extends XmlFeatureStorage {
             return Optional.empty();
         }
         XmlSerializableGeneric xmlRecipeBook;
-        xmlRecipeBook = new XmlSerializableAddressBook(
-                (XmlSerializableAddressBook) XmlFileStorage.loadDataFromSaveFile(filePath, "recipe"));
+        xmlRecipeBook = new XmlSerializableRecipe(
+                (XmlSerializableRecipe) XmlFileStorage.loadDataFromSaveFile(filePath, "recipe"));
         try {
             setAppContent(xmlRecipeBook.getAppContent());
             return Optional.of(xmlRecipeBook.toModelType());
@@ -76,6 +76,6 @@ public class XmlRecipeStorage extends XmlFeatureStorage {
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        XmlFileStorage.saveDataToFile(filePath, new XmlSerializableAddressBook(appContent));
+        XmlFileStorage.saveDataToFile(filePath, new XmlSerializableRecipe(appContent));
     }
 }

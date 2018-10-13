@@ -18,7 +18,7 @@ import org.junit.rules.ExpectedException;
 import seedu.souschef.model.AppContent;
 import seedu.souschef.storage.recipe.XmlAdaptedRecipe;
 import seedu.souschef.storage.recipe.XmlAdaptedTag;
-import seedu.souschef.storage.recipe.XmlSerializableAddressBook;
+import seedu.souschef.storage.recipe.XmlSerializableRecipe;
 import seedu.souschef.testutil.AppContentBuilder;
 import seedu.souschef.testutil.RecipeBuilder;
 import seedu.souschef.testutil.TestUtil;
@@ -71,7 +71,7 @@ public class XmlUtilTest {
 
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
-        AppContent dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableAddressBook.class).toModelType();
+        AppContent dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableRecipe.class).toModelType();
         assertEquals(9, dataFromFile.getObservableRecipeList().size());
     }
 
@@ -123,17 +123,17 @@ public class XmlUtilTest {
     @Test
     public void saveDataToFile_validFile_dataSaved() throws Exception {
         FileUtil.createFile(TEMP_FILE);
-        XmlSerializableAddressBook dataToWrite = new XmlSerializableAddressBook(new AppContent());
+        XmlSerializableRecipe dataToWrite = new XmlSerializableRecipe(new AppContent());
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
+        XmlSerializableRecipe dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableRecipe.class);
         assertEquals(dataToWrite, dataFromFile);
 
         AppContentBuilder builder = new AppContentBuilder(new AppContent());
-        dataToWrite = new XmlSerializableAddressBook(
+        dataToWrite = new XmlSerializableRecipe(
                 builder.withRecipe(new RecipeBuilder().build()).build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-        dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
+        dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableRecipe.class);
         assertEquals(dataToWrite, dataFromFile);
     }
 
