@@ -54,8 +54,8 @@ public class EditCommand extends Command {
 
     public static final int NO_INDEX = 1000000000;
 
-    private final Index index;
     protected final EditPersonDescriptor editPersonDescriptor;
+    private final Index index;
 
     /**
      * @param index of the person in the filtered person list to edit

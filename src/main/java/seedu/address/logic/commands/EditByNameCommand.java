@@ -1,5 +1,13 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+
+import java.util.Arrays;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -8,14 +16,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
-
-import java.util.Arrays;
-import java.util.function.Supplier;
-import java.util.stream.Stream;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 //@@author zioul123
 /**
@@ -56,6 +56,9 @@ public class EditByNameCommand extends EditCommand {
         return new CommandResult(String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
 
+    /**
+     * Find a single person from the specified {@Code Model} using the {@Code String personIdentifier}.
+     */
     private Person findPerson(Model model) throws ParseException, CommandException {
         //@@author zioul123-reused
         //Based on code from FindCommandParser.
@@ -69,8 +72,8 @@ public class EditByNameCommand extends EditCommand {
         //@@author zioul123
 
         // Supplier is used because the stream is acted on more than once.
-        Supplier<Stream<Person>> filteredPersons =
-                () -> model.getAddressBook().getPersonList().stream().filter(predicate);
+        Supplier<Stream<Person>> filteredPersons = () ->
+                model.getAddressBook().getPersonList().stream().filter(predicate);
 
         long numOfPeopleMatching = filteredPersons.get().count();
         if (numOfPeopleMatching == 0) {
