@@ -76,7 +76,7 @@ public class CalendarEventCardHandle extends NodeHandle<Node> {
      * Returns true if this handle contains {@code calendarevent}.
      */
     public boolean equals(CalendarEvent calendarEvent) {
-        return getName().equals(calendarEvent.getName().fullName)
+        return getName().equals(calendarEvent.getName().fullTitle)
             && getAddress().equals(calendarEvent.getLocation().value)
             && getPhone().equals(calendarEvent.getPhone().value)
             && getEmail().equals(calendarEvent.getEmail().value)
