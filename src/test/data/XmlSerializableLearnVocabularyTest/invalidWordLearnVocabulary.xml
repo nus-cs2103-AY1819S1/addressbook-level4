@@ -3,8 +3,6 @@
     <!-- Word with invalid name field -->
     <words>
         <name>Han!s Muster</name>
-        <phone isPrivate="false">9482424</phone>
-        <address isPrivate="false">4th street</address>
         <meaning isPrivate="false">testing</meaning>
 
     </words>
