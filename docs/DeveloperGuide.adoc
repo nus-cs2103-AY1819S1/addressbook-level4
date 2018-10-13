@@ -67,6 +67,37 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
 
+== Design
+
+=== Architecture
+
+=== UI component
+
+=== Logic component
+
+=== Model component
+
++
+image::AnakinModelClassDiagram.png[width="790"]
++
+Structure of the Model Component
+
+The `Model`,
+
+****
+* stores Anakin data.
+* exposes an unmodifiable ObservableList<Deck> that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable ObservableList<Card> that can be 'observed'.
+* does not depend on any of the other three components.
+****
+
+=== Storage component
+
+== Implementation
+
+This section describes some noteworthy details on how certain features are implemented.
+
+
 [appendix]
 == Product Scope
 
