@@ -78,6 +78,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void switchToRecordContext() {
+        context.switchToRecordContext();
+    }
+
+    @Override
     public String getContextId() {
         return context.getContextId();
     }

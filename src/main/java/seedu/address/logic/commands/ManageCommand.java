@@ -7,12 +7,11 @@ import java.util.List;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.commons.events.ui.ContextChangeEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
-import seedu.address.model.person.Person;
 
 /**
  * Selects a person identified using it's displayed index from the address book.
@@ -44,7 +43,11 @@ public class ManageCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
 
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
+        model.switchToRecordContext();
+
+        // TO_UPDATE
+        // EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
+        EventsCenter.getInstance().post(new ContextChangeEvent(model.getContextId()));
         return new CommandResult(String.format(MESSAGE_MANAGE_EVENT_SUCCESS, targetIndex.getOneBased()));
 
     }
