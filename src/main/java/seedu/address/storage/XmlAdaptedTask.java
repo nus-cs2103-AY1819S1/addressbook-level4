@@ -40,6 +40,8 @@ public class XmlAdaptedTask {
     private String status;
     @XmlElement
     private List<String> dependencies;
+    @XmlElement
+    private String hash;
     /**
      * Constructs an XmlAdaptedTask.
      * This is the no-arg constructor that is required by JAXB.
@@ -91,6 +93,7 @@ public class XmlAdaptedTask {
                 .map(XmlAdaptedLabel::new)
                 .collect(Collectors.toList());
         status = source.getStatus().toString();
+        hash = Integer.toString(source.hashCode());
     }
 
     /**
