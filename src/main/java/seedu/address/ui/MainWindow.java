@@ -1,5 +1,9 @@
 package seedu.address.ui;
 
+import static seedu.address.model.Context.EVENT_CONTEXT_ID;
+import static seedu.address.model.Context.RECORD_CONTEXT_ID;
+import static seedu.address.model.Context.VOLUNTEER_CONTEXT_ID;
+
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -15,6 +19,7 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.ContextChangeEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
@@ -36,6 +41,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
+    private EventListPanel eventListPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
@@ -50,7 +56,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane listPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -123,7 +129,9 @@ public class MainWindow extends UiPart<Stage> {
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        eventListPanel = new EventListPanel(logic.getFilteredEventList());
+
+        listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -180,6 +188,24 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Replaces the ListPanel with the appropriate context.
+     */
+    @FXML
+    private void handleContextChange(String contextId) {
+        if (contextId.equals(EVENT_CONTEXT_ID)) {
+            listPanelPlaceholder.getChildren().clear();
+            listPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
+        } else if (contextId.equals(VOLUNTEER_CONTEXT_ID)) {
+            listPanelPlaceholder.getChildren().clear();
+            listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        } else if (contextId.equals(RECORD_CONTEXT_ID)) {
+            // TO_UPDATE: Shows all available volunteers for event
+            listPanelPlaceholder.getChildren().clear();
+            listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        }
+    }
+
+    /**
      * Closes the application.
      */
     @FXML
@@ -191,8 +217,19 @@ public class MainWindow extends UiPart<Stage> {
         return personListPanel;
     }
 
+    public EventListPanel getEventListPanel() {
+        return eventListPanel;
+    }
+
     void releaseResources() {
         browserPanel.freeResources();
+    }
+
+
+    @Subscribe
+    private void handleContextChangeEvent(ContextChangeEvent event) {
+        logger.info(event.getNewContext());
+        handleContextChange(event.getNewContext());
     }
 
     @Subscribe
