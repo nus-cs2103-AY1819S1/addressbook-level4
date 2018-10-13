@@ -35,5 +35,18 @@ public class ListDayCommandTest {
         model.updateFilteredTaskList(new DateSamePredicate(validTask.getDate().value));
         assertTrue(model.hasTask(validTask));
     }
-    
+
+    @Test
+    public void task_gone_afterFilter() {
+        //after update the filteredtasklist with a specific date predicate, model would not have other task remaining
+        Model model = new ModelManager();
+        Model modelCheck = new ModelManager();
+        Task validTask = new TaskBuilder().withDate("111111").build();
+        Task validTaskCheck = new TaskBuilder().withDate("121212").build();
+        model.addTask(validTask);
+        model.addTask(validTaskCheck);
+        modelCheck.addTask(validTaskCheck);
+        model.updateFilteredTaskList(new DateSamePredicate(validTask.getDate().value));
+        assertFalse(model.getFilteredTaskList() == modelCheck.getFilteredTaskList());
+    }
 }
