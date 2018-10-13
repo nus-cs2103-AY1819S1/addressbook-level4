@@ -77,9 +77,8 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 === Model component
 
-+
-image::AnakinModelClassDiagram.png[width="790"]
-+
+image::AnakinModelClassDiagram.png[width="790", align="left"]
+
 Structure of the Model Component
 
 The `Model`,
