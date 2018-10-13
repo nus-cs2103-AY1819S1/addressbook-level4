@@ -11,11 +11,12 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.GridPane?>
 <fx:root xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         type="javafx.stage.Stage" minWidth="800" minHeight="800" onCloseRequest="#handleExit">
+         type="javafx.stage.Stage" minWidth="800" minHeight="800" maximized="true" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -63,19 +64,19 @@
 
             <SplitPane>
               <AnchorPane>
-                <Label text="Finder" alignment="CENTER" styleClass="cell_big_label"
+                <Label text="Finder" alignment="CENTER" styleClass="label-bright"
                        AnchorPane.topAnchor="5" AnchorPane.leftAnchor="5" AnchorPane.rightAnchor="5" />
                 <StackPane fx:id="finderPanelPlaceholder"
-                           AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
-                           AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0" />
+                          AnchorPane.topAnchor="30" AnchorPane.leftAnchor="5"
+                          AnchorPane.rightAnchor="5" AnchorPane.bottomAnchor="5" />
               </AnchorPane>
 
               <AnchorPane>
-                <Label text="Owner" alignment="CENTER" styleClass="cell_big_label"
+                <Label text="Owner" alignment="CENTER" styleClass="label-bright"
                        AnchorPane.topAnchor="5" AnchorPane.leftAnchor="5" AnchorPane.rightAnchor="5" />
                 <StackPane fx:id="ownerPanelPlaceholder"
-                           AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
-                           AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0" />
+                          AnchorPane.topAnchor="30" AnchorPane.leftAnchor="5"
+                          AnchorPane.rightAnchor="5" AnchorPane.bottomAnchor="5" />
               </AnchorPane>
             </SplitPane>
           </SplitPane>

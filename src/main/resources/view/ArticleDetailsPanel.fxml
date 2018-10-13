@@ -9,7 +9,7 @@
 
 <?import javafx.scene.control.TextArea?>
 <StackPane fx:id="detailsPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-  <GridPane hgap="10" vgap="10" gridLinesVisible="true">
+  <GridPane hgap="10" vgap="10">
     <columnConstraints>
       <ColumnConstraints hgrow="NEVER" />
       <ColumnConstraints hgrow="SOMETIMES" />
@@ -19,19 +19,18 @@
       <RowConstraints vgrow="NEVER" />
       <RowConstraints vgrow="SOMETIMES" />
     </rowConstraints>
-    <Label text="Name:" styleClass="cell_big_label" GridPane.halignment="RIGHT" GridPane.valignment="TOP" />
-    <Label fx:id="articleDetails" styleClass="cell_big_label"
+    <Label text="Name:" styleClass="label-bright" GridPane.halignment="RIGHT" GridPane.valignment="TOP" />
+    <Label fx:id="articleDetails" styleClass="label-bright"
            GridPane.columnIndex="1" />
 
-    <Label text="Tags:" styleClass="cell_big_label" GridPane.halignment="RIGHT" GridPane.valignment="TOP"
+    <Label text="Tags:" styleClass="label-bright" GridPane.halignment="RIGHT" GridPane.valignment="TOP"
            GridPane.rowIndex="1" />
     <FlowPane fx:id="tags" alignment="CENTER_LEFT"
               GridPane.rowIndex="1" GridPane.columnIndex="1" />
-
-    <Label text="Description:" styleClass="cell_big_label" GridPane.halignment="RIGHT" GridPane.valignment="TOP"
+    <Label text="Description:" styleClass="label-bright" GridPane.halignment="RIGHT" GridPane.valignment="TOP"
            GridPane.rowIndex="2" />
     <StackPane GridPane.rowIndex="2" GridPane.columnIndex="1" >
-      <TextArea fx:id="description" styleClass="text-area" />
+      <TextArea fx:id="description" editable="false" styleClass="text-area" />
     </StackPane>
   </GridPane>
 </StackPane>
