@@ -1,9 +1,7 @@
 package seedu.learnvocabulary.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.learnvocabulary.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.learnvocabulary.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.learnvocabulary.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.learnvocabulary.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.learnvocabulary.model.Model.PREDICATE_SHOW_ALL_WORDS;
 
@@ -20,10 +18,8 @@ import seedu.learnvocabulary.logic.CommandHistory;
 import seedu.learnvocabulary.logic.commands.exceptions.CommandException;
 import seedu.learnvocabulary.model.Model;
 import seedu.learnvocabulary.model.tag.Tag;
-import seedu.learnvocabulary.model.word.Address;
 import seedu.learnvocabulary.model.word.Meaning;
 import seedu.learnvocabulary.model.word.Name;
-import seedu.learnvocabulary.model.word.Phone;
 import seedu.learnvocabulary.model.word.Word;
 
 /**
@@ -38,11 +34,8 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 ";
+            + "Example: " + COMMAND_WORD + " 1 ";
 
     public static final String MESSAGE_EDIT_WORD_SUCCESS = "Edited Word: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -94,11 +87,9 @@ public class EditCommand extends Command {
 
         Name updatedName = editWordDescriptor.getName().orElse(wordToEdit.getName());
         Meaning updatedMeaning = editWordDescriptor.getMeaning().orElse(wordToEdit.getMeaning());
-        Phone updatedPhone = editWordDescriptor.getPhone().orElse(wordToEdit.getPhone());
-        Address updatedAddress = editWordDescriptor.getAddress().orElse(wordToEdit.getAddress());
         Set<Tag> updatedTags = editWordDescriptor.getTags().orElse(wordToEdit.getTags());
 
-        return new Word(updatedName, updatedMeaning, updatedPhone, updatedAddress, updatedTags);
+        return new Word(updatedName, updatedMeaning, updatedTags);
     }
 
     @Override
@@ -126,8 +117,6 @@ public class EditCommand extends Command {
     public static class EditWordDescriptor {
         private Name name;
         private Meaning meaning;
-        private Phone phone;
-        private Address address;
         private Set<Tag> tags;
 
         public EditWordDescriptor() {}
@@ -139,8 +128,6 @@ public class EditCommand extends Command {
         public EditWordDescriptor(EditWordDescriptor toCopy) {
             setName(toCopy.name);
             setMeaning(toCopy.meaning);
-            setPhone(toCopy.phone);
-            setAddress(toCopy.address);
             setTags(toCopy.tags);
         }
 
@@ -148,7 +135,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, meaning, phone, address, tags);
+            return CollectionUtil.isAnyNonNull(name, meaning, tags);
         }
 
         public void setName(Name name) {
@@ -165,22 +152,6 @@ public class EditCommand extends Command {
 
         public Optional<Meaning> getMeaning() {
             return Optional.ofNullable(meaning);
-        }
-
-        public void setPhone(Phone phone) {
-            this.phone = phone;
-        }
-
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
-        }
-
-        public void setAddress(Address address) {
-            this.address = address;
-        }
-
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
         }
 
         /**
@@ -217,8 +188,6 @@ public class EditCommand extends Command {
 
             return getName().equals(e.getName())
                     && getMeaning().equals(e.getMeaning())
-                    && getPhone().equals(e.getPhone())
-                    && getAddress().equals(e.getAddress())
                     && getTags().equals(e.getTags());
         }
     }

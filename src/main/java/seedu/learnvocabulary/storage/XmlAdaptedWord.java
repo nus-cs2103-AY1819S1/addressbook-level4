@@ -12,10 +12,8 @@ import javax.xml.bind.annotation.XmlElement;
 import seedu.learnvocabulary.commons.exceptions.IllegalValueException;
 import seedu.learnvocabulary.model.tag.Tag;
 
-import seedu.learnvocabulary.model.word.Address;
 import seedu.learnvocabulary.model.word.Meaning;
 import seedu.learnvocabulary.model.word.Name;
-import seedu.learnvocabulary.model.word.Phone;
 import seedu.learnvocabulary.model.word.Word;
 
 /**
@@ -29,10 +27,6 @@ public class XmlAdaptedWord {
     private String name;
     @XmlElement(required = true)
     private String meaning;
-    @XmlElement(required = true)
-    private String phone;
-    @XmlElement(required = true)
-    private String address;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -46,12 +40,9 @@ public class XmlAdaptedWord {
     /**
      * Constructs an {@code XmlAdaptedWord} with the given word details.
      */
-    public XmlAdaptedWord(String name, String meaning, String phone,
-                          String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedWord(String name, String meaning, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.meaning = meaning;
-        this.phone = phone;
-        this.address = address;
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
@@ -65,8 +56,6 @@ public class XmlAdaptedWord {
     public XmlAdaptedWord(Word source) {
         name = source.getName().fullName;
         meaning = source.getMeaning().fullMeaning;
-        phone = source.getPhone().value;
-        address = source.getAddress().value;
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
@@ -95,25 +84,8 @@ public class XmlAdaptedWord {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Meaning.class.getSimpleName()));
         }
         final Meaning modelMeaning = new Meaning(meaning);
-
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
-        }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_PHONE_CONSTRAINTS);
-        }
-        final Phone modelPhone = new Phone(phone);
-
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
-        }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
-        }
-        final Address modelAddress = new Address(address);
-
         final Set<Tag> modelTags = new HashSet<>(wordTags);
-        return new Word(modelName, modelMeaning, modelPhone, modelAddress, modelTags);
+        return new Word(modelName, modelMeaning, modelTags);
     }
 
     @Override
@@ -129,8 +101,6 @@ public class XmlAdaptedWord {
         XmlAdaptedWord otherWord = (XmlAdaptedWord) other;
         return Objects.equals(name, otherWord.name)
                 && Objects.equals(meaning, otherWord.meaning)
-                && Objects.equals(phone, otherWord.phone)
-                && Objects.equals(address, otherWord.address)
                 && tagged.equals(otherWord.tagged);
     }
 }

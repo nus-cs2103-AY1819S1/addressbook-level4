@@ -36,12 +36,8 @@ public class XmlUtilTest {
     private static final Path VALID_WORD_FILE = TEST_DATA_FOLDER.resolve("validWord.xml");
     private static final Path TEMP_FILE = TestUtil.getFilePathInSandboxFolder("tempLearnVocabulary.xml");
 
-    private static final String INVALID_PHONE = "9482asf424";
-
     private static final String VALID_NAME = "Hans Muster";
     private static final String VALID_MEANING = "Test";
-    private static final String VALID_PHONE = "9482424";
-    private static final String VALID_ADDRESS = "4th street";
     private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("friends"));
 
     @Rule
@@ -83,7 +79,7 @@ public class XmlUtilTest {
         XmlAdaptedWord actualWord = XmlUtil.getDataFromFile(
                 MISSING_WORD_FIELD_FILE, XmlAdaptedWordWithRootElement.class);
         XmlAdaptedWord expectedWord = new XmlAdaptedWord(
-                null, VALID_MEANING, VALID_PHONE, VALID_ADDRESS, VALID_TAGS);
+                null, VALID_MEANING, VALID_TAGS);
         assertEquals(expectedWord, actualWord);
     }
 
@@ -92,7 +88,7 @@ public class XmlUtilTest {
         XmlAdaptedWord actualWord = XmlUtil.getDataFromFile(
                 INVALID_WORD_FIELD_FILE, XmlAdaptedWordWithRootElement.class);
         XmlAdaptedWord expectedWord = new XmlAdaptedWord(
-                VALID_NAME, VALID_MEANING, INVALID_PHONE, VALID_ADDRESS, VALID_TAGS);
+                VALID_NAME, VALID_MEANING, VALID_TAGS);
         assertEquals(expectedWord, actualWord);
     }
 
@@ -101,7 +97,7 @@ public class XmlUtilTest {
         XmlAdaptedWord actualWord = XmlUtil.getDataFromFile(
                 VALID_WORD_FILE, XmlAdaptedWordWithRootElement.class);
         XmlAdaptedWord expectedWord = new XmlAdaptedWord(
-                VALID_NAME, VALID_MEANING, VALID_PHONE, VALID_ADDRESS, VALID_TAGS);
+                VALID_NAME, VALID_MEANING, VALID_TAGS);
         assertEquals(expectedWord, actualWord);
     }
 

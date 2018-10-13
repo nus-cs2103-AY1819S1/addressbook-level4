@@ -3,16 +3,12 @@
     <!-- Valid Word -->
     <words>
         <name>Hans Muster</name>
-        <phone isPrivate="false">9482424</phone>
-        <address isPrivate="false">4th street</address>
         <meaning isPrivate="false">4th street</meaning>
 
     </words>
     <!-- Word with invalid phone field -->
     <words>
         <name>Hans Muster</name>
-        <phone isPrivate="false">948asdf2424</phone>
-        <address isPrivate="false">4th street</address>
         <meaning isPrivate="false">4th street</meaning>
 
     </words>

@@ -1,22 +1,14 @@
 package systemtests;
 
 import static seedu.learnvocabulary.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.MEANING_DESC;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.learnvocabulary.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.learnvocabulary.testutil.TypicalWords.ALICE;
 import static seedu.learnvocabulary.testutil.TypicalWords.AMY;
@@ -35,9 +27,7 @@ import seedu.learnvocabulary.logic.commands.RedoCommand;
 import seedu.learnvocabulary.logic.commands.UndoCommand;
 import seedu.learnvocabulary.model.Model;
 import seedu.learnvocabulary.model.tag.Tag;
-import seedu.learnvocabulary.model.word.Address;
 import seedu.learnvocabulary.model.word.Name;
-import seedu.learnvocabulary.model.word.Phone;
 import seedu.learnvocabulary.model.word.Word;
 import seedu.learnvocabulary.testutil.WordBuilder;
 import seedu.learnvocabulary.testutil.WordUtil;
@@ -54,8 +44,8 @@ public class AddCommandSystemTest extends LearnVocabularySystemTest {
          * -> added
          */
         Word toAdd = AMY;
-        String command = "   " + AddCommand.COMMAND_WORD + " " + NAME_DESC_AMY + "  " + MEANING_DESC + "  "
-                + PHONE_DESC_AMY + " " + ADDRESS_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
+        String command = "   " + AddCommand.COMMAND_WORD + " " + NAME_DESC_AMY + "  "
+                + MEANING_DESC + " " + TAG_DESC_FRIEND + " ";
 
         assertCommandSuccess(command, toAdd);
 
@@ -72,15 +62,7 @@ public class AddCommandSystemTest extends LearnVocabularySystemTest {
 
         /* Case: add a word with all fields same as another word in the learnvocabulary book except name -> added */
         toAdd = new WordBuilder(AMY).withName(VALID_NAME_BOB).build();
-        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + MEANING_DESC + PHONE_DESC_AMY + ADDRESS_DESC_AMY
-                + TAG_DESC_FRIEND;
-        assertCommandSuccess(command, toAdd);
-
-        /* Case: add a word with all fields same as another word in the learnvocabulary book except phone and email
-         * -> added
-         */
-        toAdd = new WordBuilder(AMY).withPhone(VALID_PHONE_BOB).build();
-        command = WordUtil.getAddCommand(toAdd);
+        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + MEANING_DESC + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty learnvocabulary book -> added */
@@ -89,8 +71,8 @@ public class AddCommandSystemTest extends LearnVocabularySystemTest {
 
         /* Case: add a word with tags, command with parameters in random order -> added */
         toAdd = BOB;
-        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + MEANING_DESC + PHONE_DESC_BOB
-                + ADDRESS_DESC_BOB + NAME_DESC_BOB + TAG_DESC_HUSBAND;
+        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + MEANING_DESC
+                + NAME_DESC_BOB + TAG_DESC_HUSBAND;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a word, missing tags -> added */
@@ -114,35 +96,12 @@ public class AddCommandSystemTest extends LearnVocabularySystemTest {
         command = WordUtil.getAddCommand(HOON);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_WORD);
 
-        /* Case: add a duplicate word except with different phone -> rejected */
-        toAdd = new WordBuilder(HOON).build();
-        command = WordUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_WORD);
-
-        /* Case: add a duplicate word except with different email -> rejected */
-        toAdd = new WordBuilder(HOON).build();
-        command = WordUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_WORD);
-
-        /* Case: add a duplicate word except with different learnvocabulary -> rejected */
-        toAdd = new WordBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
-        command = WordUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_WORD);
-
         /* Case: add a duplicate word except with different tags -> rejected */
         command = WordUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_WORD);
 
         /* Case: missing name -> rejected */
-        command = AddCommand.COMMAND_WORD + MEANING_DESC + PHONE_DESC_AMY + ADDRESS_DESC_AMY;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-
-        /* Case: missing phone -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + MEANING_DESC + ADDRESS_DESC_AMY;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-
-        /* Case: missing learnvocabulary -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + MEANING_DESC + PHONE_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + MEANING_DESC;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
@@ -150,20 +109,11 @@ public class AddCommandSystemTest extends LearnVocabularySystemTest {
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
-        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + MEANING_DESC + PHONE_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + MEANING_DESC;
         assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
 
-        /* Case: invalid phone -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + MEANING_DESC + INVALID_PHONE_DESC + ADDRESS_DESC_AMY;
-        assertCommandFailure(command, Phone.MESSAGE_PHONE_CONSTRAINTS);
-
-        /* Case: invalid learnvocabulary -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + MEANING_DESC + PHONE_DESC_AMY + INVALID_ADDRESS_DESC;
-        assertCommandFailure(command, Address.MESSAGE_ADDRESS_CONSTRAINTS);
-
         /* Case: invalid tag -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + MEANING_DESC + PHONE_DESC_AMY + ADDRESS_DESC_AMY
-                + INVALID_TAG_DESC;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + MEANING_DESC + INVALID_TAG_DESC;
         assertCommandFailure(command, Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 

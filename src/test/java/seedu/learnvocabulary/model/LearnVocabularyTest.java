@@ -3,7 +3,6 @@ package seedu.learnvocabulary.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.learnvocabulary.testutil.TypicalWords.ALICE;
 import static seedu.learnvocabulary.testutil.TypicalWords.getTypicalLearnVocabulary;
@@ -51,7 +50,7 @@ public class LearnVocabularyTest {
     @Test
     public void resetData_withDuplicateWords_throwsDuplicateWordException() {
         // Two words with the same identity fields
-        Word editedAlice = new WordBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Word editedAlice = new WordBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Word> newWords = Arrays.asList(ALICE, editedAlice);
         LearnVocabularyStub newData = new LearnVocabularyStub(newWords);
@@ -80,7 +79,7 @@ public class LearnVocabularyTest {
     @Test
     public void hasWord_wordWithSameIdentityFieldsInLearnVocabulary_returnsTrue() {
         learnVocabulary.addWord(ALICE);
-        Word editedAlice = new WordBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Word editedAlice = new WordBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(learnVocabulary.hasWord(editedAlice));
     }

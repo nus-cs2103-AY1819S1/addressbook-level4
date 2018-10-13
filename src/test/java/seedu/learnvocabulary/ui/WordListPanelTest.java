@@ -97,8 +97,6 @@ public class WordListPanelTest extends GuiUnitTest {
             builder.append("<words>\n");
             builder.append("<name>").append(i).append("a</name>\n");
             builder.append("<meaning>Test</meaning>\n");
-            builder.append("<phone>000</phone>\n");
-            builder.append("<address>a</address>\n");
             builder.append("</words>\n");
         }
         builder.append("</learnvocabulary>\n");

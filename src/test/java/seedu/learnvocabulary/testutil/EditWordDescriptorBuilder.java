@@ -6,10 +6,8 @@ import java.util.stream.Stream;
 
 import seedu.learnvocabulary.logic.commands.EditCommand;
 import seedu.learnvocabulary.model.tag.Tag;
-import seedu.learnvocabulary.model.word.Address;
 import seedu.learnvocabulary.model.word.Meaning;
 import seedu.learnvocabulary.model.word.Name;
-import seedu.learnvocabulary.model.word.Phone;
 import seedu.learnvocabulary.model.word.Word;
 
 /**
@@ -34,8 +32,6 @@ public class EditWordDescriptorBuilder {
         descriptor = new EditCommand.EditWordDescriptor();
         descriptor.setName(word.getName());
         descriptor.setMeaning(word.getMeaning());
-        descriptor.setPhone(word.getPhone());
-        descriptor.setAddress(word.getAddress());
         descriptor.setTags(word.getTags());
     }
 
@@ -52,22 +48,6 @@ public class EditWordDescriptorBuilder {
      */
     public EditWordDescriptorBuilder withMeaning(String meaning) {
         descriptor.setMeaning(new Meaning(meaning));
-        return this;
-    }
-
-    /**
-     * Sets the {@code Phone} of the {@code EditWordDescriptor} that we are building.
-     */
-    public EditWordDescriptorBuilder withPhone(String phone) {
-        descriptor.setPhone(new Phone(phone));
-        return this;
-    }
-
-    /**
-     * Sets the {@code Address} of the {@code EditWordDescriptor} that we are building.
-     */
-    public EditWordDescriptorBuilder withAddress(String address) {
-        descriptor.setAddress(new Address(address));
         return this;
     }
 

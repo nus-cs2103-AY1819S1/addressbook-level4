@@ -3,7 +3,6 @@ package seedu.learnvocabulary.model.word;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.learnvocabulary.testutil.TypicalWords.ALICE;
 import static seedu.learnvocabulary.testutil.TypicalWords.BOB;
@@ -46,7 +45,7 @@ public class UniqueWordListTest {
     @Test
     public void contains_wordWithSameIdentityFieldsInList_returnsTrue() {
         uniqueWordList.add(ALICE);
-        Word editedAlice = new WordBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Word editedAlice = new WordBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(uniqueWordList.contains(editedAlice));
     }
@@ -94,7 +93,7 @@ public class UniqueWordListTest {
     @Test
     public void setWord_editedWordHasSameIdentity_success() {
         uniqueWordList.add(ALICE);
-        Word editedAlice = new WordBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Word editedAlice = new WordBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
         uniqueWordList.setWord(ALICE, editedAlice);
         UniqueWordList expectedUniqueWordList = new UniqueWordList();

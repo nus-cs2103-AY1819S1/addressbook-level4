@@ -17,22 +17,18 @@ public class Word {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
     private final Meaning meaning;
 
     // Data fields
-    private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Word(Name name, Meaning meaning, Phone phone, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, meaning, phone, address, tags);
+    public Word(Name name, Meaning meaning, Set<Tag> tags) {
+        requireAllNonNull(name, meaning, tags);
         this.name = name;
         this.meaning = meaning;
-        this.phone = phone;
-        this.address = address;
         this.tags.addAll(tags);
     }
 
@@ -42,14 +38,6 @@ public class Word {
 
     public Meaning getMeaning() {
         return meaning;
-    }
-
-    public Phone getPhone() {
-        return phone;
-    }
-
-    public Address getAddress() {
-        return address;
     }
 
     /**
@@ -70,8 +58,7 @@ public class Word {
         }
 
         return otherWord != null
-                && otherWord.getName().equals(getName())
-                && (otherWord.getPhone().equals(getPhone()));
+                && otherWord.getName().equals(getName());
     }
 
     /**
@@ -90,15 +77,13 @@ public class Word {
 
         Word otherWord = (Word) other;
         return otherWord.getName().equals(getName())
-                && otherWord.getPhone().equals(getPhone())
-                && otherWord.getAddress().equals(getAddress())
                 && otherWord.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, meaning, phone, address, tags);
+        return Objects.hash(name, meaning, tags);
     }
 
     @Override
@@ -107,10 +92,6 @@ public class Word {
         builder.append(getName())
                 .append(" Meaning: ")
                 .append(getMeaning())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Address: ")
-                .append(getAddress())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

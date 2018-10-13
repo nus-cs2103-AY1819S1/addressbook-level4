@@ -1,9 +1,7 @@
 package seedu.learnvocabulary.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.learnvocabulary.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.learnvocabulary.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.learnvocabulary.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.learnvocabulary.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.learnvocabulary.logic.CommandHistory;
@@ -21,13 +19,9 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a word to the learnvocabulary book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_PHONE + "PHONE "
-            + PREFIX_ADDRESS + "ADDRESS "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
-            + PREFIX_PHONE + "98765432 "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
