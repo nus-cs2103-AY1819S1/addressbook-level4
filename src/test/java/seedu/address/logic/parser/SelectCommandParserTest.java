@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_GROUP;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.Test;
@@ -19,7 +20,12 @@ public class SelectCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsSelectCommand() {
-        assertParseSuccess(parser, "1", new SelectCommand(INDEX_FIRST_PERSON));
+        assertParseSuccess(parser, " p/1", new SelectCommand(INDEX_FIRST_PERSON, SelectCommand.SELECT_TYPE_PERSON));
+    }
+
+    @Test
+    public void parse_validArgs_returnsSelectGroupCommand() {
+        assertParseSuccess(parser, " g/1", new SelectCommand(INDEX_FIRST_GROUP, SelectCommand.SELECT_TYPE_GROUP));
     }
 
     @Test

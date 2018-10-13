@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_GROUP;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
@@ -116,10 +117,17 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_select() throws Exception {
+    public void parseCommand_selectPerson() throws Exception {
         SelectCommand command = (SelectCommand) parser.parseCommand(
-                SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new SelectCommand(INDEX_FIRST_PERSON), command);
+                SelectCommand.COMMAND_WORD + " p/" + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new SelectCommand(INDEX_FIRST_PERSON, SelectCommand.SELECT_TYPE_PERSON), command);
+    }
+
+    @Test
+    public void parseCommand_selectGroup() throws Exception {
+        SelectCommand command = (SelectCommand) parser.parseCommand(
+                SelectCommand.COMMAND_WORD + " g/" + INDEX_FIRST_GROUP.getOneBased());
+        assertEquals(new SelectCommand(INDEX_FIRST_GROUP, SelectCommand.SELECT_TYPE_GROUP), command);
     }
 
     @Test
