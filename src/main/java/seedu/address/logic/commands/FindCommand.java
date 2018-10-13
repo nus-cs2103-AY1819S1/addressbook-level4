@@ -8,7 +8,7 @@ import seedu.address.model.Model;
 import seedu.address.model.article.NameContainsKeywordsPredicate;
 
 /**
- * Finds and lists all articles in address book whose name contains any of the argument keywords.
+ * Finds and lists all articles in article list whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {

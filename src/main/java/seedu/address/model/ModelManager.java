@@ -11,83 +11,83 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.ArticleListChangedEvent;
 import seedu.address.model.article.Article;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the article list data.
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAddressBook versionedAddressBook;
+    private final VersionedArticleList versionedArticleList;
     private final FilteredList<Article> filteredArticles;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given articleList and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyArticleList articleList, UserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(articleList, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with article list: " + articleList + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedAddressBook(addressBook);
-        filteredArticles = new FilteredList<>(versionedAddressBook.getArticleList());
+        versionedArticleList = new VersionedArticleList(articleList);
+        filteredArticles = new FilteredList<>(versionedArticleList.getArticleList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new ArticleList(), new UserPrefs());
     }
 
     @Override
-    public void resetData(ReadOnlyAddressBook newData) {
-        versionedAddressBook.resetData(newData);
-        indicateAddressBookChanged();
+    public void resetData(ReadOnlyArticleList newData) {
+        versionedArticleList.resetData(newData);
+        indicateArticleListChanged();
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
+    public ReadOnlyArticleList getArticleList() {
+        return versionedArticleList;
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(versionedAddressBook));
+    private void indicateArticleListChanged() {
+        raise(new ArticleListChangedEvent(versionedArticleList));
     }
 
     @Override
     public boolean hasArticle(Article article) {
         requireNonNull(article);
-        return versionedAddressBook.hasArticle(article);
+        return versionedArticleList.hasArticle(article);
     }
 
     @Override
     public void deleteArticle(Article target) {
-        versionedAddressBook.removeArticle(target);
-        indicateAddressBookChanged();
+        versionedArticleList.removeArticle(target);
+        indicateArticleListChanged();
     }
 
     @Override
     public void addArticle(Article article) {
-        versionedAddressBook.addArticle(article);
+        versionedArticleList.addArticle(article);
         updateFilteredArticleList(PREDICATE_SHOW_ALL_ARTICLES);
-        indicateAddressBookChanged();
+        indicateArticleListChanged();
     }
 
     @Override
     public void updateArticle(Article target, Article editedArticle) {
         requireAllNonNull(target, editedArticle);
 
-        versionedAddressBook.updateArticle(target, editedArticle);
-        indicateAddressBookChanged();
+        versionedArticleList.updateArticle(target, editedArticle);
+        indicateArticleListChanged();
     }
 
     //=========== Filtered Article List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Article} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedArticleList}
      */
     @Override
     public ObservableList<Article> getFilteredArticleList() {
@@ -103,30 +103,30 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
+    public boolean canUndoArticleList() {
+        return versionedArticleList.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+    public boolean canRedoArticleList() {
+        return versionedArticleList.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
-        indicateAddressBookChanged();
+    public void undoArticleList() {
+        versionedArticleList.undo();
+        indicateArticleListChanged();
     }
 
     @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
-        indicateAddressBookChanged();
+    public void redoArticleList() {
+        versionedArticleList.redo();
+        indicateArticleListChanged();
     }
 
     @Override
-    public void commitAddressBook() {
-        versionedAddressBook.commit();
+    public void commitArticleList() {
+        versionedArticleList.commit();
     }
 
     @Override
@@ -143,7 +143,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
+        return versionedArticleList.equals(other.versionedArticleList)
                 && filteredArticles.equals(other.filteredArticles);
     }
 

@@ -12,7 +12,7 @@ import seedu.address.model.article.UniqueArticleList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSameArticle comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class ArticleList implements ReadOnlyArticleList {
 
     private final UniqueArticleList articles;
 
@@ -27,12 +27,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         articles = new UniqueArticleList();
     }
 
-    public AddressBook() {}
+    public ArticleList() {}
 
     /**
-     * Creates an AddressBook using the Articles in the {@code toBeCopied}
+     * Creates an ArticleList using the Articles in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public ArticleList(ReadOnlyArticleList toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -48,9 +48,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code ArticleList} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyArticleList newData) {
         requireNonNull(newData);
 
         setArticles(newData.getArticleList());
@@ -59,7 +59,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// article-level operations
 
     /**
-     * Returns true if a article with the same identity as {@code article} exists in the address book.
+     * Returns true if a article with the same identity as {@code article} exists in the article list.
      */
     public boolean hasArticle(Article article) {
         requireNonNull(article);
@@ -67,8 +67,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a article to the address book.
-     * The article must not already exist in the address book.
+     * Adds a article to the article list.
+     * The article must not already exist in the article list.
      */
     public void addArticle(Article p) {
         articles.add(p);
@@ -76,7 +76,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Replaces the given article {@code target} in the list with {@code editedArticle}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the article list.
      * The article identity of {@code editedArticle} must not be the same as another existing article in the address
      * book.
      */
@@ -87,8 +87,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code ArticleList}.
+     * {@code key} must exist in the article list.
      */
     public void removeArticle(Article key) {
         articles.remove(key);
@@ -110,8 +110,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && articles.equals(((AddressBook) other).articles));
+                || (other instanceof ArticleList // instanceof handles nulls
+                && articles.equals(((ArticleList) other).articles));
     }
 
     @Override

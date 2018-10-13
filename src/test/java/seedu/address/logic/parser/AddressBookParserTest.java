@@ -34,11 +34,11 @@ import seedu.address.testutil.ArticleBuilder;
 import seedu.address.testutil.ArticleUtil;
 import seedu.address.testutil.EditArticleDescriptorBuilder;
 
-public class AddressBookParserTest {
+public class ArticleListParserTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final ArticleListParser parser = new ArticleListParser();
 
     @Test
     public void parseCommand_add() throws Exception {

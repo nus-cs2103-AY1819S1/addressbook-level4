@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.article.Article;
 
 /**
- * Deletes a article identified using it's displayed index from the address book.
+ * Deletes a article identified using it's displayed index from the article list.
  */
 public class DeleteCommand extends Command {
 
@@ -42,7 +42,7 @@ public class DeleteCommand extends Command {
 
         Article articleToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteArticle(articleToDelete);
-        model.commitAddressBook();
+        model.commitArticleList();
         return new CommandResult(String.format(MESSAGE_DELETE_ARTICLE_SUCCESS, articleToDelete));
     }
 

@@ -13,31 +13,31 @@ public interface Model {
     Predicate<Article> PREDICATE_SHOW_ALL_ARTICLES = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyAddressBook newData);
+    void resetData(ReadOnlyArticleList newData);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the ArticleList */
+    ReadOnlyArticleList getArticleList();
 
     /**
-     * Returns true if a article with the same identity as {@code article} exists in the address book.
+     * Returns true if a article with the same identity as {@code article} exists in the article list.
      */
     boolean hasArticle(Article article);
 
     /**
      * Deletes the given article.
-     * The article must exist in the address book.
+     * The article must exist in the article list.
      */
     void deleteArticle(Article target);
 
     /**
      * Adds the given article.
-     * {@code article} must not already exist in the address book.
+     * {@code article} must not already exist in the article list.
      */
     void addArticle(Article article);
 
     /**
      * Replaces the given article {@code target} with {@code editedArticle}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the article list.
      * The article identity of {@code editedArticle} must not be the same as another existing article in the address
      * book.
      */
@@ -53,27 +53,27 @@ public interface Model {
     void updateFilteredArticleList(Predicate<Article> predicate);
 
     /**
-     * Returns true if the model has previous address book states to restore.
+     * Returns true if the model has previous article list states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndoArticleList();
 
     /**
-     * Returns true if the model has undone address book states to restore.
+     * Returns true if the model has undone article list states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canRedoArticleList();
 
     /**
-     * Restores the model's address book to its previous state.
+     * Restores the model's article list to its previous state.
      */
-    void undoAddressBook();
+    void undoArticleList();
 
     /**
-     * Restores the model's address book to its previously undone state.
+     * Restores the model's article list to its previously undone state.
      */
-    void redoAddressBook();
+    void redoArticleList();
 
     /**
-     * Saves the current address book state for undo/redo.
+     * Saves the current article list state for undo/redo.
      */
-    void commitAddressBook();
+    void commitArticleList();
 }

@@ -11,7 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showArticleAtIndex;
-import static seedu.address.testutil.TypicalArticles.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalArticles.getTypicalArticleList;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ARTICLE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ARTICLE;
 
@@ -21,7 +21,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.EditCommand.EditArticleDescriptor;
-import seedu.address.model.AddressBook;
+import seedu.address.model.ArticleList;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -34,7 +34,7 @@ import seedu.address.testutil.EditArticleDescriptorBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalArticleList(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -45,9 +45,9 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ARTICLE_SUCCESS, editedArticle);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ArticleList(model.getArticleList()), new UserPrefs());
         expectedModel.updateArticle(model.getFilteredArticleList().get(0), editedArticle);
-        expectedModel.commitAddressBook();
+        expectedModel.commitArticleList();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -67,9 +67,9 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ARTICLE_SUCCESS, editedArticle);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ArticleList(model.getArticleList()), new UserPrefs());
         expectedModel.updateArticle(lastArticle, editedArticle);
-        expectedModel.commitAddressBook();
+        expectedModel.commitArticleList();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -81,8 +81,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ARTICLE_SUCCESS, editedArticle);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.commitAddressBook();
+        Model expectedModel = new ModelManager(new ArticleList(model.getArticleList()), new UserPrefs());
+        expectedModel.commitArticleList();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -98,9 +98,9 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ARTICLE_SUCCESS, editedArticle);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ArticleList(model.getArticleList()), new UserPrefs());
         expectedModel.updateArticle(model.getFilteredArticleList().get(0), editedArticle);
-        expectedModel.commitAddressBook();
+        expectedModel.commitArticleList();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -118,8 +118,8 @@ public class EditCommandTest {
     public void execute_duplicateArticleFilteredList_failure() {
         showArticleAtIndex(model, INDEX_FIRST_ARTICLE);
 
-        // edit article in filtered list into a duplicate in address book
-        Article articleInList = model.getAddressBook().getArticleList().get(INDEX_SECOND_ARTICLE.getZeroBased());
+        // edit article in filtered list into a duplicate in article list
+        Article articleInList = model.getArticleList().getArticleList().get(INDEX_SECOND_ARTICLE.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ARTICLE,
                 new EditArticleDescriptorBuilder(articleInList).build());
 
@@ -137,14 +137,14 @@ public class EditCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of address book
+     * but smaller than size of article list
      */
     @Test
     public void execute_invalidArticleIndexFilteredList_failure() {
         showArticleAtIndex(model, INDEX_FIRST_ARTICLE);
         Index outOfBoundIndex = INDEX_SECOND_ARTICLE;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getArticleList().size());
+        // ensures that outOfBoundIndex is still in bounds of article list list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getArticleList().getArticleList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditArticleDescriptorBuilder().withName(VALID_NAME_BOB).build());
@@ -158,19 +158,19 @@ public class EditCommandTest {
         Article articleToEdit = model.getFilteredArticleList().get(INDEX_FIRST_ARTICLE.getZeroBased());
         EditArticleDescriptor descriptor = new EditArticleDescriptorBuilder(editedArticle).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ARTICLE, descriptor);
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ArticleList(model.getArticleList()), new UserPrefs());
         expectedModel.updateArticle(articleToEdit, editedArticle);
-        expectedModel.commitAddressBook();
+        expectedModel.commitArticleList();
 
         // edit -> first article edited
         editCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered article list to show all articles
-        expectedModel.undoAddressBook();
+        // undo -> reverts articlelist back to previous state and filtered article list to show all articles
+        expectedModel.undoArticleList();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first article edited again
-        expectedModel.redoAddressBook();
+        expectedModel.redoArticleList();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
@@ -180,10 +180,10 @@ public class EditCommandTest {
         EditArticleDescriptor descriptor = new EditArticleDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
-        // execution failed -> address book state not added into model
+        // execution failed -> article list state not added into model
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_ARTICLE_DISPLAYED_INDEX);
 
-        // single address book state in model -> undoCommand and redoCommand fail
+        // single article list state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
@@ -200,23 +200,23 @@ public class EditCommandTest {
         Article editedArticle = new ArticleBuilder().build();
         EditArticleDescriptor descriptor = new EditArticleDescriptorBuilder(editedArticle).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ARTICLE, descriptor);
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ArticleList(model.getArticleList()), new UserPrefs());
 
         showArticleAtIndex(model, INDEX_SECOND_ARTICLE);
         Article articleToEdit = model.getFilteredArticleList().get(INDEX_FIRST_ARTICLE.getZeroBased());
         expectedModel.updateArticle(articleToEdit, editedArticle);
-        expectedModel.commitAddressBook();
+        expectedModel.commitArticleList();
 
         // edit -> edits second article in unfiltered article list / first article in filtered article list
         editCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered article list to show all articles
-        expectedModel.undoAddressBook();
+        // undo -> reverts articlelist back to previous state and filtered article list to show all articles
+        expectedModel.undoArticleList();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         assertNotEquals(model.getFilteredArticleList().get(INDEX_FIRST_ARTICLE.getZeroBased()), articleToEdit);
         // redo -> edits same second article in unfiltered article list
-        expectedModel.redoAddressBook();
+        expectedModel.redoArticleList();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 

@@ -22,7 +22,7 @@ import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.article.Article;
-import seedu.address.storage.XmlSerializableAddressBook;
+import seedu.address.storage.XmlSerializableArticleList;
 
 public class ArticleListPanelTest extends GuiUnitTest {
     private static final ObservableList<Article> TYPICAL_ARTICLES =
@@ -82,9 +82,9 @@ public class ArticleListPanelTest extends GuiUnitTest {
      */
     private ObservableList<Article> createBackingList(int articleCount) throws Exception {
         Path xmlFile = createXmlFileWithArticles(articleCount);
-        XmlSerializableAddressBook xmlAddressBook =
-                XmlUtil.getDataFromFile(xmlFile, XmlSerializableAddressBook.class);
-        return FXCollections.observableArrayList(xmlAddressBook.toModelType().getArticleList());
+        XmlSerializableArticleList xmlArticleList =
+                XmlUtil.getDataFromFile(xmlFile, XmlSerializableArticleList.class);
+        return FXCollections.observableArrayList(xmlArticleList.toModelType().getArticleList());
     }
 
     /**
@@ -93,7 +93,7 @@ public class ArticleListPanelTest extends GuiUnitTest {
     private Path createXmlFileWithArticles(int articleCount) throws Exception {
         StringBuilder builder = new StringBuilder();
         builder.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
-        builder.append("<addressbook>\n");
+        builder.append("<articlelist>\n");
         for (int i = 0; i < articleCount; i++) {
             builder.append("<articles>\n");
             builder.append("<name>").append(i).append("a</name>\n");
@@ -102,7 +102,7 @@ public class ArticleListPanelTest extends GuiUnitTest {
             builder.append("<address>a</address>\n");
             builder.append("</articles>\n");
         }
-        builder.append("</addressbook>\n");
+        builder.append("</articlelist>\n");
 
         Path manyArticlesFile = Paths.get(TEST_DATA_FOLDER + "manyArticles.xml");
         FileUtil.createFile(manyArticlesFile);

@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalArticles.ALICE;
-import static seedu.address.testutil.TypicalArticles.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalArticles.getTypicalArticleList;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -23,29 +23,29 @@ import seedu.address.model.article.Article;
 import seedu.address.model.article.exceptions.DuplicateArticleException;
 import seedu.address.testutil.ArticleBuilder;
 
-public class AddressBookTest {
+public class ArticleListTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBook addressBook = new AddressBook();
+    private final ArticleList articleList = new ArticleList();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getArticleList());
+        assertEquals(Collections.emptyList(), articleList.getArticleList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.resetData(null);
+        articleList.resetData(null);
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+    public void resetData_withValidReadOnlyArticleList_replacesData() {
+        ArticleList newData = getTypicalArticleList();
+        articleList.resetData(newData);
+        assertEquals(newData, articleList);
     }
 
     @Test
@@ -54,50 +54,50 @@ public class AddressBookTest {
         Article editedAlice = new ArticleBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Article> newArticles = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newArticles);
+        ArticleListStub newData = new ArticleListStub(newArticles);
 
         thrown.expect(DuplicateArticleException.class);
-        addressBook.resetData(newData);
+        articleList.resetData(newData);
     }
 
     @Test
     public void hasArticle_nullArticle_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.hasArticle(null);
+        articleList.hasArticle(null);
     }
 
     @Test
-    public void hasArticle_articleNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasArticle(ALICE));
+    public void hasArticle_articleNotInArticleList_returnsFalse() {
+        assertFalse(articleList.hasArticle(ALICE));
     }
 
     @Test
-    public void hasArticle_articleInAddressBook_returnsTrue() {
-        addressBook.addArticle(ALICE);
-        assertTrue(addressBook.hasArticle(ALICE));
+    public void hasArticle_articleInArticleList_returnsTrue() {
+        articleList.addArticle(ALICE);
+        assertTrue(articleList.hasArticle(ALICE));
     }
 
     @Test
-    public void hasArticle_articleWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addArticle(ALICE);
+    public void hasArticle_articleWithSameIdentityFieldsInArticleList_returnsTrue() {
+        articleList.addArticle(ALICE);
         Article editedAlice = new ArticleBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasArticle(editedAlice));
+        assertTrue(articleList.hasArticle(editedAlice));
     }
 
     @Test
     public void getArticleList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getArticleList().remove(0);
+        articleList.getArticleList().remove(0);
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose articles list can violate interface constraints.
+     * A stub ReadOnlyArticleList whose articles list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class ArticleListStub implements ReadOnlyArticleList {
         private final ObservableList<Article> articles = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Article> articles) {
+        ArticleListStub(Collection<Article> articles) {
             this.articles.setAll(articles);
         }
 

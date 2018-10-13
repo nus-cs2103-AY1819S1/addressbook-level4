@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalArticles.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalArticles.getTypicalArticleList;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,16 +24,16 @@ public class AddCommandIntegrationTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalArticleList(), new UserPrefs());
     }
 
     @Test
     public void execute_newArticle_success() {
         Article validArticle = new ArticleBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getArticleList(), new UserPrefs());
         expectedModel.addArticle(validArticle);
-        expectedModel.commitAddressBook();
+        expectedModel.commitArticleList();
 
         assertCommandSuccess(new AddCommand(validArticle), model, commandHistory,
                 String.format(AddCommand.MESSAGE_SUCCESS, validArticle), expectedModel);
@@ -41,7 +41,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicateArticle_throwsCommandException() {
-        Article articleInList = model.getAddressBook().getArticleList().get(0);
+        Article articleInList = model.getArticleList().getArticleList().get(0);
         assertCommandFailure(new AddCommand(articleInList), model, commandHistory,
                 AddCommand.MESSAGE_DUPLICATE_ARTICLE);
     }

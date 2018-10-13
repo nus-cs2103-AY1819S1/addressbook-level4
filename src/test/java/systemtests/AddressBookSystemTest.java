@@ -38,17 +38,17 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
-import seedu.address.model.AddressBook;
+import seedu.address.model.ArticleList;
 import seedu.address.model.Model;
 import seedu.address.testutil.TypicalArticles;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
 
 /**
- * A system test class for AddressBook, which provides access to handles of GUI components and helper methods
+ * A system test class for ArticleList, which provides access to handles of GUI components and helper methods
  * for test verification.
  */
-public abstract class AddressBookSystemTest {
+public abstract class ArticleListSystemTest {
     @ClassRule
     public static ClockRule clockRule = new ClockRule();
 
@@ -84,8 +84,8 @@ public abstract class AddressBookSystemTest {
     /**
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
-    protected AddressBook getInitialData() {
-        return TypicalArticles.getTypicalAddressBook();
+    protected ArticleList getInitialData() {
+        return TypicalArticles.getTypicalArticleList();
     }
 
     /**
@@ -139,11 +139,11 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Displays all articles in the address book.
+     * Displays all articles in the article list.
      */
     protected void showAllArticles() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getAddressBook().getArticleList().size(), getModel().getFilteredArticleList().size());
+        assertEquals(getModel().getArticleList().getArticleList().size(), getModel().getFilteredArticleList().size());
     }
 
     /**
@@ -151,7 +151,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showArticlesWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredArticleList().size() < getModel().getAddressBook().getArticleList().size());
+        assertTrue(getModel().getFilteredArticleList().size() < getModel().getArticleList().getArticleList().size());
     }
 
     /**
@@ -163,11 +163,11 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Deletes all articles in the address book.
+     * Deletes all articles in the article list.
      */
     protected void deleteAllArticles() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getAddressBook().getArticleList().size());
+        assertEquals(0, getModel().getArticleList().getArticleList().size());
     }
 
     /**
@@ -179,7 +179,7 @@ public abstract class AddressBookSystemTest {
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
+        assertEquals(new ArticleList(expectedModel.getArticleList()), testApp.readStorageArticleList());
         assertListMatching(getArticleListPanel(), expectedModel.getFilteredArticleList());
     }
 

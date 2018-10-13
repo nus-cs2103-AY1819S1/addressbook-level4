@@ -14,7 +14,7 @@ import seedu.address.model.Model;
 import seedu.address.model.article.Article;
 
 /**
- * Selects a article identified using it's displayed index from the address book.
+ * Selects a article identified using it's displayed index from the article list.
  */
 public class SelectCommand extends Command {
 

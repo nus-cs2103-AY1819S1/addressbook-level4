@@ -46,7 +46,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.ArticleBuilder;
 import seedu.address.testutil.ArticleUtil;
 
-public class AddCommandSystemTest extends AddressBookSystemTest {
+public class AddCommandSystemTest extends ArticleListSystemTest {
 
     @Test
     public void add() {
@@ -54,7 +54,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add a article without tags to a non-empty address book, command with leading spaces and trailing spaces
+        /* Case: add a article without tags to a non-empty article list, command with leading spaces and trailing spaces
          * -> added
          */
         Article toAdd = AMY;
@@ -73,20 +73,20 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: add a article with all fields same as another article in the address book except name -> added */
+        /* Case: add a article with all fields same as another article in the article list except name -> added */
         toAdd = new ArticleBuilder(AMY).withName(VALID_NAME_BOB).build();
         command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
                 + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a article with all fields same as another article in the address book except phone and email
+        /* Case: add a article with all fields same as another article in the article list except phone and email
          * -> added
          */
         toAdd = new ArticleBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
         command = ArticleUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add to empty address book -> added */
+        /* Case: add to empty article list -> added */
         deleteAllArticles();
         assertCommandSuccess(ALICE);
 
@@ -189,8 +189,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * 5. Browser url and selected card remain unchanged.<br>
      * 6. Status bar's sync status changes.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code ArticleListSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see ArticleListSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(Article toAdd) {
         assertCommandSuccess(ArticleUtil.getAddCommand(toAdd), toAdd);
@@ -233,8 +233,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * 4. {@code Storage} and {@code ArticleListPanel} remain unchanged.<br>
      * 5. Browser url, selected card and status bar remain unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code ArticleListSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see ArticleListSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

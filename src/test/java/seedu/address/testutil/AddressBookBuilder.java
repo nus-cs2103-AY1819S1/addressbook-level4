@@ -1,34 +1,34 @@
 package seedu.address.testutil;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.ArticleList;
 import seedu.address.model.article.Article;
 
 /**
- * A utility class to help with building Addressbook objects.
+ * A utility class to help with building Articlelist objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new AddressBookBuilder().withArticle("John", "Doe").build();}
+ *     {@code ArticleList ab = new ArticleListBuilder().withArticle("John", "Doe").build();}
  */
-public class AddressBookBuilder {
+public class ArticleListBuilder {
 
-    private AddressBook addressBook;
+    private ArticleList articleList;
 
-    public AddressBookBuilder() {
-        addressBook = new AddressBook();
+    public ArticleListBuilder() {
+        articleList = new ArticleList();
     }
 
-    public AddressBookBuilder(AddressBook addressBook) {
-        this.addressBook = addressBook;
+    public ArticleListBuilder(ArticleList articleList) {
+        this.articleList = articleList;
     }
 
     /**
-     * Adds a new {@code Article} to the {@code AddressBook} that we are building.
+     * Adds a new {@code Article} to the {@code ArticleList} that we are building.
      */
-    public AddressBookBuilder withArticle(Article article) {
-        addressBook.addArticle(article);
+    public ArticleListBuilder withArticle(Article article) {
+        articleList.addArticle(article);
         return this;
     }
 
-    public AddressBook build() {
-        return addressBook;
+    public ArticleList build() {
+        return articleList;
     }
 }

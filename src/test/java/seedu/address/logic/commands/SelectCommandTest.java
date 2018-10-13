@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showArticleAtIndex;
-import static seedu.address.testutil.TypicalArticles.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalArticles.getTypicalArticleList;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ARTICLE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ARTICLE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_ARTICLE;
@@ -30,8 +30,8 @@ public class SelectCommandTest {
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalArticleList(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalArticleList(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -64,8 +64,8 @@ public class SelectCommandTest {
         showArticleAtIndex(expectedModel, INDEX_FIRST_ARTICLE);
 
         Index outOfBoundsIndex = INDEX_SECOND_ARTICLE;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getArticleList().size());
+        // ensures that outOfBoundIndex is still in bounds of article list list
+        assertTrue(outOfBoundsIndex.getZeroBased() < model.getArticleList().getArticleList().size());
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_ARTICLE_DISPLAYED_INDEX);
     }

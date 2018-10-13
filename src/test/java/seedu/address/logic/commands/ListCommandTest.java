@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showArticleAtIndex;
-import static seedu.address.testutil.TypicalArticles.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalArticles.getTypicalArticleList;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ARTICLE;
 
 import org.junit.Before;
@@ -24,8 +24,8 @@ public class ListCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalArticleList(), new UserPrefs());
+        expectedModel = new ModelManager(model.getArticleList(), new UserPrefs());
     }
 
     @Test

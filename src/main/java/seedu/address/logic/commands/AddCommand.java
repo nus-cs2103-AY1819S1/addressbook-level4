@@ -13,13 +13,13 @@ import seedu.address.model.Model;
 import seedu.address.model.article.Article;
 
 /**
- * Adds a article to the address book.
+ * Adds a article to the article list.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a article to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a article to the article list. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
@@ -35,7 +35,7 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New article added: %1$s";
-    public static final String MESSAGE_DUPLICATE_ARTICLE = "This article already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_ARTICLE = "This article already exists in the article list";
 
     private final Article toAdd;
 
@@ -56,7 +56,7 @@ public class AddCommand extends Command {
         }
 
         model.addArticle(toAdd);
-        model.commitAddressBook();
+        model.commitArticleList();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

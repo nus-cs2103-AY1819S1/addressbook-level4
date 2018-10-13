@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.ArticleList;
 import seedu.address.model.article.Article;
 
 /**
@@ -60,10 +60,10 @@ public class TypicalArticles {
     private TypicalArticles() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical articles.
+     * Returns an {@code ArticleList} with all the typical articles.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static ArticleList getTypicalArticleList() {
+        ArticleList ab = new ArticleList();
         for (Article article : getTypicalArticles()) {
             ab.addArticle(article);
         }

@@ -5,7 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static seedu.address.testutil.TypicalArticles.ALICE;
 import static seedu.address.testutil.TypicalArticles.HOON;
 import static seedu.address.testutil.TypicalArticles.IDA;
-import static seedu.address.testutil.TypicalArticles.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalArticles.getTypicalArticleList;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -17,11 +17,11 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ArticleList;
+import seedu.address.model.ReadOnlyArticleList;
 
-public class XmlAddressBookStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlAddressBookStorageTest");
+public class XmlArticleListStorageTest {
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlArticleListStorageTest");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -30,13 +30,13 @@ public class XmlAddressBookStorageTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
-    public void readAddressBook_nullFilePath_throwsNullPointerException() throws Exception {
+    public void readArticleList_nullFilePath_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        readAddressBook(null);
+        readArticleList(null);
     }
 
-    private java.util.Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws Exception {
-        return new XmlAddressBookStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
+    private java.util.Optional<ReadOnlyArticleList> readArticleList(String filePath) throws Exception {
+        return new XmlArticleListStorage(Paths.get(filePath)).readArticleList(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -47,14 +47,14 @@ public class XmlAddressBookStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.xml").isPresent());
+        assertFalse(readArticleList("NonExistentFile.xml").isPresent());
     }
 
     @Test
     public void read_notXmlFormat_exceptionThrown() throws Exception {
 
         thrown.expect(DataConversionException.class);
-        readAddressBook("NotXmlFormatAddressBook.xml");
+        readArticleList("NotXmlFormatArticleList.xml");
 
         /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
          * That means you should not have more than one exception test in one method
@@ -62,65 +62,65 @@ public class XmlAddressBookStorageTest {
     }
 
     @Test
-    public void readAddressBook_invalidArticleAddressBook_throwDataConversionException() throws Exception {
+    public void readArticleList_invalidArticleArticleList_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidArticleAddressBook.xml");
+        readArticleList("invalidArticleArticleList.xml");
     }
 
     @Test
-    public void readAddressBook_invalidAndValidArticleAddressBook_throwDataConversionException() throws Exception {
+    public void readArticleList_invalidAndValidArticleArticleList_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidAndValidArticleAddressBook.xml");
+        readArticleList("invalidAndValidArticleArticleList.xml");
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
-        Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.xml");
-        AddressBook original = getTypicalAddressBook();
-        XmlAddressBookStorage xmlAddressBookStorage = new XmlAddressBookStorage(filePath);
+    public void readAndSaveArticleList_allInOrder_success() throws Exception {
+        Path filePath = testFolder.getRoot().toPath().resolve("TempArticleList.xml");
+        ArticleList original = getTypicalArticleList();
+        XmlArticleListStorage xmlArticleListStorage = new XmlArticleListStorage(filePath);
 
         //Save in new file and read back
-        xmlAddressBookStorage.saveAddressBook(original, filePath);
-        ReadOnlyAddressBook readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
-        assertEquals(original, new AddressBook(readBack));
+        xmlArticleListStorage.saveArticleList(original, filePath);
+        ReadOnlyArticleList readBack = xmlArticleListStorage.readArticleList(filePath).get();
+        assertEquals(original, new ArticleList(readBack));
 
         //Modify data, overwrite exiting file, and read back
         original.addArticle(HOON);
         original.removeArticle(ALICE);
-        xmlAddressBookStorage.saveAddressBook(original, filePath);
-        readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
-        assertEquals(original, new AddressBook(readBack));
+        xmlArticleListStorage.saveArticleList(original, filePath);
+        readBack = xmlArticleListStorage.readArticleList(filePath).get();
+        assertEquals(original, new ArticleList(readBack));
 
         //Save and read without specifying file path
         original.addArticle(IDA);
-        xmlAddressBookStorage.saveAddressBook(original); //file path not specified
-        readBack = xmlAddressBookStorage.readAddressBook().get(); //file path not specified
-        assertEquals(original, new AddressBook(readBack));
+        xmlArticleListStorage.saveArticleList(original); //file path not specified
+        readBack = xmlArticleListStorage.readArticleList().get(); //file path not specified
+        assertEquals(original, new ArticleList(readBack));
 
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
+    public void saveArticleList_nullArticleList_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(null, "SomeFile.xml");
+        saveArticleList(null, "SomeFile.xml");
     }
 
     /**
-     * Saves {@code addressBook} at the specified {@code filePath}.
+     * Saves {@code articleList} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) {
+    private void saveArticleList(ReadOnlyArticleList articleList, String filePath) {
         try {
-            new XmlAddressBookStorage(Paths.get(filePath))
-                    .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+            new XmlArticleListStorage(Paths.get(filePath))
+                    .saveArticleList(articleList, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_throwsNullPointerException() {
+    public void saveArticleList_nullFilePath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(new AddressBook(), null);
+        saveArticleList(new ArticleList(), null);
     }
 
 

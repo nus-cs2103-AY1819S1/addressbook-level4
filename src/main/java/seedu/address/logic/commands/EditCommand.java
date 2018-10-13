@@ -28,7 +28,7 @@ import seedu.address.model.article.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing article in the address book.
+ * Edits the details of an existing article in the article list.
  */
 public class EditCommand extends Command {
 
@@ -49,7 +49,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_ARTICLE_SUCCESS = "Edited Article: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_ARTICLE = "This article already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_ARTICLE = "This article already exists in the article list.";
 
     private final Index index;
     private final EditArticleDescriptor editArticleDescriptor;
@@ -84,7 +84,7 @@ public class EditCommand extends Command {
 
         model.updateArticle(articleToEdit, editedArticle);
         model.updateFilteredArticleList(PREDICATE_SHOW_ALL_ARTICLES);
-        model.commitAddressBook();
+        model.commitArticleList();
         return new CommandResult(String.format(MESSAGE_EDIT_ARTICLE_SUCCESS, editedArticle));
     }
 

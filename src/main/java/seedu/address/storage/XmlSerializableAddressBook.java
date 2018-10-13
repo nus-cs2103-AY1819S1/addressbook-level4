@@ -8,15 +8,15 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ArticleList;
+import seedu.address.model.ReadOnlyArticleList;
 import seedu.address.model.article.Article;
 
 /**
- * An Immutable AddressBook that is serializable to XML format
+ * An Immutable ArticleList that is serializable to XML format
  */
-@XmlRootElement(name = "addressbook")
-public class XmlSerializableAddressBook {
+@XmlRootElement(name = "articlelist")
+public class XmlSerializableArticleList {
 
     public static final String MESSAGE_DUPLICATE_ARTICLE = "Articles list contains duplicate article(s).";
 
@@ -24,37 +24,37 @@ public class XmlSerializableAddressBook {
     private List<XmlAdaptedArticle> articles;
 
     /**
-     * Creates an empty XmlSerializableAddressBook.
+     * Creates an empty XmlSerializableArticleList.
      * This empty constructor is required for marshalling.
      */
-    public XmlSerializableAddressBook() {
+    public XmlSerializableArticleList() {
         articles = new ArrayList<>();
     }
 
     /**
      * Conversion
      */
-    public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
+    public XmlSerializableArticleList(ReadOnlyArticleList src) {
         this();
         articles.addAll(src.getArticleList().stream().map(XmlAdaptedArticle::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this addressbook into the model's {@code AddressBook} object.
+     * Converts this articlelist into the model's {@code ArticleList} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
      * {@code XmlAdaptedArticle}.
      */
-    public AddressBook toModelType() throws IllegalValueException {
-        AddressBook addressBook = new AddressBook();
+    public ArticleList toModelType() throws IllegalValueException {
+        ArticleList articleList = new ArticleList();
         for (XmlAdaptedArticle p : articles) {
             Article article = p.toModelType();
-            if (addressBook.hasArticle(article)) {
+            if (articleList.hasArticle(article)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_ARTICLE);
             }
-            addressBook.addArticle(article);
+            articleList.addArticle(article);
         }
-        return addressBook;
+        return articleList;
     }
 
     @Override
@@ -63,9 +63,9 @@ public class XmlSerializableAddressBook {
             return true;
         }
 
-        if (!(other instanceof XmlSerializableAddressBook)) {
+        if (!(other instanceof XmlSerializableArticleList)) {
             return false;
         }
-        return articles.equals(((XmlSerializableAddressBook) other).articles);
+        return articles.equals(((XmlSerializableArticleList) other).articles);
     }
 }
