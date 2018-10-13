@@ -6,14 +6,15 @@ import java.util.regex.Pattern;
 
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.logic.commands.Command;
+import seedu.souschef.logic.commands.ContextCommand;
+import seedu.souschef.logic.commands.ExitCommand;
+import seedu.souschef.logic.commands.HelpCommand;
 import seedu.souschef.logic.parser.exceptions.ParseException;
-import seedu.souschef.model.ModelSet;
 
 /**
  * Parses user input.
  */
-public class AppContentParser {
-
+public class UniversalParser {
     /**
      * Used for initial separation of command word and args.
      */
@@ -22,21 +23,29 @@ public class AppContentParser {
     /**
      * Parses user input into command for execution.
      *
-     * @param modelSet
-     * @param userInput full user input string
+     *
      * @param history
+     * @param userInput full user input string
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(ModelSet modelSet, String userInput, CommandHistory history) throws ParseException {
-        String context = history.getContext();
-        if (userInput.charAt(0) == '-') {
-            return new UniversalParser().parseCommand(history, userInput);
-        } else if (context == null || context.equals("Recipe")) {
-            return new RecipeParser().parseCommand(modelSet.getRecipeModel(), userInput);
-        } else {
+    public Command parseCommand(CommandHistory history, String userInput) throws ParseException {
+        final String commandWord = userInput.substring(1);
+        switch (commandWord) {
+        case "recipe":
+            return new ContextCommand("Recipe");
+
+        case "ingredientmanager":
+            return new ContextCommand("Ingredient Manager");
+
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
+
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
+
+        default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-
 }
