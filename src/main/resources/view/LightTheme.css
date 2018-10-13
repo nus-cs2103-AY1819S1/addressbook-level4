@@ -57,10 +57,12 @@
 }
 
 .text-field {
+    -fx-font-size: 14pt;
     -fx-border-radius: 10px;
 }
 
 .result-display {
+    -fx-font-size: 14pt;
     -fx-border-radius: 10px;
 }
 
