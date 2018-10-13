@@ -18,6 +18,7 @@ import seedu.souschef.commons.core.LogsCenter;
 import seedu.souschef.commons.events.ui.ExitAppRequestEvent;
 import seedu.souschef.commons.events.ui.ShowHelpRequestEvent;
 import seedu.souschef.logic.Logic;
+import seedu.souschef.model.UniqueType;
 import seedu.souschef.model.UserPrefs;
 
 
@@ -36,7 +37,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
-    private RecipeListPanel recipeListPanel;
+    private GenericListPanel<? extends UniqueType> generalListPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
@@ -51,7 +52,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane generalListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -122,9 +123,9 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
-        recipeListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
-        personListPanelPlaceholder.getChildren().add(recipeListPanel.getRoot());
 
+        generalListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
+        generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -142,6 +143,11 @@ public class MainWindow extends UiPart<Stage> {
 
     private void setTitle(String appTitle) {
         primaryStage.setTitle(appTitle);
+    }
+
+    protected void switchToRecipeListPanel() {
+        generalListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
+        generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
     }
 
     /**
@@ -188,8 +194,8 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    public RecipeListPanel getRecipeListPanel() {
-        return recipeListPanel;
+    public GenericListPanel<? extends UniqueType> getGeneralListPanel() {
+        return generalListPanel;
     }
 
     void releaseResources() {

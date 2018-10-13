@@ -31,8 +31,8 @@ public class AppContentParser {
     public Command parseCommand(ModelSet modelSet, String userInput, CommandHistory history) throws ParseException {
         String context = history.getContext();
         if (userInput.charAt(0) == '-') {
-            return null;
-        } else if (context == null || context.equals("recipe")) {
+            return new UniversalParser().parseCommand(history, userInput);
+        } else if (context == null || context.equals("Recipe")) {
             return new RecipeParser().parseCommand(modelSet.getRecipeModel(), userInput);
         } else {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
