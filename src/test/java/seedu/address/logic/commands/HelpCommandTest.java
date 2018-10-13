@@ -11,6 +11,7 @@ import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.analytics.Analytics;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
 public class HelpCommandTest {
@@ -20,10 +21,11 @@ public class HelpCommandTest {
     private Model model = new ModelManager();
     private Model expectedModel = new ModelManager();
     private CommandHistory commandHistory = new CommandHistory();
+    private Analytics analytics = new Analytics();
 
     @Test
     public void execute_help_success() {
-        assertCommandSuccess(new HelpCommand(), model, commandHistory, SHOWING_HELP_MESSAGE, expectedModel);
+        assertCommandSuccess(new HelpCommand(), model, commandHistory, SHOWING_HELP_MESSAGE, expectedModel, analytics);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ShowHelpRequestEvent);
         assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);
     }
