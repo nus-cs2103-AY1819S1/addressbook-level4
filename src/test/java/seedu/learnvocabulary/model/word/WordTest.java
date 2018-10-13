@@ -32,15 +32,12 @@ public class WordTest {
         // null -> returns false
         assertFalse(ALICE.isSameWord(null));
 
-        // different phone and email -> returns false
-        Word editedAlice = new WordBuilder(ALICE).build();
-        assertFalse(ALICE.isSameWord(editedAlice));
-
         // different name -> returns false
+        Word editedAlice = new WordBuilder(ALICE).build();
         editedAlice = new WordBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.isSameWord(editedAlice));
 
-        // same name, same phone, different attributes -> returns true
+        // same name, different attributes -> returns true
         editedAlice = new WordBuilder(ALICE)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameWord(editedAlice));

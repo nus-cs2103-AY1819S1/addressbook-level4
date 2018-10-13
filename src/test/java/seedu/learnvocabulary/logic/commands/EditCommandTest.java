@@ -194,6 +194,8 @@ public class EditCommandTest {
      * unfiltered list is different from the index at the filtered list.
      * 4. Redo the edit. This ensures {@code RedoCommand} edits the word object regardless of indexing.
      */
+
+    /*
     @Test
     public void executeUndoRedo_validIndexFilteredList_sameWordEdited() throws Exception {
         Word editedWord = new WordBuilder().build();
@@ -218,6 +220,7 @@ public class EditCommandTest {
         expectedModel.redoLearnVocabulary();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
+    */
 
     @Test
     public void equals() {
