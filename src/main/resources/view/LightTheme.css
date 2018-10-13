@@ -1,6 +1,10 @@
 /**
  * @@author: jjlee050
  **/
+.text-field, .result-display {
+    -fx-border-radius: 10px;
+}
+ 
 .list-view {
     -fx-background-color: transparent;
 }
@@ -26,7 +30,8 @@
 }
 
 .list-view:focused .list-cell:filled:selected .card{
-    -fx-background-color: #c94040;
+    -fx-background-color: #21777B;
+    -fx-text-fill: #2cf0f9;
 }
 
 #tags {
@@ -35,10 +40,61 @@
 }
 
 #tags .label {
-    -fx-text-fill: white;
-    -fx-background-color: #3e7b91;
+    -fx-text-fill: #1e2611;
+    -fx-background-color: #b5fe2b;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
+}
+
+/** Scroll Bar */
+.scroll-bar {
+    -fx-background-color: derive(#e2e2e2, 50%);
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: derive(#e2e2e2, 20%);
+    -fx-background-insets: 3;
+}
+
+.scroll-bar .increment-button, .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 0 0;
+}
+
+.scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+    -fx-shape: " ";
+}
+
+.scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
+    -fx-padding: 1 8 1 8;
+}
+
+.scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
+    -fx-padding: 8 1 8 1;
+}
+
+/** Menu Bar */
+.context-menu {
+    -fx-background-color: derive(#1d1d1d, 50%);
+}
+
+.context-menu .label {
+    -fx-text-fill: white;
+}
+
+.menu-bar {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.menu-bar .label {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-opacity: 0.9;
+}
+
+.menu .left-container {
+    -fx-background-color: black;
 }
