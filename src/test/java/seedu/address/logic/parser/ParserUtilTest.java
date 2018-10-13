@@ -241,7 +241,7 @@ public class ParserUtilTest {
     @Test
     public void parseRole_allInvalidFields_throwsParseException() {
         Assert.assertThrows(IllegalArgumentException.class, () ->
-                ParserUtil.parseRole("receptionst",
+                ParserUtil.parseRole(INVALID_ROLE,
                         new Name(INVALID_NAME),
                         new Password(INVALID_PASSWORD, false)));
     }
