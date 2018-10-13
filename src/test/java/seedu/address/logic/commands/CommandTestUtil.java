@@ -18,8 +18,10 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.group.GroupTitleContainsKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -144,4 +146,17 @@ public class CommandTestUtil {
         model.commitAddressBook();
     }
 
+    /**
+     * Updates {@code model}'s filtered group list to show only the group at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showGroupAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredGroupList().size());
+
+        Tag group = model.getFilteredGroupList().get(targetIndex.getZeroBased());
+        final String[] splitGroupTitle = { group.tagName };
+        model.updateFilteredGroupList(new GroupTitleContainsKeywordsPredicate(Arrays.asList(splitGroupTitle[0])));
+
+        assertEquals(1, model.getFilteredGroupList().size());
+    }
 }

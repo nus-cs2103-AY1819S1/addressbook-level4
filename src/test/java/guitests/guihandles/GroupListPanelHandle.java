@@ -14,7 +14,7 @@ import seedu.address.model.tag.Tag;
 public class GroupListPanelHandle extends NodeHandle<ListView<Tag>> {
     public static final String GROUP_LIST_VIEW_ID = "#groupListView";
 
-    private static final String CARD_PANE_ID = "#cardPane";
+    private static final String CARD_PANE_ID = "#groupCardPane";
 
     private Optional<Tag> lastRememberedSelectedGroupCard;
 

@@ -86,7 +86,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addPerson(Person p) {
         persons.add(p);
-        if (p.getGroupTags() != null && p.getGroupTags().size() > 0) {
+        if (p.getGroupTags() != null && !p.getGroupTags().isEmpty()) {
             for (Tag t : p.getGroupTags()) {
                 groups.add(t);
             }
@@ -116,7 +116,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return persons.asUnmodifiableObservableList().size() + " persons, " +
+                groups.asUnmodifiableObservableList().size() + " groups";
         // TODO: refine later
     }
 
