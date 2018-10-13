@@ -1,20 +1,20 @@
-package seedu.address.model;
+package seedu.address.model.category;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalPersons.NUS_EDUCATION;
-import static seedu.address.testutil.TypicalPersons.WORK_FACEBOOK;
 
-import java.nio.file.Paths;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
+import static seedu.address.testutil.TypicalEntrys.NUS_EDUCATION;
+import static seedu.address.testutil.TypicalEntrys.WORK_FACEBOOK;
+
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-
-import seedu.address.model.category.CategoryManager;
+import seedu.address.model.entry.MajorResumeEntry;
 
 public class CategoryManagerTest {
     @Rule
@@ -30,12 +30,15 @@ public class CategoryManagerTest {
 
     @Test
     public void equals() {
-        List<MajorResumeEntry> list = Arrays.asList([NUS_EDUCATION, WORK_FACEBOOK]);
-        List<MajorResumeEntry> list2 = Arrays.asList([NUS_EDUCATION]);
+        MajorResumeEntry[] raw = { NUS_EDUCATION, WORK_FACEBOOK };
+        List<MajorResumeEntry> list = Arrays.asList(raw);
+
+        MajorResumeEntry[] raw2 = { NUS_EDUCATION };
+        List<MajorResumeEntry> list2 = Arrays.asList(raw2);
 
         // same values -> returns true
         categoryManager = new CategoryManager(list);
-        ModelManager categoryManagerCopy = new CategoryManager(list);
+        CategoryManager categoryManagerCopy = new CategoryManager(list);
         assertTrue(categoryManager.equals(categoryManagerCopy));
 
         // same object -> returns true
@@ -48,18 +51,16 @@ public class CategoryManagerTest {
         assertFalse(categoryManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(categoryManager.equals(new categoryManager(list2)));
+        assertFalse(categoryManager.equals(new CategoryManager(list2)));
 
         // different filteredList -> returns false
-        categoryManager.setFilter(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+        categoryManager.setFilter(new ContainsCategoryPredicate("work"));
+        assertFalse(categoryManager.equals(new CategoryManager(list)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        categoryManager.setFilter(PREDICATE_SHOW_ALL_ENTRIES);
 
-        // different userPrefs -> returns true
-        UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertTrue(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        // similarly filtered -> returns true
+        assertTrue(categoryManager.equals(new CategoryManager(list)));
     }
 }
