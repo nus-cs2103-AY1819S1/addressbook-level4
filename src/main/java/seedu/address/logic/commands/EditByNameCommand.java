@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -11,7 +10,8 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -44,7 +44,6 @@ public class EditByNameCommand extends EditCommand {
         } catch (ParseException pe) {
             throw new CommandException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
-
         Person editedPerson = EditCommand.createEditedPerson(person, editPersonDescriptor);
 
         if (!person.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
@@ -69,15 +68,17 @@ public class EditByNameCommand extends EditCommand {
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords));
         //@@author zioul123
 
-        List<Person> allPersonsList = model.getAddressBook().getPersonList();
+        // Supplier is used because the stream is acted on more than once.
+        Supplier<Stream<Person>> filteredPersons =
+                () -> model.getAddressBook().getPersonList().stream().filter(predicate);
 
-        long numOfPeopleMatching = allPersonsList.stream().filter(predicate).count();
+        long numOfPeopleMatching = filteredPersons.get().count();
         if (numOfPeopleMatching == 0) {
             throw new CommandException(Messages.MESSAGE_PERSON_NOT_FOUND);
         } else if (numOfPeopleMatching != 1) {
             throw new CommandException(Messages.MESSAGE_MULTIPLE_PERSONS_FOUND);
         }
 
-        return allPersonsList.get(0);
+        return filteredPersons.get().iterator().next();
     }
 }
