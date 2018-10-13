@@ -113,11 +113,14 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author gingivitiss
     @Override
     public void deleteAppointment(Appointment target) {
+        versionedAddressBook.removeAppointment(target);
+        indicateAddressBookChanged();
     }
 
     @Override
     public void cancelAppointment(Appointment target) {
-        //to do
+        versionedAddressBook.cancelAppointment(target);
+        indicateAddressBookChanged();
     }
 
     //========== Add =========================================================================================
@@ -140,7 +143,8 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author gingivitiss
     @Override
     public void addAppointment(Appointment appt) {
-        //to do
+        versionedAddressBook.addAppointment(appt);
+        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
     }
 
     //========== Update ======================================================================================
@@ -167,8 +171,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author gingivitiss
     @Override
-    public void updateAppointment(Appointment appt, Appointment editedAppt) {
-        //to do
+    public void updateAppointment(Appointment target, Appointment editedAppt) {
+        requireAllNonNull(target, editedAppt);
+        versionedAddressBook.updateAppointment(target, editedAppt);
+        indicateAddressBookChanged();
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -210,16 +216,20 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Appointment List Accessors ========================================================
 
     //@@author gingivitiss
+    /**
+     * Returns an unmodifiable view of the list of {@code Appointment} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
     @Override
     public ObservableList<Appointment> getFilteredAppointmentList() {
-        //to do
-        return null;
+        return FXCollections.unmodifiableObservableList(filteredAppointments);
     }
 
     //@@author gingivitiss
     @Override
-    public void updateFilteredAppointmentList(Predicate<Person> predicate) {
-        //to do
+    public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
+        requireNonNull(predicate);
+        filteredAppointments.setPredicate(predicate);
     }
 
     //=========== Undo/Redo ==================================================================================
@@ -268,6 +278,7 @@ public class ModelManager extends ComponentManager implements Model {
         //@@author jjlee050
         return versionedAddressBook.equals(other.versionedAddressBook)
                 && filteredPersons.equals(other.filteredPersons)
-                && filteredDoctors.equals(other.filteredDoctors);
+                && filteredDoctors.equals(other.filteredDoctors)
+                && filteredAppointments.equals(other.filteredAppointments);
     }
 }

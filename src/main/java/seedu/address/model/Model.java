@@ -17,6 +17,9 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Doctor> PREDICATE_SHOW_ALL_DOCTORS = unused -> true;
 
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Appointment> PREDICATE_SHOW_ALL_APPOINTMENTS = unused -> true;
+
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
 
@@ -114,8 +117,6 @@ public interface Model {
      */
     void commitAddressBook();
 
-    //=========== For scheduling ============================================================================
-
     /**
      * Returns true if an appointment with the same identity as {@code appointment} exists in the schedule.
      */
@@ -153,7 +154,7 @@ public interface Model {
      * Updates the filter of the filtered appointment list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredAppointmentList(Predicate<Person> predicate);
+    void updateFilteredAppointmentList(Predicate<Appointment> predicate);
 
     /**
      * Enqueues the given person.

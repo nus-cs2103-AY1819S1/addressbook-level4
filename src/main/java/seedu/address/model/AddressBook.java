@@ -191,6 +191,18 @@ public class AddressBook implements ReadOnlyAddressBook {
         appointments.remove(key);
     }
 
+    /**
+     * Cancels {@code key} by updating appointment with cancel status.
+     * Calls {@code updateAppointment} to replace {@code key} with cancelled one.
+     * {@code key} must exist in the address book.
+     */
+    public void cancelAppointment(Appointment key) {
+        requireNonNull(key);
+        Appointment cancelledAppt = key;
+        cancelledAppt.cancelAppointment();
+        updateAppointment(key, cancelledAppt);
+    }
+
     //========== Util methods ================================================================================
 
     @Override
