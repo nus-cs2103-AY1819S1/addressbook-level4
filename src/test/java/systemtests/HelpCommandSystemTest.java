@@ -1,14 +1,14 @@
 package systemtests;
 
-import static org.junit.Assert.assertEquals;
+//import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Test;
+//import org.junit.Test;
 
 import guitests.GuiRobot;
 import guitests.guihandles.HelpWindowHandle;
-import seedu.souschef.logic.commands.HelpCommand;
+//import seedu.souschef.logic.commands.HelpCommand;
 
 /**
  * A system test class for the help window, which contains interaction with other UI components.
@@ -66,7 +66,7 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         assertNotEquals(StatusBarFooter.SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }*/
 
-    @Test
+    /*@Test
     public void help_multipleCommands_onlyOneHelpWindowOpen() {
         getMainMenu().openHelpWindowUsingMenu();
 
@@ -77,7 +77,7 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         executeCommand(HelpCommand.COMMAND_WORD);
 
         assertEquals(1, guiRobot.getNumberOfWindowsShown(HelpWindowHandle.HELP_WINDOW_TITLE));
-    }
+    }*/
 
     /**
      * Asserts that the help window is open, and closes it after checking.
