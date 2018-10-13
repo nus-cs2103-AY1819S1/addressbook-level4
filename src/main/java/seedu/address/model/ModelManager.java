@@ -27,6 +27,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final PatientQueue<Person> patientQueue;
     private final FilteredList<Doctor> filteredDoctors;
+    private final FilteredList<Appointment> filteredAppointments;
 
 
     /**
@@ -42,6 +43,7 @@ public class ModelManager extends ComponentManager implements Model {
         //@@author jjlee050
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredDoctors = new FilteredList<>(versionedAddressBook.getDoctorList());
+        filteredAppointments = new FilteredList<>(versionedAddressBook.getAppointmentList());
         patientQueue = new PatientQueue();
 
     }
@@ -66,6 +68,8 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new AddressBookChangedEvent(versionedAddressBook));
     }
 
+    //========== Boolean check ===============================================================================
+
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
@@ -80,6 +84,20 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public boolean hasPatientInPatientQueue() {
+        return patientQueue.hasPatient();
+    }
+
+    //@@author gingivitiss
+    @Override
+    public boolean hasAppointment(Appointment appt) {
+        //to do
+        return false;
+    }
+
+    //========== Delete ======================================================================================
+
+    @Override
     public void deletePerson(Person target) {
         versionedAddressBook.removePerson(target);
         indicateAddressBookChanged();
@@ -91,6 +109,18 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.removeDoctor(target);
         indicateAddressBookChanged();
     }
+
+    //@@author gingivitiss
+    @Override
+    public void deleteAppointment(Appointment target) {
+    }
+
+    @Override
+    public void cancelAppointment(Appointment target) {
+        //to do
+    }
+
+    //========== Add =========================================================================================
 
     @Override
     public void addPerson(Person person) {
@@ -106,20 +136,22 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
+
+    //@@author gingivitiss
     @Override
-    public void enqueue(Person target) {
-        patientQueue.add(target);
+    public void addAppointment(Appointment appt) {
+        //to do
     }
+
+    //========== Update ======================================================================================
+
     @Override
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
         versionedAddressBook.updatePerson(target, editedPerson);
         indicateAddressBookChanged();
     }
-    @Override
-    public boolean hasPatientInPatientQueue() {
-        return patientQueue.hasPatient();
-    }
+
     //@@author jjlee050
     @Override
     public void updateDoctor(Doctor target, Doctor editedDoctor) {
@@ -127,7 +159,20 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.updateDoctor(target, editedDoctor);
         indicateAddressBookChanged();
     }
+
+    @Override
+    public void enqueue(Person target) {
+        patientQueue.add(target);
+    }
+
+    //@@author gingivitiss
+    @Override
+    public void updateAppointment(Appointment appt, Appointment editedAppt) {
+        //to do
+    }
+
     //=========== Filtered Person List Accessors =============================================================
+
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
      * {@code versionedAddressBook}
@@ -162,7 +207,22 @@ public class ModelManager extends ComponentManager implements Model {
         filteredDoctors.setPredicate(predicate);
     }
 
-    //=========== Undo/Redo =================================================================================
+    //=========== Filtered Appointment List Accessors ========================================================
+
+    //@@author gingivitiss
+    @Override
+    public ObservableList<Appointment> getFilteredAppointmentList() {
+        //to do
+        return null;
+    }
+
+    //@@author gingivitiss
+    @Override
+    public void updateFilteredAppointmentList(Predicate<Person> predicate) {
+        //to do
+    }
+
+    //=========== Undo/Redo ==================================================================================
 
     @Override
     public boolean canUndoAddressBook() {
@@ -209,73 +269,5 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedAddressBook.equals(other.versionedAddressBook)
                 && filteredPersons.equals(other.filteredPersons)
                 && filteredDoctors.equals(other.filteredDoctors);
-    }
-
-    //=========== For scheduling appointments =================================================================
-    //Everything below is TODO
-
-    /** Clears existing backing model and replaces with the provided new data. */
-    //void resetData(ReadOnlySchedule newData);
-
-    /** Returns the schedule */
-    //ReadOnlySchedule getSchedule();
-
-    @Override
-    public boolean hasAppointment(Appointment appt) {
-        //to do
-        return false;
-    }
-
-    @Override
-    public void cancelAppointment(Appointment appt) {
-        //to do
-    }
-
-    @Override
-    public void addAppointment(Appointment appt) {
-        //to do
-    }
-
-    @Override
-    public void updateAppointment(Appointment appt, Appointment editedAppt) {
-        //to do
-    }
-
-    @Override
-    public ObservableList<Appointment> getFilteredAppointmentList() {
-        //to do
-        return null;
-    }
-
-    @Override
-    public void updateFilteredAppointmentList(Predicate<Person> predicate) {
-        //to do
-    }
-
-    @Override
-    public boolean canUndoSchedule() {
-        //to do
-        return false;
-    }
-
-    @Override
-    public boolean canRedoSchedule() {
-        //to do
-        return false;
-    }
-
-    @Override
-    public void undoSchedule() {
-        //to do
-    }
-
-    @Override
-    public void redoSchedule() {
-        //to do
-    }
-
-    @Override
-    public void commitSchedule() {
-        //to do
     }
 }

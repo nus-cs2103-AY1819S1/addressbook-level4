@@ -116,22 +116,22 @@ public interface Model {
 
     //=========== For scheduling ============================================================================
 
-    /** Clears existing backing model and replaces with the provided new data. */
-    //void resetData(ReadOnlySchedule newData);
-
-    /** Returns the schedule */
-    //ReadOnlySchedule getSchedule();
-
     /**
      * Returns true if an appointment with the same identity as {@code appointment} exists in the schedule.
      */
     boolean hasAppointment(Appointment appt);
 
     /**
+     * Deletes the given appointment.
+     * Not to be directly accessed by the user.
+     */
+    void deleteAppointment(Appointment target);
+
+    /**
      * Cancels the given appointment.
      * The appointment must exist in the schedule.
      */
-    void cancelAppointment(Appointment appt);
+    void cancelAppointment(Appointment target);
 
     /**
      * Adds the given appointment.
@@ -154,31 +154,6 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredAppointmentList(Predicate<Person> predicate);
-
-    /**
-     * Returns true if the model has previous schedule states to restore.
-     */
-    boolean canUndoSchedule();
-
-    /**
-     * Returns true if the model has undone schedule states to restore.
-     */
-    boolean canRedoSchedule();
-
-    /**
-     * Restores the model's schedule to its previous state.
-     */
-    void undoSchedule();
-
-    /**
-     * Restores the model's schedule to its previously undone state.
-     */
-    void redoSchedule();
-
-    /**
-     * Saves the current schedule state for undo/redo.
-     */
-    void commitSchedule();
 
     /**
      * Enqueues the given person.

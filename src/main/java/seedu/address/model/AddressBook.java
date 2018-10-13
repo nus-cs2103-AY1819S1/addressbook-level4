@@ -218,12 +218,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
                 && persons.equals(((AddressBook) other).persons)
-                && doctors.equals(((AddressBook) other).doctors));
+                && doctors.equals(((AddressBook) other).doctors)
+                && appointments.equals(((AddressBook) other).appointments));
     }
 
     @Override
     public int hashCode() {
         //@@author jjlee050
-        return Objects.hash(persons.hashCode(), doctors.hashCode());
+        return Objects.hash(persons.hashCode(), doctors.hashCode(), appointments.hashCode());
     }
 }
