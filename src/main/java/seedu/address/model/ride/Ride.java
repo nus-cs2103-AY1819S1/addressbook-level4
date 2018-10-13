@@ -83,9 +83,9 @@ public class Ride {
      * Throws an exception if the attribute has an invalid type.
      */
     public NumericAttribute getAttribute(NumericAttribute attribute) throws InvalidNumericAttributeException {
-        if (attribute.getClass() == WaitTime.class) {
+        if (attribute instanceof WaitTime) {
             return this.getWaitingTime();
-        } else if (attribute.getClass() == Maintenance.class) {
+        } else if (attribute instanceof Maintenance) {
             return this.getDaysSinceMaintenance();
         } else {
             throw new InvalidNumericAttributeException();
