@@ -41,6 +41,8 @@ public class TaskCard extends UiPart<Region> {
     @FXML
     private Label hash;
     @FXML
+    private Label dependency;
+    @FXML
     private FlowPane tags;
 
     public TaskCard(Task task, int displayedIndex) {

@@ -38,7 +38,8 @@ public class XmlAdaptedTask {
     private List<XmlAdaptedLabel> labelled = new ArrayList<>();
     @XmlElement
     private String status;
-
+    @XmlElement
+    private List<String> dependencies;
     /**
      * Constructs an XmlAdaptedTask.
      * This is the no-arg constructor that is required by JAXB.
@@ -48,6 +49,7 @@ public class XmlAdaptedTask {
     /**
      * Constructs an {@code XmlAdaptedTask} with the given task details.
      */
+    //TODO: Change to 1 constructor
     public XmlAdaptedTask(String name, String dueDate, String priorityValue,
                           String description, List<XmlAdaptedLabel> labelled) {
         this.name = name;
