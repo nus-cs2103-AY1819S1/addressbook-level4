@@ -28,7 +28,7 @@ public class RideTest {
     }
 
     @Test
-    public void isSamePerson() {
+    public void isSameRide() {
         // same object -> returns true
         assertTrue(ACCELERATOR.isSameRide(ACCELERATOR));
 
