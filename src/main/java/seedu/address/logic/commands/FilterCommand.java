@@ -34,7 +34,7 @@ public class FilterCommand extends Command {
         return new CommandResult(
                 String.format(Messages.MESSAGE_RIDES_LISTED_OVERVIEW, model.getFilteredRideList().size()));
     }
-    
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

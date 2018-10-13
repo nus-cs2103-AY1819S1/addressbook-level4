@@ -30,9 +30,9 @@ public class AttributePredicate implements Predicate<NumericAttribute> {
             return false;
         }
     }
-    
+
     @Override
-    public  boolean equals(Object other) {
+    public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AttributePredicate // instanceof handles nulls
                 && this.attribute.equals(((AttributePredicate) other).attribute)
