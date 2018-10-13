@@ -36,13 +36,13 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedResultMessage, new ModelManager());
         assertSelectedCardUnchanged();
 
-        /* Case: selects first card in person list and clears task manager -> cleared and no card selected */
+        /* Case: selects first card in task list and clears task manager -> cleared and no card selected */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original task manager
         selectPerson(Index.fromOneBased(1));
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardDeselected();
 
-        /* Case: filters the person list before clearing -> entire task manager cleared */
+        /* Case: filters the task list before clearing -> entire task manager cleared */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original task manager
         showPersonsWithName(KEYWORD_MATCHING_TUTORIAL);
         assertCommandSuccess(ClearCommand.COMMAND_WORD);

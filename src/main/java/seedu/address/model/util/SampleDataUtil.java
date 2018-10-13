@@ -6,12 +6,12 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.model.TaskManager;
-import seedu.address.model.person.Description;
-import seedu.address.model.person.DueDate;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.PriorityValue;
-import seedu.address.model.person.Task;
 import seedu.address.model.tag.Label;
+import seedu.address.model.task.Description;
+import seedu.address.model.task.DueDate;
+import seedu.address.model.task.Name;
+import seedu.address.model.task.PriorityValue;
+import seedu.address.model.task.Task;
 
 /**
  * Contains utility methods for populating {@code TaskManager} with sample data.
@@ -20,23 +20,23 @@ public class SampleDataUtil {
     public static Task[] getSampleTasks() {
         return new Task[]{
             new Task(new Name("Attack food"), new DueDate("01-10-18"), new PriorityValue("1"),
-                    new Description("Blk 30 Geylang Street 29, #06-40"),
+                    new Description("Chop people into little pieces with sharp knife, then eat them"),
                     getLabelSet("friends")),
             new Task(new Name("Bounce ball"), new DueDate("02-10-18"), new PriorityValue("2"),
-                    new Description("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
+                    new Description("Forcefully propel spherical implement towards acquaintances"),
                     getLabelSet("colleagues", "friends")),
             new Task(new Name("Count eggs"), new DueDate("03-10-18"),
                     new PriorityValue("3"),
-                    new Description("Blk 11 Ang Mo Kio Street 74, #11-04"),
+                    new Description("then eat them"),
                     getLabelSet("neighbours")),
             new Task(new Name("Dancing queen"), new DueDate("04-10-18"), new PriorityValue("4"),
-                    new Description("Blk 436 Serangoon Gardens Street 26, #16-43"),
+                    new Description("Feel the beat from the tambourine"),
                     getLabelSet("family")),
             new Task(new Name("Induce happiness"), new DueDate("05-10-18"), new PriorityValue("5"),
-                    new Description("Blk 47 Tampines Street 20, #17-35"),
+                    new Description("Inject heroin"),
                     getLabelSet("classmates")),
             new Task(new Name("Run home"), new DueDate("06-10-18"), new PriorityValue("3"),
-                    new Description("Blk 45 Aljunied Street 85, #11-31"),
+                    new Description("Just go"),
                     getLabelSet("colleagues"))
         };
     }

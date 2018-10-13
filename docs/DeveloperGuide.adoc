@@ -26,10 +26,8 @@ By offering a gamified experience, we hope to be able to improve the user experi
 
 ## Appendix C: User Stories
 Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely to have) - *
-
 |===
 | Priority   | As a ...  | I want to ... | So that I can ...
-
 | * * * | organised student | apply lables to my task | focus on tasks
 | * * * | forgetful student | alerted of important deadlines | not forget about tasks
 | * * * | busy person | easily prioritise tasks | get important things out of the way first
@@ -50,6 +48,13 @@ my progress and evaluate how I am doing.
 |* *| user | statistics function | keep track of progress
 | * * | user | insights function | keep track of progress
 |* *| competitive user | compete with friends | challenge myself and peers
+| * | person without arms | have the computer interpret my words | type with my toes
+| * | person who hates rules | enter tasks in a specified format and computer should interpret for me | easy addition of tasks
+| * | visual person | colour coding in tasks | visually discern between tasks
+| * | user | feedback on completion of tasks | better plan ways to handle tasks
+| * | lazy student | provide intuitive information about the chaining to tasks | easy to tell end of task
+| * | user | customize persona | make tasks seem more personal
+| * | unmotivated student | see tasks creatively explosively destroy themselves | derive more enjoyment
 |===
 
 ## Appendix D: Use cases
@@ -216,7 +221,7 @@ Use case ends.
 - Should be able to hold up to 1000 tasks without a noticable decline in performance.
 - Should not take more than 3 seconds to complete a command.
 - System should be maintainable with proper documentation.
-- Proper feedback to user when error occurs. // @jelena: Usability
+- Proper feedback to user when error occurs.
 
 ## Glossary
 
@@ -314,6 +319,7 @@ Coverage reporting could be useful for a team repository that hosts the final ve
 Optionally, you can set up AppVeyor as a second CI (see UsingAppVeyor.adoc).
 
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
+
 #### 1.4.4. Getting started with coding
 When you are ready to start coding,
 
@@ -377,6 +383,7 @@ Set the destination to Save as PDF, then click Save to save a copy of the file i
 
 chrome save as pdf
 Figure 10. Saving documentation as PDF files in Chrome
+
 ### 4.4. Site-wide Documentation Settings
 The build.gradle file specifies some project-specific asciidoc attributes which affects how all documentation files within this project are rendered.
 
