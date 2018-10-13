@@ -1,4 +1,4 @@
-package seedu.souschef.logic.parser.contextParser;
+package seedu.souschef.logic.parser.contextparser;
 
 import static seedu.souschef.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
