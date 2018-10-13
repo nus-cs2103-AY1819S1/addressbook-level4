@@ -23,18 +23,18 @@ public class HelpWindow extends UiPart<Stage> {
     //https://stackoverflow.com/questions/22778241/javafx-webview-scroll-to-desired-position
     //javascript to scroll webpage to commandWord
     private static final String scrollJavaScript =
-            "function scrollToElement(commandWord) {\n" +
-            "    var elem = document.querySelector('[id$=code-' + commandWord + '-code]');\n" +
-            "    var x = 0;\n" +
-            "    var y = 0;\n" +
-            "\n" +
-            "    while (elem != null) {\n" +
-            "        x += elem.offsetLeft;\n" +
-            "        y += elem.offsetTop;\n" +
-            "        elem = elem.offsetParent;\n" +
-            "    }\n" +
-            "    window.scrollTo(x, y);\n" +
-            "}";
+            "function scrollToElement(commandWord) {\n"
+            + "    var elem = document.querySelector('[id$=code-' + commandWord + '-code]');\n"
+            + "    var x = 0;\n"
+            + "    var y = 0;\n"
+            + "\n"
+            + "    while (elem != null) {\n"
+            + "        x += elem.offsetLeft;\n"
+            + "        y += elem.offsetTop;\n"
+            + "        elem = elem.offsetParent;\n"
+            + "    }\n"
+            + "    window.scrollTo(x, y);\n"
+            + "}";
 
     @FXML
     private WebView browser;
