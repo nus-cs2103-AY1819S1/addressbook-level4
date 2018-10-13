@@ -5,6 +5,7 @@ import static seedu.souschef.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.logging.Logger;
 
 import seedu.souschef.commons.core.LogsCenter;
+import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.recipe.Recipe;
 
 /**
@@ -14,6 +15,8 @@ public class ModelSetCoordinator implements ModelSet {
     private static final Logger logger = LogsCenter.getLogger(ModelSetCoordinator.class);
 
     private final Model<Recipe> recipeModel;
+
+    private final Model<Ingredient> ingredientModel;
 
     private final VersionedAppContent versionedAppContent;
 
@@ -26,6 +29,7 @@ public class ModelSetCoordinator implements ModelSet {
         versionedAppContent = new VersionedAppContent(appContent);
 
         recipeModel = new ModelManager<>(versionedAppContent, versionedAppContent.getRecipes());
+        ingredientModel = new ModelManager<>(versionedAppContent, versionedAppContent.getIngredients());
         // More to be added
     }
 
@@ -51,11 +55,16 @@ public class ModelSetCoordinator implements ModelSet {
         // state check
         ModelSetCoordinator other = (ModelSetCoordinator) obj;
         return versionedAppContent.equals(other.versionedAppContent)
-                && recipeModel.equals(other.recipeModel);
+                && recipeModel.equals(other.recipeModel)
+                && ingredientModel.equals(other.ingredientModel);
     }
 
     public Model<Recipe> getRecipeModel() {
         return recipeModel;
+    }
+
+    public Model<Ingredient> getIngredientModel() {
+        return ingredientModel;
     }
     // More to be added
 }

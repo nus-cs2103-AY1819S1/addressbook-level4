@@ -1,6 +1,7 @@
 package seedu.souschef.model;
 
 import javafx.collections.ObservableList;
+import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.recipe.Recipe;
 
 /**
@@ -13,5 +14,7 @@ public interface ReadOnlyAppContent {
      * This list will not contain any duplicate recipes.
      */
     ObservableList<Recipe> getObservableRecipeList();
+
+    ObservableList<Ingredient> getObservableIngredientList();
 
 }
