@@ -9,6 +9,9 @@ public class ShowHelpRequestEvent extends BaseEvent {
 
     public final boolean isSummarized;
 
+    /**
+     * Creates an event requesting for help info, and the level of detail is specified by {@param summarized}.
+     */
     public ShowHelpRequestEvent(boolean summarized) {
         this.isSummarized = summarized;
     }
