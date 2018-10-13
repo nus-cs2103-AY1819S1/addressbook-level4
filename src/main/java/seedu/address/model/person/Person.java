@@ -14,8 +14,11 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {
+    // Used to keep track of current max Id in the system
+    private static int maxId = 0;
 
     // Identity fields
+    private final PersonId personId;
     private final Name name;
     private final Phone phone;
     private final Email email;
@@ -25,15 +28,65 @@ public class Person {
     private final Set<Tag> tags = new HashSet<>();
 
     /**
-     * Every field must be present and not null.
+     * Used when creating new Person. Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
+
+        incrementMaxId();
+        this.personId = new PersonId(maxId);
+
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+    }
+
+    /**
+     * Used when loading data from XML. Every field must be present and not null.
+     */
+    public Person(PersonId personId, Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+        requireAllNonNull(personId, name, phone, email, address, tags);
+
+        if (isNewPersonIdGreaterThanMaxId(personId.id)) {
+            replaceMaxIdWithIncrementedPersonId(personId.id);
+        }
+        this.personId = personId;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+    }
+
+    /**
+     * Increments the current maxId by 1.
+     */
+    private void incrementMaxId() {
+        maxId += 1;
+    }
+
+    /**
+     * Checks if new event id is greater than current max id.
+     *
+     * @param newPersonId event id from loaded xml event.
+     */
+    private boolean isNewPersonIdGreaterThanMaxId(int newPersonId) {
+        return newPersonId > maxId;
+    }
+
+    /**
+     * Replaces max id with new event id.
+     *
+     * @param newPersonId event id from loaded xml event.
+     */
+    private void replaceMaxIdWithIncrementedPersonId(int newPersonId) {
+        maxId = newPersonId + 1;
+    }
+
+    public PersonId getPersonId() {
+        return personId;
     }
 
     public Name getName() {
