@@ -116,10 +116,7 @@ public class AddressBookParserTest {
     public void parseCommand_login() throws Exception {
         LoginCommand command = (LoginCommand) parser.parseCommand(
                 LoginCommand.COMMAND_WORD + " r/doctor n/" + ADAM.getName().fullName + " pass/doctor1");
-        assertEquals(new LoginCommand(new Doctor(
-                ADAM.getId(),
-                ADAM.getName(),
-                new Password("doctor1", false))),
+        assertEquals(new LoginCommand(new Doctor(ADAM.getId(), ADAM.getName(), new Password("doctor1", false))),
                 command);
 
         // TODO: Add receptionist
