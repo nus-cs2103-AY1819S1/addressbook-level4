@@ -23,6 +23,7 @@ import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.ui.ShowStatsRequestEvent;
 import seedu.address.commons.events.ui.SwapLeftPanelEvent;
+import seedu.address.commons.events.ui.UpdateBudgetPanelEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.exceptions.NoUserSelectedException;
@@ -46,6 +47,7 @@ public class MainWindow extends UiPart<Stage> {
     private UserPrefs prefs;
     private HelpWindow helpWindow;
     private StatsWindow statsWindow;
+    private BudgetPanel budgetpanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -150,6 +152,7 @@ public class MainWindow extends UiPart<Stage> {
         hideLoggedInUi();
     }
 
+    //@@author snookerballs
     /**
      * Swaps the panel from statistics to list
      */
@@ -158,6 +161,7 @@ public class MainWindow extends UiPart<Stage> {
         leftPanelPlaceholder.getChildren().add(expenseListPanel.getRoot());
     }
 
+    //@@author snookerballs
     /**
      * Swaps the panel from list to statistics
      */
@@ -165,11 +169,12 @@ public class MainWindow extends UiPart<Stage> {
         leftPanelPlaceholder.getChildren().clear();
         leftPanelPlaceholder.getChildren().add(statisticsSplitPane);
     }
-
+    
+    //@@author snookerballs
     /**
      * Initialize UI after login
      */
-    private void initializeAfterLogin() {
+    private void initializeAfterLogin() throws NoUserSelectedException {
         try {
             expenseListPanel = new ExpenseListPanel(logic.getFilteredExpenseList());
         } catch (NoUserSelectedException e) {
@@ -181,8 +186,8 @@ public class MainWindow extends UiPart<Stage> {
         Title title = new Title();
         titlePlaceholder.getChildren().add(title.getRoot());
 
-        BudgetPanel budgetPanel = new BudgetPanel();
-        budgetPanelPlaceholder.getChildren().add(budgetPanel.getRoot());
+        budgetpanel = new BudgetPanel(logic.getMaximumBudget());
+        budgetPanelPlaceholder.getChildren().add(budgetpanel.getRoot());
 
         NotificationPanel notificationPanel = new NotificationPanel();
         notificationPanelPlaceholder.getChildren().add(notificationPanel.getRoot());
@@ -309,11 +314,12 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     @Subscribe
-    public void handleLoggedInEvent(UserLoggedInEvent event) {
+    public void handleLoggedInEvent(UserLoggedInEvent event) throws NoUserSelectedException {
         initializeAfterLogin();
         showLoggedInUi();
     }
 
+    //@@author snookerballs
     @Subscribe
     public void handleSwapLeftPanelEvent(SwapLeftPanelEvent event) {
         switch(event.getPanelType()) {
@@ -325,5 +331,10 @@ public class MainWindow extends UiPart<Stage> {
             break;
         default:
         }
+    }
+
+    @Subscribe
+    public void handleUpdateBudgetPanelEvent(UpdateBudgetPanelEvent event) {
+        budgetpanel.update(event.budget);
     }
 }

@@ -16,6 +16,7 @@ import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.budget.Budget;
 
 /**
  * The main LogicManager of the app.
@@ -67,6 +68,11 @@ public class LogicManager extends ComponentManager implements Logic {
         return stats;
     }
 
+    //@@author Snookerballs
+    public Budget getMaximumBudget() {
+        return model.getMaximumBudget();
+    }
+    
     //@@author
     @Override
     public ListElementPointer getHistorySnapshot() {
