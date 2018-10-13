@@ -11,4 +11,5 @@ public interface ModelSet {
 
     /** Returns the model for recipes*/
     Model<Recipe> getRecipeModel();
+
 }
