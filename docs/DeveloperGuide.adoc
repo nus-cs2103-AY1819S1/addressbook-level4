@@ -239,6 +239,25 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::tags[]
+=== Tags and Categories
+
+Tags and categories are single-word keywords tied to individual entries. Each `Entry` can classified under one `Category`, but can be associated with multiple `Tag`.
+
+==== Categories
+Category related functions are mainly contained in the `seedu.address.model.category` package, which includes the `Category` class and its relevant `CategoryManager`. `CategoryManager` is used by the `ModelManager` (`seedu.address.model.ModelManager`) to filter the list of entries by categories.
+
+Filtering can be done by passing the relevant `Predicate<Entry>` into `CategoryManager` through `CategoryManger.setFilter()`. The relevant filtered list can be obtained by subsequently calling `CategoryManager.getList()`.
+
+===== CategoryManager
+To use `CategoryManager` to filter out relevant entries, there are 3 main functions to keep in mind:
+
+* `setFilter(Predicate<Entry>)`: sets the filtering criteria for the list of entries
+* `setList(List<Entry>)`: sets the source list of entries to filter
+* `getList()`: returns `unmodifiableObservableList<Entry>` of relevant entries
+
+// end::tags[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 

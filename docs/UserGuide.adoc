@@ -40,14 +40,14 @@ image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+.  Try out the following examples:
 
 * *`listEntry* ~work #java`: Lists all the Work related Entries tagged with `java`
 * **`addEntry`**`~work` `#java t/The Source Enterprise s/Data Science Intern d/ May 2010 - Aug 2010`: Adds a new Entry classified under Work Experiences, with the given title, subheader and duration
 * **`deleteEntry`**`3` : deletes the 3rd Entry shown in the current Entry list
 * *`exit`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
+.  Refer to <<Features>> for the full details of all commands.
 
 [[Features]]
 == Features
@@ -186,6 +186,7 @@ Format: `fetch-awards` or `fetch-awards INDEX`
 
 The latter format adds the specified award as a resume Entry.
 
+[[tags]]
 === Tag related functions: `tag`
 These are functions to help you manage your tags; namely to view and edit the relevant tags and entries.
 
