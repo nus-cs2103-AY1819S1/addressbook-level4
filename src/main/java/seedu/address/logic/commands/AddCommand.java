@@ -12,12 +12,14 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
+
 /**
  * Adds a person to the address book.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_ALIAS = "a";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
             + "Parameters: "
@@ -56,7 +58,7 @@ public class AddCommand extends Command {
         }
 
         model.addPerson(toAdd);
-        model.commitAddressBook();
+        model.commitFinancialDatabase();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
