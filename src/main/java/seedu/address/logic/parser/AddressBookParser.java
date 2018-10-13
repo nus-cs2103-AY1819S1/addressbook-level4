@@ -76,31 +76,7 @@ public class AddressBookParser {
 
         // Executes commands for events
         if (contextId.equals(Context.EVENT_CONTEXT_ID)) {
-            // Replace all these commands
-            switch (commandWord) {
-            case AddCommand.COMMAND_WORD:
-                return new AddCommandParser().parse(arguments);
-
-            case EditCommand.COMMAND_WORD:
-                return new EditCommandParser().parse(arguments);
-
-            case SelectCommand.COMMAND_WORD:
-                return new SelectCommandParser().parse(arguments);
-
-            case DeleteCommand.COMMAND_WORD:
-                return new DeleteCommandParser().parse(arguments);
-
-            case ClearCommand.COMMAND_WORD:
-                return new ClearCommand();
-
-            case FindCommand.COMMAND_WORD:
-                return new FindCommandParser().parse(arguments);
-
-            case ListCommand.COMMAND_WORD:
-                return new ListCommand();
-            default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-            }
+           return parseEventCommand(commandWord, arguments);
         }
 
         // Executes commands for volunteers
@@ -142,4 +118,36 @@ public class AddressBookParser {
 
         throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
     }
+
+    /**
+     * Parses user input specifically for event command for execution.
+     **/
+    private Command parseEventCommand(String commandWord, String arguments) throws ParseException {
+        // Replace all these commands
+        switch (commandWord) {
+            case AddCommand.COMMAND_WORD:
+                return new AddCommandParser().parse(arguments);
+
+            case EditCommand.COMMAND_WORD:
+                return new EditCommandParser().parse(arguments);
+
+            case SelectCommand.COMMAND_WORD:
+                return new SelectEventCommandParser().parse(arguments);
+
+            case DeleteCommand.COMMAND_WORD:
+                return new DeleteCommandParser().parse(arguments);
+
+            case ClearCommand.COMMAND_WORD:
+                return new ClearCommand();
+
+            case FindCommand.COMMAND_WORD:
+                return new FindCommandParser().parse(arguments);
+
+            case ListCommand.COMMAND_WORD:
+                return new ListCommand();
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
+    }
+
 }
