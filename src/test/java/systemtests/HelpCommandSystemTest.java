@@ -14,7 +14,6 @@ import guitests.guihandles.HelpWindowHandle;
 import seedu.lostandfound.logic.commands.DeleteCommand;
 import seedu.lostandfound.logic.commands.HelpCommand;
 import seedu.lostandfound.logic.commands.SelectCommand;
-import seedu.lostandfound.ui.BrowserPanel;
 import seedu.lostandfound.ui.StatusBarFooter;
 
 /**
@@ -43,9 +42,9 @@ public class HelpCommandSystemTest extends ArticleListSystemTest {
         getMainMenu().openHelpWindowUsingAccelerator();
         assertHelpWindowOpen();
 
-        getBrowserPanel().click();
+        getArticleDetailsPanel().click();
         getMainMenu().openHelpWindowUsingAccelerator();
-        assertHelpWindowNotOpen();
+        assertHelpWindowOpen();
 
         //use menu button
         getMainMenu().openHelpWindowUsingMenu();
@@ -64,7 +63,7 @@ public class HelpCommandSystemTest extends ArticleListSystemTest {
         assertEquals("", getCommandBox().getInput());
         assertCommandBoxShowsDefaultStyle();
         assertNotEquals(HelpCommand.SHOWING_HELP_MESSAGE, getResultDisplay().getText());
-        assertNotEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
+        assertNotEquals("", getArticleDetailsPanel().getLoadedDetails());
         assertListMatching(getArticleListPanel(), getModel().getFilteredArticleList());
 
         // assert that the status bar too is updated correctly while the help window is open
