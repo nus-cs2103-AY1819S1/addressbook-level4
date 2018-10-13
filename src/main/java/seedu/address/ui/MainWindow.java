@@ -174,7 +174,7 @@ public class MainWindow extends UiPart<Stage> {
             showHelpWindow();
         }
         if (!event.commandWord.isEmpty()) {
-            helpWindow.scrollTo(event.commandWord);
+            helpWindow.scrollToCommandWord(event.commandWord);
         }
     }
 

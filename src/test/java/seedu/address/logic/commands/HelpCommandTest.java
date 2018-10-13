@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -32,18 +33,34 @@ public class HelpCommandTest {
         BaseEvent recentEvent = eventsCollectorRule.eventsCollector.getMostRecent();
         assertTrue(recentEvent instanceof ShowHelpRequestEvent);
         assertTrue(((ShowHelpRequestEvent) recentEvent).isSummarized);
-        assertTrue(eventsCollectorRule
-                .eventsCollector.getSize() == 1);
+        assertEquals(1, eventsCollectorRule.eventsCollector.getSize());
     }
 
     @Test
-    public void execute_helpmore_success() {
-        String[] args = {" more"};
+    public void execute_helpMore_success() {
+        String[] args = {"more"};
         assertCommandSuccess(new HelpCommand(args), model, commandHistory, SHOWING_HELP_MESSAGE, expectedModel);
 
         BaseEvent recentEvent = eventsCollectorRule.eventsCollector.getMostRecent();
         assertTrue(recentEvent instanceof ShowHelpRequestEvent);
         assertFalse(((ShowHelpRequestEvent) recentEvent).isSummarized);
-        assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);
+        assertEquals(1, eventsCollectorRule.eventsCollector.getSize());
+    }
+
+    @Test
+    public void execute_helpSpecificCommand_success() {
+        int numEvents = 0;
+        for (String commandWord : AllCommandWords.COMMAND_WORDS) {
+            numEvents++;
+            System.out.println(commandWord);
+            String[] args = {commandWord};
+            assertCommandSuccess(new HelpCommand(args), model, commandHistory, SHOWING_HELP_MESSAGE, expectedModel);
+
+            BaseEvent recentEvent = eventsCollectorRule.eventsCollector.getMostRecent();
+            assertTrue(recentEvent instanceof ShowHelpRequestEvent);
+            assertFalse(((ShowHelpRequestEvent) recentEvent).isSummarized);
+            assertEquals(commandWord, ((ShowHelpRequestEvent) recentEvent).commandWord);
+            assertEquals(numEvents, eventsCollectorRule.eventsCollector.getSize());
+        }
     }
 }

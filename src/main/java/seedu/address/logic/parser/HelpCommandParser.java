@@ -7,7 +7,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new HelpCommand object
+ * Parses input arguments and creates a new HelpCommand object.
  */
 public class HelpCommandParser implements Parser<HelpCommand> {
 
@@ -27,8 +27,7 @@ public class HelpCommandParser implements Parser<HelpCommand> {
     }
 
     /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
+     * Returns true if matches "help", "help more" or "help [commandWord]"
      */
     private static boolean matchesExpectedFormat(String[] options) {
         return options.length == 1 && options[0].isEmpty()
