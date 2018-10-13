@@ -1,89 +1,92 @@
 package seedu.souschef.model.planner;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDate;
-import java.util.HashMap;
+import java.util.Iterator;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableMap;
-import seedu.souschef.model.planner.exceptions.MealRecipeNotFoundException;
+import javafx.collections.ObservableList;
+import seedu.souschef.model.planner.exceptions.DayNotFoundException;
+import seedu.souschef.model.planner.exceptions.DuplicateDayException;
 import seedu.souschef.model.recipe.Recipe;
 
 /**
  * MealPlanner wraps a calendar containing days with their respective meals and recipes.
  * Calendar map only contains days which have planned meals, otherwise empty days are removed from the calendar.
  */
-public class MealPlanner {
+public class MealPlanner implements Iterable<Day> {
+    private final ObservableList<Day> internalList = FXCollections.observableArrayList();
 
-    private ObservableMap<LocalDate, Day> calendar;
-
-    public MealPlanner() {
-        this.calendar = FXCollections.observableHashMap();
+    /**
+     * Adds a day.
+     * @param toAdd Day to be added.
+     */
+    public void add(Day toAdd) {
+        requireNonNull(toAdd);
+        if (contains(toAdd)) {
+            throw new DuplicateDayException("Day " + toAdd.getDate() + " already exists.");
+        }
+        internalList.add(toAdd);
     }
 
-    public MealPlanner(HashMap<LocalDate, Day> map) {
-        this.calendar = FXCollections.observableMap(map);
+    /**
+     * Removes specified day.
+     * @param toRemove Day to be removed.
+     */
+    public void remove(Day toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new DayNotFoundException("Day " + toRemove.getDate().toString() + " not found.");
+        }
     }
 
-    public ObservableMap<LocalDate, Day> getCalendar() {
-        return this.calendar;
+    public boolean contains(Day toCheck) {
+        return internalList.stream().anyMatch(toCheck::isSame);
     }
 
-    public void clearAll() {
-        this.calendar = FXCollections.observableHashMap();
+    @Override
+    public Iterator<Day> iterator() {
+        return internalList.iterator();
     }
 
+
+    public Recipe getMealRecipe(LocalDate date, Meal meal) {
+        return getDay(date).getMealRecipe(meal);
+    }
+
+    /**
+     * set a recipe to a meal slot of a day.
+     * @param date Date of day.
+     * @param meal Meal slot for recipe to be added to.
+     */
+    public void setMealRecipe(LocalDate date, Meal meal, Recipe recipe) {
+        requireNonNull(date);
+        requireNonNull(meal);
+
+        getDay(date).setMealRecipe(meal, recipe);
+    }
+
+    /**
+     * Returns a day with a specific date. If such a day exists in internalList, that day is returned.
+     * Else, a new day with the specified date is instantiated, added to internalList and returned.
+     * @param date
+     * @return
+     */
     public Day getDay(LocalDate date) {
-        return this.calendar.get(date);
-    }
-
-    public Recipe getMealRecipe(LocalDate date, Meal meal) throws MealRecipeNotFoundException {
-        return this.getDay(date).getMealRecipe(meal);
-    }
-
-    /**
-     * Adds to the calendar a recipe to a meal slot on a day of the specified date.
-     * If a recipe is already present at the meal slot, existing recipe is overwritten.
-     * Creates a new day if no such day is present in the calendar.
-     *
-     * @param recipe Recipe to be added.
-     * @param date   Date of the day.
-     * @param meal   Meal slot which recipe is to be added to.
-     */
-    public void addMealRecipe(Recipe recipe, LocalDate date, Meal meal) {
-        if (!this.calendar.containsKey(date)) {
-            Day newDay = new Day(date);
-            newDay.setMealRecipe(meal, recipe);
-            calendar.put(date, newDay);
+        Day newDay = new Day(date);
+        if (contains(newDay)) {
+            return internalList.get(internalList.indexOf(newDay));
         } else {
-            calendar.get(date).setMealRecipe(meal, recipe);
+            internalList.add(newDay);
+            return newDay;
         }
     }
 
     /**
-     * Removes a recipe from a specified meal slot of a specified day.
-     * Removes the day from the calendar if the day is empty (no meal recipes).
-     *
-     * @param date Date of the day.
-     * @param meal Meal slot to be cleared.
+     * Clears the internalList.
      */
-    public void removeMealRecipe(LocalDate date, Meal meal) {
-        if (this.calendar.containsKey(date)) {
-            this.calendar.get(date).setMealRecipe(meal, null);
-        }
-
-        if (calendar.get(date).isEmpty()) {
-            calendar.remove(date);
-        }
+    public void clearList() {
+        internalList.remove(0, internalList.size() - 1);
     }
-
-    /**
-     * Clears all the recipes in a day by removing the day from the calendar.
-     * @param date Date of day to be removed.
-     */
-    public void clearDay(LocalDate date) {
-        if (!this.calendar.get(date).isEmpty()) {
-            this.calendar.remove(date);
-        }
-    }
-
 }
