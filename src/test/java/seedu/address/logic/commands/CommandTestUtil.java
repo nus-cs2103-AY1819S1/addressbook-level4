@@ -17,9 +17,9 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.TaskManager;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Status;
-import seedu.address.model.person.Task;
+import seedu.address.model.task.NameContainsKeywordsPredicate;
+import seedu.address.model.task.Status;
+import seedu.address.model.task.Task;
 import seedu.address.testutil.EditTaskDescriptorBuilder;
 
 /**

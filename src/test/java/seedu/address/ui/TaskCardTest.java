@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import guitests.guihandles.TaskCardHandle;
 
-import seedu.address.model.person.Task;
+import seedu.address.model.task.Task;
 import seedu.address.testutil.TaskBuilder;
 
 public class TaskCardTest extends GuiUnitTest {

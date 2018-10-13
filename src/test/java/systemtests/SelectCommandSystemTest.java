@@ -23,13 +23,13 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
     public void select() {
         /* ------------------------ Perform select operations on the shown unfiltered list -------------------------- */
 
-        /* Case: select the first card in the person list, command with leading spaces and trailing spaces
+        /* Case: select the first card in the task list, command with leading spaces and trailing spaces
          * -> selected
          */
         String command = "   " + SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_TASK.getOneBased() + "   ";
         assertCommandSuccess(command, INDEX_FIRST_TASK);
 
-        /* Case: select the last card in the person list -> selected */
+        /* Case: select the last card in the task list -> selected */
         Index personCount = getLastIndex(getModel());
         command = SelectCommand.COMMAND_WORD + " " + personCount.getOneBased();
         assertCommandSuccess(command, personCount);
@@ -44,7 +44,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
 
-        /* Case: select the middle card in the person list -> selected */
+        /* Case: select the middle card in the task list -> selected */
         Index middleIndex = getMidIndex(getModel());
         command = SelectCommand.COMMAND_WORD + " " + middleIndex.getOneBased();
         assertCommandSuccess(command, middleIndex);
@@ -54,14 +54,14 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------------ Perform select operations on the shown filtered list ---------------------------- */
 
-        /* Case: filtered person list, select index within bounds of task manager but out of bounds of person list
+        /* Case: filtered task list, select index within bounds of task manager but out of bounds of task list
          * -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_TUTORIAL);
         int invalidIndex = getModel().getTaskManager().getTaskList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 
-        /* Case: filtered person list, select index within bounds of task manager and person list -> selected */
+        /* Case: filtered task list, select index within bounds of task manager and task list -> selected */
         Index validIndex = Index.fromOneBased(1);
         assertTrue(validIndex.getZeroBased() < getModel().getFilteredTaskList().size());
         command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();

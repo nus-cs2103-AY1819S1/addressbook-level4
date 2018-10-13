@@ -10,8 +10,8 @@ import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.model.person.Task;
 import seedu.address.model.tag.Label;
+import seedu.address.model.task.Task;
 
 /**
  * A utility class for Task.
