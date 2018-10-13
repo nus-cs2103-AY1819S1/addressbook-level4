@@ -19,8 +19,8 @@ import seedu.lostandfound.model.ArticleList;
 import seedu.lostandfound.storage.XmlAdaptedArticle;
 import seedu.lostandfound.storage.XmlAdaptedTag;
 import seedu.lostandfound.storage.XmlSerializableArticleList;
-import seedu.lostandfound.testutil.ArticleListBuilder;
 import seedu.lostandfound.testutil.ArticleBuilder;
+import seedu.lostandfound.testutil.ArticleListBuilder;
 import seedu.lostandfound.testutil.TestUtil;
 
 public class XmlUtilTest {
