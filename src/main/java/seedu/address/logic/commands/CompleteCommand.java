@@ -77,7 +77,7 @@ public class CompleteCommand extends Command {
         if (obj == null) {
             return false;
         } else if (obj instanceof CompleteCommand) {
-            return targetIndex == ((CompleteCommand) obj).targetIndex;
+            return targetIndex.equals(((CompleteCommand) obj).targetIndex);
         } else {
             // superclass's implementation might pass,
             // although in this instance it's a == relationship.
