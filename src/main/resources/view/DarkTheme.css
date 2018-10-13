@@ -25,7 +25,7 @@
 }
 
 .text-field {
-    -fx-font-size: 12pt;
+    -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
 }
 
@@ -149,9 +149,15 @@
 
 .text-area {
     -fx-background-color: transparent;
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 13pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 11pt;
     -fx-text-fill: white;
+}
+
+.text-area *.content {
+    -fx-padding: 0;
+    -fx-border-insets: 0;
+    -fx-background-insets: 0;
 }
 
 .result-display .label {

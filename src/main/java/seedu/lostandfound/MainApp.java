@@ -50,7 +50,6 @@ public class MainApp extends Application {
     protected Config config;
     protected UserPrefs userPrefs;
 
-
     @Override
     public void init() throws Exception {
         logger.info("=============================[ Initializing ArticleList ]===========================");
