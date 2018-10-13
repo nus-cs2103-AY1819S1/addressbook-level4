@@ -1,6 +1,7 @@
 package seedu.souschef.logic;
 
 import static org.junit.Assert.assertEquals;
+import static seedu.souschef.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -8,6 +9,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.souschef.logic.commands.CommandResult;
 import seedu.souschef.logic.commands.HistoryCommand;
+import seedu.souschef.logic.commands.ListCommand;
 import seedu.souschef.logic.commands.exceptions.CommandException;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
@@ -24,12 +26,12 @@ public class LogicManagerTest {
     private ModelSet modelSet = new ModelSetCoordinator();
     private Logic logic = new LogicManager(modelSet);
 
-    /*@Test
+    @Test
     public void execute_invalidCommandFormat_throwsParseException() {
         String invalidCommand = "uicfhmowqewca";
         assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
         assertHistoryCorrect(invalidCommand);
-    }*/
+    }
 
     /*@Test
     public void execute_commandExecutionError_throwsCommandException() {
@@ -38,12 +40,12 @@ public class LogicManagerTest {
         assertHistoryCorrect(deleteCommand);
     }*/
 
-    /*@Test
+    @Test
     public void execute_validCommand_success() {
         String listCommand = ListCommand.COMMAND_WORD;
         assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, modelSet.getRecipeModel());
         assertHistoryCorrect(listCommand);
-    }*/
+    }
 
     @Test
     public void getFilteredRecipeList_modifyList_throwsUnsupportedOperationException() {
@@ -113,7 +115,7 @@ public class LogicManagerTest {
      */
     private void assertHistoryCorrect(String... expectedCommands) {
         try {
-            CommandResult result = logic.execute(HistoryCommand.COMMAND_WORD);
+            CommandResult result = logic.execute("-" + HistoryCommand.COMMAND_WORD);
             String expectedMessage = String.format(
                     HistoryCommand.MESSAGE_SUCCESS, String.join("\n", expectedCommands));
             assertEquals(expectedMessage, result.feedbackToUser);
