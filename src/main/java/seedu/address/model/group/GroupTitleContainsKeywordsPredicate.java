@@ -1,10 +1,10 @@
 package seedu.address.model.group;
 
-import seedu.address.commons.util.StringUtil;
-import seedu.address.model.tag.Tag;
-
 import java.util.List;
 import java.util.function.Predicate;
+
+import seedu.address.commons.util.StringUtil;
+import seedu.address.model.tag.Tag;
 
 /**
  * Tests that a {@code Group}'s {@code Title} matches any of the keywords given.

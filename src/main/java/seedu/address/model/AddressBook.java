@@ -116,8 +116,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons, " +
-                groups.asUnmodifiableObservableList().size() + " groups";
+        return persons.asUnmodifiableObservableList().size() + " persons, "
+                + groups.asUnmodifiableObservableList().size() + " groups";
         // TODO: refine later
     }
 
