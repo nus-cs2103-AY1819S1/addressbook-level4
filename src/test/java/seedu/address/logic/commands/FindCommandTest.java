@@ -121,7 +121,7 @@ public class FindCommandTest {
     }
 
     /**
-     * Parses {@code userInput} into a {@code RideContainsKeywordsPredicate}.
+     * Parses {@code userInput} and {@code object} into a {@code RideContainsKeywordsPredicate}.
      */
     private RideContainsKeywordsPredicate preparePredicate(String userInput, Object object) {
         return new RideContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")), Optional.ofNullable(object));
