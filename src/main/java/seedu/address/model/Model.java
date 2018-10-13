@@ -40,6 +40,11 @@ public interface Model {
     void setCurrentContext(String contextId);
 
     /***
+     * Switches to record context
+     */
+    void switchToRecordContext();
+
+    /***
      * Returns the context Id
      */
     String getContextId();
