@@ -20,8 +20,6 @@ public class CompleteCommand extends Command {
 
     public static final String COMMAND_WORD = "complete";
     public static final String MESSAGE_SUCCESS = "Good job! You have completed your task:\n%1$s";
-    public static final String MESSAGE_DUPLICATE_COMPLETED_TASK = "This had a duplicate completed counterpart, please "
-            + "delete this instead of completing it again,";
     public static final String MESSAGE_ALREADY_COMPLETED = "This task has already been completed";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Completes the task identified by the targetIndex number used in the displayed task list.\n"
@@ -59,8 +57,9 @@ public class CompleteCommand extends Command {
 
     /**
      * Returns a {@code Task} with it's status set to {@code Status.COMPLETED}.
-     * @param toComplete The task to o
-     * @return
+     * @param toComplete An immutable task passed to have it's attributes copied
+     * @return A new immutable task similar to toComplete but status is set to
+     *         {@code Status.COMPLETED}
      */
     public Task createCompletedTask(Task toComplete) {
         return new Task(
