@@ -293,4 +293,22 @@ public class ParserUtilTest {
 
         //TODO: Receptionist
     }
+    
+    @Test
+    public void parsePassword_null_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
+        ParserUtil.parsePassword(null);
+    }
+
+    @Test
+    public void parsePassword_invalidPassword_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parsePassword(INVALID_PASSWORD);
+    }
+
+    @Test
+    public void parsePassword_validValueWithoutWhitespace_returnsPassword() throws Exception {
+        Password expectedPassword = new Password(VALID_PASSWORD, false);
+        assertEquals(expectedPassword, ParserUtil.parsePassword(VALID_PASSWORD));
+    }
 }
