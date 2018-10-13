@@ -6,7 +6,7 @@ import static seedu.souschef.logic.parser.CommandParserTestUtil.assertParseFailu
 import org.junit.Test;
 
 import seedu.souschef.logic.commands.SelectCommand;
-import seedu.souschef.logic.parser.commandParser.SelectCommandParser;
+import seedu.souschef.logic.parser.commandparser.SelectCommandParser;
 
 /**
  * Test scope: similar to {@code DeleteCommandParserTest}.

@@ -63,7 +63,6 @@ public class XmlSerializableAddressBook implements XmlSerializableGeneric {
             this.appContent = (AppContent) src;
         } else {
             appContent = new AppContent();
-
         }
         recipes.addAll(src.getObservableRecipeList().stream().map(XmlAdaptedRecipe::new).collect(Collectors.toList()));
     }
