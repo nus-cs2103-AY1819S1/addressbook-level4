@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.event.Date;
 import seedu.address.model.event.Description;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventId;
 import seedu.address.model.event.Location;
 import seedu.address.model.event.Name;
 import seedu.address.model.event.Time;
@@ -24,6 +25,8 @@ import seedu.address.model.tag.Tag;
 public class XmlAdaptedEvent {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Event's %s field is missing!";
 
+    @XmlElement(required = true)
+    private int eventId;
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
@@ -51,8 +54,9 @@ public class XmlAdaptedEvent {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given event details.
      */
-    public XmlAdaptedEvent(String name, String location, String startDate, String endDate,
+    public XmlAdaptedEvent(int eventId, String name, String location, String startDate, String endDate,
                            String startTime, String endTime, String description, List<XmlAdaptedTag> tagged) {
+        this.eventId = eventId;
         this.name = name;
         this.location = location;
         this.startDate = startDate;
@@ -71,6 +75,7 @@ public class XmlAdaptedEvent {
      * @param source future changes to this will not affect the created XmlAdaptedEvent
      */
     public XmlAdaptedEvent(Event source) {
+        eventId = source.getEventId().id;
         name = source.getName().fullName;
         location = source.getLocation().value;
         startDate = source.getStartDate().value;
@@ -94,6 +99,15 @@ public class XmlAdaptedEvent {
         for (XmlAdaptedTag tag : tagged) {
             eventTags.add(tag.toModelType());
         }
+
+        if (eventId == 0) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, EventId.class.getSimpleName()));
+        }
+        if (!EventId.isValidId(eventId)) {
+            throw new IllegalValueException(EventId.MESSAGE_NAME_CONSTRAINTS);
+        }
+        EventId modelEventId = new EventId(eventId);
+
 
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
@@ -155,7 +169,7 @@ public class XmlAdaptedEvent {
 
 
         final Set<Tag> modelTags = new HashSet<>(eventTags);
-        return new Event(modelName, modelLocation, modelStartDate, modelEndDate, modelStartTime, modelEndTime,
+        return new Event(modelEventId, modelName, modelLocation, modelStartDate, modelEndDate, modelStartTime, modelEndTime,
                             modelDescription, modelTags);
     }
 
