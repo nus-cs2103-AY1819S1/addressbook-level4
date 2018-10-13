@@ -154,10 +154,10 @@
     -fx-text-fill: white;
 }
 
-.text-area *.content {
-    -fx-padding: 0;
-    -fx-border-insets: 0;
+.text-area .content {
     -fx-background-insets: 0;
+    -fx-border-insets: 0;
+    -fx-padding: 0;
 }
 
 .result-display .label {
