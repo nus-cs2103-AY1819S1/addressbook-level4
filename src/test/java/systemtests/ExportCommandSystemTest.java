@@ -34,7 +34,7 @@ public class ExportCommandSystemTest extends AddressBookSystemTest {
         command = ExportCommand.COMMAND_WORD + " " + PREFIX_PATH + " " + EXPORT_FILE + "   ";
 
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedPersonCardUnchanged();
         assertFileExist(EXPORT_FILE);
         assertExportContentCorrect(EXPORT_PATH);
 
@@ -44,7 +44,7 @@ public class ExportCommandSystemTest extends AddressBookSystemTest {
         command = ExportCommand.COMMAND_WORD + " " + PREFIX_PATH + " " + EXPORT_FILE;
 
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedPersonCardUnchanged();
         assertFileExist(EXPORT_FILE);
         assertExportContentCorrect(EXPORT_PATH);
 
@@ -97,7 +97,7 @@ public class ExportCommandSystemTest extends AddressBookSystemTest {
 
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedPersonCardUnchanged();
         assertCommandBoxShowsErrorStyle();
         assertStatusBarUnchanged();
     }

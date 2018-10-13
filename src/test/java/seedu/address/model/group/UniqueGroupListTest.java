@@ -50,12 +50,6 @@ public class UniqueGroupListTest {
     }
 
     @Test
-    public void add_duplicateGroup_throwsNothing() {
-        uniqueGroupList.add(TEMP_GROUP_PROJECT);
-        uniqueGroupList.add(TEMP_GROUP_PROJECT);
-    }
-
-    @Test
     public void setGroup_nullTargetGroup_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueGroupList.setGroup(null, TEMP_GROUP_PROJECT);
@@ -89,6 +83,14 @@ public class UniqueGroupListTest {
         UniqueGroupList expectedUniqueGroupList = new UniqueGroupList();
         expectedUniqueGroupList.add(TEMP_GROUP_ASSIGNMENT);
         assertEquals(expectedUniqueGroupList, uniqueGroupList);
+    }
+
+    @Test
+    public void setGroup_editedGroupHasNonUniqueIdentity_throwsDuplicateGroupException() {
+        uniqueGroupList.add(TEMP_GROUP_PROJECT);
+        uniqueGroupList.add(TEMP_GROUP_ASSIGNMENT);
+        thrown.expect(DuplicateGroupException.class);
+        uniqueGroupList.setGroup(TEMP_GROUP_PROJECT, TEMP_GROUP_ASSIGNMENT);
     }
 
     @Test
