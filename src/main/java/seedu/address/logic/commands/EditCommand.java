@@ -98,18 +98,15 @@ public class EditCommand extends Command {
 
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         //@@author zioul123
-        Optional<Phone> updatedPhone = editPersonDescriptor.getPhone()
-                .isPresent()
-                ? editPersonDescriptor.getPhone()
-                : personToEdit.getPhone();
-        Optional<Email> updatedEmail = editPersonDescriptor.getEmail()
-                .isPresent()
-                ? editPersonDescriptor.getEmail()
-                : personToEdit.getEmail();
-        Optional<Address> updatedAddress = editPersonDescriptor.getAddress()
-                .isPresent()
-                ? editPersonDescriptor.getAddress()
-                : personToEdit.getAddress();
+        // Check if the editPersonDescriptor has these fields.
+        boolean hasPhone = editPersonDescriptor.getPhone().isPresent();
+        boolean hasEmail = editPersonDescriptor.getEmail().isPresent();
+        boolean hasAddress = editPersonDescriptor.getAddress().isPresent();
+
+        // Take the value of the editPersonDescriptor's field if it exists, otherwise take the original value.
+        Optional<Phone> updatedPhone = hasPhone ? editPersonDescriptor.getPhone() : personToEdit.getPhone();
+        Optional<Email> updatedEmail = hasEmail ? editPersonDescriptor.getEmail() : personToEdit.getEmail();
+        Optional<Address> updatedAddress = hasAddress ? editPersonDescriptor.getAddress() : personToEdit.getAddress();
         //@@author
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         // Edit command does not change meeting. Use schedule to change meeting.
