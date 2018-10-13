@@ -2,6 +2,7 @@
 <!-- AddressBook save file which contains the same Event values as in TypicalEvents#getTypicalAddressBook() -->
 <addressbook>
     <events>
+        <eventId>1</eventId>
         <name>Blood Donation Drive 2018</name>
         <location>750E, Chai Chee Road, #08-111</location>
         <startDate>02-10-2018</startDate>
@@ -13,6 +14,7 @@
         <tagged>Public</tagged>
     </events>
     <events>
+        <eventId>2</eventId>
         <name>Youth Humanitarian Challenge</name>
         <location>29 Havelock Road</location>
         <startDate>28-09-2018</startDate>
