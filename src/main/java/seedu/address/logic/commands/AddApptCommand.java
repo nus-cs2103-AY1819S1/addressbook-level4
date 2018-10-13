@@ -11,6 +11,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
 
+//@@author gingivitiss
+
 /**
  * Adds appointment to schedule.
  */
@@ -35,6 +37,7 @@ public class AddApptCommand extends Command {
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 ";
 
     public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";
+
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment is already scheduled.";
 
     private final Appointment toAdd;
@@ -52,5 +55,16 @@ public class AddApptCommand extends Command {
         model.addAppointment(toAdd);
         model.commitAddressBook();
         return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (other instanceof AddApptCommand) {
+            return false;
+        }
+        return toAdd.equals(((AddApptCommand) other).toAdd);
     }
 }
