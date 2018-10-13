@@ -2,17 +2,13 @@ package systemtests;
 
 import static seedu.learnvocabulary.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.MEANING_DESC;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.learnvocabulary.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.learnvocabulary.testutil.TypicalWords.ALICE;
 import static seedu.learnvocabulary.testutil.TypicalWords.AMY;
@@ -68,13 +64,6 @@ public class AddCommandSystemTest extends LearnVocabularySystemTest {
         command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + MEANING_DESC + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a word with all fields same as another word in the learnvocabulary book except phone and email
-         * -> added
-         */
-        toAdd = new WordBuilder(AMY).withPhone(VALID_PHONE_BOB).build();
-        command = WordUtil.getAddCommand(toAdd);
-        assertCommandSuccess(command, toAdd);
-
         /* Case: add to empty learnvocabulary book -> added */
         deleteAllWords();
         assertCommandSuccess(ALICE);
@@ -106,35 +95,12 @@ public class AddCommandSystemTest extends LearnVocabularySystemTest {
         command = WordUtil.getAddCommand(HOON);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_WORD);
 
-        /* Case: add a duplicate word except with different phone -> rejected */
-        toAdd = new WordBuilder(HOON).build();
-        command = WordUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_WORD);
-
-        /* Case: add a duplicate word except with different email -> rejected */
-        toAdd = new WordBuilder(HOON).build();
-        command = WordUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_WORD);
-
-        /* Case: add a duplicate word except with different learnvocabulary -> rejected */
-        toAdd = new WordBuilder(HOON).build();
-        command = WordUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_WORD);
-
         /* Case: add a duplicate word except with different tags -> rejected */
         command = WordUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_WORD);
 
         /* Case: missing name -> rejected */
         command = AddCommand.COMMAND_WORD + MEANING_DESC;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-
-        /* Case: missing phone -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + MEANING_DESC;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-
-        /* Case: missing learnvocabulary -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + MEANING_DESC;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
@@ -146,7 +112,7 @@ public class AddCommandSystemTest extends LearnVocabularySystemTest {
         assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + MEANING_DESC + PHONE_DESC_AMY + INVALID_TAG_DESC;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + MEANING_DESC + INVALID_TAG_DESC;
         assertCommandFailure(command, Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 

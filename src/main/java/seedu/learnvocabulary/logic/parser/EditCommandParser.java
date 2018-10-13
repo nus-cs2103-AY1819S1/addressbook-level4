@@ -2,10 +2,8 @@ package seedu.learnvocabulary.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.learnvocabulary.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.learnvocabulary.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.learnvocabulary.logic.parser.CliSyntax.PREFIX_MEANING;
 import static seedu.learnvocabulary.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.learnvocabulary.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.learnvocabulary.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
@@ -32,8 +30,7 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_MEANING, PREFIX_PHONE,
-                       PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_MEANING, PREFIX_TAG);
 
         Index index;
 
@@ -49,12 +46,6 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         if (argMultimap.getValue(PREFIX_MEANING).isPresent()) {
             editWordDescriptor.setMeaning(ParserUtil.parseMeaning(argMultimap.getValue(PREFIX_MEANING).get()));
-        }
-        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
-            editWordDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
-        }
-        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            editWordDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editWordDescriptor::setTags);
 

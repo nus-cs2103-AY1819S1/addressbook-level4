@@ -111,11 +111,6 @@ public class FindCommandSystemTest extends LearnVocabularySystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find phone number of word in LearnVocabulary -> 0 words found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getPhone().value;
-        assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
-
         /* Case: find tags of word in LearnVocabulary -> 0 words found */
         List<Tag> tags = new ArrayList<>(DANIEL.getTags());
         command = FindCommand.COMMAND_WORD + " " + tags.get(0).tagName;

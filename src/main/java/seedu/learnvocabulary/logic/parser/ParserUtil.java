@@ -11,10 +11,8 @@ import seedu.learnvocabulary.commons.util.StringUtil;
 import seedu.learnvocabulary.logic.parser.exceptions.ParseException;
 import seedu.learnvocabulary.model.tag.Tag;
 
-import seedu.learnvocabulary.model.word.Address;
 import seedu.learnvocabulary.model.word.Meaning;
 import seedu.learnvocabulary.model.word.Name;
-import seedu.learnvocabulary.model.word.Phone;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -66,38 +64,6 @@ public class ParserUtil {
         }
         return new Meaning(trimmedMeaning);
     }
-
-    /**
-     * Parses a {@code String phone} into a {@code Phone}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code phone} is invalid.
-     */
-
-    public static Phone parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_PHONE_CONSTRAINTS);
-        }
-        return new Phone(trimmedPhone);
-    }
-
-    /**
-     * Parses a {@code String learnvocabulary} into an {@code Address}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code learnvocabulary} is invalid.
-     */
-    public static Address parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
-        }
-        return new Address(trimmedAddress);
-    }
-
 
     /**
      * Parses a {@code String tag} into a {@code Tag}.

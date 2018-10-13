@@ -4,9 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import org.junit.Test;
@@ -37,14 +35,6 @@ public class EditWordDescriptorTest {
         // different name -> returns false
         EditCommand.EditWordDescriptor editedAmy = new EditWordDescriptorBuilder(DESC_AMY)
                 .withName(VALID_NAME_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
-
-        // different phone -> returns false
-        editedAmy = new EditWordDescriptorBuilder(DESC_AMY).withPhone(VALID_PHONE_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
-
-        // different learnvocabulary -> returns false
-        editedAmy = new EditWordDescriptorBuilder(DESC_AMY).withAddress(VALID_ADDRESS_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different tags -> returns false
