@@ -169,7 +169,7 @@ public class MainWindow extends UiPart<Stage> {
         leftPanelPlaceholder.getChildren().clear();
         leftPanelPlaceholder.getChildren().add(statisticsSplitPane);
     }
-    
+
     //@@author snookerballs
     /**
      * Initialize UI after login

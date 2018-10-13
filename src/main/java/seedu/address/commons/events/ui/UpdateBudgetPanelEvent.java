@@ -9,13 +9,13 @@ import seedu.address.model.budget.Budget;
  * An event requesting an update in budget display.
  */
 public class UpdateBudgetPanelEvent extends BaseEvent {
-    
+
     public final Budget budget;
-    
+
     public UpdateBudgetPanelEvent(Budget budget) {
-        this.budget = budget;    
+        this.budget = budget;
     }
-    
+
     @Override
     public String toString() {
         return getClass().getSimpleName();
