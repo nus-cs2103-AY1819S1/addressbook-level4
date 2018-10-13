@@ -129,7 +129,7 @@ public class EditCommandSystemTest extends ArticleListSystemTest {
         /* --------------------- Performing edit operation while a article card is selected ------------------------- */
 
         /* Case: selects first card in the article list, edit a article -> edited, card selection remains unchanged but
-         * browser url changes
+         * article details changes
          */
         showAllArticles();
         index = INDEX_FIRST_ARTICLE;
@@ -137,7 +137,7 @@ public class EditCommandSystemTest extends ArticleListSystemTest {
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + DESCRIPTION_DESC_AMY + TAG_DESC_FRIEND;
         // this can be misleading: card selection actually remains unchanged but the
-        // browser's url is updated to reflect the new article's name
+        // article details is updated to reflect the new article's name
         assertCommandSuccess(command, index, AMY, index);
 
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
@@ -218,7 +218,7 @@ public class EditCommandSystemTest extends ArticleListSystemTest {
 
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Index, Article, Index)} except that
-     * the browser url and selected card remain unchanged.
+     * the article details and selected card remain unchanged.
      * @param toEdit the index of the current model's filtered list
      * @see EditCommandSystemTest#assertCommandSuccess(String, Index, Article, Index)
      */
@@ -246,7 +246,7 @@ public class EditCommandSystemTest extends ArticleListSystemTest {
 
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} except that the
-     * browser url and selected card remain unchanged.
+     * article details and selected card remain unchanged.
      * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
@@ -257,7 +257,7 @@ public class EditCommandSystemTest extends ArticleListSystemTest {
      * Executes {@code command} and in addition,<br>
      * 1. Asserts that the command box displays an empty string.<br>
      * 2. Asserts that the result display box displays {@code expectedResultMessage}.<br>
-     * 3. Asserts that the browser url and selected card update accordingly depending on the card at
+     * 3. Asserts that the article details and selected card update accordingly depending on the card at
      * {@code expectedSelectedCardIndex}.<br>
      * 4. Asserts that the status bar's sync status changes.<br>
      * 5. Asserts that the command box has the default style class.<br>
@@ -284,7 +284,7 @@ public class EditCommandSystemTest extends ArticleListSystemTest {
      * Executes {@code command} and in addition,<br>
      * 1. Asserts that the command box displays {@code command}.<br>
      * 2. Asserts that result display box displays {@code expectedResultMessage}.<br>
-     * 3. Asserts that the browser url, selected card and status bar remain unchanged.<br>
+     * 3. Asserts that the article details, selected card and status bar remain unchanged.<br>
      * 4. Asserts that the command box has the error style.<br>
      * Verifications 1 and 2 are performed by
      * {@code ArticleListSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
