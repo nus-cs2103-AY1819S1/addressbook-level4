@@ -3,16 +3,20 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.AddressBookExportEvent;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonPropertyComparator;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -24,6 +28,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Tag> filteredGroups;
+    private final SortedList<Person> sortedPersons;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -37,6 +42,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredGroups = new FilteredList<>(versionedAddressBook.getGroupList());
+        sortedPersons = new SortedList<>(filteredPersons);
     }
 
     public ModelManager() {
@@ -130,6 +136,19 @@ public class ModelManager extends ComponentManager implements Model {
         filteredGroups.setPredicate(predicate);
     }
 
+    //=========== Sorted Person List Accessors ==============================================================
+
+    @Override
+    public ObservableList<Person> getSortedPersonList() {
+        return FXCollections.unmodifiableObservableList(sortedPersons);
+    }
+
+    @Override
+    public void updateSortedPersonList(PersonPropertyComparator personPropertyComparator) {
+        requireNonNull(personPropertyComparator);
+        sortedPersons.setComparator(personPropertyComparator.getComparator());
+    }
+
     //=========== Undo/Redo =================================================================================
 
     @Override
@@ -159,6 +178,14 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.commit();
     }
 
+    // ================= Export/Import =======================================================================
+
+    @Override
+    /** Raises an event to indicate the model to be exported */
+    public void exportAddressBook(Path filepath) {
+        raise(new AddressBookExportEvent(versionedAddressBook, filepath));
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -174,7 +201,7 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
-                && filteredPersons.equals(other.filteredPersons);
+                && sortedPersons.equals(other.sortedPersons);
     }
 
 }
