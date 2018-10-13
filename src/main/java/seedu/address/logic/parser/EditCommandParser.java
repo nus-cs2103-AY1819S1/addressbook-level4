@@ -14,6 +14,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.EditByNameCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -35,32 +36,30 @@ public class EditCommandParser implements Parser<EditCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
-        Optional<Index> index = getIndex(argMultimap.getPreamble());
-        if (index.isPresent()) {
-            EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
-            if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-                editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
-            }
-            if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
-                editPersonDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
-            }
-            if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-                editPersonDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
-            }
-            if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-                editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
-            }
-            parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
+        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+        }
+        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
+            editPersonDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
+        }
+        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
+            editPersonDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
+        }
+        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
+            editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+        }
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 
-            if (!editPersonDescriptor.isAnyFieldEdited()) {
-                throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
-            }
-
-            return new EditCommand(index.get(), editPersonDescriptor);
+        if (!editPersonDescriptor.isAnyFieldEdited()) {
+            throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
 
-
-
+        // Decide whether to use EditCommand or EditByNameCommand based on the user input.
+        String preamble = argMultimap.getPreamble();
+        Optional<Index> index = getIndex(preamble);
+        return index.<EditCommand>map(idx -> new EditCommand(idx, editPersonDescriptor))
+                .orElseGet(() -> new EditByNameCommand(preamble, editPersonDescriptor));
     }
 
     /**
@@ -85,6 +84,8 @@ public class EditCommandParser implements Parser<EditCommand> {
      * @return An Optional of the index if the specified index is valid, an empty optional otherwise
      */
     private Optional<Index> getIndex(String preamble) {
+        //@@author zioul123-reused
+        //Moved from the parse method of EditCommandParser.
         Index index;
         try {
             index = ParserUtil.parseIndex(preamble);
@@ -92,17 +93,6 @@ public class EditCommandParser implements Parser<EditCommand> {
             return Optional.empty();
         }
         return Optional.of(index);
-    }
-
-    /**
-     * Attempts to match the preamble text to a single person.
-     * @param preamble The preamble of the command typed.
-     * @return An Optional of the Person if a single person can be matched to the name typed, an empty
-     *         optional otherwise.
-     */
-    private Optional<Person> getPerson(String preamble) {
-
-
     }
     //@@author
 }

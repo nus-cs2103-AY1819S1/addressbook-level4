@@ -52,8 +52,10 @@ public class EditCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
+    public static final int NO_INDEX = 1000000000;
+
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    protected final EditPersonDescriptor editPersonDescriptor;
 
     /**
      * @param index of the person in the filtered person list to edit

@@ -9,15 +9,16 @@ import static java.util.Objects.requireNonNull;
  */
 public abstract class ByNameCommand extends Command {
 
-    protected final Person person;
+    protected final String personIdentifier;
 
     /**
-     * Creates a ByNameCommand to perform a command on a specified {@code Person}.
-     * @param person The person this command acts on.
+     * Creates a ByNameCommand to perform a command on a {@code Person} with a name that can be identified
+     * by the {@Code String personIdentifier}.
+     * @param personIdentifier A string to identify the person this command acts on.
      */
-    public ByNameCommand(Person person) {
-        requireNonNull(person);
+    public ByNameCommand(String personIdentifier) {
+        requireNonNull(personIdentifier);
 
-        this.person = person;
+        this.personIdentifier = personIdentifier;
     }
 }
