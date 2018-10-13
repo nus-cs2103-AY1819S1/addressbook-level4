@@ -55,6 +55,7 @@ public class TaskCard extends UiPart<Region> {
         email.setText(task.getPriorityValue().value);
         status.setText(task.getStatus().toString());
         hash.setText(Integer.toString(task.hashCode()));
+        dependency.setText(task.getDependency().toString());
         task.getLabels().forEach(tag -> tags.getChildren().add(new Label(tag.labelName)));
     }
 
