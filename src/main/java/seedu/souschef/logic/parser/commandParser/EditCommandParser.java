@@ -1,4 +1,4 @@
-package seedu.souschef.logic.parser;
+package seedu.souschef.logic.parser.commandParser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -17,6 +17,9 @@ import java.util.Set;
 import seedu.souschef.commons.core.index.Index;
 import seedu.souschef.logic.EditRecipeDescriptor;
 import seedu.souschef.logic.commands.EditCommand;
+import seedu.souschef.logic.parser.ArgumentMultimap;
+import seedu.souschef.logic.parser.ArgumentTokenizer;
+import seedu.souschef.logic.parser.ParserUtil;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.recipe.Address;

@@ -2,6 +2,8 @@ package seedu.souschef.logic.parser;
 
 import org.junit.Test;
 
+import seedu.souschef.logic.parser.commandParser.FindCommandParser;
+
 public class FindCommandParserTest {
 
     private FindCommandParser parser = new FindCommandParser();
