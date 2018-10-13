@@ -1,25 +1,25 @@
 package systemtests;
 
 import static org.junit.Assert.assertFalse;
-import static seedu.address.commons.core.Messages.MESSAGE_ARTICLES_LISTED_OVERVIEW;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalArticles.BENSON;
-import static seedu.address.testutil.TypicalArticles.CARL;
-import static seedu.address.testutil.TypicalArticles.DANIEL;
-import static seedu.address.testutil.TypicalArticles.KEYWORD_MATCHING_MEIER;
+import static seedu.lostandfound.commons.core.Messages.MESSAGE_ARTICLES_LISTED_OVERVIEW;
+import static seedu.lostandfound.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.lostandfound.testutil.TypicalArticles.BENSON;
+import static seedu.lostandfound.testutil.TypicalArticles.CARL;
+import static seedu.lostandfound.testutil.TypicalArticles.DANIEL;
+import static seedu.lostandfound.testutil.TypicalArticles.KEYWORD_MATCHING_MEIER;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.tag.Tag;
+import seedu.lostandfound.commons.core.index.Index;
+import seedu.lostandfound.logic.commands.DeleteCommand;
+import seedu.lostandfound.logic.commands.FindCommand;
+import seedu.lostandfound.logic.commands.RedoCommand;
+import seedu.lostandfound.logic.commands.UndoCommand;
+import seedu.lostandfound.model.Model;
+import seedu.lostandfound.model.tag.Tag;
 
 public class FindCommandSystemTest extends ArticleListSystemTest {
 

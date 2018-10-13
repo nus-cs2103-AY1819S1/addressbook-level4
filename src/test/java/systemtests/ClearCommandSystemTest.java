@@ -1,16 +1,16 @@
 package systemtests;
 
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalArticles.KEYWORD_MATCHING_MEIER;
+import static seedu.lostandfound.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.lostandfound.testutil.TypicalArticles.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
+import seedu.lostandfound.commons.core.index.Index;
+import seedu.lostandfound.logic.commands.ClearCommand;
+import seedu.lostandfound.logic.commands.RedoCommand;
+import seedu.lostandfound.logic.commands.UndoCommand;
+import seedu.lostandfound.model.Model;
+import seedu.lostandfound.model.ModelManager;
 
 public class ClearCommandSystemTest extends ArticleListSystemTest {
 
