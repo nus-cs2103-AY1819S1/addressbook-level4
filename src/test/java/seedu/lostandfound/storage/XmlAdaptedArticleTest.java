@@ -42,7 +42,7 @@ public class XmlAdaptedArticleTest {
     public void toModelType_invalidName_throwsIllegalValueException() {
         XmlAdaptedArticle article =
                 new XmlAdaptedArticle(INVALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_DESCRIPTION, VALID_TAGS);
-        String expectedMessage = Name.MESSAGE_NAME_CONSTRAINTS;
+        String expectedMessage = Name.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, article::toModelType);
     }
 
@@ -58,7 +58,7 @@ public class XmlAdaptedArticleTest {
     public void toModelType_invalidPhone_throwsIllegalValueException() {
         XmlAdaptedArticle article =
                 new XmlAdaptedArticle(VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_DESCRIPTION, VALID_TAGS);
-        String expectedMessage = Phone.MESSAGE_PHONE_CONSTRAINTS;
+        String expectedMessage = Phone.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, article::toModelType);
     }
 
@@ -73,7 +73,7 @@ public class XmlAdaptedArticleTest {
     public void toModelType_invalidEmail_throwsIllegalValueException() {
         XmlAdaptedArticle article =
                 new XmlAdaptedArticle(VALID_NAME, VALID_PHONE, INVALID_EMAIL, VALID_DESCRIPTION, VALID_TAGS);
-        String expectedMessage = Email.MESSAGE_EMAIL_CONSTRAINTS;
+        String expectedMessage = Email.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, article::toModelType);
     }
 
@@ -88,7 +88,7 @@ public class XmlAdaptedArticleTest {
     public void toModelType_invalidDescription_throwsIllegalValueException() {
         XmlAdaptedArticle article =
                 new XmlAdaptedArticle(VALID_NAME, VALID_PHONE, VALID_EMAIL, INVALID_DESCRIPTION, VALID_TAGS);
-        String expectedMessage = Description.MESSAGE_DESCRIPTION_CONSTRAINTS;
+        String expectedMessage = Description.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, article::toModelType);
     }
 
