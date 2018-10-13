@@ -65,7 +65,7 @@ public class HealthPlan extends UniqueType {
      * check if the current plan is same as provided
      * method check if plan is same
      */
-    public boolean isSamePlan(HealthPlan otherPlan) {
+    public boolean isSame(HealthPlan otherPlan) {
         if (otherPlan == this) {
             return true;
         }
