@@ -199,7 +199,9 @@ public class MainWindow extends UiPart<Stage> {
             listPanelPlaceholder.getChildren().clear();
             listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         } else if (contextId.equals(RECORD_CONTEXT_ID)) {
-            // to be implemented
+            // TO_UPDATE: Shows all available volunteers for event
+            listPanelPlaceholder.getChildren().clear();
+            listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         }
     }
 
