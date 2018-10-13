@@ -1,4 +1,4 @@
-package seedu.souschef.storage;
+package seedu.souschef.storage.recipe;
 
 import javax.xml.bind.annotation.XmlValue;
 

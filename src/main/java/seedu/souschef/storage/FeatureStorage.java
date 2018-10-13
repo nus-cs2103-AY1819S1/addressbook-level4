@@ -11,12 +11,16 @@ import seedu.souschef.model.ReadOnlyAppContent;
 /**
  * Represents a storage for {@link AppContent}.
  */
-public interface AddressBookStorage {
+public interface FeatureStorage {
 
     /**
      * Returns the file path of the data file.
      */
-    Path getAddressBookFilePath();
+    Path getFeatureFilePath();
+
+    AppContent getAppContent();
+
+    Optional<ReadOnlyAppContent> readFeature() throws DataConversionException, IOException;
 
     /**
      * Returns AppContent data as a {@link ReadOnlyAppContent}.
@@ -24,23 +28,29 @@ public interface AddressBookStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyAppContent> readAddressBook() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getFeatureFilePath()
      */
-    Optional<ReadOnlyAppContent> readAddressBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyAppContent> readFeature(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyAppContent} to the storage.
      * @param addressBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyAppContent addressBook) throws IOException;
+    void saveFeature(ReadOnlyAppContent addressBook) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyAppContent)
+     * @see #saveAppContent(ReadOnlyAppContent)
      */
-    void saveAddressBook(ReadOnlyAppContent addressBook, Path filePath) throws IOException;
+
+    void saveFeature(ReadOnlyAppContent addressBook, Path filePath) throws IOException;
+
+
+
+
+
+
 
 }

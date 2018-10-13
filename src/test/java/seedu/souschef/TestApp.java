@@ -6,6 +6,7 @@ import java.util.function.Supplier;
 
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+
 import seedu.souschef.commons.core.Config;
 import seedu.souschef.commons.core.GuiSettings;
 import seedu.souschef.commons.exceptions.DataConversionException;
@@ -18,8 +19,9 @@ import seedu.souschef.model.ReadOnlyAppContent;
 import seedu.souschef.model.UserPrefs;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.storage.UserPrefsStorage;
-import seedu.souschef.storage.XmlSerializableAddressBook;
+import seedu.souschef.storage.recipe.XmlSerializableAddressBook;
 import seedu.souschef.testutil.TestUtil;
+
 import systemtests.ModelHelper;
 
 /**
@@ -74,7 +76,7 @@ public class TestApp extends MainApp {
      */
     public AppContent readStorageAddressBook() {
         try {
-            return new AppContent(storage.readAddressBook().get());
+            return new AppContent(storage.readFeature().get());
         } catch (DataConversionException dce) {
             throw new AssertionError("Data is not in the AppContent format.", dce);
         } catch (IOException ioe) {
@@ -86,7 +88,7 @@ public class TestApp extends MainApp {
      * Returns the file path of the storage file.
      */
     public Path getStorageSaveLocation() {
-        return storage.getAddressBookFilePath();
+        return storage.getFeatureFilePath();
     }
 
     /**
