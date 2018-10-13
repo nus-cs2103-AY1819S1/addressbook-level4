@@ -34,6 +34,8 @@ public class AppContentParser {
             return new UniversalParser().parseCommand(history, userInput);
         } else if (context == null || context.equals("Recipe")) {
             return new RecipeParser().parseCommand(modelSet.getRecipeModel(), userInput);
+        } else if (context.equals("Ingredient")) {
+            return new IngredientParser().parseCommand(modelSet.getIngredientModel(), userInput);
         } else {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

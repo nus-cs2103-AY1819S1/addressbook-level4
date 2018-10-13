@@ -19,6 +19,7 @@ import seedu.souschef.logic.EditRecipeDescriptor;
 import seedu.souschef.logic.commands.EditCommand;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
+import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.recipe.Address;
 import seedu.souschef.model.recipe.Email;
 import seedu.souschef.model.recipe.Name;
@@ -83,6 +84,11 @@ public class EditCommandParser implements CommandParser<EditCommand> {
         }
 
         return new EditCommand<>(model, toEdit, edited);
+    }
+
+    @Override
+    public EditCommand<Ingredient> parseIngredient(Model model, String userInput) throws ParseException {
+        return null;
     }
 
     /**

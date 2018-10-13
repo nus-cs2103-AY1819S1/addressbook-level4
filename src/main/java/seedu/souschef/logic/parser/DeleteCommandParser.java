@@ -9,6 +9,7 @@ import seedu.souschef.commons.core.index.Index;
 import seedu.souschef.logic.commands.DeleteCommand;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
+import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.recipe.Recipe;
 
 /**
@@ -37,6 +38,11 @@ public class DeleteCommandParser implements CommandParser<DeleteCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
         }
+    }
+
+    @Override
+    public DeleteCommand<Ingredient> parseIngredient(Model model, String userInput) throws ParseException {
+        return null;
     }
 
 }

@@ -8,6 +8,7 @@ import java.util.Arrays;
 import seedu.souschef.logic.commands.FindCommand;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
+import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.recipe.NameContainsKeywordsPredicate;
 import seedu.souschef.model.recipe.Recipe;
 
@@ -32,6 +33,11 @@ public class FindCommandParser implements CommandParser<FindCommand> {
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
         return new FindCommand<>(model, new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+    }
+
+    @Override
+    public FindCommand<Ingredient> parseIngredient(Model model, String userInput) throws ParseException {
+        return null;
     }
 
 }

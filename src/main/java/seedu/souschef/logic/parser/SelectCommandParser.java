@@ -26,4 +26,9 @@ public class SelectCommandParser implements CommandParser<SelectCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE), pe);
         }
     }
+
+    @Override
+    public SelectCommand parseIngredient(Model model, String userInput) throws ParseException {
+        return null;
+    }
 }

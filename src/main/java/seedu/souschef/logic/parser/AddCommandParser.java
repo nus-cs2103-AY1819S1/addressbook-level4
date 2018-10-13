@@ -14,6 +14,7 @@ import java.util.stream.Stream;
 import seedu.souschef.logic.commands.AddCommand;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
+import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.recipe.Address;
 import seedu.souschef.model.recipe.Email;
 import seedu.souschef.model.recipe.Name;
@@ -52,7 +53,12 @@ public class AddCommandParser implements CommandParser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        return new AddCommand<Recipe>(model, toAdd);
+        return new AddCommand<>(model, toAdd);
+    }
+
+    @Override
+    public AddCommand<Ingredient> parseIngredient(Model model, String userInput) throws ParseException {
+        return null;
     }
 
     /**
