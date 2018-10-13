@@ -144,7 +144,7 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.setTitle(appTitle);
     }
 
-    void switchToRecipeListPanel() {
+    protected void switchToRecipeListPanel() {
         generalListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
         generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
     }
