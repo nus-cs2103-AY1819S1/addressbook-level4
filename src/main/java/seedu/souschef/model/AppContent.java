@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import javafx.collections.ObservableList;
 
 import seedu.souschef.model.healthplan.HealthPlan;
+import seedu.souschef.model.planner.Day;
 import seedu.souschef.model.recipe.Recipe;
 
 
@@ -17,6 +18,7 @@ public class AppContent implements ReadOnlyAppContent {
 
     private final UniqueList<Recipe> recipes;
     private final UniqueList<HealthPlan> healthPlans;
+    private final UniqueList<Day> mealPlanner;
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -27,6 +29,7 @@ public class AppContent implements ReadOnlyAppContent {
     {
         recipes = new UniqueList<>();
         healthPlans = new UniqueList<>();
+        mealPlanner = new UniqueList<>();
     }
 
     public AppContent() {}
@@ -49,7 +52,7 @@ public class AppContent implements ReadOnlyAppContent {
 
         this.recipes.set(newData.getObservableRecipeList());
         this.healthPlans.set(newData.getObservableHealthPlanList());
-
+        this.mealPlanner.set(newData.getObservableMealPlanner());
     }
 
     /**
@@ -64,7 +67,9 @@ public class AppContent implements ReadOnlyAppContent {
         if (newData.getObservableHealthPlanList().size() > 0) {
             this.healthPlans.set(newData.getObservableHealthPlanList());
         }
-
+        if (newData.getObservableMealPlanner().size() > 0) {
+            this.mealPlanner.set(newData.getObservableMealPlanner());
+        }
 
     }
 
@@ -76,6 +81,11 @@ public class AppContent implements ReadOnlyAppContent {
     //healthplan level operations
     public UniqueList<HealthPlan> getHealthPlans() {
         return healthPlans;
+    }
+
+    // meal planner level operations
+    public UniqueList<Day> getMealPlanner() {
+        return mealPlanner;
     }
 
     //// util methods
@@ -96,10 +106,17 @@ public class AppContent implements ReadOnlyAppContent {
     }
 
     @Override
+    public ObservableList<Day> getObservableMealPlanner() {
+        return mealPlanner.asUnmodifiableObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AppContent // instanceof handles nulls
-                && recipes.equals(((AppContent) other).recipes));
+                && recipes.equals(((AppContent) other).recipes))
+                && healthPlans.equals(((AppContent) other).healthPlans)
+                && mealPlanner.equals(((AppContent) other).mealPlanner);
     }
 
     @Override
