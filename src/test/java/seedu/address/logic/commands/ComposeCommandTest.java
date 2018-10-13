@@ -37,7 +37,8 @@ public class ComposeCommandTest {
 
         CommandResult commandResult = new ComposeCommand(validEmail).execute(model, commandHistory);
 
-        assertEquals(String.format(ComposeCommand.MESSAGE_SUCCESS, validEmail), commandResult.feedbackToUser);
+        assertEquals(String.format(ComposeCommand.MESSAGE_SUCCESS, validEmail.getSubject()),
+                commandResult.feedbackToUser);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
