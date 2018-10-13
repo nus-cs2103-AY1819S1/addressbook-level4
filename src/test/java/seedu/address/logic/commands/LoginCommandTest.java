@@ -24,16 +24,19 @@ public class LoginCommandTest {
 
     @Test
     public void equals() {
-        LoginCommand loginFirstCommand = new LoginCommand(new Doctor(ADAM.getId(), ADAM.getName(), ADAM.getPassword()));
-        LoginCommand loginSecondCommand = new LoginCommand(new Doctor(BEN.getId(), BEN.getName(), BEN.getPassword()));
-        
+        LoginCommand loginFirstCommand = new LoginCommand(
+                new Doctor(ADAM.getId(), ADAM.getName(), ADAM.getPassword()));
+        LoginCommand loginSecondCommand = new LoginCommand(
+                new Doctor(BEN.getId(), BEN.getName(), BEN.getPassword()));
+
         // same object -> returns true
         assertTrue(loginFirstCommand.equals(loginFirstCommand));
 
         // same values -> returns true
-        LoginCommand loginFirstCommandCopy = new LoginCommand(new Doctor(ADAM.getId(), ADAM.getName(), ADAM.getPassword()));
+        LoginCommand loginFirstCommandCopy = new LoginCommand(
+                new Doctor(ADAM.getId(), ADAM.getName(), ADAM.getPassword()));
         assertTrue(loginFirstCommand.equals(loginFirstCommandCopy));
-        
+
         // different types -> returns false
         assertFalse(loginFirstCommand.equals(1));
 
