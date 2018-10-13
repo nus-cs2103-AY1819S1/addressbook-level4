@@ -1,5 +1,6 @@
 package seedu.souschef.model;
 
+import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.recipe.Recipe;
 
@@ -15,4 +16,7 @@ public interface ModelSet {
 
     /** Returns the model for ingredients*/
     Model<Ingredient> getIngredientModel();
+
+    /** Returns the model for healthplans*/
+    Model<HealthPlan> getHealthPlanModel();
 }

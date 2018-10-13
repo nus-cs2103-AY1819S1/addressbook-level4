@@ -20,6 +20,7 @@ import seedu.souschef.commons.events.ui.ShowHelpRequestEvent;
 import seedu.souschef.logic.Logic;
 import seedu.souschef.model.UserPrefs;
 
+
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
@@ -121,20 +122,20 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
-
         recipeListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
         personListPanelPlaceholder.getChildren().add(recipeListPanel.getRoot());
 
+
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
         StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
-
+    /*
+    * hide stage
+    * */
     void hide() {
         primaryStage.hide();
     }

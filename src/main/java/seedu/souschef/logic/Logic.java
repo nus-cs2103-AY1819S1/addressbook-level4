@@ -1,11 +1,11 @@
 package seedu.souschef.logic;
 
 import javafx.collections.ObservableList;
+
 import seedu.souschef.logic.commands.CommandResult;
 import seedu.souschef.logic.commands.exceptions.CommandException;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.recipe.Recipe;
-
 /**
  * API of the Logic component
  */
@@ -21,6 +21,7 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of recipes */
     ObservableList<Recipe> getFilteredRecipeList();
+
 
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();

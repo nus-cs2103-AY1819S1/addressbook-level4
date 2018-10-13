@@ -18,11 +18,12 @@ import guitests.guihandles.RecipeCardHandle;
 import guitests.guihandles.RecipeListPanelHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import seedu.souschef.commons.events.ui.JumpToListRequestEvent;
 import seedu.souschef.commons.util.FileUtil;
 import seedu.souschef.commons.util.XmlUtil;
 import seedu.souschef.model.recipe.Recipe;
-import seedu.souschef.storage.XmlSerializableAddressBook;
+import seedu.souschef.storage.recipe.XmlSerializableAddressBook;
 
 public class RecipeListPanelTest extends GuiUnitTest {
     private static final ObservableList<Recipe> TYPICAL_RECIPES =

@@ -10,6 +10,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+
 import seedu.souschef.commons.core.Config;
 import seedu.souschef.commons.core.EventsCenter;
 import seedu.souschef.commons.core.LogsCenter;
@@ -21,21 +22,18 @@ import seedu.souschef.commons.util.StringUtil;
 import seedu.souschef.logic.Logic;
 import seedu.souschef.logic.LogicManager;
 import seedu.souschef.model.AppContent;
-import seedu.souschef.model.Model;
 import seedu.souschef.model.ModelSet;
 import seedu.souschef.model.ModelSetCoordinator;
 import seedu.souschef.model.ReadOnlyAppContent;
 import seedu.souschef.model.UserPrefs;
-import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.util.SampleDataUtil;
-import seedu.souschef.storage.AddressBookStorage;
 import seedu.souschef.storage.JsonUserPrefsStorage;
 import seedu.souschef.storage.Storage;
 import seedu.souschef.storage.StorageManager;
 import seedu.souschef.storage.UserPrefsStorage;
-import seedu.souschef.storage.XmlAddressBookStorage;
 import seedu.souschef.ui.Ui;
 import seedu.souschef.ui.UiManager;
+
 
 /**
  * The main entry point to the application.
@@ -64,16 +62,22 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new XmlAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        AppContent appContent = new AppContent();
+
+
+
+        //storage = new StorageManager(recipeStorage, userPrefsStorage);
+        storage = new StorageManager(userPrefsStorage, userPrefs, appContent);
 
         initLogging(config);
 
+        //model segment
         modelSet = initModelManager(storage, userPrefs);
-        Model<Recipe> recipeModel = modelSet.getRecipeModel();
 
-        logic = new LogicManager(recipeModel);
 
+        logic = new LogicManager(modelSet);
+
+        //ui
         ui = new UiManager(logic, config, userPrefs);
 
         initEventsCenter();
@@ -85,14 +89,15 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private ModelSet initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyAppContent> addressBookOptional;
+        Optional<ReadOnlyAppContent> readOnlyAppContentOptional;
         ReadOnlyAppContent initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
+
+            readOnlyAppContentOptional = storage.readAll();
+            if (!readOnlyAppContentOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AppContent");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = readOnlyAppContentOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AppContent");
             initialData = new AppContent();
@@ -170,7 +175,7 @@ public class MainApp extends Application {
         try {
             storage.saveUserPrefs(initializedPrefs);
         } catch (IOException e) {
-            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
+            logger.warning("Failed to saveAppContent config file : " + StringUtil.getDetails(e));
         }
 
         return initializedPrefs;
@@ -193,7 +198,7 @@ public class MainApp extends Application {
         try {
             storage.saveUserPrefs(userPrefs);
         } catch (IOException e) {
-            logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
+            logger.severe("Failed to saveAppContent preferences " + StringUtil.getDetails(e));
         }
         Platform.exit();
         System.exit(0);

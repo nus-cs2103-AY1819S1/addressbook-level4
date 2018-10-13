@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import seedu.souschef.commons.core.LogsCenter;
 import seedu.souschef.model.ingredient.Ingredient;
+import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.recipe.Recipe;
 
 /**
@@ -15,9 +16,8 @@ public class ModelSetCoordinator implements ModelSet {
     private static final Logger logger = LogsCenter.getLogger(ModelSetCoordinator.class);
 
     private final Model<Recipe> recipeModel;
-
     private final Model<Ingredient> ingredientModel;
-
+    private final Model<HealthPlan> healthPlanModel;
     private final VersionedAppContent versionedAppContent;
 
     /**
@@ -27,9 +27,9 @@ public class ModelSetCoordinator implements ModelSet {
         requireAllNonNull(appContent, userPrefs);
         logger.fine("Initializing with application content: " + appContent + " and user prefs " + userPrefs);
         versionedAppContent = new VersionedAppContent(appContent);
-
         recipeModel = new ModelManager<>(versionedAppContent, versionedAppContent.getRecipes());
         ingredientModel = new ModelManager<>(versionedAppContent, versionedAppContent.getIngredients());
+        healthPlanModel = new ModelManager<>(versionedAppContent, versionedAppContent.getHealthPlans());
         // More to be added
     }
 
@@ -65,6 +65,10 @@ public class ModelSetCoordinator implements ModelSet {
 
     public Model<Ingredient> getIngredientModel() {
         return ingredientModel;
+    }
+
+    public Model<HealthPlan> getHealthPlanModel() {
+        return healthPlanModel;
     }
     // More to be added
 }

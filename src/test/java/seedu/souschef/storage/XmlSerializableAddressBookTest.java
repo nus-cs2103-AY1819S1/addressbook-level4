@@ -12,6 +12,7 @@ import org.junit.rules.ExpectedException;
 import seedu.souschef.commons.exceptions.IllegalValueException;
 import seedu.souschef.commons.util.XmlUtil;
 import seedu.souschef.model.AppContent;
+import seedu.souschef.storage.recipe.XmlSerializableAddressBook;
 import seedu.souschef.testutil.TypicalRecipes;
 
 public class XmlSerializableAddressBookTest {
