@@ -10,6 +10,7 @@ import javafx.scene.control.ScrollBar;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.ui.exceptions.AccessibilityException;
 
 /**
  * Controller for a help page
@@ -26,7 +27,7 @@ public class HelpWindow extends UiPart<Stage> {
     //https://stackoverflow.com/questions/6991494/javascript-getelementbyid-base-on-partial-string
     //https://stackoverflow.com/questions/22778241/javafx-webview-scroll-to-desired-position
     //javascript to scroll webpage to commandWord
-    private static final String scrollJavaScript =
+    private static final String SCROLL_JAVA_SCRIPT =
             "function scrollToElement(commandWord) {\n"
             + "    var elem = document.querySelector('[id$= code-' + commandWord + '-code]');\n"
             + "    var x = 0;\n"
@@ -58,7 +59,7 @@ public class HelpWindow extends UiPart<Stage> {
         String userGuideUrl = getClass().getResource(USERGUIDE_FILE_PATH).toString();
         browser.getEngine().load(userGuideUrl);
         browser.getEngine().setJavaScriptEnabled(true);
-        browser.getEngine().executeScript(scrollJavaScript);
+        browser.getEngine().executeScript(SCROLL_JAVA_SCRIPT);
 
         //When the help window is scrolled, invalidate the scroll test check
         getVScrollBar(browser).valueProperty().addListener((unused1, unused2, unused3)
@@ -112,23 +113,23 @@ public class HelpWindow extends UiPart<Stage> {
     /**
      * Scrolls the help window to the specified commandWord.
      */
-    public void scrollToCommandWord(String commandWord) {
+    public void scrollToCommandWord(String commandWord) throws AccessibilityException {
         browser.getEngine().executeScript("window.scrollTo(document.body.scrollLeft, 0)");
         verticalScroll = (int) browser.getEngine().executeScript("document.body.scrollTop");
         //No commandWords in the window are at the top of the window.
         assert(verticalScroll == 0);
         browser.getEngine().executeScript("scrollToElement(\"" + commandWord + "\")");
-        isScrollCheckValid = true;
+        assertScrollToCommandWordSuccessful();
     }
 
     /**
      * Checks if the help window successfully scrolled to the command word.
-     * @return
      */
-    public boolean isScrollToCommandWordSuccessful() {
-        //Ensure that the scrollCheck can be used
-        assert(isScrollCheckValid);
-        return verticalScroll != (int) browser.getEngine().executeScript("document.body.scrollTop");
+    private void assertScrollToCommandWordSuccessful() throws AccessibilityException {
+        if (verticalScroll != (int) browser.getEngine().executeScript("document.body.scrollTop")) {
+            return;
+        }
+        throw new AccessibilityException("Help [commandWord] scrolling error!");
     }
 
     /**
@@ -143,11 +144,12 @@ public class HelpWindow extends UiPart<Stage> {
     private ScrollBar getVScrollBar(WebView browser) {
         Set<Node> scrolls = browser.lookupAll(".scroll-bar");
         for (Node scrollNode : scrolls) {
-            if (ScrollBar.class.isInstance(scrollNode)) {
-                ScrollBar scroll = (ScrollBar) scrollNode;
-                if (scroll.getOrientation() == Orientation.VERTICAL) {
-                    return scroll;
-                }
+            if (!ScrollBar.class.isInstance(scrollNode)) {
+                continue;
+            }
+            ScrollBar scroll = (ScrollBar) scrollNode;
+            if (scroll.getOrientation() == Orientation.VERTICAL) {
+                return scroll;
             }
         }
         return null;

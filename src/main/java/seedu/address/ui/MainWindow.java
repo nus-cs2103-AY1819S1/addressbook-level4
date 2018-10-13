@@ -19,6 +19,7 @@ import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
+import seedu.address.ui.exceptions.AccessibilityException;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -166,7 +167,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Handle request for help with level of detail specified by {@param event}
      */
-    public void handleHelp(ShowHelpRequestEvent event) {
+    public void handleHelp(ShowHelpRequestEvent event) throws AccessibilityException {
         if (event.isSummarized) {
             String userGuideUrl = getClass().getResource(HelpWindow.SHORT_HELP_FILE_PATH).toString();
             browserPanel.loadPage(userGuideUrl);
@@ -213,6 +214,10 @@ public class MainWindow extends UiPart<Stage> {
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        handleHelp(event);
+        try {
+            handleHelp(event);
+        } catch (AccessibilityException ae) {
+            logger.warning(ae.getMessage());
+        }
     }
 }
