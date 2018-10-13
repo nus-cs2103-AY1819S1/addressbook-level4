@@ -10,9 +10,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.ArticlePanelSelectionChangedEvent;
-import seedu.address.model.article.Article;
+import seedu.lostandfound.commons.core.LogsCenter;
+import seedu.lostandfound.commons.events.ui.ArticlePanelSelectionChangedEvent;
+import seedu.lostandfound.model.article.Article;
+import seedu.lostandfound.ui.UiPart;
 
 /**
  * The Article Details Panel of the App.
@@ -47,7 +48,7 @@ public class ArticleDetailsPanel extends UiPart<Region> {
             articleDetails.setText(article.getName().fullName);
             tags.getChildren().clear();
             article.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-            description.setText(article.getAddress().value);
+            description.setText(article.getDescription().value);
         });
     }
 
