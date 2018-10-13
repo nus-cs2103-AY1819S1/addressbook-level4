@@ -21,4 +21,11 @@ public class RideContainsConditionPredicate implements Predicate<Ride> {
             return p.test(rideAttributeToTest);
         });
     }
+    
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof RideContainsConditionPredicate // instanceof handles nulls
+                && attributePredicates.equals(((RideContainsConditionPredicate) other).attributePredicates)); // state check
+    }
 }
