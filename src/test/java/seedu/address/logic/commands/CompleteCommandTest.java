@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showTaskAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TASK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TASK;
+import static seedu.address.testutil.TypicalIndexes.INDEX_COMPLETED_TASK;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskManager;
 
 import org.junit.Test;
@@ -20,11 +21,11 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
+import seedu.address.testutil.TypicalTasks;
 
 /**
- * As CompleteCommand is essentially a wrapper for the EditCommand, tests will encompass
- * assert CompleteCommand's results against EditCommand, and ensuring that there are no
- * unintended side-effects present in CompleteCommand
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
+ * {@code CompleteCommand}.
  */
 public class CompleteCommandTest {
 
@@ -76,7 +77,7 @@ public class CompleteCommandTest {
         showTaskAtIndex(model, INDEX_FIRST_TASK);
 
         Index outOfBoundIndex = INDEX_SECOND_TASK;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of task manager list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getTaskManager().getTaskList().size());
 
         CompleteCommand completeCommand = new CompleteCommand(outOfBoundIndex);
@@ -95,11 +96,12 @@ public class CompleteCommandTest {
         // complete -> first task completed
         completeCommand.execute(model, commandHistory);
 
-        // undo -> reverts task manager back to previous state and filtered person list to show all persons
+        // undo -> reverts task manager back to previous state and filtered task list to show all
+        // tasks
         expectedModel.undoTaskManager();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        // redo -> same first person deleted again
+        // redo -> same first task deleted again
         expectedModel.redoTaskManager();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
@@ -131,7 +133,6 @@ public class CompleteCommandTest {
         Model expectedModel = new ModelManager(model.getTaskManager(), new UserPrefs());
 
         showTaskAtIndex(model, INDEX_SECOND_TASK);
-        //showTaskAtIndex(expectedModel, INDEX_SECOND_TASK);
         Task taskToComplete = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         expectedModel.updateTask(taskToComplete, simpleCompleteTask(taskToComplete));
         expectedModel.commitTaskManager();
@@ -140,7 +141,7 @@ public class CompleteCommandTest {
         // list
         completeCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered task list to show all tasks
+        // undo -> reverts task manager back to previous state and filtered task list to show all tasks
         expectedModel.undoTaskManager();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -150,6 +151,12 @@ public class CompleteCommandTest {
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
+    @Test
+    public void execute_alreadyCompletedTask_throwsCommandException() {
+        CompleteCommand completeCommand = new CompleteCommand(INDEX_COMPLETED_TASK);
+
+        assertCommandFailure(completeCommand, model, commandHistory, CompleteCommand.MESSAGE_ALREADY_COMPLETED);
+    }
 
     @Test
     public void equals() {
