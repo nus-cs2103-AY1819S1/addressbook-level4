@@ -1,7 +1,7 @@
 package seedu.address.model.task;
 
 /**
- * Represents a Task's status in the address book.
+ * Represents a Task's status in the task manager.
  * There are two possible status: IN_PROGRESS and COMPLETED.
  */
 public enum Status {
