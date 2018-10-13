@@ -5,6 +5,7 @@ import static seedu.souschef.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.logging.Logger;
 
 import seedu.souschef.commons.core.LogsCenter;
+import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.tag.Tag;
 
@@ -16,7 +17,7 @@ public class ModelSetCoordinator implements ModelSet {
 
     private final Model<Recipe> recipeModel;
     private final Model<Tag> tagModel;
-
+    private final Model<HealthPlan> healthPlanModel;
     private final VersionedAppContent versionedAppContent;
 
     /**
@@ -29,6 +30,8 @@ public class ModelSetCoordinator implements ModelSet {
 
         recipeModel = new ModelManager<>(versionedAppContent, versionedAppContent.getRecipes());
         tagModel = new ModelManager<>(versionedAppContent, versionedAppContent.getTags());
+        healthPlanModel = new ModelManager<>(versionedAppContent, versionedAppContent.getHealthPlans());
+
         // More to be added
     }
 
@@ -64,5 +67,6 @@ public class ModelSetCoordinator implements ModelSet {
     public Model<Tag> getTagModel() {
         return tagModel;
     }
+
     // More to be added
 }

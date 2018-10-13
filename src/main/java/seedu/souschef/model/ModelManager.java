@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.souschef.commons.core.ComponentManager;
 import seedu.souschef.commons.core.LogsCenter;
 import seedu.souschef.commons.events.model.AppContentChangedEvent;
@@ -20,8 +21,10 @@ public class ModelManager<T extends UniqueType> extends ComponentManager impleme
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final VersionedAppContent versionedAppContent;
+
     private final FilteredList<T> filteredList;
     private final UniqueList<T> uniqueList;
+
 
     /**
      * Initializes a ModelManager with the given appContent and its uniqueType.
@@ -31,9 +34,11 @@ public class ModelManager<T extends UniqueType> extends ComponentManager impleme
         requireAllNonNull(appContent, ul);
         logger.fine("Initializing with application content: " + appContent + " and unique list " + ul);
 
+
         versionedAppContent = appContent;
         filteredList = new FilteredList<>(ul.asUnmodifiableObservableList());
         uniqueList = ul;
+
     }
 
     @Override
@@ -89,11 +94,22 @@ public class ModelManager<T extends UniqueType> extends ComponentManager impleme
         return FXCollections.unmodifiableObservableList(filteredList);
     }
 
+
+
     @Override
     public void updateFilteredList(Predicate predicate) {
         requireNonNull(predicate);
         filteredList.setPredicate(predicate);
     }
+
+
+
+
+
+
+
+
+
 
     //=========== Undo/Redo =================================================================================
 
@@ -139,7 +155,9 @@ public class ModelManager<T extends UniqueType> extends ComponentManager impleme
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedAppContent.equals(other.versionedAppContent)
+
                 && filteredList.equals(other.filteredList);
+
     }
 
 }

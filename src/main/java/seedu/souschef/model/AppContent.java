@@ -4,8 +4,10 @@ import static java.util.Objects.requireNonNull;
 
 import javafx.collections.ObservableList;
 
+import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.tag.Tag;
+
 
 /**
  * Wraps all data at the application
@@ -16,6 +18,7 @@ public class AppContent implements ReadOnlyAppContent {
 
     private final UniqueList<Recipe> recipes;
     private final UniqueList<Tag> tags;
+    private final UniqueList<HealthPlan> healthPlans;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -27,6 +30,7 @@ public class AppContent implements ReadOnlyAppContent {
     {
         recipes = new UniqueList<>();
         tags = new UniqueList<>();
+        healthPlans = new UniqueList<>();
     }
 
     public AppContent() {}
@@ -37,6 +41,7 @@ public class AppContent implements ReadOnlyAppContent {
     public AppContent(ReadOnlyAppContent toBeCopied) {
         this();
         resetData(toBeCopied);
+
     }
 
     //// list overwrite operations
@@ -47,6 +52,21 @@ public class AppContent implements ReadOnlyAppContent {
         requireNonNull(newData);
         this.recipes.set(newData.getObservableRecipeList());
         this.tags.set(newData.getObservableTagList());
+        this.healthPlans.set(newData.getObservableHealthPlanList());
+    }
+
+    /**
+     *
+     * Function call to include new data into the app data instead of deleting old data
+     */
+    public void includeData(ReadOnlyAppContent newData) {
+        requireNonNull(newData);
+        if (newData.getObservableRecipeList().size() > 0) {
+            this.recipes.set(newData.getObservableRecipeList());
+        }
+        if (newData.getObservableHealthPlanList().size() > 0) {
+            this.healthPlans.set(newData.getObservableHealthPlanList());
+        }
     }
 
     //// recipe-level operations
@@ -57,6 +77,11 @@ public class AppContent implements ReadOnlyAppContent {
     //// tag-level operations
     public UniqueList<Tag> getTags() {
         return tags;
+    }
+
+    //healthplan level operations
+    public UniqueList<HealthPlan> getHealthPlans() {
+        return healthPlans;
     }
 
     //// util methods
@@ -74,6 +99,11 @@ public class AppContent implements ReadOnlyAppContent {
     @Override
     public ObservableList<Tag> getObservableTagList() {
         return tags.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<HealthPlan> getObservableHealthPlanList() {
+        return healthPlans.asUnmodifiableObservableList();
     }
 
     @Override
