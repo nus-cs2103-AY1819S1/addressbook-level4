@@ -18,8 +18,8 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Status;
-import seedu.address.model.person.Task;
+import seedu.address.model.task.Status;
+import seedu.address.model.task.Task;
 
 /**
  * As CompleteCommand is essentially a wrapper for the EditCommand, tests will encompass

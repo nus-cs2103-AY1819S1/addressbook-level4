@@ -10,8 +10,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Status;
-import seedu.address.model.person.Task;
+import seedu.address.model.task.Status;
+import seedu.address.model.task.Task;
 
 /**
  * Lists all the commands entered by user from the start of app launch.
