@@ -9,6 +9,7 @@ import seedu.souschef.logic.commands.Command;
 import seedu.souschef.logic.commands.ContextCommand;
 import seedu.souschef.logic.commands.ExitCommand;
 import seedu.souschef.logic.commands.HelpCommand;
+import seedu.souschef.logic.commands.HistoryCommand;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 
 /**
@@ -43,6 +44,9 @@ public class UniversalParser {
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
+
+        case HistoryCommand.COMMAND_WORD:
+            return new HistoryCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
