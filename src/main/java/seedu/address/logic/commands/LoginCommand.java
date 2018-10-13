@@ -24,7 +24,7 @@ public class LoginCommand extends Command {
 
     public static final String COMMAND_WORD = "login";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Authenticate user to provide"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Authenticate user to provide "
             + "user access to ClinicIO based on the roles.\n"
             + "Parameters: " + COMMAND_WORD
             + "[" + PREFIX_ROLE + "ROLE]"
