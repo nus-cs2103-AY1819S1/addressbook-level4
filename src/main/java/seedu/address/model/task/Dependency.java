@@ -3,51 +3,58 @@ package seedu.address.model.task;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-/**
- * Represents a Task's description in the task manager.
- * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}
- */
-public class Description {
+import java.util.ArrayList;
+import java.util.List;
 
-    public static final String MESSAGE_DESCRIPTION_CONSTRAINTS =
-            "Descriptions can take any values, and it should not be blank";
+/**
+ * Represents a Task's dependency to another task in the task manager.
+ * Guarantees: immutable; is valid as declared in {@link #isValidDependency(String)}
+ */
+public class Dependency {
+
+    public static final String MESSAGE_DEPENDENCY_CONSTRAINTS =
+            "Dependency can only be specified using the hashcode of object";
 
     /*
      * The first character of the description must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
-     */
+     */ //TODO: CHANGE TO CHECK FOR HASHCODE
     public static final String DESCRIPTION_VALIDATION_REGEX = "[^\\s].*";
 
-    public final String value;
+    private List<Task> value;
 
     /**
-     * Constructs an {@code Description}.
+     * Constructs an {@code Dependency}.
      *
-     * @param description A valid description.
+     * @param dependencies A list of task dependencies.
      */
-    public Description(String description) {
-        requireNonNull(description);
-        checkArgument(isValidDescription(description), MESSAGE_DESCRIPTION_CONSTRAINTS);
-        value = description;
+    public Dependency(List<Task> dependencies) {
+        requireNonNull(dependencies);
+        //checkArgument(isValidDependency(dependencies), MESSAGE_DEPENDENCY_CONSTRAINTS);
+        value = dependencies;
+    }
+
+    public Dependency(){
+        value = new ArrayList<Task>();
     }
 
     /**
-     * Returns true if a given string is a valid description.
+     * Returns true if a given string is a valid dependency.
      */
-    public static boolean isValidDescription(String test) {
+    public static boolean isValidDependency(String test) {
         return test.matches(DESCRIPTION_VALIDATION_REGEX);
     }
 
     @Override
     public String toString() {
-        return value;
+        return value.toString();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Description // instanceof handles nulls
-                && value.equals(((Description) other).value)); // state check
+                || (other instanceof Dependency // instanceof handles nulls
+                && value.equals(((Dependency) other).value)); // state check
     }
 
     @Override
