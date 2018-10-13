@@ -12,7 +12,7 @@ import seedu.address.testutil.Assert;
 public class StatusTest {
 
     @Test
-    public void StatusContainValidValues() {
+    public void statusContainValidValues() {
         Status[] expectedValues = {Status.IN_PROGRESS, Status.FINISHED, Status.OVERDUE};
         assertArrayEquals(expectedValues, Status.values());
     }
