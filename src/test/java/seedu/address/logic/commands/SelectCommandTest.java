@@ -166,9 +166,9 @@ public class SelectCommandTest {
      */
     private void assertExecutionSuccess(Index index, int selectType) {
         SelectCommand selectCommand = new SelectCommand(index, selectType);
-        String expectedMessage = (selectType == SelectCommand.SELECT_TYPE_PERSON) ?
-                String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, index.getOneBased()) :
-                String.format(SelectCommand.MESSAGE_SELECT_GROUP_SUCCESS, index.getOneBased());
+        String expectedMessage = (selectType == SelectCommand.SELECT_TYPE_PERSON)
+                ? String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, index.getOneBased())
+                : String.format(SelectCommand.MESSAGE_SELECT_GROUP_SUCCESS, index.getOneBased());
 
         assertCommandSuccess(selectCommand, model, commandHistory, expectedMessage, expectedModel);
 
