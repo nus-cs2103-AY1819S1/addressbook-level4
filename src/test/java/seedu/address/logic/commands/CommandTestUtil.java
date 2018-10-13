@@ -19,6 +19,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.group.GroupTitleContainsKeywordsPredicate;
+import seedu.address.model.person.GroupContainsPersonPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
@@ -156,7 +157,7 @@ public class CommandTestUtil {
         Tag group = model.getFilteredGroupList().get(targetIndex.getZeroBased());
         final String[] splitGroupTitle = { group.tagName };
         model.updateFilteredGroupList(new GroupTitleContainsKeywordsPredicate(Arrays.asList(splitGroupTitle[0])));
-
+        model.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(splitGroupTitle[0])));
         assertEquals(1, model.getFilteredGroupList().size());
     }
 }

@@ -27,7 +27,11 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.GroupContainsPersonPredicate;
+import seedu.address.model.tag.Tag;
 import seedu.address.ui.testutil.EventsCollectorRule;
+
+import java.util.Arrays;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
@@ -104,8 +108,19 @@ public class SelectCommandTest {
     public void execute_validIndexUnfilteredGroupList_success() {
         Index lastGroupIndex = Index.fromOneBased(model.getFilteredGroupList().size());
 
+        Tag group = expectedModel.getFilteredGroupList().get(INDEX_FIRST_GROUP.getZeroBased());
+        final String[] keywords = { group.tagName };
+        expectedModel.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(keywords[0])));
         assertExecutionSuccess(INDEX_FIRST_GROUP, SelectCommand.SELECT_TYPE_GROUP);
+
+        group = expectedModel.getFilteredGroupList().get(INDEX_THIRD_GROUP.getZeroBased());
+        keywords[0] = group.tagName;
+        expectedModel.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(keywords[0])));
         assertExecutionSuccess(INDEX_THIRD_GROUP, SelectCommand.SELECT_TYPE_GROUP);
+
+        group = expectedModel.getFilteredGroupList().get(lastGroupIndex.getZeroBased());
+        keywords[0] = group.tagName;
+        expectedModel.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(keywords[0])));
         assertExecutionSuccess(lastGroupIndex, SelectCommand.SELECT_TYPE_GROUP);
     }
 
