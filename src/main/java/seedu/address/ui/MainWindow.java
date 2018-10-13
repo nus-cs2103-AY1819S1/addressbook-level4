@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import static seedu.address.model.Context.EVENT_CONTEXT_ID;
+import static seedu.address.model.Context.RECORD_CONTEXT_ID;
 import static seedu.address.model.Context.VOLUNTEER_CONTEXT_ID;
 
 import java.util.logging.Logger;
@@ -197,9 +198,9 @@ public class MainWindow extends UiPart<Stage> {
         } else if (contextId.equals(VOLUNTEER_CONTEXT_ID)) {
             listPanelPlaceholder.getChildren().clear();
             listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        } else if (contextId.equals(RECORD_CONTEXT_ID)) {
+            // to be implemented
         }
-
-        //handle invalid input
     }
 
     /**
