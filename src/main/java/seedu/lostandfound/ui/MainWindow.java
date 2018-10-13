@@ -67,7 +67,6 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
-        Config config1 = config;
         this.prefs = prefs;
 
         // Configure the UI

@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.lostandfound.ui;
 
 import java.util.logging.Logger;
 
@@ -13,7 +13,6 @@ import javafx.scene.layout.Region;
 import seedu.lostandfound.commons.core.LogsCenter;
 import seedu.lostandfound.commons.events.ui.ArticlePanelSelectionChangedEvent;
 import seedu.lostandfound.model.article.Article;
-import seedu.lostandfound.ui.UiPart;
 
 /**
  * The Article Details Panel of the App.

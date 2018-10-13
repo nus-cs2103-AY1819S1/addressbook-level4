@@ -1,14 +1,14 @@
-package seedu.address.ui;
+package seedu.lostandfound.ui;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.testutil.EventsUtil.postNow;
-import static seedu.address.testutil.TypicalArticles.ALICE;
+import static seedu.lostandfound.testutil.EventsUtil.postNow;
+import static seedu.lostandfound.testutil.TypicalArticles.ALICE;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import guitests.guihandles.ArticleDetailsPanelHandle;
-import seedu.address.commons.events.ui.ArticlePanelSelectionChangedEvent;
+import seedu.lostandfound.commons.events.ui.ArticlePanelSelectionChangedEvent;
 
 public class ArticleDetailsPanelTest extends GuiUnitTest {
     private ArticlePanelSelectionChangedEvent selectionChangedEventStub;

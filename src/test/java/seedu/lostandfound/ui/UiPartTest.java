@@ -89,7 +89,7 @@ public class UiPartTest {
     /**
      * UiPart used for testing.
      * It should only be used with invalid FXML files or the valid file located at
-     * {@link seedu.address.ui.UiPartTest#VALID_FILE_PATH}.
+     * {@link seedu.lostandfound.ui.UiPartTest#VALID_FILE_PATH}.
      */
     private static class TestUiPart<T> extends UiPart<T> {
 

@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.lostandfound.ui;
 
 import java.util.logging.Logger;
 
@@ -8,9 +8,9 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.ArticlePanelSelectionChangedEvent;
-import seedu.address.model.article.Article;
+import seedu.lostandfound.commons.core.LogsCenter;
+import seedu.lostandfound.commons.events.ui.ArticlePanelSelectionChangedEvent;
+import seedu.lostandfound.model.article.Article;
 
 /**
  * The Owner Panel of the App.
