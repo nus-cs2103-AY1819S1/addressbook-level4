@@ -11,6 +11,7 @@ import seedu.address.logic.commands.LoginCommand;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.DoctorBuilder;
 
+//@@author jjlee050
 public class LoginCommandParserTest {
 
     private LoginCommandParser parser = new LoginCommandParser();

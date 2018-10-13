@@ -18,6 +18,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.testutil.DoctorBuilder;
 
+//@@author jjlee050
 public class DoctorTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();

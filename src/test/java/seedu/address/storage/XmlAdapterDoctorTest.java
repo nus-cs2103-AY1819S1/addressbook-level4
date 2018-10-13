@@ -14,6 +14,7 @@ import seedu.address.model.doctor.Password;
 import seedu.address.model.person.Name;
 import seedu.address.testutil.Assert;
 
+//@@author jjlee050
 public class XmlAdapterDoctorTest {
     private static final int INVALID_ID = -1;
     private static final String INVALID_NAME = "R@chel";

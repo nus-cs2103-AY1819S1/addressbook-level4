@@ -112,6 +112,7 @@ public class AddressBookParserTest {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
     }
 
+    //@@author jjlee050
     @Test
     public void parseCommand_login() throws Exception {
         LoginCommand command = (LoginCommand) parser.parseCommand(
