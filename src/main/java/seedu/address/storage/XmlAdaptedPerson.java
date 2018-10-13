@@ -43,7 +43,8 @@ public class XmlAdaptedPerson {
      * Constructs an XmlAdaptedPerson.
      * This is the no-arg constructor that is required by JAXB.
      */
-    public XmlAdaptedPerson() {}
+    public XmlAdaptedPerson() {
+    }
 
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
@@ -63,7 +64,8 @@ public class XmlAdaptedPerson {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
-    public XmlAdaptedPerson(int personId, String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedPerson(int personId, String name, String phone,
+                            String email, String address, List<XmlAdaptedTag> tagged) {
         this.personId = personId;
         this.name = name;
         this.phone = phone;
@@ -101,7 +103,8 @@ public class XmlAdaptedPerson {
             personTags.add(tag.toModelType());
         }
         if (personId == 0) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, PersonId.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    PersonId.class.getSimpleName()));
         }
         if (!PersonId.isValidId(personId)) {
             throw new IllegalValueException(PersonId.MESSAGE_NAME_CONSTRAINTS);
