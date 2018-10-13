@@ -103,7 +103,7 @@ public class AddressBookParser {
             case ManageCommand.COMMAND_WORD:
                 return new ManageCommandParser().parse(arguments);
 
-                default:
+            default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
             }
         }
