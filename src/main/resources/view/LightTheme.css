@@ -1,7 +1,66 @@
 /**
  * @@author: jjlee050
  **/
-.text-field, .result-display {
+@font-face {
+    font-family: 'Opensans-Regular';
+    src: url('../fonts/OpenSans-Regular.ttf'); 
+}
+
+@font-face {
+    font-family: 'Opensans-Light';
+    src: url('../fonts/OpenSans-Light.ttf'); 
+}
+
+@font-face {
+    font-family: 'Opensans-LightItalic';
+    src: url('../fonts/OpenSans-LightItalic.ttf'); 
+}
+
+@font-face {
+    font-family: 'Opensans-SemiBold';
+    src: url('../fonts/OpenSans-SemiBold.ttf'); 
+}
+
+@font-face {
+    font-family: 'Opensans-SemiBoldItalic';
+    src: url('../fonts/OpenSans-SemiBoldItalic.ttf'); 
+}
+
+@font-face {
+    font-family: 'Opensans-Italic';
+    src: url('../fonts/OpenSans-Italic.ttf'); 
+}
+
+@font-face {
+    font-family: 'Opensans-ExtraBold';
+    src: url('../fonts/OpenSans-ExtraBold.ttf'); 
+}
+
+@font-face {
+    font-family: 'Opensans-ExtraBoldItalic';
+    src: url('../fonts/OpenSans-ExtraBoldItalic.ttf'); 
+}
+
+@font-face {
+    font-family: 'Opensans-Bold';
+    src: url('../fonts/OpenSans-Bold.ttf'); 
+}
+
+@font-face {
+    font-family: 'Opensans-BoldItalic';
+    src: url('../fonts/OpenSans-BoldItalic.ttf'); 
+}
+ 
+.root {
+    -fx-font-family: "Opensans-Regular";
+    -fx-font-size: 12pt;
+}
+
+.text-field {
+    -fx-border-radius: 10px;
+}
+
+.result-display {
     -fx-border-radius: 10px;
 }
  
@@ -90,7 +149,7 @@
 
 .menu-bar .label {
     -fx-font-size: 14pt;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Opensans-SemiBold";
     -fx-text-fill: white;
     -fx-opacity: 0.9;
 }
