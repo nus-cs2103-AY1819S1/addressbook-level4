@@ -41,7 +41,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
 
-        context = new Context(Context.EVENT_CONTEXT_ID, Context.EVENT_CONTEXT_NAME);
+        context = new Context(Context.VOLUNTEER_CONTEXT_ID, Context.VOLUNTEER_CONTEXT_NAME);
 
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredEvents = new FilteredList<>(versionedAddressBook.getEventList());
