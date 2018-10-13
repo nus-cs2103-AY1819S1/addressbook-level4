@@ -16,6 +16,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Picture;
 
 //@@author denzelchung
 /**
@@ -31,8 +32,8 @@ public class PictureCommandTest {
 
     @Test
     public void execute_throwsCommandException() throws Exception {
-        Path fileLocation = Paths.get("image/alice.jpg");
-        PictureCommand pictureCommand = new PictureCommand(INDEX_FIRST_PERSON, fileLocation);
+        Picture picture = new Picture("/image/alice.jpg");
+        PictureCommand pictureCommand = new PictureCommand(INDEX_FIRST_PERSON, picture);
         pictureCommand.execute(model, commandHistory);
 
         String expectedMessage = String.format(PictureCommand.MESSAGE_SUCCESS, INDEX_FIRST_PERSON);

@@ -9,6 +9,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Picture;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -27,6 +28,7 @@ public class PersonBuilder {
     private Optional<Email> email;
     private Optional<Address> address;
     private Set<Tag> tags;
+    private Picture picture;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -34,6 +36,7 @@ public class PersonBuilder {
         email = Optional.of(new Email(DEFAULT_EMAIL));
         address = Optional.of(new Address(DEFAULT_ADDRESS));
         tags = new HashSet<>();
+        picture = new Picture(Picture.DEFAULT_PICTURE);
     }
 
     /**
@@ -45,6 +48,7 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         tags = new HashSet<>(personToCopy.getTags());
+        picture = personToCopy.getPicture();
     }
 
     /**
@@ -116,10 +120,21 @@ public class PersonBuilder {
         this.email = Optional.empty();
         return this;
     }
-    //@@author
 
+    //@@author denzelchung
+    /**
+     * Sets the {@code Picture} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withPicture(String picture) {
+        this.picture = new Picture(picture);
+        return this;
+    }
+
+    //@@author
     public Person build() {
-        return new Person(name, phone, email, address, tags);
+        Person person = new Person(name, phone, email, address, tags);
+        person.setPicture(picture);
+        return person;
     }
 
 }

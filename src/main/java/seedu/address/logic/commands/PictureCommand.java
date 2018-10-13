@@ -9,6 +9,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.Picture;
 
 //@@author denzelchung
 /**
@@ -30,18 +31,18 @@ public class PictureCommand extends Command {
     public static final String MESSAGE_INVALID_PICTURE = "The image file could not be found.";
 
     private final Index index;
-    private final Path fileLocation;
+    private final Picture picture;
 
     /**
      * @param index of the person in the filtered person list to edit
-     * @param fileLocation of the profile picture
+     * @param picture of the profile picture
      */
-    public PictureCommand(Index index, Path fileLocation) {
+    public PictureCommand(Index index, Picture picture) {
         requireNonNull(index);
-        requireNonNull(fileLocation);
+        requireNonNull(picture);
 
         this.index = index;
-        this.fileLocation = fileLocation;
+        this.picture = picture;
     }
 
     @Override
