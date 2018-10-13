@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import javafx.collections.ObservableList;
 
+import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.recipe.Recipe;
+
 
 /**
  * Wraps all data at the application
@@ -14,7 +16,7 @@ import seedu.souschef.model.recipe.Recipe;
 public class AppContent implements ReadOnlyAppContent {
 
     private final UniqueList<Recipe> recipes;
-
+    private final UniqueList<HealthPlan> healthPlans;
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -24,6 +26,7 @@ public class AppContent implements ReadOnlyAppContent {
      */
     {
         recipes = new UniqueList<>();
+        healthPlans = new UniqueList<>();
     }
 
     public AppContent() {}
@@ -34,6 +37,7 @@ public class AppContent implements ReadOnlyAppContent {
     public AppContent(ReadOnlyAppContent toBeCopied) {
         this();
         resetData(toBeCopied);
+
     }
 
     //// list overwrite operations
@@ -42,12 +46,36 @@ public class AppContent implements ReadOnlyAppContent {
      */
     public void resetData(ReadOnlyAppContent newData) {
         requireNonNull(newData);
+
         this.recipes.set(newData.getObservableRecipeList());
+        this.healthPlans.set(newData.getObservableHealthPlanList());
+
+    }
+
+    /**
+     *
+     * Function call to include new data into the app data instead of deleting old data
+     */
+    public void includeData(ReadOnlyAppContent newData) {
+        requireNonNull(newData);
+        if (newData.getObservableRecipeList().size() > 0) {
+            this.recipes.set(newData.getObservableRecipeList());
+        }
+        if (newData.getObservableHealthPlanList().size() > 0) {
+            this.healthPlans.set(newData.getObservableHealthPlanList());
+        }
+
+
     }
 
     //// recipe-level operations
     public UniqueList<Recipe> getRecipes() {
         return recipes;
+    }
+
+    //healthplan level operations
+    public UniqueList<HealthPlan> getHealthPlans() {
+        return healthPlans;
     }
 
     //// util methods
@@ -63,6 +91,11 @@ public class AppContent implements ReadOnlyAppContent {
     }
 
     @Override
+    public ObservableList<HealthPlan> getObservableHealthPlanList() {
+        return healthPlans.asUnmodifiableObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AppContent // instanceof handles nulls
@@ -73,4 +106,18 @@ public class AppContent implements ReadOnlyAppContent {
     public int hashCode() {
         return recipes.hashCode();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

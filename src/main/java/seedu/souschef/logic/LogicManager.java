@@ -3,6 +3,7 @@ package seedu.souschef.logic;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+
 import seedu.souschef.commons.core.ComponentManager;
 import seedu.souschef.commons.core.LogsCenter;
 import seedu.souschef.logic.commands.Command;
@@ -44,6 +45,7 @@ public class LogicManager extends ComponentManager implements Logic {
     public ObservableList<Recipe> getFilteredRecipeList() {
         return modelSet.getRecipeModel().getFilteredList();
     }
+
 
     @Override
     public ListElementPointer getHistorySnapshot() {

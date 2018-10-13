@@ -13,7 +13,7 @@ import seedu.souschef.model.UserPrefs;
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage {
+public interface Storage extends FeatureStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -22,18 +22,31 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     void saveUserPrefs(UserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    Path getFeatureFilePath();
 
     @Override
-    Optional<ReadOnlyAppContent> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyAppContent> readFeature() throws DataConversionException, IOException;
+
+    Optional<ReadOnlyAppContent> readAll() throws DataConversionException, IOException;
+
+    /**
+     * currently unused, to set the main feature storage
+     * of the the centralized storage manager to be this
+     */
+    void setMainFeatureStorage(FeatureStorage featureStorage);
+
+    /**
+     * currently unused, to include a new feature storage into the list
+     * and return the new state of the storage unit
+     */
+    Storage include(FeatureStorage feature);
 
     @Override
-    void saveAddressBook(ReadOnlyAppContent addressBook) throws IOException;
-
+    void saveFeature(ReadOnlyAppContent appContent) throws IOException;
     /**
      * Saves the current version of the Address Book to the hard disk.
      *   Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    void handleAddressBookChangedEvent(AppContentChangedEvent abce);
+    void handleAppContentChangedEvent(AppContentChangedEvent abce);
 }
