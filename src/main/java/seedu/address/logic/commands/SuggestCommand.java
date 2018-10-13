@@ -17,12 +17,16 @@ public class SuggestCommand extends Command {
 
     public static final String[] COMMAND_WORDS = {AddCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD,
         DeleteCommand.COMMAND_WORD, EditCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD, FindCommand.COMMAND_WORD,
-        HelpCommand.COMMAND_WORD, HistoryCommand.COMMAND_WORD, ListCommand.COMMAND_WORD, RedoCommand.COMMAND_WORD,
+        HelpCommand.COMMAND_WORD, HistoryCommand.COMMAND_WORD, ViewAllCommand.COMMAND_WORD, RedoCommand.COMMAND_WORD,
         SelectCommand.COMMAND_WORD, UndoCommand.COMMAND_WORD};
     public static final String MESSAGE_SUGGEST_COMMAND_SUCCESS = "Do you mean the following commands:\n%1$s";
 
     private final String[] suggestions;
 
+    /**
+     * Creates a SuggestCommand to suggest all prefix matches commands.
+     * @param prefix
+     */
     public SuggestCommand(String prefix) {
         requireNonNull(prefix);
         if (!prefix.matches("[a-zA-Z]+")) {
@@ -33,10 +37,19 @@ public class SuggestCommand extends Command {
             -> s.matches("^" + prefix + ".*")).toArray(String[]::new);
     }
 
+    /**
+     * Combines the commandWords into a standardized format for listing
+     * @param commandWords
+     * @return
+     */
     public static String combineCommandWords(String... commandWords) {
         return String.join(", ", commandWords);
     }
 
+    /**
+     * A prefix with no match is invalid.
+     * @return
+     */
     public boolean isPrefixValid() {
         return suggestions.length > 0;
     }
