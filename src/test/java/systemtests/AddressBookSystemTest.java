@@ -261,7 +261,7 @@ public abstract class AddressBookSystemTest {
 
     /**
      * Asserts that only the sync status in the status bar was changed to the timing of
-     * {@code ClockRule#getInjectedClock()}, while the save location remains the same.
+     * {@code ClockRule#getInjectedClock()}, while the saveAppContent location remains the same.
      */
     protected void assertStatusBarUnchangedExceptSyncStatus() {
         StatusBarFooterHandle handle = getStatusBarFooter();

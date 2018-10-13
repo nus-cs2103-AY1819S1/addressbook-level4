@@ -16,9 +16,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.souschef.model.AppContent;
-import seedu.souschef.storage.XmlAdaptedRecipe;
-import seedu.souschef.storage.XmlAdaptedTag;
-import seedu.souschef.storage.XmlSerializableAddressBook;
+import seedu.souschef.storage.recipe.XmlAdaptedRecipe;
+import seedu.souschef.storage.recipe.XmlAdaptedTag;
+import seedu.souschef.storage.recipe.XmlSerializableAddressBook;
 import seedu.souschef.testutil.AppContentBuilder;
 import seedu.souschef.testutil.RecipeBuilder;
 import seedu.souschef.testutil.TestUtil;
