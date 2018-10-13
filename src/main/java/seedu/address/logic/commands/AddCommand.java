@@ -62,8 +62,8 @@ public class AddCommand extends Command {
 
         boolean withinBudget = model.addExpense(toAdd);
         model.commitAddressBook();
+        EventsCenter.getInstance().post(new UpdateBudgetPanelEvent(model.getMaximumBudget()));
         if (withinBudget) {
-            EventsCenter.getInstance().post(new UpdateBudgetPanelEvent(model.getMaximumBudget()));
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         }
         return new CommandResult(MESSAGE_BUDGET_EXCEED_WARNING);

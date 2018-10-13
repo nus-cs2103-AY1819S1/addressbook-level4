@@ -14,8 +14,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.UpdateBudgetPanelEvent;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -86,6 +88,7 @@ public class EditCommand extends Command {
         model.updateExpense(expenseToEdit, editedExpense);
         model.updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
         model.commitAddressBook();
+        EventsCenter.getInstance().post(new UpdateBudgetPanelEvent(model.getMaximumBudget()));
         return new CommandResult(String.format(MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense));
     }
 
