@@ -21,91 +21,9 @@ public class ListWeekCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        //List<String> dateList = new ArrayList<String>();
-        //dateList.add(systemDate);
-
-        /*
-        String datename = LocalDate.now().getDayOfWeek().name();
-        System.out.println("Today is:" + datename);
-        System.out.println(numDaysTillSunday(datename));
-        System.out.println();
-
-        datename = LocalDate.now().getDayOfWeek().plus(1).name();
-        System.out.println("Today is:" + datename);
-        System.out.println(numDaysTillSunday(datename));
-        System.out.println();
-        */
-
-        //Calendar c = Calendar.getInstance();
-        //System.out.println(c);
-        //c.add(Calendar.DATE, 0);
-        //systemDate = new SimpleDateFormat("ddMMyy").format(c.getTime());
-        //System.out.println(systemDate);
-        //dateList.add(systemDate);
-
-        /*
-        String testdate = "141018";
-        if (testdate.equals("081018")) {
-            dateList.add("081018");
-            dateList.add("091018");
-            dateList.add("101018");
-            dateList.add("111018");
-            dateList.add("121018");
-            dateList.add("131018");
-            dateList.add("141018");
-        }
-
-        if (testdate.equals("091018")) {
-            dateList.add("091018");
-            dateList.add("101018");
-            dateList.add("111018");
-            dateList.add("121018");
-            dateList.add("131018");
-            dateList.add("141018");
-        }
-
-        if (testdate.equals("101018")) {
-            dateList.add("101018");
-            dateList.add("111018");
-            dateList.add("121018");
-            dateList.add("131018");
-            dateList.add("141018");
-        }
-
-        if (testdate.equals("111018")) {
-            dateList.add("111018");
-            dateList.add("121018");
-            dateList.add("131018");
-            dateList.add("141018");
-        }
-
-        if (testdate.equals("121018")) {
-            dateList.add("121018");
-            dateList.add("131018");
-            dateList.add("141018");
-        }
-
-        if (testdate.equals("131018")) {
-            dateList.add("131018");
-            dateList.add("141018");
-        }
-
-        if (testdate.equals("141018")) {
-            dateList.add("141018");
-        }
-        */
-
-        //dateList.add("131018");
-        //dateList.add("141018");
-
-        /*
-        for (int i = 0; i < dateList.size(); i++) {
-            System.out.println(dateList.get(i));
-        }
-        */
         List<String> dateList = new ArrayList<String>();
-        String datename = LocalDate.now().getDayOfWeek().name();
-        appendDateList(dateList, numDaysTillSunday(datename));
+        String dateName = LocalDate.now().getDayOfWeek().name();
+        appendDateList(dateList, numDaysTillSunday(dateName));
         model.updateFilteredTaskList(new DateWeekSamePredicate(dateList));
 
         return new CommandResult(MESSAGE_SUCCESS);
@@ -117,14 +35,8 @@ public class ListWeekCommand extends Command {
     private void appendDateList (List<String> dateList, int numDays) {
         dateList.clear();
 
-        if (numDays==0) System.out.println("today sunday");
-        if (numDays==1) System.out.println("today saturday");
-        if (numDays==2) System.out.println("today friday");
-        if (numDays==3) System.out.println("today thursday");
-        if (numDays==4) System.out.println("today wednesday");
-        if (numDays==5) System.out.println("today tuesday");
-        if (numDays==6) System.out.println("today monday");
-
+        //solution below adapted from:
+        //https://stackoverflow.com/questions/428918/how-can-i-increment-a-date-by-one-day-in-java
         //if current day is sunday, just append current date into dateList
         //also doubled up to add the base current date into dateList
         Calendar c = Calendar.getInstance();
