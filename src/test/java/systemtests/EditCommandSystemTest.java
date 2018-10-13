@@ -65,14 +65,16 @@ public class EditCommandSystemTest extends LearnVocabularySystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: edit a word with new values same as existing values -> edited */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + MEANING_DESC + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
+                + MEANING_DESC + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandSuccess(command, index, BOB);
 
         /* Case: edit a word with new values same as another word's values but with different name -> edited */
         assertTrue(getModel().getLearnVocabulary().getWordList().contains(BOB));
         index = INDEX_SECOND_WORD;
         assertNotEquals(getModel().getFilteredWordList().get(index.getZeroBased()), BOB);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + MEANING_DESC + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + MEANING_DESC
+                + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedWord = new WordBuilder(BOB).withName(VALID_NAME_AMY).build();
         assertCommandSuccess(command, index, editedWord);
 
@@ -157,12 +159,14 @@ public class EditCommandSystemTest extends LearnVocabularySystemTest {
         assertTrue(getModel().getLearnVocabulary().getWordList().contains(BOB));
         index = INDEX_FIRST_WORD;
         assertFalse(getModel().getFilteredWordList().get(index.getZeroBased()).equals(BOB));
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + MEANING_DESC + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
+        + MEANING_DESC + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_WORD);
         */
 
         /* Case: edit a word with new values same as another word's values but with different tags -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + MEANING_DESC + TAG_DESC_HUSBAND;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
+                + MEANING_DESC + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_WORD);
 
     }

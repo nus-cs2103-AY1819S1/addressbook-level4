@@ -44,7 +44,8 @@ public class AddCommandSystemTest extends LearnVocabularySystemTest {
          * -> added
          */
         Word toAdd = AMY;
-        String command = "   " + AddCommand.COMMAND_WORD + " " + NAME_DESC_AMY + "  " + MEANING_DESC + " " + TAG_DESC_FRIEND + " ";
+        String command = "   " + AddCommand.COMMAND_WORD + " " + NAME_DESC_AMY + "  "
+                + MEANING_DESC + " " + TAG_DESC_FRIEND + " ";
 
         assertCommandSuccess(command, toAdd);
 
