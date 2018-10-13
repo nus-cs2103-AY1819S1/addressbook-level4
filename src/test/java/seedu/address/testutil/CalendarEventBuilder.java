@@ -4,10 +4,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.calendarevent.CalendarEvent;
-import seedu.address.model.calendarevent.Email;
-import seedu.address.model.calendarevent.Location;
-import seedu.address.model.calendarevent.Phone;
+import seedu.address.model.calendarevent.Description;
 import seedu.address.model.calendarevent.Title;
+import seedu.address.model.calendarevent.Venue;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -16,22 +15,19 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class CalendarEventBuilder {
 
-    public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_PHONE = "85355255";
-    public static final String DEFAULT_EMAIL = "alice@gmail.com";
-    public static final String DEFAULT_LOCATION = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_TITLE = "CS2103 Lecture";
+    public static final String DEFAULT_DESCRIPTION = "Abstraction, IntelliJ, Gradle";
+    public static final String DEFAULT_VENUE = "123, Jurong West Ave 6, #08-111";
 
-    private Title name;
-    private Phone phone;
-    private Email email;
-    private Location location;
+    private Title title;
+    private Description description;
+    private Venue venue;
     private Set<Tag> tags;
 
     public CalendarEventBuilder() {
-        name = new Title(DEFAULT_NAME);
-        phone = new Phone(DEFAULT_PHONE);
-        email = new Email(DEFAULT_EMAIL);
-        location = new Location(DEFAULT_LOCATION);
+        title = new Title(DEFAULT_TITLE);
+        description = new Description(DEFAULT_DESCRIPTION);
+        venue = new Venue(DEFAULT_VENUE);
         tags = new HashSet<>();
     }
 
@@ -39,18 +35,17 @@ public class CalendarEventBuilder {
      * Initializes the CalendarEventBuilder with the data of {@code calendarEventToCopy}.
      */
     public CalendarEventBuilder(CalendarEvent calendarEventToCopy) {
-        name = calendarEventToCopy.getName();
-        phone = calendarEventToCopy.getPhone();
-        email = calendarEventToCopy.getEmail();
-        location = calendarEventToCopy.getLocation();
+        title = calendarEventToCopy.getTitle();
+        description = calendarEventToCopy.getDescription();
+        venue = calendarEventToCopy.getVenue();
         tags = new HashSet<>(calendarEventToCopy.getTags());
     }
 
     /**
      * Sets the {@code Title} of the {@code CalendarEvent} that we are building.
      */
-    public CalendarEventBuilder withName(String name) {
-        this.name = new Title(name);
+    public CalendarEventBuilder withTitle(String name) {
+        this.title = new Title(name);
         return this;
     }
 
@@ -63,31 +58,24 @@ public class CalendarEventBuilder {
     }
 
     /**
-     * Sets the {@code Location} of the {@code CalendarEvent} that we are building.
+     * Sets the {@code Venue} of the {@code CalendarEvent} that we are building.
      */
-    public CalendarEventBuilder withLocation(String location) {
-        this.location = new Location(location);
+    public CalendarEventBuilder withVenue(String venue) {
+        this.venue = new Venue(venue);
         return this;
     }
 
     /**
-     * Sets the {@code Phone} of the {@code CalendarEvent} that we are building.
+     * Sets the {@code Description} of the {@code CalendarEvent} that we are building.
      */
-    public CalendarEventBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
+    public CalendarEventBuilder withDescription(String description) {
+        this.description = new Description(description);
         return this;
     }
 
-    /**
-     * Sets the {@code Email} of the {@code CalendarEvent} that we are building.
-     */
-    public CalendarEventBuilder withEmail(String email) {
-        this.email = new Email(email);
-        return this;
-    }
 
     public CalendarEvent build() {
-        return new CalendarEvent(name, phone, email, location, tags);
+        return new CalendarEvent(title, description, venue, tags);
     }
 
 }
