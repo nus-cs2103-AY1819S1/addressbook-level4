@@ -126,7 +126,7 @@ public class MainWindow extends UiPart<Stage> {
 
         generalListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
         generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
-        
+
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
         StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
