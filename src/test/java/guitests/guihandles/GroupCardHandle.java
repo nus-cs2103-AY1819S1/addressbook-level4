@@ -9,7 +9,7 @@ import seedu.address.model.tag.Tag;
  */
 public class GroupCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
-    private static final String GROUP_FIELD_ID = "#group";
+    private static final String GROUP_FIELD_ID = "#groupName";
 
     private final Label idLabel;
     private final Label groupLabel;
