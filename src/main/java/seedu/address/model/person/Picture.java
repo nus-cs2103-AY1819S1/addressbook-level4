@@ -16,8 +16,10 @@ public class Picture {
     /*
      * Can either be a URL or a path.
      */
-    public static final String PICTURE_URL_VALIDATION_REGEX = "^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
-    public static final String PICTURE_PATH_VALIDATION_REGEX = "^((?!.*//.*)(?!.*/ .*)/{1}([^\\\\(){}:\\*\\?<>\\|\\\"\\'])+\\.(jpg|png))$";
+    public static final String PICTURE_URL_VALIDATION_REGEX =
+        "^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
+    public static final String PICTURE_PATH_VALIDATION_REGEX =
+        "^((?!.*//.*)(?!.*/ .*)/{1}([^\\\\(){}:\\*\\?<>\\|\\\"\\'])+\\.(jpg|png))$";
 
     public final String picture;
 
