@@ -883,7 +883,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `InsuRen` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use Case: Add Clients
@@ -891,7 +891,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 *MSS*
 
 1. User requests to add client, specifying the compulsory field (name) and non-compulsory fields (address, email, phone number, and tags).
-2. AddressBook stores the new client, and displays a confirmation message.
+2. InsuRen stores the new client, and displays a confirmation message.
 +
 Use case ends.
 
@@ -901,7 +901,7 @@ Use case ends.
 * 1a. The user does not include the person’s name.
 +
 [none]
-** 1a1. AddressBook shows an error message.
+** 1a1. InsuRen shows an error message.
 Step 1 is repeated until the data entered are correct.
 +
 Use case resumes at step 2.
@@ -909,7 +909,7 @@ Use case resumes at step 2.
 * 1b. The user does not include non-compulsory fields (refer to 1.).
 +
 [none]
-** 1b1. AddressBook prompts user to include any more missing fields, or to input nothing and continue otherwise.
+** 1b1. InsuRen prompts user to include any more missing fields, or to input nothing and continue otherwise.
 ** 1b2. User inputs any additional fields/nothing.
 +
 Use case resumes at step 2.
@@ -920,9 +920,9 @@ Use case resumes at step 2.
 *MSS*
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
+2.  InsuRen shows a list of persons
 3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+4.  InsuRen deletes the person
 +
 Use case ends.
 
@@ -936,7 +936,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. InsuRen shows an error message.
 +
 Use case resumes at step 2.
 
@@ -946,7 +946,7 @@ Use case resumes at step 2.
 *MSS*
 
 1. User inputs the customers’ meeting times in their address book entries.
-2. User searches for meetings with clients by time, and AddressBook returns the client details if there is a meeting scheduled at that time.
+2. User searches for meetings with clients by time, and InsuRen returns the client details if there is a meeting scheduled at that time.
 +
 Use case ends.
 
@@ -956,14 +956,14 @@ Use case ends.
 * 2a. There are no meetings scheduled for the time searched.
 +
 [none]
-** 2a1. AddressBook returns the next meeting after the specified time.
+** 2a1. InsuRen returns the next meeting after the specified time.
 +
 Use case ends.
 
 * 2b. There are no meetings scheduled for any time after the searched time.
 +
 [none]
-** 2b1. AddressBook states that there are no meetings scheduled
+** 2b1. InsuRen states that there are no meetings scheduled
 +
 Use case ends.
 
@@ -973,7 +973,7 @@ Use case ends.
 *MSS*
 
 1. User adds meeting time with specific client.
-2. AddressBook will add meeting field to specified contact. Meeting will be displayed the next time user executes ‘list’.
+2. InsuRen will add meeting field to specified contact. Meeting will be displayed the next time user executes ‘list’.
 +
 Use case ends.
 
@@ -983,7 +983,7 @@ Use case ends.
 * 1a. User inputs invalid contact/meeting time.
 +
 [none]
-** 1a1. AddressBook prints error message, prompting user to re-enter a valid ‘schedule’ command.
+** 1a1. InsuRen prints error message, prompting user to re-enter a valid ‘schedule’ command.
 +
 Use case resumes at step 1.
 
@@ -993,7 +993,7 @@ Use case resumes at step 1.
 *MSS*
 
 1. User inputs an expiry date field for each client’s insurance plan.
-2. AddressBook alerts the user of clients with expiring insurance plans every time it is initialized.
+2. InsuRen alerts the user of clients with expiring insurance plans every time it is initialized.
 +
 Use case ends.
 
@@ -1002,7 +1002,7 @@ Use case ends.
 * 2a. There are no plans expiring soon.
 +
 [none]
-** 2a1. AddressBook notifies the user that there are no imminent expiries.
+** 2a1. InsuRen notifies the user that there are no imminent expiries.
 +
 Use case ends.
 
@@ -1012,7 +1012,7 @@ Use case ends.
 *MSS*
 
 1. User requests to add import contacts from a file in a user-given directory.
-2. AddressBook loads new contacts from import file, appending the new contacts to the end of the existing contact list.
+2. InsuRen loads new contacts from import file, appending the new contacts to the end of the existing contact list.
 +
 Use case ends.
 
@@ -1021,7 +1021,7 @@ Use case ends.
 * 1a. No file at directory path or invalid file type (must be a csv)
 +
 [none]
-** 1a1. AddressBook shows an error message.
+** 1a1. InsuRen shows an error message.
 +
 Use case resumes at step 1.
 
@@ -1031,7 +1031,7 @@ Use case resumes at step 1.
 *MSS*
 
 1. User requests to export email addresses to a user-given directory.
-2. AddressBook compiles all emails into a csv, saves it in the given directory.
+2. InsuRen compiles all emails into a csv, saves it in the given directory.
 +
 Use case ends.
 
@@ -1040,7 +1040,7 @@ Use case ends.
 * 1a. No file directory given
 +
 [none]
-** 1a1. AddressBook shows an error message.
+** 1a1. InsuRen shows an error message.
 +
 Use case resumes at step 1.
 
@@ -1050,7 +1050,7 @@ Use case resumes at step 1.
 *MSS*
 
 1. User requests to edit client, specifying the name of the client and any fields to be modified.
-2. AddressBook edits the client’s respective fields, and displays a confirmation message.
+2. InsuRen edits the client’s respective fields, and displays a confirmation message.
 +
 Use case ends.
 
@@ -1059,14 +1059,14 @@ Use case ends.
 * 1a. The user does not include the person’s name.
 +
 [none]
-** 1a1. AddressBook shows an error message.
+** 1a1. InsuRen shows an error message.
 +
 Use case resumes at step 1.
 
 *	1b. The user does not include any field to edit
 +
 [none]
-** 1b1. AddressBook prompts user to include any missing fields, or to input nothing and continue otherwise.
+** 1b1. InsuRen prompts user to include any missing fields, or to input nothing and continue otherwise.
 ** 1b2. User inputs any additional fields/nothing.
 +
 Use case resumes at step 2 if fields are inputted, otherwise display a confirmation message that nothing was changed.
@@ -1075,7 +1075,7 @@ Use case resumes at step 2 if fields are inputted, otherwise display a confirmat
 [none]
 ** 1c1. Ask for the user to specify a field (p/, e/, a/) and the value of the field that will identify that specific person
 ** 1c2. The user inputs that field.
-** 1c3. AddressBook prompts the user to type the fields to be modified.
+** 1c3. InsuRen prompts the user to type the fields to be modified.
 +
 Use case resumes at step 2 if fields are inputted, otherwise display a confirmation that nothing was changed.
 
@@ -1085,26 +1085,26 @@ Use case resumes at step 2 if fields are inputted, otherwise display a confirmat
 *MSS*
 
 1. User requests upload picture of client.
-2. AddressBook requests for the client’s name.
+2. InsuRen requests for the client’s name.
 3. User specifies the client’s name.
-4. AddressBook requests for the file location.
+4. InsuRen requests for the file location.
 5. User specifies the file location.
-6. AddressBook uploads the file and tags it to the client’s profile.
+6. InsuRen uploads the file and tags it to the client’s profile.
 +
 Use case ends.
 
 *Extensions*
 
-*	3a. AddressBook detects an error in the entered data.
+*	3a. InsuRen detects an error in the entered data.
 +
 [none]
-** 3a1. AddressBook requests for the correct data.
+** 3a1. InsuRen requests for the correct data.
 +
 Use case resumes from step 3.
-* 5a. AddressBook detects an error in the entered data.
+* 5a. InsuRen detects an error in the entered data.
 +
 [none]
-** 5a1. AddressBook requests for the correct data.
+** 5a1. InsuRen requests for the correct data.
 +
 Use case resumes from step 5.
 
@@ -1114,7 +1114,7 @@ Use case resumes from step 5.
 *MSS*
 
 1. User requests to list frequently contacted clients.
-2. AddressBook shows a list of frequently contacted clients.
+2. InsuRen shows a list of frequently contacted clients.
 +
 Use case ends.
 
@@ -1123,7 +1123,7 @@ Use case ends.
 *	1a. User requests to limit or extend the list results.
 +
 [none]
-** 1a1. AddressBook requests for a upper limit.
+** 1a1. InsuRen requests for a upper limit.
 ** 1a2. User enters upper limit.
 +
 Use case resumes from step 2.
@@ -1137,7 +1137,7 @@ Use case ends.
 *MSS*
 
 1. User adds client with the same name and same phone number or email or address (at least one of the three fields) as an existing contact.
-2. AddressBook recognises that the contact is a duplicate and informs user of existing contact.
+2. InsuRen recognises that the contact is a duplicate and informs user of existing contact.
 3. User can choose to edit existing contact.
 +
 Use case ends.
@@ -1147,7 +1147,7 @@ Use case ends.
 * 1a. User intends to create a contact with the same name and phone number or email or address (at least one of the three fields) as an existing contact.
 +
 [none]
-** 1a1. AddressBook allows user to create near-duplicate contact instead of editing existing contact.
+** 1a1. InsuRen allows user to create near-duplicate contact instead of editing existing contact.
 +
 Use case ends.
 
@@ -1156,8 +1156,8 @@ Use case ends.
 
 *MSS*
 
-1. User creates a group in AddressBook that can store clients’ contacts, specifying the group name.
-2. AddressBook creates a new group.
+1. User creates a group in InsuRen that can store clients’ contacts, specifying the group name.
+2. InsuRen creates a new group.
 3. User can create new contacts within the group or add existing contacts to the group.
 +
 Use case ends.
@@ -1167,14 +1167,14 @@ Use case ends.
 * 1a. User creates a group with the same name as an existing group.
 +
 [none]
-** 1a1. AddressBook prompts user to choose a different name that will be unique.
+** 1a1. InsuRen prompts user to choose a different name that will be unique.
 +
 Use case resumes at step 1.
 
 * 1b. User enters a group name with an no characters (empty string).
 +
 [none]
-** 1b1. AddressBook prompts user to type in a group name.
+** 1b1. InsuRen prompts user to type in a group name.
 +
 Use case resumes at step 1.
 
