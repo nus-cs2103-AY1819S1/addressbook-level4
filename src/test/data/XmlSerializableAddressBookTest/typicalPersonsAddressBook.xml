@@ -8,6 +8,7 @@
         <address>123, Jurong West Ave 6, #08-111</address>
         <meeting>0000000000</meeting>
         <tagged>friends</tagged>
+        <picture>/images/placeholder_image.jpg</picture>
     </persons>
     <persons>
         <name>Benson Meier</name>
@@ -17,6 +18,7 @@
         <meeting>0000000000</meeting>
         <tagged>owesMoney</tagged>
         <tagged>friends</tagged>
+        <picture>/images/placeholder_image.jpg</picture>
     </persons>
     <persons>
         <name>Carl Kurz</name>
@@ -24,6 +26,7 @@
         <email>heinz@example.com</email>
         <address>wall street</address>
         <meeting>0000000000</meeting>
+        <picture>/images/placeholder_image.jpg</picture>
     </persons>
     <persons>
         <name>Daniel Meier</name>
@@ -32,6 +35,7 @@
         <address>10th street</address>
         <meeting>0000000000</meeting>
         <tagged>friends</tagged>
+        <picture>/images/placeholder_image.jpg</picture>
     </persons>
     <persons>
         <name>Elle Meyer</name>
@@ -39,6 +43,7 @@
         <email>werner@example.com</email>
         <address>michegan ave</address>
         <meeting>0000000000</meeting>
+        <picture>/images/placeholder_image.jpg</picture>
     </persons>
     <persons>
         <name>Fiona Kunz</name>
@@ -46,6 +51,7 @@
         <email>lydia@example.com</email>
         <address>little tokyo</address>
         <meeting>0000000000</meeting>
+        <picture>/images/placeholder_image.jpg</picture>
     </persons>
     <persons>
         <name>George Best</name>
@@ -53,6 +59,7 @@
         <email>anna@example.com</email>
         <address>4th street</address>
         <meeting>0000000000</meeting>
+        <picture>/images/placeholder_image.jpg</picture>
     </persons>
     <persons>
         <name>Henry Golding</name>
@@ -60,6 +67,7 @@
         <email>henry@example.com</email>
         <address>Crazy Rich Street</address>
         <meeting>0000000000</meeting>
+        <picture>/images/placeholder_image.jpg</picture>
     </persons>
     <persons>
         <name>Ianna Cluse</name>
@@ -67,6 +75,7 @@
         <email>NOEMAIL@NOEMAIL.NOEMAIL</email>
         <address>24 Recluse Avenue</address>
         <meeting>0000000000</meeting>
+        <picture>/images/placeholder_image.jpg</picture>
     </persons>
     <persons>
         <name>Jenny Khiu</name>
@@ -74,5 +83,6 @@
         <email>jenny@example.com</email>
         <address>NO_ADDRESS</address>
         <meeting>0000000000</meeting>
+        <picture>/images/placeholder_image.jpg</picture>
     </persons>
 </addressbook>

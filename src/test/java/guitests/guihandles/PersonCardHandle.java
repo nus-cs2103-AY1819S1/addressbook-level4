@@ -105,7 +105,6 @@ public class PersonCardHandle extends NodeHandle<Node> {
                 && getEmail().equals(person.getEmail().isPresent()
                         ? person.getEmail().get().value
                         : PersonCard.NO_EMAIL)
-                && getPicture().equals(new Image(person.getPicture().toString()))
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(person.getTags().stream()
                 .map(tag -> tag.tagName)
                 .collect(Collectors.toList())));

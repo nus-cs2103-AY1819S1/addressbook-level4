@@ -223,14 +223,14 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_pictureCommandWord_returnsPictureCommand() throws Exception {
         PictureCommand command = (PictureCommand) parser.parseCommand(PictureCommand.COMMAND_WORD + " "
-            + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_FILE_LOCATION + "image/alice.jpg");
+            + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_FILE_LOCATION + "/image/alice.jpg");
         assertTrue(command instanceof PictureCommand);
     }
 
     @Test
     public void parseCommand_pictureCommandAlias_returnsPictureCommand() throws Exception {
         PictureCommand command = (PictureCommand) parser.parseCommand(PictureCommand.COMMAND_ALIAS + " "
-            + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_FILE_LOCATION + "image/alice.jpg");
+            + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_FILE_LOCATION + "/image/alice.jpg");
         assertTrue(command instanceof PictureCommand);
     }
 

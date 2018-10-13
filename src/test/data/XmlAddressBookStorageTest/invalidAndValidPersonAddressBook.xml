@@ -7,6 +7,7 @@
         <email isPrivate="false">hans@example.com</email>
         <address isPrivate="false">4th street</address>
         <meeting isPrivate="false">0000000000</meeting>
+        <picture isPrivate="false">/images/hans.jpg</picture>
     </persons>
     <!-- Person with invalid phone field -->
     <persons>
@@ -15,5 +16,6 @@
         <email isPrivate="false">hans@example.com</email>
         <address isPrivate="false">4th street</address>
         <meeting isPrivate="false">0000000000</meeting>
+        <picture isPrivate="false">/images/hans.jpg</picture>
     </persons>
 </addressbook>
