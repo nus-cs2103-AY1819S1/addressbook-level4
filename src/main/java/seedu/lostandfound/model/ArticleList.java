@@ -9,7 +9,7 @@ import seedu.lostandfound.model.article.Article;
 import seedu.lostandfound.model.article.UniqueArticleList;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the description-book level
  * Duplicates are not allowed (by .isSameArticle comparison)
  */
 public class ArticleList implements ReadOnlyArticleList {
@@ -77,7 +77,7 @@ public class ArticleList implements ReadOnlyArticleList {
     /**
      * Replaces the given article {@code target} in the list with {@code editedArticle}.
      * {@code target} must exist in the article list.
-     * The article identity of {@code editedArticle} must not be the same as another existing article in the address
+     * The article identity of {@code editedArticle} must not be the same as another existing article in the description
      * book.
      */
     public void updateArticle(Article target, Article editedArticle) {

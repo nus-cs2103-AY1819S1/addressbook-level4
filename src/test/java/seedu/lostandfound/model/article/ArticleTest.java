@@ -2,7 +2,7 @@ package seedu.lostandfound.model.article;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
@@ -44,17 +44,17 @@ public class ArticleTest {
         assertFalse(ALICE.isSameArticle(editedAlice));
 
         // same name, same phone, different attributes -> returns true
-        editedAlice = new ArticleBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+        editedAlice = new ArticleBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withDescription(VALID_DESCRIPTION_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameArticle(editedAlice));
 
         // same name, same email, different attributes -> returns true
-        editedAlice = new ArticleBuilder(ALICE).withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB)
+        editedAlice = new ArticleBuilder(ALICE).withPhone(VALID_PHONE_BOB).withDescription(VALID_DESCRIPTION_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameArticle(editedAlice));
 
         // same name, same phone, same email, different attributes -> returns true
-        editedAlice = new ArticleBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        editedAlice = new ArticleBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameArticle(editedAlice));
     }
 
@@ -88,8 +88,8 @@ public class ArticleTest {
         editedAlice = new ArticleBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different address -> returns false
-        editedAlice = new ArticleBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
+        // different description -> returns false
+        editedAlice = new ArticleBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different tags -> returns false

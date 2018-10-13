@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.lostandfound.commons.exceptions.IllegalValueException;
-import seedu.lostandfound.model.article.Address;
+import seedu.lostandfound.model.article.Description;
 import seedu.lostandfound.model.article.Article;
 import seedu.lostandfound.model.article.Email;
 import seedu.lostandfound.model.article.Name;
@@ -31,7 +31,7 @@ public class XmlAdaptedArticle {
     @XmlElement(required = true)
     private String email;
     @XmlElement(required = true)
-    private String address;
+    private String description;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -45,11 +45,11 @@ public class XmlAdaptedArticle {
     /**
      * Constructs an {@code XmlAdaptedArticle} with the given article details.
      */
-    public XmlAdaptedArticle(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedArticle(String name, String phone, String email, String description, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
+        this.description = description;
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
@@ -64,7 +64,7 @@ public class XmlAdaptedArticle {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
-        address = source.getAddress().value;
+        description = source.getDescription().value;
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
@@ -105,16 +105,16 @@ public class XmlAdaptedArticle {
         }
         final Email modelEmail = new Email(email);
 
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+        if (description == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
         }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
+        if (!Description.isValidDescription(description)) {
+            throw new IllegalValueException(Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
+        final Description modelDescription = new Description(description);
 
         final Set<Tag> modelTags = new HashSet<>(articleTags);
-        return new Article(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Article(modelName, modelPhone, modelEmail, modelDescription, modelTags);
     }
 
     @Override
@@ -131,7 +131,7 @@ public class XmlAdaptedArticle {
         return Objects.equals(name, otherArticle.name)
                 && Objects.equals(phone, otherArticle.phone)
                 && Objects.equals(email, otherArticle.email)
-                && Objects.equals(address, otherArticle.address)
+                && Objects.equals(description, otherArticle.description)
                 && tagged.equals(otherArticle.tagged);
     }
 }

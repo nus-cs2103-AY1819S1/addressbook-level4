@@ -3,7 +3,7 @@ package seedu.lostandfound.model.article;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.lostandfound.testutil.TypicalArticles.ALICE;
 import static seedu.lostandfound.testutil.TypicalArticles.BOB;
@@ -46,7 +46,7 @@ public class UniqueArticleListTest {
     @Test
     public void contains_articleWithSameIdentityFieldsInList_returnsTrue() {
         uniqueArticleList.add(ALICE);
-        Article editedAlice = new ArticleBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Article editedAlice = new ArticleBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(uniqueArticleList.contains(editedAlice));
     }
@@ -94,7 +94,7 @@ public class UniqueArticleListTest {
     @Test
     public void setArticle_editedArticleHasSameIdentity_success() {
         uniqueArticleList.add(ALICE);
-        Article editedAlice = new ArticleBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Article editedAlice = new ArticleBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         uniqueArticleList.setArticle(ALICE, editedAlice);
         UniqueArticleList expectedUniqueArticleList = new UniqueArticleList();

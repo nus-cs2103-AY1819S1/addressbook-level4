@@ -33,7 +33,7 @@ public class ArticleCard extends UiPart<Region> {
     @FXML
     private Label phone;
     @FXML
-    private Label address;
+    private Label description;
     @FXML
     private Label email;
     @FXML
@@ -45,7 +45,7 @@ public class ArticleCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(article.getName().fullName);
         phone.setText(article.getPhone().value);
-        address.setText(article.getAddress().value);
+        description.setText(article.getDescription().value);
         email.setText(article.getEmail().value);
         article.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }

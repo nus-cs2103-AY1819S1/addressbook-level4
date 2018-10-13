@@ -1,11 +1,11 @@
 package systemtests;
 
 import static seedu.lostandfound.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.DESCRIPTION_DESC_AMY;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.DESCRIPTION_DESC_BOB;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
@@ -16,7 +16,7 @@ import static seedu.lostandfound.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
@@ -37,7 +37,7 @@ import seedu.lostandfound.logic.commands.AddCommand;
 import seedu.lostandfound.logic.commands.RedoCommand;
 import seedu.lostandfound.logic.commands.UndoCommand;
 import seedu.lostandfound.model.Model;
-import seedu.lostandfound.model.article.Address;
+import seedu.lostandfound.model.article.Description;
 import seedu.lostandfound.model.article.Article;
 import seedu.lostandfound.model.article.Email;
 import seedu.lostandfound.model.article.Name;
@@ -59,7 +59,7 @@ public class AddCommandSystemTest extends ArticleListSystemTest {
          */
         Article toAdd = AMY;
         String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
-                + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
+                + EMAIL_DESC_AMY + "   " + DESCRIPTION_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
@@ -75,7 +75,7 @@ public class AddCommandSystemTest extends ArticleListSystemTest {
 
         /* Case: add a article with all fields same as another article in the article list except name -> added */
         toAdd = new ArticleBuilder(AMY).withName(VALID_NAME_BOB).build();
-        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
+        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + DESCRIPTION_DESC_AMY
                 + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
@@ -92,7 +92,7 @@ public class AddCommandSystemTest extends ArticleListSystemTest {
 
         /* Case: add a article with tags, command with parameters in random order -> added */
         toAdd = BOB;
-        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
+        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + DESCRIPTION_DESC_BOB + NAME_DESC_BOB
                 + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
         assertCommandSuccess(command, toAdd);
 
@@ -127,8 +127,8 @@ public class AddCommandSystemTest extends ArticleListSystemTest {
         command = ArticleUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_ARTICLE);
 
-        /* Case: add a duplicate article except with different address -> rejected */
-        toAdd = new ArticleBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
+        /* Case: add a duplicate article except with different description -> rejected */
+        toAdd = new ArticleBuilder(HOON).withDescription(VALID_DESCRIPTION_BOB).build();
         command = ArticleUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_ARTICLE);
 
@@ -137,18 +137,18 @@ public class AddCommandSystemTest extends ArticleListSystemTest {
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_ARTICLE);
 
         /* Case: missing name -> rejected */
-        command = AddCommand.COMMAND_WORD + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + PHONE_DESC_AMY + EMAIL_DESC_AMY + DESCRIPTION_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing phone -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + EMAIL_DESC_AMY + DESCRIPTION_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing email -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + DESCRIPTION_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
-        /* Case: missing address -> rejected */
+        /* Case: missing description -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
@@ -157,23 +157,23 @@ public class AddCommandSystemTest extends ArticleListSystemTest {
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
-        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY + DESCRIPTION_DESC_AMY;
         assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY + DESCRIPTION_DESC_AMY;
         assertCommandFailure(command, Phone.MESSAGE_PHONE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC + DESCRIPTION_DESC_AMY;
         assertCommandFailure(command, Email.MESSAGE_EMAIL_CONSTRAINTS);
 
-        /* Case: invalid address -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + INVALID_ADDRESS_DESC;
-        assertCommandFailure(command, Address.MESSAGE_ADDRESS_CONSTRAINTS);
+        /* Case: invalid description -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + INVALID_DESCRIPTION_DESC;
+        assertCommandFailure(command, Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + DESCRIPTION_DESC_AMY
                 + INVALID_TAG_DESC;
         assertCommandFailure(command, Tag.MESSAGE_TAG_CONSTRAINTS);
     }

@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.lostandfound.logic.commands.EditCommand.EditArticleDescriptor;
-import seedu.lostandfound.model.article.Address;
+import seedu.lostandfound.model.article.Description;
 import seedu.lostandfound.model.article.Article;
 import seedu.lostandfound.model.article.Email;
 import seedu.lostandfound.model.article.Name;
@@ -35,7 +35,7 @@ public class EditArticleDescriptorBuilder {
         descriptor.setName(article.getName());
         descriptor.setPhone(article.getPhone());
         descriptor.setEmail(article.getEmail());
-        descriptor.setAddress(article.getAddress());
+        descriptor.setDescription(article.getDescription());
         descriptor.setTags(article.getTags());
     }
 
@@ -64,10 +64,10 @@ public class EditArticleDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code EditArticleDescriptor} that we are building.
+     * Sets the {@code Description} of the {@code EditArticleDescriptor} that we are building.
      */
-    public EditArticleDescriptorBuilder withAddress(String address) {
-        descriptor.setAddress(new Address(address));
+    public EditArticleDescriptorBuilder withDescription(String description) {
+        descriptor.setDescription(new Description(description));
         return this;
     }
 

@@ -3,7 +3,7 @@ package seedu.lostandfound.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.lostandfound.testutil.TypicalArticles.ALICE;
 import static seedu.lostandfound.testutil.TypicalArticles.getTypicalArticleList;
@@ -51,7 +51,7 @@ public class ArticleListTest {
     @Test
     public void resetData_withDuplicateArticles_throwsDuplicateArticleException() {
         // Two articles with the same identity fields
-        Article editedAlice = new ArticleBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Article editedAlice = new ArticleBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Article> newArticles = Arrays.asList(ALICE, editedAlice);
         ArticleListStub newData = new ArticleListStub(newArticles);
@@ -80,7 +80,7 @@ public class ArticleListTest {
     @Test
     public void hasArticle_articleWithSameIdentityFieldsInArticleList_returnsTrue() {
         articleList.addArticle(ALICE);
-        Article editedAlice = new ArticleBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Article editedAlice = new ArticleBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(articleList.hasArticle(editedAlice));
     }

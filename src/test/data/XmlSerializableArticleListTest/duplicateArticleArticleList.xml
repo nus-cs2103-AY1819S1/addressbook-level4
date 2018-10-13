@@ -5,7 +5,7 @@
         <name>Alice Pauline</name>
         <phone>94351253</phone>
         <email>alice@example.com</email>
-        <address>123, Jurong West Ave 6, #08-111</address>
+        <description>123, Jurong West Ave 6, #08-111</description>
         <tagged>friends</tagged>
     </articles>
 
@@ -14,7 +14,7 @@
         <name>Alice Pauline</name>
         <phone>94351253</phone>
         <email>pauline@example.com</email>
-        <address>4th street</address>
+        <description>4th street</description>
     </articles>
 
 </articlelist>

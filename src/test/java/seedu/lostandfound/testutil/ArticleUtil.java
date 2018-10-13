@@ -1,6 +1,6 @@
 package seedu.lostandfound.testutil;
 
-import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -33,7 +33,7 @@ public class ArticleUtil {
         sb.append(PREFIX_NAME + article.getName().fullName + " ");
         sb.append(PREFIX_PHONE + article.getPhone().value + " ");
         sb.append(PREFIX_EMAIL + article.getEmail().value + " ");
-        sb.append(PREFIX_ADDRESS + article.getAddress().value + " ");
+        sb.append(PREFIX_DESCRIPTION + article.getDescription().value + " ");
         article.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
@@ -48,7 +48,7 @@ public class ArticleUtil {
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
-        descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
+        descriptor.getDescription().ifPresent(description -> sb.append(PREFIX_DESCRIPTION).append(description.value).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

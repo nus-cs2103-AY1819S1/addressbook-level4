@@ -117,8 +117,8 @@ public class FindCommandSystemTest extends ArticleListSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find address of article in article list -> 0 articles found */
-        command = FindCommand.COMMAND_WORD + "-n " + DANIEL.getAddress().value;
+        /* Case: find description of article in article list -> 0 articles found */
+        command = FindCommand.COMMAND_WORD + "-n " + DANIEL.getDescription().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 

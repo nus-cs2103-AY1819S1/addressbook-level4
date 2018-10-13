@@ -1,7 +1,7 @@
 package seedu.lostandfound.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -20,7 +20,7 @@ import seedu.lostandfound.commons.util.CollectionUtil;
 import seedu.lostandfound.logic.CommandHistory;
 import seedu.lostandfound.logic.commands.exceptions.CommandException;
 import seedu.lostandfound.model.Model;
-import seedu.lostandfound.model.article.Address;
+import seedu.lostandfound.model.article.Description;
 import seedu.lostandfound.model.article.Article;
 import seedu.lostandfound.model.article.Email;
 import seedu.lostandfound.model.article.Name;
@@ -41,7 +41,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -98,10 +98,10 @@ public class EditCommand extends Command {
         Name updatedName = editArticleDescriptor.getName().orElse(articleToEdit.getName());
         Phone updatedPhone = editArticleDescriptor.getPhone().orElse(articleToEdit.getPhone());
         Email updatedEmail = editArticleDescriptor.getEmail().orElse(articleToEdit.getEmail());
-        Address updatedAddress = editArticleDescriptor.getAddress().orElse(articleToEdit.getAddress());
+        Description updatedDescription = editArticleDescriptor.getDescription().orElse(articleToEdit.getDescription());
         Set<Tag> updatedTags = editArticleDescriptor.getTags().orElse(articleToEdit.getTags());
 
-        return new Article(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Article(updatedName, updatedPhone, updatedEmail, updatedDescription, updatedTags);
     }
 
     @Override
@@ -130,7 +130,7 @@ public class EditCommand extends Command {
         private Name name;
         private Phone phone;
         private Email email;
-        private Address address;
+        private Description description;
         private Set<Tag> tags;
 
         public EditArticleDescriptor() {}
@@ -143,7 +143,7 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
-            setAddress(toCopy.address);
+            setDescription(toCopy.description);
             setTags(toCopy.tags);
         }
 
@@ -151,7 +151,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, description, tags);
         }
 
         public void setName(Name name) {
@@ -178,12 +178,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(email);
         }
 
-        public void setAddress(Address address) {
-            this.address = address;
+        public void setDescription(Description description) {
+            this.description = description;
         }
 
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
+        public Optional<Description> getDescription() {
+            return Optional.ofNullable(description);
         }
 
         /**
@@ -221,7 +221,7 @@ public class EditCommand extends Command {
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
+                    && getDescription().equals(e.getDescription())
                     && getTags().equals(e.getTags());
         }
     }

@@ -21,18 +21,18 @@ public class Article {
     private final Email email;
 
     // Data fields
-    private final Address address;
+    private final Description description;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Article(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Article(Name name, Phone phone, Email email, Description description, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, description, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
+        this.description = description;
         this.tags.addAll(tags);
     }
 
@@ -48,8 +48,8 @@ public class Article {
         return email;
     }
 
-    public Address getAddress() {
-        return address;
+    public Description getDescription() {
+        return description;
     }
 
     /**
@@ -92,14 +92,14 @@ public class Article {
         return otherArticle.getName().equals(getName())
                 && otherArticle.getPhone().equals(getPhone())
                 && otherArticle.getEmail().equals(getEmail())
-                && otherArticle.getAddress().equals(getAddress())
+                && otherArticle.getDescription().equals(getDescription())
                 && otherArticle.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, description, tags);
     }
 
     @Override
@@ -110,8 +110,8 @@ public class Article {
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" Description: ")
+                .append(getDescription())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
