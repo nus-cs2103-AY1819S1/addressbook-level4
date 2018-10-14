@@ -5,9 +5,10 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import guitests.guihandles.PersonCardHandle;
-import guitests.guihandles.PersonListPanelHandle;
+import guitests.guihandles.PlaylistCardHandle;
+import guitests.guihandles.PlaylistListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
+import seedu.jxmusic.model.Playlist;
 
 /**
  * A set of assertion methods useful for writing GUI tests.
@@ -16,52 +17,46 @@ public class GuiTestAssert {
     /**
      * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
      */
-    public static void assertCardEquals(PersonCardHandle expectedCard, PersonCardHandle actualCard) {
+    public static void assertCardEquals(PlaylistCardHandle expectedCard, PlaylistCardHandle actualCard) {
         assertEquals(expectedCard.getId(), actualCard.getId());
-        assertEquals(expectedCard.getAddress(), actualCard.getAddress());
-        assertEquals(expectedCard.getEmail(), actualCard.getEmail());
         assertEquals(expectedCard.getName(), actualCard.getName());
-        assertEquals(expectedCard.getPhone(), actualCard.getPhone());
-        assertEquals(expectedCard.getTags(), actualCard.getTags());
+        assertEquals(expectedCard.getTracks(), actualCard.getTracks());
     }
 
     /**
-     * Asserts that {@code actualCard} displays the details of {@code expectedPerson}.
+     * Asserts that {@code actualCard} displays the details of {@code expectedPlaylist}.
      */
-    public static void assertCardDisplaysPerson(Person expectedPerson, PersonCardHandle actualCard) {
-        assertEquals(expectedPerson.getName().nameString, actualCard.getName());
-        assertEquals(expectedPerson.getPhone().value, actualCard.getPhone());
-        assertEquals(expectedPerson.getEmail().value, actualCard.getEmail());
-        assertEquals(expectedPerson.getAddress().value, actualCard.getAddress());
-        assertEquals(expectedPerson.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
-                actualCard.getTags());
+    public static void assertCardDisplaysPlaylist(Playlist expectedPlaylist, PlaylistCardHandle actualCard) {
+        assertEquals(expectedPlaylist.getName().nameString, actualCard.getName());
+        assertEquals(expectedPlaylist.getTracks().stream().map(track -> track.hashCode()).collect(Collectors.toList()),
+                actualCard.getTracks());
     }
 
     /**
-     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code persons} correctly and
+     * Asserts that the list in {@code playlistListPanelHandle} displays the details of {@code playlists} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(PersonListPanelHandle personListPanelHandle, Person... persons) {
-        for (int i = 0; i < persons.length; i++) {
-            personListPanelHandle.navigateToCard(i);
-            assertCardDisplaysPerson(persons[i], personListPanelHandle.getPersonCardHandle(i));
+    public static void assertListMatching(PlaylistListPanelHandle playlistListPanelHandle, Playlist... playlists) {
+        for (int i = 0; i < playlists.length; i++) {
+            playlistListPanelHandle.navigateToCard(i);
+            assertCardDisplaysPlaylist(playlists[i], playlistListPanelHandle.getPlaylistCardHandle(i));
         }
     }
 
     /**
-     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code persons} correctly and
+     * Asserts that the list in {@code playlistListPanelHandle} displays the details of {@code playlists} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(PersonListPanelHandle personListPanelHandle, List<Person> persons) {
-        assertListMatching(personListPanelHandle, persons.toArray(new Person[0]));
+    public static void assertListMatching(PlaylistListPanelHandle playlistListPanelHandle, List<Playlist> playlists) {
+        assertListMatching(playlistListPanelHandle, playlists.toArray(new Playlist[0]));
     }
 
     /**
-     * Asserts the size of the list in {@code personListPanelHandle} equals to {@code size}.
+     * Asserts the size of the list in {@code playlistListPanelHandle} equals to {@code size}.
      */
-    public static void assertListSize(PersonListPanelHandle personListPanelHandle, int size) {
-        int numberOfPeople = personListPanelHandle.getListSize();
-        assertEquals(size, numberOfPeople);
+    public static void assertListSize(PlaylistListPanelHandle playlistListPanelHandle, int size) {
+        int numberOfPlaylists = playlistListPanelHandle.getListSize();
+        assertEquals(size, numberOfPlaylists);
     }
 
     /**
