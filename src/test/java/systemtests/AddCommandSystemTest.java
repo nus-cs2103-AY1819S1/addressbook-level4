@@ -1,34 +1,34 @@
 package systemtests;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_MA3220;
-import static seedu.address.logic.commands.CommandTestUtil.END_DATETIME_DESC_MA3220;
-import static seedu.address.logic.commands.CommandTestUtil.EVENT_NAME_DESC_MA3220;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.REPEAT_TYPE_DESC_MA3220;
-import static seedu.address.logic.commands.CommandTestUtil.REPEAT_UNTIL_DATETIME_DESC_MA3220;
-import static seedu.address.logic.commands.CommandTestUtil.START_DATETIME_DESC_MA3220;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_PLAY;
-import static seedu.address.logic.commands.CommandTestUtil.VENUE_DESC_MA3220;
-import static seedu.address.testutil.TypicalEvents.KEYWORD_MATCHING_JANUARY;
-import static seedu.address.testutil.TypicalEvents.MA3220_JANUARY_1_2019_SINGLE;
-import static seedu.address.testutil.TypicalEvents.TRAVEL_JUNE_1_2018_SINGLE;
-import static seedu.address.testutil.TypicalEvents.WORK_DECEMBER_12_2018_SINGLE;
+import static seedu.scheduler.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.scheduler.logic.commands.CommandTestUtil.DESCRIPTION_DESC_MA3220;
+import static seedu.scheduler.logic.commands.CommandTestUtil.END_DATETIME_DESC_MA3220;
+import static seedu.scheduler.logic.commands.CommandTestUtil.EVENT_NAME_DESC_MA3220;
+import static seedu.scheduler.logic.commands.CommandTestUtil.INVALID_EVENT_NAME_DESC;
+import static seedu.scheduler.logic.commands.CommandTestUtil.REPEAT_TYPE_DESC_MA3220;
+import static seedu.scheduler.logic.commands.CommandTestUtil.REPEAT_UNTIL_DATETIME_DESC_MA3220;
+import static seedu.scheduler.logic.commands.CommandTestUtil.START_DATETIME_DESC_MA3220;
+import static seedu.scheduler.logic.commands.CommandTestUtil.TAG_DESC_PLAY;
+import static seedu.scheduler.logic.commands.CommandTestUtil.VENUE_DESC_MA3220;
+import static seedu.scheduler.testutil.TypicalEvents.KEYWORD_MATCHING_JANUARY;
+import static seedu.scheduler.testutil.TypicalEvents.MA3220_JANUARY_1_2019_SINGLE;
+import static seedu.scheduler.testutil.TypicalEvents.TRAVEL_JUNE_1_2018_SINGLE;
+import static seedu.scheduler.testutil.TypicalEvents.WORK_DECEMBER_12_2018_SINGLE;
 
 import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.event.Event;
-import seedu.address.model.event.EventName;
-import seedu.address.testutil.EventBuilder;
-import seedu.address.testutil.EventUtil;
+import seedu.scheduler.commons.core.Messages;
+import seedu.scheduler.commons.core.index.Index;
+import seedu.scheduler.logic.commands.AddCommand;
+import seedu.scheduler.logic.commands.RedoCommand;
+import seedu.scheduler.logic.commands.UndoCommand;
+import seedu.scheduler.model.Model;
+import seedu.scheduler.model.event.Event;
+import seedu.scheduler.model.event.EventName;
+import seedu.scheduler.testutil.EventBuilder;
+import seedu.scheduler.testutil.EventUtil;
 
 public class AddCommandSystemTest extends SchedulerSystemTest {
 

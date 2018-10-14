@@ -1,24 +1,24 @@
 package systemtests;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_EVENT_SUCCESS;
-import static seedu.address.testutil.TestUtil.getEvent;
-import static seedu.address.testutil.TestUtil.getLastIndex;
-import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TypicalEvents.KEYWORD_MATCHING_JANUARY;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
+import static seedu.scheduler.commons.core.Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX;
+import static seedu.scheduler.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.scheduler.logic.commands.DeleteCommand.MESSAGE_DELETE_EVENT_SUCCESS;
+import static seedu.scheduler.testutil.TestUtil.getEvent;
+import static seedu.scheduler.testutil.TestUtil.getLastIndex;
+import static seedu.scheduler.testutil.TestUtil.getMidIndex;
+import static seedu.scheduler.testutil.TypicalEvents.KEYWORD_MATCHING_JANUARY;
+import static seedu.scheduler.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.event.Event;
+import seedu.scheduler.commons.core.Messages;
+import seedu.scheduler.commons.core.index.Index;
+import seedu.scheduler.logic.commands.DeleteCommand;
+import seedu.scheduler.logic.commands.RedoCommand;
+import seedu.scheduler.logic.commands.UndoCommand;
+import seedu.scheduler.model.Model;
+import seedu.scheduler.model.event.Event;
 
 public class DeleteCommandSystemTest extends SchedulerSystemTest {
 
@@ -143,7 +143,7 @@ public class DeleteCommandSystemTest extends SchedulerSystemTest {
      * 4. Asserts that the status bar's sync status changes.<br>
      * 5. Asserts that the command box has the default style class.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.
+     * {@code SchedulerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.
      * @see SchedulerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
@@ -178,7 +178,7 @@ public class DeleteCommandSystemTest extends SchedulerSystemTest {
      * 3. Asserts that the browser url, selected card and status bar remain unchanged.<br>
      * 4. Asserts that the command box has the error style.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * {@code SchedulerBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see SchedulerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {

@@ -1,16 +1,16 @@
 package systemtests;
 
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalEvents.KEYWORD_MATCHING_JANUARY;
+import static seedu.scheduler.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.scheduler.testutil.TypicalEvents.KEYWORD_MATCHING_JANUARY;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
+import seedu.scheduler.commons.core.index.Index;
+import seedu.scheduler.logic.commands.ClearCommand;
+import seedu.scheduler.logic.commands.RedoCommand;
+import seedu.scheduler.logic.commands.UndoCommand;
+import seedu.scheduler.model.Model;
+import seedu.scheduler.model.ModelManager;
 
 public class ClearCommandSystemTest extends SchedulerSystemTest {
 
@@ -24,7 +24,7 @@ public class ClearCommandSystemTest extends SchedulerSystemTest {
         assertCommandSuccess("   " + ClearCommand.COMMAND_WORD + " scheduler   ");
         assertSelectedCardUnchanged();
 
-        /* Case: undo clearing scheduler -> original address book restored */
+        /* Case: undo clearing scheduler -> original scheduler book restored */
         String command = UndoCommand.COMMAND_WORD;
         String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, expectedResultMessage, defaultModel);
@@ -60,7 +60,7 @@ public class ClearCommandSystemTest extends SchedulerSystemTest {
      * Executes {@code command} and verifies that the command box displays an empty string, the result display
      * box displays {@code ClearCommand#MESSAGE_SUCCESS} and the model related components equal to an empty model.
      * These verifications are done by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * {@code SchedulerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the command box has the default style class and the status bar's sync status changes.
      * @see SchedulerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
@@ -84,7 +84,7 @@ public class ClearCommandSystemTest extends SchedulerSystemTest {
      * Executes {@code command} and verifies that the command box displays {@code command}, the result display
      * box displays {@code expectedResultMessage} and the model related components equal to the current model.
      * These verifications are done by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * {@code SchedulerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the browser url, selected card and status bar remain unchanged, and the command box has the
      * error style.
      * @see SchedulerSystemTest#assertApplicationDisplaysExpected(String, String, Model)

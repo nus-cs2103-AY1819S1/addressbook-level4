@@ -1,26 +1,26 @@
 package systemtests;
 
 import static org.junit.Assert.assertFalse;
-import static seedu.address.commons.core.Messages.MESSAGE_EVENTS_LISTED_OVERVIEW;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalEvents.JANUARY_1_2018_SINGLE;
-import static seedu.address.testutil.TypicalEvents.JANUARY_2_2018_SINGLE;
-import static seedu.address.testutil.TypicalEvents.JANUARY_3_2018_SINGLE;
-import static seedu.address.testutil.TypicalEvents.KEYWORD_MATCHING_JANUARY;
-import static seedu.address.testutil.TypicalEvents.PLAY_JANUARY_1_2018_SINGLE;
+import static seedu.scheduler.commons.core.Messages.MESSAGE_EVENTS_LISTED_OVERVIEW;
+import static seedu.scheduler.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.scheduler.testutil.TypicalEvents.JANUARY_1_2018_SINGLE;
+import static seedu.scheduler.testutil.TypicalEvents.JANUARY_2_2018_SINGLE;
+import static seedu.scheduler.testutil.TypicalEvents.JANUARY_3_2018_SINGLE;
+import static seedu.scheduler.testutil.TypicalEvents.KEYWORD_MATCHING_JANUARY;
+import static seedu.scheduler.testutil.TypicalEvents.PLAY_JANUARY_1_2018_SINGLE;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.tag.Tag;
+import seedu.scheduler.commons.core.index.Index;
+import seedu.scheduler.logic.commands.DeleteCommand;
+import seedu.scheduler.logic.commands.FindCommand;
+import seedu.scheduler.logic.commands.RedoCommand;
+import seedu.scheduler.logic.commands.UndoCommand;
+import seedu.scheduler.model.Model;
+import seedu.scheduler.model.tag.Tag;
 
 public class FindCommandSystemTest extends SchedulerSystemTest {
 

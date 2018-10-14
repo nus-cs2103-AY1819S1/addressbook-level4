@@ -1,22 +1,22 @@
 package systemtests;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.SelectCommand.MESSAGE_SELECT_EVENT_SUCCESS;
-import static seedu.address.testutil.TestUtil.getLastIndex;
-import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TypicalEvents.KEYWORD_MATCHING_JANUARY;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
+import static seedu.scheduler.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.scheduler.commons.core.Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX;
+import static seedu.scheduler.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.scheduler.logic.commands.SelectCommand.MESSAGE_SELECT_EVENT_SUCCESS;
+import static seedu.scheduler.testutil.TestUtil.getLastIndex;
+import static seedu.scheduler.testutil.TestUtil.getMidIndex;
+import static seedu.scheduler.testutil.TypicalEvents.KEYWORD_MATCHING_JANUARY;
+import static seedu.scheduler.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.SelectCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
+import seedu.scheduler.commons.core.index.Index;
+import seedu.scheduler.logic.commands.RedoCommand;
+import seedu.scheduler.logic.commands.SelectCommand;
+import seedu.scheduler.logic.commands.UndoCommand;
+import seedu.scheduler.model.Model;
 
 public class SelectCommandSystemTest extends SchedulerSystemTest {
     @Test
@@ -108,7 +108,7 @@ public class SelectCommandSystemTest extends SchedulerSystemTest {
      * 5. Selected card is at {@code expectedSelectedCardIndex} and the browser url is updated accordingly.<br>
      * 6. Status bar remains unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * {@code SchedulerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see SchedulerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      * @see SchedulerSystemTest#assertSelectedCardChanged(Index)
      */
@@ -139,7 +139,7 @@ public class SelectCommandSystemTest extends SchedulerSystemTest {
      * 4. {@code Storage} and {@code EventListPanel} remain unchanged.<br>
      * 5. Browser url, selected card and status bar remain unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * {@code SchedulerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see SchedulerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
