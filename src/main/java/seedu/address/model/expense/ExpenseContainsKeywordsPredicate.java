@@ -44,16 +44,20 @@ public class ExpenseContainsKeywordsPredicate implements Predicate<Expense> {
         boolean result = true;
 
         if (!nameKeywords.equals("")) {
-            List<String> separatedNameKeywords = Arrays.asList(nameKeywords.trim().split("\\s+"));
-            result = result && separatedNameKeywords.stream()
+            List<String> splitNameKeywords = Arrays.asList(nameKeywords.trim().split("\\s+"));
+            result = result && splitNameKeywords.stream()
                     .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(expense.getName().expenseName, keyword));
         }
+
+
         if (!categoryKeywords.equals("")) {
             List<String> separatedCategoryKeywords = Arrays.asList(categoryKeywords.trim().split("\\s+"));
             result = result && separatedCategoryKeywords.stream()
                     .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(
                             expense.getCategory().categoryName, keyword));
         }
+
+
         if (!costKeywords.equals("")) {
             String[] splitCost = costKeywords.split(":");
             if (splitCost.length == 1) { //if the user enters a particular cost
@@ -66,6 +70,8 @@ public class ExpenseContainsKeywordsPredicate implements Predicate<Expense> {
                         && expense.getCost().getCostValue() <= higherBound);
             }
         }
+
+
         if (!dateKeywords.equals("")) {
             String[] splitDate = dateKeywords.split(":");
             if (splitDate.length == 1) { //if the user only enter a particular date
@@ -79,6 +85,8 @@ public class ExpenseContainsKeywordsPredicate implements Predicate<Expense> {
                         || (start.isEalierThan(expense.getDate()) && expense.getDate().isEalierThan(end)));
             }
         }
+
+
         if (!tagKeywords.isEmpty()) {
             List<String> separatedTagKeywordsList = new ArrayList<>();
             for (String tag : tagKeywords) {

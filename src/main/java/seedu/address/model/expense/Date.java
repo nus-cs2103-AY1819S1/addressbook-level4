@@ -66,22 +66,34 @@ public class Date {
      * */
     //@@author Jiang Chen
     public boolean isEalierThan(Date other) {
-        if (this.fullDate.get(Calendar.YEAR) < other.fullDate.get(Calendar.YEAR)) {
+
+        int thisYear = this.fullDate.get(Calendar.YEAR);
+        int otherYear = other.fullDate.get(Calendar.YEAR);
+        if (thisYear < otherYear) {
             return true;
         }
-        if (this.fullDate.get(Calendar.YEAR) > other.fullDate.get(Calendar.YEAR)) {
+        if (thisYear > otherYear) {
             return false;
         }
-        if (this.fullDate.get(Calendar.MONTH) < other.fullDate.get(Calendar.MONTH)) {
+
+
+        int thisMonth = this.fullDate.get(Calendar.MONTH);
+        int otherMonth = other.fullDate.get(Calendar.MONTH);
+        if (thisMonth < otherMonth) {
             return true;
         }
-        if (this.fullDate.get(Calendar.MONTH) > other.fullDate.get(Calendar.MONTH)) {
+        if (thisMonth > otherMonth) {
             return false;
         }
-        if (this.fullDate.get(Calendar.DAY_OF_YEAR) < other.fullDate.get(Calendar.DAY_OF_YEAR)) {
+
+
+        int thisDay = this.fullDate.get(Calendar.DAY_OF_YEAR);
+        int otherDay = other.fullDate.get(Calendar.DAY_OF_YEAR);
+
+        if (thisDay < otherDay) {
             return true;
         }
-        if (this.fullDate.get(Calendar.MONTH) > other.fullDate.get(Calendar.MONTH)) {
+        if (thisDay > otherDay) {
             return false;
         }
 
