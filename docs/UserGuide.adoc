@@ -160,10 +160,10 @@ Deletes the 2nd patient in the clinic record.
 `delete 1` +
 Deletes the 1st patient in the results of the `find` command.
 
-=== Selecting a patient : `select`
+=== Selecting a patient : `selectPatient`
 
 Selects the patient identified by the index number used in the displayed patient list. +
-Format: `select INDEX`
+Format: `selectPatient INDEX`
 
 ****
 * Selects the patient and loads the Google search page the patient at the specified `INDEX`.
@@ -174,10 +174,10 @@ Format: `select INDEX`
 Examples:
 
 * `list` +
-`select 2` +
+`selectPatient 2` +
 Selects the 2nd patient in the clinic record.
 * `find Betsy` +
-`select 1` +
+`selectPatient 1` +
 Selects the 1st patient in the results of the `find` command.
 
 === Listing entered commands : `history`
@@ -293,11 +293,12 @@ e.g. `find James Jake`
 * *Login* : `login r/ROLE n/NAME pass/PASSWORD` +
 e.g. `login r/doctor n/Adam Bell pass/-------`
 * *Redo* : `redo`
-* *Select* : `select INDEX` +
-e.g.`select 2`
+* *Select* : `selectPatient INDEX` +
+e.g.`selectPatient 2`
 * *Undo* : `undo`
 
 === Queue Commands
+
 * *Queue* : `queue QINDEX` +
 e.g. `queue 2`
 * *Queues* : `queues`
@@ -307,5 +308,6 @@ e.g. `enqueue 3 1`
 e.g. `dequeue 4`
 
 === Analytics Commands
+
 * *Averages* : `averages`
 * *Totals* : `totals`
