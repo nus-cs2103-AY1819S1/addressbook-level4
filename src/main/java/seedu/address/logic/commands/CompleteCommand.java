@@ -81,8 +81,10 @@ public class CompleteCommand extends Command {
      * representing all completed tasks.
      * If a {@code CommandException} is thrown during the execution, all preceding completed tasks
      * will be rollbacked.
+     *
      * @param modelToUpdate model to update
      * @return {@code String} representation of all the completed {@code Task}
+     *
      * @throws CommandException if there are no completable task that fulfills {@code taskPredicate}
      */
     private String completeAllTasksReturnStringOfTasks(Model modelToUpdate)
@@ -115,7 +117,9 @@ public class CompleteCommand extends Command {
     /**
      * Completes the task supplied, updates the model without committing the model and returns
      * the {@code String} representation of the {@code Task}.
+     *
      * @return {@code String} representing the completed {@code Task}
+     *
      * @throws CommandException if the given {@code taskToComplete} is already completed
      */
     private String completeOneTaskReturnStringOfTask(Task taskToComplete, Model modelToUpdate)
@@ -134,8 +138,10 @@ public class CompleteCommand extends Command {
     /**
      * Completes a task as identified by its index, updates the model without committing and returns
      * the {@code String} representation of the {@code Task}.
+     *
      * @param lastShownList {@code List} containing all the valid tasks to complete
      * @return {@code String} representing the completed {@code Task}
+     *
      * @throws CommandException if Index is invalid or task is already completed
      */
     private String completeOneTaskReturnStringOfTask(Index targetIndex,
@@ -159,10 +165,7 @@ public class CompleteCommand extends Command {
     }
 
     /**
-     * Generates a set of task that can be completed which also satisfies the supplied predicate.
-     * @param pred
-     * @param model
-     * @return
+     * Generates a set of tasks that can be completed which also satisfies the supplied predicate.
      */
     private Set<Task> generateSetOfCompletableTasks(Predicate<Task> pred, Model model) {
         Set<Task> setOfTasks = new HashSet<>();
