@@ -1,13 +1,13 @@
 package seedu.address.ui;
 
-import javafx.animation.PauseTransition;
+/*import javafx.animation.PauseTransition;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Duration;
+import javafx.util.Duration;*/
 
 public class NotificationWindow {
     public static void display() {
