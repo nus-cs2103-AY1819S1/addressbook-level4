@@ -45,6 +45,25 @@ public class TypicalEvents {
                     .withEventAddress(VALID_EVENT_ADDRESS_MEETING)
                     .build();
 
+    // more events manually added
+    public static final Event CLASS =
+            new ScheduledEventBuilder()
+            .withEventName("Guest lecture")
+            .withEventDescription("Cryptography")
+            .withEventDate("2018-08-01")
+            .withEventStartTime("1200")
+            .withEventEndTime("1400")
+            .build();
+
+    public static final Event DINNER =
+            new ScheduledEventBuilder()
+                    .withEventName("Dinner appointment")
+                    .withEventDescription("with Ann")
+                    .withEventDate("2018-09-07")
+                    .withEventStartTime("1800")
+                    .withEventEndTime("2015")
+                    .build();
+
     private TypicalEvents() {} // prevents instantiation
 
     public static List<Event> getTypicalEvents() {

@@ -144,6 +144,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredEventList(Predicate<Event> predicate) {
         requireNonNull(predicate);
         filteredEvents.setPredicate(predicate);
+        indicateAddressBookEventChanged();
     }
 
     /**
@@ -183,12 +184,20 @@ public class ModelManager extends ComponentManager implements Model {
     public void undoAddressBook() {
         versionedAddressBook.undo();
         indicateAddressBookChanged();
+
+        // indicate possible Event change.
+        // TODO: remove after listener is added to ObservableList of List<Event>
+        indicateAddressBookEventChanged();
     }
 
     @Override
     public void redoAddressBook() {
         versionedAddressBook.redo();
         indicateAddressBookChanged();
+
+        // indicate possible Event change
+        // TODO: remove after listener is added to ObservableList of List<Event>
+        indicateAddressBookEventChanged();
     }
 
     @Override
@@ -211,7 +220,8 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredPersons.equals(other.filteredPersons)
+                && filteredEvents.equals(other.filteredEvents);
     }
 
 }

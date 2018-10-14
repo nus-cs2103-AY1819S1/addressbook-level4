@@ -17,9 +17,6 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
 
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<List<Event>> PREDICATE_SHOW_ALL_EVENTS_BY_DATE = unused -> true;
-
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
 
