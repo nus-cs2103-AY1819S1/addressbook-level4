@@ -27,6 +27,7 @@
            GridPane.rowIndex="1" />
     <FlowPane fx:id="tags" alignment="CENTER_LEFT"
               GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
     <Label text="Description:" styleClass="label-bright" GridPane.halignment="RIGHT" GridPane.valignment="TOP"
            GridPane.rowIndex="2" />
     <StackPane GridPane.rowIndex="2" GridPane.columnIndex="1" >

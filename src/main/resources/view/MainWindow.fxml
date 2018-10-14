@@ -63,21 +63,21 @@
             </AnchorPane>
 
             <SplitPane>
-              <AnchorPane>
-                <Label text="Finder" alignment="CENTER" styleClass="label-bright"
-                       AnchorPane.topAnchor="5" AnchorPane.leftAnchor="5" AnchorPane.rightAnchor="5" />
-                <StackPane fx:id="finderPanelPlaceholder"
-                          AnchorPane.topAnchor="30" AnchorPane.leftAnchor="5"
-                          AnchorPane.rightAnchor="5" AnchorPane.bottomAnchor="5" />
-              </AnchorPane>
+              <StackPane>
 
-              <AnchorPane>
-                <Label text="Owner" alignment="CENTER" styleClass="label-bright"
-                       AnchorPane.topAnchor="5" AnchorPane.leftAnchor="5" AnchorPane.rightAnchor="5" />
-                <StackPane fx:id="ownerPanelPlaceholder"
-                          AnchorPane.topAnchor="30" AnchorPane.leftAnchor="5"
-                          AnchorPane.rightAnchor="5" AnchorPane.bottomAnchor="5" />
-              </AnchorPane>
+                <!--This is empty element is somehow necessary for the split pane divider to not break.-->
+                <Label /> 
+
+                <StackPane fx:id="finderPanelPlaceholder" />
+              </StackPane>
+
+              <StackPane>
+
+                <!--This is empty element is somehow necessary for the split pane divider to not break.-->
+                <Label />
+
+                <StackPane fx:id="ownerPanelPlaceholder" />
+              </StackPane>
             </SplitPane>
           </SplitPane>
         </SplitPane>
