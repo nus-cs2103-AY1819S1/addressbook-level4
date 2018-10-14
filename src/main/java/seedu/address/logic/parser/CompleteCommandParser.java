@@ -48,6 +48,10 @@ public class CompleteCommandParser implements Parser<CompleteCommand> {
         }
     }
 
+    /**
+     * Checks if the list of tokens only has a single occurence of an index symbol
+     * Returns true if yes, else false.
+     */
     private boolean isSingleIndexSymbol(List<String> tokens) {
         int numberOfMatches = 0;
         for (String token : tokens) {
