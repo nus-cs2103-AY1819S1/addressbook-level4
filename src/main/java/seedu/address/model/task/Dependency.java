@@ -35,7 +35,9 @@ public class Dependency {
      *
      * @param dependencies A list of task dependencies.
      */
-    public Dependency(List<Task> dependencies) {
+    //TODO: Remove below
+    /**
+    public Dependency(Set<Task> dependencies) {
         requireNonNull(dependencies);
         //checkArgument(isValidDependency(dependencies), MESSAGE_DEPENDENCY_CONSTRAINTS);
         value = dependencies;
@@ -51,9 +53,28 @@ public class Dependency {
      */
     public Dependency(){}
 
+    public boolean checkDependency(Task task) {
+        return value.contains(task);
+    }
 
-    public Dependency(){
-        value = new ArrayList<Task>();
+    //TODO: Add an uninitialized check
+    /**
+     * Adds a task that it is dependent on.
+     * @param task
+     * @return same dependency with the additional dependent task
+     */
+    public Dependency addDependency(Task task) {
+        Set<String> newValue = new HashSet<>(value);
+        newValue.add(Integer.toString(task.hashCode()));
+        return new Dependency(newValue);
+    }
+
+    public Dependency removeDependency(Task task) {
+        Set<String> newValue = new HashSet<>(value);
+        newValue.remove(Integer.toString(task.hashCode()));
+        return new Dependency(newValue);
+    }
+
     }
 
     /**
@@ -65,7 +86,6 @@ public class Dependency {
 
     @Override
     public String toString() {
-        return value.toString();
     }
 
     @Override
