@@ -22,6 +22,7 @@ public class CarparkContainsKeywordsPredicate implements Predicate<Carpark> {
                         StringUtil.containsWordIgnoreCase(carpark.getCarparkNumber().value, keyword)
                                 || StringUtil.containsWordIgnoreCase(carpark.getAddress().value, keyword)
                                 || StringUtil.containsPartialWordIgnoreCase(carpark.getCarparkNumber().value, keyword)
+                                || StringUtil.containsPartialWordIgnoreCase(carpark.getAddress().value, keyword)
                         );
     }
 
