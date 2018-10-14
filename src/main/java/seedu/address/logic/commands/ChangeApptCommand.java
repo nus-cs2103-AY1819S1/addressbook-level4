@@ -10,7 +10,6 @@ import seedu.address.model.appointment.Appointment;
 
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 
