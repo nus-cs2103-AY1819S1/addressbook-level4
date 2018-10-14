@@ -17,17 +17,19 @@ public class DependencyTest {
     private Dependency SAMPLE_DEPENDENCY;
     private Set<String> SAMPLE_SET;
     private Task SAMPLE_TASK_IN_DEPENDENCY;
+    private Task SAMPLE_TASK_OUTSIDE_DEPENDENCY;
 
     @Before
     public void setUp() {
         HashSet<String> hashes = new HashSet<String>();
-
         hashes.add("12345");
         hashes.add("67890");
         SAMPLE_TASK_IN_DEPENDENCY = new TaskBuilder().withName("Test").build();
+        hashes.add(Integer.toString(SAMPLE_TASK_IN_DEPENDENCY.hashCode()));
+
+        SAMPLE_TASK_OUTSIDE_DEPENDENCY = new TaskBuilder().build();
         SAMPLE_DEPENDENCY = new Dependency(hashes);
         SAMPLE_SET = hashes;
-
 
     }
 
@@ -47,13 +49,18 @@ public class DependencyTest {
     }
 
     @Test
+    public void containsDependency() {
+        assertFalse(SAMPLE_DEPENDENCY.containsDependency(SAMPLE_TASK_OUTSIDE_DEPENDENCY));
+        assertTrue(SAMPLE_DEPENDENCY.containsDependency(SAMPLE_TASK_IN_DEPENDENCY));
+    }
+
+    @Test
     public void addDependency() {
-        Task toBeAdded = new TaskBuilder().build();
         //Creating expected dependency
-        SAMPLE_SET.add(Integer.toString(toBeAdded.hashCode()));
+        SAMPLE_SET.add(Integer.toString(SAMPLE_TASK_OUTSIDE_DEPENDENCY.hashCode()));
         Dependency expectedDependency = new Dependency(SAMPLE_SET);
         //Checking equality
-        assertEquals(expectedDependency, SAMPLE_DEPENDENCY.addDependency(toBeAdded));
+        assertEquals(expectedDependency, SAMPLE_DEPENDENCY.addDependency(SAMPLE_TASK_OUTSIDE_DEPENDENCY));
     }
 
     @Test
