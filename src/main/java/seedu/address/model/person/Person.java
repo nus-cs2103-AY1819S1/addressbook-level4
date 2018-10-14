@@ -96,23 +96,6 @@ public class Person {
         this.appointmentsList = appointmentsList;
     }
 
-    /**
-     * Overloaded constructor to generate a person that has existing medicalhistory.
-     */
-    public Person(Nric nric, Name name, Phone phone, Email email, Address address, Set<Tag> tags,
-                  AppointmentsList appointmentsList) {
-        requireAllNonNull(nric, name, phone, email, address, tags, appointmentsList);
-        this.nric = nric;
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.tags.addAll(tags);
-        this.prescriptionList = new PrescriptionList();
-        this.appointmentsList = new AppointmentsList();
-
-    }
-
     public Nric getNric() {
         return nric;
     }
