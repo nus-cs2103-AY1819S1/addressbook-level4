@@ -1,4 +1,12 @@
 package seedu.address.model.diet;
 
-public class DietType {
+//@@author yuntongzhang
+
+/**
+ * Represents a set of types for the diet requirement.
+ */
+public enum DietType {
+    ALLERGY,
+    CULTURAL,
+    PHYSICAL
 }
