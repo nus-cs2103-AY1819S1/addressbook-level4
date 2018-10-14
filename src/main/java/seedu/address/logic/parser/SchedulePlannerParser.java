@@ -16,6 +16,8 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListDayCommand;
+import seedu.address.logic.commands.ListWeekCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -68,6 +70,12 @@ public class SchedulePlannerParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case ListDayCommand.COMMAND_WORD:
+            return new ListDayCommand();
+
+        case ListWeekCommand.COMMAND_WORD:
+            return new ListWeekCommand();
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();
