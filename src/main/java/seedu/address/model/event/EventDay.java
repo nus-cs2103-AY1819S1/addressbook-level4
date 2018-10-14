@@ -3,8 +3,11 @@ package seedu.address.model.event;
 import static java.util.Objects.requireNonNull;
 
 import java.time.DayOfWeek;
-import java.time.LocalDate;
 
+/**
+ * Represents an Event's day in the address book.
+ * Guarantees: immutable; and is based on the Enum class {@link DayOfWeek}
+ */
 public class EventDay {
 
     private final DayOfWeek day;

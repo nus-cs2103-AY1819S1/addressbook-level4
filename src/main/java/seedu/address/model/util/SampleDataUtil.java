@@ -48,9 +48,9 @@ public class SampleDataUtil {
 
     public static Event[] getSampleEvents() {
         return new Event[] {
-             new Event(new EventName("Meeting"), new EventDescription("test events description"),
-                new EventDate("2018-04-01"), new EventTime("1400"), new EventTime("1500"), new EventAddress("3 Kent " +
-                "Ridge Drive"))
+            new Event(new EventName("Meeting"), new EventDescription("test events description"),
+                new EventDate("2018-04-01"), new EventTime("1400"), new EventTime("1500"),
+                    new EventAddress("3 Kent Ridge Drive"))
         };
     }
 
@@ -61,7 +61,7 @@ public class SampleDataUtil {
             sampleAb.addPerson(samplePerson);
         }
 
-        for(Event sampleEvent : getSampleEvents()) {
+        for (Event sampleEvent : getSampleEvents()) {
             sampleAb.addEvent(sampleEvent);
         }
 

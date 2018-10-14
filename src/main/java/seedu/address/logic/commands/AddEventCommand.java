@@ -20,9 +20,9 @@ public class AddEventCommand extends Command {
 
     public static final String COMMAND_WORD = "addEvent";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event to the address book. Input date and " +
-            "time values with respect to a single day only. For events occurring over two days, add them into the " +
-            "address book separately."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event to the address book. Input date and "
+            + "time values with respect to a single day only. For events occurring over two days, add them into the "
+            + "address book separately."
             + "Parameters: "
             + PREFIX_NAME + "EVENT NAME "
             + PREFIX_EVENT_DESCRIPTION + "EVENT DESCRIPTION "

@@ -4,12 +4,14 @@ import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.model.event.Event;
 
+/**
+ * A UI component that displays information of a list of {@code Event} for a particular {@code EventDate}.
+ */
 public class EventListCard extends UiPart<Region> {
     private static final String FXML = "EventListCard.fxml";
 
