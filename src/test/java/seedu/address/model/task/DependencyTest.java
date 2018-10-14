@@ -12,5 +12,5 @@ public class DependencyTest {
     public void constructor_null_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new Dependency(null));
     }
-    
+
 }

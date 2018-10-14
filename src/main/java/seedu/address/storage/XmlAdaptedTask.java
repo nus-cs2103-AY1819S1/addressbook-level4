@@ -39,7 +39,7 @@ public class XmlAdaptedTask {
     @XmlElement
     private String status;
     @XmlElement
-    private List<String> dependencies;
+    private Set<String> dependencies = new HashSet<>();
     @XmlElement
     private String hash;
     /**
@@ -53,7 +53,7 @@ public class XmlAdaptedTask {
      */
     //TODO: Change to 1 constructor
     public XmlAdaptedTask(String name, String dueDate, String priorityValue,
-                          String description, List<XmlAdaptedLabel> labelled) {
+                          String description, List<XmlAdaptedLabel> labelled, List<String> dependencies) {
         this.name = name;
         this.dueDate = dueDate;
         this.priorityValue = priorityValue;
@@ -62,7 +62,9 @@ public class XmlAdaptedTask {
             this.labelled = new ArrayList<>(labelled);
         }
         this.status = Status.IN_PROGRESS.toString();
-        this.dependencies = new ArrayList<>();
+        if (dependencies != null) {
+            this.dependencies = new HashSet<>(dependencies);
+        }
     }
 
     /**
@@ -78,7 +80,6 @@ public class XmlAdaptedTask {
             this.labelled = new ArrayList<>(labelled);
         }
         this.status = status.toString();
-        this.dependencies = new ArrayList<>();
     }
 
     /**
@@ -96,6 +97,7 @@ public class XmlAdaptedTask {
                 .collect(Collectors.toList());
         status = source.getStatus().toString();
         hash = Integer.toString(source.hashCode());
+        dependencies = source.getDependency().getHashes();
     }
 
     /**
