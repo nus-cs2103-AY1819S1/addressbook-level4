@@ -121,7 +121,7 @@ public class CompleteCommandTest {
         expectedModel.undoTaskManager();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        // redo -> same first task deleted again
+        // redo -> same first task completed again
         expectedModel.redoTaskManager();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
@@ -166,7 +166,7 @@ public class CompleteCommandTest {
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         assertNotEquals(taskToComplete, model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased()));
-        // redo -> deletes same second task in unfiltered task list
+        // redo -> completes same second task in unfiltered task list
         expectedModel.redoTaskManager();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
