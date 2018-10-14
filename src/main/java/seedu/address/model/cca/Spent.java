@@ -8,10 +8,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Spent {
     public static final String MESSAGE_SPENT_CONSTRAINTS =
-        "Spent should only contain numbers and it should not be blank";
+        "Spent should only contain numbers and should not be blank!";
 
     /*
-     * The first character of the address must not be a whitespace,
+     * The first character of Spent must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String SPENT_VALIDATION_REGEX = "\\d+";

@@ -14,7 +14,7 @@ public class Transaction {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String TRANSACTION_VALIDATION_REGEX = "^[A-Za-z0-9- ]+$";
+    public static final String TRANSACTION_VALIDATION_REGEX = "[\\p{Alnum}-][\\p{Alnum} ]*";
 
     private String log;
 

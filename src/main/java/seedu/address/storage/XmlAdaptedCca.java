@@ -66,20 +66,13 @@ public class XmlAdaptedCca {
     public XmlAdaptedCca(Cca source) {
         name = source.getCcaName();
         budget = String.valueOf(source.getGivenBudget());
-        if (source.getHead() == Cca.NEW_CCA) {
-            head = " ";
-            viceHead = " ";
-            spent = " ";
-            outstanding = " ";
-            transaction = " ";
-        } else {
-            head = source.getHead();
-            viceHead = source.getViceHead();
-            budget = String.valueOf(source.getGivenBudget());
-            spent = String.valueOf(source.getSpent());
-            outstanding = String.valueOf(source.getOutstanding());
-            transaction = source.getTransactionLog();
-        }
+
+        head = source.getHead();
+        viceHead = source.getViceHead();
+        budget = String.valueOf(source.getGivenBudget());
+        spent = String.valueOf(source.getSpent());
+        outstanding = String.valueOf(source.getOutstanding());
+        transaction = source.getTransactionLog();
     }
 
     /**
@@ -102,6 +95,7 @@ public class XmlAdaptedCca {
         if (!Name.isValidName(head)) {
             throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
         }
+
         final Name modelHeadName = new Name(head);
 
         if (viceHead == null) {
@@ -110,6 +104,7 @@ public class XmlAdaptedCca {
         if (!Name.isValidName(viceHead)) {
             throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
         }
+
         final Name modelViceHeadName = new Name(viceHead);
 
         if (budget == null) {
@@ -126,6 +121,7 @@ public class XmlAdaptedCca {
         if (!Spent.isValidSpent(spent)) {
             throw new IllegalValueException(Spent.MESSAGE_SPENT_CONSTRAINTS);
         }
+
         final Spent modelSpent = new Spent(Integer.parseInt(spent));
 
         if (outstanding == null) {
@@ -135,7 +131,8 @@ public class XmlAdaptedCca {
         if (!Outstanding.isValidOutstanding(outstanding)) {
             throw new IllegalValueException(Outstanding.MESSAGE_OUTSTANDING_CONSTRAINTS);
         }
-        final Outstanding modelOutstanding = new Outstanding(Integer.parseInt(budget));
+
+        final Outstanding modelOutstanding = new Outstanding(Integer.parseInt(outstanding));
 
         if (transaction == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
