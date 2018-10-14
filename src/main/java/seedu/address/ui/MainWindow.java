@@ -120,7 +120,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        tabPanel = new TabPanel();
+        tabPanel = new TabPanel(logic.getFilteredEventListByDate());
         tabsPlaceholder.getChildren().add(tabPanel.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());

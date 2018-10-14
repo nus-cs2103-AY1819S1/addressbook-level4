@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import seedu.address.model.event.Event;
 
 public class EventListCard extends UiPart<Region> {
@@ -29,7 +30,7 @@ public class EventListCard extends UiPart<Region> {
     @FXML
     private Label date;
     @FXML
-    private FlowPane events;
+    private VBox events;
 
     public EventListCard(List<Event> eventList) {
         super(FXML);

@@ -1,10 +1,11 @@
 package seedu.address.ui;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
-import javafx.event.Event;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
@@ -37,14 +38,17 @@ public class TabPanel extends  UiPart<Region> {
     @FXML
     private Tab eventsTab;
 
-    public TabPanel() {
+    public TabPanel(ObservableList<List<seedu.address.model.event.Event>> eventList) {
         super(FXML);
 
         browserPanel = new BrowserPanel();
         webpageTab.setContent(browserPanel.getRoot());
 
-        // To prevent triggering events for typing inside the loaded Web page.
-        getRoot().setOnKeyPressed(Event::consume);
+        eventListPanel = new EventListPanel(eventList);
+        eventsTab.setContent(eventListPanel.getRoot());
+
+        // set default tab
+        selectionModel.select(eventsTab);
 
         registerAsAnEventHandler(this);
     }

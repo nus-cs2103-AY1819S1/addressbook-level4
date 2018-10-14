@@ -8,7 +8,7 @@ import javafx.scene.layout.Region;
 import seedu.address.model.event.Event;
 
 public class EventCard extends UiPart<Region> {
-    private static final String FXML = "EventListCard.fxml";
+    private static final String FXML = "EventCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
