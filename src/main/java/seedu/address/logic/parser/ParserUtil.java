@@ -238,7 +238,7 @@ public class ParserUtil {
         if (!trimmedFile.contains(".xml")) {
             throw new ParseException(ImportCommand.MESSAGE_USAGE);
         }
-        return new File("./imports/" + trimmedFile);
+        return new File(trimmedFile);
     }
 
 }
