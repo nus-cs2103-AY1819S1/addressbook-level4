@@ -41,7 +41,7 @@ public class ImportCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
-    
+
     @Test
     public void execute_nullFile_throwsFileNotFoundException() throws Exception {
         ImportCommand importCommand = new ImportCommand(new File("./imports/notAFile.xml"));
