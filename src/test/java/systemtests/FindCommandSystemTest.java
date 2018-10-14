@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.testutil.TypicalExpenses.BENSON;
 import static seedu.address.testutil.TypicalExpenses.CARL;
 import static seedu.address.testutil.TypicalExpenses.DANIEL;
+import static seedu.address.testutil.TypicalExpenses.KEYWORD_MATCHING_FOOD;
 import static seedu.address.testutil.TypicalExpenses.KEYWORD_MATCHING_MEIER;
 
 import java.util.ArrayList;
@@ -42,6 +43,14 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
          * -> 2 expenses found
          */
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find one expense in address book with multiple keywords
+         * -> 1 expenses found
+         */
+        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER + " " + KEYWORD_MATCHING_FOOD;
+        ModelHelper.setFilteredList(expectedModel, BENSON);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -94,7 +103,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find expense in address book, keyword is same as name but of different case -> 1 expense found */
-        command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME +" MeIeR";
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + " MeIeR";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -155,6 +164,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         /* Case: no prefix before keywords -> rejected */
         command = FindCommand.COMMAND_WORD + " Meier";
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+
 
     }
 
