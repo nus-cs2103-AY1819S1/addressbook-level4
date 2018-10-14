@@ -59,7 +59,7 @@ public class HelpWindowTest extends GuiUnitTest {
         assumeFalse("Test skipped in headless mode: Window focus behavior is buggy.", guiRobot.isHeadlessMode());
         guiRobot.interact(helpWindow::show);
 
-        // Focus on another stage to remove focus from the helpWindow
+        // Focus on another stage to removeMember focus from the helpWindow
         FxToolkit.setupStage(Stage::requestFocus);
         assertFalse(helpWindow.getRoot().isFocused());
 

@@ -1,17 +1,20 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
+import javafx.collections.ObservableList;
+
+import seedu.address.model.group.Group;
+import seedu.address.model.group.UniqueGroupList;
 import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Person in the address book.
- * Guarantees: details are present and not null, field values are validated, immutable, except groupTags.
+ * Guarantees: details are present and not null, field values are validated,
+ * immutable, except groupTags and UniqueGroupList.
  */
 public class Person {
 
@@ -24,10 +27,15 @@ public class Person {
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
+    // Group field
+    private final UniqueGroupList groups = new UniqueGroupList();
+
+    @Deprecated
     private Set<Tag> groupTags = new HashSet<>();
 
     /**
-     * Every field must be present and not null, except groupTags.
+     * Name, phone, email, address and tags must be present and not null.
+     * Information related to group can be empty.
      */
     public Person(Name name, Phone phone, Email email, Address address,
                   Set<Tag> tags) {
@@ -39,6 +47,25 @@ public class Person {
         this.tags.addAll(tags);
     }
 
+    /**
+     * Every field must be present and not null.
+     */
+    public Person(Name name, Phone phone, Email email, Address address,
+                  Set<Tag> tags, UniqueGroupList groups) {
+        requireAllNonNull(name, phone, email, address, tags, groups);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.groups.setGroups(groups);
+    }
+
+    /**
+     * @deprecated The groupTag is replaced by UniqueGroupList for
+     * storing the group related information.
+     */
+    @Deprecated
     public Person(Name name, Phone phone, Email email, Address address,
                   Set<Tag> tags, Set<Tag> groupTags) {
         requireAllNonNull(name, phone, email, address, tags);
@@ -77,9 +104,64 @@ public class Person {
     }
 
     /**
+     * Returns an immutable group list which the person has enrolled in.
+     * It throws {@code UnsupportedOperationException} if modification is attempted.
+     *
+     */
+    public ObservableList<Group> getGroups() {
+        return this.groups.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Returns true if the person is in the same group as {@code group}.
+     * @param group The group to check membership
+     */
+    public boolean hasGroup(Group group) {
+        return this.groups.contains(group);
+    }
+
+    /**
+     * Add the person into a group.
+     * @param group The group that the person is added in
+     */
+    public void addGroup(Group group) {
+        requireNonNull(group);
+        this.groups.add(group);
+
+        if (!group.hasMember(this)) {
+            group.addMember(this);
+        }
+    }
+
+    /**
+     * Remove the person from a group.
+     * @param group The group that should removeMember the person from
+     */
+    public void removeGroup(Group group) {
+        requireNonNull(group);
+
+        if (groups.contains(group)) {
+            this.groups.remove(group);
+        }
+
+        if (group.hasMember(this)) {
+            group.removeMember(this);
+        }
+    }
+
+    /**
+     * Remove all the groups that this person is already in.
+     */
+    public void clearMembership() {
+
+        this.groups.clear();
+    }
+
+    /**
      * Returns an immutable tag set that indicate which groups the person is in.
      * It throws {@code UnsupportedOperationException} if modification is attempted.
      */
+    @Deprecated
     public Set<Tag> getGroupTags() {
         return Collections.unmodifiableSet(groupTags);
     }
@@ -89,6 +171,7 @@ public class Person {
      *
      * @param groups The collection of groups that this person is in
      */
+    @Deprecated
     public void setGroupTags(Set<Tag> groups) {
         this.groupTags.addAll(groups);
     }
@@ -98,6 +181,7 @@ public class Person {
      *
      * @param group The group that this person is in
      */
+    @Deprecated
     public void setGroupTag(Tag group) {
         this.groupTags.add(group);
     }
@@ -136,13 +220,14 @@ public class Person {
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getTags().equals(getTags())
-                && otherPerson.getGroupTags().equals(getGroupTags());
+                && otherPerson.getGroupTags().equals(getGroupTags())
+                /*&& otherPerson.getGroups().equals(getGroups())*/;
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags, groupTags);
+        return Objects.hash(name, phone, email, address, tags, groupTags, groups);
     }
 
     @Override
