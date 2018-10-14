@@ -7,10 +7,7 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.Type;
 
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.TypicalPersons.BENSON;
