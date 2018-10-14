@@ -14,6 +14,7 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.model.expense.ExpenseContainsKeywordsPredicate;
+import seedu.address.model.expense.Name;
 
 public class FindCommandParserTest {
 
@@ -30,13 +31,14 @@ public class FindCommandParserTest {
         ArgumentMultimap keywordsMap = ArgumentTokenizer.tokenize(" n/Alice Bob", PREFIX_NAME);
         FindCommand expectedFindCommand =
                 new FindCommand(new ExpenseContainsKeywordsPredicate(keywordsMap));
-        assertParseSuccess(parser, "n/Alice Bob", expectedFindCommand);
+        assertParseSuccess(parser, " n/Alice Bob", expectedFindCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, "  n/ \n Alice \n \t Bob  \t", expectedFindCommand);
+        assertParseFailure(parser, " n/ \n Alice \n \t Bob  \t",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, Name.MESSAGE_NAME_CONSTRAINTS));
 
         // no prefix
-        assertParseFailure(parser, "Alice Bob", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " Alice Bob", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
     }
 
 }

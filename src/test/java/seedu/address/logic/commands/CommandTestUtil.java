@@ -145,8 +145,9 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredExpenseList().size());
 
         Expense expense = model.getFilteredExpenseList().get(targetIndex.getZeroBased());
-        final ArgumentMultimap keywordsMap = ArgumentTokenizer.tokenize(" "+ expense.getName().expenseName,
-                PREFIX_NAME);
+        String[] splitName = expense.getName().expenseName.split("\\s+");
+        final ArgumentMultimap keywordsMap = ArgumentTokenizer.tokenize(" n/"+
+                        splitName[0], PREFIX_NAME);
         model.updateFilteredExpenseList(new ExpenseContainsKeywordsPredicate(keywordsMap));
 
         assertEquals(1, model.getFilteredExpenseList().size());

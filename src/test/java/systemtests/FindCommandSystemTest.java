@@ -22,6 +22,7 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.NoUserSelectedException;
+import seedu.address.model.expense.Name;
 import seedu.address.model.tag.Tag;
 
 public class FindCommandSystemTest extends AddressBookSystemTest {
@@ -121,7 +122,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: find address of expense in address book -> 0 expenses found */
         command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + DANIEL.getCost().value;
-        assertCommandSuccess(command, expectedModel);
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, Name.MESSAGE_NAME_CONSTRAINTS));
         assertSelectedCardUnchanged();
 
         /* Case: find tags of expense in address book -> 0 expenses found */
@@ -154,6 +155,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         /* Case: no prefix before keywords -> rejected */
         command = FindCommand.COMMAND_WORD + " Meier";
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+
     }
 
     /**
