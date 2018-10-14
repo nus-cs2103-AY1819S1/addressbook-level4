@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static seedu.address.logic.parser.AddEventCommandParser.MESSAGE_INVALID_START_END_TIME;
 import static seedu.address.storage.XmlAdaptedEvent.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.TypicalEvents.DOCTORAPPT;
@@ -149,5 +150,35 @@ public class XmlAdaptedEventTest {
                         VALID_EVENT_START_TIME, VALID_EVENT_END_TIME, null);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, EventAddress.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, event::toModelType);
+    }
+
+    @Test
+    public void equals() {
+
+        XmlAdaptedEvent event =
+                new XmlAdaptedEvent(VALID_EVENT_NAME, VALID_EVENT_DESCRIPTION, VALID_EVENT_DATE,
+                        VALID_EVENT_START_TIME, VALID_EVENT_END_TIME, VALID_EVENT_ADDRESS);
+
+        // null
+        assertNotEquals(event, null);
+
+        // Different objects
+        assertNotEquals(event, 1);
+
+        // Different event details
+        XmlAdaptedEvent eventWithDifferentDetails = new XmlAdaptedEvent(VALID_EVENT_NAME, VALID_EVENT_DESCRIPTION +
+                " ",
+                VALID_EVENT_DATE,
+                VALID_EVENT_START_TIME, VALID_EVENT_END_TIME, VALID_EVENT_ADDRESS);
+        assertNotEquals(event, eventWithDifferentDetails);
+
+        // Same event
+        XmlAdaptedEvent otherEvent = event;
+        assertEquals(event, otherEvent);
+
+        // Same event details
+        XmlAdaptedEvent eventWithSameDetails = new XmlAdaptedEvent(VALID_EVENT_NAME, VALID_EVENT_DESCRIPTION, VALID_EVENT_DATE,
+                VALID_EVENT_START_TIME, VALID_EVENT_END_TIME, VALID_EVENT_ADDRESS);
+        assertEquals(event, eventWithSameDetails);
     }
 }
