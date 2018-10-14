@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!-- TaskManager save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook() -->
 <taskmanager>
+    <achievements>
+        <xp>0</xp>
+        <level>lvl.1</level>
+    </achievements>
     <tasks>
         <name>Address CS2103 email</name>
         <dueDate>01-12-18</dueDate>
