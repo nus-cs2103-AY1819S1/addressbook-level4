@@ -9,7 +9,7 @@
 :xrefstyle: full
 :experimental:
 ifdef::env-github[]
-:important-caption: :important:
+:important-caption: :heavy_exclamation_mark:
 :warning-caption: :warning:
 :tip-caption: :bulb:
 :note-caption: :information_source:
