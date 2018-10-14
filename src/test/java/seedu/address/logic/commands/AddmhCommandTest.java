@@ -68,8 +68,8 @@ public class AddmhCommandTest {
 
     @Test
     public void execute_unregisteredPatient_throwsCommandException() throws Exception {
-        Person validPerson = new PersonBuilder().build();
-        ModelStub modelStub = new ModelStubWithRegisteredPatient(validPerson);
+        Person validPerson = new PersonBuilder().build(); //TODO refactor the person to patient
+        CommandTestUtil.ModelStub modelStub = new ModelStubWithRegisteredPatient(validPerson);
 
         Person diffValidPerson = new PersonBuilder().withNric("S9121222A").withName("Zhang Xin Ze").build();
         Diagnosis record = new Diagnosis("Prescribed patient with 2g paracetamol for slight fever");
@@ -109,80 +109,9 @@ public class AddmhCommandTest {
     }
 
     /**
-     * A default model stub that have all of the methods failing.
-     */
-    private class ModelStub implements Model {
-        @Override
-        public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void resetData(ReadOnlyAddressBook newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deletePerson(Person target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updatePerson(Person target, Person editedPerson) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean canUndoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean canRedoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void undoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void redoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void commitAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-    }
-
-    /**
      * A Model stub that contains a registered patient
      */
-    private class ModelStubWithRegisteredPatient extends ModelStub {
+    private class ModelStubWithRegisteredPatient extends CommandTestUtil.ModelStub {
         private Person patient;
         private final ArrayList<Person> patientsAdded = new ArrayList<>();
 

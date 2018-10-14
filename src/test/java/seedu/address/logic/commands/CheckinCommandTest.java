@@ -53,7 +53,7 @@ public class CheckinCommandTest {
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
         Person validPerson = new PersonBuilder().build();
         CheckinCommand checkinCommand = new CheckinCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+        CommandTestUtil.ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(CheckinCommand.MESSAGE_DUPLICATE_PERSON);
@@ -85,79 +85,9 @@ public class CheckinCommandTest {
     }
 
     /**
-     * A default model stub that have all of the methods failing.
-     */
-    private class ModelStub implements Model {
-        @Override
-        public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void resetData(ReadOnlyAddressBook newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deletePerson(Person target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updatePerson(Person target, Person editedPerson) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean canUndoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean canRedoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void undoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void redoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void commitAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-    }
-
-    /**
      * A Model stub that contains a single person.
      */
-    private class ModelStubWithPerson extends ModelStub {
+    private class ModelStubWithPerson extends CommandTestUtil.ModelStub {
         private final Person person;
 
         ModelStubWithPerson(Person person) {
@@ -175,7 +105,7 @@ public class CheckinCommandTest {
     /**
      * A Model stub that always accept the person being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
+    private class ModelStubAcceptingPersonAdded extends CommandTestUtil.ModelStub {
         final ArrayList<Person> personsAdded = new ArrayList<>();
 
         @Override
