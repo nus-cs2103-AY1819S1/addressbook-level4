@@ -156,9 +156,7 @@ public class XmlAdaptedEventTest {
     @Test
     public void equals() {
 
-        XmlAdaptedEvent event =
-                new XmlAdaptedEvent(VALID_EVENT_NAME, VALID_EVENT_DESCRIPTION, VALID_EVENT_DATE,
-                        VALID_EVENT_START_TIME, VALID_EVENT_END_TIME, VALID_EVENT_ADDRESS);
+        XmlAdaptedEvent event = new XmlAdaptedEvent(DOCTORAPPT);
 
         // null
         assertNotEquals(event, null);
@@ -178,10 +176,8 @@ public class XmlAdaptedEventTest {
         assertEquals(event, otherEvent);
 
         // Same event details
-        XmlAdaptedEvent eventWithSameDetails = new XmlAdaptedEvent(VALID_EVENT_NAME,
-                VALID_EVENT_DESCRIPTION, VALID_EVENT_DATE,
-                VALID_EVENT_START_TIME, VALID_EVENT_END_TIME, VALID_EVENT_ADDRESS);
+        XmlAdaptedEvent eventWithSameDetails = new XmlAdaptedEvent(DOCTORAPPT);
         assertEquals(event, eventWithSameDetails);
-        
+
     }
 }
