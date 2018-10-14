@@ -6,8 +6,9 @@ import seedu.address.model.email.Content;
 import seedu.address.model.email.Subject;
 import seedu.address.model.person.Email;
 
+//@@author EatOrBeEaten
 /**
- * A utility class to help with building Email objects.
+ * A utility class to help with building org.simplejavamail.email.Email objects.
  */
 public class DefaultEmailBuilder {
 
@@ -38,7 +39,7 @@ public class DefaultEmailBuilder {
 
     /**
      * Returns an Email object built.
-     * @return org.simplejavamail.email.Email object built
+     * @return org.simplejavamail.email.Email object with builder values.
      */
     public org.simplejavamail.email.Email build() {
         return EmailBuilder.startingBlank()
