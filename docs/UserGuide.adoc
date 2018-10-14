@@ -212,12 +212,12 @@ Format: `quickview [order]`
 ==== Filter: `filter`
 
 Display all attractions that fits the condition in a table +
-Format: `filter <tag> <condition>`
+Format: `filter <tag> <condition> [[tag] [condition]...]`
 
 ==== Find a particular attraction: `find`
 
 Find the attractions that the user needs to check on. Case insensitive. +
-Format: `find <attraction>`
+Format: `find <name> [[tag][keyword]...]`
 
 === Exit: `exit`
 
