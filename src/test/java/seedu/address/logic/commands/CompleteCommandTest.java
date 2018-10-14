@@ -54,20 +54,6 @@ public class CompleteCommandTest {
     }
 
     @Test
-    public void execute_validLabel_success() {
-        CompleteCommand completeCommand = new CompleteCommand(FRIENDS_PREDICATE);
-
-        Pair<Model, Set<String>> modelStringPair = produceExpectedModelExpectedMessagePairOnLabelKeywordMatch(
-            "friends",
-            model);
-
-        Model expectedModel = modelStringPair.getKey();
-        Set<String> expectedTokens = modelStringPair.getValue();
-
-        assertCommandSuccess(completeCommand, model, commandHistory, expectedTokens, expectedModel);
-    }
-
-    @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTaskList().size() + 1);
         CompleteCommand completeCommand = new CompleteCommand(outOfBoundIndex);
@@ -103,6 +89,20 @@ public class CompleteCommandTest {
         CompleteCommand completeCommand = new CompleteCommand(outOfBoundIndex);
 
         assertCommandFailure(completeCommand, model, commandHistory, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_validLabel_success() {
+        CompleteCommand completeCommand = new CompleteCommand(FRIENDS_PREDICATE);
+
+        Pair<Model, Set<String>> modelStringPair = produceExpectedModelExpectedMessagePairOnLabelKeywordMatch(
+            "friends",
+            model);
+
+        Model expectedModel = modelStringPair.getKey();
+        Set<String> expectedTokens = modelStringPair.getValue();
+
+        assertCommandSuccess(completeCommand, model, commandHistory, expectedTokens, expectedModel);
     }
 
     @Test
