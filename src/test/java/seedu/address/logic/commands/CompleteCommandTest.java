@@ -13,12 +13,14 @@ import static seedu.address.testutil.TypicalTasks.getTypicalTaskManager;
 
 import org.junit.Test;
 
+import javafx.util.Pair;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.tag.Label;
 import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
 
@@ -187,13 +189,40 @@ public class CompleteCommandTest {
      */
     private Task simpleCompleteTask(Task taskToComplete) {
         return new Task(// returns a completed task.
-                taskToComplete.getName(),
-                taskToComplete.getDueDate(),
-                taskToComplete.getPriorityValue(),
-                taskToComplete.getDescription(),
-                taskToComplete.getLabels(),
-                Status.COMPLETED
+            taskToComplete.getName(),
+            taskToComplete.getDueDate(),
+            taskToComplete.getPriorityValue(),
+            taskToComplete.getDescription(),
+            taskToComplete.getLabels(),
+            Status.COMPLETED
         );
+    }
+
+    /**
+     * Helper method for more complicated batch completion on {@code Label} match.
+     */
+    private Pair<Model, String> produceExpectedModelOnLabelKeywordMatch(String labelString, Model model) {
+
+        ModelManager expectedModel = new ModelManager(model.getTaskManager(), new UserPrefs());
+        StringBuilder expectedMessage = new StringBuilder();
+
+        expectedModel
+            .getFilteredTaskList()
+            .stream()
+            .map(task -> new Pair<Task, Task>(task, simpleCompleteTask(task)))
+            .filter(pairOfTasks -> pairOfTasks.getKey().getLabels().contains(new Label((labelString))))
+            .forEach(pairOfTasks -> {
+                Task taskToComplete = pairOfTasks.getKey();
+                Task completedTask = pairOfTasks.getValue();
+                expectedModel.updateTask(taskToComplete, completedTask);
+                expectedMessage.append(completedTask.toString() + "\n");
+            });
+
+
+        expectedModel.commitTaskManager();
+        String finalMessage = expectedMessage.toString().trim();
+
+        return new Pair<Model, String>(expectedModel, finalMessage);
     }
 
 }
