@@ -120,7 +120,7 @@ public class XmlAdaptedEventTest {
         XmlAdaptedEvent event =
                 new XmlAdaptedEvent(VALID_EVENT_NAME, VALID_EVENT_DESCRIPTION, VALID_EVENT_DATE, null,
                         VALID_EVENT_END_TIME, VALID_EVENT_ADDRESS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, EventTime.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, "Start" + EventTime.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, event::toModelType);
     }
 
@@ -129,7 +129,7 @@ public class XmlAdaptedEventTest {
         XmlAdaptedEvent event =
                 new XmlAdaptedEvent(VALID_EVENT_NAME, VALID_EVENT_DESCRIPTION, VALID_EVENT_DATE,
                         VALID_EVENT_START_TIME, null, VALID_EVENT_ADDRESS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, EventTime.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, "End" + EventTime.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, event::toModelType);
     }
 
