@@ -58,7 +58,9 @@ public class Word {
         }
 
         return otherWord != null
-                && otherWord.getName().equals(getName());
+                && otherWord.getName().equals(getName())
+                && (otherWord.getMeaning().equals(getMeaning())
+                || otherWord.getTags().equals(getTags()));
     }
 
     /**
@@ -77,7 +79,8 @@ public class Word {
 
         Word otherWord = (Word) other;
         return otherWord.getName().equals(getName())
-                && otherWord.getTags().equals(getTags());
+                && (otherWord.getMeaning().equals(getMeaning())
+                || otherWord.getTags().equals(getTags()));
     }
 
     @Override

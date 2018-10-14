@@ -1,6 +1,7 @@
 package seedu.learnvocabulary.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.learnvocabulary.logic.parser.CliSyntax.PREFIX_MEANING;
 import static seedu.learnvocabulary.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.learnvocabulary.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.learnvocabulary.model.Model.PREDICATE_SHOW_ALL_WORDS;
@@ -34,12 +35,13 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
+            + "[" + PREFIX_MEANING + "MEANING] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 ";
 
     public static final String MESSAGE_EDIT_WORD_SUCCESS = "Edited Word: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_WORD = "This word already exists in the learnvocabulary book.";
+    public static final String MESSAGE_DUPLICATE_WORD = "This word already exists in LearnVocabulary.";
 
     private final Index index;
     private final EditWordDescriptor editWordDescriptor;
