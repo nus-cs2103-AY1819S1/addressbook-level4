@@ -16,6 +16,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.AddressBookEventChangedEvent;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDate;
 import seedu.address.model.person.Person;
@@ -64,6 +65,11 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new AddressBookChangedEvent(versionedAddressBook));
     }
 
+    /** Raises an event to indicate the events list in the model has changed */
+    private void indicateAddressBookEventChanged() {
+        raise(new AddressBookEventChangedEvent(filteredEvents));
+    }
+
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
@@ -103,6 +109,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.addEvent(event);
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         indicateAddressBookChanged();
+        indicateAddressBookEventChanged();
     }
 
     //=========== Filtered Person List Accessors =============================================================

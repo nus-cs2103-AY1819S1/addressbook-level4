@@ -12,8 +12,10 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.AddressBookEventChangedEvent;
 import seedu.address.commons.events.ui.EventPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.logic.Logic;
 import seedu.address.model.event.Event;
 
 /**

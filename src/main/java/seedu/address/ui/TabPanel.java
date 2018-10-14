@@ -12,11 +12,10 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.AddressBookEventChangedEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 
-/**
- * TODO: add BrowserPanel into the first tab during instantiation
- */
+
 public class TabPanel extends  UiPart<Region> {
 
     private static final String FXML = "TabPanel.fxml";
@@ -63,6 +62,14 @@ public class TabPanel extends  UiPart<Region> {
 
     public Tab getEventsTab() {
         return eventsTab;
+    }
+
+    @Subscribe
+    private void handleAddressBookEventChangedEvent(AddressBookEventChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+
+        // switch active tab
+        selectionModel.select(eventsTab);
     }
 
     @Subscribe
