@@ -17,11 +17,11 @@ public class DateTime implements Comparable<DateTime> {
     /**
      * Constructs a {@code DateTime}.
      *
-     * @param formmatedDateTime A local date time.
+     * @param formattedDateTime A local date time.
      */
-    public DateTime(LocalDateTime formmatedDateTime) {
-        requireNonNull(formmatedDateTime);
-        value = formmatedDateTime;
+    public DateTime(LocalDateTime formattedDateTime) {
+        requireNonNull(formattedDateTime);
+        value = formattedDateTime;
     }
 
     public LocalDateTime getLocalDateTime() {
@@ -47,6 +47,7 @@ public class DateTime implements Comparable<DateTime> {
 
     /**
      * Used for PopUp to check if the current time is close to the next event in the pop up queue
+     *
      * @param currentDateTime
      * @return True if the time difference is within 1 minute
      */

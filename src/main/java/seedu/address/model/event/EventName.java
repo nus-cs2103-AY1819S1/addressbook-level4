@@ -34,8 +34,8 @@ public class EventName {
     /**
      * Returns true if a given string is a valid event name.
      */
-    public static boolean isValidEventName(String test) {
-        return test.matches(EVENT_NAME_VALIDATION_REGEX);
+    public static boolean isValidEventName(String testEventName) {
+        return testEventName.matches(EVENT_NAME_VALIDATION_REGEX);
     }
 
 

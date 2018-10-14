@@ -109,7 +109,6 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
                 + END_DATETIME_DESC_MA3220 + DESCRIPTION_DESC_MA3220
                 + VENUE_DESC_MA3220 + REPEAT_TYPE_DESC_MA3220 + REPEAT_UNTIL_DATETIME_DESC_MA3220;
         assertCommandFailure(command, EventName.MESSAGE_EVENT_NAME_CONSTRAINTS);
-
     }
 
     /**

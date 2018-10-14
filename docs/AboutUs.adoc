@@ -21,7 +21,7 @@ Role: Project Advisor
 
 === Zhang Yezhong
 image::yezhongz.png[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<yezhongz#, portfolio>>]
+{empty}[http://github.com/YeZhongZ[github]] [<<yezhongz#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: Code quality, Logic, IntelliJ expert

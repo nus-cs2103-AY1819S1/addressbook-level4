@@ -174,7 +174,7 @@ public class EditCommandSystemTest extends SchedulerSystemTest {
 
         /* Case: invalid tag -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_EVENT.getOneBased() + INVALID_TAG_DESC,
-                Tag.MESSAGE_TAG_CONSTRAINTS);
+                Tag.MESSAGE_CONSTRAINTS);
     }
 
     /**
