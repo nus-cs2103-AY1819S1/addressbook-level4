@@ -54,7 +54,7 @@ public class CompleteCommandTest {
     }
 
     @Test
-    public void execute_validLabelUnfilteredList_success() {
+    public void execute_validLabel_success() {
         CompleteCommand completeCommand = new CompleteCommand(FRIENDS_PREDICATE);
 
         Pair<Model, Set<String>> modelStringPair = produceExpectedModelExpectedMessagePairOnLabelKeywordMatch(
