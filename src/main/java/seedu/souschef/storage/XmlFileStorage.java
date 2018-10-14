@@ -12,7 +12,6 @@ import seedu.souschef.commons.util.XmlUtil;
 import seedu.souschef.storage.healthplan.XmlSerializableHealthPlan;
 import seedu.souschef.storage.recipe.XmlSerializableAddressBook;
 
-
 /**
  * Stores addressbook data in an XML file
  */

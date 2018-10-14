@@ -102,7 +102,7 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public Optional<ReadOnlyAppContent> readFeature(Path filePath) throws DataConversionException, IOException {
-        logger.fine("Attempting to readAppContent data from file: " + filePath);
+        logger.fine("Attempting to read data from file: " + filePath);
         return featureStorage.readFeature(filePath);
     }
 
@@ -111,24 +111,44 @@ public class StorageManager extends ComponentManager implements Storage {
     public Optional<ReadOnlyAppContent> readAll() throws DataConversionException, IOException {
         ArrayList<FeatureStorage> temp = this.listOfFeatureStorage;
         AppContent readOnlyAppContent = this.appContent;
+
         for (FeatureStorage f: temp) {
-            //to implement changes for specific feature storage types.
-            readOnlyAppContent.includeData(readFeature(f.getFeatureFilePath())
-                    .orElseGet(SampleDataUtil::getSampleAddressBook));
+            if (f instanceof XmlRecipeStorage) {
+                this.featureStorage = f;
+                //to implement changes for specific feature storage types.
+                readOnlyAppContent.includeData(readFeature(f.getFeatureFilePath())
+                        .orElseGet(SampleDataUtil::getSampleAddressBook));
+
+            } else if (f instanceof XmlHealthPlanStorage) {
+                this.featureStorage = f;
+                readOnlyAppContent.includeData(readFeature(f.getFeatureFilePath()).get());
+            }
+            //reset the first to main
+            this.featureStorage = temp.get(0);
+
         }
+
         return Optional.of(readOnlyAppContent);
 
     }
 
     @Override
     public void saveFeature(ReadOnlyAppContent appContent) throws IOException {
-        saveFeature(appContent, featureStorage.getFeatureFilePath());
+        saveFeature(appContent, this.featureStorage.getFeatureFilePath());
     }
 
     @Override
     public void saveFeature(ReadOnlyAppContent appContent, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        featureStorage.saveFeature(appContent, filePath);
+        if (this.featureStorage instanceof XmlRecipeStorage) {
+            XmlRecipeStorage temp = new XmlRecipeStorage(filePath);
+            temp.saveFeature(appContent, filePath);
+
+        } else if (this.featureStorage instanceof XmlHealthPlanStorage) {
+            XmlHealthPlanStorage temp = new XmlHealthPlanStorage(filePath);
+            temp.saveFeature(appContent, filePath);
+
+        }
     }
 
 
@@ -137,6 +157,7 @@ public class StorageManager extends ComponentManager implements Storage {
     public void handleAppContentChangedEvent(AppContentChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
+
             saveFeature(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));

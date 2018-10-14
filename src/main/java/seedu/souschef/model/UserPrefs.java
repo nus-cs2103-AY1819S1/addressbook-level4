@@ -34,7 +34,7 @@ public class UserPrefs {
         return addressBookFilePath;
     }
     public Path getHealthplanPath() {
-        return addressBookFilePath;
+        return healthplanPath;
     }
 
     public void setAddressBookFilePath(Path addressBookFilePath) {

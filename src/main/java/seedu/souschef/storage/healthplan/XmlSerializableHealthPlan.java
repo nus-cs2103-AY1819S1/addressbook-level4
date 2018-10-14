@@ -25,7 +25,7 @@ import seedu.souschef.storage.XmlSerializableGeneric;
 public class XmlSerializableHealthPlan implements XmlSerializableGeneric {
 
 
-    public static final String MESSAGE_DUPLICATE_PLAN = "Persons list contains duplicate plan(s).";
+    public static final String MESSAGE_DUPLICATE_PLAN = "plan list contains duplicate plan(s).";
     private static final Logger logger = LogsCenter.getLogger(XmlSerializableHealthPlan.class);
 
     @XmlElement
@@ -34,15 +34,17 @@ public class XmlSerializableHealthPlan implements XmlSerializableGeneric {
     private AppContent appContent;
 
     public XmlSerializableHealthPlan() {
+
         hp = new ArrayList<>();
+        appContent = new AppContent();
     }
 
     /**
      * construct
      */
     public XmlSerializableHealthPlan(ReadOnlyAppContent src) {
-        this();
-        appContent = (AppContent) src;
+       this();
+
         hp.addAll(src.getObservableHealthPlanList().stream()
                 .map(XmlAdaptedHealthPlan::new).collect(Collectors.toList()));
     }
@@ -55,6 +57,17 @@ public class XmlSerializableHealthPlan implements XmlSerializableGeneric {
                 .collect(Collectors.toList()));
     }
 
+    public XmlSerializableHealthPlan(AppContent appContent) {
+        this();
+        if (appContent != null) {
+            this.appContent = appContent;
+        } else {
+            appContent = new AppContent();
+
+        }
+        hp.addAll(appContent.getObservableHealthPlanList().stream().map(XmlAdaptedHealthPlan::new)
+                .collect(Collectors.toList()));
+    }
 
     /**
 
@@ -65,7 +78,7 @@ public class XmlSerializableHealthPlan implements XmlSerializableGeneric {
 
         for (XmlAdaptedHealthPlan p : hp) {
             HealthPlan plan = p.toModelType();
-            if (appContent.getHealthPlans().contains(plan)) {
+            if (this.appContent.getHealthPlans().contains(plan)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PLAN);
             }
             appContent.getHealthPlans().add(plan);
