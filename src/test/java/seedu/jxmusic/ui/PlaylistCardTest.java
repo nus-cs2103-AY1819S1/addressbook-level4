@@ -3,11 +3,12 @@ package seedu.jxmusic.ui;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.jxmusic.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
+import static seedu.jxmusic.ui.testutil.GuiTestAssert.assertCardDisplaysPlaylist;
 
 import org.junit.Test;
 
-import guitests.guihandles.PersonCardHandle;
+import guitests.guihandles.PlaylistCardHandle;
+import seedu.jxmusic.model.Playlist;
 import seedu.jxmusic.testutil.PlaylistBuilder;
 
 public class PlaylistCardTest extends GuiUnitTest {
@@ -15,25 +16,25 @@ public class PlaylistCardTest extends GuiUnitTest {
     @Test
     public void display() {
         // no tags
-        Person personWithNoTags = new PlaylistBuilder().withTags(new String[0]).build();
-        PlaylistCard playlistCard = new PlaylistCard(personWithNoTags, 1);
+        Playlist playlistWithNoTracks = new PlaylistBuilder().withTracks(new String[0]).build();
+        PlaylistCard playlistCard = new PlaylistCard(playlistWithNoTracks, 1);
         uiPartRule.setUiPart(playlistCard);
-        assertCardDisplay(playlistCard, personWithNoTags, 1);
+        assertCardDisplay(playlistCard, playlistWithNoTracks, 1);
 
         // with tags
-        Person personWithTags = new PlaylistBuilder().build();
-        playlistCard = new PlaylistCard(personWithTags, 2);
+        Playlist playlistWithTags = new PlaylistBuilder().build();
+        playlistCard = new PlaylistCard(playlistWithTags, 2);
         uiPartRule.setUiPart(playlistCard);
-        assertCardDisplay(playlistCard, personWithTags, 2);
+        assertCardDisplay(playlistCard, playlistWithTags, 2);
     }
 
     @Test
     public void equals() {
-        Person person = new PlaylistBuilder().build();
-        PlaylistCard playlistCard = new PlaylistCard(person, 0);
+        Playlist playlist = new PlaylistBuilder().build();
+        PlaylistCard playlistCard = new PlaylistCard(playlist, 0);
 
         // same playlist, same index -> returns true
-        PlaylistCard copy = new PlaylistCard(person, 0);
+        PlaylistCard copy = new PlaylistCard(playlist, 0);
         assertTrue(playlistCard.equals(copy));
 
         // same object -> returns true
@@ -46,26 +47,26 @@ public class PlaylistCardTest extends GuiUnitTest {
         assertFalse(playlistCard.equals(0));
 
         // different playlist, same index -> returns false
-        Person differentPerson = new PlaylistBuilder().withName("differentName").build();
-        assertFalse(playlistCard.equals(new PlaylistCard(differentPerson, 0)));
+        Playlist differentPlaylist = new PlaylistBuilder().withName("differentName").build();
+        assertFalse(playlistCard.equals(new PlaylistCard(differentPlaylist, 0)));
 
         // same playlist, different index -> returns false
-        assertFalse(playlistCard.equals(new PlaylistCard(person, 1)));
+        assertFalse(playlistCard.equals(new PlaylistCard(playlist, 1)));
     }
 
     /**
-     * Asserts that {@code playlistCard} displays the details of {@code expectedPerson} correctly and matches
+     * Asserts that {@code playlistCard} displays the details of {@code expectedPlaylist} correctly and matches
      * {@code expectedId}.
      */
-    private void assertCardDisplay(PlaylistCard playlistCard, Person expectedPerson, int expectedId) {
+    private void assertCardDisplay(PlaylistCard playlistCard, Playlist expectedPlaylist, int expectedId) {
         guiRobot.pauseForHuman();
 
-        PersonCardHandle personCardHandle = new PersonCardHandle(playlistCard.getRoot());
+        PlaylistCardHandle playlistCardHandle = new PlaylistCardHandle(playlistCard.getRoot());
 
         // verify id is displayed correctly
-        assertEquals(Integer.toString(expectedId) + ". ", personCardHandle.getId());
+        assertEquals(Integer.toString(expectedId) + ". ", playlistCardHandle.getId());
 
         // verify playlist details are displayed correctly
-        assertCardDisplaysPerson(expectedPerson, personCardHandle);
+        assertCardDisplaysPlaylist(expectedPlaylist, playlistCardHandle);
     }
 }

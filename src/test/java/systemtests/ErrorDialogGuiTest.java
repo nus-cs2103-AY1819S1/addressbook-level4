@@ -14,7 +14,7 @@ import guitests.GuiRobot;
 import guitests.guihandles.AlertDialogHandle;
 import seedu.jxmusic.commons.events.storage.DataSavingExceptionEvent;
 
-public class ErrorDialogGuiTest extends AddressBookSystemTest {
+public class ErrorDialogGuiTest extends LibrarySystemTest {
 
     private static final IOException IO_EXCEPTION_STUB = new IOException("Stub");
     private final GuiRobot guiRobot = new GuiRobot();
