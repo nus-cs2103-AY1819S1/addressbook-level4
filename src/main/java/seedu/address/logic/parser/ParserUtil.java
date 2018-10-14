@@ -2,8 +2,18 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import static seedu.address.model.group.TimeStamp.DATE_SPLIT_REGEX;
+import static seedu.address.model.group.TimeStamp.EXPECTED_SPLIITTED_LENGTH;
+import static seedu.address.model.group.TimeStamp.MESSAGE_TIMESTAMP_CONSTRAINT;
+import static seedu.address.model.group.TimeStamp.SPLITTED_DAY_INDEX;
+import static seedu.address.model.group.TimeStamp.SPLITTED_HOUR_INDEX;
+import static seedu.address.model.group.TimeStamp.SPLITTED_MINUTE_INDEX;
+import static seedu.address.model.group.TimeStamp.SPLITTED_MONTH_INDEX;
+import static seedu.address.model.group.TimeStamp.SPLITTED_YEAR_INDEX;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Month;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,7 +23,9 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.group.Date;
 import seedu.address.model.group.Description;
+import seedu.address.model.group.EnhancedMonth;
 import seedu.address.model.group.Place;
+import seedu.address.model.group.TimeStamp;
 import seedu.address.model.group.Title;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -159,6 +171,33 @@ public class ParserUtil {
         }
         return groupTagSet;
     }
+
+    /* @@author Pakorn */
+    /**
+     * Parse a {@code String} representation of a timestamp into a {@code TimeStamp} object.
+     */
+    public static TimeStamp parseTimeStamp(String timeStamp) throws ParseException {
+        requireNonNull(timeStamp);
+        String[] splitted = timeStamp.split(DATE_SPLIT_REGEX);
+        if (splitted.length != EXPECTED_SPLIITTED_LENGTH) {
+            System.out.println("1");
+            throw new ParseException(MESSAGE_TIMESTAMP_CONSTRAINT);
+        }
+        if (!TimeStamp.isValidArgument(Integer.parseInt(splitted[SPLITTED_YEAR_INDEX]),
+                EnhancedMonth.fromMonthIndex(Integer.parseInt(splitted[SPLITTED_MONTH_INDEX])),
+                Integer.parseInt(splitted[SPLITTED_DAY_INDEX]),
+                Integer.parseInt(splitted[SPLITTED_HOUR_INDEX]),
+                Integer.parseInt(splitted[SPLITTED_MINUTE_INDEX]))) {
+            System.out.println("2");
+            throw new ParseException(MESSAGE_TIMESTAMP_CONSTRAINT);
+        }
+        return new TimeStamp(Integer.parseInt(splitted[SPLITTED_YEAR_INDEX]),
+                Month.of(Integer.parseInt(splitted[SPLITTED_MONTH_INDEX])),
+                Integer.parseInt(splitted[SPLITTED_DAY_INDEX]),
+                Integer.parseInt(splitted[SPLITTED_HOUR_INDEX]),
+                Integer.parseInt(splitted[SPLITTED_MINUTE_INDEX]));
+    }
+    /* @@author */
 
     /**
      * Parses a {@code String title} into a {@code Title}.
