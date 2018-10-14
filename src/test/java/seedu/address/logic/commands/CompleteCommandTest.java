@@ -106,6 +106,15 @@ public class CompleteCommandTest {
     }
 
     @Test
+    public void execute_invalidLabel_throwsCommandException() {
+        LabelMatchesKeywordPredicate keywordNoOccurence = new LabelMatchesKeywordPredicate("adiouweaphfewoip");
+        CompleteCommand completeCommand = new CompleteCommand(keywordNoOccurence);
+
+        assertCommandFailure(completeCommand, model, commandHistory,
+            CompleteCommand.MESSAGE_NO_COMPLETABLE_TASK_IDENTIFIED_BY_LABEL);
+    }
+
+    @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Task taskToComplete = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         CompleteCommand completeCommand = new CompleteCommand(INDEX_FIRST_TASK);
