@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.appointment.exceptions.AppointmentClashException;
 import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 
@@ -53,7 +54,7 @@ public class UniqueAppointmentList implements Iterable<Appointment>{
             throw new DuplicateAppointmentException();
         }
         if (clashes(toAdd)) {
-            //TODO ClashingAppointmentException();
+            throw new AppointmentClashException();
         }
         internalList.add(toAdd);
     }
@@ -65,14 +66,15 @@ public class UniqueAppointmentList implements Iterable<Appointment>{
      */
     public void setAppointment(Appointment target, Appointment editedAppt) {
         requireAllNonNull(target, editedAppt);
-
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new AppointmentNotFoundException();
         }
-
         if (!target.isSameAppointment(editedAppt) && contains(editedAppt)) {
             throw new DuplicateAppointmentException();
+        }
+        if (clashes(editedAppt)) {
+            throw new AppointmentClashException();
         }
         internalList.set(index, editedAppt);
     }
@@ -84,16 +86,10 @@ public class UniqueAppointmentList implements Iterable<Appointment>{
      */
     public void cancelAppointment(Appointment target) {
         requireNonNull(target);
-
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new AppointmentNotFoundException();
         }
-
-        if (target.isCancelled()) { 
-            throw new AppointmentAlreadyCancelledException();
-        }
-
         target.isCancelled();
         Appointment cancelledAppt = target;
         internalList.set(index, cancelledAppt);
@@ -124,7 +120,6 @@ public class UniqueAppointmentList implements Iterable<Appointment>{
         if (!AppointmentsAreUnique(appts)) {
             throw new DuplicateAppointmentException();
         }
-
         internalList.setAll(appts);
     }
 
