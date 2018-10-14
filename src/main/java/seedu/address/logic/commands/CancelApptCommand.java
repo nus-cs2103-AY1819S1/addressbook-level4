@@ -42,7 +42,7 @@ public class CancelApptCommand extends Command {
         }
 
         Appointment targetAppointment = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteAppointment(targetAppointment);
+        model.cancelAppointment(targetAppointment);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_CANCEL_APPOINTMENT_SUCCESS, targetAppointment));
     }

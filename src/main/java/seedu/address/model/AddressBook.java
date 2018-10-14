@@ -108,6 +108,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if an appointment has the same slot as {@code appt} in the address book.
+     */
+    public boolean hasAppointmentClash(Appointment appt) {
+        requireNonNull(appt);
+        return appointments.clashes(appt);
+    }
+
+    /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */

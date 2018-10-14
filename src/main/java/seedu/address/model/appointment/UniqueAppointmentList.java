@@ -36,6 +36,14 @@ public class UniqueAppointmentList implements Iterable<Appointment>{
     }
 
     /**
+     * Returns true if the list contains a clashing appointment as the given argument.
+     */
+    public boolean clashes(Appointment toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::isSameSlot);
+    }
+
+    /**
      * Adds an appointment to the list.
      * The appointment must not already exist in the list.
      */
@@ -43,6 +51,9 @@ public class UniqueAppointmentList implements Iterable<Appointment>{
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicateAppointmentException();
+        }
+        if (clashes(toAdd)) {
+            //TODO ClashingAppointmentException();
         }
         internalList.add(toAdd);
     }
@@ -64,6 +75,8 @@ public class UniqueAppointmentList implements Iterable<Appointment>{
         if (!target.isSameAppointment(editedAppt) && contains(editedAppt)) {
             throw new DuplicateAppointmentException();
         }
+
+        if (!target.isSameAppointment(editedAppt) && clashes(editedAppt) && ed)
 
         internalList.set(index, editedAppt);
     }
