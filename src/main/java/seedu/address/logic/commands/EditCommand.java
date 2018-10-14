@@ -21,6 +21,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.tag.Label;
+import seedu.address.model.task.Dependency;
 import seedu.address.model.task.Description;
 import seedu.address.model.task.DueDate;
 import seedu.address.model.task.Name;
@@ -115,10 +116,14 @@ public class EditCommand extends Command {
         Description updatedDescription = editTaskDescriptor.getDescription().orElse(taskToEdit.getDescription());
         Set<Label> updatedLabels = editTaskDescriptor.getLabels().orElse(taskToEdit.getLabels());
         Status updatedStatus = editTaskDescriptor.getStatus().orElse(taskToEdit.getStatus());
+        Dependency dependency = editTaskDescriptor.getDependency().orElse(taskToEdit.getDependency());
 
         return new Task(updatedName, updatedDueDate, updatedPriorityValue, updatedDescription, updatedLabels,
-                updatedStatus);
+                updatedStatus, dependency);
     }
+
+
+
 
     @Override
     public boolean equals(Object other) {
@@ -149,6 +154,7 @@ public class EditCommand extends Command {
         private Description description;
         private Set<Label> labels;
         private Status status;
+        private Dependency dependency;
 
         public EditTaskDescriptor() {}
 
@@ -163,6 +169,7 @@ public class EditCommand extends Command {
             setDescription(toCopy.description);
             setLabels(toCopy.labels);
             setStatus(toCopy.status);
+            setDependency(toCopy.dependency);
         }
 
         /**
