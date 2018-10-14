@@ -7,6 +7,10 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * A JAXB-ready version of the AppointmentsList, for easy un/marshalling.
+ * @author jeffypie369
+ */
 @XmlRootElement
 public class XmlAdaptedAppointmentsList implements Iterable<XmlAdaptedAppointment> {
     @XmlElement(required = true)

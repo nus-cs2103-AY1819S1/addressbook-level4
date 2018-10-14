@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_TIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DOCTOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSES_PER_DAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSE_UNIT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DRUGNAME;
@@ -13,7 +15,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MED_HISTORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PROCEDURE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,6 +28,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.appointment.Type;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -47,6 +52,10 @@ public class CommandTestUtil {
 
     public static final String VALID_DIAGNOSIS = "Amy has a case of acute bronchitis, referred to Dr. Zhang";
 
+    public static final String VALID_TYPE = Type.SURGICAL.getAbbreviation();
+    public static final String VALID_PROCEDURE = "Heart Bypass";
+    public static final String VALID_DATE_TIME = "12-12-2022 12:00";
+    public static final String VALID_DOCTOR = "Dr. Gregory House";
 
     public static final String VALID_DRUGNAME = "Paracetamol";
     public static final int VALID_DOSE = 2;
@@ -104,7 +113,28 @@ public class CommandTestUtil {
             + " " + PREFIX_DOSE_UNIT + VALID_DOSE_UNIT
             + " " + PREFIX_DOSES_PER_DAY + VALID_DOSES_PER_DAY;
 
+    public static final String VALID_APPOINTMENT_DESC = " " + PREFIX_TYPE + VALID_TYPE
+            + " " + PREFIX_PROCEDURE + VALID_PROCEDURE
+            + " " + PREFIX_DATE_TIME + VALID_DATE_TIME
+            + " " + PREFIX_DOCTOR + VALID_DOCTOR;
 
+    public static final String EMPTY_APPOINTMENT_DESC = "";
+
+    public static final String INVALID_PRESCRIPTION_DESC_MISSING_TYPE = " " + PREFIX_PROCEDURE + VALID_PROCEDURE
+            + " " + PREFIX_DATE_TIME + VALID_DATE_TIME
+            + " " + PREFIX_DOCTOR + VALID_DOCTOR;
+
+    public static final String INVALID_PRESCRIPTION_DESC_MISSING_PROCEDURE = " " + PREFIX_TYPE + VALID_TYPE
+            + " " + PREFIX_DATE_TIME + VALID_DATE_TIME
+            + " " + PREFIX_DOCTOR + VALID_DOCTOR;
+
+    public static final String INVALID_PRESCRIPTION_DESC_MISSING_DATE_TIME = " " + PREFIX_TYPE + VALID_TYPE
+            + " " + PREFIX_PROCEDURE + VALID_PROCEDURE
+            + " " + PREFIX_DOCTOR + VALID_DOCTOR;
+
+    public static final String INVALID_PRESCRIPTION_DESC_MISSING_DOCTOR = " " + PREFIX_TYPE + VALID_TYPE
+            + " " + PREFIX_PROCEDURE + VALID_PROCEDURE
+            + " " + PREFIX_DATE_TIME + VALID_DATE_TIME;
 
     public static final String INVALID_NRIC_DESC = " " + PREFIX_NRIC + "AAAAAA"; // NRIC must match NRIC format.
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names

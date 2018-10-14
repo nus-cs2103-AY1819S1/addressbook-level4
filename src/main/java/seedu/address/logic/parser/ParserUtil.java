@@ -2,7 +2,9 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,6 +12,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.appointment.DateTime;
 import seedu.address.model.medicalhistory.Diagnosis;
 import seedu.address.model.medicine.Dose;
 import seedu.address.model.medicine.Duration;
@@ -180,6 +183,25 @@ public class ParserUtil {
      */
     public static Duration parseDuration(int durationInDays) throws IllegalValueException {
         return new Duration(durationInDays);
+    }
+
+    //@@author jeffypie369
+
+    /**
+     * Parses a String date into a Calendar date
+     * @param date_time String of the date
+     * @return Calender object which contains the date
+     * @throws IllegalValueException if there is an error while parsing the string
+     */
+    public static Calendar parseDateTime(String date_time) throws IllegalValueException {
+        try {
+            Date dt_d = DateTime.DATE_TIME_FORMAT.parse(date_time);
+            Calendar dt = Calendar.getInstance();
+            dt.setTime(dt_d);
+            return dt;
+        } catch (java.text.ParseException e) {
+            throw new ParseException("Exception while parsing date_time", e);
+        }
     }
 
     //@@author

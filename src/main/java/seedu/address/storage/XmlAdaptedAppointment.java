@@ -65,7 +65,7 @@ public class XmlAdaptedAppointment {
     public XmlAdaptedAppointment(Appointment source) {
         this.type = source.getType();
         this.procedure_name = source.getProcedure_name();
-        this.date_time = source.getDate_time().toString();
+        this.date_time = DateTime.DATE_TIME_FORMAT.format(source.getDate_time().getTime());
         this.doc_name = source.getDoc_name();
     }
 
@@ -77,7 +77,8 @@ public class XmlAdaptedAppointment {
     public Appointment toModelType() throws IllegalValueException {
         Calendar dt = Calendar.getInstance();
         try {
-            dt.setTime(DateTime.DATE_TIME_FORMAT.parse(this.date_time));
+            Date d = DateTime.DATE_TIME_FORMAT.parse(this.date_time);
+            dt.setTime(d);
         } catch (ParseException e) {
             throw new IllegalValueException(e.toString());
         }

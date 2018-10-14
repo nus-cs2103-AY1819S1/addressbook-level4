@@ -1,14 +1,13 @@
 package seedu.address.model.appointment;
 
+import java.util.Calendar;
 
 import seedu.address.commons.util.CollectionUtil;
-
-import java.util.Calendar;
 
 /**
  * This class holds information for appointments
  *
- * @author Jefferson Sie
+ * @author jeffypie369
  *
  */
 public class Appointment {

@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 
+/**
+ * List of appointments of a patient
+ */
 public class AppointmentsList {
     private ArrayList<Appointment> appointmentsList;
 

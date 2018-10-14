@@ -1,15 +1,18 @@
 package seedu.address.testutil;
 
-import seedu.address.logic.commands.AddApptCommand;
-import seedu.address.model.appointment.Appointment;
-import seedu.address.model.person.Nric;
-
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOCTOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROCEDURE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
+import seedu.address.logic.commands.AddApptCommand;
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.person.Nric;
+
+/**
+ * Utility class for Appointment
+ */
 public class AppointmentUtil {
     /**
      * Utility method to get a String for a corresponding addappt method.
