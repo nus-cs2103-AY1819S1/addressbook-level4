@@ -39,7 +39,8 @@ public enum Level {
         if (!isValidLevel(string)) {
             throw new IllegalArgumentException();
         }
-        int index = Character.digit(string.charAt(4), 10);
+        int offset = -1;
+        int index = Character.digit(string.charAt(4), 10) + offset;
         return (Level.values())[index];
     }
 
