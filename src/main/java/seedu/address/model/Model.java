@@ -7,6 +7,9 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.NoEventSelectedException;
 import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.Poll;
+import seedu.address.model.event.exceptions.NotEventOrganiserException;
+import seedu.address.model.event.exceptions.UserNotJoinedEventException;
 import seedu.address.model.person.Person;
 
 /**
@@ -99,7 +102,7 @@ public interface Model {
      * adds an event to the address book.
      * @param toAdd the event to be added.
      */
-    void addEvent(Event toAdd);
+    void addEvent(Event toAdd) throws NoUserLoggedInException;
 
     /**
      * deletes an event from the address book.
@@ -112,6 +115,34 @@ public interface Model {
      * @param targetIndex Index of the event.
      */
     Event getEvent(Index targetIndex);
+
+    /**
+     * Adds a poll to the pre-selected event with the given name.
+     * @param pollName the poll name.
+     * @throws NoEventSelectedException
+     * @throws NoUserLoggedInException
+     * @throws NotEventOrganiserException
+     */
+    Poll addPoll(String pollName) throws NoEventSelectedException, NoUserLoggedInException, NotEventOrganiserException;
+
+    /**
+     * Adds a poll option to the poll at the given index of the pre-selected event.
+     * @param index the index of the poll in the list of polls.
+     * @param optionName the name of the option.
+     * @throws NoEventSelectedException
+     */
+    Poll addPollOption(Index index, String optionName) throws NoEventSelectedException;
+
+    /**
+     * Adds the current user as a voter for a given option.
+     * @param pollIndex the index of the poll in the list of polls.
+     * @param optionName the name of the option.
+     * @throws NoUserLoggedInException
+     * @throws NoEventSelectedException
+     * @throws UserNotJoinedEventException
+     */
+    Poll voteOption(Index pollIndex, String optionName) throws NoUserLoggedInException, NoEventSelectedException
+            , UserNotJoinedEventException;
 
     /**
      * Sets the current user of the address book.
@@ -139,9 +170,4 @@ public interface Model {
      * Gets the selected event.
      */
     Event getSelectedEvent() throws NoEventSelectedException;
-
-    /**
-     * Removes the selected event.
-     */
-    void removeSelectedEvent();
 }

@@ -43,6 +43,8 @@ public class AddPollOptionCommandTest {
 
     @Test
     public void execute_noEventAddPollOption() {
+        Person user = new PersonBuilder().build();
+        model.setCurrentUser(user);
         VoteCommand command = new VoteCommand(TypicalIndexes.INDEX_FIRST, OPTION_NAME);
         String expectedMessage = String.format(Messages.MESSAGE_NO_EVENT_SELECTED);
         assertCommandFailure(command, model, commandHistory, expectedMessage);

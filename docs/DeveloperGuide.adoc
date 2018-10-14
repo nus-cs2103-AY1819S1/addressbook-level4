@@ -332,6 +332,26 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+//tag::poll[]
+=== Poll feature
+
+==== Current implementation
+This section explains the implementation of the features associated with the Poll class of each Event while detailing some implementation details of the event class.
+The relevant commands which are callable by the user to be discussed are:
+
+* `AddPollCommand` - adds a new poll to the event given the name of the poll to be created.
+* `AddPollOptionCommand` - adds a new poll option to the poll given the poll index and the name of the option to be added.
+* `VoteCommand` - adds the current user as a voter to the given option.
+* `AddTimePollCommand` - creates a new poll automatically populated with options based on the schedules of the event participants.
+
+For all the above commands, the event must first be selected using the `selectEvent` command, which will set the `currentEvent` through the `Model#setSelectedEvent()` method.
+This is done to ensure that users do not have to continually specify the event for which the Poll commands are called for every command.
+This is on top of the `currentUser` in the Model which was already selected through the `LoginCommand`.
+
+
+
+
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 

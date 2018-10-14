@@ -11,11 +11,18 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.NoEventSelectedException;
 import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.Poll;
+import seedu.address.model.event.exceptions.NotEventOrganiserException;
+import seedu.address.model.event.exceptions.UserNotJoinedEventException;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
 /**
@@ -68,10 +75,6 @@ public class ModelManager extends ComponentManager implements Model {
         this.currentEvent = currentEvent;
     }
 
-    public void removeSelectedEvent() {
-        this.currentEvent = null;
-    }
-
     public Event getSelectedEvent() throws NoEventSelectedException {
         if (currentEvent == null) {
             throw new NoEventSelectedException();
@@ -103,6 +106,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void deletePerson(Person target) {
+        if (target.equals(currentUser)) {
+            currentUser = null;
+        }
         versionedAddressBook.removePerson(target);
         indicateAddressBookChanged();
     }
@@ -135,7 +141,12 @@ public class ModelManager extends ComponentManager implements Model {
 
     //===========Events ======================================================================================
     @Override
-    public void addEvent(Event event) {
+    public void addEvent(Event event) throws NoUserLoggedInException {
+        if (currentUser == null) {
+            throw new NoUserLoggedInException();
+        }
+        event.setOrganiser(currentUser);
+        event.addPerson(currentUser);
         versionedAddressBook.addEvent(event);
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         indicateAddressBookChanged();
@@ -143,6 +154,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void deleteEvent(Event target) {
+        if (target.equals(currentEvent)) {
+            currentEvent = null;
+        }
         versionedAddressBook.removeEvent(target);
         indicateAddressBookChanged();
     }
@@ -159,6 +173,46 @@ public class ModelManager extends ComponentManager implements Model {
 
     public Event getEvent(Index targetIndex) {
         return filteredEvents.get(targetIndex.getZeroBased());
+    }
+
+    public Poll addPoll(String pollName) throws NoUserLoggedInException, NoEventSelectedException,
+            NotEventOrganiserException {
+        if (currentUser == null) {
+            throw new NoUserLoggedInException();
+        }
+        if (currentEvent == null) {
+            throw new NoEventSelectedException();
+        }
+        if (!currentUser.equals(currentEvent.getOrganiser())) {
+            throw new NotEventOrganiserException();
+        }
+        Poll poll = currentEvent.addPoll(pollName);
+        updateEvent(currentEvent, currentEvent);
+        return poll;
+    }
+
+    public Poll addPollOption(Index index, String option) throws NoEventSelectedException {
+        if (currentEvent == null) {
+            throw new NoEventSelectedException();
+        }
+        Poll poll = currentEvent.getPoll(index);
+        poll.addOption(option);
+        updateEvent(currentEvent, currentEvent);
+        return poll;
+    }
+
+    public Poll voteOption(Index index, String optionName) throws NoEventSelectedException, NoUserLoggedInException,
+            UserNotJoinedEventException {
+        if (currentUser == null) {
+            throw new NoUserLoggedInException();
+        }
+        if (currentEvent == null) {
+            throw new NoEventSelectedException();
+        }
+        currentEvent.addVoteToPoll(index, currentUser, optionName);
+        Poll poll = currentEvent.getPoll(index);
+        updateEvent(currentEvent, currentEvent);
+        return poll;
     }
 
     @Override
