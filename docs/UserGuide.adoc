@@ -278,6 +278,8 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
+This is a comprehensive list of commands for ClinicIO.
+
 * *Add* `addPatient n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS [medProb/MEDICAL_PROBLEMS]... [medList/MEDICATIONS]... [allergies/ALLERGIES]... [preferredDoc/PREFERRED_DOC]` +
 e.g. `addPatient n/John Doe ic/S1234567D p/98765432 e/johnd@example.com a/John street, block 123, #01-01 allergies/Dairy Products`
 * *Clear* : `clear`
