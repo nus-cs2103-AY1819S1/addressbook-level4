@@ -42,7 +42,7 @@ public class NotificationWindow {
         window.show();
 
         PauseTransition delay = new PauseTransition(Duration.seconds(2));
-        delay.setOnFinished( event -> window.close() );
+        delay.setOnFinished(event -> window.close());
         delay.play();
 
     }
