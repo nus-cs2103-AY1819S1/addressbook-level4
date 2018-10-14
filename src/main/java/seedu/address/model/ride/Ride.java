@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.ride.exceptions.InvalidNumericAttributeException;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -75,6 +76,20 @@ public class Ride {
 
     public void setWaitingTime(int value) {
         this.waitingTime.setValue(value);
+    }
+
+    /**
+     * Returns the attribute that is required.
+     * Throws an exception if the attribute has an invalid type.
+     */
+    public NumericAttribute getAttribute(NumericAttribute attribute) throws InvalidNumericAttributeException {
+        if (attribute instanceof WaitTime) {
+            return this.getWaitingTime();
+        } else if (attribute instanceof Maintenance) {
+            return this.getDaysSinceMaintenance();
+        } else {
+            throw new InvalidNumericAttributeException();
+        }
     }
 
     /**
