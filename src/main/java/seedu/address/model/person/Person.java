@@ -48,9 +48,9 @@ public class Person {
      */
     public Person(PersonId personId, Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(personId, name, phone, email, address, tags);
-
+        System.out.println("Person Max Id" + maxId);
         if (isNewPersonIdGreaterThanMaxId(personId.id)) {
-            replaceMaxIdWithIncrementedPersonId(personId.id);
+            replaceMaxIdWithPersonId(personId.id);
         }
         this.personId = personId;
         this.name = name;
@@ -81,8 +81,8 @@ public class Person {
      *
      * @param newPersonId event id from loaded xml event.
      */
-    private void replaceMaxIdWithIncrementedPersonId(int newPersonId) {
-        maxId = newPersonId + 1;
+    private void replaceMaxIdWithPersonId(int newPersonId) {
+        maxId = newPersonId;
     }
 
     public PersonId getPersonId() {
