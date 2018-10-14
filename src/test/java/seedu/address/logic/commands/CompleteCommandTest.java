@@ -5,11 +5,14 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.feedbackMessageTokenizer;
 import static seedu.address.logic.commands.CommandTestUtil.showTaskAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_COMPLETED_TASK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TASK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TASK;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskManager;
+
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -21,6 +24,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.tag.Label;
+import seedu.address.model.task.LabelMatchesKeywordPredicate;
 import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
 
@@ -30,6 +34,7 @@ import seedu.address.model.task.Task;
  */
 public class CompleteCommandTest {
 
+    private static final LabelMatchesKeywordPredicate FRIENDS_PREDICATE = new LabelMatchesKeywordPredicate("friends");
     private Model model = new ModelManager(getTypicalTaskManager(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
@@ -46,6 +51,20 @@ public class CompleteCommandTest {
         expectedModel.commitTaskManager();
 
         assertCommandSuccess(completeCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_validLabelUnfilteredList_success() {
+        CompleteCommand completeCommand = new CompleteCommand(FRIENDS_PREDICATE);
+
+        Pair<Model, Set<String>> modelStringPair = produceExpectedModelExpectedMessagePairOnLabelKeywordMatch(
+            "friends",
+            model);
+
+        Model expectedModel = modelStringPair.getKey();
+        Set<String> expectedTokens = modelStringPair.getValue();
+
+        assertCommandSuccess(completeCommand, model, commandHistory, expectedTokens, expectedModel);
     }
 
     @Test
@@ -203,12 +222,12 @@ public class CompleteCommandTest {
      *
      * @return an Expected-Model Expected-String pair
      */
-    private Pair<Model, String> produceExpectedModelExpectedMessagePairOnLabelKeywordMatch(
+    private Pair<Model, Set<String>> produceExpectedModelExpectedMessagePairOnLabelKeywordMatch(
         String labelString,
         Model model) {
 
         ModelManager expectedModel = new ModelManager(model.getTaskManager(), new UserPrefs());
-        StringBuilder expectedMessage = new StringBuilder();
+        StringBuilder completedTasksOutput = new StringBuilder();
 
         // Updates the model with completable tasks that fulfils the predicate completed and append
         // each of their String representation to expectedMessage
@@ -228,14 +247,15 @@ public class CompleteCommandTest {
                 Task taskToComplete = pairOfTasks.getKey();
                 Task completedTask = pairOfTasks.getValue();
                 expectedModel.updateTask(taskToComplete, completedTask);
-                expectedMessage.append(completedTask.toString() + "\n");
+                completedTasksOutput.append(completedTask.toString() + "\n");
             });
 
-
         expectedModel.commitTaskManager();
-        String finalMessage = expectedMessage.toString().trim();
 
-        return new Pair<>(expectedModel, finalMessage);
+        String expectedMessage = String.format(CompleteCommand.MESSAGE_SUCCESS, completedTasksOutput.toString().trim());
+        Set<String> expectedTokens = feedbackMessageTokenizer(expectedMessage);
+
+        return new Pair<>(expectedModel, expectedTokens);
     }
 
 }
