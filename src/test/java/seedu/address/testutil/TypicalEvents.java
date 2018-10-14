@@ -11,6 +11,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_NAME_MEET
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_TIME_DOCTORAPPT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_TIME_MEETING;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import seedu.address.model.event.Event;
 
 /**
@@ -38,4 +42,8 @@ public class TypicalEvents {
                     .build();
 
     private TypicalEvents() {} // prevents instantiation
+
+    public static List<Event> getTypicalEvents() {
+        return new ArrayList<>(Arrays.asList(DOCTORAPPT, MEETING));
+    }
 }

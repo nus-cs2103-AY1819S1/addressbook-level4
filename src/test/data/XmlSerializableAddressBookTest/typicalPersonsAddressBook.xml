@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!-- AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook() -->
+<!-- AddressBook save file which contains the same Person and Event values as in TypicalPersons#getTypicalAddressBook() -->
 <addressbook>
     <persons>
         <name>Alice Pauline</name>
@@ -47,4 +47,18 @@
         <email>anna@example.com</email>
         <address>4th street</address>
     </persons>
+	<events>
+		<eventName>Doctor appointment</eventName>
+		<eventDescription>Consultation</eventDescription>
+		<eventDate>2018-09-01</eventDate>
+		<eventTime>1400</eventTime>
+		<eventAddress>Blk 312, Amy Street 1</eventAddress>
+	</events>
+	<events>
+		<eventName>Meeting</eventName>
+		<eventDescription>Group meeting desc</eventDescription>
+		<eventDate>2018-09-09</eventDate>
+		<eventTime>0900</eventTime>
+		<eventAddress>Block 123, Bobby Street 3</eventAddress>
+	</events>
 </addressbook>
