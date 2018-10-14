@@ -75,7 +75,7 @@ public class ParserUtil {
         requireNonNull(address);
         String trimmedAddress = address.trim();
         if (!Cost.isValidCost(trimmedAddress)) {
-            throw new ParseException(Cost.MESSAGE_ADDRESS_CONSTRAINTS);
+            throw new ParseException(Cost.MESSAGE_COST_CONSTRAINTS);
         }
         return new Cost(trimmedAddress);
     }
