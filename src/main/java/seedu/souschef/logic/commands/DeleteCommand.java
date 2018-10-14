@@ -16,7 +16,14 @@ public class DeleteCommand<T extends UniqueType> extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
+    public static final String MESSAGE_USAGE_HEALTHPLAN = COMMAND_WORD
+            + ": Deletes the health plan identified by the index number used in the displayed health plan list.\n"
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 1";
+
     public static final String MESSAGE_DELETE_RECIPE_SUCCESS = "Deleted Recipe: %1$s";
+
+    public static final String MESSAGE_DELETE_HEALTHPLAN_SUCCESS = "Deleted Health Plan: %1$s";
 
     private final Model model;
     private final T toDelete;
@@ -30,7 +37,19 @@ public class DeleteCommand<T extends UniqueType> extends Command {
     public CommandResult execute(CommandHistory history) {
         model.delete(toDelete);
         model.commitAppContent();
-        return new CommandResult(String.format(MESSAGE_DELETE_RECIPE_SUCCESS, toDelete));
+
+        String context = history.getContext();
+        //switch case to handle the add for the different context
+        switch(context) {
+        case "recipe":
+            return new CommandResult(String.format(MESSAGE_DELETE_RECIPE_SUCCESS, toDelete));
+        case "HealthPlan":
+            return new CommandResult(String.format(MESSAGE_DELETE_HEALTHPLAN_SUCCESS, toDelete));
+        default: break;
+        }
+
+        return null;
+
     }
 
     @Override

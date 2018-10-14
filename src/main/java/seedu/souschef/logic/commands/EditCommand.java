@@ -1,10 +1,17 @@
 package seedu.souschef.logic.commands;
 
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_AGE;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_CHEIGHT;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_CWEIGHT;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_HPNAME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_SCHEME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TWEIGHT;
 import static seedu.souschef.model.Model.PREDICATE_SHOW_ALL;
 
 import seedu.souschef.logic.CommandHistory;
@@ -36,6 +43,27 @@ public class EditCommand<T extends UniqueType> extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_RECIPE = "This recipe already exists in the address book.";
 
+    public static final String MESSAGE_USAGE_HEALTHPLAN = COMMAND_WORD
+            + ": Edits the details of the health plan identified "
+            + "by the index number used in the displayed health plan list. "
+            + "Existing values will be overwritten by the input values.\n"
+            + "Parameters: INDEX (must be a positive integer) "
+            + "[" + PREFIX_HPNAME + "NAME] "
+            + "[" + PREFIX_AGE + "AGE] "
+            + "[" + PREFIX_CWEIGHT + "CURRENT WEIGHT(KG)] "
+            + "[" + PREFIX_CHEIGHT + "CURRENT HEIGHT(CM)] "
+            + "[" + PREFIX_TWEIGHT + "TARGET WEIGHT(KG)] "
+            + "[" + PREFIX_DURATION + "DURATION(DAYS)] "
+            + "[" + PREFIX_SCHEME + "SCHEME(GAIN/LOSS/MAINTAIN)] \n"
+            + "Example: " + COMMAND_WORD + " 1 "
+            + PREFIX_HPNAME + "Lose weight "
+            + PREFIX_AGE + "23";
+
+
+    public static final String MESSAGE_EDIT_HEALTHPLAN_SUCCESS = "Edited Health plan: %1$s";
+
+
+
     private final Model model;
     private final T toEdit;
     private final T edited;
@@ -56,6 +84,18 @@ public class EditCommand<T extends UniqueType> extends Command {
         model.update(toEdit, edited);
         model.updateFilteredList(PREDICATE_SHOW_ALL);
         model.commitAppContent();
+
+        String context = history.getContext();
+        //switch case to handle the add for the different context
+        switch(context) {
+        case "recipe":
+            return new CommandResult(String.format(MESSAGE_EDIT_RECIPE_SUCCESS, toEdit));
+        case "HealthPlan":
+            return new CommandResult(String.format(MESSAGE_EDIT_HEALTHPLAN_SUCCESS, toEdit));
+        default: break;
+        }
+
+
         return new CommandResult(String.format(MESSAGE_EDIT_RECIPE_SUCCESS, edited));
     }
 
