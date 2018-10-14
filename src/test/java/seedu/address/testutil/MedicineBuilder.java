@@ -1,15 +1,11 @@
 package seedu.address.testutil;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.MedicineName;
 import seedu.address.model.medicine.MinimumStockQuantity;
 import seedu.address.model.medicine.PricePerUnit;
 import seedu.address.model.medicine.SerialNumber;
 import seedu.address.model.medicine.Stock;
-import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Medicine objects.

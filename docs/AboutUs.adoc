@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Chester Sng
-image::chestersng.jpg[width="150", align="left"]
+image::chestersng.png[width="150", align="left"]
 {empty}[https://github.com/ChesterSng[github]] [<<chestersng#, portfolio>>]
 
 Role: Team Leader + Developer
@@ -19,7 +19,7 @@ Role: Team Leader + Developer
 '''
 
 === Bryan Lew
-image::blewjy.jpg[width="150", align="left"]
+image::blewjy.png[width="150", align="left"]
 {empty}[http://github.com/blewjy[github]] [<<blewjy#, portfolio>>]
 
 Role: Developer +
@@ -28,7 +28,7 @@ Responsibilities: UI
 '''
 
 === Clinton Law
-image::clawyq.jpg[width="150", align="left"]
+image::clawyq.png[width="150", align="left"]
 {empty}[http://github.com/clawyq[github]] [<<clawyq#, portfolio>>]
 
 Role: Developer +
@@ -37,7 +37,7 @@ Responsibilities: Data
 '''
 
 === Lee Yu Cong
-image::99percentile.jpg[width="150", align="left"]
+image::99percentile.png[width="150", align="left"]
 {empty}[http://github.com/99percentile[github]] [<<99percentile#, portfolio>>]
 
 Role: Developer +
@@ -46,7 +46,7 @@ Responsibilities: Storage
 '''
 
 === Syahiran Rafi
-image::syahiranrafi.jpg[width="150", align="left"]
+image::syahiranrafi.png[width="150", align="left"]
 {empty}[http://github.com/syahiranrafi[github]] [<<syahiranrafi#, portfolio>>]
 
 Role: Developer +

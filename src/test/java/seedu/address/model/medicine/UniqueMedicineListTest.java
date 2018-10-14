@@ -5,8 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MEDICINE_NAME_PANADOL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MINIMUM_STOCK_QUANTITY_PANADOL;
-import static seedu.address.testutil.TypicalMedicines.PANADOL;
 import static seedu.address.testutil.TypicalMedicines.ACETAMINOPHEN;
+import static seedu.address.testutil.TypicalMedicines.PANADOL;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -38,19 +38,27 @@ public class UniqueMedicineListTest {
     }
 
     @Test
-    public void contains_MedicineInList_returnsTrue() {
+    public void contains_medicineInList_returnsTrue() {
         uniqueMedicineList.add(ACETAMINOPHEN);
         assertTrue(uniqueMedicineList.contains(ACETAMINOPHEN));
     }
 
     @Test
-    public void contains_MedicineWithSameIdentityFieldsInList_returnsTrue() {
+    public void contains_medicineWithSameIdentityFieldsInList_returnsTrue() {
         uniqueMedicineList.add(ACETAMINOPHEN);
         Medicine editedAcetaminophen = new MedicineBuilder(ACETAMINOPHEN)
-                .withMedicineName(VALID_MEDICINE_NAME_PANADOL)
                 .withMinimumStockQuantity(VALID_MINIMUM_STOCK_QUANTITY_PANADOL)
                 .build();
         assertTrue(uniqueMedicineList.contains(editedAcetaminophen));
+    }
+
+    @Test
+    public void contains_medicineWithDifferentIdentityFieldsInList_returnsFalse() {
+        uniqueMedicineList.add(ACETAMINOPHEN);
+        Medicine editedAcetaminophen = new MedicineBuilder(ACETAMINOPHEN)
+                .withMedicineName(VALID_MEDICINE_NAME_PANADOL)
+                .build();
+        assertFalse(uniqueMedicineList.contains(editedAcetaminophen));
     }
 
     @Test
@@ -130,7 +138,7 @@ public class UniqueMedicineListTest {
     }
 
     @Test
-    public void remove_MedicineDoesNotExist_throwsMedicineNotFoundException() {
+    public void remove_medicineDoesNotExist_throwsMedicineNotFoundException() {
         thrown.expect(MedicineNotFoundException.class);
         uniqueMedicineList.remove(ACETAMINOPHEN);
     }
@@ -167,8 +175,8 @@ public class UniqueMedicineListTest {
     @Test
     public void setMedicines_list_replacesOwnListWithProvidedList() {
         uniqueMedicineList.add(ACETAMINOPHEN);
-        List<Medicine> MedicineList = Collections.singletonList(PANADOL);
-        uniqueMedicineList.setMedicines(MedicineList);
+        List<Medicine> medicineList = Collections.singletonList(PANADOL);
+        uniqueMedicineList.setMedicines(medicineList);
         UniqueMedicineList expectedUniqueMedicineList = new UniqueMedicineList();
         expectedUniqueMedicineList.add(PANADOL);
         assertEquals(expectedUniqueMedicineList, uniqueMedicineList);
