@@ -13,7 +13,6 @@ import seedu.souschef.commons.core.LogsCenter;
 import seedu.souschef.commons.exceptions.DataConversionException;
 import seedu.souschef.commons.exceptions.IllegalValueException;
 import seedu.souschef.commons.util.FileUtil;
-import seedu.souschef.model.AppContent;
 import seedu.souschef.model.ReadOnlyAppContent;
 import seedu.souschef.storage.XmlFeatureStorage;
 import seedu.souschef.storage.XmlFileStorage;
@@ -28,11 +27,6 @@ public class XmlHealthPlanStorage extends XmlFeatureStorage {
 
     public XmlHealthPlanStorage(Path filePath) {
         super(filePath);
-    }
-
-
-    public XmlHealthPlanStorage(Path filePath, AppContent appContent) {
-        super(filePath, appContent);
     }
 
     public Optional<ReadOnlyAppContent> readFeature() throws DataConversionException,
@@ -54,8 +48,10 @@ public class XmlHealthPlanStorage extends XmlFeatureStorage {
             logger.info("AppContent file " + filePath + " not found");
             return Optional.empty();
         }
-        XmlSerializableGeneric xmlhealthplanBook = new XmlSerializableHealthPlan();
-        xmlhealthplanBook = XmlFileStorage.loadDataFromSaveFile(filePath, "healthplan");
+        logger.info("enters XmlHealthPlanStorage from read");
+        XmlSerializableGeneric xmlhealthplanBook;
+        xmlhealthplanBook = new XmlSerializableHealthPlan((XmlSerializableHealthPlan)
+                XmlFileStorage.loadDataFromSaveFile(filePath, "healthplan"));
         try {
             return Optional.of(xmlhealthplanBook.toModelType());
         } catch (IllegalValueException ive) {

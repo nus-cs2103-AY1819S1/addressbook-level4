@@ -3,6 +3,7 @@ package seedu.souschef.logic.parser;
 import static org.junit.Assert.assertEquals;
 
 import seedu.souschef.logic.commands.Command;
+import seedu.souschef.logic.parser.commandparser.CommandParser;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.UniqueType;

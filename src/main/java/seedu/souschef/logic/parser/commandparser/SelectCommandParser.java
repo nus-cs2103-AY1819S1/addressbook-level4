@@ -1,9 +1,10 @@
-package seedu.souschef.logic.parser;
+package seedu.souschef.logic.parser.commandparser;
 
 import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.souschef.commons.core.index.Index;
 import seedu.souschef.logic.commands.SelectCommand;
+import seedu.souschef.logic.parser.ParserUtil;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
 

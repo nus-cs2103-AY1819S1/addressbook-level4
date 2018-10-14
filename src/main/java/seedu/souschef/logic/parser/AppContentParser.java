@@ -6,6 +6,8 @@ import java.util.regex.Pattern;
 
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.logic.commands.Command;
+import seedu.souschef.logic.parser.contextparser.RecipeParser;
+import seedu.souschef.logic.parser.contextparser.UniversalParser;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.ModelSet;
 

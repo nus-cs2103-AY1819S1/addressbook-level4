@@ -1,4 +1,4 @@
-package seedu.souschef.logic.parser;
+package seedu.souschef.logic.parser.contextparser;
 
 import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.souschef.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -13,6 +13,10 @@ import seedu.souschef.logic.commands.EditCommand;
 import seedu.souschef.logic.commands.FindCommand;
 import seedu.souschef.logic.commands.HelpCommand;
 import seedu.souschef.logic.commands.ListCommand;
+import seedu.souschef.logic.parser.commandparser.AddCommandParser;
+import seedu.souschef.logic.parser.commandparser.DeleteCommandParser;
+import seedu.souschef.logic.parser.commandparser.EditCommandParser;
+import seedu.souschef.logic.parser.commandparser.FindCommandParser;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.recipe.Recipe;

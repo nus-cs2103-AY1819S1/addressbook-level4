@@ -1,4 +1,4 @@
-package seedu.souschef.logic.parser;
+package seedu.souschef.logic.parser.commandparser;
 
 import seedu.souschef.logic.commands.Command;
 import seedu.souschef.logic.parser.exceptions.ParseException;
