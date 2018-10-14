@@ -4,7 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.TaskManager;
 
 /**
  * Represents a Task's dependency to another task in the task manager.
@@ -21,7 +26,9 @@ public class Dependency {
      */ //TODO: CHANGE TO CHECK FOR HASHCODE
     public static final String DESCRIPTION_VALIDATION_REGEX = "[^\\s].*";
 
-    private List<Task> value;
+
+    //TODO: Add information about how to initialize hashes
+    private Set<String> value = new HashSet<>();
 
     /**
      * Constructs an {@code Dependency}.
@@ -33,6 +40,17 @@ public class Dependency {
         //checkArgument(isValidDependency(dependencies), MESSAGE_DEPENDENCY_CONSTRAINTS);
         value = dependencies;
     }
+     **/
+    public Dependency(Set<String> hashes) {
+        if (hashes != null)
+            value = new HashSet<String>(hashes);
+    }
+
+    /**
+     * Constructs an empty dependency object
+     */
+    public Dependency(){}
+
 
     public Dependency(){
         value = new ArrayList<Task>();
