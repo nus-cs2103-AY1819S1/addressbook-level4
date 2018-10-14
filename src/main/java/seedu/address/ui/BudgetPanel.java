@@ -53,6 +53,7 @@ public class BudgetPanel extends UiPart<Region> {
         double budgetCap = budget.getBudgetCap();
         double currentExpenses = budget.getCurrentExpenses();
         updateBudgetBar(budgetCap, currentExpenses);
+        setBudgetUiColors(budgetCap, currentExpenses);
     }
 
     /**
@@ -139,5 +140,18 @@ public class BudgetPanel extends UiPart<Region> {
         }
     }
 
+    /**
+     * Changes the colors of the expenseDisplay and budget bar to red if overbudget, and green in below budget.
+     */
+    public void setBudgetUiColors(double budgetCap, double currentExpenses) {
+        if(budgetCap < currentExpenses) {
+            expenseDisplay.setStyle("-fx-fill: #ae3b3b;");
+            budgetBar.setStyle("-fx-accent: derive(#ae3b3b, 20%);");
+        } else {
+            expenseDisplay.setStyle("-fx-fill: #61a15a;");
+            budgetBar.setStyle("-fx-accent: derive(#61a15a, 20%);");
+        }
+
+    }
 
 }
