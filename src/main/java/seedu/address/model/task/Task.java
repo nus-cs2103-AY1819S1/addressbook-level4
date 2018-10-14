@@ -128,8 +128,11 @@ public class Task {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, dueDate, priorityValue, description, labels, status);
+        //status's string is used because status is an Enum, so each enum has a unique hashcode
+        return Objects.hash(name, dueDate, priorityValue, description, labels, status.toString());
     }
+
+
 
     @Override
     public String toString() {
