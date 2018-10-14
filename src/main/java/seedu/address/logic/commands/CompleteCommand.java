@@ -3,9 +3,11 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Predicate;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -16,35 +18,58 @@ import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
 
 /**
- * Lists all the commands entered by user from the start of app launch.
+ * Completes command given by an {@code Index} or {@code Task<Predicate>}
  */
 public class CompleteCommand extends Command {
 
     public static final String COMMAND_WORD = "complete";
     public static final String MESSAGE_SUCCESS = "Good job! You have completed your task:\n%1$s";
-    public static final String MESSAGE_NO_TASK_IDENTIFIED_BY_LABEL = "There are no tasks to "
+    public static final String MESSAGE_NO_COMPLETABLE_TASK_IDENTIFIED_BY_LABEL = "There are no tasks to "
         + "be found via your given label";
     public static final String MESSAGE_ALREADY_COMPLETED = "This task has already been completed";
-    //TODO: Change prompt to indicate usage with labels
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Completes the task identified by the Index number used in the displayed task list.\n"
+        + ": Completes the task identified by the Index number used in the displayed task list or a"
+        + " Label but not both.\n"
         + "Parameters: INDEX (must be a positive integer)\n"
-        + "Example: " + COMMAND_WORD + " 1";
+        + "Example: " + COMMAND_WORD + " 1\n"
+        + "Parameters: l/LABEL\n"
+        + "Example: " + COMMAND_WORD + " l/friends";
 
-    private final Set<Index> targetIndexes;
+    // Execution of completion of tasks will differ based on whether it is intended to be a batch operation
+    private final boolean isPredicateBasedBatchComplete;
+    private Index targetIndex;
+    private Predicate<Task> taskPredicate;
 
+    /**
+     * Constructor for single Index based execution
+     */
     public CompleteCommand(Index targetIndex) {
         requireNonNull(targetIndex);
-        this.targetIndexes = (Set.of(targetIndex));
+        this.isPredicateBasedBatchComplete = false;
+        this.targetIndex = targetIndex;
     }
 
+    /**
+     * Constructor for batch predicate based execution
+     */
+    public CompleteCommand(Predicate<Task> taskPredicate) {
+        this.isPredicateBasedBatchComplete = true;
+        this.taskPredicate = taskPredicate;
+    }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Task> lastShownList = model.getFilteredTaskList();
 
-        String completedTasksOutput = completeAllTasksReturnStringOfTasks(lastShownList, model);
+        String completedTasksOutput;
+
+        if (isPredicateBasedBatchComplete) {
+            completedTasksOutput = completeAllTasksReturnStringOfTasks(model);
+        } else {
+            List<Task> lastShownList = model.getFilteredTaskList();
+            completedTasksOutput = completeOneTaskReturnStringOfTask(
+                targetIndex, lastShownList, model);
+        }
 
         model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         model.commitTaskManager();
@@ -52,48 +77,66 @@ public class CompleteCommand extends Command {
     }
 
     /**
-     * Completes all tasks in a set, and returns a String representing all completed tasks.
+     * Completes all completable tasks that fulfills {@code Task<Predicate>}, and returns a String
+     * representing all completed tasks.
      * If a {@code CommandException} is thrown during the execution, all preceding completed tasks
      * will be rollbacked.
-     * @param lastShownList {@code List} containing all the valid tasks to complete
      * @param modelToUpdate model to update
-     * @return {@code String} representation of all the completed {@code Tasks}
-     * @throws CommandException
+     * @return {@code String} representation of all the completed {@code Task}
+     * @throws CommandException if there are no completable task that fulfills {@code taskPredicate}
      */
-    private String completeAllTasksReturnStringOfTasks(List<Task> lastShownList,
-                                                       Model modelToUpdate)
+    private String completeAllTasksReturnStringOfTasks(Model modelToUpdate)
         throws CommandException {
 
-        if (this.targetIndexes.isEmpty()) {
-            throw new CommandException(MESSAGE_NO_TASK_IDENTIFIED_BY_LABEL);
+        Iterator<Task> taskIterator = generateSetOfCompletableTasks(this.taskPredicate, modelToUpdate)
+            .iterator();
+        String completedTasks = "";
+
+        // throws an exception if there are no completable tasks
+        if (!taskIterator.hasNext()) {
+            throw new CommandException(MESSAGE_NO_COMPLETABLE_TASK_IDENTIFIED_BY_LABEL);
         }
 
-        // Iterates through the valid set of indexes and stores results in completedTasks.
-        Iterator<Index> indexIterator = this.targetIndexes.iterator();
-        String completedTasks = "";
         try {
-            while (indexIterator.hasNext()) {
-                Index indexOfTaskToComplete = indexIterator.next();
+            while (taskIterator.hasNext()) {
+                Task taskToComplete = taskIterator.next();
                 completedTasks += completeOneTaskReturnStringOfTask(
-                    indexOfTaskToComplete,
-                    lastShownList,
+                    taskToComplete,
                     modelToUpdate) + "\n";
             }
         } catch (CommandException ce) {
             modelToUpdate.rollbackTaskManager();
             throw ce;
         }
+
         return completedTasks.trim();
     }
 
     /**
-     * Completes a task as identified by its index, updates the model wihtout committing and returns
+     * Completes the task supplied, updates the model without committing the model and returns
      * the {@code String} representation of the {@code Task}.
-     * @param targetIndex {@code Index} of task to update
-     * @param lastShownList {@code List} containing all the valid tasks to complete
-     * @param modelToUpdate model to update
      * @return {@code String} representing the completed {@code Task}
-     * @throws CommandException
+     * @throws CommandException if the given {@code taskToComplete} is already completed
+     */
+    private String completeOneTaskReturnStringOfTask(Task taskToComplete, Model modelToUpdate)
+        throws CommandException {
+
+        if (taskToComplete.isCompleted()) {
+            throw new CommandException(MESSAGE_ALREADY_COMPLETED);
+        }
+
+        Task completedTask = createCompletedTask(taskToComplete);
+
+        modelToUpdate.updateTask(taskToComplete, completedTask);
+        return completedTask.toString();
+    }
+
+    /**
+     * Completes a task as identified by its index, updates the model without committing and returns
+     * the {@code String} representation of the {@code Task}.
+     * @param lastShownList {@code List} containing all the valid tasks to complete
+     * @return {@code String} representing the completed {@code Task}
+     * @throws CommandException if Index is invalid or task is already completed
      */
     private String completeOneTaskReturnStringOfTask(Index targetIndex,
                                                      List<Task> lastShownList,
@@ -113,6 +156,23 @@ public class CompleteCommand extends Command {
 
         modelToUpdate.updateTask(taskToComplete, completedTask);
         return completedTask.toString();
+    }
+
+    /**
+     * Generates a set of task that can be completed which also satisfies the supplied predicate.
+     * @param pred
+     * @param model
+     * @return
+     */
+    private Set<Task> generateSetOfCompletableTasks(Predicate<Task> pred, Model model) {
+        Set<Task> setOfTasks = new HashSet<>();
+        model.updateFilteredTaskList(pred.and(task -> !task.isCompleted()));
+        List<Task> filteredList = model.getFilteredTaskList();
+
+        // Add all of the completable tasks to setOFTasks
+        setOfTasks.addAll(filteredList);
+
+        return setOfTasks;
     }
 
     /**
@@ -137,7 +197,20 @@ public class CompleteCommand extends Command {
         if (obj == null) {
             return false;
         } else if (obj instanceof CompleteCommand) {
-            return targetIndexes.equals(((CompleteCommand) obj).targetIndexes);
+            CompleteCommand other = (CompleteCommand) obj;
+
+            // If either targetIndex or taskPredicate is null in one command but not the other
+            // return false
+            if ((targetIndex == null && targetIndex != other.targetIndex)
+                || taskPredicate == null && taskPredicate != other.taskPredicate) {
+                return false;
+            } else {
+                return (targetIndex == other.targetIndex // short circuits on match
+                    || targetIndex.equals(other.targetIndex)
+                        && (taskPredicate == other.taskPredicate || // short circuits on match
+                        taskPredicate.equals(other.taskPredicate))
+                        && isPredicateBasedBatchComplete == other.isPredicateBasedBatchComplete);
+            }
         } else {
             // superclass's implementation might pass,
             // although in this instance it's a == relationship.
