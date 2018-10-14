@@ -14,6 +14,10 @@ import javafx.util.Duration;*/
  */
 
 public class NotificationWindow {
+
+    /**
+     * Creates and displays a notification
+     */
     public static void display() {
     /*public static void display(String title, String message) {
 
