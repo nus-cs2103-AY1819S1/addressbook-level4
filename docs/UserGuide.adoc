@@ -306,6 +306,7 @@ e.g. `findPatient James Jake`
 * *List* : `list`
 * *Login* : `login r/ROLE n/NAME pass/PASSWORD` +
 e.g. `login r/doctor n/Adam Bell pass/-------`
+* *Logout* : `logout`
 * *Redo* : `redo`
 * *Select* : `selectPatient INDEX` +
 e.g.`selectPatient 2`
