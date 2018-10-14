@@ -64,11 +64,13 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         String oldHash = Integer.toString(target.hashCode());
         String newHash = Integer.toString(editedTask.hashCode());
-        for (int i = 0; i < internalList.size(); i++) {
-            Task task = internalList.get(i);
-            if (task.isDependentOn(target)) {
-                Task newTask = createUpdatedHashReferenceTask(task, oldHash, newHash);
-                internalList.set(i, newTask);
+        if (!oldHash.equals(newHash)) {
+            for (int i = 0; i < internalList.size(); i++) {
+                Task task = internalList.get(i);
+                if (task.isDependentOn(target)) {
+                    Task newTask = createUpdatedHashReferenceTask(task, oldHash, newHash);
+                    internalList.set(i, newTask);
+                }
             }
         }
 
