@@ -89,16 +89,17 @@ public class FindCommandParser implements Parser<FindCommand> {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         Date.DATE_FORMAT_CONSTRAINTS));
             }
-            if (dates.length == 2) {
-                if (!Date.isValidDate(dates[0]) || !Date.isValidDate(dates[1])) {
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                            Date.DATE_FORMAT_CONSTRAINTS));
-                }
-                if (new Date(dates[1]).isEalierThan(new Date(dates[0]))) {
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                            MESSAGE_INVALID_RANGE));
-                }
+
+            if (dates.length == 2 && (!Date.isValidDate(dates[0]) || !Date.isValidDate(dates[1]))) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        Date.DATE_FORMAT_CONSTRAINTS));
             }
+
+            if (dates.length == 2 && new Date(dates[1]).isEalierThan(new Date(dates[0]))) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        MESSAGE_INVALID_RANGE));
+            }
+
             if (dates.length > 2) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         MESSAGE_INVALID_DATE_KEYWORDS_FORMAT));
@@ -112,16 +113,17 @@ public class FindCommandParser implements Parser<FindCommand> {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         Cost.MESSAGE_COST_CONSTRAINTS));
             }
-            if (costs.length == 2) {
-                if (!Cost.isValidCost(costs[0]) || !Cost.isValidCost(costs[1])) {
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                            Cost.MESSAGE_COST_CONSTRAINTS));
-                }
-                if (Double.parseDouble(costs[1]) < Double.parseDouble(costs[0])) {
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                            MESSAGE_INVALID_RANGE));
-                }
+
+            if (costs.length == 2 && (!Cost.isValidCost(costs[0]) || !Cost.isValidCost(costs[1]))) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        Cost.MESSAGE_COST_CONSTRAINTS));
             }
+
+            if (costs.length == 2 && Double.parseDouble(costs[1]) < Double.parseDouble(costs[0])) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        MESSAGE_INVALID_RANGE));
+            }
+
             if (costs.length > 2) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         MESSAGE_INVALID_COST_KEYWORDS_FORMAT));
