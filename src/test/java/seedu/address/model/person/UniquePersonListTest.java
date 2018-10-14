@@ -52,21 +52,6 @@ public class UniquePersonListTest {
     }
 
     @Test
-    public void clear_personNotInList_returnsFalse() {
-        uniquePersonList.add(ALICE);
-        uniquePersonList.clear();
-        assertFalse(uniquePersonList.contains(ALICE));
-    }
-
-    @Test
-    public void clear_personInList_returnsTrue() {
-        uniquePersonList.add(BOB);
-        uniquePersonList.clear();
-        uniquePersonList.add(ALICE);
-        assertTrue(uniquePersonList.contains(ALICE));
-    }
-
-    @Test
     public void add_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniquePersonList.add(null);

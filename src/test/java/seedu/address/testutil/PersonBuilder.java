@@ -3,8 +3,6 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.group.Group;
-import seedu.address.model.group.UniqueGroupList;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -28,9 +26,6 @@ public class PersonBuilder {
     private Email email;
     private Address address;
     private Set<Tag> tags;
-    private UniqueGroupList groups;
-
-    @Deprecated
     private Set<Tag> groupTags;
 
     public PersonBuilder() {
@@ -39,7 +34,6 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
-        groups = new UniqueGroupList();
         groupTags = new HashSet<>();
     }
 
@@ -52,7 +46,6 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         tags = new HashSet<>(personToCopy.getTags());
-        groups = new UniqueGroupList();
         groupTags = new HashSet<>(personToCopy.getGroupTags());
     }
 
@@ -70,14 +63,6 @@ public class PersonBuilder {
      */
     public PersonBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
-        return this;
-    }
-
-    /**
-     * Sets the {@code group} of the {@code Person} that we are building.
-     */
-    public PersonBuilder withGroup(Group group) {
-        this.groups.add(group);
         return this;
     }
 
@@ -120,7 +105,7 @@ public class PersonBuilder {
      * @return The new person
      */
     public Person build() {
-        Person person = new Person(name, phone, email, address, tags, groups);
+        Person person = new Person(name, phone, email, address, tags);
         if (!groupTags.isEmpty()) {
             person.setGroupTags(groupTags);
         }

@@ -20,7 +20,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonPropertyComparator;
 import seedu.address.model.tag.Tag;
@@ -119,11 +118,6 @@ public class AddCommandTest {
 
         @Override
         public void updatePerson(Person target, Person editedPerson) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateGroup(Group target, Group editedGroup) {
             throw new AssertionError("This method should not be called.");
         }
 
