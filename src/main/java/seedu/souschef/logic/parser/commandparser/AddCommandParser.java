@@ -10,7 +10,6 @@ import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -67,8 +66,8 @@ public class AddCommandParser implements CommandParser<AddCommand> {
     @Override
     public AddCommand<Ingredient> parseIngredient(Model model, String args) throws ParseException {
         requireNonNull(model);
-        String[] tokens = args.split(" ");
-        if (tokens.length != 3) {
+        String[] tokens = args.trim().split(" ");
+        if (tokens.length != 4) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
@@ -77,14 +76,12 @@ public class AddCommandParser implements CommandParser<AddCommand> {
         ServingUnit servingUnit = ServingUnit.valueOf(tokens[2]);
         Date date;
         try {
-            date = new SimpleDateFormat("mm-dd-yyyy").parse(tokens[3]);
+            date = new SimpleDateFormat("MM-dd-yyyy").parse(tokens[3]);
         } catch (java.text.ParseException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
         Ingredient toAdd = new Ingredient(name, amount, servingUnit, date);
-
-        List<Ingredient> lastShownList = model.getFilteredList();
 
         return new AddCommand<>(model, toAdd);
     }
