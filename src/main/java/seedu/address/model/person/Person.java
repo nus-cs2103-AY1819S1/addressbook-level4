@@ -19,12 +19,12 @@ public class Person {
     private final Name name;
     private final Phone phone;
     private final Email email;
-    private final Fees tuitionFee;
 
 
     // Data fields
     private final Address address;
     private final Education education;
+    private final Fees tuitionFee;
     private final Grades grades;
     private final Time time;
     private final Set<Tag> tags = new HashSet<>();

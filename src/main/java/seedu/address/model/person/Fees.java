@@ -14,27 +14,20 @@ public class Fees {
     public static final double SECONDARY_BASE_AMOUNT = 30.00;
     public static final double JC_BASE_AMOUNT = 35.00;
 
-    private static double feesPerHr;
+    public final String value;
 
     private static DecimalFormat df = new DecimalFormat("#.00");
 
 
     public Fees(Education education) {
         requireNonNull(education);
-        setFeesPerHr(education);
-    }
-
-    /**
-     * Returns the tuition fee of a student.
-     */
-    public double getFeesPerHr() {
-        return feesPerHr;
+        value = df.format(setFeesPerHr(education));
     }
 
     /**
      * Sets the tuition fee of a student based on his educational level and grade.
      */
-    public static void setFeesPerHr(Education education) {
+    public static double setFeesPerHr(Education education) {
         double baseAmount = 0.00;
 
         switch (education.getEducationalLevel()) {
@@ -49,10 +42,10 @@ public class Fees {
             break;
         }
 
-        feesPerHr = baseAmount + education.getEducationalGrade();
+        return baseAmount + education.getEducationalGrade();
     }
 
     @Override
     public String toString() {
-        return "$" + df.format(feesPerHr) + "/hour"; }
+        return "$" + value + "/hour"; }
 }
