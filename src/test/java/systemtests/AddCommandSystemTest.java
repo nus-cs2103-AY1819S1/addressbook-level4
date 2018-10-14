@@ -53,9 +53,9 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
     public void add() {
         Model model = getModel();
 
-        /* ------------------------ Perform addMember operations on the shown unfiltered list ----------------------------- */
+        /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: addMember a person without tags to a non-empty address book, command with leading spaces and trailing spaces
+        /* Case: add a person without tags to a non-empty address book, command with leading spaces and trailing spaces
          * -> added
          */
         Person toAdd = AMY;
@@ -74,66 +74,66 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: addMember a person with all fields same as another person in the address book except name -> added */
+        /* Case: add a person with all fields same as another person in the address book except name -> added */
         toAdd = new PersonBuilder(AMY).withName(VALID_NAME_BOB).build();
         command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
                 + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: addMember a person with all fields same as another person in the address book except phone and email
+        /* Case: add a person with all fields same as another person in the address book except phone and email
          * -> added
          */
         toAdd = new PersonBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
-        /* Case: addMember to empty address book -> added */
+        /* Case: add to empty address book -> added */
         deleteAllPersons();
         assertCommandSuccess(ALICE);
 
-        /* Case: addMember a person with tags, command with parameters in random order -> added */
+        /* Case: add a person with tags, command with parameters in random order -> added */
         toAdd = BOB;
         command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
                 + TAG_DESC_HUSBAND + EMAIL_DESC_BOB + TAG_DESC_CCA;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: addMember a person, missing tags -> added */
+        /* Case: add a person, missing tags -> added */
         assertCommandSuccess(HOON);
 
-        /* -------------------------- Perform addMember operation on the shown filtered list ------------------------------ */
+        /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
         /* Case: filters the person list before adding -> added */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         assertCommandSuccess(IDA);
 
-        /* ------------------------ Perform addMember operation while a person card is selected --------------------------- */
+        /* ------------------------ Perform add operation while a person card is selected --------------------------- */
 
-        /* Case: selects first card in the person list, addMember a person -> added, card selection remains unchanged */
+        /* Case: selects first card in the person list, add a person -> added, card selection remains unchanged */
         selectPerson(Index.fromOneBased(1));
         assertCommandSuccess(CARL);
 
-        /* ----------------------------------- Perform invalid addMember operations --------------------------------------- */
+        /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
-        /* Case: addMember a duplicate person -> rejected */
+        /* Case: add a duplicate person -> rejected */
         command = PersonUtil.getAddCommand(HOON);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
-        /* Case: addMember a duplicate person except with different phone -> rejected */
+        /* Case: add a duplicate person except with different phone -> rejected */
         toAdd = new PersonBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
-        /* Case: addMember a duplicate person except with different email -> rejected */
+        /* Case: add a duplicate person except with different email -> rejected */
         toAdd = new PersonBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
-        /* Case: addMember a duplicate person except with different address -> rejected */
+        /* Case: add a duplicate person except with different address -> rejected */
         toAdd = new PersonBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
-        /* Case: addMember a duplicate person except with different tags -> rejected */
+        /* Case: add a duplicate person except with different tags -> rejected */
         command = PersonUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 

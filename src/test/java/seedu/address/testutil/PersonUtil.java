@@ -20,7 +20,7 @@ import seedu.address.model.tag.Tag;
 public class PersonUtil {
 
     /**
-     * Returns an addMember command string for adding the {@code person}.
+     * Returns an add command string for adding the {@code person}.
      */
     public static String getAddCommand(Person person) {
         return AddCommand.COMMAND_WORD + " " + getPersonDetails(person);

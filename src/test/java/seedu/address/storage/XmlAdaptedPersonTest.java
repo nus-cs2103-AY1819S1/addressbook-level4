@@ -119,5 +119,5 @@ public class XmlAdaptedPersonTest {
         Assert.assertThrows(IllegalValueException.class, person::toModelType);
     }
 
-    //TODO addMember invalid group tags test
+    //TODO add invalid group tags test
 }
