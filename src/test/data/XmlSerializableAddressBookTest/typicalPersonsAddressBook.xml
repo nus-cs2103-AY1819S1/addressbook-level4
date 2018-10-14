@@ -51,14 +51,16 @@
 		<eventName>Doctor appointment</eventName>
 		<eventDescription>Consultation</eventDescription>
 		<eventDate>2018-09-01</eventDate>
-		<eventTime>1400</eventTime>
+		<eventStartTime>1400</eventStartTime>
+        <eventEndTime>1500</eventEndTime>
 		<eventAddress>Blk 312, Amy Street 1</eventAddress>
 	</events>
 	<events>
 		<eventName>Meeting</eventName>
 		<eventDescription>Group meeting desc</eventDescription>
 		<eventDate>2018-09-09</eventDate>
-		<eventTime>0900</eventTime>
+		<eventStartTime>0900</eventStartTime>
+        <eventEndTime>1200</eventEndTime>
 		<eventAddress>Block 123, Bobby Street 3</eventAddress>
 	</events>
 </addressbook>

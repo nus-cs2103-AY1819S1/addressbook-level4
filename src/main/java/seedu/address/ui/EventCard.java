@@ -23,7 +23,9 @@ public class EventCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label time;
+    private Label startTime;
+    @FXML
+    private Label endTime;
     @FXML
     private Label name;
     @FXML
@@ -37,7 +39,9 @@ public class EventCard extends UiPart<Region> {
 
         this.event = event;
         id.setText("[" + displayedIndex + "] ");
-        time.setText(event.getEventTime().toString());
+        // use time representation with colon from LocalTime
+        startTime.setText(event.getEventStartTime().eventTime.toString());
+        endTime.setText(event.getEventEndTime().eventTime.toString());
         name.setText(event.getEventName().eventName);
         address.setText(event.getEventAddress().eventAddress);
         description.setText(event.getEventDescription().eventDescription);

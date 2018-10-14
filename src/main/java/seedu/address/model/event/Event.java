@@ -2,7 +2,6 @@ package seedu.address.model.event;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.time.DayOfWeek;
 import java.util.Objects;
 
 /**
@@ -16,26 +15,27 @@ public class Event {
     private final EventDescription eventDescription;
     private final EventDate eventDate;
     private final EventDay eventDay;
-    private final EventTime eventTime;
+    private final EventTime eventStartTime;
+    private final EventTime eventEndTime;
 
     // data fields
     private final EventAddress eventAddress;
 
     /**
-     * Every field must be present and not null.
+     * Every field must be present and not null. End time must be later than start time.
      */
-    public Event(EventName eventName, EventDescription eventDescription, EventDate eventDate, EventTime eventTime,
-                 EventAddress eventAddress) {
-        requireAllNonNull(eventName, eventDescription, eventDate, eventTime, eventAddress);
+    public Event(EventName eventName, EventDescription eventDescription, EventDate eventDate, EventTime eventStartTime,
+                 EventTime eventEndTime, EventAddress eventAddress) {
+        requireAllNonNull(eventName, eventDescription, eventDate, eventStartTime, eventAddress);
+
         this.eventName = eventName;
         this.eventDescription = eventDescription;
         this.eventDate = eventDate;
         this.eventDay = new EventDay(eventDate.getEventDay());
-        this.eventTime = eventTime;
+        this.eventStartTime = eventStartTime;
+        this.eventEndTime = eventEndTime;
         this.eventAddress = eventAddress;
     }
-
-    // todo: change type of getter functions when classes for the attributes are created
 
     public EventName getEventName() {
         return eventName;
@@ -49,8 +49,12 @@ public class Event {
         return eventDate;
     }
 
-    public EventTime getEventTime() {
-        return eventTime;
+    public EventTime getEventStartTime() {
+        return eventStartTime;
+    }
+
+    public EventTime getEventEndTime() {
+        return eventEndTime;
     }
 
     public EventAddress getEventAddress() {
@@ -86,29 +90,32 @@ public class Event {
         return otherPerson.getEventName().equals(getEventName())
                 && otherPerson.getEventDescription().equals(getEventDescription())
                 && otherPerson.getEventDate().equals(getEventDate())
-                && otherPerson.getEventTime().equals(getEventTime())
+                && otherPerson.getEventStartTime().equals(getEventStartTime())
+                && otherPerson.getEventEndTime().equals(getEventEndTime())
                 && otherPerson.getEventAddress().equals(getEventAddress());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(eventName, eventDescription, eventDate, eventTime, eventAddress);
+        return Objects.hash(eventName, eventDescription, eventDate, eventStartTime, eventAddress);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getEventName())
-                .append(" EventDescription: ")
+                .append(" Event description: ")
                 .append(getEventDescription())
-                .append(" EventDate: ")
+                .append(" Event date: ")
                 .append(getEventDate())
-                .append(" Event Day: ")
+                .append(" Event day: ")
                 .append(getEventDay())
-                .append(" EventTime: ")
-                .append(getEventTime())
-                .append(" Address: ")
+                .append(" Event start time: ")
+                .append(getEventStartTime())
+                .append(" Event end time: ")
+                .append(getEventEndTime())
+                .append(" Event Address: ")
                 .append(getEventAddress());
         return builder.toString();
     }

@@ -159,6 +159,7 @@ public class ModelManager extends ComponentManager implements Model {
         // convert the map to a FilteredList
         ObservableList<List<Event>> filteredEventsByDateList = FXCollections.observableArrayList();
         filteredEventsByDateList.addAll(filteredEventsByDateMap.values());
+        filteredEventsByDateList.sort(filteredEventsByDateMap.keySet());
         FilteredList<List<Event>> filteredEventsByDate = new FilteredList<>(filteredEventsByDateList);
 
         return FXCollections.unmodifiableObservableList(filteredEventsByDate);

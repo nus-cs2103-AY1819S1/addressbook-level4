@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import static seedu.address.logic.parser.AddEventCommandParser.MESSAGE_INVALID_START_END_TIME;
+
 import java.util.Objects;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -26,7 +28,9 @@ public class XmlAdaptedEvent {
     @XmlElement(required = true)
     private String eventDate;
     @XmlElement(required = true)
-    private String eventTime;
+    private String eventStartTime;
+    @XmlElement(required = true)
+    private String eventEndTime;
     @XmlElement(required = true)
     private String eventAddress;
 
@@ -39,12 +43,13 @@ public class XmlAdaptedEvent {
     /**
      * Constructs an {@code XmlAdaptedEvent} with the given event details.
      */
-    public XmlAdaptedEvent(String eventName, String eventDescription, String eventDate, String eventTime,
-                           String eventAddress) {
+    public XmlAdaptedEvent(String eventName, String eventDescription, String eventDate, String eventStartTime,
+                           String eventEndTime, String eventAddress) {
         this.eventName = eventName;
         this.eventDescription = eventDescription;
         this.eventDate = eventDate;
-        this.eventTime = eventTime;
+        this.eventStartTime = eventStartTime;
+        this.eventEndTime = eventEndTime;
         this.eventAddress = eventAddress;
     }
 
@@ -57,7 +62,8 @@ public class XmlAdaptedEvent {
         eventName = source.getEventName().eventName;
         eventDescription = source.getEventDescription().eventDescription;
         eventDate = source.getEventDate().toString();
-        eventTime = source.getEventTime().toString();
+        eventStartTime = source.getEventStartTime().toString();
+        eventEndTime = source.getEventEndTime().toString();
         eventAddress = source.getEventAddress().eventAddress;
     }
 
@@ -94,14 +100,29 @@ public class XmlAdaptedEvent {
         }
         final EventDate modelDate = new EventDate(eventDate);
 
-        if (eventTime == null) {
+        if (eventStartTime == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    EventTime.class.getSimpleName()));
+                    "Start" + EventTime.class.getSimpleName()));
         }
-        if (!EventTime.isValidTime(eventTime)) {
+        if (!EventTime.isValidTime(eventStartTime)) {
             throw new IllegalValueException(EventTime.MESSAGE_TIME_CONSTRAINTS);
         }
-        final EventTime modelTime = new EventTime(eventTime);
+        final EventTime modelStartTime = new EventTime(eventStartTime);
+
+        if (eventEndTime == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    "End" + EventTime.class.getSimpleName()));
+        }
+        if (!EventTime.isValidTime(eventEndTime)) {
+            throw new IllegalValueException(EventTime.MESSAGE_TIME_CONSTRAINTS);
+        }
+        final EventTime modelEndTime = new EventTime(eventEndTime);
+
+        // check for logical start and end time
+        if (modelEndTime.eventTime.compareTo(modelStartTime.eventTime) < 0) {
+            throw new IllegalValueException(String.format(MESSAGE_INVALID_START_END_TIME, modelStartTime,
+                    modelEndTime));
+        }
 
         if (eventAddress == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -112,7 +133,7 @@ public class XmlAdaptedEvent {
         }
         final EventAddress modelAddress = new EventAddress(eventAddress);
 
-        return new Event(modelName, modelDescription, modelDate, modelTime, modelAddress);
+        return new Event(modelName, modelDescription, modelDate, modelStartTime, modelEndTime, modelAddress);
     }
 
     @Override
@@ -129,7 +150,8 @@ public class XmlAdaptedEvent {
         return Objects.equals(eventName, otherEvent.eventName)
                 && Objects.equals(eventDescription, otherEvent.eventDescription)
                 && Objects.equals(eventDate, otherEvent.eventDate)
-                && Objects.equals(eventTime, otherEvent.eventTime)
+                && Objects.equals(eventStartTime, otherEvent.eventStartTime)
+                && Objects.equals(eventEndTime, otherEvent.eventEndTime)
                 && Objects.equals(eventAddress, otherEvent.eventAddress);
     }
 }
