@@ -9,6 +9,8 @@
 :xrefstyle: full
 :experimental:
 ifdef::env-github[]
+:important-caption: :important:
+:warning-caption: :warning:
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
@@ -25,7 +27,7 @@ Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
-Follow the instructions below to install and use ClinicIO. 
+Follow the instructions below to install and use ClinicIO.
 
 [IMPORTANT]
 Ensure you have Java version `9` or later installed in your Computer. +
