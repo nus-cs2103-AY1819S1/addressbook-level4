@@ -41,6 +41,10 @@ public class DependencyTest {
         assertThrows(NullPointerException.class, () -> new Dependency().addDependency(null));
     }
 
+    @Test
+    public void removeDependency_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new Dependency().removeDependency(null));
+    }
 
     @Test
     public void addDependency() {
@@ -52,6 +56,13 @@ public class DependencyTest {
         assertEquals(expectedDependency, SAMPLE_DEPENDENCY.addDependency(toBeAdded));
     }
 
+    @Test
+    public void removeDependency() {
+        //Creating expected dependency
+        SAMPLE_SET.remove(Integer.toString(SAMPLE_TASK_IN_DEPENDENCY.hashCode()));
+        Dependency expectedDependency = new Dependency(SAMPLE_SET);
+        //Checking equality
+        assertEquals(expectedDependency, SAMPLE_DEPENDENCY.removeDependency(SAMPLE_TASK_IN_DEPENDENCY));
     }
 
 }
