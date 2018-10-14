@@ -49,6 +49,26 @@ public class DependencyCommand extends Command {
         model.commitTaskManager();
         return new CommandResult(String.format(MESSAGE_SUCCESS, updatedTask));
     }
+    /**
+     * Returns a {@code Task} with it's the additional dependancy added.
+     * @param dependeeTask An immutable task passed to have its attributes copied
+     * @return A new immutable task similar to dependeeTask but with additional dependency
+     */
+    public Task createDependeeTask(Task dependeeTask, Task dependantTask) {
+        return new Task(
+                dependeeTask.getName(),
+                dependeeTask.getDueDate(),
+                dependeeTask.getPriorityValue(),
+                dependeeTask.getDescription(),
+                dependeeTask.getLabels(),
+                dependeeTask.getStatus(),
+                dependeeTask.getDependency().addDependency(dependantTask)
+        );
+    }
+
+
+
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
