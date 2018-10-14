@@ -37,6 +37,13 @@ public class UniqueGroupList implements Iterable<Group> {
     }
 
     /**
+     * Empty the list of groups.
+     */
+    public void clear() {
+        internalList.clear();
+    }
+
+    /**
      * Adds a group to the list.
      * The group must not already exist in the list.
      */

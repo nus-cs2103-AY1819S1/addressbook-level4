@@ -53,6 +53,21 @@ public class UniqueGroupListTest {
     }
 
     @Test
+    public void clear_groupNotInList_returnsFalse() {
+        uniqueGroupList.add(PROJECT_2103T);
+        uniqueGroupList.clear();
+        assertFalse(uniqueGroupList.contains(PROJECT_2103T));
+    }
+
+    @Test
+    public void clear_groupInList_returnsTrue() {
+        uniqueGroupList.add(GROUP_2101);
+        uniqueGroupList.clear();
+        uniqueGroupList.add(PROJECT_2103T);
+        assertTrue(uniqueGroupList.contains(PROJECT_2103T));
+    }
+
+    @Test
     public void add_nullGroup_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueGroupList.add(null);
