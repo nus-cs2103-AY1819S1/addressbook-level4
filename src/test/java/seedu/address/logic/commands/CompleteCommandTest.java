@@ -200,8 +200,12 @@ public class CompleteCommandTest {
 
     /**
      * Helper method for more complicated batch completion on {@code Label} match.
+     *
+     * @return an Expected-Model Expected-String pair
      */
-    private Pair<Model, String> produceExpectedModelOnLabelKeywordMatch(String labelString, Model model) {
+    private Pair<Model, String> produceExpectedModelExpectedMessagePairOnLabelKeywordMatch(
+        String labelString,
+        Model model) {
 
         ModelManager expectedModel = new ModelManager(model.getTaskManager(), new UserPrefs());
         StringBuilder expectedMessage = new StringBuilder();
