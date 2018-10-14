@@ -27,4 +27,8 @@ public class CliSyntax {
 
     /** Prefix definitions for dietary related commands. */
     public static final Prefix PREFIX_ALLERGY = new Prefix("alg/");
+
+    /** Ordered prefixes for the visitorin command. */
+    public static final Prefix PREFIX_VISITOR = new Prefix("v/");
+    
 }
