@@ -120,10 +120,10 @@ Edits the phone number and email address of the 1st patient to be `91234567` and
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd patient to be `Betsy Crower` and clears all existing tags.
 
-=== Locating patients by name: `find`
+=== Locating patients by name: `findPatient`
 
 Finds patients whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `findPatient KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
@@ -135,9 +135,9 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 
-* `find John` +
+* `findPatient John` +
 Returns `john` and `John Doe`
-* `find Betsy Tim John` +
+* `findPatient Betsy Tim John` +
 Returns any patient having names `Betsy`, `Tim`, or `John`
 
 === Deleting a patient : `delete`
@@ -285,8 +285,8 @@ e.g. `addPatient n/John Doe ic/S1234567D p/98765432 e/johnd@example.com a/John s
 e.g. `delete 3`
 * *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
+* *Find* : `findPatient KEYWORD [MORE_KEYWORDS]` +
+e.g. `findPatient James Jake`
 * *Help* : `help`
 * *History* : `history`
 * *List* : `list`
