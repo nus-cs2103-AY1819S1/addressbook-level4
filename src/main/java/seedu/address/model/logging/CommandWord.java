@@ -12,7 +12,7 @@ public class CommandWord {
      * Instantiates a CommandWord.
      */
     public CommandWord(String commandWordString) {
-        if(!AllCommandWords.isCommandWord(commandWordString)) {
+        if (!AllCommandWords.isCommandWord(commandWordString)) {
             throw new IllegalArgumentException("Not a valid commandWord!");
         }
         this.commandWordString = commandWordString;
