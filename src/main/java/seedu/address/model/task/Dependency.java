@@ -100,6 +100,12 @@ public class Dependency {
     }
     @Override
     public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for (String hash: value) {
+            builder.append(hash);
+            builder.append(" ");
+        }
+        return builder.toString();
     }
 
     @Override
@@ -108,7 +114,7 @@ public class Dependency {
                 || (other instanceof Dependency // instanceof handles nulls
                 && value.equals(((Dependency) other).value)); // state check
     }
-
+    //TODO: Remove below as it is not needed
     @Override
     public int hashCode() {
         return value.hashCode();
