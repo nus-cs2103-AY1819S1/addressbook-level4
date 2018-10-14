@@ -14,7 +14,7 @@ public class Fees {
     public static final double SECONDARY_BASE_AMOUNT = 30.00;
     public static final double JC_BASE_AMOUNT = 35.00;
 
-    public static double feesPerHr;
+    private static double feesPerHr;
 
     private static DecimalFormat df = new DecimalFormat("#.00");
 
@@ -25,24 +25,31 @@ public class Fees {
     }
 
     /**
+     * Returns the tuition fee of a student.
+     */
+    public double getFeesPerHr() {
+        return feesPerHr;
+    }
+
+    /**
      * Sets the tuition fee of a student based on his educational level and grade.
      */
     public static void setFeesPerHr(Education education) {
         double baseAmount = 0.00;
 
-        switch (education.educationalLevel) {
+        switch (education.getEducationalLevel()) {
         case PRIMARY:
             baseAmount = PRIMARY_BASE_AMOUNT;
             break;
         case SECONDARY:
             baseAmount = SECONDARY_BASE_AMOUNT;
             break;
-        case JC:
+        default:
             baseAmount = JC_BASE_AMOUNT;
             break;
         }
 
-        feesPerHr = baseAmount + education.educationalGrade;
+        feesPerHr = baseAmount + education.getEducationalGrade();
     }
 
     @Override

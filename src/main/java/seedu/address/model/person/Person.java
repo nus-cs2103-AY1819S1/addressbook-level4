@@ -62,13 +62,15 @@ public class Person {
         return address;
     }
 
-    public Education getEducation(){ return education; }
+    public Education getEducation() { return education; }
 
     public Grades getGrades() {
         return grades;
     }
 
-    public Time getTime() { return time; }
+    public Time getTime() {
+        return time;
+    }
 
     public Fees getFees() {
         return tuitionFee;
