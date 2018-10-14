@@ -19,6 +19,7 @@ import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.exceptions.UserNotJoinedEventException;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 
 /**
  * Command adds a vote to the specified poll and option.
@@ -62,6 +63,8 @@ public class VoteCommand extends Command {
             throw new CommandException(Messages.MESSAGE_NO_POLL_AT_INDEX);
         } catch (IllegalArgumentException e) {
             throw new CommandException(Messages.MESSAGE_NO_SUCH_OPTION);
+        } catch (DuplicatePersonException e) {
+            throw new CommandException(Messages.MESSAGE_HAVE_ALREADY_VOTED);
         } catch (NoUserLoggedInException e) {
             throw new CommandException(Messages.MESSAGE_NO_USER_LOGGED_IN);
         } catch (NoEventSelectedException e) {

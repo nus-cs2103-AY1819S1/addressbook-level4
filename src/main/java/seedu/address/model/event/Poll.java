@@ -9,6 +9,8 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 
 /**
  * Represents a poll associated with an event.
@@ -16,7 +18,7 @@ import seedu.address.model.person.Person;
 public class Poll {
     private int id;
     private String pollName;
-    private HashMap<String, LinkedList<Person>> pollData;
+    private HashMap<String, UniquePersonList> pollData;
 
     /**
      * Creates a new Poll object
@@ -31,7 +33,7 @@ public class Poll {
     /**
      * Creates a new poll object with the poll data.
      */
-    public Poll(int id, String pollName, HashMap<String, LinkedList<Person>> pollData) {
+    public Poll(int id, String pollName, HashMap<String, UniquePersonList> pollData) {
         this.id = id;
         this.pollName = pollName;
         this.pollData = pollData;
@@ -45,7 +47,7 @@ public class Poll {
         return pollName;
     }
 
-    public HashMap<String, LinkedList<Person>> getPollData() {
+    public HashMap<String, UniquePersonList> getPollData() {
         return pollData;
     }
 
@@ -54,14 +56,14 @@ public class Poll {
      * @param option The string representing the option to be added
      */
     public void addOption(String option) {
-        LinkedList<Person> personList = new LinkedList<>();
+        UniquePersonList personList = new UniquePersonList();
         pollData.put(option, personList);
     }
 
     /**
      * Adds the vote of a user into an option
      */
-    public void addVote(String option, Person person) throws IllegalArgumentException {
+    public void addVote(String option, Person person) throws IllegalArgumentException, DuplicatePersonException {
         if (!pollData.containsKey(option)) {
             throw new IllegalArgumentException();
         }
@@ -72,12 +74,7 @@ public class Poll {
      * Updates the person in the poll votes.
      */
     public void updatePerson(Person target, Person editedPerson) {
-        pollData.forEach((k, v) -> {
-            if (v.contains(target)) {
-                int index = v.indexOf(target);
-                v.set(index, editedPerson);
-            }
-        });
+        pollData.forEach((k, v) -> v.setPerson(target, editedPerson));
     }
 
     /**
@@ -116,7 +113,8 @@ public class Poll {
     public String displayPollData() {
         HashMap<String, List<String>> displayData = new HashMap<>();
         pollData.forEach((k, v) -> {
-            List<String> nameList = v.stream()
+            List<String> nameList = v.asUnmodifiableObservableList()
+                    .stream()
                     .map(person -> person.getName().toString())
                     .collect(Collectors.toList());
             displayData.put(k, nameList);

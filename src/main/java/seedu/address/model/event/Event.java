@@ -216,7 +216,7 @@ public class Event {
      * Adds a person to an option of the poll at the specified index, only if person has joined the event.
      */
     public void addVoteToPoll(Index pollIndex, Person person, String option)
-            throws UserNotJoinedEventException {
+            throws UserNotJoinedEventException, DuplicatePersonException {
         if (!personList.contains(person)) {
             throw new UserNotJoinedEventException();
         }

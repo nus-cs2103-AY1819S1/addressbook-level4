@@ -206,15 +206,15 @@ image::DeletePersonSdForLogic.png[width="800"]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[width="800"]
+image::ModelClassDiagramUpdated.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the EventOrganiser data.
+* exposes an unmodifiable `ObservableList<Person>` and `ObservableList<Event>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
@@ -233,7 +233,11 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the Event Organiser data in xml format and read it back.
+
+Each event contains references to persons in the list of persons in the event organiser.
+The storage component stores these people in the form of XmlPersonIndex objects, which are constructed from the index of the person as it is stored in the event organiser.
+When converting XmlAdaptedEvent objects back to a model type Event object, the XmlPersonIndex must be converted to the corresponding person in the event organiser person list.
 
 [[Design-Commons]]
 === Common classes
