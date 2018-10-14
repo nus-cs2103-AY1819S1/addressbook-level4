@@ -84,4 +84,22 @@ public class EditByNameCommand extends EditCommand {
 
         return filteredPersons.get().iterator().next();
     }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof EditByNameCommand)) {
+            return false;
+        }
+
+        // state check
+        EditByNameCommand e = (EditByNameCommand) other;
+        return personIdentifier.equals(e.personIdentifier)
+                && editPersonDescriptor.equals(e.editPersonDescriptor);
+    }
 }
