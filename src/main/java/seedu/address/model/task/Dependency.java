@@ -79,13 +79,25 @@ public class Dependency {
         return value.contains(Integer.toString(task.hashCode()));
     }
 
+
     /**
      * Returns true if a given string is a valid dependency.
      */
+    //TODO: Use this? Remove this?
     public static boolean isValidDependency(String test) {
         return test.matches(DESCRIPTION_VALIDATION_REGEX);
     }
 
+    public Set<String> getHashes() {
+        return value;
+    }
+
+    public Dependency updateHash(String oldHash, String newHash) {
+        Set<String> newValue = new HashSet<>(value);
+        newValue.remove(oldHash);
+        newValue.add(newHash);
+        return new Dependency(newValue);
+    }
     @Override
     public String toString() {
     }
