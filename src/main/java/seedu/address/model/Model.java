@@ -141,8 +141,8 @@ public interface Model {
      * @throws NoEventSelectedException
      * @throws UserNotJoinedEventException
      */
-    Poll voteOption(Index pollIndex, String optionName) throws NoUserLoggedInException, NoEventSelectedException
-            , UserNotJoinedEventException;
+    Poll voteOption(Index pollIndex, String optionName) throws NoUserLoggedInException, NoEventSelectedException,
+            UserNotJoinedEventException;
 
     /**
      * Sets the current user of the address book.

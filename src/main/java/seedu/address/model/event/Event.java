@@ -213,15 +213,26 @@ public class Event {
     }
 
     /**
+     * Adds an option to the poll at the given index.
+     */
+    public Poll addOptionToPoll(Index index, String option) {
+        Poll poll = polls.get(index.getZeroBased());
+        poll.addOption(option);
+        return poll;
+    }
+
+    /**
      * Adds a person to an option of the poll at the specified index, only if person has joined the event.
      */
-    public void addVoteToPoll(Index pollIndex, Person person, String option)
+    public Poll addVoteToPoll(Index pollIndex, Person person, String option)
             throws UserNotJoinedEventException, DuplicatePersonException {
         if (!personList.contains(person)) {
             throw new UserNotJoinedEventException();
         }
         int index = pollIndex.getZeroBased();
-        polls.get(index).addVote(option, person);
+        Poll poll = polls.get(index);
+        poll.addVote(option, person);
+        return poll;
     }
 
     /**

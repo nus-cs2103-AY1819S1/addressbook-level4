@@ -80,7 +80,7 @@ public class Poll {
     /**
      * Retrieves most popular options by number of votes.
      */
-    public LinkedList<String> getHighest() {
+    public LinkedList<String> getPopularOptions() {
         TreeMap<Integer, LinkedList<String>> frequency = new TreeMap<>();
         pollData.forEach((k, v) -> {
             if (!frequency.containsKey(v.size())) {
@@ -101,7 +101,7 @@ public class Poll {
         String title = String.format("Poll %1$s: %2$s", Integer.toString(id), pollName);
         String mostPopularEntries = "";
         if (!pollData.isEmpty()) {
-            mostPopularEntries = "Most popular options:\n" + getHighest().toString();
+            mostPopularEntries = "Most popular options:\n" + getPopularOptions().toString();
         }
         String data = displayPollData();
         return title + "\n" + mostPopularEntries + "\n\n" + data;

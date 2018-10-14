@@ -11,18 +11,14 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.NoEventSelectedException;
 import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.Poll;
 import seedu.address.model.event.exceptions.NotEventOrganiserException;
 import seedu.address.model.event.exceptions.UserNotJoinedEventException;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
 /**
@@ -175,6 +171,7 @@ public class ModelManager extends ComponentManager implements Model {
         return filteredEvents.get(targetIndex.getZeroBased());
     }
 
+    @Override
     public Poll addPoll(String pollName) throws NoUserLoggedInException, NoEventSelectedException,
             NotEventOrganiserException {
         if (currentUser == null) {
@@ -191,16 +188,17 @@ public class ModelManager extends ComponentManager implements Model {
         return poll;
     }
 
+    @Override
     public Poll addPollOption(Index index, String option) throws NoEventSelectedException {
         if (currentEvent == null) {
             throw new NoEventSelectedException();
         }
-        Poll poll = currentEvent.getPoll(index);
-        poll.addOption(option);
+        Poll poll = currentEvent.addOptionToPoll(index, option);
         updateEvent(currentEvent, currentEvent);
         return poll;
     }
 
+    @Override
     public Poll voteOption(Index index, String optionName) throws NoEventSelectedException, NoUserLoggedInException,
             UserNotJoinedEventException {
         if (currentUser == null) {
@@ -209,8 +207,7 @@ public class ModelManager extends ComponentManager implements Model {
         if (currentEvent == null) {
             throw new NoEventSelectedException();
         }
-        currentEvent.addVoteToPoll(index, currentUser, optionName);
-        Poll poll = currentEvent.getPoll(index);
+        Poll poll = currentEvent.addVoteToPoll(index, currentUser, optionName);
         updateEvent(currentEvent, currentEvent);
         return poll;
     }
