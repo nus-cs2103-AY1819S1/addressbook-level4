@@ -17,28 +17,28 @@ public class Appointment {
     private Type type;
 
     /** Name of the medical procedure */
-    private String procedure_name;
+    private String procedureName;
 
     /** Date and time of procedure */
-    private Calendar date_time;
+    private Calendar dateTime;
 
     /** Name of the doctor-in-charge */
-    private String doc_name;
+    private String docName;
 
-    public Appointment(Type type, String procedure_name, Calendar date_time, String doc_name) {
-        CollectionUtil.requireAllNonNull(type, date_time, doc_name);
+    public Appointment(Type type, String procedureName, Calendar dateTime, String docName) {
+        CollectionUtil.requireAllNonNull(type, dateTime, docName);
         this.type = type;
-        this.procedure_name = procedure_name;
-        this.date_time = date_time;
-        this.doc_name = doc_name;
+        this.procedureName = procedureName;
+        this.dateTime = dateTime;
+        this.docName = docName;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        String dt = DateTime.DATE_TIME_FORMAT.format(date_time.getTime());
-        sb.append(type).append(DIVIDER).append(procedure_name).append(DIVIDER).append(dt).append(DIVIDER)
-                .append(doc_name);
+        String dt = DateTime.DATE_TIME_FORMAT.format(dateTime.getTime());
+        sb.append(type).append(DIVIDER).append(procedureName).append(DIVIDER).append(dt).append(DIVIDER)
+                .append(docName);
 
         return sb.toString();
     }
@@ -51,8 +51,8 @@ public class Appointment {
 
         if (o instanceof Appointment) {
             Appointment a = (Appointment) o;
-            return type.equals(a.type) && procedure_name.equals(a.procedure_name)
-                    && date_time.equals(a.date_time) && doc_name.equals(a.doc_name);
+            return type.equals(a.type) && procedureName.equals(a.procedureName)
+                    && dateTime.equals(a.dateTime) && docName.equals(a.docName);
         }
 
         return false;
@@ -63,14 +63,14 @@ public class Appointment {
     }
 
     public Calendar getDate_time() {
-        return date_time;
+        return dateTime;
     }
 
     public String getDoc_name() {
-        return doc_name;
+        return docName;
     }
 
     public String getProcedure_name() {
-        return procedure_name;
+        return procedureName;
     }
 }

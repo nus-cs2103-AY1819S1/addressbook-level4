@@ -24,13 +24,13 @@ public class XmlAdaptedAppointment {
     private Type type;
 
     @XmlElement(required = true)
-    private String procedure_name;
+    private String procedureName;
 
     @XmlElement(required = true)
-    private String date_time;
+    private String dateTime;
 
     @XmlElement(required = true)
-    private String doc_name;
+    private String docName;
 
     /**
      * Constructs an XmlAdaptedAppointment
@@ -41,22 +41,22 @@ public class XmlAdaptedAppointment {
     /**
      * Constructs a {@code XmlAdaptedAppointment} with the given details.
      */
-    public XmlAdaptedAppointment(Type type, String procedure_name, String date_time, String doc_name)
+    public XmlAdaptedAppointment(Type type, String procedureName, String dateTime, String docName)
             throws IllegalValueException {
         this.type = type;
-        this.procedure_name = procedure_name;
+        this.procedureName = procedureName;
         try {
             Calendar currTime = Calendar.getInstance();
             Date currentTime = currTime.getTime();
-            Date dt = DateTime.DATE_TIME_FORMAT.parse(date_time);
+            Date dt = DateTime.DATE_TIME_FORMAT.parse(dateTime);
             if (dt.before(currentTime)) {
                 throw new IllegalValueException(MESSAGE_DATE_TIME_BEFORE_NOW);
             }
         } catch (ParseException e) {
             throw new IllegalValueException(e.toString());
         }
-        this.date_time = date_time;
-        this.doc_name = doc_name;
+        this.dateTime = dateTime;
+        this.docName = docName;
     }
 
     /**
@@ -64,9 +64,9 @@ public class XmlAdaptedAppointment {
      */
     public XmlAdaptedAppointment(Appointment source) {
         this.type = source.getType();
-        this.procedure_name = source.getProcedure_name();
-        this.date_time = DateTime.DATE_TIME_FORMAT.format(source.getDate_time().getTime());
-        this.doc_name = source.getDoc_name();
+        this.procedureName = source.getProcedure_name();
+        this.dateTime = DateTime.DATE_TIME_FORMAT.format(source.getDate_time().getTime());
+        this.docName = source.getDoc_name();
     }
 
     /**
@@ -77,12 +77,12 @@ public class XmlAdaptedAppointment {
     public Appointment toModelType() throws IllegalValueException {
         Calendar dt = Calendar.getInstance();
         try {
-            Date d = DateTime.DATE_TIME_FORMAT.parse(this.date_time);
+            Date d = DateTime.DATE_TIME_FORMAT.parse(this.dateTime);
             dt.setTime(d);
         } catch (ParseException e) {
             throw new IllegalValueException(e.toString());
         }
-        return new Appointment(type, procedure_name, dt, doc_name);
+        return new Appointment(type, procedureName, dt, docName);
     }
 
     @Override
@@ -94,8 +94,8 @@ public class XmlAdaptedAppointment {
             return false;
         }
         return type.equals(((XmlAdaptedAppointment) other).type)
-                && procedure_name.equals(((XmlAdaptedAppointment) other).procedure_name)
-                && date_time.equals(((XmlAdaptedAppointment) other).date_time)
-                && doc_name.equals(((XmlAdaptedAppointment) other).doc_name);
+                && procedureName.equals(((XmlAdaptedAppointment) other).procedureName)
+                && dateTime.equals(((XmlAdaptedAppointment) other).dateTime)
+                && docName.equals(((XmlAdaptedAppointment) other).docName);
     }
 }

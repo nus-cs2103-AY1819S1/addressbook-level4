@@ -46,6 +46,9 @@ public class Person {
         appointmentsList = new AppointmentsList();
     }
 
+    /**
+     * Overloaded constructor to generate a person that does not have medicalhistory.
+     */
     public Person(Nric nric, Name name, Phone phone, Email email, Address address, Set<Tag> tags,
                   PrescriptionList prescriptionList, AppointmentsList appointmentsList) {
         requireAllNonNull(nric, name, phone, email, address, tags, prescriptionList, appointmentsList);
@@ -138,7 +141,9 @@ public class Person {
         return medicalHistory;
     }
 
-    public AppointmentsList getAppointmentsList() { return appointmentsList; }
+    public AppointmentsList getAppointmentsList() {
+        return appointmentsList;
+    }
 
     /**
      * Returns an immutable tag set, which throws

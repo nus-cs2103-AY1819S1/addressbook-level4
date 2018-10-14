@@ -189,18 +189,18 @@ public class ParserUtil {
 
     /**
      * Parses a String date into a Calendar date
-     * @param date_time String of the date
+     * @param dateTime String of the date
      * @return Calender object which contains the date
      * @throws IllegalValueException if there is an error while parsing the string
      */
-    public static Calendar parseDateTime(String date_time) throws IllegalValueException {
+    public static Calendar parseDateTime(String dateTime) throws IllegalValueException {
         try {
-            Date dt_d = DateTime.DATE_TIME_FORMAT.parse(date_time);
+            Date dtDate = DateTime.DATE_TIME_FORMAT.parse(dateTime);
             Calendar dt = Calendar.getInstance();
-            dt.setTime(dt_d);
+            dt.setTime(dtDate);
             return dt;
         } catch (java.text.ParseException e) {
-            throw new ParseException("Exception while parsing date_time", e);
+            throw new ParseException("Exception while parsing dateTime", e);
         }
     }
 

@@ -49,17 +49,17 @@ public class AddApptCommandParser implements Parser<AddApptCommand> {
             }
         }
         String procedure = argMultimap.getValue(PREFIX_PROCEDURE).get();
-        String date_time_str = argMultimap.getValue(PREFIX_DATE_TIME).get();
-        Calendar date_time;
+        String dateTimeStr = argMultimap.getValue(PREFIX_DATE_TIME).get();
+        Calendar dateTime;
         try {
-            date_time = ParserUtil.parseDateTime(date_time_str);
+            dateTime = ParserUtil.parseDateTime(dateTimeStr);
         } catch (IllegalValueException e) {
-            throw new ParseException("Exception while parsing date_time", e);
+            throw new ParseException("Exception while parsing dateTime", e);
         }
         String doctor = argMultimap.getValue(PREFIX_DOCTOR).get();
 
         nric = new Nric(patientNric);
-        appt = new Appointment(type, procedure, date_time, doctor);
+        appt = new Appointment(type, procedure, dateTime, doctor);
 
         return new AddApptCommand(nric, appt);
     }
