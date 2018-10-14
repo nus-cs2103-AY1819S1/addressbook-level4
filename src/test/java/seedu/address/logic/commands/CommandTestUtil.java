@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLERGY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CULTURAL_REQUIREMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSES_PER_DAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSE_UNIT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DRUGNAME;
@@ -13,6 +15,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MED_HISTORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHYSICAL_DIFFICULTY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 
 import java.util.ArrayList;
@@ -54,6 +57,10 @@ public class CommandTestUtil {
     public static final int VALID_DOSES_PER_DAY = 4;
     public static final int VALID_DURATION_IN_DAYS = 14;
 
+    public static final String VALID_ALLERGY = "Egg";
+    public static final String VALID_CULTURAL_REQUIREMENT = "Halal";
+    public static final String VALID_PHYSICAL_DIFFICULTY = "Hands cannot move";
+
     public static final String NRIC_DESC_AMY = " " + PREFIX_NRIC + VALID_NRIC_AMY;
     public static final String NRIC_DESC_BOB = " " + PREFIX_NRIC + VALID_NRIC_BOB;
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
@@ -69,6 +76,10 @@ public class CommandTestUtil {
 
 
     public static final String VALID_DIAGNOSIS_DESC = " " + PREFIX_MED_HISTORY + VALID_DIAGNOSIS;
+
+    public static final String VALID_DIET_COLLECTION_DESC = " " + PREFIX_ALLERGY + VALID_ALLERGY
+            + " " + PREFIX_CULTURAL_REQUIREMENT + VALID_CULTURAL_REQUIREMENT
+            + " " + PREFIX_PHYSICAL_DIFFICULTY + VALID_PHYSICAL_DIFFICULTY;
 
     public static final String VALID_PRESCRIPTION_DESC = " " + PREFIX_DRUGNAME + VALID_DRUGNAME
             + " " + PREFIX_QUANTITY + VALID_DOSE
