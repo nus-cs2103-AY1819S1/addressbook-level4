@@ -30,9 +30,9 @@ import seedu.address.testutil.PersonBuilder;
 public class AddCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     private CommandHistory commandHistory = new CommandHistory();
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
