@@ -95,6 +95,7 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedAddressBook.hasAppointment(appt);
     }
 
+    @Override
     public boolean hasAppointmentClash(Appointment appt) {
         requireNonNull(appt);
         return versionedAddressBook.hasAppointmentClash(appt);
