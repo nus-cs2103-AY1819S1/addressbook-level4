@@ -12,7 +12,8 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs {
 
     private GuiSettings guiSettings;
-    private Path wishBookFilePath = Paths.get("data" , "wishbook.xml");
+    private Path wishTransactionFilePath = Paths.get("data", "wishtransaction.xml");
+    private Path wishBookFilePath = Paths.get("wishbook.xml");
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);
@@ -30,8 +31,16 @@ public class UserPrefs {
         guiSettings = new GuiSettings(width, height, x, y);
     }
 
+    public Path getWishTransactionFilePath() {
+        return this.wishTransactionFilePath;
+    }
+
+    public void setWishTransactionFilePath(Path wishTransactionFilePath) {
+        this.wishTransactionFilePath = wishTransactionFilePath;
+    }
+
     public Path getWishBookFilePath() {
-        return wishBookFilePath;
+        return this.wishBookFilePath;
     }
 
     public void setWishBookFilePath(Path wishBookFilePath) {
