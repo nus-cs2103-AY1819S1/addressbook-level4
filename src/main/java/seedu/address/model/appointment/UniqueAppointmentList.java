@@ -61,7 +61,6 @@ public class UniqueAppointmentList implements Iterable<Appointment>{
     /**
      * Replaces the appointment {@code target} in the list with {@code editedAppt}.
      * {@code target} must exist in the list.
-     * This is used for cancelling appointments as well.
      * The appointment {@code editedAppt} must not be the same as another existing appointment in the list.
      */
     public void setAppointment(Appointment target, Appointment editedAppt) {
@@ -75,10 +74,29 @@ public class UniqueAppointmentList implements Iterable<Appointment>{
         if (!target.isSameAppointment(editedAppt) && contains(editedAppt)) {
             throw new DuplicateAppointmentException();
         }
-
-        if (!target.isSameAppointment(editedAppt) && clashes(editedAppt) && ed)
-
         internalList.set(index, editedAppt);
+    }
+
+    /**
+     * Cancels the appointment {@code target}.
+     * Replaces the {@code target} with updated status.
+     * {@code target} must exist in the list.
+     */
+    public void cancelAppointment(Appointment target) {
+        requireNonNull(target);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new AppointmentNotFoundException();
+        }
+
+        if (target.isCancelled()) { 
+            throw new AppointmentAlreadyCancelledException();
+        }
+
+        target.isCancelled();
+        Appointment cancelledAppt = target;
+        internalList.set(index, cancelledAppt);
     }
 
     /**

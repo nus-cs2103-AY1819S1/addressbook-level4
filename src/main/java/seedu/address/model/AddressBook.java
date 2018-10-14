@@ -207,9 +207,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void cancelAppointment(Appointment key) {
         requireNonNull(key);
-        Appointment cancelledAppt = key;
-        cancelledAppt.cancelAppointment();
-        updateAppointment(key, cancelledAppt);
+        appointments.cancelAppointment(key);
     }
 
     //========== Util methods ================================================================================
