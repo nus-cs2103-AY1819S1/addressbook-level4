@@ -52,7 +52,6 @@ public class XmlAdaptedTask {
     /**
      * Constructs an {@code XmlAdaptedTask} with the given task details.
      */
-    //TODO: Change to 1 constructor
     public XmlAdaptedTask(String name, String dueDate, String priorityValue,
                           String description, List<XmlAdaptedLabel> labelled, List<String> dependencies) {
         this.name = name;

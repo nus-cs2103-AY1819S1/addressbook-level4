@@ -28,6 +28,7 @@ public class XmlAdaptedTaskTest {
     private static final String VALID_DUE_DATE = B_TASK.getDueDate().toString();
     private static final String VALID_PRIORITY_VALUE = B_TASK.getPriorityValue().toString();
     private static final String VALID_DESCRIPTION = B_TASK.getDescription().toString();
+    private static final List<String> VALID_DEPENDENCIES = new ArrayList<>();
     private static final List<XmlAdaptedLabel> VALID_LABELS = B_TASK.getLabels().stream()
             .map(XmlAdaptedLabel::new)
             .collect(Collectors.toList());

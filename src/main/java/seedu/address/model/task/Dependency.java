@@ -21,9 +21,8 @@ public class Dependency {
      * @param hashes A list of hashes of task dependencies.
      */
 
-    public Dependency(Set<String> hashes) {
-        if (hashes != null)
-            value = new HashSet<String>(hashes);
+    public Dependency(Set<String> hashes){
+        value = new HashSet<String>(hashes);
     }
 
     /**
