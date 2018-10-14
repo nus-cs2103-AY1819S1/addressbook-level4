@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 
@@ -84,6 +85,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         requireNonNull(editedTask);
 
         tasks.setTask(target, editedTask);
+
     }
 
     /**
