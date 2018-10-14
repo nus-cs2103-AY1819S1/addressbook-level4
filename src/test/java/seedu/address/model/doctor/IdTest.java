@@ -12,20 +12,20 @@ public class IdTest {
 
     @Test
     public void constructor_invalidId_throwsIllegalArgumentException() {
-        int invalidId = 0;
+        int invalidId = -1;
         Assert.assertThrows(IllegalArgumentException.class, () -> new Id(invalidId));
     }
 
     @Test
     public void isValidId() {
-        //Invalid id (less than or equal to 0)
-        assertFalse(Id.isValidId(0)); //Zero
+        //Invalid id (less than 0)
         assertFalse(Id.isValidId(-1)); //Negative
         assertFalse(Id.isValidId(-9478));
         assertFalse(Id.isValidId(-120 * 102));
         assertFalse(Id.isValidId((int) Math.pow(2, 32) + 1)); //More than 2 ^ 32
 
         //valid id
+        assertTrue(Id.isValidId(0)); //Zero
         assertTrue(Id.isValidId(1)); // One
         assertTrue(Id.isValidId(20));
         assertTrue(Id.isValidId(015)); //Leading zeros.

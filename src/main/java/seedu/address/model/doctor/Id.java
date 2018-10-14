@@ -28,7 +28,7 @@ public class Id {
      * Returns true if a given integer is a valid doctor id.
      */
     public static boolean isValidId(int test) {
-        return test > 0;
+        return test >= 0;
     }
 
     @Override
