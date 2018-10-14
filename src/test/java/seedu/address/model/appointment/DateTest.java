@@ -12,14 +12,14 @@ public class DateTest {
         //valid day
         assertTrue(Date.isValidDay(2, 2, 2018));
         assertTrue(Date.isValidDay(12, 8, 2018));
-        assertTrue(Date.isValidDay(29, 2, 2020));   //leap day
+        assertTrue(Date.isValidDay(29, 2, 2020)); //leap day
 
         //invalid day
         assertFalse(Date.isValidDay(679, 12, 2000));
         assertFalse(Date.isValidDay(31, 9, 2000));
         assertFalse(Date.isValidDay(30, 2, 1977));
         assertFalse(Date.isValidDay(-9, 5, 2018));
-        assertFalse(Date.isValidDay(29, 2, 2019));  //invalid leap day
+        assertFalse(Date.isValidDay(29, 2, 2019)); //invalid leap day
     }
 
     @Test

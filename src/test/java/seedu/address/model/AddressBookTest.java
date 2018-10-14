@@ -64,7 +64,7 @@ public class AddressBookTest {
         // Two persons with the same identity fields
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        List<Appointment> newAppointments = new ArrayList<Appointment>();   //TODO
+        List<Appointment> newAppointments = new ArrayList<Appointment>(); //TODO
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
         //@@author jjlee050
         AddressBookStub newData = new AddressBookStub(newAppointments, newPersons, new ArrayList<>());
@@ -78,7 +78,7 @@ public class AddressBookTest {
     public void resetData_withDuplicateDoctors_throwsDuplicateDoctorException() {
         // Two doctors with the same identity fields
         Doctor editedAdam = new DoctorBuilder(ADAM).withName("Adam Bell").build();
-        List<Appointment> newAppointments = new ArrayList<Appointment>();   //TODO
+        List<Appointment> newAppointments = new ArrayList<Appointment>(); //TODO
         List<Doctor> newDoctors = Arrays.asList(ADAM, editedAdam);
         AddressBookStub newData = new AddressBookStub(newAppointments, new ArrayList<>(), newDoctors);
 
