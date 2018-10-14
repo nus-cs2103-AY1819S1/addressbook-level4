@@ -1,16 +1,23 @@
 package seedu.address.ui;
 
-import javafx.animation.Timeline;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.util.Duration;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.UpdateBudgetPanelEvent;
 import seedu.address.model.budget.Budget;
+
+import com.google.common.eventbus.Subscribe;
+
+import java.security.Key;
+import java.util.logging.Logger;
 
 //@@author snookerballs
 /**
@@ -18,12 +25,13 @@ import seedu.address.model.budget.Budget;
  */
 public class BudgetPanel extends UiPart<Region> {
     private static final String FXML = "BudgetPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(BudgetPanel.class);
 
     private static final double ANIMATION_TIME = 0.5;
     private static final double NUM_OF_FRAMES = 10;
-    private static final double TIME_OF_KEY_FRAMES = ANIMATION_TIME/ NUM_OF_FRAMES;
+    private static final double TIME_OF_KEY_FRAMES = ANIMATION_TIME / NUM_OF_FRAMES;
 
-    private static Timeline timeline;
+    private Timeline timeline;
 
     @FXML
     private ProgressBar budgetBar;
@@ -40,6 +48,7 @@ public class BudgetPanel extends UiPart<Region> {
 
     public BudgetPanel (Budget budget) {
         super(FXML);
+        registerAsAnEventHandler(this);
         currentExpenses = 0;
         currentBudgetCap = 0;
         update(budget);
@@ -52,6 +61,7 @@ public class BudgetPanel extends UiPart<Region> {
     public void update(Budget budget) {
         double budgetCap = budget.getBudgetCap();
         double currentExpenses = budget.getCurrentExpenses();
+
         updateBudgetBar(budgetCap, currentExpenses);
         setBudgetUiColors(budgetCap, currentExpenses);
     }
@@ -79,8 +89,13 @@ public class BudgetPanel extends UiPart<Region> {
      */
     public void updateBudgetBar(double budgetCap, double currentExpenses) {
         double currentPercentage = currentExpenses / budgetCap;
-        if(currentPercentage >= 1.0) {
+
+        if (currentPercentage >= 1.0) {
             currentPercentage = 1;
+        }
+
+        if (budgetCap == 0) {
+            currentPercentage = 0;
         }
 
         animateBudgetPanel(currentExpenses, budgetCap, currentPercentage);
@@ -105,6 +120,12 @@ public class BudgetPanel extends UiPart<Region> {
         );
 
         addIncrementKeyFrames(newExpenses, newBudgetCap);
+        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(ANIMATION_TIME + 0.5), new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                timeline.stop();
+            }
+        }));
         timeline.playFromStart();
     }
 
@@ -117,26 +138,27 @@ public class BudgetPanel extends UiPart<Region> {
         double amountToIncrementExpenses = (newExpenses - currentExpenses) / NUM_OF_FRAMES;
         double amountToIncrementBudget = (newBudgetCap - currentBudgetCap) / NUM_OF_FRAMES;
 
-            for (double i = TIME_OF_KEY_FRAMES; i <= ANIMATION_TIME; i += TIME_OF_KEY_FRAMES) {
-                KeyFrame frame = new KeyFrame(Duration.seconds(i), new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        currentExpenses += amountToIncrementExpenses;
-                        currentBudgetCap += amountToIncrementBudget;
+        for (double i = TIME_OF_KEY_FRAMES; i <= ANIMATION_TIME; i += TIME_OF_KEY_FRAMES) {
+            KeyFrame frame = new KeyFrame(Duration.seconds(i), new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    currentExpenses += amountToIncrementExpenses;
+                    currentBudgetCap += amountToIncrementBudget;
 
-                        if(currentExpenses <= 0) {
-                            currentExpenses = 0;
-                        }
-
-                        if(currentBudgetCap <= 0) {
-                            currentBudgetCap = 0;
-                        }
-
-                        updateExpenseTextDisplay(currentExpenses);
-                        updateBudgetCapTextDisplay(currentBudgetCap);
+                    if (currentExpenses <= 0) {
+                        currentExpenses = 0;
                     }
-                });
-                timeline.getKeyFrames().add(frame);
+
+                    if (currentBudgetCap <= 0) {
+                        currentBudgetCap = 0;
+                    }
+
+                    updateExpenseTextDisplay(currentExpenses);
+                    updateBudgetCapTextDisplay(currentBudgetCap);
+
+                }
+            });
+            timeline.getKeyFrames().add(frame);
         }
     }
 
@@ -144,7 +166,7 @@ public class BudgetPanel extends UiPart<Region> {
      * Changes the colors of the expenseDisplay and budget bar to red if overbudget, and green in below budget.
      */
     public void setBudgetUiColors(double budgetCap, double currentExpenses) {
-        if(budgetCap < currentExpenses) {
+        if (budgetCap < currentExpenses) {
             expenseDisplay.setStyle("-fx-fill: #ae3b3b;");
             budgetBar.setStyle("-fx-accent: derive(#ae3b3b, 20%);");
         } else {
@@ -152,6 +174,28 @@ public class BudgetPanel extends UiPart<Region> {
             budgetBar.setStyle("-fx-accent: derive(#61a15a, 20%);");
         }
 
+    }
+
+    @Subscribe
+    public void handleUpdateBudgetPanelEvent(UpdateBudgetPanelEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        update(event.budget);
+    }
+
+    public Timeline getTimeline() {
+        return timeline;
+    }
+
+    public ProgressBar getBudgetBar() {
+        return budgetBar;
+    }
+
+    public Text getBudgetDisplay() {
+        return budgetDisplay;
+    }
+
+    public Text getExpenseDisplay() {
+        return expenseDisplay;
     }
 
 }

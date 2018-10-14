@@ -17,6 +17,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 
+import guitests.guihandles.BudgetPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.ExpenseListPanelHandle;
 import guitests.guihandles.MainMenuHandle;
@@ -109,6 +110,9 @@ public abstract class AddressBookSystemTest {
         return mainWindowHandle.getResultDisplay();
     }
 
+    public BudgetPanelHandle getBudgetPanel() {
+        return mainWindowHandle.getBudgetPanel();
+    }
     /**
      * Executes {@code command} in the application's {@code CommandBox}.
      * Method returns after UI components have been updated.
@@ -153,6 +157,12 @@ public abstract class AddressBookSystemTest {
      */
     protected void deleteAllExpenses() throws NoUserSelectedException {
         executeCommand(ClearCommand.COMMAND_WORD);
+        try {
+            Thread.sleep(1000);
+            assertTrue(getBudgetPanel().isExpenseCorrect("0.00"));
+        } catch(InterruptedException e) {
+            e.printStackTrace();
+        }
         assertEquals(0, getModel().getAddressBook().getExpenseList().size());
     }
 
@@ -251,6 +261,11 @@ public abstract class AddressBookSystemTest {
         assertListMatching(getExpenseListPanel(), getModel().getFilteredExpenseList());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());
+
+        assertTrue(getBudgetPanel().isExpenseCorrect(String.format("%.2f", TypicalExpenses.INTIIAL_EXPENSES)));
+        assertTrue(getBudgetPanel().isBudgetCorrect(String.format("%.2f", TypicalExpenses.INTIIAL_BUDGET)));
+        assertTrue(getBudgetPanel().isBudgetBarProgressAccurate(TypicalExpenses.INTIIAL_EXPENSES /
+                TypicalExpenses.INTIIAL_BUDGET ));
     }
 
     /**

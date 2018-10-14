@@ -332,9 +332,4 @@ public class MainWindow extends UiPart<Stage> {
         default:
         }
     }
-
-    @Subscribe
-    public void handleUpdateBudgetPanelEvent(UpdateBudgetPanelEvent event) {
-        budgetpanel.update(event.budget);
-    }
 }

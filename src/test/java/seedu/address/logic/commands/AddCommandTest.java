@@ -248,7 +248,7 @@ public class AddCommandTest {
         @Override
         public Budget getMaximumBudget() {
             // called by {@param UpdateBudgetDisplayEvent}
-            return new Budget(0,0);
+            return new Budget(0, 0);
         }
     }
 
@@ -285,7 +285,7 @@ public class AddCommandTest {
         @Override
         public Budget getMaximumBudget() {
             // called by {@param UpdateBudgetDisplayEvent}
-            return new Budget(0,0);
+            return new Budget(0, 0);
         }
     }
 
@@ -318,7 +318,7 @@ public class AddCommandTest {
         @Override
         public Budget getMaximumBudget() {
             // called by {@param UpdateBudgetDisplayEvent}
-            return new Budget(0,0);
+            return new Budget(0, 0);
         }
     }
 
