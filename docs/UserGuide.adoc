@@ -267,7 +267,7 @@ Format: `exit`
 ClinicIO data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-=== Logout of the program : `logout` +
+=== Logout of the program : `logout` `[coming in v2.0]`
 
 // tag::loginUser[]
 [WARNING]
