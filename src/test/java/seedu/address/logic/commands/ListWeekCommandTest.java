@@ -4,7 +4,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalTasks.getTypicalSchedulePlanner;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 

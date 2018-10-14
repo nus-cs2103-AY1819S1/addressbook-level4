@@ -7,7 +7,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.task.DateWeekSamePredicate;
 
@@ -20,7 +19,7 @@ public class ListWeekCommand extends Command {
     public static final String MESSAGE_SUCCESS = "This week task(s) are listed as followed";
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) {
         List<String> dateList = new ArrayList<String>();
         String dateName = LocalDate.now().getDayOfWeek().name();
         appendDateList(dateList, numDaysTillSunday(dateName));
