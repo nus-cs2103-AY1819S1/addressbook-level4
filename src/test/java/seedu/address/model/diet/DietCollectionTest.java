@@ -2,6 +2,7 @@ package seedu.address.model.diet;
 
 //@@author yuntongzhang
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -57,7 +58,7 @@ public class DietCollectionTest {
         expectedAllergies.add(eggAllergy);
         expectedAllergies.add(milkAllergy);
 
-        assertTrue(new DietCollection(dietSetOne).getAllergies().equals(expectedAllergies));
+        assertEquals(new DietCollection(dietSetOne).getAllergies(), expectedAllergies);
     }
 
     @Test
@@ -65,7 +66,7 @@ public class DietCollectionTest {
         List<Diet> expectedCulturalRequirement = new LinkedList<>();
         expectedCulturalRequirement.add(halalRequirement);
 
-        assertTrue(new DietCollection(dietSetOne).getCulturalRequirements().equals(expectedCulturalRequirement));
+        assertEquals(new DietCollection(dietSetOne).getCulturalRequirements(),expectedCulturalRequirement);
     }
 
     @Test
@@ -73,7 +74,7 @@ public class DietCollectionTest {
         List<Diet> expectedPhysicalDifficulties = new LinkedList<>();
         expectedPhysicalDifficulties.add(handsDifficulty);
 
-        assertTrue(new DietCollection(dietSetOne).getPhysicalDifficulties().equals(expectedPhysicalDifficulties));
+        assertEquals(new DietCollection(dietSetOne).getPhysicalDifficulties(), expectedPhysicalDifficulties);
     }
 
     @Test
@@ -83,7 +84,7 @@ public class DietCollectionTest {
         DietCollection expectedCollection = new DietCollection(dietSet);
 
         DietCollection actualCollection = new DietCollection(dietSetOne).addMoreDiets(new DietCollection(dietSetTwo));
-        assertTrue(actualCollection.equals(expectedCollection));
+        assertEquals(actualCollection, expectedCollection);
     }
 
     @Test
