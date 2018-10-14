@@ -210,11 +210,20 @@ public class CompleteCommandTest {
         ModelManager expectedModel = new ModelManager(model.getTaskManager(), new UserPrefs());
         StringBuilder expectedMessage = new StringBuilder();
 
+        // Updates the model with completable tasks that fulfils the predicate completed and append
+        // each of their String representation to expectedMessage
         expectedModel
             .getFilteredTaskList()
             .stream()
             .map(task -> new Pair<Task, Task>(task, simpleCompleteTask(task)))
-            .filter(pairOfTasks -> pairOfTasks.getKey().getLabels().contains(new Label((labelString))))
+            // filters for label match and completable tasks
+            .filter(pairOfTasks -> {
+                Task taskToComplete = pairOfTasks.getKey();
+                return taskToComplete
+                    .getLabels()
+                    .contains(new Label((labelString)))
+                    && !taskToComplete.isCompleted();
+            })
             .forEach(pairOfTasks -> {
                 Task taskToComplete = pairOfTasks.getKey();
                 Task completedTask = pairOfTasks.getValue();
