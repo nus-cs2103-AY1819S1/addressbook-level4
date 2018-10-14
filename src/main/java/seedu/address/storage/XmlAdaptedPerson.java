@@ -12,6 +12,7 @@ import javax.xml.bind.annotation.XmlElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Faculty;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -32,6 +33,8 @@ public class XmlAdaptedPerson {
     private String email;
     @XmlElement(required = true)
     private String address;
+    @XmlElement(required = true)
+    private String faculty;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -45,7 +48,8 @@ public class XmlAdaptedPerson {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
-    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged,
+                            String faculty) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -53,6 +57,7 @@ public class XmlAdaptedPerson {
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
+        this.faculty = faculty;
     }
 
     /**
@@ -68,6 +73,7 @@ public class XmlAdaptedPerson {
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
+        faculty = source.getFaculty().value;
     }
 
     /**
@@ -114,7 +120,9 @@ public class XmlAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+
+        final Faculty modelFaculty = new Faculty(faculty);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelFaculty);
     }
 
     @Override

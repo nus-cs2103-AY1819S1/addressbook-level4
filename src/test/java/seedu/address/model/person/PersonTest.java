@@ -62,7 +62,7 @@ public class PersonTest {
     @Test
     public void equals() {
         // same values -> returns true
-        Person aliceCopy = new PersonBuilder(ALICE).build();
+        Person aliceCopy = new PersonBuilder(ALICE).withFaculty("SDE").build();
         assertTrue(ALICE.equals(aliceCopy));
 
         // same object -> returns true
