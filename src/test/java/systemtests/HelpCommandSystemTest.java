@@ -88,6 +88,18 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
     }
 
     @Test
+    public void openHelpWindowAtCommand() {
+        executeCommand(HelpCommand.COMMAND_WORD + " add");
+        assertHelpWindowOpen();
+
+        executeCommand(HelpCommand.COMMAND_WORD + " delete");
+        assertHelpWindowOpen();
+
+        executeCommand(HelpCommand.COMMAND_WORD + " asdgf");
+        assertHelpWindowNotOpen();
+    }
+
+    @Test
     public void help_multipleCommands_onlyOneHelpWindowOpen() {
         getMainMenu().openHelpWindowUsingMenu();
 
@@ -122,7 +134,7 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
      * Asserts that the browser's url is changed to display the short help
      * @see BrowserPanelHandle#isHelpUrl()
      */
-    protected void assertShortHelpDisplayed() {
+    private void assertShortHelpDisplayed() {
         assertTrue(getMainWindowHandle().getBrowserPanel().isHelpUrl());
     }
 
@@ -130,7 +142,8 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
      * Asserts that the browser's url is not displaying the short help
      * @see BrowserPanelHandle#isHelpUrl()
      */
-    protected void assertShortHelpNotDisplayed() {
+    private void assertShortHelpNotDisplayed() {
         assertFalse(getMainWindowHandle().getBrowserPanel().isHelpUrl());
     }
+
 }

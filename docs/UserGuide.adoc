@@ -63,7 +63,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ====
 
-=== Manage attractions:
+=== Manage attractions
 
 ==== Add attractions: `add`
 
@@ -112,7 +112,7 @@ Format: `shutdown <attraction>`
 Open the attraction for the day. Display statistics for the ride on that day. +
 Format: `open <attraction>`
 
-=== User help and accessbility:
+=== User help and accessbility
 
 ==== Viewing help: `help`
 
@@ -182,9 +182,16 @@ just use `tab` s to complete their sentences, or get suggestions on what
 commands start with their specified prefix. +
 Format: `{tab}`
 
-==== UI to better display rides information
+==== Clearing all entries : `clear`
 
-=== View the information of a ride:
+Clears all entries from the address book. +
+Format: `clear`
+
+==== Exit: `exit`
+
+Format: `exit`
+
+=== View the information of a ride
 
 ==== Viewing all available attractions: `viewall`
 
@@ -207,7 +214,7 @@ Quick view information of the top 5 most frequented rides in the park if
 optional field is empty. +
 Format: `quickview [order]`
 
-=== Storage/data management:
+=== Storage/data management
 
 ==== Filter: `filter`
 
@@ -218,10 +225,6 @@ Format: `filter <tag> <condition>`
 
 Find the attractions that the user needs to check on. Case insensitive. +
 Format: `find <attraction>`
-
-=== Exit: `exit`
-
-Format: `exit`
 
 == FAQ
 

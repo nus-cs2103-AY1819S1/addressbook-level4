@@ -7,8 +7,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_MAINTENANCE_BOB
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_WAIT_TIME_BOB;
-import static seedu.address.testutil.TypicalPersons.ACCELERATOR;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalRides.ACCELERATOR;
+import static seedu.address.testutil.TypicalRides.BOB;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -28,7 +28,7 @@ public class RideTest {
     }
 
     @Test
-    public void isSamePerson() {
+    public void isSameRide() {
         // same object -> returns true
         assertTrue(ACCELERATOR.isSameRide(ACCELERATOR));
 
