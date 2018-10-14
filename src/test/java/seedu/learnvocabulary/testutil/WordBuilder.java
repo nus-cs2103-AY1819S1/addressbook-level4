@@ -15,8 +15,8 @@ import seedu.learnvocabulary.model.word.Word;
  */
 public class WordBuilder {
 
-    public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_MEANING = "Test";
+    public static final String DEFAULT_NAME = "Angel";
+    public static final String DEFAULT_MEANING = "A flying kinda thing";
 
     private Name name;
     private Meaning meaning;

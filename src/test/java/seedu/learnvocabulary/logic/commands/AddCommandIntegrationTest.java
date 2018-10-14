@@ -27,7 +27,7 @@ public class AddCommandIntegrationTest {
         model = new ModelManager(getTypicalLearnVocabulary(), new UserPrefs());
     }
 
-    /*
+
     @Test
     public void execute_newWord_success() {
         Word validWord = new WordBuilder().build();
@@ -39,7 +39,7 @@ public class AddCommandIntegrationTest {
         assertCommandSuccess(new AddCommand(validWord), model, commandHistory,
                 String.format(AddCommand.MESSAGE_SUCCESS, validWord), expectedModel);
     }
-    */
+
 
     @Test
     public void execute_duplicateWord_throwsCommandException() {

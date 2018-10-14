@@ -44,7 +44,6 @@ public class WordCardHandle extends NodeHandle<Node> {
         return nameLabel.getText();
     }
 
-
     public List<String> getTags() {
         return tagLabels
                 .stream()

@@ -65,9 +65,5 @@ public class WordTest {
         // different name -> returns false
         Word editedAlice = new WordBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
-
-        // different tags -> returns false
-        editedAlice = new WordBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(ALICE.equals(editedAlice));
     }
 }
