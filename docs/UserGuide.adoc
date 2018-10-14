@@ -76,18 +76,24 @@ Examples:
 * `login r/doctor n/Adam Bell pass/-------` +
 * `login r/receptionist n/Mary Jane pass/-------` +
 
-=== Adding a patient: `add`
+=== Adding a patient: `addPatient` `[coming in v2.0]`
 
-Adds a patient to the clinic record +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+[WARNING]
+You must login as an receptionist in order to use this feature. +
+
+Adds a patient to the clinic record. +
+Format: `addPatient n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS [medProb/MEDICAL_PROBLEMS]... [medList/MEDICATIONS]... [allergies/ALLERGIES]... [preferredDoc/PREFERRED_DOC]`
 
 [TIP]
-A patient can have any number of tags (including 0)
+A patient can have any number of medical problems, medications, allergies (including 0) +
+
+[TIP]
+A patient does not need to choose a preferred doctor.
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/John Doe ic/S1234567D p/98765432 e/johnd@example.com a/John street, block 123, #01-01 allergies/Dairy Products`
+* `add n/Betsy Crowe ic/S2231414A e/betsycrowe@example.com a/Newgate Prison p/1234567 medProb/High Blood Pressure, Asthma`
 
 === Listing all patients : `list`
 
