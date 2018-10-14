@@ -18,13 +18,13 @@ import seedu.address.model.entry.exceptions.EntryNotFoundException;
  *
  * @see Entry#equals(Object)
  */
-public class UniqueEntryList implements Iterable<MajorResumeEntry> {
-    private final ObservableList<MajorResumeEntry> internalList = FXCollections.observableArrayList();
+public class UniqueEntryList implements Iterable<ResumeEntry> {
+    private final ObservableList<ResumeEntry> internalList = FXCollections.observableArrayList();
 
     /**
      * Returns true if the list contains an equivalent entry.
      */
-    public boolean contains(MajorResumeEntry toCheck) {
+    public boolean contains(ResumeEntry toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::equals);
     }
@@ -33,7 +33,7 @@ public class UniqueEntryList implements Iterable<MajorResumeEntry> {
      * Adds an entry to the list.
      * The entry must not already exist in the list.
      */
-    public void add(MajorResumeEntry toAdd) {
+    public void add(ResumeEntry toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicateEntryException();
@@ -46,7 +46,7 @@ public class UniqueEntryList implements Iterable<MajorResumeEntry> {
      * {@code target} must exist in the list.
      * {@code editedPerson} must not be the same as another existing entry in the list.
      */
-    public void setEntry(MajorResumeEntry target, MajorResumeEntry editedEntry) {
+    public void setEntry(ResumeEntry target, ResumeEntry editedEntry) {
         requireAllNonNull(target, editedEntry);
 
         int index = internalList.indexOf(target);
@@ -65,7 +65,7 @@ public class UniqueEntryList implements Iterable<MajorResumeEntry> {
      * Removes the equivalent entry from the list.
      * The entry must exist in the list.
      */
-    public void remove(MajorResumeEntry toRemove) {
+    public void remove(ResumeEntry toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new EntryNotFoundException();
@@ -81,7 +81,7 @@ public class UniqueEntryList implements Iterable<MajorResumeEntry> {
      * Replaces the contents of this list with {@code entries}.
      * {@code entries} must not contain duplicate entries.
      */
-    public void setEntries(List<MajorResumeEntry> entries) {
+    public void setEntries(List<ResumeEntry> entries) {
         requireAllNonNull(entries);
         if (!entriesAreUnique(entries)) {
             throw new DuplicateEntryException();
@@ -93,12 +93,12 @@ public class UniqueEntryList implements Iterable<MajorResumeEntry> {
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<MajorResumeEntry> asUnmodifiableObservableList() {
+    public ObservableList<ResumeEntry> asUnmodifiableObservableList() {
         return FXCollections.unmodifiableObservableList(internalList);
     }
 
     @Override
-    public Iterator<MajorResumeEntry> iterator() {
+    public Iterator<ResumeEntry> iterator() {
         return internalList.iterator();
     }
 
@@ -117,7 +117,7 @@ public class UniqueEntryList implements Iterable<MajorResumeEntry> {
     /**
      * Returns true if {@code entries} contains only unique entries.
      */
-    private boolean entriesAreUnique(List<MajorResumeEntry> entries) {
+    private boolean entriesAreUnique(List<ResumeEntry> entries) {
         for (int i = 0; i < entries.size() - 1; i++) {
             for (int j = i + 1; j < entries.size(); j++) {
                 if (entries.get(i).equals(entries.get(j))) {

@@ -135,13 +135,13 @@ public class UniqueEntryListTest {
     @Test
     public void setEntries_nullList_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueEntryList.setEntries((List<MajorResumeEntry>) null);
+        uniqueEntryList.setEntries((List<ResumeEntry>) null);
     }
 
     @Test
     public void setEntries_list_replacesOwnListWithProvidedList() {
         uniqueEntryList.add(WORK_FACEBOOK);
-        List<MajorResumeEntry> entryList = Collections.singletonList(NUS_EDUCATION);
+        List<ResumeEntry> entryList = Collections.singletonList(NUS_EDUCATION);
         uniqueEntryList.setEntries(entryList);
         UniqueEntryList expectedUniqueEntryList = new UniqueEntryList();
         expectedUniqueEntryList.add(NUS_EDUCATION);
@@ -150,7 +150,7 @@ public class UniqueEntryListTest {
 
     @Test
     public void setEntries_listWithDuplicateEntrys_throwsDuplicateEntryException() {
-        List<MajorResumeEntry> listWithDuplicateEntrys = Arrays.asList(WORK_FACEBOOK, WORK_FACEBOOK);
+        List<ResumeEntry> listWithDuplicateEntrys = Arrays.asList(WORK_FACEBOOK, WORK_FACEBOOK);
         thrown.expect(DuplicateEntryException.class);
         uniqueEntryList.setEntries(listWithDuplicateEntrys);
     }
