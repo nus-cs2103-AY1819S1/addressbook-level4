@@ -149,7 +149,9 @@ public class XmlAdaptedTask {
             throw new IllegalValueException(Status.MESSAGE_STATUS_CONSTRAINTS);
         }
         final Status modelStatus = Status.getStatusFromValue(status);
-        return new Task(modelName, modelDueDate, modelPriorityValue, modelDescription, modelLabels, modelStatus);
+        final Dependency dependency = new Dependency(dependencies);
+
+        return new Task(modelName, modelDueDate, modelPriorityValue, modelDescription, modelLabels, modelStatus, dependency);
     }
 
     @Override

@@ -43,7 +43,7 @@ public class Task {
     }
 
     public Task(Name name, DueDate dueDate, PriorityValue priorityValue, Description description, Set<Label> labels,
-                Status status) {
+                Status status, Dependency dependency) {
         requireAllNonNull(name, dueDate, priorityValue, description, labels);
         this.name = name;
         this.dueDate = dueDate;
@@ -51,7 +51,7 @@ public class Task {
         this.description = description;
         this.labels.addAll(labels);
         this.status = status;
-        this.dependency = new Dependency();
+        this.dependency = dependency;
     }
 
     public Name getName() {
