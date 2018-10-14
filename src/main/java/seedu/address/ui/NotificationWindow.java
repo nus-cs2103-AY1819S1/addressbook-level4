@@ -9,6 +9,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;*/
 
+/**
+ * Controller for notifications
+ */
+
 public class NotificationWindow {
     public static void display() {
     /*public static void display(String title, String message) {
