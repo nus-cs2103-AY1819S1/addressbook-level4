@@ -11,7 +11,7 @@ import java.time.format.DateTimeParseException;
  * Represents an Event's date in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
-public class EventDate {
+public class EventDate implements Comparable<EventDate> {
 
     public static final String MESSAGE_DATE_CONSTRAINTS =
             "Dates should be in the format YYYY-MM-DD, and it should not be blank";
@@ -69,6 +69,11 @@ public class EventDate {
         return other == this // short circuit if same object
                 || (other instanceof EventDate // instanceof handles nulls
                 && eventDate.equals(((EventDate) other).eventDate)); // state check
+    }
+
+    @Override
+    public int compareTo(EventDate other) {
+        return eventDate.compareTo(other.eventDate);
     }
 
     @Override

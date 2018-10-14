@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
@@ -159,7 +160,9 @@ public class ModelManager extends ComponentManager implements Model {
         // convert the map to a FilteredList
         ObservableList<List<Event>> filteredEventsByDateList = FXCollections.observableArrayList();
         filteredEventsByDateList.addAll(filteredEventsByDateMap.values());
-        filteredEventsByDateList.sort(filteredEventsByDateMap.keySet());
+        Comparator<List<Event>> eventListComparator = (eventList, otherEventList) ->
+                eventList.get(0).getEventDate().compareTo(eventList.get(0).getEventDate());
+        filteredEventsByDateList.sort(eventListComparator.reversed());
         FilteredList<List<Event>> filteredEventsByDate = new FilteredList<>(filteredEventsByDateList);
 
         return FXCollections.unmodifiableObservableList(filteredEventsByDate);
