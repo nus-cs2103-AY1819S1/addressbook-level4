@@ -34,16 +34,10 @@ public class CompleteCommand extends Command {
     private final Set<Index> targetIndexes;
 
     public CompleteCommand(Index targetIndex) {
-        // The below expression (Set.of(...)) functions as a requireNonNull,
-        // a NullPointerException will be thrown if targetIndex is null,
-        // thus requireNonNull is omitted.
-        this(Set.of(targetIndex));
+        requireNonNull(targetIndex);
+        this.targetIndexes = (Set.of(targetIndex));
     }
 
-    public CompleteCommand(Set<Index> setOfIndexes) {
-        requireNonNull(setOfIndexes);
-        this.targetIndexes = setOfIndexes;
-    }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
