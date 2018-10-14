@@ -49,6 +49,8 @@ public class EditCommand extends Command {
             + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_NO_EDIT_IDENTIFIER = "No identifier specified! Please provide either an "
+            + "INDEX parameter or a name parameter.\n" + MESSAGE_USAGE;
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 

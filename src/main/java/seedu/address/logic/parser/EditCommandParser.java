@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.EditCommand.MESSAGE_USAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -13,6 +15,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.EditByNameCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
@@ -53,11 +56,24 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
 
-        // Decide whether to use EditCommand or EditByNameCommand based on the user input.
         String preamble = argMultimap.getPreamble();
+
+        //@@author zioul123
+        // There must be either an index or string in the preamble
+        if (preamble.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+        }
+
         Optional<Index> index = getIndex(preamble);
+        // The command used an index and not a string, but the index was rejected.
+        if (!index.isPresent() && StringUtil.isInteger(preamble)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+        }
+
+        // Decide which command to use based on whether the user input was an index or a string
         return index.<EditCommand>map(idx -> new EditCommand(idx, editPersonDescriptor))
                 .orElseGet(() -> new EditByNameCommand(preamble, editPersonDescriptor));
+        //@@author
     }
 
     /**
