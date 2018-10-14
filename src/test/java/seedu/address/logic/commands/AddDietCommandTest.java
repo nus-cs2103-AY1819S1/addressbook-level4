@@ -60,12 +60,12 @@ public class AddDietCommandTest {
     }
 
     @Test
-    public void constructor_null_nric_throwsNullPointerException() {
+    public void constructor_nullNric_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new AddDietCommand(null, dietsToAdd));
     }
 
     @Test
-    public void constructor_null_dietsToAdd_throwsNullPointerException() {
+    public void constructor_nullDietsToAdd_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new AddDietCommand(patientNric, null));
     }
 

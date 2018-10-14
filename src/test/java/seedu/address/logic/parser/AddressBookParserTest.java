@@ -15,7 +15,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.logic.commands.AddDietCommand;
 import seedu.address.logic.commands.AddmedsCommand;
 import seedu.address.logic.commands.AddmhCommand;
 import seedu.address.logic.commands.CheckinCommand;

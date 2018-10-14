@@ -32,12 +32,12 @@ public class DietTest {
     }
 
     @Test
-    public void constructor_detail_null_throwsNullPointerException() {
+    public void constructor_nullDetail_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new Diet(null, DietType.ALLERGY));
     }
 
     @Test
-    public void constructor_type_null_throwsNullPointerException() {
+    public void constructor_nullType_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new Diet(allergyOne, null));
     }
 

@@ -40,10 +40,10 @@ public class AddDietCommandParser implements Parser<AddDietCommand> {
         Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get());
 
         Set<Diet> allergies = ParserUtil.parseDiet(argMultimap.getAllValues(PREFIX_ALLERGY), DietType.ALLERGY);
-        Set<Diet> culturalRequirements = ParserUtil.parseDiet(argMultimap.
-                getAllValues(PREFIX_CULTURAL_REQUIREMENT), DietType.CULTURAL);
-        Set<Diet> physicalDifficulties = ParserUtil.parseDiet(argMultimap.
-                getAllValues(PREFIX_PHYSICAL_DIFFICULTY), DietType.PHYSICAL);
+        Set<Diet> culturalRequirements = ParserUtil.parseDiet(argMultimap
+                .getAllValues(PREFIX_CULTURAL_REQUIREMENT), DietType.CULTURAL);
+        Set<Diet> physicalDifficulties = ParserUtil.parseDiet(argMultimap
+                .getAllValues(PREFIX_PHYSICAL_DIFFICULTY), DietType.PHYSICAL);
 
         DietCollection dietsToAdd = new DietCollection(allergies, culturalRequirements, physicalDifficulties);
         return new AddDietCommand(nric, dietsToAdd);

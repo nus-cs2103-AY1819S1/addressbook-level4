@@ -52,13 +52,13 @@ public class AddDietCommandParserTest {
     }
 
     @Test
-    public void parse_nric_missing_failure() {
+    public void parse_nricMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddDietCommand.MESSAGE_USAGE);
         assertParseFailure(parser, VALID_DIET_COLLECTION_DESC, expectedMessage);
     }
 
     @Test
-    public void parse_only_nric_failure() {
+    public void parse_onlyNric_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddDietCommand.MESSAGE_USAGE);
         assertParseFailure(parser, NRIC_DESC_AMY, expectedMessage);
     }

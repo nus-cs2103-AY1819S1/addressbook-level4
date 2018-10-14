@@ -73,19 +73,17 @@ public class ParserUtilTest {
 
     //@@author yuntongzhang
     @Test
-    public void parseDiet_null_diets_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class,
-                () -> ParserUtil.parseDiet(null, VALID_DIET_TYPE));
+    public void parseDiet_nullDiets_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseDiet(null, VALID_DIET_TYPE));
     }
 
     @Test
-    public void parseDiet_null_type_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class,
-                () -> ParserUtil.parseDiet(VALID_DIETS, null));
+    public void parseDiet_nullType_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseDiet(VALID_DIETS, null));
     }
 
     @Test
-    public void parseDiet_validDiet_validType_returnDiets() {
+    public void parseDiet_allValid_returnDiets() {
         Set<Diet> expectedDiets = new HashSet<>();
         for (String diet: VALID_DIETS) {
             String trimmedDiet = diet.trim();

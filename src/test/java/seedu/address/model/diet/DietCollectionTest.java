@@ -66,7 +66,7 @@ public class DietCollectionTest {
         List<Diet> expectedCulturalRequirement = new LinkedList<>();
         expectedCulturalRequirement.add(halalRequirement);
 
-        assertEquals(new DietCollection(dietSetOne).getCulturalRequirements(),expectedCulturalRequirement);
+        assertEquals(new DietCollection(dietSetOne).getCulturalRequirements(), expectedCulturalRequirement);
     }
 
     @Test
