@@ -23,6 +23,12 @@ import seedu.address.model.diet.DietCollection;
 import seedu.address.model.diet.DietType;
 import seedu.address.model.person.Nric;
 
+//@@author yuntongzhang
+
+/**
+ * Test driver for AddDietCommandParser class.
+ * @author yuntongzhang
+ */
 public class AddDietCommandParserTest {
     private AddDietCommandParser parser;
     private Nric patientNric;
