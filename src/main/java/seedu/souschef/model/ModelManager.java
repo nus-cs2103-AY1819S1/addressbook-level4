@@ -84,14 +84,8 @@ public class ModelManager<T extends UniqueType> extends ComponentManager impleme
     }
 
     @Override
-    public T getItem(T target) {
-        requireNonNull(target);
-        return uniqueList.getItem(target);
-    }
-
-    @Override
-    public T getItem(int index) {
-        return uniqueList.getItem(index);
+    public UniqueList<T> getFullList() {
+        return uniqueList;
     }
 
     //=========== Filtered Recipe List Accessors =============================================================
