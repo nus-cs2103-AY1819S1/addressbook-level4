@@ -61,6 +61,13 @@ public class AchievementRecord {
         setLevel(newData.getLevel());
     }
 
+    public void updateXP(Integer xp) {
+        requireNonNull(xp);
+
+        Integer newXpValue = this.xp.getXp() + xp;
+        this.setXp(new XP(newXpValue));
+    }
+
     /**
      * Returns the backing object as an {@code SimpleObjectProperty}.
      */

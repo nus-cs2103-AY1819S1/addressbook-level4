@@ -11,7 +11,6 @@ public class XP {
     
     public static final String MESSAGE_XP_CONSTRAINTS =
             "XP should have positive integer values.";
-    public static final String XP_VALIDATION_REGEX = "^[1-9][0-9]*$";
     private final Integer xp;
 
     /**
@@ -33,10 +32,18 @@ public class XP {
     }
 
     /**
+     * Getter of the xp value.
+     * @return xp
+     */
+    public Integer getXp() {
+        return this.xp;
+    }
+
+    /**
      * Returns true if a given integer is a valid xp.
      */
     public static boolean isValidXP(Integer test) {
-        return test.toString().matches(XP_VALIDATION_REGEX);
+        return test instanceof Integer && test >= 0;
     }
 
     @Override

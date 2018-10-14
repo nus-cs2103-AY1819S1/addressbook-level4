@@ -85,6 +85,15 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
 
+    @Override
+    public void updateTaskStatus(Task target, Task updatedTask) {
+        requireAllNonNull(target, updatedTask);
+
+        versionedTaskManager.updateTask(target, updatedTask);
+        versionedTaskManager.updateAchievement(500);
+        indicateTaskManagerChanged();
+    }
+
     //=========== Filtered Task List Accessors =============================================================
 
     /**

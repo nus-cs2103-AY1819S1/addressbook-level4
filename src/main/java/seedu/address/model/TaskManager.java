@@ -107,6 +107,14 @@ public class TaskManager implements ReadOnlyTaskManager {
     public void removeTask(Task key) {
         tasks.remove(key);
     }
+    
+    //// achievement related operation
+    
+    public void updateAchievement(Integer xp) {
+        requireNonNull(xp);
+        
+        achievements.updateXP(xp);
+    }
 
     //// util methods
 
