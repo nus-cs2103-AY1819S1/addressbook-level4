@@ -202,6 +202,8 @@ public class MainWindow extends UiPart<Stage> {
             // TO_UPDATE: Shows all available volunteers for event
             listPanelPlaceholder.getChildren().clear();
             listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+            browserPlaceholder.getChildren().clear();
+            browserPlaceholder.getChildren().add(eventListPanel.getRoot());
         }
     }
 
