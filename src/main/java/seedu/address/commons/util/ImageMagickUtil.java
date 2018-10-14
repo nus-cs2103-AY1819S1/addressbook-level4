@@ -23,6 +23,8 @@ import com.sun.javafx.PlatformUtil;
  * An utility class that handles most of the low-level interaction with the ImageMagick executable.
  */
 public class ImageMagickUtil {
+    public static final String TMPPATH =
+            "/Users/Lancelot/Desktop/CS2103T/project/main/src/main/java/seedu/address/storage/tmp/";
     /**
      * @return path an string to the location of the ImageMagick executable for a supported platform.
      */
@@ -114,26 +116,69 @@ public class ImageMagickUtil {
 
     /**
      * @author lancelotwillow
+     * check whether there is any exectuable
+     * @return
+     */
+    private static boolean hasExecutable() {
+        try {
+            String path = getImageMagicPackgaePath();
+            File file = new File(path);
+            File[] fileList = file.listFiles();
+            for (File current : fileList) {
+                if (current.isDirectory()) {
+                    File bin = new File(current.getAbsolutePath() + "/bin/magick");
+                    return bin.exists();
+                }
+            }
+            return false;
+        } catch (NoSuchElementException e) {
+            System.err.println(e);
+            return false;
+        }
+    }
+
+    /**
+     * @author lancelotwillow
      * the method is to unzip the package
      */
     public static void unzipPacakge() throws IOException, InterruptedException {
         File folder = new File(getImageMagicPackgaePath());
         File[] listOfFiles = folder.listFiles();
+        File zipfile = listOfFiles[0];
         for (File file : listOfFiles) {
-            if (file.isDirectory()) {
+            if (hasExecutable()) {
                 return;
             }
+            if (!zipfile.getName().endsWith(".tar.gz") && file.getName().endsWith(".tar.gz")) {
+                zipfile = file;
+            }
         }
-        File zipfile = listOfFiles[0];
+
         if (!zipfile.getName().endsWith(".tar.gz")) {
             System.err.println("cannot find the package");
             return;
         }
-        System.out.println(zipfile.getAbsolutePath());
+        do {
+            System.out.println(zipfile.getAbsolutePath());
+            ProcessBuilder pb = new ProcessBuilder(
+                    folder.getAbsolutePath() + "/../../unzipPackage.sh");
+            Process process = pb.start();
+            //process.wait(10);
+            System.out.println("");
+        } while (!hasExecutable());
         ProcessBuilder pb = new ProcessBuilder(
-                "tar", "zxvf", zipfile.getAbsolutePath(), "-C", folder.getAbsolutePath());
-        Process process = pb.start();
+                folder.getAbsolutePath() + "/../../init.sh");
         //process.waitFor();
-        System.out.println("check");
+    }
+
+    public static String getExecuteImagicMagic() throws NoSuchElementException {
+        File folder = new File(getImageMagicPackgaePath());
+        File[] listOfFiles = folder.listFiles();
+        for (File file : listOfFiles) {
+            if (file.isDirectory()) {
+                return file.getAbsolutePath() + "/bin/magick";
+            }
+        }
+        throw new NoSuchElementException("cannot find the file");
     }
 }
