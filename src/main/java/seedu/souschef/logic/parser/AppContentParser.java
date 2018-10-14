@@ -6,6 +6,8 @@ import java.util.regex.Pattern;
 
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.logic.commands.Command;
+import seedu.souschef.logic.commands.PlanMealCommand;
+import seedu.souschef.logic.parser.contextparser.MealPlannerParser;
 import seedu.souschef.logic.parser.contextparser.RecipeParser;
 import seedu.souschef.logic.parser.contextparser.UniversalParser;
 import seedu.souschef.logic.parser.exceptions.ParseException;
@@ -34,6 +36,10 @@ public class AppContentParser {
         String context = history.getContext();
         if (userInput.charAt(0) == '-') {
             return new UniversalParser().parseCommand(history, userInput);
+            //TODO: Refine condition to redirect for other meal planner commands (clearplanner, displayplanner, etc...)
+        } else if (userInput.substring(0, 4).equalsIgnoreCase(PlanMealCommand.COMMAND_WORD)) {
+            return new MealPlannerParser()
+                .parseCommand(modelSet.getMealPlannerModel(), modelSet.getRecipeModel(), userInput);
         } else if (context == null || context.equals("Recipe")) {
             return new RecipeParser().parseCommand(modelSet.getRecipeModel(), userInput);
         } else {
