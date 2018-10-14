@@ -18,8 +18,8 @@ public class ListCommand extends Command {
     public static final String SHOW_UNCOMPLETED_COMMAND = "-u";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all wishes that are in the WishBook.\n"
-            + COMMAND_WORD + " -c: Lists all wishes have been completed.\n"
-            + COMMAND_WORD + " -u: Lists all wishes that are still in progress.\n";
+            + COMMAND_WORD + " " + SHOW_COMPLETED_COMMAND + ": Lists all wishes have been completed.\n"
+            + COMMAND_WORD + " " + SHOW_UNCOMPLETED_COMMAND + ": Lists all wishes that are still in progress.\n";
     public static final String MESSAGE_SUCCESS = "Listed all wishes";
     public static final String MESSAGE_SHOWED_COMPLETED = "Listed completed wishes";
     public static final String MESSAGE_SHOWED_UNCOMPLETED = "Listed uncompleted wishes";
