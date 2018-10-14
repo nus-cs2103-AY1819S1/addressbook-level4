@@ -173,6 +173,10 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new AddressBookExportEvent(versionedAddressBook, filepath));
     }
 
+    @Override
+    public Path getAddressBookFilePath() {
+        return userPrefs.getAddressBookFilePath();
+    }
 
     @Override
     public void changeUserPrefs(Path filepath) {

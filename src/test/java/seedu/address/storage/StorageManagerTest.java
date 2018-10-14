@@ -96,7 +96,7 @@ public class StorageManagerTest {
 
     @Test
     public void handleUserPrefsChangeEvent_exceptionThrown_eventRaised() {
-        // Create a StorageManager while injecting a stub that  throws an exception when the export method is called
+        // Create a StorageManager while injecting a stub that  throws an exception when the change method is called
         Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub(Paths.get("dummy")),
                 new JsonUserPrefsStorage(Paths.get("dummy")));
         storage.handleUserPrefsChangeEvent(new UserPrefsChangeEvent(new UserPrefs(), new AddressBook(),

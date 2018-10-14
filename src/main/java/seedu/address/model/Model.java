@@ -129,4 +129,8 @@ public interface Model {
      */
     void changeUserPrefs(Path filepath);
 
+    /**
+     * Get Current Address Book File Path.
+     */
+    Path getAddressBookFilePath();
 }

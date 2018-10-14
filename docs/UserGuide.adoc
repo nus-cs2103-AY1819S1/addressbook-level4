@@ -230,6 +230,11 @@ Format: +
 Example:
 `filepath f/new_path.xml` : Storage location of FlashBook is now stored at `new_path.xml`.
 
+****
+User can also check the current path of Flashbook use `filepath show`
+****
+
+
 === Autocomplete
 
 To assist user to speed up typing of command, user can <TAB> to autocomplete the command.
