@@ -7,7 +7,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
 /**
- * Lists all persons in the Schedule Planner to the user.
+ * Lists all tasks in the Schedule Planner to the user.
  */
 public class ListCommand extends Command {
 
