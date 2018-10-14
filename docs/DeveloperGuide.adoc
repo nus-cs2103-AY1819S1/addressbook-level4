@@ -17,6 +17,10 @@ endif::[]
 
 By: `Team T12-3`      Since: `Aug 2018`      Licence: `MIT`
 
+== Introduction
+Student Schedule Planner is a desktop application that serves to aid students to manage their tasks that they have to
+ do.
+
 == Setting up
 
 === Prerequisites
@@ -47,7 +51,7 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedTask.java[`XmlAdaptedTask.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
 . Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
@@ -172,7 +176,7 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -214,11 +218,11 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Task>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Address Book`, which `Task` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Task` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
 
@@ -587,7 +591,7 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 * Hints
 ** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
 ** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/task/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a task, and link:{repoURL}/src/main/java/seedu/address/model/task/Person.java[`Person`] allows you to update the tags.
+**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/task/Task.java[`Task`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a task, and link:{repoURL}/src/main/java/seedu/address/model/task/Task.java[`Task`] allows you to update the tags.
 * Solution
 ** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each task, and remove the `tag` from each task.
 ** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
@@ -742,7 +746,7 @@ Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui
 
 **Main:**
 
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
+. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/TaskListCard.fxml[`TaskListCard.fxml`].
 . Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/TaskCard.java[`TaskCard`] to tie the variable to the actual label.
 
 **Tests:**
@@ -750,7 +754,7 @@ Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui
 . Modify link:{repoURL}/src/test/java/guitests/guihandles/TaskCardHandle.java[`TaskCardHandle`] so that future tests can read the contents of the remark label.
 
 ===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/task/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
+We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/task/Task.java[`Task`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
 
 **Main:**
 
@@ -761,17 +765,17 @@ We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/s
 
 . Add test for `Remark`, to test the `Remark#equals()` method.
 
-===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/task/Person.java[`Person`].
+===== [Step 5] Model: Modify `Task` to support a `Remark` field
+Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/task/Task.java[`Task`].
 
 **Main:**
 
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/task/Person.java[`Person`].
+. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/task/Task.java[`Task`].
 . You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the task will be created without a remark).
 . Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `schedulePlanner.xml` so that the application will load the sample data when you launch it.)
 
-===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] to include a `Remark` field so that it will be saved.
+===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedTask` class
+We now have `Remark` s for `Task` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedTask.java[`XmlAdaptedTask`] to include a `Remark` field so that it will be saved.
 
 **Main:**
 
@@ -779,15 +783,15 @@ We now have `Remark` s for `Person` s, but they will be gone when we exit the ap
 
 **Tests:**
 
-. Fix `invalidAndValidPersonAddressBook.xml`, `typicalPersonsAddressBook.xml`, `validAddressBook.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
+. Fix `invalidAndValidTaskSchedulePlanner.xml`, `typicalTasksSchedulePlanner.xml`, `validSchedulePlanner.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
 
-===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/task/Person.java[`Person`].
+===== [Step 6b] Test: Add withRemark() for `TaskBuilder`
+Since `Task` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/TaskBuilder.java[`TaskBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/task/Task.java[`Task`].
 
 **Tests:**
 
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the task that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
+. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/TaskBuilder.java[`TaskBuilder`]. This method will create a new `Remark` for the task that it is currently building.
+. Try and use the method on any sample `Task` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalTasks.java[`TypicalTasks`].
 
 ===== [Step 7] Ui: Connect `Remark` field to `TaskCard`
 Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/TaskCard.java[`TaskCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
@@ -798,7 +802,7 @@ Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/TaskCard.java[
 
 **Tests:**
 
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
+. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysTask(...)`] so that it will compare the now-functioning remark label.
 
 ===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
 We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
@@ -883,9 +887,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |student |view a history of all my commands in user-friendliness format |view what changes I had made before
 
-|`* * *` |student |clear the screen |have my command-line interface cleaned of commands and result
+|`* * *` |student |clear the screen |have my screen interface cleaned of commands and result
 
-|`* *` |student |sort tasks by category |know what I need to do for each aspect of my life
+|`* *` |student |sort tasks by category |categorise my tasks
 
 |`* *` |student |create a "workshop" list |record all the workshops that I have signed up
 
@@ -917,19 +921,19 @@ _{More to be added}_
 (For all use cases below, the *System* is the `Student Schedule Planner` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Add Exam
+=== Use case: Add Task
 
 *MSS*
 
-1.  User requests to add exam into Student Schedule Planner.
-2.  Student Schedule Planner add the exam into exam list.
+1.  User requests to add task into Student Schedule Planner.
+2.  Student Schedule Planner add the exam into task list.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. The add Exam command did not follow the correct format.
+* 1a. The add Task command did not follow the correct format.
 +
 [none]
 ** 1a1. Student Schedule Planner shows an error message.
@@ -937,19 +941,19 @@ Use case ends.
 Use case resume at step 1.
 
 [discrete]
-=== Use case: List Exam
+=== Use case: List Task
 
 *MSS*
 
-1.  User requests to view exam list from Student Schedule Planner.
-2.  Student Schedule Planner display the exam list.
+1.  User requests to view task list from Student Schedule Planner.
+2.  Student Schedule Planner display the task list.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. The list exam command did not follow the correct format.
+* 1a. The list task command did not follow the correct format.
 +
 [none]
 ** 1a1. Student Schedule Planner shows an error message.
@@ -961,21 +965,21 @@ Use case resume at step 1.
 Use case ends.
 
 [discrete]
-=== Use case: Modify Exam
+=== Use case: Modify Task
 
 *MSS*
 
-1.  User requests to list exam list from Student Schedule Planner.
-2.  Student Schedule Planner display the exam list.
-3.  User request to edit a specific exam in the list.
-4.  Student Schedule Planner updates the exam.
+1.  User requests to list task list from Student Schedule Planner.
+2.  Student Schedule Planner display the task list.
+3.  User request to edit a specific task in the list.
+4.  Student Schedule Planner updates the task.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. The list exam command did not follow the correct format.
+* 1a. The list task command did not follow the correct format.
 +
 [none]
 ** 1a1. Student Schedule Planner shows an error message.
@@ -986,7 +990,7 @@ Use case resume at step 1.
 +
 Use case ends.
 [none]
-* 3a. The Modify exam command did not follow the correct format.
+* 3a. The Modify task command did not follow the correct format.
 +
 [none]
 ** 3a1. Student Schedule Planner shows an error message.
@@ -994,61 +998,115 @@ Use case ends.
 Use case resume at step 3.
 
 [discrete]
-=== Use case: Delete Exam
+=== Use case: Delete Task
 
 *MSS*
 
-1.  User requests to list exam list from Student Schedule Planner.
-2.  Student Schedule Planner display the exam list.
-3.  User request to delete a specific exam in the list.
-4.  Student Schedule Planner delete the exam.
+1.  User requests to list task list from Student Schedule Planner.
+2.  Student Schedule Planner display the task list.
+3.  User request to delete a specific task in the list.
+4.  Student Schedule Planner delete the task.
 +
 Use case ends.
 
-[discrete]
 *Extensions*
 
 [none]
-* 1a. The list exam command did not follow the correct format.
+* 1a. The list task command did not follow the correct format.
 +
 [none]
 ** 1a1. Student Schedule Planner shows an error message.
 +
-Use case resume at step 1.
+Use case ends.
 [none]
 * 2a1. The list is empty.
 +
 Use case ends.
 [none]
-* 3a. The Delete exam command did not follow the correct format.
+* 3a. The Delete task command did not follow the correct format.
 +
 [none]
 ** 3a1. Student Schedule Planner shows an error message.
 +
+* 3b. The task to be deleted does not exist.
++
+[none]
+** 3b1. Student Schedule Planner shows an error message.
++
 Use case resume at step 3.
 
 [discrete]
-=== Use case: Search Exam
+=== Use case: Search Task
 
 *MSS*
 
-1.  User requests to search a specific exam from Student Schedule Planner.
-2.  Student Schedule Planner filter the exam by the given parameter.
-3.  Student Schedule Planner display the filtered exam.
+1.  User requests to search a specific task by its name from Student Schedule Planner.
+2.  Student Schedule Planner filter the task by the given parameter.
+3.  Student Schedule Planner display the filtered task.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. The search exam command did not follow the correct format.
+* 1a. The search task command did not follow the correct format.
 +
 [none]
 ** 1a1. Student Schedule Planner shows an error message.
 +
 Use case resume at step 1.
 [none]
-* 3a. The filtered exam list is empty and thus display empty list.
+* 3a. The filtered task list is empty and thus display empty list.
++
+Use case ends.
+
+[discrete]
+=== Use case: List tasks due today
+
+*MSS*
+
+1.  User requests to view tasks due the current date from the Student Schedule Planner.
+2.  Student Schedule Planner filter the tasks by the current date.
+3.  Student Schedule Planner display the list of tasks due on the current date.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list tasks due today command did not follow the correct format.
++
+[none]
+** 1a1. Student Schedule Planner shows an error message.
++
+Use case resume at step 1.
+[none]
+* 3a. The filtered task list is empty and thus display empty list.
++
+Use case ends.
+
+[discrete]
+=== Use case: List tasks due until this Sunday
+
+*MSS*
+
+1.  User requests to view tasks due from the current date until Sunday from the Student Schedule Planner.
+2.  Student Schedule Planner filter the tasks from the range of current date until Sunday.
+3.  Student Schedule Planner display the list of tasks due from current date until Sunday.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list tasks due until this Sunday command did not follow the correct format.
++
+[none]
+** 1a1. Student Schedule Planner shows an error message.
++
+Use case resume at step 1.
+[none]
+* 3a. The filtered task list is empty and thus display empty list.
 +
 Use case ends.
 

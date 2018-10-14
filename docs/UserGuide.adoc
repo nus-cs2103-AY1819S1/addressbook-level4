@@ -179,22 +179,15 @@ Deletes the 2nd task in the schedule planner.
 `delete task 1` +
 Deletes the 1st task in the results of the `search task` command.
 
-=== Viewing tasks due : `view task`
+=== Viewing tasks due today : `listday`
 
-View tasks that are due within a specified number of days. +
-Format: `view task DAYS`
+View tasks that are due today. +
+Format: `listday`
 
-****
-* View tasks due within the DAYS number of days.
-* DAYS *must be a positive integer* 1, 2, 3, ...
-****
+=== Viewing tasks due till Sunday : `listweek`
 
-Examples:
-
-* `view task 1` +
-Shows a list of all tasks due within 1 day.
-* `view task 7` +
-Shows a list of all tasks due within 1 week.
+View tasks that are due from current date till the closest Sunday. +
+Format: `listweek`
 
 === Listing overdue tasks: `list overdue`
 
@@ -316,7 +309,8 @@ e.g. `delete task 3`
 e.g. `edit 2 n/buy bread d/211118`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
-* *List tasks* : `list task`
+* *List tasks due today* : `listday`
+* *List tasks due till Sunday* : `listweek`
 * *List overdue tasks* : `list overdue`
 * *Sort tasks by priority* : `sort priority`
 * *List tags* : `list tags`
