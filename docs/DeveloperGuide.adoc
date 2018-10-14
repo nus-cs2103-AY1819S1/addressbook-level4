@@ -17,6 +17,10 @@ endif::[]
 
 By: `Team T12-3`      Since: `Aug 2018`      Licence: `MIT`
 
+== Introduction
+Student Schedule Planner is a desktop application that serves to aid students to manage their tasks that they have to
+ do.
+
 == Setting up
 
 === Prerequisites
@@ -883,9 +887,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |student |view a history of all my commands in user-friendliness format |view what changes I had made before
 
-|`* * *` |student |clear the screen |have my command-line interface cleaned of commands and result
+|`* * *` |student |clear the screen |have my screen interface cleaned of commands and result
 
-|`* *` |student |sort tasks by category |know what I need to do for each aspect of my life
+|`* *` |student |sort tasks by category |categorise my tasks
 
 |`* *` |student |create a "workshop" list |record all the workshops that I have signed up
 
@@ -917,19 +921,19 @@ _{More to be added}_
 (For all use cases below, the *System* is the `Student Schedule Planner` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Add Exam
+=== Use case: Add Task
 
 *MSS*
 
-1.  User requests to add exam into Student Schedule Planner.
-2.  Student Schedule Planner add the exam into exam list.
+1.  User requests to add task into Student Schedule Planner.
+2.  Student Schedule Planner add the exam into task list.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. The add Exam command did not follow the correct format.
+* 1a. The add Task command did not follow the correct format.
 +
 [none]
 ** 1a1. Student Schedule Planner shows an error message.
@@ -937,19 +941,19 @@ Use case ends.
 Use case resume at step 1.
 
 [discrete]
-=== Use case: List Exam
+=== Use case: List Task
 
 *MSS*
 
-1.  User requests to view exam list from Student Schedule Planner.
-2.  Student Schedule Planner display the exam list.
+1.  User requests to view task list from Student Schedule Planner.
+2.  Student Schedule Planner display the task list.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. The list exam command did not follow the correct format.
+* 1a. The list task command did not follow the correct format.
 +
 [none]
 ** 1a1. Student Schedule Planner shows an error message.
@@ -961,21 +965,21 @@ Use case resume at step 1.
 Use case ends.
 
 [discrete]
-=== Use case: Modify Exam
+=== Use case: Modify Task
 
 *MSS*
 
-1.  User requests to list exam list from Student Schedule Planner.
-2.  Student Schedule Planner display the exam list.
-3.  User request to edit a specific exam in the list.
-4.  Student Schedule Planner updates the exam.
+1.  User requests to list task list from Student Schedule Planner.
+2.  Student Schedule Planner display the task list.
+3.  User request to edit a specific task in the list.
+4.  Student Schedule Planner updates the task.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. The list exam command did not follow the correct format.
+* 1a. The list task command did not follow the correct format.
 +
 [none]
 ** 1a1. Student Schedule Planner shows an error message.
@@ -986,7 +990,7 @@ Use case resume at step 1.
 +
 Use case ends.
 [none]
-* 3a. The Modify exam command did not follow the correct format.
+* 3a. The Modify task command did not follow the correct format.
 +
 [none]
 ** 3a1. Student Schedule Planner shows an error message.
@@ -994,61 +998,115 @@ Use case ends.
 Use case resume at step 3.
 
 [discrete]
-=== Use case: Delete Exam
+=== Use case: Delete Task
 
 *MSS*
 
-1.  User requests to list exam list from Student Schedule Planner.
-2.  Student Schedule Planner display the exam list.
-3.  User request to delete a specific exam in the list.
-4.  Student Schedule Planner delete the exam.
+1.  User requests to list task list from Student Schedule Planner.
+2.  Student Schedule Planner display the task list.
+3.  User request to delete a specific task in the list.
+4.  Student Schedule Planner delete the task.
 +
 Use case ends.
 
-[discrete]
 *Extensions*
 
 [none]
-* 1a. The list exam command did not follow the correct format.
+* 1a. The list task command did not follow the correct format.
 +
 [none]
 ** 1a1. Student Schedule Planner shows an error message.
 +
-Use case resume at step 1.
+Use case ends.
 [none]
 * 2a1. The list is empty.
 +
 Use case ends.
 [none]
-* 3a. The Delete exam command did not follow the correct format.
+* 3a. The Delete task command did not follow the correct format.
 +
 [none]
 ** 3a1. Student Schedule Planner shows an error message.
 +
+* 3b. The task to be deleted does not exist.
++
+[none]
+** 3b1. Student Schedule Planner shows an error message.
++
 Use case resume at step 3.
 
 [discrete]
-=== Use case: Search Exam
+=== Use case: Search Task
 
 *MSS*
 
-1.  User requests to search a specific exam from Student Schedule Planner.
-2.  Student Schedule Planner filter the exam by the given parameter.
-3.  Student Schedule Planner display the filtered exam.
+1.  User requests to search a specific task by its name from Student Schedule Planner.
+2.  Student Schedule Planner filter the task by the given parameter.
+3.  Student Schedule Planner display the filtered task.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. The search exam command did not follow the correct format.
+* 1a. The search task command did not follow the correct format.
 +
 [none]
 ** 1a1. Student Schedule Planner shows an error message.
 +
 Use case resume at step 1.
 [none]
-* 3a. The filtered exam list is empty and thus display empty list.
+* 3a. The filtered task list is empty and thus display empty list.
++
+Use case ends.
+
+[discrete]
+=== Use case: List tasks due today
+
+*MSS*
+
+1.  User requests to view tasks due the current date from the Student Schedule Planner.
+2.  Student Schedule Planner filter the tasks by the current date.
+3.  Student Schedule Planner display the list of tasks due on the current date.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list tasks due today command did not follow the correct format.
++
+[none]
+** 1a1. Student Schedule Planner shows an error message.
++
+Use case resume at step 1.
+[none]
+* 3a. The filtered task list is empty and thus display empty list.
++
+Use case ends.
+
+[discrete]
+=== Use case: List tasks due until this Sunday
+
+*MSS*
+
+1.  User requests to view tasks due from the current date until Sunday from the Student Schedule Planner.
+2.  Student Schedule Planner filter the tasks from the range of current date until Sunday.
+3.  Student Schedule Planner display the list of tasks due from current date until Sunday.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list tasks due until this Sunday command did not follow the correct format.
++
+[none]
+** 1a1. Student Schedule Planner shows an error message.
++
+Use case resume at step 1.
+[none]
+* 3a. The filtered task list is empty and thus display empty list.
 +
 Use case ends.
 
