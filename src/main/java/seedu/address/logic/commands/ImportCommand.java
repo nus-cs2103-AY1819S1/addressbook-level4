@@ -47,11 +47,9 @@ public class ImportCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "%1$s file read and database updated.";
     public static final String MESSAGE_FILE_NOT_FOUND = "File not found.";
-    public static final String MESSAGE_FILE_EMPTY = "Unable to read. File is empty.";
+    public static final String MESSAGE_EMPTY_FILE = "File is empty";
     public static final String MESSAGE_CONFIG_ERR = "Configuration error.";
     public static final String MESSAGE_PARSE_ERR = "Error parsing XML file.";
-
-    public static final int MAX_PEOPLE_PER_ROOM = 2;
 
     private final File file;
     private final List<Person> personList;
@@ -75,30 +73,15 @@ public class ImportCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        Document doc = parseFile();
 
-        try {
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(file);
-            doc.getDocumentElement().normalize();
-
-            if (doc.getElementsByTagName("persons").getLength() != 0) {
-                importContacts(doc, model);
-            } else {
-                importCca(doc, model);
-            }
-
-            model.commitAddressBook();
-            return new CommandResult(String.format(MESSAGE_SUCCESS, file.getName()));
-        } catch (FileNotFoundException e) {
-            throw new CommandException(MESSAGE_FILE_NOT_FOUND);
-        } catch (IOException e) {
-            throw new CommandException(MESSAGE_FILE_EMPTY);
-        } catch (ParserConfigurationException e) {
-            throw new CommandException(MESSAGE_CONFIG_ERR);
-        } catch (SAXException e) {
-            throw new CommandException(MESSAGE_PARSE_ERR);
+        if (doc.getElementsByTagName("persons").getLength() != 0) {
+            importContacts(doc, model);
+        } else {
+            importCca(doc, model);
         }
+        model.commitAddressBook();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, file.getName()));
     }
 
     @Override
@@ -106,6 +89,28 @@ public class ImportCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof ImportCommand // instanceof handles nulls
                 && file.equals(((ImportCommand) other).file));
+    }
+
+    /**
+     * Parses XML file for reading.
+     */
+    private Document parseFile() throws CommandException {
+        try {
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(file);
+            doc.getDocumentElement().normalize();
+            return doc;
+
+        } catch (ParserConfigurationException e) {
+            throw new CommandException(MESSAGE_CONFIG_ERR);
+        } catch (SAXException e) {
+            throw new CommandException(MESSAGE_PARSE_ERR);
+        } catch (FileNotFoundException e) {
+            throw new CommandException(MESSAGE_FILE_NOT_FOUND);
+        } catch (IOException e) {
+            throw new CommandException(MESSAGE_EMPTY_FILE);
+        }
     }
 
     /**
