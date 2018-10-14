@@ -5,6 +5,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.analytics.Analytics;
 import seedu.address.model.appointment.Appointment;
 
 import java.util.List;
@@ -36,20 +37,19 @@ public class ChangeApptCommand extends Command {
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment is already scheduled.";
 
     public final Index targetIndex;
-    //public final AppointmentRescheduler appointmentRescheduler
+    //public final AppointmentRescheduler appointmentRescheduler;
 
     public ChangeApptCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history, Analytics analytics) throws CommandException {
         List<Appointment> lastShownList = model.getFilteredAppointmentList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
