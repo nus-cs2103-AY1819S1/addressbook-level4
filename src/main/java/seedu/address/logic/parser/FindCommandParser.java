@@ -21,6 +21,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Parses input arguments and creates a new FindCommand object
  */
+//@@Author Jiang Chen
 public class FindCommandParser implements Parser<FindCommand> {
 
     /**
@@ -34,14 +35,20 @@ public class FindCommandParser implements Parser<FindCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
+
+        if (trimmedArgs.split("/").length == 1){ //Ensure args contains at least one prefix or keyword
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        }
+
         ArgumentMultimap keywordsMap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CATEGORY, PREFIX_COST, PREFIX_TAG, PREFIX_DATE);
-        ensureKeywordsIsValid(keywordsMap);
+        ensureKeywordsAreValid(keywordsMap);
 
         return new FindCommand(new ExpenseContainsKeywordsPredicate(keywordsMap));
     }
 
-    public void ensureKeywordsIsValid(ArgumentMultimap keywordsMap) throws ParseException{
+    public void ensureKeywordsAreValid(ArgumentMultimap keywordsMap) throws ParseException{
         String nameKeywords = keywordsMap.getValue(PREFIX_NAME).orElse(null);
         String categoryKeywords = keywordsMap.getValue(PREFIX_CATEGORY).orElse(null);
         List<String> tagKeywords = keywordsMap.getAllValues(PREFIX_TAG);

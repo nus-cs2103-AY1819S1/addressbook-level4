@@ -61,6 +61,33 @@ public class Date {
         return false;
     }
 
+    /**
+     * return true if {@code this} is earlier than {@param other}
+     * */
+    //@@author Jiang Chen
+    public boolean isEalierThan(Date other){
+        if (this.fullDate.get(Calendar.YEAR) < other.fullDate.get(Calendar.YEAR)){
+            return true;
+        }
+        if (this.fullDate.get(Calendar.YEAR) > other.fullDate.get(Calendar.YEAR)){
+            return false;
+        }
+        if (this.fullDate.get(Calendar.MONTH) < other.fullDate.get(Calendar.MONTH)){
+            return true;
+        }
+        if (this.fullDate.get(Calendar.MONTH) > other.fullDate.get(Calendar.MONTH)){
+            return false;
+        }
+        if (this.fullDate.get(Calendar.DAY_OF_YEAR) < other.fullDate.get(Calendar.DAY_OF_YEAR)){
+            return true;
+        }
+        if (this.fullDate.get(Calendar.MONTH) > other.fullDate.get(Calendar.MONTH)){
+            return false;
+        }
+
+        return false;
+    }
+
     @Override
     public String toString() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
