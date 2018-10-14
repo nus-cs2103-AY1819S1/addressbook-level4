@@ -34,7 +34,9 @@ import seedu.address.model.task.Task;
  */
 public class CompleteCommandTest {
 
-    private static final LabelMatchesKeywordPredicate FRIENDS_PREDICATE = new LabelMatchesKeywordPredicate("friends");
+    private static final LabelMatchesKeywordPredicate PREDICATE_FRIENDS = new LabelMatchesKeywordPredicate("friends");
+    private static final LabelMatchesKeywordPredicate PREDICATE_NONSENSE = new LabelMatchesKeywordPredicate(
+        "AOSDIJPQWEOIDJPQWOiodj120349871238493qw");
     private Model model = new ModelManager(getTypicalTaskManager(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
@@ -93,7 +95,7 @@ public class CompleteCommandTest {
 
     @Test
     public void execute_validLabel_success() {
-        CompleteCommand completeCommand = new CompleteCommand(FRIENDS_PREDICATE);
+        CompleteCommand completeCommand = new CompleteCommand(PREDICATE_FRIENDS);
 
         Model expectedModel = new ModelManager(model.getTaskManager(), new UserPrefs());
         Pair<Model, Set<String>> modelStringPair = produceExpectedModelExpectedMessagePairOnLabelKeywordMatch(
@@ -108,8 +110,7 @@ public class CompleteCommandTest {
 
     @Test
     public void execute_invalidLabel_throwsCommandException() {
-        LabelMatchesKeywordPredicate keywordNoOccurence = new LabelMatchesKeywordPredicate("adiouweaphfewoip");
-        CompleteCommand completeCommand = new CompleteCommand(keywordNoOccurence);
+        CompleteCommand completeCommand = new CompleteCommand(PREDICATE_NONSENSE);
 
         assertCommandFailure(completeCommand, model, commandHistory,
             CompleteCommand.MESSAGE_NO_COMPLETABLE_TASK_IDENTIFIED_BY_LABEL);
@@ -179,6 +180,43 @@ public class CompleteCommandTest {
         // redo -> completes same second task in unfiltered task list
         expectedModel.redoTaskManager();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void executeUndoRedo_validLabel_success() throws Exception {
+        CompleteCommand completeCommand = new CompleteCommand(PREDICATE_FRIENDS);
+
+        Model expectedModel = new ModelManager(model.getTaskManager(), new UserPrefs());
+        Pair<Model, Set<String>> modelStringPair = produceExpectedModelExpectedMessagePairOnLabelKeywordMatch(
+            "friends",
+            expectedModel);
+        expectedModel = modelStringPair.getKey();
+
+        // complete -> first task completed
+        completeCommand.execute(model, commandHistory);
+
+        // undo -> reverts task manager back to previous state and filtered task list to show all
+        // tasks
+        expectedModel.undoTaskManager();
+        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+
+        // redo -> same first task completed again
+        expectedModel.redoTaskManager();
+        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+
+    @Test
+    public void executeUndoRedo_invalidLabel_failure() {
+        CompleteCommand completeCommand = new CompleteCommand(PREDICATE_NONSENSE);
+
+        // execution failed -> task manager state not added into model
+        assertCommandFailure(completeCommand, model, commandHistory,
+            CompleteCommand.MESSAGE_NO_COMPLETABLE_TASK_IDENTIFIED_BY_LABEL);
+
+        // single task manager state in model -> undoCommand and redoCommand fail
+        assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
+        assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
 
     @Test
