@@ -31,8 +31,8 @@ import seedu.address.testutil.PersonBuilder;
 //Based heavily on EditCommandTest, modified for EditByNameCommand
 public class EditByNameCommandTest {
 
-    public static String UNUSED_NAME = "ABCDE HIJ";
-    public static String COMMON_SURNAME = "Meier";
+    public static final String UNUSED_NAME = "ABCDE HIJ";
+    public static final String COMMON_SURNAME = "Meier";
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
@@ -116,7 +116,8 @@ public class EditByNameCommandTest {
 
     @Test
     public void executeUndoRedo_invalidUpdate_failure() {
-        EditCommand.EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditCommand.EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
+                .build();
         EditByNameCommand editCommand = new EditByNameCommand(UNUSED_NAME, descriptor);
 
         // execution failed -> address book state not added into model
