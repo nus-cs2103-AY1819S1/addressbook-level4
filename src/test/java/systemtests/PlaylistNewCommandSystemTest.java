@@ -39,7 +39,7 @@
 //import seedu.jxmusic.model.playlist.Person;
 //import seedu.jxmusic.model.tag.Tag;
 //import seedu.jxmusic.testutil.PlaylistBuilder;
-//import seedu.jxmusic.testutil.PersonUtil;
+//import seedu.jxmusic.testutil.PlaylistUtil;
 //
 //public class AddCommandSystemTest extends LibrarySystemTest {
 //
@@ -78,7 +78,7 @@
 //         * -> added
 //         */
 //        toAdd = new PlaylistBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
-//        command = PersonUtil.getAddCommand(toAdd);
+//        command = PlaylistUtil.getPlaylistNewCommand(toAdd);
 //        assertCommandSuccess(command, toAdd);
 //
 //        /* Case: add to empty jxmusic book -> added */
@@ -109,26 +109,26 @@
 //        /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 //
 //        /* Case: add a duplicate playlist -> rejected */
-//        command = PersonUtil.getAddCommand(HOON);
+//        command = PlaylistUtil.getPlaylistNewCommand(HOON);
 //        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 //
 //        /* Case: add a duplicate playlist except with different phone -> rejected */
 //        toAdd = new PlaylistBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
-//        command = PersonUtil.getAddCommand(toAdd);
+//        command = PlaylistUtil.getPlaylistNewCommand(toAdd);
 //        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 //
 //        /* Case: add a duplicate playlist except with different email -> rejected */
 //        toAdd = new PlaylistBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
-//        command = PersonUtil.getAddCommand(toAdd);
+//        command = PlaylistUtil.getPlaylistNewCommand(toAdd);
 //        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 //
 //        /* Case: add a duplicate playlist except with different jxmusic -> rejected */
 //        toAdd = new PlaylistBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
-//        command = PersonUtil.getAddCommand(toAdd);
+//        command = PlaylistUtil.getPlaylistNewCommand(toAdd);
 //        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 //
 //        /* Case: add a duplicate playlist except with different tags -> rejected */
-//        command = PersonUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
+//        command = PlaylistUtil.getPlaylistNewCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
 //        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 //
 //        /* Case: missing name -> rejected */
@@ -148,7 +148,7 @@
 //        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 //
 //        /* Case: invalid keyword -> rejected */
-//        command = "adds " + PersonUtil.getPersonDetails(toAdd);
+//        command = "adds " + PlaylistUtil.getPersonDetails(toAdd);
 //        assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 //
 //        /* Case: invalid name -> rejected */
@@ -188,7 +188,7 @@
 //     * @see LibrarySystemTest#assertApplicationDisplaysExpected(String, String, Model)
 //     */
 //    private void assertCommandSuccess(Person toAdd) {
-//        assertCommandSuccess(PersonUtil.getAddCommand(toAdd), toAdd);
+//        assertCommandSuccess(PlaylistUtil.getPlaylistNewCommand(toAdd), toAdd);
 //    }
 //
 //    /**

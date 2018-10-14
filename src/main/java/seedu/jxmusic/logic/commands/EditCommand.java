@@ -5,7 +5,7 @@
 //import static java.util.Objects.requireNonNull;
 //import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_ADDRESS;
 //import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_EMAIL;
-//import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_NAME;
+//import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_PLAYLIST;
 //import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_PHONE;
 //import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_TAG;
 //import static seedu.jxmusic.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -30,18 +30,18 @@
 // */
 //public class EditCommand extends Command {
 //
-//    public static final String COMMAND_WORD = "edit";
+//    public static final String COMMAND_PHRASE = "edit";
 //
-//    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the playlist identified "
+//    public static final String MESSAGE_USAGE = COMMAND_PHRASE + ": Edits the details of the playlist identified "
 //            + "by the index number used in the displayed playlist list. "
 //            + "Existing values will be overwritten by the input values.\n"
 //            + "Parameters: INDEX (must be a positive integer) "
-//            + "[" + PREFIX_NAME + "NAME] "
+//            + "[" + PREFIX_PLAYLIST + "NAME] "
 //            + "[" + PREFIX_PHONE + "PHONE] "
 //            + "[" + PREFIX_EMAIL + "EMAIL] "
 //            + "[" + PREFIX_ADDRESS + "ADDRESS] "
 //            + "[" + PREFIX_TAG + "TAG]...\n"
-//            + "Example: " + COMMAND_WORD + " 1 "
+//            + "Example: " + COMMAND_PHRASE + " 1 "
 //            + PREFIX_PHONE + "91234567 "
 //            + PREFIX_EMAIL + "johndoe@example.com";
 //

@@ -13,7 +13,7 @@
 //import seedu.jxmusic.testutil.PlaylistBuilder;
 //
 ///**
-// * Contains integration tests (interaction with the Model) for {@code AddCommand}.
+// * Contains integration tests (interaction with the Model) for {@code PlaylistNewCommand}.
 // */
 //public class AddCommandIntegrationTest {
 //
@@ -33,15 +33,15 @@
 //        expectedModel.addPerson(validPerson);
 //        expectedModel.commitAddressBook();
 //
-//        assertCommandSuccess(new AddCommand(validPerson), model, commandHistory,
-//                String.format(AddCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
+//        assertCommandSuccess(new PlaylistNewCommand(validPerson), model, commandHistory,
+//                String.format(PlaylistNewCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
 //    }
 //
 //    @Test
 //    public void execute_duplicatePerson_throwsCommandException() {
 //        Person personInList = model.getAddressBook().getPlaylistList().get(0);
-//        assertCommandFailure(new AddCommand(personInList), model, commandHistory,
-//                AddCommand.MESSAGE_DUPLICATE_PERSON);
+//        assertCommandFailure(new PlaylistNewCommand(personInList), model, commandHistory,
+//                PlaylistNewCommand.MESSAGE_DUPLICATE_PERSON);
 //    }
 //
 //}

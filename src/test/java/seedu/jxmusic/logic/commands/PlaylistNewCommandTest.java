@@ -32,7 +32,7 @@
 //    @Test
 //    public void constructor_nullPerson_throwsNullPointerException() {
 //        thrown.expect(NullPointerException.class);
-//        new AddCommand(null);
+//        new PlaylistNewCommand(null);
 //    }
 //
 //    @Test
@@ -40,9 +40,9 @@
 //        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
 //        Person validPerson = new PlaylistBuilder().build();
 //
-//        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
+//        CommandResult commandResult = new PlaylistNewCommand(validPerson).execute(modelStub, commandHistory);
 //
-//        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
+//        assertEquals(String.format(PlaylistNewCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
 //        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
 //        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
 //    }
@@ -50,11 +50,11 @@
 //    @Test
 //    public void execute_duplicatePerson_throwsCommandException() throws Exception {
 //        Person validPerson = new PlaylistBuilder().build();
-//        AddCommand addCommand = new AddCommand(validPerson);
+//        PlaylistNewCommand addCommand = new PlaylistNewCommand(validPerson);
 //        ModelStub modelStub = new ModelStubWithPerson(validPerson);
 //
 //        thrown.expect(CommandException.class);
-//        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
+//        thrown.expectMessage(PlaylistNewCommand.MESSAGE_DUPLICATE_PERSON);
 //        addCommand.execute(modelStub, commandHistory);
 //    }
 //
@@ -62,14 +62,14 @@
 //    public void equals() {
 //        Person alice = new PlaylistBuilder().withName("Alice").build();
 //        Person bob = new PlaylistBuilder().withName("Bob").build();
-//        AddCommand addAliceCommand = new AddCommand(alice);
-//        AddCommand addBobCommand = new AddCommand(bob);
+//        PlaylistNewCommand addAliceCommand = new PlaylistNewCommand(alice);
+//        PlaylistNewCommand addBobCommand = new PlaylistNewCommand(bob);
 //
 //        // same object -> returns true
 //        assertTrue(addAliceCommand.equals(addAliceCommand));
 //
 //        // same values -> returns true
-//        AddCommand addAliceCommandCopy = new AddCommand(alice);
+//        PlaylistNewCommand addAliceCommandCopy = new PlaylistNewCommand(alice);
 //        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 //
 //        // different types -> returns false
@@ -190,7 +190,7 @@
 //
 //        @Override
 //        public void commitAddressBook() {
-//            // called by {@code AddCommand#execute()}
+//            // called by {@code PlaylistNewCommand#execute()}
 //        }
 //
 //        @Override
