@@ -36,9 +36,9 @@ public class ImportCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
+    private static final String VALID_PERSON_EMAIL = "john@gmail.com";
     private static final String VALID_PERSON_NAME = "John";
     private static final String VALID_PERSON_PHONE = "12345678";
-    private static final String VALID_PERSON_EMAIL = "john@gmail.com";
     private static final String VALID_PERSON_ROOM = "C234";
     private static final String VALID_PERSON_SCHOOL = "Computing";
 
