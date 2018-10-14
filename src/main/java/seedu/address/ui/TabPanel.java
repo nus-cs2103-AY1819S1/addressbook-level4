@@ -20,7 +20,7 @@ import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
  * Panel containing two tabs: {@code BrowserPanel} and {@code EventListPanel}.
  * Each panel is initialized as {@code BrowserPanel} and {@code EventListPanel} objects.
  */
-public class TabPanel extends  UiPart<Region> {
+public class TabPanel extends UiPart<Region> {
 
     private static final String FXML = "TabPanel.fxml";
 
