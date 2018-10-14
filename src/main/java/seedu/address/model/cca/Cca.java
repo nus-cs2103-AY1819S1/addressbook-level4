@@ -72,6 +72,17 @@ public class Cca {
         this.transaction = transaction;
     }
 
+    public Cca(String ccaName) {
+        CcaName name = new CcaName(ccaName);
+        this.name = name;
+        this.head = null;
+        this.viceHead = null;
+        this.budget = null;
+        this.spent = null;
+        this.outstanding = null;
+        this.transaction = null;
+    }
+
     public String getCcaName() {
         return name.toString();
     }
@@ -115,6 +126,15 @@ public class Cca {
         return otherCca != null
             && otherCca.getCcaName().equals(getCcaName())
             && (otherCca.getHead().equals(getHead()) || otherCca.getViceHead().equals(getViceHead()));
+    }
+
+    /**
+     * Return true if the CCA name is the same
+     *
+     * @param toCheck name of the CCA to be checked
+     */
+    public boolean isSameCcaName(Cca toCheck) {
+        return getCcaName().equals(toCheck);
     }
 
     /**

@@ -125,6 +125,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public boolean hasCca(Person person) {
+        requireNonNull(person);
+        return versionedBudgetBook.hasCca(person);
+    }
+
+    @Override
     public void deletePerson(Person target) {
         versionedAddressBook.removePerson(target);
         indicateAddressBookChanged();

@@ -3,10 +3,13 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Set;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.UniqueCcaList;
+import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * Wraps all budget data at the budget-book level
@@ -50,6 +53,21 @@ public class BudgetBook implements ReadOnlyBudgetBook {
     }
 
     //// CCA-level operations
+
+    /**
+     * Returns true if a CCA {@code tag} exists in the Budget Book.
+     */
+    public boolean hasCca(Person person) {
+        requireNonNull(person);
+        Set<Tag> tagSet = person.getTags();
+        for (Tag tag : tagSet) {
+            String ccaName = tag.tagName;
+            if (ccas.contains(ccaName)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * Returns true if a CCA {@code tag} exists in the Budget Book.

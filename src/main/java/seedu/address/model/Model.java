@@ -41,6 +41,13 @@ public interface Model {
     boolean hasPerson(Person person);
 
     /**
+     * Returns true if a person's CCA tag has the same name as the {@code cca} that exists in the budget book.
+     *
+     * @author ericyjw
+     */
+    boolean hasCca(Person toAdd);
+
+    /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
@@ -140,5 +147,6 @@ public interface Model {
      * Updates the existing calendar map inside UserPrefs Json file
      */
     void updateExistingCalendar();
+
 
 }
