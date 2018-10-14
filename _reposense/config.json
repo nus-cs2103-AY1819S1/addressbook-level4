@@ -1,0 +1,30 @@
+{
+	"authors":
+	[
+		{
+			"githubId": "anubh-v",
+			"displayName": "Anubhav",
+			"authorNames": ["anubh-v"]
+		},
+		{
+			"githubId": "jhengy",
+			"displayName": "Jiang Hengyuan",
+			"authorNames": ["jhengy"]
+		},
+		{
+			"githubId": "marvinxtd",
+			"displayName": "Marvin Tan Xu Dong",
+			"authorNames": ["Marvin Tan", "marvintxd"]
+		},
+		{
+			"githubId": "ongspxm",
+			"displayName": "Ong Shu Peng",
+			"authorNames": ["Metta Ong"]
+		},
+		{
+			"githubId": "scalarmotion",
+			"displayName": "Gu Wangfan",
+			"authorNames": ["scalarmotion"]
+		}
+	]
+}
