@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -168,12 +169,17 @@ public class CompleteCommand extends Command {
      * Generates a set of tasks that can be completed which also satisfies the supplied predicate.
      */
     private Set<Task> generateSetOfCompletableTasks(Predicate<Task> pred, Model model) {
+        // Preserve a shallow copy of original list of task to restore later on
+        List<Task> originalTasks = new ArrayList<>(model.getFilteredTaskList());
+
+        // Add all of the completable tasks to setOfTasks
         Set<Task> setOfTasks = new HashSet<>();
         model.updateFilteredTaskList(pred.and(task -> !task.isCompleted()));
         List<Task> filteredList = model.getFilteredTaskList();
-
-        // Add all of the completable tasks to setOFTasks
         setOfTasks.addAll(filteredList);
+
+        // Restore filteredTaskList to it's original view
+        model.updateFilteredTaskList(task -> originalTasks.contains(task));
 
         return setOfTasks;
     }
