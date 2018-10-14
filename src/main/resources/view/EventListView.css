@@ -1,0 +1,68 @@
+.list-view {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.list-cell {
+    -fx-label-padding: 0 0 0 0;
+    -fx-graphic-text-gap : 0;
+    -fx-padding: 0 0 0 0;
+}
+
+.list-cell:filled:even {
+    -fx-background-color: #D6EAF8;
+}
+
+.list-cell:filled:odd {
+    -fx-background-color: #AED6F1;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: #7FB3D5;
+}
+
+.list-cell:filled:selected #cardPane {
+    -fx-border-color: #7FB3D5;
+    -fx-border-width: 1;
+}
+
+.list-cell .label {
+    -fx-text-fill: #5D6D7E;
+}
+.list-cell .cell_big_label_day {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 16px;
+    -fx-text-fill: black;
+}
+
+.list-cell .cell_big_label_date {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 16px;
+    -fx-text-fill: #2C3E50;
+}
+
+.list-cell .cell_time_label_event {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 15px;
+    -fx-text-fill: black;
+}
+
+.list-cell .cell_name_label_event {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 15px;
+    -fx-text-fill: #163571;
+}
+
+.list-cell .cell_address_label_event {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 15px;
+    -fx-text-fill: black;
+    -fx-font-style: italic;
+}
+
+.list-cell .cell_small_label_event {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
+    -fx-text-fill: black;
+}

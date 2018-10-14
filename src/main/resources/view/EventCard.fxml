@@ -8,7 +8,8 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" stylesheets="@EventListView.css" xmlns="http://javafx.com/javafx/8.0.171"
+      xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -18,12 +19,15 @@
                 <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
             </padding>
             <HBox alignment="CENTER_LEFT" spacing="5.0">
-                <Label fx:id="id" styleClass="cell_small_label" />
-                <Label fx:id="time" styleClass="cell_small_label" text="\$time" />
-                <Label fx:id="name" styleClass="cell_small_label" text="\$name" />
-                <Label fx:id="address" styleClass="cell_small_label" text="\@$address" />
+                <Label fx:id="id" styleClass="cell_small_label_event" />
+                <Label fx:id="startTime" styleClass="cell_time_label_event" text="\$startTime" />
+            <Label styleClass="cell_small_label" text="–" />
+            <Label fx:id="endTime" styleClass="cell_time_label_event" text="\$endTime" />
+                <Label fx:id="name" styleClass="cell_name_label_event" text="\$name" />
+            <Label styleClass="cell_small_label_event" text="\@" />
+                <Label fx:id="address" styleClass="cell_address_label_event" text="\\$address" />
             </HBox>
-            <Label fx:id="description" styleClass="cell_small_label" text="\$description">
+            <Label fx:id="description" styleClass="cell_small_label_event" text="\$description">
             <VBox.margin>
                <Insets left="25.0" />
             </VBox.margin></Label>
