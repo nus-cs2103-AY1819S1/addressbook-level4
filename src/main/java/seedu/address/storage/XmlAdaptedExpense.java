@@ -102,7 +102,7 @@ public class XmlAdaptedExpense {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Cost.class.getSimpleName()));
         }
         if (!Cost.isValidCost(cost)) {
-            throw new IllegalValueException(Cost.MESSAGE_ADDRESS_CONSTRAINTS);
+            throw new IllegalValueException(Cost.MESSAGE_COST_CONSTRAINTS);
         }
         final Cost modelCost = new Cost(cost);
 
