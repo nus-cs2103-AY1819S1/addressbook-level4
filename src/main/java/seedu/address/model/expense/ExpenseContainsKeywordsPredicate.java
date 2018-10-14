@@ -1,25 +1,25 @@
 package seedu.address.model.expense;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.Predicate;
-
-import com.google.common.annotations.VisibleForTesting;
-import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.parser.ArgumentMultimap;
-
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Predicate;
+
+import seedu.address.commons.util.StringUtil;
+
+import seedu.address.logic.parser.ArgumentMultimap;
+
 /**
  * Tests that a {@code Expense}'s {@code Name, Category, Cost, Date, Tag} matches all of the keywords given.
  */
 //@@Author Jiang Chen
-public class ExpenseContainsKeywordsPredicate implements Predicate<Expense>{
+public class ExpenseContainsKeywordsPredicate implements Predicate<Expense> {
     private final ArgumentMultimap keywords;
 
     public ExpenseContainsKeywordsPredicate(ArgumentMultimap keywords) {
@@ -27,7 +27,7 @@ public class ExpenseContainsKeywordsPredicate implements Predicate<Expense>{
     }
 
     @Override
-    public boolean test(Expense expense){
+    public boolean test(Expense expense) {
         String nameKeywords = keywords.getValue(PREFIX_NAME).orElse("");
         String categoryKeywords = keywords.getValue(PREFIX_CATEGORY).orElse("");
         List<String> tagKeywords = keywords.getAllValues(PREFIX_TAG);
@@ -36,54 +36,56 @@ public class ExpenseContainsKeywordsPredicate implements Predicate<Expense>{
 
         //if all keywords are absent, return false
         if (nameKeywords.equals("") && categoryKeywords.equals("") && tagKeywords.isEmpty()
-                && dateKeywords.equals("") && costKeywords.equals("")){
+                && dateKeywords.equals("") && costKeywords.equals("")) {
             return false;
         }
 
         //if one or more keywords are present
         boolean result = true;
 
-        if (!nameKeywords.equals("")){
+        if (!nameKeywords.equals("")) {
             List<String> separatedNameKeywords = Arrays.asList(nameKeywords.trim().split("\\s+"));
             result = result && separatedNameKeywords.stream()
                     .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(expense.getName().expenseName, keyword));
         }
-        if (!categoryKeywords.equals("")){
+        if (!categoryKeywords.equals("")) {
             List<String> separatedCategoryKeywords = Arrays.asList(categoryKeywords.trim().split("\\s+"));
             result = result && separatedCategoryKeywords.stream()
-                    .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(expense.getCategory().categoryName, keyword));
+                    .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(
+                            expense.getCategory().categoryName, keyword));
         }
-        if (!costKeywords.equals("")){
+        if (!costKeywords.equals("")) {
             String[] splitCost = costKeywords.split(":");
-            if (splitCost.length == 1){
+            if (splitCost.length == 1) { //if the user enters a particular cost
                 double chosenCost = Double.parseDouble(splitCost[0]);
                 result = result && expense.getCost().getCostValue() == chosenCost;
-            }else{
+            } else { //if the user enters a range of dates
                 double lowerBound = Double.parseDouble(splitCost[0]);
                 double higherBound = Double.parseDouble(splitCost[1]);
-                result = result && (lowerBound <= expense.getCost().getCostValue() &&
-                        expense.getCost().getCostValue() <= higherBound);
+                result = result && (lowerBound <= expense.getCost().getCostValue()
+                        && expense.getCost().getCostValue() <= higherBound);
             }
         }
-        if (!dateKeywords.equals("")){
+        if (!dateKeywords.equals("")) {
             String[] splitDate = dateKeywords.split(":");
-            if (splitDate.length == 1) {
+            if (splitDate.length == 1) { //if the user only enter a particular date
                 Date chosenDate = new Date(splitDate[0]);
                 result = result && expense.getDate().equals(chosenDate);
-            }else{
+            } else { //if the user enter a range of dates
                 Date start = new Date(splitDate[0]);
                 Date end = new Date(splitDate[1]);
-                result = result && (start.equals(expense.getDate()) ||
-                        end.equals(expense.getDate()) ||
-                        (start.isEalierThan(expense.getDate()) && expense.getDate().isEalierThan(end)));
+                result = result && (start.equals(expense.getDate())
+                        || end.equals(expense.getDate())
+                        || (start.isEalierThan(expense.getDate()) && expense.getDate().isEalierThan(end)));
             }
         }
-        if (!tagKeywords.isEmpty()){
+        if (!tagKeywords.isEmpty()) {
             List<String> separatedTagKeywordsList = new ArrayList<>();
-            for (String tag : tagKeywords){
+            for (String tag : tagKeywords) {
                 separatedTagKeywordsList.addAll(Arrays.asList(tag.split("\\s+")));
             }
-            result = result && tagKeywords.stream()
+            result = result
+                    && tagKeywords.stream()
                     .anyMatch(keyword -> expense.getTags().stream()
                     .anyMatch(tag -> StringUtil.containsWordIgnoreCase(tag.tagName, keyword)));
         }

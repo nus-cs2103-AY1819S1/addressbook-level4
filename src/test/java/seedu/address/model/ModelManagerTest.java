@@ -8,9 +8,6 @@ import static seedu.address.testutil.TypicalExpenses.ALICE;
 import static seedu.address.testutil.TypicalExpenses.BENSON;
 
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -142,7 +139,8 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
 
         // different filteredList -> returns false
-        ArgumentMultimap keywordsMap = ArgumentTokenizer.tokenize(" n/"+ALICE.getName().expenseName, PREFIX_NAME);
+        ArgumentMultimap keywordsMap = ArgumentTokenizer.tokenize(" n/"
+                + ALICE.getName().expenseName, PREFIX_NAME);
         modelManager.updateFilteredExpenseList(new ExpenseContainsKeywordsPredicate(keywordsMap));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 

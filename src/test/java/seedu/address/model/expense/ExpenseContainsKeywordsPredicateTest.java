@@ -22,14 +22,17 @@ public class ExpenseContainsKeywordsPredicateTest {
         ArgumentMultimap firstPredicateKeywordMap = prepareKeywords("n/first");
         ArgumentMultimap secondPredicateKeywordMap = prepareKeywords("n/second");
 
-        ExpenseContainsKeywordsPredicate firstPredicate = new ExpenseContainsKeywordsPredicate(firstPredicateKeywordMap);
-        ExpenseContainsKeywordsPredicate secondPredicate = new ExpenseContainsKeywordsPredicate(secondPredicateKeywordMap);
+        ExpenseContainsKeywordsPredicate firstPredicate =
+                new ExpenseContainsKeywordsPredicate(firstPredicateKeywordMap);
+        ExpenseContainsKeywordsPredicate secondPredicate =
+                new ExpenseContainsKeywordsPredicate(secondPredicateKeywordMap);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        ExpenseContainsKeywordsPredicate firstPredicateCopy = new ExpenseContainsKeywordsPredicate(firstPredicateKeywordMap);
+        ExpenseContainsKeywordsPredicate firstPredicateCopy =
+                new ExpenseContainsKeywordsPredicate(firstPredicateKeywordMap);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -126,7 +129,7 @@ public class ExpenseContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void test_categoryContainKeywords_returnTrue(){
+    public void test_categoryContainKeywords_returnTrue() {
         // One keyword
         ArgumentMultimap keywordsMap = prepareKeywords("c/School");
         ExpenseContainsKeywordsPredicate predicate =
@@ -154,7 +157,7 @@ public class ExpenseContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void test_categoryDoesNotContainKeywords_returnFalse(){
+    public void test_categoryDoesNotContainKeywords_returnFalse() {
         // One keyword
         ArgumentMultimap keywordsMap = prepareKeywords("c/Food");
         ExpenseContainsKeywordsPredicate predicate =
@@ -173,7 +176,7 @@ public class ExpenseContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void test_dateWithinRange_returnTrue(){
+    public void test_dateWithinRange_returnTrue() {
         // One keyword
         ArgumentMultimap keywordsMap = prepareKeywords("d/01-10-2018");
         ExpenseContainsKeywordsPredicate predicate =
@@ -191,7 +194,7 @@ public class ExpenseContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void test_dateOutsideRange_returnTrue(){
+    public void test_dateOutsideRange_returnTrue() {
         // One keyword
         ArgumentMultimap keywordsMap = prepareKeywords("d/02-10-2018");
         ExpenseContainsKeywordsPredicate predicate =
@@ -206,7 +209,7 @@ public class ExpenseContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void test_costWithinRange_returnTrue(){
+    public void test_costWithinRange_returnTrue() {
         // One keyword
         ArgumentMultimap keywordsMap = prepareKeywords("$/2.00");
         ExpenseContainsKeywordsPredicate predicate =
@@ -222,7 +225,7 @@ public class ExpenseContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void test_costOutsideRange_returnTrue(){
+    public void test_costOutsideRange_returnTrue() {
         // One keyword
         ArgumentMultimap keywordsMap = prepareKeywords("$/3.00");
         ExpenseContainsKeywordsPredicate predicate =
@@ -238,7 +241,7 @@ public class ExpenseContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void test_expenseMatchesMultipleKeywords_returnTrue(){
+    public void test_expenseMatchesMultipleKeywords_returnTrue() {
         //Multiple keywords, all match
         ArgumentMultimap keywordsMap = prepareKeywords("n/Have Lunch c/Food d/01-02-2018:28-02-2018");
         ExpenseContainsKeywordsPredicate predicate =
@@ -250,7 +253,7 @@ public class ExpenseContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void test_expenseDoesNotMatchAllKeywords_returnFalse(){
+    public void test_expenseDoesNotMatchAllKeywords_returnFalse() {
         //Only one keyword matches
         ArgumentMultimap keywordsMap = prepareKeywords("n/Have Lunch c/Food d/01-02-2018:28-02-2018");
         ExpenseContainsKeywordsPredicate predicate =
@@ -265,9 +268,12 @@ public class ExpenseContainsKeywordsPredicateTest {
     }
 
 
-    public ArgumentMultimap prepareKeywords(String arg){
-        return ArgumentTokenizer.tokenize(" "+arg,
-                PREFIX_NAME, PREFIX_CATEGORY, PREFIX_COST, PREFIX_TAG, PREFIX_DATE );
+    /**
+     * Returns an {@code ArgumentMultiMap} which tokenize the {@code arg} based on prefixes.
+     * */
+    public ArgumentMultimap prepareKeywords(String arg) {
+        return ArgumentTokenizer.tokenize(" " + arg,
+                PREFIX_NAME, PREFIX_CATEGORY, PREFIX_COST, PREFIX_TAG, PREFIX_DATE);
     }
 
 }

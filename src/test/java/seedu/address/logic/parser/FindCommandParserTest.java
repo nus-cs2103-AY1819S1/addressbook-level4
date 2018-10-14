@@ -22,7 +22,7 @@ import seedu.address.model.expense.ExpenseContainsKeywordsPredicate;
 import seedu.address.model.expense.Name;
 import seedu.address.model.tag.Tag;
 
-
+//@@author Jiang Chen
 public class FindCommandParserTest {
 
     private FindCommandParser parser = new FindCommandParser();
@@ -88,9 +88,12 @@ public class FindCommandParserTest {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
     }
 
+    /**
+     * Returns an {@code ArgumentMultiMap} which tokenize the {@code arg} based on prefixes.
+     * */
     public ArgumentMultimap prepareKeywords(String arg) {
-        return ArgumentTokenizer.tokenize(" "+arg,
-                PREFIX_NAME, PREFIX_CATEGORY, PREFIX_COST, PREFIX_TAG, PREFIX_DATE );
+        return ArgumentTokenizer.tokenize(" " + arg,
+                PREFIX_NAME, PREFIX_CATEGORY, PREFIX_COST, PREFIX_TAG, PREFIX_DATE);
     }
 
 }

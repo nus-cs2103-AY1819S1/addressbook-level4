@@ -40,7 +40,8 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         String[] splitTrimmedArgs = trimmedArgs.split("/");
-        if (splitTrimmedArgs.length == 1 || splitTrimmedArgs[0].equals("")){ //Ensure args contains at least one prefix or keyword
+        if (splitTrimmedArgs.length == 1 || splitTrimmedArgs[0].equals("")) {
+            //Ensure args contains at least one prefix or keyword
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
@@ -53,7 +54,11 @@ public class FindCommandParser implements Parser<FindCommand> {
         return new FindCommand(new ExpenseContainsKeywordsPredicate(keywordsMap));
     }
 
-    public void ensureKeywordsAreValid(ArgumentMultimap keywordsMap) throws ParseException{
+    /**
+     *  Check whether all the keywords are valid.
+     * @throws ParseException if any keyword entered by user does not conform the expected format.
+     * */
+    public void ensureKeywordsAreValid(ArgumentMultimap keywordsMap) throws ParseException {
         String nameKeywords = keywordsMap.getValue(PREFIX_NAME).orElse(null);
         String categoryKeywords = keywordsMap.getValue(PREFIX_CATEGORY).orElse(null);
         List<String> tagKeywords = keywordsMap.getAllValues(PREFIX_TAG);
@@ -64,35 +69,37 @@ public class FindCommandParser implements Parser<FindCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Name.MESSAGE_NAME_CONSTRAINTS));
         }
 
-        if (categoryKeywords != null && !Category.isValidCategory(categoryKeywords)){
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Category.MESSAGE_CATEGORY_CONSTRAINTS));
+        if (categoryKeywords != null && !Category.isValidCategory(categoryKeywords)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    Category.MESSAGE_CATEGORY_CONSTRAINTS));
         }
 
         if (!tagKeywords.isEmpty()) {
-            for (String tag : tagKeywords){
-                if (!Tag.isValidTagName(tag)){
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Tag.MESSAGE_TAG_CONSTRAINTS));
+            for (String tag : tagKeywords) {
+                if (!Tag.isValidTagName(tag)) {
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            Tag.MESSAGE_TAG_CONSTRAINTS));
                 }
             }
         }
 
         if (dateKeywords != null) {
             String[] dates = dateKeywords.split(":");
-            if (dates.length == 1 && !Date.isValidDate(dates[0])){
+            if (dates.length == 1 && !Date.isValidDate(dates[0])) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         Date.DATE_FORMAT_CONSTRAINTS));
             }
-            if (dates.length == 2){
-                if (!Date.isValidDate(dates[0]) || !Date.isValidDate(dates[1])){
+            if (dates.length == 2) {
+                if (!Date.isValidDate(dates[0]) || !Date.isValidDate(dates[1])) {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                             Date.DATE_FORMAT_CONSTRAINTS));
                 }
-                if (new Date(dates[1]).isEalierThan(new Date(dates[0]))){
+                if (new Date(dates[1]).isEalierThan(new Date(dates[0]))) {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                             MESSAGE_INVALID_RANGE));
                 }
             }
-            if (dates.length > 2){
+            if (dates.length > 2) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         MESSAGE_INVALID_DATE_KEYWORDS_FORMAT));
             }
@@ -101,21 +108,21 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         if (costKeywords != null) {
             String[] costs = costKeywords.split(":");
-            if (costs.length == 1 && !Cost.isValidCost(costs[0])){
+            if (costs.length == 1 && !Cost.isValidCost(costs[0])) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         Cost.MESSAGE_COST_CONSTRAINTS));
             }
-            if (costs.length == 2){
-                if (!Cost.isValidCost(costs[0]) || !Cost.isValidCost(costs[1])){
+            if (costs.length == 2) {
+                if (!Cost.isValidCost(costs[0]) || !Cost.isValidCost(costs[1])) {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                             Cost.MESSAGE_COST_CONSTRAINTS));
                 }
-                if (Double.parseDouble(costs[1]) < Double.parseDouble(costs[0])){
+                if (Double.parseDouble(costs[1]) < Double.parseDouble(costs[0])) {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                             MESSAGE_INVALID_RANGE));
                 }
             }
-            if (costs.length > 2){
+            if (costs.length > 2) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         MESSAGE_INVALID_COST_KEYWORDS_FORMAT));
 

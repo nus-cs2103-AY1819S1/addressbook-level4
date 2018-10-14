@@ -10,8 +10,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 import org.junit.Assert;
@@ -49,7 +47,7 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_TAG_FOOD = "Lunch";
     public static final String VALID_DATE_1990 = "01-01-1990";
-    public static final String VALID_DATE_2018 = "01-10-2018";
+    public static final String VALID_DATE_2018 = "02-10-2018";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -146,8 +144,8 @@ public class CommandTestUtil {
 
         Expense expense = model.getFilteredExpenseList().get(targetIndex.getZeroBased());
         String[] splitName = expense.getName().expenseName.split("\\s+");
-        final ArgumentMultimap keywordsMap = ArgumentTokenizer.tokenize(" n/"+
-                        splitName[0], PREFIX_NAME);
+        final ArgumentMultimap keywordsMap = ArgumentTokenizer.tokenize(" n/"
+                + splitName[0], PREFIX_NAME);
         model.updateFilteredExpenseList(new ExpenseContainsKeywordsPredicate(keywordsMap));
 
         assertEquals(1, model.getFilteredExpenseList().size());

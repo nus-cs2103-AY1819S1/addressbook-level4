@@ -58,7 +58,10 @@ public class ArgumentMultimap {
         return getValue(new Prefix("")).orElse("");
     }
 
-    public boolean equals(Object other){
+    /**
+     *  Return true if the two ArgumentMultimap refers to the same Object or they have the same {@code argMultimap}
+     * */
+    public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ArgumentMultimap // instanceof handles nulls
                 && argMultimap.equals((((ArgumentMultimap) other).argMultimap))); // state check
