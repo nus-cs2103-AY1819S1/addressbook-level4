@@ -11,11 +11,8 @@ import seedu.address.logic.commands.CompleteCommand;
 import seedu.address.model.task.LabelMatchesKeywordPredicate;
 
 /**
- * As we are only doing white-box testing, our test cases do not cover path variations
- * outside of the CompleteCommand code. For example, inputs "1" and "1 abc" take the
- * same path through the CompleteCommand, and therefore we test only one of them.
- * The path variation for those two cases occur inside the ParserUtil, and
- * therefore should be covered by the ParserUtilTest.
+ * Tests the CompleteCommandParser's ability to handle Index(es) and Labels
+ * and parse accordingly.
  */
 public class CompleteCommandParserTest {
 
