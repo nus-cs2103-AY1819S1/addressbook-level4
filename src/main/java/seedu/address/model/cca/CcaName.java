@@ -40,6 +40,11 @@ public class CcaName {
         }
         ccaName = sb.toString().trim();
     }
+
+    public String getCcaName() {
+        return ccaName;
+    }
+
     /**
      * Returns true if a given string is a valid CCA name.
      */

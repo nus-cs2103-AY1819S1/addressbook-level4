@@ -17,6 +17,8 @@ import seedu.address.model.ReadOnlyBudgetBook;
 
 /**
  * A class to access BudgetBook data stored as an xml file on the hard disk.
+ *
+ * @author ericyjw
  */
 public class XmlBudgetBookStorage implements BudgetBookStorage {
 
@@ -39,6 +41,7 @@ public class XmlBudgetBookStorage implements BudgetBookStorage {
 
     /**
      * Similar to {@link #readBudgetBook()}
+     *
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
@@ -68,6 +71,7 @@ public class XmlBudgetBookStorage implements BudgetBookStorage {
 
     /**
      * Similar to {@link #saveBudgetBook(ReadOnlyBudgetBook)}
+     *
      * @param filePath location of the data. Cannot be null
      */
     public void saveBudgetBook(ReadOnlyBudgetBook budgetBook, Path filePath) throws IOException {

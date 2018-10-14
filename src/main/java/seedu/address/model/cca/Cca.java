@@ -14,6 +14,8 @@ import seedu.address.model.person.Name;
  */
 public class Cca {
 
+    public static final String NEW_CCA = "New CCA";
+
     // Identity fields
     private final CcaName name;
     private final Name head;
@@ -85,16 +87,16 @@ public class Cca {
 
     public Cca(CcaName ccaName, Budget budget) {
         this.name = ccaName;
-        this.head = null;
-        this.viceHead = null;
+        this.head = new Name(NEW_CCA);
+        this.viceHead = new Name(NEW_CCA);
         this.budget = budget;
-        this.spent = null;
-        this.outstanding = null;
-        this.transaction = null;
+        this.spent = new Spent(0);
+        this.outstanding = new Outstanding(0);
+        this.transaction = new Transaction(NEW_CCA);
     }
 
     public String getCcaName() {
-        return name.toString();
+        return name.getCcaName();
     }
 
     public String getHead() {
@@ -144,7 +146,7 @@ public class Cca {
      * @param toCheck name of the CCA to be checked
      */
     public boolean isSameCcaName(Cca toCheck) {
-        return getCcaName().equals(toCheck);
+        return getCcaName().equals(toCheck.getCcaName());
     }
 
     /**

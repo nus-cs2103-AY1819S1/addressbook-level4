@@ -61,7 +61,7 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        if (!model.hasCca(toAdd)) {
+        if (toAdd.getTags().size() > 0 && !model.hasCca(toAdd)) {
             throw new CommandException(MESSAGE_NON_EXISTENT_CCA);
         }
 

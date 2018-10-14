@@ -46,7 +46,6 @@ public class XmlToHmtl {
 
             transformer.transform(new javax.xml.transform.stream.StreamSource(xmlFile),
                     new javax.xml.transform.stream.StreamResult(new FileOutputStream(outputHtml)));
-            System.out.println("HTML produced!");
         } catch (Exception e) {
             e.printStackTrace();
         }

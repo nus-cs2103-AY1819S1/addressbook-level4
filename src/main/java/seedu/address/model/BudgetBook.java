@@ -14,6 +14,8 @@ import seedu.address.model.tag.Tag;
 /**
  * Wraps all budget data at the budget-book level
  * Duplicates in CCA tags are not allowed (by .isSameCCA comparison)
+ *
+ * @author ericyjw
  */
 public class BudgetBook implements ReadOnlyBudgetBook {
     private final UniqueCcaList ccas;
