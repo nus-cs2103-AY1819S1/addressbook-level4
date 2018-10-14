@@ -1,12 +1,15 @@
 package seedu.address.model.person;
 
-import seedu.address.commons.util.StringUtil;
-
 import java.util.List;
 import java.util.function.Predicate;
 
+import seedu.address.commons.util.StringUtil;
+
 //@@author zioul123-reused
 //Based on NameContainsKeywordsPredicate, modified to test for all keywords instead of any keyword.
+/**
+ * Tests that a {@code Person}'s {@code Name} matches all of the keywords given.
+ */
 public class NameContainsAllKeywordsPredicate implements Predicate<Person> {
     private final List<String> keywords;
 
