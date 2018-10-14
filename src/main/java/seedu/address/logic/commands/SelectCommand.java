@@ -14,18 +14,18 @@ import seedu.address.model.Model;
 import seedu.address.model.ride.Ride;
 
 /**
- * Selects a ride identified using it's displayed index from the address book.
+ * Views a ride identified using it's displayed name from thane park.
  */
 public class SelectCommand extends Command {
 
-    public static final String COMMAND_WORD = "select";
+    public static final String COMMAND_WORD = "view";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Selects the ride identified by the index number used in the displayed ride list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + ": Views the ride identified by the index number used in the displayed ride list.\n"
+            + "Parameters: NAME\n"
+            + "Example: " + COMMAND_WORD + " Battlestar Galactica";
 
-    public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Ride: %1$s";
+    public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Viewed Ride: %1$s";
 
     private final Index targetIndex;
 

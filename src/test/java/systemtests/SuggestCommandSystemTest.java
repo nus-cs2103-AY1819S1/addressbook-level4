@@ -19,9 +19,8 @@ public class SuggestCommandSystemTest extends AddressBookSystemTest {
         assertSuggestCommandSuccessBehavior("f", "find");
         assertSuggestCommandSuccessBehavior("h", "help", "history");
         assertSuggestCommandSuccessBehavior("r", "redo");
-        assertSuggestCommandSuccessBehavior("s", "select");
         assertSuggestCommandSuccessBehavior("u", "undo");
-        assertSuggestCommandSuccessBehavior("v", "viewAll");
+        assertSuggestCommandSuccessBehavior("v", "view", "viewAll");
 
         assertSuggestCommandFailureBehavior("b");
         assertSuggestCommandFailureBehavior("g");
@@ -34,6 +33,7 @@ public class SuggestCommandSystemTest extends AddressBookSystemTest {
         assertSuggestCommandFailureBehavior("o");
         assertSuggestCommandFailureBehavior("p");
         assertSuggestCommandFailureBehavior("q");
+        assertSuggestCommandFailureBehavior("s");
         assertSuggestCommandFailureBehavior("t");
         assertSuggestCommandFailureBehavior("w");
         assertSuggestCommandFailureBehavior("x");
