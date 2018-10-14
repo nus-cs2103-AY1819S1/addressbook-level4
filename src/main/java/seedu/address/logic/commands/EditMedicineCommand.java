@@ -30,7 +30,7 @@ public class EditMedicineCommand extends Command {
 
     public static final String COMMAND_WORD = "editMedicine";
 
-    public static final String MESSAGE_USSAGE = COMMAND_WORD + ": Edits the details of the medicine identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the medicine identified "
             + "by the index number used in the displayed medicine list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
