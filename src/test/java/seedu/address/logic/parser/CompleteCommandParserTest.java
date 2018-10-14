@@ -19,8 +19,8 @@ import seedu.address.model.task.LabelMatchesKeywordPredicate;
  */
 public class CompleteCommandParserTest {
 
+    private static final LabelMatchesKeywordPredicate LABEL_FRIENDS = new LabelMatchesKeywordPredicate("friends");
     private CompleteCommandParser parser = new CompleteCommandParser();
-    private final LabelMatchesKeywordPredicate FRIENDS_LABEL = new LabelMatchesKeywordPredicate("friends");
 
     @Test
     public void parse_validArgs_returnsCompleteCommand() {
@@ -29,11 +29,11 @@ public class CompleteCommandParserTest {
 
         // Arguments with leading whitepaces
         assertParseSuccess(parser, " 1", new CompleteCommand(INDEX_FIRST_TASK));
-        assertParseSuccess(parser, " l/friends", new CompleteCommand(FRIENDS_LABEL));
+        assertParseSuccess(parser, " l/friends", new CompleteCommand(LABEL_FRIENDS));
 
         // Arguments with leading and trailing whitespaces
         assertParseSuccess(parser, "  1  ", new CompleteCommand(INDEX_FIRST_TASK));
-        assertParseSuccess(parser, "  l/ friends  ", new CompleteCommand(FRIENDS_LABEL));
+        assertParseSuccess(parser, "  l/ friends  ", new CompleteCommand(LABEL_FRIENDS));
 
     }
 
@@ -42,7 +42,7 @@ public class CompleteCommandParserTest {
 
         // No valid symbols
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                CompleteCommand.MESSAGE_USAGE));
+            CompleteCommand.MESSAGE_USAGE));
 
         // No whitespace before label
         assertParseFailure(parser, "l/friends", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
