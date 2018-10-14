@@ -200,6 +200,17 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean isValidTime(int hour, int minute) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isValidTimeFrame(int startDate, int startHour, int startMinute,
+                                        int endDate, int endHour, int endMinute) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void createCalendar(Year year, Month month) {
             throw new AssertionError("This method should not be called.");
         }
@@ -213,6 +224,13 @@ public class AddCommandTest {
         public void createAllDayEvent(Year year, Month month, int date, String title) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void createEvent(Year year, Month month, int startDate, int startHour, int startMin,
+                                int endDate, int endHour, int endMin, String title) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public void updateExistingCalendar() {
             throw new AssertionError("This method should not be called.");

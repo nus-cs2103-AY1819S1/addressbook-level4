@@ -19,6 +19,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.AllDayEventAddedEvent;
 import seedu.address.commons.events.model.CalendarCreatedEvent;
+import seedu.address.commons.events.model.CalendarEventAddedEvent;
 import seedu.address.commons.events.model.EmailSavedEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.calendar.Month;
@@ -239,6 +240,15 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new AllDayEventAddedEvent(year, month, date, title));
     }
 
+    /**
+     * Raises an event to indicate that an all day event was created
+     */
+    private void indicateCalendarEventCreated(Year year, Month month, int startDate, int startHour, int startMin,
+                                              int endDate, int endHour, int endMin, String title) {
+        raise(new CalendarEventAddedEvent(year, month, startDate, startHour, startMin,
+                endDate, endHour, endMin, title));
+    }
+
     @Override
     public boolean isExistingCalendar(Year year, Month month) {
         requireAllNonNull(year, month);
@@ -249,6 +259,19 @@ public class ModelManager extends ComponentManager implements Model {
     public boolean isValidDate(Year year, Month month, int date) {
         requireAllNonNull(year, month, date);
         return calendarModel.isValidDate(year, month, date);
+    }
+
+    @Override
+    public boolean isValidTime(int hour, int minute) {
+        requireAllNonNull(hour, minute);
+        return calendarModel.isValidTime(hour, minute);
+    }
+
+    @Override
+    public boolean isValidTimeFrame(int startDate, int startHour, int startMinute,
+                                    int endDate, int endHour, int endMinute) {
+        requireAllNonNull(startDate, startHour, startMinute, endDate, endHour, endMinute);
+        return calendarModel.isValidTimeFrame(startDate, startHour, startMinute, endDate, endHour, endMinute);
     }
 
     @Override
@@ -280,6 +303,17 @@ public class ModelManager extends ComponentManager implements Model {
             indicateAllDayEventCreated(year, month, date, title);
         } catch (IOException | ParserException e) {
             logger.warning("Failed to create all day event : " + StringUtil.getDetails(e));
+        }
+    }
+
+    @Override
+    public void createEvent(Year year, Month month, int startDate, int startHour, int startMin,
+                            int endDate, int endHour, int endMin, String title) {
+        try {
+            calendarModel.createEvent(year, month, startDate, startHour, startMin, endDate, endHour, endMin, title);
+            indicateCalendarEventCreated(year, month, startDate, startHour, startMin, endDate, endHour, endMin, title);
+        } catch (IOException | ParserException e) {
+            logger.warning("Failed to create event : " + StringUtil.getDetails(e));
         }
     }
 

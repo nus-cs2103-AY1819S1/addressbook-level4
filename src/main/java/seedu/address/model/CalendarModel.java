@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.io.IOException;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -9,7 +10,12 @@ import java.util.Set;
 
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.Calendar;
+import net.fortuna.ical4j.model.DateTime;
+import net.fortuna.ical4j.model.TimeZone;
+import net.fortuna.ical4j.model.TimeZoneRegistry;
+import net.fortuna.ical4j.model.TimeZoneRegistryFactory;
 import net.fortuna.ical4j.model.component.VEvent;
+import net.fortuna.ical4j.model.component.VTimeZone;
 import net.fortuna.ical4j.model.property.CalScale;
 import net.fortuna.ical4j.model.property.ProdId;
 import net.fortuna.ical4j.model.property.Version;
@@ -79,11 +85,26 @@ public class CalendarModel {
         cal.set(java.util.Calendar.YEAR, Integer.parseInt(year.toString()));
         cal.set(java.util.Calendar.MONTH, monthToConstantMap.get(month));
         int maximumDate = cal.getActualMaximum(java.util.Calendar.DAY_OF_MONTH);
-        if (date > maximumDate) {
-            return false;
-        }
-        return true;
+        return (date <= maximumDate) && date > 0;
 
+    }
+
+    /** Checks if the hours and minutes are valid. */
+    public boolean isValidTime(int hour, int minute) {
+        return (hour >= 0) && (hour < 24) && (minute >= 0) && (minute < 60);
+    }
+
+    /**
+     * Checks if it is a valid time frame (end date not earlier than start date).
+     * Assumes that date, hour and minutes are valid.
+     */
+    public boolean isValidTimeFrame(int startDate, int startHour, int startMinute,
+                                    int endDate, int endHour, int endMinute) {
+        if (startDate < endDate) {
+            return true;
+        } else {
+            return startDate == endDate && startHour <= endHour && startMinute <= endMinute;
+        }
     }
 
     /** Setter method for loadedCalendar field. */
@@ -135,18 +156,69 @@ public class CalendarModel {
 
     }
 
-    /** Create a new event in loaded Calendar. */
+    /** Creates a new all day event in the loaded Calendar. */
     public void createAllDayEvent(Year year, Month month, int date, String title) throws IOException, ParserException {
         // Load the calendar
         loadCalendar(year, month);
 
         // Set the Date
         java.util.Calendar cal = java.util.Calendar.getInstance();
+        cal.set(java.util.Calendar.YEAR, Integer.parseInt(year.toString()));
         cal.set(java.util.Calendar.MONTH, monthToConstantMap.get(month));
         cal.set(java.util.Calendar.DAY_OF_MONTH, date);
 
         // Initialise as an all day event
         VEvent newEvent = new VEvent(new net.fortuna.ical4j.model.Date(cal.getTime()), title);
+        // Generate a UID for the event
+        UidGenerator ug = new FixedUidGenerator("1");
+        newEvent.getProperties().add(ug.generateUid());
+        loadedCalendar.getComponents().add(newEvent);
+
+        String calendarName = month + "-" + year;
+        // Save the updated calendar to storage
+        calendarStorage.createCalendar(loadedCalendar, calendarName);
+
+    }
+
+    /** Creates an event in the loaded Calendar with the specified time frame. */
+    public void createEvent(Year year, Month month, int startDate, int startHour, int startMin,
+                            int endDate, int endHour, int endMin, String title) throws IOException, ParserException {
+        // Load the calendar
+        loadCalendar(year, month);
+
+        // Create a TimeZone
+        TimeZoneRegistry registry = TimeZoneRegistryFactory.getInstance().createRegistry();
+        TimeZone timezone = registry.getTimeZone("Asia/Singapore");
+        VTimeZone tz = timezone.getVTimeZone();
+
+        // Start Date
+        java.util.Calendar sDate = new GregorianCalendar();
+        sDate.setTimeZone(timezone);
+        sDate.set(java.util.Calendar.YEAR, Integer.parseInt(year.toString()));
+        sDate.set(java.util.Calendar.MONTH, monthToConstantMap.get(month));
+        sDate.set(java.util.Calendar.DAY_OF_MONTH, startDate);
+        sDate.set(java.util.Calendar.HOUR_OF_DAY, startHour);
+        sDate.set(java.util.Calendar.MINUTE, startMin);
+        sDate.set(java.util.Calendar.SECOND, 0);
+
+        // End Date
+        java.util.Calendar eDate = new GregorianCalendar();
+        eDate.setTimeZone(timezone);
+        eDate.set(java.util.Calendar.YEAR, Integer.parseInt(year.toString()));
+        eDate.set(java.util.Calendar.MONTH, monthToConstantMap.get(month));
+        eDate.set(java.util.Calendar.DAY_OF_MONTH, endDate);
+        eDate.set(java.util.Calendar.HOUR_OF_DAY, endHour);
+        eDate.set(java.util.Calendar.MINUTE, endMin);
+        eDate.set(java.util.Calendar.SECOND, 0);
+
+        // Create the event
+        DateTime start = new DateTime(sDate.getTime());
+        DateTime end = new DateTime(eDate.getTime());
+        VEvent newEvent = new VEvent(start, end, title);
+
+        // Add timezone info
+        newEvent.getProperties().add(tz.getTimeZoneId());
+
         // Generate a UID for the event
         UidGenerator ug = new FixedUidGenerator("1");
         newEvent.getProperties().add(ug.generateUid());

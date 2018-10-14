@@ -37,7 +37,7 @@ public class AddAllDayEventCommandParser implements Parser<AddAllDayEventCommand
         Month month = ParserUtil.parseMonth(argMultimap.getValue(PREFIX_MONTH).get());
         Year year = ParserUtil.parseYear(argMultimap.getValue(PREFIX_YEAR).get());
         int date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
-        String title = argMultimap.getValue(PREFIX_TITLE).get();
+        String title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
 
         return new AddAllDayEventCommand(month, year, date, title);
     }
