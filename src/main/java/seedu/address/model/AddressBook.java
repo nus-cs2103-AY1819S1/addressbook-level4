@@ -110,22 +110,26 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     *
+     * The method is not yet stable. (under construction)
      */
     public void updatePerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
-        throw new UnsupportedOperationException();
-        //persons.setPerson(target, editedPerson);
+        //throw new UnsupportedOperationException();
+        persons.setPerson(target, editedPerson);
     }
 
     /**
      * Replace the given group {@code target} in the list with {@code editedGroup}.
      * {@code target} must exist in the address book.
      * The group identity of {@code editedGroup} must not be the same as another existing group in the address book.
+     *
+     * The method is not yet stable. (under construction)
      */
     public void updateGroup(Group target, Group editedGroup) {
         requireNonNull(editedGroup);
-        throw new UnsupportedOperationException();
-        //groups.setGroup(target, editedGroup);
+        //throw new UnsupportedOperationException();
+        groups.setGroup(target, editedGroup);
     }
 
     /**
