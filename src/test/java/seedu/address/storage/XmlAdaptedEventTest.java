@@ -10,7 +10,6 @@ import java.time.Duration;
 import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.event.Event;
 import seedu.address.model.event.EventAddress;
 import seedu.address.model.event.EventDate;
 import seedu.address.model.event.EventDescription;

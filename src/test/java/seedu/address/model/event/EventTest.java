@@ -52,7 +52,8 @@ public class EventTest {
         assertFalse(DOCTORAPPT.equals(editedDoctorAppt));
 
         // different time -> returns false
-        editedDoctorAppt = new ScheduledEventBuilder(DOCTORAPPT).withEventStartTime(VALID_EVENT_START_TIME_MEETING).build();
+        editedDoctorAppt = new ScheduledEventBuilder(DOCTORAPPT)
+                .withEventStartTime(VALID_EVENT_START_TIME_MEETING).build();
         assertFalse(DOCTORAPPT.equals(editedDoctorAppt));
 
         // different address -> returns false
