@@ -24,7 +24,7 @@ import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
  *
  * @see Appointment#isSameAppointment(Appointment)
  */
-public class UniqueAppointmentList implements Iterable<Appointment>{
+public class UniqueAppointmentList implements Iterable<Appointment> {
 
     private final ObservableList<Appointment> internalList = FXCollections.observableArrayList();
 
@@ -117,7 +117,7 @@ public class UniqueAppointmentList implements Iterable<Appointment>{
      */
     public void setAppointments(List<Appointment> appts) {
         requireAllNonNull(appts);
-        if (!AppointmentsAreUnique(appts)) {
+        if (!appointmentsAreUnique(appts)) {
             throw new DuplicateAppointmentException();
         }
         internalList.setAll(appts);
@@ -150,7 +150,7 @@ public class UniqueAppointmentList implements Iterable<Appointment>{
     /**
      * Returns true if {@code appts} contains only unique appointments.
      */
-    private boolean AppointmentsAreUnique(List<Appointment> appts) {
+    private boolean appointmentsAreUnique(List<Appointment> appts) {
         for (int i = 0; i < appts.size() - 1; i++) {
             for (int j = i + 1; j < appts.size(); j++) {
                 if (appts.get(i).isSameAppointment(appts.get(j))) {

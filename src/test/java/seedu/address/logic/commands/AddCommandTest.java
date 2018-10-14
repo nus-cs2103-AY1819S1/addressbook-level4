@@ -210,6 +210,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasAppointmentClash(Appointment appt){
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteAppointment(Appointment appt) {
             throw new AssertionError("This method should not be called.");
         }
