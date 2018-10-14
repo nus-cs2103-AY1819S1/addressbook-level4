@@ -8,22 +8,22 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.group.exceptions.DuplicateGroupException;
-import seedu.address.model.group.exceptions.GroupNotFoundException;
+import seedu.address.model.group.exceptions.DuplicateGroupTagException;
+import seedu.address.model.group.exceptions.GroupTagNotFoundException;
 import seedu.address.model.tag.Tag;
 
 /**
  * A list of groups that enforces uniqueness between its elements and does not allow nulls.
  * A group is considered unique by comparing using tagName. As such, adding and updating of
  * groups uses tagName for equality so as to ensure that the group being added or updated is
- * unique in terms of identity in the UniqueGroupList. However, the removal of a group uses equals so
+ * unique in terms of identity in the UniqueGroupTagList. However, the removal of a group uses equals so
  * as to ensure that the group with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
  * {@author jeffreyooi}
  */
-public class UniqueGroupList implements Iterable<Tag> {
+public class UniqueGroupTagList implements Iterable<Tag> {
 
     private final ObservableList<Tag> internalList = FXCollections.observableArrayList();
 
@@ -63,11 +63,11 @@ public class UniqueGroupList implements Iterable<Tag> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new GroupNotFoundException();
+            throw new GroupTagNotFoundException();
         }
 
         if (!target.tagName.equals(editedTag.tagName) && contains(editedTag)) {
-            throw new DuplicateGroupException();
+            throw new DuplicateGroupTagException();
         }
 
         internalList.set(index, editedTag);
@@ -80,11 +80,11 @@ public class UniqueGroupList implements Iterable<Tag> {
     public void remove(Tag toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new GroupNotFoundException();
+            throw new GroupTagNotFoundException();
         }
     }
 
-    public void setGroups(UniqueGroupList replacement) {
+    public void setGroups(UniqueGroupTagList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -97,7 +97,7 @@ public class UniqueGroupList implements Iterable<Tag> {
         requireAllNonNull(groups);
         if (!groupsAreUnique(groups)) {
             // TODO throw exception??
-            throw new DuplicateGroupException();
+            throw new DuplicateGroupTagException();
         }
 
         internalList.setAll(groups);
@@ -118,8 +118,8 @@ public class UniqueGroupList implements Iterable<Tag> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueGroupList) // instanceof handles nulls
-                && internalList.equals(((UniqueGroupList) other).internalList);
+                || (other instanceof UniqueGroupTagList) // instanceof handles nulls
+                && internalList.equals(((UniqueGroupTagList) other).internalList);
     }
 
     @Override
