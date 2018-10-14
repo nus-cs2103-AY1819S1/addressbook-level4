@@ -28,7 +28,7 @@ public class PictureCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_addPictureUnfilteredList_success() throws Exception {
+    public void execute_throwsCommandException() throws Exception {
         Picture picture = new Picture("/image/alice.jpg");
         PictureCommand pictureCommand = new PictureCommand(INDEX_FIRST_PERSON, picture);
         pictureCommand.execute(model, commandHistory);
