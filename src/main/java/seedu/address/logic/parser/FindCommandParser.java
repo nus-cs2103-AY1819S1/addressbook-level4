@@ -25,6 +25,12 @@ public class FindCommandParser implements Parser<FindCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindCommand parse(String args) throws ParseException {
+        String trimmedArgs = args.trim();
+        if (trimmedArgs.isEmpty()) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        }
+
         ArgumentMultimap argMutlimap = ArgumentTokenizer.tokenize(args, PREFIX_ADDRESS, PREFIX_TAG);
         Optional<Address> address = !argMutlimap.getValue(PREFIX_ADDRESS).isPresent()
                                     ? Optional.empty()
@@ -32,12 +38,6 @@ public class FindCommandParser implements Parser<FindCommand> {
         Optional<Set<Tag>> tags = argMutlimap.getValue(PREFIX_TAG).isPresent()
                                   ? Optional.of(ParserUtil.parseTags(argMutlimap.getAllValues(PREFIX_TAG)))
                                   : Optional.empty();
-
-        String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
-        }
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 

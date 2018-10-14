@@ -2,10 +2,10 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.address.testutil.TypicalPersons.ACCELERATOR;
-import static seedu.address.testutil.TypicalPersons.HAUNTED;
-import static seedu.address.testutil.TypicalPersons.IDA;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalRides.ACCELERATOR;
+import static seedu.address.testutil.TypicalRides.HAUNTED;
+import static seedu.address.testutil.TypicalRides.IDA;
+import static seedu.address.testutil.TypicalRides.getTypicalThanePark;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -76,7 +76,7 @@ public class XmlThaneParkStorageTest {
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.xml");
-        ThanePark original = getTypicalAddressBook();
+        ThanePark original = getTypicalThanePark();
         XmlThaneParkStorage xmlAddressBookStorage = new XmlThaneParkStorage(filePath);
 
         //Save in new file and read back

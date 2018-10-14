@@ -7,14 +7,14 @@ import static seedu.address.commons.core.Messages.MESSAGE_RIDES_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalPersons.ACCELERATOR;
-import static seedu.address.testutil.TypicalPersons.BIG;
-import static seedu.address.testutil.TypicalPersons.CASTLE;
-import static seedu.address.testutil.TypicalPersons.DUMBO;
-import static seedu.address.testutil.TypicalPersons.ENCHANTED;
-import static seedu.address.testutil.TypicalPersons.FANTASY;
-import static seedu.address.testutil.TypicalPersons.GALAXY;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalRides.ACCELERATOR;
+import static seedu.address.testutil.TypicalRides.BIG;
+import static seedu.address.testutil.TypicalRides.CASTLE;
+import static seedu.address.testutil.TypicalRides.DUMBO;
+import static seedu.address.testutil.TypicalRides.ENCHANTED;
+import static seedu.address.testutil.TypicalRides.FANTASY;
+import static seedu.address.testutil.TypicalRides.GALAXY;
+import static seedu.address.testutil.TypicalRides.getTypicalThanePark;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -36,8 +36,8 @@ import seedu.address.model.tag.Tag;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalThanePark(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalThanePark(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -121,7 +121,7 @@ public class FindCommandTest {
     }
 
     /**
-     * Parses {@code userInput} into a {@code RideContainsKeywordsPredicate}.
+     * Parses {@code userInput} and {@code object} into a {@code RideContainsKeywordsPredicate}.
      */
     private RideContainsKeywordsPredicate preparePredicate(String userInput, Object object) {
         return new RideContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")), Optional.ofNullable(object));

@@ -6,8 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 /**
  * Represents a Ride's days since last maintenance in the park management app.
  */
-public class Maintenance {
-
+public class Maintenance implements NumericAttribute {
 
     public static final String MESSAGE_MAINTENANCE_CONSTRAINTS =
             "Maintenance should only contain numbers with at least 1 digit long.";

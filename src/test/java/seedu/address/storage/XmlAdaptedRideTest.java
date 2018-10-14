@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.storage.XmlAdaptedRide.MISSING_FIELD_MESSAGE_FORMAT;
-import static seedu.address.testutil.TypicalPersons.BIG;
+import static seedu.address.testutil.TypicalRides.BIG;
 
 import java.util.ArrayList;
 import java.util.List;

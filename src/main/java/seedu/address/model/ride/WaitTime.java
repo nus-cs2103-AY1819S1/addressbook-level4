@@ -6,7 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 /**
  * Represents a Ride's current waiting time, in minutes, in the park management app.
  */
-public class WaitTime {
+public class WaitTime implements NumericAttribute {
 
 
     public static final String MESSAGE_WAIT_TIME_CONSTRAINTS =
