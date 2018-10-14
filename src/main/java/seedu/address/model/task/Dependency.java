@@ -75,6 +75,8 @@ public class Dependency {
         return new Dependency(newValue);
     }
 
+    public boolean containsDependency(Task task) {
+        return value.contains(Integer.toString(task.hashCode()));
     }
 
     /**
