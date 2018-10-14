@@ -10,7 +10,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.ThaneParkParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -19,7 +19,7 @@ public class SuggestCommandTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-    private final AddressBookParser parser = new AddressBookParser();
+    private final ThaneParkParser parser = new ThaneParkParser();
 
     @Test
     public void constructor_nullString_throwsNullPointerException() {
@@ -35,10 +35,10 @@ public class SuggestCommandTest {
         assertSuggestCommandSuccessBehavior("e", "edit", "exit");
         assertSuggestCommandSuccessBehavior("f", "find");
         assertSuggestCommandSuccessBehavior("h", "help", "history");
-        assertSuggestCommandSuccessBehavior("l", "list");
         assertSuggestCommandSuccessBehavior("r", "redo");
         assertSuggestCommandSuccessBehavior("s", "select");
         assertSuggestCommandSuccessBehavior("u", "undo");
+        assertSuggestCommandSuccessBehavior("v", "viewAll");
 
         assertSuggestCommandSuccessBehavior("a j\\km bu/ni i?@w 359h", "add");
     }

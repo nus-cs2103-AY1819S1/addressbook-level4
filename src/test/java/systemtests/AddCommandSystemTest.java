@@ -21,13 +21,13 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_MAINTENANCE_BOB
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_WAIT_TIME_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalPersons.ACCELERATOR;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BOB;
-import static seedu.address.testutil.TypicalPersons.CASTLE;
-import static seedu.address.testutil.TypicalPersons.HAUNTED;
-import static seedu.address.testutil.TypicalPersons.IDA;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalRides.ACCELERATOR;
+import static seedu.address.testutil.TypicalRides.AMY;
+import static seedu.address.testutil.TypicalRides.BOB;
+import static seedu.address.testutil.TypicalRides.CASTLE;
+import static seedu.address.testutil.TypicalRides.HAUNTED;
+import static seedu.address.testutil.TypicalRides.IDA;
+import static seedu.address.testutil.TypicalRides.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 

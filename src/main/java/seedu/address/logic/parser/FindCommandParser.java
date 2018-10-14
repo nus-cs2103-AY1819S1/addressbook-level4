@@ -3,10 +3,6 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_MAINTENANCE;
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_WAITING_TIME;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -29,6 +25,12 @@ public class FindCommandParser implements Parser<FindCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindCommand parse(String args) throws ParseException {
+        String trimmedArgs = args.trim();
+        if (trimmedArgs.isEmpty()) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        }
+
         ArgumentMultimap argMutlimap = ArgumentTokenizer.tokenize(args, PREFIX_ADDRESS, PREFIX_TAG);
         Optional<Address> address = !argMutlimap.getValue(PREFIX_ADDRESS).isPresent()
                                     ? Optional.empty()
@@ -37,30 +39,9 @@ public class FindCommandParser implements Parser<FindCommand> {
                                   ? Optional.of(ParserUtil.parseTags(argMutlimap.getAllValues(PREFIX_TAG)))
                                   : Optional.empty();
 
-        String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
-        }
-
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
         return new FindCommand(new RideContainsKeywordsPredicate(Arrays.asList(nameKeywords),
                 address, tags));
-    }
-
-    /**
-     * Checks the given {@code String[]} to find if it contains PREFIX_ADDRESS returns
-     * a boolean.
-     * @param keywords the string array of keywords to check
-     * @return whether the array contains PREFIX_ADDRESS
-     */
-    private boolean hasAddress(String[] keywords) {
-        for (String keyword : keywords) {
-            if (keyword.contains(PREFIX_ADDRESS.getPrefix())) {
-                return true;
-            }
-        }
-        return false;
     }
 }

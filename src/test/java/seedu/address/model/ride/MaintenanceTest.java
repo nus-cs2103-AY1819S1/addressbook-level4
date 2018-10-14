@@ -1,5 +1,6 @@
 package seedu.address.model.ride;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -21,6 +22,27 @@ public class MaintenanceTest {
     }
 
     @Test
+    public void equal() {
+        Maintenance firstMaintenance = new Maintenance("100");
+        Maintenance secondMaintenance = new Maintenance(100);
+        Maintenance thirdMaintenance = new Maintenance(50);
+
+        assertTrue(firstMaintenance.equals(firstMaintenance));
+
+        // same value using different methods -> returns true
+        assertTrue(firstMaintenance.equals(secondMaintenance));
+
+        // null -> returns false
+        assertFalse(firstMaintenance.equals(null));
+
+        // different types -> returns false
+        assertFalse(firstMaintenance.equals(1));
+
+        // different values -> returns false
+        assertFalse(firstMaintenance.equals(thirdMaintenance));
+    }
+
+    @Test
     public void isValidMaintenance() {
         // null phone number
         Assert.assertThrows(NullPointerException.class, () -> Maintenance.isValidMaintenance(null));
@@ -36,5 +58,13 @@ public class MaintenanceTest {
         assertTrue(Maintenance.isValidMaintenance("1")); // exactly 1 numbers
         assertTrue(Maintenance.isValidMaintenance("93121534"));
         assertTrue(Maintenance.isValidMaintenance("124293842033123")); // long phone numbers
+    }
+
+    @Test
+    public void setsCorrectValue() {
+        Maintenance firstMaintenance = new Maintenance("100");
+        Maintenance secondMaintenance = new Maintenance("50");
+        firstMaintenance.setValue(50);
+        assertEquals(firstMaintenance, secondMaintenance);
     }
 }

@@ -21,21 +21,34 @@ public class HelpCommand extends Command {
 
 
     public final boolean isSummarized;
+    public final String commandWord;
 
+    /**
+     * Creates a command that requests for help based on {@param args}
+     */
     public HelpCommand(String[] args) {
+        //summarized help
         if (args.length == 1 && args[0].isEmpty()) {
             isSummarized = true;
+            commandWord = "";
+        //full help
         } else if (args.length == 1 && args[0].equals(MORE_HELP_FLAG)) {
             isSummarized = false;
-        } else {
-            //error
+            commandWord = "";
+        //help on specific command
+        } else if (args.length == 1 && AllCommandWords.isCommandWord(args[0])) {
             isSummarized = false;
+            commandWord = args[0];
+        //error
+        } else {
+            isSummarized = false;
+            commandWord = "";
         }
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
-        EventsCenter.getInstance().post(new ShowHelpRequestEvent(isSummarized));
+        EventsCenter.getInstance().post(new ShowHelpRequestEvent(isSummarized, commandWord));
         if (isSummarized) {
             return new CommandResult(SHOWING_SHORT_HELP_MESSAGE);
         } else {

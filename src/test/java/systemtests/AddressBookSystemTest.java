@@ -33,11 +33,11 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.ViewAllCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ThanePark;
-import seedu.address.testutil.TypicalPersons;
+import seedu.address.testutil.TypicalRides;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.HelpWindow;
@@ -83,7 +83,7 @@ public abstract class AddressBookSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected ThanePark getInitialData() {
-        return TypicalPersons.getTypicalAddressBook();
+        return TypicalRides.getTypicalThanePark();
     }
 
     /**
@@ -140,7 +140,7 @@ public abstract class AddressBookSystemTest {
      * Displays all persons in the address book.
      */
     protected void showAllPersons() {
-        executeCommand(ListCommand.COMMAND_WORD);
+        executeCommand(ViewAllCommand.COMMAND_WORD);
         assertEquals(getModel().getAddressBook().getRideList().size(), getModel().getFilteredRideList().size());
     }
 
