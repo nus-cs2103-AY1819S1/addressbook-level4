@@ -11,8 +11,8 @@ public class Category {
 
 
     public static final String MESSAGE_CATEGORY_CONSTRAINTS =
-            "Category name should not be blank.";
-    public static final String CATEGORY_VALIDATION_REGEX = "[^\\s]+[a-zA-Z0-9 ]+";
+            "Category name should not be blank. It should be alphanumeric.";
+    public static final String CATEGORY_VALIDATION_REGEX = "[a-zA-Z0-9 ]+";
     public final String categoryName;
 
     /**

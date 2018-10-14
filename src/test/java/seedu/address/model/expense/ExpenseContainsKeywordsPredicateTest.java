@@ -8,18 +8,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-
 import org.junit.Test;
 
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.testutil.ExpenseBuilder;
-
-import javax.swing.*;
 
 //@@author Jiang Chen
 public class ExpenseContainsKeywordsPredicateTest {
@@ -268,6 +261,7 @@ public class ExpenseContainsKeywordsPredicateTest {
         //Some keywords match but not all
         assertFalse(predicate.test(new ExpenseBuilder().withName("Drink").withCategory("Food")
                 .withDate("20-02-2018").build()));
+
     }
 
 

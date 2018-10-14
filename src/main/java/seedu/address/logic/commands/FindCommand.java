@@ -24,7 +24,14 @@ public class FindCommand extends Command {
             + "sensitive) and displays them as a list with index numbers. "
             + "The keywords do not need to be in order.\n"
             + "Parameters: [n/NAME] [c/CATEGORY] [$/COST] [t/TAG] [d/DATE:DATE]...\n"
-            + "Example: " + COMMAND_WORD + " c/Food t/lunch";
+            + "Example: " + COMMAND_WORD + " n/Have KFC c/Food t/lunch $/2.00:10.00 d/01-01-2018:10-01-2018";
+
+    public static final String MESSAGE_INVALID_RANGE =
+            "The lower bound should not be larger than higher bound.";
+    public static final String MESSAGE_INVALID_DATE_KEYWORDS_FORMAT =
+            "The correct format is d/DATE:DATE or d/DATE. Example: d/01-01-2018:10-01-2018";
+    public static final String MESSAGE_INVALID_COST_KEYWORDS_FORMAT =
+            "The correct format is $/COST:COST or $/COST. Example: $/1.00:10.00";
 
     private final ExpenseContainsKeywordsPredicate predicate;
 

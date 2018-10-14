@@ -1,6 +1,9 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.FindCommand.MESSAGE_INVALID_COST_KEYWORDS_FORMAT;
+import static seedu.address.logic.commands.FindCommand.MESSAGE_INVALID_DATE_KEYWORDS_FORMAT;
+import static seedu.address.logic.commands.FindCommand.MESSAGE_INVALID_RANGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
@@ -36,13 +39,15 @@ public class FindCommandParser implements Parser<FindCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        if (trimmedArgs.split("/").length == 1){ //Ensure args contains at least one prefix or keyword
+        String[] splitTrimmedArgs = trimmedArgs.split("/");
+        if (splitTrimmedArgs.length == 1 || splitTrimmedArgs[0].equals("")){ //Ensure args contains at least one prefix or keyword
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
         ArgumentMultimap keywordsMap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CATEGORY, PREFIX_COST, PREFIX_TAG, PREFIX_DATE);
+
         ensureKeywordsAreValid(keywordsMap);
 
         return new FindCommand(new ExpenseContainsKeywordsPredicate(keywordsMap));
@@ -73,19 +78,47 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         if (dateKeywords != null) {
             String[] dates = dateKeywords.split(":");
-            for (String date : dates) {
-                if (!Date.isValidDate(date)) {
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Date.DATE_FORMAT_CONSTRAINTS));
+            if (dates.length == 1 && !Date.isValidDate(dates[0])){
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        Date.DATE_FORMAT_CONSTRAINTS));
+            }
+            if (dates.length == 2){
+                if (!Date.isValidDate(dates[0]) || !Date.isValidDate(dates[1])){
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            Date.DATE_FORMAT_CONSTRAINTS));
+                }
+                if (new Date(dates[1]).isEalierThan(new Date(dates[0]))){
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            MESSAGE_INVALID_RANGE));
                 }
             }
+            if (dates.length > 2){
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        MESSAGE_INVALID_DATE_KEYWORDS_FORMAT));
+            }
+
         }
 
         if (costKeywords != null) {
             String[] costs = costKeywords.split(":");
-            for (String cost : costs) {
-                if (!Cost.isValidCost(cost)){
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Cost.MESSAGE_ADDRESS_CONSTRAINTS));
+            if (costs.length == 1 && !Cost.isValidCost(costs[0])){
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        Cost.MESSAGE_COST_CONSTRAINTS));
+            }
+            if (costs.length == 2){
+                if (!Cost.isValidCost(costs[0]) || !Cost.isValidCost(costs[1])){
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            Cost.MESSAGE_COST_CONSTRAINTS));
                 }
+                if (Double.parseDouble(costs[1]) < Double.parseDouble(costs[0])){
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            MESSAGE_INVALID_RANGE));
+                }
+            }
+            if (costs.length > 2){
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        MESSAGE_INVALID_COST_KEYWORDS_FORMAT));
+
             }
         }
     }
