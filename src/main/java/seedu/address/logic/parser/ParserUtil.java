@@ -228,7 +228,7 @@ public class ParserUtil {
     /**
      * Parses a {@code String Budget} into a {@code Budget}.
      * Leading and trailing whitespaces will be trimmed.
-     *
+     * @author ericyjw
      * @throws ParseException if the given {@code budget} is invalid.
      */
     public static Budget parseBudget(String budget) throws ParseException {
@@ -243,7 +243,7 @@ public class ParserUtil {
     /**
      * Parses a {@code String ccaName} into a {@code CcaName}.
      * Leading and trailing whitespaces will be trimmed.
-     *
+     * @author ericyjw
      * @throws ParseException if the given {@code ccaName} is invalid.
      */
     public static CcaName parseCcaName(String ccaName) throws ParseException {
