@@ -36,7 +36,7 @@ public class FindCommandParser implements CommandParser<FindCommand> {
     }
 
     @Override
-    public FindCommand<Ingredient> parseIngredient(Model model, String userInput) throws ParseException {
+    public FindCommand<Ingredient> parseIngredient(Model model, String args) throws ParseException {
         return null;
     }
 

@@ -28,7 +28,7 @@ public class SelectCommandParser implements CommandParser<SelectCommand> {
     }
 
     @Override
-    public SelectCommand parseIngredient(Model model, String userInput) throws ParseException {
+    public SelectCommand parseIngredient(Model model, String args) throws ParseException {
         return null;
     }
 }

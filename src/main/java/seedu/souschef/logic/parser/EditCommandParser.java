@@ -87,7 +87,7 @@ public class EditCommandParser implements CommandParser<EditCommand> {
     }
 
     @Override
-    public EditCommand<Ingredient> parseIngredient(Model model, String userInput) throws ParseException {
+    public EditCommand<Ingredient> parseIngredient(Model model, String args) throws ParseException {
         return null;
     }
 

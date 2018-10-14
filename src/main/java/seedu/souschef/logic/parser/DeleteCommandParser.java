@@ -2,6 +2,7 @@ package seedu.souschef.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.souschef.commons.core.Messages.MESSAGE_NO_ELEMENT;
 
 import java.util.List;
 
@@ -41,8 +42,23 @@ public class DeleteCommandParser implements CommandParser<DeleteCommand> {
     }
 
     @Override
-    public DeleteCommand<Ingredient> parseIngredient(Model model, String userInput) throws ParseException {
-        return null;
+    public DeleteCommand<Ingredient> parseIngredient(Model model, String args) throws ParseException {
+        Ingredient toDelete = null;
+
+        List<Ingredient> lastShownList = model.getFilteredList();
+        for (int i = 0; i < lastShownList.size(); i++) {
+            Ingredient cur = lastShownList.get(i);
+            if (cur.getName().equals(args)) {
+                toDelete = cur;
+                break;
+            }
+        }
+
+        if (toDelete == null) {
+            throw new ParseException(MESSAGE_NO_ELEMENT);
+        }
+
+        return new DeleteCommand<>(model, toDelete);
     }
 
 }
