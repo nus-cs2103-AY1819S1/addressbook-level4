@@ -44,7 +44,6 @@ public class SelectCommand extends Command {
         if (targetIndex.getZeroBased() >= filteredPersonList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-
         // TODO: Ivan - model.resetPreviewImageManager(initialImage);
 
         EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
