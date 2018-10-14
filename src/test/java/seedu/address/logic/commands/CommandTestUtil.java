@@ -14,6 +14,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VISITOR;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,6 +48,7 @@ public class CommandTestUtil {
 
     public static final String VALID_DIAGNOSIS = "Amy has a case of acute bronchitis, referred to Dr. Zhang";
 
+    public static final String VALID_VISITOR = "GAO JIAXIN";
 
     public static final String VALID_DRUGNAME = "Paracetamol";
     public static final int VALID_DOSE = 2;
@@ -66,7 +68,7 @@ public class CommandTestUtil {
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
     public static final String DRUG_ALLERGY_DESC_ASPIRIN = " " + PREFIX_DRUG_ALLERGY + VALID_DRUG_ALLERGY_ASPIRIN;
     public static final String DRUG_ALLERGY_DESC_PENICILLIN = " " + PREFIX_DRUG_ALLERGY + VALID_DRUG_ALLERGY_PENICILLIN;
-
+    public static final String VALID_VISITOR_DESC = " " + PREFIX_VISITOR + VALID_VISITOR;
 
     public static final String VALID_DIAGNOSIS_DESC = " " + PREFIX_MED_HISTORY + VALID_DIAGNOSIS;
 
@@ -136,7 +138,7 @@ public class CommandTestUtil {
      * - the {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            String expectedMessage, Model expectedModel) {
+                                            String expectedMessage, Model expectedModel) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
             CommandResult result = command.execute(actualModel, actualCommandHistory);
@@ -157,7 +159,7 @@ public class CommandTestUtil {
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            String expectedMessage) {
+                                            String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
