@@ -109,16 +109,13 @@ Edits the name of the 2nd person to be `Betsy Crower` and clears all existing ta
 ==== Editing by name
 
 Edits an existing person in the address book by the person's name. +
-Format: `edit n/NAME [p/phone] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Format: `edit IDENTIFIER [n/NAME] [p/phone] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 ****
-* Edits the person with the specified NAME. The index *​must be the full name.*
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e. adding of tags is not cumulative.
-* You can remove all the person’s tags by typing ​*t/*​ without specifying any tags after it.
-* If there are multiple contacts with the same name, address book will prompt for one unique field (address, email,
-phone or other tags) to identify the contact, after which it will ask for the fields to update.
+* Edits the person with a name matching the IDENTIFIER. The identifier *​must uniquely identify a person.*
+* If nobody matches the identifier, InsuRen will notify you and not carry out changes.
+* If there are multiple contacts matching the identifier, InsuRen will notify you and not carry out changes.
+* You can be more specific in the name identifier, but in the case that two people have exactly the same name, you should use the edit by index command.
 ****
 
 Examples:
@@ -126,14 +123,6 @@ Examples:
 * `edit John Doe p/91234567 e/johndoe@example.com` +
 Edits the phone number and email address of John Doe to be ​91234567​ and
 johndoe@example.com​ respectively.
-* When there are two `John Doe` s on the list, and command provided is:
-** `edit John Doe` +
-Address book prompts for a unique field.
-** `p/98765432` +
-You provides a unique field. In this example the `John Doe` contact you will be editing should have phone number
-`98765432`.
-** `p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of John Doe to be ​`91234567​` and `johndoe@example.com​` respectively.
 
 === Locating persons by name: `find`
 
