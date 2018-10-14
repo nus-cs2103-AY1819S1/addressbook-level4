@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+    <!-- Restaurant with invalid phone field -->
+    <restaurants>
+        <name>Hans Muster</name>
+        <phone isPrivate="false">aed5</phone>
+        <address isPrivate="false">4th street</address>
+    </restaurants>
+</addressbook>

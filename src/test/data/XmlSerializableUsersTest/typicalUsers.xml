@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<users>
+    <user>
+        <username>Cockburn123</username>
+        <password>pAssw0rd</password>
+        <name>Asa Cockburn</name>
+        <phone>99919001</phone>
+        <email>cockburn123@example.com</email>
+    </user>
+    <user>
+        <username>benny123</username>
+        <password>pAssw0rd</password>
+        <name>Benny Tobias</name>
+        <phone>99332001</phone>
+        <email>benny123@example.com</email>
+    </user>
+    <user>
+        <username>carlymaximus</username>
+        <password>pAssw0rd</password>
+        <name>Carly Maximus</name>
+        <phone>99209001</phone>
+        <email>carlymaximus@example.com</email>
+    </user>
+    <user>
+        <username>danelhand</username>
+        <password>pAssw0rd</password>
+        <name>Danel Handcock</name>
+        <phone>93421233</phone>
+        <email>danel@example.com</email>
+    </user>
+    <user>
+        <username>ellie241</username>
+        <password>pAssw0rd</password>
+        <name>Ellie burnhand</name>
+        <phone>94421232</phone>
+        <email>handburn@gmail.com</email>
+    </user>
+    <user>
+        <username>fioxaxiexie</username>
+        <password>pAssw0rd</password>
+        <name>Fioxa Xie</name>
+        <phone>98819001</phone>
+        <email>xiexiexie@example.com</email>
+    </user>
+    <user>
+        <username>gomes122</username>
+        <password>pAssw0rd</password>
+        <name>Gomes Washingburn</name>
+        <phone>99915001</phone>
+        <email>washingburns@gmail.com</email>
+    </user>
+</users>

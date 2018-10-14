@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<users>
+    <!-- User with invalid phone field -->
+    <user>
+        <username>evanm</username>
+        <password>pAssw0rd</password>
+        <name>evan</name>
+        <phone>Lmao</phone>
+        <email>evan202@gmail.com</email>
+    </user>
+</users>

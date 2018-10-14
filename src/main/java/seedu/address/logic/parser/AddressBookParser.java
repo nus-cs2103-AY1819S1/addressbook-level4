@@ -19,7 +19,31 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.accounting.AcceptDebtRequestCommand;
+import seedu.address.logic.commands.accounting.AddDebtCommand;
+import seedu.address.logic.commands.accounting.ClearDebtCommand;
+import seedu.address.logic.commands.accounting.DeleteDebtRequestCommand;
+import seedu.address.logic.commands.accounting.ListCreditorCommand;
+import seedu.address.logic.commands.accounting.ListDebtHistoryCommand;
+import seedu.address.logic.commands.accounting.ListDebtRequestReceivedCommand;
+import seedu.address.logic.commands.accounting.ListDebtRequestSentCommand;
+import seedu.address.logic.commands.accounting.ListDebtorCommand;
+import seedu.address.logic.commands.jio.CreateJioCommand;
+import seedu.address.logic.commands.user.LoginCommand;
+import seedu.address.logic.commands.user.LogoutCommand;
+import seedu.address.logic.commands.user.SignUpCommand;
+import seedu.address.logic.parser.accounting.AcceptDebtRequestCommandParser;
+import seedu.address.logic.parser.accounting.AddDebtCommandParser;
+import seedu.address.logic.parser.accounting.ClearDebtCommandParser;
+import seedu.address.logic.parser.accounting.DeleteDebtRequestCommandParser;
+import seedu.address.logic.parser.accounting.ListCreditorCommandParser;
+import seedu.address.logic.parser.accounting.ListDebtHistoryCommandParser;
+import seedu.address.logic.parser.accounting.ListDebtRequestReceivedCommandParser;
+import seedu.address.logic.parser.accounting.ListDebtRequestSentCommandParser;
+import seedu.address.logic.parser.accounting.ListDebtorCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.jio.CreateJioCommandParser;
+
 
 /**
  * Parses user input.
@@ -83,6 +107,57 @@ public class AddressBookParser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
+
+        case SignUpCommand.COMMAND_WORD:
+            return new SignUpCommandParser().parse(arguments);
+
+        case LoginCommand.COMMAND_WORD:
+            return new LoginCommandParser().parse(arguments);
+
+        case LogoutCommand.COMMAND_WORD:
+            return new LogoutCommand();
+
+        // Restaurant Commands
+
+        // Friend Commands
+
+        // Jio Commands
+        case CreateJioCommand.COMMAND_WORD:
+            return new CreateJioCommandParser().parse(arguments);
+
+        // Group Commands
+
+        // Timetable Commands
+
+        // Accounting Commands
+        case AddDebtCommand.COMMAND_WORD:
+            return new AddDebtCommandParser().parse(arguments);
+
+        case ClearDebtCommand.COMMAND_WORD:
+            return new ClearDebtCommandParser().parse(arguments);
+
+        case AcceptDebtRequestCommand.COMMAND_WORD:
+            return new AcceptDebtRequestCommandParser().parse(arguments);
+
+        case DeleteDebtRequestCommand.COMMAND_WORD:
+            return new DeleteDebtRequestCommandParser().parse(arguments);
+
+        case ListCreditorCommand.COMMAND_WORD:
+            return new ListCreditorCommandParser().parse(arguments);
+
+        case ListDebtorCommand.COMMAND_WORD:
+            return new ListDebtorCommandParser().parse(arguments);
+
+        case ListDebtHistoryCommand.COMMAND_WORD:
+            return new ListDebtHistoryCommandParser().parse(arguments);
+
+        case ListDebtRequestSentCommand.COMMAND_WORD:
+            return new ListDebtRequestSentCommandParser().parse(arguments);
+
+        case ListDebtRequestReceivedCommand.COMMAND_WORD:
+            return new ListDebtRequestReceivedCommandParser().parse(arguments);
+
+        // Other Additional Makan Book Commands
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

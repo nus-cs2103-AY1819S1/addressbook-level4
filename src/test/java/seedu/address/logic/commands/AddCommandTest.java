@@ -19,8 +19,16 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.accounting.Amount;
+import seedu.address.model.accounting.DebtId;
+import seedu.address.model.accounting.DebtStatus;
+import seedu.address.model.jio.Jio;
+import seedu.address.model.restaurant.Name;
+import seedu.address.model.restaurant.Restaurant;
+import seedu.address.model.user.Password;
+import seedu.address.model.user.User;
+import seedu.address.model.user.Username;
+import seedu.address.testutil.RestaurantBuilder;
 
 public class AddCommandTest {
 
@@ -32,38 +40,38 @@ public class AddCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullRestaurant_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new AddCommand(null);
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    public void execute_restaurantAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingRestaurantAdded modelStub = new ModelStubAcceptingRestaurantAdded();
+        Restaurant validRestaurant = new RestaurantBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddCommand(validRestaurant).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validRestaurant), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validRestaurant), modelStub.restaurantsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+    public void execute_duplicateRestaurant_throwsCommandException() throws Exception {
+        Restaurant validRestaurant = new RestaurantBuilder().build();
+        AddCommand addCommand = new AddCommand(validRestaurant);
+        ModelStub modelStub = new ModelStubWithRestaurant(validRestaurant);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
+        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_RESTAURANT);
         addCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
+        Restaurant alice = new RestaurantBuilder().withName("Alice").build();
+        Restaurant bob = new RestaurantBuilder().withName("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 
@@ -80,7 +88,7 @@ public class AddCommandTest {
         // null -> returns false
         assertFalse(addAliceCommand.equals(null));
 
-        // different person -> returns false
+        // different restaurant -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
@@ -89,7 +97,7 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public void addPerson(Person person) {
+        public void addRestaurant(Restaurant restaurant) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -104,27 +112,27 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Person person) {
+        public boolean hasRestaurant(Restaurant restaurant) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Person target) {
+        public void deleteRestaurant(Restaurant target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updatePerson(Person target, Person editedPerson) {
+        public void updateRestaurant(Restaurant target, Restaurant editedRestaurant) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Person> getFilteredPersonList() {
+        public ObservableList<Restaurant> getFilteredRestaurantList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
+        public void updateFilteredRestaurantList(Predicate<Restaurant> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -152,42 +160,173 @@ public class AddCommandTest {
         public void commitAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean hasDebtId(DebtId debtId) {
+            return false;
+        }
+
+        @Override
+        public boolean matchAmount(DebtId debtId, Amount amount) {
+            return false;
+        }
+
+        @Override
+        public boolean matchUser(DebtId debtId, Username user) {
+            return false;
+        }
+
+        @Override
+        public boolean matchStatus(DebtId debtId, DebtStatus status) {
+            return false;
+        }
+        @Override
+        public void addDebt(Username debtorUsername, Amount amount) {
+        }
+        @Override
+        public void clearDebt(Username debtorUsername, Amount amount, DebtId debtId) {
+        }
+        @Override
+        public void acceptedDebtRequest(Username creditorUsername, Amount amount, DebtId debtId) {
+        }
+        @Override
+        public void deleteDebtRequest(Username creditorUsername, Amount amount, DebtId debtId) {
+        }
+
+        @Override
+        public String listDebtHistory() {
+            return null;
+        }
+
+        @Override
+        public String listDebtor() {
+            return null;
+        }
+
+        @Override
+        public String listCreditor() {
+            return null;
+        }
+
+        @Override
+        public String listDebtRequestReceived() {
+            return null;
+        }
+
+        @Override
+        public String listDebtRequestSent() {
+            return null;
+        }
+
+
+        // To be Done Later, fake tests for now
+
+        @Override
+        public boolean hasJio(Jio jio) {
+            return true;
+        }
+
+        @Override
+        public boolean hasJioName(Name jioName) {
+            return true;
+        }
+
+        @Override
+        public void removeJioOfName(Name jioName) {}
+
+        @Override
+        public void addJio(Jio jio) {}
+
+        @Override
+        public void addUser(User user) {}
+
+        @Override
+        public boolean hasUser(Username username) {
+            return true;
+        }
+
+        @Override
+        public boolean verifyLogin(Username username, Password password) {
+            return true;
+        }
+
+        @Override
+        public boolean isCurrentlyLoggedIn() {
+            return true;
+        }
+
+        @Override
+        public void loginUser(User user){}
+
+        @Override
+        public void loginUser(Username username){}
+
+        @Override
+        public void logoutUser() {}
+
+        @Override
+        public boolean hasUsernameFriendRequest(Username friendUsername) {
+            return true;
+        }
+
+        @Override
+        public boolean hasUsernameFriend(Username friendUsername) {
+            return true;
+        }
+
+        @Override
+        public void addFriend(Username friendUsername) {}
+
+        @Override
+        public void acceptFriend(Username friendUsername) {}
+
+        @Override
+        public boolean isSameAsCurrentUser(Username username) {
+            return true;
+        }
+
+        @Override
+        public void deleteFriend(Username friendUsername) {}
+
+        @Override
+        public void deleteFriendRequest(Username friendUsername) {}
+
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single restaurant.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ModelStubWithRestaurant extends ModelStub {
+        private final Restaurant restaurant;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithRestaurant(Restaurant restaurant) {
+            requireNonNull(restaurant);
+            this.restaurant = restaurant;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasRestaurant(Restaurant restaurant) {
+            requireNonNull(restaurant);
+            return this.restaurant.isSameRestaurant(restaurant);
         }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the restaurant being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingRestaurantAdded extends ModelStub {
+        final ArrayList<Restaurant> restaurantsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasRestaurant(Restaurant restaurant) {
+            requireNonNull(restaurant);
+            return restaurantsAdded.stream().anyMatch(restaurant::isSameRestaurant);
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addRestaurant(Restaurant restaurant) {
+            requireNonNull(restaurant);
+            restaurantsAdded.add(restaurant);
         }
 
         @Override
