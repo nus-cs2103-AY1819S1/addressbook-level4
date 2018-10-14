@@ -19,7 +19,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.DateTime;
 import seedu.address.model.event.Description;
 import seedu.address.model.event.EventName;
-import seedu.address.model.event.Priority;
 import seedu.address.model.event.RepeatType;
 import seedu.address.model.event.Venue;
 import seedu.address.model.tag.Tag;
@@ -33,7 +32,6 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_FAILED_DATE_TIME_PARSE = "Natural language date time parsing failed";
     public static final String MESSAGE_FAILED_REPEAT_TYPE_PARSE = "Repeat type is not valid";
-    public static final String MESSAGE_FAILED_PRIORITY_PARSE = "Priority is not valid";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -83,10 +81,10 @@ public class ParserUtil {
      */
     public static EventName parseEventName(String eventName) throws ParseException {
         requireNonNull(eventName);
+        String trimmedEventName = eventName.trim();
         if (!EventName.isValidEventName(eventName)) {
             throw new ParseException(EventName.MESSAGE_EVENT_NAME_CONSTRAINTS);
         }
-        String trimmedEventName = eventName.trim();
         return new EventName(trimmedEventName);
     }
 
@@ -98,27 +96,6 @@ public class ParserUtil {
         requireNonNull(description);
         String trimmedDescription = description.trim();
         return new Description(trimmedDescription);
-    }
-
-    /**
-     * Parses a {@code String priority} into a {@code Priority}.
-     *
-     * @throws ParseException if the given {@code priority} is invalid.
-     */
-    public static Priority parsePriority(String priority) throws ParseException {
-        requireNonNull(priority);
-        String trimmedPriority = priority.trim();
-        if (trimmedPriority.isEmpty() || trimmedPriority.equalsIgnoreCase(Priority.NONE.name())) {
-            return Priority.NONE;
-        } else if (trimmedPriority.equalsIgnoreCase(Priority.LOW.name())) {
-            return Priority.LOW;
-        } else if (trimmedPriority.equalsIgnoreCase(Priority.MEDIUM.name())) {
-            return Priority.MEDIUM;
-        } else if (trimmedPriority.equalsIgnoreCase(Priority.HIGH.name())) {
-            return Priority.HIGH;
-        } else {
-            throw new ParseException(String.format(MESSAGE_FAILED_PRIORITY_PARSE, priority));
-        }
     }
 
     /**

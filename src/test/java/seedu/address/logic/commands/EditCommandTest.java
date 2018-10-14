@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_MA2101;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_MA3220;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_NAME_MA2101;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_MA2101;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showEventAtIndex;
@@ -57,11 +56,11 @@ public class EditCommandTest {
         Event lastEvent = model.getFilteredEventList().get(indexLastEvent.getZeroBased());
 
         EventBuilder eventInList = new EventBuilder(lastEvent);
-        Event editedEvent = eventInList.withEventName(VALID_EVENT_NAME_MA2101).withPriority(VALID_PRIORITY_MA2101)
+        Event editedEvent = eventInList.withEventName(VALID_EVENT_NAME_MA2101)
                 .build();
 
         EditEventDescriptor descriptor = new EditEventDescriptorBuilder().withEventName(VALID_EVENT_NAME_MA2101)
-                .withPriority(VALID_PRIORITY_MA2101).build();
+                .build();
         EditCommand editCommand = new EditCommand(indexLastEvent, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EVENT_SUCCESS, editedEvent);
@@ -187,7 +186,7 @@ public class EditCommandTest {
         expectedModel.updateEvent(eventToEdit, editedEvent);
         expectedModel.commitScheduler();
 
-        // edit -> edits second event in unfiltered event list / first person in filtered event list
+        // edit -> edits second event in unfiltered event list / first event in filtered event list
         editCommand.execute(model, commandHistory);
 
         // undo -> reverts scheduler back to previous state and filtered event list to show all events

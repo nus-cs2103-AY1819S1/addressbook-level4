@@ -8,7 +8,6 @@ import static seedu.address.logic.commands.CommandTestUtil.END_DATETIME_DESC_MA3
 import static seedu.address.logic.commands.CommandTestUtil.EVENT_NAME_DESC_MA2101;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.PRIORITY_DESC_MA2101;
 import static seedu.address.logic.commands.CommandTestUtil.REPEAT_TYPE_DESC_MA2101;
 import static seedu.address.logic.commands.CommandTestUtil.REPEAT_TYPE_DESC_MA3220;
 import static seedu.address.logic.commands.CommandTestUtil.REPEAT_UNTIL_DATETIME_DESC_MA2101;
@@ -21,8 +20,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_MA3
 import static seedu.address.logic.commands.CommandTestUtil.VALID_END_DATETIME_MA2101;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_END_DATETIME_MA3220;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_NAME_MA2101;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_MA2101;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_REPEAT_TYPE_MA2101;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_REPEAT_TYPE_MA3220;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_REPEAT_UNTIL_DATETIME_MA2101;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_START_DATETIME_MA2101;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_START_DATETIME_MA3220;
@@ -89,8 +88,8 @@ public class EditCommandParserTest {
         // invalid tag
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS);
 
-        // invalid event name followed by valid priority
-        assertParseFailure(parser, "1" + INVALID_EVENT_NAME_DESC + PRIORITY_DESC_MA2101,
+        // invalid event name followed by valid descrription
+        assertParseFailure(parser, "1" + INVALID_EVENT_NAME_DESC + DESCRIPTION_DESC_MA2101,
                 EventName.MESSAGE_EVENT_NAME_CONSTRAINTS);
 
         // valid event name followed by invalid event name. The test case for invalid event name followed
@@ -106,9 +105,9 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_SCHOOL + TAG_DESC_PLAY, Tag.MESSAGE_TAG_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_EVENT_NAME_DESC + VALID_START_DATETIME_MA2101
-                        + VALID_END_DATETIME_MA2101 + VALID_DESCRIPTION_MA2101 + VALID_PRIORITY_MA2101
-                        + VALID_VENUE_MA2101 + VALID_REPEAT_TYPE_MA2101 + VALID_REPEAT_UNTIL_DATETIME_MA2101
+        assertParseFailure(parser, "1" + INVALID_EVENT_NAME_DESC + START_DATETIME_DESC_MA2101
+                        + END_DATETIME_DESC_MA2101 + DESCRIPTION_DESC_MA2101
+                        + VENUE_DESC_MA2101 + REPEAT_TYPE_DESC_MA2101 + REPEAT_UNTIL_DATETIME_DESC_MA2101
                         + INVALID_TAG_DESC, EventName.MESSAGE_EVENT_NAME_CONSTRAINTS);
     }
 
@@ -116,16 +115,16 @@ public class EditCommandParserTest {
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_EVENT;
         String userInput = targetIndex.getOneBased() + EVENT_NAME_DESC_MA2101 + START_DATETIME_DESC_MA2101
-                + END_DATETIME_DESC_MA2101 + DESCRIPTION_DESC_MA2101 + PRIORITY_DESC_MA2101
+                + END_DATETIME_DESC_MA2101 + DESCRIPTION_DESC_MA2101
                 + VENUE_DESC_MA2101 + REPEAT_TYPE_DESC_MA2101 + REPEAT_UNTIL_DATETIME_DESC_MA2101
                 + TAG_DESC_PLAY + TAG_DESC_SCHOOL;
 
         EditEventDescriptor descriptor = new EditEventDescriptorBuilder().withEventName(VALID_EVENT_NAME_MA2101)
                 .withStartDateTime(VALID_START_DATETIME_MA2101).withEndDateTime(VALID_END_DATETIME_MA2101)
-                .withDescription(VALID_DESCRIPTION_MA2101).withPriority(VALID_PRIORITY_MA2101)
+                .withDescription(VALID_DESCRIPTION_MA2101)
                 .withVenue(VALID_VENUE_MA2101).withRepeatType(VALID_REPEAT_TYPE_MA2101)
                 .withRepeatUntilDateTime(VALID_REPEAT_UNTIL_DATETIME_MA2101)
-                .withTags(TAG_DESC_PLAY, TAG_DESC_SCHOOL).build();
+                .withTags(VALID_TAG_PLAY, VALID_TAG_SCHOOL).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -137,7 +136,7 @@ public class EditCommandParserTest {
         String userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_MA3220 + REPEAT_TYPE_DESC_MA3220;
 
         EditEventDescriptor descriptor = new EditEventDescriptorBuilder().withDescription(VALID_DESCRIPTION_MA3220)
-                .withRepeatType(VALID_REPEAT_TYPE_MA2101).build();
+                .withRepeatType(VALID_REPEAT_TYPE_MA3220).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -161,19 +160,13 @@ public class EditCommandParserTest {
 
         // end date time
         userInput = targetIndex.getOneBased() + END_DATETIME_DESC_MA2101;
-        descriptor = new EditEventDescriptorBuilder().withStartDateTime(VALID_END_DATETIME_MA2101).build();
+        descriptor = new EditEventDescriptorBuilder().withEndDateTime(VALID_END_DATETIME_MA2101).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // description
         userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_MA2101;
         descriptor = new EditEventDescriptorBuilder().withDescription(VALID_DESCRIPTION_MA2101).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
-
-        // priority
-        userInput = targetIndex.getOneBased() + PRIORITY_DESC_MA2101;
-        descriptor = new EditEventDescriptorBuilder().withPriority(VALID_PRIORITY_MA2101).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -223,14 +216,15 @@ public class EditCommandParserTest {
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_EVENT;
-        String userInput = targetIndex.getOneBased() + INVALID_EVENT_NAME_DESC + VALID_EVENT_NAME_MA2101;
-        EditEventDescriptor descriptor = new EditEventDescriptorBuilder().withEventName(VALID_EVENT_NAME_MA2101).build();
+        String userInput = targetIndex.getOneBased() + INVALID_EVENT_NAME_DESC + EVENT_NAME_DESC_MA2101;
+        EditEventDescriptor descriptor = new EditEventDescriptorBuilder()
+                .withEventName(VALID_EVENT_NAME_MA2101).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
-        userInput = targetIndex.getOneBased() + INVALID_EVENT_NAME_DESC + VALID_EVENT_NAME_MA2101
-                + VALID_DESCRIPTION_MA2101 + VALID_VENUE_MA2101;
+        userInput = targetIndex.getOneBased() + INVALID_EVENT_NAME_DESC + EVENT_NAME_DESC_MA2101
+                + DESCRIPTION_DESC_MA2101 + VENUE_DESC_MA2101;
         descriptor = new EditEventDescriptorBuilder().withEventName(VALID_EVENT_NAME_MA2101)
                 .withDescription(VALID_DESCRIPTION_MA2101).withVenue(VALID_VENUE_MA2101).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);

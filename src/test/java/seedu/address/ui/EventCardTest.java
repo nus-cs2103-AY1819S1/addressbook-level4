@@ -16,13 +16,13 @@ public class EventCardTest extends GuiUnitTest {
     @Test
     public void display() {
         // no tags
-        Event eventWithNoTags = new EventBuilder().build(); //[TODO] add tags here
+        Event eventWithNoTags = new EventBuilder().build();
         EventCard eventCard = new EventCard(eventWithNoTags, 1);
         uiPartRule.setUiPart(eventCard);
         assertCardDisplay(eventCard, eventWithNoTags, 1);
 
         // with tags
-        Event eventWithTags = new EventBuilder().build();
+        Event eventWithTags = new EventBuilder().withTags("timetable").build();
         eventCard = new EventCard(eventWithTags, 2);
         uiPartRule.setUiPart(eventCard);
         assertCardDisplay(eventCard, eventWithTags, 2);

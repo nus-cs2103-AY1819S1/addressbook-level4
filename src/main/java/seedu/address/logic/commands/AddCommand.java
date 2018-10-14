@@ -64,6 +64,13 @@ public class AddCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand) other).toAdd));
+                && toAdd.getEventName().equals(((AddCommand) other).toAdd.getEventName())
+                && toAdd.getStartDateTime().equals(((AddCommand) other).toAdd.getStartDateTime())
+                && toAdd.getEndDateTime().equals(((AddCommand) other).toAdd.getEndDateTime())
+                && toAdd.getDescription().equals(((AddCommand) other).toAdd.getDescription())
+                && toAdd.getVenue().equals(((AddCommand) other).toAdd.getVenue())
+                && toAdd.getRepeatType().equals(((AddCommand) other).toAdd.getRepeatType())
+                && toAdd.getRepeatUntilDateTime().equals(((AddCommand) other).toAdd.getRepeatUntilDateTime())
+                && toAdd.getTags().equals(((AddCommand) other).toAdd.getTags()));
     }
 }

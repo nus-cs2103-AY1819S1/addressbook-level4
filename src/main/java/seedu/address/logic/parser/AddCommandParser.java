@@ -5,14 +5,16 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_VALUES
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REPEAT_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REPEAT_UNTIL_DATE_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE_TIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Collections;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -22,9 +24,9 @@ import seedu.address.model.event.DateTime;
 import seedu.address.model.event.Description;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventName;
-import seedu.address.model.event.Priority;
 import seedu.address.model.event.RepeatType;
 import seedu.address.model.event.Venue;
+import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -39,10 +41,8 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_EVENT_NAME, PREFIX_START_DATE_TIME,
-                        PREFIX_END_DATE_TIME, PREFIX_DESCRIPTION, PREFIX_PRIORITY,
-                        PREFIX_VENUE, PREFIX_REPEAT_TYPE, PREFIX_REPEAT_UNTIL_DATE_TIME);
-
-        String temp = argMultimap.getPreamble();
+                        PREFIX_END_DATE_TIME, PREFIX_DESCRIPTION, PREFIX_VENUE,
+                        PREFIX_REPEAT_TYPE, PREFIX_REPEAT_UNTIL_DATE_TIME, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_EVENT_NAME) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -59,9 +59,6 @@ public class AddCommandParser implements Parser<AddCommand> {
         Description description = argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()
                 ? ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get())
                 : new Description("");
-        Priority priority = argMultimap.getValue(PREFIX_PRIORITY).isPresent()
-                ? ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get())
-                : Priority.NONE;
         Venue venue = argMultimap.getValue(PREFIX_VENUE).isPresent()
                 ? ParserUtil.parseVenue(argMultimap.getValue(PREFIX_VENUE).get())
                 : new Venue("");
@@ -71,13 +68,16 @@ public class AddCommandParser implements Parser<AddCommand> {
         DateTime repeatUntilDateTime = argMultimap.getValue(PREFIX_REPEAT_UNTIL_DATE_TIME).isPresent()
                 ? ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_REPEAT_UNTIL_DATE_TIME).get())
                 : endDateTime;
+        Set<Tag> tags = argMultimap.getValue(PREFIX_TAG).isPresent()
+                ? ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG))
+                : Collections.emptySet();
 
         if (!Event.isValidEventDateTime(startDateTime, endDateTime)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_VALUES, Event.MESSAGE_DATETIME_CONSTRAINTS));
         }
 
-        Event event = new Event(UUID.randomUUID(), eventName, startDateTime, endDateTime, description, priority,
-                venue, repeatType, repeatUntilDateTime);
+        Event event = new Event(UUID.randomUUID(), eventName, startDateTime, endDateTime, description,
+                venue, repeatType, repeatUntilDateTime, tags);
 
         return new AddCommand(event);
     }

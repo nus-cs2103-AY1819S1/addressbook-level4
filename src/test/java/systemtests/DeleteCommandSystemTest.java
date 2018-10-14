@@ -52,7 +52,7 @@ public class DeleteCommandSystemTest extends SchedulerSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
 
-        /* Case: delete the middle person in the list -> deleted */
+        /* Case: delete the middle event in the list -> deleted */
         Index middleEventIndex = getMidIndex(getModel());
         assertCommandSuccess(middleEventIndex);
 
@@ -72,7 +72,7 @@ public class DeleteCommandSystemTest extends SchedulerSystemTest {
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
 
-        /* --------------------- Performing delete operation while a person card is selected ------------------------ */
+        /* --------------------- Performing delete operation while a event card is selected ------------------------ */
 
         /* Case: delete the selected event -> event list panel selects the event before the deleted event */
         showAllEvents();
@@ -122,7 +122,7 @@ public class DeleteCommandSystemTest extends SchedulerSystemTest {
     }
 
     /**
-     * Deletes the person at {@code toDelete} by creating a default {@code DeleteCommand} using {@code toDelete} and
+     * Deletes the event at {@code toDelete} by creating a default {@code DeleteCommand} using {@code toDelete} and
      * performs the same verification as {@code assertCommandSuccess(String, Model, String)}.
      * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
      */

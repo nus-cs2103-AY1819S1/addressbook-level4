@@ -3,6 +3,7 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PLAY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_UNUSED;
 import static seedu.address.testutil.TypicalEvents.JANUARY_1_2018_SINGLE;
 import static seedu.address.testutil.TypicalEvents.JANUARY_2_2018_SINGLE;
@@ -20,6 +21,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.event.Event;
 import seedu.address.model.tag.Tag;
+import seedu.address.testutil.EventBuilder;
 import seedu.address.testutil.SchedulerBuilder;
 
 public class SchedulerTest {
@@ -80,16 +82,15 @@ public class SchedulerTest {
         assertEquals(expectedScheduler, schedulerWithJanuary1and2);
     }
 
-    //[TODO] to fix once tag is implemented
-//    @Test
-//    public void removeTagTagUsedByMultiplePersonsTagRemoved() throws Exception {
-//        schedulerWithJanuary1and2.removeTag(new Tag(VALID_TAG_FRIEND));
-//        Event january1WithoutFriendTag = new PersonBuilder(AMY).withTags().build();
-//        Person bobWithoutFriendTag = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
-//        AddressBook expectedAddressBook = new AddressBookBuilder().withPerson(bobWithoutFriendTag)
-//                .withPerson(amyWithoutFriendTag).build();
-//        assertEquals(expectedAddressBook, addressBookWithBobAndAmy);
-//    }
+    @Test
+    public void removeTagTagUsedByMultipleEventsTagRemoved() {
+        schedulerWithJanuary1and2.removeTag(new Tag(VALID_TAG_PLAY));
+        Event january1WithoutPlayTag = new EventBuilder(JANUARY_1_2018_SINGLE).withTags("home").build();
+        Event january2WithoutPlayTag = new EventBuilder(JANUARY_2_2018_SINGLE).withTags().build();
+        Scheduler expectedScheduler = new SchedulerBuilder().withEvent(january1WithoutPlayTag)
+                .withEvent(january2WithoutPlayTag).build();
+        assertEquals(expectedScheduler, schedulerWithJanuary1and2);
+    }
 
     /**
      * A stub ReadOnlyScheduler whose events list can violate interface constraints.

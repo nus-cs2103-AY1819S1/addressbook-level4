@@ -12,7 +12,6 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.Scheduler;
-import seedu.address.model.event.Event;
 import seedu.address.testutil.TypicalEvents;
 
 public class XmlSerializableSchedulerTest {

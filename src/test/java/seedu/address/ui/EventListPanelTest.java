@@ -11,6 +11,7 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.UUID;
 
 import org.junit.Test;
 
@@ -56,13 +57,13 @@ public class EventListPanelTest extends GuiUnitTest {
         postNow(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 
-        EventCardHandle expectedPerson = eventListPanelHandle.getEventCardHandle(INDEX_SECOND_EVENT.getZeroBased());
-        EventCardHandle selectedPerson = eventListPanelHandle.getHandleToSelectedCard();
-        assertCardEquals(expectedPerson, selectedPerson);
+        EventCardHandle expectedEvent = eventListPanelHandle.getEventCardHandle(INDEX_SECOND_EVENT.getZeroBased());
+        EventCardHandle selectedEvent = eventListPanelHandle.getHandleToSelectedCard();
+        assertCardEquals(expectedEvent, selectedEvent);
     }
 
     /**
-     * Verifies that creating and deleting large number of persons in {@code EventListPanel} requires lesser than
+     * Verifies that creating and deleting large number of events in {@code EventListPanel} requires lesser than
      * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
     @Test
@@ -87,7 +88,7 @@ public class EventListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Returns a .xml file containing {@code personCount} persons. This file will be deleted when the JVM terminates.
+     * Returns a .xml file containing {@code eventCount} events. This file will be deleted when the JVM terminates.
      */
     private Path createXmlFileWithEvents(int eventCount) throws Exception {
         StringBuilder builder = new StringBuilder();
@@ -95,7 +96,7 @@ public class EventListPanelTest extends GuiUnitTest {
         builder.append("<scheduler>\n");
         for (int i = 0; i < eventCount; i++) {
             builder.append("<events>\n");
-            builder.append("<uuid>").append(i).append("</uuid>\n");
+            builder.append("<uuid>").append(UUID.randomUUID()).append("</uuid>\n");
             builder.append("<eventName>a</eventName>\n");
             builder.append("<startDateTime>2018-09-21T11:00</startDateTime>\n");
             builder.append("<endDateTime>2018-09-21T12:00</endDateTime>\n");

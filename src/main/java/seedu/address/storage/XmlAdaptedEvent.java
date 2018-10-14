@@ -1,7 +1,12 @@
 package seedu.address.storage;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -11,9 +16,9 @@ import seedu.address.model.event.DateTime;
 import seedu.address.model.event.Description;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventName;
-import seedu.address.model.event.Priority;
 import seedu.address.model.event.RepeatType;
 import seedu.address.model.event.Venue;
+import seedu.address.model.tag.Tag;
 
 /**
  * JAXB-friendly version of Event.
@@ -32,17 +37,18 @@ public class XmlAdaptedEvent {
     @XmlElement(required = true)
     @XmlJavaTypeAdapter(DateTimeAdapter.class)
     private DateTime endDateTime;
-    @XmlElement(required = true)
+    @XmlElement
     private String description;
-    @XmlElement(required = true)
-    private Priority priority;
-    @XmlElement(required = true)
+    @XmlElement
     private String venue;
     @XmlElement(required = true)
     private RepeatType repeatType;
     @XmlElement(required = true)
     @XmlJavaTypeAdapter(DateTimeAdapter.class)
     private DateTime repeatUntilDateTime;
+
+    @XmlElement
+    private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs an XmlAdaptedEvent.
@@ -54,17 +60,19 @@ public class XmlAdaptedEvent {
      * Constructs an {@code XmlAdaptedEvent} with the given event details.
      */
     public XmlAdaptedEvent(UUID uuid, String eventName, DateTime startDateTime, DateTime endDateTime,
-                 String description, Priority priority, String venue,
-                 RepeatType repeatType, DateTime repeatUntilDateTime) {
+                 String description, String venue, RepeatType repeatType,
+                           DateTime repeatUntilDateTime, List<XmlAdaptedTag> tagged) {
         this.uuid = uuid;
         this.eventName = eventName;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
         this.description = description;
-        this.priority = priority;
         this.venue = venue;
         this.repeatType = repeatType;
         this.repeatUntilDateTime = repeatUntilDateTime;
+        if (tagged != null) {
+            this.tagged = new ArrayList<>(tagged);
+        }
     }
 
     /**
@@ -78,10 +86,12 @@ public class XmlAdaptedEvent {
         startDateTime = source.getStartDateTime();
         endDateTime = source.getEndDateTime();
         description = source.getDescription().value;
-        priority = source.getPriority();
         venue = source.getVenue().value;
         repeatType = source.getRepeatType();
         repeatUntilDateTime = source.getRepeatUntilDateTime();
+        tagged = source.getTags().stream()
+                .map(XmlAdaptedTag::new)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -90,6 +100,11 @@ public class XmlAdaptedEvent {
      * @throws IllegalValueException if there were any data constraints violated in the adapted event
      */
     public Event toModelType() throws IllegalValueException {
+
+        final List<Tag> eventTags = new ArrayList<>();
+        for (XmlAdaptedTag tag : tagged) {
+            eventTags.add(tag.toModelType());
+        }
 
         if (uuid == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, UUID.class.getSimpleName()));
@@ -123,12 +138,6 @@ public class XmlAdaptedEvent {
         }
         final Description modelDescription = new Description(description);
 
-        if (priority == null) {
-            throw new IllegalValueException(String.format(
-                    MISSING_FIELD_MESSAGE_FORMAT, Priority.class.getSimpleName()));
-        }
-        final Priority modelPriority = priority;
-
         if (venue == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Venue.class.getSimpleName()));
         }
@@ -146,8 +155,10 @@ public class XmlAdaptedEvent {
         }
         final DateTime modelRepeatUntilDateTime = repeatUntilDateTime;
 
-        return new Event(modelUuid, modelName, modelStartDateTime, modelEndDateTime, modelDescription, modelPriority,
-                modelVenue, modelRepeatType, modelRepeatUntilDateTime);
+        final Set<Tag> modelTags = new HashSet<>(eventTags);
+
+        return new Event(modelUuid, modelName, modelStartDateTime, modelEndDateTime, modelDescription,
+                modelVenue, modelRepeatType, modelRepeatUntilDateTime, modelTags);
     }
 
     @Override
@@ -161,12 +172,13 @@ public class XmlAdaptedEvent {
         }
 
         XmlAdaptedEvent otherEvent = (XmlAdaptedEvent) other;
-        return Objects.equals(eventName, otherEvent.eventName)
+        return Objects.equals(uuid, otherEvent.uuid)
+                && Objects.equals(eventName, otherEvent.eventName)
                 && Objects.equals(startDateTime, otherEvent.startDateTime)
                 && Objects.equals(endDateTime, otherEvent.endDateTime)
                 && Objects.equals(description, otherEvent.description)
                 && Objects.equals(repeatType, otherEvent.repeatType)
                 && Objects.equals(repeatUntilDateTime, otherEvent.repeatUntilDateTime)
-                && Objects.equals(uuid, otherEvent.uuid);
+                && tagged.equals(otherEvent.tagged);
     }
 }

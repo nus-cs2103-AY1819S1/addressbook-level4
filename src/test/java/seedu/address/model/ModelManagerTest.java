@@ -24,7 +24,7 @@ public class ModelManagerTest {
     private ModelManager modelManager = new ModelManager();
 
     @Test
-    public void hasEvent_nullPerson_throwsNullPointerException() {
+    public void hasEvent_nullEvent_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         modelManager.hasEvent(null);
     }

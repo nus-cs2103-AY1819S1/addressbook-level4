@@ -231,7 +231,8 @@ public class VersionedSchedulerTest {
         assertFalse(versionedScheduler.equals(1));
 
         // different state list -> returns false
-        VersionedScheduler differentSchedulerList = prepareSchedulerList(schedulerWithJanuarySecondSingle, schedulerWithJanuaryThirdSingle);
+        VersionedScheduler differentSchedulerList =
+                prepareSchedulerList(schedulerWithJanuarySecondSingle, schedulerWithJanuaryThirdSingle);
         assertFalse(versionedScheduler.equals(differentSchedulerList));
 
         // different current pointer index -> returns false

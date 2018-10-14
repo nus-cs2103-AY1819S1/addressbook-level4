@@ -105,7 +105,7 @@ public class FindCommandSystemTest extends SchedulerSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find person in scheduler, name is substring of keyword -> 0 events found */
+        /* Case: find event in scheduler, name is substring of keyword -> 0 events found */
         command = FindCommand.COMMAND_WORD + " Januarys";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
@@ -142,14 +142,9 @@ public class FindCommandSystemTest extends SchedulerSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find priority of event in scheduler -> 0 events found */
-        command = FindCommand.COMMAND_WORD + " " + PLAY_JANUARY_1_2018_SINGLE.getPriority().name();
-        ModelHelper.setFilteredList(expectedModel);
-        assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
-
         /* Case: find venue of event in scheduler -> 0 events found */
         command = FindCommand.COMMAND_WORD + " " + PLAY_JANUARY_1_2018_SINGLE.getVenue().value;
+        ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -159,16 +154,16 @@ public class FindCommandSystemTest extends SchedulerSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find repeat until date time of event in scheduler -> 0 events found */
-        command = FindCommand.COMMAND_WORD + " " +
-                PLAY_JANUARY_1_2018_SINGLE.getRepeatUntilDateTime().getPrettyString();
+        command = FindCommand.COMMAND_WORD + " "
+                + PLAY_JANUARY_1_2018_SINGLE.getRepeatUntilDateTime().getPrettyString();
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find tags of event in scheduler -> 0 events found */ //[TODO] fix tag
-        //List<Tag> tags = new ArrayList<>(PLAY_JANUARY_1_2018_SINGLE.getTags());
-        //command = FindCommand.COMMAND_WORD + " " + tags.get(0).tagName;
-        //assertCommandSuccess(command, expectedModel);
-        //assertSelectedCardUnchanged();
+        /* Case: find tags of event in scheduler -> 0 events found */
+        List<Tag> tags = new ArrayList<>(PLAY_JANUARY_1_2018_SINGLE.getTags());
+        command = FindCommand.COMMAND_WORD + " " + tags.get(0).tagName;
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
 
         /* Case: find while a event is selected -> selected card deselected */
         showAllEvents();

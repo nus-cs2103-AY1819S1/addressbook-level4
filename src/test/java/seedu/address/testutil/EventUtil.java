@@ -3,7 +3,6 @@ package seedu.address.testutil;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REPEAT_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REPEAT_UNTIL_DATE_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE_TIME;
@@ -38,7 +37,6 @@ public class EventUtil {
         sb.append(PREFIX_START_DATE_TIME + event.getStartDateTime().getPrettyString() + " ");
         sb.append(PREFIX_END_DATE_TIME + event.getEndDateTime().getPrettyString() + " ");
         sb.append(PREFIX_DESCRIPTION + event.getDescription().value + " ");
-        sb.append(PREFIX_PRIORITY + event.getPriority().name() + " ");
         sb.append(PREFIX_VENUE + event.getVenue().value + " ");
         sb.append(PREFIX_REPEAT_TYPE + event.getRepeatType().name() + " ");
         sb.append(PREFIX_REPEAT_UNTIL_DATE_TIME + event.getRepeatUntilDateTime().getPrettyString() + " ");
@@ -61,8 +59,6 @@ public class EventUtil {
                 .append(endDateTime.getPrettyString()).append(" "));
         descriptor.getDescription().ifPresent(description -> sb.append(PREFIX_DESCRIPTION)
                 .append(description.value).append(" "));
-        descriptor.getPriority().ifPresent(priority -> sb.append(PREFIX_PRIORITY)
-                .append(priority.name()).append(" "));
         descriptor.getVenue().ifPresent(venue -> sb.append(PREFIX_VENUE)
                 .append(venue.value).append(" "));
         descriptor.getRepeatType().ifPresent(repeatType -> sb.append(PREFIX_REPEAT_TYPE)

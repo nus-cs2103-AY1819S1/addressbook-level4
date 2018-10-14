@@ -12,7 +12,6 @@ import seedu.address.model.event.DateTime;
 import seedu.address.model.event.Description;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventName;
-import seedu.address.model.event.Priority;
 import seedu.address.model.event.RepeatType;
 import seedu.address.model.event.Venue;
 import seedu.address.model.tag.Tag;
@@ -31,37 +30,55 @@ public class SampleSchedulerDataUtil {
                     new DateTime(LocalDateTime.of(2018, 1, 1, 1, 0)),
                     new DateTime(LocalDateTime.of(2018, 1, 1, 2, 0)),
                     new Description("01 January 2018"),
-                    Priority.LOW,
                     new Venue("Computing"),
                     RepeatType.NONE,
-                    new DateTime(LocalDateTime.of(2018, 1, 1, 2, 0))),
+                    new DateTime(LocalDateTime.of(2018, 1, 1, 2, 0)),
+                    getTagSet("play", "home")),
             new Event(CONSTANT_UUID,
                     new EventName("02 January 2018"),
                     new DateTime(LocalDateTime.of(2018, 1, 2, 1, 0)),
                     new DateTime(LocalDateTime.of(2018, 1, 2, 2, 0)),
                     new Description("02 January 2018"),
-                    Priority.MEDIUM,
                     new Venue("Science"),
                     RepeatType.NONE,
-                    new DateTime(LocalDateTime.of(2018, 1, 2, 2, 0))),
+                    new DateTime(LocalDateTime.of(2018, 1, 2, 2, 0)),
+                    getTagSet("play")),
             new Event(CONSTANT_UUID,
                     new EventName("03 January 2018"),
                     new DateTime(LocalDateTime.of(2018, 1, 3, 1, 0)),
                     new DateTime(LocalDateTime.of(2018, 1, 3, 2, 0)),
                     new Description("03 January 2018"),
-                    Priority.HIGH,
                     new Venue("Arts"),
                     RepeatType.NONE,
-                    new DateTime(LocalDateTime.of(2018, 1, 3, 2, 0))),
+                    new DateTime(LocalDateTime.of(2018, 1, 3, 2, 0)),
+                    getTagSet("home")),
+            new Event(CONSTANT_UUID,
+                    new EventName("work"),
+                    new DateTime(LocalDateTime.of(2018, 12, 12, 0, 0)),
+                    new DateTime(LocalDateTime.of(2018, 12, 12, 1, 0)),
+                    new Description("workAndWork"),
+                    new Venue("Work"),
+                    RepeatType.NONE,
+                    new DateTime(LocalDateTime.of(2018, 12, 12, 1, 0)),
+                    getTagSet("work")),
+            new Event(CONSTANT_UUID,
+                    new EventName("Travel"),
+                    new DateTime(LocalDateTime.of(2018, 6, 1, 0, 0)),
+                    new DateTime(LocalDateTime.of(2018, 6, 1, 1, 0)),
+                    new Description("travelOrTravel"),
+                    new Venue("USA"),
+                    RepeatType.NONE,
+                    new DateTime(LocalDateTime.of(2018, 6, 1, 1, 0)),
+                    getTagSet("travel")),
             new Event(CONSTANT_UUID,
                     new EventName("Play"),
                     new DateTime(LocalDateTime.of(2018, 1, 1, 0, 0)),
                     new DateTime(LocalDateTime.of(2018, 1, 1, 1, 0)),
                     new Description("Play on first january"),
-                    Priority.LOW,
                     new Venue("Home"),
                     RepeatType.NONE,
-                    new DateTime(LocalDateTime.of(2018, 1, 1, 1, 0)))
+                    new DateTime(LocalDateTime.of(2018, 1, 1, 1, 0)),
+                    getTagSet("playMonth"))
         };
 
     }
@@ -82,6 +99,5 @@ public class SampleSchedulerDataUtil {
                 .map(Tag::new)
                 .collect(Collectors.toSet());
     }
-    //                getTagSet("friends")
 
 }

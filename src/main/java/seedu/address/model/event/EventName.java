@@ -10,10 +10,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class EventName {
 
     public static final String MESSAGE_EVENT_NAME_CONSTRAINTS =
-            "First character of Event names should not be blank";
+            "Event names should not be blank";
 
     /*
-     * The first character of the event name must not be a whitespace,
+     * The first character of the event name must not be a empty,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String EVENT_NAME_VALIDATION_REGEX = "[^\\s].*";

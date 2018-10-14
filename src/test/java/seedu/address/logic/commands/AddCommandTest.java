@@ -50,7 +50,7 @@ public class AddCommandTest {
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() throws Exception {
+    public void execute_duplicateEvent_throwsCommandException() throws Exception {
         Event validEvent = new EventBuilder().build();
         AddCommand addCommand = new AddCommand(validEvent);
         ModelStub modelStub = new ModelStubWithEvent(validEvent);
@@ -162,7 +162,7 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single event.
      */
     private class ModelStubWithEvent extends ModelStub {
         private final Event event;

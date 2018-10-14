@@ -19,7 +19,6 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.model.Scheduler;
 import seedu.address.model.event.DateTime;
-import seedu.address.model.event.Priority;
 import seedu.address.model.event.RepeatType;
 import seedu.address.storage.XmlAdaptedEvent;
 import seedu.address.storage.XmlAdaptedTag;
@@ -46,11 +45,10 @@ public class XmlUtilTest {
     private static final DateTime VALID_START_DATETIME = new DateTime(LocalDateTime.of(2018, 9, 21, 11, 0));
     private static final DateTime VALID_END_DATETIME = new DateTime(LocalDateTime.of(2018, 9, 21, 12, 0));
     private static final String VALID_DESCRIPTION = "F11 Tutorial slot";
-    private static final Priority VALID_PRIORITY= Priority.LOW;
     private static final String VALID_VENUE = "School of Computing";
     private static final RepeatType VALID_REPEAT_TYPE = RepeatType.NONE;
     private static final DateTime VALID_REPEAT_UNTIL_DATETIME = new DateTime(LocalDateTime.of(2018, 9, 21, 12, 0));
-    private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("friends"));
+    private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("play"));
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -86,12 +84,12 @@ public class XmlUtilTest {
     }
 
     @Test
-    public void xmlAdaptedPersonFromFile_fileWithMissingEventField_validResult() throws Exception {
+    public void xmlAdaptedEventFromFile_fileWithMissingEventField_validResult() throws Exception {
         XmlAdaptedEvent actualEvent = XmlUtil.getDataFromFile(
                 MISSING_EVENT_FIELD_FILE, XmlAdaptedEventWithRootElement.class);
         XmlAdaptedEvent expectedEvent = new XmlAdaptedEvent(VALID_UUID, null, VALID_START_DATETIME,
-                VALID_END_DATETIME, VALID_DESCRIPTION, VALID_PRIORITY, VALID_VENUE,
-                VALID_REPEAT_TYPE, VALID_REPEAT_UNTIL_DATETIME);
+                VALID_END_DATETIME, VALID_DESCRIPTION, VALID_VENUE,
+                VALID_REPEAT_TYPE, VALID_REPEAT_UNTIL_DATETIME, VALID_TAGS);
         assertEquals(expectedEvent, actualEvent);
     }
 
@@ -100,8 +98,8 @@ public class XmlUtilTest {
         XmlAdaptedEvent actualEvent = XmlUtil.getDataFromFile(
                 INVALID_EVENT_FIELD_FILE, XmlAdaptedEventWithRootElement.class);
         XmlAdaptedEvent expectedEvent = new XmlAdaptedEvent(VALID_UUID, INVALID_EVENT_NAME, VALID_START_DATETIME,
-                VALID_END_DATETIME, VALID_DESCRIPTION, VALID_PRIORITY, VALID_VENUE, VALID_REPEAT_TYPE,
-                VALID_REPEAT_UNTIL_DATETIME);
+                VALID_END_DATETIME, VALID_DESCRIPTION, VALID_VENUE, VALID_REPEAT_TYPE,
+                VALID_REPEAT_UNTIL_DATETIME, VALID_TAGS);
         assertEquals(expectedEvent, actualEvent);
     }
 
@@ -110,8 +108,8 @@ public class XmlUtilTest {
         XmlAdaptedEvent actualEvent = XmlUtil.getDataFromFile(
                 VALID_EVENT_FILE, XmlAdaptedEventWithRootElement.class);
         XmlAdaptedEvent expectedEvent = new XmlAdaptedEvent(VALID_UUID, VALID_EVENT_NAME, VALID_START_DATETIME,
-                VALID_END_DATETIME, VALID_DESCRIPTION, VALID_PRIORITY, VALID_VENUE, VALID_REPEAT_TYPE,
-                VALID_REPEAT_UNTIL_DATETIME);
+                VALID_END_DATETIME, VALID_DESCRIPTION, VALID_VENUE, VALID_REPEAT_TYPE,
+                VALID_REPEAT_UNTIL_DATETIME, VALID_TAGS);
         assertEquals(expectedEvent, actualEvent);
     }
 

@@ -1,27 +1,19 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_MA2101;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_MA3220;
-import static seedu.address.logic.commands.CommandTestUtil.END_DATETIME_DESC_MA2101;
 import static seedu.address.logic.commands.CommandTestUtil.END_DATETIME_DESC_MA3220;
-import static seedu.address.logic.commands.CommandTestUtil.EVENT_NAME_DESC_MA2101;
+import static seedu.address.logic.commands.CommandTestUtil.EVENT_NAME_DESC_MA3220;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.PRIORITY_DESC_MA2101;
-import static seedu.address.logic.commands.CommandTestUtil.PRIORITY_DESC_MA3220;
-import static seedu.address.logic.commands.CommandTestUtil.REPEAT_TYPE_DESC_MA2101;
 import static seedu.address.logic.commands.CommandTestUtil.REPEAT_TYPE_DESC_MA3220;
-import static seedu.address.logic.commands.CommandTestUtil.REPEAT_UNTIL_DATETIME_DESC_MA2101;
 import static seedu.address.logic.commands.CommandTestUtil.REPEAT_UNTIL_DATETIME_DESC_MA3220;
-import static seedu.address.logic.commands.CommandTestUtil.START_DATETIME_DESC_MA2101;
 import static seedu.address.logic.commands.CommandTestUtil.START_DATETIME_DESC_MA3220;
-import static seedu.address.logic.commands.CommandTestUtil.VENUE_DESC_MA2101;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_PLAY;
 import static seedu.address.logic.commands.CommandTestUtil.VENUE_DESC_MA3220;
-import static seedu.address.testutil.TypicalEvents.JANUARY_1_2018_SINGLE;
-import static seedu.address.testutil.TypicalEvents.JANUARY_30_2018_DAILY;
 import static seedu.address.testutil.TypicalEvents.KEYWORD_MATCHING_JANUARY;
-import static seedu.address.testutil.TypicalEvents.MA2101_JANUARY_1_2018_YEARLY;
 import static seedu.address.testutil.TypicalEvents.MA3220_JANUARY_1_2019_SINGLE;
+import static seedu.address.testutil.TypicalEvents.TRAVEL_JUNE_1_2018_SINGLE;
+import static seedu.address.testutil.TypicalEvents.WORK_DECEMBER_12_2018_SINGLE;
 
 import java.util.List;
 
@@ -35,6 +27,7 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventName;
+import seedu.address.testutil.EventBuilder;
 import seedu.address.testutil.EventUtil;
 
 public class AddCommandSystemTest extends SchedulerSystemTest {
@@ -42,17 +35,16 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
     @Test
     public void add() {
         Model model = getModel();
-
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add an event without tags to a non-empty scheduler, command with leading spaces and trailing spaces
+        /* Case: add an event with tags to a non-empty scheduler, command with leading spaces and trailing spaces
          * -> added
          */
-        Event toAdd = MA2101_JANUARY_1_2018_YEARLY;
-        String command = "   " + AddCommand.COMMAND_WORD + "  " + EVENT_NAME_DESC_MA2101 + "  "
-                + START_DATETIME_DESC_MA2101 + "   " + END_DATETIME_DESC_MA2101 + "   " + DESCRIPTION_DESC_MA2101
-                + "   " + PRIORITY_DESC_MA2101 + "   " + VENUE_DESC_MA2101 + "   " + REPEAT_TYPE_DESC_MA2101 + "   "
-                + REPEAT_UNTIL_DATETIME_DESC_MA2101 + " ";
+        Event toAdd = MA3220_JANUARY_1_2019_SINGLE;
+        String command = "   " + AddCommand.COMMAND_WORD + "  " + EVENT_NAME_DESC_MA3220 + "  "
+                + START_DATETIME_DESC_MA3220 + "   " + END_DATETIME_DESC_MA3220 + "   " + DESCRIPTION_DESC_MA3220
+                + "   " + VENUE_DESC_MA3220 + "   " + REPEAT_TYPE_DESC_MA3220 + "   "
+                + REPEAT_UNTIL_DATETIME_DESC_MA3220 + " " + TAG_DESC_PLAY;
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding MA2101 to the list -> MA2101 deleted */
@@ -66,49 +58,45 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
-//        /* Case: add a person with all fields same as another event in the scheduler except name -> added */
-//        toAdd = new EventBuilder(AMY).withName(VALID_NAME_BOB).build();
-//        command = AddPersonCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-//                + TAG_DESC_FRIEND;
-//        assertCommandSuccess(command, toAdd);
-//
-//        /* Case: add a person with all fields same as another person in the address book except phone and email
-//         * -> added
-//         */
-//        toAdd = new PersonBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
-//        command = PersonUtil.getAddCommand(toAdd);
-//        assertCommandSuccess(command, toAdd);
-//
-//        /* Case: add to empty scheduler -> added */
-//        deleteAllEvents();
-//        assertCommandSuccess(MA3220_JANUARY_1_2019_SINGLE);
-//
-//        /* Case: add an event with tags, command with parameters in random order -> added */ //[TODO] to fix tags
-//        toAdd = MA2101_JANUARY_1_2018_YEARLY;
-//        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
-//                + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
-//        assertCommandSuccess(command, toAdd);
-//
-//        /* Case: add an event, missing tags -> added */
-//        assertCommandSuccess(HOON);
+        /* Case: add an event with all fields same as another event in the scheduler -> added */
+        toAdd = new EventBuilder(MA3220_JANUARY_1_2019_SINGLE).build();
+        command = AddCommand.COMMAND_WORD + EVENT_NAME_DESC_MA3220 + START_DATETIME_DESC_MA3220
+                + END_DATETIME_DESC_MA3220 + DESCRIPTION_DESC_MA3220 + VENUE_DESC_MA3220
+                + REPEAT_TYPE_DESC_MA3220 + REPEAT_UNTIL_DATETIME_DESC_MA3220 + TAG_DESC_PLAY;
+        assertCommandSuccess(command, toAdd);
+
+        /* Case: add to empty scheduler -> added */
+        deleteAllEvents();
+        assertCommandSuccess(MA3220_JANUARY_1_2019_SINGLE);
+
+        /* Case: add an event with tags, command with parameters in random order -> added */
+        toAdd = MA3220_JANUARY_1_2019_SINGLE;
+        command = AddCommand.COMMAND_WORD + REPEAT_UNTIL_DATETIME_DESC_MA3220 + START_DATETIME_DESC_MA3220
+                + VENUE_DESC_MA3220 + REPEAT_TYPE_DESC_MA3220 + END_DATETIME_DESC_MA3220
+                + DESCRIPTION_DESC_MA3220 + EVENT_NAME_DESC_MA3220 + TAG_DESC_PLAY;
+        assertCommandSuccess(command, toAdd);
+
+        /* Case: add an event, missing tags -> added */
+        toAdd = new EventBuilder(MA3220_JANUARY_1_2019_SINGLE).withTags().build();
+        assertCommandSuccess(toAdd);
 
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
-        /* Case: filters the person list before adding -> added */
+        /* Case: filters the event list before adding -> added */
         showEventsWithEventName(KEYWORD_MATCHING_JANUARY);
-        assertCommandSuccess(JANUARY_1_2018_SINGLE);
+        assertCommandSuccess(TRAVEL_JUNE_1_2018_SINGLE);
 
         /* ------------------------ Perform add operation while an event card is selected --------------------------- */
 
         /* Case: selects first card in the event list, add an event -> added, card selection remains unchanged */
         selectEvent(Index.fromOneBased(1));
-        assertCommandSuccess(JANUARY_30_2018_DAILY);
+        assertCommandSuccess(WORK_DECEMBER_12_2018_SINGLE);
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
         /* Case: missing name -> rejected */
         command = AddCommand.COMMAND_WORD + START_DATETIME_DESC_MA3220 + END_DATETIME_DESC_MA3220
-                + DESCRIPTION_DESC_MA3220 + PRIORITY_DESC_MA3220 + VENUE_DESC_MA3220 + REPEAT_TYPE_DESC_MA3220
+                + DESCRIPTION_DESC_MA3220 + VENUE_DESC_MA3220 + REPEAT_TYPE_DESC_MA3220
                 + REPEAT_UNTIL_DATETIME_DESC_MA3220;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
@@ -118,7 +106,7 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
 
         /* Case: invalid event name -> rejected */
         command = AddCommand.COMMAND_WORD + INVALID_EVENT_NAME_DESC + START_DATETIME_DESC_MA3220
-                + END_DATETIME_DESC_MA3220 + DESCRIPTION_DESC_MA3220 + PRIORITY_DESC_MA3220
+                + END_DATETIME_DESC_MA3220 + DESCRIPTION_DESC_MA3220
                 + VENUE_DESC_MA3220 + REPEAT_TYPE_DESC_MA3220 + REPEAT_UNTIL_DATETIME_DESC_MA3220;
         assertCommandFailure(command, EventName.MESSAGE_EVENT_NAME_CONSTRAINTS);
 
@@ -130,7 +118,7 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
      * 2. Command box has the default style class.<br>
      * 3. Result display box displays the success message of executing {@code AddCommand} with the details of
      * {@code toAdd}.<br>
-     * 4. {@code Storage} and {@code PersonListPanel} equal to the corresponding components in
+     * 4. {@code Storage} and {@code EventListPanel} equal to the corresponding components in
      * the current model added with {@code toAdd}.<br>
      * 5. Browser url and selected card remain unchanged.<br>
      * 6. Status bar's sync status changes.<br>

@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REPEAT_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REPEAT_UNTIL_DATE_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE_TIME;
@@ -25,7 +24,6 @@ import seedu.address.model.Model;
 import seedu.address.model.Scheduler;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventNameContainsKeywordsPredicate;
-import seedu.address.model.event.Priority;
 import seedu.address.model.event.RepeatType;
 import seedu.address.testutil.EditEventDescriptorBuilder;
 
@@ -44,8 +42,6 @@ public class CommandTestUtil {
     public static final LocalDateTime VALID_END_DATETIME_MA3220 = LocalDateTime.of(2019, 2, 2, 2, 3);
     public static final String VALID_DESCRIPTION_MA2101 = "MA2101";
     public static final String VALID_DESCRIPTION_MA3220 = "MA3220";
-    public static final Priority VALID_PRIORITY_MA2101 = Priority.LOW;
-    public static final Priority VALID_PRIORITY_MA3220 = Priority.HIGH;
     public static final String VALID_VENUE_MA2101 = "S17";
     public static final String VALID_VENUE_MA3220 = "LT20";
     public static final RepeatType VALID_REPEAT_TYPE_MA2101 = RepeatType.YEARLY;
@@ -64,8 +60,6 @@ public class CommandTestUtil {
     public static final String END_DATETIME_DESC_MA3220 = " " + PREFIX_END_DATE_TIME + VALID_END_DATETIME_MA3220;
     public static final String DESCRIPTION_DESC_MA2101 = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_MA2101;
     public static final String DESCRIPTION_DESC_MA3220 = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_MA3220;
-    public static final String PRIORITY_DESC_MA2101 = " " + PREFIX_PRIORITY + VALID_PRIORITY_MA2101;
-    public static final String PRIORITY_DESC_MA3220 = " " + PREFIX_PRIORITY + VALID_PRIORITY_MA3220;
     public static final String VENUE_DESC_MA2101 = " " + PREFIX_VENUE + VALID_VENUE_MA2101;
     public static final String VENUE_DESC_MA3220 = " " + PREFIX_VENUE + VALID_VENUE_MA3220;
     public static final String REPEAT_TYPE_DESC_MA2101 = " " + PREFIX_REPEAT_TYPE + VALID_REPEAT_TYPE_MA2101;
@@ -90,14 +84,14 @@ public class CommandTestUtil {
     static {
         DESC_MA2101 = new EditEventDescriptorBuilder().withEventName(VALID_EVENT_NAME_MA2101)
                 .withStartDateTime(VALID_START_DATETIME_MA2101).withEndDateTime(VALID_END_DATETIME_MA2101)
-                .withDescription(VALID_DESCRIPTION_MA2101).withPriority(VALID_PRIORITY_MA2101)
-                .withVenue(VALID_VENUE_MA2101).withRepeatType(VALID_REPEAT_TYPE_MA2101)
-                .withRepeatUntilDateTime(VALID_REPEAT_UNTIL_DATETIME_MA2101).withTags(VALID_TAG_PLAY).build();
+                .withDescription(VALID_DESCRIPTION_MA2101).withVenue(VALID_VENUE_MA2101)
+                .withRepeatType(VALID_REPEAT_TYPE_MA2101).withRepeatUntilDateTime(VALID_REPEAT_UNTIL_DATETIME_MA2101)
+                .withTags(VALID_TAG_PLAY).build();
         DESC_MA3220 = new EditEventDescriptorBuilder().withEventName(VALID_EVENT_NAME_MA3220)
                 .withStartDateTime(VALID_START_DATETIME_MA3220).withEndDateTime(VALID_END_DATETIME_MA3220)
-                .withDescription(VALID_DESCRIPTION_MA3220).withPriority(VALID_PRIORITY_MA3220)
-                .withVenue(VALID_VENUE_MA3220).withRepeatType(VALID_REPEAT_TYPE_MA3220)
-                .withRepeatUntilDateTime(VALID_REPEAT_UNTIL_DATETIME_MA3220).withTags(VALID_TAG_SCHOOL).build();
+                .withDescription(VALID_DESCRIPTION_MA3220).withVenue(VALID_VENUE_MA3220)
+                .withRepeatType(VALID_REPEAT_TYPE_MA3220).withRepeatUntilDateTime(VALID_REPEAT_UNTIL_DATETIME_MA3220)
+                .withTags(VALID_TAG_SCHOOL).build();
     }
 
     /**
@@ -123,7 +117,7 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book and the filtered person list in the {@code actualModel} remain unchanged <br>
+     * - the address book and the filtered event list in the {@code actualModel} remain unchanged <br>
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,

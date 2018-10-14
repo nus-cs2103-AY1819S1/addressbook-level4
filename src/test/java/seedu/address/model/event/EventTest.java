@@ -8,7 +8,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_MA2
 import static seedu.address.logic.commands.CommandTestUtil.VALID_END_DATETIME_MA2101;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_NAME_MA2101;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_UUID_MA2101;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_MA3220;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_REPEAT_TYPE_MA2101;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_REPEAT_UNTIL_DATETIME_MA2101;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_START_DATETIME_MA2101;
@@ -146,11 +145,6 @@ public class EventTest {
         // different description -> returns false
         editedJanuaryFirst2018SingleEvent =
                 new EventBuilder(JANUARY_1_2018_SINGLE).withDescription(VALID_DESCRIPTION_MA2101).build();
-        assertNotEquals(JANUARY_1_2018_SINGLE, editedJanuaryFirst2018SingleEvent);
-
-        // different priority -> returns false
-        editedJanuaryFirst2018SingleEvent =
-                new EventBuilder(JANUARY_1_2018_SINGLE).withPriority(VALID_PRIORITY_MA3220).build();
         assertNotEquals(JANUARY_1_2018_SINGLE, editedJanuaryFirst2018SingleEvent);
 
         // different venue -> returns false

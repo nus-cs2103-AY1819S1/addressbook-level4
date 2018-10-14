@@ -36,11 +36,11 @@ public class SelectCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Index lastPersonIndex = Index.fromOneBased(model.getFilteredEventList().size());
+        Index lastEventIndex = Index.fromOneBased(model.getFilteredEventList().size());
 
         assertExecutionSuccess(INDEX_FIRST_EVENT);
         assertExecutionSuccess(INDEX_THIRD_EVENT);
-        assertExecutionSuccess(lastPersonIndex);
+        assertExecutionSuccess(lastEventIndex);
     }
 
     @Test
@@ -88,7 +88,7 @@ public class SelectCommandTest {
         // null -> returns false
         assertFalse(selectFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different event -> returns false
         assertFalse(selectFirstCommand.equals(selectSecondCommand));
     }
 

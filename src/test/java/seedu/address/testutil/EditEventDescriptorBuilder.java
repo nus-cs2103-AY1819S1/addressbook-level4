@@ -2,7 +2,6 @@ package seedu.address.testutil;
 
 import java.time.LocalDateTime;
 import java.util.Set;
-import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -11,7 +10,6 @@ import seedu.address.model.event.DateTime;
 import seedu.address.model.event.Description;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventName;
-import seedu.address.model.event.Priority;
 import seedu.address.model.event.RepeatType;
 import seedu.address.model.event.Venue;
 import seedu.address.model.tag.Tag;
@@ -41,19 +39,10 @@ public class EditEventDescriptorBuilder {
         descriptor.setStartDateTime(event.getStartDateTime());
         descriptor.setEndDateTime(event.getEndDateTime());
         descriptor.setDescription(event.getDescription());
-        descriptor.setPriority(event.getPriority());
         descriptor.setVenue(event.getVenue());
         descriptor.setRepeatType(event.getRepeatType());
         descriptor.setRepeatUntilDateTime(event.getRepeatUntilDateTime());
         descriptor.setTags(event.getTags());
-    }
-
-    /**
-     * Sets the {@code Uuid} of the {@code EditEventDescriptor} that we are building.
-     */
-    public EditEventDescriptorBuilder withUuid(UUID Uuid) {
-        descriptor.setUuid(Uuid);
-        return this;
     }
 
     /**
@@ -89,14 +78,6 @@ public class EditEventDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Priority} of the {@code EditEventDescriptor} that we are building.
-     */
-    public EditEventDescriptorBuilder withPriority(Priority priority) {
-        descriptor.setPriority(priority);
-        return this;
-    }
-
-    /**
      * Sets the {@code Venue} of the {@code EditEventDescriptor} that we are building.
      */
     public EditEventDescriptorBuilder withVenue(String venue) {
@@ -121,7 +102,7 @@ public class EditEventDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditEventDescriptor}
      * that we are building.
      */
     public EditEventDescriptorBuilder withTags(String... tags) {

@@ -7,7 +7,6 @@ import static seedu.address.logic.commands.CommandTestUtil.DESC_MA3220;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_MA3220;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_END_DATETIME_MA3220;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_NAME_MA3220;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_MA3220;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_REPEAT_TYPE_MA3220;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_REPEAT_UNTIL_DATETIME_MA3220;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_START_DATETIME_MA3220;
@@ -19,7 +18,7 @@ import org.junit.Test;
 import seedu.address.logic.commands.EditCommand.EditEventDescriptor;
 import seedu.address.testutil.EditEventDescriptorBuilder;
 
-public class EditPersonDescriptorTest {
+public class EditEventDescriptorTest {
 
     @Test
     public void equals() {
@@ -45,7 +44,8 @@ public class EditPersonDescriptorTest {
         assertFalse(DESC_MA2101.equals(editedMA2101));
 
         // different start date time -> returns false
-        editedMA2101 = new EditEventDescriptorBuilder(DESC_MA2101).withStartDateTime(VALID_START_DATETIME_MA3220).build();
+        editedMA2101 = new EditEventDescriptorBuilder(DESC_MA2101)
+                .withStartDateTime(VALID_START_DATETIME_MA3220).build();
         assertFalse(DESC_MA2101.equals(editedMA2101));
 
         // different end date time -> returns false
@@ -54,10 +54,6 @@ public class EditPersonDescriptorTest {
 
         // different description -> returns false
         editedMA2101 = new EditEventDescriptorBuilder(DESC_MA2101).withDescription(VALID_DESCRIPTION_MA3220).build();
-        assertFalse(DESC_MA2101.equals(editedMA2101));
-
-        // different priority -> returns false
-        editedMA2101 = new EditEventDescriptorBuilder(DESC_MA2101).withPriority(VALID_PRIORITY_MA3220).build();
         assertFalse(DESC_MA2101.equals(editedMA2101));
 
         // different venue -> returns false

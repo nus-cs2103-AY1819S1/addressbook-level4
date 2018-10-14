@@ -22,7 +22,6 @@ import seedu.address.model.event.DateTime;
 import seedu.address.model.event.Description;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventName;
-import seedu.address.model.event.Priority;
 import seedu.address.model.event.RepeatType;
 import seedu.address.model.event.Venue;
 import seedu.address.model.tag.Tag;
@@ -35,7 +34,7 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the event identified "
-            + "by the index number used in the displayed person list. "
+            + "by the index number used in the displayed event list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_EVENT_NAME + "NAME] "
@@ -93,15 +92,13 @@ public class EditCommand extends Command {
         DateTime updatedStartDateTime = editEventDescriptor.getStartDateTime().orElse(eventToEdit.getStartDateTime());
         DateTime updatedEndDateTime = editEventDescriptor.getEndDateTime().orElse(eventToEdit.getEndDateTime());
         Description updatedDescription = editEventDescriptor.getDescription().orElse(eventToEdit.getDescription());
-        Priority updatedPriority = editEventDescriptor.getPriority().orElse(eventToEdit.getPriority());
         Venue updatedVenue = editEventDescriptor.getVenue().orElse(eventToEdit.getVenue());
         RepeatType updatedRepeatType = editEventDescriptor.getRepeatType().orElse(eventToEdit.getRepeatType());
         DateTime updatedRepeatUntilDateTime = editEventDescriptor.getRepeatUntilDateTime()
                 .orElse(eventToEdit.getRepeatUntilDateTime());
         Set<Tag> updatedTags = editEventDescriptor.getTags().orElse(eventToEdit.getTags());
-        //[TODO] tags
         return new Event(eventUuid, updatedEventName, updatedStartDateTime, updatedEndDateTime, updatedDescription,
-                updatedPriority, updatedVenue, updatedRepeatType, updatedRepeatUntilDateTime);
+                updatedVenue, updatedRepeatType, updatedRepeatUntilDateTime, updatedTags);
     }
 
     @Override
@@ -132,7 +129,6 @@ public class EditCommand extends Command {
         private DateTime startDateTime;
         private DateTime endDateTime;
         private Description description;
-        private Priority priority;
         private Venue venue;
         private RepeatType repeatType;
         private DateTime repeatUntilDateTime;
@@ -150,7 +146,6 @@ public class EditCommand extends Command {
             setStartDateTime(toCopy.startDateTime);
             setEndDateTime(toCopy.endDateTime);
             setDescription(toCopy.description);
-            setPriority(toCopy.priority);
             setVenue(toCopy.venue);
             setRepeatType(toCopy.repeatType);
             setRepeatUntilDateTime(toCopy.repeatUntilDateTime);
@@ -161,7 +156,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(eventName, startDateTime, endDateTime, description, priority,
+            return CollectionUtil.isAnyNonNull(eventName, startDateTime, endDateTime, description,
                     venue, repeatType, repeatUntilDateTime, tags);
         }
 
@@ -203,14 +198,6 @@ public class EditCommand extends Command {
 
         public Optional<Description> getDescription() {
             return Optional.ofNullable(description);
-        }
-
-        public void setPriority(Priority priority) {
-            this.priority = priority;
-        }
-
-        public Optional<Priority> getPriority() {
-            return Optional.ofNullable(priority);
         }
 
         public void setVenue(Venue venue) {
@@ -269,12 +256,10 @@ public class EditCommand extends Command {
             // state check
             EditEventDescriptor e = (EditEventDescriptor) other;
 
-            return getUuid().equals(e.getUuid())
-                    && getEventName().equals(e.getEventName())
+            return getEventName().equals(e.getEventName())
                     && getStartDateTime().equals(e.getStartDateTime())
                     && getEndDateTime().equals(e.getEndDateTime())
                     && getDescription().equals(e.getDescription())
-                    && getPriority().equals(e.getPriority())
                     && getVenue().equals(e.getVenue())
                     && getRepeatType().equals(e.getRepeatType())
                     && getRepeatUntilDateTime().equals(e.getRepeatUntilDateTime())

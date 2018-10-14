@@ -1,15 +1,18 @@
 package seedu.address.testutil;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 import seedu.address.model.event.DateTime;
 import seedu.address.model.event.Description;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventName;
-import seedu.address.model.event.Priority;
 import seedu.address.model.event.RepeatType;
 import seedu.address.model.event.Venue;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.util.SampleSchedulerDataUtil;
 
 /**
  * A utility class to help with building Event objects.
@@ -23,7 +26,6 @@ public class EventBuilder {
     public static final LocalDateTime DEFAULT_END_DATE_TIME =
             LocalDateTime.of(2018, 9, 21, 18, 0);
     public static final String DEFAULT_DESCRIPTION = "My CS2103 Lecture";
-    public static final Priority DEFAULT_PRIORITY = Priority.NONE;
     public static final String DEFAULT_VENUE = "iCube";
     public static final RepeatType DEFAULT_REPEAT_TYPE = RepeatType.NONE;
     public static final LocalDateTime DEFAULT_REPEAT_UNTIL_DATE_TIME =
@@ -34,10 +36,10 @@ public class EventBuilder {
     private DateTime startDateTime;
     private DateTime endDateTime;
     private Description description;
-    private Priority priority;
     private Venue venue;
     private RepeatType repeatType;
     private DateTime repeatUntilDateTime;
+    private Set<Tag> tags;
 
     public EventBuilder() {
         uuid = DEFAULT_UUID;
@@ -45,10 +47,10 @@ public class EventBuilder {
         startDateTime = new DateTime(DEFAULT_START_DATE_TIME);
         endDateTime = new DateTime(DEFAULT_END_DATE_TIME);
         description = new Description(DEFAULT_DESCRIPTION);
-        priority = DEFAULT_PRIORITY;
         venue = new Venue(DEFAULT_VENUE);
         repeatType = DEFAULT_REPEAT_TYPE;
         repeatUntilDateTime = new DateTime(DEFAULT_REPEAT_UNTIL_DATE_TIME);
+        tags = new HashSet<>();
     }
 
     /**
@@ -60,10 +62,10 @@ public class EventBuilder {
         startDateTime = eventToCopy.getStartDateTime();
         endDateTime = eventToCopy.getEndDateTime();
         description = eventToCopy.getDescription();
-        priority = eventToCopy.getPriority();
         venue = eventToCopy.getVenue();
         repeatType = eventToCopy.getRepeatType();
         repeatUntilDateTime = eventToCopy.getRepeatUntilDateTime();
+        tags = new HashSet<>(eventToCopy.getTags());
     }
 
     /**
@@ -107,14 +109,6 @@ public class EventBuilder {
     }
 
     /**
-     * Sets the {@code Priority} of the {@code Event} that we are building.
-     */
-    public EventBuilder withPriority(Priority priority) {
-        this.priority = priority;
-        return this;
-    }
-
-    /**
      * Sets the {@code Venue} of the {@code Event} that we are building.
      */
     public EventBuilder withVenue(String venue) {
@@ -139,11 +133,19 @@ public class EventBuilder {
     }
 
     /**
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Event} that we are building.
+     */
+    public EventBuilder withTags(String ... tags) {
+        this.tags = SampleSchedulerDataUtil.getTagSet(tags);
+        return this;
+    }
+
+    /**
      * Initialise a new {@code Event} instance
      */
     public Event build() {
         return new Event(uuid, eventName, startDateTime, endDateTime, description,
-                priority, venue, repeatType, repeatUntilDateTime);
+                venue, repeatType, repeatUntilDateTime, tags);
     }
 
 }

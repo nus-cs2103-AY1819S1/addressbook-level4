@@ -34,7 +34,6 @@ public class Event {
 
     // Data fields
     private final Description description;
-    private final Priority priority;
     private final Venue venue;
     private final RepeatType repeatType;
     private final DateTime repeatUntilDateTime;
@@ -44,19 +43,19 @@ public class Event {
      * Every field must be present and not null.
      */
     public Event(UUID uuid, EventName eventName, DateTime startDateTime, DateTime endDateTime,
-                 Description description, Priority priority, Venue venue,
-                 RepeatType repeatType, DateTime repeatUntilDateTime) {
+                 Description description, Venue venue,
+                 RepeatType repeatType, DateTime repeatUntilDateTime, Set<Tag> tags) {
         requireAllNonNull(uuid, eventName, startDateTime, endDateTime, description,
-                priority, venue, repeatType, repeatUntilDateTime);
+                venue, repeatType, repeatUntilDateTime, tags);
         this.uuid = uuid;
         this.eventName = eventName;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
         this.description = description;
-        this.priority = priority;
         this.venue = venue;
         this.repeatType = repeatType;
         this.repeatUntilDateTime = repeatUntilDateTime;
+        this.tags.addAll(tags);
     }
 
     public UUID getUuid() {
@@ -77,10 +76,6 @@ public class Event {
 
     public Description getDescription() {
         return description;
-    }
-
-    public Priority getPriority() {
-        return priority;
     }
 
     public Venue getVenue() {
@@ -147,10 +142,10 @@ public class Event {
                     new DateTime(repeatStartDateTime),
                     new DateTime(repeatStartDateTime.plus(durationDiff)),
                     targetEvent.getDescription(),
-                    targetEvent.getPriority(),
                     targetEvent.getVenue(),
                     targetEvent.getRepeatType(),
-                    targetEvent.getRepeatUntilDateTime()
+                    targetEvent.getRepeatUntilDateTime(),
+                    targetEvent.getTags()
             ));
             repeatStartDateTime = repeatStartDateTime.plusDays(1);
         }
@@ -174,10 +169,10 @@ public class Event {
                     new DateTime(repeatStartDateTime),
                     new DateTime(repeatStartDateTime.plus(durationDiff)),
                     targetEvent.getDescription(),
-                    targetEvent.getPriority(),
                     targetEvent.getVenue(),
                     targetEvent.getRepeatType(),
-                    targetEvent.getRepeatUntilDateTime()
+                    targetEvent.getRepeatUntilDateTime(),
+                    targetEvent.getTags()
             ));
             repeatStartDateTime = repeatStartDateTime.plusWeeks(1);
         }
@@ -201,10 +196,10 @@ public class Event {
                     new DateTime(repeatStartDateTime),
                     new DateTime(repeatStartDateTime.plus(durationDiff)),
                     targetEvent.getDescription(),
-                    targetEvent.getPriority(),
                     targetEvent.getVenue(),
                     targetEvent.getRepeatType(),
-                    targetEvent.getRepeatUntilDateTime()
+                    targetEvent.getRepeatUntilDateTime(),
+                    targetEvent.getTags()
             ));
             repeatStartDateTime = repeatStartDateTime.with((temporal) -> {
                 do {
@@ -239,10 +234,10 @@ public class Event {
                     new DateTime(repeatStartDateTime),
                     new DateTime(repeatStartDateTime.plus(durationDiff)),
                     targetEvent.getDescription(),
-                    targetEvent.getPriority(),
                     targetEvent.getVenue(),
                     targetEvent.getRepeatType(),
-                    targetEvent.getRepeatUntilDateTime()
+                    targetEvent.getRepeatUntilDateTime(),
+                    targetEvent.getTags()
             ));
             repeatStartDateTime = repeatStartDateTime.with((temporal) -> {
                 do {
@@ -293,17 +288,17 @@ public class Event {
                 && otherEvent.getStartDateTime().equals(getStartDateTime())
                 && otherEvent.getEndDateTime().equals(getEndDateTime())
                 && otherEvent.getDescription().equals(getDescription())
-                && otherEvent.getPriority().equals(getPriority())
                 && otherEvent.getVenue().equals(getVenue())
                 && otherEvent.getRepeatType().equals(getRepeatType())
-                && otherEvent.getRepeatUntilDateTime().equals(getRepeatUntilDateTime());
+                && otherEvent.getRepeatUntilDateTime().equals(getRepeatUntilDateTime())
+                && otherEvent.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing our own
         return Objects.hash(eventName, startDateTime, endDateTime, description,
-                priority, venue, repeatType, repeatUntilDateTime);
+                venue, repeatType, repeatUntilDateTime, tags);
     }
 
     @Override
@@ -316,8 +311,6 @@ public class Event {
                 .append(getEndDateTime())
                 .append(" description: ")
                 .append(getDescription())
-                .append(" priority: ")
-                .append(getPriority())
                 .append(" venue: ")
                 .append(getVenue())
                 .append(" repeat type: ")

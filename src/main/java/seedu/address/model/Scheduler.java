@@ -103,15 +103,14 @@ public class Scheduler implements ReadOnlyScheduler {
      * Removes {@code tag} from {@code event} in this {@code Scheduler}.
      */
     private void removeTagFromEvent(Tag tag, Event event) {
-        // TODO: to fix tags
         Set<Tag> newTags = new HashSet<>(event.getTags());
         if (!newTags.remove(tag)) {
             return;
         }
         Event newEvent =
                 new Event(event.getUuid(), event.getEventName(), event.getStartDateTime(), event.getEndDateTime(),
-                        event.getDescription(), event.getPriority(), event.getVenue(),
-                        event.getRepeatType(), event.getRepeatUntilDateTime());
+                        event.getDescription(), event.getVenue(),
+                        event.getRepeatType(), event.getRepeatUntilDateTime(), newTags);
         updateEvent(event, newEvent);
     }
     /**

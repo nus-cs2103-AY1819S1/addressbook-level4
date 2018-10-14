@@ -27,11 +27,10 @@ public class ParserUtilTest {
 
     private static final String VALID_EVENT_NAME = "Study with me";
     private static final String VALID_DESCRIPTION = "";
-    private static final String VALID_VENUE = "";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 
-    private static final String WHITESPACE = " \t\r\n";
+    private static final String WHITESPACE = " \t";
 
     @Rule
     public final ExpectedException thrown = ExpectedException.none();
