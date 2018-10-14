@@ -25,8 +25,8 @@ public class EventDay {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof EventDate // instanceof handles nulls
-                && day.equals(((EventDate) other).eventDate)); // state check
+                || (other instanceof EventDay // instanceof handles nulls
+                && day.equals(((EventDay) other).day)); // state check
     }
 
     @Override
