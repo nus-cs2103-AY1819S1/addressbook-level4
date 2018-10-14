@@ -8,16 +8,17 @@ import java.nio.file.Path;
 
 import org.junit.Test;
 
-import seedu.jxmusic.model.AddressBook;
+import seedu.jxmusic.model.Library;
+import seedu.jxmusic.model.Playlist;
 import seedu.jxmusic.model.util.SampleDataUtil;
 import seedu.jxmusic.testutil.TestUtil;
 
-public class SampleDataTest extends AddressBookSystemTest {
+public class SampleDataTest extends LibrarySystemTest {
     /**
      * Returns null to force test app to load data of the file in {@code getDataFileLocation()}.
      */
     @Override
-    protected AddressBook getInitialData() {
+    protected Library getInitialData() {
         return null;
     }
 
@@ -44,7 +45,7 @@ public class SampleDataTest extends AddressBookSystemTest {
 
     @Test
     public void addressBook_dataFileDoesNotExist_loadSampleData() {
-        Person[] expectedList = SampleDataUtil.getSamplePersons();
-        assertListMatching(getPersonListPanel(), expectedList);
+        Playlist[] expectedList = SampleDataUtil.getSamplePlaylists();
+        assertListMatching(getPlaylistListPanel(), expectedList);
     }
 }

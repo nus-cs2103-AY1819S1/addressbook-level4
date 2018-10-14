@@ -16,7 +16,7 @@ import seedu.jxmusic.commons.core.index.Index;
 import seedu.jxmusic.logic.commands.SelectCommand;
 import seedu.jxmusic.model.Model;
 
-public class SelectCommandSystemTest extends AddressBookSystemTest {
+public class SelectCommandSystemTest extends LibrarySystemTest {
     @Test
     public void select() {
         /* ------------------------ Perform select operations on the shown unfiltered list -------------------------- */
@@ -106,9 +106,9 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
      * 5. Selected card is at {@code expectedSelectedCardIndex} and the browser url is updated accordingly.<br>
      * 6. Status bar remains unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
+     * {@code LibrarySystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see LibrarySystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see LibrarySystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
@@ -137,8 +137,8 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
      * 4. {@code Storage} and {@code PersonListPanel} remain unchanged.<br>
      * 5. Browser url, selected card and status bar remain unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code LibrarySystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see LibrarySystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

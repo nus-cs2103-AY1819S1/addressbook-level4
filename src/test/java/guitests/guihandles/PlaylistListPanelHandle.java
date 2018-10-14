@@ -6,37 +6,38 @@ import java.util.Set;
 
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
+import seedu.jxmusic.model.Playlist;
 
 /**
- * Provides a handle for {@code PersonListPanel} containing the list of {@code PlaylistCard}.
+ * Provides a handle for {@code PlaylistListPanel} containing the list of {@code PlaylistCard}.
  */
-public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
-    public static final String PERSON_LIST_VIEW_ID = "#personListView";
+public class PlaylistListPanelHandle extends NodeHandle<ListView<Playlist>> {
+    public static final String PLAYLIST_LIST_VIEW_ID = "#playlistListView";
 
     private static final String CARD_PANE_ID = "#cardPane";
 
-    private Optional<Person> lastRememberedSelectedPersonCard;
+    private Optional<Playlist> lastRememberedSelectedPlaylistCard;
 
-    public PersonListPanelHandle(ListView<Person> personListPanelNode) {
-        super(personListPanelNode);
+    public PlaylistListPanelHandle(ListView<Playlist> playlistListPanelNode) {
+        super(playlistListPanelNode);
     }
 
     /**
-     * Returns a handle to the selected {@code PersonCardHandle}.
+     * Returns a handle to the selected {@code PlaylistCardHandle}.
      * A maximum of 1 item can be selected at any time.
      * @throws AssertionError if no card is selected, or more than 1 card is selected.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
-    public PersonCardHandle getHandleToSelectedCard() {
-        List<Person> selectedPersonList = getRootNode().getSelectionModel().getSelectedItems();
+    public PlaylistCardHandle getHandleToSelectedCard() {
+        List<Playlist> selectedPlaylistList = getRootNode().getSelectionModel().getSelectedItems();
 
-        if (selectedPersonList.size() != 1) {
-            throw new AssertionError("Person list size expected 1.");
+        if (selectedPlaylistList.size() != 1) {
+            throw new AssertionError("Playlist list size expected 1.");
         }
 
         return getAllCardNodes().stream()
-                .map(PersonCardHandle::new)
-                .filter(handle -> handle.equals(selectedPersonList.get(0)))
+                .map(PlaylistCardHandle::new)
+                .filter(handle -> handle.equals(selectedPlaylistList.get(0)))
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);
     }
@@ -52,7 +53,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
      * Returns true if a card is currently selected.
      */
     public boolean isAnyCardSelected() {
-        List<Person> selectedCardsList = getRootNode().getSelectionModel().getSelectedItems();
+        List<Playlist> selectedCardsList = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedCardsList.size() > 1) {
             throw new AssertionError("Card list size expected 0 or 1.");
@@ -64,13 +65,13 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
     /**
      * Navigates the listview to display {@code playlist}.
      */
-    public void navigateToCard(Person person) {
-        if (!getRootNode().getItems().contains(person)) {
+    public void navigateToCard(Playlist playlist) {
+        if (!getRootNode().getItems().contains(playlist)) {
             throw new IllegalArgumentException("Person does not exist.");
         }
 
         guiRobot.interact(() -> {
-            getRootNode().scrollTo(person);
+            getRootNode().scrollTo(playlist);
         });
         guiRobot.pauseForHuman();
     }
@@ -100,15 +101,15 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
      * Returns the playlist card handle of a playlist associated with the {@code index} in the list.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
-    public PersonCardHandle getPersonCardHandle(int index) {
+    public PlaylistCardHandle getPlaylistCardHandle(int index) {
         return getAllCardNodes().stream()
-                .map(PersonCardHandle::new)
-                .filter(handle -> handle.equals(getPerson(index)))
+                .map(PlaylistCardHandle::new)
+                .filter(handle -> handle.equals(getPlaylist(index)))
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);
     }
 
-    private Person getPerson(int index) {
+    private Playlist getPlaylist(int index) {
         return getRootNode().getItems().get(index);
     }
 
@@ -124,28 +125,28 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
     /**
      * Remembers the selected {@code PlaylistCard} in the list.
      */
-    public void rememberSelectedPersonCard() {
-        List<Person> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
+    public void rememberSelectedPlaylistCard() {
+        List<Playlist> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {
-            lastRememberedSelectedPersonCard = Optional.empty();
+            lastRememberedSelectedPlaylistCard = Optional.empty();
         } else {
-            lastRememberedSelectedPersonCard = Optional.of(selectedItems.get(0));
+            lastRememberedSelectedPlaylistCard = Optional.of(selectedItems.get(0));
         }
     }
 
     /**
      * Returns true if the selected {@code PlaylistCard} is different from the value remembered by the most recent
-     * {@code rememberSelectedPersonCard()} call.
+     * {@code rememberSelectedPlaylistCard()} call.
      */
-    public boolean isSelectedPersonCardChanged() {
-        List<Person> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
+    public boolean isSelectedPlaylistCardChanged() {
+        List<Playlist> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {
-            return lastRememberedSelectedPersonCard.isPresent();
+            return lastRememberedSelectedPlaylistCard.isPresent();
         } else {
-            return !lastRememberedSelectedPersonCard.isPresent()
-                    || !lastRememberedSelectedPersonCard.get().equals(selectedItems.get(0));
+            return !lastRememberedSelectedPlaylistCard.isPresent()
+                    || !lastRememberedSelectedPlaylistCard.get().equals(selectedItems.get(0));
         }
     }
 

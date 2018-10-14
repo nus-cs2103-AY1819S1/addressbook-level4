@@ -27,18 +27,18 @@ import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
-import guitests.guihandles.PersonListPanelHandle;
+import guitests.guihandles.PlaylistListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.jxmusic.MainApp;
 import seedu.jxmusic.TestApp;
 import seedu.jxmusic.commons.core.EventsCenter;
 import seedu.jxmusic.commons.core.index.Index;
-import seedu.jxmusic.logic.commands.ClearCommand;
+//import seedu.jxmusic.logic.commands.ClearCommand;
 import seedu.jxmusic.logic.commands.FindCommand;
 import seedu.jxmusic.logic.commands.ListCommand;
 import seedu.jxmusic.logic.commands.SelectCommand;
-import seedu.jxmusic.model.AddressBook;
+import seedu.jxmusic.model.Library;
 import seedu.jxmusic.model.Model;
 import seedu.jxmusic.testutil.TypicalPlaylists;
 import seedu.jxmusic.ui.BrowserPanel;
@@ -48,7 +48,7 @@ import seedu.jxmusic.ui.CommandBox;
  * A system test class for AddressBook, which provides access to handles of GUI components and helper methods
  * for test verification.
  */
-public abstract class AddressBookSystemTest {
+public abstract class LibrarySystemTest {
     @ClassRule
     public static ClockRule clockRule = new ClockRule();
 
@@ -84,8 +84,8 @@ public abstract class AddressBookSystemTest {
     /**
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
-    protected AddressBook getInitialData() {
-        return TypicalPlaylists.getTypicalAddressBook();
+    protected Library getInitialData() {
+        return TypicalPlaylists.getTypicalLibrary();
     }
 
     /**
@@ -103,8 +103,8 @@ public abstract class AddressBookSystemTest {
         return mainWindowHandle.getCommandBox();
     }
 
-    public PersonListPanelHandle getPersonListPanel() {
-        return mainWindowHandle.getPersonListPanel();
+    public PlaylistListPanelHandle getPlaylistListPanel() {
+        return mainWindowHandle.getPlaylistListPanel();
     }
 
     public MainMenuHandle getMainMenu() {
@@ -139,52 +139,52 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Displays all persons in the jxmusic book.
+     * Displays all playlists in the jxmusic player.
      */
-    protected void showAllPersons() {
+    protected void showAllPlaylists() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getAddressBook().getPlaylistList().size(), getModel().getFilteredPersonList().size());
+        assertEquals(getModel().getLibrary().getPlaylistList().size(), getModel().getFilteredPlaylistList().size());
     }
 
     /**
      * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
      */
-    protected void showPersonsWithName(String keyword) {
+    protected void showPlaylistsWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPlaylistList().size());
+        assertTrue(getModel().getFilteredPlaylistList().size() < getModel().getLibrary().getPlaylistList().size());
     }
 
     /**
      * Selects the playlist at {@code index} of the displayed list.
      */
-    protected void selectPerson(Index index) {
+    protected void selectPlaylist(Index index) {
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
-        assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        assertEquals(index.getZeroBased(), getPlaylistListPanel().getSelectedCardIndex());
     }
 
     /**
-     * Deletes all persons in the jxmusic book.
+     * Deletes all playlists in the jxmusic player.
      */
-    protected void deleteAllPersons() {
-        executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getAddressBook().getPlaylistList().size());
-    }
+    //protected void deleteAllPersons() {
+    //   executeCommand(ClearCommand.COMMAND_WORD);
+    //   assertEquals(0, getModel().getAddressBook().getPlaylistList().size());
+    //}
 
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
      * {@code expectedResultMessage}, the storage contains the same playlist objects as {@code expectedModel}
-     * and the playlist list panel displays the persons in the model correctly.
+     * and the playlist list panel displays the playlists in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
-        assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
+        assertEquals(new Library(expectedModel.getLibrary()), testApp.readStorageLibrary());
+        assertListMatching(getPlaylistListPanel(), expectedModel.getFilteredPlaylistList());
     }
 
     /**
-     * Calls {@code BrowserPanelHandle}, {@code PersonListPanelHandle} and {@code StatusBarFooterHandle} to remember
+     * Calls {@code BrowserPanelHandle}, {@code PlaylistListPanelHandle} and {@code StatusBarFooterHandle} to remember
      * their current state.
      */
     private void rememberStates() {
@@ -192,7 +192,7 @@ public abstract class AddressBookSystemTest {
         getBrowserPanel().rememberUrl();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
-        getPersonListPanel().rememberSelectedPersonCard();
+        getPlaylistListPanel().rememberSelectedPlaylistCard();
     }
 
     /**
@@ -202,18 +202,18 @@ public abstract class AddressBookSystemTest {
      */
     protected void assertSelectedCardDeselected() {
         assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getPersonListPanel().isAnyCardSelected());
+        assertFalse(getPlaylistListPanel().isAnyCardSelected());
     }
 
     /**
      * Asserts that the browser's url is changed to display the details of the playlist in the playlist list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      * @see BrowserPanelHandle#isUrlChanged()
-     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
+     * @see PlaylistListPanelHandle#isSelectedPlaylistCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
-        getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
-        String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
+        getPlaylistListPanel().navigateToCard(getPlaylistListPanel().getSelectedCardIndex());
+        String selectedCardName = getPlaylistListPanel().getHandleToSelectedCard().getName();
         URL expectedUrl;
         try {
             expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
@@ -222,17 +222,17 @@ public abstract class AddressBookSystemTest {
         }
         assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
-        assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        assertEquals(expectedSelectedCardIndex.getZeroBased(), getPlaylistListPanel().getSelectedCardIndex());
     }
 
     /**
      * Asserts that the browser's url and the selected card in the playlist list panel remain unchanged.
      * @see BrowserPanelHandle#isUrlChanged()
-     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
+     * @see PlaylistListPanelHandle#isSelectedPlaylistCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
         assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
+        assertFalse(getPlaylistListPanel().isSelectedPlaylistCardChanged());
     }
 
     /**
@@ -276,7 +276,7 @@ public abstract class AddressBookSystemTest {
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
+        assertListMatching(getPlaylistListPanel(), getModel().getFilteredPlaylistList());
         assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());

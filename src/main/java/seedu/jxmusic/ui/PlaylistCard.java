@@ -40,10 +40,6 @@ public class PlaylistCard extends UiPart<Region> {
         name.setText(playlist.getName().nameString);
         playlist.getTracks().forEach(track ->
                 tracks.getChildren().add(new Label(track.getFileName())));
-        //phone.setText(playlist.getPhone().value);
-        //address.setText(person.getAddress().value);
-        //email.setText(person.getEmail().value);
-        //person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override
