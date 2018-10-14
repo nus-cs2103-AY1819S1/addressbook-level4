@@ -72,4 +72,15 @@ public class DependencyTest {
         assertEquals(expectedDependency, SAMPLE_DEPENDENCY.removeDependency(SAMPLE_TASK_IN_DEPENDENCY));
     }
 
+    @Test
+    public void updateHash() {
+        String oldHash = Integer.toString(SAMPLE_TASK_IN_DEPENDENCY.hashCode());
+        String newHash = "99999";
+        SAMPLE_SET.remove(oldHash);
+        SAMPLE_SET.add(newHash);
+        Dependency expectedDependency = new Dependency(SAMPLE_SET);
+        assertEquals(expectedDependency, SAMPLE_DEPENDENCY.updateHash(oldHash, newHash));
+    }
+
+
 }
