@@ -78,8 +78,10 @@ Examples:
 
 === Adding a patient: `addPatient` `[coming in v2.0]`
 
+// tag::loginReceptionist[]
 [WARNING]
 You must login as an receptionist in order to use this feature. +
+// end::loginReceptionist[]
 
 Adds a patient to the clinic record. +
 Format: `addPatient n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS [medProb/MEDICAL_PROBLEMS]... [medList/MEDICATIONS]... [allergies/ALLERGIES]... [preferredDoc/PREFERRED_DOC]`
@@ -264,6 +266,15 @@ Format: `exit`
 
 ClinicIO data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
+
+=== Logout of the program : `logout` +
+
+// tag::loginUser[]
+[WARNING]
+You must login in order to use this feature. +
+// end::loginUser[]
+Log out of the program. +
+Format: `logout`
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
