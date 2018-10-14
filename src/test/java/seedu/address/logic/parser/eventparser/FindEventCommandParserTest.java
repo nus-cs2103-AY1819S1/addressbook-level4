@@ -23,6 +23,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.eventcommands.FindEventCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -30,13 +31,13 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.eventparsers.FindEventCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.EventAttributesPredicate;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Name;
 
 public class FindEventCommandParserTest {
-    private FindEventCommandParser parser = new FindEventCommandParser();
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindEventCommand.MESSAGE_USAGE);
+    private FindEventCommandParser parser = new FindEventCommandParser();
 
     @Test
     public void parse_invalidValue_failure() {

@@ -8,6 +8,9 @@ import java.util.function.Predicate;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
 
+/**
+ * Predicate to check if event has any of the given attributes.
+ */
 public class EventAttributesPredicate implements Predicate<Event> {
     private Name name;
     private Address address;
@@ -33,7 +36,7 @@ public class EventAttributesPredicate implements Predicate<Event> {
     }
 
     public void setParticipant(Name participant) {
-        (this.participant) = participant;
+        this.participant = participant;
     }
 
     public void setOrganiser(Name organiser) {
