@@ -11,6 +11,8 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.calendar.Month;
 import seedu.address.model.calendar.Year;
+import seedu.address.model.cca.Budget;
+import seedu.address.model.cca.CcaName;
 import seedu.address.model.email.Content;
 import seedu.address.model.email.Subject;
 import seedu.address.model.person.Address;
@@ -223,4 +225,33 @@ public class ParserUtil {
         return new Year(trimmedYear);
     }
 
+    /**
+     * Parses a {@code String Budget} into a {@code Budget}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code budget} is invalid.
+     */
+    public static Budget parseBudget(String budget) throws ParseException {
+        requireNonNull(budget);
+        String trimmedBudget = budget.trim();
+        if (!Budget.isValidBudget(trimmedBudget)) {
+            throw new ParseException(Budget.MESSAGE_BUDGET_CONSTRAINTS);
+        }
+        return new Budget(Integer.parseInt(trimmedBudget));
+    }
+
+    /**
+     * Parses a {@code String ccaName} into a {@code CcaName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code ccaName} is invalid.
+     */
+    public static CcaName parseCcaName(String ccaName) throws ParseException {
+        requireNonNull(ccaName);
+        String trimmedCcaName = ccaName.trim();
+        if (!CcaName.isValidCcaName(trimmedCcaName)) {
+            throw new ParseException(CcaName.MESSAGE_NAME_CONSTRAINTS);
+        }
+        return new CcaName(trimmedCcaName);
+    }
 }

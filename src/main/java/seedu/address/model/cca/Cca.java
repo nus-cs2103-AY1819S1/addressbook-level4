@@ -83,6 +83,16 @@ public class Cca {
         this.transaction = null;
     }
 
+    public Cca(CcaName ccaName, Budget budget) {
+        this.name = ccaName;
+        this.head = null;
+        this.viceHead = null;
+        this.budget = budget;
+        this.spent = null;
+        this.outstanding = null;
+        this.transaction = null;
+    }
+
     public String getCcaName() {
         return name.toString();
     }
@@ -124,8 +134,8 @@ public class Cca {
         }
 
         return otherCca != null
-            && otherCca.getCcaName().equals(getCcaName())
-            && (otherCca.getHead().equals(getHead()) || otherCca.getViceHead().equals(getViceHead()));
+            && otherCca.getCcaName().equals(getCcaName());
+        //&& (otherCca.getHead().equals(getHead()) || otherCca.getViceHead().equals(getViceHead()));
     }
 
     /**
@@ -163,6 +173,14 @@ public class Cca {
         return Objects.hash(name, head, viceHead, budget);
     }
 
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getCcaName())
+            .append(" Budget: ")
+            .append(getGivenBudget());
+        return builder.toString();
+    }
 
 }
 

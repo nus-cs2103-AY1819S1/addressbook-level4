@@ -30,9 +30,16 @@ public class CcaName {
     public CcaName(String name) {
         requireNonNull(name);
         checkArgument(isValidCcaName(name), MESSAGE_NAME_CONSTRAINTS);
-        ccaName = name;
-    }
 
+        String[] arr = name.trim().split(" ");
+        StringBuffer sb = new StringBuffer();
+
+        for (int i = 0; i < arr.length; i++) {
+            sb.append(Character.toUpperCase(arr[i].charAt(0)))
+                .append(arr[i].substring(1)).append(" ");
+        }
+        ccaName = sb.toString().trim();
+    }
     /**
      * Returns true if a given string is a valid CCA name.
      */

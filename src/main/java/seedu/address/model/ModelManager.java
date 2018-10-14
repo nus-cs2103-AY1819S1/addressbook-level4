@@ -16,6 +16,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.BudgetBookChangedEvent;
 import seedu.address.commons.events.model.CalendarCreatedEvent;
 import seedu.address.commons.events.model.EmailSavedEvent;
 import seedu.address.commons.util.StringUtil;
@@ -118,6 +119,15 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new AddressBookChangedEvent(versionedAddressBook));
     }
 
+    /**
+     * Raises an event to indicate the model has changed
+     *
+     * @author ericyjw
+     */
+    private void indicateBudgetBookChanged() {
+        raise(new BudgetBookChangedEvent(versionedBudgetBook));
+    }
+
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
@@ -128,6 +138,12 @@ public class ModelManager extends ComponentManager implements Model {
     public boolean hasCca(Person person) {
         requireNonNull(person);
         return versionedBudgetBook.hasCca(person);
+    }
+
+    @Override
+    public boolean hasCca(Cca cca) {
+        requireNonNull(cca);
+        return versionedBudgetBook.hasCca(cca);
     }
 
     @Override
@@ -159,6 +175,13 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
+    }
+
+    @Override
+    public void addCca(Cca cca) {
+        versionedBudgetBook.addCca(cca);
+        updateFilteredCcaList(PREDICATE_SHOW_ALL_CCAS);
+        indicateBudgetBookChanged();
     }
 
     @Override
@@ -224,6 +247,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void commitAddressBook() {
         versionedAddressBook.commit();
+    }
+
+    @Override
+    public void commitBudgetBook() {
+        versionedBudgetBook.commit();
     }
 
     //@@author GilgameshTC

@@ -21,6 +21,11 @@ public interface Model {
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /**
+     * {@code Predicate} that always evaluate to true
+     */
+    Predicate<Cca> PREDICATE_SHOW_ALL_CCAS = unused -> true;
+
+    /**
      * Clears existing backing model and replaces with the provided new data.
      */
     void resetData(ReadOnlyAddressBook newData);
@@ -39,6 +44,13 @@ public interface Model {
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
     boolean hasPerson(Person person);
+
+    /**
+     * Returns true if a CCA with the same identity as {@code cca} exists in the budget book.
+     *
+     * @author ericyjw
+     */
+    boolean hasCca(Cca cca);
 
     /**
      * Returns true if a person's CCA tag has the same name as the {@code cca} that exists in the budget book.
@@ -70,6 +82,12 @@ public interface Model {
      * {@code person} must not already exist in the address book.
      */
     void addPerson(Person person);
+
+    /**
+     * Adds the given CCa.
+     * {@code cca} must not already exist in the budget book.
+     */
+    void addCca(Cca cca);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
@@ -123,6 +141,11 @@ public interface Model {
     void commitAddressBook();
 
     /**
+     * Saves the current budget book state for undo/redo.
+     */
+    void commitBudgetBook();
+
+    /**
      * Returns an unmodifiable view of the filtered CCA list
      */
     ObservableList<Cca> getFilteredCcaList();
@@ -147,6 +170,5 @@ public interface Model {
      * Updates the existing calendar map inside UserPrefs Json file
      */
     void updateExistingCalendar();
-
 
 }
