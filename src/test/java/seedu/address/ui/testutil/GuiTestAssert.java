@@ -29,6 +29,14 @@ public class GuiTestAssert {
     }
 
     /**
+     * Asserts that {@code actualCard} displays the same value as {@code expectedCard} for {@code GroupCard}
+     */
+    public static void assertGroupCardEquals(GroupCardHandle expectedCard, GroupCardHandle actualCard) {
+        assertEquals(expectedCard.getId(), actualCard.getId());
+        assertEquals(expectedCard.getGroup(), actualCard.getGroup());
+    }
+
+    /**
      * Asserts that {@code actualCard} displays the details of {@code expectedPerson}.
      */
     public static void assertCardDisplaysPerson(Person expectedPerson, PersonCardHandle actualCard) {
