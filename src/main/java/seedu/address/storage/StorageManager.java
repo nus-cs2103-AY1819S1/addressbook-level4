@@ -73,9 +73,9 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public void saveTaskManager(ReadOnlyTaskManager addressBook, Path filePath) throws IOException {
+    public void saveTaskManager(ReadOnlyTaskManager taskManager, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveTaskManager(addressBook, filePath);
+        addressBookStorage.saveTaskManager(taskManager, filePath);
     }
 
 

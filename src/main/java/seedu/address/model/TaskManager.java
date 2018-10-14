@@ -110,7 +110,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     
     //// achievement related operation
     
-    public void updateAchievement(Integer xp) {
+    public void updateXP(Integer xp) {
         requireNonNull(xp);
         
         achievements.updateXP(xp);

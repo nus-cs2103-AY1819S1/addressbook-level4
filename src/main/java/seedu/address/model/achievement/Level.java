@@ -9,6 +9,7 @@ public enum Level {
 
     public static final String MESSAGE_LEVEL_CONSTRAINTS =
             "Level should only have the value lvl.n, where n is integer from 1 to 5";
+    public static final String LEVEL_VALIDATION_REGEX = "lvl.[1-5]";
     private String levelValue;
 
     /**
@@ -20,26 +21,27 @@ public enum Level {
         this.levelValue = levelValue;
     }
 
-//    /**
-//     * Returns true if a given string is a valid Status value.
-//     */
-//    public static boolean isValidStatus(String value) {
-//        try {
-//            return value.equals("IN PROGRESS") || value.equals("FINISHED") || value.equals("OVERDUE");
-//        } catch (NullPointerException ex) {
-//            return false;
-//        }
-//    }
-//
-//    /**
-//     * Returns the corresponding status object of {@param value}.
-//     */
-//    public static Status getStatusFromValue(String value) {
-//        if (!isValidStatus(value)) {
-//            throw new IllegalArgumentException();
-//        }
-//        return value.equals("IN PROGRESS") ? Status.IN_PROGRESS : Status.valueOf(value);
-//    }
+    /**
+     * Returns true if a given string is a valid Level value.
+     */
+    public static boolean isValidLevel(String value) {
+        try {
+            return value.matches(LEVEL_VALIDATION_REGEX);
+        } catch (NullPointerException ex) {
+            return false;
+        }
+    }
+
+    /**
+     * Returns the corresponding level object of {@param string}.
+     */
+    public static Level fromString(String string) {
+        if (!isValidLevel(string)) {
+            throw new IllegalArgumentException();
+        }
+        int index = Character.digit(string.charAt(4), 10);
+        return (Level.values())[index];
+    }
 
     @Override
     public String toString() {

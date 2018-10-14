@@ -21,6 +21,8 @@ public class XmlSerializableTaskManager {
     public static final String MESSAGE_DUPLICATE_TASK = "Tasks list contains duplicate task(s).";
 
     @XmlElement
+    private XMLAdaptedAchievementRecord achievements;
+    @XmlElement
     private List<XmlAdaptedTask> tasks;
 
     /**
@@ -28,6 +30,7 @@ public class XmlSerializableTaskManager {
      * This empty constructor is required for marshalling.
      */
     public XmlSerializableTaskManager() {
+        achievements = new XMLAdaptedAchievementRecord();
         tasks = new ArrayList<>();
     }
 
@@ -36,6 +39,7 @@ public class XmlSerializableTaskManager {
      */
     public XmlSerializableTaskManager(ReadOnlyTaskManager src) {
         this();
+        achievements = new XMLAdaptedAchievementRecord(src.getAchievementRecord().get());
         tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
     }
 
@@ -54,6 +58,7 @@ public class XmlSerializableTaskManager {
             }
             taskManager.addTask(task);
         }
+        taskManager.setAchievements(achievements.toModelType());
         return taskManager;
     }
 
@@ -66,6 +71,7 @@ public class XmlSerializableTaskManager {
         if (!(other instanceof XmlSerializableTaskManager)) {
             return false;
         }
-        return tasks.equals(((XmlSerializableTaskManager) other).tasks);
+        return tasks.equals(((XmlSerializableTaskManager) other).tasks)
+                && achievements.equals(((XmlSerializableTaskManager) other).achievements);
     }
 }
