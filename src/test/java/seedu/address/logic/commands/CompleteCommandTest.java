@@ -95,11 +95,12 @@ public class CompleteCommandTest {
     public void execute_validLabel_success() {
         CompleteCommand completeCommand = new CompleteCommand(FRIENDS_PREDICATE);
 
+        Model expectedModel = new ModelManager(model.getTaskManager(), new UserPrefs());
         Pair<Model, Set<String>> modelStringPair = produceExpectedModelExpectedMessagePairOnLabelKeywordMatch(
             "friends",
-            model);
+            expectedModel);
 
-        Model expectedModel = modelStringPair.getKey();
+        expectedModel = modelStringPair.getKey();
         Set<String> expectedTokens = modelStringPair.getValue();
 
         assertCommandSuccess(completeCommand, model, commandHistory, expectedTokens, expectedModel);
