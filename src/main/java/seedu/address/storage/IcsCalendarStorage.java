@@ -42,7 +42,8 @@ public class IcsCalendarStorage implements CalendarStorage {
     @Override
     public Calendar loadCalendar(String calendarName) throws IOException, ParserException {
         String fileName = calendarName + ".ics";
-        FileInputStream fin = new FileInputStream(fileName);
+        Path pathToSave = Paths.get(dirPath.toString(), fileName);
+        FileInputStream fin = new FileInputStream(pathToSave.toFile());
         CalendarBuilder builder = new CalendarBuilder();
         Calendar calendar = builder.build(fin);
 

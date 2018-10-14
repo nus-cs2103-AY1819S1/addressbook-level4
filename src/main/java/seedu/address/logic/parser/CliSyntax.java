@@ -20,5 +20,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_CONTENT = new Prefix("content/");
     public static final Prefix PREFIX_MONTH = new Prefix("month/");
     public static final Prefix PREFIX_YEAR = new Prefix("year/");
+    public static final Prefix PREFIX_DATE = new Prefix("date/");
+    public static final Prefix PREFIX_TITLE = new Prefix("title/");
 
 }

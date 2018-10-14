@@ -27,6 +27,8 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_DATE_CONSTRAINTS =
+            "Date must be a non-negative integer and not greater than 31.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -223,4 +225,19 @@ public class ParserUtil {
         return new Year(trimmedYear);
     }
 
+    /**
+     * Parses a {@code String date} into a {@code int}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code year} is invalid.
+     */
+    public static int parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        int dateInt = Integer.parseInt(trimmedDate);
+        if (dateInt < 0 || dateInt > 31) {
+            throw new ParseException(MESSAGE_DATE_CONSTRAINTS);
+        }
+        return dateInt;
+    }
 }

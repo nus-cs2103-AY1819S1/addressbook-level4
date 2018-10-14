@@ -195,12 +195,22 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean isValidDate(Year year, Month month, int date) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void createCalendar(Year year, Month month) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void loadCalendar(Year year, Month month) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void createAllDayEvent(Year year, Month month, int date, String title) {
             throw new AssertionError("This method should not be called.");
         }
         @Override

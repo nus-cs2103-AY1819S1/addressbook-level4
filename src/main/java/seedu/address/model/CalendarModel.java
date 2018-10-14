@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
@@ -29,11 +30,32 @@ public class CalendarModel {
     // Field to store calendar loaded by user if any.
     // User can only load at most one calendar at any point of time.
     private Calendar loadedCalendar;
+    private Map<Month, Integer> monthToConstantMap;
 
     public CalendarModel(CalendarStorage calendarStorage, Map<Year, Set<Month>> existingCalendar) {
         this.calendarStorage = calendarStorage;
         this.existingCalendar = existingCalendar;
         this.loadedCalendar = null;
+        this.monthToConstantMap = initializeMonthToStringMap();
+
+    }
+
+    /** Provide a mapping between Month objects and java.util.Calendar int constants. */
+    private Map<Month, Integer> initializeMonthToStringMap() {
+        HashMap<Month, Integer> map = new HashMap<>();
+        map.put(new Month("JAN"), java.util.Calendar.JANUARY);
+        map.put(new Month("FEB"), java.util.Calendar.FEBRUARY);
+        map.put(new Month("MAR"), java.util.Calendar.MARCH);
+        map.put(new Month("APR"), java.util.Calendar.APRIL);
+        map.put(new Month("MAY"), java.util.Calendar.MAY);
+        map.put(new Month("JUN"), java.util.Calendar.JUNE);
+        map.put(new Month("JUL"), java.util.Calendar.JULY);
+        map.put(new Month("AUG"), java.util.Calendar.AUGUST);
+        map.put(new Month("SEP"), java.util.Calendar.SEPTEMBER);
+        map.put(new Month("OCT"), java.util.Calendar.OCTOBER);
+        map.put(new Month("NOV"), java.util.Calendar.NOVEMBER);
+        map.put(new Month("DEC"), java.util.Calendar.DECEMBER);
+        return map;
 
     }
 
@@ -51,14 +73,22 @@ public class CalendarModel {
         return false;
     }
 
-    /** Setter method for loadedCalendar field. */
-    private void setLoadedCalendar(Calendar calendar) {
-        this.loadedCalendar = calendar;
+    /** Checks if date is valid in a particular month. */
+    public boolean isValidDate(Year year, Month month, int date) {
+        java.util.Calendar cal = java.util.Calendar.getInstance();
+        cal.set(java.util.Calendar.YEAR, Integer.parseInt(year.toString()));
+        cal.set(java.util.Calendar.MONTH, monthToConstantMap.get(month));
+        int maximumDate = cal.getActualMaximum(java.util.Calendar.DAY_OF_MONTH);
+        if (date > maximumDate) {
+            return false;
+        }
+        return true;
 
     }
 
-    public Calendar getLoadedCalendar() {
-        return this.loadedCalendar;
+    /** Setter method for loadedCalendar field. */
+    private void setLoadedCalendar(Calendar calendar) {
+        this.loadedCalendar = calendar;
 
     }
 
@@ -103,6 +133,28 @@ public class CalendarModel {
         Calendar calendarToBeLoaded = calendarStorage.loadCalendar(calendarName);
         setLoadedCalendar(calendarToBeLoaded);
 
+    }
+
+    /** Create a new event in loaded Calendar. */
+    public void createAllDayEvent(Year year, Month month, int date, String title) throws IOException, ParserException {
+        // Load the calendar
+        loadCalendar(year, month);
+
+        // Set the Date
+        java.util.Calendar cal = java.util.Calendar.getInstance();
+        cal.set(java.util.Calendar.MONTH, monthToConstantMap.get(month));
+        cal.set(java.util.Calendar.DAY_OF_MONTH, date);
+
+        // Initialise as an all day event
+        VEvent newEvent = new VEvent(new net.fortuna.ical4j.model.Date(cal.getTime()), title);
+        // Generate a UID for the event
+        UidGenerator ug = new FixedUidGenerator("1");
+        newEvent.getProperties().add(ug.generateUid());
+        loadedCalendar.getComponents().add(newEvent);
+
+        String calendarName = month + "-" + year;
+        // Save the updated calendar to storage
+        calendarStorage.createCalendar(loadedCalendar, calendarName);
     }
 
     /** Returns the updated Map: existingCalendar. */

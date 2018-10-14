@@ -17,6 +17,7 @@ import net.fortuna.ical4j.data.ParserException;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.AllDayEventAddedEvent;
 import seedu.address.commons.events.model.CalendarCreatedEvent;
 import seedu.address.commons.events.model.EmailSavedEvent;
 import seedu.address.commons.util.StringUtil;
@@ -231,10 +232,23 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new CalendarCreatedEvent(calendarModel));
     }
 
+    /**
+     * Raises an event to indicate that an all day event was created
+     */
+    private void indicateAllDayEventCreated(Year year, Month month, int date, String title) {
+        raise(new AllDayEventAddedEvent(year, month, date, title));
+    }
+
     @Override
     public boolean isExistingCalendar(Year year, Month month) {
         requireAllNonNull(year, month);
         return calendarModel.isExistingCalendar(year, month);
+    }
+
+    @Override
+    public boolean isValidDate(Year year, Month month, int date) {
+        requireAllNonNull(year, month, date);
+        return calendarModel.isValidDate(year, month, date);
     }
 
     @Override
@@ -256,6 +270,16 @@ public class ModelManager extends ComponentManager implements Model {
             //Raise load calendar event
         } catch (IOException | ParserException e) {
             logger.warning("Failed to load calendar(ics) file : " + StringUtil.getDetails(e));
+        }
+    }
+
+    @Override
+    public void createAllDayEvent(Year year, Month month, int date, String title) {
+        try {
+            calendarModel.createAllDayEvent(year, month, date, title);
+            indicateAllDayEventCreated(year, month, date, title);
+        } catch (IOException | ParserException e) {
+            logger.warning("Failed to create all day event : " + StringUtil.getDetails(e));
         }
     }
 

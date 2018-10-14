@@ -131,6 +131,11 @@ public interface Model {
     boolean isExistingCalendar(Year year, Month month);
 
     /**
+     * Returns true if the date is valid in that particular month, year.
+     */
+    boolean isValidDate(Year year, Month month, int date);
+
+    /**
      * Creates the given calendar
      * {@code year} and {@code month} must not already be an existing calendar
      */
@@ -141,6 +146,11 @@ public interface Model {
      * {@code year} and {@code month} must already be an existing calendar
      */
     void loadCalendar(Year year, Month month);
+
+    /**
+     * Create a new event in loaded Calendar.
+     */
+    void createAllDayEvent(Year year, Month month, int date, String title);
 
     /**
      * Updates the existing calendar map inside UserPrefs Json file
