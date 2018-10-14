@@ -39,33 +39,27 @@ public class AddEventCommand extends Command {
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the address book";
     public static final String MESSAGE_METHOD_NOT_IMPLEMENTED_YET = "Method has not been implemented!";
 
-    // todo: activate this field
     private final Event toAdd;
 
     /**
      * Creates an AddEventCommand to add the specified Event {@code Event}.
      */
     public AddEventCommand(Event event) {
-        //requireNonNull(event);
+        requireNonNull(event);
         toAdd = event;
-        //todo: implement constructor properly
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory commandHistory) throws CommandException {
         requireNonNull(model);
 
-        /*
         if (model.hasEvent(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_EVENT);
         }
 
         model.addEvent(toAdd);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd))
-        */
-        //todo: implement this method properly
-        throw new CommandException(MESSAGE_METHOD_NOT_IMPLEMENTED_YET + toAdd);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override
