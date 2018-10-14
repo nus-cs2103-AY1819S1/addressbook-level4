@@ -30,4 +30,5 @@ public class CompleteCommandParserTest {
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 CompleteCommand.MESSAGE_USAGE));
     }
+
 }
