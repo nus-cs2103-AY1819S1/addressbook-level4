@@ -3,8 +3,12 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,6 +16,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.model.event.Event;
+import seedu.address.model.event.EventDate;
 import seedu.address.model.person.Person;
 
 /**
@@ -22,6 +28,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Event> filteredEvents;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -34,6 +41,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredEvents = new FilteredList<>(versionedAddressBook.getEventList());
     }
 
     public ModelManager() {
@@ -83,6 +91,20 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //=========== Event methods ==============================================================================
+    @Override
+    public boolean hasEvent(Event event) {
+        requireNonNull(event);
+        return versionedAddressBook.hasEvent(event);
+    }
+
+    @Override
+    public void addEvent(Event event) {
+        versionedAddressBook.addEvent(event);
+        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        indicateAddressBookChanged();
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -98,6 +120,41 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Filtered Event List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Event} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Event> getFilteredEventList() {
+        return FXCollections.unmodifiableObservableList(filteredEvents);
+    }
+
+    @Override
+    public void updateFilteredEventList(Predicate<Event> predicate) {
+        requireNonNull(predicate);
+        filteredEvents.setPredicate(predicate);
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of lists of {@code Event} (grouped by date)  backed by the internal
+     * list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<List<Event>> getFilteredEventListByDate() {
+        Map<EventDate, List<Event>> filteredEventsByDateMap = filteredEvents.stream()
+                .collect(Collectors.groupingBy(Event::getEventDate));
+
+        // convert the map to a FilteredList
+        ObservableList<List<Event>> filteredEventsByDateList = FXCollections.observableArrayList();
+        filteredEventsByDateList.addAll(filteredEventsByDateMap.values());
+        FilteredList<List<Event>> filteredEventsByDate = new FilteredList<>(filteredEventsByDateList);
+
+        return FXCollections.unmodifiableObservableList(filteredEventsByDate);
     }
 
     //=========== Undo/Redo =================================================================================

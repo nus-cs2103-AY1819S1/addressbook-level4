@@ -62,9 +62,15 @@ public class Event {
     }
 
     // todo: define a weaker form of equality to check clashes
+    /**
+     * Returns true if both events are equal
+     */
+    public boolean isSameEvent(Event event) {
+        return equals(event);
+    }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
+     * Returns true if both events have the same identity and data fields.
      */
     @Override
     public boolean equals(Object other) {

@@ -65,7 +65,7 @@ public class EventTime {
      */
     @Override
     public String toString() {
-        return eventTime.toString();
+        return eventTime.toString().replace(":", "");
     }
 
     @Override
