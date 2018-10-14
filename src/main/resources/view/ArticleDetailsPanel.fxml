@@ -27,10 +27,8 @@
       <RowConstraints vgrow="SOMETIMES" />
     </rowConstraints>
 
-    <ImageView fitWidth="180" fitHeight="180" preserveRatio="true"
-               GridPane.rowSpan="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-      <Image url="@/images/address_book_32.png" />
-    </ImageView>
+    <ImageView fx:id="image" fitWidth="180" fitHeight="180" preserveRatio="true"
+               GridPane.rowSpan="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
 
     <Label text="Name:" styleClass="label-bright"
            GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="TOP" />
