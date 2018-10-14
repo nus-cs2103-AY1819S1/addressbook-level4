@@ -83,6 +83,17 @@ public class ModelManager<T extends UniqueType> extends ComponentManager impleme
         indicateAppContentChanged();
     }
 
+    @Override
+    public T getItem(T target) {
+        requireNonNull(target);
+        return uniqueList.getItem(target);
+    }
+
+    @Override
+    public T getItem(int index) {
+        return uniqueList.getItem(index);
+    }
+
     //=========== Filtered Recipe List Accessors =============================================================
 
     /**
