@@ -94,6 +94,25 @@ public class UniqueList<T extends UniqueType> implements Iterable<T> {
         }
     }
 
+    /**
+     * Returns the target item from internalList.
+     * @param target Target item.
+     * @return Target item from list.
+     */
+    public T getItem(T target) {
+        requireNonNull(target);
+        return internalList.get(internalList.indexOf(target));
+    }
+
+    /**
+     * Returns the item at the specified index of internalList.
+     * @param index Zero-based index of target item.
+     * @return Item at the target index.
+     */
+    public T getItem(int index) {
+        return internalList.get(index);
+    }
+
     public ObservableList<T> asUnmodifiableObservableList() {
         return FXCollections.unmodifiableObservableList(internalList);
     }
