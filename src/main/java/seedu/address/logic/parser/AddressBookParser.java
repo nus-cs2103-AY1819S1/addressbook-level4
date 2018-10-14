@@ -21,6 +21,7 @@ import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.ViewmhCommand;
+import seedu.address.logic.commands.VisitorInCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -50,50 +51,54 @@ public class AddressBookParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case CheckinCommand.COMMAND_WORD:
-            return new CheckinCommandParser().parse(arguments);
+            case CheckinCommand.COMMAND_WORD:
+                return new CheckinCommandParser().parse(arguments);
 
-        case AddDietCommand.COMMAND_WORD:
-            return new AddDietCommandParser().parse(arguments);
+            case AddDietCommand.COMMAND_WORD:
+                return new AddDietCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+            case EditCommand.COMMAND_WORD:
+                return new EditCommandParser().parse(arguments);
 
-        case SelectCommand.COMMAND_WORD:
-            return new SelectCommandParser().parse(arguments);
+            case SelectCommand.COMMAND_WORD:
+                return new SelectCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+            case DeleteCommand.COMMAND_WORD:
+                return new DeleteCommandParser().parse(arguments);
 
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+            case ClearCommand.COMMAND_WORD:
+                return new ClearCommand();
 
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
+            case FindCommand.COMMAND_WORD:
+                return new FindCommandParser().parse(arguments);
 
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            case ListCommand.COMMAND_WORD:
+                return new ListCommand();
 
-        case HistoryCommand.COMMAND_WORD:
-            return new HistoryCommand();
+            case HistoryCommand.COMMAND_WORD:
+                return new HistoryCommand();
 
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
+            case ExitCommand.COMMAND_WORD:
+                return new ExitCommand();
 
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
+            case HelpCommand.COMMAND_WORD:
+                return new HelpCommand();
 
-        case AddmhCommand.COMMAND_WORD:
-            return new AddmhCommandParser().parse(arguments);
+            case AddmhCommand.COMMAND_WORD:
+                return new AddmhCommandParser().parse(arguments);
 
-        case ViewmhCommand.COMMAND_WORD:
-            return new ViewmhCommandParser().parse(arguments);
+            case ViewmhCommand.COMMAND_WORD:
+                return new ViewmhCommandParser().parse(arguments);
 
-        case AddmedsCommand.COMMAND_WORD:
-            return new AddmedsCommandParser().parse(arguments);
+            case AddmedsCommand.COMMAND_WORD:
+                return new AddmedsCommandParser().parse(arguments);
+                
+            case VisitorInCommand.COMMAND_WORD:
+                return new VisitorInCommandParser().parse(arguments);
 
-        default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+
         }
     }
 

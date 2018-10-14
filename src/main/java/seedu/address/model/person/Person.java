@@ -10,6 +10,7 @@ import java.util.Set;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicine.PrescriptionList;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.visitor.VisitorList;
 
 /**
  * Represents a Person in the address book. Guarantees: details are present and
@@ -28,6 +29,7 @@ public class Person {
     private final Set<Tag> tags = new HashSet<>();
     private final PrescriptionList prescriptionList;
     private final MedicalHistory medicalHistory = new MedicalHistory();
+    private final VisitorList visitorList = new VisitorList();
 
     /**
      * Every field must be present and not null.
@@ -44,7 +46,7 @@ public class Person {
     }
 
     public Person(Nric nric, Name name, Phone phone, Email email, Address address, Set<Tag> tags,
-            PrescriptionList prescriptionList) {
+                  PrescriptionList prescriptionList) {
         requireAllNonNull(nric, name, phone, email, address, tags, prescriptionList);
         this.nric = nric;
         this.name = name;
@@ -87,6 +89,38 @@ public class Person {
         this.prescriptionList = prescriptionList;
     }
 
+    /**
+     * Overloaded constructor to include visitors.
+     */
+
+    public Person(Nric nric, Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+                  VisitorList visitorList) {
+        requireAllNonNull(nric, name, phone, email, address, tags, visitorList);
+        this.nric = nric;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.visitorList.addAll(visitorList);
+        this.prescriptionList = new PrescriptionList();
+    }
+
+    public Person(Nric nric, Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+                  MedicalHistory medicalHistory, PrescriptionList prescriptionList, VisitorList visitorList) {
+        requireAllNonNull(nric, name, phone, email, address, tags, medicalHistory, prescriptionList, visitorList);
+        this.nric = nric;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.medicalHistory.addAll(medicalHistory);
+        this.prescriptionList = prescriptionList;
+        this.visitorList.addAll(visitorList);
+    }
+
+
     public Nric getNric() {
         return nric;
     }
@@ -115,6 +149,8 @@ public class Person {
         return medicalHistory;
     }
 
+    public VisitorList getVisitorList() {return visitorList;}
+
     /**
      * Returns an immutable tag set, which throws
      * {@code UnsupportedOperationException} if modification is attempted.
@@ -136,7 +172,7 @@ public class Person {
         return otherPerson != null && otherPerson.getNric().equals(getNric())
                 && otherPerson.getName().equals(getName())
                 && (otherPerson.getPhone().equals(getPhone())
-                        || otherPerson.getEmail().equals(getEmail()));
+                || otherPerson.getEmail().equals(getEmail()));
     }
 
     /**
@@ -173,15 +209,15 @@ public class Person {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getNric())
-               .append(" Name: ")
-               .append(getName())
-               .append(" Phone: ")
-               .append(getPhone())
-               .append(" Email: ")
-               .append(getEmail())
-               .append(" Address: ")
-               .append(getAddress())
-               .append(" Drug Allergies: ");
+                .append(" Name: ")
+                .append(getName())
+                .append(" Phone: ")
+                .append(getPhone())
+                .append(" Email: ")
+                .append(getEmail())
+                .append(" Address: ")
+                .append(getAddress())
+                .append(" Drug Allergies: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

@@ -19,6 +19,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.visitor.Visitor;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser
@@ -76,6 +77,15 @@ public class ParserUtil {
             throw new ParseException((Diagnosis.MESSAGE_NAME_CONSTRAINTS));
         }
         return new Diagnosis(trimmedDiagnosis);
+    }
+    // @@ GAO JIAXIN
+    public static Visitor parseVisitor(String visitor) throws ParseException {
+        requireNonNull(visitor);
+        String trimmedVisitor = visitor.trim();
+        if (!Visitor.isValidVisitor(trimmedVisitor)) {
+            throw new ParseException((Diagnosis.MESSAGE_NAME_CONSTRAINTS));
+        }
+        return new Visitor(trimmedVisitor);
     }
 
     //@@author

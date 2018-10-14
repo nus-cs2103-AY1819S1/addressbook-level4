@@ -30,5 +30,5 @@ public class CliSyntax {
 
     /** Ordered prefixes for the visitorin command. */
     public static final Prefix PREFIX_VISITOR = new Prefix("v/");
-    
+
 }
