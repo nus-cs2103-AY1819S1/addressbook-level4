@@ -74,7 +74,7 @@ public class AddDietCommandTest {
         ModelStubAcceptingAdddiet modelStub = new ModelStubAcceptingAdddiet(patient);
         CommandResult commandResult = new AddDietCommand(patientNric, dietsToAdd)
                 .execute(modelStub, commandHistory);
-        assertEquals(commandResult.feedbackToUser, AddDietCommand.MESSAGE_SUCCESS, patientNric);
+        assertEquals(commandResult.feedbackToUser, String.format(AddDietCommand.MESSAGE_SUCCESS, patientNric));
     }
 
     @Test

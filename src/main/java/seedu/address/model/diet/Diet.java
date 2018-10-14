@@ -26,22 +26,6 @@ public class Diet {
     }
 
     /**
-     * Get the detail if this Diet requirement.
-     * @return The detail of this Diet requirement.
-     */
-    public String getDetail() {
-        return this.detail;
-    }
-
-    /**
-     * Get the type of this Diet requirement.
-     * @return The type of this Diet requirement.
-     */
-    public DietType getType() {
-        return this.type;
-    }
-
-    /**
      * Check whether this diet requirement is allergy.
      * @return True if this diet requirement is an allergy.
      */
@@ -82,8 +66,18 @@ public class Diet {
         }
 
         Diet otherDiet = (Diet) other;
-        return otherDiet.getDetail().equals(getDetail())
-                && (otherDiet.getType() == getType());
+        return otherDiet.detail.equals(this.detail)
+                && (otherDiet.type == this.type);
+    }
+
+    /**
+     * Compute the hashCode for a Diet. This method is used when comparing whether two sets of diets are equal,
+     * because the hashCode for a set is the sum of hashCode of the elements in the set.
+     * @return hashCode of a Diet object.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(detail, type);
     }
 
     /**
@@ -95,7 +89,7 @@ public class Diet {
         final StringBuilder builder = new StringBuilder();
 
         builder.append(" ")
-                .append(getDetail())
+                .append(this.detail)
                 .append(" ");
 
         return builder.toString();

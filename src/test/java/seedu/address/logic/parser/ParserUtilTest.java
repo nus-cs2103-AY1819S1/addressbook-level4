@@ -88,11 +88,11 @@ public class ParserUtilTest {
     public void parseDiet_validDiet_validType_returnDiets() {
         Set<Diet> expectedDiets = new HashSet<>();
         for (String diet: VALID_DIETS) {
-            expectedDiets.add(new Diet(diet, VALID_DIET_TYPE));
+            String trimmedDiet = diet.trim();
+            expectedDiets.add(new Diet(trimmedDiet, VALID_DIET_TYPE));
         }
         assertEquals(expectedDiets, ParserUtil.parseDiet(VALID_DIETS, VALID_DIET_TYPE));
     }
-
 
     //@@author snajef
     @Test

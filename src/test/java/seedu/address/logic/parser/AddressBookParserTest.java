@@ -15,6 +15,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.logic.commands.AddDietCommand;
 import seedu.address.logic.commands.AddmedsCommand;
 import seedu.address.logic.commands.AddmhCommand;
 import seedu.address.logic.commands.CheckinCommand;
@@ -62,6 +63,11 @@ public class AddressBookParserTest {
         Person person = new PersonBuilder().build();
         CheckinCommand command = (CheckinCommand) parser.parseCommand(PersonUtil.getCheckinCommand(person));
         assertEquals(new CheckinCommand(person), command);
+    }
+
+    @Test
+    public void parseCommand_adddiet() throws Exception {
+        //TODO: finish this test
     }
 
     @Test
