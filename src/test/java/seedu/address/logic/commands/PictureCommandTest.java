@@ -13,7 +13,9 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.Picture;
+import seedu.address.testutil.PersonBuilder;
 
 //@@author denzelchung
 /**
@@ -29,12 +31,15 @@ public class PictureCommandTest {
 
     @Test
     public void execute_throwsCommandException() throws Exception {
-        Picture picture = new Picture("/image/alice.jpg");
-        PictureCommand pictureCommand = new PictureCommand(INDEX_FIRST_PERSON, picture);
-        pictureCommand.execute(model, commandHistory);
+        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person editedPerson = new PersonBuilder(firstPerson).withPicture("/image/alice.jpg").build();
+        PictureCommand pictureCommand = new PictureCommand(INDEX_FIRST_PERSON,
+            new Picture(editedPerson.getPicture().picture));
 
-        String expectedMessage = String.format(PictureCommand.MESSAGE_SUCCESS, INDEX_FIRST_PERSON);
+        String expectedMessage = String.format(PictureCommand.MESSAGE_SUCCESS, editedPerson);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.updatePerson(model.getFilteredPersonList().get(0), editedPerson);
+        expectedModel.commitAddressBook();
 
         assertCommandSuccess(pictureCommand, model, commandHistory, expectedMessage, expectedModel);
     }
