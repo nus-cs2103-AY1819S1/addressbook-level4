@@ -130,11 +130,11 @@ public class XmlAdaptedRide {
             return false;
         }
 
-        XmlAdaptedRide otherPerson = (XmlAdaptedRide) other;
-        return Objects.equals(name, otherPerson.name)
-                && Objects.equals(daysSinceMaintenanceString, otherPerson.daysSinceMaintenanceString)
-                && Objects.equals(waitingTimeString, otherPerson.waitingTimeString)
-                && Objects.equals(address, otherPerson.address)
-                && tagged.equals(otherPerson.tagged);
+        XmlAdaptedRide otherRide = (XmlAdaptedRide) other;
+        return Objects.equals(name, otherRide.name)
+                && Objects.equals(daysSinceMaintenanceString, otherRide.daysSinceMaintenanceString)
+                && Objects.equals(waitingTimeString, otherRide.waitingTimeString)
+                && Objects.equals(address, otherRide.address)
+                && tagged.equals(otherRide.tagged);
     }
 }

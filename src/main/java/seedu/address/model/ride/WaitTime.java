@@ -48,8 +48,8 @@ public class WaitTime implements NumericAttribute {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof WaitTime // instanceof handles nulls
-                && value == ((WaitTime) other).value); // state check
+            || (other instanceof WaitTime // instanceof handles nulls
+            && value == ((WaitTime) other).value); // state check
     }
 
     @Override
