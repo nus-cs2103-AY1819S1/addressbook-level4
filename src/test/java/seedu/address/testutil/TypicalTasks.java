@@ -60,7 +60,7 @@ public class TypicalTasks {
     private TypicalTasks() {} // prevents instantiation
 
     /**
-     * Returns an {@code SchedulePlanner} with all the typical persons.
+     * Returns an {@code SchedulePlanner} with all the typical tasks.
      */
     public static SchedulePlanner getTypicalSchedulePlanner() {
         SchedulePlanner ab = new SchedulePlanner();
