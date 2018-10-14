@@ -52,6 +52,18 @@ public interface Model<T extends UniqueType> {
      */
     void update(T target, T edited);
 
+    /**
+     * Returns target item from the UniqueList.
+     * @param target Target item.
+     */
+    T getItem(T target);
+
+    /**
+     * Returns item from the target index of the UniqueList.
+     * @param index Target index.
+     */
+    T getItem(int index);
+
     /** Returns an unmodifiable view of the filtered recipe list */
     ObservableList<T> getFilteredList();
 
