@@ -33,7 +33,25 @@ public class DependencyTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new Dependency(null));
+        assertThrows(NullPointerException.class, () -> new Dependency(null));
+    }
+
+    @Test
+    public void addDependency_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new Dependency().addDependency(null));
+    }
+
+
+    @Test
+    public void addDependency() {
+        Task toBeAdded = new TaskBuilder().build();
+        //Creating expected dependency
+        SAMPLE_SET.add(Integer.toString(toBeAdded.hashCode()));
+        Dependency expectedDependency = new Dependency(SAMPLE_SET);
+        //Checking equality
+        assertEquals(expectedDependency, SAMPLE_DEPENDENCY.addDependency(toBeAdded));
+    }
+
     }
 
 }
