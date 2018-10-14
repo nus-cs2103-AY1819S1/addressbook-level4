@@ -95,6 +95,7 @@ public class PersonListPanelTest extends GuiUnitTest {
         builder.append("<addressbook>\n");
         for (int i = 0; i < personCount; i++) {
             builder.append("<persons>\n");
+            builder.append("<personId>").append(i + 1).append("</personId>\n");
             builder.append("<name>").append(i).append("a</name>\n");
             builder.append("<phone>000</phone>\n");
             builder.append("<email>a@aa</email>\n");
