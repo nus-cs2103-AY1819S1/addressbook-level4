@@ -166,8 +166,8 @@ public class XmlAdaptedEventTest {
         assertNotEquals(event, 1);
 
         // Different event details
-        XmlAdaptedEvent eventWithDifferentDetails = new XmlAdaptedEvent(VALID_EVENT_NAME, VALID_EVENT_DESCRIPTION +
-                " ",
+        XmlAdaptedEvent eventWithDifferentDetails =
+                new XmlAdaptedEvent(VALID_EVENT_NAME, VALID_EVENT_DESCRIPTION + " ",
                 VALID_EVENT_DATE,
                 VALID_EVENT_START_TIME, VALID_EVENT_END_TIME, VALID_EVENT_ADDRESS);
         assertNotEquals(event, eventWithDifferentDetails);
