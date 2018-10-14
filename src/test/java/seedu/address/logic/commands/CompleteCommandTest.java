@@ -215,7 +215,7 @@ public class CompleteCommandTest {
         expectedModel
             .getFilteredTaskList()
             .stream()
-            .map(task -> new Pair<Task, Task>(task, simpleCompleteTask(task)))
+            .map(task -> new Pair<>(task, simpleCompleteTask(task)))
             // filters for label match and completable tasks
             .filter(pairOfTasks -> {
                 Task taskToComplete = pairOfTasks.getKey();
@@ -235,7 +235,7 @@ public class CompleteCommandTest {
         expectedModel.commitTaskManager();
         String finalMessage = expectedMessage.toString().trim();
 
-        return new Pair<Model, String>(expectedModel, finalMessage);
+        return new Pair<>(expectedModel, finalMessage);
     }
 
 }
