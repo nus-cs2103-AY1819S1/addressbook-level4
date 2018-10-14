@@ -57,7 +57,13 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === Viewing help : `help`
 
+You can view ClinicIO tutorial. +
 Format: `help`
+
+You will be able to view ClinicIO guide (as below)
+in a new window. +
+
+image::user-guide-help-window-after.png[width="500"]
 
 === Login : `login`
 
