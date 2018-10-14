@@ -44,6 +44,7 @@ public class TaskCard extends UiPart<Region> {
     private Label dependency;
     @FXML
     private FlowPane tags;
+    //TODO:Cannot find local vairable tag
 
     public TaskCard(Task task, int displayedIndex) {
         super(FXML);
