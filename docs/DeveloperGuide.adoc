@@ -223,12 +223,16 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
+The *_Structure of the Storage Component_* given above shows the relationships between classes in the storage component.
+
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save the Expense Tracker data in xml format and read it back.
+* can read multiple xml format files with separate Expense Tracker data from a folder.
+* XmlAdaptedPassword is stored as a SHA-256 hash of the original password.
 
 [[Design-Commons]]
 === Common classes
