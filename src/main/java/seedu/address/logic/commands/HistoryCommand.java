@@ -22,10 +22,18 @@ public class HistoryCommand extends Command {
     public static final String MESSAGE_HISTORY_WINDOW = "Showing requested history of commands.";
     public static final String MESSAGE_NO_HISTORY = "You have not yet entered any commands.";
 
+    private static final String[] ARGUMENTS_BLANK = {""};
     private final boolean isSummarized;
 
     /**
-     * Creates a command that requests for help based on {@param args}
+     * Creates a HistoryCommand.
+     */
+    public HistoryCommand() {
+        this(ARGUMENTS_BLANK);
+    }
+
+    /**
+     * Creates a HistoryCommand that requests for help based on {@param args}.
      */
     public HistoryCommand(String[] args) {
         //summarized history

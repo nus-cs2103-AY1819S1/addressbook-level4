@@ -27,8 +27,7 @@ public class HelpCommandTest {
 
     @Test
     public void execute_help_success() {
-        String[] args = {""};
-        assertCommandSuccess(new HelpCommand(args), model, commandHistory, SHOWING_SHORT_HELP_MESSAGE, expectedModel);
+        assertCommandSuccess(new HelpCommand(), model, commandHistory, SHOWING_SHORT_HELP_MESSAGE, expectedModel);
 
         BaseEvent recentEvent = eventsCollectorRule.eventsCollector.getMostRecent();
         assertTrue(recentEvent instanceof ShowHelpRequestEvent);

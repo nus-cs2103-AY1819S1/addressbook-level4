@@ -18,11 +18,19 @@ public class HelpCommand extends Command {
     public static final String SHOWING_SHORT_HELP_MESSAGE = "Showing summarized help.";
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
 
+    private static final String[] ARGUMENTS_BLANK = {""};
     private final boolean isSummarized;
     private final String commandWord;
 
     /**
-     * Creates a command that requests for help based on {@param args}
+     * Creates a HelpCommand.
+     */
+    public HelpCommand() {
+        this(ARGUMENTS_BLANK);
+    }
+
+    /**
+     * Creates a HelpCommand that requests for help based on {@param args}.
      */
     public HelpCommand(String[] args) {
         //summarized help
