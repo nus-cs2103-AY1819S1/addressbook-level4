@@ -36,7 +36,7 @@ public class PictureCommandParser implements Parser<PictureCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PictureCommand.MESSAGE_USAGE));
         }
 
-        Picture picture = new Picture(argMultimap.getValue(PREFIX_FILE_LOCATION).get());
+        Picture picture = ParserUtil.parseFileLocation(argMultimap.getValue(PREFIX_FILE_LOCATION).get());
 
         return new PictureCommand(index, picture);
     }
