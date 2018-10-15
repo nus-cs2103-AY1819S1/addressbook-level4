@@ -6,7 +6,6 @@ import java.util.regex.Pattern;
 
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.logic.commands.Command;
-import seedu.souschef.logic.commands.PlanMealCommand;
 import seedu.souschef.logic.parser.contextparser.HealthPlanParser;
 import seedu.souschef.logic.parser.contextparser.MealPlannerParser;
 import seedu.souschef.logic.parser.contextparser.RecipeParser;
@@ -15,6 +14,7 @@ import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.ModelSet;
 import seedu.souschef.storage.Storage;
 import seedu.souschef.storage.StorageManager;
+import seedu.souschef.ui.Ui;
 
 
 /**
@@ -37,7 +37,7 @@ public class AppContentParser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public Command parseCommand(ModelSet modelSet, String userInput, CommandHistory history,
-                                Storage storage) throws ParseException {
+                                Storage storage, Ui ui) throws ParseException {
         String context = history.getContext();
 
         if (storage == null) {
@@ -49,7 +49,7 @@ public class AppContentParser {
             //TODO: Refine condition to redirect for other meal planner commands (clearplanner, displayplanner, etc...)
         } else if (context.equals("Meal Planner")) {
             return new MealPlannerParser()
-                .parseCommand(modelSet.getMealPlannerModel(), modelSet.getRecipeModel(), userInput);
+                .parseCommand(modelSet.getMealPlannerModel(), modelSet.getRecipeModel(), userInput, ui);
         } else if (context.equals("Recipe")) {
             if (storage.getListOfFeatureStorage().size() > 0) {
                 storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(0));
