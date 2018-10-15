@@ -1,6 +1,8 @@
 package seedu.souschef.logic.parser.commandparser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.souschef.commons.core.Messages.MESSAGE_EDIT_HEALTHPLAN_USAGE;
+import static seedu.souschef.commons.core.Messages.MESSAGE_EDIT_RECIPE_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_AGE;
@@ -65,7 +67,7 @@ public class EditCommandParser implements CommandParser<EditCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_EDIT_RECIPE_USAGE), pe);
         }
 
         EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();
@@ -91,14 +93,14 @@ public class EditCommandParser implements CommandParser<EditCommand> {
         List<Recipe> lastShownList = model.getFilteredList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_EDIT_RECIPE_USAGE));
         }
 
         Recipe toEdit = lastShownList.get(index.getZeroBased());
         Recipe edited = createEditedRecipe(toEdit, editRecipeDescriptor);
 
         if (!toEdit.isSame(edited) && model.has(edited)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_EDIT_RECIPE_USAGE));
         }
 
         return new EditCommand<>(model, toEdit, edited);
@@ -122,7 +124,7 @@ public class EditCommandParser implements CommandParser<EditCommand> {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    EditCommand.MESSAGE_USAGE_HEALTHPLAN), pe);
+                    MESSAGE_EDIT_HEALTHPLAN_USAGE), pe);
         }
 
         EditHealthPlanDescriptor editHealthPlanDescriptor = new EditHealthPlanDescriptor();
@@ -161,7 +163,7 @@ public class EditCommandParser implements CommandParser<EditCommand> {
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    EditCommand.MESSAGE_USAGE_HEALTHPLAN));
+                    MESSAGE_EDIT_HEALTHPLAN_USAGE));
         }
 
         HealthPlan toEdit = lastShownList.get(index.getZeroBased());
@@ -169,7 +171,7 @@ public class EditCommandParser implements CommandParser<EditCommand> {
 
         if (!toEdit.isSame(edited) && model.has(edited)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    EditCommand.MESSAGE_USAGE_HEALTHPLAN));
+                    MESSAGE_EDIT_HEALTHPLAN_USAGE));
         }
 
         return new EditCommand<>(model, toEdit, edited);
