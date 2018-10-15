@@ -17,6 +17,8 @@ import seedu.souschef.model.planner.Day;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.storage.Storage;
 import seedu.souschef.storage.StorageManager;
+import seedu.souschef.ui.Ui;
+import seedu.souschef.ui.UiManager;
 
 /**
  * The main LogicManager of the app.
@@ -28,10 +30,12 @@ public class LogicManager extends ComponentManager implements Logic {
     private final CommandHistory history;
     private final AppContentParser appContentParser;
     private final Storage storage;
+    private final Ui ui;
 
-    public LogicManager(ModelSet modelSet, Storage storage) {
+    public LogicManager(ModelSet modelSet, Storage storage, Ui ui) {
         this.modelSet = modelSet;
         this.storage = storage;
+        this.ui = ui;
         history = new CommandHistory();
         appContentParser = new AppContentParser();
     }
@@ -39,6 +43,7 @@ public class LogicManager extends ComponentManager implements Logic {
     public LogicManager(ModelSet modelSet) {
         this.modelSet = modelSet;
         this.storage = new StorageManager();
+        this.ui = new UiManager();
         history = new CommandHistory();
         appContentParser = new AppContentParser();
     }
