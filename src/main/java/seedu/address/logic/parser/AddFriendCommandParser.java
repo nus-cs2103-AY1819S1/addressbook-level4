@@ -7,7 +7,9 @@ import seedu.address.logic.commands.AddFriendCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new DeleteCommand object
+ * Parses input arguments and creates a new AddFriendCommand object
+ *
+ * @author agendazhang
  */
 public class AddFriendCommandParser implements Parser<AddFriendCommand> {
 

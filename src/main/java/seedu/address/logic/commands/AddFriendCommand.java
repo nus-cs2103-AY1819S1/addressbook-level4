@@ -12,7 +12,9 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Given two persons, add friends for each other using two displayed indexes from the address book.
+ *
+ * @author agendazhang
  */
 public class AddFriendCommand extends Command {
 
@@ -42,12 +44,12 @@ public class AddFriendCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToAddFriend1 = lastShownList.get(indexes.getZeroBased());
-        Person personToAddFriend2 = lastShownList.get(indexes.getZeroBased2());
-        model.addFriends(personToAddFriend1, personToAddFriend2);
+        Person person1 = lastShownList.get(indexes.getZeroBased());
+        Person person2 = lastShownList.get(indexes.getZeroBased2());
+        model.addFriends(person1, person2);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_ADD_FRIEND_SUCCESS, personToAddFriend1,
-                personToAddFriend2));
+        return new CommandResult(String.format(MESSAGE_ADD_FRIEND_SUCCESS, person1,
+                person2));
     }
 
     @Override

@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -106,6 +107,16 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void addPerson(Person person) {
         versionedAddressBook.addPerson(person);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void addFriends(Person person1, Person person2) {
+        ArrayList<Person> friendList1 = person1.getFriends();
+        ArrayList<Person> friendList2 = person2.getFriends();
+        friendList1.add(person2);
+        friendList2.add(person1);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
