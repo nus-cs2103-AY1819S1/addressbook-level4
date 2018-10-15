@@ -20,6 +20,7 @@ import seedu.address.testutil.TaskBuilder;
 public class DependencyGraphTest {
     private List<Task> preCyclicTasks = new ArrayList<>();
     private Task cyclicTask;
+    private List<Task> cyclicTasks = new ArrayList<>();
     private List<Task> preSortedTasks = new ArrayList<>();
     private List<Task> sortedTasks = new ArrayList<>();
 
@@ -45,20 +46,21 @@ public class DependencyGraphTest {
         preCyclicTasks.add(a);
         preCyclicTasks.add(b);
         cyclicTask = c;
+
+        //CyclicTasks
+        cyclicTasks = new ArrayList<>(preCyclicTasks);
+        cyclicTasks.add(cyclicTask);
     }
     @Test
     public void constructor_invalid_throwsGraphCycleException() {
-        preCyclicTasks.add(cyclicTask);
-        assertThrows(GraphCycleException.class, () -> new DependencyGraph(preCyclicTasks));
+        assertThrows(GraphCycleException.class, () -> new DependencyGraph(cyclicTasks));
     }
 
     @Test
     public void checkCyclic() {
         DependencyGraph graph = new DependencyGraph(preCyclicTasks);
         assertFalse(graph.checkPresenceOfCycle());
-        preCyclicTasks.add(cyclicTask);
-        graph = new DependencyGraph(preCyclicTasks);
-        assertTrue(graph.checkPresenceOfCycle());
+        assertTrue(graph.checkCyclicDependency(cyclicTask));
     }
 
     @Test
