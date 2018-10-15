@@ -167,7 +167,7 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `GroupListPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -209,7 +209,7 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes unmodifiable `ObservableList<Person>` and `ObservableList<Group>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
@@ -318,6 +318,47 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
+
+// tag::select[]
+=== Select feature
+==== Current Implementation
+
+The select mechanism is facilitated by `ModelManager`.
+It extends `Model` with two lists, `UniquePersonList` and `UniqueGroupList` and implements the following operations:
+
+* `Model#updateFilteredPersonList` -- Updates person list with a specific `Predicate`.
+
+Given below is an example usage scenario and how the select mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time.
+The `ModelManager` will be initialized with the initial address book state, and both `UniquePersonList` and `UniqueGroupList` contains all person and group without filter.
+
+Step 2. The user executes `select g/1` command to select the 1st group in the address book.
+The `SelectCommandParser` parses the command to determine the select type, and the command calls executes the following steps:
+
+* Step 2.1. If the select type is `SELECT_TYPE_GROUP`, a `JumpToGroupListRequestEvent` is sent to update the UI to select the group card,
+and `Model#updateFilteredPersonList` is called to filter `UniquePersonList` to contain only person that are associated with the group.
+
+* Step 2.2. If the select type is `SELECT_TYPE_PERSON`, a `JumpToListRequestEvent` is sent to the UI to select the person card.
+
+[NOTE]
+If a group is selected, calling `select` command with `SELECT_TYPE_PERSON` will only select the person in the filtered `UniquePersonList` that contains only person in the selected group.
+
+The following activity diagram summarizes what happens when a user executes a `select` command:
+
+image::SelectActivityDiagram.png[width="650"]
+
+==== Design Considerations
+
+===== Aspect: How select executes
+
+* **Alternative 1 (current choice):** Use prefix to differentiate between selecting group or person.
+** Pros: Easy to implement.
+** Cons: Select command becomes too generalized.
+* **Alternative 2:** Individual command for selecting group and person.
+** Pros: Structurally correct as each command is specialized to executing a specific task.
+** Cons: Requires more code to implement.
+// end::select[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
