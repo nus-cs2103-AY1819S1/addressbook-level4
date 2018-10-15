@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= SocialCare - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,9 +13,12 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-W16-2/main/blob/master/
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W16-2`      Since: `Sept 2018`      Licence: `MIT`
+
+== Introduction
+TBC
 
 == Setting up
 
@@ -104,47 +107,24 @@ When you are ready to start coding,
 2. Take a look at <<GetStartedProgramming>>.
 
 == Design
+This section will describe the design architecture and the various components of the system.
 
 [[Design-Architecture]]
 === Architecture
 
-.Architecture Diagram
-image::Architecture.png[width="600"]
-
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+This section describes the design architecture used by the system.
 
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+.Architecture diagram
+image::Architecture.png[width="600"]
 
-* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-* At shut down: Shuts down the components and invokes cleanup method where necessary.
+The *_Architecture Diagram_* given above explains the high-level design of the App. +
 
-<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
+=== Events-Driven nature of the design
 
-* `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
-
-The rest of the App consists of four components.
-
-* <<Design-Ui,*`UI`*>>: The UI of the App.
-* <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
-* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
-
-Each of the four components
-
-* Defines its _API_ in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
-
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[width="800"]
-
-[discrete]
-==== Events-Driven nature of the design
+SocialCare uses an event-driven architecture style. +
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
 
@@ -154,91 +134,142 @@ image::SDforDeletePerson.png[width="800"]
 [NOTE]
 Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
 
-The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
+The figure below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
 .Component interactions for `delete 1` command (part 2)
 image::SDforDeletePersonEventHandling.png[width="800"]
 
 [NOTE]
-Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
+Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how an event-driven approach helps us to reduce direct coupling between components.
 
-The sections below give more details of each component.
+=== Components
+
+There are *6* main components: `Main`, `Commons`, `UI`, `Logic`, `Model`, and `Storage`. +
+Given below is a brief overview of each component.
+
+<<Design-Main,*`Main`*>> is the starting point of the system, which encapsulates the other components.
+
+<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple components.
+
+<<Design-Ui,*`UI`*>> contains the user interface classes used by the application.
+
+<<Design-Logic,*`Logic`*>> used to execute user commands. It is also known as the command executor.
+
+<<Design-Model,*`Model`*>> holds the data of the application in-memory.
+
+<<Design-Storage,*`Storage`*>> which allows reading and writing of data to the hard disk.
+
+For the `UI`, `Logic`, `Model` and `Storage` components they:
+
+* Define their _API_ in an `interface` with the same name as the Component.
+* Expose their functionality using a `{Component Name}Manager` class.
+
+For example, the `Logic` component (see the class diagram given below) defines its API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+
+.Class diagram of the Logic component
+image::LogicClassDiagram.png[width="800"]
+
+[[Design-Main]]
+==== Main component
+
+`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for:
+
+* At app launch: Initializing the components in the correct sequence, and connecting them up with each other.
+* At shut down: Shutting down the components and invoking cleanup methods where necessary.
+
+[[Design-Commons]]
+==== Commons component
+
+`Commons` has classes used by multiple components. The classes are in the `seedu.addressbook.commons` package.
+
+Two of those classes play important roles at the architecture level.
+
+* `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by the different components to communicate with other components using events. (i.e. a form of _Event Driven_ design)
+* `LogsCenter` : Used by the classes to write log messages to the App's log file.
 
 [[Design-Ui]]
-=== UI component
+==== UI component
 
-.Structure of the UI Component
+The `UI` component contains classes which are responsible for displaying the user interface of the system. The figure below shows the structure of the `UI` component.
+
+.Structure of the UI component
 image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The `UI` component consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherits from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-The `UI` component,
+The `UI` component does the following:
 
 * Executes user commands using the `Logic` component.
-* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
+* Binds itself to some data in the `Model` so that the UI can automatically update when data in the `Model` changes.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
 [[Design-Logic]]
-=== Logic component
+==== Logic component
+
+The `Logic` component contains classes which are needed to execute user commands. The figure below shows the structure of the `Logic` component
 
 [[fig-LogicClassDiagram]]
-.Structure of the Logic Component
+.Structure of the Logic component
 image::LogicClassDiagram.png[width="800"]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+The flow for the `Logic` component is as follows:
+
+. `Logic` uses the `AddressBookParser` class to parse the user command.
+. The `Command` object (which is automatically created in the previous step) is executed by the `LogicManager`.
+. The executed 'Command' affects the `Model` (e.g. adding a person) and/or raise events.
+. The result of the command execution from the previous step is encapsulated as a `CommandResult` object.
+. The `CommandResult` object is passed back to the `UI` component.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions inside the Logic component for the `delete 1` command
 image::DeletePersonSdForLogic.png[width="800"]
 
+
 [[Design-Model]]
-=== Model component
+==== Model component
+
+The `Model` component contains classes which are responsible for managing the data of the application. The figure below shows the structure of the `Model` component.
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
-The `Model`,
+The `Model` component does the following:
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* Stores a `UserPref` object that represents the user's preferences.
+* Stores the Address Book data.
+* Exposes an unmodifiable `ObservableList<Object>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list changes.
+
+Note that the `Model` component does not depend on any of the other components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `SocialCare`, which `Volunteer` can reference. This would allow `SocialCare` to only require one `Tag` object per unique `Tag`, instead of each `Volunteer` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
-=== Storage component
+==== Storage component
+
+The `Storage` component contains classes which enables the reading/writing of data to the hard disk. The figure below shows the structure of the `Storage` component.
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
-The `Storage` component,
+The `Storage` component does the following:
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
-
-[[Design-Commons]]
-=== Common classes
-
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+* saves `UserPref` objects in json format and read it back.
+* saves the system data in xml format and read it back.
 
 == Implementation
 
@@ -890,54 +921,258 @@ _{To be updated and expanded}_
 
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
-[discrete]
-=== Use case: Delete person
 
-*MSS*
+[width="59%",cols="22%",options="header",]
+|=======================================================================
+|Use Cases
+a|*UC01:* Register new volunteer +
+*Actor:* Admin +
+*Precondition(s):* Admin is logged in +
+*Guarantee(s):*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
-+
-Use case ends.
+* New user will be created only if data entered is valid and there is sufficient memory space to store the new user +
 
-*Extensions*
+*MSS:*
 
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
+    . Admin chooses to add a new volunteer
+    . Application requests for details of the volunteer
+    . Admin enters and submits the requested details
+    . Application creates the volunteer and notifies Admin of success +
+    Use case ends. +
 
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+*Extensions:* +
+
+    * 3a. The entered data is invalid
+    ** 3a1. Application shows an error message that the entered data is invalid +
+    Use case resumes from step 3.
+a|*UC02:* View volunteer details +
+*Actor:* Admin +
+*Precondition(s):* Admin is logged in +
+*Guarantee(s):* +
+*MSS:*
+
+    . Admin requests to list all volunteers
+    . Application displays a list of all volunteers
+    . Admin requests to view a volunteer profile at a specific index in the list
+    . Application displays the volunteer profile +
+    Use case ends. +
+
+*Extensions:*
+
+    * 2a. The volunteer list is empty
+    ** 2a1. Application shows an error message that volunteer list is empty +
+    Use case ends.
+    * 3a. The given index is invalid
+    ** 3a1. Application shows an error message that the index given is invalid +
+    Use case resumes from step 2.
+a|*UC03:* Update volunteer details +
+*Actor:* Admin +
+*Precondition(s):* Admin is logged in +
+*Guarantee(s):* +
+*MSS:*
+
+      . Admin requests to list all volunteers
+      . Application displays a list of all volunteers
+      . Admin enters the index and updated details of the volunteer to be changed
+      . Application updates the volunteer details and notifies of the successful update +
+      Use case ends. +
+
+*Extensions:*
+
+    * 2a. The volunteer list is empty
+    ** 2a1. Application shows an error message that volunteer list is empty +
+    Use case ends.
+    * 3a. The given index is invalid
+    ** 3a1. Application shows an error message that the index given is invalid +
+    Use case resumes from step 2.
+    * 3b. The given details are invalid
+    ** 3b1. Application shows an error message that the details given are invalid +
+    Use case resumes at step 2.
+a|*UC04:* Delete volunteer record +
+*Actor:* Admin +
+*Precondition(s):* Admin is logged in +
+*Guarantee(s):* +
+
+  * Volunteer record will be deleted only if index specified is valid +
+
+*MSS:*
+
+      . Admin requests to list all volunteers
+      . Application displays a list of all volunteers
+      . Admin requests to delete a volunteer at a specific index in the list
+      . Application deletes the volunteer
+      . Application displays a successful deletion message to Admin +
+      Use case ends. +
+
+*Extensions:*
+
+    * 2a. The volunteer list is empty
+    ** 2a1. Application shows an error message that volunteer list is empty +
+    Use case ends.
+    * 3a. The given index is invalid
+    ** 3a1. Application shows an error message that the index given is invalid +
+    Use case resumes from step 2.
+a|*UC05:* Create new event +
+*Actor:* Admin +
+*Precondition(s):* Admin is logged in +
+*Guarantee(s):* +
+*MSS:*
+
+        . Admin requests to create a new event
+        . Application requests for details of the event
+        . Admin enters details of the event to be created
+        . Application creates the event and shows successful creation message +
+        Use case ends. +
+
+*Extensions:*
+
+      * 2a. The given details is invalid
+      ** 2a1. Application shows an error message that given details is invalid +
+      Use case resumes from step 1.
+a|*UC06:* Update event details +
+*Actor:* Admin +
+*Precondition(s):* Admin is logged in +
+*Guarantee(s):* +
+*MSS:*
+
+        . Admin requests to list all events
+        . Application displays a list of all events
+        . Admin enters the index and updated details of the event to be changed
+        . Application updates the event details and notifies of the successful update +
+        Use case ends. +
+
+*Extensions:*
+
+      * 2a. The event list is empty
+      ** 2a1. Application shows an error message that event list is empty +
+      Use case ends.
+      * 3a. The given index is invalid
+      ** 3a1. Application shows an error message that the index given is invalid +
+      Use case resumes from step 2.
+      * 3b. The given details are invalid
+      ** 3b1. Application shows an error message that the details given are invalid +
+      Use case resumes at step 2.
+a|*UC07:* View event details +
+*Actor:* Admin +
+*Precondition(s):* Admin is logged in +
+*Guarantee(s):* +
+*MSS:*
+
+      . Admin requests to list all events
+      . Application displays a list of all events
+      . Admin requests to view event details at a specific index in the list
+      . Application displays the details of the event +
+      Use case ends. +
+
+*Extensions:*
+
+      * 2a. The event list is empty
+      ** 2a1. Application shows an error message that event list is empty +
+      Use case ends.
+      * 3a. The given index is invalid
+      ** 3a1. Application shows an error message that the index given is invalid +
+      Use case resumes from step 2.
+a|*UC08:* Delete event details +
+*Actor:* Admin +
+*Precondition(s):* Admin is logged in +
+*Guarantee(s):* +
+*MSS:*
+
+        . Admin requests to list all events
+        . Application displays a list of all events
+        . Admin requests to delete event details at a specific index in the list
+        . Application requests for confirmation
+        . Admin confirms the deletion
+        . Application deletes the event details
+        . Application displays a successful deletion message to Admin +
+        Use case ends. +
+
+*Extensions:*
+
+      * 2a. The events list is empty
+      ** 2a1. Application shows an error message that event list is empty +
+      Use case ends.
+      * 3a. The given index is invalid
+      ** 3a1. Application shows an error message that the index given is invalid +
+      Use case resumes from step 2.
+a|*UC09:* Add volunteer hours to volunteer profile +
+*Actor:* Admin +
+*Precondition(s):* Admin is logged in +
+*Guarantee(s):* +
+*MSS:*
+
+        . Application [underline]#displays the volunteer profile UC02#
+        . Admin requests to list all volunteer hours of the volunteer
+        . Application displays a list of all volunteer hours of the volunteer
+        . Admin chooses to add volunteer hours
+        . Application requests for details of the volunteer hours
+        . Admin enters the requested details
+        . Application requests for confirmation
+        . Admin confirms the addition
+        . Application adds the volunteer hours and notifies Admin of success +
+        Use case ends. +
+
+*Extensions:*
+
+        * 2a. The volunteer hours list is empty
+        ** 2a1. Application shows an error message that volunteer hours list is empty +
+        Use case ends.
+        * 8a. Application detects an error in the entered data
+        ** 8a1. Application requests for the correct data
+        ** 8a2. Admin enters new data
+        ** Steps 8a1-8a2 are repeated until the data entered is valid +
+        Use case resumes from step 9.
+a|*UC10:* Edit volunteer hours in volunteer profile +
+*Actor:* Admin +
+*Precondition(s):* Admin is logged in +
+*Guarantee(s):* +
+*MSS:*
+
+          . Application [underline]#displays the volunteer profile UC02#
+          . Admin requests to list all volunteer hours of the volunteer
+          . Application displays a list of all volunteer hours of the volunteer
+          . Admin enters the index and the details of the volunteer hours to be changed
+          . Application updates the volunteer hours and notifies Admin of success +
+          Use case ends. +
+
+*Extensions:*
+
+          * 2a. The volunteer hours list is empty
+          ** 2a1. Application shows an error message that volunteer hours list is empty +
+          Use case ends.
+          * 4a. The given index is invalid
+          ** Application shows an error message that the index given is invalid +
+          Use case resumes from step 5.
+          * 4b. The given details are invalid
+          ** 4b1. Application shows an error message that the details given is invalid +
+          Use case resumes from step 5.
+|=======================================================================
 
 _{More to be added}_
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+*  Reasonable response time (2-3s)
+*  Backward compatibility by being able to transfer data from older versions of the application when updating each version
+*  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
+*  Files containing volunteer data should be encrypted
+*  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
 
 [appendix]
 == Glossary
-
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[[manager]] Manager::
-The intended user of our application, the manager of a social welfare organisation who's in charge of members and events
+[width="59%",cols="50%,50%",options="header",]
+|=======================================================================
+| Term| Explanation
+| *Volunteer Manager*| Staff working for the organization, who handles administrative issues pertaining to volunteer and event management
+| *Volunteer*| A person who has signed up and has a profile with the organization
+| *Admin*| Our application’s intended target user (Most likely the volunteer manager)
+| *Application*| Refers to our system
+| *UCXX*| Use case with XX being the use case ID
+|[[mainstream-os]] *Mainstream OS*| Windows, Linux, Unix, OS-X
+|=======================================================================
 
 [appendix]
 == Product Survey
