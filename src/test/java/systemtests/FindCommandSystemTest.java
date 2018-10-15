@@ -126,9 +126,9 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find address of ride in thane park -> 3 rides found */
+        /* Case: find address of ride in thane park -> 1 rides found */
         command = FindCommand.COMMAND_WORD + " " + PREFIX_ADDRESS + DUMBO.getAddress().value;
-        ModelHelper.setFilteredList(expectedModel, CASTLE, DUMBO, GALAXY);
+        ModelHelper.setFilteredList(expectedModel, DUMBO);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
