@@ -1,6 +1,6 @@
 package systemtests;
 
-import static seedu.souschef.logic.commands.DeleteCommand.MESSAGE_DELETE_RECIPE_SUCCESS;
+import static seedu.souschef.logic.commands.DeleteCommand.MESSAGE_DELETE_SUCCESS;
 import static seedu.souschef.testutil.TestUtil.getRecipe;
 
 import seedu.souschef.commons.core.Messages;
@@ -125,7 +125,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     private void assertCommandSuccess(Index toDelete) {
         Model expectedModel = getModel();
         Recipe deletedRecipe = removeRecipe(expectedModel, toDelete);
-        String expectedResultMessage = String.format(MESSAGE_DELETE_RECIPE_SUCCESS, deletedRecipe);
+        String expectedResultMessage = String.format(MESSAGE_DELETE_SUCCESS, "recipe", deletedRecipe);
 
         assertCommandSuccess(
                 DeleteCommand.COMMAND_WORD + " " + toDelete.getOneBased(), expectedModel,

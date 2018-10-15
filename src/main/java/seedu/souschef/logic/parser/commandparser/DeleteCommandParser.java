@@ -12,6 +12,7 @@ import seedu.souschef.logic.parser.ParserUtil;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.ingredient.Ingredient;
+import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.recipe.Recipe;
 
 /**
@@ -60,6 +61,31 @@ public class DeleteCommandParser implements CommandParser<DeleteCommand> {
         }
 
         return new DeleteCommand<>(model, toDelete);
+    }
+
+
+    /**
+     * Parses the given {@code String} of arguments in the context of the DeleteCommand
+     * and returns an DeleteCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public DeleteCommand<HealthPlan> parseHealthPlan(Model model, String args) throws ParseException {
+        try {
+            Index targetIndex = ParserUtil.parseIndex(args);
+            requireNonNull(model);
+            List<HealthPlan> lastShownList = model.getFilteredList();
+
+            if (targetIndex.getZeroBased() >= lastShownList.size()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        DeleteCommand.MESSAGE_USAGE_HEALTHPLAN));
+            }
+            HealthPlan toDelete = lastShownList.get(targetIndex.getZeroBased());
+
+            return new DeleteCommand<>(model, toDelete);
+        } catch (ParseException pe) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE_HEALTHPLAN), pe);
+        }
     }
 
 }

@@ -170,7 +170,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
     private void assertCommandSuccess(String command, Recipe toAdd) {
         Model expectedModel = getModel();
         expectedModel.add(toAdd);
-        String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, toAdd);
+        String expectedResultMessage = String.format(AddCommand.MESSAGE_ADD_SUCCESS, "recipe", toAdd);
 
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
     }

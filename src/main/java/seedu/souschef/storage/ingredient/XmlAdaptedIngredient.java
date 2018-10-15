@@ -1,12 +1,13 @@
 package seedu.souschef.storage.ingredient;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.souschef.commons.exceptions.IllegalValueException;
-import seedu.souschef.model.healthplan.CurrentWeight;
 import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.ingredient.ServingUnit;
 
@@ -43,7 +44,7 @@ public class XmlAdaptedIngredient {
         name = source.getName();
         amount = Double.toString(source.getAmount());
         unit = source.getUnit().toString();
-        date = source.getDate().toString();
+        date = new SimpleDateFormat("MM-dd-yyyy").format(source.getDate());
     }
 
     /**
@@ -80,7 +81,7 @@ public class XmlAdaptedIngredient {
 
         if (unit == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    CurrentWeight.class.getSimpleName()));
+                    ServingUnit.class.getSimpleName()));
         }
 
         /*if (!CurrentWeight.isValidWeight(unit)) {
@@ -98,7 +99,15 @@ public class XmlAdaptedIngredient {
             throw new IllegalValueException(CurrentHeight.MESSAGE_HEIGHT_CONSTRAINTS);
         }*/
 
-        final Date modelDate = new Date(date);
+        final Date modelDate;
+        try {
+            modelDate = (new SimpleDateFormat("MM-dd-yyyy").parse(date));
+        } catch (ParseException e) {
+
+            throw new IllegalValueException(String.format("Wrong date format", Date.class.getSimpleName()));
+
+        }
+
 
         return new Ingredient(modelName, modelAmount, modelUnit, modelDate);
     }

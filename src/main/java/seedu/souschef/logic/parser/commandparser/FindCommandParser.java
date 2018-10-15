@@ -9,6 +9,7 @@ import seedu.souschef.logic.commands.FindCommand;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.ingredient.Ingredient;
+import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.recipe.NameContainsKeywordsPredicate;
 import seedu.souschef.model.recipe.Recipe;
 
@@ -38,6 +39,24 @@ public class FindCommandParser implements CommandParser<FindCommand> {
     @Override
     public FindCommand<Ingredient> parseIngredient(Model model, String args) throws ParseException {
         return null;
+    }
+
+    /**
+     * Parses the given {@code String} of arguments in the context of the FindCommand
+     * and returns an FindCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public FindCommand<HealthPlan> parseHealthPlan(Model model, String args) throws ParseException {
+        requireNonNull(model);
+        String trimmedArgs = args.trim();
+        if (trimmedArgs.isEmpty()) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        }
+
+        String[] nameKeywords = trimmedArgs.split("\\s+");
+
+        return new FindCommand<>(model, new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
     }
 
 }

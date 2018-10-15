@@ -48,7 +48,7 @@ public class XmlHealthPlanStorage extends XmlFeatureStorage {
             logger.info("AppContent file " + filePath + " not found");
             return Optional.empty();
         }
-        logger.info("enters XmlHealthPlanStorage from read");
+
         XmlSerializableGeneric xmlhealthplanBook;
         xmlhealthplanBook = new XmlSerializableHealthPlan((XmlSerializableHealthPlan)
                 XmlFileStorage.loadDataFromSaveFile(filePath, "healthplan"));

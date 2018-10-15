@@ -1,6 +1,6 @@
 package systemtests;
 
-import static seedu.souschef.commons.core.Messages.MESSAGE_RECIPES_LISTED_OVERVIEW;
+import static seedu.souschef.commons.core.Messages.MESSAGE_LISTED_OVERVIEW;
 
 import seedu.souschef.model.Model;
 
@@ -151,7 +151,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
      */
     private void assertCommandSuccess(String command, Model expectedModel) {
         String expectedResultMessage = String.format(
-                MESSAGE_RECIPES_LISTED_OVERVIEW, expectedModel.getFilteredList().size());
+                MESSAGE_LISTED_OVERVIEW, expectedModel.getFilteredList().size(), "recipe");
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);

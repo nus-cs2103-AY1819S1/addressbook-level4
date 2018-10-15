@@ -64,8 +64,6 @@ public class MainApp extends Application {
         userPrefs = initPrefs(userPrefsStorage);
         AppContent appContent = new AppContent();
 
-
-
         //storage = new StorageManager(recipeStorage, userPrefsStorage);
         storage = new StorageManager(userPrefsStorage, userPrefs, appContent);
 

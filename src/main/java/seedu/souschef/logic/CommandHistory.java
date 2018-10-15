@@ -15,12 +15,12 @@ public class CommandHistory {
 
     public CommandHistory() {
         userInputHistory = new LinkedList<>();
-        context = null;
+        context = "Recipe";
     }
 
     public CommandHistory(CommandHistory commandHistory) {
         userInputHistory = new LinkedList<>(commandHistory.userInputHistory);
-        context = null;
+        context = "Recipe";
     }
 
     /**

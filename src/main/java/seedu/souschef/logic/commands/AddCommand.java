@@ -2,10 +2,17 @@ package seedu.souschef.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_AGE;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_CHEIGHT;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_CWEIGHT;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_HPNAME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_SCHEME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TWEIGHT;
 
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.model.Model;
@@ -33,8 +40,25 @@ public class AddCommand<T extends UniqueType> extends Command {
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
-    public static final String MESSAGE_SUCCESS = "New %1$s added: %2$s";
-    public static final String MESSAGE_DUPLICATE_RECIPE = "This recipe already exists in the address book";
+    public static final String MESSAGE_ADD_SUCCESS = "New %1$s added: %2$s";
+
+    public static final String MESSAGE_USAGE_HEALTHPLAN = COMMAND_WORD + ": Adds a healthplan. "
+            + "Parameters: "
+            + PREFIX_HPNAME + "HealthPlan Name "
+            + PREFIX_AGE + "Age "
+            + PREFIX_CHEIGHT + "Current Height(CM) "
+            + PREFIX_CWEIGHT + "Current Weight(KG) "
+            + PREFIX_TWEIGHT + "Target Weight(KG) "
+            + PREFIX_DURATION + "Duration(Days) "
+            + PREFIX_SCHEME + "Scheme(GAIN/LOSS/MAINTAIN) \n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_HPNAME + "SLIM DOWN "
+            + PREFIX_AGE + "25 "
+            + PREFIX_CHEIGHT + "170 "
+            + PREFIX_CWEIGHT + "70 "
+            + PREFIX_TWEIGHT + "60 "
+            + PREFIX_DURATION + "10 "
+            + PREFIX_SCHEME + "LOSS ";
 
     private final Model model;
     private final T toAdd;
@@ -54,7 +78,7 @@ public class AddCommand<T extends UniqueType> extends Command {
     public CommandResult execute(CommandHistory history) {
         model.add(toAdd);
         model.commitAppContent();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getClass().getSimpleName(), toAdd));
+        return new CommandResult(String.format(MESSAGE_ADD_SUCCESS, history.getContext().toLowerCase(), toAdd));
     }
 
     @Override

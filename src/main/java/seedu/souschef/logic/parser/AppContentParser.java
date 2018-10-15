@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.logic.commands.Command;
+import seedu.souschef.logic.parser.contextparser.HealthPlanParser;
 import seedu.souschef.logic.parser.contextparser.RecipeParser;
 import seedu.souschef.logic.parser.contextparser.UniversalParser;
 import seedu.souschef.logic.parser.exceptions.ParseException;
@@ -34,10 +35,12 @@ public class AppContentParser {
         String context = history.getContext();
         if (userInput.charAt(0) == '-') {
             return new UniversalParser().parseCommand(history, userInput);
-        } else if (context == null || context.equals("Recipe")) {
+        } else if (context.equals("Recipe")) {
             return new RecipeParser().parseCommand(modelSet.getRecipeModel(), userInput);
-        } else if (context.equals("Ingredient Manager")) {
+        } else if (context.equals("Ingredient")) {
             return new IngredientParser().parseCommand(modelSet.getIngredientModel(), userInput);
+        } else if (context.equals("Health Plan")) {
+            return new HealthPlanParser().parseCommand(modelSet.getHealthPlanModel(), userInput);
         } else {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
