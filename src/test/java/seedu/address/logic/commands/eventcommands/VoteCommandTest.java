@@ -105,4 +105,19 @@ public class VoteCommandTest {
         String expectedMessage = String.format(Messages.MESSAGE_HAVE_NOT_JOINED);
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
+
+    @Test
+    public void execute_haveAlreadyVotedOption() {
+        Index index = TypicalIndexes.INDEX_FIRST;
+        VoteCommand command = new VoteCommand(index, OPTION_NAME);
+        Person user = new PersonBuilder().build();
+        model.setCurrentUser(user);
+        Event event = model.getFilteredEventList().get(0);
+        event.addPoll("Generic poll");
+        event.getPoll(index).addOption(OPTION_NAME);
+        event.getPoll(index).addVote(OPTION_NAME, user);
+        model.setSelectedEvent(event);
+        String expectedMessage = String.format(Messages.MESSAGE_HAVE_ALREADY_VOTED);
+        assertCommandFailure(command, model, commandHistory, expectedMessage);
+    }
 }
