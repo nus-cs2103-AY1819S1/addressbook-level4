@@ -23,25 +23,18 @@ public class WishDetailSavingHistory extends UiPart<Region> {
     public WishDetailSavingHistory() {
         super(FXML);
 
-        loadDefaultPage();
         registerAsAnEventHandler(this);
-    }
-
-    /**
-     * Load the default page.
-     */
-    public void loadDefaultPage() {
     }
 
     /**
      * Load the page that shows the detail of wish.
      */
-    private void loadWishPage(Wish wish) {
+    private void loadWishDetails(Wish wish) {
     }
 
     @Subscribe
     private void handleWishPanelSelectionChangedEvent(WishPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        loadWishPage(event.getNewSelection());
+        loadWishDetails(event.getNewSelection());
     }
 }

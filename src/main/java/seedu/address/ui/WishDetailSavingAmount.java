@@ -29,14 +29,14 @@ public class WishDetailSavingAmount extends UiPart<Region> {
     public WishDetailSavingAmount() {
         super(FXML);
 
-        loadDefaultPage();
+        loadDefaultDetails();
         registerAsAnEventHandler(this);
     }
 
     /**
      * Load the default page.
      */
-    public void loadDefaultPage() {
+    public void loadDefaultDetails() {
         price.setText("");
         savedAmount.setText("");
     }
@@ -44,7 +44,7 @@ public class WishDetailSavingAmount extends UiPart<Region> {
     /**
      * Load the page that shows the detail of wish.
      */
-    private void loadWishPage(Wish wish) {
+    private void loadWishDetails(Wish wish) {
         savedAmount.setText("$" + wish.getSavedAmount().toString());
         price.setText("/ $" + wish.getPrice().toString());
     }
@@ -52,6 +52,6 @@ public class WishDetailSavingAmount extends UiPart<Region> {
     @Subscribe
     private void handleWishPanelSelectionChangedEvent(WishPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        loadWishPage(event.getNewSelection());
+        loadWishDetails(event.getNewSelection());
     }
 }
