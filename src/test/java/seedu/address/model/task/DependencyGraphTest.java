@@ -1,32 +1,49 @@
 package seedu.address.model.task;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.commands.DependencyCommand;
 import seedu.address.model.DependencyGraph;
+import seedu.address.model.task.exceptions.GraphCycleException;
 import seedu.address.testutil.TaskBuilder;
 
 public class DependencyGraphTest {
-    private List<Task> tasks = new ArrayList<>();
+    private List<Task> preCyclicTasks = new ArrayList<>();
     private Task cyclicTask;
+    private List<Task> preSortedTasks = new ArrayList<>();
+    private List<Task> sortedTasks = new ArrayList<>();
 
     @Before
     public void setUp() {
-        //Initializing tasks
+        //Initializing task lists
         Task a = new TaskBuilder().withName("A").build();
         Task b = new TaskBuilder().withName("B").withDependency(a).build();
         Task c = new TaskBuilder().withName("C").withDependency(b).withDependency(a).build();
-        a = DependencyCommand.createDependantTask(a, c);
 
-        tasks.add(a);
-        tasks.add(b);
+        //preSortedTasks
+        preSortedTasks.add(a);
+        preSortedTasks.add(c);
+        preSortedTasks.add(b);
+
+        //SortedTasks
+        sortedTasks.add(a);
+        sortedTasks.add(b);
+        sortedTasks.add(c);
+
+        //preCyclicTasks
+        a = DependencyCommand.createDependantTask(a, c);
+        preCyclicTasks.add(a);
+        preCyclicTasks.add(b);
         cyclicTask = c;
     }
 
