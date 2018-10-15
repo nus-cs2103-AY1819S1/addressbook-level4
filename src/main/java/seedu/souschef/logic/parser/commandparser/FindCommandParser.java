@@ -8,8 +8,8 @@ import java.util.Arrays;
 import seedu.souschef.logic.commands.FindCommand;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
-import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.healthplan.HealthPlan;
+import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.recipe.NameContainsKeywordsPredicate;
 import seedu.souschef.model.recipe.Recipe;
 

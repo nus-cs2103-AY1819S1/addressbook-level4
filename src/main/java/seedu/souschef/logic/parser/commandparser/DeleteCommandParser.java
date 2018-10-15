@@ -11,8 +11,8 @@ import seedu.souschef.logic.commands.DeleteCommand;
 import seedu.souschef.logic.parser.ParserUtil;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
-import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.healthplan.HealthPlan;
+import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.recipe.Recipe;
 
 /**
