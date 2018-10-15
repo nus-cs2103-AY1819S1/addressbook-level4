@@ -45,7 +45,7 @@ public class Budget {
         checkArgument(isValidBudget(budget), BUDGET_VALIDATION_REGEX);
         this.budgetCap = Double.parseDouble(budget);
         this.nextRecurrence = null;
-        this.numberOfSecondsToRecurAgain = Long.MAX_VALUE;
+        this.numberOfSecondsToRecurAgain = 50000;
         this.currentExpenses = 0.0;
     }
 
@@ -73,7 +73,7 @@ public class Budget {
         this.budgetCap = budget;
         this.currentExpenses = currentExpenses;
         this.nextRecurrence = null;
-        this.numberOfSecondsToRecurAgain = Long.MAX_VALUE;
+        this.numberOfSecondsToRecurAgain = 50000;
 
     }
 
@@ -163,7 +163,6 @@ public class Budget {
     @Override
     public boolean equals(Object budget) {
         Budget anotherBudget = (Budget) budget;
-       
         return this.currentExpenses == anotherBudget.currentExpenses
             && this.budgetCap == anotherBudget.budgetCap
             && this.numberOfSecondsToRecurAgain == anotherBudget.numberOfSecondsToRecurAgain;
