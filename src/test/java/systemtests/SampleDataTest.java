@@ -1,6 +1,6 @@
 package systemtests;
 
-import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
+import static seedu.scheduler.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,17 +8,17 @@ import java.nio.file.Path;
 
 import org.junit.Test;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.person.Person;
-import seedu.address.model.util.SampleAddressBookDataUtil;
-import seedu.address.testutil.TestUtil;
+import seedu.scheduler.model.Scheduler;
+import seedu.scheduler.model.event.Event;
+import seedu.scheduler.model.util.SampleSchedulerDataUtil;
+import seedu.scheduler.testutil.TestUtil;
 
-public class SampleDataTest extends AddressBookSystemTest {
+public class SampleDataTest extends SchedulerSystemTest {
     /**
      * Returns null to force test app to load data of the file in {@code getDataFileLocation()}.
      */
     @Override
-    protected AddressBook getInitialData() {
+    protected Scheduler getInitialData() {
         return null;
     }
 
@@ -44,8 +44,8 @@ public class SampleDataTest extends AddressBookSystemTest {
     }
 
     @Test
-    public void addressBook_dataFileDoesNotExist_loadSampleData() {
-        Person[] expectedList = SampleAddressBookDataUtil.getSamplePersons();
-        assertListMatching(getPersonListPanel(), expectedList);
+    public void scheduler_dataFileDoesNotExist_loadSampleData() {
+        Event[] expectedList = SampleSchedulerDataUtil.getSampleEvents();
+        assertListMatching(getEventListPanel(), expectedList);
     }
 }
