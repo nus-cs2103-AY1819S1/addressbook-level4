@@ -2,6 +2,7 @@ package seedu.address.model.task;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -81,6 +82,20 @@ public class DependencyTest {
         sampleSet.add(newHash);
         Dependency expectedDependency = new Dependency(sampleSet);
         assertEquals(expectedDependency, sampleDependency.updateHash(oldHash, newHash));
+    }
+
+    @Test
+    public void equals() {
+        assertNotEquals(sampleDependency, new Dependency());
+
+        HashSet<String> hashes = new HashSet<String>();
+        hashes.add("12345");
+        hashes.add("67890");
+        sampleTaskInDependency = new TaskBuilder().withName("Test").build();
+        hashes.add(Integer.toString(sampleTaskInDependency.hashCode()));
+
+        Dependency newSample = new Dependency(hashes);
+        assertEquals(newSample, sampleDependency);
     }
 
 
