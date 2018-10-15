@@ -3,14 +3,18 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a Person's faculty in the address book.
+ * Guarantees: immutable; is valid as declared in {@link #isValidFaculty(String)}
+ */
 public class Faculty {
 
     public static final String MESSAGE_FACULTY_CONSTRAINTS =
-            "Faculty name should be standardized with what NUS uses." +
-                    "Contacts with no faculty should have the field set to '-'.";
+            "Faculty name should be standardized with what NUS uses."
+                    + "Contacts with no faculty should have the field set to '-'.";
 
     /*
-     * The first character of the address must not be a whitespace,
+     * The first character of the faculty must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String FACULTY_VALIDATION_REGEX = "[^\\s].*";
@@ -18,20 +22,20 @@ public class Faculty {
     public final String value;
 
     /**
-     * Constructs an {@code Address}.
+     * Constructs an {@code Faculty}.
      *
-     * @param faculty A valid address.
+     * @param faculty A valid faculty.
      */
     public Faculty(String faculty) {
         requireNonNull(faculty);
-        checkArgument(isValidAddress(faculty), MESSAGE_FACULTY_CONSTRAINTS);
+        checkArgument(isValidFaculty(faculty), MESSAGE_FACULTY_CONSTRAINTS);
         value = faculty;
     }
 
     /**
      * Returns true if a given string is a valid email.
      */
-    public static boolean isValidAddress(String test) {
+    public static boolean isValidFaculty(String test) {
         return test.matches(FACULTY_VALIDATION_REGEX);
     }
 
