@@ -43,7 +43,7 @@ public class ImportCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Imports an XML file to update the address book.\n "
             + "Parameters: "
             + "import "
-            + "f/FILENAME.xml";
+            + "f/C://Users/Documents/FILENAME.xml";
 
     public static final String MESSAGE_SUCCESS = "%1$s file read and database updated.";
     public static final String MESSAGE_FILE_NOT_FOUND = "File not found.";
