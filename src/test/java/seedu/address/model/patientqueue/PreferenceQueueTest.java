@@ -10,10 +10,12 @@ import seedu.address.model.ModelManager;
 
 public class PreferenceQueueTest {
     private ModelManager modelManager = new ModelManager();
+
     @Test
     public void hasPatient_noPatientInPreferenceQueue_returnsFalse() {
         assertFalse(modelManager.hasPatientInPreferenceQueue());
     }
+
     @Test
     public void hasPatient_patientInPreferenceQueue_returnTrue() {
         modelManager.enqueueIntoPreferenceQueue(ALICE);

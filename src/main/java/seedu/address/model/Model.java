@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import java.util.function.Predicate;
 
-import com.sun.xml.bind.v2.TODO;
 import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
@@ -192,7 +191,7 @@ public interface Model {
     /**
      * Enqueues the given person into preference queue.
      */
-     // TODO Change Person object to Patient Object
+    // TODO Change Person object to Patient Object
     void enqueueIntoPreferenceQueue(Person patient);
 
     //@@author iamjackslayer
