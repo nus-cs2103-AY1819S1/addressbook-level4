@@ -35,6 +35,7 @@ import seedu.jxmusic.TestApp;
 import seedu.jxmusic.commons.core.EventsCenter;
 import seedu.jxmusic.commons.core.index.Index;
 //import seedu.jxmusic.logic.commands.ClearCommand;
+import seedu.jxmusic.logic.commands.ClearCommand;
 import seedu.jxmusic.logic.commands.FindCommand;
 import seedu.jxmusic.logic.commands.ListCommand;
 import seedu.jxmusic.logic.commands.SelectCommand;
@@ -163,12 +164,12 @@ public abstract class LibrarySystemTest {
     }
 
     /**
-     * Deletes all playlists in the jxmusic player.
+     * Deletes all playlists in the library.
      */
-    //protected void deleteAllPersons() {
-    //   executeCommand(ClearCommand.COMMAND_WORD);
-    //   assertEquals(0, getModel().getAddressBook().getPlaylistList().size());
-    //}
+    protected void deleteAllPlaylists() {
+      executeCommand(ClearCommand.COMMAND_PHRASE);
+      assertEquals(0, getModel().getLibrary().getPlaylistList().size());
+    }
 
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
