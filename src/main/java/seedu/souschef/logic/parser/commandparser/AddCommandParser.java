@@ -63,7 +63,7 @@ public class AddCommandParser implements CommandParser<AddCommand> {
         CookTime cookTime = ParserUtil.parseCooktime(argMultimap.getValue(PREFIX_COOKTIME).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Recipe toAdd = new Recipe(name, new Difficulty("1"), new CookTime("PT23M"), tagList);
+        Recipe toAdd = new Recipe(name, difficulty, cookTime, tagList);
         if (model.has(toAdd)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
