@@ -82,12 +82,6 @@ public class ImportCommandTest {
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
                 new BudgetBook(model.getBudgetBook()), new UserPrefs());
-        /*Set<Tag> tags = new HashSet<>();
-        Person original = model.getAddressBook().getPersonList().get(0);
-        tags.add((Tag)original.getTags().toArray()[0]);
-        tags.add(new Tag("golf"));
-        Person edited = new Person(original.getName(), original.getPhone(), original.getEmail(),
-                original.getRoom(), original.getSchool(), tags);*/
         Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
         Person original = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
         PersonBuilder personInFile = new PersonBuilder(original);
