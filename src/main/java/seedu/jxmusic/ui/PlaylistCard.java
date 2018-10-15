@@ -39,7 +39,7 @@ public class PlaylistCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(playlist.getName().nameString);
         playlist.getTracks().forEach(track ->
-                tracks.getChildren().add(new Label(track.getFileName())));
+                tracks.getChildren().add(new Label(track.getFileNameWithoutExtension())));
     }
 
     @Override
