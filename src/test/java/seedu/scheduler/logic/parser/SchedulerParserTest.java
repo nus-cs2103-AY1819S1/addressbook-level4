@@ -6,6 +6,7 @@ import static seedu.scheduler.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORM
 import static seedu.scheduler.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.scheduler.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,6 +22,7 @@ import seedu.scheduler.logic.commands.EditCommand;
 import seedu.scheduler.logic.commands.EditCommand.EditEventDescriptor;
 import seedu.scheduler.logic.commands.ExitCommand;
 import seedu.scheduler.logic.commands.FindCommand;
+import seedu.scheduler.logic.commands.GetGoogleEventsCommand;
 import seedu.scheduler.logic.commands.HelpCommand;
 import seedu.scheduler.logic.commands.HistoryCommand;
 import seedu.scheduler.logic.commands.ListCommand;
@@ -77,10 +79,15 @@ public class SchedulerParserTest {
 
     @Test
     public void parseCommand_find() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        List <String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(new EventNameContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_ggEvents() throws Exception {
+       assertTrue(parser.parseCommand(GetGoogleEventsCommand.COMMAND_WORD) instanceof GetGoogleEventsCommand);
     }
 
     @Test
