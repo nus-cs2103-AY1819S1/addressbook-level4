@@ -51,7 +51,7 @@ public class DeleteCommandParser implements CommandParser<DeleteCommand> {
         List<Ingredient> lastShownList = model.getFilteredList();
         for (int i = 0; i < lastShownList.size(); i++) {
             Ingredient cur = lastShownList.get(i);
-            if (cur.getName().equals(args)) {
+            if (cur.getName().equals(args.trim())) {
                 toDelete = cur;
                 break;
             }
