@@ -10,9 +10,9 @@ import seedu.address.model.ride.Ride;
 /**
  * An UI component that displays information of a {@code Ride}.
  */
-public class RideCard extends UiPart<Region> {
+public class PersonCard extends UiPart<Region> {
 
-    private static final String FXML = "RideListCard.fxml";
+    private static final String FXML = "PersonListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -39,7 +39,7 @@ public class RideCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public RideCard(Ride ride, int displayedIndex) {
+    public PersonCard(Ride ride, int displayedIndex) {
         super(FXML);
         this.ride = ride;
         id.setText(displayedIndex + ". ");
@@ -58,12 +58,12 @@ public class RideCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof RideCard)) {
+        if (!(other instanceof PersonCard)) {
             return false;
         }
 
         // state check
-        RideCard card = (RideCard) other;
+        PersonCard card = (PersonCard) other;
         return id.getText().equals(card.id.getText())
                 && ride.equals(card.ride);
     }
