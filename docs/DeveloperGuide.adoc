@@ -335,6 +335,10 @@ The `MedicalRecord` class is an attribute of the `Patient` class, and it contain
 * contains a `List<Disease>` which stores the list of diseases the `Patient` has.
 * contains a `List<Note>` which stores the list of notes that belong to the `Patient`. Each `Note` further comprises a `Message` that stores the actual message of the `Note`, and a `Map<SerialNumber, Quantity>` attribute which is a record of the `SerialNumber` of the `Medicine` as well as the `Quantity` that had been dispensed to the `Patient` during that particular visit.
 
+When a new `Patient` is created with the `AddCommand`, it is created with a default `MedicalRecord` object that contains an empty `BloodType` object, an empty `List<DrugAllergy>`, an empty `List<Disease>` and and empty `List<Note>`.
+
+Users can add more information to a specified `Patient`'s `MedicalRecord` by invoking the `AddMedicalRecordCommand`, and specifying the corresponding arguments to add to the `MedicalRecord`. The arguments should be prefixed with `b/` for `BloodType`, `d/` for `Disease`, `da/` for `DrugAllergy`, and `m/` for `Note`.
+
 ==== Design Considerations
 
 // end::medicalrecord[]
