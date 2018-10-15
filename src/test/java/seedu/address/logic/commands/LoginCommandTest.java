@@ -14,6 +14,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.exceptions.NonExistentUserException;
+import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
 import seedu.address.model.user.UsernameTest;
 import seedu.address.testutil.TypicalExpenses;
@@ -31,12 +32,17 @@ public class LoginCommandTest {
     @Test
     public void constructor_nullUsername_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new LoginCommand(null);
+        new LoginCommand(null, new Password("aaaaaa", true));
+    }
+
+    @Test
+    public void constructor_nullPassword_noNullPointerException() {
+        new LoginCommand(TypicalExpenses.SAMPLE_USERNAME, null);
     }
 
     @Test
     public void execute_userAcceptedByModel_loginSuccessful() throws Exception {
-        CommandResult commandResult = new LoginCommand(TypicalExpenses.SAMPLE_USERNAME)
+        CommandResult commandResult = new LoginCommand(TypicalExpenses.SAMPLE_USERNAME, null)
                 .execute(model, commandHistory);
         assertEquals(String.format(LoginCommand.MESSAGE_LOGIN_SUCCESS, TypicalExpenses.SAMPLE_USERNAME.toString()),
                 commandResult.feedbackToUser);
@@ -48,6 +54,6 @@ public class LoginCommandTest {
     public void execute_nonExistantUser_loginFailed() throws Exception {
         assertFalse(model.isUserExists(new Username(UsernameTest.VALID_USERNAME_STRING)));
         thrown.expect(NonExistentUserException.class);
-        new LoginCommand(new Username(UsernameTest.VALID_USERNAME_STRING)).execute(model, commandHistory);
+        new LoginCommand(new Username(UsernameTest.VALID_USERNAME_STRING), null).execute(model, commandHistory);
     }
 }

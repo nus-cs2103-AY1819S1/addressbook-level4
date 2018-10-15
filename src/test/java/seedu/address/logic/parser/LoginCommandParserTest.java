@@ -16,8 +16,8 @@ public class LoginCommandParserTest {
 
     @Test
     public void parse_validUsername() {
-        assertParseSuccess(parser, UsernameTest.VALID_USERNAME_STRING,
-                new LoginCommand(new Username(UsernameTest.VALID_USERNAME_STRING)));
+        assertParseSuccess(parser, " " + CliSyntax.PREFIX_USERNAME + UsernameTest.VALID_USERNAME_STRING,
+                new LoginCommand(new Username(UsernameTest.VALID_USERNAME_STRING), null));
     }
 
     @Test
