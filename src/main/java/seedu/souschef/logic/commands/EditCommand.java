@@ -32,9 +32,8 @@ public class EditCommand<T extends UniqueType> extends Command {
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_RECIPE_SUCCESS = "Edited Recipe: %1$s";
+    public static final String MESSAGE_EDIT_SUCCESS = "Edited %1$s: %2$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_RECIPE = "This recipe already exists in the address book.";
 
     private final Model model;
     private final T toEdit;
@@ -56,7 +55,7 @@ public class EditCommand<T extends UniqueType> extends Command {
         model.update(toEdit, edited);
         model.updateFilteredList(PREDICATE_SHOW_ALL);
         model.commitAppContent();
-        return new CommandResult(String.format(MESSAGE_EDIT_RECIPE_SUCCESS, edited));
+        return new CommandResult(String.format(MESSAGE_EDIT_SUCCESS, history.getContext().toLowerCase(), edited));
     }
 
     @Override

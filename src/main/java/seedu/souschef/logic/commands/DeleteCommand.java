@@ -16,7 +16,7 @@ public class DeleteCommand<T extends UniqueType> extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_RECIPE_SUCCESS = "Deleted Recipe: %1$s";
+    public static final String MESSAGE_DELETE_SUCCESS = "Deleted %1$s: %2$s";
 
     private final Model model;
     private final T toDelete;
@@ -30,7 +30,7 @@ public class DeleteCommand<T extends UniqueType> extends Command {
     public CommandResult execute(CommandHistory history) {
         model.delete(toDelete);
         model.commitAppContent();
-        return new CommandResult(String.format(MESSAGE_DELETE_RECIPE_SUCCESS, toDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_SUCCESS, history.getContext().toLowerCase(), toDelete));
     }
 
     @Override
