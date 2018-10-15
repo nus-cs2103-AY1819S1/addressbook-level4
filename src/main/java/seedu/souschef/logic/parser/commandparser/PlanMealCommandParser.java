@@ -28,7 +28,7 @@ public class PlanMealCommandParser {
         try {
             String[] arguments = args.split("\\s+");
             List<Recipe> recipeList = recipeModel.getFilteredList();
-            List<Day> mealPlannerList = mealPlannerModel.getFullList().asUnmodifiableObservableList();
+            List<Day> mealPlannerList = mealPlannerModel.getFullList();
             int listIndex = Integer.parseInt(arguments[0]) - 1;
 
             if ((listIndex < 0) || listIndex >= recipeList.size()) {
