@@ -125,11 +125,8 @@ public class StorageManager extends ComponentManager implements Storage {
             }
             //reset the first to main
             this.featureStorage = temp.get(0);
-
         }
-
         return Optional.of(readOnlyAppContent);
-
     }
 
     @Override

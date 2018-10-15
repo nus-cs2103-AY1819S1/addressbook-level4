@@ -41,6 +41,10 @@ public class CookTime {
         return time.matches(COOKTIME_VALIDATION_REGEX);
     }
 
+    public String getDisplayableCookTime() {
+        return String.valueOf(value);
+    }
+
     @Override
     public String toString() {
         return value.toString();
