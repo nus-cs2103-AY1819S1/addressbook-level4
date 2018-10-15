@@ -446,10 +446,8 @@ Step 5. The user executes various commands to generate necessary documents for t
 Step 6. The user finally executes `payment` command to generate the receipt and end the patient's visit to the clinic, removing
 him from the `ServedPatientQueue`.
 //end::pqms[]
-=======
 
 // tag::dataencryption[]
-
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
