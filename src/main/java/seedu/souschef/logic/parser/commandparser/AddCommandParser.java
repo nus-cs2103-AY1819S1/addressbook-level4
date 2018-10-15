@@ -87,7 +87,7 @@ public class AddCommandParser implements CommandParser<AddCommand> {
         requireNonNull(model);
         String[] tokens = args.trim().split(" ");
         if (tokens.length != 4) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_ADD_INGREDIENT_USAGE));
         }
 
         String name = tokens[0];
@@ -97,7 +97,7 @@ public class AddCommandParser implements CommandParser<AddCommand> {
         try {
             date = new SimpleDateFormat("MM-dd-yyyy").parse(tokens[3]);
         } catch (java.text.ParseException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_ADD_INGREDIENT_USAGE));
         }
 
         Ingredient toAdd = new Ingredient(name, amount, servingUnit, date);
