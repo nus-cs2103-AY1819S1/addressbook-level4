@@ -77,8 +77,9 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.set(index, editedTask);
     }
     private Task createUpdatedHashReferenceTask(Task taskToEdit, String oldHash, String newHash) {
-        return new Task(taskToEdit.getName(), taskToEdit.getDueDate(), taskToEdit.getPriorityValue(), taskToEdit.getDescription(), taskToEdit.getLabels(),
-                taskToEdit.getStatus(), taskToEdit.getDependency().updateHash(oldHash, newHash));
+        return new Task(taskToEdit.getName(), taskToEdit.getDueDate(), taskToEdit.getPriorityValue(),
+                taskToEdit.getDescription(), taskToEdit.getLabels(), taskToEdit.getStatus(),
+                taskToEdit.getDependency().updateHash(oldHash, newHash));
     }
 
     /**

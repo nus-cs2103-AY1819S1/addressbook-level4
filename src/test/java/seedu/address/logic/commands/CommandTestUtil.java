@@ -138,7 +138,8 @@ public class CommandTestUtil {
         assertEquals(1, model.getFilteredTaskList().size());
     }
     /**
-     * Updates {@code model}'s filtered list to show only the two tasks at {@code firstTargetIndex} and {@code secondTargetIndex}
+     * Updates {@code model}'s filtered list to show only the two tasks at {@code firstTargetIndex}
+     * and {@code secondTargetIndex}
      * in the
      * {@code model}'s task manager.
      */
@@ -152,7 +153,8 @@ public class CommandTestUtil {
         Task secondTask = model.getFilteredTaskList().get(secondTargetIndex.getZeroBased());
         final String[] secondSplitName = secondTask.getName().fullName.split("\\s+");
 
-        model.updateFilteredTaskList(new NameContainsKeywordsPredicate(Arrays.asList(firstSplitName[0], secondSplitName[0])));
+        model.updateFilteredTaskList(new NameContainsKeywordsPredicate(Arrays.asList(firstSplitName[0],
+                secondSplitName[0])));
 
         assertEquals(2, model.getFilteredTaskList().size());
     }

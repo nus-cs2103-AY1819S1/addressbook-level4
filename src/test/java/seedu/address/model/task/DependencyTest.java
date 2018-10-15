@@ -1,35 +1,36 @@
 package seedu.address.model.task;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
+
 import seedu.address.testutil.TaskBuilder;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DependencyTest {
-    private Dependency SAMPLE_DEPENDENCY;
-    private Set<String> SAMPLE_SET;
-    private Task SAMPLE_TASK_IN_DEPENDENCY;
-    private Task SAMPLE_TASK_OUTSIDE_DEPENDENCY;
+    private Dependency sampleDependency;
+    private Set<String> sampleSet;
+    private Task sampleTaskInDependency;
+    private Task sampleTaskOutsideDependency;
 
     @Before
     public void setUp() {
         HashSet<String> hashes = new HashSet<String>();
         hashes.add("12345");
         hashes.add("67890");
-        SAMPLE_TASK_IN_DEPENDENCY = new TaskBuilder().withName("Test").build();
-        hashes.add(Integer.toString(SAMPLE_TASK_IN_DEPENDENCY.hashCode()));
+        sampleTaskInDependency = new TaskBuilder().withName("Test").build();
+        hashes.add(Integer.toString(sampleTaskInDependency.hashCode()));
 
-        SAMPLE_TASK_OUTSIDE_DEPENDENCY = new TaskBuilder().build();
-        SAMPLE_DEPENDENCY = new Dependency(hashes);
-        SAMPLE_SET = hashes;
+        sampleTaskOutsideDependency = new TaskBuilder().build();
+        sampleDependency = new Dependency(hashes);
+        sampleSet = hashes;
 
     }
 
@@ -50,36 +51,36 @@ public class DependencyTest {
 
     @Test
     public void containsDependency() {
-        assertFalse(SAMPLE_DEPENDENCY.containsDependency(SAMPLE_TASK_OUTSIDE_DEPENDENCY));
-        assertTrue(SAMPLE_DEPENDENCY.containsDependency(SAMPLE_TASK_IN_DEPENDENCY));
+        assertFalse(sampleDependency.containsDependency(sampleTaskOutsideDependency));
+        assertTrue(sampleDependency.containsDependency(sampleTaskInDependency));
     }
 
     @Test
     public void addDependency() {
         //Creating expected dependency
-        SAMPLE_SET.add(Integer.toString(SAMPLE_TASK_OUTSIDE_DEPENDENCY.hashCode()));
-        Dependency expectedDependency = new Dependency(SAMPLE_SET);
+        sampleSet.add(Integer.toString(sampleTaskOutsideDependency.hashCode()));
+        Dependency expectedDependency = new Dependency(sampleSet);
         //Checking equality
-        assertEquals(expectedDependency, SAMPLE_DEPENDENCY.addDependency(SAMPLE_TASK_OUTSIDE_DEPENDENCY));
+        assertEquals(expectedDependency, sampleDependency.addDependency(sampleTaskOutsideDependency));
     }
 
     @Test
     public void removeDependency() {
         //Creating expected dependency
-        SAMPLE_SET.remove(Integer.toString(SAMPLE_TASK_IN_DEPENDENCY.hashCode()));
-        Dependency expectedDependency = new Dependency(SAMPLE_SET);
+        sampleSet.remove(Integer.toString(sampleTaskInDependency.hashCode()));
+        Dependency expectedDependency = new Dependency(sampleSet);
         //Checking equality
-        assertEquals(expectedDependency, SAMPLE_DEPENDENCY.removeDependency(SAMPLE_TASK_IN_DEPENDENCY));
+        assertEquals(expectedDependency, sampleDependency.removeDependency(sampleTaskInDependency));
     }
 
     @Test
     public void updateHash() {
-        String oldHash = Integer.toString(SAMPLE_TASK_IN_DEPENDENCY.hashCode());
+        String oldHash = Integer.toString(sampleTaskInDependency.hashCode());
         String newHash = "99999";
-        SAMPLE_SET.remove(oldHash);
-        SAMPLE_SET.add(newHash);
-        Dependency expectedDependency = new Dependency(SAMPLE_SET);
-        assertEquals(expectedDependency, SAMPLE_DEPENDENCY.updateHash(oldHash, newHash));
+        sampleSet.remove(oldHash);
+        sampleSet.add(newHash);
+        Dependency expectedDependency = new Dependency(sampleSet);
+        assertEquals(expectedDependency, sampleDependency.updateHash(oldHash, newHash));
     }
 
 

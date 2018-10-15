@@ -42,7 +42,8 @@ public class XmlAdaptedTaskTest {
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
         XmlAdaptedTask task =
-                new XmlAdaptedTask(INVALID_NAME, VALID_DUE_DATE, VALID_PRIORITY_VALUE, VALID_DESCRIPTION, VALID_LABELS, VALID_DEPENDENCIES);
+                new XmlAdaptedTask(INVALID_NAME, VALID_DUE_DATE, VALID_PRIORITY_VALUE, VALID_DESCRIPTION, VALID_LABELS,
+                        VALID_DEPENDENCIES);
         String expectedMessage = Name.MESSAGE_NAME_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, task::toModelType);
     }
@@ -58,7 +59,8 @@ public class XmlAdaptedTaskTest {
     @Test
     public void toModelType_invalidDueDate_throwsIllegalValueException() {
         XmlAdaptedTask task =
-                new XmlAdaptedTask(VALID_NAME, INVALID_DUE_DATE, VALID_PRIORITY_VALUE, VALID_DESCRIPTION, VALID_LABELS, VALID_DEPENDENCIES);
+                new XmlAdaptedTask(VALID_NAME, INVALID_DUE_DATE, VALID_PRIORITY_VALUE, VALID_DESCRIPTION, VALID_LABELS,
+                        VALID_DEPENDENCIES);
         String expectedMessage = DueDate.MESSAGE_DUEDATE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, task::toModelType);
     }
@@ -74,7 +76,8 @@ public class XmlAdaptedTaskTest {
     @Test
     public void toModelType_invalidPriorityValue_throwsIllegalValueException() {
         XmlAdaptedTask task =
-                new XmlAdaptedTask(VALID_NAME, VALID_DUE_DATE, INVALID_PRIORITY_VALUE, VALID_DESCRIPTION, VALID_LABELS, VALID_DEPENDENCIES);
+                new XmlAdaptedTask(VALID_NAME, VALID_DUE_DATE, INVALID_PRIORITY_VALUE, VALID_DESCRIPTION, VALID_LABELS,
+                        VALID_DEPENDENCIES);
         String expectedMessage = PriorityValue.MESSAGE_PRIORITY_VALUE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, task::toModelType);
     }
@@ -90,14 +93,16 @@ public class XmlAdaptedTaskTest {
     @Test
     public void toModelType_invalidDescription_throwsIllegalValueException() {
         XmlAdaptedTask task =
-                new XmlAdaptedTask(VALID_NAME, VALID_DUE_DATE, VALID_PRIORITY_VALUE, INVALID_DESCRIPTION, VALID_LABELS, VALID_DEPENDENCIES);
+                new XmlAdaptedTask(VALID_NAME, VALID_DUE_DATE, VALID_PRIORITY_VALUE, INVALID_DESCRIPTION, VALID_LABELS,
+                        VALID_DEPENDENCIES);
         String expectedMessage = Description.MESSAGE_DESCRIPTION_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, task::toModelType);
     }
 
     @Test
     public void toModelType_nullDescription_throwsIllegalValueException() {
-        XmlAdaptedTask task = new XmlAdaptedTask(VALID_NAME, VALID_DUE_DATE, VALID_PRIORITY_VALUE, null, VALID_LABELS, VALID_DEPENDENCIES);
+        XmlAdaptedTask task = new XmlAdaptedTask(VALID_NAME, VALID_DUE_DATE, VALID_PRIORITY_VALUE, null,
+                VALID_LABELS, VALID_DEPENDENCIES);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, task::toModelType);
     }
@@ -107,7 +112,8 @@ public class XmlAdaptedTaskTest {
         List<XmlAdaptedLabel> invalidLabels = new ArrayList<>(VALID_LABELS);
         invalidLabels.add(new XmlAdaptedLabel(INVALID_LABEL));
         XmlAdaptedTask task =
-                new XmlAdaptedTask(VALID_NAME, VALID_DUE_DATE, VALID_PRIORITY_VALUE, VALID_DESCRIPTION, invalidLabels, VALID_DEPENDENCIES);
+                new XmlAdaptedTask(VALID_NAME, VALID_DUE_DATE, VALID_PRIORITY_VALUE, VALID_DESCRIPTION, invalidLabels,
+                        VALID_DEPENDENCIES);
         Assert.assertThrows(IllegalValueException.class, task::toModelType);
     }
 }

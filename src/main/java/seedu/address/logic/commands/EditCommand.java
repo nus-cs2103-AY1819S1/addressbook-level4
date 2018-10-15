@@ -226,9 +226,13 @@ public class EditCommand extends Command {
             return Optional.ofNullable(status);
         }
 
-        public void setDependency(Dependency dependency) { this.dependency = dependency;}
+        public void setDependency(Dependency dependency) {
+            this.dependency = dependency;
+        }
 
-        public Optional<Dependency> getDependency() { return Optional.ofNullable(dependency); }
+        public Optional<Dependency> getDependency() {
+            return Optional.ofNullable(dependency);
+        }
 
         @Override
         public boolean equals(Object other) {

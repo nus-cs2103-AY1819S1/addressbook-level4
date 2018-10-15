@@ -41,7 +41,8 @@ public class XmlUtilTest {
     private static final String VALID_PRIORITY_VAlUE = "8";
     private static final String VALID_DESCRIPTION = "4th street";
     private static final List<String> VALID_DEPENDENCIES = Collections.singletonList("");
-    private static final List<XmlAdaptedLabel> VALID_LABELS = Collections.singletonList(new XmlAdaptedLabel("friends"));
+    private static final List<XmlAdaptedLabel> VALID_LABELS =
+            Collections.singletonList(new XmlAdaptedLabel("friends"));
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -90,7 +91,8 @@ public class XmlUtilTest {
         XmlAdaptedTask actualTask = XmlUtil.getDataFromFile(
                 INVALID_TASK_FIELD_FILE, XmlAdaptedTaskWithRootElement.class);
         XmlAdaptedTask expectedTask = new XmlAdaptedTask(
-                VALID_NAME, INVALID_DUE_DATE, VALID_PRIORITY_VAlUE, VALID_DESCRIPTION, VALID_LABELS, VALID_DEPENDENCIES);
+                VALID_NAME, INVALID_DUE_DATE, VALID_PRIORITY_VAlUE, VALID_DESCRIPTION, VALID_LABELS,
+                VALID_DEPENDENCIES);
         assertEquals(expectedTask, actualTask);
     }
 

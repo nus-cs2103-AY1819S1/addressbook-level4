@@ -153,7 +153,8 @@ public class XmlAdaptedTask {
         final Status modelStatus = Status.getStatusFromValue(status);
         final Dependency dependency = new Dependency(dependencies);
 
-        return new Task(modelName, modelDueDate, modelPriorityValue, modelDescription, modelLabels, modelStatus, dependency);
+        return new Task(modelName, modelDueDate, modelPriorityValue, modelDescription, modelLabels, modelStatus,
+                dependency);
     }
 
     @Override
