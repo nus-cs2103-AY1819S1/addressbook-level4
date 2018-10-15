@@ -79,7 +79,6 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicateDoctors_throwsDuplicateDoctorException() {
         // Two doctors with the same identity fields
-        Doctor editedAdam = new DoctorBuilder(ADAM).withName("Adam Bell").build();
         List<Appointment> newAppointments = new ArrayList<Appointment>(); //TODO
         Doctor editedAdam = new DoctorBuilder(ADAM).withName(VALID_NAME_ADAM).build();
         List<Doctor> newDoctors = Arrays.asList(ADAM, editedAdam);
