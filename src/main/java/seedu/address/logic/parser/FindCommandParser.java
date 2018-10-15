@@ -2,7 +2,9 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS_FULL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_FULL;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -31,14 +33,20 @@ public class FindCommandParser implements Parser<FindCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        ArgumentMultimap argMutlimap = ArgumentTokenizer.tokenize(args, PREFIX_ADDRESS, PREFIX_TAG);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ADDRESS, PREFIX_ADDRESS_FULL,
+                PREFIX_TAG, PREFIX_TAG_FULL);
 
         Optional<Address> address;
-        address = !argMutlimap.getValue(PREFIX_ADDRESS).isPresent()
-                                    ? Optional.empty()
-                                    : Optional.of(ParserUtil.parseAddress(argMutlimap.getValue(PREFIX_ADDRESS).get()));
-        Optional<Set<Tag>> tags = argMutlimap.getValue(PREFIX_TAG).isPresent()
-                                  ? Optional.of(ParserUtil.parseTags(argMutlimap.getAllValues(PREFIX_TAG)))
+        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
+            address = Optional.of(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+        } else if (argMultimap.getValue(PREFIX_ADDRESS_FULL).isPresent()) {
+            address = Optional.of(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS_FULL).get()));
+        } else {
+            address = Optional.empty();
+        }
+
+        Optional<Set<Tag>> tags = argMultimap.getValue(PREFIX_TAG).isPresent()
+                                  ? Optional.of(ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG)))
                                   : Optional.empty();
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
