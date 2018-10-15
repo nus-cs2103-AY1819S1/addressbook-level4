@@ -8,5 +8,5 @@ public interface Document {
     /**
      * Generates the document.
      */
-    void generate();
+    String generate();
 }

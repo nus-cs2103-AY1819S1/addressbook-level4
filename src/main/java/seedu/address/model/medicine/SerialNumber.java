@@ -26,7 +26,7 @@ public class SerialNumber {
     }
 
     /**
-     * Returns true if a given string is a valid seial number.
+     * Returns true if a given string is a valid serial number.
      */
     public static boolean isValidSerialNumber(String test) {
         return test.matches(SERIAL_NUMBER_VALIDATION_REGEX);
