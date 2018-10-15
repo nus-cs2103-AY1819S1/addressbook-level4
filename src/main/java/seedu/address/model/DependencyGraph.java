@@ -23,6 +23,9 @@ public class DependencyGraph {
             Set<String> edges = task.getDependency().getHashes();
             adjacencyList.put(hash, edges);
         }
+        if (checkPresenceOfCycle()) {
+            throw new GraphCycleException();
+        }
     }
 
     /**
