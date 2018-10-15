@@ -199,9 +199,8 @@ public class MainWindow extends UiPart<Stage> {
         statisticsSplitPane.getItems().add(statisticPanel.getRoot());
         statisticsSplitPane.getItems().add(categoriesPanel.getRoot());
 
-        leftPanelPlaceholder.getChildren().add(expenseListPanel.getRoot());
+        swapToStat();
 
-        swapToList();
     }
 
     /**

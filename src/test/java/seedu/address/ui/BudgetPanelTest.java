@@ -11,6 +11,7 @@ import javafx.animation.Timeline;
 import seedu.address.commons.events.ui.UpdateBudgetPanelEvent;
 import seedu.address.model.budget.Budget;
 
+//@@author Snookerballs
 public class BudgetPanelTest extends GuiUnitTest {
     private BudgetPanel budgetPanel;
     private BudgetPanelHandle budgetPanelHandle;

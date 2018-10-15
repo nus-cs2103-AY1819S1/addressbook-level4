@@ -37,7 +37,7 @@
         </StackPane>
 
         <SplitPane fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-          <VBox fx:id="leftPanel" minWidth="472" prefWidth="472" SplitPane.resizableWithParent="false">
+          <VBox fx:id="leftPanel" prefHeight="505" minWidth="472" prefWidth="472" SplitPane.resizableWithParent="false">
             <StackPane fx:id="leftPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
@@ -48,7 +48,6 @@
             <VBox fx:id="notificationPanel" prefWidth="338" prefHeight="356">
               <StackPane fx:id="notificationPanelPlaceholder" VBox.vgrow="ALWAYS"/>
             </VBox>
-
           </SplitPane>
         </SplitPane>
 

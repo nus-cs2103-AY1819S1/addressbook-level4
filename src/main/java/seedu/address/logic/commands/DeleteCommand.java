@@ -7,6 +7,7 @@ import java.util.List;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.SwapLeftPanelEvent;
 import seedu.address.commons.events.ui.UpdateBudgetPanelEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -38,6 +39,7 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException, NoUserSelectedException {
         requireNonNull(model);
+        EventsCenter.getInstance().post(new SwapLeftPanelEvent(SwapLeftPanelEvent.PanelType.LIST));
         List<Expense> lastShownList = model.getFilteredExpenseList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {

@@ -26,6 +26,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void find() throws NoUserSelectedException {
+        showAllExpenses();
         /* Case: find multiple expenses in address book, command with leading spaces and trailing spaces
          * -> 2 expenses found
          */

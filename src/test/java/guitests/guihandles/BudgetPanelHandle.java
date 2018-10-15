@@ -5,6 +5,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
+//@@author snookerballs
 /**
  * A handle to the {@code BudgetPanel} in the GUI.
  */
@@ -50,8 +51,6 @@ public class BudgetPanelHandle extends NodeHandle<Region> {
      * @return true if expenseDisplay portrays the correct text, false otherwise.
      */
     public boolean isExpenseCorrect(String expense) {
-        System.out.println(expenseDisplay.getText());
-        System.out.println(expense);
         return expenseDisplay.getText().equals(EXPENSE_DISPLAY_PREFIX + expense);
     }
 
