@@ -33,7 +33,7 @@ public class RecordEventPanel extends UiPart<Region> {
     @Subscribe
     private void handleRecordChangeEvent(RecordChangeEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        eventNameLabel.setText("EVENT!");
+        eventNameLabel.setText(event.getCurrentEvent().getName().fullName);
         numOfVolunteersLabel.setText("0");
     }
 
