@@ -30,12 +30,12 @@ public class LogicManager extends ComponentManager implements Logic {
     private final CommandHistory history;
     private final AppContentParser appContentParser;
     private final Storage storage;
-    private final Ui ui;
+    private Ui ui;
 
-    public LogicManager(ModelSet modelSet, Storage storage, Ui ui) {
+    public LogicManager(ModelSet modelSet, Storage storage) {
         this.modelSet = modelSet;
         this.storage = storage;
-        this.ui = ui;
+        this.ui = null;
         history = new CommandHistory();
         appContentParser = new AppContentParser();
     }
@@ -46,6 +46,11 @@ public class LogicManager extends ComponentManager implements Logic {
         this.ui = new UiManager();
         history = new CommandHistory();
         appContentParser = new AppContentParser();
+    }
+
+    @Override
+    public void setUi(Ui ui) {
+        this.ui = ui;
     }
 
     @Override
