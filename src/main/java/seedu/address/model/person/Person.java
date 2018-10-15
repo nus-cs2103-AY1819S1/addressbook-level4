@@ -25,9 +25,9 @@ public class Person {
     // Data fields
     private final Address address;
     private final Schedule schedule;
-    private final Set<Interest> interests = new HashSet<>();
-    private final Set<Tag> tags = new HashSet<>();
-    private final ArrayList<Person> friends = new ArrayList<>();
+    private Set<Interest> interests = new HashSet<>();
+    private Set<Tag> tags = new HashSet<>();
+    private ArrayList<Person> friends = new ArrayList<>();
 
     /**
      * Every field must be present and not null.
@@ -56,6 +56,19 @@ public class Person {
         this.interests.addAll(interests);
         this.tags.addAll(tags);
         this.schedule = schedule;
+    }
+
+    /**
+     * Make a duplicate of a person
+     */
+    public Person(Person other) {
+        this.name = other.getName();
+        this.phone = other.getPhone();
+        this.email = other.getEmail();
+        this.address = other.getAddress();
+        this.interests = other.getInterests();
+        this.tags = other.getTags();
+        this.schedule = other.getSchedule();
     }
 
     public Name getName() {

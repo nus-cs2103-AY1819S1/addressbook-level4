@@ -112,20 +112,16 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void addFriends(Person person1, Person person2) {
-        ArrayList<Person> friendList1 = person1.getFriends();
-        ArrayList<Person> friendList2 = person2.getFriends();
-        friendList1.add(person2);
-        friendList2.add(person1);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void updatePerson(Person target, Person editedPerson) {
+        requireAllNonNull(target, editedPerson);
+        versionedAddressBook.updatePerson(target, editedPerson);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void updatePerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        versionedAddressBook.updatePerson(target, editedPerson);
+    public void updatePerson(Person target1, Person editedPerson1, Person target2, Person editedPerson2) {
+        requireAllNonNull(target1, editedPerson1, target2, editedPerson2);
+        versionedAddressBook.updatePerson(target1, editedPerson1, target2, editedPerson2);
         indicateAddressBookChanged();
     }
 

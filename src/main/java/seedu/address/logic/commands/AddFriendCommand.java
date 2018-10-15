@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
@@ -13,6 +14,7 @@ import seedu.address.model.person.Person;
 
 /**
  * Given two persons, add friends for each other using two displayed indexes from the address book.
+ * Friendships must be bilateral, for example person A and B must be friends with each other.
  *
  * @author agendazhang
  */
@@ -46,7 +48,13 @@ public class AddFriendCommand extends Command {
 
         Person person1 = lastShownList.get(indexes.getZeroBased());
         Person person2 = lastShownList.get(indexes.getZeroBased2());
-        model.addFriends(person1, person2);
+        Person newPerson1 = new Person(person1);
+        Person newPerson2 = new Person(person2);
+        ArrayList<Person> friendList1 = newPerson1.getFriends();
+        ArrayList<Person> friendList2 = newPerson2.getFriends();
+        friendList1.add(person2);
+        friendList2.add(person1);
+        model.updatePerson(person1, newPerson1, person2, newPerson2);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_ADD_FRIEND_SUCCESS, person1,
                 person2));
