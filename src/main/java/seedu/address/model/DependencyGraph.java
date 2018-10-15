@@ -53,6 +53,24 @@ public class DependencyGraph {
     }
 
     /**
+     * Returns topological sort of the graph
+     * @return list of hashes of tasks sorted by topological order
+     */
+    public List<String> topologicalSort() {
+        Set<String> unvisited = new HashSet<>();
+        Set<String> stack = new HashSet<>();
+        List<String> visited = new ArrayList<>();
+        for (String node: adjacencyList.keySet()) {
+            if (unvisited.contains(node)) {
+                if (depthFirstSearch(node, unvisited, visited, stack, adjacencyList)) {
+                    throw new GraphCycleException();
+                }
+            }
+        }
+        return visited;
+    }
+
+    /**
      * Performs dfs on graph to check for cycles
      * @param node next node to check
      * @param unvisited set of unvisited nodes
@@ -72,7 +90,7 @@ public class DependencyGraph {
         stack.add(node);
         Set<String> edges = adjacencyList.getOrDefault(node, new HashSet<String>());
         for (String nextNode: edges) {
-            if (depthFirstSearch(nextNode, unvisited, stack, adjacencyList)) {
+            if (depthFirstSearch(nextNode, unvisited, visited, stack, adjacencyList)) {
                 return true;
             }
         }
