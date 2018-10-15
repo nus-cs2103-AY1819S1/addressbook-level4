@@ -13,7 +13,6 @@ import static seedu.address.testutil.TypicalRides.CASTLE;
 import static seedu.address.testutil.TypicalRides.DUMBO;
 import static seedu.address.testutil.TypicalRides.ENCHANTED;
 import static seedu.address.testutil.TypicalRides.FANTASY;
-import static seedu.address.testutil.TypicalRides.GALAXY;
 import static seedu.address.testutil.TypicalRides.getTypicalThanePark;
 
 import java.util.Arrays;
