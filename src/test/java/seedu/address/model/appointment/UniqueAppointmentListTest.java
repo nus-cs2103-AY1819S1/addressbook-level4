@@ -88,7 +88,7 @@ public class UniqueAppointmentListTest {
         thrown.expect(AppointmentNotFoundException.class);
         uniqueAppointmentList.setAppointment(CARL_APPT, CARL_APPT);
     }
-    
+
     @Test
     public void setAppointment_editedAppointmentHasDifferentIdentity_success() {
         uniqueAppointmentList.add(AMY_APPT);

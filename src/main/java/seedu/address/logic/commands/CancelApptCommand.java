@@ -42,8 +42,11 @@ public class CancelApptCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
+        //from the appt list shown, select index of appt and cancel
         Appointment targetAppointment = lastShownList.get(targetIndex.getZeroBased());
         model.cancelAppointment(targetAppointment);
+
+        //save changes to addressbook
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_CANCEL_APPOINTMENT_SUCCESS, targetAppointment));
     }
