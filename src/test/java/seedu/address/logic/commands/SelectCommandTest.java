@@ -147,7 +147,7 @@ public class SelectCommandTest {
 
         Index outOfBoundsIndex = INDEX_SECOND_GROUP;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getGroupList().size());
+        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getGroupTagList().size());
 
         assertExecutionFailure(outOfBoundsIndex, SelectCommand.SELECT_TYPE_GROUP,
                 Messages.MESSAGE_INVALID_GROUP_DISPLAYED_INDEX);
