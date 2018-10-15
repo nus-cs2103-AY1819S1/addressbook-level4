@@ -36,4 +36,14 @@
         <difficulty>1</difficulty>
         <cooktime>PT23M</cooktime>
     </recipes>
+    <recipes>
+        <name>Fish Curry</name>
+        <difficulty>1</difficulty>
+        <cooktime>PT23M</cooktime>
+    </recipes>
+    <recipes>
+        <name>BlackPepper Crab</name>
+        <difficulty>5</difficulty>
+        <cooktime>PT1H20M</cooktime>
+    </recipes>
 </souschef>
