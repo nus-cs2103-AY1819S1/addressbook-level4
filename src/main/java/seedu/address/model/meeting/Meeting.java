@@ -53,10 +53,12 @@ public class Meeting {
     public static boolean isValidMeeting(String test) {
         if (test.equals(NO_MEETING)) {
             return true;
-        } else if (test.matches(MEETING_VALIDATION_REGEX)) {
+        }
+        String formattedTest= formatMeeting(test);
+        if (formattedTest.matches(MEETING_VALIDATION_REGEX)) {
             try {
                 DateTimeFormatter df = DateTimeFormatter.ofPattern("ddMMyy");
-                LocalDate.parse(test.substring(0,6), df);
+                LocalDate.parse(formattedTest.substring(0,6), df);
                 return true;
             } catch (DateTimeException e) {
                 return false;

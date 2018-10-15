@@ -34,17 +34,21 @@ public class MeetingTest {
         assertFalse(Meeting.isValidMeeting("1234")); // too short
         assertFalse(Meeting.isValidMeeting("12345678900")); // too long
 
-        // invalid parts
-        assertFalse(Meeting.isValidMeeting("12/34/567890")); // / in date
-        assertFalse(Meeting.isValidMeeting("123456 7890")); // space between date and time
-        assertFalse(Meeting.isValidMeeting("12345678:90")); // : in time
-        assertFalse(Meeting.isValidMeeting(" 1234567890")); // leading space
-        assertFalse(Meeting.isValidMeeting("1234567890 ")); // trailing space
-        assertFalse(Meeting.isValidMeeting("12-34-567890")); // hyphens in date
-        assertFalse(Meeting.isValidMeeting("1234567890.")); // time ends with a period
+        // invalid Dates
+        assertFalse(Meeting.isValidMeeting("1234567890")); // not a real date
+
+
+
 
         // valid meeting
-        assertTrue(Meeting.isValidMeeting("1234567890"));
+        assertTrue(Meeting.isValidMeeting("1212121212"));
+        assertTrue(Meeting.isValidMeeting("12/12/121212")); // / in date
+        assertTrue(Meeting.isValidMeeting("121212 1212")); // space between date and time
+        assertTrue(Meeting.isValidMeeting("12121212:12")); // : in time
+        assertTrue(Meeting.isValidMeeting(" 1212121212")); // leading space
+        assertTrue(Meeting.isValidMeeting("1212121212 ")); // trailing space
+        assertTrue(Meeting.isValidMeeting("12-12-121212")); // hyphens in date
+        assertTrue(Meeting.isValidMeeting("1212121212.")); // time ends with a period
         assertTrue(Meeting.isValidMeeting("1111111111")); // minimal
     }
 }

@@ -76,6 +76,8 @@ public class PersonListPanelTest extends GuiUnitTest {
     }
 
     /**
+     *
+     *
      * Returns a list of persons containing {@code personCount} persons that is used to populate the
      * {@code PersonListPanel}.
      */
@@ -99,7 +101,8 @@ public class PersonListPanelTest extends GuiUnitTest {
             builder.append("<phone>000</phone>\n");
             builder.append("<email>a@aa</email>\n");
             builder.append("<address>a</address>\n");
-            builder.append("<meeting>1234567890</meeting>\n");
+            builder.append("<meeting>1212121212" +
+                    "</meeting>\n");
             builder.append("</persons>\n");
         }
         builder.append("</addressbook>\n");
@@ -112,12 +115,14 @@ public class PersonListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Initializes {@code personListPanelHandle} with a {@code PersonListPanel} backed by {@code backingList}.
+     * Initializes {@code personListPane
+     * lHandle} with a {@code PersonListPanel} backed by {@code backingList}.
      * Also shows the {@code Stage} that displays only {@code PersonListPanel}.
      */
     private void initUi(ObservableList<Person> backingList) {
         PersonListPanel personListPanel = new PersonListPanel(backingList);
         uiPartRule.setUiPart(personListPanel);
+
 
         personListPanelHandle = new PersonListPanelHandle(getChildNode(personListPanel.getRoot(),
                 PersonListPanelHandle.PERSON_LIST_VIEW_ID));

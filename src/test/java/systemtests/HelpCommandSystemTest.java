@@ -75,6 +75,9 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void help_multipleCommands_onlyOneHelpWindowOpen() {
+
+
+
         getMainMenu().openHelpWindowUsingMenu();
 
         getMainWindowHandle().focus();
