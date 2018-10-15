@@ -6,6 +6,7 @@ import static seedu.souschef.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.souschef.logic.commands.ClearMealPlannerCommand;
 import seedu.souschef.logic.commands.Command;
 import seedu.souschef.logic.commands.HelpCommand;
 import seedu.souschef.logic.commands.PlanMealCommand;
@@ -45,8 +46,11 @@ public class MealPlannerParser {
         case PlanMealCommand.COMMAND_WORD:
             return new PlanMealCommandParser().parsePlan(mealPlannerModel, recipeModel, arguments);
 
-        case "clearplanner":
+        case "display":
+            //return new DisplayMealPlannerCommand(ui);
             return null;
+        case "clear":
+            return new ClearMealPlannerCommand(mealPlannerModel);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
