@@ -13,6 +13,9 @@ import seedu.souschef.logic.parser.contextparser.RecipeParser;
 import seedu.souschef.logic.parser.contextparser.UniversalParser;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.ModelSet;
+import seedu.souschef.storage.Storage;
+import seedu.souschef.storage.StorageManager;
+
 
 /**
  * Parses user input.
@@ -33,8 +36,14 @@ public class AppContentParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(ModelSet modelSet, String userInput, CommandHistory history) throws ParseException {
+    public Command parseCommand(ModelSet modelSet, String userInput, CommandHistory history,
+                                Storage storage) throws ParseException {
         String context = history.getContext();
+
+        if (storage == null) {
+            storage = new StorageManager();
+        }
+
         if (userInput.charAt(0) == '-') {
             return new UniversalParser().parseCommand(history, userInput);
             //TODO: Refine condition to redirect for other meal planner commands (clearplanner, displayplanner, etc...)
@@ -42,8 +51,14 @@ public class AppContentParser {
             return new MealPlannerParser()
                 .parseCommand(modelSet.getMealPlannerModel(), modelSet.getRecipeModel(), userInput);
         } else if (context.equals("Recipe")) {
+            if (storage.getListOfFeatureStorage().size() > 0) {
+                storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(0));
+            }
             return new RecipeParser().parseCommand(modelSet.getRecipeModel(), userInput);
         } else if (context.equals("Health Plan")) {
+            if (storage.getListOfFeatureStorage().size() > 0) {
+                storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(2));
+            }
             return new HealthPlanParser().parseCommand(modelSet.getHealthPlanModel(), userInput);
         } else {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

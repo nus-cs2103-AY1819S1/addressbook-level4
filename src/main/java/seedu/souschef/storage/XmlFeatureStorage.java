@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.souschef.commons.exceptions.DataConversionException;
-import seedu.souschef.model.AppContent;
 import seedu.souschef.model.ReadOnlyAppContent;
 
 
@@ -17,7 +16,6 @@ import seedu.souschef.model.ReadOnlyAppContent;
 public abstract class XmlFeatureStorage implements FeatureStorage {
 
     protected Path filePath;
-    protected AppContent appContent;
 
     protected XmlFeatureStorage(){
 
@@ -29,29 +27,11 @@ public abstract class XmlFeatureStorage implements FeatureStorage {
 
     }
 
-    protected XmlFeatureStorage(Path filePath, AppContent appContent) {
-        this();
-        this.filePath = filePath;
-        this.appContent = appContent;
-    }
 
     public Path getFeatureFilePath() {
         return filePath;
     }
 
-    public AppContent getAppContent() {
-        if (appContent != null) {
-            return appContent;
-        } else {
-            return new AppContent();
-        }
-    }
-
-
-    public void setAppContent(AppContent appContent) {
-        this.appContent = appContent;
-
-    }
 
     @Override
     public abstract Optional<ReadOnlyAppContent> readFeature(Path filePath)

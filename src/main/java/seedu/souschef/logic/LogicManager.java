@@ -15,6 +15,8 @@ import seedu.souschef.model.ModelSet;
 import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.planner.Day;
 import seedu.souschef.model.recipe.Recipe;
+import seedu.souschef.storage.Storage;
+import seedu.souschef.storage.StorageManager;
 
 /**
  * The main LogicManager of the app.
@@ -25,9 +27,18 @@ public class LogicManager extends ComponentManager implements Logic {
     private final ModelSet modelSet;
     private final CommandHistory history;
     private final AppContentParser appContentParser;
+    private final Storage storage;
+
+    public LogicManager(ModelSet modelSet, Storage storage) {
+        this.modelSet = modelSet;
+        this.storage = storage;
+        history = new CommandHistory();
+        appContentParser = new AppContentParser();
+    }
 
     public LogicManager(ModelSet modelSet) {
         this.modelSet = modelSet;
+        this.storage = new StorageManager();
         history = new CommandHistory();
         appContentParser = new AppContentParser();
     }
@@ -36,7 +47,7 @@ public class LogicManager extends ComponentManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
-            Command command = appContentParser.parseCommand(modelSet, commandText, history);
+            Command command = appContentParser.parseCommand(modelSet, commandText, history, storage);
             return command.execute(history);
         } finally {
             history.add(commandText);

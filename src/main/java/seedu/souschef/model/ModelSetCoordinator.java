@@ -10,7 +10,6 @@ import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.planner.Day;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.tag.Tag;
-
 /**
  * Represents the in-memory recipeModel of the application content data.
  */
@@ -23,7 +22,6 @@ public class ModelSetCoordinator implements ModelSet {
     private final Model<Tag> tagModel;
     private final Model<Ingredient> ingredientModel;
     private final VersionedAppContent versionedAppContent;
-
     /**
      * Initializes all ModelManagers with the given appContent and userPrefs.
      */
