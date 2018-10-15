@@ -1,4 +1,4 @@
-package seedu.jxmusic.model.playlist;
+package seedu.jxmusic.model;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

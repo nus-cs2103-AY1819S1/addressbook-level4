@@ -1,10 +1,12 @@
-package seedu.jxmusic.model.playlist;
+package seedu.jxmusic.model;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_NAME_METAL;
-import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_ALIEZ;
-import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_EXISTENCE;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_PLAYLIST_NAME_METAL;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_EXISTENCE;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_FURELISE;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_HAIKEI;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_IHOJIN;
 import static seedu.jxmusic.testutil.TypicalPlaylists.ANIME;
 import static seedu.jxmusic.testutil.TypicalPlaylists.ROCK;
 
@@ -35,11 +37,11 @@ public class PlaylistTest {
         assertFalse(ANIME.isSamePlaylist(null));
 
         // different name -> returns false
-        Playlist editedAnime = new PlaylistBuilder(ANIME).withName(VALID_NAME_METAL).build();
+        Playlist editedAnime = new PlaylistBuilder(ANIME).withName(VALID_PLAYLIST_NAME_METAL).build();
         assertFalse(ANIME.isSamePlaylist(editedAnime));
 
         // same name, different tracks -> returns true
-        editedAnime = new PlaylistBuilder(ANIME).withTracks(VALID_TRACK_EXISTENCE).build();
+        editedAnime = new PlaylistBuilder(ANIME).withTracks(VALID_TRACK_NAME_FURELISE).build();
         assertTrue(ANIME.isSamePlaylist(editedAnime));
     }
 
@@ -62,15 +64,15 @@ public class PlaylistTest {
         assertFalse(ANIME.equals(ROCK));
 
         // different name -> returns false
-        Playlist editedAlice = new PlaylistBuilder(ANIME).withName(VALID_NAME_METAL).build();
+        Playlist editedAlice = new PlaylistBuilder(ANIME).withName(VALID_PLAYLIST_NAME_METAL).build();
         assertFalse(ANIME.equals(editedAlice));
 
         // same name, different tracks -> returns false
-        editedAlice = new PlaylistBuilder(ANIME).withTracks(VALID_TRACK_EXISTENCE).build();
+        editedAlice = new PlaylistBuilder(ANIME).withTracks(VALID_TRACK_NAME_EXISTENCE).build();
         assertFalse(ANIME.equals(editedAlice));
 
         // same name, same tracks -> returns true
-        editedAlice = new PlaylistBuilder(ANIME).withTracks(VALID_TRACK_ALIEZ).build();
+        editedAlice = new PlaylistBuilder(ANIME).withTracks(VALID_TRACK_NAME_HAIKEI, VALID_TRACK_NAME_IHOJIN).build();
         assertTrue(ANIME.equals(editedAlice));
     }
 }
