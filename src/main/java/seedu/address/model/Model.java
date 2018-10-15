@@ -15,12 +15,15 @@ public interface Model {
      * {@code Predicate} that always evaluate to true
      */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-    Predicate<Record> PREDICATE_SHOW_ALL_RECORDS = unused -> true;
-
     /**
      * {@code Predicate} that always evaluate to true
      */
     Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
+
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
+    Predicate<Record> PREDICATE_SHOW_ALL_RECORDS = unused -> true;
 
     /**
      * Clears existing backing model and replaces with the provided new data.
