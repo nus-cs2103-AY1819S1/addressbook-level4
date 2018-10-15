@@ -46,7 +46,7 @@ public class XmlAdaptedRecordTest {
         String expectedMessage = PersonId.MESSAGE_NAME_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, record::toModelType);
     }
-    
+
     @Test
     public void toModelType_invalidHour_throwsIllegalValueException() {
         XmlAdaptedRecord record =
