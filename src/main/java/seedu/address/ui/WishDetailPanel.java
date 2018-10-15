@@ -39,21 +39,6 @@ public class WishDetailPanel extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-//    @FXML
-//    private Label price;
-//
-//    @FXML
-//    private Label savedAmount;
-//
-//    @FXML
-//    private Label url;
-//
-//    @FXML
-//    private Label email;
-//
-//    @FXML
-//    private Label remark;
-
     public WishDetailPanel() {
         super(FXML);
 
@@ -75,11 +60,6 @@ public class WishDetailPanel extends UiPart<Region> {
      */
     public void loadDefaultPage() {
         name.setText("Click on any wish for details");
-//        price.setText("");
-//        savedAmount.setText("");
-//        url.setText("");
-//        email.setText("");
-//        remark.setText("");
     }
 
     /**
@@ -87,9 +67,6 @@ public class WishDetailPanel extends UiPart<Region> {
      */
     private void loadWishPage(Wish wish) {
         name.setText(wish.getName().fullName);
-//        url.setText("Product URL: " + wish.getUrl().value);
-//        email.setText("Email(?): " + wish.getEmail().value);
-//        remark.setText(wish.getRemark().value);
         initTags(wish);
     }
 
