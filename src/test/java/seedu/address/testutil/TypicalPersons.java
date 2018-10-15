@@ -4,7 +4,13 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_ADAM;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_BEN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_ADAM;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_BEN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ADAM;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
@@ -57,10 +63,10 @@ public class TypicalPersons {
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
-    public static final Doctor ADAM = new DoctorBuilder().withId(1).withName("Adam Bell")
-            .withPassword("doctor1").build();
-    public static final Doctor BEN = new DoctorBuilder().withId(2).withName("Ben Hill")
-            .withPassword("doctor2").build();
+    public static final Doctor ADAM = new DoctorBuilder().withId(VALID_ID_ADAM).withName(VALID_NAME_ADAM)
+            .withPassword(VALID_HASH_PASSWORD_ADAM, true).build();
+    public static final Doctor BEN = new DoctorBuilder().withId(VALID_ID_BEN).withName(VALID_NAME_BEN)
+            .withPassword(VALID_HASH_PASSWORD_BEN, true).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 

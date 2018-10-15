@@ -10,7 +10,6 @@ import seedu.address.model.doctor.Doctor;
 import seedu.address.model.doctor.Id;
 import seedu.address.model.doctor.Password;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
 
 //@@author jjlee050
 
@@ -60,10 +59,6 @@ public class XmlAdaptedDoctor {
      * @throws IllegalValueException if there were any data constraints violated in the adapted doctor
      */
     public Doctor toModelType() throws IllegalValueException {
-        if (id < 1) {
-            throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
-        }
         if (!Id.isValidId(id)) {
             throw new IllegalValueException(Id.MESSAGE_ID_CONSTRAINTS);
         }
@@ -82,10 +77,10 @@ public class XmlAdaptedDoctor {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Password.class.getSimpleName()));
         }
-        if (!Password.isValidPassword(password)) {
+        if (!Password.isValidHashedPassword(password)) {
             throw new IllegalValueException(Password.MESSAGE_PASSWORD_CONSTRAINTS);
         }
-        final Password modelPassword = new Password(password);
+        final Password modelPassword = new Password(password, true);
 
         return new Doctor(modelId, modelName, modelPassword);
     }
