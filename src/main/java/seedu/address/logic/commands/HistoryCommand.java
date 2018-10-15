@@ -19,9 +19,10 @@ public class HistoryCommand extends Command {
     public static final String MORE_INFO_FLAG = "more";
 
     public static final String MESSAGE_SUCCESS = "Entered commands (from most recent to earliest):\n%1$s";
+    public static final String MESSAGE_HISTORY_WINDOW = "Showing requested history of commands.";
     public static final String MESSAGE_NO_HISTORY = "You have not yet entered any commands.";
 
-    public final boolean isSummarized;
+    private final boolean isSummarized;
 
     /**
      * Creates a command that requests for help based on {@param args}
@@ -42,13 +43,14 @@ public class HistoryCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(history);
+        //request for CommandEntry list
         if (!isSummarized) {
             history.getCommandEntryList();
-            return new CommandResult("");
+            return new CommandResult(MESSAGE_HISTORY_WINDOW);
         }
 
+        //request for command history in the result window
         List<String> previousCommands = history.getHistory();
-
         if (isSummarized && previousCommands.isEmpty()) {
             return new CommandResult(MESSAGE_NO_HISTORY);
         } else if (isSummarized) {

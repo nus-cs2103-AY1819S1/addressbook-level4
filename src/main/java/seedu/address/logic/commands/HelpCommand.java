@@ -18,8 +18,8 @@ public class HelpCommand extends Command {
     public static final String SHOWING_SHORT_HELP_MESSAGE = "Showing summarized help.";
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
 
-    public final boolean isSummarized;
-    public final String commandWord;
+    private final boolean isSummarized;
+    private final String commandWord;
 
     /**
      * Creates a command that requests for help based on {@param args}
