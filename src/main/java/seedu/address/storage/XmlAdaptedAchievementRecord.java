@@ -10,15 +10,15 @@ import javax.xml.bind.annotation.XmlElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.achievement.AchievementRecord;
 import seedu.address.model.achievement.Level;
-import seedu.address.model.achievement.XP;
+import seedu.address.model.achievement.Xp;
 
 /**
  * JAXB-friendly version of the {@code AchievementRecord}.
  */
-public class XMLAdaptedAchievementRecord {
-    
+public class XmlAdaptedAchievementRecord {
+
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Achievement record's %s field is missing!";
-    
+
     @XmlElement(required = true)
     private String xp;
     @XmlElement(required = true)
@@ -28,16 +28,16 @@ public class XMLAdaptedAchievementRecord {
      * Constructs an {@code XmlAdaptedAchievementRecord}.
      * This is the no-arg constructor that is required by JAXB.
      */
-    public XMLAdaptedAchievementRecord() {}
+    public XmlAdaptedAchievementRecord() {}
 
     /**
      * Converts a given AchievementRecord into this class for JAXB use.
      *
      * @param source future changes to this will not affect the created {@code XmlAdaptedAchievementRecord}.
      */
-    public XMLAdaptedAchievementRecord(AchievementRecord source) {
+    public XmlAdaptedAchievementRecord(AchievementRecord source) {
         requireNonNull(source);
-        
+
         xp = source.getXp().getXp().toString();
         level = source.getLevel().toString();
     }
@@ -45,33 +45,33 @@ public class XMLAdaptedAchievementRecord {
     /**
      * Constructs an {@code XmlAdaptedAchievementRecord} with the given achievement details.
      */
-    public XMLAdaptedAchievementRecord(String xp, String level) {
+    public XmlAdaptedAchievementRecord(String xp, String level) {
         requireAllNonNull(xp, level);
-        
+
         this.xp = xp;
         this.level = level;
     }
 
     /**
-     * Converts this jaxb-friendly {@code XmlAdaptedAchievementRecord} object into the model's 
+     * Converts this jaxb-friendly {@code XmlAdaptedAchievementRecord} object into the model's
      * {@code AchievementRecord} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted achievement record.
      */
     public AchievementRecord toModelType() throws IllegalValueException {
         if (xp == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, XP.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Xp.class.getSimpleName()));
         }
         Integer xpValue;
         try {
             xpValue = Integer.valueOf(xp);
-        } catch(NumberFormatException nfex) {
-            throw new IllegalValueException(XP.MESSAGE_XP_CONSTRAINTS);
+        } catch (NumberFormatException nfex) {
+            throw new IllegalValueException(Xp.MESSAGE_XP_CONSTRAINTS);
         }
-        if (!XP.isValidXP(xpValue)) {
-            throw new IllegalValueException(XP.MESSAGE_XP_CONSTRAINTS);
+        if (!Xp.isValidXp(xpValue)) {
+            throw new IllegalValueException(Xp.MESSAGE_XP_CONSTRAINTS);
         }
-        final XP modelXP = new XP(xpValue);
+        final Xp modelXp = new Xp(xpValue);
 
         if (level == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Level.class.getSimpleName()));
@@ -80,8 +80,8 @@ public class XMLAdaptedAchievementRecord {
             throw new IllegalValueException(Level.MESSAGE_LEVEL_CONSTRAINTS);
         }
         final Level modelLevel = Level.fromString(level);
-        
-        return new AchievementRecord(modelXP, modelLevel);
+
+        return new AchievementRecord(modelXp, modelLevel);
     }
 
     @Override
@@ -90,11 +90,11 @@ public class XMLAdaptedAchievementRecord {
             return true;
         }
 
-        if (!(other instanceof XMLAdaptedAchievementRecord)) {
+        if (!(other instanceof XmlAdaptedAchievementRecord)) {
             return false;
         }
 
-        XMLAdaptedAchievementRecord otherRecord = (XMLAdaptedAchievementRecord) other;
+        XmlAdaptedAchievementRecord otherRecord = (XmlAdaptedAchievementRecord) other;
         return Objects.equals(xp, otherRecord.xp)
                 && Objects.equals(level, otherRecord.level);
     }

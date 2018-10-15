@@ -12,16 +12,16 @@ import javafx.beans.property.SimpleObjectProperty;
  */
 public class AchievementRecord {
 
-    private XP xp;
+    private Xp xp;
     private Level level;
 
 
     /**
      * Constructs a {@code AchievementRecord}.
-     * XP value is initialized to 0 and Level initialized to LEVEL_1.
+     * Xp value is initialized to 0 and Level initialized to LEVEL_1.
      */
     public AchievementRecord() {
-        this.xp = new XP();
+        this.xp = new Xp();
         this.level = Level.LEVEL_1;
     }
 
@@ -29,7 +29,7 @@ public class AchievementRecord {
      * Constructs a {@code AchievementRecord}.
      * Both fields must be present.
      */
-    public AchievementRecord(XP xp, Level level) {
+    public AchievementRecord(Xp xp, Level level) {
         requireAllNonNull(xp, level);
         this.xp = xp;
         this.level = level;
@@ -43,11 +43,11 @@ public class AchievementRecord {
         this.level = level;
     }
 
-    public XP getXp() {
+    public Xp getXp() {
         return xp;
     }
 
-    public void setXp(XP xp) {
+    public void setXp(Xp xp) {
         this.xp = xp;
     }
 
@@ -62,42 +62,42 @@ public class AchievementRecord {
     }
 
     /**
-     * Update the XP field of this {@code AchievementRecord} with new xp value.
+     * Updates the Xp field of this {@code AchievementRecord} with new xp value.
      * Triggers the update of Level with xp.
      */
-    public void updateXP(Integer xp) {
+    public void updateXp(Integer xp) {
         requireNonNull(xp);
 
         Integer newXpValue = this.xp.getXp() + xp;
-        this.setXp(new XP(newXpValue));
-        updateLevelWithXP(newXpValue);
+        this.setXp(new Xp(newXpValue));
+        updateLevelWithXp(newXpValue);
     }
 
     /**
-     * Update the Level field of this {@code AchievementRecord} with new xp value.
+     * Updates the Level field of this {@code AchievementRecord} with new xp value.
      */
-    public void updateLevelWithXP(Integer xp) {
+    public void updateLevelWithXp(Integer xp) {
         Level newLevel = getMatchingLevel(xp);
-        if(!this.level.equals(newLevel)) {
+        if (!this.level.equals(newLevel)) {
             setLevel(newLevel);
         }
     }
 
     /**
-     * Returns the corresponding {@code Level} of the current XP value.
+     * Returns the corresponding {@code Level} of the current Xp value.
      * Maximum level is level 5.
      */
     public Level getMatchingLevel(Integer xp) {
-        if(xp < Level.LEVEL_1.getMaxXP()) {
+        if (xp < Level.LEVEL_1.getMaxXp()) {
             return Level.LEVEL_1;
         }
-        if(xp < Level.LEVEL_2.getMaxXP()) {
+        if (xp < Level.LEVEL_2.getMaxXp()) {
             return level.LEVEL_2;
         }
-        if(xp < Level.LEVEL_3.getMaxXP()) {
+        if (xp < Level.LEVEL_3.getMaxXp()) {
             return level.LEVEL_3;
         }
-        if(xp < Level.LEVEL_4.getMaxXP()) {
+        if (xp < Level.LEVEL_4.getMaxXp()) {
             return level.LEVEL_4;
         }
         return Level.LEVEL_5;

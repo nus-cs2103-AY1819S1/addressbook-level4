@@ -107,13 +107,16 @@ public class TaskManager implements ReadOnlyTaskManager {
     public void removeTask(Task key) {
         tasks.remove(key);
     }
-    
+
     //// achievement related operation
-    
-    public void updateXP(Integer xp) {
+
+    /**
+     * Updates the Xp in the {@code AchievementRecord} of the {@code TaskManager} with the new xp value.
+     */
+    public void updateXp(Integer xp) {
         requireNonNull(xp);
-        
-        achievements.updateXP(xp);
+
+        achievements.updateXp(xp);
     }
 
     //// util methods
@@ -139,7 +142,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         return other == this // short circuit if same object
                 || (other instanceof TaskManager // instanceof handles nulls
                 && tasks.equals(((TaskManager) other).tasks)
-                && achievements.equals(((TaskManager)other).achievements));
+                && achievements.equals(((TaskManager) other).achievements));
     }
 
     @Override

@@ -109,7 +109,7 @@ public class TaskManagerTest {
         public ObservableList<Task> getTaskList() {
             return tasks;
         }
-        
+
         @Override
         public SimpleObjectProperty<AchievementRecord> getAchievementRecord() {
             throw new AssertionError("This method should not be called.");

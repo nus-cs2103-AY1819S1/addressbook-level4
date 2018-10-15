@@ -90,7 +90,7 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(target, updatedTask);
 
         versionedTaskManager.updateTask(target, updatedTask);
-        versionedTaskManager.updateXP(500);
+        versionedTaskManager.updateXp(500);
         indicateTaskManagerChanged();
     }
 

@@ -16,26 +16,26 @@ public enum Level {
             "Level should only have the value lvl.n, where n is integer from 1 to 5";
     public static final String LEVEL_VALIDATION_REGEX = "lvl.[1-5]";
     private String levelName;
-    private Integer minXP;
-    private Integer maxXP;
+    private Integer minXp;
+    private Integer maxXp;
 
     /**
      * Constructs a {@code Level}.
      *
      * @param levelName a string with corresponding Level object.
      */
-    Level(String levelName, Integer minXP, Integer maxXP) {
+    Level(String levelName, Integer minXp, Integer maxXp) {
         this.levelName = levelName;
-        this.minXP = minXP;
-        this.maxXP = maxXP;
+        this.minXp = minXp;
+        this.maxXp = maxXp;
     }
-    
-    public Integer getMinXP() {
-        return this.minXP;
+
+    public Integer getMinXp() {
+        return this.minXp;
     }
-    
-    public Integer getMaxXP() {
-        return this.maxXP;
+
+    public Integer getMaxXp() {
+        return this.maxXp;
     }
 
     /**
