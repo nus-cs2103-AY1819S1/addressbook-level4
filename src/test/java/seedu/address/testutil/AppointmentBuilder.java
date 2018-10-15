@@ -13,9 +13,9 @@ import seedu.address.model.person.Person;
  */
 public class AppointmentBuilder {
 
-    private final Date DEFAULT_DATE = new Date(1, 1, 2018);
-    private final Time DEFAULT_TIME = new Time(16, 30);
-    private final Person DEFAULT_PATIENT = ALICE;
+    public static final Date DEFAULT_DATE = new Date(1, 1, 2018);
+    public static final Time DEFAULT_TIME = new Time(16, 30);
+    public static final Person DEFAULT_PATIENT = ALICE;
 
     private Date date;
     private Time time;
