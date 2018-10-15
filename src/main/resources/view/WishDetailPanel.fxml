@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
@@ -27,6 +28,20 @@
             <Label fx:id="url" styleClass="detail_label" text="\$url" />
             <Label fx:id="email" styleClass="detail_label" text="\$email" />
             <Label fx:id="remark" styleClass="detail_label" text="\$remark"/>
+
+            <SplitPane id="wishDetailSplitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="NEVER">
+                <StackPane fx:id="wishSaveAmountPlaceholder" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false" >
+                    <padding>
+                        <Insets top="10" right="15" bottom="10" left="15" />
+                    </padding>
+                </StackPane>
+
+                <StackPane fx:id="wishSaveHistoryPlaceholder" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false" >
+                    <padding>
+                        <Insets top="10" right="15" bottom="10" left="15" />
+                    </padding>
+                </StackPane>
+            </SplitPane>
         </VBox>
     </GridPane>
 </StackPane>
