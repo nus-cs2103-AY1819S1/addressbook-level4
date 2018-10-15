@@ -51,7 +51,6 @@ public class CommandBox extends UiPart<Region> {
             // As up and down buttons will alter the position of the caret,
             // consuming it causes the caret's position to remain unchanged
             keyEvent.consume();
-
             navigateToPreviousInput();
             break;
         case DOWN:
@@ -59,8 +58,10 @@ public class CommandBox extends UiPart<Region> {
             navigateToNextInput();
             break;
         default:
-            maskPassword(keyEvent);
+            // let JavaFx handle the keypress
         }
+        
+        maskPassword();
     }
 
     /**
@@ -98,13 +99,16 @@ public class CommandBox extends UiPart<Region> {
         commandTextField.positionCaret(commandTextField.getText().length());
     }
 
-    private void maskPassword(KeyEvent keyEvent) {
-        //Mask the password prefix
-        if ((commandTextField.getText().contains("pass/")) && (keyEvent.getCode().isDigitKey() || keyEvent.getCode().isLetterKey())) {
+    //@@author jjlee050
+    /**
+     * Mask the password after pass/ prefix to '-'.
+     */
+    private void maskPassword() {
+        if (commandTextField.getText().contains("pass/")) {
             int passwordPrefixIndex = commandTextField.getText().indexOf("pass/");
             String password = commandTextField.getText().substring(passwordPrefixIndex + 5);
             String otherCommand = commandTextField.getText().substring(0, passwordPrefixIndex);
-            
+
             StringBuilder maskedPassword = new StringBuilder();
             for (int i = 0; i < password.length(); i++) {
                 maskedPassword.append("-");
@@ -113,11 +117,14 @@ public class CommandBox extends UiPart<Region> {
                 }
             }
 
-            
             replaceText(otherCommand + "pass/" + maskedPassword.toString());
         }
     }
-    
+
+    //@@author jjlee050
+    /**
+     * Unmask the password that has been hidden with '-'.
+     */
     private void unmaskPassword() {
         if (commandTextField.getText().contains("pass/")) {
             int passwordPrefixIndex = commandTextField.getText().indexOf("pass/");
