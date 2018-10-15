@@ -6,6 +6,7 @@ import java.util.Set;
 
 /**
  * Represents the set of permission(s) a user.
+ * Null is not permitted in PermissionSet.
  * Modification of this class is to be restricted to users with "ASSIGN_PERMISSION" permission.
  * Only exception to this is only when the application is getting opened and initializing.
  */
@@ -29,28 +30,35 @@ public class PermissionSet {
      * This action should only be performable by user with "ASSIGN_PERMISSION" permission.
      *
      * @param p permission to add
+     * @return true if success, otherwise false.
      */
-    public void addPermission(Permission p) {
-        permissionSet.add(p);
+    public boolean addPermission(Permission p) {
+        if(p == null)
+            return false;
+
+        return permissionSet.add(p);
     }
 
     /**
      * This action should only be performable by user with "ASSIGN_PERMISSION" permission.
      *
      * @param p permission to remove
+     * @return true if success, otherwise false.
      */
-    public void removePermission(Permission p) {
-        permissionSet.remove(p);
+    public boolean removePermission(Permission p) {
+        return permissionSet.remove(p);
     }
 
     /**
      * This action should only be performable by user with "ASSIGN_PERMISSION" permission.
-     * Throws (@code IllegalArgumentException} if preset is invalid.
      * Set permission to one of the preset.
      *
      * @param p preset to use
+     * @return true if success, otherwise false.
      */
-    public void assignPresetPermission(PresetPermission p) {
+    public boolean assignPresetPermission(PresetPermission p) {
+        if(p == null)
+            return false;
 
         switch (p) {
 
@@ -68,8 +76,9 @@ public class PermissionSet {
 
         default:
             //Should not be able to get here.
-            throw new IllegalArgumentException();
+            return false;
         }
+        return true;
     }
 
     /**
@@ -86,8 +95,17 @@ public class PermissionSet {
      * @param p the permission to check
      * @return true if permission found, otherwise false.
      */
-    public boolean contain(Permission p) {
+    public boolean contains(Permission p) {
         return permissionSet.contains(p);
+    }
+
+    /**
+     * Add all elements in the specified PermissionSet to this PermissionSet.
+     * @param pSet the specified PermissionSet
+     * @return true if successful, otherwise false.
+     */
+    public boolean addAll(PermissionSet pSet) {
+        return this.permissionSet.addAll(pSet.permissionSet);
     }
 
     /**
@@ -102,6 +120,7 @@ public class PermissionSet {
         preset.add(Permission.APPROVE_LEAVE);
         preset.add(Permission.CREATE_PROJECT);
         preset.add(Permission.VIEW_PROJECT);
+        preset.add(Permission.ASSIGN_PROJECT);
         preset.add(Permission.CREATE_DEPARTMENT);
         preset.add(Permission.ASSIGN_DEPARTMENT);
         preset.add(Permission.ASSIGN_PERMISSION);
@@ -120,6 +139,7 @@ public class PermissionSet {
         preset.add(Permission.APPROVE_LEAVE);
         preset.add(Permission.CREATE_PROJECT);
         preset.add(Permission.VIEW_PROJECT);
+        preset.add(Permission.ASSIGN_PROJECT);
         preset.add(Permission.CREATE_DEPARTMENT);
         preset.add(Permission.ASSIGN_DEPARTMENT);
         return preset;
@@ -130,6 +150,7 @@ public class PermissionSet {
      */
     private Set<Permission> getEmployeePreset() {
         Set<Permission> preset = new HashSet<>();
+        preset.add(Permission.VIEW_PROJECT);
         return preset;
     }
 
