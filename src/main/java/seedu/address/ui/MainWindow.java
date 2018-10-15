@@ -131,7 +131,6 @@ public class MainWindow extends UiPart<Stage> {
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         eventListPanel = new EventListPanel(logic.getFilteredEventList());
-        recordEventPanel = new RecordEventPanel();
 
         listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
@@ -193,7 +192,8 @@ public class MainWindow extends UiPart<Stage> {
      * Replaces the ListPanel with the appropriate context.
      */
     @FXML
-    private void handleContextChange(String contextId) {
+    private void handleContextChange(ContextChangeEvent contextChangeEvent) {
+        String contextId = contextChangeEvent.getNewContext();
         if (contextId.equals(EVENT_CONTEXT_ID)) {
             listPanelPlaceholder.getChildren().clear();
             listPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
@@ -205,6 +205,7 @@ public class MainWindow extends UiPart<Stage> {
             listPanelPlaceholder.getChildren().clear();
             listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
             browserPlaceholder.getChildren().clear();
+            recordEventPanel = new RecordEventPanel(contextChangeEvent.getCurrentEvent());
             browserPlaceholder.getChildren().add(recordEventPanel.getRoot());
         }
     }
@@ -233,7 +234,7 @@ public class MainWindow extends UiPart<Stage> {
     @Subscribe
     private void handleContextChangeEvent(ContextChangeEvent event) {
         logger.info(event.getNewContext());
-        handleContextChange(event.getNewContext());
+        handleContextChange(event);
     }
 
     @Subscribe

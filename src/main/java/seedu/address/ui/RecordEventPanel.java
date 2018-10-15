@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.event.Event;
 
 /**
  * Panel containing the list of persons.
@@ -22,9 +23,9 @@ public class RecordEventPanel extends UiPart<Region> {
     @FXML
     private TableView volunteerRecordTableView;
 
-    public RecordEventPanel() {
+    public RecordEventPanel(Event currentEvent) {
         super(FXML);
-        eventNameLabel.setText("EVENT NAME");
+        eventNameLabel.setText(currentEvent.getName().fullName);
         numOfVolunteersLabel.setText("0");
     }
 }
