@@ -35,7 +35,7 @@ import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
@@ -60,7 +60,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
          * -> edited
          */
         Index index = INDEX_FIRST_PERSON;
-        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
+        String command = " " + UpdateCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
                 + MAINTENANCE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
         Ride editedRide = new RideBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
         assertCommandSuccess(command, index, editedRide);
@@ -78,7 +78,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: edit a ride with new values same as existing values -> edited */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased()
+        command = UpdateCommand.COMMAND_WORD + " " + index.getOneBased()
                 + NAME_DESC_BOB + MAINTENANCE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandSuccess(command, index, BOB);
@@ -87,7 +87,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertTrue(getModel().getAddressBook().getRideList().contains(BOB));
         index = INDEX_SECOND_PERSON;
         assertNotEquals(getModel().getFilteredRideList().get(index.getZeroBased()), BOB);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased()
+        command = UpdateCommand.COMMAND_WORD + " " + index.getOneBased()
                 + NAME_DESC_AMY + MAINTENANCE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedRide = new RideBuilder(BOB).withName(VALID_NAME_AMY).build();
@@ -98,7 +98,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
          */
         index = INDEX_SECOND_PERSON;
         String editedName = "Different";
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased()
+        command = UpdateCommand.COMMAND_WORD + " " + index.getOneBased()
                 + " " + PREFIX_NAME + editedName + MAINTENANCE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedRide = new RideBuilder(BOB).withName(editedName)
@@ -107,7 +107,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: clear tags -> cleared */
         index = INDEX_FIRST_PERSON;
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
+        command = UpdateCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
         Ride rideToEdit = getModel().getFilteredRideList().get(index.getZeroBased());
         editedRide = new RideBuilder(rideToEdit).withTags().build();
         assertCommandSuccess(command, index, editedRide);
@@ -119,7 +119,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         index = INDEX_FIRST_PERSON;
         editedName = "Another name";
         assertTrue(index.getZeroBased() < getModel().getFilteredRideList().size());
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_NAME + editedName;
+        command = UpdateCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_NAME + editedName;
         rideToEdit = getModel().getFilteredRideList().get(index.getZeroBased());
         editedRide = new RideBuilder(rideToEdit).withName(editedName).build();
         assertCommandSuccess(command, index, editedRide);
@@ -129,7 +129,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
          */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getAddressBook().getRideList().size();
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
+        assertCommandFailure(UpdateCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
         /* --------------------- Performing edit operation while a ride card is selected -------------------------- */
@@ -140,7 +140,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         showAllPersons();
         index = INDEX_FIRST_PERSON;
         selectPerson(index);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased()
+        command = UpdateCommand.COMMAND_WORD + " " + index.getOneBased()
                 + NAME_DESC_AMY + MAINTENANCE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
         // this can be misleading: card selection actually remains unchanged but the
@@ -150,48 +150,48 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
 
         /* Case: invalid index (0) -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " 0" + NAME_DESC_BOB,
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        assertCommandFailure(UpdateCommand.COMMAND_WORD + " 0" + NAME_DESC_BOB,
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (-1) -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " -1" + NAME_DESC_BOB,
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        assertCommandFailure(UpdateCommand.COMMAND_WORD + " -1" + NAME_DESC_BOB,
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (size + 1) -> rejected */
         invalidIndex = getModel().getFilteredRideList().size() + 1;
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
+        assertCommandFailure(UpdateCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
         /* Case: missing index -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + NAME_DESC_BOB,
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        assertCommandFailure(UpdateCommand.COMMAND_WORD + NAME_DESC_BOB,
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
 
         /* Case: missing all fields -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
-                EditCommand.MESSAGE_NOT_EDITED);
+        assertCommandFailure(UpdateCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
+                UpdateCommand.MESSAGE_NOT_EDITED);
 
         /* Case: invalid name -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " "
+        assertCommandFailure(UpdateCommand.COMMAND_WORD + " "
                         + INDEX_FIRST_PERSON.getOneBased() + INVALID_NAME_DESC,
                 Name.MESSAGE_NAME_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " "
+        assertCommandFailure(UpdateCommand.COMMAND_WORD + " "
                         + INDEX_FIRST_PERSON.getOneBased() + INVALID_MAINTENANCE_DESC,
                 Maintenance.MESSAGE_MAINTENANCE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " "
+        assertCommandFailure(UpdateCommand.COMMAND_WORD + " "
                         + INDEX_FIRST_PERSON.getOneBased() + INVALID_EMAIL_DESC,
                 WaitTime.MESSAGE_WAIT_TIME_CONSTRAINTS);
 
         /* Case: invalid address -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " "
+        assertCommandFailure(UpdateCommand.COMMAND_WORD + " "
                         + INDEX_FIRST_PERSON.getOneBased() + INVALID_ADDRESS_DESC,
                 Address.MESSAGE_ADDRESS_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " "
+        assertCommandFailure(UpdateCommand.COMMAND_WORD + " "
                         + INDEX_FIRST_PERSON.getOneBased() + INVALID_TAG_DESC,
                 Tag.MESSAGE_TAG_CONSTRAINTS);
 
@@ -200,34 +200,34 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertTrue(getModel().getAddressBook().getRideList().contains(BOB));
         index = INDEX_FIRST_PERSON;
         assertFalse(getModel().getFilteredRideList().get(index.getZeroBased()).equals(BOB));
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased()
+        command = UpdateCommand.COMMAND_WORD + " " + index.getOneBased()
                 + NAME_DESC_BOB + MAINTENANCE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: edit a ride with new values same as another ride's values but with different tags -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased()
+        command = UpdateCommand.COMMAND_WORD + " " + index.getOneBased()
                 + NAME_DESC_BOB + MAINTENANCE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: edit a ride with new values same as another ride's values but with different address -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased()
+        command = UpdateCommand.COMMAND_WORD + " " + index.getOneBased()
                 + NAME_DESC_BOB + MAINTENANCE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: edit a ride with new values same as another ride's values but with different phone -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased()
+        command = UpdateCommand.COMMAND_WORD + " " + index.getOneBased()
                 + NAME_DESC_BOB + MAINTENANCE_DESC_AMY + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: edit a ride with new values same as another ride's values but with different email -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased()
+        command = UpdateCommand.COMMAND_WORD + " " + index.getOneBased()
                 + NAME_DESC_BOB + MAINTENANCE_DESC_BOB + EMAIL_DESC_AMY
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
     /**
@@ -255,7 +255,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         expectedModel.updateFilteredRideList(PREDICATE_SHOW_ALL_RIDES);
 
         assertCommandSuccess(command, expectedModel,
-                String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedRide), expectedSelectedCardIndex);
+                String.format(UpdateCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedRide), expectedSelectedCardIndex);
     }
 
     /**
