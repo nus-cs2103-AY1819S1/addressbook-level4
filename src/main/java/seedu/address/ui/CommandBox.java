@@ -27,8 +27,7 @@ public class CommandBox extends UiPart<Region> {
     private final Logic logic;
     private final StringBuilder tempPassword = new StringBuilder();
     private ListElementPointer historySnapshot;
-    
-    
+
     @FXML
     private TextField commandTextField;
 
@@ -45,7 +44,7 @@ public class CommandBox extends UiPart<Region> {
      */
     @FXML
     private void handleKeyPress(KeyEvent keyEvent) {
-        
+
         switch (keyEvent.getCode()) {
         case UP:
             // As up and down buttons will alter the position of the caret,
@@ -60,7 +59,7 @@ public class CommandBox extends UiPart<Region> {
         default:
             // let JavaFx handle the keypress
         }
-        
+
         maskPassword();
     }
 
@@ -129,14 +128,16 @@ public class CommandBox extends UiPart<Region> {
         if (commandTextField.getText().contains("pass/")) {
             int passwordPrefixIndex = commandTextField.getText().indexOf("pass/");
             String otherCommand = commandTextField.getText().substring(0, passwordPrefixIndex);
-            
-            replaceText(otherCommand + "pass/" + tempPassword.toString() + commandTextField.getText().substring(commandTextField.getText().length() - 1));
-            
+
+            replaceText(otherCommand + "pass/"
+                    + tempPassword.toString()
+                    + commandTextField.getText().substring(commandTextField.getText().length() - 1));
+
             //Reset temp password.
             tempPassword.setLength(0);
         }
     }
-    
+
     /**
      * Handles the Enter button pressed event.
      */

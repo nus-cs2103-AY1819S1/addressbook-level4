@@ -39,7 +39,8 @@ public class LoginCommand extends Command {
     private final Person toAuthenticate;
 
     /**
-     * Creates an LoginCommand to add the specified {@code Person}
+     * Creates an LoginCommand to add the specified {@code Person}.
+     * This {@code Person} could possibly be a doctor or receptionist.
      */
     public LoginCommand(Person person) {
         requireNonNull(person);
@@ -50,16 +51,44 @@ public class LoginCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history, Analytics analytics) {
         requireNonNull(model);
         if (toAuthenticate instanceof Doctor) {
-            Doctor thisDoctor = (Doctor) toAuthenticate;
             List<Doctor> doctorsList = model.getFilteredDoctorList();
-            for (Doctor d : doctorsList) {
-                if ((d.getName().equals(thisDoctor.getName()) && (Password
-                        .isSameAsHashPassword(thisDoctor.getPassword().password, d.getPassword().password)))) {
-                    return new CommandResult(MESSAGE_SUCCESS);
-                }
+            if (checkDoctorCred(doctorsList)) {
+                return new CommandResult(MESSAGE_SUCCESS);
             }
         }
         return new CommandResult(MESSAGE_FAILURE);
+    }
+
+    /**
+     * Check through ClinicIO for valid {@code Doctor} credentials.
+     * @param doctorsList A list of doctors in ClinicIO.
+     * @return Returns true if doctor has valid credentials in ClinicIO.
+     */
+    private boolean checkDoctorCred(List<Doctor> doctorsList) {
+        Doctor anotherDoctor = (Doctor) toAuthenticate;
+        Doctor doctorFound = searchDoctor(doctorsList, anotherDoctor);
+
+        if (doctorFound == null) {
+            return false;
+        }
+        return Password.isSameAsHashPassword(
+                anotherDoctor.getPassword().toString(),
+                doctorFound.getPassword().toString());
+    }
+
+    /**
+     * Search through {@code Model} doctor list for doctor.
+     * @param doctorsList A list of doctors in ClinicIO.
+     * @param doctorToSearch The doctor to search inside the list of doctors.
+     * @return The doctor found in the list of doctors. Return null if doctor is not found.
+     */
+    private Doctor searchDoctor(List<Doctor> doctorsList, Doctor doctorToSearch) {
+        for (Doctor d: doctorsList) {
+            if ((d.getName().equals(doctorToSearch.getName()))) {
+                return d;
+            }
+        }
+        return null;
     }
 
     @Override
