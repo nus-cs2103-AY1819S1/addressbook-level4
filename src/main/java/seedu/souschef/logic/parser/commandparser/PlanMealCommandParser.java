@@ -40,7 +40,7 @@ public class PlanMealCommandParser {
             Day toPlan;
             Day newDay = new Day(date);
             if (mealPlannerList.contains(newDay)) {
-                toPlan = mealPlannerList.get(mealPlannerList.indexOf(date));
+                toPlan = mealPlannerList.get(mealPlannerList.indexOf(newDay));
             } else {
                 toPlan = newDay;
                 mealPlannerModel.add(toPlan);
