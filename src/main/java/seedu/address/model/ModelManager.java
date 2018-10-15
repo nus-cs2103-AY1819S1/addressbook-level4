@@ -68,6 +68,10 @@ public class ModelManager extends ComponentManager implements Model {
         this.currentEvent = currentEvent;
     }
 
+    public void removeSelectedEvent() {
+        this.currentEvent = null;
+    }
+
     public Event getSelectedEvent() throws NoEventSelectedException {
         if (currentEvent == null) {
             throw new NoEventSelectedException();
@@ -110,11 +114,18 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@theJrLinguist
     @Override
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
         versionedAddressBook.updatePerson(target, editedPerson);
+        for (Event event : filteredEvents) {
+            boolean changed = event.updatePerson(target, editedPerson);
+            if (changed || event.containsPerson(target)) {
+                versionedAddressBook.updateEvent(event, event);
+            }
+        }
         indicateAddressBookChanged();
     }
 

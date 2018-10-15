@@ -2,6 +2,10 @@ package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+
+import seedu.address.logic.parser.exceptions.ParseException;
+
 /**
  * @author adjscent
  */
@@ -58,13 +62,13 @@ public class Schedule {
      * @param time
      * @return
      */
-    public boolean getTimeDay(String day, String time) {
+    public boolean getTimeDay(String day, String time) throws ParseException {
 
         // day Monday
         // time 0800
 
         int dayNum = -1;
-        dayNum = getDayNum(day, dayNum);
+        dayNum = getDayNum(day);
 
 
         int hourNum = Integer.parseInt(time.substring(0, 2));
@@ -87,13 +91,13 @@ public class Schedule {
      * @param time
      * @param occupied
      */
-    public void setTimeDay(String day, String time, boolean occupied) {
+    public void setTimeDay(String day, String time, boolean occupied) throws ParseException {
 
         // day Monday
         // time 0800
 
         int dayNum = -1;
-        dayNum = getDayNum(day, dayNum);
+        dayNum = getDayNum(day);
 
         int timeNum = -1;
 
@@ -109,7 +113,8 @@ public class Schedule {
 
     }
 
-    private int getDayNum(String day, int dayNum) {
+    private int getDayNum(String day) throws ParseException {
+        int dayNum = -1;
         switch (day.toLowerCase()) {
         case "monday":
             dayNum = 0;
@@ -133,11 +138,40 @@ public class Schedule {
             dayNum = 6;
             break;
         default:
-            break;
+            throw new ParseException("Invalid Schedule Input");
         }
         return dayNum;
     }
 
+    private String getNumDay(int dayNum) throws ParseException {
+        String day;
+        switch (dayNum) {
+        case 0:
+            day = "monday";
+            break;
+        case 1:
+            day = "tuesday";
+            break;
+        case 2:
+            day = "wednesday";
+            break;
+        case 3:
+            day = "thursday";
+            break;
+        case 4:
+            day = "friday";
+            break;
+        case 5:
+            day = "saturday";
+            break;
+        case 6:
+            day = "sunday";
+            break;
+        default:
+            throw new ParseException("Invalid Schedule Input");
+        }
+        return day;
+    }
 
     /**
      * Allow schedule array to be stored as a string
@@ -154,23 +188,26 @@ public class Schedule {
         return sb.toString();
     }
 
-    /** Maxs all possible schedules supplied as parameter
+    /**
+     * Maxs all possible schedules supplied as parameter
+     *
      * @param schedules
      * @return
      */
-    public static Schedule maxSchedule(Schedule ... schedules) {
+    public static Schedule maxSchedule(Schedule... schedules) {
         Schedule newSchedule = new Schedule();
 
         // using for each loop to display contents of a
-        for (Schedule s: schedules) {
+        for (Schedule s : schedules) {
             newSchedule.union(s);
         }
 
         return newSchedule;
     }
 
-
-    /** ORs the Schedules
+    /**
+     * ORs the Schedules
+     *
      * @param schedule
      */
     private void union(Schedule schedule) {
@@ -181,16 +218,86 @@ public class Schedule {
         }
     }
 
-
-    /** Get the negate of the schedule
-     *
+    /**
+     * Use the updateschedule as a bit flipper
      */
-    private void negate() {
+    public void xor(Schedule updateSchedule) {
         for (int i = 0; i < value.length; i++) {
             for (int j = 0; j < value[i].length; j++) {
-                this.value[i][j] = ~(this.value[i][j]);
+                this.value[i][j] ^= (updateSchedule.value[i][j]);
             }
         }
     }
 
+    /**
+     * @return
+     * @throws ParseException
+     */
+    public ArrayList<Slot> getFreeTime() throws ParseException {
+        ArrayList<Slot> slots = new ArrayList<Slot>();
+
+        for (int i = 0; i < value.length; i++) {
+            for (int j = 0; j < value[i].length; j++) {
+                if (this.value[i][j] == 0) {
+                    Slot slot = new Slot();
+                    slot.day = getNumDay(i);
+                    if (j / 2 > 9) {
+                        slot.time = "" + j / 2 + ((j % 2 == 1) ? "30" : "00");
+                    } else {
+                        slot.time = "0" + j / 2 + ((j % 2 == 1) ? "30" : "00");
+                    }
+                    slots.add(slot);
+                }
+            }
+        }
+
+        return slots;
+    }
+
+    /**
+     * @return
+     * @throws ParseException
+     */
+    public String freeTimeToString() throws ParseException {
+        StringBuilder sb = new StringBuilder();
+        getFreeTime().forEach((slot) -> sb.append(slot.day + "," + slot.time + ";"));
+        return sb.toString().trim();
+    }
+
+
+    /**
+     *
+     */
+    class Slot {
+        private String day;
+        private String time;
+
+        /**
+         * @return
+         */
+        public String getDay() {
+            return day;
+        }
+
+        /**
+         * @param day
+         */
+        public void setDay(String day) {
+            this.day = day;
+        }
+
+        /**
+         * @return
+         */
+        public String getTime() {
+            return time;
+        }
+
+        /**
+         * @param time
+         */
+        public void setTime(String time) {
+            this.time = time;
+        }
+    }
 }

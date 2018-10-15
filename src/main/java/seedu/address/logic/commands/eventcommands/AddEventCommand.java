@@ -50,6 +50,7 @@ public class AddEventCommand extends Command {
             }
             Person user = model.getCurrentUser();
             toAdd.setOrganiser(user);
+            toAdd.addPerson(user);
             model.addEvent(toAdd);
             model.commitAddressBook();
             model.setSelectedEvent(toAdd);

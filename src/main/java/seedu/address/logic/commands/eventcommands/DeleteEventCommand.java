@@ -44,6 +44,7 @@ public class DeleteEventCommand extends Command {
         }
 
         Event eventToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.removeSelectedEvent();
         model.deleteEvent(eventToDelete);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete));
