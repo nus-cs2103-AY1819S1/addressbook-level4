@@ -34,15 +34,15 @@ public class StatusTest {
     }
 
     @Test
-    public void getStatusFromValue() {
+    public void fromString() {
         //invalid status value
-        Assert.assertThrows(IllegalArgumentException.class, () -> Status.getStatusFromValue("in progress"));
-        Assert.assertThrows(IllegalArgumentException.class, () -> Status.getStatusFromValue("hello"));
+        Assert.assertThrows(IllegalArgumentException.class, () -> Status.fromString("in progress"));
+        Assert.assertThrows(IllegalArgumentException.class, () -> Status.fromString("hello"));
 
         //valid status value
-        assertEquals(Status.getStatusFromValue("IN PROGRESS"), Status.IN_PROGRESS);
-        assertEquals(Status.getStatusFromValue("COMPLETED"), Status.COMPLETED);
-        assertEquals(Status.getStatusFromValue("OVERDUE"), Status.OVERDUE);
+        assertEquals(Status.fromString("IN PROGRESS"), Status.IN_PROGRESS);
+        assertEquals(Status.fromString("COMPLETED"), Status.COMPLETED);
+        assertEquals(Status.fromString("OVERDUE"), Status.OVERDUE);
     }
 
     @Test

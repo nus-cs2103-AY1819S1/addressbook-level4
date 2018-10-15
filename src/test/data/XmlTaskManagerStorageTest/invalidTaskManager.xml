@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <taskmanager>
     <!-- Task with invalid name field -->
+    <achievements>
+        <xp>0</xp>
+        <level>lvl.1</level>
+    </achievements>
     <tasks>
         <name>Ha!ns Mu@ster</name>
         <dueDate isPrivate="false">21-12-18</dueDate>

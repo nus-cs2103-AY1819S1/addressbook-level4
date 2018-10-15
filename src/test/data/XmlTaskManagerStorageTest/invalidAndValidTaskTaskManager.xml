@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <taskmanager>
     <!-- Valid Task -->
+    <achievements>
+        <xp>0</xp>
+        <level>lvl.1</level>
+    </achievements>
     <tasks>
         <name>Hans Muster</name>
         <dueDate isPrivate="false">21-12-18</dueDate>

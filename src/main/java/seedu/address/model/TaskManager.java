@@ -3,8 +3,11 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
+import seedu.address.model.achievement.AchievementRecord;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 
@@ -15,6 +18,7 @@ import seedu.address.model.task.UniqueTaskList;
 public class TaskManager implements ReadOnlyTaskManager {
 
     private final UniqueTaskList tasks;
+    private final AchievementRecord achievements;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +29,7 @@ public class TaskManager implements ReadOnlyTaskManager {
      */
     {
         tasks = new UniqueTaskList();
+        achievements = new AchievementRecord();
     }
 
     public TaskManager() {
@@ -38,7 +43,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         resetData(toBeCopied);
     }
 
-    //// list overwrite operations
+    //// list and achievement overwrite operations
 
     /**
      * Replaces the contents of the task list with {@code tasks}.
@@ -49,12 +54,21 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     /**
+     * Replaces the contents of the task list with {@code tasks}.
+     * {@code tasks} must not contain duplicate tasks.
+     */
+    public void setAchievements(AchievementRecord achievements) {
+        this.achievements.resetData(achievements);
+    }
+
+    /**
      * Resets the existing data of this {@code TaskManager} with {@code newData}.
      */
     public void resetData(ReadOnlyTaskManager newData) {
         requireNonNull(newData);
 
         setTasks(newData.getTaskList());
+        setAchievements(newData.getAchievementRecord().get());
     }
 
     //// task-level operations
@@ -95,6 +109,17 @@ public class TaskManager implements ReadOnlyTaskManager {
         tasks.remove(key);
     }
 
+    //// achievement related operation
+
+    /**
+     * Updates the Xp in the {@code AchievementRecord} of the {@code TaskManager} with the new xp value.
+     */
+    public void updateXp(Integer xp) {
+        requireNonNull(xp);
+
+        achievements.updateXp(xp);
+    }
+
     //// util methods
 
     @Override
@@ -109,14 +134,20 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     @Override
+    public SimpleObjectProperty<AchievementRecord> getAchievementRecord() {
+        return achievements.asSimpleObjectProperty();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskManager // instanceof handles nulls
-                && tasks.equals(((TaskManager) other).tasks));
+                && tasks.equals(((TaskManager) other).tasks)
+                && achievements.equals(((TaskManager) other).achievements));
     }
 
     @Override
     public int hashCode() {
-        return tasks.hashCode();
+        return Objects.hash(tasks, achievements);
     }
 }

@@ -49,6 +49,14 @@ public interface Model {
     void updateTask(Task target, Task editedTask);
 
     /**
+     * Replaces the given task {@code target} with {@code updatedTask}.
+     * Update the xp field in achievement record of the task manager according to task status change.
+     * {@code target} must exist in the task manager.
+     * {@code target} and {@code updatedTask} have the same identity but different status.
+     */
+    void updateTaskStatus(Task target, Task updatedTask);
+
+    /**
      * Returns an unmodifiable view of the filtered task list
      */
     ObservableList<Task> getFilteredTaskList();
