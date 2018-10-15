@@ -17,7 +17,7 @@ import seedu.address.model.expense.Expense;
 
 //@@author jonathantjm
 /**
- * Lists all expenses in the address book to the user.
+ * Opens up the stats window for the user.
  */
 public class StatsCommand extends Command {
 
@@ -76,6 +76,10 @@ public class StatsCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
+    /**
+     * Returns Predicate used for FilteredList based on the current statsMode
+     * @return Predicate
+     */
     private Predicate<Expense> getStatsPredicate() {
         Calendar now = Calendar.getInstance();
         if (this.mode == StatsMode.DAY) {
@@ -94,6 +98,11 @@ public class StatsCommand extends Command {
         return num > 0;
     }
 
+    /**
+     * Checks equality of current object to another object
+     * @param other Object to compare
+     * @return true if equal
+     */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

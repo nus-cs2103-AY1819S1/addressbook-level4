@@ -37,6 +37,11 @@ public class StatsWindow extends UiPart<Stage> {
         setData(statsData, statsMode);
     }
 
+    /**
+     * Sets the data for the bar chart according to statsData and statsMode
+     * @param statsData LinkedHashMap with data for both axes.
+     * @param statsMode StatsMode enum of current statsMode. Either MONTH or DAY
+     */
     public void setData(LinkedHashMap<String, Double> statsData, StatsMode statsMode) {
         chartArea.getChildren().clear();
 

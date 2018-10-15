@@ -54,6 +54,13 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     //@@author jonathantjm
+
+    /**
+     * Returns a LinkedHashMap containing data for the bar chart, where the key is the x-axis and the value is the
+     * y-axis.
+     * @return LinkedHashMap of String key and Double value
+     * @throws NoUserSelectedException
+     */
     public LinkedHashMap<String, Double> getExpenseStats() throws NoUserSelectedException {
         ObservableList<Expense> expenseList = model.getExpenseStats();
         StatsMode statsMode = model.getStatsMode();
