@@ -82,7 +82,7 @@ public class AnakinCommandTestUtil {
      * Updates {@code model}'s filtered list to show only the deck at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
-//    Filter function not implemented yet
+    
     public static void showDeckAtIndex(AnakinModel model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredDeckList().size());
 
