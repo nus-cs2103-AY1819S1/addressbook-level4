@@ -65,7 +65,7 @@
 }
 
 .table-view .column-header .label {
-    -fx-font-size: 20pt;
+    -fx-font-size: 10pt;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
     -fx-alignment: center-left;
@@ -351,6 +351,16 @@
     -fx-font-size: 11;
 }
 
-#totalVolunteersStatus .label {
+#totalVolunteersStatus exit.label {
     -fx-alignment: center;
+}
+
+#eventNameBox .label{
+ -fx-font-size: 18pt;
+ -fx-text-fill: white;
+}
+
+#numOfVolunteerBox .label{
+ -fx-font-size: 14pt;
+ -fx-text-fill: white;
 }

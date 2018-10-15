@@ -12,19 +12,13 @@ import seedu.address.model.person.Person;
 public class RecordChangeEvent extends BaseEvent {
 
     private final Event currentEvent;
-    private final List<Person> volunteerList;
 
-    public RecordChangeEvent(Event newSelection, List<Person> volunteerList) {
+    public RecordChangeEvent(Event newSelection) {
         this.currentEvent = newSelection;
-        this.volunteerList = volunteerList;
     }
 
     public Event getCurrentEvent() {
         return currentEvent;
-    }
-
-    public List<Person> getVolunteerList() {
-        return volunteerList;
     }
 
     @Override

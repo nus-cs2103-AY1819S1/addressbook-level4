@@ -7,10 +7,10 @@ import seedu.address.model.event.EventId;
 /**
  * Tests that a {@code Record}'s {@code EventId} matches the given EventId.
  */
-public class EventContainsEventIdPredicate implements Predicate<Record> {
+public class RecordContainsEventIdPredicate implements Predicate<Record> {
     private final EventId eventId;
 
-    public EventContainsEventIdPredicate(EventId eventId) {
+    public RecordContainsEventIdPredicate(EventId eventId) {
         this.eventId = eventId;
     }
 
@@ -22,8 +22,8 @@ public class EventContainsEventIdPredicate implements Predicate<Record> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof EventContainsEventIdPredicate // instanceof handles nulls
-                && eventId == ((EventContainsEventIdPredicate) other).eventId); // state check
+                || (other instanceof RecordContainsEventIdPredicate // instanceof handles nulls
+                && eventId == ((RecordContainsEventIdPredicate) other).eventId); // state check
     }
 
 }
