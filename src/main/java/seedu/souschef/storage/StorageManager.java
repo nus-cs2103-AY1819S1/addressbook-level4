@@ -38,7 +38,7 @@ public class StorageManager extends ComponentManager implements Storage {
         this.userPrefsStorage = userPrefsStorage;
         this.listOfFeatureStorage = new ArrayList<>();
 
-        FeatureStorage recipeStorage = new XmlRecipeStorage(userPrefs.getAddressBookFilePath());
+        FeatureStorage recipeStorage = new XmlRecipeStorage(userPrefs.getRecipeFilePath());
         FeatureStorage ingredientStorage = new XmlIngredientStorage(userPrefs.getIngredientFilePath());
         FeatureStorage healthPlanStorage = new XmlHealthPlanStorage(userPrefs.getHealthplanPath());
         listOfFeatureStorage.add(recipeStorage);
