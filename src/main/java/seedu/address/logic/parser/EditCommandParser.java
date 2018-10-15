@@ -98,8 +98,6 @@ public class EditCommandParser implements Parser<EditCommand> {
      * @return An Optional of the index if the specified index is valid, an empty optional otherwise
      */
     private Optional<Index> getIndex(String preamble) {
-        //@@author zioul123-reused
-        //Moved from the parse method of EditCommandParser.
         Index index;
         try {
             index = ParserUtil.parseIndex(preamble);

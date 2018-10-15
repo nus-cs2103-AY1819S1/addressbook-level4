@@ -5,8 +5,7 @@ import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
 
-//@@author zioul123-reused
-//Based on NameContainsKeywordsPredicate, modified to test for all keywords instead of any keyword.
+//@@author zioul123
 /**
  * Tests that a {@code Person}'s {@code Name} matches all of the keywords given.
  */

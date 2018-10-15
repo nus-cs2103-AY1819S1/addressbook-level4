@@ -32,8 +32,6 @@ public class EditByNameCommand extends EditCommand {
         this.personIdentifier = personIdentifier;
     }
 
-    //@@author zioul123-reused
-    //Adapted from the execute method of EditCommand.
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
@@ -60,8 +58,6 @@ public class EditByNameCommand extends EditCommand {
      * Find a single person from the specified {@Code Model} using the {@Code String personIdentifier}.
      */
     private Person findPerson(Model model) throws ParseException, CommandException {
-        //@@author zioul123-reused
-        //Based on code from FindCommandParser.
         String trimmedArgs = personIdentifier.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
@@ -69,7 +65,6 @@ public class EditByNameCommand extends EditCommand {
         }
         String[] nameKeywords = trimmedArgs.split("\\s+");
         NameContainsAllKeywordsPredicate predicate = new NameContainsAllKeywordsPredicate(Arrays.asList(nameKeywords));
-        //@@author zioul123
 
         // Supplier is used because the stream is acted on more than once.
         Supplier<Stream<Person>> filteredPersons = () ->

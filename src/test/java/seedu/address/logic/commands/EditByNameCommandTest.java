@@ -27,8 +27,7 @@ import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 
-//@@author zioul123-reused
-//Based heavily on EditCommandTest, modified for EditByNameCommand
+//@@author zioul123
 public class EditByNameCommandTest {
 
     public static final String UNUSED_NAME = "ABCDE HIJ";
