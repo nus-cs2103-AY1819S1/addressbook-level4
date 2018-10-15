@@ -6,6 +6,7 @@ import seedu.souschef.logic.commands.CommandResult;
 import seedu.souschef.logic.commands.exceptions.CommandException;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.healthplan.HealthPlan;
+import seedu.souschef.model.planner.Day;
 import seedu.souschef.model.recipe.Recipe;
 /**
  * API of the Logic component
@@ -28,6 +29,10 @@ public interface Logic {
      */
     ObservableList<HealthPlan> getFilteredHealthPlanList();
 
+    /**
+     * Returns an unmodifiable view of thelists of mealPlans
+     */
+    ObservableList<Day> getMealPlanList();
 
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();
