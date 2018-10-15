@@ -18,6 +18,13 @@ public class ReminderTimeList {
     public Map<DateTime, Boolean> values = new HashMap<>();
 
     /**
+     * Default constructor
+     */
+    public ReminderTimeList() {
+
+    }
+
+    /**
      * Constructs a {@code DateTime}.
      *
      * @param formattedDateTimes A local date time.

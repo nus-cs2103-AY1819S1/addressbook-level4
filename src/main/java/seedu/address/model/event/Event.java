@@ -4,9 +4,11 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.DateTimeException;
 import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -35,17 +37,18 @@ public class Event {
     private final Venue venue;
     private final RepeatType repeatType;
     private final DateTime repeatUntilDateTime;
+    private ReminderDurationList reminderDurationList;
     private ReminderTimeList reminderTimeList;
 
     /**
      * Every field must be present and not null.
      */
-    public Event(UUID uid, UUID uuid, EventName eventName, DateTime startDateTime, DateTime endDateTime,
+    public Event(UUID uuid, EventName eventName, DateTime startDateTime, DateTime endDateTime,
                  Description description, Priority priority, Venue venue,
-                 RepeatType repeatType, DateTime repeatUntilDateTime, ReminderTimeList reminderTimeList) {
-        requireAllNonNull(uid, uuid, eventName, startDateTime, endDateTime, description,
-                priority, venue, repeatType, repeatUntilDateTime, reminderTimeList);
-        this.uid = uid;
+                 RepeatType repeatType, DateTime repeatUntilDateTime, ReminderDurationList reminderDurationList) {
+        requireAllNonNull(uuid, eventName, startDateTime, endDateTime, description,
+                priority, venue, repeatType, repeatUntilDateTime, reminderDurationList);
+        this.uid = UUID.randomUUID();
         this.uuid = uuid;
         this.eventName = eventName;
         this.startDateTime = startDateTime;
@@ -55,8 +58,8 @@ public class Event {
         this.venue = venue;
         this.repeatType = repeatType;
         this.repeatUntilDateTime = repeatUntilDateTime;
-        this.reminderTimeList = reminderTimeList;
-
+        this.reminderDurationList = reminderDurationList;
+        this.reminderTimeList = createReminderTimeList(startDateTime, reminderDurationList);
     }
 
     public UUID getUid() {
@@ -99,8 +102,23 @@ public class Event {
         return repeatUntilDateTime;
     }
 
+    public ReminderDurationList getReminderDurationList() {
+        return reminderDurationList;
+    }
+
     public ReminderTimeList getReminderTimeList() {
         return reminderTimeList;
+    }
+
+    private ReminderTimeList createReminderTimeList(DateTime reference, ReminderDurationList durationList){
+        List<DateTime> reminderTimes = new ArrayList<>();
+        Instant referenceTime = reference.getLocalDateTime().atZone(ZoneId.systemDefault()).toInstant();
+        for(Duration duration : durationList.get()) {
+            LocalDateTime reminderTime = LocalDateTime.ofInstant(referenceTime.minus(duration), ZoneId.systemDefault());
+            reminderTimes.add(new DateTime(reminderTime));
+        }
+
+        return new ReminderTimeList(reminderTimes);
     }
 
     /**
@@ -142,7 +160,6 @@ public class Event {
                 targetEvent.getEndDateTime().value);
         while (repeatStartDateTime.isBefore(repeatUntilDateTime)) {
             repeatedEventList.add(new Event(
-                    UUID.randomUUID(),
                     targetEvent.getUuid(),
                     targetEvent.getEventName(),
                     new DateTime(repeatStartDateTime),
@@ -152,7 +169,7 @@ public class Event {
                     targetEvent.getVenue(),
                     targetEvent.getRepeatType(),
                     targetEvent.getRepeatUntilDateTime(),
-                    targetEvent.getReminderTimeList()
+                    targetEvent.getReminderDurationList()
             ));
             repeatStartDateTime = repeatStartDateTime.plusDays(1);
         }
@@ -171,7 +188,6 @@ public class Event {
                 targetEvent.getEndDateTime().value);
         while (repeatStartDateTime.isBefore(repeatUntilDateTime)) {
             repeatedEventList.add(new Event(
-                    UUID.randomUUID(),
                     targetEvent.getUuid(),
                     targetEvent.getEventName(),
                     new DateTime(repeatStartDateTime),
@@ -181,7 +197,7 @@ public class Event {
                     targetEvent.getVenue(),
                     targetEvent.getRepeatType(),
                     targetEvent.getRepeatUntilDateTime(),
-                    targetEvent.getReminderTimeList()
+                    targetEvent.getReminderDurationList()
             ));
             repeatStartDateTime = repeatStartDateTime.plusWeeks(1);
         }
@@ -200,7 +216,6 @@ public class Event {
                 targetEvent.getEndDateTime().value);
         while (repeatStartDateTime.isBefore(repeatUntilDateTime)) {
             repeatedEventList.add(new Event(
-                    UUID.randomUUID(),
                     targetEvent.getUuid(),
                     targetEvent.getEventName(),
                     new DateTime(repeatStartDateTime),
@@ -210,7 +225,7 @@ public class Event {
                     targetEvent.getVenue(),
                     targetEvent.getRepeatType(),
                     targetEvent.getRepeatUntilDateTime(),
-                    targetEvent.getReminderTimeList()
+                    targetEvent.getReminderDurationList()
             ));
             repeatStartDateTime = repeatStartDateTime.with((temporal) -> {
                 do {
@@ -240,7 +255,6 @@ public class Event {
                 targetEvent.getEndDateTime().value);
         while (repeatStartDateTime.isBefore(repeatUntilDateTime)) {
             repeatedEventList.add(new Event(
-                    UUID.randomUUID(),
                     targetEvent.getUuid(),
                     targetEvent.getEventName(),
                     new DateTime(repeatStartDateTime),
@@ -250,7 +264,7 @@ public class Event {
                     targetEvent.getVenue(),
                     targetEvent.getRepeatType(),
                     targetEvent.getRepeatUntilDateTime(),
-                    targetEvent.getReminderTimeList()
+                    targetEvent.getReminderDurationList()
             ));
             repeatStartDateTime = repeatStartDateTime.with((temporal) -> {
                 do {

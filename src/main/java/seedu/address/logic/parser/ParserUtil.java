@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import seedu.address.model.event.DateTime;
 import seedu.address.model.event.Description;
 import seedu.address.model.event.EventName;
 import seedu.address.model.event.Priority;
+import seedu.address.model.event.ReminderDurationList;
 import seedu.address.model.event.RepeatType;
 import seedu.address.model.event.Venue;
 import seedu.address.model.person.Address;
@@ -239,17 +241,31 @@ public class ParserUtil {
         }
     }
 
+    /**
+     *
+     * @param reminderDuration a string representing a duration
+     * @return a duration object
+     * @throws ParseException
+     */
+    public static Duration parseReminderDuration(String reminderDuration) throws ParseException {
+        requireNonNull(reminderDuration);
+        String parseDuration = reminderDuration;
+        parseDuration.replace(" ", "");
+        parseDuration = "P".concat(parseDuration.replace("d", "DT"));
+        parseDuration = parseDuration.replace("min", "m").toUpperCase();
+        return Duration.parse(parseDuration);
+    }
 
     /**
      * Parses {@code Collection<String> reminderTimes} into a {@code Set<DateTime>}.
      */
-    public static List<DateTime> parseReminderTimes(Collection<String> reminderTimes) throws ParseException {
-        requireNonNull(reminderTimes);
-        final List<DateTime> reminderTimeList = new ArrayList<>();
-        for (String reminderTime : reminderTimes) {
-            reminderTimeList.add(parseDateTime(reminderTime));
+    public static ReminderDurationList parseReminderDurations(Collection<String> reminderDurations) throws ParseException {
+        requireNonNull(reminderDurations);
+        ReminderDurationList reminderDurationList = new ReminderDurationList();
+        for (String reminderDuration : reminderDurations) {
+            reminderDurationList.add(parseReminderDuration(reminderDuration));
         }
-        return reminderTimeList;
+        return reminderDurationList;
     }
 
 }

@@ -1,9 +1,12 @@
 package seedu.address.model.event;
 
+import java.util.UUID;
+
 /**
  * Manages Info needed for PopUp alert
  */
 public class EventPopUpInfo implements Comparable<EventPopUpInfo> {
+    private UUID uid;
     private String description;
     private DateTime popUpDateTime;
 

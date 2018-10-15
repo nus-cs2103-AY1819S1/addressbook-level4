@@ -19,5 +19,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_EVENT_END_DATE_TIME = new Prefix("e/");
     public static final Prefix PREFIX_EVENT_REPEAT_TYPE = new Prefix("rt/");
     public static final Prefix PREFIX_EVENT_REPEAT_UNTIL_DATE_TIME = new Prefix("ru/");
-    public static final Prefix PREFIX_EVENT_REMINDER_DATE_TIME = new Prefix("re/");
+    public static final Prefix PREFIX_EVENT_REMINDER_DURATION = new Prefix("re/");
 }

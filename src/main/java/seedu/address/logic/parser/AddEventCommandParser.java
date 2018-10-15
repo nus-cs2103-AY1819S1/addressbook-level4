@@ -6,11 +6,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_END_DATE_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_PRIORITY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_REMINDER_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_REPEAT_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_REPEAT_UNTIL_DATE_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_START_DATE_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_VENUE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_REMINDER_DATE_TIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_REMINDER_DURATION;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -26,7 +27,7 @@ import seedu.address.model.event.EventName;
 import seedu.address.model.event.Priority;
 import seedu.address.model.event.RepeatType;
 import seedu.address.model.event.Venue;
-import seedu.address.model.event.ReminderTimeList;
+import seedu.address.model.event.ReminderDurationList;
 
 /**
  * Parses input arguments and creates a new AddEventCommand object
@@ -43,7 +44,7 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_EVENT_NAME, PREFIX_EVENT_START_DATE_TIME,
                         PREFIX_EVENT_END_DATE_TIME, PREFIX_EVENT_DESCRIPTION, PREFIX_EVENT_PRIORITY,
                         PREFIX_EVENT_VENUE, PREFIX_EVENT_REPEAT_TYPE, PREFIX_EVENT_REPEAT_UNTIL_DATE_TIME,
-                        PREFIX_EVENT_REMINDER_DATE_TIME);
+                        PREFIX_EVENT_REMINDER_DURATION);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_EVENT_NAME) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEventCommand.MESSAGE_USAGE));
@@ -72,15 +73,16 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
         DateTime repeatUntilDateTime = argMultimap.getValue(PREFIX_EVENT_REPEAT_UNTIL_DATE_TIME).isPresent()
                 ? ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_EVENT_REPEAT_UNTIL_DATE_TIME).get())
                 : endDateTime;
-        ReminderTimeList reminderTimeList = (ReminderTimeList) new ReminderTimeList(ParserUtil.parseReminderTimes(
-                argMultimap.getAllValues(PREFIX_EVENT_REMINDER_DATE_TIME))).get();
+        ReminderDurationList reminderDurationList = ParserUtil.parseReminderDurations(
+                argMultimap.getAllValues(PREFIX_EVENT_REMINDER_DURATION));
+
 
         if (!Event.isValidEventDateTime(startDateTime, endDateTime)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_VALUES, Event.MESSAGE_DATETIME_CONSTRAINTS));
         }
 
-        Event event = new Event(UUID.randomUUID(), UUID.randomUUID(), eventName, startDateTime, endDateTime,
-                description, priority, venue, repeatType, repeatUntilDateTime, reminderTimeList);
+        Event event = new Event(UUID.randomUUID(), eventName, startDateTime, endDateTime,
+                description, priority, venue, repeatType, repeatUntilDateTime, reminderDurationList);
 
         return new AddEventCommand(event);
     }
