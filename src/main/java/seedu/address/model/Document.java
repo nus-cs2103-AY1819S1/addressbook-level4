@@ -8,7 +8,7 @@ import java.util.Date;
  */
 public abstract class Document {
 
-    private final String TAB_FORMATTING = "\t";
+    private static final String TAB_FORMATTING = "\t";
 
     public String tabFormat(String information) {
         return TAB_FORMATTING + information;
