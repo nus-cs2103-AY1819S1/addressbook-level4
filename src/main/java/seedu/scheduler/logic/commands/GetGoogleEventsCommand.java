@@ -4,7 +4,6 @@ import seedu.scheduler.logic.CommandHistory;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
 import seedu.scheduler.model.Model;
 
-//TODO:implement the class
 /**
  * Get events from google calendar.
  */
@@ -19,6 +18,6 @@ public class GetGoogleEventsCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        return null;
+        return new CommandResult(MESSAGE_GGEVENTS_SUCCESS);
     }
 }
