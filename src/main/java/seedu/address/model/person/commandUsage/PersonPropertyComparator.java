@@ -1,6 +1,8 @@
-package seedu.address.model.person;
+package seedu.address.model.person.commandUsage;
 
 import java.util.Comparator;
+
+import seedu.address.model.person.Person;
 
 /**
  * Represents the comparators of each property of a person.
