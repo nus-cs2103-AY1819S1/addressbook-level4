@@ -18,10 +18,10 @@
     <VBox VBox.vgrow="ALWAYS">
         <TableView fx:id="volunteerRecordTableView" prefWidth="900" VBox.vgrow="ALWAYS">
             <columns>
-                <TableColumn prefWidth="50" text="#"/>
-                <TableColumn prefWidth="450" text="Name"/>
-                <TableColumn prefWidth="300" text="Contact Number"/>
-                <TableColumn prefWidth="100" text="Hours"/>
+                <TableColumn prefWidth="50" fx:id="indexColumn" text="#"/>
+                <TableColumn prefWidth="450" fx:id="nameColumn" text="Name"/>
+                <TableColumn prefWidth="300" fx:id="numberColumn" text="Contact Number"/>
+                <TableColumn prefWidth="100" fx:id="hoursColumn" text="Hours"/>
             </columns>
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
