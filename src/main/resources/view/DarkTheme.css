@@ -100,15 +100,15 @@
 }
 
 .list-cell:filled:even {
-    -fx-background-color: #3c3e3f;
+    -fx-background-color: #34495E;
 }
 
 .list-cell:filled:odd {
-    -fx-background-color: #515658;
+    -fx-background-color: #283747;
 }
 
 .list-cell:filled:selected {
-    -fx-background-color: #424d5f;
+    -fx-background-color: #28B463;
 }
 
 .list-cell:filled:selected #cardPane {
@@ -148,7 +148,7 @@
 }
 
 .result-display {
-    -fx-background-color: transparent;
+    -fx-background-color: #B3B6B7;
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
     -fx-text-fill: white;
