@@ -8,11 +8,13 @@ import java.util.regex.Pattern;
 
 import seedu.souschef.logic.commands.ClearMealPlannerCommand;
 import seedu.souschef.logic.commands.Command;
+import seedu.souschef.logic.commands.DisplayMealPlannerCommand;
 import seedu.souschef.logic.commands.HelpCommand;
 import seedu.souschef.logic.commands.PlanMealCommand;
 import seedu.souschef.logic.parser.commandparser.PlanMealCommandParser;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
+import seedu.souschef.ui.Ui;
 
 
 /**
@@ -33,7 +35,8 @@ public class MealPlannerParser {
      * @return
      * @throws ParseException
      */
-    public Command parseCommand(Model mealPlannerModel, Model recipeModel, String userInput) throws ParseException {
+    public Command parseCommand(Model mealPlannerModel, Model recipeModel,
+            String userInput, Ui ui) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -47,8 +50,7 @@ public class MealPlannerParser {
             return new PlanMealCommandParser().parsePlan(mealPlannerModel, recipeModel, arguments);
 
         case "display":
-            //return new DisplayMealPlannerCommand(ui);
-            return null;
+            return new DisplayMealPlannerCommand(ui);
         case "clear":
             return new ClearMealPlannerCommand(mealPlannerModel);
 
