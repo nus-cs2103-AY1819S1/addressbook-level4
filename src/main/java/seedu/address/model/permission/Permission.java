@@ -1,8 +1,5 @@
 package seedu.address.model.permission;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * Permissions available in the system, that can be assigned to individual users.
  */

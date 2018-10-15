@@ -1,10 +1,11 @@
 package seedu.address.model.permission;
 
-import seedu.address.model.person.Person;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+
+
+import seedu.address.model.person.Person;
 
 /**
  * Represents the set of permission(s) a user.
@@ -14,6 +15,9 @@ import java.util.Set;
 public class PermissionSet {
     private Set<Permission> permissionSet;
 
+    /**
+     * Enum class to represent the preset permission available.
+     */
     public enum PresetPermission {
         ADMIN,
         MANAGER,
