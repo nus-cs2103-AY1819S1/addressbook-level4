@@ -9,7 +9,7 @@ import seedu.scheduler.model.Model;
  * Get events from google calendar.
  */
 public class GetGoogleEventsCommand extends Command {
-    public static final String COMMAND_WORD = "ggevents";
+    public static final String COMMAND_WORD = "ggEvents";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Get google calendar events.\n"
             + "download the events from primary google calendar.\n"
             + "Parameters: NONE "
