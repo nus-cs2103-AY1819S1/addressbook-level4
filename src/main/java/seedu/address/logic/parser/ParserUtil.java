@@ -2,6 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -153,5 +155,18 @@ public class ParserUtil {
             throw new ParseException(Picture.MESSAGE_PICTURE_CONSTRAINTS);
         }
         return new Picture(trimmedFileLocation);
+    }
+
+    /**
+     * Parses a {@code String csvFileLocation} into a {@code Path}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code fileLocation} is invalid.
+     */
+    public static Path parseCsv(String fileLocation) throws ParseException {
+        requireNonNull(fileLocation);
+        String trimmedFileLocation = fileLocation.trim();
+        Path path = Paths.get(trimmedFileLocation);
+        return path;
     }
 }
