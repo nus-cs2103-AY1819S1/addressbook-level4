@@ -13,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.TemplateLoadRequestedEvent;
 import seedu.address.model.entry.ResumeEntry;
 import seedu.address.model.person.Person;
 
@@ -110,6 +111,13 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Template ==================================================================================
+
+    @Override
+    public void loadTemplate(String filepath) {
+        raise(new TemplateLoadRequestedEvent(filepath));
     }
 
     //=========== Undo/Redo =================================================================================

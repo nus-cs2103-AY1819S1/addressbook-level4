@@ -68,6 +68,10 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
+     * Loads a template from the specified filepath.
+     */
+    void loadTemplate(String filepath);
+    /**
      * Returns true if the model has previous address book states to restore.
      */
     boolean canUndoAddressBook();

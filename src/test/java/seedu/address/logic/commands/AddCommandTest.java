@@ -140,6 +140,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void loadTemplate(String filepath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean canUndoAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
