@@ -65,7 +65,15 @@ public class Event {
         return eventDay;
     }
 
-    // todo: define a weaker form of equality to check clashes
+    /**
+     * Returns true if the two events clash
+     */
+    public boolean isClashingEvent(Event event) {
+        //todo: implement method
+        return true;
+    }
+
+    //todo: check isSameEvent constraints
     /**
      * Returns true if both events are equal
      */
@@ -98,7 +106,7 @@ public class Event {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(eventName, eventDescription, eventDate, eventStartTime, eventAddress);
+        return Objects.hash(eventName, eventDescription, eventDate, eventStartTime, eventEndTime, eventAddress);
     }
 
     @Override
