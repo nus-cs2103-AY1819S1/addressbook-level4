@@ -38,11 +38,11 @@ public class EditCommandTest {
         Recipe lastRecipe = model.getFilteredList().get(indexLastPerson.getZeroBased());
 
         RecipeBuilder personInList = new RecipeBuilder(lastRecipe);
-        Recipe editedRecipe = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+        Recipe editedRecipe = personInList.withName(VALID_NAME_BOB).withDifficulty(VALID_DIFFICULTY_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
         EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
+                .withDifficulty(VALID_DIFFICULTY_BOB).withTags(VALID_TAG_HUSBAND).build();
         EditCommand<Recipe> editCommand = new EditCommand<Recipe>(indexLastPerson, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);

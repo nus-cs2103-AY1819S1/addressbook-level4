@@ -11,16 +11,6 @@ public class DeleteCommand<T extends UniqueType> extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the recipe identified by the index number used in the displayed recipe list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
-
-    public static final String MESSAGE_USAGE_HEALTHPLAN = COMMAND_WORD
-            + ": Deletes the health plan identified by the index number used in the displayed health plan list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
-
     public static final String MESSAGE_DELETE_SUCCESS = "Deleted %1$s: %2$s";
 
     private final Model model;

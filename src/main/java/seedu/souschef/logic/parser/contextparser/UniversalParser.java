@@ -37,7 +37,7 @@ public class UniversalParser {
             return new ContextCommand("Recipe");
 
         case "ingredientmanager":
-            return new ContextCommand("Ingredient Manager");
+            return new ContextCommand("Ingredient");
 
         case "healthplan":
             return new ContextCommand("Health Plan");
