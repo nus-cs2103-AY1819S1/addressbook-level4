@@ -12,9 +12,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.task.Task;
 /**
- * Lists all the commands entered by user from the start of app launch.
+ * Initiates a depedency between a dependant task and a dependee task.
+ * The dependent task is dependent on dependee task.
  */
-//TODO: elaborate on what is dependant and dependee
 public class DependencyCommand extends Command {
     public static final String COMMAND_WORD = "dependency";
     public static final String MESSAGE_SUCCESS = "You have added dependency for :\n%1$s";
@@ -70,9 +70,6 @@ public class DependencyCommand extends Command {
                 dependantTask.getDependency().addDependency(dependeeTask)
         );
     }
-
-
-
 
     @Override
     public boolean equals(Object obj) {

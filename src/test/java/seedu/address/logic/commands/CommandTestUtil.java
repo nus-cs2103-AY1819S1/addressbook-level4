@@ -154,8 +154,7 @@ public class CommandTestUtil {
 
     /**
      * Updates {@code model}'s filtered list to show only the task at the given {@code targetIndex}
-     * in the
-     * {@code model}'s task manager.
+     * in the {@code model}'s task manager.
      */
     public static void showTaskAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredTaskList().size());
