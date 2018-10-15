@@ -22,18 +22,18 @@ public class FindCommandParser implements Parser<FindCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindCommand parse(String args) throws ParseException {
-//        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ALL, PREFIX_SOME, PREFIX_NONE);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ALL, PREFIX_SOME, PREFIX_NONE);
+
+        if (!)
+//        String trimmedArgs = args.trim();
+//        if (trimmedArgs.isEmpty()) {
+//            throw new ParseException(
+//                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+//        }
 //
-//        if (!)
-        String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
-        }
-
-        String[] nameKeywords = trimmedArgs.split("\\s+");
-
-        return new FindCommand(new NameContainsAnyKeywordsPredicate(Arrays.asList(nameKeywords)));
+//        String[] nameKeywords = trimmedArgs.split("\\s+");
+//
+//        return new FindCommand(new NameContainsAnyKeywordsPredicate(Arrays.asList(nameKeywords)));
     }
 
 }
