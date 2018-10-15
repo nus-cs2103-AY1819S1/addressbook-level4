@@ -2,6 +2,7 @@ package seedu.souschef.storage;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Optional;
 
 import seedu.souschef.commons.events.model.AppContentChangedEvent;
@@ -35,6 +36,8 @@ public interface Storage extends FeatureStorage, UserPrefsStorage {
      */
     void setMainFeatureStorage(FeatureStorage featureStorage);
 
+
+    ArrayList<FeatureStorage> getListOfFeatureStorage();
     /**
      * currently unused, to include a new feature storage into the list
      * and return the new state of the storage unit
