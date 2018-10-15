@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
 
 import java.util.Arrays;
@@ -30,7 +31,7 @@ import seedu.address.logic.commands.StatsCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.expense.Expense;
-import seedu.address.model.expense.NameContainsKeywordsPredicate;
+import seedu.address.model.expense.ExpenseContainsKeywordsPredicate;
 import seedu.address.testutil.EditExpenseDescriptorBuilder;
 import seedu.address.testutil.ExpenseBuilder;
 import seedu.address.testutil.ExpenseUtil;
@@ -91,12 +92,14 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        ArgumentMultimap keywordsMap = ArgumentTokenizer.tokenize(" n/foo bar baz", PREFIX_NAME);
+        ArgumentMultimap keywordsMap2 = ArgumentTokenizer.tokenize(" n/foo bar baz", PREFIX_NAME);
         FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+                FindCommand.COMMAND_WORD + " " + PREFIX_NAME + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindCommand(new ExpenseContainsKeywordsPredicate(keywordsMap)), command);
         command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_ALIAS + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+                FindCommand.COMMAND_ALIAS + " " + PREFIX_NAME + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindCommand(new ExpenseContainsKeywordsPredicate(keywordsMap)), command);
     }
 
     @Test

@@ -174,16 +174,19 @@ Format: `delete INDEX`
 
 === Locating expenses by name: `find`
 
-Finds all expenses which has a name containing any of the given keywords and displays them in the expense list. +
+Finds expense whose names contain any of the given keywords. +
+Format: `find [n/NAME] [c/CATEGORY] [$/COST:COST] [t/TAG] [d/DATE:DATE]`
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Examples:
 
-****
-*Examples:*
-
-*  `find lunch` +
- Finds all expenses with name containing the word "lunch".
-****
+* find c/School
+Find all the expenses under `School` category.
+* find c/Food  t/Lunch
+Find all the expenses with tag `Lunch` plus the expenses under `Food` category.
+* find d/1-10-2018:7-10-2018
+Find all the expenses from 1-10-2018 to 7-10-2018.
+* find $/10.00:20.00
+Find all the expenses with cost which is larger than or equals to 10.00 and smaller or equal to 20.
 
 [NOTE]
 ====
