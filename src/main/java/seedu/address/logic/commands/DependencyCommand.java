@@ -76,7 +76,7 @@ public class DependencyCommand extends Command {
         if (obj == null) {
             return false;
         } else if (obj instanceof DependencyCommand) {
-            return dependantIndex.equals(((DependencyCommand) obj).dependantIndex);
+            return dependantIndex.equals(((DependencyCommand) obj).dependantIndex) && dependeeIndex.equals(((DependencyCommand) obj).dependeeIndex);
         } else {
             // superclass's implementation might pass,
             // although in this instance it's a == relationship.
