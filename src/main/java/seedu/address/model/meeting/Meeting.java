@@ -1,11 +1,11 @@
 package seedu.address.model.meeting;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
 //@@author AyushChatto
 /**
@@ -54,11 +54,11 @@ public class Meeting {
         if (test.equals(NO_MEETING)) {
             return true;
         }
-        String formattedTest= formatMeeting(test);
+        String formattedTest = formatMeeting(test);
         if (formattedTest.matches(MEETING_VALIDATION_REGEX)) {
             try {
                 DateTimeFormatter df = DateTimeFormatter.ofPattern("ddMMyy");
-                LocalDate.parse(formattedTest.substring(0,6), df);
+                LocalDate.parse(formattedTest.substring(0, 6), df);
                 return true;
             } catch (DateTimeException e) {
                 return false;
@@ -75,11 +75,11 @@ public class Meeting {
             return NO_MEETING_MSG;
         }
         StringBuilder sb = new StringBuilder();
-        sb.append(" " + value.substring(0,2) + "/"
-                + value.substring(2,4) + "/"
-                + value.substring(4,6) + " at "
-                + value.substring(6,8)
-                + value.substring(8,10));
+        sb.append(" " + value.substring(0, 2) + "/"
+                + value.substring(2, 4) + "/"
+                + value.substring(4, 6) + " at "
+                + value.substring(6, 8)
+                + value.substring(8, 10));
         return sb.toString();
     }
 

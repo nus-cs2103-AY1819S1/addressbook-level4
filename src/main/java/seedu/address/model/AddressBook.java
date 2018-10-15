@@ -122,16 +122,27 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.hashCode();
     }
 
+    /**
+     * Returns true if a meeting with the same timing as {@code meeting} exists in the address book.
+     */
     public boolean hasMeeting(Meeting meeting) {
         requireNonNull(meeting);
         return meetings.contains(meeting);
     }
 
-
+    /**
+     * Removes {@code target} from this {@code AddressBook}.
+     * {@code target} must exist in the address book.
+     */
     public void removeMeeting(Meeting target) {
         meetings.remove(target);
     }
 
+
+    /**
+     * Adds a meeting to the address book.
+     * The meeting must not already exist in the address book.
+     */
     public void addMeeting(Meeting meeting) {
         meetings.add(meeting);
     }
