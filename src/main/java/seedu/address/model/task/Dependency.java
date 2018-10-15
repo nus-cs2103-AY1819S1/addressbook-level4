@@ -10,9 +10,6 @@ import java.util.Set;
  */
 public class Dependency {
 
-    public static final String MESSAGE_DEPENDENCY_CONSTRAINTS =
-            "Dependency can only be specified using the hashcode of object";
-
     private Set<String> value = new HashSet<>();
 
     /**
@@ -20,7 +17,6 @@ public class Dependency {
      *
      * @param hashes A list of hashes of task dependencies.
      */
-
     public Dependency(Set<String> hashes) {
         value = new HashSet<String>(hashes);
     }

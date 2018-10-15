@@ -163,6 +163,11 @@ public class AddCommandTest {
         public void commitTaskManager() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void rollbackTaskManager() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

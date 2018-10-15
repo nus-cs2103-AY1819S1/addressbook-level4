@@ -84,4 +84,10 @@ public interface Model {
      * Saves the current task manager state for undo/redo.
      */
     void commitTaskManager();
+
+    /**
+     * Removes all uncommited changes and rollbacks to state pointed by
+     * current state pointer.
+     */
+    void rollbackTaskManager();
 }

@@ -86,7 +86,6 @@ public class Task {
         return dependency;
     }
 
-
     public boolean isCompleted() {
         return status == Status.COMPLETED;
     }

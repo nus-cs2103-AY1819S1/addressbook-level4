@@ -106,7 +106,6 @@ public class XmlAdaptedTask {
      * @throws IllegalValueException if there were any data constraints violated in the adapted task
      */
     public Task toModelType() throws IllegalValueException {
-        //TODO: add dependency parser
         final List<Label> taskLabels = new ArrayList<>();
         for (XmlAdaptedLabel label : labelled) {
             taskLabels.add(label.toModelType());

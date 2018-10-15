@@ -1,12 +1,14 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showTaskAtTwoIndexes;
 
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TASK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TASK;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_TASK;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskManager;
 
 import org.junit.Test;
@@ -28,14 +30,14 @@ public class DependencyCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Task dependeeTask = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
-        Task dependantTask = model.getFilteredTaskList().get(INDEX_SECOND_TASK.getZeroBased());
+        Task dependantTask = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
+        Task dependeeTask = model.getFilteredTaskList().get(INDEX_SECOND_TASK.getZeroBased());
 
         DependencyCommand dependencyCommand = new DependencyCommand(INDEX_FIRST_TASK, INDEX_SECOND_TASK);
-        Task newTask = DependencyCommand.createDependeeTask(dependeeTask, dependantTask);
+        Task newTask = DependencyCommand.createDependantTask(dependantTask, dependeeTask);
         String expectedMessage = String.format(DependencyCommand.MESSAGE_SUCCESS, newTask);
         ModelManager expectedModel = new ModelManager(model.getTaskManager(), new UserPrefs());
-        expectedModel.updateTask(dependeeTask, newTask);
+        expectedModel.updateTask(dependantTask, newTask);
         expectedModel.commitTaskManager();
         assertCommandSuccess(dependencyCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -51,14 +53,14 @@ public class DependencyCommandTest {
     public void execute_validIndexFilteredList_success() {
         showTaskAtTwoIndexes(model, INDEX_FIRST_TASK, INDEX_SECOND_TASK);
 
-        Task dependeeTask = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
-        Task dependantTask = model.getFilteredTaskList().get(INDEX_SECOND_TASK.getZeroBased());
+        Task dependantTask = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
+        Task dependeeTask = model.getFilteredTaskList().get(INDEX_SECOND_TASK.getZeroBased());
 
         DependencyCommand dependencyCommand = new DependencyCommand(INDEX_FIRST_TASK, INDEX_SECOND_TASK);
-        Task newTask = DependencyCommand.createDependeeTask(dependeeTask, dependantTask);
+        Task newTask = DependencyCommand.createDependantTask(dependantTask, dependeeTask);
         String expectedMessage = String.format(DependencyCommand.MESSAGE_SUCCESS, newTask);
         ModelManager expectedModel = new ModelManager(model.getTaskManager(), new UserPrefs());
-        expectedModel.updateTask(dependeeTask, newTask);
+        expectedModel.updateTask(dependantTask, newTask);
         expectedModel.commitTaskManager();
 
         assertCommandSuccess(dependencyCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -75,14 +77,14 @@ public class DependencyCommandTest {
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
-        Task dependeeTask = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
-        Task dependantTask = model.getFilteredTaskList().get(INDEX_SECOND_TASK.getZeroBased());
+        Task dependantTask = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
+        Task dependeeTask = model.getFilteredTaskList().get(INDEX_SECOND_TASK.getZeroBased());
 
         DependencyCommand dependencyCommand = new DependencyCommand(INDEX_FIRST_TASK, INDEX_SECOND_TASK);
-        Task newTask = DependencyCommand.createDependeeTask(dependeeTask, dependantTask);
+        Task newTask = DependencyCommand.createDependantTask(dependantTask, dependeeTask);
 
         Model expectedModel = new ModelManager(model.getTaskManager(), new UserPrefs());
-        expectedModel.updateTask(dependeeTask, newTask);
+        expectedModel.updateTask(dependantTask, newTask);
         expectedModel.commitTaskManager();
         // add dependency
         dependencyCommand.execute(model, commandHistory);
@@ -116,12 +118,12 @@ public class DependencyCommandTest {
 
         Model expectedModel = new ModelManager(model.getTaskManager(), new UserPrefs());
         showTaskAtTwoIndexes(model, INDEX_FIRST_TASK, INDEX_SECOND_TASK);
+        Task dependantTask = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
+        Task dependeeTask = model.getFilteredTaskList().get(INDEX_SECOND_TASK.getZeroBased());
 
-        Task dependeeTask = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
-        Task dependantTask = model.getFilteredTaskList().get(INDEX_SECOND_TASK.getZeroBased());
-        Task newTask = DependencyCommand.createDependeeTask(dependeeTask, dependantTask);
+        Task newTask = DependencyCommand.createDependantTask(dependantTask, dependeeTask);
 
-        expectedModel.updateTask(dependeeTask, newTask);
+        expectedModel.updateTask(dependantTask, newTask);
         expectedModel.commitTaskManager();
         // dependency -> dependency for second task in unfiltered task list / first task in filtered task
         // list
@@ -129,10 +131,24 @@ public class DependencyCommandTest {
         // undo -> reverts task manager back to previous state and filtered task list to show all tasks
         expectedModel.undoTaskManager();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
-        assertEquals(dependeeTask.getDependency(), model.getFilteredTaskList().get(
+        assertEquals(dependantTask.getDependency(), model.getFilteredTaskList().get(
                 INDEX_FIRST_TASK.getZeroBased()).getDependency());
         // redo -> deletes same second task in unfiltered task list=-
         expectedModel.redoTaskManager();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void equals() throws Exception {
+        DependencyCommand firstCommand = new DependencyCommand(INDEX_FIRST_TASK, INDEX_SECOND_TASK);
+        DependencyCommand anotherFirstCommand = new DependencyCommand(INDEX_FIRST_TASK, INDEX_SECOND_TASK);
+
+        assertEquals(firstCommand, anotherFirstCommand);
+
+        DependencyCommand secondCommand = new DependencyCommand(INDEX_SECOND_TASK, INDEX_FIRST_TASK);
+        DependencyCommand thirdCommand = new DependencyCommand(INDEX_FIRST_TASK, INDEX_THIRD_TASK);
+        assertNotEquals(firstCommand, secondCommand);
+        assertNotEquals(firstCommand, thirdCommand);
+
     }
 }
