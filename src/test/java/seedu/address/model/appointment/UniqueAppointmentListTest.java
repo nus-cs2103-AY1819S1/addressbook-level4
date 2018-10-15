@@ -3,6 +3,9 @@ package seedu.address.model.appointment;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.TypicalPersons.AMY_APPT;
+import static seedu.address.testutil.TypicalPersons.BENSON_APPT;
+import static seedu.address.testutil.TypicalPersons.CARL_APPT;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -11,10 +14,11 @@ import java.util.List;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import seedu.address.model.appointment.exceptions.AppointmentClashException;
 import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
-import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.testutil.AppointmentBuilder;
 
 public class UniqueAppointmentListTest {
     @Rule
@@ -30,20 +34,20 @@ public class UniqueAppointmentListTest {
 
     @Test
     public void contains_appointmentNotInList_returnsFalse() {
-        assertFalse(uniqueAppointmentList.contains());
+        assertFalse(uniqueAppointmentList.contains(AMY_APPT));
     }
 
     @Test
     public void contains_appointmentInList_returnsTrue() {
-        uniqueAppointmentList.add(); //TODO add appt
-        assertTrue(uniqueAppointmentList.contains());
+        uniqueAppointmentList.add(AMY_APPT);
+        assertTrue(uniqueAppointmentList.contains(AMY_APPT));
     }
 
     @Test
-    public void contains_appointmentWithSameIdentityFieldsInList_returnsTrue() {
-        uniqueAppointmentList.add(); //TODO add appt
-        Appointment editedAppt = new Appointment();
-        assertTrue(uniqueAppointmentList.contains(editedAppt));
+    public void contains_appointmentWithSameSimilarFieldsInList_returnsFalse() {
+        uniqueAppointmentList.add(AMY_APPT);
+        Appointment editedAppt = new AppointmentBuilder(AMY_APPT).withDate(4, 10, 2018).build();
+        assertFalse(uniqueAppointmentList.contains(editedAppt));
     }
 
     @Test
@@ -54,63 +58,62 @@ public class UniqueAppointmentListTest {
 
     @Test
     public void add_duplicateAppointment_throwsDuplicateAppointmentException() {
-        uniqueAppointmentList.add(); //TODO add appt
+        uniqueAppointmentList.add(BENSON_APPT);
         thrown.expect(DuplicateAppointmentException.class);
-        uniqueAppointmentList.add(); //TODO add appt
+        uniqueAppointmentList.add(BENSON_APPT);
+    }
+
+    @Test
+    public void add_clashingAppointment_throwsAppointmentClashException() {
+        uniqueAppointmentList.add(AMY_APPT);
+        Appointment clashingAppt = new AppointmentBuilder(CARL_APPT).withTime(13, 00).build();
+        thrown.expect(AppointmentClashException.class);
+        uniqueAppointmentList.add(clashingAppt);
     }
 
     @Test
     public void setAppointment_nullTargetAppointment_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueAppointmentList.setAppointment(null, ); //TODO add appt
+        uniqueAppointmentList.setAppointment(null, CARL_APPT);
     }
 
     @Test
     public void setAppointment_nullEditedAppointment_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueAppointmentList.setAppointment(, null); //TODO add appt
+        uniqueAppointmentList.setAppointment(CARL_APPT, null);
     }
 
     @Test
     public void setAppointment_targetAppointmentNotInList_throwsAppointmentNotFoundException() {
-        thrown.expect(PersonNotFoundException.class);
-        uniqueAppointmentList.add(); //TODO add appt
+        thrown.expect(AppointmentNotFoundException.class);
+        uniqueAppointmentList.setAppointment(CARL_APPT, CARL_APPT);
     }
-
-    @Test
-    public void setAppointment_editedAppointmentIsSameAppointment_success() {
-        uniqueAppointmentList.add(); //TODO add appt
-        uniqueAppointmentList.setAppointment(); //TODO add appt
-        UniquePersonList expectedUniqueAppointmentList = new UniquePersonList();
-        expectedUniqueAppointmentList.add(); //TODO add appt
-        assertEquals(expectedUniqueAppointmentList, uniqueAppointmentList);
-    }
-
-    @Test
-    public void setAppointment_editedAppointmentHasSameIdentity_success() {
-        uniqueAppointmentList.add(); //TODO add appt
-        Appointment editedAppt = new Appointment();
-        uniqueAppointmentList.setAppointment(); //TODO add appt
-        UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList();
-        expectedUniqueAppointmentList.add(); //TODO add appt
-        assertEquals(expectedUniqueAppointmentList, uniqueAppointmentList);
-    }
-
+    
     @Test
     public void setAppointment_editedAppointmentHasDifferentIdentity_success() {
-        uniqueAppointmentList.add(); //TODO add appt
-        uniqueAppointmentList.setAppointment(); //TODO add appt
+        uniqueAppointmentList.add(AMY_APPT);
+        uniqueAppointmentList.setAppointment(AMY_APPT, BENSON_APPT);
         UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList();
-        expectedUniqueAppointmentList.add(); //TODO add appt
+        expectedUniqueAppointmentList.add(BENSON_APPT);
         assertEquals(expectedUniqueAppointmentList, uniqueAppointmentList);
     }
 
     @Test
     public void setAppointment_editedAppointmentHasNonUniqueIdentity_throwsDuplicateAppointmentException() {
-        uniqueAppointmentList.add(); //TODO add appt
-        uniqueAppointmentList.add(); //TODO add appt
+        uniqueAppointmentList.add(BENSON_APPT);
+        uniqueAppointmentList.add(CARL_APPT);
         thrown.expect(DuplicateAppointmentException.class);
-        uniqueAppointmentList.setAppointment(); //TODO add appt
+        uniqueAppointmentList.setAppointment(BENSON_APPT, CARL_APPT);
+    }
+
+    @Test
+    public void setAppointment_editedAppointmentHasClash_throwsAppointmentClashException() {
+        uniqueAppointmentList.add(AMY_APPT);
+        uniqueAppointmentList.add(CARL_APPT);
+        Appointment editedAppt = new AppointmentBuilder(CARL_APPT)
+                .withTime(13, 00).build();
+        thrown.expect(AppointmentClashException.class);
+        uniqueAppointmentList.setAppointment(CARL_APPT, editedAppt);
     }
 
     @Test
@@ -122,13 +125,13 @@ public class UniqueAppointmentListTest {
     @Test
     public void remove_appointmentDoesNotExist_throwsAppointmentNotFoundException() {
         thrown.expect(AppointmentNotFoundException.class);
-        uniqueAppointmentList.remove(); //TODO add appt
+        uniqueAppointmentList.remove(BENSON_APPT);
     }
 
     @Test
     public void remove_existingAppointment_removesAppointment() {
-        uniqueAppointmentList.add(); //TODO add appt
-        uniqueAppointmentList.remove(); //TODO add appt
+        uniqueAppointmentList.add(AMY_APPT);
+        uniqueAppointmentList.remove(AMY_APPT);
         UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList();
         assertEquals(expectedUniqueAppointmentList, uniqueAppointmentList);
     }
@@ -141,9 +144,9 @@ public class UniqueAppointmentListTest {
 
     @Test
     public void setAppointments_uniqueAppointmentList_replacesOwnListWithProvidedUniqueAppointmentList() {
-        uniqueAppointmentList.add(); //TODO add appt
+        uniqueAppointmentList.add(CARL_APPT);
         UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList();
-        uniqueAppointmentList.add(); //TODO add appt
+        uniqueAppointmentList.add(BENSON_APPT);
         uniqueAppointmentList.setAppointments(expectedUniqueAppointmentList);
         assertEquals(expectedUniqueAppointmentList, uniqueAppointmentList);
     }
@@ -156,17 +159,17 @@ public class UniqueAppointmentListTest {
 
     @Test
     public void setAppointments_list_replacesOwnListWithProvidedList() {
-        uniqueAppointmentList.add(); //TODO add appt
-        List<Appointment> appointmentList = Collections.singletonList(); //TODO add appt
+        uniqueAppointmentList.add(AMY_APPT);
+        List<Appointment> appointmentList = Collections.singletonList(BENSON_APPT);
         uniqueAppointmentList.setAppointments(appointmentList);
-        UniquePersonList expectedUniqueAppointmentList = new UniquePersonList();
-        expectedUniqueAppointmentList.add(); //TODO add appt
+        UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList();
+        expectedUniqueAppointmentList.add(BENSON_APPT);
         assertEquals(expectedUniqueAppointmentList, uniqueAppointmentList);
     }
 
     @Test
     public void setAppointments_listWithDuplicateAppointments_throwsDuplicateAppointmentException() {
-        List<Appointment> listWithDuplicateAppointment = Arrays.asList(); //TODO add dup appt
+        List<Appointment> listWithDuplicateAppointment = Arrays.asList(AMY_APPT, AMY_APPT);
         thrown.expect(DuplicateAppointmentException.class);
         uniqueAppointmentList.setAppointments(listWithDuplicateAppointment);
     }
