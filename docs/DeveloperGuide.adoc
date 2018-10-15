@@ -212,6 +212,10 @@ The `Model`,
 * exposes an unmodifiable `ObservableList<Person>` and an unmodifiable `ObservableList<Group>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
+[NOTE]
+As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference.
+This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object.
+
 *New enhancements for `v1.2`:*
 
 .The new Group class
@@ -240,12 +244,12 @@ image::personClassDiagram.png[width="300"]
 *The enhanced `AddressBook`*,
 
 * `versionedAddressBook` now also contains group list, which supports categorisation of persons in address book.
-* `Group` can be created or deleted from the address book.
-
+* `Group` can be created or removed from the address book.
+* When a `Group` is removed from the address book, all members will be removed from this group.
+* When a `Person` is removed from the address book, all groups containing this person as member will remove this person from the group.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference.
-This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object.
+The categorisation of `Person` is not exclusive. One `Person` can be enrolled in multiple groups at the same time.
 
 
 
