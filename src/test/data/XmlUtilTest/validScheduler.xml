@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<scheduler>
+    <events>
+        <uuid>aef6b77e-20a7-4de4-8402-343fbd475fd3</uuid>
+        <eventName>CS2103 Tutorial</eventName>
+        <startDateTime>2018-09-21T11:00</startDateTime>
+        <endDateTime>2018-09-21T12:00</endDateTime>
+        <description>F11 Tutorial slot</description>
+        <priority>LOW</priority>
+        <venue>School of Computing</venue>
+        <repeatType>NONE</repeatType>
+        <repeatUntilDateTime>2018-09-21T11:00</repeatUntilDateTime>
+    </events>
+    <events>
+        <uuid>1bae658a-c457-4b83-8319-d45f8e61028d</uuid>
+        <eventName>z</eventName>
+        <startDateTime>2018-10-11T02:00</startDateTime>
+        <endDateTime>2018-10-11T03:00</endDateTime>
+        <description></description>
+        <priority>NONE</priority>
+        <venue></venue>
+        <repeatType>NONE</repeatType>
+        <repeatUntilDateTime>2018-10-11T03:00</repeatUntilDateTime>
+    </events>
+    <events>
+        <uuid>ef44088d-c7f7-49e0-974f-fd3acb9f8e87</uuid>
+        <eventName>zz</eventName>
+        <startDateTime>2018-10-11T15:00</startDateTime>
+        <endDateTime>2018-10-11T16:00</endDateTime>
+        <description></description>
+        <priority>NONE</priority>
+        <venue></venue>
+        <repeatType>NONE</repeatType>
+        <repeatUntilDateTime>2018-10-11T16:00</repeatUntilDateTime>
+    </events>
+</scheduler>
