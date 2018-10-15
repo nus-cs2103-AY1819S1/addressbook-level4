@@ -16,6 +16,7 @@ import seedu.souschef.commons.core.LogsCenter;
 import seedu.souschef.commons.events.storage.DataSavingExceptionEvent;
 import seedu.souschef.commons.util.StringUtil;
 import seedu.souschef.logic.Logic;
+import seedu.souschef.logic.LogicManager;
 import seedu.souschef.model.UserPrefs;
 
 /**
@@ -36,6 +37,14 @@ public class UiManager extends ComponentManager implements Ui {
     private Config config;
     private UserPrefs prefs;
     private MainWindow mainWindow;
+
+    public UiManager() {
+        super();
+        this.logic = null;
+        this.config = null;
+        this.prefs = null;
+        this.mainWindow = null;
+    }
 
     public UiManager(Logic logic, Config config, UserPrefs prefs) {
         super();
