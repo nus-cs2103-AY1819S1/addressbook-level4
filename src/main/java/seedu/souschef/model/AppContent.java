@@ -74,7 +74,9 @@ public class AppContent implements ReadOnlyAppContent {
         if (newData.getObservableHealthPlanList().size() > 0) {
             this.healthPlans.set(newData.getObservableHealthPlanList());
         }
-
+        if (newData.getObservableIngredientList().size() > 0) {
+            this.ingredients.set(newData.getObservableIngredientList());
+        }
         if (newData.getObservableMealPlanner().size() > 0) {
             this.mealPlanner.set(newData.getObservableMealPlanner());
         }

@@ -14,7 +14,7 @@ public class ListCommand<T extends UniqueType> extends Command {
 
     public static final String COMMAND_WORD = "list";
 
-    public static final String MESSAGE_SUCCESS = "Listed all recipes";
+    public static final String MESSAGE_SUCCESS = "Listed all %1$s.";
 
     private final Model model;
 
@@ -26,6 +26,6 @@ public class ListCommand<T extends UniqueType> extends Command {
     public CommandResult execute(CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredList(PREDICATE_SHOW_ALL);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, history.getContext().toLowerCase()));
     }
 }

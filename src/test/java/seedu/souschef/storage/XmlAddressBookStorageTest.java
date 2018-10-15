@@ -37,8 +37,7 @@ public class XmlAddressBookStorageTest {
     }
 
     private java.util.Optional<ReadOnlyAppContent> readAddressBook(String filePath) throws Exception {
-        return new XmlRecipeStorage(Paths.get(filePath),
-                new AppContent()).readFeature(addToTestDataPathIfNotNull(filePath));
+        return new XmlRecipeStorage(Paths.get(filePath)).readFeature(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -79,7 +78,7 @@ public class XmlAddressBookStorageTest {
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.xml");
         AppContent original = getTypicalAddressBook();
-        XmlFeatureStorage xmlAddressBookStorage = new XmlRecipeStorage(filePath, new AppContent());
+        XmlFeatureStorage xmlAddressBookStorage = new XmlRecipeStorage(filePath);
 
         //Save in new file and readAppContent back
         xmlAddressBookStorage.saveFeature(original, filePath);
@@ -115,7 +114,7 @@ public class XmlAddressBookStorageTest {
      */
     private void saveAddressBook(ReadOnlyAppContent addressBook, String filePath) {
         try {
-            new XmlRecipeStorage(Paths.get(filePath), new AppContent())
+            new XmlRecipeStorage(Paths.get(filePath))
                     .saveFeature(addressBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);

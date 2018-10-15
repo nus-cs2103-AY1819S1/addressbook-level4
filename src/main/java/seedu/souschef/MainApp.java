@@ -64,8 +64,6 @@ public class MainApp extends Application {
         userPrefs = initPrefs(userPrefsStorage);
         AppContent appContent = new AppContent();
 
-
-
         //storage = new StorageManager(recipeStorage, userPrefsStorage);
         storage = new StorageManager(userPrefsStorage, userPrefs, appContent);
 
@@ -94,10 +92,12 @@ public class MainApp extends Application {
         try {
 
             readOnlyAppContentOptional = storage.readAll();
+
             if (!readOnlyAppContentOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AppContent");
             }
             initialData = readOnlyAppContentOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AppContent");
             initialData = new AppContent();

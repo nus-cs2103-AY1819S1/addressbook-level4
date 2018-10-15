@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.logic.commands.Command;
 import seedu.souschef.logic.commands.PlanMealCommand;
+import seedu.souschef.logic.parser.contextparser.HealthPlanParser;
 import seedu.souschef.logic.parser.contextparser.MealPlannerParser;
 import seedu.souschef.logic.parser.contextparser.RecipeParser;
 import seedu.souschef.logic.parser.contextparser.UniversalParser;
@@ -40,8 +41,10 @@ public class AppContentParser {
         } else if (userInput.substring(0, 4).equalsIgnoreCase(PlanMealCommand.COMMAND_WORD)) {
             return new MealPlannerParser()
                 .parseCommand(modelSet.getMealPlannerModel(), modelSet.getRecipeModel(), userInput);
-        } else if (context == null || context.equals("Recipe")) {
+        } else if (context.equals("Recipe")) {
             return new RecipeParser().parseCommand(modelSet.getRecipeModel(), userInput);
+        } else if (context.equals("Health Plan")) {
+            return new HealthPlanParser().parseCommand(modelSet.getHealthPlanModel(), userInput);
         } else {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
