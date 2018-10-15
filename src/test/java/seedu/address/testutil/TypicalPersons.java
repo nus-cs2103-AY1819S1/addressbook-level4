@@ -93,9 +93,11 @@ public class TypicalPersons {
         for (Doctor doctor : getTypicalDoctors()) {
             ab.addDoctor(doctor);
         }
+        /*
         for (Appointment appointment : getTypicalAppointments()) {
             ab.addAppointment(appointment);
         }
+        */
         return ab;
     }
 
