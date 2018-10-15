@@ -157,6 +157,12 @@ public class ParserUtil {
         return new Picture(trimmedFileLocation);
     }
 
+    /**
+     * Parses a {@code String csvFileLocation} into a {@code Path}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code fileLocation} is invalid.
+     */
     public static Path parseCsv(String fileLocation) throws ParseException {
         requireNonNull(fileLocation);
         String trimmedFileLocation = fileLocation.trim();
