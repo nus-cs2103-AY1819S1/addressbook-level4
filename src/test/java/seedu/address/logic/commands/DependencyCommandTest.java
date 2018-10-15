@@ -48,4 +48,30 @@ public class DependencyCommandTest {
         DependencyCommand dependencyCommand = new DependencyCommand(outOfBoundIndex, outOfBoundIndex);
         assertCommandFailure(dependencyCommand, model, commandHistory, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
+
+    @Test
+    public void execute_validIndexFilteredList_success() {
+        showTaskAtTwoIndexes(model, INDEX_FIRST_TASK, INDEX_SECOND_TASK);
+
+        Task dependeeTask = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
+        Task dependantTask = model.getFilteredTaskList().get(INDEX_SECOND_TASK.getZeroBased());
+
+        DependencyCommand dependencyCommand = new DependencyCommand(INDEX_FIRST_TASK, INDEX_SECOND_TASK);
+        Task newTask = DependencyCommand.createDependeeTask(dependeeTask, dependantTask);
+        String expectedMessage = String.format(DependencyCommand.MESSAGE_SUCCESS, newTask);
+        ModelManager expectedModel = new ModelManager(model.getTaskManager(), new UserPrefs());
+        expectedModel.updateTask(dependeeTask, newTask);
+        expectedModel.commitTaskManager();
+
+        assertCommandSuccess(dependencyCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_invalidIndexFilteredList_throwsCommandException() {
+        showTaskAtTwoIndexes(model, INDEX_FIRST_TASK, INDEX_SECOND_TASK);
+
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTaskList().size() + 1);
+        DependencyCommand dependencyCommand = new DependencyCommand(outOfBoundIndex, outOfBoundIndex);
+        assertCommandFailure(dependencyCommand, model, commandHistory, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+    }
 }
