@@ -5,11 +5,11 @@ import java.util.Objects;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.record.EventId;
+import seedu.address.model.event.EventId;
+import seedu.address.model.person.PersonId;
 import seedu.address.model.record.Hour;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.Remark;
-import seedu.address.model.record.VolunteerId;
 
 /**
  * JAXB-friendly version of the Person.
@@ -19,9 +19,9 @@ public class XmlAdaptedRecord {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Record's %s field is missing!";
 
     @XmlElement(required = true)
-    private String eventId;
+    private int eventId;
     @XmlElement(required = true)
-    private String volunteerId;
+    private int volunteerId;
     @XmlElement(required = true)
     private String hour;
     @XmlElement(required = true)
@@ -37,7 +37,7 @@ public class XmlAdaptedRecord {
     /**
      * Constructs an {@code XmlAdaptedRecord} with the given record details.
      */
-    public XmlAdaptedRecord(String eventId, String volunteerId, String hour, String remark) {
+    public XmlAdaptedRecord(int eventId, int volunteerId, String hour, String remark) {
         this.eventId = eventId;
         this.volunteerId = volunteerId;
         this.hour = hour;
@@ -50,8 +50,8 @@ public class XmlAdaptedRecord {
      * @param source future changes to this will not affect the created XmlAdaptedRecord
      */
     public XmlAdaptedRecord(Record source) {
-        eventId = source.getEventId().value;
-        volunteerId = source.getVolunteerId().value;
+        eventId = source.getEventId().id;
+        volunteerId = source.getVolunteerId().id;
         hour = source.getHour().value;
         remark = source.getRemark().value;
     }
@@ -62,22 +62,15 @@ public class XmlAdaptedRecord {
      * @throws IllegalValueException if there were any data constraints violated in the adapted record
      */
     public Record toModelType() throws IllegalValueException {
-        if (eventId == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, EventId.class.getSimpleName()));
-        }
-        if (!EventId.isValidEventId(eventId)) {
-            throw new IllegalValueException(EventId.MESSAGE_EVENTID_CONSTRAINTS);
+        if (!EventId.isValidId(eventId)) {
+            throw new IllegalValueException(EventId.MESSAGE_NAME_CONSTRAINTS);
         }
         final EventId modelEventId = new EventId(eventId);
 
-        if (volunteerId == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, VolunteerId.class
-                    .getSimpleName()));
+        if (!PersonId.isValidId(volunteerId)) {
+            throw new IllegalValueException(PersonId.MESSAGE_NAME_CONSTRAINTS);
         }
-        if (!VolunteerId.isValidVolunteerId(volunteerId)) {
-            throw new IllegalValueException(VolunteerId.MESSAGE_VOLUNTEERID_CONSTRAINTS);
-        }
-        final VolunteerId modelVolunteerId = new VolunteerId(volunteerId);
+        final PersonId modelVolunteerId = new PersonId(volunteerId);
 
         if (hour == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Hour.class.getSimpleName()));

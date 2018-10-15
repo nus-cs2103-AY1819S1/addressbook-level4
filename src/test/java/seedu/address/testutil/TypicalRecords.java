@@ -12,18 +12,18 @@ import seedu.address.model.record.Record;
  */
 public class TypicalRecords {
 
-    public static final Record R1 = new RecordBuilder().withEventId("1")
-            .withVolunteerId("1")
+    public static final Record R1 = new RecordBuilder().withEventId(1)
+            .withVolunteerId(1)
             .withHour("1")
             .withRemark("Emcee").build();
 
-    public static final Record R2 = new RecordBuilder().withEventId("2")
-            .withVolunteerId("2")
+    public static final Record R2 = new RecordBuilder().withEventId(2)
+            .withVolunteerId(2)
             .withHour("2")
             .withRemark("Delivery man").build();
 
-    public static final Record R3 = new RecordBuilder().withEventId("2")
-            .withVolunteerId("1")
+    public static final Record R3 = new RecordBuilder().withEventId(2)
+            .withVolunteerId(1)
             .withHour("2")
             .withRemark("Food delivery").build();
 

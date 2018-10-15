@@ -28,10 +28,10 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
 public class CommandTestUtil {
     public static final String VALID_COMMANDID_EVENT = "e";
 
-    public static final String VALID_EVENTID_E1 = "1";
-    public static final String VALID_EVENTID_E2 = "2";
-    public static final String VALID_VOLUNTEERID_V1 = "1";
-    public static final String VALID_VOLUNTEERID_V2 = "2";
+    public static final int VALID_EVENTID_E1 = 1;
+    public static final int VALID_EVENTID_E2 = 2;
+    public static final int VALID_VOLUNTEERID_V1 = 1;
+    public static final int VALID_VOLUNTEERID_V2 = 2;
     public static final String VALID_HOUR_H1 = "1";
     public static final String VALID_HOUR_H2 = "2";
     public static final String VALID_REMARK_R1 = "Emcee";

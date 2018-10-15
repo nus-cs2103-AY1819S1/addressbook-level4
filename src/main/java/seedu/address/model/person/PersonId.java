@@ -2,6 +2,8 @@ package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Objects;
+
 /**
  * Represents an Event's Id in the application. Event Id is used in identifying record entries.
  * Guarantees: immutable; is valid as declared in {@link #isValidId(int)}
@@ -31,5 +33,17 @@ public class PersonId {
     @Override
     public String toString() {
         return Integer.toString(id);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof PersonId // instanceof handles nulls
+                && id == ((PersonId) other).id); // state check
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
