@@ -1,50 +1,50 @@
 package systemtests;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalTasks.ALICE;
-import static seedu.address.testutil.TypicalTasks.AMY;
-import static seedu.address.testutil.TypicalTasks.BOB;
-import static seedu.address.testutil.TypicalTasks.CARL;
-import static seedu.address.testutil.TypicalTasks.HOON;
-import static seedu.address.testutil.TypicalTasks.IDA;
-import static seedu.address.testutil.TypicalTasks.KEYWORD_MATCHING_MEIER;
+import static ssp.scheduleplanner.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.DATE_DESC_AMY;
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.DATE_DESC_BOB;
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+//import static CommandTestUtil.VALID_ADDRESS_BOB;
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.VALID_DATE_BOB;
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+//import static CliSyntax.PREFIX_TAG;
+import static ssp.scheduleplanner.testutil.TypicalTasks.ALICE;
+import static ssp.scheduleplanner.testutil.TypicalTasks.AMY;
+import static ssp.scheduleplanner.testutil.TypicalTasks.BOB;
+import static ssp.scheduleplanner.testutil.TypicalTasks.CARL;
+import static ssp.scheduleplanner.testutil.TypicalTasks.HOON;
+import static ssp.scheduleplanner.testutil.TypicalTasks.IDA;
+import static ssp.scheduleplanner.testutil.TypicalTasks.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.task.Date;
-import seedu.address.model.task.Name;
-import seedu.address.model.task.Priority;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.Venue;
-import seedu.address.testutil.TaskBuilder;
-import seedu.address.testutil.TaskUtil;
+import ssp.scheduleplanner.commons.core.Messages;
+import ssp.scheduleplanner.commons.core.index.Index;
+import ssp.scheduleplanner.logic.commands.AddCommand;
+import ssp.scheduleplanner.logic.commands.RedoCommand;
+import ssp.scheduleplanner.logic.commands.UndoCommand;
+import ssp.scheduleplanner.model.Model;
+import ssp.scheduleplanner.model.tag.Tag;
+import ssp.scheduleplanner.model.task.Date;
+import ssp.scheduleplanner.model.task.Name;
+import ssp.scheduleplanner.model.task.Priority;
+import ssp.scheduleplanner.model.task.Task;
+import ssp.scheduleplanner.model.task.Venue;
+import ssp.scheduleplanner.testutil.TaskBuilder;
+import ssp.scheduleplanner.testutil.TaskUtil;
 
 
 public class AddCommandSystemTest extends SchedulePlannerSystemTest {
@@ -59,7 +59,7 @@ public class AddCommandSystemTest extends SchedulePlannerSystemTest {
          * -> added
          */
         Task toAdd = AMY;
-        String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
+        String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + DATE_DESC_AMY + " "
                 + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
         assertCommandSuccess(command, toAdd);
 
@@ -76,14 +76,14 @@ public class AddCommandSystemTest extends SchedulePlannerSystemTest {
 
         /* Case: add a task with all fields same as another task in the address book except name -> added */
         toAdd = new TaskBuilder(AMY).withName(VALID_NAME_BOB).build();
-        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
+        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + DATE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
                 + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a task with all fields same as another task in the address book except phone and email
+        /* Case: add a task with all fields same as another task in the address book except date and email
          * -> added
          */
-        toAdd = new TaskBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        toAdd = new TaskBuilder(AMY).withDate(VALID_DATE_BOB).withEmail(VALID_EMAIL_BOB).build();
         command = TaskUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
@@ -93,7 +93,7 @@ public class AddCommandSystemTest extends SchedulePlannerSystemTest {
 
         /* Case: add a task with tags, command with parameters in random order -> added */
         toAdd = BOB;
-        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
+        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + DATE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
                 + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
         assertCommandSuccess(command, toAdd);
 
@@ -119,9 +119,9 @@ public class AddCommandSystemTest extends SchedulePlannerSystemTest {
         //command = TaskUtil.getAddCommand(HOON);
         //assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
 
-        /* Case: add a duplicate task except with different phone -> rejected */
+        /* Case: add a duplicate task except with different date -> rejected */
         //commented off as task are unique when one field is different
-        //toAdd = new TaskBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
+        //toAdd = new TaskBuilder(HOON).withDate(VALID_DATE_BOB).build();
         //command = TaskUtil.getAddCommand(toAdd);
         //assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
 
@@ -143,19 +143,19 @@ public class AddCommandSystemTest extends SchedulePlannerSystemTest {
         // OLD TESTS
 
         /* Case: missing name -> rejected */
-        command = AddCommand.COMMAND_WORD + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + DATE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
-        /* Case: missing phone -> rejected */
+        /* Case: missing date -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing email -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + DATE_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing address -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + DATE_DESC_AMY + EMAIL_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
@@ -163,23 +163,23 @@ public class AddCommandSystemTest extends SchedulePlannerSystemTest {
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
-        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + DATE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
 
-        /* Case: invalid phone -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
-        assertCommandFailure(command, Date.MESSAGE_PHONE_CONSTRAINTS);
+        /* Case: invalid date -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_DATE_DESC + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        assertCommandFailure(command, Date.MESSAGE_DATE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + DATE_DESC_AMY + INVALID_EMAIL_DESC + ADDRESS_DESC_AMY;
         assertCommandFailure(command, Priority.MESSAGE_PRIORITY_CONSTRAINTS);
 
         /* Case: invalid address -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + INVALID_ADDRESS_DESC;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + DATE_DESC_AMY + EMAIL_DESC_AMY + INVALID_ADDRESS_DESC;
         assertCommandFailure(command, Venue.MESSAGE_ADDRESS_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + DATE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
                 + INVALID_TAG_DESC;
         assertCommandFailure(command, Tag.MESSAGE_TAG_CONSTRAINTS);
     }
@@ -190,7 +190,7 @@ public class AddCommandSystemTest extends SchedulePlannerSystemTest {
      * 2. Command box has the default style class.<br>
      * 3. Result display box displays the success message of executing {@code AddCommand} with the details of
      * {@code toAdd}.<br>
-     * 4. {@code Storage} and {@code PersonListPanel} equal to the corresponding components in
+     * 4. {@code Storage} and {@code TaskListPanel} equal to the corresponding components in
      * the current model added with {@code toAdd}.<br>
      * 5. Browser url and selected card remain unchanged.<br>
      * 6. Status bar's sync status changes.<br>
@@ -219,7 +219,7 @@ public class AddCommandSystemTest extends SchedulePlannerSystemTest {
      * Performs the same verification as {@code assertCommandSuccess(String, Task)} except asserts that
      * the,<br>
      * 1. Result display box displays {@code expectedResultMessage}.<br>
-     * 2. {@code Storage} and {@code PersonListPanel} equal to the corresponding components in
+     * 2. {@code Storage} and {@code TaskListPanel} equal to the corresponding components in
      * {@code expectedModel}.<br>
      * @see AddCommandSystemTest#assertCommandSuccess(String, Task)
      */
@@ -236,7 +236,7 @@ public class AddCommandSystemTest extends SchedulePlannerSystemTest {
      * 1. Command box displays {@code command}.<br>
      * 2. Command box has the error style class.<br>
      * 3. Result display box displays {@code expectedResultMessage}.<br>
-     * 4. {@code Storage} and {@code PersonListPanel} remain unchanged.<br>
+     * 4. {@code Storage} and {@code TaskListPanel} remain unchanged.<br>
      * 5. Browser url, selected card and status bar remain unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
      * {@code SchedulePlannerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
