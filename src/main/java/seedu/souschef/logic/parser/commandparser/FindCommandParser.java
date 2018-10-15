@@ -1,6 +1,8 @@
 package seedu.souschef.logic.parser.commandparser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.souschef.commons.core.Messages.MESSAGE_FIND_HEALTHPLAN_USAGE;
+import static seedu.souschef.commons.core.Messages.MESSAGE_FIND_RECIPE_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Arrays;
@@ -27,7 +29,7 @@ public class FindCommandParser implements CommandParser<FindCommand> {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_FIND_RECIPE_USAGE));
         }
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
@@ -45,7 +47,7 @@ public class FindCommandParser implements CommandParser<FindCommand> {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_FIND_HEALTHPLAN_USAGE));
         }
 
         String[] nameKeywords = trimmedArgs.split("\\s+");

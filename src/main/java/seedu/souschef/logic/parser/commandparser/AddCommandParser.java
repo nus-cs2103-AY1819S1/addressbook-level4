@@ -1,6 +1,9 @@
 package seedu.souschef.logic.parser.commandparser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.souschef.commons.core.Messages.MESSAGE_ADD_HEALTHPLAN_USAGE;
+import static seedu.souschef.commons.core.Messages.MESSAGE_ADD_INGREDIENT_USAGE;
+import static seedu.souschef.commons.core.Messages.MESSAGE_ADD_RECIPE_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_AGE;
@@ -57,7 +60,8 @@ public class AddCommandParser implements CommandParser<AddCommand> {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    MESSAGE_ADD_RECIPE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
@@ -68,7 +72,7 @@ public class AddCommandParser implements CommandParser<AddCommand> {
 
         Recipe toAdd = new Recipe(name, phone, email, address, tagList);
         if (model.has(toAdd)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_ADD_INGREDIENT_USAGE));
         }
 
         return new AddCommand<Recipe>(model, toAdd);
@@ -88,8 +92,7 @@ public class AddCommandParser implements CommandParser<AddCommand> {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_HPNAME, PREFIX_SCHEME, PREFIX_AGE)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddCommand.MESSAGE_USAGE_HEALTHPLAN));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_ADD_HEALTHPLAN_USAGE));
         }
         HealthPlanName healthPlanName = ParserUtil.parseHpName(argMultimap.getValue(PREFIX_HPNAME).get());
         TargetWeight targetWeight = ParserUtil.parseTWeight(argMultimap.getValue(PREFIX_TWEIGHT).get());
@@ -103,7 +106,7 @@ public class AddCommandParser implements CommandParser<AddCommand> {
                 currentWeight, currentHeight, age, duration, scheme);
         if (model.has(toAdd)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddCommand.MESSAGE_USAGE_HEALTHPLAN));
+                    MESSAGE_ADD_HEALTHPLAN_USAGE));
         }
 
         return new AddCommand<HealthPlan>(model, toAdd);
