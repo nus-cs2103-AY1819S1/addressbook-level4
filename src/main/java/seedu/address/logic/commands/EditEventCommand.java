@@ -103,7 +103,7 @@ public class EditEventCommand extends Command {
     private static Event createEditedEvent(Event eventToEdit, EditEventDescriptor editEventDescriptor)
                                                                                         throws CommandException {
         assert eventToEdit != null;
-        
+
         EventId eventId = eventToEdit.getEventId();
         Name updatedName = editEventDescriptor.getName().orElse(eventToEdit.getName());
         Location updatedLocation = editEventDescriptor.getLocation().orElse(eventToEdit.getLocation());
