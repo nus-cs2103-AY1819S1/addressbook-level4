@@ -27,7 +27,9 @@ public class Description {
     /**
      * Returns true if a given integer is a valid leave ID.
      */
-    public static boolean isValidDescription(String test) { return test.matches(DESCRIPTION_VALIDATION_REGEX); }
+    public static boolean isValidDescription(String test) {
+        return test.matches(DESCRIPTION_VALIDATION_REGEX);
+    }
 
     @Override
     public String toString() {

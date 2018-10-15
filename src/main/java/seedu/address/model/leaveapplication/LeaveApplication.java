@@ -27,7 +27,8 @@ public class LeaveApplication {
     /**
      * Every field must be present and not null.
      */
-    public LeaveApplication(LeaveId id, Description description, LeaveStatus leaveStatus, Person employee, Set<Date> dates) {
+    public LeaveApplication(LeaveId id, Description description, LeaveStatus leaveStatus,
+                            Person employee, Set<Date> dates) {
         requireAllNonNull(id, description, leaveStatus, employee, dates);
         this.id = id;
         this.description = description;
