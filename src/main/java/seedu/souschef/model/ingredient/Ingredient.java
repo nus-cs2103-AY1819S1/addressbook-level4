@@ -18,8 +18,8 @@ public class Ingredient extends UniqueType {
     private ServingUnit unit;
     private Date date;
 
-    public Ingredient(UniqueIngredient uniqueIngredient, double amount, ServingUnit unit, Date date) {
-        this.name = uniqueIngredient.getName();
+    public Ingredient(String name, double amount, ServingUnit unit, Date date) {
+        this.name = name;
         this.amount = amount;
         this.unit = unit;
         this.date = date;

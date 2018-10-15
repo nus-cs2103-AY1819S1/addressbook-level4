@@ -18,6 +18,7 @@ import seedu.souschef.model.ReadOnlyAppContent;
 import seedu.souschef.model.UserPrefs;
 import seedu.souschef.model.util.SampleDataUtil;
 import seedu.souschef.storage.healthplan.XmlHealthPlanStorage;
+import seedu.souschef.storage.ingredient.XmlIngredientStorage;
 import seedu.souschef.storage.recipe.XmlRecipeStorage;
 
 /**
@@ -38,8 +39,10 @@ public class StorageManager extends ComponentManager implements Storage {
         this.listOfFeatureStorage = new ArrayList<>();
 
         FeatureStorage recipeStorage = new XmlRecipeStorage(userPrefs.getAddressBookFilePath());
+        FeatureStorage ingredientStorage = new XmlIngredientStorage(userPrefs.getIngredientFilePath());
         FeatureStorage healthPlanStorage = new XmlHealthPlanStorage(userPrefs.getHealthplanPath());
         listOfFeatureStorage.add(recipeStorage);
+        listOfFeatureStorage.add(ingredientStorage);
         listOfFeatureStorage.add(healthPlanStorage);
         this.featureStorage = recipeStorage;
     }
@@ -118,7 +121,9 @@ public class StorageManager extends ComponentManager implements Storage {
                 //to implement changes for specific feature storage types.
                 readOnlyAppContent.includeData(readFeature(f.getFeatureFilePath())
                         .orElseGet(SampleDataUtil::getSampleAddressBook));
-
+            } else if (f instanceof XmlIngredientStorage) {
+                this.featureStorage = f;
+                readOnlyAppContent.includeData(readFeature(f.getFeatureFilePath()).get());
             } else if (f instanceof XmlHealthPlanStorage) {
                 this.featureStorage = f;
                 readOnlyAppContent.includeData(readFeature(f.getFeatureFilePath()).get());
@@ -142,6 +147,10 @@ public class StorageManager extends ComponentManager implements Storage {
         logger.fine("Attempting to write to data file: " + filePath);
         if (this.featureStorage instanceof XmlRecipeStorage) {
             XmlRecipeStorage temp = new XmlRecipeStorage(filePath);
+            temp.saveFeature(appContent, filePath);
+
+        } else if (this.featureStorage instanceof XmlIngredientStorage) {
+            XmlIngredientStorage temp = new XmlIngredientStorage(filePath);
             temp.saveFeature(appContent, filePath);
 
         } else if (this.featureStorage instanceof XmlHealthPlanStorage) {
