@@ -7,8 +7,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
+
 import seedu.address.commons.util.StringUtil;
+
 import seedu.address.logic.parser.exceptions.ParseException;
+
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.doctor.Id;
 import seedu.address.model.doctor.Password;
@@ -125,7 +128,7 @@ public class ParserUtil {
         if (!Password.isValidPassword(password)) {
             throw new ParseException(Password.MESSAGE_PASSWORD_CONSTRAINTS);
         }
-        return new Password(password);
+        return new Password(password, false);
     }
 
     /**
@@ -135,11 +138,16 @@ public class ParserUtil {
      * @param password The user valid password.
      * @return A valid person with its role object.
      */
-    public static Person parseRole(String role, Name name, Password password) {
+    public static Person parseRole(String role, Name name, Password password) throws ParseException {
+        requireNonNull(role);
+        requireNonNull(name);
+        requireNonNull(password);
         if (role.equals("doctor")) {
-            return new Doctor(new Id(0), name, password);
-        } else {
+            return new Doctor(new Id(1), name, password);
+        } else if (role.equals("receptionist")) {
             return null;
+        } else {
+            throw new ParseException("No role existed.");
         }
     }
 
