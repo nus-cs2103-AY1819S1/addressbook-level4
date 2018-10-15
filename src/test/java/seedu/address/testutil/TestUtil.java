@@ -35,14 +35,14 @@ public class TestUtil {
     /**
      * Returns the middle index of the person in the {@code model}'s person list.
      */
-    public static Index getMidIndex(Model model) {
+    public static Index getPersonMidIndex(Model model) {
         return Index.fromOneBased(model.getFilteredPersonList().size() / 2);
     }
 
     /**
      * Returns the last index of the person in the {@code model}'s person list.
      */
-    public static Index getLastIndex(Model model) {
+    public static Index getPersonLastIndex(Model model) {
         return Index.fromOneBased(model.getFilteredPersonList().size());
     }
 
@@ -51,5 +51,19 @@ public class TestUtil {
      */
     public static Person getPerson(Model model, Index index) {
         return model.getFilteredPersonList().get(index.getZeroBased());
+    }
+
+    /**
+     * Returns the middle index of the group in the {@code model}'s group list.
+     */
+    public static Index getGroupMidIndex(Model model) {
+        return Index.fromOneBased(model.getFilteredGroupList().size() / 2);
+    }
+
+    /**
+     * Returns the last index of the group in the {@code model}'s group list.
+     */
+    public static Index getGroupLastIndex(Model model) {
+        return Index.fromOneBased(model.getFilteredGroupList().size());
     }
 }

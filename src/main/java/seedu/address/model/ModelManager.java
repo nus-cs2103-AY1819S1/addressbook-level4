@@ -15,6 +15,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.AddressBookExportEvent;
+import seedu.address.commons.events.model.UserPrefsChangeEvent;
 import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonPropertyComparator;
@@ -29,6 +30,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Tag> filteredGroupTags;
+    private final UserPrefs userPrefs;
     private final SortedList<Person> sortedPersons;
 
     /**
@@ -43,6 +45,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredGroupTags = new FilteredList<>(versionedAddressBook.getGroupTagList());
+        this.userPrefs = userPrefs;
         sortedPersons = new SortedList<>(filteredPersons);
     }
 
@@ -190,9 +193,20 @@ public class ModelManager extends ComponentManager implements Model {
     // ================= Export/Import =======================================================================
 
     @Override
-    /** Raises an event to indicate the model to be exported */
     public void exportAddressBook(Path filepath) {
         raise(new AddressBookExportEvent(versionedAddressBook, filepath));
+    }
+
+    @Override
+    public Path getAddressBookFilePath() {
+        return userPrefs.getAddressBookFilePath();
+    }
+
+    @Override
+    public void changeUserPrefs(Path filepath) {
+        Path currentPath = userPrefs.getAddressBookFilePath();
+        userPrefs.setAddressBookFilePath(filepath);
+        raise(new UserPrefsChangeEvent(userPrefs, versionedAddressBook, currentPath, filepath));
     }
 
     @Override
