@@ -2,8 +2,8 @@ package seedu.address.model.group;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalGroup.GROUP_2101;
-import static seedu.address.testutil.TypicalGroup.PROJECT_2103T;
+import static seedu.address.testutil.TypicalGroups.GROUP_2101;
+import static seedu.address.testutil.TypicalGroups.PROJECT_2103T;
 import static seedu.address.testutil.TypicalMeetings.URGENT;
 import static seedu.address.testutil.TypicalPersons.BOB;
 

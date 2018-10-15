@@ -6,7 +6,6 @@ import java.util.Objects;
 
 import seedu.address.model.person.Address;
 
-
 /**
  * Represents a Meeting for people in the same group in the address book.
  * Guarantees: Title, date, location and description are present and not null.
@@ -18,7 +17,7 @@ public class Meeting {
     private final Title title;
 
     // Data fields
-    private final Date date;
+    private final TimeStamp time;
     private final Address location;
     private final Description description;
 
@@ -29,15 +28,15 @@ public class Meeting {
      * Title, date, location and description must be present and non-null.
      *
      * @param title The title of the meeting
-     * @param date The exact time of group meeting
+     * @param time The exact time of group meeting
      * @param location The exact place of meeting
      * @param description The informative description about the content of meeting
      */
-    public Meeting(Title title, Date date, Address location,
+    public Meeting(Title title, TimeStamp time, Address location,
                    Description description) {
-        requireAllNonNull(title, date, location, description);
+        requireAllNonNull(title, time, location, description);
         this.title = title;
-        this.date = date;
+        this.time = time;
         this.location = location;
         this.description = description;
     }
@@ -46,8 +45,8 @@ public class Meeting {
         return title;
     }
 
-    public Date getDate() {
-        return date;
+    public TimeStamp getTime() {
+        return time;
     }
 
     public Address getLocation() {
@@ -69,7 +68,7 @@ public class Meeting {
 
         return otherMeeting != null
                 && otherMeeting.getTitle().equals(getTitle())
-                && otherMeeting.getDate().equals(getDate())
+                && otherMeeting.getTime().equals(getTime())
                 && otherMeeting.getLocation().equals(getLocation());
     }
 
@@ -89,7 +88,7 @@ public class Meeting {
 
         Meeting otherMeeting = (Meeting) other;
         return otherMeeting.getTitle().equals(getTitle())
-                && otherMeeting.getDate().equals(getDate())
+                && otherMeeting.getTime().equals(getTime())
                 && otherMeeting.getLocation().equals(getLocation())
                 && otherMeeting.getDescription().equals(getDescription());
     }
@@ -97,7 +96,7 @@ public class Meeting {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(title, date, location, description);
+        return Objects.hash(title, time, location, description);
     }
 
     @Override
@@ -105,7 +104,7 @@ public class Meeting {
         final StringBuilder builder = new StringBuilder();
         builder.append(getTitle() + "\n")
                 .append("Date: ")
-                .append(getDate() + "\n")
+                .append(getTime() + "\n")
                 .append("Location: ")
                 .append(getLocation() + "\n")
                 .append("Description: ")

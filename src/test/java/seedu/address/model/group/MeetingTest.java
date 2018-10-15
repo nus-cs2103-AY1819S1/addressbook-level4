@@ -8,13 +8,14 @@ import static seedu.address.testutil.TypicalMeetings.WEEKLY;
 
 import org.junit.Test;
 
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.testutil.MeetingBuilder;
 
 
 public class MeetingTest {
 
     @Test
-    public void isSameMeeting() {
+    public void isSameMeeting() throws ParseException {
         // same object -> returns true
         assertTrue(WEEKLY.isSameMeeting(WEEKLY));
 
@@ -26,7 +27,7 @@ public class MeetingTest {
         assertFalse(WEEKLY.isSameMeeting(editedWeekly));
 
         // different date and location -> returns false
-        editedWeekly = new MeetingBuilder(WEEKLY).withDate("07-07-2017").withLocation("off campus").build();
+        editedWeekly = new MeetingBuilder(WEEKLY).withTime("07-07-2017@12:11").withLocation("off campus").build();
         assertFalse(WEEKLY.isSameMeeting(editedWeekly));
 
         // same title, same date, same location, different description -> returns true
@@ -35,7 +36,7 @@ public class MeetingTest {
     }
 
     @Test
-    public void equals() {
+    public void equals() throws ParseException {
         // same values -> returns true
         Meeting urgentCopy = new MeetingBuilder(URGENT).build();
         assertTrue(URGENT.isSameMeeting(urgentCopy));
@@ -57,7 +58,7 @@ public class MeetingTest {
         assertFalse(URGENT.equals(editedUrgent));
 
         // different date -> returns false
-        editedUrgent = new MeetingBuilder(URGENT).withDate("04-04-2014").build();
+        editedUrgent = new MeetingBuilder(URGENT).withTime("04-04-2014@11:01").build();
         assertFalse(URGENT.equals(editedUrgent));
 
         // different location -> returns false
