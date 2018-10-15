@@ -10,7 +10,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.RecordChangeEvent;
-import seedu.address.model.event.Event;
 
 /**
  * Panel containing the list of persons.
