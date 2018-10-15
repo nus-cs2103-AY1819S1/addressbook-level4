@@ -22,6 +22,7 @@ import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
 
 /**
@@ -60,7 +61,7 @@ public class ModelManager extends ComponentManager implements Model {
         this.versionedAddressBook = null;
         this.filteredExpenses = null;
         try {
-            loadUserData(addressBook.getUsername());
+            loadUserData(addressBook.getUsername(), addressBook.getPassword().orElse(null));
         } catch (NonExistentUserException e) {
             throw new IllegalStateException();
         }
@@ -221,25 +222,30 @@ public class ModelManager extends ComponentManager implements Model {
         expenseStatPredicate = predicate;
     }
 
-    //@@author
+    //@@author JasonChong96
     //=========== Login =================================================================================
     @Override
-    public void loadUserData(Username username) throws NonExistentUserException {
+    public boolean loadUserData(Username username, Password password) throws NonExistentUserException {
         if (!isUserExists(username)) {
             throw new NonExistentUserException(username, addressBooks.size());
+        } else if (!addressBooks.get(username).isMatchPassword(password)) {
+            return false;
         }
-
+        if (hasSelectedUser()) {
+            addressBooks.replace(this.username, this.versionedAddressBook);
+        }
         this.versionedAddressBook = new VersionedAddressBook(addressBooks.get(username));
 
         this.filteredExpenses = new FilteredList<>(versionedAddressBook.getExpenseList());
         this.username = username;
-        addressBooks.replace(this.username, this.versionedAddressBook);
+
         try {
             indicateUserLoggedIn();
             indicateAddressBookChanged();
         } catch (NoUserSelectedException nuse) {
             throw new IllegalStateException(nuse.getMessage());
         }
+        return true;
     }
 
     @Override
@@ -282,6 +288,16 @@ public class ModelManager extends ComponentManager implements Model {
     public boolean hasSelectedUser() {
         return versionedAddressBook != null && filteredExpenses != null && username != null;
     }
+
+    @Override
+    public void setPassword(Password password) throws NoUserSelectedException {
+        if (this.versionedAddressBook == null) {
+            throw new NoUserSelectedException();
+        }
+        versionedAddressBook.password = Optional.ofNullable(password);
+        addressBooks.replace(this.username, this.versionedAddressBook);
+    }
+    //@@author
 
     @Override
     public boolean equals(Object obj) {

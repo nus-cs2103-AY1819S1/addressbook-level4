@@ -22,7 +22,10 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.budget.Budget;
+import seedu.address.model.exceptions.NoUserSelectedException;
+import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
 import seedu.address.testutil.ExpenseBuilder;
 
@@ -193,7 +196,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void loadUserData(Username username) {
+        public boolean loadUserData(Username username, Password password) throws NonExistentUserException {
             throw new AssertionError("loadUserData method should not be called.");
         }
 
@@ -219,6 +222,11 @@ public class AddCommandTest {
 
         @Override
         public Model copy(UserPrefs userPrefs) {
+            throw new AssertionError("copy method should not be called.");
+        }
+
+        @Override
+        public void setPassword(Password password) throws NoUserSelectedException {
             throw new AssertionError("copy method should not be called.");
         }
 
