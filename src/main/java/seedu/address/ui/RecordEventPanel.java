@@ -2,11 +2,14 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.RecordChangeEvent;
 import seedu.address.model.event.Event;
 
 /**
@@ -23,9 +26,16 @@ public class RecordEventPanel extends UiPart<Region> {
     @FXML
     private TableView volunteerRecordTableView;
 
-    public RecordEventPanel(Event currentEvent) {
+    public RecordEventPanel() {
         super(FXML);
-        eventNameLabel.setText(currentEvent.getName().fullName);
+        registerAsAnEventHandler(this);
+    }
+
+    @Subscribe
+    private void handleRecordChangeEvent(RecordChangeEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        eventNameLabel.setText("EVENT!");
         numOfVolunteersLabel.setText("0");
     }
+
 }
