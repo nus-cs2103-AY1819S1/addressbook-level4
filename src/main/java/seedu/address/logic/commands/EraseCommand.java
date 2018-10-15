@@ -35,9 +35,9 @@ public class EraseCommand extends Command {
     private Set<Tag> tags;
     private Person temp;
 
-    public EraseCommand(List<String> target, ContactContainsTagPredicate predicate) {
+    public EraseCommand(List<String> target) {
         this.target = target;
-        this.predicate = predicate;
+        this.predicate = new ContactContainsTagPredicate(target);
         this.toErase = new ArrayList<>();
         this.modifiedPersons = new ArrayList<>();
         this.fullList = new ArrayList<>();

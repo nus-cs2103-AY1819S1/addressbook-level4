@@ -28,8 +28,7 @@ public class EraseCommandParser implements Parser<EraseCommand> {
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        return new EraseCommand(Arrays.asList(nameKeywords),
-                new ContactContainsTagPredicate(Arrays.asList(nameKeywords)));
+        return new EraseCommand(Arrays.asList(nameKeywords));
     }
 
 }
