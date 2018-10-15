@@ -33,8 +33,7 @@ public class AddCommand<T extends UniqueType> extends Command {
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
-    public static final String MESSAGE_SUCCESS = "New %1$s added: %2$s";
-    public static final String MESSAGE_DUPLICATE_RECIPE = "This recipe already exists in the address book";
+    public static final String MESSAGE_ADD_SUCCESS = "New %1$s added: %2$s";
 
     private final Model model;
     private final T toAdd;
@@ -54,7 +53,7 @@ public class AddCommand<T extends UniqueType> extends Command {
     public CommandResult execute(CommandHistory history) {
         model.add(toAdd);
         model.commitAppContent();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getClass().getSimpleName(), toAdd));
+        return new CommandResult(String.format(MESSAGE_ADD_SUCCESS, history.getContext().toLowerCase(), toAdd));
     }
 
     @Override

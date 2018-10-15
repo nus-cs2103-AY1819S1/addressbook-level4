@@ -34,7 +34,7 @@ public class AppContentParser {
         String context = history.getContext();
         if (userInput.charAt(0) == '-') {
             return new UniversalParser().parseCommand(history, userInput);
-        } else if (context == null || context.equals("Recipe")) {
+        } else if (context.equals("Recipe")) {
             return new RecipeParser().parseCommand(modelSet.getRecipeModel(), userInput);
         } else if (context.equals("Ingredient")) {
             return new IngredientParser().parseCommand(modelSet.getIngredientModel(), userInput);
