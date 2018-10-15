@@ -1,5 +1,6 @@
 package seedu.address.model.group;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
@@ -11,9 +12,18 @@ import seedu.address.model.person.UniquePersonList;
 
 
 /**
- * Represents a Group for people in the address book.
- * Guarantees: title and description are present and not null,
+ * Represents a Group for participants in the address book.
+ * The person will be able to have a list of groups that he/she has enrolled.
+ * The group will also keep track of a list of its members.
+ * Every group will contain one and only one meeting. The new meeting will always
+ * overwrite the old one.
+ *
+ * Meeting can be {@code null} if no meeting is required for members of this group.
+ *
+ * Guarantees: title, description and UniquePersonList are present and not null,
  * field values are validated, immutable.
+ *
+ * {@author Derek-Hardy}
  */
 public class Group {
 
@@ -120,6 +130,48 @@ public class Group {
      */
     public List<Person> getMembersView() {
         return Collections.unmodifiableList(members.asUnmodifiableObservableList());
+    }
+
+    /**
+     * Returns true if the {@code person} is in this group.
+     * @param person The person to check membership
+     */
+    public boolean hasMember(Person person) {
+        return this.members.contains(person);
+    }
+
+    /**
+     * Add a person to be the member of this group.
+     */
+    public void addMember(Person toAdd) {
+        requireNonNull(toAdd);
+        this.members.add(toAdd);
+
+        if (!toAdd.hasGroup(this)) {
+            toAdd.addGroup(this);
+        }
+    }
+
+    /**
+     * Remove a person from this group.
+     */
+    public void removeMember(Person toRemove) {
+        requireNonNull(toRemove);
+        if (this.members.contains(toRemove)) {
+            this.members.remove(toRemove);
+        }
+
+        if (toRemove.hasGroup(this)) {
+            toRemove.removeGroup(this);
+        }
+    }
+
+    /**
+     * Remove all the members in this group.
+     */
+    public void clearMembers() {
+
+        this.members.clear();
     }
 
     /**

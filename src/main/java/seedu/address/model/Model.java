@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonPropertyComparator;
 import seedu.address.model.tag.Tag;
@@ -50,6 +51,13 @@ public interface Model {
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
     void updatePerson(Person target, Person editedPerson);
+
+    /**
+     * Replace the given group {@code target} in the list with {@code editedGroup}.
+     * {@code target} must exist in the address book.
+     * The group identity of {@code editedGroup} must not be the same as another existing group in the address book.
+     */
+    void updateGroup(Group target, Group editedGroup);
 
     /**
      * Add a group tag {@code newGroup} to the given person {@code target}.
