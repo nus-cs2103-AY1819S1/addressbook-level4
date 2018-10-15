@@ -132,7 +132,7 @@ public class CompleteCommand extends Command {
 
         Task completedTask = createCompletedTask(taskToComplete);
 
-        modelToUpdate.updateTask(taskToComplete, completedTask);
+        modelToUpdate.updateTaskStatus(taskToComplete, completedTask);
         return completedTask.toString();
     }
 

@@ -90,17 +90,15 @@ public class AchievementRecord {
     public Level getMatchingLevel(Integer xp) {
         if (xp < Level.LEVEL_1.getMaxXp()) {
             return Level.LEVEL_1;
-        }
-        if (xp < Level.LEVEL_2.getMaxXp()) {
+        } else if (xp < Level.LEVEL_2.getMaxXp()) {
             return level.LEVEL_2;
-        }
-        if (xp < Level.LEVEL_3.getMaxXp()) {
+        } else if (xp < Level.LEVEL_3.getMaxXp()) {
             return level.LEVEL_3;
-        }
-        if (xp < Level.LEVEL_4.getMaxXp()) {
+        } else if (xp < Level.LEVEL_4.getMaxXp()) {
             return level.LEVEL_4;
+        } else {
+            return Level.LEVEL_5;
         }
-        return Level.LEVEL_5;
     }
 
     /**

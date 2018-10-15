@@ -294,7 +294,7 @@ public class CompleteCommandTest {
             .forEach(pairOfTasks -> {
                 Task taskToComplete = pairOfTasks.getKey();
                 Task completedTask = pairOfTasks.getValue();
-                expectedModel.updateTask(taskToComplete, completedTask);
+                expectedModel.updateTaskStatus(taskToComplete, completedTask);
                 completedTasksOutput.append(completedTask.toString() + "\n");
             });
 
