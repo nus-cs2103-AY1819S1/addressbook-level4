@@ -79,8 +79,8 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_VALUES, Event.MESSAGE_DATETIME_CONSTRAINTS));
         }
 
-        Event event = new Event(UUID.randomUUID(), eventName, startDateTime, endDateTime, description, priority,
-                venue, repeatType, repeatUntilDateTime, reminderTimeList);
+        Event event = new Event(UUID.randomUUID(), UUID.randomUUID(), eventName, startDateTime, endDateTime,
+                description, priority, venue, repeatType, repeatUntilDateTime, reminderTimeList);
 
         return new AddEventCommand(event);
     }

@@ -10,7 +10,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -24,7 +23,8 @@ public class Event {
             "Event's start date and time should be before event's end date and time";
 
     // Identity fields
-    private final UUID uuid;
+    private final UUID uid;  //distinct for recurring events
+    private final UUID uuid; //same for recurring events
     private final EventName eventName;
     private final DateTime startDateTime;
     private final DateTime endDateTime;
@@ -40,11 +40,12 @@ public class Event {
     /**
      * Every field must be present and not null.
      */
-    public Event(UUID uuid, EventName eventName, DateTime startDateTime, DateTime endDateTime,
+    public Event(UUID uid, UUID uuid, EventName eventName, DateTime startDateTime, DateTime endDateTime,
                  Description description, Priority priority, Venue venue,
                  RepeatType repeatType, DateTime repeatUntilDateTime, ReminderTimeList reminderTimeList) {
-        requireAllNonNull(uuid, eventName, startDateTime, endDateTime, description,
+        requireAllNonNull(uid, uuid, eventName, startDateTime, endDateTime, description,
                 priority, venue, repeatType, repeatUntilDateTime, reminderTimeList);
+        this.uid = uid;
         this.uuid = uuid;
         this.eventName = eventName;
         this.startDateTime = startDateTime;
@@ -56,6 +57,10 @@ public class Event {
         this.repeatUntilDateTime = repeatUntilDateTime;
         this.reminderTimeList = reminderTimeList;
 
+    }
+
+    public UUID getUid() {
+        return uid;
     }
 
     public UUID getUuid() {
@@ -137,6 +142,7 @@ public class Event {
                 targetEvent.getEndDateTime().value);
         while (repeatStartDateTime.isBefore(repeatUntilDateTime)) {
             repeatedEventList.add(new Event(
+                    UUID.randomUUID(),
                     targetEvent.getUuid(),
                     targetEvent.getEventName(),
                     new DateTime(repeatStartDateTime),
@@ -165,6 +171,7 @@ public class Event {
                 targetEvent.getEndDateTime().value);
         while (repeatStartDateTime.isBefore(repeatUntilDateTime)) {
             repeatedEventList.add(new Event(
+                    UUID.randomUUID(),
                     targetEvent.getUuid(),
                     targetEvent.getEventName(),
                     new DateTime(repeatStartDateTime),
@@ -193,6 +200,7 @@ public class Event {
                 targetEvent.getEndDateTime().value);
         while (repeatStartDateTime.isBefore(repeatUntilDateTime)) {
             repeatedEventList.add(new Event(
+                    UUID.randomUUID(),
                     targetEvent.getUuid(),
                     targetEvent.getEventName(),
                     new DateTime(repeatStartDateTime),
@@ -232,6 +240,7 @@ public class Event {
                 targetEvent.getEndDateTime().value);
         while (repeatStartDateTime.isBefore(repeatUntilDateTime)) {
             repeatedEventList.add(new Event(
+                    UUID.randomUUID(),
                     targetEvent.getUuid(),
                     targetEvent.getEventName(),
                     new DateTime(repeatStartDateTime),
@@ -262,6 +271,7 @@ public class Event {
     /**
      * Returns true if both event have the same uuid.
      * This defines a weaker notion of equality between two events.
+     * Identifies recurring events as the same event
      */
     public boolean isSameEvent(Event otherEvent) {
         if (otherEvent == this) {
