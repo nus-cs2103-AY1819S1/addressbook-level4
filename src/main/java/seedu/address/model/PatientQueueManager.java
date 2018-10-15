@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.util.LinkedList;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
@@ -17,10 +18,11 @@ public class PatientQueueManager implements PatientQueue {
     @Override
     public String displayQueue() {
         StringBuilder sb = new StringBuilder();
-        sb.append(getQueueLength() + " Patient(s) in queue: ");
-        patientQueue.stream()
-                    .forEach(x -> sb.append(x.toNameAndIc() + ", "));
-        return sb.substring(0, sb.length() - 2);
+        AtomicInteger num = new AtomicInteger(0);
+        sb.append(getQueueLength()).append(" Patient(s) in queue: ");
+        patientQueue.forEach(x -> sb.append("\n").append(num.incrementAndGet())
+                                    .append(". ").append(x.toNameAndIc()));
+        return sb.toString();
     }
 
     @Override
