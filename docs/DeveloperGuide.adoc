@@ -976,6 +976,18 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
+=== Adding a medicine
+
+. Adding a medicine to the records
+
+.. Prerequisites: List all medicine using the `listStock` command. Check that the medicine to be added is not in the list.
+.. Test case: `add sn/12839400 n/panadol s/122 p/2 min/20` +
+   Expected: Medicine is added to the records. Details of the added medicine shown in the status message. Timestamp in the status bar is updated.
+.. Other incorrect delete commands to try: `add`, `add/e` (where e is a unrecognised parameter) +
+   Expected: No medicine is added. Error details shown in the status message. Status bar remains the same.
+
+_{ more test cases ... }_
+
 === Saving data
 
 . Dealing with missing/corrupted data files
