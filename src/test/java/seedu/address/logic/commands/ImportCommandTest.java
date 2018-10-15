@@ -65,7 +65,7 @@ public class ImportCommandTest {
     }
 
     @Test
-    public void execute_import_duplicates_ignored() throws ParseException {
+    public void execute_import_duplicates() throws ParseException {
         setUp();
         File file = DUPLICATE_CLASH_CSV.toFile();
         ImportCommand command = preparer.parseFile(file);
@@ -94,7 +94,7 @@ public class ImportCommandTest {
     }
 
     @Test
-    public void execute_import_half_duplicates_allowed() throws ParseException {
+    public void execute_import_no_duplicates() throws ParseException {
         setUp();
         File file = DUPLICATE_CLASH_NEGATIVE_CSV.toFile();
         ImportCommand command = preparer.parseFile(file);
