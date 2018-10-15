@@ -50,10 +50,7 @@ public class ManageCommand extends Command {
         model.switchToRecordContext();
         model.updateFilteredRecordList(new EventContainsEventIdPredicate(
                 filteredEventList.get(targetIndex.getZeroBased()).getEventId()));
-
-        for (int i = 0; i < model.getFilteredRecordList().size(); i++) {
-            System.out.println(model.getFilteredRecordList().get(i).getRemark());
-        }
+        
         // TO_UPDATE
         EventsCenter.getInstance().post(new RecordChangeEvent(
                 filteredEventList.get(targetIndex.getZeroBased()),
