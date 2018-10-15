@@ -17,7 +17,6 @@ import seedu.address.model.task.Task;
 //TODO: elaborate on what is dependant and dependee
 public class DependencyCommand extends Command {
     public static final String COMMAND_WORD = "dependency";
-    //TODO: Improve succcess message
     public static final String MESSAGE_SUCCESS = "You have added dependency for :\n%1$s";
     public static final String MESSAGE_ALREADY_DEPENDANT =
             "The dependee task is already dependent on the dependant task";
@@ -25,50 +24,50 @@ public class DependencyCommand extends Command {
             + ": Dependency identified by hashcode of the task.\n"
             + "Parameters: Index of task dependee, Index of task dependant\n"
             + "Example: " + COMMAND_WORD + " 1 2";
-    private final Index dependeeIndex;
     private final Index dependantIndex;
-    public DependencyCommand(Index dependeeIndex, Index dependantIndex) {
-        requireNonNull(dependeeIndex);
+    private final Index dependeeIndex;
+    public DependencyCommand(Index dependantIndex, Index dependeeIndex) {
         requireNonNull(dependantIndex);
-        this.dependeeIndex = dependeeIndex;
+        requireNonNull(dependeeIndex);
         this.dependantIndex = dependantIndex;
+        this.dependeeIndex = dependeeIndex;
     }
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Task> lastShownList = model.getFilteredTaskList();
-        if (dependeeIndex.getZeroBased() >= lastShownList.size()
-                || dependantIndex.getZeroBased() >= lastShownList.size()) {
+        if (dependantIndex.getZeroBased() >= lastShownList.size()
+                || dependeeIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        Task taskDependee = lastShownList.get(dependeeIndex.getZeroBased());
         Task taskDependant = lastShownList.get(dependantIndex.getZeroBased());
-        if (taskDependant.getDependency().containsDependency(taskDependant)) {
+        Task taskDependee = lastShownList.get(dependeeIndex.getZeroBased());
+        if (taskDependee.getDependency().containsDependency(taskDependee)) {
             throw new CommandException(MESSAGE_ALREADY_DEPENDANT);
         }
 
-        Task updatedTask = createDependeeTask(taskDependee, taskDependant);
-        model.updateTask(taskDependee, updatedTask);
+        Task updatedTask = createDependantTask(taskDependant, taskDependee);
+        model.updateTask(taskDependant, updatedTask);
         model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         model.commitTaskManager();
         return new CommandResult(String.format(MESSAGE_SUCCESS, updatedTask));
     }
 
     /**
-     * Returns a {@code Task} with it's the additional dependancy added.
-     * @param dependeeTask An immutable task passed to have its attributes copied
-     * @return A new immutable task similar to dependeeTask but with additional dependency
+     * Returns a {@code Task} with it's the additional dependency added.
+     * @param dependantTask An immutable task passed to have its attributes copied
+     * @return A new immutable task similar to dependantTask but with additional dependency
      */
-    public static Task createDependeeTask(Task dependeeTask, Task dependantTask) {
+    public static Task createDependantTask(Task dependantTask, Task dependeeTask) {
         return new Task(
-                dependeeTask.getName(),
-                dependeeTask.getDueDate(),
-                dependeeTask.getPriorityValue(),
-                dependeeTask.getDescription(),
-                dependeeTask.getLabels(),
-                dependeeTask.getStatus(),
-                dependeeTask.getDependency().addDependency(dependantTask)
+                dependantTask.getName(),
+                dependantTask.getDueDate(),
+                dependantTask.getPriorityValue(),
+                dependantTask.getDescription(),
+                dependantTask.getLabels(),
+                dependantTask.getStatus(),
+                dependantTask.getDependency().addDependency(dependeeTask)
         );
     }
 
@@ -80,7 +79,7 @@ public class DependencyCommand extends Command {
         if (obj == null) {
             return false;
         } else if (obj instanceof DependencyCommand) {
-            return dependeeIndex.equals(((DependencyCommand) obj).dependeeIndex);
+            return dependantIndex.equals(((DependencyCommand) obj).dependantIndex);
         } else {
             // superclass's implementation might pass,
             // although in this instance it's a == relationship.
