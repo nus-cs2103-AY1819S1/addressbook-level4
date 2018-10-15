@@ -122,7 +122,8 @@ public class XmlAdaptedPerson {
         final Email modelEmail = new Email(email);
 
         if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Address.class.getSimpleName()));
         }
         if (!Address.isValidAddress(address)) {
             throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
@@ -130,7 +131,8 @@ public class XmlAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         if (education == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Education.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Education.class.getSimpleName()));
         }
         if (!Education.isValidEducation(education)) {
             throw new IllegalValueException(Education.MESSAGE_EDUCATION_CONSTRAINTS);
@@ -138,7 +140,8 @@ public class XmlAdaptedPerson {
         final Education modelEducation = new Education(education);
 
         if (grades == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Grades.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Grades.class.getSimpleName()));
         }
         if (!Grades.isValidGrade(grades)) {
             throw new IllegalValueException(Grades.MESSAGE_GRADE_CONSTRAINTS);
@@ -146,7 +149,8 @@ public class XmlAdaptedPerson {
         final Grades modelGrades = new Grades(grades);
 
         if (time == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Time.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Time.class.getSimpleName()));
         }
         if (!Time.isValidTime(time)) {
             throw new IllegalValueException(Time.MESSAGE_TIME_CONSTRAINTS);

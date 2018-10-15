@@ -1,15 +1,20 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.collections.ObservableList;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.person.GradeFilterPredicate;
 import seedu.address.model.person.Person;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import static java.util.Objects.requireNonNull;
+
+
 
 
 
@@ -33,7 +38,7 @@ public class FilterByGradeCommand extends FilterCommand {
      * @param maxLimit
      * @param minLimit
      */
-    public FilterByGradeCommand(Double minLimit,Double maxLimit) {
+    public FilterByGradeCommand(Double minLimit, Double maxLimit) {
         this.minLimit = minLimit;
         this.maxLimit = maxLimit;
     }
@@ -44,12 +49,12 @@ public class FilterByGradeCommand extends FilterCommand {
         // Execute the display of student's grades here
         requireNonNull(model);
         model.updateFilteredPersonList(new
-                GradeFilterPredicate(minLimit,maxLimit));
+                GradeFilterPredicate(minLimit, maxLimit));
 
         ObservableList<Person> targetList = model.getFilteredPersonList();
         // Returns the command result
         if (targetList.isEmpty()) {
-            return new CommandResult("Cannot find person whose grade between " + minLimit +" and " +maxLimit +" !");
+            return new CommandResult("Cannot find person whose grade between " + minLimit + " and " + maxLimit +" !");
         }
 
 
@@ -59,6 +64,7 @@ public class FilterByGradeCommand extends FilterCommand {
             personNameList.add(ppl.getName().fullName);
         }
 
-        return new CommandResult("The person whose grade between " + minLimit +" and " +maxLimit + " : " + personNameList.toString());
+        return new CommandResult("The person whose grade between " + minLimit + " and "
+                + maxLimit + " : " + personNameList.toString());
     }
 }

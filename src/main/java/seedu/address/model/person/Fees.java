@@ -14,10 +14,9 @@ public class Fees {
     public static final double SECONDARY_BASE_AMOUNT = 30.00;
     public static final double JC_BASE_AMOUNT = 35.00;
 
-    public final String value;
-
     private static DecimalFormat df = new DecimalFormat("#.00");
 
+    public final String value;
 
     public Fees(Education education) {
         requireNonNull(education);

@@ -104,8 +104,7 @@ public class AddressBookParser {
         case FilterByGradeCommand.COMMAND_WORD:
             return new FilterByGradeCommandParser().parse(arguments);
 
-
-            default:
+        default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
