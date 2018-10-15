@@ -15,6 +15,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.commons.util.HashUtil;
 import seedu.address.model.doctor.exceptions.DoctorNotFoundException;
 import seedu.address.model.doctor.exceptions.DuplicateDoctorException;
 
@@ -95,7 +96,7 @@ public class UniqueDoctorListTest {
     @Test
     public void setDoctor_editedDoctorHasSameIdentity_success() {
         uniqueDoctorList.add(ADAM);
-        Doctor editedAdam = new DoctorBuilder(ADAM).withPassword("doctor1")
+        Doctor editedAdam = new DoctorBuilder(ADAM).withPassword(HashUtil.hashToString("doctor1"), true)
                 .build();
         uniqueDoctorList.setDoctor(ADAM, editedAdam);
         UniqueDoctorList expectedUniqueDoctorList = new UniqueDoctorList();

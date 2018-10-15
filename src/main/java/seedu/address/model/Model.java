@@ -180,11 +180,31 @@ public interface Model {
      */
     void commitSchedule();
 
+    //@@author iamjackslayer
     /**
      * Enqueues the given person.
-     * May need to be more specific in future - patient, doc or receptionist.
+     * TODO Change Person object to Patient Object
      */
-    void enqueue(Person target);
+    void enqueue(Person patient);
+
+    //@@author iamjackslayer
+    /**
+     * Enqueues the given person into preference queue.
+     */
+    // TODO Change Person object to Patient Object
+    void enqueueIntoPreferenceQueue(Person patient);
+
+    //@@author iamjackslayer
+    /**
+     * Check if patient exists in the patient queue.
+     */
+    boolean hasPatientInMainQueue();
+
+    //@@author iamjackslayer
+    /**
+     * Check if patient exists in the patient queue.
+     */
+    boolean hasPatientInPreferenceQueue();
 
     /**
      * Check if patient exists in the patient queue.

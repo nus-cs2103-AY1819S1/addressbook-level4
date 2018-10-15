@@ -6,7 +6,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
+import seedu.address.model.analytics.Analytics;
 
 /**
  * Enqueues a given patient (for consultation).
@@ -28,9 +28,11 @@ public class EnqueueCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history, Analytics analytics) throws CommandException {
         requireNonNull(model);
-        if (model)
-        return null;
+        if (model.hasPatientInPatientQueue()) {
+            throw new CommandException("hello world");
+        }
+        return new CommandResult("good job");
     }
 }

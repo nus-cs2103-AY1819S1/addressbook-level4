@@ -11,6 +11,7 @@ import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.analytics.Analytics;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
 public class ExitCommandTest {
@@ -19,10 +20,11 @@ public class ExitCommandTest {
 
     private Model model = new ModelManager();
     private CommandHistory commandHistory = new CommandHistory();
+    private Analytics analytics = new Analytics();
 
     @Test
     public void execute_exit_success() {
-        CommandResult result = new ExitCommand().execute(model, commandHistory);
+        CommandResult result = new ExitCommand().execute(model, commandHistory, analytics);
         assertEquals(MESSAGE_EXIT_ACKNOWLEDGEMENT, result.feedbackToUser);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ExitAppRequestEvent);
         assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);
