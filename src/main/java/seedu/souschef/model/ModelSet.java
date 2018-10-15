@@ -4,7 +4,6 @@ import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.tag.Tag;
-
 /**
  * The API of the ModelSet component.
  */

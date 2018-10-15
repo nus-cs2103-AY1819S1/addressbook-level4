@@ -52,8 +52,13 @@ public class StorageManager extends ComponentManager implements Storage {
         super();
         this.featureStorage = featureStorage;
         this.userPrefsStorage = userPrefsStorage;
-        this.appContent = featureStorage.getAppContent();
         this.listOfFeatureStorage = new ArrayList<>();
+    }
+
+    public StorageManager () {
+        this.listOfFeatureStorage = new ArrayList<>();
+
+
     }
 
     // ================ UserPrefs methods ==============================
@@ -86,10 +91,10 @@ public class StorageManager extends ComponentManager implements Storage {
         return this;
     }
 
-    @Override
-    public AppContent getAppContent() {
-        return this.getAppContent();
+    public ArrayList<FeatureStorage> getListOfFeatureStorage() {
+        return listOfFeatureStorage;
     }
+
 
     public void setMainFeatureStorage(FeatureStorage featureStorage) {
         this.featureStorage = featureStorage;
