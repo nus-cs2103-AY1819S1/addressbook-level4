@@ -324,6 +324,98 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::medicalrecord[]
+=== Adding a MedicalRecord to a Patient
+==== Current Implementation
+
+The `MedicalRecord` class is an attribute of the `Patient` class, and it contains information regarding its `Patient` 's medical records. The `MedicalRecord` class structure is as follows:
+
+* has an attribute `BloodType` which stores the blood type of the `Patient`. This attribute is marked as `final` and cannot be changed.
+* contains a `List<DrugAllergy>` which stores the list of drug allergies that the `Patient` has.
+* contains a `List<Disease>` which stores the list of diseases the `Patient` has.
+* contains a `List<Note>` which stores the list of notes that belong to the `Patient`. Each `Note` further comprises a `Message` that stores the actual message of the `Note`, and a `Map<SerialNumber, Quantity>` attribute which is a record of the `SerialNumber` of the `Medicine` as well as the `Quantity` that had been dispensed to the `Patient` during that particular visit.
+
+When a new `Patient` is created with the `AddCommand`, it is created with a default `MedicalRecord` object that contains an empty `BloodType` object, an empty `List<DrugAllergy>`, an empty `List<Disease>` and and empty `List<Note>`.
+
+Users can add more information to a specified `Patient` 's `MedicalRecord` by invoking the `AddMedicalRecordCommand`, and specifying the corresponding arguments to add to the `MedicalRecord`. The arguments should be prefixed with `b/` for `BloodType`, `d/` for `Disease`, `da/` for `DrugAllergy`, and `m/` for `Note`. All the arguments here are optional arguments.
+
+Given below is an example usage scenario and explanation for the inner workings of the `AddMedicalRecordCommand`.
+
+Step 1:
+
+* The user creates a new `Patient` object using the `AddCommand`. While the user has not provided any arguments for the `MedicalRecord` of this `Patient`, a empty `MedicalRecord` object has been initialised internally and assigned to this created `Patient`. Contents of this empty `MedicalRecord` is as detailed above.
+
+.Adding a new Patient.
+image::addmedicalrecord-addingnewpatient-example.png[width="700"]
+
+Step 2:
+
+* The user wishes to add a `MedicalRecord` containing only the `BloodType` of the `Patient`, and will do so with the `AddMedicalRecord` command, and only specifiying the `b/` prefix for `BloodType`. Note that `BloodType` here can only be in a specific format (A[\+-], B[+-], O[\+-] or AB[+-]).
+
+.Adding a new MedicalRecord with only BloodType specified.
+image::addmedicalrecord-addingbloodtype-example.png[width="700"]
+
+* When this command is executed, the program creates a new `MedicalRecord` object with just the `BloodType` specified, takes the old `MedicalRecord` object of the `Patient` (which is empty), and does a merging of the two objects, returning a new `MedicalRecord` object. The `Patient` is then updated with this new combined `MedicalRecord`. The following figure shows the code section which performs this merging.
+
+```java
+/**
+ * Combines 2 medical records into one.
+ * @param record1
+ * @param record2
+ * @return a single MedicalRecord object which is a combination of the two provided.
+ */
+public static MedicalRecord combineMedicalRecords(MedicalRecord record1, MedicalRecord record2) {
+
+    BloodType newBloodType = record1.getBloodType();
+
+    if (!record1.getBloodType().equals(record2.getBloodType())
+            && !record1.getBloodType().value.equals("") && !record2.getBloodType().value.equals("")) {
+        // This is not allowed! Defaulting to original bloodtype...
+    } else {
+        newBloodType = record2.getBloodType();
+    }
+
+    List<DrugAllergy> newDrugAllergies = new ArrayList<>(record1.getDrugAllergies());
+    for (DrugAllergy drugAllergy: record2.getDrugAllergies()) {
+        if (!newDrugAllergies.contains(drugAllergy)) {
+            newDrugAllergies.add(drugAllergy);
+        }
+    }
+
+    List<Disease> newDiseaseHistory = new ArrayList<>(record1.getDiseaseHistory());
+    for (Disease disease: record2.getDiseaseHistory()) {
+        if (!newDiseaseHistory.contains(disease)) {
+            newDiseaseHistory.add(disease);
+        }
+    }
+
+    List<Note> newNotes = new ArrayList<>(record1.getNotes());
+    for (Note note: record2.getNotes()) {
+        if (!newNotes.contains(note)) {
+            newNotes.add(note);
+        }
+    }
+
+    MedicalRecord newRecord = new MedicalRecord(newBloodType, newDrugAllergies, newDiseaseHistory, newNotes);
+
+    return newRecord;
+}
+```
+
+==== Design Considerations
+
+===== Aspect: Execution of the command
+
+* **Alternative 1 (current choice):** Create a new `MedicalRecord` object and combine the two.
+** Pros: Easy to implement and better abstraction.
+** Cons: Redundant creation of new object only to discard it immediately
+* **Alternative 2:** Add specified arguments of the command directly to the current `MedicalRecord`
+** Pros: No redundant creation of extra objects.
+** Cons: Require access to the existing `MedicalRecord` from outside the object, which breaks the abstraction barrier.
+
+// end::medicalrecord[]
+
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
