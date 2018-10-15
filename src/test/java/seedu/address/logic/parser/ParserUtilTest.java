@@ -67,6 +67,21 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseTwoIndexes_invalidInput_throwsParseException() throws Exception {
+        assertThrows(ParseException.class, () -> ParserUtil.parseTwoIndexes("10 a"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseTwoIndexes("10"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseTwoIndexes("1 2 3"));
+    }
+
+    @Test
+    public void parseTwoIndexes_outOfRangeInput_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(MESSAGE_INVALID_INDEX);
+        String outsideBounds = Long.toString(Integer.MAX_VALUE + 1);
+        ParserUtil.parseIndex(outsideBounds.concat(" ").concat(outsideBounds));
+    }
+
+    @Test
     public void parseTwoIndexes_validInput_success() throws Exception {
         Index[] expectedResult = {INDEX_FIRST_TASK, INDEX_SECOND_TASK};
         assertEquals(expectedResult, ParserUtil.parseTwoIndexes("1 2"));
@@ -97,12 +112,12 @@ public class ParserUtilTest {
 
     @Test
     public void parsePhone_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseDueDate((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseDueDate((String) null));
     }
 
     @Test
     public void parsePhone_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseDueDate(INVALID_DUEDATE));
+        assertThrows(ParseException.class, () -> ParserUtil.parseDueDate(INVALID_DUEDATE));
     }
 
     @Test
@@ -120,12 +135,12 @@ public class ParserUtilTest {
 
     @Test
     public void parseAddress_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseDescription((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseDescription((String) null));
     }
 
     @Test
     public void parseAddress_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseDescription(INVALID_DESCRIPTION));
+        assertThrows(ParseException.class, () -> ParserUtil.parseDescription(INVALID_DESCRIPTION));
     }
 
     @Test
@@ -143,12 +158,12 @@ public class ParserUtilTest {
 
     @Test
     public void parseEmail_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parsePriorityValue((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parsePriorityValue((String) null));
     }
 
     @Test
     public void parseEmail_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parsePriorityValue(INVALID_PRIORITY_VALUE));
+        assertThrows(ParseException.class, () -> ParserUtil.parsePriorityValue(INVALID_PRIORITY_VALUE));
     }
 
     @Test
