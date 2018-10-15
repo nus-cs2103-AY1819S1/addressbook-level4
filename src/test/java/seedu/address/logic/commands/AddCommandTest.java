@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -273,7 +274,7 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook(new Username("aa"));
+            return new AddressBook(new Username("aa"), Optional.empty());
         }
     }
 
@@ -300,7 +301,7 @@ public class AddCommandTest {
         }
         @Override
         public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook(new Username("aa"));
+            return new AddressBook(new Username("aa"), Optional.empty());
         }
     }
 

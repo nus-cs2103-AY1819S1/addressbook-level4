@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -22,6 +23,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.exceptions.DuplicateExpenseException;
+import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
 import seedu.address.testutil.ExpenseBuilder;
 import seedu.address.testutil.ModelUtil;
@@ -31,7 +33,7 @@ public class AddressBookTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBook addressBook = new AddressBook(ModelUtil.TEST_USERNAME);
+    private final AddressBook addressBook = new AddressBook(ModelUtil.TEST_USERNAME, Optional.empty());
 
     @Test
     public void constructor() {
@@ -120,6 +122,16 @@ public class AddressBookTest {
         @Override
         public Username getUsername() {
             return ModelUtil.TEST_USERNAME;
+        }
+
+        @Override
+        public Optional<Password> getPassword() {
+            return Optional.empty();
+        }
+
+        @Override
+        public boolean isMatchPassword(Password password) {
+            return true;
         }
     }
 

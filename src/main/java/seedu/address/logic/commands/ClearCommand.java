@@ -21,7 +21,8 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws NoUserSelectedException {
         requireNonNull(model);
-        AddressBook newAddressBook = new AddressBook(model.getAddressBook().getUsername());
+        AddressBook newAddressBook =
+                new AddressBook(model.getAddressBook().getUsername(), model.getAddressBook().getPassword());
         Budget clearedSpendingBudget = model.getMaximumBudget();
         model.resetData(newAddressBook);
         clearedSpendingBudget.clearSpending();

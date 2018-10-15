@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.TreeMap;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -272,7 +273,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void addUser(Username newUsername) throws UserAlreadyExistsException {
-        if (addressBooks.putIfAbsent(newUsername, new AddressBook(newUsername)) != null) {
+        if (addressBooks.putIfAbsent(newUsername, new AddressBook(newUsername, Optional.empty())) != null) {
             throw new UserAlreadyExistsException(newUsername);
         }
     }

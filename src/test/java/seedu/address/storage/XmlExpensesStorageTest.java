@@ -10,6 +10,7 @@ import static seedu.address.testutil.TypicalExpenses.getTypicalAddressBook;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -121,7 +122,7 @@ public class XmlExpensesStorageTest {
     @Test
     public void saveAddressBook_nullFilePath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(new AddressBook(ModelUtil.TEST_USERNAME), null);
+        saveAddressBook(new AddressBook(ModelUtil.TEST_USERNAME, Optional.empty()), null);
     }
 
 

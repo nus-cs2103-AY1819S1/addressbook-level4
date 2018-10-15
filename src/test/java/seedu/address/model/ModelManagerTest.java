@@ -9,6 +9,8 @@ import static seedu.address.testutil.TypicalExpenses.BENSON;
 
 import java.nio.file.Paths;
 
+import java.util.Optional;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -118,7 +120,7 @@ public class ModelManagerTest {
     @Test
     public void equals() throws NoUserSelectedException {
         AddressBook addressBook = new AddressBookBuilder().withExpense(ALICE).withExpense(BENSON).build();
-        AddressBook differentAddressBook = new AddressBook(ModelUtil.TEST_USERNAME);
+        AddressBook differentAddressBook = new AddressBook(ModelUtil.TEST_USERNAME, Optional.empty());
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
