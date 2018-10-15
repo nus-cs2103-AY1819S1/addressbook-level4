@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -12,7 +13,7 @@ import seedu.address.model.task.UniqueTaskList;
  * useful information such as the topological sort of the dependencies can be determined.
  */
 public class DependencyGraph {
-    private Map<String, Set<String>> adjacencyList;
+    private Map<String, Set<String>> adjacencyList = new HashMap<>();
 
     public DependencyGraph(UniqueTaskList taskList) {
         for (Task task: taskList) {
@@ -25,18 +26,17 @@ public class DependencyGraph {
     /**
      * Checks if there will be a cycle in the graph
      */
-    public String checkCyclic() {
+    public boolean checkCyclic() {
         Set<String> visited = new HashSet<>();
         Set<String> stack = new HashSet<>();
         for (String node: adjacencyList.keySet()) {
             if (!(visited.contains(node))){
-                String violation = depthFirstSearch(node, visited, stack, adjacencyList);
-                if (violation != null) {
-                    return violation;
+                if (depthFirstSearch(node, visited, stack, adjacencyList)) {
+                    return true;
                 }
             }
         }
-        return null;
+        return false;
     }
 
     /**
@@ -45,24 +45,23 @@ public class DependencyGraph {
      * @param visited set of visited nodes
      * @param stack set of nodes in current path. Used to check cycles
      * @param adjacencyList
-     * @return String hash of the violating node
+     * @return true is there is a cycle
      */
-    private String depthFirstSearch(String node, Set<String> visited, Set<String> stack, Map<String,
+    private boolean depthFirstSearch(String node, Set<String> visited, Set<String> stack, Map<String,
             Set<String>> adjacencyList) {
         if (stack.contains(node)) {
-            return node;
+            return true;
         }
         visited.add(node);
         stack.add(node);
         Set<String> edges = adjacencyList.getOrDefault(node, new HashSet<String>());
         for (String nextNode: edges) {
-            String violation = depthFirstSearch(nextNode, visited, stack, adjacencyList);
-            if (violation != null) {
-                return violation;
+            if (depthFirstSearch(nextNode, visited, stack, adjacencyList)) {
+                return true;
             }
         }
         stack.remove(node);
-        return null;
+        return false;
     }
     //TODO: Add toposort function
 
