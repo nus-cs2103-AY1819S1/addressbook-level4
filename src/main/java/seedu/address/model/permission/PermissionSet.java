@@ -33,8 +33,9 @@ public class PermissionSet {
      * @return true if success, otherwise false.
      */
     public boolean addPermission(Permission p) {
-        if(p == null)
+        if(p == null) {
             return false;
+        }
 
         return permissionSet.add(p);
     }
@@ -57,8 +58,9 @@ public class PermissionSet {
      * @return true if success, otherwise false.
      */
     public boolean assignPresetPermission(PresetPermission p) {
-        if(p == null)
+        if(p == null) {
             return false;
+        }
 
         switch (p) {
 
