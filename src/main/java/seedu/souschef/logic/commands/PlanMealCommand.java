@@ -7,7 +7,7 @@ import seedu.souschef.model.planner.Meal;
 import seedu.souschef.model.recipe.Recipe;
 
 /**
- *
+ * Adds a recipe to a specified meal slot of a specified day of the meal planner.
  */
 public class PlanMealCommand extends Command {
     public static final String COMMAND_WORD = "plan";

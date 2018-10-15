@@ -5,7 +5,7 @@ import seedu.souschef.model.Model;
 import seedu.souschef.model.planner.Day;
 
 /**
- *
+ * Clears the meal planner.
  */
 public class ClearMealPlannerCommand extends Command {
     public static final String COMMAND_WORD = "clear";

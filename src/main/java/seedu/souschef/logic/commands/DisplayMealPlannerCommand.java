@@ -4,7 +4,7 @@ import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.ui.Ui;
 
 /**
- *
+ * Displays the meal planner's current meal plans.
  */
 public class DisplayMealPlannerCommand extends Command {
     public static final String COMMAND_WORD = "display";
