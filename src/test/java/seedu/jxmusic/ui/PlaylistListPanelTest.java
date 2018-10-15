@@ -20,9 +20,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.jxmusic.commons.events.ui.JumpToListRequestEvent;
 import seedu.jxmusic.commons.util.FileUtil;
-import seedu.jxmusic.commons.util.JsonUtil;
+import seedu.jxmusic.model.Library;
 import seedu.jxmusic.model.Playlist;
-import seedu.jxmusic.storage.JsonSerializableLibrary;
+import seedu.jxmusic.storage.JsonFileStorage;
 
 public class PlaylistListPanelTest extends GuiUnitTest {
     private static final ObservableList<Playlist> TYPICAL_PLAYLISTS =
@@ -81,16 +81,13 @@ public class PlaylistListPanelTest extends GuiUnitTest {
      */
     private ObservableList<Playlist> createBackingList(int playlistCount) throws Exception {
         Path jsonFile = createJsonFileWithPlaylists(playlistCount);
-        JsonSerializableLibrary jsonLibrary =
-                JsonUtil.getDataFromFile(jsonFile, JsonSerializableLibrary.class);
-        return FXCollections.observableArrayList(jsonLibrary.toModelType().getPersonList());
+        Library library = JsonFileStorage.loadDataFromFile(jsonFile);
+        return FXCollections.observableArrayList(library.getPlaylistList());
     }
 
     /**
      * Returns a .json file containing {@code playlistCount} playlists. This file will be deleted when the JVM terminates.
      */
-
-    //q: is this file a test file so that we can randomly create values for the fields?
     private Path createJsonFileWithPlaylists(int playlistCount) throws Exception {
         StringBuilder builder = new StringBuilder();
         builder.append("{\n\"playlists\": [\n");
@@ -103,7 +100,7 @@ public class PlaylistListPanelTest extends GuiUnitTest {
         builder.append("]\n}\n");
 
         // to-do: change the test data file
-        Path manyPlaylistsFile = Paths.get(TEST_DATA_FOLDER + "manyPersons.xml");
+        Path manyPlaylistsFile = Paths.get(TEST_DATA_FOLDER + "manyPlaylists.json");
         FileUtil.createFile(manyPlaylistsFile);
         FileUtil.writeToFile(manyPlaylistsFile, builder.toString());
         manyPlaylistsFile.toFile().deleteOnExit();
