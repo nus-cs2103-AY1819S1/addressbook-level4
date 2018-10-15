@@ -17,6 +17,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Picture;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -36,6 +37,8 @@ public class XmlAdaptedPerson {
     private String address;
     @XmlElement(required = true)
     private String meeting;
+    @XmlElement(required = true)
+    private String picture;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -73,6 +76,7 @@ public class XmlAdaptedPerson {
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
         meeting = source.getMeeting().value;
+        picture = source.getPicture().picture;
     }
 
     /**
@@ -129,8 +133,18 @@ public class XmlAdaptedPerson {
         }
         final Meeting modelMeeting = new Meeting(meeting);
 
+        if (picture == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Picture.class.getSimpleName()));
+        }
+        if (!Picture.isValidPicture(picture)) {
+            throw new IllegalValueException(Picture.MESSAGE_PICTURE_CONSTRAINTS);
+        }
+        final Picture modelPicture = new Picture(picture);
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelMeeting);
+        Person person = new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelMeeting);
+        person.setPicture(modelPicture);
+        return person;
     }
 
     @Override
@@ -148,6 +162,7 @@ public class XmlAdaptedPerson {
                 && Objects.equals(phone, otherPerson.phone)
                 && Objects.equals(email, otherPerson.email)
                 && Objects.equals(address, otherPerson.address)
+                && Objects.equals(picture, otherPerson.picture)
                 && tagged.equals(otherPerson.tagged);
     }
 }

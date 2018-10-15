@@ -2,8 +2,6 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,6 +14,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Picture;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -147,10 +146,12 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code fileLocation} is invalid.
      */
-    public static Path parseFileLocation(String fileLocation) throws ParseException {
+    public static Picture parseFileLocation(String fileLocation) throws ParseException {
         requireNonNull(fileLocation);
         String trimmedFileLocation = fileLocation.trim();
-        Path path = Paths.get(trimmedFileLocation);
-        return path;
+        if (!Picture.isValidPicture(trimmedFileLocation)) {
+            throw new ParseException(Picture.MESSAGE_PICTURE_CONSTRAINTS);
+        }
+        return new Picture(trimmedFileLocation);
     }
 }
