@@ -160,8 +160,7 @@ public class ModelManager extends ComponentManager implements Model {
         // convert the map to a FilteredList
         ObservableList<List<Event>> filteredEventsByDateList = FXCollections.observableArrayList();
         filteredEventsByDateList.addAll(filteredEventsByDateMap.values());
-        Comparator<List<Event>> eventListComparator = (eventList, otherEventList) ->
-                eventList.get(0).getEventDate().compareTo(eventList.get(0).getEventDate());
+        Comparator<List<Event>> eventListComparator = Comparator.comparing(eventList -> eventList.get(0).getEventDate());
         filteredEventsByDateList.sort(eventListComparator.reversed());
         FilteredList<List<Event>> filteredEventsByDate = new FilteredList<>(filteredEventsByDateList);
 
