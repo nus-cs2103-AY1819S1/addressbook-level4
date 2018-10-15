@@ -64,7 +64,7 @@ public class ImportCommandPreparer {
         if (!argMultimap.getValue(PREFIX_FILE_LOCATION).isPresent()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
         }
-        Path fileLocation = ParserUtil.parseFileLocation(argMultimap.getValue(PREFIX_FILE_LOCATION).get());
+        Path fileLocation = ParserUtil.parseCsv(argMultimap.getValue(PREFIX_FILE_LOCATION).get());
         return fileLocation.toFile();
     }
 
