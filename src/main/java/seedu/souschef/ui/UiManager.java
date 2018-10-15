@@ -37,6 +37,14 @@ public class UiManager extends ComponentManager implements Ui {
     private UserPrefs prefs;
     private MainWindow mainWindow;
 
+    public UiManager() {
+        super();
+        this.logic = null;
+        this.config = null;
+        this.prefs = null;
+        this.mainWindow = null;
+    }
+
     public UiManager(Logic logic, Config config, UserPrefs prefs) {
         super();
         this.logic = logic;
@@ -69,8 +77,14 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.releaseResources();
     }
 
+    @Override
     public void switchToRecipeListPanel() {
         this.mainWindow.switchToRecipeListPanel();
+    }
+
+    @Override
+    public void switchToMealPlanListPanel() {
+        this.mainWindow.switchToMealPlanListPanel();
     }
 
     private void showFileOperationAlertAndWait(String description, String details, Throwable cause) {

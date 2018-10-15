@@ -3,6 +3,7 @@ package seedu.souschef.model;
 import javafx.collections.ObservableList;
 import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.ingredient.Ingredient;
+import seedu.souschef.model.planner.Day;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.tag.Tag;
 
@@ -29,4 +30,10 @@ public interface ReadOnlyAppContent {
      * This list will not contain any duplicate plan.
      */
     ObservableList<HealthPlan> getObservableHealthPlanList();
+
+    /**
+     * Returns an unmodifiable view of the meal planner.
+     * This list will not contain any duplicate days.
+     */
+    ObservableList<Day> getObservableMealPlanner();
 }

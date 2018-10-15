@@ -1,13 +1,13 @@
 package seedu.souschef.model.planner.exceptions;
 
 /**
- * Signals that no recipe is found at the specified meal slot of the day.
+ * Signals that a duplicate day already exists.
  */
-public class MealRecipeNotFoundException extends RuntimeException {
+public class DuplicateDayException extends RuntimeException {
     /**
      * @param message should contain relevant information on the failed constraint(s)
      */
-    public MealRecipeNotFoundException(String message) {
+    public DuplicateDayException(String message) {
         super(message);
     }
 
@@ -15,7 +15,7 @@ public class MealRecipeNotFoundException extends RuntimeException {
      * @param message should contain relevant information on the failed constraint(s)
      * @param cause of the main exception
      */
-    public MealRecipeNotFoundException(String message, Throwable cause) {
+    public DuplicateDayException(String message, Throwable cause) {
         super(message, cause);
     }
 }

@@ -20,12 +20,16 @@ public enum Meal {
         this.recipe = Optional.empty();
     }
 
-    public Recipe getRecipe() throws MealRecipeNotFoundException {
+    public Recipe getRecipe() {
         if (this.recipe.isPresent()) {
             return this.recipe.get();
         } else {
             throw new MealRecipeNotFoundException("No recipe at selected meal slot.");
         }
+    }
+
+    public Optional<Recipe> getOptRecipe() {
+        return this.recipe;
     }
 
     public void setRecipe(Recipe recipe) {
@@ -47,7 +51,7 @@ public enum Meal {
      * @param s Command string token
      * @return Meal
      */
-    public Meal stringToMealEnum(String s) throws IllegalArgumentException {
+    public static Meal stringToMealEnum(String s) throws IllegalArgumentException {
         if (s.equalsIgnoreCase("breakfast")) {
             return BREAKFAST;
         } else if (s.equalsIgnoreCase("lunch")) {
@@ -58,4 +62,5 @@ public enum Meal {
             throw new IllegalArgumentException("Valid meal slots: breakfast, lunch, dinner");
         }
     }
+
 }
