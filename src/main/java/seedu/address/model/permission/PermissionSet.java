@@ -1,11 +1,15 @@
 package seedu.address.model.permission;
 
+import seedu.address.model.person.Person;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * Represents the set of permission(s) a user.
+ * Modification of set of permission in this class can only be performed by a user
+ * with "ASSIGN_PERMISSION" permission.
  */
 public class PermissionSet {
     private Set<Permission> permissionSet;
@@ -22,35 +26,47 @@ public class PermissionSet {
 
     /**
      * This action is only performable by user with "ASSIGN_PERMISSION" permission.
-     * Create permission set with one of the preset.
-     * @param p The preset to use.
+     * Throws {@code UnsupportedOperationException} if person does not have required permission.
+     *
+     * @param personLoggedIn the person that is logged into the system.
+     * @param p              permission to add
      */
-    public PermissionSet(PresetPermission p) {
-        assignPresetPermission(p);
-    }
-
-    /**
-     * This action is only performable by user with "ASSIGN_PERMISSION" permission.
-     * @param p permission to add
-     */
-    public void addPermission(Permission p) {
+    public void addPermission(Person personLoggedIn, Permission p) {
+        if (!personLoggedIn.havePermission(Permission.ASSIGN_PERMISSION)) {
+            throw new UnsupportedOperationException();
+        }
         permissionSet.add(p);
     }
 
     /**
      * This action is only performable by user with "ASSIGN_PERMISSION" permission.
-     * @param p permission to remove
+     * Throws {@code UnsupportedOperationException} if person does not have required permission.
+     *
+     * @param personLoggedIn the person that is logged into the system.
+     * @param p              permission to remove
      */
-    public void removePermission(Permission p) {
+    public void removePermission(Person personLoggedIn, Permission p) {
+        if (!personLoggedIn.havePermission(Permission.ASSIGN_PERMISSION)) {
+            throw new UnsupportedOperationException();
+        }
+
         permissionSet.remove(p);
     }
 
     /**
      * This action is only performable by user with "ASSIGN_PERMISSION" permission.
-     * Set permission set to one of the preset.
-     * @param p The preset to use.
+     * Throws {@code UnsupportedOperationException} if person does not have required permission.
+     * Throws (@code IllegalArgumentException} if preset is invalid.
+     * Set permission to one of the preset.
+     *
+     * @param personLoggedIn the person that is logged into the system.
+     * @param p              preset to use
      */
-    public void assignPresetPermission(PresetPermission p) {
+    public void assignPresetPermission(Person personLoggedIn, PresetPermission p) {
+        if (!personLoggedIn.havePermission(Permission.ASSIGN_PERMISSION)) {
+            throw new UnsupportedOperationException();
+        }
+
         switch (p) {
 
         case ADMIN:
@@ -72,8 +88,8 @@ public class PermissionSet {
     }
 
     /**
-     * Retrieve the permission that this user have.
-     * @return Set of permission that is granted.
+     * Returns an immutable permission set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted
      */
     public Set<Permission> getGrantedPermission() {
         return Collections.unmodifiableSet(permissionSet);
@@ -81,6 +97,7 @@ public class PermissionSet {
 
     /**
      * Check if permission set contains a specific permission
+     *
      * @param p the permission to check
      * @return true if permission found, otherwise false.
      */
