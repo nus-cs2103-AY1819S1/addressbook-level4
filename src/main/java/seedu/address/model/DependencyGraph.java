@@ -4,10 +4,13 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import seedu.address.model.task.Dependency;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 
+/**
+ * DependencyGraph models the dependencies of the tasks so that checks such as cyclic dependencies can be performed and
+ * useful information such as the topological sort of the dependencies can be determined.
+ */
 public class DependencyGraph {
     private Map<String, Set<String>> adjacencyList;
 
@@ -21,7 +24,6 @@ public class DependencyGraph {
 
     /**
      * Checks if there will be a cycle in the graph
-     * @param task
      */
     public String checkCyclic() {
         Set<String> visited = new HashSet<>();
@@ -45,7 +47,8 @@ public class DependencyGraph {
      * @param adjacencyList
      * @return String hash of the violating node
      */
-    private String depthFirstSearch(String node, Set<String> visited, Set<String> stack, Map<String, Set<String>> adjacencyList) {
+    private String depthFirstSearch(String node, Set<String> visited, Set<String> stack, Map<String,
+            Set<String>> adjacencyList) {
         if (stack.contains(node)) {
             return node;
         }
