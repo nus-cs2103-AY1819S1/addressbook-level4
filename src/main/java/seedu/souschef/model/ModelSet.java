@@ -1,8 +1,8 @@
 package seedu.souschef.model;
 
 import seedu.souschef.model.healthplan.HealthPlan;
-import seedu.souschef.model.planner.Day;
 import seedu.souschef.model.ingredient.Ingredient;
+import seedu.souschef.model.planner.Day;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.tag.Tag;
 /**
