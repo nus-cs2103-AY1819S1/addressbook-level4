@@ -28,6 +28,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX = "The recipe index provided is invalid";
     public static final String MESSAGE_LISTED_OVERVIEW = "%1$d %2$ss listed!";
     public static final String MESSAGE_DUPLICATE = "This %1$s already exists.";
+    public static final String MESSAGE_NO_ELEMENT = "There is no matching result";
 
     // Add command messages
     public static final String MESSAGE_ADD_RECIPE_USAGE = AddCommand.COMMAND_WORD

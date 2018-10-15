@@ -40,6 +40,7 @@ import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.healthplan.HealthPlanName;
 import seedu.souschef.model.healthplan.Scheme;
 import seedu.souschef.model.healthplan.TargetWeight;
+import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.recipe.Address;
 import seedu.souschef.model.recipe.Email;
 import seedu.souschef.model.recipe.Name;
@@ -104,6 +105,11 @@ public class EditCommandParser implements CommandParser<EditCommand> {
         }
 
         return new EditCommand<>(model, toEdit, edited);
+    }
+
+    @Override
+    public EditCommand<Ingredient> parseIngredient(Model model, String args) throws ParseException {
+        return null;
     }
 
     /**
@@ -237,6 +243,5 @@ public class EditCommandParser implements CommandParser<EditCommand> {
                 updatedCurrentHeight, updatedAge, updatedDuration, updatedScheme);
 
     }
-
 
 }

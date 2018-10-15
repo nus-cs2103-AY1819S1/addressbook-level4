@@ -18,6 +18,8 @@ import static seedu.souschef.logic.parser.CliSyntax.PREFIX_SCHEME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TWEIGHT;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -36,6 +38,8 @@ import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.healthplan.HealthPlanName;
 import seedu.souschef.model.healthplan.Scheme;
 import seedu.souschef.model.healthplan.TargetWeight;
+import seedu.souschef.model.ingredient.Ingredient;
+import seedu.souschef.model.ingredient.ServingUnit;
 import seedu.souschef.model.recipe.Address;
 import seedu.souschef.model.recipe.Email;
 import seedu.souschef.model.recipe.Name;
@@ -75,7 +79,30 @@ public class AddCommandParser implements CommandParser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_ADD_INGREDIENT_USAGE));
         }
 
-        return new AddCommand<Recipe>(model, toAdd);
+        return new AddCommand<>(model, toAdd);
+    }
+
+    @Override
+    public AddCommand<Ingredient> parseIngredient(Model model, String args) throws ParseException {
+        requireNonNull(model);
+        String[] tokens = args.trim().split(" ");
+        if (tokens.length != 4) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+
+        String name = tokens[0];
+        double amount = Double.parseDouble(tokens[1]);
+        ServingUnit servingUnit = ServingUnit.valueOf(tokens[2]);
+        Date date;
+        try {
+            date = new SimpleDateFormat("MM-dd-yyyy").parse(tokens[3]);
+        } catch (java.text.ParseException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+
+        Ingredient toAdd = new Ingredient(name, amount, servingUnit, date);
+
+        return new AddCommand<>(model, toAdd);
     }
 
     /**
