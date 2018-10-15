@@ -25,7 +25,7 @@ public class ImportCommand extends Command {
             + "OR leave the path empty to open up a file browser (ie. type import ONLY)";
     public static final String MESSAGE_INVALID_FIELD = " Contacts with invalid fields not imported.";
     public static final String MESSAGE_NAMELESS_CONTACT = " Contacts without at least a name field not imported.";
-    
+
     private final ArrayList<Person> personsToAdd;
     private final boolean hasContactWithInvalidField;
     private final boolean hasContactWithoutName;
