@@ -42,6 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
     private EventListPanel eventListPanel;
+    private RecordEventPanel recordEventPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
@@ -130,6 +131,7 @@ public class MainWindow extends UiPart<Stage> {
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         eventListPanel = new EventListPanel(logic.getFilteredEventList());
+        recordEventPanel = new RecordEventPanel();
 
         listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
@@ -203,7 +205,7 @@ public class MainWindow extends UiPart<Stage> {
             listPanelPlaceholder.getChildren().clear();
             listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
             browserPlaceholder.getChildren().clear();
-            browserPlaceholder.getChildren().add(eventListPanel.getRoot());
+            browserPlaceholder.getChildren().add(recordEventPanel.getRoot());
         }
     }
 
