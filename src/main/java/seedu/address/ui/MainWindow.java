@@ -42,6 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
     private EventListPanel eventListPanel;
+    private RecordEventPanel recordEventPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
@@ -93,6 +94,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -130,6 +132,8 @@ public class MainWindow extends UiPart<Stage> {
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         eventListPanel = new EventListPanel(logic.getFilteredEventList());
+
+        recordEventPanel = new RecordEventPanel();
 
         listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
@@ -192,17 +196,21 @@ public class MainWindow extends UiPart<Stage> {
      * Replaces the ListPanel with the appropriate context.
      */
     @FXML
-    private void handleContextChange(String contextId) {
+    private void handleContextChange(ContextChangeEvent contextChangeEvent) {
+        String contextId = contextChangeEvent.getNewContext();
+        listPanelPlaceholder.getChildren().clear();
+        browserPlaceholder.getChildren().clear();
+
         if (contextId.equals(EVENT_CONTEXT_ID)) {
-            listPanelPlaceholder.getChildren().clear();
             listPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
+            browserPlaceholder.getChildren().add(browserPanel.getRoot());
         } else if (contextId.equals(VOLUNTEER_CONTEXT_ID)) {
-            listPanelPlaceholder.getChildren().clear();
             listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+            browserPlaceholder.getChildren().add(browserPanel.getRoot());
         } else if (contextId.equals(RECORD_CONTEXT_ID)) {
             // TO_UPDATE: Shows all available volunteers for event
-            listPanelPlaceholder.getChildren().clear();
             listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+            browserPlaceholder.getChildren().add(recordEventPanel.getRoot());
         }
     }
 
@@ -230,7 +238,7 @@ public class MainWindow extends UiPart<Stage> {
     @Subscribe
     private void handleContextChangeEvent(ContextChangeEvent event) {
         logger.info(event.getNewContext());
-        handleContextChange(event.getNewContext());
+        handleContextChange(event);
     }
 
     @Subscribe

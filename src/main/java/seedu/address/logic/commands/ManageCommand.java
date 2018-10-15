@@ -8,6 +8,7 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.ui.ContextChangeEvent;
+import seedu.address.commons.events.ui.RecordChangeEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -46,7 +47,7 @@ public class ManageCommand extends Command {
         model.switchToRecordContext();
 
         // TO_UPDATE
-        // EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
+        EventsCenter.getInstance().post(new RecordChangeEvent(targetIndex));
         EventsCenter.getInstance().post(new ContextChangeEvent(model.getContextId()));
         return new CommandResult(String.format(MESSAGE_MANAGE_EVENT_SUCCESS, targetIndex.getOneBased()));
 
