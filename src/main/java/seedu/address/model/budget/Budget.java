@@ -5,14 +5,14 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.budget.BudgetNewMonthCheck;
-import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.model.expense.Expense;
 import seedu.address.storage.StorageManager;
 
@@ -36,6 +36,7 @@ public class Budget extends ComponentManager {
     private double budgetCap;
     private double currentExpenses;
     private LocalDate currentMonth;
+    private Map<LocalDate, Double> budgetStartDateAndSpending;
 
 
 
@@ -50,6 +51,7 @@ public class Budget extends ComponentManager {
         this.budgetCap = Double.parseDouble(budget);
         this.currentMonth = LocalDate.now().withDayOfMonth(1);
         this.currentExpenses = 0.0;
+        this.budgetStartDateAndSpending = new HashMap<>();
     }
 
     /**
@@ -147,18 +149,11 @@ public class Budget extends ComponentManager {
      * @param event an Event that is raised every time the app initializes to check for start of new month.
      */
     @Subscribe
-    public void handleBudgetDateUpdateEvent(BudgetNewMonthCheck event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
-
-        if (this.currentMonth.getMonthValue() != 12
-            && event.newDate.getMonthValue() - this.currentMonth.getMonthValue() < 1 ) {
-            logger.info("It is not the end of the month, nothing happens");
-            return;
-        }
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "New month, budget has updated"));
-        raise(new NewResultAvailableEvent("As this is a new month, please update your budget"));
-        this.currentMonth = event.newDate.withDayOfMonth(1);
+    public void handleBudgetRestartEvent(BudgetNewMonthCheck event) {
+        this.budgetStartDateAndSpending.put(this.currentMonth, this.currentExpenses);
+        this.currentMonth = LocalDate.now();
         this.clearSpending();
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Budget has been restarted"));
 
     }
 }

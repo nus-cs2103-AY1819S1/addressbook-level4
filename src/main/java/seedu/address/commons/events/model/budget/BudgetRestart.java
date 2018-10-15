@@ -8,10 +8,10 @@ import seedu.address.commons.events.BaseEvent;
 /**
  * Indicates that the current budget getting check for potentially entering a new month
  */
-public class BudgetNewMonthCheck extends BaseEvent {
+public class BudgetRestart extends BaseEvent {
     public final LocalDate newDate;
 
-    public BudgetNewMonthCheck(LocalDate newDate) {
+    public BudgetRestart(LocalDate newDate) {
         this.newDate = newDate;
     }
 

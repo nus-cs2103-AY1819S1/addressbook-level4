@@ -7,6 +7,7 @@ import static seedu.address.testutil.TypicalExpenses.ALICE;
 import static seedu.address.testutil.TypicalExpenses.BENSON;
 
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.Arrays;
 
 import org.junit.Rule;
@@ -28,6 +29,41 @@ public class ModelManagerTest {
     private ModelManager modelManagerLoggedOut = new ModelManager();
 
     public ModelManagerTest() throws UserAlreadyExistsException, NonExistentUserException, NoUserSelectedException {
+    }
+
+    @Test
+    public void indicateMonthCheck_nextMonth_resetSpending() throws NoUserSelectedException,
+        UserAlreadyExistsException, NonExistentUserException {
+        ModelManager nextMonthModel = ModelUtil.modelWithTestUserNextMonthCheck();
+        nextMonthModel.indicateMonthCheck();
+        assertTrue(nextMonthModel.getAddressBook().getMaximumBudget().getCurrentExpenses() == 0);
+    }
+
+    @Test
+    public void indicateMonthCheck_currentMonth_doesNotResetSpending() throws NoUserSelectedException,
+        UserAlreadyExistsException, NonExistentUserException {
+        ModelManager currentMonthModel = ModelUtil.modelWithTestUserCurrentMonthCheck();
+        double previousExpenses = currentMonthModel.getAddressBook().getMaximumBudget().getCurrentExpenses();
+        currentMonthModel.indicateMonthCheck();
+        assertTrue(currentMonthModel.getAddressBook().getMaximumBudget().getCurrentExpenses() == previousExpenses);
+    }
+
+    @Test
+    public void indicateMonthCheck_nextMonth_dateChanged() throws NoUserSelectedException,
+        UserAlreadyExistsException, NonExistentUserException {
+        ModelManager nextMonthModel = ModelUtil.modelWithTestUserNextMonthCheck();
+        LocalDate previousDate = nextMonthModel.getAddressBook().getMaximumBudget().getCurrentMonth();
+        nextMonthModel.indicateMonthCheck();
+        assertFalse(nextMonthModel.getAddressBook().getMaximumBudget().getCurrentMonth().equals(previousDate));
+    }
+
+    @Test
+    public void indicateMonthCheck_currentMonth_dateNotChanged() throws NoUserSelectedException,
+        UserAlreadyExistsException, NonExistentUserException {
+        ModelManager currentMonthModel = ModelUtil.modelWithTestUserCurrentMonthCheck();
+        LocalDate previousDate = currentMonthModel.getAddressBook().getMaximumBudget().getCurrentMonth();
+        currentMonthModel.indicateMonthCheck();
+        assertTrue(currentMonthModel.getAddressBook().getMaximumBudget().getCurrentMonth().equals(previousDate));
     }
 
     @Test
