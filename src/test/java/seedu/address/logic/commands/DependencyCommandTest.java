@@ -50,6 +50,21 @@ public class DependencyCommandTest {
     }
 
     @Test
+    public void execute_cyclicDependencyUnfilteredList_throwsCommandException() {
+        Task dependantTask = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
+        Task dependeeTask = model.getFilteredTaskList().get(INDEX_SECOND_TASK.getZeroBased());
+
+
+        Task newDependeeTask = DependencyCommand.createDependantTask(dependeeTask, dependantTask);
+
+        model.updateTask(dependeeTask, newDependeeTask);
+
+        DependencyCommand dependencyCommand = new DependencyCommand(INDEX_FIRST_TASK, INDEX_SECOND_TASK);
+
+        assertCommandFailure(dependencyCommand, model, commandHistory, DependencyCommand.MESSAGE_CYCLIC_DEPENDENCY);
+    }
+
+    @Test
     public void execute_validIndexFilteredList_success() {
         showTaskAtTwoIndexes(model, INDEX_FIRST_TASK, INDEX_SECOND_TASK);
 
