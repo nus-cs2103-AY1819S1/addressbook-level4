@@ -46,14 +46,27 @@ public class DependencyGraphTest {
         preCyclicTasks.add(b);
         cyclicTask = c;
     }
+    @Test
+    public void constructor_invalid_throwsGraphCycleException() {
+        preCyclicTasks.add(cyclicTask);
+        assertThrows(GraphCycleException.class, () -> new DependencyGraph(preCyclicTasks));
+    }
 
     @Test
     public void checkCyclic() {
-        DependencyGraph graph = new DependencyGraph(tasks);
+        DependencyGraph graph = new DependencyGraph(preCyclicTasks);
         assertFalse(graph.checkPresenceOfCycle());
-        tasks.add(cyclicTask);
-        graph = new DependencyGraph(tasks);
+        preCyclicTasks.add(cyclicTask);
+        graph = new DependencyGraph(preCyclicTasks);
         assertTrue(graph.checkPresenceOfCycle());
     }
 
+    @Test
+    public void topologicalSort_valid_returnsList() {
+        DependencyGraph graph = new DependencyGraph(preSortedTasks);
+        List<String> actualHashes = graph.topologicalSort();
+        List<String> expectedHashes = sortedTasks.stream().map((task)->Integer.toString(task.hashCode()))
+                .collect(Collectors.toList());
+        assertEquals(expectedHashes, actualHashes);
+    }
 }
