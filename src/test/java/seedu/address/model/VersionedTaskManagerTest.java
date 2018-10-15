@@ -29,40 +29,76 @@ public class VersionedTaskManagerTest {
 
         versionedTaskManager.commit();
         assertTaskManagerListStatus(versionedTaskManager,
-                Collections.singletonList(emptyTaskManager),
-                emptyTaskManager,
-                Collections.emptyList());
+            Collections.singletonList(emptyTaskManager),
+            emptyTaskManager,
+            Collections.emptyList());
     }
 
     @Test
     public void commit_multipleTaskManagerPointerAtEndOfStateList_noStatesRemovedCurrentStateSaved() {
         VersionedTaskManager versionedTaskManager = prepareTaskManagerList(
-                emptyTaskManager, taskManagerWithAmy, taskManagerWithBob);
+            emptyTaskManager, taskManagerWithAmy, taskManagerWithBob);
 
         versionedTaskManager.commit();
         assertTaskManagerListStatus(versionedTaskManager,
-                Arrays.asList(emptyTaskManager, taskManagerWithAmy, taskManagerWithBob),
-                taskManagerWithBob,
-                Collections.emptyList());
+            Arrays.asList(emptyTaskManager, taskManagerWithAmy, taskManagerWithBob),
+            taskManagerWithBob,
+            Collections.emptyList());
     }
 
     @Test
     public void commit_multipleTaskManagerPointerNotAtEndOfStateList_statesAfterPointerRemovedCurrentStateSaved() {
         VersionedTaskManager versionedTaskManager = prepareTaskManagerList(
-                emptyTaskManager, taskManagerWithAmy, taskManagerWithBob);
+            emptyTaskManager, taskManagerWithAmy, taskManagerWithBob);
         shiftCurrentStatePointerLeftwards(versionedTaskManager, 2);
 
         versionedTaskManager.commit();
         assertTaskManagerListStatus(versionedTaskManager,
-                Collections.singletonList(emptyTaskManager),
-                emptyTaskManager,
-                Collections.emptyList());
+            Collections.singletonList(emptyTaskManager),
+            emptyTaskManager,
+            Collections.emptyList());
+    }
+
+    @Test
+    public void rollback_singleTaskManagerNoStateChanged_noChange() {
+        VersionedTaskManager versionedTaskManager = prepareTaskManagerList(emptyTaskManager);
+
+        versionedTaskManager.rollback();
+        assertTaskManagerListStatus(versionedTaskManager,
+            Collections.emptyList(),
+            emptyTaskManager,
+            Collections.emptyList());
+    }
+
+    @Test
+    public void rollback_multipleTaskManagerPointerAtEndOfStateList_noChange() {
+        VersionedTaskManager versionedTaskManager = prepareTaskManagerList(
+            emptyTaskManager, taskManagerWithAmy, taskManagerWithBob);
+
+        versionedTaskManager.rollback();
+        assertTaskManagerListStatus(versionedTaskManager,
+            Arrays.asList(emptyTaskManager, taskManagerWithAmy),
+            taskManagerWithBob,
+            Collections.emptyList());
+    }
+
+    @Test
+    public void rollback_multipleTaskManagerPointerNotAtEndOfStateList_statePointerResetToEndOfStateList() {
+        VersionedTaskManager versionedTaskManager = prepareTaskManagerList(
+            emptyTaskManager, taskManagerWithAmy, taskManagerWithBob);
+        shiftCurrentStatePointerLeftwards(versionedTaskManager, 2);
+
+        versionedTaskManager.rollback();
+        assertTaskManagerListStatus(versionedTaskManager,
+            Arrays.asList(emptyTaskManager, taskManagerWithAmy),
+            taskManagerWithBob,
+            Collections.emptyList());
     }
 
     @Test
     public void canUndo_multipleTaskManagerPointerAtEndOfStateList_returnsTrue() {
         VersionedTaskManager versionedTaskManager = prepareTaskManagerList(
-                emptyTaskManager, taskManagerWithAmy, taskManagerWithBob);
+            emptyTaskManager, taskManagerWithAmy, taskManagerWithBob);
 
         assertTrue(versionedTaskManager.canUndo());
     }
@@ -70,7 +106,7 @@ public class VersionedTaskManagerTest {
     @Test
     public void canUndo_multipleTaskManagerPointerAtStartOfStateList_returnsTrue() {
         VersionedTaskManager versionedTaskManager = prepareTaskManagerList(
-                emptyTaskManager, taskManagerWithAmy, taskManagerWithBob);
+            emptyTaskManager, taskManagerWithAmy, taskManagerWithBob);
         shiftCurrentStatePointerLeftwards(versionedTaskManager, 1);
 
         assertTrue(versionedTaskManager.canUndo());
@@ -86,7 +122,7 @@ public class VersionedTaskManagerTest {
     @Test
     public void canUndo_multipleTaskManagerPointerAtStartOfStateList_returnsFalse() {
         VersionedTaskManager versionedTaskManager = prepareTaskManagerList(
-                emptyTaskManager, taskManagerWithAmy, taskManagerWithBob);
+            emptyTaskManager, taskManagerWithAmy, taskManagerWithBob);
         shiftCurrentStatePointerLeftwards(versionedTaskManager, 2);
 
         assertFalse(versionedTaskManager.canUndo());
@@ -95,7 +131,7 @@ public class VersionedTaskManagerTest {
     @Test
     public void canRedo_multipleTaskManagerPointerNotAtEndOfStateList_returnsTrue() {
         VersionedTaskManager versionedTaskManager = prepareTaskManagerList(
-                emptyTaskManager, taskManagerWithAmy, taskManagerWithBob);
+            emptyTaskManager, taskManagerWithAmy, taskManagerWithBob);
         shiftCurrentStatePointerLeftwards(versionedTaskManager, 1);
 
         assertTrue(versionedTaskManager.canRedo());
@@ -104,7 +140,7 @@ public class VersionedTaskManagerTest {
     @Test
     public void canRedo_multipleTaskManagerPointerAtStartOfStateList_returnsTrue() {
         VersionedTaskManager versionedTaskManager = prepareTaskManagerList(
-                emptyTaskManager, taskManagerWithAmy, taskManagerWithBob);
+            emptyTaskManager, taskManagerWithAmy, taskManagerWithBob);
         shiftCurrentStatePointerLeftwards(versionedTaskManager, 2);
 
         assertTrue(versionedTaskManager.canRedo());
@@ -120,7 +156,7 @@ public class VersionedTaskManagerTest {
     @Test
     public void canRedo_multipleTaskManagerPointerAtEndOfStateList_returnsFalse() {
         VersionedTaskManager versionedTaskManager = prepareTaskManagerList(
-                emptyTaskManager, taskManagerWithAmy, taskManagerWithBob);
+            emptyTaskManager, taskManagerWithAmy, taskManagerWithBob);
 
         assertFalse(versionedTaskManager.canRedo());
     }
@@ -128,26 +164,26 @@ public class VersionedTaskManagerTest {
     @Test
     public void undo_multipleTaskManagerPointerAtEndOfStateList_success() {
         VersionedTaskManager versionedTaskManager = prepareTaskManagerList(
-                emptyTaskManager, taskManagerWithAmy, taskManagerWithBob);
+            emptyTaskManager, taskManagerWithAmy, taskManagerWithBob);
 
         versionedTaskManager.undo();
         assertTaskManagerListStatus(versionedTaskManager,
-                Collections.singletonList(emptyTaskManager),
-                taskManagerWithAmy,
-                Collections.singletonList(taskManagerWithBob));
+            Collections.singletonList(emptyTaskManager),
+            taskManagerWithAmy,
+            Collections.singletonList(taskManagerWithBob));
     }
 
     @Test
     public void undo_multipleTaskManagerPointerNotAtStartOfStateList_success() {
         VersionedTaskManager versionedTaskManager = prepareTaskManagerList(
-                emptyTaskManager, taskManagerWithAmy, taskManagerWithBob);
+            emptyTaskManager, taskManagerWithAmy, taskManagerWithBob);
         shiftCurrentStatePointerLeftwards(versionedTaskManager, 1);
 
         versionedTaskManager.undo();
         assertTaskManagerListStatus(versionedTaskManager,
-                Collections.emptyList(),
-                emptyTaskManager,
-                Arrays.asList(taskManagerWithAmy, taskManagerWithBob));
+            Collections.emptyList(),
+            emptyTaskManager,
+            Arrays.asList(taskManagerWithAmy, taskManagerWithBob));
     }
 
     @Test
@@ -160,7 +196,7 @@ public class VersionedTaskManagerTest {
     @Test
     public void undo_multipleTaskManagerPointerAtStartOfStateList_throwsNoUndoableStateException() {
         VersionedTaskManager versionedTaskManager = prepareTaskManagerList(
-                emptyTaskManager, taskManagerWithAmy, taskManagerWithBob);
+            emptyTaskManager, taskManagerWithAmy, taskManagerWithBob);
         shiftCurrentStatePointerLeftwards(versionedTaskManager, 2);
 
         assertThrows(VersionedTaskManager.NoUndoableStateException.class, versionedTaskManager::undo);
@@ -169,27 +205,27 @@ public class VersionedTaskManagerTest {
     @Test
     public void redo_multipleTaskManagerPointerNotAtEndOfStateList_success() {
         VersionedTaskManager versionedTaskManager = prepareTaskManagerList(
-                emptyTaskManager, taskManagerWithAmy, taskManagerWithBob);
+            emptyTaskManager, taskManagerWithAmy, taskManagerWithBob);
         shiftCurrentStatePointerLeftwards(versionedTaskManager, 1);
 
         versionedTaskManager.redo();
         assertTaskManagerListStatus(versionedTaskManager,
-                Arrays.asList(emptyTaskManager, taskManagerWithAmy),
-                taskManagerWithBob,
-                Collections.emptyList());
+            Arrays.asList(emptyTaskManager, taskManagerWithAmy),
+            taskManagerWithBob,
+            Collections.emptyList());
     }
 
     @Test
     public void redo_multipleTaskManagerPointerAtStartOfStateList_success() {
         VersionedTaskManager versionedTaskManager = prepareTaskManagerList(
-                emptyTaskManager, taskManagerWithAmy, taskManagerWithBob);
+            emptyTaskManager, taskManagerWithAmy, taskManagerWithBob);
         shiftCurrentStatePointerLeftwards(versionedTaskManager, 2);
 
         versionedTaskManager.redo();
         assertTaskManagerListStatus(versionedTaskManager,
-                Collections.singletonList(emptyTaskManager),
-                taskManagerWithAmy,
-                Collections.singletonList(taskManagerWithBob));
+            Collections.singletonList(emptyTaskManager),
+            taskManagerWithAmy,
+            Collections.singletonList(taskManagerWithBob));
     }
 
     @Test
@@ -202,7 +238,7 @@ public class VersionedTaskManagerTest {
     @Test
     public void redo_multipleTaskManagerPointerAtEndOfStateList_throwsNoRedoableStateException() {
         VersionedTaskManager versionedTaskManager = prepareTaskManagerList(
-                emptyTaskManager, taskManagerWithAmy, taskManagerWithBob);
+            emptyTaskManager, taskManagerWithAmy, taskManagerWithBob);
 
         assertThrows(VersionedTaskManager.NoRedoableStateException.class, versionedTaskManager::redo);
     }
@@ -230,7 +266,7 @@ public class VersionedTaskManagerTest {
 
         // different current pointer index -> returns false
         VersionedTaskManager differentCurrentStatePointer = prepareTaskManagerList(
-                taskManagerWithAmy, taskManagerWithBob);
+            taskManagerWithAmy, taskManagerWithBob);
         shiftCurrentStatePointerLeftwards(versionedTaskManager, 1);
         assertFalse(versionedTaskManager.equals(differentCurrentStatePointer));
     }
