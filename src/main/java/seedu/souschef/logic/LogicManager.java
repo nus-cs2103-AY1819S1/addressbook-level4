@@ -13,6 +13,7 @@ import seedu.souschef.logic.parser.AppContentParser;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.ModelSet;
 import seedu.souschef.model.healthplan.HealthPlan;
+import seedu.souschef.model.planner.Day;
 import seedu.souschef.model.recipe.Recipe;
 
 /**
@@ -51,6 +52,11 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<HealthPlan> getFilteredHealthPlanList() {
         return modelSet.getHealthPlanModel().getFilteredList();
+    }
+
+    @Override
+    public ObservableList<Day> getMealPlanList() {
+        return modelSet.getMealPlannerModel().getFullList();
     }
 
     @Override
