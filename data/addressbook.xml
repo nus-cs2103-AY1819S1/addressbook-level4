@@ -31,4 +31,9 @@
         <cooktime>PT34M</cooktime>
         <tagged>colleagues</tagged>
     </recipes>
+    <recipes>
+        <name>Curry Chicken</name>
+        <difficulty>1</difficulty>
+        <cooktime>PT23M</cooktime>
+    </recipes>
 </souschef>

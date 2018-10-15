@@ -42,16 +42,6 @@ public class RecipeTest {
         editedAlice = new RecipeBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.isSame(editedAlice));
 
-        // same name, same phone, different attributes -> returns true
-        editedAlice = new RecipeBuilder(ALICE).withCooktime(VALID_COOKTIME_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSame(editedAlice));
-
-        // same name, same email, different attributes -> returns true
-        editedAlice = new RecipeBuilder(ALICE).withDifficulty(VALID_DIFFICULTY_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSame(editedAlice));
-
         // same name, same phone, same email, different attributes -> returns true
         editedAlice = new RecipeBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSame(editedAlice));

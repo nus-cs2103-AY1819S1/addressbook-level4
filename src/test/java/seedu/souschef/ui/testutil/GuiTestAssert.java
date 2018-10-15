@@ -30,8 +30,8 @@ public class GuiTestAssert {
      */
     public static void assertCardDisplaysRecipe(Recipe expectedRecipe, RecipeCardHandle actualCard) {
         assertEquals(expectedRecipe.getName().fullName, actualCard.getName());
-        assertEquals(expectedRecipe.getCookTime().toString(), actualCard.getCooktime());
-        assertEquals(expectedRecipe.getDifficulty().toString(), actualCard.getDifficulty());
+        assertEquals("Duration: " + expectedRecipe.getCookTime().toString(), actualCard.getCooktime());
+        assertEquals("Difficulty: " + expectedRecipe.getDifficulty().toString(), actualCard.getDifficulty());
         assertEquals(expectedRecipe.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
                 actualCard.getTags());
     }

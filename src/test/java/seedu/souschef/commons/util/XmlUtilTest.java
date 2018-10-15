@@ -34,12 +34,11 @@ public class XmlUtilTest {
     private static final Path VALID_RECIPE_FILE = TEST_DATA_FOLDER.resolve("validRecipe.xml");
     private static final Path TEMP_FILE = TestUtil.getFilePathInSandboxFolder("tempAddressBook.xml");
 
-    private static final String INVALID_PHONE = "9482asf424";
+    private static final String INVALID_DIFFICULTY = "9482asf424";
 
     private static final String VALID_NAME = "Hans Muster";
-    private static final String VALID_PHONE = "9482424";
-    private static final String VALID_EMAIL = "hans@example";
-    private static final String VALID_ADDRESS = "4th street";
+    private static final String VALID_DIFFICULTY = "5";
+    private static final String VALID_COOKTIME = "PT23M";
     private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("friends"));
 
     @Rule
@@ -80,7 +79,7 @@ public class XmlUtilTest {
         XmlAdaptedRecipe actualRecipe = XmlUtil.getDataFromFile(
                 MISSING_RECIPE_FIELD_FILE, XmlAdaptedRecipeWithRootElement.class);
         XmlAdaptedRecipe expectedRecipe = new XmlAdaptedRecipe(
-                null, VALID_PHONE, VALID_EMAIL, VALID_TAGS);
+                null, VALID_DIFFICULTY, VALID_COOKTIME, VALID_TAGS);
         assertEquals(expectedRecipe, actualRecipe);
     }
 
@@ -89,7 +88,7 @@ public class XmlUtilTest {
         XmlAdaptedRecipe actualRecipe = XmlUtil.getDataFromFile(
                 INVALID_RECIPE_FIELD_FILE, XmlAdaptedRecipeWithRootElement.class);
         XmlAdaptedRecipe expectedRecipe = new XmlAdaptedRecipe(
-                VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_TAGS);
+                VALID_NAME, INVALID_DIFFICULTY, VALID_COOKTIME, VALID_TAGS);
         assertEquals(expectedRecipe, actualRecipe);
     }
 
@@ -98,7 +97,7 @@ public class XmlUtilTest {
         XmlAdaptedRecipe actualRecipe = XmlUtil.getDataFromFile(
                 VALID_RECIPE_FILE, XmlAdaptedRecipeWithRootElement.class);
         XmlAdaptedRecipe expectedRecipe = new XmlAdaptedRecipe(
-                VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_TAGS);
+                VALID_NAME, VALID_DIFFICULTY, VALID_COOKTIME, VALID_TAGS);
         assertEquals(expectedRecipe, actualRecipe);
     }
 

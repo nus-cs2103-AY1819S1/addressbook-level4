@@ -15,13 +15,13 @@ public class DifficultyTest {
     }
 
     @Test
-    public void constructor_invalidPhone_throwsIllegalArgumentException() {
-        String invalidPhone = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Difficulty(invalidPhone));
+    public void constructor_invalidDifficulty_throwsIllegalArgumentException() {
+        String invalidDifficulty = "";
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Difficulty(invalidDifficulty));
     }
 
     @Test
-    public void isValidPhone() {
+    public void isValidDifficulty() {
         // null phone number
         Assert.assertThrows(NullPointerException.class, () -> Difficulty.isValidDifficulty(null));
 

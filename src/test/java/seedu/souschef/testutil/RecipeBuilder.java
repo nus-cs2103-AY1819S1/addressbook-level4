@@ -15,7 +15,7 @@ import seedu.souschef.model.util.SampleDataUtil;
  */
 public class RecipeBuilder {
 
-    public static final String DEFAULT_NAME = "Alice Pauline";
+    public static final String DEFAULT_NAME = "Pandan Chicken";
     public static final String DEFAULT_DIFFICULTY = "5";
     public static final String DEFAULT_COOKTIME = "PT23M";
 
