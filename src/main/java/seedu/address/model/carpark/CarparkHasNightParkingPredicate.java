@@ -6,11 +6,6 @@ import java.util.function.Predicate;
  * Tests that a {@code Carpark} has night parking.
  */
 public class CarparkHasNightParkingPredicate implements Predicate<Carpark> {
-    private final String keyword;
-
-    public CarparkHasNightParkingPredicate(String keyword) {
-        this.keyword = keyword;
-    }
 
     @Override
     public boolean test(Carpark carpark) {

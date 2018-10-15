@@ -46,7 +46,7 @@ public class FilterCommand extends Command {
 
         // Currently can only have one flag at a time.
         if (flagList.contains("n/")) {
-            this.predicate = new CarparkHasNightParkingPredicate("YES");
+            this.predicate = new CarparkHasNightParkingPredicate();
             model.updateFilteredCarparkList(predicate);
         }
         if (flagList.contains("f/")) {
@@ -64,6 +64,10 @@ public class FilterCommand extends Command {
 
             this.predicate = new CarparkHasFreeParkingPredicate(day, startTime, endTime);
             model.updateFilteredCarparkList(predicate);
+        }
+        if (flagList.contains("ct/")) {
+            //this.predicate = new CarparkHasNightParkingPredicate("YES");
+            //model.updateFilteredCarparkList(predicate);
         }
         return new CommandResult(
                 String.format(Messages.MESSAGE_CARPARKS_LISTED_OVERVIEW, model.getFilteredCarparkList().size()));
