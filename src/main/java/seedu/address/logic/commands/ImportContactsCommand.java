@@ -58,11 +58,11 @@ public class ImportContactsCommand extends Command {
             String[] parts = header.split(",");
             boolean isValidIndex = setIndex(parts);
         } catch (FileNotFoundException e) {
-            System.out.println(e.getStackTrace());
+            // will never happen, toImport is validated by parser
         }
 
         throw new CommandException(MESSAGE_TEST_EXCEPTION);
-        //return new CommandResult(String.format(MESSAGE_SUCCESS, toImport));
+        // return new CommandResult(String.format(MESSAGE_SUCCESS, toImport));
     }
 
     @Override
