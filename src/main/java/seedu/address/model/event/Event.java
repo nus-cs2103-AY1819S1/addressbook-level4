@@ -41,7 +41,8 @@ public class Event {
     private final Set<Tag> tags = new HashSet<>();
 
     /**
-     * Used when creating new Event. Every field must be present and not null.
+     * Used when creating new Event.
+     * Every field must be present and not null.
      */
     public Event(Name name, Location location, Date startDate, Date endDate,
                  Time startTime, Time endTime, Description description, Set<Tag> tags) {
@@ -66,14 +67,15 @@ public class Event {
     }
 
     /**
-     * Used when loading data from XML or editing. Every field must be present and not null.
+     * Used when loading data from XML and editing Event.
+     * Every field must be present and not null.
      */
     public Event(EventId eventId, Name name, Location location, Date startDate, Date endDate,
                  Time startTime, Time endTime, Description description, Set<Tag> tags) {
         requireAllNonNull(eventId, name, location, startDate, endDate, description, tags);
 
-        if (isNewEventIdGreaterThanMaxId(eventId.id)) {
-            replaceMaxIdWithIncrementedEventId(eventId.id);
+        if (isEventIdGreaterThanMaxId(eventId.id)) {
+            replaceMaxIdWithEventId(eventId.id);
         }
         this.eventId = eventId;
 
@@ -100,19 +102,19 @@ public class Event {
     }
 
     /**
-     * Checks if new event id is greater than current max id.
-     * @param newEventId event id from loaded xml event.
+     * Checks if event id is greater than current max id.
+     * @param eventId event id from an existing event.
      */
-    private boolean isNewEventIdGreaterThanMaxId(int newEventId) {
-        return newEventId > maxId;
+    private boolean isEventIdGreaterThanMaxId(int eventId) {
+        return eventId > maxId;
     }
 
     /**
      * Replaces max id with new event id.
-     * @param newEventId event id from loaded xml event.
+     * @param eventId event id from an existing event.
      */
-    private void replaceMaxIdWithIncrementedEventId(int newEventId) {
-        maxId = newEventId + 1;
+    private void replaceMaxIdWithEventId(int eventId) {
+        maxId = eventId;
     }
 
 

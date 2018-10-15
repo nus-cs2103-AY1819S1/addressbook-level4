@@ -44,13 +44,14 @@ public class Person {
     }
 
     /**
-     * Used when loading data from XML. Every field must be present and not null.
+     * Used when loading data from XML and editing Person.
+     * Every field must be present and not null.
      */
     public Person(PersonId personId, Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(personId, name, phone, email, address, tags);
 
-        if (isNewPersonIdGreaterThanMaxId(personId.id)) {
-            replaceMaxIdWithIncrementedPersonId(personId.id);
+        if (isPersonIdGreaterThanMaxId(personId.id)) {
+            replaceMaxIdWithPersonId(personId.id);
         }
         this.personId = personId;
         this.name = name;
@@ -68,21 +69,21 @@ public class Person {
     }
 
     /**
-     * Checks if new event id is greater than current max id.
+     * Checks if person id is greater than current max id.
      *
-     * @param newPersonId event id from loaded xml event.
+     * @param personId event id from an existing person.
      */
-    private boolean isNewPersonIdGreaterThanMaxId(int newPersonId) {
-        return newPersonId > maxId;
+    private boolean isPersonIdGreaterThanMaxId(int personId) {
+        return personId > maxId;
     }
 
     /**
-     * Replaces max id with new event id.
+     * Replaces max id with person id.
      *
-     * @param newPersonId event id from loaded xml event.
+     * @param personId event id from an existing person.
      */
-    private void replaceMaxIdWithIncrementedPersonId(int newPersonId) {
-        maxId = newPersonId + 1;
+    private void replaceMaxIdWithPersonId(int personId) {
+        maxId = personId;
     }
 
     public PersonId getPersonId() {
