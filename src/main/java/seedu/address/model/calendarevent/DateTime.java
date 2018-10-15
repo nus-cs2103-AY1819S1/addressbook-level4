@@ -11,16 +11,15 @@ import java.time.LocalDateTime;
  */
 public class DateTime {
 
-    private LocalDateTime date;
-
+    public static final String MESSAGE_DATETIME_CONSTRAINTS =
+            "The valid input will be year-month-localDateTime hour:minute";
     public final LocalDateTime localDateTime;
     public final int year;
     public final int month;
     public final int day;
     public final int hour;
     public final int minute;
-
-    public static final String MESSAGE_DATETIME_CONSTRAINTS = "The valid input will be year-month-localDateTime hour:minute";
+    private LocalDateTime date;
 
     /**
      * Constructs a {@code DateTime}
