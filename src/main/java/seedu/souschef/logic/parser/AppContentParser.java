@@ -51,6 +51,9 @@ public class AppContentParser {
             }
             return new RecipeParser().parseCommand(modelSet.getRecipeModel(), userInput);
         } else if (context.equals("Ingredient")) {
+            if (storage.getListOfFeatureStorage().size() > 0) {
+                storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(0));
+            }
             return new IngredientParser().parseCommand(modelSet.getIngredientModel(), userInput);
         } else if (context.equals("Health Plan")) {
             if (storage.getListOfFeatureStorage().size() > 0) {
