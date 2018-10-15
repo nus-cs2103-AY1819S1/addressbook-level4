@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
@@ -43,6 +44,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredEvents = new FilteredList<>(versionedAddressBook.getEventList());
+        addListenerToBaseEventList();
     }
 
     public ModelManager() {
@@ -109,7 +111,6 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.addEvent(event);
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         indicateAddressBookChanged();
-        indicateAddressBookEventChanged();
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -144,7 +145,18 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredEventList(Predicate<Event> predicate) {
         requireNonNull(predicate);
         filteredEvents.setPredicate(predicate);
-        indicateAddressBookEventChanged();
+    }
+
+    /**
+     * Adds a listener on the base event list {@code filteredEvents} to detect changes in the base list
+     * and indicate the change to the address book.
+     */
+    public void addListenerToBaseEventList() {
+        filteredEvents.addListener((ListChangeListener.Change<? extends Event> change) -> {
+            if (change.next()) {
+                indicateAddressBookEventChanged();
+            }
+        });
     }
 
     /**
@@ -160,7 +172,9 @@ public class ModelManager extends ComponentManager implements Model {
         // convert the map to a FilteredList
         ObservableList<List<Event>> filteredEventsByDateList = FXCollections.observableArrayList();
         filteredEventsByDateList.addAll(filteredEventsByDateMap.values());
-        Comparator<List<Event>> eventListComparator = Comparator.comparing(eventList -> eventList.get(0).getEventDate());
+
+        Comparator<List<Event>> eventListComparator =
+                Comparator.comparing(eventList -> eventList.get(0).getEventDate());
         filteredEventsByDateList.sort(eventListComparator.reversed());
         FilteredList<List<Event>> filteredEventsByDate = new FilteredList<>(filteredEventsByDateList);
 
@@ -183,20 +197,12 @@ public class ModelManager extends ComponentManager implements Model {
     public void undoAddressBook() {
         versionedAddressBook.undo();
         indicateAddressBookChanged();
-
-        // indicate possible Event change.
-        // TODO: remove after listener is added to ObservableList of List<Event>
-        indicateAddressBookEventChanged();
     }
 
     @Override
     public void redoAddressBook() {
         versionedAddressBook.redo();
         indicateAddressBookChanged();
-
-        // indicate possible Event change
-        // TODO: remove after listener is added to ObservableList of List<Event>
-        indicateAddressBookEventChanged();
     }
 
     @Override
