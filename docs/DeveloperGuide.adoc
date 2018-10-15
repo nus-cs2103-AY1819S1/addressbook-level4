@@ -1073,11 +1073,9 @@ Use case resumes at step 2 if fields are inputted, otherwise display a confirmat
 *	1c. There are multiple clients with the same name.
 +
 [none]
-** 1c1. Ask for the user to specify a field (p/, e/, a/) and the value of the field that will identify that specific person
-** 1c2. The user inputs that field.
-** 1c3. InsuRen prompts the user to type the fields to be modified.
+** 1c3. InsuRen prompts the user to use the standard edit command.
 +
-Use case resumes at step 2 if fields are inputted, otherwise display a confirmation that nothing was changed.
+Use case ends.
 
 [discrete]
 === Use Case: Upload Picture of Client

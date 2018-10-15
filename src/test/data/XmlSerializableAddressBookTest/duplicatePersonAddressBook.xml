@@ -7,6 +7,7 @@
         <email>alice@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
         <meeting>0000000000</meeting>
+        <picture>/images/alice.jpg</picture>
         <tagged>friends</tagged>
     </persons>
 
@@ -17,6 +18,7 @@
         <email>pauline@example.com</email>
         <address>4th street</address>
         <meeting>0000000000</meeting>
+        <picture>/images/alice.jpg</picture>
     </persons>
 
 </addressbook>

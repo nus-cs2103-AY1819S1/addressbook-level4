@@ -42,6 +42,7 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_CAM = "Block 132, Cammy Street 2";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_PICTURE_AMY = "/images/amy.jpg";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;

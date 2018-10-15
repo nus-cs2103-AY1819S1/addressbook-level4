@@ -14,7 +14,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Represents a Person in the address book.
  * Guarantees: details are present and not null, but details other than name are optional, field values are
- * validated, immutable.
+ * validated, immutable. Only the picture field is mutable as users are able to change the profile picture.
  */
 public class Person {
 
@@ -26,9 +26,9 @@ public class Person {
     // Data fields
     private final Optional<Address> address;
     private final Set<Tag> tags = new HashSet<>();
+    private Picture picture;
 
     private final Meeting meeting;
-
 
     /**
      * Every field must be present and not null.
@@ -39,6 +39,7 @@ public class Person {
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.picture = new Picture(Picture.DEFAULT_PICTURE);
         this.tags.addAll(tags);
         this.meeting = new Meeting(Meeting.NO_MEETING);
     }
@@ -55,6 +56,7 @@ public class Person {
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.picture = new Picture(Picture.DEFAULT_PICTURE);
         this.tags.addAll(tags);
         this.meeting = meeting;
     }
@@ -80,6 +82,16 @@ public class Person {
         return meeting;
     }
 
+    //@@author denzelchung
+    public Picture getPicture() {
+        return picture;
+    }
+
+    public void setPicture(Picture picture) {
+        this.picture = picture;
+    }
+
+    //@@author
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -132,13 +144,14 @@ public class Person {
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getTags().equals(getTags())
-                && otherPerson.getMeeting().equals(getMeeting());
+                && otherPerson.getMeeting().equals(getMeeting())
+                && otherPerson.getPicture().equals(getPicture());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, tags, picture);
     }
 
     @Override
@@ -157,6 +170,9 @@ public class Person {
 
         builder.append(" Meeting: ")
                 .append(getMeeting().toString());
+
+        builder.append(" Picture: ")
+                .append(getPicture());
 
         builder.append(" Tags: ");
         getTags().forEach(builder::append);
