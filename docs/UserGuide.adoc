@@ -380,7 +380,8 @@ Format: `view_cca CCA`
 
 Example:
 
-* `view_cca soccer`
+* `view_cca soccer` +
+Displays budget and past transactions of `soccer` CCA.
 
 === Adding a CCA's budget : `add_cca`
 
