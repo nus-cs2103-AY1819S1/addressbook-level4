@@ -5,20 +5,36 @@ package seedu.address.model.achievement;
  * There are only 5 valid levels, LEVEL_1 to LEVEL_5.
  */
 public enum Level {
-    LEVEL_1("lvl.1"), LEVEL_2("lvl.2"), LEVEL_3("lvl.3"), LEVEL_4("lvl.4"), LEVEL_5("lvl.5");
+    LEVEL_1("lvl.1", 0, 500),
+    LEVEL_2("lvl.2", 500, 1000),
+    LEVEL_3("lvl.3", 1000, 2000),
+    LEVEL_4("lvl.4", 2000, 4000),
+    LEVEL_5("lvl.5", 4000, 100000);
 
     public static final String MESSAGE_LEVEL_CONSTRAINTS =
             "Level should only have the value lvl.n, where n is integer from 1 to 5";
     public static final String LEVEL_VALIDATION_REGEX = "lvl.[1-5]";
-    private String levelValue;
+    private String levelString;
+    private Integer minXP;
+    private Integer maxXP;
 
     /**
      * Constructs a {@code Level}.
      *
-     * @param levelValue A valid statusValue.
+     * @param levelString a string with corresponding Level object.
      */
-    Level(String levelValue) {
-        this.levelValue = levelValue;
+    Level(String levelString, Integer minXP, Integer maxXP) {
+        this.levelString = levelString;
+        this.minXP = minXP;
+        this.maxXP = maxXP;
+    }
+    
+    public Integer getMinXP() {
+        return this.minXP;
+    }
+    
+    public Integer getMaxXP() {
+        return this.maxXP;
     }
 
     /**
@@ -46,6 +62,6 @@ public enum Level {
 
     @Override
     public String toString() {
-        return levelValue;
+        return levelString;
     }
 }

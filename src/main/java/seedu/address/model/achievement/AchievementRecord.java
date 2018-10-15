@@ -66,6 +66,30 @@ public class AchievementRecord {
 
         Integer newXpValue = this.xp.getXp() + xp;
         this.setXp(new XP(newXpValue));
+        updateLevelWithXP(newXpValue);
+    }
+    
+    public void updateLevelWithXP(Integer xp) {
+        Level newLevel = getMatchingLevel(xp);
+        if(!this.level.equals(newLevel)) {
+            setLevel(newLevel);
+        }
+    }
+    
+    public Level getMatchingLevel(Integer xp) {
+        if(xp < Level.LEVEL_1.getMaxXP()) {
+            return Level.LEVEL_1;
+        }
+        if(xp < Level.LEVEL_2.getMaxXP()) {
+            return level.LEVEL_2;
+        }
+        if(xp < Level.LEVEL_3.getMaxXP()) {
+            return level.LEVEL_3;
+        }
+        if(xp < Level.LEVEL_4.getMaxXP()) {
+            return level.LEVEL_4;
+        }
+        return Level.LEVEL_5;
     }
 
     /**
