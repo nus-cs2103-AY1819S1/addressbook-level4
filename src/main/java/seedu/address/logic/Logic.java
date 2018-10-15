@@ -6,6 +6,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
+import javafx.beans.value.ObservableValue;
+import java.util.Calendar;
 
 /**
  * API of the Logic component
@@ -32,6 +34,11 @@ public interface Logic {
      * display
      */
     ObservableList<Task> getCalendarTaskList();
+
+    /**
+     * Gets Calendar's active month.
+     */
+    ObservableValue<Calendar> getCalendarMonth();
 
     /**
      * Returns the list of input entered by the user, encapsulated in a

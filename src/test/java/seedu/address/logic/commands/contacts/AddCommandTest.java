@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -14,6 +15,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
+import javafx.beans.value.ObservableValue;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -131,7 +133,9 @@ public class AddCommandTest {
         }
 
         @Override
-        public void deleteTask(Task target) { throw new AssertionError("This method should not be called."); }
+        public void deleteTask(Task target) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public ObservableList<Person> getFilteredPersonList() {
@@ -156,7 +160,16 @@ public class AddCommandTest {
         @Override
         public ObservableList<Task> getCalendarTaskList() {
             throw new AssertionError("This method should not be called.");
+        }
 
+        @Override
+        public ObservableValue<Calendar> getCalendarMonth() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateCalendarMonth(Calendar calendar) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override

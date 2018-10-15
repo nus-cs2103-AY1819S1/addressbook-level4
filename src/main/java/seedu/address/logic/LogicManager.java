@@ -13,6 +13,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
+import javafx.beans.value.ObservableValue;
+import java.util.Calendar;
 
 /**
  * The main LogicManager of the app.
@@ -54,6 +56,11 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<Task> getCalendarTaskList() {
         return model.getCalendarTaskList();
+    }
+
+    @Override
+    public ObservableValue<Calendar> getCalendarMonth() {
+        return model.getCalendarMonth();
     }
 
     @Override
