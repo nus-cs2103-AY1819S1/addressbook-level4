@@ -35,7 +35,6 @@ public class EditRecipeDescriptorBuilder {
         descriptor.setName(recipe.getName());
         descriptor.setPhone(recipe.getPhone());
         descriptor.setEmail(recipe.getEmail());
-        descriptor.setAddress(recipe.getAddress());
         descriptor.setTags(recipe.getTags());
     }
 

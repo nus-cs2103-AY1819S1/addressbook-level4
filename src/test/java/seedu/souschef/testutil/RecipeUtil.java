@@ -33,7 +33,6 @@ public class RecipeUtil {
         sb.append(PREFIX_NAME + recipe.getName().fullName + " ");
         sb.append(PREFIX_PHONE + recipe.getPhone().value + " ");
         sb.append(PREFIX_EMAIL + recipe.getEmail().value + " ");
-        sb.append(PREFIX_ADDRESS + recipe.getAddress().value + " ");
         recipe.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );

@@ -42,7 +42,6 @@ public class RecipeBuilder {
         name = recipeToCopy.getName();
         phone = recipeToCopy.getPhone();
         email = recipeToCopy.getEmail();
-        address = recipeToCopy.getAddress();
         tags = new HashSet<>(recipeToCopy.getTags());
     }
 
@@ -87,7 +86,7 @@ public class RecipeBuilder {
     }
 
     public Recipe build() {
-        return new Recipe(name, phone, email, address, tags);
+        return new Recipe(name, phone, email, tags);
     }
 
 }

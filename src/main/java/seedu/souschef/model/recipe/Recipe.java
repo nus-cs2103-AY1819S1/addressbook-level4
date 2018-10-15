@@ -25,19 +25,17 @@ public class Recipe extends UniqueType {
     private final Difficulty difficulty;
 
     // Data fields
-    private final Address address;
     private final ArrayList<Instruction> instructions = new ArrayList<>();
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Recipe(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Recipe(Name name, Phone difficulty, Email cooktime, Set<Tag> tags) {
+        requireAllNonNull(name, difficulty, cooktime, tags);
         this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
+        this.phone = difficulty;
+        this.email = cooktime;
         this.tags.addAll(tags);
 
         //this.cookTime = cookTime;
@@ -67,10 +65,6 @@ public class Recipe extends UniqueType {
 
     public Difficulty getDifficulty() {
         return difficulty;
-    }
-
-    public Address getAddress() {
-        return address;
     }
 
     public ArrayList<Instruction> getInstructions() {
@@ -135,7 +129,6 @@ public class Recipe extends UniqueType {
                 && otherRecipe.getEmail().equals(getEmail())
                 && otherRecipe.getCookTime().equals(getCookTime())
                 && otherRecipe.getDifficulty().equals(getDifficulty())
-                && otherRecipe.getAddress().equals(getAddress())
                 && otherRecipe.getTags().equals(getTags())
                 && otherRecipe.getInstructions().equals(getInstructions());
     }
@@ -143,7 +136,7 @@ public class Recipe extends UniqueType {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, cookTime, difficulty, address, tags, instructions);
+        return Objects.hash(name, phone, email, cookTime, difficulty, tags, instructions);
     }
 
     @Override
@@ -158,8 +151,6 @@ public class Recipe extends UniqueType {
                 .append(getCookTime())
                 .append(" Difficulty: ")
                 .append(getDifficulty())
-                .append(" Address: ")
-                .append(getAddress())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         builder.append(" Instructions: ");

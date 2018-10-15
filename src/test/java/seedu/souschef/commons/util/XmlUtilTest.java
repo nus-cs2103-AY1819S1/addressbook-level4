@@ -80,7 +80,7 @@ public class XmlUtilTest {
         XmlAdaptedRecipe actualRecipe = XmlUtil.getDataFromFile(
                 MISSING_RECIPE_FIELD_FILE, XmlAdaptedRecipeWithRootElement.class);
         XmlAdaptedRecipe expectedRecipe = new XmlAdaptedRecipe(
-                null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+                null, VALID_PHONE, VALID_EMAIL, VALID_TAGS);
         assertEquals(expectedRecipe, actualRecipe);
     }
 
@@ -89,7 +89,7 @@ public class XmlUtilTest {
         XmlAdaptedRecipe actualRecipe = XmlUtil.getDataFromFile(
                 INVALID_RECIPE_FIELD_FILE, XmlAdaptedRecipeWithRootElement.class);
         XmlAdaptedRecipe expectedRecipe = new XmlAdaptedRecipe(
-                VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+                VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_TAGS);
         assertEquals(expectedRecipe, actualRecipe);
     }
 
@@ -98,7 +98,7 @@ public class XmlUtilTest {
         XmlAdaptedRecipe actualRecipe = XmlUtil.getDataFromFile(
                 VALID_RECIPE_FILE, XmlAdaptedRecipeWithRootElement.class);
         XmlAdaptedRecipe expectedRecipe = new XmlAdaptedRecipe(
-                VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+                VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_TAGS);
         assertEquals(expectedRecipe, actualRecipe);
     }
 

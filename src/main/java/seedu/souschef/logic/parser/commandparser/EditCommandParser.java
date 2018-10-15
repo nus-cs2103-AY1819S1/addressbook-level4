@@ -113,10 +113,9 @@ public class EditCommandParser implements CommandParser<EditCommand> {
         Name updatedName = editRecipeDescriptor.getName().orElse(toEdit.getName());
         Phone updatedPhone = editRecipeDescriptor.getPhone().orElse(toEdit.getPhone());
         Email updatedEmail = editRecipeDescriptor.getEmail().orElse(toEdit.getEmail());
-        Address updatedAddress = editRecipeDescriptor.getAddress().orElse(toEdit.getAddress());
         Set<Tag> updatedTags = editRecipeDescriptor.getTags().orElse(toEdit.getTags());
 
-        return new Recipe(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Recipe(updatedName, updatedPhone, updatedEmail, updatedTags);
     }
 
 }

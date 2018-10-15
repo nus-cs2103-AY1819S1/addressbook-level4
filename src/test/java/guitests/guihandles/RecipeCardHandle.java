@@ -77,7 +77,6 @@ public class RecipeCardHandle extends NodeHandle<Node> {
      */
     public boolean equals(Recipe recipe) {
         return getName().equals(recipe.getName().fullName)
-                && getAddress().equals(recipe.getAddress().value)
                 && getPhone().equals(recipe.getPhone().value)
                 && getEmail().equals(recipe.getEmail().value)
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(recipe.getTags().stream()

@@ -51,7 +51,7 @@ public class AddCommandParser implements CommandParser<AddCommand> {
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Recipe toAdd = new Recipe(name, phone, email, address, tagList);
+        Recipe toAdd = new Recipe(name, phone, email, tagList);
         if (model.has(toAdd)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
