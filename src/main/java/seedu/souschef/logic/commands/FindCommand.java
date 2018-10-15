@@ -31,7 +31,7 @@ public class FindCommand<T extends UniqueType> extends Command {
     public CommandResult execute(CommandHistory history) {
         model.updateFilteredList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_RECIPES_LISTED_OVERVIEW, model.getFilteredList().size(),
+                String.format(Messages.MESSAGE_LISTED_OVERVIEW, model.getFilteredList().size(),
                         history.getContext().toLowerCase()));
     }
 
