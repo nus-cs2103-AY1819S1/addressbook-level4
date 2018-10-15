@@ -304,12 +304,12 @@ The `AddmedsCommandParser::parse` method returns an `AddmedsCommand` object whic
 Control then passes back to the `LogicManager`, which calls `AddmedsCommand::execute`. +
 
 ****
-NOTE: If no/multiple patient(s) with that NRIC exist, then the `AddmedsCommand::execute` method will throw a `CommandException` and the usage case will end.
+NOTE: If no/multiple patient(s) with that NRIC exist, then the `AddmedsCommand::execute` method will throw a `CommandException` with the appropriate error message and the usage case will end.
 ****
 
 The `AddmedsCommand::execute` method constructs a new `Person` object using all the details of the old Person, with the sole difference being the `PrescriptionList` used being a deep copy of the original `Person` 's `PrescriptionList` with the new `Prescription` added. +
 This updated `Person` object is used to update the existing `Person` object using the `Model::updatePerson` method (or an overridden version) of the backing model. +
-Finally, the `AddmedsCommand::execute` method terminates, returning a `CommandResult` with a success message (defined as AddmedsCommand.MESSAGE_SUCCESS).
+Finally, the `AddmedsCommand::execute` method terminates, returning a `CommandResult` with a success message.
 The `LogicManager` then returns the same `CommandResult` as the return value of the `LogicManager::execute` method. +
 The command execution then ends.
 
