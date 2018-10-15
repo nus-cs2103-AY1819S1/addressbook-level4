@@ -416,6 +416,38 @@ public static MedicalRecord combineMedicalRecords(MedicalRecord record1, Medical
 // end::medicalrecord[]
 
 
+// tag::pqms[]
+=== Patient Queue Management System
+The Patient Queue Management System consists of three main classes: `PatientQueue`, `CurrentPatient` and `ServedPatientQueue`. A patient that
+registers to see the doctor is put into the `PatientQueue`, when it is his turn to see the doctor he will be the `CurrentPatient`. After
+he is done with seeing the doctor he will be put into the `ServedPatientQueue` to await payment and document processing.
+
+Given below is an example usage scenario and how the Patient Queue Management System is used in each step.
+
+Step 1. Three patients visits the clinic, the user executes the `register` command for each patient.
+
+image::PQMSPatientQueue.png[650, 250]
+
+Step 2. It is a patient's turn for consultation. The user executes the `serve` command to serve the first patient in the queue.
+The patient is now the `CurrentPatient`.
+
+image::PQMSCurrentPatient.png[650, 250]
+
+Step 3. The user executes various commands to add information to the `CurrentPatient`. These information will be used for document
+processing later on.
+
+Step 4. The `CurrentPatient` is done with the consultation. The user executes the `finish` command to transfer this patient to
+the `ServedPatientQueue`. Afterwards, the user execute `serve` to get the next patient.
+
+image::PQMSServedPatientQueue.png[650, 250]
+
+Step 5. The user executes various commands to generate necessary documents for the served patient.
+
+Step 6. The user finally executes `payment` command to generate the receipt and end the patient's visit to the clinic, removing
+him from the `ServedPatientQueue`.
+//end::pqms[]
+=======
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
