@@ -3,7 +3,6 @@ package seedu.address.model.user;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 import com.google.common.hash.Hashing;
@@ -15,7 +14,7 @@ import com.google.common.hash.Hashing;
  */
 public class Password {
     public static final String MESSAGE_PASSWORD_CONSTRAINTS =
-            "Passwords cannot contain spaces";
+            "Passwords cannot contain spaces and must be at least 6 characters long";
 
     /*
      * The first character of the address must not be a whitespace,
