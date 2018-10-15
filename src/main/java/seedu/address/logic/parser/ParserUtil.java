@@ -264,6 +264,7 @@ public class ParserUtil {
      * Parses a {@code String Spent} into a {@code Spent}.
      * Leading and trailing whitespaces will be trimmed.
      *
+     * @author ericyjw
      * @throws ParseException if the given {@code Spent} is invalid.
      */
     public static Spent parseSpent(String spent) throws ParseException {
@@ -279,6 +280,7 @@ public class ParserUtil {
      * Parses a {@code String outstanding} into a {@code Outstanding}.
      * Leading and trailing whitespaces will be trimmed.
      *
+     * @author ericyjw
      * @throws ParseException if the given {@code Outstanding} is invalid.
      */
     public static Outstanding parseOutstanding(String outstanding) throws ParseException {
@@ -294,6 +296,7 @@ public class ParserUtil {
      * Parses a {@code String transaction} into a {@code Transaction}.
      * Leading and trailing whitespaces will be trimmed.
      *
+     * @author ericyjw
      * @throws ParseException if the given {@code Transaction} is invalid.
      */
     public static Transaction parseTransaction(String transaction) throws ParseException {
