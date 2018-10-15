@@ -14,7 +14,7 @@ public class RecordChangeEvent extends BaseEvent {
         this.currentEvent = newSelection;
     }
 
-    public Event getCurrentEvent(){
+    public Event getCurrentEvent() {
         return currentEvent;
     }
 
