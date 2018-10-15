@@ -98,5 +98,4 @@ public class DependencyTest {
         assertEquals(newSample, sampleDependency);
     }
 
-
 }
