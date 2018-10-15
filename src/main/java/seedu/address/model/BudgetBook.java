@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.cca.Cca;
+import seedu.address.model.cca.CcaName;
 import seedu.address.model.cca.UniqueCcaList;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
@@ -69,6 +70,14 @@ public class BudgetBook implements ReadOnlyBudgetBook {
             }
         }
         return false;
+    }
+
+    /**
+     * Return true is a CCA name exists in the Budget Book
+     */
+    public boolean hasCca(CcaName ccaName) {
+        requireNonNull(ccaName);
+        return ccas.contains(ccaName.toString());
     }
 
     /**

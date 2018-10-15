@@ -89,7 +89,7 @@ public class Cca {
         this.viceHead = new Name("-");
         this.budget = budget;
         this.spent = new Spent(0);
-        this.outstanding = new Outstanding(0);
+        this.outstanding = new Outstanding(budget.getBudget());
         this.transaction = new Transaction("-");
     }
 
@@ -97,31 +97,59 @@ public class Cca {
         return name.getCcaName();
     }
 
-    public String getHead() {
+    public String getHeadName() {
         return head.fullName;
     }
 
-    public String getViceHead() {
+    public String getViceHeadName() {
         if (!viceHead.equals(null)) {
             return viceHead.fullName;
         }
         return "-";
     }
 
-    public int getGivenBudget() {
+    public int getGivenBudgetAmount() {
         return budget.getBudget();
     }
 
-    public int getSpent() {
+    public int getSpentAmount() {
         return spent.getSpent();
     }
 
-    public int getOutstanding() {
+    public int getOutstandingAmount() {
         return outstanding.getOutstanding();
     }
 
     public String getTransactionLog() {
         return transaction.getTransactionLog();
+    }
+
+    public CcaName getName() {
+        return this.name;
+    }
+
+    public Name getHead() {
+        return head;
+    }
+
+    public Name getViceHead() {
+        return viceHead;
+    }
+
+    public Spent getSpent() {
+        return spent;
+    }
+
+    public Outstanding getOutstanding() {
+        return outstanding;
+    }
+
+    public Budget getBudget() {
+        return budget;
+    }
+
+    public Transaction getTransaction() {
+        return transaction;
     }
 
     /**
@@ -135,7 +163,7 @@ public class Cca {
 
         return otherCca != null
             && otherCca.getCcaName().equals(getCcaName());
-        //&& (otherCca.getHead().equals(getHead()) || otherCca.getViceHead().equals(getViceHead()));
+        //&& (otherCca.getHeadName().equals(getHeadName()) || otherCca.getViceHeadName().equals(getViceHeadName()));
     }
 
     /**
@@ -162,8 +190,8 @@ public class Cca {
 
         Cca otherCca = (Cca) other;
         return otherCca.getCcaName().equals(getCcaName())
-            && otherCca.getHead().equals(getHead())
-            && otherCca.getViceHead().equals(getViceHead())
+            && otherCca.getHeadName().equals(getHeadName())
+            && otherCca.getViceHeadName().equals(getViceHeadName())
             && otherCca.budget.equals(this.budget);
     }
 
@@ -177,8 +205,14 @@ public class Cca {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getCcaName())
+            .append(" Head: ")
+            .append(getHeadName())
+            .append(" Vice-Head: ")
+            .append(getViceHeadName())
             .append(" Budget: ")
-            .append(getGivenBudget());
+            .append(getGivenBudgetAmount())
+            .append(" Outstanding: ")
+            .append(getOutstandingAmount());
         return builder.toString();
     }
 

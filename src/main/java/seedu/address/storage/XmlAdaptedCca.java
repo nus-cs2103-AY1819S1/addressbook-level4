@@ -65,13 +65,13 @@ public class XmlAdaptedCca {
      */
     public XmlAdaptedCca(Cca source) {
         name = source.getCcaName();
-        budget = String.valueOf(source.getGivenBudget());
+        budget = String.valueOf(source.getGivenBudgetAmount());
 
-        head = source.getHead();
-        viceHead = source.getViceHead();
-        budget = String.valueOf(source.getGivenBudget());
-        spent = String.valueOf(source.getSpent());
-        outstanding = String.valueOf(source.getOutstanding());
+        head = source.getHeadName();
+        viceHead = source.getViceHeadName();
+        budget = String.valueOf(source.getGivenBudgetAmount());
+        spent = String.valueOf(source.getSpentAmount());
+        outstanding = String.valueOf(source.getOutstandingAmount());
         transaction = source.getTransactionLog();
     }
 

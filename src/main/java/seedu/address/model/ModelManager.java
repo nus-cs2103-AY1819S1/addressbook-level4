@@ -23,6 +23,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.model.calendar.Month;
 import seedu.address.model.calendar.Year;
 import seedu.address.model.cca.Cca;
+import seedu.address.model.cca.CcaName;
 import seedu.address.model.person.Person;
 import seedu.address.storage.CalendarStorage;
 import seedu.address.storage.IcsCalendarStorage;
@@ -141,6 +142,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public boolean hasCca(CcaName ccaName) {
+        requireNonNull(ccaName);
+        return versionedBudgetBook.hasCca(ccaName);
+    }
+
+    @Override
     public boolean hasCca(Cca cca) {
         requireNonNull(cca);
         return versionedBudgetBook.hasCca(cca);
@@ -190,6 +197,14 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook.updatePerson(target, editedPerson);
         indicateAddressBookChanged();
+    }
+
+    @Override
+    public void updateCca(Cca target, Cca editedCca) {
+        requireAllNonNull(target, editedCca);
+
+        versionedBudgetBook.updateCca(target, editedCca);
+        indicateBudgetBookChanged();
     }
 
     //=========== Filtered Person List Accessors =============================================================
