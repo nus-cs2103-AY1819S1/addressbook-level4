@@ -360,12 +360,12 @@ Given below is an example usage scenario and how the Patient Queue Management Sy
 
 Step 1. Three patients visits the clinic, the user executes the `register` command for each patient.
 
-image::PQMSPatientQueue.png[width="650"]
+image::PQMSPatientQueue.png[650, 250]
 
 Step 2. It is a patient's turn for consultation. The user executes the `serve` command to serve the first patient in the queue.
 The patient is now the `CurrentPatient`.
 
-image::PQMSCurrentPatient.png[width="650"]
+image::PQMSCurrentPatient.png[650, 250]
 
 Step 3. The user executes various commands to add information to the `CurrentPatient`. These information will be used for document
 processing later on.
@@ -373,7 +373,7 @@ processing later on.
 Step 4. The `CurrentPatient` is done with the consultation. The user executes the `finish` command to transfer this patient to
 the `ServedPatientQueue`. Afterwards, the user execute `serve` to get the next patient.
 
-image::PQMSServedPatientQueue.png[width="650"]
+image::PQMSServedPatientQueue.png[650, 250]
 
 Step 5. The user executes various commands to generate necessary documents for the served patient.
 
