@@ -47,12 +47,12 @@ public class AppContentParser {
         if (userInput.charAt(0) == '-') {
             return new UniversalParser().parseCommand(history, userInput);
         } else if (context.equals("Recipe")) {
-            if(storage.getListOfFeatureStorage().size() > 0) {
+            if (storage.getListOfFeatureStorage().size() > 0) {
                 storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(0));
             }
             return new RecipeParser().parseCommand(modelSet.getRecipeModel(), userInput);
         } else if (context.equals("Health Plan")) {
-            if(storage.getListOfFeatureStorage().size() > 0) {
+            if (storage.getListOfFeatureStorage().size() > 0) {
                 storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(2));
             }
             return new HealthPlanParser().parseCommand(modelSet.getHealthPlanModel(), userInput);
