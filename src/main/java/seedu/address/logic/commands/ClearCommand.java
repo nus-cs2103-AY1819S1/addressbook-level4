@@ -34,7 +34,6 @@ public class ClearCommand extends Command {
 
     private final List<String> target;
     private ArrayList<Person> toClear;
-    private List<Person> fullList;
     private boolean clearAll;
     private boolean clearRoom;
 
@@ -45,7 +44,6 @@ public class ClearCommand extends Command {
         this.clearAll = false;
         this.clearRoom = false;
         this.toClear = new ArrayList<>();
-        this.fullList = new ArrayList<>();
     }
 
     @Override
@@ -87,7 +85,7 @@ public class ClearCommand extends Command {
      */
     private CommandResult clearSpecific(Model model) {
         toClear.clear();
-        fullList = model.getAddressBook().getPersonList();
+        List<Person> fullList = model.getAddressBook().getPersonList();
         for (Person p : fullList) {
             if (clearRoom ? predicateRoom.test(p) : predicateTag.test(p)) {
                 toClear.add(p);
@@ -99,6 +97,7 @@ public class ClearCommand extends Command {
         }
 
         model.clearMultiplePersons(toClear);
+        model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_CLEAR_SPECIFIC_SUCCESS, target));
     }

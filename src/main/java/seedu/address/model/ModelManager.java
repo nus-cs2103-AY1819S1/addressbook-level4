@@ -134,7 +134,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void clearMultiplePersons(List<Person> target) {
         for (Person p : target) {
-            versionedAddressBook.removePerson(p);
+            deletePerson(p);
         }
         indicateAddressBookChanged();
     }
@@ -172,6 +172,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author kengwoon
     @Override
     public void updateMultiplePersons(List<Person> target, List<Person> editedPerson) {
         for (int i = 0; i < target.size(); i++) {
