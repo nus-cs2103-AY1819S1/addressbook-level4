@@ -37,8 +37,8 @@ public class LoginCommandParserTest {
     @Test
     public void parse_invalidPassword() {
         assertParseFailure(parser,
-                " " + CliSyntax.PREFIX_USERNAME + UsernameTest.VALID_USERNAME_STRING + " " +
-                        CliSyntax.PREFIX_PASSWORD + PasswordTest.INVALID_PASSWORD_STRING_SHORT,
+                " " + CliSyntax.PREFIX_USERNAME + UsernameTest.VALID_USERNAME_STRING + " "
+                        + CliSyntax.PREFIX_PASSWORD + PasswordTest.INVALID_PASSWORD_STRING_SHORT,
                 Password.MESSAGE_PASSWORD_CONSTRAINTS);
     }
 }

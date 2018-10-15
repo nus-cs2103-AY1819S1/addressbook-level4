@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalExpenses.getTypicalAddressBook;
@@ -14,11 +13,8 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.user.Password;
 import seedu.address.model.user.PasswordTest;
-import seedu.address.model.user.Username;
-import seedu.address.model.user.UsernameTest;
 import seedu.address.testutil.TypicalExpenses;
 
 //@@author JasonChong96
@@ -77,7 +73,7 @@ public class SetPasswordCommandTest {
         assertEquals(new SetPasswordCommand(PasswordTest.VALID_PASSWORD, PasswordTest.VALID_PASSWORD),
                 new SetPasswordCommand(PasswordTest.VALID_PASSWORD, PasswordTest.VALID_PASSWORD));
         assertNotEquals(new SetPasswordCommand(PasswordTest.VALID_PASSWORD, PasswordTest.VALID_PASSWORD),
-                new SetPasswordCommand(PasswordTest.VALID_PASSWORD, new Password(PasswordTest.VALID_PASSWORD_STRING.toUpperCase(),
-                        true)));
+                new SetPasswordCommand(PasswordTest.VALID_PASSWORD,
+                        new Password(PasswordTest.VALID_PASSWORD_STRING.toUpperCase(), true)));
     }
 }

@@ -9,10 +9,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 public class PasswordTest {
-    public static String INVALID_PASSWORD_STRING_SPACE = " ______";
-    public static String INVALID_PASSWORD_STRING_SHORT = "_____";
-    public static String VALID_PASSWORD_STRING = "aaaaaa";
-    public static Password VALID_PASSWORD = new Password(VALID_PASSWORD_STRING, true);
+    public static final String INVALID_PASSWORD_STRING_SPACE = " ______";
+    public static final String INVALID_PASSWORD_STRING_SHORT = "_____";
+    public static final String VALID_PASSWORD_STRING = "aaaaaa";
+    public static final Password VALID_PASSWORD = new Password(VALID_PASSWORD_STRING, true);
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
