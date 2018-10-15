@@ -87,7 +87,7 @@ public class CollectionUtilTest {
      */
     private void assertNullPointerExceptionThrown(Object... objects) {
         try {
-            CollectionUtil.requireAllNonNull(objects);
+            requireAllNonNull(objects);
             throw new AssertionError("The expected NullPointerException was not thrown.");
         } catch (NullPointerException npe) {
             // expected behavior
@@ -100,7 +100,7 @@ public class CollectionUtilTest {
      */
     private void assertNullPointerExceptionThrown(Collection<?> collection) {
         try {
-            CollectionUtil.requireAllNonNull(collection);
+            requireAllNonNull(collection);
             throw new AssertionError("The expected NullPointerException was not thrown.");
         } catch (NullPointerException npe) {
             // expected behavior
@@ -108,10 +108,10 @@ public class CollectionUtilTest {
     }
 
     private void assertNullPointerExceptionNotThrown(Object... objects) {
-        CollectionUtil.requireAllNonNull(objects);
+        requireAllNonNull(objects);
     }
 
     private void assertNullPointerExceptionNotThrown(Collection<?> collection) {
-        CollectionUtil.requireAllNonNull(collection);
+        requireAllNonNull(collection);
     }
 }

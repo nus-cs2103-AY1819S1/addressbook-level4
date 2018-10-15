@@ -1,12 +1,22 @@
 package ssp.scheduleplanner.testutil;
 
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.VALID_DATE_AMY;
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.VALID_DATE_BOB;
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import ssp.scheduleplanner.model.SchedulePlanner;
 import ssp.scheduleplanner.model.task.Task;
-import ssp.scheduleplanner.logic.commands.CommandTestUtil;
 
 /**
  * A utility class containing a list of {@code Task} objects to be used in tests.
@@ -39,10 +49,10 @@ public class TypicalTasks {
             .withEmail("2").withAddress("chicago ave").build();
 
     // Manually added - Task's details found in {@code CommandTestUtil}
-    public static final Task AMY = new TaskBuilder().withName(CommandTestUtil.VALID_NAME_AMY).withDate(CommandTestUtil.VALID_DATE_AMY)
-            .withEmail(CommandTestUtil.VALID_EMAIL_AMY).withAddress(CommandTestUtil.VALID_ADDRESS_AMY).withTags(CommandTestUtil.VALID_TAG_FRIEND).build();
-    public static final Task BOB = new TaskBuilder().withName(CommandTestUtil.VALID_NAME_BOB).withDate(CommandTestUtil.VALID_DATE_BOB)
-            .withEmail(CommandTestUtil.VALID_EMAIL_BOB).withAddress(CommandTestUtil.VALID_ADDRESS_BOB).withTags(CommandTestUtil.VALID_TAG_HUSBAND, CommandTestUtil.VALID_TAG_FRIEND)
+    public static final Task AMY = new TaskBuilder().withName(VALID_NAME_AMY).withDate(VALID_DATE_AMY)
+            .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
+    public static final Task BOB = new TaskBuilder().withName(VALID_NAME_BOB).withDate(VALID_DATE_BOB)
+            .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER

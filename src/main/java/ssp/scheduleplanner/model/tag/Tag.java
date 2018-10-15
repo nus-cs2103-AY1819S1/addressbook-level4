@@ -3,7 +3,6 @@ package ssp.scheduleplanner.model.tag;
 import static java.util.Objects.requireNonNull;
 import static ssp.scheduleplanner.commons.util.AppUtil.checkArgument;
 
-import ssp.scheduleplanner.commons.util.AppUtil;
 
 /**
  * Represents a Tag in the Schedule Planner.
@@ -23,7 +22,7 @@ public class Tag {
      */
     public Tag(String tagName) {
         requireNonNull(tagName);
-        AppUtil.checkArgument(isValidTagName(tagName), MESSAGE_TAG_CONSTRAINTS);
+        checkArgument(isValidTagName(tagName), MESSAGE_TAG_CONSTRAINTS);
         this.tagName = tagName;
     }
 

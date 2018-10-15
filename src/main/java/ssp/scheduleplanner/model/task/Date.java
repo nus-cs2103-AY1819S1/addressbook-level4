@@ -3,7 +3,6 @@ package ssp.scheduleplanner.model.task;
 import static java.util.Objects.requireNonNull;
 import static ssp.scheduleplanner.commons.util.AppUtil.checkArgument;
 
-import ssp.scheduleplanner.commons.util.AppUtil;
 
 /**
  * Represents a Task's date in the Schedule Planner.
@@ -27,7 +26,7 @@ public class Date {
      */
     public Date(String date) {
         requireNonNull(date);
-        AppUtil.checkArgument(isValidDate(date), MESSAGE_DATE_CONSTRAINTS);
+        checkArgument(isValidDate(date), MESSAGE_DATE_CONSTRAINTS);
         value = date;
 
         String dayString = date.substring(0, 2);

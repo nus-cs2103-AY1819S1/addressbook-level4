@@ -1,6 +1,8 @@
 package ssp.scheduleplanner.logic;
 
 import static org.junit.Assert.assertEquals;
+import static ssp.scheduleplanner.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
+import static ssp.scheduleplanner.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -14,7 +16,6 @@ import ssp.scheduleplanner.logic.parser.exceptions.ParseException;
 import ssp.scheduleplanner.model.Model;
 import ssp.scheduleplanner.model.ModelManager;
 import ssp.scheduleplanner.model.UserPrefs;
-import ssp.scheduleplanner.commons.core.Messages;
 
 
 public class LogicManagerTest {
@@ -27,14 +28,14 @@ public class LogicManagerTest {
     @Test
     public void execute_invalidCommandFormat_throwsParseException() {
         String invalidCommand = "uicfhmowqewca";
-        assertParseException(invalidCommand, Messages.MESSAGE_UNKNOWN_COMMAND);
+        assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
         assertHistoryCorrect(invalidCommand);
     }
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        assertCommandException(deleteCommand, MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         assertHistoryCorrect(deleteCommand);
     }
 

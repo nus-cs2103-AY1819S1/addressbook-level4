@@ -1,5 +1,6 @@
 package ssp.scheduleplanner.logic.parser;
 
+import static ssp.scheduleplanner.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static ssp.scheduleplanner.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static ssp.scheduleplanner.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -9,7 +10,6 @@ import org.junit.Test;
 
 import ssp.scheduleplanner.logic.commands.FindCommand;
 import ssp.scheduleplanner.model.task.NameContainsKeywordsPredicate;
-import ssp.scheduleplanner.commons.core.Messages;
 
 public class FindCommandParserTest {
 
@@ -17,7 +17,7 @@ public class FindCommandParserTest {
 
     @Test
     public void parse_emptyArg_throwsParseException() {
-        assertParseFailure(parser, "     ", String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
     }
 
     @Test

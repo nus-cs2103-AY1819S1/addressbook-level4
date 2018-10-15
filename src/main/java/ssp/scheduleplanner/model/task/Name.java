@@ -3,8 +3,6 @@ package ssp.scheduleplanner.model.task;
 import static java.util.Objects.requireNonNull;
 import static ssp.scheduleplanner.commons.util.AppUtil.checkArgument;
 
-import ssp.scheduleplanner.commons.util.AppUtil;
-
 /**
  * Represents a Task's name in the Schedule Planner.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
@@ -29,7 +27,7 @@ public class Name {
      */
     public Name(String name) {
         requireNonNull(name);
-        AppUtil.checkArgument(isValidName(name), MESSAGE_NAME_CONSTRAINTS);
+        checkArgument(isValidName(name), MESSAGE_NAME_CONSTRAINTS);
         fullName = name;
     }
 

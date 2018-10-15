@@ -8,7 +8,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import ssp.scheduleplanner.model.tag.Tag;
-import ssp.scheduleplanner.commons.util.CollectionUtil;
 
 /**
  * Represents a Task in the venue book.
@@ -29,7 +28,7 @@ public class Task {
      * Every field must be present and not null.
      */
     public Task(Name name, Date date, Priority priority, Venue venue, Set<Tag> tags) {
-        CollectionUtil.requireAllNonNull(name, date, priority, venue, tags);
+        requireAllNonNull(name, date, priority, venue, tags);
         this.name = name;
         this.date = date;
         this.priority = priority;

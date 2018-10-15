@@ -3,6 +3,7 @@ package ssp.scheduleplanner.logic.parser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import ssp.scheduleplanner.commons.core.Messages;
 import ssp.scheduleplanner.logic.commands.AddCommand;
 import ssp.scheduleplanner.logic.commands.ClearCommand;
 import ssp.scheduleplanner.logic.commands.Command;
@@ -19,7 +20,6 @@ import ssp.scheduleplanner.logic.commands.RedoCommand;
 import ssp.scheduleplanner.logic.commands.SelectCommand;
 import ssp.scheduleplanner.logic.commands.UndoCommand;
 import ssp.scheduleplanner.logic.parser.exceptions.ParseException;
-import ssp.scheduleplanner.commons.core.Messages;
 
 /**
  * Parses user input.

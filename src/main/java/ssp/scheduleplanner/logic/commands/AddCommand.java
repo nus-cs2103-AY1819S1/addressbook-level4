@@ -4,9 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import ssp.scheduleplanner.logic.CommandHistory;
 import ssp.scheduleplanner.logic.commands.exceptions.CommandException;
+import ssp.scheduleplanner.logic.parser.CliSyntax;
 import ssp.scheduleplanner.model.Model;
 import ssp.scheduleplanner.model.task.Task;
-import ssp.scheduleplanner.logic.parser.CliSyntax;
 
 /**
  * Adds a task to the Schedule Planner.

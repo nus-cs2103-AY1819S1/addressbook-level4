@@ -3,6 +3,7 @@ package ssp.scheduleplanner.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static ssp.scheduleplanner.commons.core.Messages.MESSAGE_TASKS_LISTED_OVERVIEW;
 import static ssp.scheduleplanner.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static ssp.scheduleplanner.testutil.TypicalTasks.CARL;
 import static ssp.scheduleplanner.testutil.TypicalTasks.ELLE;
@@ -19,7 +20,6 @@ import ssp.scheduleplanner.model.Model;
 import ssp.scheduleplanner.model.ModelManager;
 import ssp.scheduleplanner.model.UserPrefs;
 import ssp.scheduleplanner.model.task.NameContainsKeywordsPredicate;
-import ssp.scheduleplanner.commons.core.Messages;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
@@ -58,7 +58,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_zeroKeywords_noTaskFound() {
-        String expectedMessage = String.format(Messages.MESSAGE_TASKS_LISTED_OVERVIEW, 0);
+        String expectedMessage = String.format(MESSAGE_TASKS_LISTED_OVERVIEW, 0);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredTaskList(predicate);
@@ -68,7 +68,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_multipleKeywords_multipleTasksFound() {
-        String expectedMessage = String.format(Messages.MESSAGE_TASKS_LISTED_OVERVIEW, 3);
+        String expectedMessage = String.format(MESSAGE_TASKS_LISTED_OVERVIEW, 3);
         NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredTaskList(predicate);

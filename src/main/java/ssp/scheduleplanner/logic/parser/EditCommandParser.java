@@ -13,12 +13,12 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
+import ssp.scheduleplanner.commons.core.Messages;
 import ssp.scheduleplanner.commons.core.index.Index;
 import ssp.scheduleplanner.logic.commands.EditCommand;
 import ssp.scheduleplanner.logic.commands.EditCommand.EditTaskDescriptor;
 import ssp.scheduleplanner.logic.parser.exceptions.ParseException;
 import ssp.scheduleplanner.model.tag.Tag;
-import ssp.scheduleplanner.commons.core.Messages;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -40,7 +40,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditCommand.MESSAGE_USAGE), pe);
         }
 
         EditTaskDescriptor editTaskDescriptor = new EditCommand.EditTaskDescriptor();

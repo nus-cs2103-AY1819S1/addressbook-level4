@@ -3,8 +3,6 @@ package ssp.scheduleplanner.model.task;
 import static java.util.Objects.requireNonNull;
 import static ssp.scheduleplanner.commons.util.AppUtil.checkArgument;
 
-import ssp.scheduleplanner.commons.util.AppUtil;
-
 /**
  * Represents a Task's priority in the Schedule Planner.
  * Guarantees: immutable; is valid as declared in {@link #isValidPriority(String)}
@@ -46,7 +44,7 @@ public class Priority {
      */
     public Priority(String priority) {
         requireNonNull(priority);
-        AppUtil.checkArgument(isValidPriority(priority), MESSAGE_PRIORITY_CONSTRAINTS);
+        checkArgument(isValidPriority(priority), MESSAGE_PRIORITY_CONSTRAINTS);
         value = priority;
     }
 

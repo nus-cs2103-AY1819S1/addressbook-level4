@@ -1,9 +1,9 @@
 package ssp.scheduleplanner.logic.parser;
 
+import ssp.scheduleplanner.commons.core.Messages;
 import ssp.scheduleplanner.commons.core.index.Index;
 import ssp.scheduleplanner.logic.commands.DeleteCommand;
 import ssp.scheduleplanner.logic.parser.exceptions.ParseException;
-import ssp.scheduleplanner.commons.core.Messages;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object

@@ -10,7 +10,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import ssp.scheduleplanner.model.task.exceptions.DuplicateTaskException;
 import ssp.scheduleplanner.model.task.exceptions.TaskNotFoundException;
-import ssp.scheduleplanner.commons.util.CollectionUtil;
 
 /**
  * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
@@ -53,7 +52,7 @@ public class UniqueTaskList implements Iterable<Task> {
      * The task identity of {@code editedTask} must not be the same as another existing task in the list.
      */
     public void setTask(Task target, Task editedTask) {
-        CollectionUtil.requireAllNonNull(target, editedTask);
+        requireAllNonNull(target, editedTask);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
@@ -88,7 +87,7 @@ public class UniqueTaskList implements Iterable<Task> {
      * {@code tasks} must not contain duplicate tasks.
      */
     public void setTasks(List<Task> tasks) {
-        CollectionUtil.requireAllNonNull(tasks);
+        requireAllNonNull(tasks);
         if (!tasksAreUnique(tasks)) {
             throw new DuplicateTaskException();
         }

@@ -3,6 +3,8 @@ package ssp.scheduleplanner.model.task;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static ssp.scheduleplanner.testutil.TypicalTasks.ALICE;
 import static ssp.scheduleplanner.testutil.TypicalTasks.BOB;
 
@@ -17,7 +19,6 @@ import org.junit.rules.ExpectedException;
 import ssp.scheduleplanner.model.task.exceptions.DuplicateTaskException;
 import ssp.scheduleplanner.model.task.exceptions.TaskNotFoundException;
 import ssp.scheduleplanner.testutil.TaskBuilder;
-import ssp.scheduleplanner.logic.commands.CommandTestUtil;
 
 public class UniqueTaskListTest {
     @Rule
@@ -47,7 +48,7 @@ public class UniqueTaskListTest {
     @Test
     public void contains_taskWithNotAllSameFieldsInList_returnsFalse() {
         uniqueTaskList.add(ALICE);
-        Task editedAlice = new TaskBuilder(ALICE).withAddress(CommandTestUtil.VALID_ADDRESS_BOB).withTags(CommandTestUtil.VALID_TAG_HUSBAND)
+        Task editedAlice = new TaskBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertFalse(uniqueTaskList.contains(editedAlice));
     }
@@ -95,7 +96,7 @@ public class UniqueTaskListTest {
     @Test
     public void setTask_editedTaskHasSameIdentity_success() {
         uniqueTaskList.add(ALICE);
-        Task editedAlice = new TaskBuilder(ALICE).withAddress(CommandTestUtil.VALID_ADDRESS_BOB).withTags(CommandTestUtil.VALID_TAG_HUSBAND)
+        Task editedAlice = new TaskBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         uniqueTaskList.setTask(ALICE, editedAlice);
         UniqueTaskList expectedUniqueTaskList = new UniqueTaskList();

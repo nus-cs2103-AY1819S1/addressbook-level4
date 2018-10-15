@@ -13,7 +13,6 @@ import ssp.scheduleplanner.commons.core.ComponentManager;
 import ssp.scheduleplanner.commons.core.LogsCenter;
 import ssp.scheduleplanner.commons.events.model.SchedulePlannerChangedEvent;
 import ssp.scheduleplanner.model.task.Task;
-import ssp.scheduleplanner.commons.util.CollectionUtil;
 
 /**
  * Represents the in-memory model of the Schedule Planner data.
@@ -29,7 +28,7 @@ public class ModelManager extends ComponentManager implements Model {
      */
     public ModelManager(ReadOnlySchedulePlanner schedulePlanner, UserPrefs userPrefs) {
         super();
-        CollectionUtil.requireAllNonNull(schedulePlanner, userPrefs);
+        requireAllNonNull(schedulePlanner, userPrefs);
 
         logger.fine("Initializing with Schedule Planner: " + schedulePlanner + " and user prefs " + userPrefs);
 
@@ -78,7 +77,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateTask(Task target, Task editedTask) {
-        CollectionUtil.requireAllNonNull(target, editedTask);
+        requireAllNonNull(target, editedTask);
 
         versionedSchedulePlanner.updateTask(target, editedTask);
         indicateSchedulePlannerChanged();

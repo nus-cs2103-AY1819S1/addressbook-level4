@@ -2,6 +2,8 @@ package ssp.scheduleplanner.logic.parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static ssp.scheduleplanner.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static ssp.scheduleplanner.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static ssp.scheduleplanner.testutil.TypicalIndexes.INDEX_FIRST_TASK;
 
 import java.util.Arrays;
@@ -32,7 +34,6 @@ import ssp.scheduleplanner.model.task.Task;
 import ssp.scheduleplanner.testutil.EditTaskDescriptorBuilder;
 import ssp.scheduleplanner.testutil.TaskBuilder;
 import ssp.scheduleplanner.testutil.TaskUtil;
-import ssp.scheduleplanner.commons.core.Messages;
 
 
 public class SchedulePlannerParserTest {
@@ -99,7 +100,7 @@ public class SchedulePlannerParserTest {
             parser.parseCommand("histories");
             throw new AssertionError("The expected ParseException was not thrown.");
         } catch (ParseException pe) {
-            assertEquals(Messages.MESSAGE_UNKNOWN_COMMAND, pe.getMessage());
+            assertEquals(MESSAGE_UNKNOWN_COMMAND, pe.getMessage());
         }
     }
 
@@ -143,14 +144,14 @@ public class SchedulePlannerParserTest {
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() throws Exception {
         thrown.expect(ParseException.class);
-        thrown.expectMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         parser.parseCommand("");
     }
 
     @Test
     public void parseCommand_unknownCommand_throwsParseException() throws Exception {
         thrown.expect(ParseException.class);
-        thrown.expectMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        thrown.expectMessage(MESSAGE_UNKNOWN_COMMAND);
         parser.parseCommand("unknownCommand");
     }
 }

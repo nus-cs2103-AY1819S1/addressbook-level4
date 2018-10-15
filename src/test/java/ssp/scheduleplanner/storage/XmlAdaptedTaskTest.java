@@ -1,6 +1,7 @@
 package ssp.scheduleplanner.storage;
 
 import static org.junit.Assert.assertEquals;
+import static ssp.scheduleplanner.storage.XmlAdaptedTask.MISSING_FIELD_MESSAGE_FORMAT;
 import static ssp.scheduleplanner.testutil.TypicalTasks.BENSON;
 
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ public class XmlAdaptedTaskTest {
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
         XmlAdaptedTask task = new XmlAdaptedTask(null, VALID_DATE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = String.format(XmlAdaptedTask.MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, task::toModelType);
     }
 
@@ -63,7 +64,7 @@ public class XmlAdaptedTaskTest {
     @Test
     public void toModelType_nullDate_throwsIllegalValueException() {
         XmlAdaptedTask task = new XmlAdaptedTask(VALID_NAME, null, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = String.format(XmlAdaptedTask.MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, task::toModelType);
     }
 
@@ -78,7 +79,7 @@ public class XmlAdaptedTaskTest {
     @Test
     public void toModelType_nullEmail_throwsIllegalValueException() {
         XmlAdaptedTask task = new XmlAdaptedTask(VALID_NAME, VALID_DATE, null, VALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = String.format(XmlAdaptedTask.MISSING_FIELD_MESSAGE_FORMAT, Priority.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Priority.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, task::toModelType);
     }
 
@@ -93,7 +94,7 @@ public class XmlAdaptedTaskTest {
     @Test
     public void toModelType_nullAddress_throwsIllegalValueException() {
         XmlAdaptedTask task = new XmlAdaptedTask(VALID_NAME, VALID_DATE, VALID_EMAIL, null, VALID_TAGS);
-        String expectedMessage = String.format(XmlAdaptedTask.MISSING_FIELD_MESSAGE_FORMAT, Venue.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Venue.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, task::toModelType);
     }
 

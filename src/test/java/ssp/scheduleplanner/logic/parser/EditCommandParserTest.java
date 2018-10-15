@@ -1,5 +1,6 @@
 package ssp.scheduleplanner.logic.parser;
 
+import static ssp.scheduleplanner.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static ssp.scheduleplanner.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static ssp.scheduleplanner.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static ssp.scheduleplanner.logic.commands.CommandTestUtil.DATE_DESC_AMY;
@@ -41,14 +42,13 @@ import ssp.scheduleplanner.model.task.Name;
 import ssp.scheduleplanner.model.task.Priority;
 import ssp.scheduleplanner.model.task.Venue;
 import ssp.scheduleplanner.testutil.EditTaskDescriptorBuilder;
-import ssp.scheduleplanner.commons.core.Messages;
 
 public class EditCommandParserTest {
 
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
 
     private EditCommandParser parser = new EditCommandParser();
 

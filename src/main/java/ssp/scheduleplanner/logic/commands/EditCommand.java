@@ -15,6 +15,7 @@ import ssp.scheduleplanner.commons.core.index.Index;
 import ssp.scheduleplanner.commons.util.CollectionUtil;
 import ssp.scheduleplanner.logic.CommandHistory;
 import ssp.scheduleplanner.logic.commands.exceptions.CommandException;
+import ssp.scheduleplanner.logic.parser.CliSyntax;
 import ssp.scheduleplanner.model.Model;
 import ssp.scheduleplanner.model.tag.Tag;
 import ssp.scheduleplanner.model.task.Date;
@@ -22,8 +23,6 @@ import ssp.scheduleplanner.model.task.Name;
 import ssp.scheduleplanner.model.task.Priority;
 import ssp.scheduleplanner.model.task.Task;
 import ssp.scheduleplanner.model.task.Venue;
-import ssp.scheduleplanner.logic.parser.CliSyntax;
-
 /**
  * Edits the details of an existing task in the venue book.
  */

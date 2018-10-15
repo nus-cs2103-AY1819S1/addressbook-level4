@@ -2,10 +2,10 @@ package ssp.scheduleplanner.logic.parser;
 
 import java.util.Arrays;
 
+import ssp.scheduleplanner.commons.core.Messages;
 import ssp.scheduleplanner.logic.commands.FindCommand;
 import ssp.scheduleplanner.logic.parser.exceptions.ParseException;
 import ssp.scheduleplanner.model.task.NameContainsKeywordsPredicate;
-import ssp.scheduleplanner.commons.core.Messages;
 
 /**
  * Parses input arguments and creates a new FindCommand object

@@ -3,8 +3,6 @@ package ssp.scheduleplanner.model.task;
 import static java.util.Objects.requireNonNull;
 import static ssp.scheduleplanner.commons.util.AppUtil.checkArgument;
 
-import ssp.scheduleplanner.commons.util.AppUtil;
-
 /**
  * Represents a Task's address in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
@@ -29,7 +27,7 @@ public class Venue {
      */
     public Venue(String address) {
         requireNonNull(address);
-        AppUtil.checkArgument(isValidAddress(address), MESSAGE_ADDRESS_CONSTRAINTS);
+        checkArgument(isValidAddress(address), MESSAGE_ADDRESS_CONSTRAINTS);
         value = address;
     }
 
