@@ -15,6 +15,8 @@ import seedu.address.model.expense.Cost;
 import seedu.address.model.expense.Date;
 import seedu.address.model.expense.Name;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.user.Password;
+import seedu.address.model.user.Username;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -110,6 +112,36 @@ public class ParserUtil {
             throw new ParseException(Date.DATE_FORMAT_CONSTRAINTS);
         }
         return new Date(trimmedDate);
+    }
+
+    /**
+     * Parses a {@code String Username} into a {@code Username}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code Username} is invalid.
+     */
+    public static Username parseUsername(String username) throws ParseException {
+        requireNonNull(username);
+        String trimmedUsername = username.trim();
+        if (!Username.isValidName(trimmedUsername)) {
+            throw new ParseException(Username.MESSAGE_NAME_CONSTRAINTS);
+        }
+        return new Username(trimmedUsername);
+    }
+
+    /**
+     * Parses a {@code String password} into a {@code Password}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code Password} is invalid.
+     */
+    public static Password parsePassword(String password) throws ParseException {
+        requireNonNull(password);
+        String trimmedPassword = password.trim();
+        if (!Password.isValidPassword(trimmedPassword)) {
+            throw new ParseException(Password.MESSAGE_PASSWORD_CONSTRAINTS);
+        }
+        return new Password(trimmedPassword, true);
     }
 
     /**
