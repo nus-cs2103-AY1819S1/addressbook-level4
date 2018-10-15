@@ -1,5 +1,6 @@
 package seedu.address.commons.core;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
@@ -75,7 +76,7 @@ public class CommandsLogCenterTest {
         try {
             CommandsLogCenter.log(CommandEntryBuilder.COMMAND_ENTRIES[0]);
         } catch (IOException ie) {
-            assertEquals(String.format("%1$s (Access is denied)", TEST_FILE_NAME), ie.getMessage());
+            assertTrue(ie.getMessage().contains("denied"));
             throw ie;
         }
     }
