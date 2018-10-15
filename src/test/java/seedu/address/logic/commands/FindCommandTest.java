@@ -103,14 +103,14 @@ public class FindCommandTest {
 
     @Test
     public void execute_address_multipleRidesFound() {
-        String expectedMessage = String.format(MESSAGE_RIDES_LISTED_OVERVIEW, 3);
+        String expectedMessage = String.format(MESSAGE_RIDES_LISTED_OVERVIEW, 1);
         Address address = new Address("10th Street");
         String userInput = PREFIX_ADDRESS + address.value;
         RideContainsKeywordsPredicate predicate = preparePredicate(userInput, address);
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredRideList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CASTLE, DUMBO, GALAXY), model.getFilteredRideList());
+        assertEquals(Arrays.asList(DUMBO), model.getFilteredRideList());
     }
 
     /**
