@@ -9,7 +9,6 @@ import static seedu.address.testutil.TypicalRides.ACCELERATOR;
 import static seedu.address.testutil.TypicalRides.BIG;
 import static seedu.address.testutil.TypicalRides.CASTLE;
 import static seedu.address.testutil.TypicalRides.DUMBO;
-import static seedu.address.testutil.TypicalRides.GALAXY;
 import static seedu.address.testutil.TypicalRides.KEYWORD_MATCHING_MEIER;
 
 import java.util.ArrayList;
@@ -204,7 +203,6 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();
-
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
         assertSelectedCardUnchanged();
