@@ -83,7 +83,6 @@ public class DependencyCommand extends Command {
         );
     }
 
-
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
