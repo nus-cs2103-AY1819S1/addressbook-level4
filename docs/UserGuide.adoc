@@ -234,6 +234,56 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
+=== Adding appointments: `addappt`
+
+Adds an appointment to the appointment schedule. +
+Format: `addappt d/DATE tm/TIME id/PATIENTID` [TODO: PATIENTID] +
+
+[NOTE]
+Date is in dd/mm/yyyy format and time is in military time. +
+
+Examples:
+
+* `addappt d/03042018 tm/1645 id/38920` +
+Adds appointment scheduled on 3 April 2018 at 4.45pm for patient 38920. +
+
+* `addappt d/12122013 tm/1300 id/100` +
+Adds appointment scheduled on 12 December 2013 at 1.00pm for patient 100. +
+
+=== Listing Appointments by Day: `listapptday`
+
+Shows a list of all the appointments for the specified day. +
+Format: `listapptday d/DATE` +
+
+Examples:
+
+* `listapptday d/02032017` +
+Lists all appointments on 2 March 2017. +
+
+* `listapptday d/01012000` +
+Lists all appointments on 1 January 2000.
+
+=== Cancelling Appointments: `cancelappt`
+
+Cancels an appointment from the appointment schedule. +
+Format: `cancelappt INDEX` +
+
+****
+* Cancels the appointment with the specified `INDEX`.
+* The index refers to the index number shown in the displayed appointment list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+* `listapptday d/03042018` +
+`cancelappt 1` +
+Cancels the 1st appointment in the list.
+
+* `listapptday d/12122018` +
+`cancelappt 4` +
+Cancels the 4th appointment in the list.
+
 === Clearing all entries : `clear`
 
 Clears all entries from the clinic record. +
@@ -293,7 +343,13 @@ e.g. `enqueue 3 1`
 e.g. `dequeue 4`
 * *Help* : `help`
 * *Select* : `select INDEX` +
-e.g.`select 2`
+e.g. `select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *Add Appointment* : `addappt [d/DATE] [tm/TIME] [id/PATIENTID]` +
+e.g. `addappt d/01012018 tm/1430 id/39201`
+* *List Appointment* : `listapptday [d/DATE]` +
+e.g. `listapptday d/12122012`
+* *Cancel Appointment* : `cancelappt INDEX` +
+e.g. `cancelappt 2`
