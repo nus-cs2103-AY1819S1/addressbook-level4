@@ -6,6 +6,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 /**
  * Represents a description of the group.
  * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}
+ *
+ * {@author Derek-Hardy}
  */
 public class Description {
 

@@ -12,9 +12,18 @@ import seedu.address.model.person.UniquePersonList;
 
 
 /**
- * Represents a Group for people in the address book.
- * Guarantees: title and description are present and not null,
+ * Represents a Group for participants in the address book.
+ * The person will be able to have a list of groups that he/she has enrolled.
+ * The group will also keep track of a list of its members.
+ * Every group will contain one and only one meeting. The new meeting will always
+ * overwrite the old one.
+ *
+ * Meeting can be {@code null} if no meeting is required for members of this group.
+ *
+ * Guarantees: title, description and UniquePersonList are present and not null,
  * field values are validated, immutable.
+ *
+ * {@author Derek-Hardy}
  */
 public class Group {
 

@@ -23,6 +23,8 @@ import seedu.address.model.group.exceptions.GroupNotFoundException;
  * Supports a minimal set of list operations.
  *
  * @see Group#isSameGroup(Group)
+ *
+ * {@author Derek-Hardy}
  */
 public class UniqueGroupList implements Iterable<Group> {
 
