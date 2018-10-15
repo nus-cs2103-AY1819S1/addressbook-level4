@@ -466,43 +466,55 @@ The most reliable way to run tests is the 3rd one. The first two methods might f
 
 *Method 1: Using IntelliJ JUnit test runner*
 
-* To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`
-* To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run 'ABC'`
+* To run all tests, carry out the following steps:
+. Right-click on the `src/test/java` folder
+. Click on `Run 'All Tests'` on the menu that appears
+
+* To run a subset of tests, carry out the following steps:
+. Right-click on a test package, test class, or a test
+. Click on `Run 'TEST'`, where TEST is the name of the test package, class or method you are intending to test
 
 *Method 2: Using Gradle*
 
-* Open a console and run the command `gradlew clean allTests` (Mac/Linux: `./gradlew clean allTests`)
+* To use Gradle to run tests, carry out the following steps:
+. Open a console
+. If you are on windows, enter the command `gradlew clean allTests`, otherwise enter `./gradlew clean allTests` instead
 
 [NOTE]
 See <<UsingGradle#, UsingGradle.adoc>> for more info on how to run tests using Gradle.
 
 *Method 3: Using Gradle (headless)*
 
-Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
+Using the https://github.com/TestFX/TestFX[TestFX] library, our GUI tests can be run in the _headless_ mode.
+In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
 
-To run tests in headless mode, open a console and run the command `gradlew clean headless allTests` (Mac/Linux: `./gradlew clean headless allTests`)
+* To run tests in headless mode, carry out the following steps:
+. Open a console
+. If you are on windows, enter the command `gradlew clean headless allTests`, otherwise enter `./gradlew clean headless allTests` instead
 
 === Types of tests
 
-We have two types of tests:
+We have two main types of tests:
 
-.  *GUI Tests* - These are tests involving the GUI. They include,
-.. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
-.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
-.  *Non-GUI Tests* - These are tests not involving the GUI. They include,
-..  _Unit tests_ targeting the lowest level methods/classes. +
+*  *GUI Tests* - These are tests involving the GUI. They include,
+** _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
+** _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
+*  *Non-GUI Tests* - These are tests not involving the GUI. They include,
+**  _Unit tests_ targeting the lowest level methods/classes. +
 e.g. `seedu.address.commons.StringUtilTest`
-..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
+**  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
 e.g. `seedu.address.storage.StorageManagerTest`
-..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
+**  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
 e.g. `seedu.address.logic.LogicManagerTest`
 
 
 === Troubleshooting Testing
-**Problem: `HelpWindowTest` fails with a `NullPointerException`.**
+This section includes common issues that arise during testing.
 
-* Reason: One of its dependencies, `HelpWindow.html` in `src/main/resources/docs` is missing.
-* Solution: Execute Gradle task `processResources`.
+* Problem: `HelpWindowTest` fails with a `NullPointerException`.
+
+** Reason: One of its dependencies, `HelpWindow.html` in `src/main/resources/docs` is missing.
+** Solution: Execute Gradle task `processResources`.
 
 == Dev Ops
 
