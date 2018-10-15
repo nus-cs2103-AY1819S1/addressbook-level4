@@ -56,7 +56,7 @@ public class DependencyCommand extends Command {
     }
 
     /**
-     * Returns a {@code Task} with it's the additional dependancy added.
+     * Returns a {@code Task} with it's the additional dependency added.
      * @param dependeeTask An immutable task passed to have its attributes copied
      * @return A new immutable task similar to dependeeTask but with additional dependency
      */
@@ -71,8 +71,6 @@ public class DependencyCommand extends Command {
                 dependeeTask.getDependency().addDependency(dependantTask)
         );
     }
-
-
 
 
     @Override
