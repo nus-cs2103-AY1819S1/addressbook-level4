@@ -380,34 +380,47 @@ Format: `view_cca CCA`
 
 Example:
 
-* `view_cca soccer`
+* `view_cca soccer` +
+Displays view of budget and past transactions for `soccer` CCA.
 
 === Adding a CCA's budget : `add_cca`
 
 Adds a CCA's budget. +
 Format: `add_cca CCA BUDGET`
 
+****
+* BUDGET currency is in SGD.
+****
+
 Example:
 
-* `add_cca badminton 500`
+* `add_cca badminton 500` +
+Adds SGD `500` to `badminton` CCA's budget.
+
 
 === Deleting a CCA's budget : `delete_cca`
 
-Deletes the CCA's exisiting budget. +
+Deletes the CCA's existing budget. +
 Format: `delete_cca CCA`
 
 Example:
 
-* `delete_cca soccer`
+* `delete_cca soccer` +
+Deletes `soccer` CCA's existing budget.
 
 === Modifying a CCA's budget : `modify_cca`
 
 Modifies the budget of specified CCA. +
 Format: `modify_cca CCA BUDGET`
 
+****
+* BUDGET currency is in SGD.
+****
+
 Example:
 
-* `modify_cca soccer 500`
+* `modify_cca soccer 500` +
+Modifies `soccer` CCA's current budget to SGD `500` .
 
 === Adding a transaction to the budget : `add_transaction`
 
@@ -423,6 +436,7 @@ Format: `add_transaction CCA AMOUNT TYPE PERSON_IN_CHARGE`
 Example:
 
 * `add_transaction badminton 500 credit James`
+Adds a `credit` transaction of SGD `500` to `James` from `badminton` CCA.
 
 === Exiting the program : `exit`
 
