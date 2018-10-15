@@ -7,6 +7,9 @@ import seedu.address.logic.commands.SelectEventCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 
+/**
+ * Parses input arguments and creates a new SelectEventCommand object
+ */
 public class SelectEventCommandParser implements Parser<SelectEventCommand> {
 
     /**
