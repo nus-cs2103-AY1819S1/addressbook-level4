@@ -15,32 +15,26 @@
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
         </columnConstraints>
-        <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+        <VBox minHeight="105" GridPane.columnIndex="0">
             <padding>
                 <Insets top="20" right="10" bottom="10" left="15" />
             </padding>
             <HBox spacing="5" alignment="CENTER_LEFT">
                 <Label fx:id="name" text="\$first" styleClass="detail_title_label" />
             </HBox>
-            <FlowPane fx:id="tags" />
-            <Label fx:id="savedAmount" styleClass="detail_label" text="\$savedAmount" />
-            <Label fx:id="price" styleClass="detail_label" text="\$price" />
-            <Label fx:id="url" styleClass="detail_label" text="\$url" />
-            <Label fx:id="email" styleClass="detail_label" text="\$email" />
-            <Label fx:id="remark" styleClass="detail_label" text="\$remark"/>
-
-            <SplitPane id="wishDetailSplitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="NEVER">
-                <StackPane fx:id="wishSaveAmountPlaceholder" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false" >
-                    <padding>
-                        <Insets top="10" right="15" bottom="10" left="15" />
-                    </padding>
-                </StackPane>
-
-                <StackPane fx:id="wishSaveHistoryPlaceholder" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false" >
-                    <padding>
-                        <Insets top="10" right="15" bottom="10" left="15" />
-                    </padding>
-                </StackPane>
+            <FlowPane fx:id="tags">
+                <padding>
+                    <Insets bottom="20" />
+                </padding>
+            </FlowPane>
+            <!--<Label fx:id="savedAmount" styleClass="detail_label" text="\$savedAmount" />-->
+            <!--<Label fx:id="price" styleClass="detail_label" text="\$price" />-->
+            <!--<Label fx:id="url" styleClass="detail_label" text="\$url" />-->
+            <!--<Label fx:id="email" styleClass="detail_label" text="\$email" />-->
+            <!--<Label fx:id="remark" styleClass="detail_label" text="\$remark"/>-->
+            <SplitPane id="wishDetailSplitPane" fx:id="splitPane" VBox.vgrow="ALWAYS">
+                <StackPane fx:id="wishSavingAmountPlaceholder" minWidth="300" prefWidth="300" SplitPane.resizableWithParent="false" />
+                <StackPane fx:id="wishSavingHistoryPlaceholder" minWidth="300" prefWidth="300" SplitPane.resizableWithParent="false" />
             </SplitPane>
         </VBox>
     </GridPane>

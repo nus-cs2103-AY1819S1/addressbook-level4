@@ -25,30 +25,34 @@ public class WishDetailPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private WishDetailSavingAmount wishDetailSavingAmount;
+    private WishDetailSavingHistory wishDetailSavingHistory;
 
     @FXML
     private StackPane wishSavingAmountPlaceholder;
 
     @FXML
+    private StackPane wishSavingHistoryPlaceholder;
+
+    @FXML
     private Label name;
 
     @FXML
-    private Label price;
-
-    @FXML
-    private Label savedAmount;
-
-    @FXML
-    private Label url;
-
-    @FXML
-    private Label email;
-
-    @FXML
-    private Label remark;
-
-    @FXML
     private FlowPane tags;
+
+//    @FXML
+//    private Label price;
+//
+//    @FXML
+//    private Label savedAmount;
+//
+//    @FXML
+//    private Label url;
+//
+//    @FXML
+//    private Label email;
+//
+//    @FXML
+//    private Label remark;
 
     public WishDetailPanel() {
         super(FXML);
@@ -59,6 +63,9 @@ public class WishDetailPanel extends UiPart<Region> {
         wishDetailSavingAmount = new WishDetailSavingAmount();
         wishSavingAmountPlaceholder.getChildren().add(wishDetailSavingAmount.getRoot());
 
+        wishDetailSavingHistory = new WishDetailSavingHistory();
+        wishSavingHistoryPlaceholder.getChildren().add(wishDetailSavingHistory.getRoot());
+
         loadDefaultPage();
         registerAsAnEventHandler(this);
     }
@@ -68,11 +75,11 @@ public class WishDetailPanel extends UiPart<Region> {
      */
     public void loadDefaultPage() {
         name.setText("Click on any wish for details");
-        price.setText("");
-        savedAmount.setText("");
-        url.setText("");
-        email.setText("");
-        remark.setText("");
+//        price.setText("");
+//        savedAmount.setText("");
+//        url.setText("");
+//        email.setText("");
+//        remark.setText("");
     }
 
     /**
@@ -80,9 +87,9 @@ public class WishDetailPanel extends UiPart<Region> {
      */
     private void loadWishPage(Wish wish) {
         name.setText(wish.getName().fullName);
-        url.setText("Product URL: " + wish.getUrl().value);
-        email.setText("Email(?): " + wish.getEmail().value);
-        remark.setText(wish.getRemark().value);
+//        url.setText("Product URL: " + wish.getUrl().value);
+//        email.setText("Email(?): " + wish.getEmail().value);
+//        remark.setText(wish.getRemark().value);
         initTags(wish);
     }
 
