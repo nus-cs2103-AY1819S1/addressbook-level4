@@ -5,8 +5,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -36,7 +34,6 @@ public class Budget extends ComponentManager {
 
     private double budgetCap;
     private double currentExpenses;
-    private Map<LocalDateTime, Double> budgetStartDateAndSpending;
     private LocalDateTime nextRecurrence;
     private long numberOfSecondsToRecurAgain;
 
@@ -52,8 +49,8 @@ public class Budget extends ComponentManager {
         checkArgument(isValidBudget(budget), BUDGET_VALIDATION_REGEX);
         this.budgetCap = Double.parseDouble(budget);
         this.nextRecurrence = null;
+        this.numberOfSecondsToRecurAgain = Long.MAX_VALUE;
         this.currentExpenses = 0.0;
-        this.budgetStartDateAndSpending = new HashMap<>();
     }
 
     /**
@@ -61,13 +58,12 @@ public class Budget extends ComponentManager {
      * @param budget
      * @param currentExpenses
      */
-    public Budget(double budget, double currentExpenses) {
+    public Budget(double budget, double currentExpenses, LocalDateTime nextRecurrence,
+                  long numberOfSecondsToRecurAgain) {
         this.budgetCap = budget;
         this.currentExpenses = currentExpenses;
-        this.nextRecurrence = null;
-        this.budgetStartDateAndSpending = new HashMap<>();
-
-
+        this.nextRecurrence = nextRecurrence;
+        this.numberOfSecondsToRecurAgain = numberOfSecondsToRecurAgain;
     }
 
     /**
@@ -153,7 +149,9 @@ public class Budget extends ComponentManager {
     public boolean equals(Object budget) {
         Budget anotherBudget = (Budget) budget;
         return this.currentExpenses == anotherBudget.currentExpenses
-            && this.budgetCap == anotherBudget.budgetCap;
+            && this.budgetCap == anotherBudget.budgetCap
+            && this.numberOfSecondsToRecurAgain == anotherBudget.numberOfSecondsToRecurAgain
+            && this.nextRecurrence.equals(anotherBudget.nextRecurrence);
     }
 
     @Override
@@ -172,7 +170,6 @@ public class Budget extends ComponentManager {
             return;
         }
         if (LocalDateTime.now().isAfter(this.nextRecurrence)) {
-            this.budgetStartDateAndSpending.put(this.nextRecurrence, this.currentExpenses);
             this.nextRecurrence = LocalDateTime.now().plusSeconds(this.numberOfSecondsToRecurAgain);
             this.clearSpending();
             logger.info(LogsCenter.getEventHandlingLogMessage(event, "Budget has been restarted"));

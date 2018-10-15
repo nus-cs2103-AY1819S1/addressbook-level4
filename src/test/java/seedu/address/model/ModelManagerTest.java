@@ -32,39 +32,35 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void indicateMonthCheck_nextMonth_resetSpending() throws NoUserSelectedException,
-        UserAlreadyExistsException, NonExistentUserException {
-        ModelManager nextMonthModel = ModelUtil.modelWithTestUserNextMonthCheck();
-        nextMonthModel.indicateMonthCheck();
-        assertTrue(nextMonthModel.getAddressBook().getMaximumBudget().getCurrentExpenses() == 0);
+    public void checkBudgetRestart_noFrequency_doesNotResetSpending() throws NoUserSelectedException {
+        double previousExpenses = modelManager.getMaximumBudget().getCurrentExpenses();
+        modelManager.checkBudgetRestart();
+        assertTrue(modelManager.getAddressBook().getMaximumBudget().getCurrentExpenses() == previousExpenses);
     }
 
     @Test
-    public void indicateMonthCheck_currentMonth_doesNotResetSpending() throws NoUserSelectedException,
-        UserAlreadyExistsException, NonExistentUserException {
-        ModelManager currentMonthModel = ModelUtil.modelWithTestUserCurrentMonthCheck();
-        double previousExpenses = currentMonthModel.getAddressBook().getMaximumBudget().getCurrentExpenses();
-        currentMonthModel.indicateMonthCheck();
-        assertTrue(currentMonthModel.getAddressBook().getMaximumBudget().getCurrentExpenses() == previousExpenses);
+    public void checkBudgetRestart_frequency_doesNotResetSpendingIfNotNextRecurrence() throws NoUserSelectedException {
+        double previousExpenses = modelManager.getMaximumBudget().getCurrentExpenses();
+        modelManager.setRecurrenceFrequency(Long.MAX_VALUE);
+        modelManager.checkBudgetRestart();
+        assertTrue(modelManager.getAddressBook().getMaximumBudget().getCurrentExpenses() == previousExpenses);
     }
 
     @Test
-    public void indicateMonthCheck_nextMonth_dateChanged() throws NoUserSelectedException,
-        UserAlreadyExistsException, NonExistentUserException {
-        ModelManager nextMonthModel = ModelUtil.modelWithTestUserNextMonthCheck();
-        LocalDate previousDate = nextMonthModel.getAddressBook().getMaximumBudget().getCurrentMonth();
-        nextMonthModel.indicateMonthCheck();
-        assertFalse(nextMonthModel.getAddressBook().getMaximumBudget().getCurrentMonth().equals(previousDate));
+    public void checkBudgetRestart_frequency_resetSpendingIfNextRecurrence() throws NoUserSelectedException {
+        double previousExpenses = modelManager.getMaximumBudget().getCurrentExpenses();
+        modelManager.setRecurrenceFrequency(0);
+        try {
+
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            System.out.println("Interrupted. Skipping test.");
+            return;
+        }
+        modelManager.checkBudgetRestart();
+        assertTrue(modelManager.getAddressBook().getMaximumBudget().getCurrentExpenses() == 0);
     }
 
-    @Test
-    public void indicateMonthCheck_currentMonth_dateNotChanged() throws NoUserSelectedException,
-        UserAlreadyExistsException, NonExistentUserException {
-        ModelManager currentMonthModel = ModelUtil.modelWithTestUserCurrentMonthCheck();
-        LocalDate previousDate = currentMonthModel.getAddressBook().getMaximumBudget().getCurrentMonth();
-        currentMonthModel.indicateMonthCheck();
-        assertTrue(currentMonthModel.getAddressBook().getMaximumBudget().getCurrentMonth().equals(previousDate));
-    }
 
     @Test
     public void hasExpense_nullExpense_throwsNullPointerException() throws NoUserSelectedException {
