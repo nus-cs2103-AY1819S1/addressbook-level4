@@ -10,7 +10,7 @@ import java.time.format.DateTimeParseException;
  * Represents an Event's time in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidTime(String)}
  */
-public class EventTime {
+public class EventTime implements Comparable<EventTime> {
 
     public static final String MESSAGE_TIME_CONSTRAINTS =
             "Times should be in the 24-hour format HHMM, should be in the range 0000 to 2359, "
@@ -58,6 +58,17 @@ public class EventTime {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Compares this event time and {@code eventTime} in the same way as is done in {@link LocalTime}.
+     * @param eventTime
+     * @return a negative integer if this is earlier than eventTime, 0 if this is the same as eventTime and a
+     * positive integer if this is later than eventTime.
+     */
+    @Override
+    public int compareTo(EventTime eventTime) {
+        return this.eventTime.compareTo(eventTime.eventTime);
     }
 
     /**

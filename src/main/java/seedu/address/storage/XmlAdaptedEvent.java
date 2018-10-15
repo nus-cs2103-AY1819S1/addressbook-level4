@@ -119,7 +119,7 @@ public class XmlAdaptedEvent {
         final EventTime modelEndTime = new EventTime(eventEndTime);
 
         // check for logical start and end time
-        if (modelEndTime.eventTime.compareTo(modelStartTime.eventTime) < 0) {
+        if (modelEndTime.compareTo(modelStartTime) < 0) {
             throw new IllegalValueException(String.format(MESSAGE_INVALID_START_END_TIME, modelStartTime,
                     modelEndTime));
         }
