@@ -54,7 +54,7 @@ public class FilterByGradeCommand extends FilterCommand {
         ObservableList<Person> targetList = model.getFilteredPersonList();
         // Returns the command result
         if (targetList.isEmpty()) {
-            return new CommandResult("Cannot find person whose grade between " + minLimit + " and " + maxLimit +" !");
+            return new CommandResult("Cannot find person whose grade between " + minLimit + " and " + maxLimit + " !");
         }
 
 
