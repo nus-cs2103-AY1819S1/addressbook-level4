@@ -11,5 +11,4 @@ public class CliSyntax {
     public static final Prefix PREFIX_WAITING_TIME = new Prefix("w/");
     public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
-
 }

@@ -32,7 +32,9 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         ArgumentMultimap argMutlimap = ArgumentTokenizer.tokenize(args, PREFIX_ADDRESS, PREFIX_TAG);
-        Optional<Address> address = !argMutlimap.getValue(PREFIX_ADDRESS).isPresent()
+        
+        Optional<Address> address;
+        address = !argMutlimap.getValue(PREFIX_ADDRESS).isPresent()
                                     ? Optional.empty()
                                     : Optional.of(ParserUtil.parseAddress(argMutlimap.getValue(PREFIX_ADDRESS).get()));
         Optional<Set<Tag>> tags = argMutlimap.getValue(PREFIX_TAG).isPresent()
