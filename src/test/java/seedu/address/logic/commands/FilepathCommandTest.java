@@ -29,17 +29,25 @@ public class FilepathCommandTest {
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private UserPrefs userPrefs = new UserPrefs();
+    private Model model = new ModelManager(getTypicalAddressBook(), userPrefs);
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void execute_filepath_success() {
-
         FilepathCommand filepathCommand = new FilepathCommand(NEW_PATH);
         assertCommandSuccess(filepathCommand, model, commandHistory,
                 String.format(FilepathCommand.MESSAGE_CHANGEPATH_SUCCESS, NEW_PATH), expectedModel);
         deleteFileIfExists(NEW_PATH);
+    }
+
+    @Test
+    public void execute_showFilepath_success() {
+        FilepathCommand filepathCommand = new FilepathCommand(null);
+        assertCommandSuccess(filepathCommand, model, commandHistory,
+                String.format(FilepathCommand.MESSAGE_SHOWPATH_SUCCESS, userPrefs.getAddressBookFilePath()),
+                expectedModel);
     }
 
     /**
