@@ -23,9 +23,16 @@ public class FilterCommand extends Command {
     public static final String COMMAND_WORD = "filter";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Filters the carpark depending on the tags attached.\n"
-            + "Parameters: Tags ... \n"
-            + "Example: " + COMMAND_WORD + "f/TRUE";
+            + ": Filters the carpark based using flags.\n"
+            + "Flags:\n"
+            + "> Night Parking: n/ \n"
+            + "> Free Parking: f/ [day] [start time] [end time]     Example: filter f/ SUN 7.30AM 8.30PM\n"
+            + "> Car Park Type: ct/ [car park type]     Example: filter ct/ basement\n"
+            + "   SURFACE\n" +
+            "   MUITISTOREY\n" +
+            "   BASEMENT\n" +
+            "   COVERED\n" +
+            "   MECHANISED";
 
     //public static final String MESSAGE_FILTER_CARPARK_SUCCESS = "Filtered Car Parks.";
     private Predicate predicate;

@@ -38,19 +38,20 @@ public class FilterCommandParser implements Parser<FilterCommand> {
      */
     public FilterCommand parse(String args) throws ParseException {
 
-        //return new FilterCommand(false);
-        try {
-            String[] flags = ParserUtil.parseFlags(args);
-
-            //System.out.println(flags[0]);   // [space]
-            //System.out.println(flags[1]);   // flag 1
-            //System.out.println(flags[2]);   // flag 2
-
-            return new FilterCommand(flags);
-        } catch (ParseException pe) {
+        String trimmedArgs = args.trim();
+        if (trimmedArgs.isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
         }
+
+        String[] flags = trimmedArgs.split("\\s+");
+
+        //System.out.println(flags[0]);   // [space]
+        //System.out.println(flags[1]);   // flag 1
+        //System.out.println(flags[2]);   // flag 2
+
+        return new FilterCommand(flags);
+
     }
 
 }
