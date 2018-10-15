@@ -76,7 +76,7 @@ public class EntryTest {
                         + " Duration: 2010 - 2013 Tags: [java]"));
 
         // test toString of a minorEntry which does not contain entryInfo
-        assertTrue(TypicalEntrys.AWARD_WITH_NO_ENTRYINFO.toString()
+        assertTrue(TypicalEntrys.AWARD_WITH_NO_ENTRYINFO_NO_DESC.toString()
                 .equals(" Category: Awards Title:  SubHeader:  Duration:  Tags: "));
     }
 

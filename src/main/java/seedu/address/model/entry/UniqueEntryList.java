@@ -16,7 +16,7 @@ import seedu.address.model.entry.exceptions.EntryNotFoundException;
  *
  * Supports a minimal set of list operations.
  *
- * @see Entry#equals(Object)
+ * @see ResumeEntry#equals(Object)
  */
 public class UniqueEntryList implements Iterable<ResumeEntry> {
     private final ObservableList<ResumeEntry> internalList = FXCollections.observableArrayList();
