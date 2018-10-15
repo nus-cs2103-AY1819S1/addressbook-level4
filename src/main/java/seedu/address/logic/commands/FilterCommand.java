@@ -13,6 +13,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.carpark.CarparkHasFreeParkingPredicate;
 import seedu.address.model.carpark.CarparkHasNightParkingPredicate;
+import seedu.address.model.carpark.CarparkIsOfTypePredicate;
 
 
 /**
@@ -66,8 +67,13 @@ public class FilterCommand extends Command {
             model.updateFilteredCarparkList(predicate);
         }
         if (flagList.contains("ct/")) {
-            //this.predicate = new CarparkHasNightParkingPredicate("YES");
-            //model.updateFilteredCarparkList(predicate);
+            int index2 = flagList.indexOf("ct/");
+
+            String carparkType = flagList.get(index2 + 1).toUpperCase();
+            System.out.println("carparkType: " + carparkType);
+
+            this.predicate = new CarparkIsOfTypePredicate(carparkType);
+            model.updateFilteredCarparkList(predicate);
         }
         return new CommandResult(
                 String.format(Messages.MESSAGE_CARPARKS_LISTED_OVERVIEW, model.getFilteredCarparkList().size()));
