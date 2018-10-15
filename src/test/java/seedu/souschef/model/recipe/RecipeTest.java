@@ -3,8 +3,8 @@ package seedu.souschef.model.recipe;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.souschef.logic.commands.CommandTestUtil.VALID_COOKTIME_BOB;
-import static seedu.souschef.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.souschef.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BOB;
+import static seedu.souschef.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.souschef.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.souschef.testutil.TypicalRecipes.ALICE;
 import static seedu.souschef.testutil.TypicalRecipes.BOB;
@@ -35,7 +35,8 @@ public class RecipeTest {
         assertFalse(ALICE.isSame(null));
 
         // different phone and email -> returns false
-        Recipe editedAlice = new RecipeBuilder(ALICE).withDifficulty(VALID_DIFFICULTY_BOB).withCooktime(VALID_COOKTIME_BOB).build();
+        Recipe editedAlice = new RecipeBuilder(ALICE).withDifficulty(VALID_DIFFICULTY_BOB)
+                .withCooktime(VALID_COOKTIME_BOB).build();
         assertFalse(ALICE.isSame(editedAlice));
 
         // different name -> returns false

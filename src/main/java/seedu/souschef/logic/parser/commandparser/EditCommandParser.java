@@ -71,7 +71,8 @@ public class EditCommandParser implements CommandParser<EditCommand> {
             editRecipeDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_DIFFICULTY).isPresent()) {
-            editRecipeDescriptor.setDifficulty(ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get()));
+            editRecipeDescriptor.setDifficulty(ParserUtil.parseDifficulty(
+                    argMultimap.getValue(PREFIX_DIFFICULTY).get()));
         }
         if (argMultimap.getValue(PREFIX_COOKTIME).isPresent()) {
             editRecipeDescriptor.setCooktime(ParserUtil.parseCooktime(argMultimap.getValue(PREFIX_COOKTIME).get()));

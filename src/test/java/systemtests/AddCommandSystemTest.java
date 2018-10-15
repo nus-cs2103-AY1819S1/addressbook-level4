@@ -123,23 +123,28 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         *//**//* Case: invalid name -> rejected *//**//*
-        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + DIFFICULTY_DESC_AMY + COOKTIME_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + DIFFICULTY_DESC_AMY +
+        COOKTIME_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
 
         *//**//* Case: invalid phone -> rejected *//**//*
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_DIFFICULTY_DESC + COOKTIME_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_DIFFICULTY_DESC +
+        COOKTIME_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, Phone.MESSAGE_PHONE_CONSTRAINTS);
 
         *//**//* Case: invalid email -> rejected *//**//*
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + DIFFICULTY_DESC_AMY + INVALID_COOKTIME_DESC + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + DIFFICULTY_DESC_AMY +
+        INVALID_COOKTIME_DESC + ADDRESS_DESC_AMY;
         assertCommandFailure(command, Email.MESSAGE_EMAIL_CONSTRAINTS);
 
         *//**//* Case: invalid address -> rejected *//**//*
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + DIFFICULTY_DESC_AMY + COOKTIME_DESC_AMY + INVALID_ADDRESS_DESC;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + DIFFICULTY_DESC_AMY +
+        COOKTIME_DESC_AMY + INVALID_ADDRESS_DESC;
         assertCommandFailure(command, Address.MESSAGE_ADDRESS_CONSTRAINTS);
 
         *//**//* Case: invalid tag -> rejected *//**//*
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + DIFFICULTY_DESC_AMY + COOKTIME_DESC_AMY + ADDRESS_DESC_AMY
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + DIFFICULTY_DESC_AMY +
+        COOKTIME_DESC_AMY + ADDRESS_DESC_AMY
                 + INVALID_TAG_DESC;
         assertCommandFailure(command, Tag.MESSAGE_TAG_CONSTRAINTS);*//*
     }*/

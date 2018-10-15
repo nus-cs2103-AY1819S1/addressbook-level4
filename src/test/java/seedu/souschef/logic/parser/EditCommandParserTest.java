@@ -49,7 +49,8 @@ public class EditCommandParserTest {
 
         // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, "1" + DIFFICULTY_DESC_BOB + INVALID_DIFFICULTY_DESC, Phone.MESSAGE_PHONE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + DIFFICULTY_DESC_BOB + INVALID_DIFFICULTY_DESC,
+        Phone.MESSAGE_PHONE_CONSTRAINTS);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Recipe} being edited,
         // parsing it together with a valid tag results in error
@@ -58,7 +59,8 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_TAG_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_COOKTIME_DESC + VALID_ADDRESS_AMY + VALID_DIFFICULTY_AMY,
+        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_COOKTIME_DESC
+        + VALID_ADDRESS_AMY + VALID_DIFFICULTY_AMY,
                 Name.MESSAGE_NAME_CONSTRAINTS);
     }*/
 
@@ -128,9 +130,10 @@ public class EditCommandParserTest {
         String userInput = targetIndex.getOneBased() + DIFFICULTY_DESC_AMY + ADDRESS_DESC_AMY + COOKTIME_DESC_AMY
                 + TAG_DESC_FRIEND + DIFFICULTY_DESC_AMY + ADDRESS_DESC_AMY + COOKTIME_DESC_AMY + TAG_DESC_FRIEND
                 + DIFFICULTY_DESC_BOB + ADDRESS_DESC_BOB + COOKTIME_DESC_BOB + TAG_DESC_HUSBAND;
-
-        EditCommand.EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder().withDifficulty(VALID_DIFFICULTY_BOB)
-                .withCooktime(VALID_COOKTIME_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+        EditCommand.EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder()
+        .withDifficulty(VALID_DIFFICULTY_BOB)
+                .withCooktime(VALID_COOKTIME_BOB).withAddress(VALID_ADDRESS_BOB)
+                .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         EditCommand<Recipe> expectedCommand = new EditCommand<Recipe>(targetIndex, descriptor);
 
@@ -150,7 +153,8 @@ public class EditCommandParserTest {
         // other valid values specified
         userInput = targetIndex.getOneBased() + COOKTIME_DESC_BOB + INVALID_DIFFICULTY_DESC + ADDRESS_DESC_BOB
                 + DIFFICULTY_DESC_BOB;
-        descriptor = new EditRecipeDescriptorBuilder().withDifficulty(VALID_DIFFICULTY_BOB).withCooktime(VALID_COOKTIME_BOB)
+        descriptor = new EditRecipeDescriptorBuilder().withDifficulty(VALID_DIFFICULTY_BOB)
+        .withCooktime(VALID_COOKTIME_BOB)
                 .withAddress(VALID_ADDRESS_BOB).build();
         expectedCommand = new EditCommand<Recipe>(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);

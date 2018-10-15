@@ -94,7 +94,8 @@ public class XmlAdaptedRecipe {
         final Difficulty modelDifficulty = new Difficulty(difficulty);
 
         if (cooktime == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, CookTime.class.getSimpleName()));
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, CookTime.class.getSimpleName()));
         }
         if (!CookTime.isValidCookTime(cooktime)) {
             throw new IllegalValueException(CookTime.MESSAGE_COOKTIME_CONSTRAINTS);

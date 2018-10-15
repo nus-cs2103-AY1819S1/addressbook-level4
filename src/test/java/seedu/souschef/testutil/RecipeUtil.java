@@ -1,8 +1,8 @@
 package seedu.souschef.testutil;
 
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_COOKTIME;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
@@ -44,7 +44,8 @@ public class RecipeUtil {
     public static String getEditRecipeDescriptorDetails(EditRecipeDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
-        descriptor.getDifficulty().ifPresent(difficulty -> sb.append(PREFIX_DIFFICULTY).append(difficulty.value).append(" "));
+        descriptor.getDifficulty().ifPresent(difficulty -> sb.append(PREFIX_DIFFICULTY)
+                .append(difficulty.value).append(" "));
         descriptor.getCooktime().ifPresent(cookTime -> sb.append(PREFIX_COOKTIME).append(cookTime.value).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
