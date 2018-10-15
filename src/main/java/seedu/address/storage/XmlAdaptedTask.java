@@ -140,7 +140,7 @@ public class XmlAdaptedTask {
         if (!Status.isValidStatus(status)) {
             throw new IllegalValueException(Status.MESSAGE_STATUS_CONSTRAINTS);
         }
-        final Status modelStatus = Status.getStatusFromValue(status);
+        final Status modelStatus = Status.fromString(status);
         return new Task(modelName, modelDueDate, modelPriorityValue, modelDescription, modelLabels, modelStatus);
     }
 
