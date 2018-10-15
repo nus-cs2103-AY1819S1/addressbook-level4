@@ -9,8 +9,10 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.DependencyGraph;
 import seedu.address.model.Model;
 import seedu.address.model.task.Task;
+
 /**
  * Initiates a dependency between a dependant task and a dependee task.
  * The dependent task is dependent on dependee task.
@@ -21,9 +23,10 @@ public class DependencyCommand extends Command {
     public static final String MESSAGE_ALREADY_DEPENDANT =
             "The dependee task is already dependent on the dependant task";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Dependency identified by hashcode of the task.\n"
-            + "Parameters: Index of task dependee, Index of task dependant\n"
+            + ": Dependency of dependant on dependee.\n"
+            + "Parameters: Index of task dependant, Index of task dependee\n"
             + "Example: " + COMMAND_WORD + " 1 2";
+    public static final String MESSAGE_CYCLIC_DEPENDENCY = "New dependency will introduce a cyclic dependency";
     private final Index dependantIndex;
     private final Index dependeeIndex;
 
