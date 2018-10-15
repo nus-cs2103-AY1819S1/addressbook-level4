@@ -859,7 +859,7 @@ Users able to search for events by attributes (date, time, location, interest) a
 - [ ] V1.3: Improved login command with password.
 
 #### Zhang Cheng : Add features for networking among users
-- [ ] V1.1: Users able to specify their interests.
+- [x] V1.1: Users able to specify their interests.
 - [ ] V1.2: Users able to specify friendships with other people.
 - [ ] V1.3: Users able to form groups and find mutual friends.
 
