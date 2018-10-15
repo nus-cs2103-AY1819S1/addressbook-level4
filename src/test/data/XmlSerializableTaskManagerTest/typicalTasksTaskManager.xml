@@ -38,7 +38,7 @@
         <dueDate>05-12-18</dueDate>
         <priorityValue>5</priorityValue>
         <description>Add more words</description>
-        <status>FINISHED</status>
+        <status>COMPLETED</status>
     </tasks>
     <tasks>
         <name>Find suitable reagents for experiment</name>

@@ -30,7 +30,7 @@ import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
 
 /**
- * Edits the details of an existing task in the description book.
+ * Edits the details of an existing task in the task manager.
  */
 public class EditCommand extends Command {
 
@@ -47,12 +47,12 @@ public class EditCommand extends Command {
         + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
         + "[" + PREFIX_LABEL + "LABEL]...\n"
         + "Example: " + COMMAND_WORD + " 1 "
-        + PREFIX_DUE_DATE + "91234567 "
-        + PREFIX_PRIORITY_VALUE + "johndoe@example.com";
+        + PREFIX_DUE_DATE + "2018-09-14 1320 "
+        + PREFIX_PRIORITY_VALUE + "8";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the description book.";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager.";
 
     private final Index index;
     private final EditTaskDescriptor editTaskDescriptor;
@@ -67,16 +67,6 @@ public class EditCommand extends Command {
 
         this.index = index;
         this.editTaskDescriptor = new EditTaskDescriptor(editTaskDescriptor);
-    }
-
-    /**
-     * The method to call for other commands to update task status through EditCommand.
-     */
-    public static CommandResult executeEditStatus (Index index, Status status, Model model, CommandHistory history)
-            throws CommandException {
-        EditCommand.EditTaskDescriptor editTaskDescriptor = new EditCommand.EditTaskDescriptor();
-        editTaskDescriptor.setStatus(status);
-        return (new EditCommand(index, editTaskDescriptor)).execute(model, history);
     }
 
     @Override

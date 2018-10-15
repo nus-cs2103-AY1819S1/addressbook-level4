@@ -1,14 +1,14 @@
 package seedu.address.model.task;
 
 /**
- * Represents a Task's status in the address book.
- * There are two possible status: IN_PROGRESS and FINISHED.
+ * Represents a Task's status in the task manager.
+ * There are two possible status: IN_PROGRESS and COMPLETED.
  */
 public enum Status {
-    IN_PROGRESS("IN PROGRESS"), FINISHED("FINISHED"), OVERDUE("OVERDUE");
+    IN_PROGRESS("IN PROGRESS"), COMPLETED("COMPLETED"), OVERDUE("OVERDUE");
 
     public static final String MESSAGE_STATUS_CONSTRAINTS =
-            "Status should only have the value IN PROGRESS, FINISHED or OVERDUE";
+            "Status should only have the value IN PROGRESS, COMPLETED or OVERDUE";
     private String statusValue;
 
     /**
@@ -25,7 +25,7 @@ public enum Status {
      */
     public static boolean isValidStatus(String value) {
         try {
-            return value.equals("IN PROGRESS") || value.equals("FINISHED") || value.equals("OVERDUE");
+            return value.equals("IN PROGRESS") || value.equals("COMPLETED") || value.equals("OVERDUE");
         } catch (NullPointerException ex) {
             return false;
         }
