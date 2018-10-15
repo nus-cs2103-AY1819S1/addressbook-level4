@@ -86,7 +86,6 @@ public class Person {
 
     /**
      * Returns a PermissionSet, which contains all permissions possessed by this person.
-     * Modification can only performed on this object by a user with "ASSIGN_PERMISSION" permission.
      * @see PermissionSet
      */
     public PermissionSet getPermissionSet() {
@@ -97,7 +96,7 @@ public class Person {
      * Returns true if this person possess specified permission. Otherwise false.
      */
     public boolean havePermission(Permission p) {
-        return permissionSet.contain(p);
+        return permissionSet.contains(p);
     }
 
     /**
