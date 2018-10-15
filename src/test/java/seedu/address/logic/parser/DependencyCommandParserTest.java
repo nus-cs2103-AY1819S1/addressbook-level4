@@ -15,4 +15,12 @@ public class DependencyCommandParserTest {
     public void parse_validArgs_returnsCompleteCommand() {
         assertParseSuccess(parser, " 1 2", new DependencyCommand(INDEX_FIRST_TASK, INDEX_SECOND_TASK));
     }
+    @Test
+    public void parse_invalidArgs_throwsParseException() {
+        assertParseFailure(parser, " a b", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DependencyCommand.MESSAGE_USAGE));
+
+        assertParseFailure(parser, " 1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DependencyCommand.MESSAGE_USAGE));
+    }
 }
