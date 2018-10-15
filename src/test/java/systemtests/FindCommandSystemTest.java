@@ -1,25 +1,25 @@
 package systemtests;
 
 import static org.junit.Assert.assertFalse;
-import static seedu.address.commons.core.Messages.MESSAGE_TASKS_LISTED_OVERVIEW;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalTasks.BENSON;
-import static seedu.address.testutil.TypicalTasks.CARL;
-import static seedu.address.testutil.TypicalTasks.DANIEL;
-import static seedu.address.testutil.TypicalTasks.KEYWORD_MATCHING_MEIER;
+import static ssp.scheduleplanner.commons.core.Messages.MESSAGE_TASKS_LISTED_OVERVIEW;
+import static ssp.scheduleplanner.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static ssp.scheduleplanner.testutil.TypicalTasks.BENSON;
+import static ssp.scheduleplanner.testutil.TypicalTasks.CARL;
+import static ssp.scheduleplanner.testutil.TypicalTasks.DANIEL;
+import static ssp.scheduleplanner.testutil.TypicalTasks.KEYWORD_MATCHING_MEIER;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.tag.Tag;
+import ssp.scheduleplanner.commons.core.index.Index;
+import ssp.scheduleplanner.logic.commands.DeleteCommand;
+import ssp.scheduleplanner.logic.commands.FindCommand;
+import ssp.scheduleplanner.logic.commands.RedoCommand;
+import ssp.scheduleplanner.logic.commands.UndoCommand;
+import ssp.scheduleplanner.model.Model;
+import ssp.scheduleplanner.model.tag.Tag;
 
 public class FindCommandSystemTest extends SchedulePlannerSystemTest {
 
