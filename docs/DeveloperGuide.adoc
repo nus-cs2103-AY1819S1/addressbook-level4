@@ -449,6 +449,7 @@ him from the `ServedPatientQueue`.
 =======
 
 // tag::dataencryption[]
+
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
