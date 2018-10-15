@@ -209,7 +209,6 @@ public class MainWindow extends UiPart<Stage> {
         } else if (contextId.equals(RECORD_CONTEXT_ID)) {
             // TO_UPDATE: Shows all available volunteers for event
             listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-            //recordEventPanel = new RecordEventPanel(contextChangeEvent.getCurrentEvent());
             browserPlaceholder.getChildren().add(recordEventPanel.getRoot());
         }
     }

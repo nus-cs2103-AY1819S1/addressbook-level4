@@ -47,10 +47,6 @@ public class ManageCommand extends Command {
         model.switchToRecordContext();
 
         // TO_UPDATE
-
-        // EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
-        // EventsCenter.getInstance().post(new ContextChangeEvent(model.getContextId(),
-        // filteredEventList.get(targetIndex.getZeroBased())));
         EventsCenter.getInstance().post(new RecordChangeEvent(targetIndex));
         EventsCenter.getInstance().post(new ContextChangeEvent(model.getContextId()));
         return new CommandResult(String.format(MESSAGE_MANAGE_EVENT_SUCCESS, targetIndex.getOneBased()));
