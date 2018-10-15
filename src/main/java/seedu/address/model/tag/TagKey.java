@@ -14,6 +14,10 @@ public class TagKey {
 
     public final String tagKey;
 
+    public TagKey() {
+        this.tagKey = "";
+    }
+
     public TagKey(String tagKey) {
         requireNonNull(tagKey);
         checkArgument(isValidTagKey(tagKey), MESSAGE_TAGVALUE_CONSTRAINTS);

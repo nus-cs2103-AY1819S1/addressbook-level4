@@ -14,6 +14,10 @@ public class TagValue {
 
     public final String tagValue;
 
+    public TagValue() {
+        this.tagValue = "";
+    }
+
     public TagValue(String tagValue) {
         requireNonNull(tagValue);
         checkArgument(isValidTagValue(tagValue), MESSAGE_TAGVALUE_CONSTRAINTS);
