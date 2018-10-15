@@ -3,6 +3,7 @@ name: Custom user story template
 about: Describe a user story.
 
 ---
+
 **Issue Title Template:**
 User Story: <Insert description with the first letter of all words uppercased and with a description of the feature in the title>
 
