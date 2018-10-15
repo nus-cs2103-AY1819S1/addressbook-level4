@@ -4,7 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import seedu.address.model.leaveapplication.Description;
+
 import seedu.address.testutil.Assert;
 
 public class DescriptionTest {
@@ -34,7 +34,7 @@ public class DescriptionTest {
         assertTrue(Description.isValidDescription("Cousin's wedding")); // alphabets only
         assertTrue(Description.isValidDescription("    Long weekend break")); // spaces in front
         assertTrue(Description.isValidDescription("Daughter's 21st birthday")); // alphanumeric characters
-        assertTrue(Description.isValidDescription("Family holiday to Maldives. Looking forward to " +
-                "some much needed family time!")); // long descriptions
+        assertTrue(Description.isValidDescription("Family holiday to Maldives. Looking forward to "
+                + "some much needed family time!")); // long descriptions
     }
 }
