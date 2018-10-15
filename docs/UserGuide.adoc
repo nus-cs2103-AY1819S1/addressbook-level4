@@ -280,13 +280,16 @@ Shorthand: `q`
 
 === Mass import contacts: `import`
 
-Import contacts from a csv file. A file browser will open for users to navigate to their desired file (.txt and .csv only) +
+Import contacts from a csv file.
+If no file path is given, a file browser will open for users to navigate to their desired file (.txt and .csv only)
+If a file path is given, InsuRen will attempt to obtain and read the file specified by the given file path.
 Format: `import`
 
 Shorthand: `i`
 ****
-* Address book will fetch the file from the given path.
-* Address book will NOT throw an error message if the formatting of the file is incorrect.
+* InsuRen will fetch the file from the given path.
+* InsuRen will throw an error message if the file cannot be found from the given (typed) file path
+* InsuRen will NOT throw an error message if the formatting of the file is incorrect.
 * Improperly formatted contacts and/or duplicate contacts will be ignored.
 * Examples of properly formatted csv files are shown below.
 ****
@@ -297,8 +300,11 @@ Example:
 * A file browser will pop up as shown below:
 +
 image::import.png[width="790"]
-+
-* Address book will load contacts from the given csv file
+
+Example (user gives a file path):
+
+* `import` l/D:/AddressbookCorrect.csv
+* Regardless which method is used, InsuRen will load contacts from the given csv file
 * Each contact in these files must have the name, phone number, email and address fields filled up in that order.
 * Any invalid entries will be ignored.
 +
@@ -466,7 +472,7 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
-* *Import contacts* : `import`
+* *Import contacts* : `import` or `import` l/FILE_PATH
 * *Export email addresses* : `export DESTINATION_DIRECTORY`
 * *Schedule* : `schedule n/NAME d/DDMMYY [t/HHMM]`
 * *Meetings* : `meetings [d/DDMMYY] [t/HHMM]`
