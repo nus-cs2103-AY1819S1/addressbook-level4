@@ -1,17 +1,19 @@
 package seedu.scheduler.model.event;
 
+import static java.lang.Boolean.FALSE;
 import static java.util.Objects.requireNonNull;
 
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Represents a list of duration object for reminder times
  */
 public class ReminderDurationList {
 
-    public ArrayList<Duration> values = new ArrayList<>();
+    public Map<Duration, Boolean> values = new HashMap<>();
 
 
     /**
@@ -26,12 +28,14 @@ public class ReminderDurationList {
      *
      * @param reminderDurations a list of duration objects.
      */
-    public ReminderDurationList(ArrayList<Duration> reminderDurations) {
+    public ReminderDurationList(Collection<Duration> reminderDurations) {
         requireNonNull(reminderDurations);
-        this.values = reminderDurations;
+        for (Duration duration: reminderDurations) {
+            values.put(duration, FALSE);
+        }
     }
 
-    public ArrayList<Duration> get () {
+    public Map<Duration, Boolean> get () {
         return values;
     }
 
@@ -48,7 +52,7 @@ public class ReminderDurationList {
      * @param duration
      */
     public void add(Duration duration) {
-        values.add(duration);
+        values.put(duration, FALSE);
     }
 
 
@@ -59,8 +63,8 @@ public class ReminderDurationList {
             output = "NONE";
         }
         else{
-            for(Duration duration: values){
-                output += formatDuration(duration) + ", ";
+            for (Duration duration: values.keySet()) {
+                output += formatDuration(duration) + ": " + values.get(duration).toString() + ", " ;
             }
             output = output.substring(0, output.length() - 2);
         }

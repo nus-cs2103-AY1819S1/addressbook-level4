@@ -4,11 +4,9 @@ import static seedu.scheduler.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.DateTimeException;
 import java.time.Duration;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -46,6 +44,7 @@ public class Event {
 
     /**
      * Every field must be present and not null.
+     * only take in reminderDurationList, generate reminderTimeList based on the reminderDurationList
      */
     public Event(UUID uuid, EventName eventName, DateTime startDateTime, DateTime endDateTime,
                  Description description, Venue venue,
@@ -64,8 +63,8 @@ public class Event {
         this.repeatUntilDateTime = repeatUntilDateTime;
         this.tags.addAll(tags);
         this.reminderDurationList = reminderDurationList;
-        this.reminderTimeList = createReminderTimeList(startDateTime, reminderDurationList);
     }
+
 
     public UUID getUid() {
         return uid;
@@ -107,20 +106,6 @@ public class Event {
         return reminderDurationList;
     }
 
-    public ReminderTimeList getReminderTimeList() {
-        return reminderTimeList;
-    }
-
-    private ReminderTimeList createReminderTimeList(DateTime reference, ReminderDurationList durationList){
-        List<DateTime> reminderTimes = new ArrayList<>();
-        Instant referenceTime = reference.getLocalDateTime().atZone(ZoneId.systemDefault()).toInstant();
-        for(Duration duration : durationList.get()) {
-            LocalDateTime reminderTime = LocalDateTime.ofInstant(referenceTime.minus(duration), ZoneId.systemDefault());
-            reminderTimes.add(new DateTime(reminderTime));
-        }
-
-        return new ReminderTimeList(reminderTimes);
-    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -356,7 +341,7 @@ public class Event {
                 .append(getRepeatUntilDateTime())
                 .append(" Tags: ").append(getRepeatUntilDateTime())
                 .append(" reminders: ")
-                .append(getReminderTimeList().toString());
+                .append(getReminderDurationList().toString());
         getTags().forEach(builder::append);
         return builder.toString();
     }
