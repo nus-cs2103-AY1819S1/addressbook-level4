@@ -1,7 +1,12 @@
 package seedu.address.model.task;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
+import org.junit.Test;
 import seedu.address.logic.commands.DependencyCommand;
+import seedu.address.model.DependencyGraph;
 import seedu.address.testutil.TaskBuilder;
 
 public class DependencyGraphTest {
@@ -21,7 +26,13 @@ public class DependencyGraphTest {
         cyclicTask = c;
     }
 
-    public void isCyclic() {
-
+    @Test
+    public void checkCyclic() {
+        DependencyGraph graph = new DependencyGraph(tasks);
+        assertFalse(graph.checkCyclic());
+        tasks.add(cyclicTask);
+        graph = new DependencyGraph(tasks);
+        assertTrue(graph.checkCyclic());
     }
+
 }
