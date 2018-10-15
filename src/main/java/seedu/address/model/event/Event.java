@@ -10,6 +10,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -34,15 +35,16 @@ public class Event {
     private final Venue venue;
     private final RepeatType repeatType;
     private final DateTime repeatUntilDateTime;
+    private ReminderTimeList reminderTimeList;
 
     /**
      * Every field must be present and not null.
      */
     public Event(UUID uuid, EventName eventName, DateTime startDateTime, DateTime endDateTime,
                  Description description, Priority priority, Venue venue,
-                 RepeatType repeatType, DateTime repeatUntilDateTime) {
+                 RepeatType repeatType, DateTime repeatUntilDateTime, ReminderTimeList reminderTimeList) {
         requireAllNonNull(uuid, eventName, startDateTime, endDateTime, description,
-                priority, venue, repeatType, repeatUntilDateTime);
+                priority, venue, repeatType, repeatUntilDateTime, reminderTimeList);
         this.uuid = uuid;
         this.eventName = eventName;
         this.startDateTime = startDateTime;
@@ -52,6 +54,8 @@ public class Event {
         this.venue = venue;
         this.repeatType = repeatType;
         this.repeatUntilDateTime = repeatUntilDateTime;
+        this.reminderTimeList = reminderTimeList;
+
     }
 
     public UUID getUuid() {
@@ -88,6 +92,10 @@ public class Event {
 
     public DateTime getRepeatUntilDateTime() {
         return repeatUntilDateTime;
+    }
+
+    public ReminderTimeList getReminderTimeList() {
+        return reminderTimeList;
     }
 
     /**
@@ -137,7 +145,8 @@ public class Event {
                     targetEvent.getPriority(),
                     targetEvent.getVenue(),
                     targetEvent.getRepeatType(),
-                    targetEvent.getRepeatUntilDateTime()
+                    targetEvent.getRepeatUntilDateTime(),
+                    targetEvent.getReminderTimeList()
             ));
             repeatStartDateTime = repeatStartDateTime.plusDays(1);
         }
@@ -164,7 +173,8 @@ public class Event {
                     targetEvent.getPriority(),
                     targetEvent.getVenue(),
                     targetEvent.getRepeatType(),
-                    targetEvent.getRepeatUntilDateTime()
+                    targetEvent.getRepeatUntilDateTime(),
+                    targetEvent.getReminderTimeList()
             ));
             repeatStartDateTime = repeatStartDateTime.plusWeeks(1);
         }
@@ -191,7 +201,8 @@ public class Event {
                     targetEvent.getPriority(),
                     targetEvent.getVenue(),
                     targetEvent.getRepeatType(),
-                    targetEvent.getRepeatUntilDateTime()
+                    targetEvent.getRepeatUntilDateTime(),
+                    targetEvent.getReminderTimeList()
             ));
             repeatStartDateTime = repeatStartDateTime.with((temporal) -> {
                 do {
@@ -229,7 +240,8 @@ public class Event {
                     targetEvent.getPriority(),
                     targetEvent.getVenue(),
                     targetEvent.getRepeatType(),
-                    targetEvent.getRepeatUntilDateTime()
+                    targetEvent.getRepeatUntilDateTime(),
+                    targetEvent.getReminderTimeList()
             ));
             repeatStartDateTime = repeatStartDateTime.with((temporal) -> {
                 do {
@@ -284,13 +296,14 @@ public class Event {
                 && otherEvent.getVenue().equals(getVenue())
                 && otherEvent.getRepeatType().equals(getRepeatType())
                 && otherEvent.getRepeatUntilDateTime().equals(getRepeatUntilDateTime());
+
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing our own
         return Objects.hash(eventName, startDateTime, endDateTime, description,
-                priority, venue, repeatType, repeatUntilDateTime);
+                priority, venue, repeatType, repeatUntilDateTime, reminderTimeList);
     }
 
     @Override
@@ -306,7 +319,9 @@ public class Event {
                 .append(" recurring type: ")
                 .append(getRepeatType())
                 .append(" repeat until: ")
-                .append(getRepeatUntilDateTime());
+                .append(getRepeatUntilDateTime())
+                .append(" reminders: ")
+                .append(getReminderTimeList().toString());;
         return builder.toString();
     }
 

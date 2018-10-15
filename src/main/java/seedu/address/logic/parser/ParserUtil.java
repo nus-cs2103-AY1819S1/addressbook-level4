@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -237,4 +238,18 @@ public class ParserUtil {
             throw new ParseException(String.format(MESSAGE_FAILED_REPEAT_TYPE_PARSE, repeatType));
         }
     }
+
+
+    /**
+     * Parses {@code Collection<String> reminderTimes} into a {@code Set<DateTime>}.
+     */
+    public static List<DateTime> parseReminderTimes(Collection<String> reminderTimes) throws ParseException {
+        requireNonNull(reminderTimes);
+        final List<DateTime> reminderTimeList = new ArrayList<>();
+        for (String reminderTime : reminderTimes) {
+            reminderTimeList.add(parseDateTime(reminderTime));
+        }
+        return reminderTimeList;
+    }
+
 }

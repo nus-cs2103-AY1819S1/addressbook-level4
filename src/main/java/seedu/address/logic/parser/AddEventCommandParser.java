@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_REPEAT_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_REPEAT_UNTIL_DATE_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_START_DATE_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_VENUE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_REMINDER_DATE_TIME;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -25,6 +26,7 @@ import seedu.address.model.event.EventName;
 import seedu.address.model.event.Priority;
 import seedu.address.model.event.RepeatType;
 import seedu.address.model.event.Venue;
+import seedu.address.model.event.ReminderTimeList;
 
 /**
  * Parses input arguments and creates a new AddEventCommand object
@@ -40,7 +42,8 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_EVENT_NAME, PREFIX_EVENT_START_DATE_TIME,
                         PREFIX_EVENT_END_DATE_TIME, PREFIX_EVENT_DESCRIPTION, PREFIX_EVENT_PRIORITY,
-                        PREFIX_EVENT_VENUE, PREFIX_EVENT_REPEAT_TYPE, PREFIX_EVENT_REPEAT_UNTIL_DATE_TIME);
+                        PREFIX_EVENT_VENUE, PREFIX_EVENT_REPEAT_TYPE, PREFIX_EVENT_REPEAT_UNTIL_DATE_TIME,
+                        PREFIX_EVENT_REMINDER_DATE_TIME);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_EVENT_NAME) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEventCommand.MESSAGE_USAGE));
@@ -69,15 +72,25 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
         DateTime repeatUntilDateTime = argMultimap.getValue(PREFIX_EVENT_REPEAT_UNTIL_DATE_TIME).isPresent()
                 ? ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_EVENT_REPEAT_UNTIL_DATE_TIME).get())
                 : endDateTime;
+        ReminderTimeList reminderTimeList = (ReminderTimeList) new ReminderTimeList(ParserUtil.parseReminderTimes(
+                argMultimap.getAllValues(PREFIX_EVENT_REMINDER_DATE_TIME))).get();
 
         if (!Event.isValidEventDateTime(startDateTime, endDateTime)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_VALUES, Event.MESSAGE_DATETIME_CONSTRAINTS));
         }
 
         Event event = new Event(UUID.randomUUID(), eventName, startDateTime, endDateTime, description, priority,
-                venue, repeatType, repeatUntilDateTime);
+                venue, repeatType, repeatUntilDateTime, reminderTimeList);
 
         return new AddEventCommand(event);
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
     /**
