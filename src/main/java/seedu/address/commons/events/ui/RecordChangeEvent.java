@@ -1,10 +1,7 @@
 package seedu.address.commons.events.ui;
 
-import java.util.List;
-
 import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.event.Event;
-import seedu.address.model.person.Person;
 
 /**
  * Indicates a request to jump to the list of persons
