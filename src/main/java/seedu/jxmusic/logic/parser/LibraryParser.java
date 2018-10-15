@@ -6,8 +6,7 @@ import static seedu.jxmusic.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.jxmusic.logic.commands.AddCommand;
-//import seedu.jxmusic.logic.commands.ClearCommand;     //todo
+import seedu.jxmusic.logic.commands.ClearCommand;
 import seedu.jxmusic.logic.commands.Command;
 import seedu.jxmusic.logic.commands.DeleteCommand;
 //import seedu.jxmusic.logic.commands.EditCommand;      //todo
@@ -17,9 +16,10 @@ import seedu.jxmusic.logic.commands.HelpCommand;
 import seedu.jxmusic.logic.commands.ListCommand;
 import seedu.jxmusic.logic.commands.PauseCommand;
 import seedu.jxmusic.logic.commands.PlayPlaylistCommand;
+import seedu.jxmusic.logic.commands.PlaylistNewCommand;
+import seedu.jxmusic.logic.commands.SeekCommand;
 import seedu.jxmusic.logic.commands.SelectCommand;
 import seedu.jxmusic.logic.commands.StopCommand;
-import seedu.jxmusic.logic.commands.SeekCommand;
 import seedu.jxmusic.logic.parser.exceptions.ParseException;
 
 /**
@@ -62,10 +62,10 @@ public class LibraryParser {
             //double time = arguments.toInt() sth like this, change the string to time in double
             //return new SeekCommand(time);
 
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+        case PlaylistNewCommand.COMMAND_PHRASE:
+            return new PlaylistNewCommandParser().parse(arguments);
 
-//        case EditCommand.COMMAND_WORD:
+//        case EditCommand.COMMAND_PHRASE:
 //            return new EditCommandParser().parse(arguments);
 
         case SelectCommand.COMMAND_WORD:
@@ -74,8 +74,8 @@ public class LibraryParser {
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
-//        case ClearCommand.COMMAND_WORD:
-//            return new ClearCommand();        //todo
+        case ClearCommand.COMMAND_PHRASE:
+            return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);

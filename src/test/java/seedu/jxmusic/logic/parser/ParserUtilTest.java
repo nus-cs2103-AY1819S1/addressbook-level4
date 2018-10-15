@@ -4,11 +4,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import static seedu.jxmusic.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
-import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_FIRST_PLAYLIST;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.Rule;
@@ -17,22 +19,18 @@ import org.junit.rules.ExpectedException;
 
 import seedu.jxmusic.logic.parser.exceptions.ParseException;
 import seedu.jxmusic.model.Name;
-import seedu.jxmusic.model.tag.Tag;
+import seedu.jxmusic.model.Track;
 import seedu.jxmusic.testutil.Assert;
 
 public class ParserUtilTest {
-    private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_PHONE = "+651234";
-    private static final String INVALID_ADDRESS = " ";
-    private static final String INVALID_EMAIL = "example.com";
-    private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_PLAYLIST_NAME = "Rock&Roll";
+    private static final String INVALID_TRACK_NAME = "Don't Stop Believin'";
+    private static final String INVALID_TRACK_FILE_NOT_EXIST = "no track file";
+    private static final String INVALID_TRACK_FILE_NOT_SUPPORTED = "unsupported track";
 
-    private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_PHONE = "123456";
-    private static final String VALID_ADDRESS = "123 Main Street #0505";
-    private static final String VALID_EMAIL = "rachel@example.com";
-    private static final String VALID_TAG_1 = "friend";
-    private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_PLAYLIST_NAME = "Favourites";
+    private static final String VALID_TRACK_1 = "haikei goodbye sayonara";
+    private static final String VALID_TRACK_2 = "ihojin no yaiba";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -55,10 +53,10 @@ public class ParserUtilTest {
     @Test
     public void parseIndex_validInput_success() throws Exception {
         // No whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("1"));
+        assertEquals(INDEX_FIRST_PLAYLIST, ParserUtil.parseIndex("1"));
 
         // Leading and trailing whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("  1  "));
+        assertEquals(INDEX_FIRST_PLAYLIST, ParserUtil.parseIndex("  1  "));
     }
 
     @Test
@@ -68,138 +66,86 @@ public class ParserUtilTest {
 
     @Test
     public void parseName_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseName(INVALID_NAME));
+        Assert.assertThrows(ParseException.class, Name.MESSAGE_NAME_CONSTRAINTS,
+                () -> ParserUtil.parseName(INVALID_PLAYLIST_NAME));
     }
 
     @Test
     public void parseName_validValueWithoutWhitespace_returnsName() throws Exception {
-        Name expectedName = new Name(VALID_NAME);
-        assertEquals(expectedName, ParserUtil.parseName(VALID_NAME));
+        Name expectedName = new Name(VALID_PLAYLIST_NAME);
+        assertEquals(expectedName, ParserUtil.parseName(VALID_PLAYLIST_NAME));
     }
 
     @Test
     public void parseName_validValueWithWhitespace_returnsTrimmedName() throws Exception {
-        String nameWithWhitespace = WHITESPACE + VALID_NAME + WHITESPACE;
-        Name expectedName = new Name(VALID_NAME);
+        String nameWithWhitespace = WHITESPACE + VALID_PLAYLIST_NAME + WHITESPACE;
+        Name expectedName = new Name(VALID_PLAYLIST_NAME);
         assertEquals(expectedName, ParserUtil.parseName(nameWithWhitespace));
     }
 
     @Test
-    public void parsePhone_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parsePhone((String) null));
-    }
-
-    @Test
-    public void parsePhone_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE));
-    }
-
-    @Test
-    public void parsePhone_validValueWithoutWhitespace_returnsPhone() throws Exception {
-        Phone expectedPhone = new Phone(VALID_PHONE);
-        assertEquals(expectedPhone, ParserUtil.parsePhone(VALID_PHONE));
-    }
-
-    @Test
-    public void parsePhone_validValueWithWhitespace_returnsTrimmedPhone() throws Exception {
-        String phoneWithWhitespace = WHITESPACE + VALID_PHONE + WHITESPACE;
-        Phone expectedPhone = new Phone(VALID_PHONE);
-        assertEquals(expectedPhone, ParserUtil.parsePhone(phoneWithWhitespace));
-    }
-
-    @Test
-    public void parseAddress_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress((String) null));
-    }
-
-    @Test
-    public void parseAddress_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseAddress(INVALID_ADDRESS));
-    }
-
-    @Test
-    public void parseAddress_validValueWithoutWhitespace_returnsAddress() throws Exception {
-        Address expectedAddress = new Address(VALID_ADDRESS);
-        assertEquals(expectedAddress, ParserUtil.parseAddress(VALID_ADDRESS));
-    }
-
-    @Test
-    public void parseAddress_validValueWithWhitespace_returnsTrimmedAddress() throws Exception {
-        String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
-        Address expectedAddress = new Address(VALID_ADDRESS);
-        assertEquals(expectedAddress, ParserUtil.parseAddress(addressWithWhitespace));
-    }
-
-    @Test
-    public void parseEmail_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseEmail((String) null));
-    }
-
-    @Test
-    public void parseEmail_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseEmail(INVALID_EMAIL));
-    }
-
-    @Test
-    public void parseEmail_validValueWithoutWhitespace_returnsEmail() throws Exception {
-        Email expectedEmail = new Email(VALID_EMAIL);
-        assertEquals(expectedEmail, ParserUtil.parseEmail(VALID_EMAIL));
-    }
-
-    @Test
-    public void parseEmail_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
-        String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
-        Email expectedEmail = new Email(VALID_EMAIL);
-        assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
-    }
-
-    @Test
-    public void parseTag_null_throwsNullPointerException() throws Exception {
+    public void parseTrack_null_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        ParserUtil.parseTag(null);
+        ParserUtil.parseTrack(null);
     }
 
     @Test
-    public void parseTag_invalidValue_throwsParseException() throws Exception {
+    public void parseTrack_invalidName_throwsParseException() throws Exception {
         thrown.expect(ParseException.class);
-        ParserUtil.parseTag(INVALID_TAG);
+        thrown.expectMessage(Name.MESSAGE_NAME_CONSTRAINTS);
+        ParserUtil.parseTrack(INVALID_TRACK_NAME);
     }
 
     @Test
-    public void parseTag_validValueWithoutWhitespace_returnsTag() throws Exception {
-        Tag expectedTag = new Tag(VALID_TAG_1);
-        assertEquals(expectedTag, ParserUtil.parseTag(VALID_TAG_1));
+    public void parseTrack_fileNotExist_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(Track.MESSAGE_FILE_NOT_EXIST);
+        ParserUtil.parseTrack(INVALID_TRACK_FILE_NOT_EXIST);
     }
 
     @Test
-    public void parseTag_validValueWithWhitespace_returnsTrimmedTag() throws Exception {
-        String tagWithWhitespace = WHITESPACE + VALID_TAG_1 + WHITESPACE;
-        Tag expectedTag = new Tag(VALID_TAG_1);
-        assertEquals(expectedTag, ParserUtil.parseTag(tagWithWhitespace));
+    public void parseTrack_fileNotSupported_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(Track.MESSAGE_FILE_NOT_SUPPORTED);
+        ParserUtil.parseTrack(INVALID_TRACK_FILE_NOT_SUPPORTED);
     }
 
     @Test
-    public void parseTags_null_throwsNullPointerException() throws Exception {
+    public void parseTrack_validValueWithoutWhitespace_returnsTrack() throws Exception {
+        Track expectedTrack = new Track(new Name(VALID_TRACK_1));
+        assertEquals(expectedTrack, ParserUtil.parseTrack(VALID_TRACK_1));
+    }
+
+    @Test
+    public void parseTrack_validValueWithWhitespace_returnsTrimmedTrack() throws Exception {
+        String trackWithWhitespace = WHITESPACE + VALID_TRACK_1 + WHITESPACE;
+        Track expectedTrack = new Track(new Name(VALID_TRACK_1));
+        assertEquals(expectedTrack, ParserUtil.parseTrack(trackWithWhitespace));
+    }
+
+    @Test
+    public void parseTracks_null_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        ParserUtil.parseTags(null);
+        ParserUtil.parseTracks(null);
     }
 
     @Test
-    public void parseTags_collectionWithInvalidTags_throwsParseException() throws Exception {
+    public void parseTracks_collectionWithInvalidTracks_throwsParseException() throws Exception {
         thrown.expect(ParseException.class);
-        ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, INVALID_TAG));
+        ParserUtil.parseTracks(Arrays.asList(VALID_TRACK_1, INVALID_TRACK_NAME));
     }
 
     @Test
-    public void parseTags_emptyCollection_returnsEmptySet() throws Exception {
-        assertTrue(ParserUtil.parseTags(Collections.emptyList()).isEmpty());
+    public void parseTracks_emptyCollection_returnsEmptySet() throws Exception {
+        assertTrue(ParserUtil.parseTracks(Collections.emptyList()).isEmpty());
     }
 
     @Test
-    public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
-        Set<Tag> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
-        Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
+    public void parseTracks_collectionWithValidTracks_returnsTrackList() throws Exception {
+        List<Track> actualTrackList = ParserUtil.parseTracks(Arrays.asList(VALID_TRACK_1, VALID_TRACK_2));
+        List<Track> expectedTrackList = new ArrayList<>(Arrays.asList(
+                new Track(new Name(VALID_TRACK_1)), new Track(new Name(VALID_TRACK_2))));
 
-        assertEquals(expectedTagSet, actualTagSet);
+        assertEquals(expectedTrackList, actualTrackList);
     }
 }
