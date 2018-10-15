@@ -142,6 +142,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void rollbackTaskManager() {
+        versionedTaskManager.rollback();
+        indicateTaskManagerChanged();
+    }
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
