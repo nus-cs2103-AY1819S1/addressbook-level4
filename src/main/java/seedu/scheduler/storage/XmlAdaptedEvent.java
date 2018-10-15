@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import javax.management.modelmbean.RequiredModelMBean;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -16,6 +17,7 @@ import seedu.scheduler.model.event.DateTime;
 import seedu.scheduler.model.event.Description;
 import seedu.scheduler.model.event.Event;
 import seedu.scheduler.model.event.EventName;
+import seedu.scheduler.model.event.ReminderDurationList;
 import seedu.scheduler.model.event.RepeatType;
 import seedu.scheduler.model.event.Venue;
 import seedu.scheduler.model.tag.Tag;
@@ -29,23 +31,34 @@ public class XmlAdaptedEvent {
 
     @XmlElement(required = true)
     private UUID uuid;
+
     @XmlElement(required = true)
     private String eventName;
+
     @XmlElement(required = true)
     @XmlJavaTypeAdapter(DateTimeAdapter.class)
     private DateTime startDateTime;
+
     @XmlElement(required = true)
     @XmlJavaTypeAdapter(DateTimeAdapter.class)
     private DateTime endDateTime;
+
     @XmlElement
     private String description;
+
     @XmlElement
     private String venue;
+
     @XmlElement(required = true)
     private RepeatType repeatType;
+
     @XmlElement(required = true)
     @XmlJavaTypeAdapter(DateTimeAdapter.class)
     private DateTime repeatUntilDateTime;
+
+    @XmlElement(required = true)
+    @XmlJavaTypeAdapter(ReminderDurationListAdapter.class)
+    private ReminderDurationList reminderDurationList;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -60,8 +73,9 @@ public class XmlAdaptedEvent {
      * Constructs an {@code XmlAdaptedEvent} with the given event details.
      */
     public XmlAdaptedEvent(UUID uuid, String eventName, DateTime startDateTime, DateTime endDateTime,
-                 String description, String venue, RepeatType repeatType,
-                           DateTime repeatUntilDateTime, List<XmlAdaptedTag> tagged) {
+                           String description, String venue, RepeatType repeatType,
+                           DateTime repeatUntilDateTime, List<XmlAdaptedTag> tagged,
+                           ReminderDurationList reminderDurationList) {
         this.uuid = uuid;
         this.eventName = eventName;
         this.startDateTime = startDateTime;
@@ -73,6 +87,7 @@ public class XmlAdaptedEvent {
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
+        this.reminderDurationList = reminderDurationList;
     }
 
     /**
@@ -92,6 +107,7 @@ public class XmlAdaptedEvent {
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
+        reminderDurationList = source.getReminderDurationList();
     }
 
     /**
@@ -157,8 +173,15 @@ public class XmlAdaptedEvent {
 
         final Set<Tag> modelTags = new HashSet<>(eventTags);
 
+        if (reminderDurationList == null) {
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, ReminderDurationList.class.getSimpleName()));
+        }
+
+        final ReminderDurationList modelReminderDurationList = reminderDurationList;
+
         return new Event(modelUuid, modelName, modelStartDateTime, modelEndDateTime, modelDescription,
-                modelVenue, modelRepeatType, modelRepeatUntilDateTime, modelTags);
+                modelVenue, modelRepeatType, modelRepeatUntilDateTime, modelTags, modelReminderDurationList);
     }
 
     @Override
@@ -179,6 +202,7 @@ public class XmlAdaptedEvent {
                 && Objects.equals(description, otherEvent.description)
                 && Objects.equals(repeatType, otherEvent.repeatType)
                 && Objects.equals(repeatUntilDateTime, otherEvent.repeatUntilDateTime)
-                && tagged.equals(otherEvent.tagged);
+                && tagged.equals(otherEvent.tagged)
+                && reminderDurationList.equals(otherEvent.reminderDurationList);
     }
 }

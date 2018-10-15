@@ -14,6 +14,7 @@ import java.util.Map;
 public class ReminderDurationList {
 
     public Map<Duration, Boolean> values = new HashMap<>();
+    public static final String EMPTY_VALUE = "NONE";
 
 
     /**
@@ -55,20 +56,31 @@ public class ReminderDurationList {
         values.put(duration, FALSE);
     }
 
+    public void add(Duration duration, boolean status) {
+        values.put(duration, status);
+    }
+
 
     @Override
     public String toString() {
         String output = "";
-        if (values.size() == 1){
-            output = "NONE";
+        if (values.size() == 0){
+            output = EMPTY_VALUE;
         }
         else{
             for (Duration duration: values.keySet()) {
-                output += formatDuration(duration) + ": " + values.get(duration).toString() + ", " ;
+                output += duration.toString() + ": " + values.get(duration).toString() + ", " ;
             }
             output = output.substring(0, output.length() - 2);
         }
         return output;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return ((this == other) || (
+                other instanceof ReminderDurationList &&
+                        values.equals(((ReminderDurationList)other).get())));
     }
 
     /**
