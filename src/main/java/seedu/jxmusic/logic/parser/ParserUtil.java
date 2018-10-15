@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 
 import seedu.jxmusic.commons.core.index.Index;
@@ -50,27 +49,35 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Tag}.
+     * Parses a {@code String trackName} into a {@code Track}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code tag} is invalid.
+     * @throws ParseException if the given {@code track} is invalid.<br/>
+     * Possible exception messages:<br/>
+     * Name.MESSAGE_NAME_CONSTRAINTS<br/>
+     * Track.MESSAGE_FILE_NOT_EXIST<br/>
+     * Track.MESSAGE_FILE_NOT_SUPPORTED
      */
-    public static Track parseTrack(String track) throws ParseException {
-        requireNonNull(track);
-        String trimmedTrack = track.trim();
-//        if (!Track.isValidTrackName(trimmedTrack)) {
-//            throw new ParseException(Track.MESSAGE_TRACK_CONSTRAINTS); // todo isValidTrackName.
-//        }
-        return new Track(new Name(track));
+    public static Track parseTrack(String trackName) throws ParseException {
+        requireNonNull(trackName);
+        String trimmedTrackName = trackName.trim();
+        // if (!Track.isValidTrackFromFileName(trimmedTrackName)) {
+        //     throw new ParseException(Track.MESSAGE_NAME_CONSTRAINTS);
+        // }
+        try {
+            return new Track(new Name(trimmedTrackName));
+        } catch (IllegalArgumentException ex) {
+            throw new ParseException(ex.getMessage());
+        }
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     * Parses {@code Collection<String> trackNames} into a {@code Set<Track>}.
      */
-    public static List<Track> parseTrack(Collection<String> track) throws ParseException {
-        requireNonNull(track);
+    public static List<Track> parseTracks(Collection<String> trackNames) throws ParseException {
+        requireNonNull(trackNames);
         final List<Track> trackList = new ArrayList<>();
-        for (String trackName : track) {
+        for (String trackName : trackNames) {
             trackList.add(parseTrack(trackName));
         }
         return trackList;
