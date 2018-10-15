@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECORDS;
 
 import java.util.List;
 
@@ -15,6 +14,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
+import seedu.address.model.record.EventContainsEventIdPredicate;
 
 /**
  * Selects a person identified using it's displayed index from the address book.
@@ -48,8 +48,12 @@ public class ManageCommand extends Command {
         }
 
         model.switchToRecordContext();
-        model.updateFilteredRecordList(PREDICATE_SHOW_ALL_RECORDS);
+        model.updateFilteredRecordList(new EventContainsEventIdPredicate(
+                filteredEventList.get(targetIndex.getZeroBased()).getEventId()));
 
+        for (int i = 0; i < model.getFilteredRecordList().size(); i++) {
+            System.out.println(model.getFilteredRecordList().get(i).getRemark());
+        }
         // TO_UPDATE
         EventsCenter.getInstance().post(new RecordChangeEvent(
                 filteredEventList.get(targetIndex.getZeroBased()),
