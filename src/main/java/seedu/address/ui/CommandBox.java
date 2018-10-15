@@ -147,7 +147,7 @@ public class CommandBox extends UiPart<Region> {
      * Searches if directories exists in the given {@code arguments}.
      */
     private void searchDirectory(String arguments) {
-        StringBuffer copyArgs = new StringBuffer();
+        StringBuilder copyArgs = new StringBuilder();
 
         String[] directories = arguments.split("/");
         int numDir = directories.length;
@@ -156,14 +156,12 @@ public class CommandBox extends UiPart<Region> {
             String dir = directories[i];
             // Enters if directory is the last argument.
             if (i == (numDir - 1)) {
-                CharSequence args = dir.toUpperCase().subSequence(0, dir.length());
-
                 File checkDir = new File(startDir);
                 File[] fileList = checkDir.listFiles();
 
                 for (File file : fileList) {
                     if (file.isDirectory()) {
-                        if (file.toString().toUpperCase().contains(args)) {
+                        if (file.getName().toUpperCase().startsWith(dir.toUpperCase())) {
                             copyArgs.append(file.getName());
                             String newCommandText = "cd " + copyArgs + "/";
                             replaceText(newCommandText);
