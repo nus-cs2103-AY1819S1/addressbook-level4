@@ -49,7 +49,7 @@ public class CompleteCommand extends Command {
             throw new CommandException(MESSAGE_ALREADY_COMPLETED);
         }
 
-        model.updateTask(taskToComplete, completedTask);
+        model.updateTaskStatus(taskToComplete, completedTask);
         model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         model.commitTaskManager();
         return new CommandResult(String.format(MESSAGE_SUCCESS, completedTask));
