@@ -36,6 +36,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this(toBeCopied.getUsername());
+        this.maximumBudget = toBeCopied.getMaximumBudget();
         resetData(toBeCopied);
     }
     //// budget operations
@@ -125,7 +126,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     public Budget getMaximumBudget() {
-        return new Budget(this.maximumBudget.getBudgetCap(), this.maximumBudget.getCurrentExpenses());
+        return new Budget(this.maximumBudget.getBudgetCap(), this.maximumBudget.getCurrentExpenses(),
+            this.maximumBudget.getNextRecurrence(), this.maximumBudget.getNumberOfSecondsToRecurAgain());
     }
 
     public Username getUsername() {

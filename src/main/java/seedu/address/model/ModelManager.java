@@ -270,10 +270,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * Raises an event to check if budget is required to restart due to recurrence
+     * Checks if budget is required to restart due to recurrence
      */
-    protected void checkBudgetRestart() throws NoUserSelectedException {
-        raise(new BudgetRestart());
+    protected void checkBudgetRestart() {
+        this.versionedAddressBook.getMaximumBudget().checkBudgetRestart();
     }
 
 

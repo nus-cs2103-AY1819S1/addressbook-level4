@@ -7,7 +7,6 @@ import static seedu.address.testutil.TypicalExpenses.ALICE;
 import static seedu.address.testutil.TypicalExpenses.BENSON;
 
 import java.nio.file.Paths;
-import java.time.LocalDate;
 import java.util.Arrays;
 
 import org.junit.Rule;
@@ -41,7 +40,7 @@ public class ModelManagerTest {
     @Test
     public void checkBudgetRestart_frequency_doesNotResetSpendingIfNotNextRecurrence() throws NoUserSelectedException {
         double previousExpenses = modelManager.getMaximumBudget().getCurrentExpenses();
-        modelManager.setRecurrenceFrequency(Long.MAX_VALUE);
+        modelManager.setRecurrenceFrequency(Integer.MAX_VALUE);
         modelManager.checkBudgetRestart();
         assertTrue(modelManager.getAddressBook().getMaximumBudget().getCurrentExpenses() == previousExpenses);
     }

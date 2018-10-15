@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import java.time.LocalDateTime;
+
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.budget.Budget;
@@ -7,6 +9,7 @@ import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.user.Username;
+
 
 
 //@@author JasonChong96
@@ -32,7 +35,7 @@ public class ModelUtil {
         Model model = new ModelManager();
         model.addUser(TEST_USERNAME);
         model.loadUserData(TEST_USERNAME);
-        model.modifyMaximumBudget(new Budget(28.00, 0.00));
+        model.modifyMaximumBudget(new Budget(28.00, 0.00, LocalDateTime.parse("2018-10-10T10:11:30"), 50000));
         return model;
     }
 

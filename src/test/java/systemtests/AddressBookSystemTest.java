@@ -165,6 +165,9 @@ public abstract class AddressBookSystemTest {
             Model expectedModel) throws NoUserSelectedException {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
+        System.out.println(expectedModel.getAddressBook().getMaximumBudget().getNextRecurrence());
+        System.out.println(new AddressBook(expectedModel.getAddressBook()).getMaximumBudget().getNextRecurrence());
+        System.out.println(testApp.readStorageAddressBook().getMaximumBudget().getNextRecurrence());
         assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
         assertListMatching(getExpenseListPanel(), expectedModel.getFilteredExpenseList());
     }

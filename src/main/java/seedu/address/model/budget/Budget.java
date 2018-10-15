@@ -7,11 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.time.LocalDateTime;
 import java.util.logging.Logger;
 
-import com.google.common.eventbus.Subscribe;
-
-import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.budget.BudgetRestart;
 import seedu.address.model.expense.Expense;
 import seedu.address.storage.StorageManager;
 
@@ -20,7 +16,7 @@ import seedu.address.storage.StorageManager;
  * Represents maximum budget of an expense tracker
  * Guarantees: details are present and not null, field values are validated, mutable.
  */
-public class Budget extends ComponentManager {
+public class Budget {
     public static final String MESSAGE_BUDGET_CONSTRAINTS =
         "Cost should only take values in the following format: {int}.{digit}{digit}";
 
@@ -54,9 +50,11 @@ public class Budget extends ComponentManager {
     }
 
     /**
-     * Constructs a {@code Budget} with modified current expenses
+     * Constructs a {@code Budget} with modified current expenses and recurrence
      * @param budget
      * @param currentExpenses
+     * @param nextRecurrence
+     * @param numberOfSecondsToRecurAgain
      */
     public Budget(double budget, double currentExpenses, LocalDateTime nextRecurrence,
                   long numberOfSecondsToRecurAgain) {
@@ -64,6 +62,19 @@ public class Budget extends ComponentManager {
         this.currentExpenses = currentExpenses;
         this.nextRecurrence = nextRecurrence;
         this.numberOfSecondsToRecurAgain = numberOfSecondsToRecurAgain;
+    }
+
+    /**
+     * Constructs a {@code Budget} with modified current expenses
+     * @param budget
+     * @param currentExpenses
+     */
+    public Budget(double budget, double currentExpenses) {
+        this.budgetCap = budget;
+        this.currentExpenses = currentExpenses;
+        this.nextRecurrence = null;
+        this.numberOfSecondsToRecurAgain = Long.MAX_VALUE;
+
     }
 
     /**
@@ -145,13 +156,17 @@ public class Budget extends ComponentManager {
         return this.currentExpenses;
     }
 
+    public long getNumberOfSecondsToRecurAgain() {
+        return this.numberOfSecondsToRecurAgain;
+    }
+
     @Override
     public boolean equals(Object budget) {
         Budget anotherBudget = (Budget) budget;
+       
         return this.currentExpenses == anotherBudget.currentExpenses
             && this.budgetCap == anotherBudget.budgetCap
-            && this.numberOfSecondsToRecurAgain == anotherBudget.numberOfSecondsToRecurAgain
-            && this.nextRecurrence.equals(anotherBudget.nextRecurrence);
+            && this.numberOfSecondsToRecurAgain == anotherBudget.numberOfSecondsToRecurAgain;
     }
 
     @Override
@@ -161,18 +176,16 @@ public class Budget extends ComponentManager {
 
     /**
      * Updates the current budget with the new budget if it is the start of a new month. Does nothing if not
-     * @param event an Event that is raised every time the app initializes to check for start of new month.
      */
-    @Subscribe
-    public void handleBudgetRestartEvent(BudgetRestart event) {
+    public void checkBudgetRestart() {
         if (this.nextRecurrence == null) {
-            logger.info(LogsCenter.getEventHandlingLogMessage(event, "Budget has not been set."));
+            logger.info("Recurrence has not been set");
             return;
         }
         if (LocalDateTime.now().isAfter(this.nextRecurrence)) {
             this.nextRecurrence = LocalDateTime.now().plusSeconds(this.numberOfSecondsToRecurAgain);
             this.clearSpending();
-            logger.info(LogsCenter.getEventHandlingLogMessage(event, "Budget has been restarted"));
+            logger.info("Budget has been restarted");
         }
 
     }

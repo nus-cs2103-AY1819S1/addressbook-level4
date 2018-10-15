@@ -1,12 +1,11 @@
 package seedu.address.storage;
 
+import java.time.LocalDateTime;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import seedu.address.model.budget.Budget;
-
-import java.time.LocalDateTime;
+import seedu.address.storage.storageutil.LocalDateTimeAdapter;
 
 
 //@author winsonhys
@@ -42,6 +41,8 @@ public class XmlAdaptedBudget {
     public XmlAdaptedBudget(Budget source) {
         this.budgetCap = source.getBudgetCap();
         this.currentExpenses = source.getCurrentExpenses();
+        this.nextRecurrence = source.getNextRecurrence();
+        this.numberOfSecondsToRecurAgain = source.getNumberOfSecondsToRecurAgain();
     }
 
     /**
@@ -51,19 +52,6 @@ public class XmlAdaptedBudget {
         return new Budget(this.budgetCap, currentExpenses, this.nextRecurrence, this.numberOfSecondsToRecurAgain);
     }
 
-    /**
-     * XmlAdapter that adapts a string to LocalDateTime and back.
-     */
-    private class LocalDateTimeAdapter extends XmlAdapter<String, LocalDateTime> {
-        @Override
-        public LocalDateTime unmarshal(String v) throws Exception {
-            return LocalDateTime.parse(v);
-        }
-        @Override
-        public String marshal (LocalDateTime v) throws Exception {
-            return v.toString();
-        }
-    }
 
 
 }

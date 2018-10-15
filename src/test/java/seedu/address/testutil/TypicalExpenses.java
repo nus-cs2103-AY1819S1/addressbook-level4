@@ -15,11 +15,13 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FOOD;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.user.Username;
 
@@ -108,7 +110,8 @@ public class TypicalExpenses {
             ab.addExpense(e);
             expense += e.getCost().getCostValue();
         }
-        ab.modifyMaximumBudget(expense + 2);
+        ab.modifyMaximumBudget(new Budget(expense + 2, expense, LocalDateTime.parse("2017-08-04T10:11:30"), 50000));
+
         return ab;
     }
 

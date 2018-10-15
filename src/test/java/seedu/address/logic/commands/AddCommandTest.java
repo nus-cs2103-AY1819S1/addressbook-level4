@@ -115,7 +115,10 @@ public class AddCommandTest {
         public boolean addExpense(Expense expense) {
             throw new AssertionError("addExpense method should not be called.");
         }
-
+        @Override
+        public void setRecurrenceFrequency(long seconds) {
+            throw new AssertionError("setRecurrenceFrequency should not be called");
+        }
         @Override
         public void resetData(ReadOnlyAddressBook newData) {
             throw new AssertionError("resetData method should not be called.");
