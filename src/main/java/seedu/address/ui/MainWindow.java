@@ -23,7 +23,6 @@ import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.ui.ShowStatsRequestEvent;
 import seedu.address.commons.events.ui.SwapLeftPanelEvent;
-import seedu.address.commons.events.ui.UpdateBudgetPanelEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.exceptions.NoUserSelectedException;

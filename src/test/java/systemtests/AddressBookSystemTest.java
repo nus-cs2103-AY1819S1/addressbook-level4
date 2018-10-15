@@ -160,7 +160,7 @@ public abstract class AddressBookSystemTest {
         try {
             Thread.sleep(1000);
             assertTrue(getBudgetPanel().isExpenseCorrect("0.00"));
-        } catch(InterruptedException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
         assertEquals(0, getModel().getAddressBook().getExpenseList().size());
@@ -264,8 +264,8 @@ public abstract class AddressBookSystemTest {
 
         assertTrue(getBudgetPanel().isExpenseCorrect(String.format("%.2f", TypicalExpenses.INTIIAL_EXPENSES)));
         assertTrue(getBudgetPanel().isBudgetCorrect(String.format("%.2f", TypicalExpenses.INTIIAL_BUDGET)));
-        assertTrue(getBudgetPanel().isBudgetBarProgressAccurate(TypicalExpenses.INTIIAL_EXPENSES /
-                TypicalExpenses.INTIIAL_BUDGET ));
+        assertTrue(getBudgetPanel().isBudgetBarProgressAccurate(TypicalExpenses.INTIIAL_EXPENSES
+                / TypicalExpenses.INTIIAL_BUDGET));
     }
 
     /**

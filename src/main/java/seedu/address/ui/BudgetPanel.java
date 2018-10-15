@@ -1,5 +1,9 @@
 package seedu.address.ui;
 
+import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -14,10 +18,8 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.UpdateBudgetPanelEvent;
 import seedu.address.model.budget.Budget;
 
-import com.google.common.eventbus.Subscribe;
 
-import java.security.Key;
-import java.util.logging.Logger;
+
 
 //@@author snookerballs
 /**
@@ -25,13 +27,12 @@ import java.util.logging.Logger;
  */
 public class BudgetPanel extends UiPart<Region> {
     private static final String FXML = "BudgetPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(BudgetPanel.class);
-
     private static final double ANIMATION_TIME = 0.5;
     private static final double NUM_OF_FRAMES = 10;
     private static final double TIME_OF_KEY_FRAMES = ANIMATION_TIME / NUM_OF_FRAMES;
 
     private Timeline timeline;
+    private final Logger logger = LogsCenter.getLogger(BudgetPanel.class);
 
     @FXML
     private ProgressBar budgetBar;
@@ -120,12 +121,13 @@ public class BudgetPanel extends UiPart<Region> {
         );
 
         addIncrementKeyFrames(newExpenses, newBudgetCap);
-        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(ANIMATION_TIME + 0.5), new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                timeline.stop();
-            }
-        }));
+        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(ANIMATION_TIME + 0.5),
+                    new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    timeline.stop();
+                }
+            }));
         timeline.playFromStart();
     }
 
