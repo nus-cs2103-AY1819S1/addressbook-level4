@@ -74,4 +74,43 @@ public class DependencyCommandTest {
         DependencyCommand dependencyCommand = new DependencyCommand(outOfBoundIndex, outOfBoundIndex);
         assertCommandFailure(dependencyCommand, model, commandHistory, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
+    @Test
+    public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
+
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTaskList().size() + 1);
+        DependencyCommand dependencyCommand = new DependencyCommand(outOfBoundIndex, outOfBoundIndex);
+
+        // execution failed -> task manager state not added into model
+        assertCommandFailure(dependencyCommand, model, commandHistory, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+
+        // single task manager state in model -> undoCommand and redoCommand fail
+        assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
+
+        assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
+    }
+    @Test
+    public void executeUndoRedo_validIndexFilteredList_sameTaskDependency() throws Exception {
+
+        DependencyCommand dependencyCommand = new DependencyCommand(INDEX_FIRST_TASK, INDEX_SECOND_TASK);
+
+        Model expectedModel = new ModelManager(model.getTaskManager(), new UserPrefs());
+        showTaskAtTwoIndexes(model, INDEX_FIRST_TASK, INDEX_SECOND_TASK);
+
+        Task dependeeTask = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
+        Task dependantTask = model.getFilteredTaskList().get(INDEX_SECOND_TASK.getZeroBased());
+        Task newTask = DependencyCommand.createDependeeTask(dependeeTask, dependantTask);
+
+        expectedModel.updateTask(dependeeTask, newTask);
+        expectedModel.commitTaskManager();
+        // dependency -> dependency for second task in unfiltered task list / first task in filtered task
+        // list
+        dependencyCommand.execute(model, commandHistory);
+        // undo -> reverts task manager back to previous state and filtered task list to show all tasks
+        expectedModel.undoTaskManager();
+        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertEquals(dependeeTask.getDependency(), model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased()).getDependency());
+        // redo -> deletes same second task in unfiltered task list=-
+        expectedModel.redoTaskManager();
+        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+    }
 }
