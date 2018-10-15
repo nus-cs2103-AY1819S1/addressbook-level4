@@ -41,18 +41,25 @@ public class DependencyCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Task> lastShownList = model.getFilteredTaskList();
+        //Checking if indexes are out of bounds
         if (dependantIndex.getZeroBased() >= lastShownList.size()
                 || dependeeIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-
+        //Checking if dependant or dependee already contains dependency
         Task taskDependant = lastShownList.get(dependantIndex.getZeroBased());
         Task taskDependee = lastShownList.get(dependeeIndex.getZeroBased());
         if (taskDependee.getDependency().containsDependency(taskDependee)) {
             throw new CommandException(MESSAGE_ALREADY_DEPENDANT);
         }
-
+        //Checking if introducing dependency will create a cyclic dependency
         Task updatedTask = createDependantTask(taskDependant, taskDependee);
+
+        DependencyGraph dg = new DependencyGraph(model.getTaskManager().getTaskList());
+        if (dg.checkCyclicDependency(updatedTask)) {
+            throw new CommandException(MESSAGE_CYCLIC_DEPENDENCY);
+        }
+        //Passes all checks
         model.updateTask(taskDependant, updatedTask);
         model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         model.commitTaskManager();
