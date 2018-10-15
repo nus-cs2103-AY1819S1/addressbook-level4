@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
@@ -14,6 +15,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Anakin;
 import seedu.address.model.AnakinModel;
 import seedu.address.model.anakindeck.AnakinDeck;
+import seedu.address.model.anakindeck.AnakinDeckNameContainsKeywordsPredicate;
 
 /**
  * Contains helper methods for testing commands.
@@ -22,7 +24,7 @@ public class AnakinCommandTestUtil {
 
     public static final String VALID_NAME = "My Deck";
 
-    public static final String INVALID_NAME = " " + PREFIX_NAME + " ";
+    public static final String INVALID_NAME = " " + PREFIX_NAME + " Bad_Deck_Name!";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -80,14 +82,15 @@ public class AnakinCommandTestUtil {
      * Updates {@code model}'s filtered list to show only the deck at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
+//    Filter function not implemented yet
     public static void showDeckAtIndex(AnakinModel model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredDeckList().size());
 
         AnakinDeck deck = model.getFilteredDeckList().get(targetIndex.getZeroBased());
-        final String[] splitName = deck.getName().fullName.split("\\s+");
 
-        // Search function not implemented yet
-        //model.updateFilteredDeckList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        final String[] splitName = deck.getName().fullName.split("\\s+");
+        model.updateFilteredDeckList(
+                new AnakinDeckNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredDeckList().size());
     }

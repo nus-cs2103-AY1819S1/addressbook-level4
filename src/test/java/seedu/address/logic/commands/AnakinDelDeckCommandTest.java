@@ -13,7 +13,6 @@ import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.AnakinCommands.AnakinDelCardCommand;
 import seedu.address.logic.AnakinCommands.AnakinDelDeckCommand;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.AnakinModel;
@@ -22,7 +21,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.anakindeck.AnakinDeck;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
+ * Contains integration tests (interaction with the Model) and unit tests for
  * {@code AnakinDelDeckCommand}.
  */
 public class AnakinDelDeckCommandTest {
@@ -33,7 +32,7 @@ public class AnakinDelDeckCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() {
         AnakinDeck deckToDelete = model.getFilteredDeckList().get(INDEX_FIRST_DECK.getZeroBased());
-        AnakinDelCardCommand deleteCommand = new AnakinDelCardCommand(INDEX_FIRST_DECK);
+        AnakinDelDeckCommand deleteCommand = new AnakinDelDeckCommand(INDEX_FIRST_DECK);
 
         String expectedMessage = String.format(AnakinDelDeckCommand.MESSAGE_DELETE_DECK_SUCCESS, deckToDelete);
 
