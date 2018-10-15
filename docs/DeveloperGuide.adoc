@@ -328,7 +328,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 === Adding a MedicalRecord to a Patient
 ==== Current Implementation
 
-The `MedicalRecord` class is an attribute of the `Patient` class, and it contains information regarding its `Patient`'s medical records. The `MedicalRecord` class structure is as follows:
+The `MedicalRecord` class is an attribute of the `Patient` class, and it contains information regarding its `Patient` 's medical records. The `MedicalRecord` class structure is as follows:
 
 * has an attribute `BloodType` which stores the blood type of the `Patient`. This attribute is marked as `final` and cannot be changed.
 * contains a `List<DrugAllergy>` which stores the list of drug allergies that the `Patient` has.
@@ -337,9 +337,30 @@ The `MedicalRecord` class is an attribute of the `Patient` class, and it contain
 
 When a new `Patient` is created with the `AddCommand`, it is created with a default `MedicalRecord` object that contains an empty `BloodType` object, an empty `List<DrugAllergy>`, an empty `List<Disease>` and and empty `List<Note>`.
 
-Users can add more information to a specified `Patient`'s `MedicalRecord` by invoking the `AddMedicalRecordCommand`, and specifying the corresponding arguments to add to the `MedicalRecord`. The arguments should be prefixed with `b/` for `BloodType`, `d/` for `Disease`, `da/` for `DrugAllergy`, and `m/` for `Note`.
+Users can add more information to a specified `Patient` 's `MedicalRecord` by invoking the `AddMedicalRecordCommand`, and specifying the corresponding arguments to add to the `MedicalRecord`. The arguments should be prefixed with `b/` for `BloodType`, `d/` for `Disease`, `da/` for `DrugAllergy`, and `m/` for `Note`. All the arguments here are optional arguments. 
+
+Given below is an example usage scenario and explanation for the inner workings of the `AddMedicalRecordCommand`.
+
+Step 1: 
+
+* The user creates a new `Patient` object using the `AddCommand`. While the user has not provided any arguments for the `MedicalRecord` of this `Patient`, a empty `MedicalRecord` object has been initialised internally and assigned to this created `Patient`. Contents of this empty `MedicalRecord` is as detailed above.
+
+Step 2: 
+
+* The user wishes to add a `MedicalRecord` containing only the `BloodType` of the `Patient`, and will do so with the `AddMedicalRecord` command, and only specifiying the `b/` prefix for `BloodType`. Note that `BloodType` here can only be in a specific format (A[+-], B[+-], O[+-] or AB[+-]). 
+
+* When this command is executed, the program creates a new `MedicalRecord` object with just the `BloodType` specified, takes the old `MedicalRecord` object of the `Patient` (which is empty), and does a merging of the two objects, returning a new `MedicalRecord` object. The `Patient` is then updated with this new combined `MedicalRecord`. The following figure shows the code section which performs this merging.
 
 ==== Design Considerations
+
+===== Aspect: Execution of the command
+
+* **Alternative 1 (current choice):** Create a new `MedicalRecord` object and combine the two.
+** Pros: Easy to implement and better abstraction.
+** Cons: Redundant creation of new object only to discard it immediately
+* **Alternative 2:** Add specified arguments of the command directly to the current `MedicalRecord`
+** Pros: No redundant creation of extra objects.
+** Cons: Require access to the existing `MedicalRecord` from outside the object, which breaks the abstraction barrier.
 
 // end::medicalrecord[]
 
