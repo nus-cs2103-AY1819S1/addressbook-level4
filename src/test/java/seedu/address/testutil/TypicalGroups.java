@@ -9,7 +9,7 @@ import seedu.address.model.tag.Tag;
 /**
  * A utility class containing a list of {@code Group} objects to be used in tests.
  */
-public class TypicalGroup {
+public class TypicalGroups {
 
     public static final Group PROJECT_2103T = new GroupBuilder().withTitle("CS2103T")
             .withDescription("Project group for module CS2103T").withMeeting(WEEKLY)
@@ -23,6 +23,6 @@ public class TypicalGroup {
 
     public static final Tag TEMP_GROUP_ASSIGNMENT = new Tag("Assignment");
 
-    private TypicalGroup() {} // prevent instantiation
+    private TypicalGroups() {} // prevent instantiation
 
 }

@@ -96,7 +96,7 @@ public class GroupListPanelTest extends GuiUnitTest {
         Path xmlFile = createXmlFileWithGroups(groupCount);
         XmlSerializableAddressBook xmlAddressBook =
             XmlUtil.getDataFromFile(xmlFile, XmlSerializableAddressBook.class);
-        return FXCollections.observableArrayList(xmlAddressBook.toModelType().getGroupList());
+        return FXCollections.observableArrayList(xmlAddressBook.toModelType().getGroupTagList());
     }
 
     /**
