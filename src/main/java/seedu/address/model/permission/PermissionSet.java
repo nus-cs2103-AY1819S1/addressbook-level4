@@ -21,6 +21,7 @@ public class PermissionSet {
     }
 
     /**
+     * This action is only performable by user with "ASSIGN_PERMISSION" permission.
      * Create permission set with one of the preset.
      * @param p The preset to use.
      */
@@ -28,15 +29,24 @@ public class PermissionSet {
         assignPresetPermission(p);
     }
 
+    /**
+     * This action is only performable by user with "ASSIGN_PERMISSION" permission.
+     * @param p permission to add
+     */
     public void addPermission(Permission p) {
         permissionSet.add(p);
     }
 
+    /**
+     * This action is only performable by user with "ASSIGN_PERMISSION" permission.
+     * @param p permission to remove
+     */
     public void removePermission(Permission p) {
         permissionSet.remove(p);
     }
 
     /**
+     * This action is only performable by user with "ASSIGN_PERMISSION" permission.
      * Set permission set to one of the preset.
      * @param p The preset to use.
      */
