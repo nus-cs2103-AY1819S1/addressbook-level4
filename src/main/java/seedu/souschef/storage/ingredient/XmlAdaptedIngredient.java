@@ -103,6 +103,7 @@ public class XmlAdaptedIngredient {
         try {
             modelDate = (new SimpleDateFormat("MM-dd-yyyy").parse(date));
         } catch (ParseException e) {
+
             throw new IllegalValueException(String.format("Wrong date format", Date.class.getSimpleName()));
 
         }
