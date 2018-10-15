@@ -19,7 +19,7 @@ import seedu.address.model.group.TimeStamp;
 import seedu.address.model.group.Title;
 import seedu.address.model.person.Address;
 
-// @@author Pakorn
+// @@author NyxF4ll
 /**
  * Parses input arguments and creates a new MeetCommand Object
  */
