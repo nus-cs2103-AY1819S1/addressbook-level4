@@ -2,11 +2,11 @@ package seedu.address.model;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import seedu.address.model.task.Task;
-import seedu.address.model.task.UniqueTaskList;
 
 /**
  * DependencyGraph models the dependencies of the tasks so that checks such as cyclic dependencies can be performed and
@@ -15,7 +15,7 @@ import seedu.address.model.task.UniqueTaskList;
 public class DependencyGraph {
     private Map<String, Set<String>> adjacencyList = new HashMap<>();
 
-    public DependencyGraph(UniqueTaskList taskList) {
+    public DependencyGraph(List<Task> taskList) {
         for (Task task: taskList) {
             String hash = Integer.toString(task.hashCode());
             Set<String> edges = task.getDependency().getHashes();
@@ -24,9 +24,19 @@ public class DependencyGraph {
     }
 
     /**
+     * Updates graph and returns true if the update Task will result in a cycle in the graph
+     */
+    public boolean checkCyclicDependency(Task updatedTask) {
+        String hash = Integer.toString(updatedTask.hashCode());
+        adjacencyList.remove(hash);
+        adjacencyList.put(hash, updatedTask.getDependency().getHashes());
+        return checkPresenceOfCycle();
+    }
+
+    /**
      * Checks if there will be a cycle in the graph
      */
-    public boolean checkCyclic() {
+    public boolean checkPresenceOfCycle() {
         Set<String> visited = new HashSet<>();
         Set<String> stack = new HashSet<>();
         for (String node: adjacencyList.keySet()) {
@@ -63,6 +73,5 @@ public class DependencyGraph {
         stack.remove(node);
         return false;
     }
-    //TODO: Add toposort function
 
 }

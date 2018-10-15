@@ -3,6 +3,9 @@ package seedu.address.model.task;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import seedu.address.logic.commands.DependencyCommand;
@@ -10,7 +13,7 @@ import seedu.address.model.DependencyGraph;
 import seedu.address.testutil.TaskBuilder;
 
 public class DependencyGraphTest {
-    private UniqueTaskList tasks = new UniqueTaskList();
+    private List<Task> tasks = new ArrayList<>();
     private Task cyclicTask;
 
     @Before
@@ -29,10 +32,10 @@ public class DependencyGraphTest {
     @Test
     public void checkCyclic() {
         DependencyGraph graph = new DependencyGraph(tasks);
-        assertFalse(graph.checkCyclic());
+        assertFalse(graph.checkPresenceOfCycle());
         tasks.add(cyclicTask);
         graph = new DependencyGraph(tasks);
-        assertTrue(graph.checkCyclic());
+        assertTrue(graph.checkPresenceOfCycle());
     }
 
 }
