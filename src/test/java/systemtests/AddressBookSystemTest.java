@@ -36,7 +36,6 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -69,10 +68,9 @@ public abstract class AddressBookSystemTest {
     public void setUp() {
         setupHelper = new SystemTestSetupHelper();
         testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
-        mainWindowHandle = setupHelper.setupMainWindowHandle();
-
-        waitUntilBrowserLoaded(getBrowserPanel());
-        assertApplicationStartingStateIsCorrect();
+        //mainWindowHandle = setupHelper.setupMainWindowHandle();
+        //waitUntilBrowserLoaded(getBrowserPanel());
+        //assertApplicationStartingStateIsCorrect();
     }
 
     @After
@@ -136,14 +134,6 @@ public abstract class AddressBookSystemTest {
         mainWindowHandle.getCommandBox().run(command);
 
         waitUntilBrowserLoaded(getBrowserPanel());
-    }
-
-    /**
-     * Displays all persons in the address book.
-     */
-    protected void showAllPersons() {
-        executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredPersonList().size());
     }
 
     /**
