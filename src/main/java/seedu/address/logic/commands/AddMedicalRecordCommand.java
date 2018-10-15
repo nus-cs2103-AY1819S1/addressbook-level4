@@ -29,7 +29,7 @@ public class AddMedicalRecordCommand extends Command {
             + ": Creates a new medical record, or adds data to existing "
             + "medical record of specified patient to the address book. \n"
             + "Parameters: "
-            + PREFIX_BLOODTYPE + "BLOODTYPE "
+            + "[" + PREFIX_BLOODTYPE + "BLOODTYPE] "
             + "[" + PREFIX_DIESEASE + "PAST DISEASE]... "
             + "[" + PREFIX_DRUGALLERGY + "DRUG ALLERGY]... "
             + "[" + PREFIX_NOTE + "NOTE]... "
