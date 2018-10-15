@@ -11,7 +11,7 @@ import seedu.address.model.ModelManager;
 public class PreferenceQueueTest {
     private ModelManager modelManager = new ModelManager();
     @Test
-    public void hasPatient_patientNotInPreferenceQueue_returnsFalse() {
+    public void hasPatient_noPatientInPreferenceQueue_returnsFalse() {
         assertFalse(modelManager.hasPatientInPreferenceQueue());
     }
     @Test

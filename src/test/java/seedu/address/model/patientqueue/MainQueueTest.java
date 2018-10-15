@@ -13,7 +13,7 @@ public class MainQueueTest {
     private ModelManager modelManager = new ModelManager();
 
     @Test
-    public void hasPatient_patientNotInMainQueue_returnsFalse() {
+    public void hasPatient_noPatientInMainQueue_returnsFalse() {
         assertFalse(modelManager.hasPatientInMainQueue());
     }
 

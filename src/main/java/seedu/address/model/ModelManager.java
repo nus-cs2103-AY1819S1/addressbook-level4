@@ -111,6 +111,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
+
     @Override
     public void enqueue(Person patient) {
         mainQueue.add(patient);
@@ -124,12 +125,14 @@ public class ModelManager extends ComponentManager implements Model {
     public void enqueueIntoPreferenceQueue(Person patient) {
         preferenceQueue.add(patient);
     }
+
     @Override
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
         versionedAddressBook.updatePerson(target, editedPerson);
         indicateAddressBookChanged();
     }
+
     @Override
     public boolean hasPatientInMainQueue() {
         return mainQueue.hasPatient();
@@ -142,7 +145,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public boolean hasPatientInPatientQueue() {
-        return hasPatientInPreferenceQueue() || hasPatientInMainQueue();
+        boolean hasPatient = hasPatientInPreferenceQueue() || hasPatientInMainQueue();
+        return hasPatient;
     }
 
     //@@author jjlee050
