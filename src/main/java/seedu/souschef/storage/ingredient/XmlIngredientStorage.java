@@ -51,7 +51,7 @@ public class XmlIngredientStorage extends XmlFeatureStorage {
         logger.info("enters XmlIngredientStorage from read");
         XmlSerializableGeneric xmlIngredientBook;
         xmlIngredientBook = new XmlSerializableIngredient((XmlSerializableIngredient)
-                XmlFileStorage.loadDataFromSaveFile(filePath, "healthplan"));
+                XmlFileStorage.loadDataFromSaveFile(filePath, "ingredient"));
         try {
             return Optional.of(xmlIngredientBook.toModelType());
         } catch (IllegalValueException ive) {
