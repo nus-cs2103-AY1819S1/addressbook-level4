@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.logic.commands.Command;
 import seedu.souschef.logic.parser.contextparser.HealthPlanParser;
+import seedu.souschef.logic.parser.contextparser.IngredientParser;
 import seedu.souschef.logic.parser.contextparser.RecipeParser;
 import seedu.souschef.logic.parser.contextparser.UniversalParser;
 import seedu.souschef.logic.parser.exceptions.ParseException;
@@ -49,6 +50,11 @@ public class AppContentParser {
                 storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(0));
             }
             return new RecipeParser().parseCommand(modelSet.getRecipeModel(), userInput);
+        } else if (context.equals("Ingredient")) {
+            if (storage.getListOfFeatureStorage().size() > 0) {
+                storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(1));
+            }
+            return new IngredientParser().parseCommand(modelSet.getIngredientModel(), userInput);
         } else if (context.equals("Health Plan")) {
             if (storage.getListOfFeatureStorage().size() > 0) {
                 storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(2));

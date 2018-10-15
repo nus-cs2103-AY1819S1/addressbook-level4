@@ -6,10 +6,9 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.souschef.commons.util.CollectionUtil;
-import seedu.souschef.model.recipe.Address;
-import seedu.souschef.model.recipe.Email;
+import seedu.souschef.model.recipe.CookTime;
+import seedu.souschef.model.recipe.Difficulty;
 import seedu.souschef.model.recipe.Name;
-import seedu.souschef.model.recipe.Phone;
 import seedu.souschef.model.tag.Tag;
 
 /**
@@ -18,9 +17,8 @@ import seedu.souschef.model.tag.Tag;
  */
 public class EditRecipeDescriptor {
     private Name name;
-    private Phone phone;
-    private Email email;
-    private Address address;
+    private Difficulty difficulty;
+    private CookTime cookTime;
     private Set<Tag> tags;
 
     public EditRecipeDescriptor() {}
@@ -31,9 +29,8 @@ public class EditRecipeDescriptor {
      */
     public EditRecipeDescriptor(EditRecipeDescriptor toCopy) {
         setName(toCopy.name);
-        setPhone(toCopy.phone);
-        setEmail(toCopy.email);
-        setAddress(toCopy.address);
+        setDifficulty(toCopy.difficulty);
+        setCooktime(toCopy.cookTime);
         setTags(toCopy.tags);
     }
 
@@ -41,7 +38,7 @@ public class EditRecipeDescriptor {
      * Returns true if at least one field is edited.
      */
     public boolean isAnyFieldEdited() {
-        return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+        return CollectionUtil.isAnyNonNull(name, difficulty, cookTime, tags);
     }
 
     public void setName(Name name) {
@@ -52,28 +49,20 @@ public class EditRecipeDescriptor {
         return Optional.ofNullable(name);
     }
 
-    public void setPhone(Phone phone) {
-        this.phone = phone;
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
     }
 
-    public Optional<Phone> getPhone() {
-        return Optional.ofNullable(phone);
+    public Optional<Difficulty> getDifficulty() {
+        return Optional.ofNullable(difficulty);
     }
 
-    public void setEmail(Email email) {
-        this.email = email;
+    public void setCooktime(CookTime cooktime) {
+        this.cookTime = cooktime;
     }
 
-    public Optional<Email> getEmail() {
-        return Optional.ofNullable(email);
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public Optional<Address> getAddress() {
-        return Optional.ofNullable(address);
+    public Optional<CookTime> getCooktime() {
+        return Optional.ofNullable(cookTime);
     }
 
     /**
@@ -109,9 +98,8 @@ public class EditRecipeDescriptor {
         EditRecipeDescriptor e = (EditRecipeDescriptor) other;
 
         return getName().equals(e.getName())
-                && getPhone().equals(e.getPhone())
-                && getEmail().equals(e.getEmail())
-                && getAddress().equals(e.getAddress())
+                && getDifficulty().equals(e.getDifficulty())
+                && getCooktime().equals(e.getCooktime())
                 && getTags().equals(e.getTags());
     }
 }

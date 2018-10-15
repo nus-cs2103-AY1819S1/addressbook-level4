@@ -19,8 +19,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
          * -> added
          *//**//*
         Recipe toAdd = AMY;
-        String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
-                + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
+        String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + DIFFICULTY_DESC_AMY + " "
+                + COOKTIME_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
         assertCommandSuccess(command, toAdd);
 
         *//**//* Case: undo adding Amy to the list -> Amy deleted *//**//*
@@ -37,14 +37,14 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         *//**//* Case: add a recipe with all fields same as another recipe in the address book except name -> added
         *//**//*
         toAdd = new RecipeBuilder(AMY).withName(VALID_NAME_BOB).build();
-        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
+        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + DIFFICULTY_DESC_AMY + COOKTIME_DESC_AMY + ADDRESS_DESC_AMY
                 + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
         *//**//* Case: add a recipe with all fields same as another recipe in the address book except phone and email
          * -> added
          *//**//*
-        toAdd = new RecipeBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        toAdd = new RecipeBuilder(AMY).withDifficulty(VALID_DIFFICULTY_BOB).withCooktime(VALID_COOKTIME_BOB).build();
         command = RecipeUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
@@ -54,8 +54,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         *//**//* Case: add a recipe with tags, command with parameters in random order -> added *//**//*
         toAdd = BOB;
-        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
-                + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
+        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + DIFFICULTY_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
+                + TAG_DESC_HUSBAND + COOKTIME_DESC_BOB;
         assertCommandSuccess(command, toAdd);
 
         *//**//* Case: add a recipe, missing tags -> added *//**//*
@@ -84,12 +84,12 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         //assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_RECIPE);
 
         *//**//* Case: add a duplicate recipe except with different phone -> rejected *//**//*
-        toAdd = new RecipeBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
+        toAdd = new RecipeBuilder(HOON).withDifficulty(VALID_DIFFICULTY_BOB).build();
         command = RecipeUtil.getAddCommand(toAdd);
         //assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_RECIPE);
 
         *//**//* Case: add a duplicate recipe except with different email -> rejected *//**//*
-        toAdd = new RecipeBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
+        toAdd = new RecipeBuilder(HOON).withCooktime(VALID_COOKTIME_BOB).build();
         command = RecipeUtil.getAddCommand(toAdd);
         //assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_RECIPE);
 
@@ -103,19 +103,19 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         //assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_RECIPE);
 
         *//**//* Case: missing name -> rejected *//**//*
-        command = AddCommand.COMMAND_WORD + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + DIFFICULTY_DESC_AMY + COOKTIME_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         *//**//* Case: missing phone -> rejected *//**//*
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + COOKTIME_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         *//**//* Case: missing email -> rejected *//**//*
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + DIFFICULTY_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         *//**//* Case: missing address -> rejected *//**//*
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + DIFFICULTY_DESC_AMY + COOKTIME_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         *//**//* Case: invalid keyword -> rejected *//**//*
@@ -123,23 +123,28 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         *//**//* Case: invalid name -> rejected *//**//*
-        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + DIFFICULTY_DESC_AMY +
+        COOKTIME_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
 
         *//**//* Case: invalid phone -> rejected *//**//*
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_DIFFICULTY_DESC +
+        COOKTIME_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, Phone.MESSAGE_PHONE_CONSTRAINTS);
 
         *//**//* Case: invalid email -> rejected *//**//*
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + DIFFICULTY_DESC_AMY +
+        INVALID_COOKTIME_DESC + ADDRESS_DESC_AMY;
         assertCommandFailure(command, Email.MESSAGE_EMAIL_CONSTRAINTS);
 
         *//**//* Case: invalid address -> rejected *//**//*
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + INVALID_ADDRESS_DESC;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + DIFFICULTY_DESC_AMY +
+        COOKTIME_DESC_AMY + INVALID_ADDRESS_DESC;
         assertCommandFailure(command, Address.MESSAGE_ADDRESS_CONSTRAINTS);
 
         *//**//* Case: invalid tag -> rejected *//**//*
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + DIFFICULTY_DESC_AMY +
+        COOKTIME_DESC_AMY + ADDRESS_DESC_AMY
                 + INVALID_TAG_DESC;
         assertCommandFailure(command, Tag.MESSAGE_TAG_CONSTRAINTS);*//*
     }*/

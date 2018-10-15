@@ -1,9 +1,8 @@
 package seedu.souschef.testutil;
 
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_COOKTIME;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
@@ -31,9 +30,8 @@ public class RecipeUtil {
     public static String getRecipeDetails(Recipe recipe) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + recipe.getName().fullName + " ");
-        sb.append(PREFIX_PHONE + recipe.getPhone().value + " ");
-        sb.append(PREFIX_EMAIL + recipe.getEmail().value + " ");
-        sb.append(PREFIX_ADDRESS + recipe.getAddress().value + " ");
+        sb.append(PREFIX_DIFFICULTY + recipe.getDifficulty().toString() + " ");
+        sb.append(PREFIX_COOKTIME + recipe.getCookTime().toString() + " ");
         recipe.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
@@ -46,9 +44,9 @@ public class RecipeUtil {
     public static String getEditRecipeDescriptorDetails(EditRecipeDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
-        descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
-        descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
-        descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
+        descriptor.getDifficulty().ifPresent(difficulty -> sb.append(PREFIX_DIFFICULTY)
+                .append(difficulty.value).append(" "));
+        descriptor.getCooktime().ifPresent(cookTime -> sb.append(PREFIX_COOKTIME).append(cookTime.value).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {
