@@ -80,6 +80,15 @@ public class PermissionSet {
     }
 
     /**
+     * Check if permission set contains a specific permission
+     * @param p the permission to check
+     * @return true if permission found, otherwise false.
+     */
+    public boolean contain(Permission p) {
+        return permissionSet.contains(p);
+    }
+
+    /**
      * @return a set of permission that represent the permission an admin should have.
      */
     private Set<Permission> getAdminPreset() {
