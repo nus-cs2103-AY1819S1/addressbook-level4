@@ -61,7 +61,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Replaces the contents of the group list with {@code groups}.
      * {@code groups} must not contain duplicate groups.
+     *
+     * NOTE: this class is created temporarily to create the initial working UI as {@code Group} functionality is
+     * still being developed. In the meantime, this class will be used instead to showcase how the UI will look like,
+     * and will be deprecated progressively when Group implementation is updated.
      */
+    @Deprecated
     public void setGroupTags(List<Tag> groups) {
         this.groupTags.setGroups(groups);
     }
@@ -186,6 +191,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    @Deprecated
     public ObservableList<Tag> getGroupTagList() {
         return groupTags.asUnmodifiableObservableList();
     }

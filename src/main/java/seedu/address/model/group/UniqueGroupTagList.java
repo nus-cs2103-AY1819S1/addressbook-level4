@@ -19,10 +19,15 @@ import seedu.address.model.tag.Tag;
  * unique in terms of identity in the UniqueGroupTagList. However, the removal of a group uses equals so
  * as to ensure that the group with exactly the same fields will be removed.
  *
+ * NOTE: this class is created temporarily to create the initial working UI as {@code Group} functionality is
+ * still being developed. In the meantime, this class will be used instead to showcase how the UI will look like,
+ * and will be deprecated progressively when Group implementation is updated.
+ *
  * Supports a minimal set of list operations.
  *
  * {@author jeffreyooi}
  */
+@Deprecated
 public class UniqueGroupTagList implements Iterable<Tag> {
 
     private final ObservableList<Tag> internalList = FXCollections.observableArrayList();

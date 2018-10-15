@@ -174,8 +174,11 @@ public class Person {
     /**
      * Add multiple group tags to the person.
      *
-     * @param groups The collection of groups that this person is in
+     * NOTE: this class is created temporarily to create the initial working UI as {@code Group} functionality is
+     * still being developed. In the meantime, this class will be used instead to showcase how the UI will look like,
+     * and will be deprecated progressively when Group implementation is updated.
      *
+     * @param groups The collection of groups that this person is in
      */
     @Deprecated
     public void setGroupTags(Set<Tag> groups) {

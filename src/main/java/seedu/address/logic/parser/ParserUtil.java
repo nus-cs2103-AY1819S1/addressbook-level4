@@ -147,8 +147,13 @@ public class ParserUtil {
      * Parses a {@code String groupTag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
      *
+     * NOTE: this class is created temporarily to create the initial working UI as {@code Group} functionality is
+     * still being developed. In the meantime, this class will be used instead to showcase how the UI will look like,
+     * and will be deprecated progressively when Group implementation is updated.
+     *
      * @throws ParseException if the given {@code groupTag} is invalid.
      */
+    @Deprecated
     public static Tag parseGroupTag(String groupTag) throws ParseException {
         requireNonNull(groupTag);
         String trimmedGroupTag = groupTag.trim();
@@ -160,7 +165,12 @@ public class ParserUtil {
 
     /**
      * Parses a {@code Collection<String> groupTags} into a {@code Set<Tag>}
+     *
+     * NOTE: this class is created temporarily to create the initial working UI as {@code Group} functionality is
+     * still being developed. In the meantime, this class will be used instead to showcase how the UI will look like,
+     * and will be deprecated progressively when Group implementation is updated.
      */
+    @Deprecated
     public static Set<Tag> parseGroupTags(Collection<String> groupTags) throws ParseException {
         if (groupTags == null || groupTags.isEmpty()) {
             return null;
