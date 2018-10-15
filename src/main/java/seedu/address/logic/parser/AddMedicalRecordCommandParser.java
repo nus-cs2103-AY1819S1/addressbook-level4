@@ -49,7 +49,7 @@ public class AddMedicalRecordCommandParser implements Parser<AddMedicalRecordCom
                     AddMedicalRecordCommand.MESSAGE_USAGE), pe);
         }
 
-        BloodType bloodType = null;
+        BloodType bloodType = new BloodType("");
         if (argMultimap.getValue(PREFIX_BLOODTYPE).isPresent()) {
             bloodType = new BloodType(argMultimap.getValue(PREFIX_BLOODTYPE).get());
         }
@@ -71,10 +71,13 @@ public class AddMedicalRecordCommandParser implements Parser<AddMedicalRecordCom
         List<Note> noteList = new ArrayList<>();
         if (argMultimap.getValue(PREFIX_NOTE).isPresent()) {
             String noteRawString = argMultimap.getValue(PREFIX_NOTE).get();
+
+            // TODO: the following is just fake medicine and quantity map, we need to update this
             Map<SerialNumber, Quantity> test = new HashMap<>();
             test.put(new SerialNumber("11111"), new Quantity("5"));
             test.put(new SerialNumber("22222"), new Quantity("6"));
             test.put(new SerialNumber("33333"), new Quantity("7"));
+
             Note note = new Note(new Message(noteRawString), test);
             noteList.add(note);
         }
