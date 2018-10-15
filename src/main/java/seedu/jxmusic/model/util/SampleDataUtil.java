@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import seedu.jxmusic.model.Library;
-import seedu.jxmusic.model.ReadOnlyLibrary;
-import seedu.jxmusic.model.Track;
 import seedu.jxmusic.model.Name;
 import seedu.jxmusic.model.Playlist;
+import seedu.jxmusic.model.ReadOnlyLibrary;
+import seedu.jxmusic.model.Track;
 
 /**
  * Contains utility methods for populating {@code Library} with sample data.
@@ -38,5 +38,4 @@ public class SampleDataUtil {
                 .map(Track::new)
                 .collect(Collectors.toList());
     }
-
 }

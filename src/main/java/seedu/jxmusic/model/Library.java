@@ -75,7 +75,6 @@ public class Library implements ReadOnlyLibrary {
      */
     public void resetData(ReadOnlyLibrary newData) {
         requireNonNull(newData);
-
         setPlaylists(newData.getPlaylistList());
     }
 

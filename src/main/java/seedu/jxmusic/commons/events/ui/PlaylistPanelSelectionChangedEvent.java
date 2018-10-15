@@ -4,7 +4,7 @@ import seedu.jxmusic.commons.events.BaseEvent;
 import seedu.jxmusic.model.Playlist;
 
 /**
- * Represents a selection change in the Person List Panel
+ * Represents a selection change in the Playlist List Panel
  */
 public class PlaylistPanelSelectionChangedEvent extends BaseEvent {
 
