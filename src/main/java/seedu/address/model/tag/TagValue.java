@@ -31,9 +31,8 @@ public class TagValue {
     @Override
     public boolean equals(Object other) {
         return other == this
-                ||
-                (other instanceof TagValue &&
-                 tagValue.equals(((TagValue)other).tagValue));
+                || (other instanceof TagValue
+                    && tagValue.equals(((TagValue) other).tagValue));
     }
 
     @Override

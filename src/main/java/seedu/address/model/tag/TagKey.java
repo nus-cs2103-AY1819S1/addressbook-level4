@@ -31,8 +31,8 @@ public class TagKey {
     @Override
     public boolean equals(Object other) {
         return other == this // Shortcircuit if the object comparing to is the same.
-                || (other instanceof TagKey &&
-                    tagKey.equals(((TagKey)other).tagKey));
+                || (other instanceof TagKey
+                        && tagKey.equals(((TagKey) other).tagKey));
     }
 
     @Override

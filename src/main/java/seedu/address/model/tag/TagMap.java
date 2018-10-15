@@ -1,11 +1,11 @@
 package seedu.address.model.tag;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a map of key value tag pairs associated with a person, module or occasion.
@@ -79,8 +79,8 @@ public class TagMap {
      */
     private boolean isSimilar(TagMap otherMap) {
         Iterator it = otherMap.getTagMap().entrySet().iterator();
-        while(it.hasNext()) {
-            Map.Entry pair = (Map.Entry)it.next();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
             if (this.tagMap.containsKey(pair.getKey())) {
                 return true;
             }
@@ -95,9 +95,8 @@ public class TagMap {
     @Override
     public boolean equals(Object other) {
         return other == this
-                ||
-                (other instanceof TagMap &&
-                        ((TagMap)other).getTagMap().equals(this.tagMap));
+                || (other instanceof TagMap
+                    && ((TagMap) other).getTagMap().equals(this.tagMap));
     }
 
     @Override
