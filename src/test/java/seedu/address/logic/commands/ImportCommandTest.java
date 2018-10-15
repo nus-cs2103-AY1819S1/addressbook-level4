@@ -1,3 +1,4 @@
+//@@author chantca95
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -94,7 +95,7 @@ public class ImportCommandTest {
     }
 
     @Test
-    public void execute_import_no_duplicates() throws ParseException {
+    public void execute_import_unique() throws ParseException {
         setUp();
         File file = DUPLICATE_CLASH_NEGATIVE_CSV.toFile();
         ImportCommand command = preparer.parseFile(file);
