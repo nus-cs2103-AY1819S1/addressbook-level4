@@ -132,26 +132,32 @@ Examples:
 
 `[Module Name] must be an alphanumeric string without spaces.`
 
-=== Find a task: `find / findwhere`
+=== Find a task: `find`
 
-Finds tasks and display it on the screen. +
-Format: `in [Module List] findwhere [TaskParameters] , or in [Module List] find [Name]` +
-Shorthand format: `#[Module List] fw [TaskParameters], or #[Module List] f [Name]`
+The `find` command searches the AddressBook for specified persons, groups, or meetings, and displays the results on
+the panel. +
 
-* The first version finds tasks with parameters that match [TaskParameters], while the second version finds tasks with name that match [Name].
-* Possible [TaskParameters] are: +
-.  Deadline: “Deadline [on/after/before] DDMMYY” or “dl[=/>/<]DDMMYY”
-.  Tag: “tag=[Tag]” or “t=[Tag]”
-.  Location: “location=[LocationName]” or “@=[LocationName]”
-* [Module List] can be replaced with “any” or “*” to select all modules
+Syntax: +
+ Longhand: `find [person|group|meeting]  *[all]/<keywords> *[some]/<keywords> *[none]/<keywords>` +
+ Shorthand: `find [p|g|m] *[a]/<keyword...> *[s]/<keywords> *[n]/<keywords>` +
 
-Examples:
 
-* `in MA2101 findwhere tag=high location=S17 deadline before 300918`
-* `in CS2103T, CS2101 find LO5.7`
-* `in any findwhere tag=urgent`
-* `#CS2030,CS2040 fw @=COM1`
-* `#* find lab3`
+* `[person|group|meeting]`, `[p|g|m]`: This parameter specifies whether to search for persons, groups, or meetings.
+    This parameter is required to execute this command.
+    ** `person`, `p`: Specifies to search for persons.
+    ** `group`, `g`: Specifies to search for groups.
+    ** `meeting`, `m`: Specifies to search for meetings.
+* `<keywords>`: This tag contains any number of keywords separated by a kbd:[space].
+* `[all]`, `[a]`: This parameter specifies that the results must contain every keyword specified in `<keywords>`.
+    This parameter may be omitted.
+* `[some]`, `[s]`: This parameter specifies that the results must contain at least one keyword specified in `<keywords>`.
+    This parameter may be omitted.
+* `[none]`, `[n]`: This parameter specifies that the results must not contain any keyword specified in `<keywords>`.
+    This parameter may be omitted.
+
+
+
+
 
 The “then” keyword:
 
