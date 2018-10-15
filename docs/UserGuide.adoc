@@ -85,19 +85,42 @@ Format: `signup USERNAME`
 === Logging in as an existing User : `login`
 Logs in to the Expense Tracker as an existing user and expands the UI to show the existing expenses if it is not already expanded.
 
-Format: `login USERNAME`
+Format: `login u/USERNAME [p/PASSWORD]`
 
 ****
 *Examples:*
 
-*  `login username123` +
+*  `login u/username123` +
  Logs in a user with the username "username123".
+*  `login u/username1234 p/password1` +
+ Logs in a user with the username "username1234" with password "password1".
 ****
 
 [NOTE]
 ====
 * USERNAME is case insensitive
+* PASSWORD is case sensitive
+* PASSWORD cannot contain any spaces and must be at least 6 characters long
 * The expense tracker contains a sample user with USERNAME `sample`
+====
+
+=== Setting a password for the current user : `setpassword`
+Sets a new password for the currently logged in user.
+
+Format: `setpassword n/NEW_PASSWORD [o/OLD_PASSWORD]`
+
+****
+*Examples:*
+
+*  `setpassword n/pass123` +
+ Sets the current user's password as "pass123", provided that there is no previously set password
+*  `setpassword n/pass123 o/password1` +
+ Sets the current user's password as "pass123", provided that the current password is "password1"
+****
+
+[NOTE]
+====
+* OLD_PASSWORD is needed if a password has been previously set for the current user and they have to match.
 ====
 
 === Viewing help : `help`
@@ -351,8 +374,10 @@ This is a summary of the commands available in the Expense Tracker:
 
 * *SignUp* : `signup USERNAME` +
 e.g. `signup username123`
-* *Login* : `login USERNAME` +
-e.g. `login username123`
+* *Login* : `login u/USERNAME [p/PASSWORD]` +
+e.g. `login u/username123 p/password1`
+* *Set Password* : `setpassword n/NEW_PASSWORD [o/OLD_PASSWORD]` +
+e.g. `setpassword n/pass1 o/passold`
 * *Help* : `help`
 * *Add* `add n/EXPENSE_NAME e/EXPENSE [c/CATEGORY]` +
 e.g. `add n/Lunch e/4 c/Food`
