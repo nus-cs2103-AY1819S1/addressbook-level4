@@ -35,17 +35,17 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ADDRESS, PREFIX_ADDRESS_FULL,
                 PREFIX_TAG, PREFIX_TAG_FULL);
-    
+
         Optional<Address> address = parseAndGetAddress(argMultimap);
-    
+
         Optional<Set<Tag>> tags = parseAndGetTags(argMultimap);
-    
+
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
         return new FindCommand(new RideContainsKeywordsPredicate(Arrays.asList(nameKeywords),
                 address, tags));
     }
-    
+
     /**
      * Checks if the argument multimap contains the "tag" or "t/" prefix and returns a set of tags
      * if present.
@@ -58,7 +58,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
         return Optional.empty();
     }
-    
+
     /**
      * Checks if the argument multimap contains the "address" or "a/" prefix and returns an Address
      * object if either are present.
