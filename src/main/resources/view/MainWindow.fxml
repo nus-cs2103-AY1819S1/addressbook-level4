@@ -8,6 +8,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -47,18 +48,27 @@
         </StackPane>
 
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-          <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+          <VBox fx:id="personList" prefWidth="340" SplitPane.resizableWithParent="false">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
             <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
+          <SplitPane id="taskSplitPane" fx:id="taskSplitPane" orientation="VERTICAL" dividerPositions="0.4" VBox.vgrow="ALWAYS">
+            <VBox fx:id="taskList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+              <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+              </padding>
+              <StackPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            </VBox>
+            <StackPane fx:id="taskDetailPanePlaceholder" VBox.vgrow="ALWAYS" SplitPane.resizableWithParent="false"/>
+          </SplitPane>
 
-          <StackPane fx:id="browserPlaceholder" prefWidth="340" >
+          <GridPane fx:id="calendarPlaceholder" prefWidth="340" >
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
-          </StackPane>
+          </GridPane>
         </SplitPane>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />

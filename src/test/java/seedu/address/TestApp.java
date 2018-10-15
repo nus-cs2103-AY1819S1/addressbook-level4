@@ -22,16 +22,16 @@ import seedu.address.testutil.TestUtil;
 import systemtests.ModelHelper;
 
 /**
- * This class is meant to override some properties of MainApp so that it will be suited for
- * testing
+ * This class is meant to override some properties of MainApp so that it will be
+ * suited for testing
  */
 public class TestApp extends MainApp {
 
     public static final Path SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
     public static final String APP_TITLE = "Test App";
 
-    protected static final Path DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
-            TestUtil.getFilePathInSandboxFolder("pref_testing.json");
+    protected static final Path DEFAULT_PREF_FILE_LOCATION_FOR_TESTING = TestUtil
+            .getFilePathInSandboxFolder("pref_testing.json");
     protected Supplier<ReadOnlyAddressBook> initialDataSupplier = () -> null;
     protected Path saveFileLocation = SAVE_LOCATION_FOR_TESTING;
 
@@ -63,13 +63,14 @@ public class TestApp extends MainApp {
         UserPrefs userPrefs = super.initPrefs(storage);
         double x = Screen.getPrimary().getVisualBounds().getMinX();
         double y = Screen.getPrimary().getVisualBounds().getMinY();
-        userPrefs.updateLastUsedGuiSetting(new GuiSettings(600.0, 600.0, (int) x, (int) y));
+        userPrefs.updateLastUsedGuiSetting(new GuiSettings(1280.0, 800.0, (int) x, (int) y));
         userPrefs.setAddressBookFilePath(saveFileLocation);
         return userPrefs;
     }
 
     /**
-     * Returns a defensive copy of the address book data stored inside the storage file.
+     * Returns a defensive copy of the address book data stored inside the storage
+     * file.
      */
     public AddressBook readStorageAddressBook() {
         try {

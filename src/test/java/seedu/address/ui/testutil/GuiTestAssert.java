@@ -15,7 +15,8 @@ import seedu.address.model.person.Person;
  */
 public class GuiTestAssert {
     /**
-     * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
+     * Asserts that {@code actualCard} displays the same values as
+     * {@code expectedCard}.
      */
     public static void assertCardEquals(PersonCardHandle expectedCard, PersonCardHandle actualCard) {
         assertEquals(expectedCard.getId(), actualCard.getId());
@@ -27,7 +28,8 @@ public class GuiTestAssert {
     }
 
     /**
-     * Asserts that {@code actualCard} displays the details of {@code expectedPerson}.
+     * Asserts that {@code actualCard} displays the details of
+     * {@code expectedPerson}.
      */
     public static void assertCardDisplaysPerson(Person expectedPerson, PersonCardHandle actualCard) {
         assertEquals(expectedPerson.getName().fullName, actualCard.getName());
@@ -39,8 +41,8 @@ public class GuiTestAssert {
     }
 
     /**
-     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code persons} correctly and
-     * in the correct order.
+     * Asserts that the list in {@code personListPanelHandle} displays the details
+     * of {@code persons} correctly and in the correct order.
      */
     public static void assertListMatching(PersonListPanelHandle personListPanelHandle, Person... persons) {
         for (int i = 0; i < persons.length; i++) {
@@ -50,23 +52,26 @@ public class GuiTestAssert {
     }
 
     /**
-     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code persons} correctly and
-     * in the correct order.
+     * Asserts that the list in {@code personListPanelHandle} displays the details
+     * of {@code persons} correctly and in the correct order.
      */
     public static void assertListMatching(PersonListPanelHandle personListPanelHandle, List<Person> persons) {
         assertListMatching(personListPanelHandle, persons.toArray(new Person[0]));
     }
 
     /**
-     * Asserts the size of the list in {@code personListPanelHandle} equals to {@code size}.
+     * Asserts the size of the list in {@code personListPanelHandle} equals to
+     * {@code size}.
      */
     public static void assertListSize(PersonListPanelHandle personListPanelHandle, int size) {
         int numberOfPeople = personListPanelHandle.getListSize();
+
         assertEquals(size, numberOfPeople);
     }
 
     /**
-     * Asserts the message shown in {@code resultDisplayHandle} equals to {@code expected}.
+     * Asserts the message shown in {@code resultDisplayHandle} equals to
+     * {@code expected}.
      */
     public static void assertResultMessage(ResultDisplayHandle resultDisplayHandle, String expected) {
         assertEquals(expected, resultDisplayHandle.getText());

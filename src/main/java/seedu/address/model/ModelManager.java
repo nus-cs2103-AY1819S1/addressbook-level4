@@ -13,6 +13,10 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.person.Person;
+import seedu.address.model.task.Task;
+import java.util.Calendar;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,6 +26,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Task> filteredTasks;
+    private final FilteredList<Task> calendarTasks;
+    private final ReadOnlyObjectWrapper<Calendar> calendar;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -34,6 +41,9 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredTasks = new FilteredList<>(versionedAddressBook.getTaskList());
+        calendarTasks = new FilteredList<>(versionedAddressBook.getTaskList());
+        this.calendar = new ReadOnlyObjectWrapper<>(Calendar.getInstance());
     }
 
     public ModelManager() {
@@ -83,11 +93,30 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    @Override
+    public boolean hasTask(Task task) {
+        requireNonNull(task);
+        return versionedAddressBook.hasTask(task);
+    }
+
+    @Override
+    public void addTask(Task task) {
+        versionedAddressBook.addTask(task);
+        updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void deleteTask(Task target) {
+        versionedAddressBook.deleteTask(target);
+    }
+
+    // =========== Filtered Person List Accessors
+    // =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the list of {@code Person} backed by the
+     * internal list of {@code versionedAddressBook}
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
@@ -99,8 +128,55 @@ public class ModelManager extends ComponentManager implements Model {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
+    // =========== Filtered Task List Accessors
+    // =============================================================
 
-    //=========== Undo/Redo =================================================================================
+    /**
+     * Returns an unmodifiable view of the list of {@code Task} backed by the
+     * internal list of {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Task> getFilteredTaskList() {
+        return FXCollections.unmodifiableObservableList(filteredTasks);
+    }
+
+    @Override
+    public void updateFilteredTaskList(Predicate<Task> predicate) {
+        requireNonNull(predicate);
+        filteredTasks.setPredicate(predicate);
+    }
+
+    // =========== Filtered Person List Accessors
+    // =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the
+     * internal list of {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Task> getCalendarTaskList() {
+        return FXCollections.unmodifiableObservableList(calendarTasks);
+    }
+
+    @Override
+    public void updateCalendarTaskList(Predicate<Task> predicate) {
+        requireNonNull(predicate);
+        calendarTasks.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateCalendarMonth(Calendar calendar) {
+        requireNonNull(calendar);
+        this.calendar.set(calendar);
+    }
+
+    @Override
+    public ObservableValue<Calendar> getCalendarMonth() {
+        return this.calendar;
+    }
+
+    // =========== Undo/Redo
+    // =================================================================================
 
     @Override
     public boolean canUndoAddressBook() {
@@ -143,8 +219,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
-                && filteredPersons.equals(other.filteredPersons);
+        return versionedAddressBook.equals(other.versionedAddressBook) && filteredPersons.equals(other.filteredPersons)
+                && filteredTasks.equals(other.filteredTasks);
     }
 
 }
