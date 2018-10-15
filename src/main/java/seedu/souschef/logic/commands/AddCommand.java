@@ -61,10 +61,6 @@ public class AddCommand<T extends UniqueType> extends Command {
             + PREFIX_DURATION + "10 "
             + PREFIX_SCHEME + "LOSS ";
 
-    public static final String MESSAGE_SUCCESS_HEALTHPLAN = "New healthplan add: %1$s";
-
-
-
     private final Model model;
     private final T toAdd;
 
@@ -83,17 +79,7 @@ public class AddCommand<T extends UniqueType> extends Command {
     public CommandResult execute(CommandHistory history) {
         model.add(toAdd);
         model.commitAppContent();
-        String context = history.getContext();
-        //switch case to handle the add for the different context
-        switch(context) {
-        case "recipe":
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        case "HealthPlan":
-            return new CommandResult(String.format(MESSAGE_SUCCESS_HEALTHPLAN, toAdd));
-        default: break;
-        }
-
-        return null;
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
 
     }
 

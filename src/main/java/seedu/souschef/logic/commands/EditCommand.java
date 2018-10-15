@@ -59,11 +59,6 @@ public class EditCommand<T extends UniqueType> extends Command {
             + PREFIX_HPNAME + "Lose weight "
             + PREFIX_AGE + "23";
 
-
-    public static final String MESSAGE_EDIT_HEALTHPLAN_SUCCESS = "Edited Health plan: %1$s";
-
-
-
     private final Model model;
     private final T toEdit;
     private final T edited;
@@ -84,18 +79,6 @@ public class EditCommand<T extends UniqueType> extends Command {
         model.update(toEdit, edited);
         model.updateFilteredList(PREDICATE_SHOW_ALL);
         model.commitAppContent();
-
-        String context = history.getContext();
-        //switch case to handle the add for the different context
-        switch(context) {
-        case "recipe":
-            return new CommandResult(String.format(MESSAGE_EDIT_RECIPE_SUCCESS, toEdit));
-        case "HealthPlan":
-            return new CommandResult(String.format(MESSAGE_EDIT_HEALTHPLAN_SUCCESS, toEdit));
-        default: break;
-        }
-
-
         return new CommandResult(String.format(MESSAGE_EDIT_RECIPE_SUCCESS, edited));
     }
 
