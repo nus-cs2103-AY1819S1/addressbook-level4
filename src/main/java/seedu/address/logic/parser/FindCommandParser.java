@@ -35,23 +35,40 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ADDRESS, PREFIX_ADDRESS_FULL,
                 PREFIX_TAG, PREFIX_TAG_FULL);
-
-        Optional<Address> address;
-        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            address = Optional.of(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
-        } else if (argMultimap.getValue(PREFIX_ADDRESS_FULL).isPresent()) {
-            address = Optional.of(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS_FULL).get()));
-        } else {
-            address = Optional.empty();
-        }
-
-        Optional<Set<Tag>> tags = argMultimap.getValue(PREFIX_TAG).isPresent()
-                                  ? Optional.of(ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG)))
-                                  : Optional.empty();
-
+    
+        Optional<Address> address = parseAndGetAddress(argMultimap);
+    
+        Optional<Set<Tag>> tags = parseAndGetTags(argMultimap);
+    
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
         return new FindCommand(new RideContainsKeywordsPredicate(Arrays.asList(nameKeywords),
                 address, tags));
+    }
+    
+    /**
+     * Checks if the argument multimap contains the "tag" or "t/" prefix and returns a set of tags
+     * if present.
+     */
+    private Optional<Set<Tag>> parseAndGetTags(ArgumentMultimap argMultimap) throws ParseException {
+        if (argMultimap.getValue(PREFIX_TAG).isPresent()) {
+            return Optional.of(ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG)));
+        } else if (argMultimap.getValue(PREFIX_TAG_FULL).isPresent()) {
+            return Optional.of(ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG_FULL)));
+        }
+        return Optional.empty();
+    }
+    
+    /**
+     * Checks if the argument multimap contains the "address" or "a/" prefix and returns an Address
+     * object if either are present.
+     */
+    private Optional<Address> parseAndGetAddress(ArgumentMultimap argMultimap) throws ParseException {
+        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
+            return Optional.of(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+        } else if (argMultimap.getValue(PREFIX_ADDRESS_FULL).isPresent()) {
+            return Optional.of(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS_FULL).get()));
+        }
+        return Optional.empty();
     }
 }
