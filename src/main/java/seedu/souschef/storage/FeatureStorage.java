@@ -18,8 +18,6 @@ public interface FeatureStorage {
      */
     Path getFeatureFilePath();
 
-    AppContent getAppContent();
-
     /**
      * Returns AppContent data as a {@link ReadOnlyAppContent}.
      *   Returns {@code Optional.empty()} if storage file is not found.

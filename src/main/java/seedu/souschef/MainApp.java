@@ -73,7 +73,7 @@ public class MainApp extends Application {
         modelSet = initModelManager(storage, userPrefs);
 
 
-        logic = new LogicManager(modelSet);
+        logic = new LogicManager(modelSet, storage);
 
         //ui
         ui = new UiManager(logic, config, userPrefs);
