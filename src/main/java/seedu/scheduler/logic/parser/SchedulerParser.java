@@ -13,12 +13,12 @@ import seedu.scheduler.logic.commands.DeleteCommand;
 import seedu.scheduler.logic.commands.EditCommand;
 import seedu.scheduler.logic.commands.ExitCommand;
 import seedu.scheduler.logic.commands.FindCommand;
+import seedu.scheduler.logic.commands.GetGoogleEventsCommand;
 import seedu.scheduler.logic.commands.HelpCommand;
 import seedu.scheduler.logic.commands.HistoryCommand;
 import seedu.scheduler.logic.commands.ListCommand;
 import seedu.scheduler.logic.commands.RedoCommand;
 import seedu.scheduler.logic.commands.SelectCommand;
-import seedu.scheduler.logic.commands.SyncCommand;
 import seedu.scheduler.logic.commands.UndoCommand;
 import seedu.scheduler.logic.parser.exceptions.ParseException;
 
@@ -67,11 +67,11 @@ public class SchedulerParser {
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
+        case GetGoogleEventsCommand.COMMAND_WORD:
+            return new GetGoogleEventsCommand();
+
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
-
-        case SyncCommand.COMMAND_WORD:
-            return new SyncCommand();
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();
