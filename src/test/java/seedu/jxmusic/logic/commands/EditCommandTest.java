@@ -7,7 +7,7 @@
 //import static seedu.jxmusic.logic.commands.CommandTestUtil.DESC_BOB;
 //import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_NAME_METAL;
 //import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-//import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_ALIEZ;
+//import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_IHOJIN;
 //import static seedu.jxmusic.logic.commands.CommandTestUtil.assertCommandFailure;
 //import static seedu.jxmusic.logic.commands.CommandTestUtil.assertCommandSuccess;
 //import static seedu.jxmusic.logic.commands.CommandTestUtil.showPersonAtIndex;
@@ -57,10 +57,10 @@
 //
 //        PlaylistBuilder personInList = new PlaylistBuilder(lastPerson);
 //        Person editedPerson = personInList.withName(VALID_NAME_METAL).withPhone(VALID_PHONE_BOB)
-//                .withTags(VALID_TRACK_ALIEZ).build();
+//                .withTags(VALID_TRACK_NAME_IHOJIN).build();
 //
 //        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_METAL)
-//                .withPhone(VALID_PHONE_BOB).withTags(VALID_TRACK_ALIEZ).build();
+//                .withPhone(VALID_PHONE_BOB).withTags(VALID_TRACK_NAME_IHOJIN).build();
 //        EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
 //
 //        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);

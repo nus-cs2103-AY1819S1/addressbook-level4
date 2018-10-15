@@ -8,7 +8,7 @@
 //import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 //import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_NAME_METAL;
 //import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-//import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_ALIEZ;
+//import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_IHOJIN;
 //
 //import org.junit.Test;
 //
@@ -52,7 +52,7 @@
 //        assertFalse(DESC_AMY.equals(editedAmy));
 //
 //        // different tags -> returns false
-//        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withTags(VALID_TRACK_ALIEZ).build();
+//        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withTags(VALID_TRACK_NAME_IHOJIN).build();
 //        assertFalse(DESC_AMY.equals(editedAmy));
 //    }
 //}
