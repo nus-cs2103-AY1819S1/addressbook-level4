@@ -33,7 +33,7 @@ public class PermissionSet {
      * @return true if success, otherwise false.
      */
     public boolean addPermission(Permission p) {
-        if(p == null) {
+        if (p == null) {
             return false;
         }
 
@@ -58,7 +58,7 @@ public class PermissionSet {
      * @return true if success, otherwise false.
      */
     public boolean assignPresetPermission(PresetPermission p) {
-        if(p == null) {
+        if (p == null) {
             return false;
         }
 
@@ -103,6 +103,7 @@ public class PermissionSet {
 
     /**
      * Add all elements in the specified PermissionSet to this PermissionSet.
+     *
      * @param pSet the specified PermissionSet
      * @return true if successful, otherwise false.
      */
