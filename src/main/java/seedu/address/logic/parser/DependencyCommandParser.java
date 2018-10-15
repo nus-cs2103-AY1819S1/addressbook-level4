@@ -17,10 +17,9 @@ public class DependencyCommandParser implements Parser<DependencyCommand> {
      */
     public DependencyCommand parse(String args) throws ParseException {
         try {
-            //TODO: Improve this part of the code to handle empty dependency
-            String[] parts = args.split(" ");
-            Index dependeeIndex = ParserUtil.parseIndex(parts[1]);
-            Index dependantIndex = ParserUtil.parseIndex(parts[2]);
+            Index[] indexes = ParserUtil.parseTwoIndexes(args);
+            Index dependeeIndex = indexes[0];
+            Index dependantIndex = indexes[1];
             return new DependencyCommand(dependeeIndex, dependantIndex);
         } catch (ParseException pe) {
             throw new ParseException(
