@@ -23,7 +23,6 @@ import seedu.address.model.task.Description;
 import seedu.address.model.task.DueDate;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.PriorityValue;
-import seedu.address.testutil.Assert;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
