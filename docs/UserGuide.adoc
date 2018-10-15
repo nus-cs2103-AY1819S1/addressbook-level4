@@ -26,7 +26,7 @@ SocialCare is for organizations which *prefer to use a desktop app for managing 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `socialcare.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for SocialCare.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -257,7 +257,7 @@ View the list of volunteers assigned to event at index 1
 ==== Add volunteer to event: `add`
 
 Adds a volunteer to the event that is currently being managed. +
-Format: `add VOLUNTEER_INDEX... [h/HOURS] [r/REMARKS]`
+Format: `add VOLUNTEER_INDEX [h/HOURS] [r/REMARKS]`
 
 ****
 * This command is executed after the 'manage' command.
@@ -268,35 +268,29 @@ Examples:
 
 * `add 1` +
 Adds a volunteer at index 1 to the event with 0 hours
-* `add 1 2 3` +
-Adds a volunteer at index 1, 2 and 3 to the event with 0 hours
-* `add 1 r\Vegetarian` +
+* `add 1 r/Vegetarian` +
 Adds a volunteer at index 1 to the event with 0 hours with remarks of 'Vegetarian'
-* `add 3 h\5` +
+* `add 3 h/5` +
 Adds a volunteer at index 3 to the event with 5 hours
-* `add 1 2 3 h\5 r\Help to deliver food` +
-Adds a volunteer at index 1, 2 and 3 to the event with 5 hours with remarks of 'Help to deliver food'
 
 ==== Update volunteer hours: `edit`
 
 Update number of hours for volunteer in the event that is currently being managed. +
-Format: `edit [-a] [VOLUNTEER_INDEX]... h\HOURS [r\REMARKS]`
+Format: `edit [-a] [VOLUNTEER_INDEX] h/HOURS [r/REMARKS]`
 
 ****
 * This command is executed after the 'manage' command.
 * VOLUNTEER_INDEX comes from the table view of existing volunteers.
 * VOLUNTEER_INDEX is only optional when '-a' is entered.
-* Entering just `r\` would result in remarks being deleted.
+* Entering just `r/` would result in remarks being deleted.
 ****
 
 Examples:
 
-* `edit -a h\5` +
+* `edit -a h/5` +
 Updates amount of hours volunteered for all existing volunteers in the event to 5 hours
-* `edit 3 h\5 r\Emcee` +
+* `edit 3 h/5 r/Emcee` +
 Updates amount of hours volunteered for volunteer at index 3 to 5 hours with remarks of 'Emcee'
-* `edit 1 2 3 h\5` +
-Updates amount of hours volunteered for volunteer at index 1, 2 and 3 to 5 hours
 
 ==== Delete volunteer record from event: `delete`
 
@@ -366,10 +360,10 @@ e.g. `delete 3`
 === Record Management
 * *Manage* `manage EVENT_INDEX` +
 e.g. `manage 1`
-* *Add* `add [h\HOURS] VOLUNTEER_INDEX...` +
-e.g. `add h\5 1 2 3`
-* *Edit* `edit [-a] h\HOURS [VOLUNTEER_INDEX]...` +
-e.g. `edit h\5 1 2 3`
+* *Add* `add [h/HOURS] VOLUNTEER_INDEX...` +
+e.g. `add h/5 1 2 3`
+* *Edit* `edit [-a] h/HOURS [VOLUNTEER_INDEX]...` +
+e.g. `edit h/5 1 2 3`
 * *Delete* `delete VOLUNTEER_INDEX` +
 e.g. `delete 1`
 

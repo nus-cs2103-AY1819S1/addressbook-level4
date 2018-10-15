@@ -22,8 +22,13 @@ public class Event {
     public static final String MESSAGE_START_END_TIME_CONSTRAINTS =
             "Start time should only be less than or equal to end time";
 
+    // Used to keep track of current max Id in the system
+    private static int maxId = 0;
+
+    // Used for record class
+    private EventId eventId;
+
     // Identity fields
-    //private final Id id;
     private final Name name;
     private final Location location;
     private final Date startDate;
@@ -36,15 +41,16 @@ public class Event {
     private final Set<Tag> tags = new HashSet<>();
 
     /**
+     * Used when creating new Event.
      * Every field must be present and not null.
      */
-    //EventId to be added to constructor
     public Event(Name name, Location location, Date startDate, Date endDate,
                  Time startTime, Time endTime, Description description, Set<Tag> tags) {
-        //requireAllNonNull(id, name, location, startDate, endDate, description, tags);
         requireAllNonNull(name, location, startDate, endDate, description, tags);
 
-        //this.id = id;
+        incrementMaxId();
+        this.eventId = new EventId(maxId);
+
         this.name = name;
         this.location = location;
 
@@ -61,6 +67,58 @@ public class Event {
     }
 
     /**
+     * Used when loading data from XML and editing Event.
+     * Every field must be present and not null.
+     */
+    public Event(EventId eventId, Name name, Location location, Date startDate, Date endDate,
+                 Time startTime, Time endTime, Description description, Set<Tag> tags) {
+        requireAllNonNull(eventId, name, location, startDate, endDate, description, tags);
+
+        if (isEventIdGreaterThanMaxId(eventId.id)) {
+            replaceMaxIdWithEventId(eventId.id);
+        }
+        this.eventId = eventId;
+
+        this.name = name;
+        this.location = location;
+
+        this.startDate = startDate;
+        this.endDate = endDate;
+        checkArgument(isValidStartAndEndDate(startDate, endDate), MESSAGE_START_END_DATE_CONSTRAINTS);
+
+        this.startTime = startTime;
+        this.endTime = endTime;
+        checkArgument(isValidStartAndEndTime(startTime, endTime), MESSAGE_START_END_TIME_CONSTRAINTS);
+
+        this.description = description;
+        this.tags.addAll(tags);
+    }
+
+    /**
+     * Increments the current maxId by 1.
+     */
+    private void incrementMaxId() {
+        maxId += 1;
+    }
+
+    /**
+     * Checks if event id is greater than current max id.
+     * @param eventId event id from an existing event.
+     */
+    private boolean isEventIdGreaterThanMaxId(int eventId) {
+        return eventId > maxId;
+    }
+
+    /**
+     * Replaces max id with new event id.
+     * @param eventId event id from an existing event.
+     */
+    private void replaceMaxIdWithEventId(int eventId) {
+        maxId = eventId;
+    }
+
+
+    /**
      * Returns true if a given start date is less than or equal to end date.
      */
     public static boolean isValidStartAndEndDate(Date startDate, Date endDate) {
@@ -72,6 +130,10 @@ public class Event {
      */
     public static boolean isValidStartAndEndTime(Time startTime, Time endTime) {
         return startTime.isLessThanOrEqualTo(endTime);
+    }
+
+    public EventId getEventId() {
+        return eventId;
     }
 
     public Name getName() {
