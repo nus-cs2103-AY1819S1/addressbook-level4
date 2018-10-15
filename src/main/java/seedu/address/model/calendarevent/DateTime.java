@@ -1,6 +1,7 @@
 package seedu.address.model.calendarevent;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 
