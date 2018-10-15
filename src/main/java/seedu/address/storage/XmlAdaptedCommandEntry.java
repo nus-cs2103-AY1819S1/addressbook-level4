@@ -4,15 +4,16 @@ import java.time.Instant;
 import java.util.Objects;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.logging.CommandArgs;
 import seedu.address.model.logging.CommandEntry;
-import seedu.address.model.logging.CommandWord;
+import seedu.address.model.logging.ExecutedCommand;
 
 /**
  * JAXB-friendly representation of the CommandEntry.
  */
+@XmlRootElement
 public class XmlAdaptedCommandEntry {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "CommandEntry's %s field is missing!";
@@ -20,9 +21,7 @@ public class XmlAdaptedCommandEntry {
     @XmlElement(required = true)
     private String timeOfEntryString;
     @XmlElement(required = true)
-    private String commandWordString;
-    @XmlElement(required = true)
-    private String commandArgsString;
+    private String executedCommandString;
 
     /**
      * Constructs an XmlAdaptedCommandEntry.
@@ -33,21 +32,19 @@ public class XmlAdaptedCommandEntry {
     /**
      * Constructs an {@code XmlAdaptedCommandEntry} with the given ride details.
      */
-    public XmlAdaptedCommandEntry(String timeOfEntryString, String commandWordString, String commandArgsString) {
+    public XmlAdaptedCommandEntry(String timeOfEntryString, String executedCommandString) {
         this.timeOfEntryString = timeOfEntryString;
-        this.commandWordString = commandWordString;
-        this.commandArgsString = commandArgsString;
+        this.executedCommandString = executedCommandString;
     }
 
     /**
      * Converts a given CommandEntry into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedRide
+     * @param source future changes to this will not affect the created XmlAdaptedCommandEntry
      */
     public XmlAdaptedCommandEntry(CommandEntry source) {
         timeOfEntryString = source.getTimeOfEntry().toString();
-        commandWordString = source.getCommandWord().toString();
-        commandArgsString = source.getCommandArgs().toString();
+        executedCommandString = source.getExecutedCommand().toString();
     }
 
     /**
@@ -61,19 +58,13 @@ public class XmlAdaptedCommandEntry {
         }
         final Instant timeOfEntry = Instant.parse(timeOfEntryString);
 
-        if (commandWordString == null) {
+        if (executedCommandString == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    CommandWord.class.getSimpleName()));
+                    ExecutedCommand.class.getSimpleName()));
         }
-        final CommandWord commandWord = new CommandWord(commandWordString);
+        final ExecutedCommand executedCommand = new ExecutedCommand(executedCommandString);
 
-        if (commandArgsString == null) {
-            throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, CommandArgs.class.getSimpleName()));
-        }
-        final CommandArgs commandArgs = new CommandArgs(commandArgsString);
-
-        return new CommandEntry(timeOfEntry, commandWord, commandArgs);
+        return new CommandEntry(timeOfEntry, executedCommand);
     }
 
     @Override
@@ -88,7 +79,6 @@ public class XmlAdaptedCommandEntry {
 
         XmlAdaptedCommandEntry otherCommandEntry = (XmlAdaptedCommandEntry) other;
         return Objects.equals(timeOfEntryString, otherCommandEntry.timeOfEntryString)
-                && Objects.equals(commandWordString, otherCommandEntry.commandWordString)
-                && Objects.equals(commandArgsString, otherCommandEntry.commandArgsString);
+                && Objects.equals(executedCommandString, otherCommandEntry.executedCommandString);
     }
 }

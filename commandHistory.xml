@@ -1,0 +1,13 @@
+<?xml version="1.1" encoding="UTF-8">
+<xmlAdaptedCommandEntry>
+    <timeOfEntryString>2018-10-15T05:34:39.160651800Z</timeOfEntryString>
+    <executedCommandString>help </executedCommandString>
+</xmlAdaptedCommandEntry>
+<xmlAdaptedCommandEntry>
+    <timeOfEntryString>2018-10-15T05:34:42.365329400Z</timeOfEntryString>
+    <executedCommandString>add 1</executedCommandString>
+</xmlAdaptedCommandEntry>
+<xmlAdaptedCommandEntry>
+    <timeOfEntryString>2018-10-15T05:34:47.832420400Z</timeOfEntryString>
+    <executedCommandString>delete 1</executedCommandString>
+</xmlAdaptedCommandEntry>

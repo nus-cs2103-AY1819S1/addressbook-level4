@@ -7,27 +7,22 @@ import java.time.Instant;
  */
 public class CommandEntry {
     private final Instant timeOfEntry;
-    private final CommandWord commandWord;
-    private final CommandArgs commandArgs;
+    private final ExecutedCommand executedCommand;
 
     /**
      * Instantiates a CommandEntry
      */
-    public CommandEntry(Instant timeOfEntry, CommandWord commandWord, CommandArgs commandArgs) {
+    public CommandEntry(Instant timeOfEntry, ExecutedCommand executedCommand) {
         this.timeOfEntry = timeOfEntry;
-        this.commandWord = commandWord;
-        this.commandArgs = commandArgs;
+        this.executedCommand = executedCommand;
     }
 
     public Instant getTimeOfEntry() {
         return timeOfEntry;
     }
 
-    public CommandWord getCommandWord() {
-        return commandWord;
+    public ExecutedCommand getExecutedCommand() {
+        return executedCommand;
     }
 
-    public CommandArgs getCommandArgs() {
-        return commandArgs;
-    }
 }
