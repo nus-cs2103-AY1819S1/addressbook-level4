@@ -16,7 +16,6 @@ import seedu.souschef.commons.core.LogsCenter;
 import seedu.souschef.commons.events.storage.DataSavingExceptionEvent;
 import seedu.souschef.commons.util.StringUtil;
 import seedu.souschef.logic.Logic;
-import seedu.souschef.logic.LogicManager;
 import seedu.souschef.model.UserPrefs;
 
 /**
