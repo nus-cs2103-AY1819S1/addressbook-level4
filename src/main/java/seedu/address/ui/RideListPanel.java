@@ -16,29 +16,29 @@ import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.ride.Ride;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of rides.
  */
-public class PersonListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+public class RideListPanel extends UiPart<Region> {
+    private static final String FXML = "RideListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(RideListPanel.class);
 
     @FXML
-    private ListView<Ride> personListView;
+    private ListView<Ride> rideListView;
 
-    public PersonListPanel(ObservableList<Ride> rideList) {
+    public RideListPanel(ObservableList<Ride> rideList) {
         super(FXML);
         setConnections(rideList);
         registerAsAnEventHandler(this);
     }
 
     private void setConnections(ObservableList<Ride> rideList) {
-        personListView.setItems(rideList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        rideListView.setItems(rideList);
+        rideListView.setCellFactory(listView -> new PersonListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
-        personListView.getSelectionModel().selectedItemProperty()
+        rideListView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
                         logger.fine("Selection in ride list panel changed to : '" + newValue + "'");
@@ -48,12 +48,12 @@ public class PersonListPanel extends UiPart<Region> {
     }
 
     /**
-     * Scrolls to the {@code PersonCard} at the {@code index} and selects it.
+     * Scrolls to the {@code RideCard} at the {@code index} and selects it.
      */
     private void scrollTo(int index) {
         Platform.runLater(() -> {
-            personListView.scrollTo(index);
-            personListView.getSelectionModel().clearAndSelect(index);
+            rideListView.scrollTo(index);
+            rideListView.getSelectionModel().clearAndSelect(index);
         });
     }
 
@@ -64,7 +64,7 @@ public class PersonListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Ride} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Ride} using a {@code RideCard}.
      */
     class PersonListViewCell extends ListCell<Ride> {
         @Override
@@ -75,7 +75,7 @@ public class PersonListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(ride, getIndex() + 1).getRoot());
+                setGraphic(new RideCard(ride, getIndex() + 1).getRoot());
             }
         }
     }

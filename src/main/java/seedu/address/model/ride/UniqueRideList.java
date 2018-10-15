@@ -12,7 +12,7 @@ import seedu.address.model.ride.exceptions.DuplicateRideException;
 import seedu.address.model.ride.exceptions.RideNotFoundException;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
+ * A list of rides that enforces uniqueness between its elements and does not allow nulls.
  * A ride is considered unique by comparing using {@code Ride#isSameRide(Ride)}. As such, adding and updating of
  * persons uses Ride#isSameRide(Ride) for equality so as to ensure that the ride being added or updated is
  * unique in terms of identity in the UniqueRideList. However, the removal of a ride uses Ride#equals(Object) so
