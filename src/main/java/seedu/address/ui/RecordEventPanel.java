@@ -73,6 +73,7 @@ public class RecordEventPanel extends UiPart<Region> {
                     recordList.get(i).setDisplayIndex(i + 1);
                     recordList.get(i).setVolunteerName(volunteerList.get(j).getName().fullName);
                     recordList.get(i).setPhoneNo(volunteerList.get(j).getPhone().value);
+                    break;
                 }
             }
         }
