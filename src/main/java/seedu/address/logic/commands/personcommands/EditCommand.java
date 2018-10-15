@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.personcommands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
@@ -20,6 +20,8 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.interest.Interest;
@@ -89,6 +91,8 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
+        //personToEdit.editPerson(editedPerson);
+
         model.updatePerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
@@ -109,6 +113,10 @@ public class EditCommand extends Command {
         Set<Interest> updatedInterests = editPersonDescriptor.getInterests().orElse(personToEdit.getInterests());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         Schedule updatedSchedule = editPersonDescriptor.getSchedule().orElse(personToEdit.getSchedule());
+        editPersonDescriptor.getUpdateSchedule().ifPresent((x)-> {
+            updatedSchedule.xor(x);
+            System.err.println("HELP");
+        });
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedInterests, updatedTags,
                 updatedSchedule);
@@ -149,6 +157,7 @@ public class EditCommand extends Command {
         private Schedule schedule;
         private Set<Interest> interests;
         private Set<Tag> tags;
+        private Schedule updateSchedule;
 
         public EditPersonDescriptor() {
         }
@@ -165,13 +174,14 @@ public class EditCommand extends Command {
             setInterests(toCopy.interests);
             setTags(toCopy.tags);
             setSchedule(toCopy.schedule);
+            setUpdateSchedule(toCopy.updateSchedule);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, schedule);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, schedule, updateSchedule);
         }
 
         public void setName(Name name) {
@@ -204,6 +214,14 @@ public class EditCommand extends Command {
 
         public void setSchedule(Schedule schedule) {
             this.schedule = schedule;
+        }
+
+        public void setUpdateSchedule(Schedule schedule) {
+            this.updateSchedule = schedule;
+        }
+
+        public Optional<Schedule> getUpdateSchedule() {
+            return Optional.ofNullable(this.updateSchedule);
         }
 
         public Optional<Schedule> getSchedule() {
@@ -270,7 +288,5 @@ public class EditCommand extends Command {
                 && getInterests().equals(e.getInterests())
                 && getTags().equals(e.getTags());
         }
-
-
     }
 }

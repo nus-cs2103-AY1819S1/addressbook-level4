@@ -9,10 +9,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.event.exceptions.UserNotJoinedEventException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -79,6 +82,20 @@ public class Event {
     }
 
     /**
+     * Returns true if the date has been set.
+     */
+    public boolean isDateSet() {
+        return (date != null);
+    }
+
+    /**
+     * Returns true if the start and end times are set.
+     */
+    public boolean isTimeSet() {
+        return (startTime != null && endTime != null);
+    }
+
+    /**
      * Returns the date as a string.
      */
     public String getDateString() {
@@ -110,16 +127,19 @@ public class Event {
         return startTime;
     }
 
-    public void setStartTime(LocalTime time) {
-        this.startTime = time;
+    /**
+     * Sets the start and end time.
+     */
+    public void setTime(LocalTime startTime, LocalTime endTime) throws IllegalArgumentException {
+        if (endTime.isBefore(startTime)) {
+            throw new IllegalArgumentException();
+        }
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     public LocalTime getEndTime() {
         return endTime;
-    }
-
-    public void setEndTime(LocalTime time) {
-        this.endTime = time;
     }
 
     /**
@@ -141,18 +161,14 @@ public class Event {
      * Sets the person list of the event.
      */
     public void setPersonList(UniquePersonList personList) {
-        for (Person person : personList) {
-            this.personList.add(person);
-        }
+        this.personList.setPersons(personList);
     }
 
     /**
      * Adds list of persons into the person list.
      */
     public void setPersonList(ArrayList<Person> personList) {
-        for (Person person : personList) {
-            this.personList.add(person);
-        }
+        this.personList.setPersons(personList);
     }
 
     /**
@@ -163,12 +179,13 @@ public class Event {
     }
 
     /**
-     * Adds a new poll to the event.
+     * Adds a new poll to the event and returns the poll.
      */
-    public void addPoll(String pollName) {
+    public Poll addPoll(String pollName) {
         int id = polls.size() + 1;
         Poll poll = new Poll(id, pollName);
         polls.add(poll);
+        return poll;
     }
 
     /**
@@ -193,6 +210,58 @@ public class Event {
         for (Poll poll : polls) {
             this.polls.add(poll);
         }
+    }
+
+    /**
+     * Adds a person to an option of the poll at the specified index, only if person has joined the event.
+     */
+    public void addVoteToPoll(Index pollIndex, Person person, String option)
+            throws UserNotJoinedEventException {
+        if (!personList.contains(person)) {
+            throw new UserNotJoinedEventException();
+        }
+        int index = pollIndex.getZeroBased();
+        polls.get(index).addVote(option, person);
+    }
+
+    /**
+     * Displays the poll at the given index.
+     */
+    public String displayPoll(Index pollIndex) {
+        return polls.get(pollIndex.getZeroBased()).displayPoll();
+    }
+
+    /**
+     * Updates the person in the event participant list, organiser, and polls.
+     */
+    public boolean updatePerson(Person target, Person editedPerson) {
+        boolean changed = false;
+        if (organiser.equals(target)) {
+            setOrganiser(editedPerson);
+            changed = true;
+        }
+        if (personList.contains(target)) {
+            personList.setPerson(target, editedPerson);
+            changed = true;
+        }
+        for (Poll poll : polls) {
+            poll.updatePerson(target, editedPerson);
+        }
+        return changed;
+    }
+
+    /**
+     * Returns true if the target person is the event organiser is or is an event participant.
+     */
+    public boolean containsPerson(Person target) {
+        boolean contains = false;
+        if (organiser.equals(target)) {
+            contains = true;
+        }
+        if (personList.contains(target)) {
+            contains = true;
+        }
+        return contains;
     }
 
     /**
@@ -248,15 +317,31 @@ public class Event {
         return Objects.hash(name, location, tags);
     }
 
+    public String getInfo() {
+        final StringBuilder builder = new StringBuilder();
+        List<String> pollList = polls.stream()
+                .map(p -> p.getPollName())
+                .collect(Collectors.toList());
+        String personNameList = personList.getNameList();
+        builder.append("People attending: " + '\n')
+                .append(personNameList + '\n')
+                .append("Polls: " + '\n');
+        Integer index = 1;
+        for (String poll : pollList) {
+            builder.append(index.toString() + ": " + poll + '\n');
+            index += 1;
+        }
+        return builder.toString();
+    }
+
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Address: ")
+                .append(" Location: ")
                 .append(getLocation())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
 }

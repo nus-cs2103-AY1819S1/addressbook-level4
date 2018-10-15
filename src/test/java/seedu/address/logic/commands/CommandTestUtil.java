@@ -16,6 +16,7 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.personcommands.EditCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
@@ -44,6 +45,17 @@ public class CommandTestUtil {
     public static final String VALID_INTEREST_PLAY = "play";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_TIMETABLE = "http://modsn.us/H4v8s";
+    public static final String VALID_SCHEDULEUPDATE = "monday 0100";
+    public static final String VALID_SCHEDULE = "00000000000000000000000000000000000000"
+        +
+        "000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        +
+        "000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        +
+        "000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        +
+        "0000000000000000000000000000000000000000000000000000000000000000";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;

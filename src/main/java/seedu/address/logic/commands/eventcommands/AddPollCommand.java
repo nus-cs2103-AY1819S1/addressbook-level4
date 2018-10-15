@@ -4,7 +4,9 @@ package seedu.address.logic.commands.eventcommands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.events.ui.DisplayPollEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -13,6 +15,7 @@ import seedu.address.logic.commands.exceptions.NoEventSelectedException;
 import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.Poll;
 import seedu.address.model.person.Person;
 
 /**
@@ -45,9 +48,11 @@ public class AddPollCommand extends Command {
             if (!person.equals(event.getOrganiser())) {
                 throw new CommandException(Messages.MESSAGE_NOT_EVENT_ORGANISER);
             }
-            event.addPoll(pollName);
+            Poll poll = event.addPoll(pollName);
             model.commitAddressBook();
             model.updateEvent(event, event);
+            String pollDisplayResult = poll.displayPoll();
+            EventsCenter.getInstance().post(new DisplayPollEvent(pollDisplayResult));
             return new CommandResult(String.format(MESSAGE_SUCCESS, pollName, event));
         } catch (NoUserLoggedInException e) {
             throw new CommandException(Messages.MESSAGE_NO_USER_LOGGED_IN);

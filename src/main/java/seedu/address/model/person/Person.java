@@ -18,13 +18,13 @@ import seedu.address.model.tag.Tag;
 public class Person {
 
     // Identity fields
-    private final Name name;
-    private final Phone phone;
-    private final Email email;
+    private Name name;
+    private Phone phone;
+    private Email email;
 
     // Data fields
-    private final Address address;
-    private final Schedule schedule;
+    private Address address;
+    private Schedule schedule;
     private Set<Interest> interests = new HashSet<>();
     private Set<Tag> tags = new HashSet<>();
     private ArrayList<Person> friends = new ArrayList<>();
@@ -75,6 +75,10 @@ public class Person {
         return name;
     }
 
+    public void setName(Name name) {
+        this.name = name;
+    }
+
     public Phone getPhone() {
         return phone;
     }
@@ -112,6 +116,19 @@ public class Person {
      */
     public ArrayList<Person> getFriends() {
         return friends;
+    }
+
+    /**
+     * Populates all attributes with that of the new person.
+     */
+    public void editPerson(Person newPerson) {
+        name = newPerson.name;
+        address = newPerson.address;
+        phone = newPerson.phone;
+        tags = newPerson.tags;
+        email = newPerson.email;
+        interests = newPerson.interests;
+        schedule = newPerson.schedule;
     }
 
     /**

@@ -29,13 +29,9 @@ public class AddPollCommandTest {
         AddPollCommand command = new AddPollCommand(POLLNAME);
         Person user = new PersonBuilder().build();
         model.setCurrentUser(user);
-        //EventBuilder eventBuilder = new EventBuilder();
-        //eventBuilder.withOrganiser(user);
-        //Event event = eventBuilder.withPoll().build();
         Event event = model.getFilteredEventList().get(0);
         model.setSelectedEvent(event);
         String expectedMessage = String.format(command.MESSAGE_SUCCESS, POLLNAME, event);
-        //Event eventToEdit = expectedModel.getFilteredEventList().get(INDEX_FIRST.getZeroBased());
         expectedModel.updateEvent(event, event);
         expectedModel.commitAddressBook();
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);

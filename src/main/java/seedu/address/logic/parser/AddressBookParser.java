@@ -6,35 +6,38 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.AddUserCommand;
-import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.LoginCommand;
+import seedu.address.logic.commands.MaxScheduleCommand;
 import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.eventcommands.AddEventCommand;
 import seedu.address.logic.commands.eventcommands.AddPollCommand;
 import seedu.address.logic.commands.eventcommands.AddPollOptionCommand;
 import seedu.address.logic.commands.eventcommands.DeleteEventCommand;
 import seedu.address.logic.commands.eventcommands.DisplayPollCommand;
+import seedu.address.logic.commands.eventcommands.FindEventByTimeCommand;
 import seedu.address.logic.commands.eventcommands.JoinEventCommand;
 import seedu.address.logic.commands.eventcommands.SelectEventCommand;
 import seedu.address.logic.commands.eventcommands.SetDateCommand;
 import seedu.address.logic.commands.eventcommands.SetTimeCommand;
 import seedu.address.logic.commands.eventcommands.VoteCommand;
+import seedu.address.logic.commands.personcommands.AddUserCommand;
+import seedu.address.logic.commands.personcommands.ClearCommand;
+import seedu.address.logic.commands.personcommands.DeleteCommand;
+import seedu.address.logic.commands.personcommands.EditCommand;
+import seedu.address.logic.commands.personcommands.FindCommand;
+import seedu.address.logic.commands.personcommands.ListCommand;
+import seedu.address.logic.commands.personcommands.SelectCommand;
 import seedu.address.logic.parser.eventparsers.AddEventCommandParser;
 import seedu.address.logic.parser.eventparsers.AddPollCommandParser;
 import seedu.address.logic.parser.eventparsers.AddPollOptionCommandParser;
 import seedu.address.logic.parser.eventparsers.DeleteEventCommandParser;
 import seedu.address.logic.parser.eventparsers.DisplayPollCommandParser;
+import seedu.address.logic.parser.eventparsers.FindEventByTimeCommandParser;
 import seedu.address.logic.parser.eventparsers.JoinEventCommandParser;
 import seedu.address.logic.parser.eventparsers.SelectEventCommandParser;
 import seedu.address.logic.parser.eventparsers.SetDateCommandParser;
@@ -105,6 +108,9 @@ public class AddressBookParser {
         case VoteCommand.COMMAND_WORD:
             return new VoteCommandParser().parse(arguments);
 
+        case FindEventByTimeCommand.COMMAND_WORD:
+            return new FindEventByTimeCommandParser().parse(arguments);
+
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
@@ -137,6 +143,10 @@ public class AddressBookParser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
+
+        case MaxScheduleCommand
+            .COMMAND_WORD:
+            return new MaxScheduleCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
