@@ -8,7 +8,6 @@ import java.util.Objects;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.souschef.commons.exceptions.IllegalValueException;
-import seedu.souschef.model.healthplan.CurrentWeight;
 import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.ingredient.ServingUnit;
 
@@ -82,7 +81,7 @@ public class XmlAdaptedIngredient {
 
         if (unit == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    CurrentWeight.class.getSimpleName()));
+                    ServingUnit.class.getSimpleName()));
         }
 
         /*if (!CurrentWeight.isValidWeight(unit)) {
@@ -104,9 +103,11 @@ public class XmlAdaptedIngredient {
         try {
             modelDate = (new SimpleDateFormat("MM-dd-yyyy").parse(date));
         } catch (ParseException e) {
-            throw new IllegalValueException(String.format("Wrong date format",
-                    Date.class.getSimpleName()));
+
+            throw new IllegalValueException(String.format("Wrong date format", Date.class.getSimpleName()));
+
         }
+
 
         return new Ingredient(modelName, modelAmount, modelUnit, modelDate);
     }
