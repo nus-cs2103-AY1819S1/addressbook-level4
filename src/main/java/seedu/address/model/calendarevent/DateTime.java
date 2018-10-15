@@ -1,9 +1,9 @@
 package seedu.address.model.calendarevent;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
+
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents a Calendar Event's datetime fields in the scheduler.
@@ -11,16 +11,14 @@ import java.time.LocalDateTime;
  */
 public class DateTime {
 
-    private LocalDateTime date;
-
+    public static final String MESSAGE_DATETIME_CONSTRAINTS = "The valid input will be year-month-localDateTime hour:minute";
     public final LocalDateTime localDateTime;
     public final int year;
     public final int month;
     public final int day;
     public final int hour;
     public final int minute;
-
-    public static final String MESSAGE_DATETIME_CONSTRAINTS = "The valid input will be year-month-localDateTime hour:minute";
+    private LocalDateTime date;
 
     /**
      * Constructs a {@code DateTime}
