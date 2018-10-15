@@ -13,13 +13,19 @@ import seedu.address.model.tag.Tag;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
-    /** Clears existing backing model and replaces with the provided new data. */
+    /**
+     * Clears existing backing model and replaces with the provided new data.
+     */
     void resetData(ReadOnlyAddressBook newData);
 
-    /** Returns the AddressBook */
+    /**
+     * Returns the AddressBook
+     */
     ReadOnlyAddressBook getAddressBook();
 
     /**
@@ -58,7 +64,7 @@ public interface Model {
      * No action is required if the given person already exists in the
      * group.
      *
-     * @param target New participant of the group
+     * @param target   New participant of the group
      * @param newGroup Tag of the group that given person is added in
      */
     void addGroup(Person target, Tag newGroup);
@@ -68,10 +74,11 @@ public interface Model {
      * Report error message if the given person is not previously in the
      * group.
      *
-     * @param target Existing participant of the group
+     * @param target   Existing participant of the group
      * @param oldGroup Tag of the group that the given person is currently in
      */
     void removeGroup(Person target, Tag oldGroup);
+
 
     // @@author NyxF4ll
     /**
@@ -84,10 +91,15 @@ public interface Model {
     // @@author
 
     /** Returns an unmodifiable view of the filtered person list */
+
+    /**
+     * Returns an unmodifiable view of the filtered person list
+     */
     ObservableList<Person> getFilteredPersonList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
@@ -132,4 +144,14 @@ public interface Model {
      * Export the current address book.
      */
     void exportAddressBook(Path filepath);
+
+    /**
+     * Change User Preferences.
+     */
+    void changeUserPrefs(Path filepath);
+
+    /**
+     * Get Current Address Book File Path.
+     */
+    Path getAddressBookFilePath();
 }
