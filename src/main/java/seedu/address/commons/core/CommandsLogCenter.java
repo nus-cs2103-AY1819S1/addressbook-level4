@@ -28,7 +28,7 @@ public class CommandsLogCenter {
     private static final String LIST_HEADER = "<xmlListOfCommandEntry>\n";
     private static final String LIST_ENDING = "\n</xmlListOfCommandEntry>\n";
     private static final String MESSAGE_FILE_SIZE_EXCEEDED = "Maximum file size exceeded, %1$s";
-    private static final String MESSAGE_LOG_INACCESSIBLE = "%1$s cannot be accessed";
+    public static final String MESSAGE_LOG_INACCESSIBLE = "%1$s cannot be accessed";
     private static final int MAX_FILE_SIZE_IN_BYTES = (int) (Math.pow(2, 20) * 5); // 5MB
     private static String logFile = "commandHistory.xml";
 
@@ -60,6 +60,8 @@ public class CommandsLogCenter {
      */
     public static void init(String fileName) {
         logFile = fileName;
+        file = new File(logFile);
+        delete();
         init();
         file.deleteOnExit();
     }

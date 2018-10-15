@@ -1,6 +1,7 @@
 package seedu.address.model.logging;
 
 import java.time.Instant;
+import java.util.Objects;
 
 /**
  * Represents a command entry inside command history.
@@ -25,4 +26,18 @@ public class CommandEntry {
         return executedCommand;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof CommandEntry)) {
+            return false;
+        }
+
+        CommandEntry otherCommandEntry = (CommandEntry) other;
+        return Objects.equals(timeOfEntry, otherCommandEntry.getTimeOfEntry())
+                && Objects.equals(executedCommand, otherCommandEntry.getExecutedCommand());
+    }
 }

@@ -15,11 +15,15 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
+/**
+ * Contains unit tests for {@code SuggestCommand}
+ */
 public class SuggestCommandTest {
+
+    private final ThaneParkParser parser = new ThaneParkParser();
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-    private final ThaneParkParser parser = new ThaneParkParser();
 
     @Test
     public void constructor_nullString_throwsNullPointerException() {

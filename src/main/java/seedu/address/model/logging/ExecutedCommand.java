@@ -1,5 +1,7 @@
 package seedu.address.model.logging;
 
+import java.util.Objects;
+
 import seedu.address.logic.commands.AllCommandWords;
 
 /**
@@ -34,7 +36,7 @@ public class ExecutedCommand {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof ExecutedCommand // instanceof handles nulls
-            && toString() == ((ExecutedCommand) other).toString()); // state check
+            && Objects.equals(toString(), other.toString())); // state check
     }
 
 }
