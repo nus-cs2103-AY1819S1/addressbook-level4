@@ -71,4 +71,10 @@ public class HistoryCommand extends Command {
 
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof HistoryCommand // instanceof handles nulls
+                && isSummarized == ((HistoryCommand) other).isSummarized); // state check
+    }
 }

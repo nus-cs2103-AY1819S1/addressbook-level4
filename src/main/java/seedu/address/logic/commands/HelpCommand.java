@@ -61,4 +61,12 @@ public class HelpCommand extends Command {
             return new CommandResult(SHOWING_HELP_MESSAGE);
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof HelpCommand // instanceof handles nulls
+                && isSummarized == ((HelpCommand) other).isSummarized
+                && commandWord.equals(((HelpCommand) other).commandWord)); // state check
+    }
 }
