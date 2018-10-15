@@ -10,7 +10,7 @@ import static seedu.address.testutil.TypicalRides.getTypicalThanePark;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.UpdateCommand.EditPersonDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ThanePark;
@@ -70,7 +70,7 @@ public class UndoCommandTest {
         Ride editedRide = rideToDelete;
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedRide).build();
         expectedModel.updatePerson(model.getFilteredRideList().get(0), editedRide);
-        new EditCommand(INDEX_FIRST_PERSON, descriptor).execute(model, commandHistory);
+        new UpdateCommand(INDEX_FIRST_PERSON, descriptor).execute(model, commandHistory);
         expectedModel.commitAddressBook();
         assertEquals(expectedModel, model);
         total++;
