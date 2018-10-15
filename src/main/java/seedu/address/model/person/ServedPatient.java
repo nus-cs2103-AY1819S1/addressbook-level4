@@ -10,14 +10,14 @@ import static java.util.Objects.requireNonNull;
 public class ServedPatient {
 
     private final Patient patient;
-    private String NoteContent;
-    private String ReferralContent;
-    private String McContent;
+    private String noteContent;
+    private String referralContent;
+    private String mcContent;
     // add more fields as required
 
     /**
-     * Constructs a servedPatient object from a patient object to extract all the information necessary for printing
-     * a document.
+     * Constructs a servedPatient object from a patient object to extract all the information
+     * necessary for printing a document.
      *
      * @param patient A valid patient.
      */
@@ -35,26 +35,58 @@ public class ServedPatient {
     }
 
     /**
-     * Skeleton to add add note content.
+     * Skeleton to add note content.
      */
     public String addNoteContent(String content) {
-        NoteContent += " filler" + content;
-        return NoteContent;
+        noteContent += " filler" + content;
+        return noteContent;
     }
 
     /**
      * Skeleton to add referral content.
      */
     public String addReferralContent(String content) {
-        ReferralContent += " filler" + content;
-        return ReferralContent;
+        referralContent += " filler" + content;
+        return referralContent;
     }
 
     /**
      * Skeleton to add Mc Content.
      */
     public String addMcContent(String content) {
-        McContent += " filler" + content;
-        return McContent;
+        mcContent += " filler" + content;
+        return mcContent;
+    }
+
+    /**
+     * Returns the note content for the {@code served patient}.
+     */
+    public String getNoteContent() {
+        return this.noteContent;
+    }
+    /**
+     * Returns the MC content for the {@code served patient}.
+     */
+    public String getMcContent() {
+        return this.mcContent;
+    }
+
+    /**
+     * Returns the referral content for the {@code served patient}.
+     */
+    public String getReferralContent() {
+        return this.referralContent;
+    }
+
+
+    /**
+     * Console view of a served patient.
+     * @return String representation of patient with Name and IcNumber.
+     */
+    public String toNameAndIc() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName() + " [")
+                .append(getIcNumber() + "]");
+        return builder.toString();
     }
 }

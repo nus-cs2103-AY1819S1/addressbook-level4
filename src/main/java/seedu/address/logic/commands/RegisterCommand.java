@@ -10,6 +10,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.PatientQueue;
+import seedu.address.model.ServedPatientList;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.ServedPatient;
 
@@ -19,6 +20,7 @@ import seedu.address.model.person.ServedPatient;
  */
 public class RegisterCommand extends QueueCommand {
     public static final String COMMAND_WORD = "register";
+    public static final String COMMAND_ALIAS = "reg";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enqueue a patient into the queue. "
             + "Parameters: "
@@ -36,7 +38,7 @@ public class RegisterCommand extends QueueCommand {
 
     @Override
     public CommandResult execute(Model model, PatientQueue patientQueue, ServedPatient currentPatient,
-                                 CommandHistory history) throws CommandException {
+                                 ServedPatientList servedPatientList, CommandHistory history) throws CommandException {
         requireNonNull(patientQueue);
 
         List<Patient> lastShownList = model.getFilteredPersonList();

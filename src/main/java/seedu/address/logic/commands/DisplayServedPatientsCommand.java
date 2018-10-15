@@ -10,25 +10,26 @@ import seedu.address.model.ServedPatientList;
 import seedu.address.model.person.ServedPatient;
 
 /**
- * Displays the current queue to the user.
+ *
  */
-public class DisplayQueueCommand extends QueueCommand {
-    public static final String COMMAND_WORD = "queue";
+public class DisplayServedPatientsCommand extends QueueCommand {
+    public static final String COMMAND_WORD = "servedPatients";
+    public static final String COMMAND_ALIAS = "showsp";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays the current queue";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays the list of served patients";
 
-    public static final String MESSAGE_SUCCESS = "Queue: ";
-    public static final String MESSAGE_EMPTY_QUEUE = "Patient Queue is empty!";
+    public static final String MESSAGE_SUCCESS = "Served patient list: ";
+    public static final String MESSAGE_EMPTY_LIST = "Served patient list is empty!";
 
     @Override
     public CommandResult execute(Model model, PatientQueue patientQueue, ServedPatient currentPatient,
                                  ServedPatientList servedPatientList, CommandHistory history) throws CommandException {
         requireNonNull(patientQueue);
 
-        if (patientQueue.isEmpty()) {
-            throw new CommandException(MESSAGE_EMPTY_QUEUE);
+        if (servedPatientList.isEmpty()) {
+            throw new CommandException(MESSAGE_EMPTY_LIST);
         }
 
-        return new CommandResult(patientQueue.displayQueue());
+        return new CommandResult(servedPatientList.displayServedPatientList());
     }
 }
