@@ -23,10 +23,12 @@ public class LeaveStatus {
     }
 
     /**
-     * Returns true, because enums are type-safe, and any StatusEnum.Status value passed in
-     * will thus be valid.
+     * Returns if value passed in is a StatusEnum.Status, because enums are type-safe.
      */
-    public static boolean isValidStatus(StatusEnum.Status test) { return true; }
+    public static boolean isValidStatus(StatusEnum.Status test) {
+        requireNonNull(test);
+        return test instanceof StatusEnum.Status;
+    }
 
     @Override
     public String toString() {

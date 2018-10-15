@@ -11,7 +11,7 @@ public class Description {
 
     public static final String MESSAGE_DESCRIPTION_CONSTRAINTS =
             "Description should be non-empty";
-    public static final String DESCRIPTION_VALIDATION_REGEX = ".+";
+    public static final String DESCRIPTION_VALIDATION_REGEX = "^(?!\\s*$).+";
     public final String value;
 
     /**
