@@ -20,9 +20,6 @@ public class WishDetailSavingHistory extends UiPart<Region> {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    @FXML
-    private Label title;
-
     public WishDetailSavingHistory() {
         super(FXML);
 
@@ -34,14 +31,12 @@ public class WishDetailSavingHistory extends UiPart<Region> {
      * Load the default page.
      */
     public void loadDefaultPage() {
-        title.setText("Saving History");
     }
 
     /**
      * Load the page that shows the detail of wish.
      */
     private void loadWishPage(Wish wish) {
-        title.setText("Saving History");
     }
 
     @Subscribe
