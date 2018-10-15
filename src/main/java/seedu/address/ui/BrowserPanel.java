@@ -19,7 +19,7 @@ import seedu.address.model.person.Person;
 public class BrowserPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE = "https://maps.google.com/";
-    //"default.html";
+
     public static final String SEARCH_PAGE_URL = "https://www.google.com/maps/search/?api=1&query=NUS+";
 
     private static final String FXML = "BrowserPanel.fxml";
