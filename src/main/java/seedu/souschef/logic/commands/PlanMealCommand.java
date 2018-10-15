@@ -19,12 +19,12 @@ public class PlanMealCommand extends Command {
 
     public static final String MESSAGE_PLAN_RECIPE_SUCCESS = "Planned Recipe: %1$s";
 
-    private final Model<Day> mealPlannerModel;
+    private final Model mealPlannerModel;
     private final Recipe toAdd;
     private final Day toPlan;
     private final Meal meal;
 
-    public PlanMealCommand(Model<Day> mealPlannerModel, Recipe toAdd, Day toPlan, Meal meal) {
+    public PlanMealCommand(Model mealPlannerModel, Recipe toAdd, Day toPlan, Meal meal) {
         this.mealPlannerModel = mealPlannerModel;
         this.toAdd = toAdd;
         this.toPlan = toPlan;
