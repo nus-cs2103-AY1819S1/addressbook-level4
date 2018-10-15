@@ -17,7 +17,6 @@ import seedu.jxmusic.model.ModelManager;
 import seedu.jxmusic.model.ReadOnlyLibrary;
 import seedu.jxmusic.model.UserPrefs;
 import seedu.jxmusic.storage.UserPrefsStorage;
-import seedu.jxmusic.storage.JsonSerializableLibrary;
 import seedu.jxmusic.testutil.TestUtil;
 import systemtests.ModelHelper;
 
@@ -44,10 +43,10 @@ public class TestApp extends MainApp {
         this.saveFileLocation = saveFileLocation;
 
         // If some initial local data has been provided, write those to the file
-        if (initialDataSupplier.get() != null) {
-            createDataFileWithData(new JsonSerializableLibrary(this.initialDataSupplier.get()),
-                    this.saveFileLocation);
-        }
+        // if (initialDataSupplier.get() != null) {
+        //     createDataFileWithData(new JsonSerializableLibrary(this.initialDataSupplier.get()),
+        //             this.saveFileLocation);
+        // }
     }
 
     @Override

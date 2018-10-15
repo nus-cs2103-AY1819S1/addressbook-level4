@@ -40,7 +40,7 @@
 //import seedu.jxmusic.model.Name;
 //import seedu.jxmusic.model.tag.Tag;
 //import seedu.jxmusic.testutil.PlaylistBuilder;
-//import seedu.jxmusic.testutil.PersonUtil;
+//import seedu.jxmusic.testutil.PlaylistUtil;
 //
 //public class EditCommandSystemTest extends LibrarySystemTest {
 //
@@ -178,7 +178,7 @@
 //                Tag.MESSAGE_TAG_CONSTRAINTS);
 //
 //        /* Case: edit a playlist with new values same as another playlist's values -> rejected */
-//        executeCommand(PersonUtil.getAddCommand(BOB));
+//        executeCommand(PlaylistUtil.getPlaylistNewCommand(BOB));
 //        assertTrue(getModel().getAddressBook().getPlaylistList().contains(BOB));
 //        index = INDEX_FIRST_PERSON;
 //        assertFalse(getModel().getFilteredPersonList().get(index.getZeroBased()).equals(BOB));

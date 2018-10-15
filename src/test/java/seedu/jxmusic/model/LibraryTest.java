@@ -3,7 +3,7 @@ package seedu.jxmusic.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_ALIEZ;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_IHOJIN;
 import static seedu.jxmusic.testutil.TypicalPlaylists.ANIME;
 
 import java.util.Arrays;
@@ -49,7 +49,7 @@ public class LibraryTest {
     @Test
     public void resetData_withDuplicatePlaylists_throwsDuplicatePlaylistException() {
         // Two playlists with the same identity fields
-        Playlist editedAlice = new PlaylistBuilder(ANIME).withTracks(VALID_TRACK_ALIEZ)
+        Playlist editedAlice = new PlaylistBuilder(ANIME).withTracks(VALID_TRACK_NAME_IHOJIN)
                 .build();
         List<Playlist> newPlaylists = Arrays.asList(ANIME, editedAlice);
         AddressBookStub newData = new AddressBookStub(newPlaylists);
@@ -78,7 +78,7 @@ public class LibraryTest {
     @Test
     public void hasPlaylist_playlistWithSameIdentityFieldsInAddressBook_returnsTrue() {
         library.addPlaylist(ANIME);
-        Playlist editedAlice = new PlaylistBuilder(ANIME).withTracks(VALID_TRACK_ALIEZ)
+        Playlist editedAlice = new PlaylistBuilder(ANIME).withTracks(VALID_TRACK_NAME_IHOJIN)
                 .build();
         assertTrue(library.hasPlaylist(editedAlice));
     }

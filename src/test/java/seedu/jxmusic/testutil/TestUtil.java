@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 
 import seedu.jxmusic.commons.core.index.Index;
 import seedu.jxmusic.model.Model;
+import seedu.jxmusic.model.Playlist;
 
 /**
  * A utility class for test cases.
@@ -35,20 +36,20 @@ public class TestUtil {
      * Returns the middle index of the playlist in the {@code model}'s playlist list.
      */
     public static Index getMidIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredPersonList().size() / 2);
+        return Index.fromOneBased(model.getFilteredPlaylistList().size() / 2);
     }
 
     /**
      * Returns the last index of the playlist in the {@code model}'s playlist list.
      */
     public static Index getLastIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredPersonList().size());
+        return Index.fromOneBased(model.getFilteredPlaylistList().size());
     }
 
     /**
      * Returns the playlist in the {@code model}'s playlist list at {@code index}.
      */
-    public static Person getPerson(Model model, Index index) {
-        return model.getFilteredPersonList().get(index.getZeroBased());
+    public static Playlist getPlaylist(Model model, Index index) {
+        return model.getFilteredPlaylistList().get(index.getZeroBased());
     }
 }

@@ -15,17 +15,17 @@ public class PlaylistCardTest extends GuiUnitTest {
 
     @Test
     public void display() {
-        // no tags
-        Playlist playlistWithNoTracks = new PlaylistBuilder().withTracks(new String[0]).build();
+        // no tracks
+        Playlist playlistWithNoTracks = new PlaylistBuilder().build();
         PlaylistCard playlistCard = new PlaylistCard(playlistWithNoTracks, 1);
         uiPartRule.setUiPart(playlistCard);
         assertCardDisplay(playlistCard, playlistWithNoTracks, 1);
 
-        // with tags
-        Playlist playlistWithTags = new PlaylistBuilder().build();
-        playlistCard = new PlaylistCard(playlistWithTags, 2);
+        // with tracks
+        Playlist playlistWithTracks = new PlaylistBuilder().withTracks("haikei goodbye sayonara").build();
+        playlistCard = new PlaylistCard(playlistWithTracks, 2);
         uiPartRule.setUiPart(playlistCard);
-        assertCardDisplay(playlistCard, playlistWithTags, 2);
+        assertCardDisplay(playlistCard, playlistWithTracks, 2);
     }
 
     @Test
