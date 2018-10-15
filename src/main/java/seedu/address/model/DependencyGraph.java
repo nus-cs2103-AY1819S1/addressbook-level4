@@ -39,7 +39,7 @@ public class DependencyGraph {
      * Checks if there will be a cycle in the graph
      */
     public boolean checkPresenceOfCycle() {
-        Set<String> unvisited = new HashSet<>();
+        Set<String> unvisited = new HashSet<>(adjacencyList.keySet());
         Set<String> stack = new HashSet<>();
         List<String> visited = new ArrayList<>();
         for (String node: adjacencyList.keySet()) {
