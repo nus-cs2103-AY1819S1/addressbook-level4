@@ -2,13 +2,12 @@ package seedu.address.model.calendarevent;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TUTORIAL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_TUTORIAL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VENUE_TUTORIAL;
+import static seedu.address.testutil.TypicalEvents.LECTURE;
+import static seedu.address.testutil.TypicalEvents.TUTORIAL;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -28,74 +27,70 @@ public class CalendarEventTest {
     }
 
     @Test
-    public void isSamePerson() {
+    public void isSameEvent() {
         // same object -> returns true
-        assertTrue(ALICE.isSameCalendarEvent(ALICE));
+        assertTrue(LECTURE.isSameCalendarEvent(LECTURE));
 
         // null -> returns false
-        assertFalse(ALICE.isSameCalendarEvent(null));
+        assertFalse(LECTURE.isSameCalendarEvent(null));
 
-        // different phone and email -> returns false
-        CalendarEvent editedAlice =
-            new CalendarEventBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.isSameCalendarEvent(editedAlice));
+        // different description -> returns false
+        CalendarEvent editedLecture =
+            new CalendarEventBuilder(LECTURE).withDescription(VALID_DESCRIPTION_TUTORIAL).build();
+        assertFalse(LECTURE.isSameCalendarEvent(editedLecture));
 
-        // different name -> returns false
-        editedAlice = new CalendarEventBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSameCalendarEvent(editedAlice));
+        // different title -> returns false
+        editedLecture = new CalendarEventBuilder(LECTURE).withTitle(VALID_TITLE_TUTORIAL).build();
+        assertFalse(LECTURE.isSameCalendarEvent(editedLecture));
 
-        // same name, same phone, different attributes -> returns true
-        editedAlice = new CalendarEventBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withLocation(VALID_ADDRESS_BOB)
-            .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameCalendarEvent(editedAlice));
+        // same title, different description, different venue, different attributes -> returns false
+        editedLecture =
+            new CalendarEventBuilder(LECTURE)
+                .withDescription(VALID_DESCRIPTION_TUTORIAL)
+                .withVenue(VALID_VENUE_TUTORIAL)
+                .withTags(VALID_TAG_HUSBAND)
+                .build();
+        assertFalse(LECTURE.isSameCalendarEvent(editedLecture));
 
-        // same name, same email, different attributes -> returns true
-        editedAlice = new CalendarEventBuilder(ALICE).withPhone(VALID_PHONE_BOB).withLocation(VALID_ADDRESS_BOB)
-            .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameCalendarEvent(editedAlice));
-
-        // same name, same phone, same email, different attributes -> returns true
-        editedAlice =
-            new CalendarEventBuilder(ALICE).withLocation(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameCalendarEvent(editedAlice));
+        // TODO redefine what is considered sameEvent or decide whether this test is necessary
+        // same title, same description, different venue, different attributes -> returns false
+        editedLecture =
+            new CalendarEventBuilder(LECTURE).withVenue(VALID_VENUE_TUTORIAL).withTags(VALID_TAG_HUSBAND).build();
+        assertFalse(LECTURE.isSameCalendarEvent(editedLecture));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        CalendarEvent aliceCopy = new CalendarEventBuilder(ALICE).build();
-        assertTrue(ALICE.equals(aliceCopy));
+        CalendarEvent lectureCopy = new CalendarEventBuilder(LECTURE).build();
+        assertTrue(LECTURE.equals(lectureCopy));
 
         // same object -> returns true
-        assertTrue(ALICE.equals(ALICE));
+        assertTrue(LECTURE.equals(LECTURE));
 
         // null -> returns false
-        assertFalse(ALICE.equals(null));
+        assertFalse(LECTURE.equals(null));
 
         // different type -> returns false
-        assertFalse(ALICE.equals(5));
+        assertFalse(LECTURE.equals(5));
 
         // different calendarevent -> returns false
-        assertFalse(ALICE.equals(BOB));
+        assertFalse(LECTURE.equals(TUTORIAL));
 
-        // different name -> returns false
-        CalendarEvent editedAlice = new CalendarEventBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        // different title -> returns false
+        CalendarEvent editedLecture = new CalendarEventBuilder(LECTURE).withTitle(VALID_TITLE_TUTORIAL).build();
+        assertFalse(LECTURE.equals(editedLecture));
 
-        // different phone -> returns false
-        editedAlice = new CalendarEventBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        // different description -> returns false
+        editedLecture = new CalendarEventBuilder(LECTURE).withDescription(VALID_DESCRIPTION_TUTORIAL).build();
+        assertFalse(LECTURE.equals(editedLecture));
 
-        // different email -> returns false
-        editedAlice = new CalendarEventBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
-
-        // different address -> returns false
-        editedAlice = new CalendarEventBuilder(ALICE).withLocation(VALID_ADDRESS_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        // different venue -> returns false
+        editedLecture = new CalendarEventBuilder(LECTURE).withVenue(VALID_VENUE_TUTORIAL).build();
+        assertFalse(LECTURE.equals(editedLecture));
 
         // different tags -> returns false
-        editedAlice = new CalendarEventBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedLecture = new CalendarEventBuilder(LECTURE).withTags(VALID_TAG_HUSBAND).build();
+        assertFalse(LECTURE.equals(editedLecture));
     }
 }
