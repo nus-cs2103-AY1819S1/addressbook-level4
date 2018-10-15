@@ -76,8 +76,6 @@ public class PersonListPanelTest extends GuiUnitTest {
     }
 
     /**
-     *
-     *
      * Returns a list of persons containing {@code personCount} persons that is used to populate the
      * {@code PersonListPanel}.
      */
@@ -115,14 +113,12 @@ public class PersonListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Initializes {@code personListPane
-     * lHandle} with a {@code PersonListPanel} backed by {@code backingList}.
+     * Initializes {@code personListPanelHandle} with a {@code PersonListPanel} backed by {@code backingList}.
      * Also shows the {@code Stage} that displays only {@code PersonListPanel}.
      */
     private void initUi(ObservableList<Person> backingList) {
         PersonListPanel personListPanel = new PersonListPanel(backingList);
         uiPartRule.setUiPart(personListPanel);
-
 
         personListPanelHandle = new PersonListPanelHandle(getChildNode(personListPanel.getRoot(),
                 PersonListPanelHandle.PERSON_LIST_VIEW_ID));

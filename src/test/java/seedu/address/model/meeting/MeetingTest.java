@@ -37,9 +37,6 @@ public class MeetingTest {
         // invalid Dates
         assertFalse(Meeting.isValidMeeting("1234567890")); // not a real date
 
-
-
-
         // valid meeting
         assertTrue(Meeting.isValidMeeting("1212121212"));
         assertTrue(Meeting.isValidMeeting("12/12/121212")); // / in date
