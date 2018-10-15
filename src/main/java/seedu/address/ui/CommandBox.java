@@ -25,8 +25,10 @@ public class CommandBox extends UiPart<Region> {
 
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private final Logic logic;
+    private final StringBuilder tempPassword = new StringBuilder();
     private ListElementPointer historySnapshot;
-
+    
+    
     @FXML
     private TextField commandTextField;
 
@@ -43,6 +45,7 @@ public class CommandBox extends UiPart<Region> {
      */
     @FXML
     private void handleKeyPress(KeyEvent keyEvent) {
+        
         switch (keyEvent.getCode()) {
         case UP:
             // As up and down buttons will alter the position of the caret,
@@ -56,7 +59,7 @@ public class CommandBox extends UiPart<Region> {
             navigateToNextInput();
             break;
         default:
-            // let JavaFx handle the keypress
+            maskPassword(keyEvent);
         }
     }
 
@@ -95,12 +98,45 @@ public class CommandBox extends UiPart<Region> {
         commandTextField.positionCaret(commandTextField.getText().length());
     }
 
+    private void maskPassword(KeyEvent keyEvent) {
+        //Mask the password prefix
+        if ((commandTextField.getText().contains("pass/")) && (keyEvent.getCode().isDigitKey() || keyEvent.getCode().isLetterKey())) {
+            int passwordPrefixIndex = commandTextField.getText().indexOf("pass/");
+            String password = commandTextField.getText().substring(passwordPrefixIndex + 5);
+            String otherCommand = commandTextField.getText().substring(0, passwordPrefixIndex);
+            
+            StringBuilder maskedPassword = new StringBuilder();
+            for (int i = 0; i < password.length(); i++) {
+                maskedPassword.append("-");
+                if (password.charAt(i) != '-') {
+                    tempPassword.append(password.charAt(i));
+                }
+            }
+
+            
+            replaceText(otherCommand + "pass/" + maskedPassword.toString());
+        }
+    }
+    
+    private void unmaskPassword() {
+        if (commandTextField.getText().contains("pass/")) {
+            int passwordPrefixIndex = commandTextField.getText().indexOf("pass/");
+            String otherCommand = commandTextField.getText().substring(0, passwordPrefixIndex);
+            
+            replaceText(otherCommand + "pass/" + tempPassword.toString() + commandTextField.getText().substring(commandTextField.getText().length() - 1));
+            
+            //Reset temp password.
+            tempPassword.setLength(0);
+        }
+    }
+    
     /**
      * Handles the Enter button pressed event.
      */
     @FXML
     private void handleCommandEntered() {
         try {
+            unmaskPassword();
             CommandResult commandResult = logic.execute(commandTextField.getText());
             initHistory();
             historySnapshot.next();
