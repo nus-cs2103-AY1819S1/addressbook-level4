@@ -6,13 +6,16 @@ import seedu.scheduler.model.Model;
 
 //TODO:implement the class
 /**
- * Sync the events.
+ * Get events from google calendar.
  */
 public class GetGoogleEventsCommand extends Command {
-    public static final String COMMAND_WORD = "sync";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sync the events ";
+    public static final String COMMAND_WORD = "ggevents";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Get google calendar events.\n"
+            + "download the events from primary google calendar.\n"
+            + "Parameters: NONE "
+            + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_SYNC_SUCCESS = "Synced";
+    public static final String MESSAGE_SYNC_SUCCESS = "Events in google calendar downloaded.";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
