@@ -28,6 +28,10 @@ public enum Meal {
         }
     }
 
+    public Optional<Recipe> getOptRecipe() {
+        return this.recipe;
+    }
+
     public void setRecipe(Recipe recipe) {
         this.recipe = Optional.ofNullable(recipe);
     }
