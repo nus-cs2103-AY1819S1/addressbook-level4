@@ -8,6 +8,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.model.permission.Permission;
+import seedu.address.model.permission.PermissionSet;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -25,6 +27,7 @@ public class Person {
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
     private final Optional<ProfilePic> profilePic;
+    private final PermissionSet permissionSet = new PermissionSet();
 
     /**
      * Every field must be present and not null.
@@ -79,6 +82,22 @@ public class Person {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Returns a PermissionSet, which contains all permissions possessed by this person.
+     * Modification can only performed on this object by a user with "ASSIGN_PERMISSION" permission.
+     * @see PermissionSet
+     */
+    public PermissionSet getPermissionSet() {
+        return permissionSet;
+    }
+
+    /**
+     * Returns true if this person possess specified permission. Otherwise false.
+     */
+    public boolean havePermission(Permission p) {
+        return permissionSet.contain(p);
     }
 
     /**
