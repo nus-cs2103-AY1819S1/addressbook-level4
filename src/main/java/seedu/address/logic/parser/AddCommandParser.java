@@ -43,8 +43,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        boolean isResolved = false;
 
-        Article article = new Article(name, phone, email, address, tagList);
+        Article article = new Article(name, phone, email, address, isResolved, tagList);
 
         return new AddCommand(article);
     }

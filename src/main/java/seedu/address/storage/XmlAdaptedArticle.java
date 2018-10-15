@@ -36,6 +36,9 @@ public class XmlAdaptedArticle {
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
+    @XmlElement(required = true)
+    private boolean isResolved;
+
     /**
      * Constructs an XmlAdaptedArticle.
      * This is the no-arg constructor that is required by JAXB.
@@ -45,7 +48,7 @@ public class XmlAdaptedArticle {
     /**
      * Constructs an {@code XmlAdaptedArticle} with the given article details.
      */
-    public XmlAdaptedArticle(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedArticle(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged, boolean isResolved) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -53,6 +56,7 @@ public class XmlAdaptedArticle {
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
+        this.isResolved = isResolved;
     }
 
     /**
@@ -68,6 +72,7 @@ public class XmlAdaptedArticle {
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
+        isResolved = source.getIsResolved();
     }
 
     /**
@@ -114,7 +119,8 @@ public class XmlAdaptedArticle {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(articleTags);
-        return new Article(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        final boolean modelIsResolved = isResolved;
+        return new Article(modelName, modelPhone, modelEmail, modelAddress, modelIsResolved, modelTags);
     }
 
     @Override

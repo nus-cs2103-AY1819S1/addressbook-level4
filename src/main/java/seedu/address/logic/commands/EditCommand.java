@@ -101,7 +101,7 @@ public class EditCommand extends Command {
         Address updatedAddress = editArticleDescriptor.getAddress().orElse(articleToEdit.getAddress());
         Set<Tag> updatedTags = editArticleDescriptor.getTags().orElse(articleToEdit.getTags());
 
-        return new Article(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Article(updatedName, updatedPhone, updatedEmail, updatedAddress, articleToEdit.getIsResolved(), updatedTags);
     }
 
     @Override
@@ -170,9 +170,7 @@ public class EditCommand extends Command {
             return Optional.ofNullable(phone);
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
-        }
+        public void setEmail(Email email) { this.email = email; }
 
         public Optional<Email> getEmail() {
             return Optional.ofNullable(email);

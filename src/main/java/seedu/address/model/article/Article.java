@@ -30,14 +30,14 @@ public class Article {
     /**
      * Every field must be present and not null.
      */
-    public Article(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Article(Name name, Phone phone, Email email, Address address, boolean isResolved, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.isResolved = isResolved;
         this.tags.addAll(tags);
-        isResolved = false;
     }
 
     public Name getName() {
@@ -52,8 +52,10 @@ public class Article {
         return email;
     }
 
-    public Address getAddress() {
-        return address;
+    public Address getAddress() { return address; }
+
+    public boolean getIsResolved() {
+        return isResolved;
     }
 
     /**
@@ -62,10 +64,6 @@ public class Article {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
-    }
-
-    public boolean getIsResolved() {
-        return isResolved;
     }
 
     /**
@@ -101,13 +99,14 @@ public class Article {
                 && otherArticle.getPhone().equals(getPhone())
                 && otherArticle.getEmail().equals(getEmail())
                 && otherArticle.getAddress().equals(getAddress())
-                && otherArticle.getTags().equals(getTags());
+                && otherArticle.getTags().equals(getTags())
+                && otherArticle.getIsResolved() == getIsResolved();
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags, isResolved);
+        return Objects.hash(name, phone, email, address, isResolved, tags);
     }
 
     @Override
