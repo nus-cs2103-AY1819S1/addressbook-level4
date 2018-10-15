@@ -107,7 +107,7 @@ public class AddressBookParser {
         //@@author chantca95
         case ImportCommand.COMMAND_WORD:
         case ImportCommand.COMMAND_ALIAS:
-            return new ImportCommandPreparer().init();
+            return new ImportCommandPreparer().init(arguments);
 
         //@@author
         case ScheduleCommand.COMMAND_WORD:
