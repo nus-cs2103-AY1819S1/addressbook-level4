@@ -75,7 +75,7 @@ public class ThaneParkParser {
             return new ViewAllCommand();
 
         case HistoryCommand.COMMAND_WORD:
-            return new HistoryCommand();
+            return new HistoryCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

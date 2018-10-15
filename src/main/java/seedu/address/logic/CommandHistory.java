@@ -3,19 +3,16 @@ package seedu.address.logic;
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
-import java.io.StringWriter;
 import java.time.Instant;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.PropertyException;
 
 import seedu.address.commons.core.CommandsLogCenter;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.logging.CommandEntry;
 import seedu.address.model.logging.ExecutedCommand;
 import seedu.address.storage.XmlAdaptedCommandEntry;
@@ -25,7 +22,7 @@ import seedu.address.storage.XmlAdaptedCommandEntry;
  */
 public class CommandHistory {
     private static final String MESSAGE_LOG_ERROR = "%1$s when saving command history to file. %2$s";
-    private static final Logger logger = LogsCenter.getLogger(LogsCenter.class);
+    private static final Logger logger = LogsCenter.getLogger(CommandHistory.class);
     private LinkedList<String> userInputHistory;
 
     /**
@@ -43,16 +40,6 @@ public class CommandHistory {
     }
 
     /**
-     * Sets the marshaller to use a standard XML output.
-     */
-    private static void standardizeXmlOutput(Marshaller marshaller) throws PropertyException {
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
-        marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
-        marshaller.setProperty("com.sun.xml.bind.xmlHeaders", CommandsLogCenter.STANDARDIZED_XML_ENCODING);
-    }
-
-    /**
      * Appends {@code userInput} to the list of user input entered. Logs down IOException as warnings.
      */
     public void add(String userInput) {
@@ -60,21 +47,33 @@ public class CommandHistory {
         userInputHistory.add(userInput);
         try {
             CommandEntry commandEntry = new CommandEntry(Instant.now(), new ExecutedCommand(userInput));
-
-            XmlAdaptedCommandEntry xmlCommandEntry = new XmlAdaptedCommandEntry(commandEntry);
-            JAXBContext context = JAXBContext.newInstance(xmlCommandEntry.getClass());
-            StringWriter stringWriter = new StringWriter();
-            Marshaller marshaller = context.createMarshaller();
-            standardizeXmlOutput(marshaller);
-            marshaller.marshal(xmlCommandEntry, stringWriter);
-            CommandsLogCenter.log(stringWriter.toString());
-        } catch (JAXBException je) {
-            je.printStackTrace();
-            logger.warning(MESSAGE_LOG_ERROR.format(je.getClass().getSimpleName(), je.getMessage()));
-        } catch (IOException ie) {
-            ie.printStackTrace();
-            logger.warning(MESSAGE_LOG_ERROR.format(ie.getClass().getSimpleName(), ie.getMessage()));
+            CommandsLogCenter.log(commandEntry);
+        } catch (JAXBException | IOException e) {
+            e.printStackTrace();
+            logger.warning(MESSAGE_LOG_ERROR.format(e.getClass().getSimpleName(), e.getMessage()));
         }
+    }
+
+    /**
+     * Returns a list of CommandEntry. Will log error message if JAXBException | IOException | IllegalValueException
+     * is met, where the commands log will be deleted and reinitialized.
+     * @return
+     */
+    public List<CommandEntry> getCommandEntryList() {
+        List<CommandEntry> result = new LinkedList<>();
+        try {
+            List<XmlAdaptedCommandEntry> xmlAdaptedCommandEntryList = CommandsLogCenter.retrieve().getValue();
+            for (XmlAdaptedCommandEntry xmlAdaptedCommandEntry : xmlAdaptedCommandEntryList) {
+                result.add(xmlAdaptedCommandEntry.toModelType());
+            }
+        } catch (JAXBException | IOException | IllegalValueException e) {
+            e.printStackTrace();
+            logger.warning(MESSAGE_LOG_ERROR.format(e.getClass().getSimpleName(), e.getMessage()));
+            CommandsLogCenter.delete();
+            CommandsLogCenter.init();
+        }
+
+        return result;
     }
 
     /**
