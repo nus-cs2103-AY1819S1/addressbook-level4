@@ -30,6 +30,9 @@ public class XmlAdaptedEvent {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Event's %s field is missing!";
 
     @XmlElement(required = true)
+    private UUID uid;
+
+    @XmlElement(required = true)
     private UUID uuid;
 
     @XmlElement(required = true)
@@ -72,10 +75,11 @@ public class XmlAdaptedEvent {
     /**
      * Constructs an {@code XmlAdaptedEvent} with the given event details.
      */
-    public XmlAdaptedEvent(UUID uuid, String eventName, DateTime startDateTime, DateTime endDateTime,
+    public XmlAdaptedEvent(UUID uid, UUID uuid, String eventName, DateTime startDateTime, DateTime endDateTime,
                            String description, String venue, RepeatType repeatType,
                            DateTime repeatUntilDateTime, List<XmlAdaptedTag> tagged,
                            ReminderDurationList reminderDurationList) {
+        this.uid = uid;
         this.uuid = uuid;
         this.eventName = eventName;
         this.startDateTime = startDateTime;
@@ -96,6 +100,7 @@ public class XmlAdaptedEvent {
      * @param source future changes to this will not affect the created XmlAdaptedEvent
      */
     public XmlAdaptedEvent(Event source) {
+        uid = source.getUid();
         uuid = source.getUuid();
         eventName = source.getEventName().value;
         startDateTime = source.getStartDateTime();
@@ -121,6 +126,11 @@ public class XmlAdaptedEvent {
         for (XmlAdaptedTag tag : tagged) {
             eventTags.add(tag.toModelType());
         }
+
+        if (uid == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, UUID.class.getSimpleName()));
+        }
+        final UUID modelUid = uid;
 
         if (uuid == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, UUID.class.getSimpleName()));
@@ -180,7 +190,7 @@ public class XmlAdaptedEvent {
 
         final ReminderDurationList modelReminderDurationList = reminderDurationList;
 
-        return new Event(modelUuid, modelName, modelStartDateTime, modelEndDateTime, modelDescription,
+        return new Event(modelUid, modelUuid, modelName, modelStartDateTime, modelEndDateTime, modelDescription,
                 modelVenue, modelRepeatType, modelRepeatUntilDateTime, modelTags, modelReminderDurationList);
     }
 
@@ -195,7 +205,8 @@ public class XmlAdaptedEvent {
         }
 
         XmlAdaptedEvent otherEvent = (XmlAdaptedEvent) other;
-        return Objects.equals(uuid, otherEvent.uuid)
+        return  Objects.equals(uid, otherEvent.uid)
+                && Objects.equals(uuid, otherEvent.uuid)
                 && Objects.equals(eventName, otherEvent.eventName)
                 && Objects.equals(startDateTime, otherEvent.startDateTime)
                 && Objects.equals(endDateTime, otherEvent.endDateTime)

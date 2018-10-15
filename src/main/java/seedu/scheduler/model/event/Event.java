@@ -44,7 +44,7 @@ public class Event {
 
     /**
      * Every field must be present and not null.
-     * only take in reminderDurationList, generate reminderTimeList based on the reminderDurationList
+     * only take in uuid, will auto generate uid
      */
     public Event(UUID uuid, EventName eventName, DateTime startDateTime, DateTime endDateTime,
                  Description description, Venue venue,
@@ -53,6 +53,29 @@ public class Event {
         requireAllNonNull(uuid, eventName, startDateTime, endDateTime, description,
                 venue, repeatType, tags, repeatUntilDateTime, reminderDurationList);
         this.uid = UUID.randomUUID();
+        this.uuid = uuid;
+        this.eventName = eventName;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
+        this.description = description;
+        this.venue = venue;
+        this.repeatType = repeatType;
+        this.repeatUntilDateTime = repeatUntilDateTime;
+        this.tags.addAll(tags);
+        this.reminderDurationList = reminderDurationList;
+    }
+
+    /**
+     * Every field must be present and not null.
+     * takes in both uuid and uid
+     */
+    public Event(UUID uid, UUID uuid, EventName eventName, DateTime startDateTime, DateTime endDateTime,
+                 Description description, Venue venue,
+                 RepeatType repeatType, DateTime repeatUntilDateTime, Set<Tag> tags,
+                 ReminderDurationList reminderDurationList) {
+        requireAllNonNull(uuid, eventName, startDateTime, endDateTime, description,
+                venue, repeatType, tags, repeatUntilDateTime, reminderDurationList);
+        this.uid = uid;
         this.uuid = uuid;
         this.eventName = eventName;
         this.startDateTime = startDateTime;
