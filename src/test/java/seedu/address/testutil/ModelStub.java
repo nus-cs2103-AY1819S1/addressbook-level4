@@ -120,4 +120,14 @@ public class ModelStub implements Model {
     public void exportAddressBook(Path filepath) {
         throw new AssertionError("This method should not be called.");
     }
+
+    @Override
+    public void changeUserPrefs(Path filepath) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Path getAddressBookFilePath() {
+        throw new AssertionError("This method should not be called.");
+    }
 }
