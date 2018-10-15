@@ -14,22 +14,22 @@ import seedu.address.model.Model;
 import seedu.address.model.ride.Ride;
 
 /**
- * Views a ride identified using it's displayed name from thane park.
+ * Views a ride identified using it's displayed index number from thane park.
  */
-public class SelectCommand extends Command {
+public class ViewCommand extends Command {
 
     public static final String COMMAND_WORD = "view";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Views the ride identified by the index number used in the displayed ride list.\n"
-            + "Parameters: NAME\n"
-            + "Example: " + COMMAND_WORD + " Battlestar Galactica";
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Viewed Ride: %1$s";
 
     private final Index targetIndex;
 
-    public SelectCommand(Index targetIndex) {
+    public ViewCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -51,7 +51,7 @@ public class SelectCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof SelectCommand // instanceof handles nulls
-                && targetIndex.equals(((SelectCommand) other).targetIndex)); // state check
+                || (other instanceof ViewCommand // instanceof handles nulls
+                && targetIndex.equals(((ViewCommand) other).targetIndex)); // state check
     }
 }
