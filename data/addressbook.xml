@@ -46,4 +46,9 @@
         <difficulty>5</difficulty>
         <cooktime>PT1H20M</cooktime>
     </recipes>
+    <recipes>
+        <name>Cheese Fries</name>
+        <difficulty>2</difficulty>
+        <cooktime>PT20M</cooktime>
+    </recipes>
 </souschef>

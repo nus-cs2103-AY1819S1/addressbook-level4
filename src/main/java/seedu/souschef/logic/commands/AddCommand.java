@@ -1,17 +1,6 @@
 package seedu.souschef.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_AGE;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_CHEIGHT;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_COOKTIME;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_CWEIGHT;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_DURATION;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_HPNAME;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_SCHEME;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TWEIGHT;
 
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.model.Model;
@@ -24,43 +13,10 @@ public class AddCommand<T extends UniqueType> extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a recipe to the address book. "
-            + "Parameters: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_DIFFICULTY + "DIFFICULTY "
-            + PREFIX_COOKTIME + "TIME "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_DIFFICULTY + "5 "
-            + PREFIX_COOKTIME + "PT1H20M "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
-
     public static final String MESSAGE_ADD_SUCCESS = "New %1$s added: %2$s";
-
-    public static final String MESSAGE_USAGE_HEALTHPLAN = COMMAND_WORD + ": Adds a healthplan. "
-            + "Parameters: "
-            + PREFIX_HPNAME + "HealthPlan Name "
-            + PREFIX_AGE + "Age "
-            + PREFIX_CHEIGHT + "Current Height(CM) "
-            + PREFIX_CWEIGHT + "Current Weight(KG) "
-            + PREFIX_TWEIGHT + "Target Weight(KG) "
-            + PREFIX_DURATION + "Duration(Days) "
-            + PREFIX_SCHEME + "Scheme(GAIN/LOSS/MAINTAIN) \n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_HPNAME + "SLIM DOWN "
-            + PREFIX_AGE + "25 "
-            + PREFIX_CHEIGHT + "170 "
-            + PREFIX_CWEIGHT + "70 "
-            + PREFIX_TWEIGHT + "60 "
-            + PREFIX_DURATION + "10 "
-            + PREFIX_SCHEME + "LOSS ";
 
     private final Model model;
     private final T toAdd;
-
-
 
     /**
      * Creates an AddCommand to add the specified {@code Recipe}
