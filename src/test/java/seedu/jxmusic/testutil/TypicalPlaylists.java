@@ -1,9 +1,14 @@
 package seedu.jxmusic.testutil;
 
-import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_NAME_ANY;
-import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_NAME_METAL;
-import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_EXISTENCE;
-import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_ALIEZ;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.TRACK_NAME_ARG_EXISTENCE;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.TRACK_NAME_ARG_MYDEMONS;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_PLAYLIST_NAME_ANIME;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_PLAYLIST_NAME_EMPTY;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_PLAYLIST_NAME_INSTRUMENTAL;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_PLAYLIST_NAME_METAL;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_FURELISE;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_HAIKEI;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_IHOJIN;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,29 +22,25 @@ import seedu.jxmusic.model.Playlist;
  */
 public class TypicalPlaylists {
 
-    public static final Playlist ANIME = new PlaylistBuilder().withName("Anime OST")
-            .withTracks("aliez").build();
-    public static final Playlist METAL = new PlaylistBuilder().withName("Metal")
-            .withTracks("EXiSTENCE").build();
     public static final Playlist POP = new PlaylistBuilder().withName("Pop songs").build();
     public static final Playlist ROCK = new PlaylistBuilder().withName("ROCK N ROLL")
             .withTracks("Bohemian Rhapsody").build();
     public static final Playlist CHINESE = new PlaylistBuilder().withName("Chinese songs")
             .withTracks("Shen Hua").build();
-    public static final Playlist CLASSICS = new PlaylistBuilder().withName("Classics")
-            .withTracks("Canon").build();
-    public static final Playlist INSTRUMENTAL = new PlaylistBuilder().withName("instrumental")
-            .withTracks("Fur Elise").build();
 
     // Manually added
-    public static final Playlist HOON = new PlaylistBuilder().withName("Hoon Meier").build();
-    public static final Playlist IDA = new PlaylistBuilder().withName("Ida Mueller").build();
+    public static final Playlist FAVOURITES = new PlaylistBuilder().withName("Faves").build();
+    public static final Playlist ENGLISH = new PlaylistBuilder().withName("English").build();
 
     // Manually added - Playlist's details found in {@code CommandTestUtil}
-    public static final Playlist AMY = new PlaylistBuilder().withName(VALID_NAME_ANY)
-            .withTracks(VALID_TRACK_EXISTENCE).build();
-    public static final Playlist BOB = new PlaylistBuilder().withName(VALID_NAME_METAL)
-            .withTracks(VALID_TRACK_ALIEZ, VALID_TRACK_EXISTENCE).build();
+    public static final Playlist EMPTY = new PlaylistBuilder().withName(VALID_PLAYLIST_NAME_EMPTY)
+            .build();
+    public static final Playlist ANIME = new PlaylistBuilder().withName(VALID_PLAYLIST_NAME_ANIME)
+            .withTracks(VALID_TRACK_NAME_HAIKEI, VALID_TRACK_NAME_IHOJIN).build();
+    public static final Playlist INSTRUMENTAL = new PlaylistBuilder().withName(VALID_PLAYLIST_NAME_INSTRUMENTAL)
+            .withTracks(VALID_TRACK_NAME_IHOJIN, VALID_TRACK_NAME_FURELISE).build();
+    public static final Playlist METAL = new PlaylistBuilder().withName(VALID_PLAYLIST_NAME_METAL)
+            .withTracks(TRACK_NAME_ARG_EXISTENCE, TRACK_NAME_ARG_MYDEMONS).build();
 
     public static final String KEYWORD_MATCHING_SONG = "song"; // A keyword that matches name with "song"
 
@@ -49,14 +50,14 @@ public class TypicalPlaylists {
      * Returns an {@code Library} with all the typical playlists.
      */
     public static Library getTypicalLibrary() {
-        Library ab = new Library();
+        Library library = new Library();
         for (Playlist playlist : getTypicalPlaylists()) {
-            ab.addPlaylist(playlist);
+            library.addPlaylist(playlist);
         }
-        return ab;
+        return library;
     }
 
     public static List<Playlist> getTypicalPlaylists() {
-        return new ArrayList<>(Arrays.asList(ANIME, METAL, POP, ROCK, CHINESE, CLASSICS, INSTRUMENTAL));
+        return new ArrayList<>(Arrays.asList(ANIME, POP, ROCK, CHINESE, INSTRUMENTAL, METAL));
     }
 }
