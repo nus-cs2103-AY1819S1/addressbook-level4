@@ -31,6 +31,7 @@ public class DateTest {
         //is not
         assertFalse(Date.isLeapYear(1989));
         assertFalse(Date.isLeapYear(2030));
+        assertFalse(Date.isLeapYear(1700));
     }
 
     @Test

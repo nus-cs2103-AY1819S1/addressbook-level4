@@ -10,6 +10,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ADAM;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalPersons.ADAM;
 import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.AMY_APPT;
+import static seedu.address.testutil.TypicalPersons.CARL_APPT;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ import seedu.address.model.doctor.exceptions.DuplicateDoctorException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 
+import seedu.address.testutil.AppointmentBuilder;
 import seedu.address.testutil.DoctorBuilder;
 import seedu.address.testutil.PersonBuilder;
 
@@ -101,6 +104,13 @@ public class AddressBookTest {
         addressBook.hasDoctor(null);
     }
 
+    //@@author gingivitiss
+    @Test
+    public void hasAppointment_nullAppointment_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        addressBook.hasAppointment(null);
+    }
+
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
         assertFalse(addressBook.hasPerson(ALICE));
@@ -110,6 +120,12 @@ public class AddressBookTest {
     @Test
     public void hasDoctor_doctorNotInAddressBook_returnsFalse() {
         assertFalse(addressBook.hasDoctor(ADAM));
+    }
+
+    //@@author gingivitiss
+    @Test
+    public void hasAppointment_appointmentNotInAddressBook_returnsFalse() {
+        assertFalse(addressBook.hasAppointment(AMY_APPT));
     }
 
     @Test
@@ -123,6 +139,13 @@ public class AddressBookTest {
     public void hasDoctor_doctorInAddressBook_returnsTrue() {
         addressBook.addDoctor(ADAM);
         assertTrue(addressBook.hasDoctor(ADAM));
+    }
+
+    //@@author gingivitiss
+    @Test
+    public void hasAppointment_appointmentInAddressBook_returnsTrue() {
+        addressBook.addAppointment(AMY_APPT);
+        assertTrue(addressBook.hasAppointment(AMY_APPT));
     }
 
     @Test
@@ -141,6 +164,28 @@ public class AddressBookTest {
         assertTrue(addressBook.hasDoctor(editedAdam));
     }
 
+    //@@author gingivitiss
+    @Test
+    public void hasAppointment_appointmentWithSameIdentityFieldsInAddressBook_returnsTrue() {
+        addressBook.addAppointment(AMY_APPT);
+        Appointment editedAmy = new AppointmentBuilder(AMY_APPT).withTime(13, 00).build();
+        assertTrue(addressBook.hasAppointment(editedAmy));
+    }
+
+    @Test
+    public void hasAppointment_appointmentWithDifferentIdentityFieldsInAddressBook_returnsFalse() {
+        addressBook.addAppointment(AMY_APPT);
+        Appointment editedAmy = new AppointmentBuilder(AMY_APPT).withTime(12, 00).build();
+        assertFalse(addressBook.hasAppointment(editedAmy));
+    }
+
+    @Test
+    public void hasAppointmentClash_appointmentWithSameTimingsInAddressBook_returnsTrue() {
+        addressBook.addAppointment(AMY_APPT);
+        Appointment newAppt = new AppointmentBuilder(CARL_APPT).withTime(13, 00).build();
+        assertTrue(addressBook.hasAppointmentClash(newAppt));
+    }
+
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
@@ -152,6 +197,13 @@ public class AddressBookTest {
     public void getDoctorList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         addressBook.getDoctorList().remove(0);
+    }
+
+    //@@author gingivitiss
+    @Test
+    public void getAppointmentList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        addressBook.getAppointmentList().remove(0);
     }
 
     /**
