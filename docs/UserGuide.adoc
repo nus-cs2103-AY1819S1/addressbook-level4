@@ -162,7 +162,7 @@ Add a recipe in their favourites list. +
 Format: +
 `favourite`
 
-==== Add to meal plan: `plan INDEX DATE MEAl`
+==== Add to meal plan: `plan INDEX DATE MEAL`
 Add a specified recipe to meal plan. +
 ****
 * INDEX should be the index number of the recipe displayed
