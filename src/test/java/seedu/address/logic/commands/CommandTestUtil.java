@@ -154,8 +154,7 @@ public class CommandTestUtil {
 
     /**
      * Updates {@code model}'s filtered list to show only the task at the given {@code targetIndex}
-     * in the
-     * {@code model}'s task manager.
+     * in the {@code model}'s task manager.
      */
     public static void showTaskAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredTaskList().size());
@@ -165,6 +164,25 @@ public class CommandTestUtil {
         model.updateFilteredTaskList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredTaskList().size());
+    }
+    /**
+     * Updates {@code model}'s filtered list to show only the two tasks at {@code firstTargetIndex}
+     * and {@code secondTargetIndex} in the {@code model}'s task manager.
+     */
+    public static void showTaskAtTwoIndexes(Model model, Index firstTargetIndex, Index secondTargetIndex) {
+        assertTrue(firstTargetIndex.getZeroBased() < model.getFilteredTaskList().size());
+        assertTrue(secondTargetIndex.getZeroBased() < model.getFilteredTaskList().size());
+
+        Task firstTask = model.getFilteredTaskList().get(firstTargetIndex.getZeroBased());
+        final String[] firstSplitName = firstTask.getName().fullName.split("\\s+");
+
+        Task secondTask = model.getFilteredTaskList().get(secondTargetIndex.getZeroBased());
+        final String[] secondSplitName = secondTask.getName().fullName.split("\\s+");
+
+        model.updateFilteredTaskList(new NameContainsKeywordsPredicate(Arrays.asList(firstSplitName[0],
+                secondSplitName[0])));
+
+        assertEquals(2, model.getFilteredTaskList().size());
     }
 
     /**

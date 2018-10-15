@@ -21,6 +21,8 @@ import seedu.address.model.task.PriorityValue;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_TWO_INDEXES =
+            "The two indexes should be separated by a single space i.e. 1 2";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -34,6 +36,27 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+    /**
+     * Parses two {@code oneBasedIndex} into two {@code Index} and returns them. Leading and trailing whitespaces will
+     * be trimmed.
+     *
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer) or if format is
+     * incorrect
+     */
+    public static Index[] parseTwoIndexes(String twoOneBasedIndexes) throws ParseException {
+        String trimmedIndexes = twoOneBasedIndexes.trim();
+        String[] indexes = trimmedIndexes.split(" ");
+        if (indexes.length != 2) {
+            throw new ParseException(MESSAGE_INVALID_TWO_INDEXES);
+
+        }
+        if (!StringUtil.isNonZeroUnsignedInteger(indexes[0]) || !StringUtil.isNonZeroUnsignedInteger(indexes[1])) {
+            throw new ParseException(MESSAGE_INVALID_INDEX);
+        }
+        Index[] result = {Index.fromOneBased(Integer.parseInt(indexes[0])),
+                Index.fromOneBased(Integer.parseInt(indexes[1]))};
+        return result;
     }
 
     /**

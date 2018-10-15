@@ -62,8 +62,24 @@ public class UniqueTaskList implements Iterable<Task> {
         if (!target.isSameTask(editedTask) && contains(editedTask)) {
             throw new DuplicateTaskException();
         }
+        String oldHash = Integer.toString(target.hashCode());
+        String newHash = Integer.toString(editedTask.hashCode());
+        if (!oldHash.equals(newHash)) {
+            for (int i = 0; i < internalList.size(); i++) {
+                Task task = internalList.get(i);
+                if (task.isDependentOn(target)) {
+                    Task newTask = createUpdatedHashReferenceTask(task, oldHash, newHash);
+                    internalList.set(i, newTask);
+                }
+            }
+        }
 
         internalList.set(index, editedTask);
+    }
+    private Task createUpdatedHashReferenceTask(Task taskToEdit, String oldHash, String newHash) {
+        return new Task(taskToEdit.getName(), taskToEdit.getDueDate(), taskToEdit.getPriorityValue(),
+                taskToEdit.getDescription(), taskToEdit.getLabels(), taskToEdit.getStatus(),
+                taskToEdit.getDependency().updateHash(oldHash, newHash));
     }
 
     /**

@@ -11,6 +11,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Label;
+import seedu.address.model.task.Dependency;
 import seedu.address.model.task.Description;
 import seedu.address.model.task.DueDate;
 import seedu.address.model.task.Name;
@@ -38,7 +39,10 @@ public class XmlAdaptedTask {
     private List<XmlAdaptedLabel> labelled = new ArrayList<>();
     @XmlElement
     private String status;
-
+    @XmlElement
+    private Set<String> dependencies = new HashSet<>();
+    @XmlElement
+    private String hash;
     /**
      * Constructs an XmlAdaptedTask.
      * This is the no-arg constructor that is required by JAXB.
@@ -49,7 +53,7 @@ public class XmlAdaptedTask {
      * Constructs an {@code XmlAdaptedTask} with the given task details.
      */
     public XmlAdaptedTask(String name, String dueDate, String priorityValue,
-                          String description, List<XmlAdaptedLabel> labelled) {
+                          String description, List<XmlAdaptedLabel> labelled, List<String> dependencies) {
         this.name = name;
         this.dueDate = dueDate;
         this.priorityValue = priorityValue;
@@ -58,6 +62,9 @@ public class XmlAdaptedTask {
             this.labelled = new ArrayList<>(labelled);
         }
         this.status = Status.IN_PROGRESS.toString();
+        if (dependencies != null) {
+            this.dependencies = new HashSet<>(dependencies);
+        }
     }
 
     /**
@@ -89,6 +96,8 @@ public class XmlAdaptedTask {
                 .map(XmlAdaptedLabel::new)
                 .collect(Collectors.toList());
         status = source.getStatus().toString();
+        hash = Integer.toString(source.hashCode());
+        dependencies = source.getDependency().getHashes();
     }
 
     /**
@@ -141,7 +150,10 @@ public class XmlAdaptedTask {
             throw new IllegalValueException(Status.MESSAGE_STATUS_CONSTRAINTS);
         }
         final Status modelStatus = Status.getStatusFromValue(status);
-        return new Task(modelName, modelDueDate, modelPriorityValue, modelDescription, modelLabels, modelStatus);
+        final Dependency dependency = new Dependency(dependencies);
+
+        return new Task(modelName, modelDueDate, modelPriorityValue, modelDescription, modelLabels, modelStatus,
+                dependency);
     }
 
     @Override

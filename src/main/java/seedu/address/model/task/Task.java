@@ -24,11 +24,13 @@ public class Task {
     // Data fields
     private final Description description;
     private final Set<Label> labels = new HashSet<>();
+    private final Dependency dependency;
 
     /**
      * Every field must be present and not null.
      * Status of a new task is initialized to in progress unless specified.
      */
+    //TODO: Remove the need for multiple constructors
     public Task(Name name, DueDate dueDate, PriorityValue priorityValue, Description description, Set<Label> labels) {
         requireAllNonNull(name, dueDate, priorityValue, description, labels);
         this.name = name;
@@ -37,10 +39,11 @@ public class Task {
         this.description = description;
         this.labels.addAll(labels);
         this.status = Status.IN_PROGRESS;
+        this.dependency = new Dependency();
     }
 
     public Task(Name name, DueDate dueDate, PriorityValue priorityValue, Description description, Set<Label> labels,
-                Status status) {
+                Status status, Dependency dependency) {
         requireAllNonNull(name, dueDate, priorityValue, description, labels);
         this.name = name;
         this.dueDate = dueDate;
@@ -48,6 +51,7 @@ public class Task {
         this.description = description;
         this.labels.addAll(labels);
         this.status = status;
+        this.dependency = dependency;
     }
 
     public Name getName() {
@@ -78,6 +82,10 @@ public class Task {
         return status;
     }
 
+    public Dependency getDependency() {
+        return dependency;
+    }
+
     public boolean isCompleted() {
         return status == Status.COMPLETED;
     }
@@ -94,6 +102,10 @@ public class Task {
                 && othertask.getName().equals(getName())
                 && (othertask.getDueDate().equals(getDueDate())
                 || othertask.getPriorityValue().equals(getPriorityValue()));
+    }
+
+    public boolean isDependentOn(Task otherTask) {
+        return dependency.containsDependency(otherTask);
     }
 
     /**
@@ -122,8 +134,11 @@ public class Task {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, dueDate, priorityValue, description, labels, status);
+        //status's string is used because status is an Enum, so each enum has a unique hashcode
+        return Objects.hash(name, dueDate, priorityValue, description, labels, status.toString());
     }
+
+
 
     @Override
     public String toString() {

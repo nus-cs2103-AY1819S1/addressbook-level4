@@ -39,7 +39,12 @@ public class TaskCard extends UiPart<Region> {
     @FXML
     private Label status;
     @FXML
+    private Label hash;
+    @FXML
+    private Label dependency;
+    @FXML
     private FlowPane tags;
+    //TODO:Cannot find local variable tag
 
     public TaskCard(Task task, int displayedIndex) {
         super(FXML);
@@ -50,6 +55,8 @@ public class TaskCard extends UiPart<Region> {
         address.setText(task.getDescription().value);
         email.setText(task.getPriorityValue().value);
         status.setText(task.getStatus().toString());
+        hash.setText(Integer.toString(task.hashCode()));
+        dependency.setText(task.getDependency().toString());
         task.getLabels().forEach(tag -> tags.getChildren().add(new Label(tag.labelName)));
     }
 
