@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -11,6 +12,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.RecordChangeEvent;
+import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 
 /**
@@ -27,6 +29,7 @@ public class RecordEventPanel extends UiPart<Region> {
     @FXML
     private TableView volunteerRecordTableView;
 
+    private List<Person> volunteerList;
 
     public RecordEventPanel(ObservableList<Record> recordList) {
         super(FXML);
@@ -44,7 +47,5 @@ public class RecordEventPanel extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         eventNameLabel.setText(event.getCurrentEvent().getName().fullName);
         numOfVolunteersLabel.setText("0");
-
     }
-
 }
