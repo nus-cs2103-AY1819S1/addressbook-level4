@@ -72,11 +72,11 @@ public class MainApp extends Application {
         //model segment
         modelSet = initModelManager(storage, userPrefs);
 
-
-        logic = new LogicManager(modelSet, storage);
-
         //ui
         ui = new UiManager(logic, config, userPrefs);
+
+        //logic
+        logic = new LogicManager(modelSet, storage, ui);
 
         initEventsCenter();
     }
