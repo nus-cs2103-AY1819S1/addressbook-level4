@@ -35,7 +35,7 @@ public class RecordEventPanel extends UiPart<Region> {
     }
 
     private void setConnections(ObservableList<Record> recordList) {
-        
+
     }
 
 
