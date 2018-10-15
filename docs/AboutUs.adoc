@@ -4,8 +4,8 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+TheTracker was developed by a team of students as part of the CS2103 Software Engineering module.
+It was modified from the AddressBook - Level 4 program developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
@@ -26,7 +26,7 @@ Role: Team Member
 '''
 
 === Kong Zijin
-image::kongzijin.jpg[width="150", align="left"]
+image::kongzijin.png[width="150", align="left"]
 {empty}[http://github.com/KongZijin[github]] [<<KongZijin#, portfolio>>]
 
 Role: Team Member
@@ -34,7 +34,7 @@ Role: Team Member
 '''
 
 === Alistair Ong
-image::alistairong.jpg[width="150", align="left"]
+image::alistairong.png[width="150", align="left"]
 {empty}[http://github.com/alistairong[github]] [<<alistairong#, portfolio>>]
 
 Role: Team Member
@@ -42,7 +42,7 @@ Role: Team Member
 '''
 
 === Tian Xueyan
-image::xueyantian.jpeg[width="150", align="left"]
+image::xueyantian.png[width="150", align="left"]
 {empty}[http://github.com/xueyantian[github]] [<<xueyantian#, portfolio>>]
 
 Role: Team Member
