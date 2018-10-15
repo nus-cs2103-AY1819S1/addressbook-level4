@@ -15,6 +15,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.AddressBookExportEvent;
+import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonPropertyComparator;
 import seedu.address.model.tag.Tag;
@@ -87,6 +88,14 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         versionedAddressBook.updatePerson(target, editedPerson);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void updateGroup(Group target, Group editedGroup) {
+        requireAllNonNull(target, editedGroup);
+
+        versionedAddressBook.updateGroup(target, editedGroup);
         indicateAddressBookChanged();
     }
 
