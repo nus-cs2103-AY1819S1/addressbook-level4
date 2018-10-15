@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 
 import seedu.souschef.model.AppContent;
 import seedu.souschef.model.ReadOnlyAppContent;
-import seedu.souschef.model.recipe.Email;
+import seedu.souschef.model.recipe.CookTime;
+import seedu.souschef.model.recipe.Difficulty;
 import seedu.souschef.model.recipe.Name;
-import seedu.souschef.model.recipe.Phone;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.tag.Tag;
 
@@ -18,17 +18,17 @@ import seedu.souschef.model.tag.Tag;
 public class SampleDataUtil {
     public static Recipe[] getSampleRecipes() {
         return new Recipe[] {
-            new Recipe(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
+            new Recipe(new Name("Alex Yeoh"), new Difficulty("1"), new CookTime("PT30M"),
                     getTagSet("friends")),
-            new Recipe(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
+            new Recipe(new Name("Bernice Yu"), new Difficulty("1"), new CookTime("PT30M"),
                     getTagSet("colleagues", "friends")),
-            new Recipe(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
+            new Recipe(new Name("Charlotte Oliveiro"), new Difficulty("1"), new CookTime("PT30M"),
                     getTagSet("neighbours")),
-            new Recipe(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
+            new Recipe(new Name("David Li"), new Difficulty("1"), new CookTime("PT30M"),
                     getTagSet("family")),
-            new Recipe(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
+            new Recipe(new Name("Irfan Ibrahim"), new Difficulty("1"), new CookTime("PT30M"),
                     getTagSet("classmates")),
-            new Recipe(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
+            new Recipe(new Name("Roy Balakrishnan"), new Difficulty("1"), new CookTime("PT30M"),
                     getTagSet("colleagues"))
         };
     }

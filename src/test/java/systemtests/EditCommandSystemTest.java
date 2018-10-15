@@ -22,7 +22,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
          *//**//*
         Index index = INDEX_FIRST_RECIPE;
         String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
-                + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
+                + DIFFICULTY_DESC_BOB + " " + COOKTIME_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
         Recipe editedRecipe = new RecipeBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
         assertCommandSuccess(command, index, editedRecipe);
 
@@ -39,7 +39,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         *//**//* Case: edit a recipe with new values same as existing values -> edited *//**//*
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + DIFFICULTY_DESC_BOB + COOKTIME_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandSuccess(command, index, BOB);
 
@@ -48,7 +48,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertTrue(getModel().getAppContent().getObservableRecipeList().contains(BOB));
         index = INDEX_SECOND_RECIPE;
         assertNotEquals(getModel().getFilteredList().get(index.getZeroBased()), BOB);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + DIFFICULTY_DESC_BOB + COOKTIME_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedRecipe = new RecipeBuilder(BOB).withName(VALID_NAME_AMY).build();
         assertCommandSuccess(command, index, editedRecipe);
@@ -57,9 +57,9 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
          * -> edited
          *//**//*
         index = INDEX_SECOND_RECIPE;
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + DIFFICULTY_DESC_AMY + COOKTIME_DESC_AMY
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedRecipe = new RecipeBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
+        editedRecipe = new RecipeBuilder(BOB).withDifficulty(VALID_DIFFICULTY_AMY).withCooktime(VALID_COOKTIME_AMY).build();
         assertCommandSuccess(command, index, editedRecipe);
 
         *//**//* Case: clear tags -> cleared *//**//*
@@ -99,7 +99,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         showAllRecipes();
         index = INDEX_FIRST_RECIPE;
         selectRecipe(index);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + DIFFICULTY_DESC_AMY + COOKTIME_DESC_AMY
                 + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new recipe's name
@@ -134,11 +134,11 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 Name.MESSAGE_NAME_CONSTRAINTS);
 
         *//**//* Case: invalid phone -> rejected *//**//*
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_RECIPE.getOneBased() + INVALID_PHONE_DESC,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_RECIPE.getOneBased() + INVALID_DIFFICULTY_DESC,
                 Phone.MESSAGE_PHONE_CONSTRAINTS);
 
         *//**//* Case: invalid email -> rejected *//**//*
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_RECIPE.getOneBased() + INVALID_EMAIL_DESC,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_RECIPE.getOneBased() + INVALID_COOKTIME_DESC,
                 Email.MESSAGE_EMAIL_CONSTRAINTS);
 
         *//**//* Case: invalid address -> rejected *//**//*
@@ -154,33 +154,33 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertTrue(getModel().getAppContent().getObservableRecipeList().contains(BOB));
         index = INDEX_FIRST_RECIPE;
         assertFalse(getModel().getFilteredList().get(index.getZeroBased()).equals(BOB));
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + DIFFICULTY_DESC_BOB + COOKTIME_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_RECIPE);
 
         *//**//* Case: edit a recipe with new values same as another recipe's values but with different tags -> rejected
         *//**//*
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + DIFFICULTY_DESC_BOB + COOKTIME_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_RECIPE);
 
         *//**//* Case: edit a recipe with new values same as another recipe's values but with different address ->
         rejected *//**//*
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + DIFFICULTY_DESC_BOB + COOKTIME_DESC_BOB
                 + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_RECIPE);
 
         *//**//* Case: edit a recipe with new values same as another recipe's values but with different phone ->
         rejected
          *//**//*
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_BOB
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + DIFFICULTY_DESC_AMY + COOKTIME_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_RECIPE);
 
         *//**//* Case: edit a recipe with new values same as another recipe's values but with different email ->
         rejected
          *//**//*
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + DIFFICULTY_DESC_BOB + COOKTIME_DESC_AMY
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_RECIPE);*//*
     }*/

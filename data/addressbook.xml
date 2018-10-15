@@ -2,38 +2,33 @@
 <souschef>
     <recipes>
         <name>Bernice Yu</name>
-        <phone>99272758</phone>
-        <email>berniceyu@example.com</email>
-        <address>Blk 30 Lorong 3 Serangoon Gardens, #07-18</address>
+        <difficulty>5</difficulty>
+        <cooktime>PT34M</cooktime>
         <tagged>colleagues</tagged>
         <tagged>friends</tagged>
     </recipes>
     <recipes>
         <name>Charlotte Oliveiro</name>
-        <phone>93210283</phone>
-        <email>charlotte@example.com</email>
-        <address>Blk 11 Ang Mo Kio Street 74, #11-04</address>
+        <difficulty>5</difficulty>
+        <cooktime>PT34M</cooktime>
         <tagged>neighbours</tagged>
     </recipes>
     <recipes>
         <name>David Li</name>
-        <phone>91031282</phone>
-        <email>lidavid@example.com</email>
-        <address>Blk 436 Serangoon Gardens Street 26, #16-43</address>
+        <difficulty>5</difficulty>
+        <cooktime>PT34M</cooktime>
         <tagged>family</tagged>
     </recipes>
     <recipes>
         <name>Irfan Ibrahim</name>
-        <phone>92492021</phone>
-        <email>irfan@example.com</email>
-        <address>Blk 47 Tampines Street 20, #17-35</address>
+        <difficulty>5</difficulty>
+        <cooktime>PT34M</cooktime>
         <tagged>classmates</tagged>
     </recipes>
     <recipes>
         <name>Roy Balakrishnan</name>
-        <phone>92624417</phone>
-        <email>royb@example.com</email>
-        <address>Blk 45 Aljunied Street 85, #11-31</address>
+        <difficulty>5</difficulty>
+        <cooktime>PT34M</cooktime>
         <tagged>colleagues</tagged>
     </recipes>
 </souschef>

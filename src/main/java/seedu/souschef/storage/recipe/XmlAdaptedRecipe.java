@@ -10,9 +10,9 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.souschef.commons.exceptions.IllegalValueException;
-import seedu.souschef.model.recipe.Email;
+import seedu.souschef.model.recipe.CookTime;
+import seedu.souschef.model.recipe.Difficulty;
 import seedu.souschef.model.recipe.Name;
-import seedu.souschef.model.recipe.Phone;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.tag.Tag;
 
@@ -26,11 +26,9 @@ public class XmlAdaptedRecipe {
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
-    private String phone;
+    private String difficulty;
     @XmlElement(required = true)
-    private String email;
-    @XmlElement(required = true)
-    private String address;
+    private String cooktime;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -44,10 +42,10 @@ public class XmlAdaptedRecipe {
     /**
      * Constructs an {@code XmlAdaptedRecipe} with the given recipe details.
      */
-    public XmlAdaptedRecipe(String name, String phone, String email, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedRecipe(String name, String difficulty, String cooktime, List<XmlAdaptedTag> tagged) {
         this.name = name;
-        this.phone = phone;
-        this.email = email;
+        this.difficulty = difficulty;
+        this.cooktime = cooktime;
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
@@ -60,8 +58,8 @@ public class XmlAdaptedRecipe {
      */
     public XmlAdaptedRecipe(Recipe source) {
         name = source.getName().fullName;
-        phone = source.getPhone().value;
-        email = source.getEmail().value;
+        difficulty = source.getDifficulty().toString();
+        cooktime = source.getCookTime().toString();
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
@@ -86,24 +84,25 @@ public class XmlAdaptedRecipe {
         }
         final Name modelName = new Name(name);
 
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+        if (difficulty == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Difficulty.class.getSimpleName()));
         }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_PHONE_CONSTRAINTS);
+        if (!Difficulty.isValidDifficulty(difficulty)) {
+            throw new IllegalValueException(Difficulty.MESSAGE_DIFFICULTY_CONSTRAINTS);
         }
-        final Phone modelPhone = new Phone(phone);
+        final Difficulty modelDifficulty = new Difficulty(difficulty);
 
-        if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+        if (cooktime == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, CookTime.class.getSimpleName()));
         }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_EMAIL_CONSTRAINTS);
+        if (!CookTime.isValidCookTime(cooktime)) {
+            throw new IllegalValueException(CookTime.MESSAGE_COOKTIME_CONSTRAINTS);
         }
-        final Email modelEmail = new Email(email);
+        final CookTime modelCooktime = new CookTime(cooktime);
 
         final Set<Tag> modelTags = new HashSet<>(recipeTags);
-        return new Recipe(modelName, modelPhone, modelEmail, modelTags);
+        return new Recipe(modelName, modelDifficulty, modelCooktime, modelTags);
     }
 
     @Override
@@ -118,8 +117,8 @@ public class XmlAdaptedRecipe {
 
         XmlAdaptedRecipe otherRecipe = (XmlAdaptedRecipe) other;
         return Objects.equals(name, otherRecipe.name)
-                && Objects.equals(phone, otherRecipe.phone)
-                && Objects.equals(email, otherRecipe.email)
+                && Objects.equals(difficulty, otherRecipe.difficulty)
+                && Objects.equals(cooktime, otherRecipe.cooktime)
                 && tagged.equals(otherRecipe.tagged);
     }
 }

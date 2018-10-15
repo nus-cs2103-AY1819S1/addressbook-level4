@@ -19,10 +19,9 @@ public class GuiTestAssert {
      */
     public static void assertCardEquals(RecipeCardHandle expectedCard, RecipeCardHandle actualCard) {
         assertEquals(expectedCard.getId(), actualCard.getId());
-        assertEquals(expectedCard.getAddress(), actualCard.getAddress());
-        assertEquals(expectedCard.getEmail(), actualCard.getEmail());
+        assertEquals(expectedCard.getDifficulty(), actualCard.getDifficulty());
         assertEquals(expectedCard.getName(), actualCard.getName());
-        assertEquals(expectedCard.getPhone(), actualCard.getPhone());
+        assertEquals(expectedCard.getCooktime(), actualCard.getCooktime());
         assertEquals(expectedCard.getTags(), actualCard.getTags());
     }
 
@@ -31,8 +30,8 @@ public class GuiTestAssert {
      */
     public static void assertCardDisplaysRecipe(Recipe expectedRecipe, RecipeCardHandle actualCard) {
         assertEquals(expectedRecipe.getName().fullName, actualCard.getName());
-        assertEquals(expectedRecipe.getPhone().value, actualCard.getPhone());
-        assertEquals(expectedRecipe.getEmail().value, actualCard.getEmail());
+        assertEquals(expectedRecipe.getCookTime().toString(), actualCard.getCooktime());
+        assertEquals(expectedRecipe.getDifficulty().toString(), actualCard.getDifficulty());
         assertEquals(expectedRecipe.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
                 actualCard.getTags());
     }

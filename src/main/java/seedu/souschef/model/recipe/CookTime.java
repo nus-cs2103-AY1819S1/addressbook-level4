@@ -21,13 +21,8 @@ public class CookTime {
     /**
      * Constructs a {@code CookTime}.
      *
-     * @param cookTime A valid cook time.
+     * @param duration A valid cook time.
      */
-    public CookTime(Duration cookTime) {
-        requireNonNull(cookTime);
-        value = cookTime;
-    }
-
     public CookTime(String duration) {
         requireNonNull(duration);
         checkArgument(isValidCookTime(duration), MESSAGE_COOKTIME_CONSTRAINTS);

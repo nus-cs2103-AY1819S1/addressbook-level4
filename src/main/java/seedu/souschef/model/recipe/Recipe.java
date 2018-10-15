@@ -19,8 +19,6 @@ public class Recipe extends UniqueType {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
-    private final Email email;
     private final CookTime cookTime;
     private final Difficulty difficulty;
 
@@ -31,32 +29,20 @@ public class Recipe extends UniqueType {
     /**
      * Every field must be present and not null.
      */
-    public Recipe(Name name, Phone difficulty, Email cooktime, Set<Tag> tags) {
+    public Recipe(Name name, Difficulty difficulty, CookTime cooktime, Set<Tag> tags) {
         requireAllNonNull(name, difficulty, cooktime, tags);
         this.name = name;
-        this.phone = difficulty;
-        this.email = cooktime;
+        this.cookTime = cooktime;
+        this.difficulty = difficulty;
         this.tags.addAll(tags);
 
-        //this.cookTime = cookTime;
-        //this.difficulty = difficulty;
         //this.instructions.addAll(instructions);
 
-        this.cookTime = new CookTime("PT20H");
-        this.difficulty = new Difficulty(3);
         this.instructions.add(new Instruction("Instruction placeholder 123.", new HashSet<>()));
     }
 
     public Name getName() {
         return name;
-    }
-
-    public Phone getPhone() {
-        return phone;
-    }
-
-    public Email getEmail() {
-        return email;
     }
 
     public CookTime getCookTime() {
@@ -90,7 +76,6 @@ public class Recipe extends UniqueType {
 
         return otherRecipe != null
                 && otherRecipe.getName().equals(getName())
-                && (otherRecipe.getPhone().equals(getPhone()) || otherRecipe.getEmail().equals(getEmail()))
                 && otherRecipe.getCookTime().equals(getCookTime())
                 && otherRecipe.getDifficulty().equals(getDifficulty());
     }
@@ -125,8 +110,6 @@ public class Recipe extends UniqueType {
 
         Recipe otherRecipe = (Recipe) other;
         return otherRecipe.getName().equals(getName())
-                && otherRecipe.getPhone().equals(getPhone())
-                && otherRecipe.getEmail().equals(getEmail())
                 && otherRecipe.getCookTime().equals(getCookTime())
                 && otherRecipe.getDifficulty().equals(getDifficulty())
                 && otherRecipe.getTags().equals(getTags())
@@ -136,17 +119,13 @@ public class Recipe extends UniqueType {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, cookTime, difficulty, tags, instructions);
+        return Objects.hash(name, cookTime, difficulty, tags, instructions);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
                 .append(" CookTime: ")
                 .append(getCookTime())
                 .append(" Difficulty: ")

@@ -1,10 +1,9 @@
 package seedu.souschef.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_COOKTIME;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.souschef.logic.CommandHistory;
@@ -21,15 +20,13 @@ public class AddCommand<T extends UniqueType> extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a recipe to the address book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_PHONE + "PHONE "
-            + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_ADDRESS + "ADDRESS "
+            + PREFIX_DIFFICULTY + "DIFFICULTY "
+            + PREFIX_COOKTIME + "TIME "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
-            + PREFIX_PHONE + "98765432 "
-            + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+            + PREFIX_DIFFICULTY + "5 "
+            + PREFIX_COOKTIME + "PT1H20M "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
