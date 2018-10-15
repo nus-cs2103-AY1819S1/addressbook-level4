@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.AddressBookExportEvent;
+import seedu.address.commons.events.model.UserPrefsChangeEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -44,4 +45,11 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
     void handleAddressBookExportEvent(AddressBookExportEvent abce);
+
+    /**
+     * Change the storage location of the current version of the Address Book.
+     *   Creates the data file if it is missing.
+     * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
+     */
+    void handleUserPrefsChangeEvent(UserPrefsChangeEvent abce);
 }
