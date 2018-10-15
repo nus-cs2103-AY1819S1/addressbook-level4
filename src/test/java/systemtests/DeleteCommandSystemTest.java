@@ -1,5 +1,6 @@
 package systemtests;
 
+import static seedu.souschef.commons.core.Messages.MESSAGE_DELETE_RECIPE_USAGE;
 import static seedu.souschef.logic.commands.DeleteCommand.MESSAGE_DELETE_SUCCESS;
 import static seedu.souschef.testutil.TestUtil.getRecipe;
 
@@ -12,7 +13,7 @@ import seedu.souschef.model.recipe.Recipe;
 public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
     private static final String MESSAGE_INVALID_DELETE_COMMAND_FORMAT =
-            String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
+            String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_DELETE_RECIPE_USAGE);
 
     /*@Test
     public void delete() {
