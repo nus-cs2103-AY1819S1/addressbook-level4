@@ -4,7 +4,7 @@ package seedu.address.model.budget;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -13,6 +13,7 @@ import com.google.common.eventbus.Subscribe;
 
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.budget.BudgetRestart;
 import seedu.address.model.expense.Expense;
 import seedu.address.storage.StorageManager;
 
@@ -35,8 +36,9 @@ public class Budget extends ComponentManager {
 
     private double budgetCap;
     private double currentExpenses;
-    private LocalDate currentMonth;
-    private Map<LocalDate, Double> budgetStartDateAndSpending;
+    private Map<LocalDateTime, Double> budgetStartDateAndSpending;
+    private LocalDateTime nextRecurrence;
+    private long numberOfSecondsToRecurAgain;
 
 
 
@@ -49,7 +51,7 @@ public class Budget extends ComponentManager {
         requireNonNull(budget);
         checkArgument(isValidBudget(budget), BUDGET_VALIDATION_REGEX);
         this.budgetCap = Double.parseDouble(budget);
-        this.currentMonth = LocalDate.now().withDayOfMonth(1);
+        this.nextRecurrence = null;
         this.currentExpenses = 0.0;
         this.budgetStartDateAndSpending = new HashMap<>();
     }
@@ -62,6 +64,9 @@ public class Budget extends ComponentManager {
     public Budget(double budget, double currentExpenses) {
         this.budgetCap = budget;
         this.currentExpenses = currentExpenses;
+        this.nextRecurrence = null;
+        this.budgetStartDateAndSpending = new HashMap<>();
+
 
     }
 
@@ -88,8 +93,8 @@ public class Budget extends ComponentManager {
      * @return a LocalDate object that consists of the most recent timestamp.
      */
 
-    public LocalDate getCurrentMonth() {
-        return this.currentMonth;
+    public LocalDateTime getNextRecurrence() {
+        return this.nextRecurrence;
     }
 
     /**
@@ -101,6 +106,18 @@ public class Budget extends ComponentManager {
     public boolean addExpense(double expense) {
         this.currentExpenses += expense;
         return this.currentExpenses <= this.budgetCap;
+    }
+
+
+    /**
+     * Sets the recurrence frequency
+     * @param seconds Number of seconds to recur again
+     */
+    public void setRecurrenceFrequency(long seconds) {
+        this.numberOfSecondsToRecurAgain = seconds;
+        if (this.nextRecurrence == null) {
+            this.nextRecurrence = LocalDateTime.now().plusSeconds(seconds);
+        }
     }
 
     public void removeExpense(Expense expense) {
@@ -149,11 +166,17 @@ public class Budget extends ComponentManager {
      * @param event an Event that is raised every time the app initializes to check for start of new month.
      */
     @Subscribe
-    public void handleBudgetRestartEvent(BudgetNewMonthCheck event) {
-        this.budgetStartDateAndSpending.put(this.currentMonth, this.currentExpenses);
-        this.currentMonth = LocalDate.now();
-        this.clearSpending();
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Budget has been restarted"));
+    public void handleBudgetRestartEvent(BudgetRestart event) {
+        if (this.nextRecurrence == null) {
+            logger.info(LogsCenter.getEventHandlingLogMessage(event, "Budget has not been set."));
+            return;
+        }
+        if (LocalDateTime.now().isAfter(this.nextRecurrence)) {
+            this.budgetStartDateAndSpending.put(this.nextRecurrence, this.currentExpenses);
+            this.nextRecurrence = LocalDateTime.now().plusSeconds(this.numberOfSecondsToRecurAgain);
+            this.clearSpending();
+            logger.info(LogsCenter.getEventHandlingLogMessage(event, "Budget has been restarted"));
+        }
 
     }
 }

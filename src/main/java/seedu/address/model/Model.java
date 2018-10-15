@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.time.LocalDateTime;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -124,6 +125,12 @@ public interface Model {
     void modifyMaximumBudget(Budget budget) throws NoUserSelectedException;
 
     Budget getMaximumBudget();
+
+    /**
+     * Sets the budget to reset and store spending data after a certain amount of time
+     * @param seconds The recurrence frequency
+     */
+    void setRecurrenceFrequency(long seconds) throws NoUserSelectedException;
 
     /**
      * Returns a copy of this model.

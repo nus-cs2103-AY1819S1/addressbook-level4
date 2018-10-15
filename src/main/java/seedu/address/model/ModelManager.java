@@ -16,6 +16,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.UserLoggedInEvent;
+import seedu.address.commons.events.model.budget.BudgetRestart;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
@@ -190,6 +191,12 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public void setRecurrenceFrequency(long seconds) throws NoUserSelectedException {
+        this.versionedAddressBook.setRecurrenceFrequency(seconds);
+        indicateAddressBookChanged();
+    }
+
 
     @Override
     public Budget getMaximumBudget() {
@@ -236,6 +243,7 @@ public class ModelManager extends ComponentManager implements Model {
         try {
             indicateUserLoggedIn();
             indicateAddressBookChanged();
+            checkBudgetRestart();
         } catch (NoUserSelectedException nuse) {
             throw new IllegalStateException(nuse.getMessage());
         }
@@ -259,6 +267,13 @@ public class ModelManager extends ComponentManager implements Model {
             throw new NoUserSelectedException();
         }
         raise(new UserLoggedInEvent(this.username));
+    }
+
+    /**
+     * Raises an event to check if budget is required to restart due to recurrence
+     */
+    protected void checkBudgetRestart() throws NoUserSelectedException {
+        raise(new BudgetRestart());
     }
 
 

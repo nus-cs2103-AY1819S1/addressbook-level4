@@ -55,6 +55,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void modifyMaximumBudget(Budget budget) {
         this.maximumBudget = budget;
     }
+
+    public void setRecurrenceFrequency(long seconds) {
+        this.maximumBudget.setRecurrenceFrequency(seconds);
+    }
+
+
     //// list overwrite operaticons
 
     /**
