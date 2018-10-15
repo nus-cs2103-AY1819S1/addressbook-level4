@@ -11,24 +11,33 @@ import java.time.LocalDateTime;
  */
 public class DateTime {
 
+    public static final String MESSAGE_DATETIME_CONSTRAINTS =
+            "The valid input will be year-month-localDateTime hour:minute";
+    public final LocalDateTime localDateTime;
+    public final int year;
+    public final int month;
+    public final int day;
+    public final int hour;
+    public final int minute;
     private LocalDateTime date;
 
     /**
      * Constructs a {@code DateTime}
      * Wrapper class for LocalDateTime
      *
-     * @param year   A valid year
-     * @param month  A valid month
-     * @param day    A valid day
-     * @param hour   A valid hour
-     * @param minute A valid minute
+     * @param dateTime   A valid dateTime
      */
-    public DateTime(int year, int month, int day, int hour, int minute) throws DateTimeException {
+    public DateTime(LocalDateTime dateTime) throws DateTimeException {
+        this.localDateTime = dateTime;
+        this.year = localDateTime.getYear();
+        this.month = localDateTime.getMonthValue();
+        this.day = localDateTime.getDayOfMonth();
+        this.hour = localDateTime.getHour();
+        this.minute = localDateTime.getMinute();
         requireAllNonNull(year, month, day, hour, minute);
         if (year <= 0) {
             throw new DateTimeException("Invalid year");
         }
-        date = LocalDateTime.of(year, month, day, hour, minute);
     }
 
     public int getYear() {
@@ -73,7 +82,7 @@ public class DateTime {
 
     @Override
     public String toString() {
-        return date.toString();
+        return localDateTime.toString();
     }
 
     /**
@@ -81,10 +90,23 @@ public class DateTime {
      */
     public static boolean isValidDateTime(int year, int month, int day, int hour, int minute) {
         try {
-            DateTime dateTime = new DateTime(year, month, day, hour, minute);
+            LocalDateTime dateTime = LocalDateTime.of(year, month, day, hour, minute);
+            DateTime dateTime1 = new DateTime(dateTime);
             return true;
         } catch (DateTimeException e) {
             return false;
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof DateTime // instanceof handles nulls
+                && localDateTime.equals(((DateTime) other).localDateTime)); // state check
+    }
+
+    @Override
+    public int hashCode() {
+        return localDateTime.hashCode();
     }
 }
