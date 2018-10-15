@@ -26,12 +26,10 @@ public class AddFriendCommand extends Command {
 
     public static final String MESSAGE_ADD_FRIEND_SUCCESS = "Friends added: %1%2$s";
 
-    private final Index targetIndex1;
-    private final Index targetIndex2;
+    private final Index indexes;
 
-    public AddFriendCommand(Index targetIndex1, Index targetIndex2) {
-        this.targetIndex1 = targetIndex1;
-        this.targetIndex2 = targetIndex2;
+    public AddFriendCommand(Index indexes) {
+        this.indexes = indexes;
     }
 
     @Override
@@ -39,13 +37,13 @@ public class AddFriendCommand extends Command {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
-        if (targetIndex1.getZeroBased() >= lastShownList.size()
-                || targetIndex2.getZeroBased() >= lastShownList.size()) {
+        if (indexes.getZeroBased() >= lastShownList.size()
+                || indexes.getZeroBased2() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToAddFriend1 = lastShownList.get(targetIndex1.getZeroBased());
-        Person personToAddFriend2 = lastShownList.get(targetIndex2.getZeroBased());
+        Person personToAddFriend1 = lastShownList.get(indexes.getZeroBased());
+        Person personToAddFriend2 = lastShownList.get(indexes.getZeroBased2());
         model.addFriends(personToAddFriend1, personToAddFriend2);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_ADD_FRIEND_SUCCESS, personToAddFriend1,
@@ -56,7 +54,6 @@ public class AddFriendCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddFriendCommand // instanceof handles nulls
-                && targetIndex1.equals(((AddFriendCommand) other).targetIndex1) // state check
-                && targetIndex2.equals(((AddFriendCommand) other).targetIndex2));
+                && indexes.equals(((AddFriendCommand) other).indexes)); // state check;
     }
 }

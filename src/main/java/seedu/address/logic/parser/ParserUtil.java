@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -39,6 +40,10 @@ public class ParserUtil {
         String trimmedIndex = oneBasedIndex.trim();
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
             throw new ParseException(MESSAGE_INVALID_INDEX);
+        }
+        if (trimmedIndex.contains(StringUtil.COMMA)) {
+            ArrayList<Integer> indexes = StringUtil.splitIntegersWithComma(trimmedIndex);
+            return Index.fromOneBased(indexes.get(0), indexes.get(1));
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }

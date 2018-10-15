@@ -5,12 +5,16 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.StringTokenizer;
 
 /**
  * Helper functions for handling strings.
  */
 public class StringUtil {
+
+    public static final String COMMA = ",";
 
     /**
      * Returns true if the {@code sentence} contains the {@code word}.
@@ -29,7 +33,8 @@ public class StringUtil {
 
         String preppedWord = word.trim();
         checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
-        checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single word");
+        checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter "
+                + "should be a single word");
 
         String preppedSentence = sentence;
         String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
@@ -57,12 +62,29 @@ public class StringUtil {
      */
     public static boolean isNonZeroUnsignedInteger(String s) {
         requireNonNull(s);
-
+        ArrayList<Integer> values = new ArrayList<>();
+        if (s.contains(COMMA)) {
+            values = splitIntegersWithComma(s);
+        } else {
+            values.add(Integer.parseInt(s));
+        }
         try {
-            int value = Integer.parseInt(s);
-            return value > 0 && !s.startsWith("+"); // "+1" is successfully parsed by Integer#parseInt(String)
+            boolean successParse = true;
+            for (int value : values) {
+                successParse = value > 0 && !s.startsWith("+"); // "+1" successfully parsed by Integer#parseInt(String)
+            }
+            return successParse;
         } catch (NumberFormatException nfe) {
             return false;
         }
+    }
+
+    public static ArrayList<Integer> splitIntegersWithComma(String s) {
+        ArrayList<Integer> values = new ArrayList<>();
+        StringTokenizer st = new StringTokenizer(s, ",");
+        while (st.hasMoreTokens()) {
+            values.add(Integer.parseInt(st.nextToken()));
+        }
+        return values;
     }
 }
