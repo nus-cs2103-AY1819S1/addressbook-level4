@@ -38,9 +38,7 @@ public class AppContentParser {
                                 Storage storage) throws ParseException {
         String context = history.getContext();
 
-        if (storage != null) {
-
-        } else {
+        if (storage == null) {
             storage = new StorageManager();
         }
 
