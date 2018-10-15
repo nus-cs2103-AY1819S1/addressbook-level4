@@ -20,10 +20,10 @@ import seedu.address.model.ModelManager;
  */
 public class SuggestCommandTest {
 
-    private final ThaneParkParser parser = new ThaneParkParser();
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+
+    private final ThaneParkParser parser = new ThaneParkParser();
 
     @Test
     public void constructor_nullString_throwsNullPointerException() {

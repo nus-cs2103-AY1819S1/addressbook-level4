@@ -22,12 +22,12 @@ import seedu.address.storage.XmlListOfCommandEntry;
  * Logs down command history into a xml file. Stops writing when file size exceeds 5MB.
  */
 public class CommandsLogCenter {
+    public static final String STANDARDIZED_ENCODING = "UTF-8";
+    public static final String STANDARDIZED_XML_HEADER = String.format("<?xml version=\"1.0\" encoding=\"%1$s\"?>",
+            STANDARDIZED_ENCODING);
+    public static final String LIST_HEADER = "<xmlListOfCommandEntry>\n";
     public static final String MESSAGE_LOG_INACCESSIBLE = "%1$s cannot be accessed";
 
-    private static final String STANDARDIZED_ENCODING = "UTF-8";
-    private static final String STANDARDIZED_XML_HEADER = String.format("<?xml version=\"1.0\" encoding=\"%1$s\"?>",
-        STANDARDIZED_ENCODING);
-    private static final String LIST_HEADER = "<xmlListOfCommandEntry>\n";
     private static final String LIST_ENDING = "\n</xmlListOfCommandEntry>\n";
     private static final String MESSAGE_FILE_SIZE_EXCEEDED = "Maximum file size exceeded, %1$s";
     private static final int MAX_FILE_SIZE_IN_BYTES = (int) (Math.pow(2, 20) * 5); // 5MB
@@ -102,8 +102,8 @@ public class CommandsLogCenter {
                 String.valueOf(2 * MAX_FILE_SIZE_IN_BYTES)));
         }
         byte[] encoded = Files.readAllBytes(Paths.get(logFile));
-        String x = new String(encoded, STANDARDIZED_ENCODING) + LIST_ENDING;
-        StringReader stringReader = new StringReader(x);
+        String fileData = new String(encoded, STANDARDIZED_ENCODING) + LIST_ENDING;
+        StringReader stringReader = new StringReader(fileData);
 
         JAXBContext jaxbContext = JAXBContext.newInstance(XmlListOfCommandEntry.class);
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();

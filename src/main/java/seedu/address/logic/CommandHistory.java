@@ -22,7 +22,7 @@ import seedu.address.storage.XmlAdaptedCommandEntry;
  */
 public class CommandHistory {
     private static final String MESSAGE_LOG_ERROR = "%1$s when saving command history to file. %2$s";
-    private static final Logger logger = LogsCenter.getLogger(CommandHistory.class);
+    private static Logger logger = LogsCenter.getLogger(CommandHistory.class);
     private LinkedList<String> userInputHistory;
 
     /**
