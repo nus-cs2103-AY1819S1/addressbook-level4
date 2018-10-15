@@ -60,7 +60,7 @@ public class DependencyGraph {
      * @return list of hashes of tasks sorted by topological order
      */
     public List<String> topologicalSort() {
-        Set<String> unvisited = new HashSet<>();
+        Set<String> unvisited = new HashSet<>(adjacencyList.keySet());
         Set<String> stack = new HashSet<>();
         List<String> visited = new ArrayList<>();
         for (String node: adjacencyList.keySet()) {
@@ -86,9 +86,6 @@ public class DependencyGraph {
         if (stack.contains(node)) {
             return true;
         }
-        if (unvisited.contains(node)){
-            visited.add(node);
-        }
         unvisited.remove(node);
         stack.add(node);
         Set<String> edges = adjacencyList.getOrDefault(node, new HashSet<String>());
@@ -96,6 +93,9 @@ public class DependencyGraph {
             if (depthFirstSearch(nextNode, unvisited, visited, stack, adjacencyList)) {
                 return true;
             }
+        }
+        if (!visited.contains(node)) {
+            visited.add(node);
         }
         stack.remove(node);
         return false;
