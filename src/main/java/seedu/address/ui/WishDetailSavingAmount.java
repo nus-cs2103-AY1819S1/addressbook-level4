@@ -45,8 +45,8 @@ public class WishDetailSavingAmount extends UiPart<Region> {
      * Load the page that shows the detail of wish.
      */
     private void loadWishPage(Wish wish) {
-        savedAmount.setText("Saved: $" + wish.getSavedAmount().toString());
-        price.setText("Price: $" + wish.getPrice().toString());
+        savedAmount.setText("$" + wish.getSavedAmount().toString());
+        price.setText("/ $" + wish.getPrice().toString());
     }
 
     @Subscribe

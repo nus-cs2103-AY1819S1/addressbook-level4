@@ -45,6 +45,20 @@
      -fx-padding: 15 0 15 0;
 }
 
+.saving_amount_label {
+     -fx-font-family: "Segoe UI Bold";
+     -fx-font-size: 50px;
+     -fx-text-fill: #2EE298;
+     -fx-padding: 15 0 15 0;
+}
+
+.price_label {
+     -fx-font-family: "Segoe UI Semibold";
+     -fx-font-size: 20px;
+     -fx-text-fill: #ffffff;
+     -fx-padding: 33 0 15 0;
+}
+
 .text-field {
     -fx-font-size: 12pt;
     -fx-font-family: "Segoe UI Semibold";

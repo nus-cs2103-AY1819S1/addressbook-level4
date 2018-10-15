@@ -20,9 +20,10 @@
             <Label styleClass="detail_sub_title_label">
                 Amount Saved
             </Label>
-
-            <Label fx:id="savedAmount" styleClass="detail_label" text="\$savedAmount" />
-            <Label fx:id="price" styleClass="detail_label" text="\$price" />
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <Label fx:id="savedAmount" styleClass="saving_amount_label" text="\$savedAmount" />
+                <Label fx:id="price" styleClass="price_label" text="\$price" />
+            </HBox>
         </VBox>
     </GridPane>
 </StackPane>
