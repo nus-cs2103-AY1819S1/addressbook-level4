@@ -3,10 +3,17 @@ package seedu.souschef.logic.parser.commandparser;
 import static java.util.Objects.requireNonNull;
 import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_AGE;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_CHEIGHT;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_CWEIGHT;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_HPNAME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_SCHEME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TWEIGHT;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -15,6 +22,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.souschef.commons.core.index.Index;
+import seedu.souschef.logic.EditHealthPlanDescriptor;
 import seedu.souschef.logic.EditRecipeDescriptor;
 import seedu.souschef.logic.commands.EditCommand;
 import seedu.souschef.logic.parser.ArgumentMultimap;
@@ -22,6 +30,14 @@ import seedu.souschef.logic.parser.ArgumentTokenizer;
 import seedu.souschef.logic.parser.ParserUtil;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
+import seedu.souschef.model.healthplan.Age;
+import seedu.souschef.model.healthplan.CurrentHeight;
+import seedu.souschef.model.healthplan.CurrentWeight;
+import seedu.souschef.model.healthplan.Duration;
+import seedu.souschef.model.healthplan.HealthPlan;
+import seedu.souschef.model.healthplan.HealthPlanName;
+import seedu.souschef.model.healthplan.Scheme;
+import seedu.souschef.model.healthplan.TargetWeight;
 import seedu.souschef.model.recipe.Address;
 import seedu.souschef.model.recipe.Email;
 import seedu.souschef.model.recipe.Name;
@@ -89,6 +105,80 @@ public class EditCommandParser implements CommandParser<EditCommand> {
     }
 
     /**
+     * Parses the given {@code String} of arguments in the context of the EditCommand
+     * and returns an EditCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public EditCommand<HealthPlan> parseHealthPlan(Model model, String args) throws ParseException {
+        requireNonNull(args);
+
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_HPNAME, PREFIX_TWEIGHT, PREFIX_CWEIGHT,
+                        PREFIX_CHEIGHT, PREFIX_AGE, PREFIX_DURATION, PREFIX_SCHEME);
+
+        Index index;
+
+        try {
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditCommand.MESSAGE_USAGE_HEALTHPLAN), pe);
+        }
+
+        EditHealthPlanDescriptor editHealthPlanDescriptor = new EditHealthPlanDescriptor();
+        if (argMultimap.getValue(PREFIX_HPNAME).isPresent()) {
+            editHealthPlanDescriptor.setHealthPlanName(
+                    ParserUtil.parseHpName(argMultimap.getValue(PREFIX_HPNAME).get()));
+        }
+        if (argMultimap.getValue(PREFIX_TWEIGHT).isPresent()) {
+            editHealthPlanDescriptor.setTargetWeight(
+                    ParserUtil.parseTWeight(argMultimap.getValue(PREFIX_TWEIGHT).get()));
+        }
+        if (argMultimap.getValue(PREFIX_CWEIGHT).isPresent()) {
+            editHealthPlanDescriptor.setCurrentWeight(
+                    ParserUtil.parseCWeight(argMultimap.getValue(PREFIX_CWEIGHT).get()));
+        }
+        if (argMultimap.getValue(PREFIX_CHEIGHT).isPresent()) {
+            editHealthPlanDescriptor.setCurrentHeight(
+                    ParserUtil.parseCHeight(argMultimap.getValue(PREFIX_CHEIGHT).get()));
+        }
+        if (argMultimap.getValue(PREFIX_AGE).isPresent()) {
+            editHealthPlanDescriptor.setAge(ParserUtil.parseAge(argMultimap.getValue(PREFIX_AGE).get()));
+        }
+        if (argMultimap.getValue(PREFIX_DURATION).isPresent()) {
+            editHealthPlanDescriptor.setDuration(ParserUtil.parseDuration(argMultimap.getValue(PREFIX_DURATION).get()));
+        }
+        if (argMultimap.getValue(PREFIX_SCHEME).isPresent()) {
+            editHealthPlanDescriptor.setScheme(ParserUtil.parseScheme(argMultimap.getValue(PREFIX_SCHEME).get()));
+        }
+
+        if (!editHealthPlanDescriptor.isAnyFieldEdited()) {
+            throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
+        }
+
+        requireNonNull(model);
+        List<HealthPlan> lastShownList = model.getFilteredList();
+
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditCommand.MESSAGE_USAGE_HEALTHPLAN));
+        }
+
+        HealthPlan toEdit = lastShownList.get(index.getZeroBased());
+        HealthPlan edited = createEditedHealthPlan(toEdit, editHealthPlanDescriptor);
+
+        if (!toEdit.isSame(edited) && model.has(edited)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditCommand.MESSAGE_USAGE_HEALTHPLAN));
+        }
+
+        return new EditCommand<>(model, toEdit, edited);
+    }
+
+
+
+
+    /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
      * If {@code tags} contain only one element which is an empty string, it will be parsed into a
      * {@code Set<Tag>} containing zero tags.
@@ -118,5 +208,33 @@ public class EditCommandParser implements CommandParser<EditCommand> {
 
         return new Recipe(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
+
+    /**
+     * private function to handle edit logic for the healthplans
+     */
+    private static HealthPlan createEditedHealthPlan(HealthPlan toEdit,
+                                                     EditHealthPlanDescriptor editHealthPlanDescriptor) {
+        assert toEdit != null;
+
+        HealthPlanName updatedHealthPlanName = editHealthPlanDescriptor.getHealthPlanName()
+                .orElse(toEdit.getHealthPlanName());
+
+        Age updatedAge = editHealthPlanDescriptor.getAge().orElse(toEdit.getAge());
+
+        CurrentHeight updatedCurrentHeight = editHealthPlanDescriptor.getCurrentHeight()
+                .orElse(toEdit.getCurrentHeight());
+        CurrentWeight updatedCurrentWeight = editHealthPlanDescriptor.getCurrentWeight()
+                .orElse(toEdit.getCurrentWeight());
+        TargetWeight updatedTargetWeight = editHealthPlanDescriptor.getTargetWeight()
+                .orElse(toEdit.getTargetWeight());
+        Duration updatedDuration = editHealthPlanDescriptor.getDuration().orElse(toEdit.getDuration());
+
+        Scheme updatedScheme = editHealthPlanDescriptor.getScheme().orElse(toEdit.getScheme());
+
+        return new HealthPlan(updatedHealthPlanName, updatedTargetWeight, updatedCurrentWeight,
+                updatedCurrentHeight, updatedAge, updatedDuration, updatedScheme);
+
+    }
+
 
 }
