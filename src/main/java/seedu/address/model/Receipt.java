@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.person.IcNumber;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.ServedPatient;
@@ -7,10 +8,12 @@ import seedu.address.model.person.ServedPatient;
 /**
  * Represents the receipt for the served patients.
  */
-public class Receipt implements Document {
+public class Receipt extends Document {
     private final Name name;
     private final IcNumber icNumber;
     private final String noteContent;
+    private final Medicine medicine = null; //should be extractable from noteContent
+    private final int medicineQuantity = 0; //should be extractable from noteContent
 
     /**
      * Creates a receipt object for the specified servedPatient.
@@ -30,9 +33,10 @@ public class Receipt implements Document {
     public String generate() {
         //dissect contents of note to extract medicines dispensed
         StringBuilder sb = new StringBuilder();
-        sb.append("Name: " + name + "\n");
-        sb.append("NRIC: " + icNumber + "\n");
-        sb.append("Medicine dispensed: \n");
-        return sb.substring(0, sb.length() - 1);
+        sb.append(super.generateHeaders());
+        sb.append(super.tabFormat("Name: " + name + "\n"));
+        sb.append(super.tabFormat("NRIC: " + icNumber + "\n"));
+        sb.append(super.tabFormat("Medicine dispensed: \n"));
+        return sb.toString();
     }
 }
