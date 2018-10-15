@@ -2,6 +2,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_LOCATION;
 
 import java.util.ArrayList;
 
@@ -20,7 +21,9 @@ public class ImportCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Import successful!";
     public static final String MESSAGE_DUPLICATE = " Duplicate contacts not imported.";
     public static final String MESSAGE_FAIL = "No contacts imported.";
-    public static final String MESSAGE_USAGE = "Please use the file browser to choose a csv file.";
+    public static final String MESSAGE_USAGE = "Imports contacts from a CSV file. \n" +
+            "Parameters: " + PREFIX_FILE_LOCATION + "FILE_LOCATION " +
+            "OR leave the path empty to open up a file browser (ie. type import ONLY)";
     public static final String MESSAGE_INVALID_FIELD = " Contacts with invalid fields not imported.";
     public static final String MESSAGE_NAMELESS_CONTACT = " Contacts without at least a name field not imported.";
 

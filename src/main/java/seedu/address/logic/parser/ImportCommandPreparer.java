@@ -1,11 +1,15 @@
 //@@author chantca95
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_LOCATION;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Set;
@@ -44,15 +48,35 @@ public class ImportCommandPreparer {
     /**
      * Starts the import process by directing users to choose a file.
      */
-    public ImportCommand init() throws ParseException {
+    public ImportCommand init(String args) throws ParseException {
+        File inputFile;
+        if (args.isEmpty()) {
+            inputFile = getFileFromFileBrowser();
+        } else {
+            inputFile = getFileFromUserInput(args);
+        }
+        return parseFile(inputFile);
+    }
+
+    private File getFileFromUserInput(String args) throws ParseException {
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_FILE_LOCATION);
+        if (!argMultimap.getValue(PREFIX_FILE_LOCATION).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
+        }
+        Path fileLocation = ParserUtil.parseFileLocation(argMultimap.getValue(PREFIX_FILE_LOCATION).get());
+        return fileLocation.toFile();
+    }
+
+    private File getFileFromFileBrowser() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select .csv file");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV", "*.csv"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TEXT", "*.txt"));
         File file = fileChooser.showOpenDialog(new Stage());
-
-        return parseFile(file);
+        return file;
     }
+
     /**
      * Parses the selected csv file.
      */
