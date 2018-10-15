@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -26,6 +27,7 @@ public class Person {
     private final Schedule schedule;
     private final Set<Interest> interests = new HashSet<>();
     private final Set<Tag> tags = new HashSet<>();
+    private final ArrayList<Person> friends = new ArrayList<>();
 
     /**
      * Every field must be present and not null.
@@ -93,6 +95,13 @@ public class Person {
     }
 
     /**
+     * Returns an ArrayList of Person, which represent the friends of the current person.
+     */
+    public ArrayList<Person> getFriends() {
+        return friends;
+    }
+
+    /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
@@ -104,6 +113,16 @@ public class Person {
         return otherPerson != null
                 && otherPerson.getName().equals(getName())
                 && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+    }
+
+    public String friendsToString() {
+        String friendshipString = " Friends: ";
+        ArrayList<String> friendsList = new ArrayList<>();
+        for (Person friend : friends) {
+            friendsList.add(friend.getName().toString());
+        }
+        friendshipString += friendsList;
+        return friendshipString;
     }
 
     /**
@@ -151,6 +170,7 @@ public class Person {
         getInterests().forEach(builder::append);
         builder.append(" Tags: ");
         getTags().forEach(builder::append);
+        builder.append(friendsToString());
         return builder.toString();
     }
 }
