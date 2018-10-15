@@ -94,6 +94,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -194,17 +195,18 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleContextChange(ContextChangeEvent contextChangeEvent) {
         String contextId = contextChangeEvent.getNewContext();
+        listPanelPlaceholder.getChildren().clear();
+        browserPlaceholder.getChildren().clear();
+
         if (contextId.equals(EVENT_CONTEXT_ID)) {
-            listPanelPlaceholder.getChildren().clear();
             listPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
+            browserPlaceholder.getChildren().add(browserPanel.getRoot());
         } else if (contextId.equals(VOLUNTEER_CONTEXT_ID)) {
-            listPanelPlaceholder.getChildren().clear();
             listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+            browserPlaceholder.getChildren().add(browserPanel.getRoot());
         } else if (contextId.equals(RECORD_CONTEXT_ID)) {
             // TO_UPDATE: Shows all available volunteers for event
-            listPanelPlaceholder.getChildren().clear();
             listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-            browserPlaceholder.getChildren().clear();
             recordEventPanel = new RecordEventPanel(contextChangeEvent.getCurrentEvent());
             browserPlaceholder.getChildren().add(recordEventPanel.getRoot());
         }
