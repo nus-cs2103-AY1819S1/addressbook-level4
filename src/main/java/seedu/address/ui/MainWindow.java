@@ -123,7 +123,7 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        rideListPanel = new RideListPanel(logic.getFilteredPersonList());
+        rideListPanel = new RideListPanel(logic.getFilteredRideList());
         personListPanelPlaceholder.getChildren().add(rideListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
