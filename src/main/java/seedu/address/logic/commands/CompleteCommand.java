@@ -193,12 +193,13 @@ public class CompleteCommand extends Command {
      */
     public Task createCompletedTask(Task toComplete) {
         return new Task(
-            toComplete.getName(),
-            toComplete.getDueDate(),
-            toComplete.getPriorityValue(),
-            toComplete.getDescription(),
-            toComplete.getLabels(),
-            Status.COMPLETED);
+                toComplete.getName(),
+                toComplete.getDueDate(),
+                toComplete.getPriorityValue(),
+                toComplete.getDescription(),
+                toComplete.getLabels(),
+                Status.COMPLETED,
+                toComplete.getDependency());
     }
 
     @Override

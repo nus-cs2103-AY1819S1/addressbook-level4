@@ -70,7 +70,7 @@ public class DueDate {
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return (int) valueDate.toInstant().toEpochMilli();
     }
 
 }

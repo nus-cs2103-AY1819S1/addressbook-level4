@@ -98,6 +98,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         requireNonNull(editedTask);
 
         tasks.setTask(target, editedTask);
+
     }
 
     /**
