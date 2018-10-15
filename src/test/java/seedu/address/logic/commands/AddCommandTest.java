@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
@@ -19,6 +20,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.google.GoogleClientInstance;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -129,27 +131,46 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean canUndoAddressBook() {
-            throw new AssertionError("This method should not be called.");
+        public GoogleClientInstance getGoogleClientInstance() {
+            return null;
         }
 
         @Override
-        public boolean canRedoAddressBook() {
-            throw new AssertionError("This method should not be called.");
+        public void setGoogleClientInstance(GoogleClientInstance instance) {
+
         }
 
         @Override
-        public void undoAddressBook() {
-            throw new AssertionError("This method should not be called.");
+        public boolean canUndoPreviewImageManager() {
+            return false;
         }
 
         @Override
-        public void redoAddressBook() {
-            throw new AssertionError("This method should not be called.");
+        public boolean canRedoPreviewImageManager() {
+            return false;
         }
 
         @Override
-        public void commitAddressBook() {
+        public void undoPreviewImageManager() {
+
+        }
+
+        @Override
+        public void redoPreviewImageManager() {
+
+        }
+
+        @Override
+        public void commitPreviewImageManager() {
+
+        }
+
+        @Override
+        public void updateUserPrefs(Path newCurrDirectory) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public Path getCurrDirectory() {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -188,11 +209,6 @@ public class AddCommandTest {
         public void addPerson(Person person) {
             requireNonNull(person);
             personsAdded.add(person);
-        }
-
-        @Override
-        public void commitAddressBook() {
-            // called by {@code AddCommand#execute()}
         }
 
         @Override
