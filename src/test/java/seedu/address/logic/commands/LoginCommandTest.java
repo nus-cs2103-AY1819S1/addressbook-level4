@@ -36,7 +36,7 @@ public class LoginCommandTest {
     }
 
     @Test
-    public void constructor_nullPassword_noNullPointerException() {
+    public void constructor_nullPassword_assertNoNullPointerException() {
         new LoginCommand(TypicalExpenses.SAMPLE_USERNAME, null);
     }
 
