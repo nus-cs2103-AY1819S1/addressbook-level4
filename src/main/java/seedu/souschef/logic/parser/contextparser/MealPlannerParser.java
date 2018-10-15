@@ -48,10 +48,9 @@ public class MealPlannerParser {
         switch(commandWord) {
         case PlanMealCommand.COMMAND_WORD:
             return new PlanMealCommandParser().parsePlan(mealPlannerModel, recipeModel, arguments);
-
-        case "display":
+        case DisplayMealPlannerCommand.COMMAND_WORD:
             return new DisplayMealPlannerCommand(ui);
-        case "clear":
+        case ClearMealPlannerCommand.COMMAND_WORD:
             return new ClearMealPlannerCommand(mealPlannerModel);
 
         default:
