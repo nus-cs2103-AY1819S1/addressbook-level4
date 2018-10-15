@@ -49,7 +49,7 @@ public class CompleteCommandTest {
         String expectedMessage = String.format(CompleteCommand.MESSAGE_SUCCESS, completedTask);
 
         ModelManager expectedModel = new ModelManager(model.getTaskManager(), new UserPrefs());
-        expectedModel.updateTask(taskToComplete, completedTask);
+        expectedModel.updateTaskStatus(taskToComplete, completedTask);
         expectedModel.commitTaskManager();
 
         assertCommandSuccess(completeCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -74,7 +74,7 @@ public class CompleteCommandTest {
         String expectedMessage = String.format(CompleteCommand.MESSAGE_SUCCESS, completedTask);
 
         Model expectedModel = new ModelManager(model.getTaskManager(), new UserPrefs());
-        expectedModel.updateTask(taskToComplete, completedTask);
+        expectedModel.updateTaskStatus(taskToComplete, completedTask);
         expectedModel.commitTaskManager();
 
         assertCommandSuccess(completeCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -121,7 +121,7 @@ public class CompleteCommandTest {
         Task taskToComplete = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         CompleteCommand completeCommand = new CompleteCommand(INDEX_FIRST_TASK);
         Model expectedModel = new ModelManager(model.getTaskManager(), new UserPrefs());
-        expectedModel.updateTask(taskToComplete, simpleCompleteTask(taskToComplete));
+        expectedModel.updateTaskStatus(taskToComplete, simpleCompleteTask(taskToComplete));
         expectedModel.commitTaskManager();
 
         // complete -> first task completed
@@ -165,7 +165,7 @@ public class CompleteCommandTest {
 
         showTaskAtIndex(model, INDEX_SECOND_TASK);
         Task taskToComplete = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
-        expectedModel.updateTask(taskToComplete, simpleCompleteTask(taskToComplete));
+        expectedModel.updateTaskStatus(taskToComplete, simpleCompleteTask(taskToComplete));
         expectedModel.commitTaskManager();
 
         // completes -> completes second task in unfiltered task list / first task in filtered task
@@ -295,7 +295,7 @@ public class CompleteCommandTest {
             .forEach(pairOfTasks -> {
                 Task taskToComplete = pairOfTasks.getKey();
                 Task completedTask = pairOfTasks.getValue();
-                expectedModel.updateTask(taskToComplete, completedTask);
+                expectedModel.updateTaskStatus(taskToComplete, completedTask);
                 completedTasksOutput.append(completedTask.toString() + "\n");
             });
 
