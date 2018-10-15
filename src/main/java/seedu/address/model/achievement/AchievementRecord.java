@@ -61,6 +61,10 @@ public class AchievementRecord {
         setLevel(newData.getLevel());
     }
 
+    /**
+     * Update the XP field of this {@code AchievementRecord} with new xp value.
+     * Triggers the update of Level with xp.
+     */
     public void updateXP(Integer xp) {
         requireNonNull(xp);
 
@@ -68,14 +72,21 @@ public class AchievementRecord {
         this.setXp(new XP(newXpValue));
         updateLevelWithXP(newXpValue);
     }
-    
+
+    /**
+     * Update the Level field of this {@code AchievementRecord} with new xp value.
+     */
     public void updateLevelWithXP(Integer xp) {
         Level newLevel = getMatchingLevel(xp);
         if(!this.level.equals(newLevel)) {
             setLevel(newLevel);
         }
     }
-    
+
+    /**
+     * Returns the corresponding {@code Level} of the current XP value.
+     * Maximum level is level 5.
+     */
     public Level getMatchingLevel(Integer xp) {
         if(xp < Level.LEVEL_1.getMaxXP()) {
             return Level.LEVEL_1;

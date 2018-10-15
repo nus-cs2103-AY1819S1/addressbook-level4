@@ -3,6 +3,7 @@ package seedu.address.model.achievement;
 /**
  * Represent the level of achievement in reached by the user.
  * There are only 5 valid levels, LEVEL_1 to LEVEL_5.
+ * Each level has a name and a range of xp that the level corresponds to.
  */
 public enum Level {
     LEVEL_1("lvl.1", 0, 500),
@@ -14,17 +15,17 @@ public enum Level {
     public static final String MESSAGE_LEVEL_CONSTRAINTS =
             "Level should only have the value lvl.n, where n is integer from 1 to 5";
     public static final String LEVEL_VALIDATION_REGEX = "lvl.[1-5]";
-    private String levelString;
+    private String levelName;
     private Integer minXP;
     private Integer maxXP;
 
     /**
      * Constructs a {@code Level}.
      *
-     * @param levelString a string with corresponding Level object.
+     * @param levelName a string with corresponding Level object.
      */
-    Level(String levelString, Integer minXP, Integer maxXP) {
-        this.levelString = levelString;
+    Level(String levelName, Integer minXP, Integer maxXP) {
+        this.levelName = levelName;
         this.minXP = minXP;
         this.maxXP = maxXP;
     }
@@ -40,9 +41,9 @@ public enum Level {
     /**
      * Returns true if a given string is a valid Level value.
      */
-    public static boolean isValidLevel(String value) {
+    public static boolean isValidLevel(String name) {
         try {
-            return value.matches(LEVEL_VALIDATION_REGEX);
+            return name.matches(LEVEL_VALIDATION_REGEX);
         } catch (NullPointerException ex) {
             return false;
         }
@@ -62,6 +63,6 @@ public enum Level {
 
     @Override
     public String toString() {
-        return levelString;
+        return levelName;
     }
 }
