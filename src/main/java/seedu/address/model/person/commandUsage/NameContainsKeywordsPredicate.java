@@ -23,11 +23,12 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
-        return (someKeywords.isEmpty() || someKeywords.stream() // anyMatch returns false when stream is empty
+        return !(someKeywords.isEmpty() && allKeywords.isEmpty() && noneKeywords.isEmpty())
+            && (someKeywords.isEmpty() || someKeywords.stream()
             .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword)))
-            && allKeywords.stream() // allMatch returns true when stream is empty
+            && allKeywords.stream()
             .allMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword))
-            && noneKeywords.stream() // noneMatch returns true when stream is empty
+            && noneKeywords.stream()
             .noneMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword));
     }
 
