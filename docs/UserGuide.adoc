@@ -256,11 +256,11 @@ After displaying the meal planner, deletes the recipe at the specified meal slot
 
 Format: `delete DATE TIME`
 
-==== Clear planner: `clearall`
+==== Clear planner: `plannerclear`
 
 Clears all the meal slots of the meal planner.
 
-Format: `clearall`
+Format: `plannerclear`
 
 === Cook-Mode Commands
 ==== Next Instruction
