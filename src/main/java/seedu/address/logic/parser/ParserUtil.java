@@ -112,6 +112,46 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String hours} into seconds
+     * @param hours Number of hours
+     * @return Number of hours in seconds in long type
+     * @throws ParseException
+     */
+    public static long parseHours(String hours) {
+        if (hours == null) {
+            return 0;
+        }
+        return Long.parseLong(hours) * 60 * 60;
+    }
+
+    /**
+     * Parses a {@code String minutes} into seconds
+     * @param minutes Number of minutes
+     * @return Number of minutes in seconds in long type
+     * @throws ParseException
+     */
+
+    public static long parseMinutes(String minutes) {
+        if (minutes == null) {
+            return 0;
+        }
+        return Long.parseLong(minutes) * 60;
+    }
+
+    /**
+     * Parses a {@code String seconds} into seconds
+     * @param seconds Number of seconds
+     * @return Number of seconds in long type
+     * @throws ParseException
+     */
+    public static long parseSeconds(String seconds) {
+        if (seconds == null) {
+            return 0;
+        }
+        return Long.parseLong(seconds);
+    }
+
+    /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
     public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
