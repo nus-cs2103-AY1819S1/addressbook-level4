@@ -25,11 +25,11 @@ public class EditRecipeDescriptorTest {
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different phone -> returns false
-        editedAmy = new EditRecipeDescriptorBuilder(DESC_AMY).withPhone(VALID_PHONE_BOB).build();
+        editedAmy = new EditRecipeDescriptorBuilder(DESC_AMY).withDifficulty(VALID_DIFFICULTY_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different email -> returns false
-        editedAmy = new EditRecipeDescriptorBuilder(DESC_AMY).withEmail(VALID_EMAIL_BOB).build();
+        editedAmy = new EditRecipeDescriptorBuilder(DESC_AMY).withCooktime(VALID_COOKTIME_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different address -> returns false

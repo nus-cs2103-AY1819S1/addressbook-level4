@@ -3,7 +3,6 @@ package seedu.souschef.model.recipe;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.souschef.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.souschef.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.souschef.testutil.TypicalRecipes.ALICE;
 import static seedu.souschef.testutil.TypicalRecipes.BOB;
@@ -48,7 +47,7 @@ public class UniqueRecipeListTest {
     @Test
     public void contains_recipeWithSameIdentityFieldsInList_returnsTrue() {
         uniqueRecipeList.add(ALICE);
-        Recipe editedAlice = new RecipeBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Recipe editedAlice = new RecipeBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(uniqueRecipeList.contains(editedAlice));
     }
@@ -96,7 +95,7 @@ public class UniqueRecipeListTest {
     @Test
     public void setRecipe_editedRecipeHasSameIdentity_success() {
         uniqueRecipeList.add(ALICE);
-        Recipe editedAlice = new RecipeBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Recipe editedAlice = new RecipeBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
         uniqueRecipeList.set(ALICE, editedAlice);
         UniqueList<Recipe> expectedUniqueRecipeList = new UniqueList<>();

@@ -13,7 +13,6 @@ import seedu.souschef.model.UniqueType;
 public class EditCommand<T extends UniqueType> extends Command {
 
     public static final String COMMAND_WORD = "edit";
-
     public static final String MESSAGE_EDIT_SUCCESS = "Edited %1$s: %2$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
 

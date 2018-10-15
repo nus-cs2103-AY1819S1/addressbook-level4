@@ -5,15 +5,14 @@ import static seedu.souschef.commons.core.Messages.MESSAGE_ADD_HEALTHPLAN_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_ADD_INGREDIENT_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_ADD_RECIPE_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_AGE;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_CHEIGHT;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_COOKTIME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_CWEIGHT;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_DURATION;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_HPNAME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_SCHEME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TWEIGHT;
@@ -40,10 +39,9 @@ import seedu.souschef.model.healthplan.Scheme;
 import seedu.souschef.model.healthplan.TargetWeight;
 import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.ingredient.ServingUnit;
-import seedu.souschef.model.recipe.Address;
-import seedu.souschef.model.recipe.Email;
+import seedu.souschef.model.recipe.CookTime;
+import seedu.souschef.model.recipe.Difficulty;
 import seedu.souschef.model.recipe.Name;
-import seedu.souschef.model.recipe.Phone;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.tag.Tag;
 
@@ -60,21 +58,20 @@ public class AddCommandParser implements CommandParser<AddCommand> {
         requireNonNull(model);
 
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DIFFICULTY, PREFIX_COOKTIME, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_DIFFICULTY, PREFIX_COOKTIME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     MESSAGE_ADD_RECIPE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        Difficulty difficulty = ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get());
+        CookTime cookTime = ParserUtil.parseCooktime(argMultimap.getValue(PREFIX_COOKTIME).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Recipe toAdd = new Recipe(name, phone, email, address, tagList);
+        Recipe toAdd = new Recipe(name, difficulty, cookTime, tagList);
         if (model.has(toAdd)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_ADD_INGREDIENT_USAGE));
         }

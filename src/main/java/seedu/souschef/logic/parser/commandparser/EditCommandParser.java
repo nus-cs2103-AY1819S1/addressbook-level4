@@ -4,15 +4,14 @@ import static java.util.Objects.requireNonNull;
 import static seedu.souschef.commons.core.Messages.MESSAGE_EDIT_HEALTHPLAN_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_EDIT_RECIPE_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_AGE;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_CHEIGHT;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_COOKTIME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_CWEIGHT;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_DURATION;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_HPNAME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_SCHEME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TWEIGHT;
@@ -41,10 +40,9 @@ import seedu.souschef.model.healthplan.HealthPlanName;
 import seedu.souschef.model.healthplan.Scheme;
 import seedu.souschef.model.healthplan.TargetWeight;
 import seedu.souschef.model.ingredient.Ingredient;
-import seedu.souschef.model.recipe.Address;
-import seedu.souschef.model.recipe.Email;
+import seedu.souschef.model.recipe.CookTime;
+import seedu.souschef.model.recipe.Difficulty;
 import seedu.souschef.model.recipe.Name;
-import seedu.souschef.model.recipe.Phone;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.tag.Tag;
 
@@ -61,7 +59,7 @@ public class EditCommandParser implements CommandParser<EditCommand> {
     public EditCommand<Recipe> parseRecipe(Model model, String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DIFFICULTY, PREFIX_COOKTIME, PREFIX_TAG);
 
         Index index;
 
@@ -75,14 +73,12 @@ public class EditCommandParser implements CommandParser<EditCommand> {
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editRecipeDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
-        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
-            editRecipeDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
+        if (argMultimap.getValue(PREFIX_DIFFICULTY).isPresent()) {
+            editRecipeDescriptor.setDifficulty(ParserUtil.parseDifficulty(
+                    argMultimap.getValue(PREFIX_DIFFICULTY).get()));
         }
-        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-            editRecipeDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
-        }
-        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            editRecipeDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+        if (argMultimap.getValue(PREFIX_COOKTIME).isPresent()) {
+            editRecipeDescriptor.setCooktime(ParserUtil.parseCooktime(argMultimap.getValue(PREFIX_COOKTIME).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editRecipeDescriptor::setTags);
 
@@ -209,12 +205,11 @@ public class EditCommandParser implements CommandParser<EditCommand> {
         assert toEdit != null;
 
         Name updatedName = editRecipeDescriptor.getName().orElse(toEdit.getName());
-        Phone updatedPhone = editRecipeDescriptor.getPhone().orElse(toEdit.getPhone());
-        Email updatedEmail = editRecipeDescriptor.getEmail().orElse(toEdit.getEmail());
-        Address updatedAddress = editRecipeDescriptor.getAddress().orElse(toEdit.getAddress());
+        Difficulty updatedPhone = editRecipeDescriptor.getDifficulty().orElse(toEdit.getDifficulty());
+        CookTime updatedEmail = editRecipeDescriptor.getCooktime().orElse(toEdit.getCookTime());
         Set<Tag> updatedTags = editRecipeDescriptor.getTags().orElse(toEdit.getTags());
 
-        return new Recipe(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Recipe(updatedName, updatedPhone, updatedEmail, updatedTags);
     }
 
     /**

@@ -1,14 +1,13 @@
 package seedu.souschef.commons.core;
 
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_AGE;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_CHEIGHT;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_COOKTIME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_CWEIGHT;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_DURATION;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_HPNAME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_SCHEME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TWEIGHT;
@@ -32,18 +31,16 @@ public class Messages {
 
     // Add command messages
     public static final String MESSAGE_ADD_RECIPE_USAGE = AddCommand.COMMAND_WORD
-            + ": Adds a recipe to the address " + "book. "
+            + ": Adds a recipe to the sous chef. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_PHONE + "PHONE "
-            + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_ADDRESS + "ADDRESS "
+            + PREFIX_DIFFICULTY + "DIFFICULTY "
+            + PREFIX_COOKTIME + "TIME "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + AddCommand.COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
-            + PREFIX_PHONE + "98765432 "
-            + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+            + PREFIX_DIFFICULTY + "5 "
+            + PREFIX_COOKTIME + "PT1H20M "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
@@ -81,21 +78,21 @@ public class Messages {
             + "Example: " + DeleteCommand.COMMAND_WORD + " 1";
 
     // Edit command messages
-    public static final String MESSAGE_EDIT_RECIPE_USAGE = DeleteCommand.COMMAND_WORD
+    public static final String MESSAGE_EDIT_RECIPE_USAGE = EditCommand.COMMAND_WORD
             + ": Edits the details of the recipe identified "
             + "by the index number used in the displayed recipe list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_DIFFICULTY + "PHONE] "
+            + "[" + PREFIX_COOKTIME + "EMAIL] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + EditCommand.COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
-    public static final String MESSAGE_EDIT_INGREDIENT_USAGE = DeleteCommand.COMMAND_WORD;
-    public static final String MESSAGE_EDIT_HEALTHPLAN_USAGE = DeleteCommand.COMMAND_WORD
+            + PREFIX_DIFFICULTY + "3 "
+            + PREFIX_COOKTIME + "PT1H20M";
+
+    public static final String MESSAGE_EDIT_INGREDIENT_USAGE = EditCommand.COMMAND_WORD;
+    public static final String MESSAGE_EDIT_HEALTHPLAN_USAGE = EditCommand.COMMAND_WORD
             + ": Edits the details of the health plan identified "
             + "by the index number used in the displayed health plan list. "
             + "Existing values will be overwritten by the input values.\n"

@@ -12,7 +12,7 @@ public class Difficulty {
 
     public static final String MESSAGE_DIFFICULTY_CONSTRAINTS =
             "Difficulty should only be a integer between 1 to 5 (inclusive)";
-    public static final String DIFFICULTY_VALIDATION_REGEX = "^[1-5]?";
+    public static final String DIFFICULTY_VALIDATION_REGEX = "^[1-5]$";
     public final int value;
 
     /**

@@ -9,7 +9,7 @@ import seedu.souschef.commons.exceptions.DataConversionException;
 import seedu.souschef.commons.util.XmlUtil;
 import seedu.souschef.storage.healthplan.XmlSerializableHealthPlan;
 import seedu.souschef.storage.ingredient.XmlSerializableIngredient;
-import seedu.souschef.storage.recipe.XmlSerializableAddressBook;
+import seedu.souschef.storage.recipe.XmlSerializableRecipe;
 
 /**
  * Stores addressbook data in an XML file
@@ -56,7 +56,7 @@ public class XmlFileStorage {
             FileNotFoundException {
         try {
             if (TYPE_RECIPE.equals(type)) {
-                return XmlUtil.getDataFromFile(file, XmlSerializableAddressBook.class);
+                return XmlUtil.getDataFromFile(file, XmlSerializableRecipe.class);
             } else if (TYPE_INGREDIENT.equals(type)) {
                 return XmlUtil.getDataFromFile(file, XmlSerializableIngredient.class);
             } else if (TYPE_HEALTHPLAN.equals(type)) {
