@@ -10,13 +10,19 @@ import java.util.Set;
 
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.Calendar;
+import net.fortuna.ical4j.model.Component;
+import net.fortuna.ical4j.model.ComponentList;
+import net.fortuna.ical4j.model.Date;
 import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.TimeZone;
 import net.fortuna.ical4j.model.TimeZoneRegistry;
 import net.fortuna.ical4j.model.TimeZoneRegistryFactory;
+import net.fortuna.ical4j.model.component.CalendarComponent;
 import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.component.VTimeZone;
 import net.fortuna.ical4j.model.property.CalScale;
+import net.fortuna.ical4j.model.property.DtEnd;
+import net.fortuna.ical4j.model.property.DtStart;
 import net.fortuna.ical4j.model.property.ProdId;
 import net.fortuna.ical4j.model.property.Version;
 import net.fortuna.ical4j.util.FixedUidGenerator;
@@ -36,12 +42,14 @@ public class CalendarModel {
     // Field to store calendar loaded by user if any.
     // User can only load at most one calendar at any point of time.
     private Calendar loadedCalendar;
+    private VEvent eventToBeRemoved;
     private Map<Month, Integer> monthToConstantMap;
 
     public CalendarModel(CalendarStorage calendarStorage, Map<Year, Set<Month>> existingCalendar) {
         this.calendarStorage = calendarStorage;
         this.existingCalendar = existingCalendar;
         this.loadedCalendar = null;
+        this.eventToBeRemoved = null;
         this.monthToConstantMap = initializeMonthToStringMap();
 
     }
@@ -161,14 +169,39 @@ public class CalendarModel {
         // Load the calendar
         loadCalendar(year, month);
 
-        // Set the Date
-        java.util.Calendar cal = java.util.Calendar.getInstance();
-        cal.set(java.util.Calendar.YEAR, Integer.parseInt(year.toString()));
-        cal.set(java.util.Calendar.MONTH, monthToConstantMap.get(month));
-        cal.set(java.util.Calendar.DAY_OF_MONTH, date);
+        // Create a TimeZone
+        TimeZoneRegistry registry = TimeZoneRegistryFactory.getInstance().createRegistry();
+        TimeZone timezone = registry.getTimeZone("Asia/Singapore");
+        VTimeZone tz = timezone.getVTimeZone();
 
-        // Initialise as an all day event
-        VEvent newEvent = new VEvent(new net.fortuna.ical4j.model.Date(cal.getTime()), title);
+        // Start Date
+        java.util.Calendar sDate = new GregorianCalendar();
+        sDate.setTimeZone(timezone);
+        sDate.set(java.util.Calendar.YEAR, Integer.parseInt(year.toString()));
+        sDate.set(java.util.Calendar.MONTH, monthToConstantMap.get(month));
+        sDate.set(java.util.Calendar.DAY_OF_MONTH, date);
+        sDate.set(java.util.Calendar.HOUR_OF_DAY, 0);
+        sDate.set(java.util.Calendar.MINUTE, 0);
+        sDate.set(java.util.Calendar.SECOND, 0);
+
+        // End Date
+        java.util.Calendar eDate = new GregorianCalendar();
+        eDate.setTimeZone(timezone);
+        eDate.set(java.util.Calendar.YEAR, Integer.parseInt(year.toString()));
+        eDate.set(java.util.Calendar.MONTH, monthToConstantMap.get(month));
+        eDate.set(java.util.Calendar.DAY_OF_MONTH, date);
+        eDate.set(java.util.Calendar.HOUR_OF_DAY, 23);
+        eDate.set(java.util.Calendar.MINUTE, 59);
+        eDate.set(java.util.Calendar.SECOND, 59);
+
+        // Create the event
+        DateTime start = new DateTime(sDate.getTime());
+        DateTime end = new DateTime(eDate.getTime());
+        VEvent newEvent = new VEvent(start, end, title);
+
+        // Add timezone info
+        newEvent.getProperties().add(tz.getTimeZoneId());
+
         // Generate a UID for the event
         UidGenerator ug = new FixedUidGenerator("1");
         newEvent.getProperties().add(ug.generateUid());
@@ -223,6 +256,85 @@ public class CalendarModel {
         UidGenerator ug = new FixedUidGenerator("1");
         newEvent.getProperties().add(ug.generateUid());
         loadedCalendar.getComponents().add(newEvent);
+
+        String calendarName = month + "-" + year;
+        // Save the updated calendar to storage
+        calendarStorage.createCalendar(loadedCalendar, calendarName);
+    }
+
+    /**
+     * Checks if an event exists in the loaded Calendar and returns the event.
+     * Private method that should only be called by deleteEvent.
+     */
+    private VEvent retrieveEvent(int startDate, int endDate, String title) {
+        ComponentList<CalendarComponent> events = loadedCalendar.getComponents(Component.VEVENT);
+        VEvent eventToReturn = null;
+
+        for (CalendarComponent event : events) {
+            VEvent vevent = (VEvent) event;
+            if (isSameEvent(startDate, endDate, title, vevent)) {
+                eventToReturn = vevent;
+                break;
+            }
+        }
+        return eventToReturn;
+    }
+
+    /**
+     * An event is considered the same in terms of its title and start - end date.
+     */
+    private boolean isSameEvent(int startDate, int endDate, String title, VEvent event) {
+        boolean result;
+
+        // Parse title from the event to check
+        String titleToCheck = event.getSummary().getValue();
+        // Check if title is the same
+        result = title.compareTo(titleToCheck) == 0;
+
+        // Parse start date information from the event to check
+        DtStart dtStart = event.getStartDate();
+        Date sDate = dtStart.getDate();
+        java.util.Calendar sCal = java.util.Calendar.getInstance();
+        sCal.setTime(sDate);
+        int startDateToCheck = sCal.get(java.util.Calendar.DAY_OF_MONTH);
+        result = result && (startDate == startDateToCheck);
+
+        // Parse end date information from the event to check
+        DtEnd dtEnd = event.getEndDate();
+        Date eDate = dtEnd.getDate();
+        java.util.Calendar eCal = java.util.Calendar.getInstance();
+        eCal.setTime(eDate);
+        int endDateToCheck = eCal.get(java.util.Calendar.DAY_OF_MONTH);
+        return result && (endDate == endDateToCheck);
+
+    }
+
+    /** Checks if this specific event exists in the loaded Calendar. */
+    public boolean isExistingEvent(Year year, Month month, int startDate, int endDate, String title) throws IOException,
+            ParserException {
+        // Load the calendar
+        loadCalendar(year, month);
+
+        // Store the event into private field eventToBeRemoved
+        VEvent eventToRemove = retrieveEvent(startDate, endDate, title);
+        this.eventToBeRemoved = eventToRemove;
+        return isExistingEvent(eventToRemove);
+
+    }
+
+    /** Checks if this specific event exists in the loaded Calendar. */
+    private boolean isExistingEvent(VEvent event) {
+        return event != null;
+    }
+
+    /**
+     * Deletes an event in the loaded Calendar.
+     * A call to the public isExistingEvent method has to precede this method call.
+     */
+    public void deleteEvent(Year year, Month month) throws IOException {
+        if (isExistingEvent(this.eventToBeRemoved)) {
+            loadedCalendar.getComponents().remove(this.eventToBeRemoved);
+        }
 
         String calendarName = month + "-" + year;
         // Save the updated calendar to storage

@@ -169,6 +169,16 @@ public interface Model {
                      int endDate, int endHour, int endMin, String title);
 
     /**
+     * Checks if this specific event exists in the monthly calendar.
+     */
+    boolean isExistingEvent(Year year, Month month, int startDate, int endDate, String title);
+
+    /**
+     * Deletes an event in the monthly Calendar.
+     */
+    void deleteEvent(Year year, Month month, int startDate, int endDate, String title);
+
+    /**
      * Updates the existing calendar map inside UserPrefs Json file
      */
     void updateExistingCalendar();

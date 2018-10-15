@@ -47,6 +47,7 @@ public class AddEventCommand extends Command {
             + PREFIX_TITLE + "Hall Exposure Camp ";
 
     public static final String MESSAGE_SUCCESS = "Calendar event added: %s";
+    public static final String MESSAGE_NOT_EXISTING_CALENDAR = "This calendar doesn't exist in Hallper";
     public static final String MESSAGE_NOT_VALID_DATE = "This is not a valid date %s";
     public static final String MESSAGE_NOT_VALID_TIME = "This is not a valid time %s";
     public static final String MESSAGE_NOT_VALID_TIMEFRAME = "End Date should not be earlier than Start Date";
@@ -79,7 +80,7 @@ public class AddEventCommand extends Command {
         requireNonNull(model);
 
         if (!model.isExistingCalendar(year, month)) {
-            throw new CommandException(AddAllDayEventCommand.MESSAGE_NOT_EXISTING_CALENDAR);
+            throw new CommandException(MESSAGE_NOT_EXISTING_CALENDAR);
         }
 
         // Check whether startDate is valid

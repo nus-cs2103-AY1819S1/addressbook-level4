@@ -232,6 +232,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean isExistingEvent (Year year, Month month, int startDate, int endDate, String title) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteEvent(Year year, Month month, int startDate, int endDate, String title) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateExistingCalendar() {
             throw new AssertionError("This method should not be called.");
         }

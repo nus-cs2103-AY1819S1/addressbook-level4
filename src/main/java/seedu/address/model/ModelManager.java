@@ -20,6 +20,7 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.AllDayEventAddedEvent;
 import seedu.address.commons.events.model.CalendarCreatedEvent;
 import seedu.address.commons.events.model.CalendarEventAddedEvent;
+import seedu.address.commons.events.model.CalendarEventDeletedEvent;
 import seedu.address.commons.events.model.EmailSavedEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.calendar.Month;
@@ -241,12 +242,19 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * Raises an event to indicate that an all day event was created
+     * Raises an event to indicate that an event was created
      */
     private void indicateCalendarEventCreated(Year year, Month month, int startDate, int startHour, int startMin,
                                               int endDate, int endHour, int endMin, String title) {
         raise(new CalendarEventAddedEvent(year, month, startDate, startHour, startMin,
                 endDate, endHour, endMin, title));
+    }
+
+    /**
+     * Raises an event to indicate that an event was deleted
+     */
+    private void indicateCalendarEventDeleted(Year year, Month month, int startDate, int endDate, String title) {
+        raise(new CalendarEventDeletedEvent(year, month, startDate, endDate, title));
     }
 
     @Override
@@ -314,6 +322,27 @@ public class ModelManager extends ComponentManager implements Model {
             indicateCalendarEventCreated(year, month, startDate, startHour, startMin, endDate, endHour, endMin, title);
         } catch (IOException | ParserException e) {
             logger.warning("Failed to create event : " + StringUtil.getDetails(e));
+        }
+    }
+
+    @Override
+    public boolean isExistingEvent(Year year, Month month, int startDate, int endDate, String title) {
+        try {
+            requireAllNonNull(year, month, startDate, endDate, title);
+            return calendarModel.isExistingEvent(year, month, startDate, endDate, title);
+        } catch (IOException | ParserException e) {
+            logger.warning("Failed to delete event : " + StringUtil.getDetails(e));
+            return false;
+        }
+    }
+
+    @Override
+    public void deleteEvent(Year year, Month month, int startDate, int endDate, String title) {
+        try {
+            calendarModel.deleteEvent(year, month);
+            indicateCalendarEventDeleted(year, month, startDate, endDate, title);
+        } catch (IOException e) {
+            logger.warning("Failed to delete event : " + StringUtil.getDetails(e));
         }
     }
 
