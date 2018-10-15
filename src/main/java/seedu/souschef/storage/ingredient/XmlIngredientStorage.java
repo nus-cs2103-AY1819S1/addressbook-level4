@@ -1,4 +1,4 @@
-package seedu.souschef.storage.healthplan;
+package seedu.souschef.storage.ingredient;
 
 import static java.util.Objects.requireNonNull;
 
@@ -21,11 +21,11 @@ import seedu.souschef.storage.XmlSerializableGeneric;
 /**
  * A class to access AppContent data stored as an xml file on the hard disk.
  */
-public class XmlHealthPlanStorage extends XmlFeatureStorage {
+public class XmlIngredientStorage extends XmlFeatureStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(XmlHealthPlanStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(XmlIngredientStorage.class);
 
-    public XmlHealthPlanStorage(Path filePath) {
+    public XmlIngredientStorage(Path filePath) {
         super(filePath);
     }
 
@@ -48,12 +48,12 @@ public class XmlHealthPlanStorage extends XmlFeatureStorage {
             logger.info("AppContent file " + filePath + " not found");
             return Optional.empty();
         }
-
-        XmlSerializableGeneric xmlhealthplanBook;
-        xmlhealthplanBook = new XmlSerializableHealthPlan((XmlSerializableHealthPlan)
-                XmlFileStorage.loadDataFromSaveFile(filePath, "healthplan"));
+        logger.info("enters XmlIngredientStorage from read");
+        XmlSerializableGeneric xmlIngredientBook;
+        xmlIngredientBook = new XmlSerializableIngredient((XmlSerializableIngredient)
+                XmlFileStorage.loadDataFromSaveFile(filePath, "ingredient"));
         try {
-            return Optional.of(xmlhealthplanBook.toModelType());
+            return Optional.of(xmlIngredientBook.toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -71,7 +71,7 @@ public class XmlHealthPlanStorage extends XmlFeatureStorage {
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        XmlFileStorage.saveDataToFile(filePath, new XmlSerializableHealthPlan(appContent));
+        XmlFileStorage.saveDataToFile(filePath, new XmlSerializableIngredient(appContent));
     }
 
 

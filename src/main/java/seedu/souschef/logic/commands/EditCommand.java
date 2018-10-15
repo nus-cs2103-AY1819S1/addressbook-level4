@@ -1,9 +1,16 @@
 package seedu.souschef.logic.commands;
 
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_AGE;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_CHEIGHT;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_COOKTIME;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_CWEIGHT;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_DURATION;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_HPNAME;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_SCHEME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TWEIGHT;
 import static seedu.souschef.model.Model.PREDICATE_SHOW_ALL;
 
 import seedu.souschef.logic.CommandHistory;
@@ -30,9 +37,24 @@ public class EditCommand<T extends UniqueType> extends Command {
             + PREFIX_DIFFICULTY + "91234567 "
             + PREFIX_COOKTIME + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_RECIPE_SUCCESS = "Edited Recipe: %1$s";
+    public static final String MESSAGE_EDIT_SUCCESS = "Edited %1$s: %2$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_RECIPE = "This recipe already exists in the address book.";
+
+    public static final String MESSAGE_USAGE_HEALTHPLAN = COMMAND_WORD
+            + ": Edits the details of the health plan identified "
+            + "by the index number used in the displayed health plan list. "
+            + "Existing values will be overwritten by the input values.\n"
+            + "Parameters: INDEX (must be a positive integer) "
+            + "[" + PREFIX_HPNAME + "NAME] "
+            + "[" + PREFIX_AGE + "AGE] "
+            + "[" + PREFIX_CWEIGHT + "CURRENT WEIGHT(KG)] "
+            + "[" + PREFIX_CHEIGHT + "CURRENT HEIGHT(CM)] "
+            + "[" + PREFIX_TWEIGHT + "TARGET WEIGHT(KG)] "
+            + "[" + PREFIX_DURATION + "DURATION(DAYS)] "
+            + "[" + PREFIX_SCHEME + "SCHEME(GAIN/LOSS/MAINTAIN)] \n"
+            + "Example: " + COMMAND_WORD + " 1 "
+            + PREFIX_HPNAME + "Lose weight "
+            + PREFIX_AGE + "23";
 
     private final Model model;
     private final T toEdit;
@@ -54,7 +76,7 @@ public class EditCommand<T extends UniqueType> extends Command {
         model.update(toEdit, edited);
         model.updateFilteredList(PREDICATE_SHOW_ALL);
         model.commitAppContent();
-        return new CommandResult(String.format(MESSAGE_EDIT_RECIPE_SUCCESS, edited));
+        return new CommandResult(String.format(MESSAGE_EDIT_SUCCESS, history.getContext().toLowerCase(), edited));
     }
 
     @Override

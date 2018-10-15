@@ -211,7 +211,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         expectedModel.updateFilteredList(PREDICATE_SHOW_ALL);
 
         assertCommandSuccess(command, expectedModel,
-                String.format(EditCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe), expectedSelectedCardIndex);
+                String.format(EditCommand.MESSAGE_EDIT_SUCCESS, "recipe", editedRecipe), expectedSelectedCardIndex);
     }
 
     /**
