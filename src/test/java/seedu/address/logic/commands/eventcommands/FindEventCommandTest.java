@@ -42,6 +42,9 @@ public class FindEventCommandTest {
         assertEquals(Arrays.asList(MEETING), model.getFilteredEventList());
     }
 
+    /**
+     * Creates an EventAttributesPredicate from the user input.
+     */
     public static EventAttributesPredicate makeEventsAttributesPredicate(String userInput) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(userInput, PREFIX_EVENT_NAME, PREFIX_ADDRESS, PREFIX_TAG,

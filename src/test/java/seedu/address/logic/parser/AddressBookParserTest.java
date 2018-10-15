@@ -135,7 +135,7 @@ public class AddressBookParserTest {
     public void parseCommand_findEventByTime() throws Exception {
         FindEventByTimeCommand command = (FindEventByTimeCommand) parser.parseCommand(
                 FindEventByTimeCommand.COMMAND_WORD + " " + "d/12-12-2018 t1/12:30 t2/13:30");
-        LocalDate date= LocalDate.of(2018, 12, 12);
+        LocalDate date = LocalDate.of(2018, 12, 12);
         LocalTime startTime = LocalTime.of(12, 30);
         LocalTime endTime = LocalTime.of(13, 30);
         assertEquals(new FindEventByTimeCommand(date, startTime, endTime), command);
