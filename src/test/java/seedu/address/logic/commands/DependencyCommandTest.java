@@ -139,7 +139,7 @@ public class DependencyCommandTest {
     }
 
     @Test
-    public void equals() throws Exception {
+    public void equals() {
         DependencyCommand firstCommand = new DependencyCommand(INDEX_FIRST_TASK, INDEX_SECOND_TASK);
         DependencyCommand anotherFirstCommand = new DependencyCommand(INDEX_FIRST_TASK, INDEX_SECOND_TASK);
 

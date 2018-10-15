@@ -167,9 +167,7 @@ public class CommandTestUtil {
     }
     /**
      * Updates {@code model}'s filtered list to show only the two tasks at {@code firstTargetIndex}
-     * and {@code secondTargetIndex}
-     * in the
-     * {@code model}'s task manager.
+     * and {@code secondTargetIndex} in the {@code model}'s task manager.
      */
     public static void showTaskAtTwoIndexes(Model model, Index firstTargetIndex, Index secondTargetIndex) {
         assertTrue(firstTargetIndex.getZeroBased() < model.getFilteredTaskList().size());
