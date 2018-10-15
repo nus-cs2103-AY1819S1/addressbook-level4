@@ -1,12 +1,14 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showTaskAtTwoIndexes;
 
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TASK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TASK;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_TASK;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskManager;
 
 import org.junit.Test;
@@ -134,5 +136,19 @@ public class DependencyCommandTest {
         // redo -> deletes same second task in unfiltered task list=-
         expectedModel.redoTaskManager();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void equals() throws Exception {
+        DependencyCommand firstCommand = new DependencyCommand(INDEX_FIRST_TASK, INDEX_SECOND_TASK);
+        DependencyCommand anotherFirstCommand = new DependencyCommand(INDEX_FIRST_TASK, INDEX_SECOND_TASK);
+
+        assertEquals(firstCommand, anotherFirstCommand);
+
+        DependencyCommand secondCommand = new DependencyCommand(INDEX_SECOND_TASK, INDEX_FIRST_TASK);
+        DependencyCommand thirdCommand = new DependencyCommand(INDEX_FIRST_TASK, INDEX_THIRD_TASK);
+        assertNotEquals(firstCommand, secondCommand);
+        assertNotEquals(firstCommand, thirdCommand);
+
     }
 }
