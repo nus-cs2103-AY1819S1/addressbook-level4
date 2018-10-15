@@ -56,7 +56,7 @@ public class DependencyCommand extends Command {
      * @param dependeeTask An immutable task passed to have its attributes copied
      * @return A new immutable task similar to dependeeTask but with additional dependency
      */
-    public Task createDependeeTask(Task dependeeTask, Task dependantTask) {
+    public static Task createDependeeTask(Task dependeeTask, Task dependantTask) {
         return new Task(
                 dependeeTask.getName(),
                 dependeeTask.getDueDate(),
