@@ -7,7 +7,12 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 /**
  * Represents the date of upcoming meeting in the group.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
+ *
+ * @deprecated use {@link TimeStamp} and {@link EnhancedMonth} instead.
+ *
+ * {@author Derek-Hardy}
  */
+
 public class Date {
 
     public static final String MESSAGE_DATE_CONSTRAINTS =

@@ -143,14 +143,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code group} from this {@code AddressBook}.
+     * {@code group} must exist in the address book.
      *
      */
-    public void removeGroup(Group key) {
-        requireNonNull(key);
-        key.clearMembers();
-        groups.remove(key);
+    public void removeGroup(Group group) {
+        requireNonNull(group);
+        group.clearMembers();
+        groups.remove(group);
     }
 
     //// util methods
