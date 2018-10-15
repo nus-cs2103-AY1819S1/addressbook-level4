@@ -15,7 +15,7 @@ public class GetGoogleEventsCommand extends Command {
             + "Parameters: NONE "
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_SYNC_SUCCESS = "Events in google calendar downloaded.";
+    public static final String MESSAGE_GGEVENTS_SUCCESS = "Events in google calendar downloaded.";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
