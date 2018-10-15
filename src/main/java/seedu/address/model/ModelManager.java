@@ -12,7 +12,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.model.person.Person;
+import seedu.address.model.medicine.Medicine;
+import seedu.address.model.person.Patient;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -21,7 +22,8 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final VersionedAddressBook versionedAddressBook;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Patient> filteredPatients;
+    private final FilteredList<Medicine> filteredMedicines;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -33,7 +35,8 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredPatients = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredMedicines = new FilteredList<>(versionedAddressBook.getMedicineList());
     }
 
     public ModelManager() {
@@ -57,47 +60,91 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return versionedAddressBook.hasPerson(person);
+    public boolean hasPerson(Patient patient) {
+        requireNonNull(patient);
+        return versionedAddressBook.hasPerson(patient);
     }
 
     @Override
-    public void deletePerson(Person target) {
+    public boolean hasMedicine(Medicine medicine) {
+        requireNonNull(medicine);
+        return versionedAddressBook.hasMedicine(medicine);
+    }
+
+    @Override
+    public void deletePerson(Patient target) {
         versionedAddressBook.removePerson(target);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void addPerson(Person person) {
-        versionedAddressBook.addPerson(person);
+    public void addPerson(Patient patient) {
+        versionedAddressBook.addPerson(patient);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void updatePerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        versionedAddressBook.updatePerson(target, editedPerson);
+    public void addMedicine(Medicine medicine) {
+        versionedAddressBook.addMedicine(medicine);
+        updateFilteredMedicineList(PREDICATE_SHOW_ALL_MEDICINES);
         indicateAddressBookChanged();
     }
 
-    //=========== Filtered Person List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return FXCollections.unmodifiableObservableList(filteredPersons);
+    public void deleteMedicine(Medicine medicine) {
+        versionedAddressBook.removeMedicine(medicine);
+        indicateAddressBookChanged();
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateMedicine(Medicine target, Medicine editedMedicine) {
+        requireAllNonNull(target, editedMedicine);
+
+        versionedAddressBook.updateMedicine(target, editedMedicine);
+
+    }
+
+    @Override
+    public void updatePerson(Patient target, Patient editedPatient) {
+        requireAllNonNull(target, editedPatient);
+
+        versionedAddressBook.updatePerson(target, editedPatient);
+        indicateAddressBookChanged();
+    }
+
+    //=========== Filtered Patient List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Patient} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Patient> getFilteredPersonList() {
+        return FXCollections.unmodifiableObservableList(filteredPatients);
+    }
+
+    @Override
+    public void updateFilteredPersonList(Predicate<Patient> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredPatients.setPredicate(predicate);
+    }
+
+    //=========== Filtered Medicine List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Medicine} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Medicine> getFilteredMedicineList() {
+        return FXCollections.unmodifiableObservableList(filteredMedicines);
+    }
+
+    @Override
+    public void updateFilteredMedicineList(Predicate<Medicine> predicate) {
+        requireNonNull(predicate);
+        filteredMedicines.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -144,7 +191,8 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredPatients.equals(other.filteredPatients)
+                && filteredMedicines.equals(other.filteredMedicines);
     }
 
 }

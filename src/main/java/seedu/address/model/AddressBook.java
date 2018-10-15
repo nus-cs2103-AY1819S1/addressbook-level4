@@ -5,7 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
+import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.UniqueMedicineList;
+import seedu.address.model.person.Patient;
 import seedu.address.model.person.UniquePersonList;
 
 /**
@@ -15,6 +17,7 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueMedicineList medicines;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +28,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        medicines = new UniqueMedicineList();
     }
 
     public AddressBook() {}
@@ -40,11 +44,19 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the patient list with {@code patients}.
+     * {@code patients} must not contain duplicate patients.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+    public void setPersons(List<Patient> patients) {
+        this.persons.setPersons(patients);
+    }
+
+    /**
+     * Replaces the contents of the medicine list with {@code medicines}.
+     * {@code medicines} must not contain duplicate medicines.
+     */
+    public void setMedicines(List<Medicine> medicines) {
+        this.medicines.setMedicines(medicines);
     }
 
     /**
@@ -54,43 +66,83 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setMedicines(newData.getMedicineList());
     }
 
-    //// person-level operations
+    //// patient-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a patient with the same identity as {@code patient} exists in the address book.
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
+    public boolean hasPerson(Patient patient) {
+        requireNonNull(patient);
+        return persons.contains(patient);
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a patient to the address book.
+     * The patient must not already exist in the address book.
      */
-    public void addPerson(Person p) {
+    public void addPerson(Patient p) {
         persons.add(p);
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given patient {@code target} in the list with {@code editedPatient}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The patient identity of {@code editedPatient} must not be the same as another existing
+     * patient in the address book.
      */
-    public void updatePerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
+    public void updatePerson(Patient target, Patient editedPatient) {
+        requireNonNull(editedPatient);
 
-        persons.setPerson(target, editedPerson);
+        persons.setPerson(target, editedPatient);
     }
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Person key) {
+    public void removePerson(Patient key) {
         persons.remove(key);
+    }
+
+    //// medicine-level operations
+
+    /**
+     * Returns true if a medicine with the same identity as {@code medicine} exists in the records.
+     */
+    public boolean hasMedicine(Medicine medicine) {
+        requireNonNull(medicine);
+        return medicines.contains(medicine);
+    }
+
+    /**
+     * Adds a medicine to the records.
+     * The medicine must not already exist in the record.
+     */
+    public void addMedicine(Medicine m) {
+        medicines.add(m);
+    }
+
+    /**
+     * Removes {@code medicine} from this {@code AddressBook}.
+     * {@code key} must exist in the records.
+     */
+    public void removeMedicine(Medicine medicine) {
+        medicines.remove(medicine);
+    }
+
+    /**
+     * Replaces the given medicine {@code target} with {@code editedMedicine}.
+     * {@code target} must exist in the address book.
+     * The medicine identity of {@code editedMedicine} must not be the same as another
+     * existing medicine in the address book.
+     */
+    public void updateMedicine(Medicine target, Medicine editedMedicine) {
+        requireNonNull(editedMedicine);
+
+        medicines.setMedicine(target, editedMedicine);
     }
 
     //// util methods
@@ -102,8 +154,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
+    public ObservableList<Patient> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Medicine> getMedicineList() {
+        return medicines.asUnmodifiableObservableList();
     }
 
     @Override
