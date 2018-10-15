@@ -18,31 +18,8 @@ endif::[]
 By: `Team W16-2`      Since: `Sept 2018`      Licence: `MIT`
 
 == Introduction
+TBC
 
-Welcome to SocialCare's Developer Guide!
-
-=== What is SocialCare?
-
-SocialCare is a CLI-based event and volunteer management system designed for social welfare organisations. It enables the following:
-
-* Faster volunteer and event management (than a typical mouse/GUI driven app)
-* Tagging to categorize volunteers and events
-* Additional fields for volunteers, such as number of volunteer hours
-* Viewing of volunteer and event statistics
-
-=== Core Team
-
-SocialCare was developed and is maintained by https://github.com/CS2103-AY1819S1-W16-2[Team W16-2]. Due credit goes to the https://se-edu.github.io/docs/Team.html[se-edu] team, who's application https://github.com/nus-cs2103-AY1819S1/addressbook-level4[Address Book - Level 4] was morphed into SocialCare.
-
-Feel free to <<ContactUs#, reach out>> to us regarding any enquiries or clarifications.
-
-=== Contributing
-
-SocialCare is an open source project, and thus contributions are always welcome. Let's get you on board!
-
-To get started, head on to <<Setting-Up>>.
-
-[[Setting-Up]]
 == Setting up
 
 === Prerequisites
