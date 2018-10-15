@@ -6,7 +6,6 @@ import static seedu.scheduler.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORM
 import static seedu.scheduler.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.scheduler.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -87,7 +86,7 @@ public class SchedulerParserTest {
 
     @Test
     public void parseCommand_ggEvents() throws Exception {
-       assertTrue(parser.parseCommand(GetGoogleEventsCommand.COMMAND_WORD) instanceof GetGoogleEventsCommand);
+        assertTrue(parser.parseCommand(GetGoogleEventsCommand.COMMAND_WORD) instanceof GetGoogleEventsCommand);
     }
 
     @Test
