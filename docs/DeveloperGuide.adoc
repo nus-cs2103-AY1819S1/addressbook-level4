@@ -25,10 +25,10 @@ Welcome to SocialCare's Developer Guide!
 
 SocialCare is a CLI-based event and volunteer management system designed for social welfare organisations. It enables the following:
 
-* Faster volunteer and event management (than a typical mouse/GUI driven app)
-* Tagging to categorize volunteers and events
-* Managing additional volunteer data, such as number of service hours per volunteer
-* Viewing of volunteer and event statistics
+* Faster volunteer and event management (than a typical mouse/GUI driven app).
+* Tagging to categorize volunteers and events.
+* Managing additional volunteer data, such as number of service hours per volunteer.
+* Viewing of volunteer and event statistics.
 
 === Core team
 
