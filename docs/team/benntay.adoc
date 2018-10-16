@@ -3,7 +3,7 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 4
+== PROJECT: SousChef
 
 ---
 
@@ -15,11 +15,11 @@ Our users interact via CLI and GUI created with JavaFX. Written in Java, experie
 
 == Summary of contributions
 
-* *Major enhancement*: added *the Meal Planner component.*
-** What it does: Allows users to add their desired recipes to a calendar so that they can plan their meals for each day's meals.
+* *Major enhancement*: added the _Meal Planner feature_.
+** What it does: Allows users to add their desired recipes to a Meal Planner so that they can plan their days' meals.
 ** Justification: This feature improves the product significantly because a user can not only browse recipes, but also keep a record of the recipes they want to try on which specific days.
-** Highlights: This enhancement was originally unsupported by the AB4 code, and a new separate data structure had to be implemented.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+** Highlights: This enhancement was originally unsupported by the AB4 code; it is a completely new component feature.
+//** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
 *To be updated*
 
@@ -27,9 +27,13 @@ Our users interact via CLI and GUI created with JavaFX. Written in Java, experie
 
 //* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
-//* *Other contributions*:
+* *Other contributions*:
+
+** Modularised UI component for other features to integrate more easily.
 
 //** Project management:
+//*** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
+
 //***
 //** Enhancements to existing features:
 //*** Updated
@@ -61,6 +65,8 @@ include::../UserGuide.adoc[tag=mealplanner]
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
+include::../DeveloperGuide.adoc[tag=mealplannerimplementation]
 
 include::../DeveloperGuide.adoc[tag=mealplanner]
 
