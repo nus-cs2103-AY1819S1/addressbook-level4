@@ -36,6 +36,7 @@ public class UniversalParser {
         final String commandWord = userInput.substring(1);
         switch (commandWord) {
         case "recipe":
+            ui.switchToRecipeListPanel();
             return new ContextCommand("Recipe");
 
         case "ingredientmanager":
@@ -43,6 +44,7 @@ public class UniversalParser {
             return new ContextCommand("Ingredient");
 
         case "healthplan":
+            ui.switchToHealthPlanListPanel();
             return new ContextCommand("Health Plan");
 
         case "mealplanner":
