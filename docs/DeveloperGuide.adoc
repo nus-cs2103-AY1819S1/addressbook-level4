@@ -287,7 +287,10 @@ instructions.
 
 // tag::mealplannerimplementation[]
 === Meal Planner feature
-The Meal Planner feature is supported by the classes `Meal` and `Day`.
+==== Current Implementation
+
+===== Model
+The Meal Planner feature is supported by the classes *Meal* and *Day*.
 
 ****
 Supporting classes:
@@ -317,22 +320,39 @@ ensured as *Day* objects are only instantiated when recipes are added to a certa
 _date_, with that _date_ being assigned to its *Day* object. When all the recipes
 are deleted from a certain *Day*, the *Day* object is removed from the Meal Planner.
 
+===== Logic
+For Meal Planner commands to be accessible, context has to be switched to "Meal Planner
+via the command `-mealplanner`. From there, the Meal Planner commands can be used and
+*AppContentParser* will redirect the different commands to their respective CommandParser.
 
-==== Other notes
-Since the the recipe list has to be visible for users to select recipes to add to
+====== _Plan Command_: `plan`
+The plan command adds a recipe from the _recipeModel_ to the _mealPlannerModel_. Therefore
+both models have to be passed to *PlanMealCommandParser*.
+
+Within *PlanMealCommandParser*, it parses the target _date_ from a *String* into a *LocalDate*.
+This *LocalDate* object is then used to find out whether _mealPlannerModel_ currently
+contains a *Day* with the target _date_. If such a *Day* object already exists, it is
+taken from _mealPlannerModel_ to be used in *PlanMealCommand*. Else, a new *Day* object is
+instantiated with the target *LocalDate* _date_ and added to _mealPlannerModel_. The target
+_meal_ is then taken from the *Day* object. _mealPlannerModel_, target _recipe_ and target _meal_
+are then passed to *PlanMealCommand*.
+
+Within the execute method of *PlanMealCommand*, target _recipe_ is then added the target _meal_.
+Finally, the new content is committed via _mealPlannerModel.commitAppContent()_.
+
+====== _Display Command_: `display`
+The display command simply calls _ui.switchToMealPlanListPanel()_ method so as to display the
+Meal Planner's current meal plans.
+
+The reason is that since the recipe list has to be visible for users to select recipes to add to
 the Meal Planner, the panel does not switch to show the Meal Planner list view immediately
 when context is switched to "Meal Planner". Thus, there is a separate *display* command for
-displaying the Meal Planner.
+displaying the Meal Planner when the user needs to view it.
 
-****
-MealPlanner can be displayed by typing in the following commands in order:
+====== _Clear Command_: `clear`
+The clear command simply clears the Meal Planner by setting (i.e. replacing) the existing UniqueList
+of *ModelManager<Day>* _mealPlannerModel_ with a new empty UniqueList.
 
-1. *-mealplanner*
-
-2. *display*
-
-_Meal Planner is then displayed, showing the current list of Days with plans_
-****
 // end::mealplannerimplementation[]
 
 === Ingredient Manager
