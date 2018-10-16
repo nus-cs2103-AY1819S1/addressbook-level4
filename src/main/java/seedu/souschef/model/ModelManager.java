@@ -83,6 +83,11 @@ public class ModelManager<T extends UniqueType> extends ComponentManager impleme
         indicateAppContentChanged();
     }
 
+    @Override
+    public ObservableList<T> getFullList() {
+        return uniqueList.asUnmodifiableObservableList();
+    }
+
     //=========== Filtered Recipe List Accessors =============================================================
 
     /**

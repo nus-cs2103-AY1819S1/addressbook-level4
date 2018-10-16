@@ -42,7 +42,7 @@ public class HealthPlanListPanel extends GenericListPanel<HealthPlan> {
         healthPlanListView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
-                        logger.fine("Selection in recipe list panel changed to : '" + newValue + "'");
+                        logger.fine("Selection in healthplan list panel changed to : '" + newValue + "'");
                         raise(new HealthPlanPanelSelectionChangedEvent(newValue));
                     }
                 });

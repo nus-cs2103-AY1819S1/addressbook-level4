@@ -3,7 +3,7 @@ package seedu.souschef.model.planner.exceptions;
 /**
  * Signals that no recipe is found at the specified meal slot of the day.
  */
-public class MealRecipeNotFoundException extends Exception {
+public class MealRecipeNotFoundException extends RuntimeException {
     /**
      * @param message should contain relevant information on the failed constraint(s)
      */

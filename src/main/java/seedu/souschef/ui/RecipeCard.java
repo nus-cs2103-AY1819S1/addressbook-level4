@@ -22,11 +22,9 @@ public class RecipeCard extends GenericCard<Recipe> {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label duration;
     @FXML
-    private Label address;
-    @FXML
-    private Label email;
+    private Label difficulty;
     @FXML
     private FlowPane tags;
 
@@ -35,9 +33,8 @@ public class RecipeCard extends GenericCard<Recipe> {
         this.recipe = recipe;
         id.setText(displayedIndex + ". ");
         name.setText(recipe.getName().fullName);
-        phone.setText(recipe.getPhone().value);
-        address.setText(recipe.getAddress().value);
-        email.setText(recipe.getEmail().value);
+        duration.setText("Duration: " + recipe.getCookTime().getDisplayableCookTime());
+        difficulty.setText("Difficulty: " + recipe.getDifficulty().toString());
         recipe.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 

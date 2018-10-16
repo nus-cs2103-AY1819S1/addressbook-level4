@@ -1,5 +1,6 @@
 package seedu.souschef.model.ingredient;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
@@ -93,10 +94,10 @@ public class Ingredient extends UniqueType {
         builder.append(getName())
                 .append(" Amount: ")
                 .append(getAmount())
-                .append(" Unit: ")
+                .append(" ")
                 .append(getUnit())
                 .append(" Date: ")
-                .append(getDate());
+                .append(new SimpleDateFormat("MM-dd-yyyy").format(getDate()));
         return builder.toString();
     }
 }
