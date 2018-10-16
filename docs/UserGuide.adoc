@@ -271,7 +271,6 @@ Example:
 Creates a calendar for the month of `Feb` and year `2018` and
 saves it as a *`.ics`* file.
 
-
 ==== Viewing calendar : `view_calendar`
 
 Views the calendar of the specified month. +
