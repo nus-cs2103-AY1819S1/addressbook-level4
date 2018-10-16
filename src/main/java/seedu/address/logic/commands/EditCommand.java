@@ -216,7 +216,13 @@ public class EditCommand extends Command {
         /**
          * Sets {@code groupTags} to this object's {@code groupTags}.
          * A defensive copy of {@code groupTags} is used internally.
+         *
+         * NOTE: this class is created temporarily to create the initial working UI as {@code Group} functionality is
+         * still being developed. In the meantime, this class will be used instead to showcase how the UI will look
+         * like, and will be deprecated progressively when Group implementation is updated.
+         *
          */
+        @Deprecated
         public void setGroupTags(Set<Tag> tags) {
             this.groupTags = (tags != null) ? new HashSet<>(tags) : null;
         }
@@ -225,7 +231,13 @@ public class EditCommand extends Command {
          * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code groupTags} is null.
+         *
+         * NOTE: this class is created temporarily to create the initial working UI as {@code Group} functionality is
+         * still being developed. In the meantime, this class will be used instead to showcase how the UI will look
+         * like, and will be deprecated progressively when Group implementation is updated.
+         *
          */
+        @Deprecated
         public Optional<Set<Tag>> getGroupTags() {
             return (groupTags != null) ? Optional.of(Collections.unmodifiableSet(groupTags)) : Optional.empty();
         }

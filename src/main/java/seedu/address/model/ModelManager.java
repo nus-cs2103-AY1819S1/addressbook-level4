@@ -29,6 +29,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Tag> filteredGroupTags;
     private final UserPrefs userPrefs;
     private final SortedList<Person> sortedPersons;
 
@@ -43,6 +44,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredGroupTags = new FilteredList<>(versionedAddressBook.getGroupTagList());
         this.userPrefs = userPrefs;
         sortedPersons = new SortedList<>(filteredPersons);
     }
@@ -142,6 +144,19 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Filtered Group List Accessors =============================================================
+
+    @Override
+    public ObservableList<Tag> getFilteredGroupList() {
+        return FXCollections.unmodifiableObservableList(filteredGroupTags);
+    }
+
+    @Override
+    public void updateFilteredGroupList(Predicate<Tag> predicate) {
+        requireNonNull(predicate);
+        filteredGroupTags.setPredicate(predicate);
     }
 
     //=========== Sorted Person List Accessors ==============================================================
