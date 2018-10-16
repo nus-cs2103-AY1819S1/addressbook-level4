@@ -32,7 +32,7 @@ public class AddApptCommandTest {
         // same object -> returns true
         assertTrue(addApptAmyCommand.equals(addApptAmyCommand));
 
-        // same values -> returns false because clash
+        // same values -> returns true
         AddApptCommand addApptAmyCommandCopy = new AddApptCommand(amy);
         assertTrue(addApptAmyCommand.equals(addApptAmyCommandCopy));
 
