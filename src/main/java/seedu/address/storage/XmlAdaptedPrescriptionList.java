@@ -15,26 +15,31 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class XmlAdaptedPrescriptionList implements Iterable<XmlAdaptedPrescription> {
-    @XmlElement(required = true)
-    private List<XmlAdaptedPrescription> prescription;
+    @XmlElement(required = true, name = "prescription")
+    private List<XmlAdaptedPrescription> prescriptions;
 
     public XmlAdaptedPrescriptionList() {
-        prescription = new ArrayList<>();
+        prescriptions = new ArrayList<>();
     }
 
-    /** C'tor to wrap a list. */
-    public XmlAdaptedPrescriptionList(List<XmlAdaptedPrescription> prescription) {
-        this.prescription = new ArrayList<>(prescription);
+    /** Defensive copy c'tor. */
+    public XmlAdaptedPrescriptionList(List<XmlAdaptedPrescription> prescriptions) {
+        this.prescriptions = new ArrayList<>(prescriptions);
+    }
+
+    /** Defensive copy c'tor. */
+    public XmlAdaptedPrescriptionList(XmlAdaptedPrescriptionList prescriptions) {
+        this(prescriptions.prescriptions);
     }
 
     /** Setter method to hot swap the internal list. */
-    public void setPrescription(List<XmlAdaptedPrescription> prescription) {
-        this.prescription = new ArrayList<>(prescription);
+    public void setPrescription(List<XmlAdaptedPrescription> prescriptions) {
+        this.prescriptions = new ArrayList<>(prescriptions);
     }
 
     @Override
     public Iterator<XmlAdaptedPrescription> iterator() {
-        return prescription.iterator();
+        return prescriptions.iterator();
     }
 
     @Override
@@ -48,6 +53,6 @@ public class XmlAdaptedPrescriptionList implements Iterable<XmlAdaptedPrescripti
         }
 
         XmlAdaptedPrescriptionList xapxs = (XmlAdaptedPrescriptionList) o;
-        return prescription.equals(xapxs.prescription);
+        return prescriptions.equals(xapxs.prescriptions);
     }
 }

@@ -1,7 +1,8 @@
 package seedu.address.model.medicine;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
@@ -13,33 +14,21 @@ import seedu.address.commons.exceptions.IllegalValueException;
  *
  */
 public class Duration {
-    public static final double DAYS_PER_WEEK = 7;
-    public static final double AVERAGE_DAYS_PER_MONTH = 30.4;
-    public static final double AVERAGE_DAYS_PER_YEAR = 365.25;
-    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+    public static final int DAYS_PER_WEEK = 7;
+    public static final int DAYS_PER_MONTH = 30;
+    public static final int DAYS_PER_YEAR = 365;
+    public static final String DATE_FORMAT_PATTERN = "dd-MM-yyyy";
+    public static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN);
     public static final String MESSAGE_DURATION_MUST_BE_POSITIVE = "Duration must be a positive value!";
 
-    public static final double MILLISECONDS_IN_A_DAY = 8.64 * Math.pow(10, 7);
-    public static final double MILLISECONDS_IN_A_WEEK = DAYS_PER_WEEK * MILLISECONDS_IN_A_DAY;
-    public static final double MILLISECONDS_IN_A_MONTH = AVERAGE_DAYS_PER_MONTH * MILLISECONDS_IN_A_DAY;
-    public static final double MILLISECONDS_IN_A_YEAR = AVERAGE_DAYS_PER_YEAR * MILLISECONDS_IN_A_DAY;
-
-    private double durationInMilliseconds;
-    private Calendar startDate;
-    private Calendar endDate;
+    private int durationInDays;
 
     /**
-     * Standard c'tor, takes in duration in milliseconds.
+     * The convention adopted here is that the duration in days should be equal
+     * to the duration between the start date and end date, inclusive of the end date.
      */
-    public Duration(double ms) throws IllegalValueException {
-        if (ms <= 0) {
-            throw new IllegalValueException(MESSAGE_DURATION_MUST_BE_POSITIVE);
-        }
-        durationInMilliseconds = ms;
-        startDate = Calendar.getInstance();
-        endDate = Calendar.getInstance();
-        endDate.add(Calendar.MILLISECOND, (int) durationInMilliseconds);
-    }
+    private LocalDate startDate;
+    private LocalDate endDate;
 
     /**
      * Standard c'tor, takes in duration in days.
@@ -48,62 +37,45 @@ public class Duration {
         if (days <= 0) {
             throw new IllegalValueException(MESSAGE_DURATION_MUST_BE_POSITIVE);
         }
-        durationInMilliseconds = MILLISECONDS_IN_A_DAY * days;
-        startDate = Calendar.getInstance();
-        endDate = Calendar.getInstance();
-        endDate.add(Calendar.MILLISECOND, (int) durationInMilliseconds);
+        durationInDays = days;
+        startDate = LocalDate.now();
+        endDate = LocalDate.now().plus(durationInDays - 1, ChronoUnit.DAYS);
     }
 
     /**
      * Defensive copy constructor.
      */
-    public Duration(Duration d) {
-        durationInMilliseconds = d.getDurationInMilliseconds();
-        startDate = Calendar.getInstance();
-        endDate = Calendar.getInstance();
-        endDate.add(Calendar.MILLISECOND, (int) durationInMilliseconds);
-    }
-
-    /**
-     * Returns the duration in days (rounded down).
-     */
-    public static int getAsDays(double d) {
-        return (int) Math.floor(d / MILLISECONDS_IN_A_DAY);
+    public Duration(Duration d) throws IllegalValueException {
+        this(d.getDurationInDays());
     }
 
     /**
      * Returns the duration in weeks (rounded down).
-     * Due to rounding errors, this might not be strictly the
-     * duration in days multiplied by seven.
      */
-    public static int getAsWeeks(double d) {
-        return (int) Math.floor(d / MILLISECONDS_IN_A_WEEK);
+    public static int getAsWeeks(int days) {
+        return (int) Math.floor(days / DAYS_PER_WEEK);
     }
 
     /**
      * Returns the duration in months (rounded down).
-     * Due to rounding errors, this might not strictly be
-     * equal to the duration in days scaled accordingly.
      */
-    public static int getAsMonths(double d) {
-        return (int) Math.floor(d / MILLISECONDS_IN_A_MONTH);
+    public static int getAsMonths(int days) {
+        return (int) Math.floor(days / DAYS_PER_MONTH);
     }
 
     /**
      * Returns the duration in years (rounded down).
-     * Due to rounding errors, this might not be strictly equal
-     * to the duration in days divided by number of days in a year.
      */
-    public static int getAsYears(double d) {
-        return (int) Math.floor(d / MILLISECONDS_IN_A_YEAR);
+    public static int getAsYears(int days) {
+        return (int) Math.floor(days / DAYS_PER_YEAR);
     }
 
     /**
-     * Returns the duration in milliseconds.
+     * Returns the duration in days.
      * This is what should be used for comparison of durations.
      */
-    public double getDurationInMilliseconds() {
-        return durationInMilliseconds;
+    public int getDurationInDays() {
+        return durationInDays;
     }
 
     /**
@@ -111,24 +83,24 @@ public class Duration {
      * milliseconds.
      * @param newStartDate The new start date to use.
      */
-    public void shiftDateRange(Calendar newStartDate) {
-        startDate = (Calendar) newStartDate.clone();
-        endDate = (Calendar) newStartDate.clone();
-        endDate.add(Calendar.MILLISECOND, (int) this.getDurationInMilliseconds());
+    public void shiftDateRange(LocalDate newStartDate) {
+        // We don't have to be defensive here, because LocalDate objects are immutable.
+        startDate = newStartDate;
+        endDate = newStartDate.plus(getDurationInDays() - 1, ChronoUnit.DAYS);
     }
 
     /**
      * Returns the start date as a {@code String} in dd-MM-yyyy format.
      */
     public String getStartDateAsString() {
-        return DATE_FORMAT.format(startDate.getTime());
+        return startDate.format(DATE_FORMAT);
     }
 
     /**
      * Returns the end date as a {@code String} in dd-MM-yyyy format.
      */
     public String getEndDateAsString() {
-        return DATE_FORMAT.format(endDate.getTime());
+        return endDate.format(DATE_FORMAT);
     }
 
     /**
@@ -142,34 +114,33 @@ public class Duration {
      */
     public String getDurationAsString() {
         StringBuilder duration = new StringBuilder();
-        double d = durationInMilliseconds;
+        int d = durationInDays;
 
         assert d >= 0;
 
         if (getAsYears(d) >= 1) {
             duration.append(getAsYears(d)).append(" year(s),");
-            d -= getAsYears(d) * MILLISECONDS_IN_A_YEAR;
+            d -= getAsYears(d) * DAYS_PER_YEAR;
         }
 
         assert d >= 0;
 
         if (getAsMonths(d) >= 1) {
             duration.append(" ").append(getAsMonths(d)).append(" month(s),");
-            d -= getAsMonths(d) * MILLISECONDS_IN_A_MONTH;
+            d -= getAsMonths(d) * DAYS_PER_MONTH;
         }
 
         assert d >= 0;
 
         if (getAsWeeks(d) >= 1) {
             duration.append(" ").append(getAsWeeks(d)).append(" week(s),");
-            d -= getAsWeeks(d) * MILLISECONDS_IN_A_WEEK;
+            d -= getAsWeeks(d) * DAYS_PER_WEEK;
         }
 
         assert d >= 0;
 
-        if (getAsDays(d) >= 1) {
-            duration.append(" ").append(getAsDays(d)).append(" day(s),");
-            d -= getAsDays(d) * MILLISECONDS_IN_A_DAY;
+        if (d >= 1) {
+            duration.append(" ").append(d).append(" day(s),");
         }
 
         // Remove trailing comma
@@ -194,21 +165,10 @@ public class Duration {
 
         if (o instanceof Duration) {
             Duration d = (Duration) o;
-            return startDate.get(Calendar.DAY_OF_YEAR) == d.startDate.get(Calendar.DAY_OF_YEAR)
-                && endDate.get(Calendar.YEAR) == d.endDate.get(Calendar.YEAR);
+            return startDate.equals(d.startDate)
+                && endDate.equals(d.endDate);
         }
 
         return false;
-    }
-
-    /**
-     * Helper method to test if two Calendar dates are equal.
-     * @param date to test
-     * @param anotherDate to test
-     * @return true iff the dates are the same on the Calendar (i.e. same day, month, year)
-     */
-    public static boolean areDatesEqual(Calendar date, Calendar anotherDate) {
-        return date == anotherDate || (date.get(Calendar.DAY_OF_YEAR) == anotherDate.get(Calendar.DAY_OF_YEAR)
-            && date.get(Calendar.YEAR) == anotherDate.get(Calendar.YEAR));
     }
 }
