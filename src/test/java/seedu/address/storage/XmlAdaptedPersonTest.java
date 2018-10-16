@@ -23,6 +23,7 @@ public class XmlAdaptedPersonTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_PERMISSION = "INVALID_PERMISSION";
 
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_PHONE = BENSON.getPhone().toString();
@@ -30,6 +31,9 @@ public class XmlAdaptedPersonTest {
     private static final String VALID_ADDRESS = BENSON.getAddress().toString();
     private static final List<XmlAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
             .map(XmlAdaptedTag::new)
+            .collect(Collectors.toList());
+    private static final List<XmlAdaptedPermission> VALID_PERMISSION = BENSON.getPermissionSet().getGrantedPermission().stream()
+            .map(XmlAdaptedPermission::new)
             .collect(Collectors.toList());
 
     @Test
@@ -104,6 +108,15 @@ public class XmlAdaptedPersonTest {
         invalidTags.add(new XmlAdaptedTag(INVALID_TAG));
         XmlAdaptedPerson person =
                 new XmlAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, invalidTags);
+        Assert.assertThrows(IllegalValueException.class, person::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidPermission_throwsIllegalValueException() {
+        List<XmlAdaptedPermission> invalidPermission = new ArrayList<>(VALID_PERMISSION);
+        invalidPermission.add(new XmlAdaptedPermission(INVALID_PERMISSION));
+        XmlAdaptedPerson person =
+                new XmlAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS, invalidPermission);
         Assert.assertThrows(IllegalValueException.class, person::toModelType);
     }
 
