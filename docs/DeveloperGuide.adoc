@@ -386,6 +386,55 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
+// tag::undoredo[]
+
+=== Import feature
+==== Current Implementation
+The import contacts feature is facilitated by the new `Command`, `import`. It adds a list of contacts from a properly formatted csv file 
+to`AddressBook`. The rules pertaining to accepted formatting of csv files can be found in the user guide. Additionally, it 
+implements the following operations:
+
+* `getFileFromUserInput(String)` -- gets a File from the path indicated by a user's text input.
+* `getFileFromFileBrowser()` -- gets a File via a file browser.
+* `parseFile(File) and parseLinesFromFile(BufferedReader)` -- parses the file from either of the above two methods. Prepares an 
+arrayList of Persons to add to the contact list.
+
+Given below is an example usage scenario and how the import mechanism behaves at each step.
+
+Step 1. The user launches an application and there is either a list of existing contacts or the list is empty.
+
+Step 2. The user executes import command (i for shorthand). If the user ONLY types import, a file browser wlil pop up. 
+If the user includes a file path, InsuRen will attempt to retrieve the file from the given path. 
+
+image::Import.png[width="800"]
+
+image::import_user_input.png[width="800"]
+
+Step 3. If no such file exists, InsuRen will report an error. 
+
+image::import_user_input_fail.png[width="800"]
+
+Step 4. If the file is successfully loaded (regardless of method), InsuRen checks for duplicates and incomplete contacts.
+Insuren compiles a list of contacts and runs the `add` Command on all of them, adding them to the list of existing contacts.
+ 
+Step 5. A relevant message will be displayed, depending on whether there were successful imports, duplicate contacts etc.
+
+image::import_success.png[width="800"]
+
+image::import_duplicates.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: How import executes
+
+* **Alternative 1 (current choice):** Build from `Add` command:
+Import makes use of the `hasPerson` method of `Model` to check for duplicate contacts in the csv file being imported.
+It also manually checks if any entry in the csv file is incomplete in that it has no name value.
+Lastly, the import command also utilizes the format checking methods in `Name`, `Email`, `Address` etc. to catch any
+entries with invalid formats
+** Pros: Easy to implement, any future modifications to Add or any changes to the validity of `Name`, `Email` etc will
+not cause import to crash.
+** Cons: Higher coupling. 
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
