@@ -3,8 +3,8 @@ package seedu.address.model;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARPARK;
-import static seedu.address.testutil.TypicalCarparks.ALICE;
-import static seedu.address.testutil.TypicalCarparks.BENSON;
+import static seedu.address.testutil.TypicalCarparks.ALFA;
+import static seedu.address.testutil.TypicalCarparks.BRAVO;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -32,13 +32,13 @@ public class ModelManagerTest {
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasCarpark(ALICE));
+        assertFalse(modelManager.hasCarpark(ALFA));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        modelManager.hasCarpark(ALICE);
-        assertTrue(modelManager.hasCarpark(ALICE));
+        modelManager.hasCarpark(ALFA);
+        assertTrue(modelManager.hasCarpark(ALFA));
     }
 
     @Test
@@ -49,7 +49,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withCarpark(ALICE).withCarpark(BENSON).build();
+        AddressBook addressBook = new AddressBookBuilder().withCarpark(ALFA).withCarpark(BRAVO).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -72,7 +72,7 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         List<String> temp = new ArrayList<>();
-        temp.add(ALICE.getCarparkNumber().value);
+        temp.add(ALFA.getCarparkNumber().value);
         String[] keywords = temp.toArray(new String[0]);
         modelManager.updateFilteredCarparkList(new CarparkContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));

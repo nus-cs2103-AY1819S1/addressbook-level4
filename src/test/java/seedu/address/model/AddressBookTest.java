@@ -3,12 +3,10 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalCarparks.ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_KILO;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HOME;
+import static seedu.address.testutil.TypicalCarparks.ALFA;
 import static seedu.address.testutil.TypicalCarparks.getTypicalAddressBook;
-//import static seedu.address.testutil.TypicalPersons.ALICE;
-//import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -53,9 +51,9 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two carparks with the same identity fields
-        Carpark editedAlice = new CarparkBuilder(ALICE).withAddress(VALID_ADDRESS_2).withTags(VALID_TAG_HUSBAND)
+        Carpark editedAlfa = new CarparkBuilder(ALFA).withAddress(VALID_ADDRESS_KILO).withTags(VALID_TAG_HOME)
                 .build();
-        List<Carpark> newPersons = Arrays.asList(ALICE, editedAlice);
+        List<Carpark> newPersons = Arrays.asList(ALFA, editedAlfa);
         AddressBookStub newData = new AddressBookStub(newPersons);
 
         thrown.expect(DuplicateCarparkException.class);
@@ -70,21 +68,21 @@ public class AddressBookTest {
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasCarpark(ALICE));
+        assertFalse(addressBook.hasCarpark(ALFA));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addCarpark(ALICE);
-        assertTrue(addressBook.hasCarpark(ALICE));
+        addressBook.addCarpark(ALFA);
+        assertTrue(addressBook.hasCarpark(ALFA));
     }
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addCarpark(ALICE);
-        Carpark editedAlice = new CarparkBuilder(ALICE).withAddress(VALID_ADDRESS_2).withTags(VALID_TAG_HUSBAND)
+        addressBook.addCarpark(ALFA);
+        Carpark editedAlfa = new CarparkBuilder(ALFA).withAddress(VALID_ADDRESS_KILO).withTags(VALID_TAG_HOME)
                 .build();
-        assertTrue(addressBook.hasCarpark(editedAlice));
+        assertTrue(addressBook.hasCarpark(editedAlfa));
     }
 
     @Test

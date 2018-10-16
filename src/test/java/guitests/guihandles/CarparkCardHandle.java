@@ -14,6 +14,7 @@ import seedu.address.model.carpark.Carpark;
  * Provides a handle to a person card in the person list panel.
  */
 public class CarparkCardHandle extends NodeHandle<Node> {
+    private static final String ID_FIELD_ID = "#id";
     private static final String CARPARK_NUMBER_FIELD_ID = "#carparkNumber";
     private static final String CARPARK_TYPE_FIELD_ID = "#carparkType";
     private static final String COORDINATE_FIELD_ID = "#coordinate";
@@ -26,6 +27,7 @@ public class CarparkCardHandle extends NodeHandle<Node> {
     private static final String ADDRESS_FIELD_ID = "#address";
     private static final String TAGS_FIELD_ID = "#tags";
 
+    private final Label idLabel;
     private final Label carparkNumberLabel;
     private final Label carparkTypeLabel;
     private final Label coordinateLabel;
@@ -41,6 +43,7 @@ public class CarparkCardHandle extends NodeHandle<Node> {
     public CarparkCardHandle(Node cardNode) {
         super(cardNode);
 
+        idLabel = getChildNode(ID_FIELD_ID);
         carparkNumberLabel = getChildNode(CARPARK_NUMBER_FIELD_ID);
         carparkTypeLabel = getChildNode(CARPARK_TYPE_FIELD_ID);
         coordinateLabel = getChildNode(COORDINATE_FIELD_ID);
@@ -57,6 +60,10 @@ public class CarparkCardHandle extends NodeHandle<Node> {
                 .stream()
                 .map(Label.class::cast)
                 .collect(Collectors.toList());
+    }
+
+    public String getId() {
+        return idLabel.getText();
     }
 
     public String getCarparkNumber() {
@@ -110,16 +117,26 @@ public class CarparkCardHandle extends NodeHandle<Node> {
      * Returns true if this handle contains {@code person}.
      */
     public boolean equals(Carpark carpark) {
-        return getAddress().equals(carpark.getAddress())
-                && getCarparkNumber().equals(carpark.getCarparkNumber())
-                && getCarparkType().equals(carpark.getCarparkType())
-                && getCoordinate().equals(carpark.getCoordinate())
-                && getFreeParking().equals((carpark.getFreeParking()))
-                && getLotsAvailable().equals(carpark.getLotsAvailable())
-                && getNightParking().equals(carpark.getNightParking())
-                && getShortTerm().equals(carpark.getShortTerm())
-                && getTotalLots().equals(carpark.getTotalLots())
-                && getTypeOfParking().equals(carpark.getTypeOfParking())
+        if (carpark.getTotalLots().value.equals("0")) {
+            if (!getTotalLots().equals("Total Lots: Not Available")
+                    || !getLotsAvailable().equals("Lots Available: Not Available")) {
+                return false;
+            }
+        } else {
+            if (!getTotalLots().equals("Total Lots: " + carpark.getTotalLots().value)
+                    || !getLotsAvailable().equals("Lots Available: " + carpark.getLotsAvailable().value)) {
+                return false;
+            }
+        }
+
+        return getCarparkNumber().equals(carpark.getCarparkNumber().value)
+                && getAddress().equals(carpark.getAddress().value)
+                && getCarparkType().equals(carpark.getCarparkType().value)
+                && getCoordinate().equals("Coordinate: " + carpark.getCoordinate().value)
+                && getFreeParking().equals("Free Parking: " + carpark.getFreeParking().value)
+                && getNightParking().equals("Night Parking: " + carpark.getNightParking().value)
+                && getShortTerm().equals("Short Term Parking: " + carpark.getShortTerm().value)
+                && getTypeOfParking().equals("Parking System: " + carpark.getTypeOfParking().value)
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(carpark.getTags().stream()
                 .map(tag -> tag.tagName)
                 .collect(Collectors.toList())));
