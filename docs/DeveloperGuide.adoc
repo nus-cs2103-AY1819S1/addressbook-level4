@@ -192,7 +192,8 @@ image::LogicClassDiagram.png[width="800"]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `AppContentParser` class to parse the user command.'
+.  `AppContentParser` passed necessary model to each feature parser such as `RecipeParser` according to the context.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a recipe) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -243,6 +244,34 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+=== Select feature of the Ingredient Manager(to be implemented)
+
+Selecting recipe based on ingredients that are currently in the inventory is a key feature of Ingredient Manager.
+Basically Ingredient Manager does similar things that can be done by addressbook, such as add, delete, edit, and find
+. In this sense, you can think of the Ingredient Manager as storing and manipulating ingredient related information
+rather than person related information.
+However, select feature of it is noteworthy in that it enables users to filter out necessary knowledge outside of the
+ingredient manager(e.g. recipes), using the information stored in it(e.g. ingredients).
+
+In AppContentParser, Ingredient Manager is passed two model parameters, which are recipe model and ingredient model.
+If you execute select command, it conducts search based on ingredients in inventory. Then It takes
+additional ingredients in as parameters, no matter if they are currently in inventory or not.
+Based on those ingredients, it conducts second round of search.
+The ingredients you put before 'optional' command would be considered as the ones that you want to necessarily
+include in your recipe search.
+The ingredients following 'optional' command is considered as the ones that you want to include as much as possible.
+Ingredient Manager display recipes sorted based on the number of optional ingredients, with the ones that contains most
+number at the top.
+Therefore, you can think of it as a 2 step, where 'must' ingredients filter out the recipes and 'optional'
+ingredients sorts the recipe.
+
+The difference between normal search using ingredient and current select method lies in the fact that it conducts
+search based
+ on ingredients in inventory as a default.
+Although you just put in 'select' without any additional parameters, it shows the recipes that contains most number
+of ingredients in inventory so that increases the possibility for user to use up the ingredients that are recorded in
+ inventory.
 
 // tag::undoredo[]
 === Undo/Redo feature
