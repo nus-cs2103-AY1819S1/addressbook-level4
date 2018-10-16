@@ -88,6 +88,11 @@ public class ModelManager<T extends UniqueType> extends ComponentManager impleme
         return uniqueList.asUnmodifiableObservableList();
     }
 
+    @Override
+    public UniqueList<T> getUniqueList() {
+        return this.uniqueList;
+    }
+
     //=========== Filtered Recipe List Accessors =============================================================
 
     /**

@@ -54,9 +54,15 @@ public interface Model<T extends UniqueType> {
 
     /**
      * Returns full unfiltered list.
-     * @return Full unique list.
+     * @return Full unique list as ObservableList.
      */
     ObservableList<T> getFullList();
+
+    /**
+     * Returns the UniqueList
+     * @return UniqueList
+     */
+    UniqueList<T> getUniqueList();
 
     /** Returns an unmodifiable view of the filtered recipe list */
     ObservableList<T> getFilteredList();
