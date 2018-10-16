@@ -2,12 +2,12 @@ package seedu.address.model.category;
 
 import java.util.function.Predicate;
 
-import seedu.address.model.entry.MajorResumeEntry;
+import seedu.address.model.entry.ResumeEntry;
 
 /**
- * Tests that a {@code MajorResumeEntry}'s matches the keyword given.
+ * Tests that a {@code ResumeEntry}'s matches the keyword given.
  */
-public class ContainsCategoryPredicate implements Predicate<MajorResumeEntry> {
+public class ContainsCategoryPredicate implements Predicate<ResumeEntry> {
     private final Category category;
 
     public ContainsCategoryPredicate(String keyword) {
@@ -15,7 +15,7 @@ public class ContainsCategoryPredicate implements Predicate<MajorResumeEntry> {
     }
 
     @Override
-    public boolean test(MajorResumeEntry entry) {
+    public boolean test(ResumeEntry entry) {
         return category.equals(entry.getCategory());
     }
 

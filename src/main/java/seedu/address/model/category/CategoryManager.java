@@ -16,41 +16,41 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 
-import seedu.address.model.entry.MajorResumeEntry;
+import seedu.address.model.entry.ResumeEntry;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Manages category of the entries.
  */
 public class CategoryManager extends ComponentManager {
     private static final Logger logger = LogsCenter.getLogger(CategoryManager.class);
-    private final FilteredList<MajorResumeEntry> filteredEntries;
+    private final FilteredList<ResumeEntry> filteredEntries;
 
     /**
      * Initializes CategoryManager with the given list of entries.
      */
-    public CategoryManager(ObservableList<MajorResumeEntry> entries) {
+    public CategoryManager(ObservableList<ResumeEntry> entries) {
         super();
         requireAllNonNull(entries);
 
         logger.fine("Initializing category manager of length: " + entries.size());
-        filteredEntries = new FilteredList<MajorResumeEntry>(entries);
+        filteredEntries = new FilteredList<ResumeEntry>(entries);
     }
 
-    public CategoryManager(List<MajorResumeEntry> entries) {
+    public CategoryManager(List<ResumeEntry> entries) {
         this(FXCollections.observableList(entries));
     }
 
     public CategoryManager() {
-        this(new ArrayList<MajorResumeEntry>());
+        this(new ArrayList<ResumeEntry>());
     }
 
-    /** Returns an filtered unmodifiable view of the list of {@code MajorResumeEntry}. */
-    public ObservableList<MajorResumeEntry> getList() {
+    /** Returns an filtered unmodifiable view of the list of {@code ResumeEntry}. */
+    public ObservableList<ResumeEntry> getList() {
         return FXCollections.unmodifiableObservableList(filteredEntries);
     }
 
     /** Sets the filter for category view. */
-    public void setFilter(Predicate<MajorResumeEntry> predicate) {
+    public void setFilter(Predicate<ResumeEntry> predicate) {
         requireNonNull(predicate);
         filteredEntries.setPredicate(predicate);
     }

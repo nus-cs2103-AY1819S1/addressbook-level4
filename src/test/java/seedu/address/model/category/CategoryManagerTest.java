@@ -14,7 +14,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.model.entry.MajorResumeEntry;
+import seedu.address.model.entry.ResumeEntry;
 
 public class CategoryManagerTest {
     @Rule
@@ -30,11 +30,11 @@ public class CategoryManagerTest {
 
     @Test
     public void equals() {
-        MajorResumeEntry[] raw = { NUS_EDUCATION, WORK_FACEBOOK };
-        List<MajorResumeEntry> list = Arrays.asList(raw);
+        ResumeEntry[] raw = { NUS_EDUCATION, WORK_FACEBOOK };
+        List<ResumeEntry> list = Arrays.asList(raw);
 
-        MajorResumeEntry[] raw2 = { NUS_EDUCATION };
-        List<MajorResumeEntry> list2 = Arrays.asList(raw2);
+        ResumeEntry[] raw2 = { NUS_EDUCATION };
+        List<ResumeEntry> list2 = Arrays.asList(raw2);
 
         // same values -> returns true
         categoryManager = new CategoryManager(list);
