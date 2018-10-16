@@ -303,6 +303,8 @@ This section describes some noteworthy details on how certain features are imple
 This section describes the details on how the general features are implemented.
 
 ==== Switch command
+The `switch` command is used to switch the context between 'volunteer' and 'event'.
+
 ===== Current implementation
 
 This `switch` command requires the `SwitchCommandParser` class to parse user input and help determine the context to switch to. +
@@ -310,7 +312,9 @@ This `switch` command requires the `SwitchCommandParser` class to parse user inp
 `SwitchCommandParser` implements the `Parser` class which has the `Parser#parse()` operation. This operation will throw an error if the user input does not match the command format or is an invalid context to switch to.
 
 [NOTE]
-There are only 2 valid contexts which a user can switch to with the command: 'volunteer' and 'event' with context ID of 'v' and 'e' respectively.
+There are only 2 valid contexts which a user can switch to with the command. +
+v: 'volunteer' context +
+e: 'event' context
 
 The `Switch` command updates the context found in `ModelManager` before raising the context change event to update the UI.
 
