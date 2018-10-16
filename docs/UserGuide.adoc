@@ -199,28 +199,41 @@ To reverse this, find and select the task then use the changeto command
 
 === Import Persons : `import`
 
-User is able to import FlashBook or any AddressBook-level4. +
+Import FlashBook or any AddressBook-level4. +
 
 ****
 FlashBook is backward compatible to AddressBook-level4. +
 
 This means that users of AddressBook-level4 are able to upgrade to use FlashBook by just importing their AddressBook-level4 storage file. +
 ****
-Format: `import <relative filepath>`
+Format: `import f/<relative filepath>`
 
 Example:
-`import /f flashBookBackUp.xml` : import `flashBookBackUp.xml` into FlashBook.
-`import /f addressBookBackUp.xml` : import `addressBookBackUp.xml` into FlashBook even if the imported file is Addressbook and not FlashBook.
+`import f/flashBookBackUp.xml` : import `flashBookBackUp.xml` into FlashBook.
+`import f/addressBookBackUp.xml` : import `addressBookBackUp.xml` into FlashBook even if the imported file is Addressbook and not FlashBook.
 
 === Export Persons : `export`
 
-User is able to export FlashBook as backup elsewhere. +
+Export FlashBook as backup elsewhere. +
 Format: +
-`export \f <filepath>`
+`export f/<filepath>`
 
 Example:
+`export f/backup.xml` : Export FlashBook as `backup.xml`.
 
-`export \f backup.xml` : Export FlashBook as `backup.xml`.
+== Change Storage Location: `filepath`
+
+Change the storage location of FlashBook.
+Format: +
+`filepath f/<filepath>`
+
+Example:
+`filepath f/new_path.xml` : Storage location of FlashBook is now stored at `new_path.xml`.
+
+****
+User can also check the current path of Flashbook use `filepath show`
+****
+
 
 === Autocomplete
 

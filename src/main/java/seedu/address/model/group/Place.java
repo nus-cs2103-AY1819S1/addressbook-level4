@@ -6,6 +6,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 /**
  * Represents the location of upcoming meeting in the group.
  * Guarantees: immutable; is valid as declared in {@link #isValidPlace(String)}
+ *
+ * {@author Derek-Hardy}
  */
 public class Place {
 
