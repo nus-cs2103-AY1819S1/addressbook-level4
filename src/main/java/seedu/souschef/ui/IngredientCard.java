@@ -1,7 +1,5 @@
 package seedu.souschef.ui;
 
-import java.text.SimpleDateFormat;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -33,10 +31,10 @@ public class IngredientCard extends GenericCard<Ingredient> {
         super(FXML);
         this.ingredient = ingredient;
         id.setText(displayedIndex + ". ");
-        name.setText(ingredient.getName());
-        amount.setText(Double.toString(ingredient.getAmount()));
+        name.setText(ingredient.getName().toString());
+        amount.setText(ingredient.getAmount().toString());
         unit.setText(ingredient.getUnit().toString());
-        date.setText(new SimpleDateFormat("MM-dd-yyyy").format(ingredient.getDate()));
+        date.setText(ingredient.getDate().toString());
     }
 
     @Override
