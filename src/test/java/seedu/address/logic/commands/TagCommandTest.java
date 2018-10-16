@@ -97,7 +97,7 @@ public class TagCommandTest {
     }
 
     @Test
-    public void execute_zeroKeywords_noTagDeleted() {
+    void execute_zeroKeywords_noTagDeleted() {
         String expectedMessage = String.format(MESSAGE_TAG_DELETED_OVERVIEW, 0);
         PersonContainsTagPredicate predicate = preparePredicate(" ");
         TagCommand command = new TagCommand(predicate, TagCommand.Action.DELETE, Collections.singletonList(" "));
@@ -107,7 +107,7 @@ public class TagCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multipleTagsDeleted() {
+    execute_multipleKeywords_multipleTagsDeleted() {
         String expectedMessage = String.format(MESSAGE_TAG_DELETED_OVERVIEW, 4);
         PersonContainsTagPredicate predicate = preparePredicate("Singaporean OCBC important");
         TagCommand command = new TagCommand(predicate, TagCommand.Action.DELETE, Arrays.asList("friends", "owesMoney",

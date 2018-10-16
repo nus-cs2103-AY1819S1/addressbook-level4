@@ -24,7 +24,7 @@ public class TagCommandParserTest {
     }
 
     @Test
-    public void parse_validArgs_returnsTagCommand() {
+    void parse_validArgs_returnsTagCommand() {
         List<String> tags = Arrays.asList("owesMoney", "friends");
         // Find tags command, no leading and trailing whitespaces
         TagCommand expectedFindTagCommand =
