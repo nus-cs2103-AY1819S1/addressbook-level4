@@ -128,20 +128,33 @@ Format: `exit`
 ==== Switching context : `switch`
 
 Switches context to volunteers or events +
-Format: `switch`
+
+Format: `switch -CONTEXT_ID`
 
 ****
-* A context refers to the management screen that users will see.
+* The application will always start up in the 'volunteer' context.
 * Switch would switch the data view and allow the user to switch between two distinct entities: volunteers and events.
+* CONTEXT_ID for events is 'e'.
+* CONTEXT_ID for volunteers is 'v'.
 ****
 
 Examples:
 
 * `switch -e` +
-Switches to the event context
-* `switch -v` +
-Switches to the volunteers context
+Switch to the 'event' context when in 'volunteer' context.
 
+[.clearfix]
+--
+[.left]
+.Before (Volunteer context)
+image::command_switch_before.png[Before switch, 450]
+[.left]
+.After (Event context)
+image::command_switch_after.png[After switch, 450]
+--
+
+The figures above shows the 2 different contexts. +
+Application will start up in the 'volunteer' context and users can switch to the event context via the `switch` command.
 
 === Volunteer Management
 
@@ -315,63 +328,100 @@ image::command_delete_event_after.png[After add, 800]
 
 === Record Management
 
+This section contains commands related to managing a volunteering record.
+
+
+****
+* The `manage` command can only be accessed after switching to the 'event' context. (see <<command-switch>>) +
+* The other commands under this section can only be accessed after executing the `manage` command.
+****
+
 ==== View event's volunteer records: `manage`
 
-Switches context to event and display volunteers at the side bar. Can only be executed in event context. +
+Switches to the 'manage' context and display volunteers at the left panel. +
+
 Format: `manage EVENT_INDEX`
 
 Examples:
 
 * `manage 1` +
-View the list of volunteers assigned to event at index 1
+View the list of volunteers assigned to event at index 1.
 
-==== Add volunteer to event: `add`
+.Viewing of events
+image::command_switch_after.png[view events, 800]
+
+The figure above shows the 'event' context that the user has to be in before executing the `manage` command.
+
+.Sample display
+image::command_manage_view.png[manage, 800]
+
+The figure above shows how the UI might look like after selecting to manage it. +
+
+The left panel displays the list of volunteers while the right panel displays the event name and volunteers currently registered for the event.
+
+==== Add volunteer to event: `add [coming in v1.3]`
 
 Adds a volunteer to the event that is currently being managed. +
+
 Format: `add VOLUNTEER_INDEX [h/HOURS] [r/REMARKS]`
 
 ****
-* This command is executed after the 'manage' command.
-* VOLUNTEER_INDEX comes from the global pool of volunteers.
+* VOLUNTEER_INDEX comes from the list of all volunteers.
+* Default value for HOURS is '0'.
+* Default value for REMARKS is '-'.
 ****
+
+.Adding a record
+image::command_record_add.png[add record, 800]
+
+The circled numbers from the figure above indicate the VOLUNTEER_INDEX.
 
 Examples:
 
 * `add 1` +
-Adds a volunteer at index 1 to the event with 0 hours
+Adds a volunteer at index 1 to the event with 0 hours. +
 * `add 1 r/Vegetarian` +
-Adds a volunteer at index 1 to the event with 0 hours with remarks of 'Vegetarian'
+Adds a volunteer at index 1 to the event with 0 hours with remarks of 'Vegetarian'.
 * `add 3 h/5` +
-Adds a volunteer at index 3 to the event with 5 hours
+Adds a volunteer at index 3 to the event with 5 hours.
 
-==== Update volunteer hours: `edit`
+==== Update volunteer hours: `edit [coming in v1.3]`
 
-Update number of hours for volunteer in the event that is currently being managed. +
+Updates a volunteering record for volunteer in the event that is currently being managed. +
+
 Format: `edit [-a] [VOLUNTEER_INDEX] h/HOURS [r/REMARKS]`
 
 ****
-* This command is executed after the 'manage' command.
-* VOLUNTEER_INDEX comes from the table view of existing volunteers.
-* VOLUNTEER_INDEX is only optional when '-a' is entered.
-* Entering just `r/` would result in remarks being deleted.
+* VOLUNTEER_INDEX comes from the volunteers currently registered for the event.
+* VOLUNTEER_INDEX has to be specified if '-a' is not entered.
+* Entering just `r/` will save the remarks with the default value of '-'.
 ****
+
+.Editing a record
+image::command_record_edit.png[edit record, 800]
+
+The highlighted column from the figure above indicate the VOLUNTEER_INDEX for each volunteer.
 
 Examples:
 
 * `edit -a h/5` +
-Updates amount of hours volunteered for all existing volunteers in the event to 5 hours
+Updates amount of hours volunteered for all existing volunteers in the event to 5 hours.
 * `edit 3 h/5 r/Emcee` +
-Updates amount of hours volunteered for volunteer at index 3 to 5 hours with remarks of 'Emcee'
+Updates amount of hours volunteered for volunteer at index 3 to 5 hours with remarks of 'Emcee'.
 
-==== Delete volunteer record from event: `delete`
+==== Delete volunteer record from event: `delete [coming in v1.3]`
 
 Deletes the volunteer record from the event that is currently being managed. +
+
 Format: `delete VOLUNTEER_INDEX`
 
 ****
-* This command is executed after the 'manage' command.
 * VOLUNTEER_INDEX comes from the table view of existing volunteers.
 ****
+
+.Deleting a record
+image::command_record_edit.png[delete record, 800]
+
 
 Examples:
 
@@ -390,11 +440,6 @@ There is no need to save manually.
 
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
-
-== FAQ
-
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous SocialCare folder.
 
 == Commands Summary
 
@@ -438,4 +483,17 @@ e.g. `add h/5 1 2 3`
 e.g. `edit h/5 1 2 3`
 * *Delete* `delete VOLUNTEER_INDEX` +
 e.g. `delete 1`
+
+== FAQ
+
+*Q*: How do I transfer my data to another Computer? +
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous SocialCare folder.
+
+
+== Glossary
+[width="100%",cols="30%,70%",options="header",]
+|=======================================================================
+| Term| Explanation
+| *Context*| A context refers to the management screen that users will see.
+|=======================================================================
 
