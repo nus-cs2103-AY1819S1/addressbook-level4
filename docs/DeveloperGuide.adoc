@@ -449,36 +449,37 @@ keeps track of the highest ID in the system. Additionally, it implements two dif
 * `Event(Name name, Location location, Date startDate, Date endDate,
                     Time startTime, Time endTime, Description description, Set<Tag> tags)`
 +
-This constructor is used when an event, being initialised with a new `Event` class, does not yet exist in the system (e.g. adding a new event).
+This constructor is used when an event, initialised as a new `Event` object, does not yet exist in the system (e.g. adding a new event).
 +
-It increments the current highest ID in the system and assigns that value to the new event that is created.
+It increments the current highest event ID in the system and assigns that value to the new event that is created.
 
 * `Event(EventId eventId, Name name, Location location, Date startDate, Date endDate,
                     Time startTime, Time endTime, Description description, Set<Tag> tags)`
 +
-This constructor is used when an event, being initialised with a new `Event` class, already exists in the system (e.g. loading data from XML file or editing an existing event).
+This constructor is used when an event, initialised as a new `Event` object, already exists in the system (e.g. loading data from XML file or editing an existing event).
 +
 It checks whether the ID of the event being initialised is greater than the current highest ID in the system. If it is, replace the value of
 the highest ID with the event ID and creates the event. If it isn't, skip to the creation of the event.
 
 ===== Design considerations
 ====== Aspect: How event ID is generated
-* *Alternative 1 (current choice):* Increment from highest ID
+* *Alternative 1 (current choice):* Increment from highest event ID
 +
 [cols="1,10"]
 |===
 |*Pros*| Implementation is easy.
-|*Cons*| Maintained highest ID may be susceptible to overwrite and become desynchronised.
+|*Cons*| Maintained highest event ID may be susceptible to overwrite and become desynchronised.
 |===
 +
-* *Alternative 2:* Randomly generated unique ID
+* *Alternative 2:* Randomly generated unique event ID
 +
 [cols="1,10"]
 |===
-|*Pros*| Not dependent on a maintained highest ID variable (single point of failure).
+|*Pros*| Not dependent on a maintained highest event ID variable (single point of failure).
 |*Cons*| Requires keeping track of all existing event IDs to ensure uniqueness.
 |===
 +
+
 
 === Record management
 
