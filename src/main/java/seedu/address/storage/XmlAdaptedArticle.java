@@ -47,7 +47,8 @@ public class XmlAdaptedArticle {
     /**
      * Constructs an {@code XmlAdaptedArticle} with the given article details.
      */
-    public XmlAdaptedArticle(String name, String phone, String email, String address, boolean isResolved, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedArticle(String name, String phone, String email, String address,
+                             boolean isResolved, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;

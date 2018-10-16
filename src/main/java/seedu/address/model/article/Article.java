@@ -52,7 +52,9 @@ public class Article {
         return email;
     }
 
-    public Address getAddress() { return address; }
+    public Address getAddress() {
+        return address;
+    }
 
     public boolean getIsResolved() {
         return isResolved;
