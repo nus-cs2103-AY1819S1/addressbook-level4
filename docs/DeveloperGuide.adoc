@@ -298,9 +298,13 @@ The `Storage` component does the following:
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== General
+
+This section describes the details on how the general features are implemented.
+
 // tag::undoredo[]
-=== Undo/Redo feature
-==== Current Implementation
+==== Undo/Redo feature
+===== Current Implementation
 
 The undo/redo mechanism is facilitated by `VersionedAddressBook`.
 It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
@@ -357,9 +361,9 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 image::UndoRedoActivityDiagram.png[width="650"]
 
-==== Design Considerations
+===== Design Considerations
 
-===== Aspect: How undo & redo executes
+====== Aspect: How undo & redo executes
 
 * **Alternative 1 (current choice):** Saves the entire address book.
 ** Pros: Easy to implement.
@@ -368,7 +372,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
-===== Aspect: Data structure to support the undo/redo commands
+====== Aspect: Data structure to support the undo/redo commands
 
 * **Alternative 1 (current choice):** Use a list to store the history of address book states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
@@ -379,13 +383,13 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // end::undoredo[]
 
 // tag::dataencryption[]
-=== [Proposed] Data Encryption
+==== [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
-=== Logging
+==== Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
@@ -401,9 +405,21 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 [[Implementation-Configuration]]
-=== Configuration
+==== Configuration
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
+
+=== Volunteer Management
+
+This section describes the details on how the volunteer management features are implemented.
+
+=== Event Management
+
+This section describes the details on how the event management features are implemented.
+
+=== Record Management
+
+This section describes the details on how the record management features are implemented.
 
 == Documentation
 
