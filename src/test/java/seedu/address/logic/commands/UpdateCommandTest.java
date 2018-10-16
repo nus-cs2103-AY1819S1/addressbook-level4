@@ -109,7 +109,7 @@ public class UpdateCommandTest {
     public void execute_duplicatePersonUnfilteredList_failure() {
         Ride firstRide = model.getFilteredRideList().get(INDEX_FIRST_PERSON.getZeroBased());
         UpdateRideDescriptor descriptor = new UpdateRideDescriptorBuilder(firstRide).build();
-        UpdateCommand editCommand = new UpdateCommand(INDEX_SECOND_PERSON, descriptor);
+        UpdateCommand editCommand = new UpdateCommand(INDEX_SECOND_RIDE, descriptor);
 
         assertCommandFailure(editCommand, model, commandHistory, UpdateCommand.MESSAGE_DUPLICATE_RIDE);
     }
@@ -119,7 +119,7 @@ public class UpdateCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         // edit ride in filtered list into a duplicate in address book
-        Ride rideInList = model.getAddressBook().getRideList().get(INDEX_SECOND_PERSON.getZeroBased());
+        Ride rideInList = model.getAddressBook().getRideList().get(INDEX_SECOND_RIDE.getZeroBased());
         UpdateCommand editCommand = new UpdateCommand(INDEX_FIRST_PERSON,
                 new UpdateRideDescriptorBuilder(rideInList).build());
 
@@ -239,7 +239,7 @@ public class UpdateCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new UpdateCommand(INDEX_SECOND_PERSON, DESC_AMY)));
+        assertFalse(standardCommand.equals(new UpdateCommand(INDEX_SECOND_RIDE, DESC_AMY)));
 
         // different descriptor -> returns false
         assertFalse(standardCommand.equals(new UpdateCommand(INDEX_FIRST_PERSON, DESC_BOB)));
