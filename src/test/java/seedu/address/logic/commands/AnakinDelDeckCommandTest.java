@@ -10,11 +10,10 @@ import static seedu.address.testutil.AnakinTypicalIndexes.INDEX_FIRST_DECK;
 import static seedu.address.testutil.AnakinTypicalIndexes.INDEX_SECOND_DECK;
 
 import org.junit.Test;
-
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.anakincommands.AnakinDelDeckCommand;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.anakincommands.AnakinDelDeckCommand;
 import seedu.address.model.AnakinModel;
 import seedu.address.model.AnakinModelManager;
 import seedu.address.model.UserPrefs;
