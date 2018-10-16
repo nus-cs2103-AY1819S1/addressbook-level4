@@ -1,4 +1,4 @@
-package seedu.address.model.person.commandUsage;
+package seedu.address.model.person.util;
 
 import java.util.Comparator;
 

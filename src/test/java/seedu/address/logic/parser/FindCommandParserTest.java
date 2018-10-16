@@ -10,7 +10,7 @@ import java.util.Collections;
 import org.junit.Test;
 
 import seedu.address.logic.commands.FindCommand;
-import seedu.address.model.person.commandUsage.NameContainsKeywordsPredicate;
+import seedu.address.model.person.util.NameContainsKeywordsPredicate;
 
 //TODO Need to update this
 public class FindCommandParserTest {

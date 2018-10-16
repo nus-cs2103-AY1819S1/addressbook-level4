@@ -4,7 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
-import seedu.address.model.person.commandUsage.PersonPropertyComparator;
+
+import seedu.address.model.person.util.PersonPropertyComparator;
 
 class PersonPropertyComparatorTest {
     private PersonPropertyComparator nameComparator = PersonPropertyComparator.NAME;

@@ -16,7 +16,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.AddressBookExportEvent;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.commandUsage.PersonPropertyComparator;
+import seedu.address.model.person.util.PersonPropertyComparator;
 import seedu.address.model.tag.Tag;
 
 /**

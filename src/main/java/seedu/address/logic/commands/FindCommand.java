@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SOME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SOME;
 
 import java.util.function.Predicate;
 
