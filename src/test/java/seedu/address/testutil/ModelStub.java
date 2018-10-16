@@ -9,7 +9,6 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonPropertyComparator;
-import seedu.address.model.tag.Tag;
 
 
 /**
