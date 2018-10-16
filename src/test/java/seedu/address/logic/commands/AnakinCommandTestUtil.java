@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.anakinCommands.AnakinCommand;
+import seedu.address.logic.anakincommands.AnakinCommand;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Anakin;

@@ -6,14 +6,14 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.anakinCommands.AnakinCdCommand;
-import seedu.address.logic.anakinCommands.AnakinCommand;
-import seedu.address.logic.anakinCommands.AnakinDelCardCommand;
-import seedu.address.logic.anakinCommands.AnakinDelDeckCommand;
-import seedu.address.logic.anakinCommands.AnakinEditCardCommand;
-import seedu.address.logic.anakinCommands.AnakinEditDeckCommand;
-import seedu.address.logic.anakinCommands.AnakinNewCardCommand;
-import seedu.address.logic.anakinCommands.AnakinNewDeckCommand;
+import seedu.address.logic.anakincommands.AnakinCdCommand;
+import seedu.address.logic.anakincommands.AnakinCommand;
+import seedu.address.logic.anakincommands.AnakinDelCardCommand;
+import seedu.address.logic.anakincommands.AnakinDelDeckCommand;
+import seedu.address.logic.anakincommands.AnakinEditCardCommand;
+import seedu.address.logic.anakincommands.AnakinEditDeckCommand;
+import seedu.address.logic.anakincommands.AnakinNewCardCommand;
+import seedu.address.logic.anakincommands.AnakinNewDeckCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 

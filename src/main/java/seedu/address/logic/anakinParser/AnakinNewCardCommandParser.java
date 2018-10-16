@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.anakinCommands.AnakinNewCardCommand;
+import seedu.address.logic.anakincommands.AnakinNewCardCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Prefix;

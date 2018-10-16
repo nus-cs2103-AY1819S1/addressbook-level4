@@ -7,7 +7,7 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.anakindeck.AnakinCard;
 import seedu.address.model.anakindeck.AnakinDeck;
-import seedu.address.model.anakindeck.AnakinExceptions.DeckNotFoundException;
+import seedu.address.model.anakindeck.anakinexceptions.DeckNotFoundException;
 import seedu.address.model.anakindeck.AnakinUniqueCardList;
 import seedu.address.model.anakindeck.AnakinUniqueDeckList;
 

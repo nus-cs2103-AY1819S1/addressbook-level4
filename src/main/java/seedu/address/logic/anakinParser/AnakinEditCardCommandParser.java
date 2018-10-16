@@ -6,8 +6,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.anakinCommands.AnakinEditCardCommand;
-import seedu.address.logic.anakinCommands.AnakinEditCardCommand.EditCardDescriptor;
+import seedu.address.logic.anakincommands.AnakinEditCardCommand;
+import seedu.address.logic.anakincommands.AnakinEditCardCommand.EditCardDescriptor;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.exceptions.ParseException;

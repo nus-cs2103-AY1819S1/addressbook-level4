@@ -14,7 +14,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
-import seedu.address.logic.anakinCommands.AnakinNewDeckCommand;
+import seedu.address.logic.anakincommands.AnakinNewDeckCommand;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Anakin;

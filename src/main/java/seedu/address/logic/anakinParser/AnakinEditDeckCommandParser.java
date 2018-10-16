@@ -6,8 +6,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.address.commons.core.index.Index;
 
-import seedu.address.logic.anakinCommands.AnakinEditDeckCommand;
-import seedu.address.logic.anakinCommands.AnakinEditDeckCommand.EditDeckDescriptor;
+import seedu.address.logic.anakincommands.AnakinEditDeckCommand;
+import seedu.address.logic.anakincommands.AnakinEditDeckCommand.EditDeckDescriptor;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.exceptions.ParseException;
