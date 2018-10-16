@@ -7,9 +7,6 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  * XmlAdapter that adapts a string to LocalDateTime and back.
  */
 public class LocalDateTimeAdapter extends XmlAdapter<String, LocalDateTime> {
-    public LocalDateTimeAdapter() {
-        super();
-    }
     @Override
     public LocalDateTime unmarshal(String v) throws Exception {
         return LocalDateTime.parse(v);
