@@ -107,7 +107,7 @@ public class TagCommandTest {
     }
 
     @Test
-    execute_multipleKeywords_multipleTagsDeleted() {
+    void execute_multipleKeywords_multipleTagsDeleted() {
         String expectedMessage = String.format(MESSAGE_TAG_DELETED_OVERVIEW, 4);
         PersonContainsTagPredicate predicate = preparePredicate("Singaporean OCBC important");
         TagCommand command = new TagCommand(predicate, TagCommand.Action.DELETE, Arrays.asList("friends", "owesMoney",
