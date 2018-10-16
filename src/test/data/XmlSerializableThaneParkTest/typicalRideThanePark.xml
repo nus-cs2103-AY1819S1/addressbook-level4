@@ -7,6 +7,7 @@
         <waitingTimeString>1</waitingTimeString>
         <address>123, Jurong West Ave 6, #08-111</address>
         <tagged>friends</tagged>
+        <statusString>OPEN</statusString>
     </rides>
     <rides>
         <name>Big Thunder Mountain Meier</name>
@@ -15,12 +16,14 @@
         <address>311, Clementi Ave 2, #02-25</address>
         <tagged>owesMoney</tagged>
         <tagged>friends</tagged>
+        <statusString>OPEN</statusString>
     </rides>
     <rides>
         <name>Castle Carrousel</name>
         <daysSinceMaintenanceString>1</daysSinceMaintenanceString>
         <waitingTimeString>13</waitingTimeString>
         <address>wall street</address>
+        <statusString>OPEN</statusString>
     </rides>
     <rides>
         <name>Dumbo The Flying Elephant Meier</name>
@@ -28,23 +31,27 @@
         <waitingTimeString>3</waitingTimeString>
         <address>10th street</address>
         <tagged>friends</tagged>
+        <statusString>OPEN</statusString>
     </rides>
     <rides>
         <name>Enchanted Airways</name>
         <daysSinceMaintenanceString>4</daysSinceMaintenanceString>
         <waitingTimeString>21</waitingTimeString>
         <address>michegan ave</address>
+        <statusString>OPEN</statusString>
     </rides>
     <rides>
         <name>Final Fantasy</name>
             <daysSinceMaintenanceString>12</daysSinceMaintenanceString>
         <waitingTimeString>12</waitingTimeString>
         <address>little tokyo</address>
+        <statusString>OPEN</statusString>
     </rides>
     <rides>
         <name>Galaxy Road</name>
         <daysSinceMaintenanceString>24</daysSinceMaintenanceString>
         <waitingTimeString>1</waitingTimeString>
         <address>4th street</address>
+        <statusString>OPEN</statusString>
     </rides>
 </thanepark>

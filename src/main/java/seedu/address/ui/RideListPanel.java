@@ -18,14 +18,14 @@ import seedu.address.model.ride.Ride;
 /**
  * Panel containing the list of persons.
  */
-public class PersonListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+public class RideListPanel extends UiPart<Region> {
+    private static final String FXML = "RideListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(RideListPanel.class);
 
     @FXML
     private ListView<Ride> personListView;
 
-    public PersonListPanel(ObservableList<Ride> rideList) {
+    public RideListPanel(ObservableList<Ride> rideList) {
         super(FXML);
         setConnections(rideList);
         registerAsAnEventHandler(this);
@@ -48,7 +48,7 @@ public class PersonListPanel extends UiPart<Region> {
     }
 
     /**
-     * Scrolls to the {@code PersonCard} at the {@code index} and selects it.
+     * Scrolls to the {@code RideCard} at the {@code index} and selects it.
      */
     private void scrollTo(int index) {
         Platform.runLater(() -> {
@@ -64,7 +64,7 @@ public class PersonListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Ride} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Ride} using a {@code RideCard}.
      */
     class PersonListViewCell extends ListCell<Ride> {
         @Override
@@ -75,7 +75,7 @@ public class PersonListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(ride, getIndex() + 1).getRoot());
+                setGraphic(new RideCard(ride, getIndex() + 1).getRoot());
             }
         }
     }

@@ -382,6 +382,8 @@ AttributePredicate to test the attriute
 ** Pros: Easier to add more numeric attributes and minimal changes required to filter new attributes
 ** Cons: Need to implement more classes to handle
 
+
+=======
 === Autocomplete/Suggest feature
 ==== Current Implementation
 
@@ -391,6 +393,8 @@ A new instance of `SuggestCommand` is created whenever `AddressBookParser` fails
 or when {tab} is pressed inside the CommandBox.
 
 When an incomplete command is entered, the `AddressBookParser` will parse the output using a `SuggestCommandParser`.
+
+The `AddressBookParser` then checks that
 
 Given below are some example usage scenarios and how the undo/redo mechanism behaves at each step.
 
@@ -408,6 +412,7 @@ Figure 3.5.1 Activity Diagram of user executing command
 ** Pros: Easy to implement.
 ** Cons: Difficult to extend.
 
+
 ===== Aspect: Data structure to support the undo/redo commands
 
 * **Alternative 1 (current choice):** Use a list to store the history of address book states.
@@ -416,7 +421,6 @@ Figure 3.5.1 Activity Diagram of user executing command
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-
 
 
 == Documentation
