@@ -268,7 +268,7 @@ This section contains commands related to managing a volunteering record.
 
 ==== View event's volunteer records: `manage`
 
-Switches to the 'manage' context and display volunteers at the side bar. +
+Switches to the 'manage' context and display volunteers at the left panel. +
 
 Format: `manage EVENT_INDEX`
 
