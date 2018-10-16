@@ -11,6 +11,7 @@ import java.util.LinkedHashMap;
 
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.CommandResult;
@@ -30,13 +31,20 @@ import seedu.address.testutil.ExpenseBuilder;
 import seedu.address.testutil.ModelUtil;
 
 public class LogicManagerTest {
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     private Model model = ModelUtil.modelWithTestUser();
+
     private Logic logic = new LogicManager(model);
 
     public LogicManagerTest() throws UserAlreadyExistsException, NonExistentUserException, NoUserSelectedException {
+    }
+
+    @BeforeEach
+    public void clearModel() throws UserAlreadyExistsException, NonExistentUserException, NoUserSelectedException {
+        model = ModelUtil.modelWithTestUser();
     }
 
     @Test
@@ -87,8 +95,6 @@ public class LogicManagerTest {
         assertTrue(map.size() > 0);
         assertTrue(map.containsKey(month));
         assertTrue(map.get(month) == validExpense.getCost().getCostValue());
-
-        model.deleteExpense(validExpense);
     }
 
     @Test
