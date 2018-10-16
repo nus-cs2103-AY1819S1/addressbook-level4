@@ -69,9 +69,9 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
+After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/System-level4` repo.
 
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/System-level4`), you should do the following:
 
 . Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
@@ -147,7 +147,7 @@ The _Sequence Diagram_ below shows how the components interact for the scenario 
 image::SDforDeletePerson.png[width="800"]
 
 [NOTE]
-Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+Note how the `Model` simply raises a `SystemChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
@@ -187,7 +187,7 @@ image::LogicClassDiagram.png[width="800"]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `SystemParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -233,7 +233,7 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.System.commons` package.
 
 == Implementation
 
@@ -243,54 +243,54 @@ This section describes some noteworthy details on how certain features are imple
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedSystem`.
+It extends `System` with an undo/redo history, stored internally as an `SystemStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedSystem#commit()` -- Saves the current address book state in its history.
+* `VersionedSystem#undo()` -- Restores the previous address book state from its history.
+* `VersionedSystem#redo()` -- Restores a previously undone address book state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitSystem()`, `Model#undoSystem()` and `Model#redoSystem()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedSystem` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitSystem()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `SystemStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitSystem()`, causing another modified address book state to be saved into the `SystemStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitSystem()`, so the address book state will not be saved into the `SystemStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoSystem()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoSystem()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoSystem()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `SystemStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoSystem()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitSystem()`, `Model#undoSystem()` or `Model#redoSystem()`. Thus, the `SystemStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitSystem()`. Since the `currentStatePointer` is not pointing at the end of the `SystemStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -313,7 +313,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 * **Alternative 1 (current choice):** Use a list to store the history of address book states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedSystem`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
@@ -560,12 +560,12 @@ Do take a look at <<Design-Logic>> before attempting to modify the `Logic` compo
 ****
 * Hints
 ** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
+** link:{repoURL}/src/main/java/seedu/address/logic/parser/SystemParser.java[`SystemParser`] is responsible for analyzing command words.
 * Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
+** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/SystemParser.java[`SystemParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
 ** Add new tests for each of the aliases that you have added.
 ** Update the user guide to document the new aliases.
-** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
+** See this https://github.com/se-edu/System-level4/pull/785[PR] for the full solution.
 ****
 
 [discrete]
@@ -580,14 +580,14 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 +
 ****
 * Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
+** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/System.java[`System`] API need to be updated.
 ** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
+**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/System.java[`System`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/System.java[`System`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
 * Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
+** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/System.java[`System`]. Loop through each person, and remove the `tag` from each person.
+** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `System#removeTag(Tag)`.
 ** Add new tests for each of the new public methods that you have added.
-** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
+** See this https://github.com/se-edu/System-level4/pull/790[PR] for the full solution.
 ****
 
 [discrete]
@@ -615,7 +615,7 @@ image::getting-started-ui-tag-after.png[width="300"]
 ** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
 * Solution
 ** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
+** See this https://github.com/se-edu/System-level4/pull/798[PR] for the full solution.
 *** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
 ****
 
@@ -638,8 +638,8 @@ image::getting-started-ui-result-after.png[width="200"]
 ** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
 ** You can write two different kinds of tests to ensure that the functionality works:
 *** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
+*** The system tests link:{repoURL}/src/test/java/systemtests/SystemSystemTest.java[`SystemSystemTest#assertCommandBoxShowsDefaultStyle() and SystemSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
+** See this https://github.com/se-edu/System-level4/pull/799[PR] for the full solution.
 *** Do read the commits one at a time if you feel overwhelmed.
 ****
 
@@ -659,10 +659,10 @@ image::getting-started-ui-status-after.png[width="500"]
 ** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
 * Solution
 ** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
+** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleSystemChangedEvent(SystemChangedEvent)`] to update the number of persons whenever there are new changes to the System.
 ** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
-** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
+** For system tests, modify link:{repoURL}/src/test/java/systemtests/SystemSystemTest.java[`SystemSystemTest`] to also verify the new total number of persons status bar.
+** See this https://github.com/se-edu/System-level4/pull/803[PR] for the full solution.
 ****
 
 [discrete]
@@ -673,14 +673,14 @@ image::getting-started-ui-status-after.png[width="500"]
 [TIP]
 Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
 
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
+. Add a new method `backupSystem(ReadOnlySystem)`, so that the address book can be saved in a fixed temporary location.
 +
 ****
 * Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/XmlAddressBookStorage.java[`XmlAddressBookStorage`] class.
+** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/SystemStorage.java[`SystemStorage`] interface.
+** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/XmlSystemStorage.java[`XmlSystemStorage`] class.
 * Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
+** See this https://github.com/se-edu/System-level4/pull/594[PR] for the full solution.
 ****
 
 [[GetStartedProgramming-RemarkCommand]]
@@ -688,7 +688,7 @@ Do take a look at <<Design-Storage>> before attempting to modify the `Storage` c
 
 By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
 
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
+*Scenario:* You are a software maintainer for `System`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
 
 ==== Description
 Edits the remark for a person specified in the `INDEX`. +
@@ -709,12 +709,12 @@ Let's start by teaching the application how to parse a `remark` command. We will
 **Main:**
 
 . Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
+. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/SystemParser.java[`SystemParser`] to accept a `RemarkCommand`.
 
 **Tests:**
 
 . Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
+. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/SystemParserTest.java[`SystemParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
 
 ===== [Step 2] Logic: Teach the app to accept 'remark' arguments
 Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
@@ -723,14 +723,14 @@ Let's teach the application to parse arguments that our `remark` command will ac
 
 . Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
 . Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
+. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/SystemParser.java[`SystemParser`] to use the newly implemented `RemarkCommandParser`.
 
 **Tests:**
 
 . Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
 . Add `RemarkCommandParserTest` that tests different boundary values
 for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
+. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/SystemParserTest.java[`SystemParserTest`] to test that the correct command is generated according to the user input.
 
 ===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
 Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
@@ -763,7 +763,7 @@ Now we have the `Remark` class, we need to actually use it inside link:{repoURL}
 
 . Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
 . You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `addressBook.xml` so that the application will load the sample data when you launch it.)
+. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `System.xml` so that the application will load the sample data when you launch it.)
 
 ===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedPerson` class
 We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] to include a `Remark` field so that it will be saved.
@@ -774,7 +774,7 @@ We now have `Remark` s for `Person` s, but they will be gone when we exit the ap
 
 **Tests:**
 
-. Fix `invalidAndValidPersonAddressBook.xml`, `typicalPersonsAddressBook.xml`, `validAddressBook.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
+. Fix `invalidAndValidPersonSystem.xml`, `typicalPersonsSystem.xml`, `validSystem.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
 
 ===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
 Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
@@ -808,7 +808,7 @@ We now have everything set up... but we still can't modify the remarks. Let's fi
 
 ==== Full Solution
 
-See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
+See this https://github.com/se-edu/System-level4/pull/599[PR] for the step-by-step solution.
 
 [appendix]
 == Product Scope
@@ -837,29 +837,29 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |university student on multiple platforms (including social media) |import contacts from other sources (Facebook, Linkedin, etc.) |synchronize my contacts with other applications
 
-|`* *` |forgetful user |attach a picture to every contact |remember how the person looks like
+|`* *` |forgetful user |attach a picture to every contact [Coming in V2.0] |remember how the person looks like [Coming in V2.0]
 
-|`*` |forgetful user |save some interesting notes about the contact |remember characteristics or traits of the contact
+|`*` |forgetful user |save some interesting notes about the contact [Coming in V2.0] |remember characteristics or traits of the contact
 
 |`* * *` |user |delete a person |remove entries that I no longer need
 
-|`* * *` |user |delete multiple contacts at one go |clean up my address book easily
+|`* * *` |user |delete multiple contacts at one go [Coming in V2.0] |clean up my address book easily
 
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 
-|`* *` |user |hide <<private-contact-detail, private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* *` |user |hide <<private-contact-detail, private contact details>> by default [Coming in V2.0] |minimize chance of someone else seeing them by accident
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`*` |user with many persons in the address book |sort persons by name [Coming in V2.0] |locate a person easily
 
 |`* * *` |user |undo and redo changes |easily correct a wrongly taken action
 
 |`* * *` |user |edit contact information (contact numbers, addresses, tags, faculty, etc.) of existing contacts |be assured my contacts are up-to-date
 
-|`* *` |user |edit the information of multiple contacts at one go |maintain up-to-date records more efficiently
+|`* *` |user |edit the information of multiple contacts at one go [Coming in V2.0] |maintain up-to-date records more efficiently
 
-|`* *` |user |add more than one number to a contact |retrieve all the contact numbers of the contact at one go
+|`* *` |user |add more than one number to a contact [Coming in V2.0] |retrieve all the contact numbers of the contact at one go
 
-|`* * *` |user |view contacts by tags |locate contacts in my different social circles easily
+|`* * *` |user |view contacts by tags [Coming in V2.0] |locate contacts in my different social circles easily
 
 |`* * *` |user |receive a toast for every action |be assured of the changes made
 
@@ -867,55 +867,55 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |create new <<groups, group>> from already existing contacts |collaborate with existing contacts
 
-|`* * *` |user |create new <<groups, group>> from new contacts |have new group members automatically added in my address book
+|`* * *` |user |create new <<groups, group>> from new contacts [Coming in V2.0] |have new group members automatically added in my address book
 
-|`* *` |user |add contacts to an existing <<group, group>> |include later-joining members
+|`* *` |user |add contacts to an existing <<group, group>> [Coming in V2.0] |include later-joining members
 
-|`*` |user |be prompted to add new contacts to a suggested <<group, group>> based on the tags |be reminded to update groups with possible new users
+|`*` |user |be prompted to add new contacts to a suggested <<group, group>> based on the tags [Coming in V2.0] |be reminded to update groups with possible new users
 
-|`* * *` |user |rename groups |change the name of <<groups, group>> over time
+|`* * *` |user |rename groups [Coming in V2.0] |change the name of <<groups, group>> over time
 
-|`*` |user |merge <<groups, group>> |organize my groups
+|`*` |user |merge <<groups, group>> [Coming in V2.0] |organize my groups
 
-|`*` |user |split <<groups, group>> |organize my groups
+|`*` |user |split <<groups, group>> [Coming in V2.0] |organize my groups
 
 |`* * *` |user |view team members belonging to a <<group, group>> |view my contacts related to a specific group
 
-|`*` |user |view other contacts in the same <<group, group>> as a specific contact |view group-related contacts using the information of only one member
+|`*` |user |view other contacts in the same <<group, group>> as a specific contact [Coming in V2.0] |view group-related contacts using the information of only one member
 
-|`* * *` |user |remove a contact from a <<group, group>> |ensure that the group member list is up-to-date
+|`* * *` |user |remove a contact from a <<group, group>> [Coming in V2.0] |ensure that the group member list is up-to-date
 
-|`* * *` |user |delete an entire <<group, group>> |remove inactive groups without affecting my contact list
+|`* * *` |user |delete an entire <<group, group>> [Coming in V2.0] |remove inactive groups without affecting my contact list
 
 |`* * *` |university student |add events to the app |keep track of my schedule and upcoming events
 
-|`* *` |busy university student |save my timetable in the app |tell easily when any events clash with my timetable
+|`* *` |busy university student |save my timetable in the app [Coming in V2.0] |tell easily when any events clash with my timetable
 
 |`* * *` |university student |check if an event clashes with my schedule |better decide if I can set up an appointment at that time slot
 
-|`* * *` |considerate  university student |obtain a meeting time that is convenient for all contacts in a group
+|`* * *` |considerate  university student |obtain a meeting time that is convenient for all contacts in a group [Coming in V2.0]
 |find a convenient time for meetups
 
 |`* * *` |considerate university student |obtain a meeting location that is convenient for all contacts in a group
 (based on faculty) |find a convenient location for meetups
 
-|`* * *` |university student |view my events for a particular week |gauge my availability for that week
+|`* * *` |university student |view my events for a particular week [Coming in V2.0] |gauge my availability for that week
 
-|`*` |user |share multiple contacts with my peers |exchange contacts quickly
+|`*` |user |share multiple contacts with my peers [Coming in V2.0] |exchange contacts quickly
 
-|`*` |user |archive inactive <<group, group>> without deletion |avoid clutter in the list of visible groups without losing the information permanently
+|`*` |user |archive inactive <<group, group>> without deletion [Coming in V2.0] |avoid clutter in the list of visible groups without losing the information permanently
 
-|`*` |user |un-archive <<group, group>> |continue working with groups that have been re-activated if needed
+|`*` |user |un-archive <<group, group>> [Coming in V2.0] |continue working with groups that have been re-activated if needed
 
-| `* *` |user |detect similar contacts when importing contacts from an external source e.g. .csv file and merge them |avoid having duplicate contacts
+| `* *` |user |detect similar contacts when importing contacts from an external source e.g. .csv file and merge them [Coming in V2.0] |avoid having duplicate contacts
 
-|`* * *` |user |I cannot add duplicate contacts (manually) |avoid having duplicate contacts
+|`* * *` |user |I cannot add duplicate contacts (manually) [Coming in V2.0] |avoid having duplicate contacts
 |=======================================================================
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise).
+(For all use cases below, the *System* is `EventsPlus+` and the *Actor* is the `user`, unless specified otherwise).
 
 [discrete]
 === UC1: Add person
@@ -923,7 +923,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 *MSS*
 
 .  User requests to add a new contact
-.  AddressBook adds the contact and displays the new contact added
+.  System adds the contact and displays the new contact added
 +
 Use case ends.
 
@@ -931,7 +931,7 @@ Use case ends.
 
 * 1a. The input information is invalid.
 +
-** 1a1. AddressBook shows an error message.
+** 1a1. System shows an error message.
 +
 Use case ends.
 
@@ -941,9 +941,9 @@ Use case ends.
 *MSS*
 
 .  User requests to list persons
-.  AddressBook shows a list of persons
+.  System shows a list of persons
 .  User requests to delete a specific person in the list
-.  AddressBook deletes the person
+.  System deletes the person
 +
 Use case ends.
 
@@ -955,7 +955,7 @@ Use case ends.
 
 * 3a. The given index is invalid.
 +
-** 3a1. AddressBook shows an error message.
+** 3a1. System shows an error message.
 +
 Use case resumes at step 2.
 
@@ -965,7 +965,7 @@ Use case resumes at step 2.
 *MSS*
 
 . User requests to add new group of persons
-. AddressBook creates a new group with that name and displays the newly created group
+. System creates a new group with that name and displays the newly created group
 +
 Use case ends.
 
@@ -973,7 +973,7 @@ Use case ends.
 
 * 1a. The input information is invalid.
 +
-** 1a1. AddressBook shows an error message.
+** 1a1. System shows an error message.
 +
 Use case ends.
 
@@ -983,15 +983,15 @@ Use case ends.
 *MSS*
 
 . User requests to view contacts for a particular group
-. AddressBook displays all contacts in that group
+. System displays all contacts in that group
 +
-User case ends.
+Use case ends.
 
 *Extensions*
 
 * 1a. The group name is invalid.
 +
-** 1a1. AddressBook shows an error message.
+** 1a1. System shows an error message.
 +
 Use case ends.
 
@@ -1001,49 +1001,113 @@ Use case ends.
 *MSS*
 
 . User requests to add event.
-. AddressBook records and displays event.
-. AddressBook [underline]#notifies user (UC18)# one day before the event.
+. System records and displays event.
 
 *Extensions*
 
-* 1a. AddressBook detects a clash with the user's schedule.
+* 1a. System detects a clash with the user's schedule.
 +
-** 1a1. AddressBook shows a message informing the user of the clash.
-** 1a2. AddressBook asks the user if he or she wants to add the event anyway.
+** 1a1. System shows a message informing the user of the clash.
+
+Use case ends.
+
+[discrete]
+=== UC6: Upcoming event notification
+
+*MSS*
+
+. Notification appears 24h before the event.
+. User taps on notification.
+. User is redirected to app homepage.
 +
-If user does not want to add the event, use case ends. Else, use case resumes from step 2.
+
+Use case ends.
+
+[discrete]
+=== UC7: Find common event location
+
+*MSS*
+
+. User selects the event that he/she wants to find the common event location for.
+. System performs API calls with Google Maps API to generate the most central location for all members.
+. User accepts or rejects the generated location.
+. System sets event location.
+
+*Extensions*
+
+* 3a. User rejects the generated location.
+** 3a1. System gives user the option to state his/her preferred location and use case resumes from step 4.
+** 3a2. If user does not state location, no common event location is set and use case ends.
+
+
+////
+=== Coming in V2.0
+
+[discrete]
+=== UC7: View all personal events
+
+*MSS*
+
+. User requests to view all events.
+. System displays all events.
 +
-* *a. At any time, user chooses to end the command.
-** *a1. AddressBook abandons the event being set up and returns to original screen.
+
+Use case ends.
+
+*Extensions*
+
+* 1a. User enters invalid command.
++
+** 1a1. System displays error message.
 +
 Use case ends.
 
 [discrete]
-=== UC6: View events for a particular week
+=== UC8: Delete personal events
+
+Guarantees: Only the selected event will be deleted from the existing list.
 
 *MSS*
 
-. User requests to view events for a given week.
-. AddressBook displays events for that week.
+.	User requests to delete a personal event.
+.	System removes the event from the user’s personal list of events.
+.	System displays message showing that the event is deleted.
++
+
+Use case ends.
+
+*Extensions*
+
+* 1a. User enters invalid personal event or invalid command.
++
+** 1a1. System displays error message.
++
+Use case ends.
++
+* a. At any time, user chooses to end the command.
++
+** a1. System abandons the meeting being set up, and returns to original screen.
++
+Use case ends.
+
+[discrete]
+=== UC9: Find groups by keyword
+
+*MSS*
+
+. User requests to get groups with a certain keyword.
+. System displays all the groups containing that keyword.
 +
 
 User case ends.
 
-*Extensions*
-
-* 1a. User enters invalid date.
-+
-** 1a1. AddressBook displays error message.
-+
-Use case ends.
-
 [discrete]
-=== UC7: View contacts by tag
+=== UC10: View contacts by tag
 
 *MSS*
 
 . User requests to view contacts for a given tag.
-. AddressBook displays contacts under that tag.
+. System displays contacts under that tag.
 +
 
 User case ends.
@@ -1052,52 +1116,9 @@ User case ends.
 
 * 1a. User enters invalid tag.
 +
-** 1a1. AddressBook displays invalid tag message and returns to original screen.
+** 1a1. System displays invalid tag message and returns to original screen.
 +
 Use case ends.
-
-[discrete]
-=== UC8: Message multiple users
-
-*MSS*
-
-. User requests to send emails to a particular project group.
-. System goes to email page and puts all contacts in the email recipient list.
-. User sends email.
-. System returns to original screen.
-+
-
-User case ends.
-
-*Extensions*
-
-* 3a. User exits email screen without sending email.
-+
-** 3a1. AddressBook returns to original screen.
-+
-Use case ends.
-
-[discrete]
-=== UC9: List projects
-
-*MSS*
-
-. User requests to view all projects.
-. System displays the list of projects.
-+
-
-User case ends.
-
-[discrete]
-=== UC10: Find projects by keyword
-
-*MSS*
-
-. User requests to get projects with a certain keyword.
-. System displays all the projects containing that keyword.
-+
-
-User case ends.
 
 [discrete]
 === UC11: Import timetable
@@ -1115,40 +1136,51 @@ User case ends.
 
 * 2a. Incorrect login procedure is handled by IVLE.
 +
-* 2b. AddressBook detects a clash with the user's schedule.
-** 2b1. AddressBook displays error message showing a clash.
-** 2b2. AddressBook asks if user wants to add the event anyway.
-** 2b3. AddressBook adds the event (or not).
+* 2b. System detects a clash with the user's schedule.
+** 2b1. System displays error message showing a clash.
+** 2b2. System asks if user wants to add the event anyway.
+** 2b3. System adds the event (or not).
 ** If user does not want to add the event, use case ends.
 ** Else, use case resumes from step 3.
 +
 Use case ends.
 
 [discrete]
-=== UC12: Upcoming event notification
+=== UC12: Message multiple users
 
 *MSS*
 
-. Notification appears 24h before the event.
-. User taps on notification.
-. User is redirected to app homepage.
+. User requests to send emails to a particular project group.
+. System goes to email page and puts all contacts in the email recipient list.
+. User sends email.
+. System returns to original screen.
 +
 
+User case ends.
+
+*Extensions*
+
+* 3a. User exits email screen without sending email.
++
+** 3a1. System returns to original screen.
++
 Use case ends.
+
+////
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
+.  Should work on any <<mainstream-os, mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  The system should be able to work on 32-bit and 64-bit environments.
 .  The system should respond to the user’s input command within 5 seconds.
 .  The system is not required to handle conflicts between group members’ schedules which are not stored in any online platform (recorded only in a paper diary, etc.)
-.  UI should be aesthetically pleasing i.e. colour, font, layout, pictorial-wise.
+.  The UI should display the information such that the user can see them clearly i.e. colour, font, layout, pictorial-wise.
 .  The basic usage of the application should be easy for a new user to pick up so as to ensure that the application continues to be used in the long term.
 .  Privacy of user groups should be ensured - developers should not be able to view the contacts or groups or events of the user.
-.  Each user should be able to have up to 50 <<groups, group>> that the user can be in at any one point in time.
+.  Each user should be able to have up to 50 <<group, groups>> that the user can be in at any one point in time.
 .  User activities should be logged in a separate file.
 
 [appendix]
