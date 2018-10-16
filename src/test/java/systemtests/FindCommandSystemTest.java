@@ -148,8 +148,8 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertSelectedCardUnchanged();
         **/
         /* Case: find tags of person in address book -> 0 persons found */
+        // List<Tag> tags = new ArrayList<>(DANIEL.getTags());
         /** TODO
-        List<Tag> tags = new ArrayList<>(DANIEL.getTags());
         command = FindCommand.COMMAND_WORD + " " + tags.get(0).tagName;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
@@ -173,7 +173,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
         **/
-        /* Case: mixed case command word -> rejected */
+    /* Case: mixed case command word -> rejected */
     /** TODO
         command = "FiNd Meier";
         assertCommandFailure(command, MESSAGE_UNKNOWN_COMMAND);

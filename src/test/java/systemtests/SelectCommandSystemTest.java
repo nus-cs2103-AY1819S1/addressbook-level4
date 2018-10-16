@@ -113,7 +113,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         /** TODO
         assertCommandFailure("SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
         **/
-        /* Case: select from empty address book -> rejected */
+    /* Case: select from empty address book -> rejected */
     /** TODO
         deleteAllPersons();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
