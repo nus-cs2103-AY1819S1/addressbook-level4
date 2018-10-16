@@ -44,7 +44,14 @@ public class Messages {
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
-    public static final String MESSAGE_ADD_INGREDIENT_USAGE = null;
+    public static final String MESSAGE_ADD_INGREDIENT_USAGE = AddCommand.COMMAND_WORD + ": Adds a ingredient. "
+            + "Parameters: "
+            + "Name "
+            + "Amount "
+            + "Serving_Unit(gram/piece)"
+            + "Date(MM-dd-yyyy)"
+            + "Example: " + AddCommand.COMMAND_WORD + " "
+            + "onion 100 gram 10-24-2018";
 
     public static final String MESSAGE_ADD_HEALTHPLAN_USAGE = AddCommand.COMMAND_WORD + ": Adds a healthplan. "
             + "Parameters: "
@@ -75,7 +82,10 @@ public class Messages {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + DeleteCommand.COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_INGREDIENT_USAGE = null;
+    public static final String MESSAGE_DELETE_INGREDIENT_USAGE = DeleteCommand.COMMAND_WORD
+            + ": Deletes the recipe identified by the name"
+            + "Parameters: Name"
+            + "Example: " + DeleteCommand.COMMAND_WORD + " onion";
 
     public static final String MESSAGE_DELETE_HEALTHPLAN_USAGE = DeleteCommand.COMMAND_WORD
             + ": Deletes the health plan identified by the index number used in the displayed health plan list.\n"

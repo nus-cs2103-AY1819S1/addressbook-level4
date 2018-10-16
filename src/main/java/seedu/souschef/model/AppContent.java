@@ -61,6 +61,7 @@ public class AppContent implements ReadOnlyAppContent {
         requireNonNull(newData);
         this.recipes.set(newData.getObservableRecipeList());
         this.tags.set(newData.getObservableTagList());
+        this.ingredients.set(newData.getObservableIngredientList());
         this.healthPlans.set(newData.getObservableHealthPlanList());
         this.mealPlanner.set(newData.getObservableMealPlanner());
         this.favourites.set(newData.getObservableFavouritesList());

@@ -82,7 +82,7 @@ public class LogicManager extends ComponentManager implements Logic {
 
     @Override
     public ObservableList<Day> getMealPlanList() {
-        return modelSet.getMealPlannerModel().getFullList();
+        return modelSet.getMealPlannerModel().getFilteredList();
     }
 
     @Override

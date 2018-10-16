@@ -28,13 +28,13 @@ public class XmlSerializableIngredient implements XmlSerializableGeneric {
     private static final Logger logger = LogsCenter.getLogger(XmlSerializableIngredient.class);
 
     @XmlElement
-    private List<XmlAdaptedIngredient> ingredients;
+    private List<XmlAdaptedIngredient> ig;
 
     private AppContent appContent;
 
     public XmlSerializableIngredient() {
 
-        ingredients = new ArrayList<>();
+        ig = new ArrayList<>();
         appContent = new AppContent();
     }
 
@@ -44,15 +44,15 @@ public class XmlSerializableIngredient implements XmlSerializableGeneric {
     public XmlSerializableIngredient(ReadOnlyAppContent src) {
        this();
 
-        ingredients.addAll(src.getObservableIngredientList().stream()
+        ig.addAll(src.getObservableIngredientList().stream()
                 .map(XmlAdaptedIngredient::new).collect(Collectors.toList()));
     }
 
     public XmlSerializableIngredient(XmlSerializableIngredient ab) {
 
-        ingredients = ab.ingredients;
+        ig = ab.ig;
         this.appContent = ab.appContent;
-        ingredients.addAll(ab.appContent.getObservableIngredientList().stream().map(XmlAdaptedIngredient::new)
+        ig.addAll(ab.appContent.getObservableIngredientList().stream().map(XmlAdaptedIngredient::new)
                 .collect(Collectors.toList()));
     }
 
@@ -64,7 +64,7 @@ public class XmlSerializableIngredient implements XmlSerializableGeneric {
             appContent = new AppContent();
 
         }
-        ingredients.addAll(appContent.getObservableIngredientList().stream().map(XmlAdaptedIngredient::new)
+        ig.addAll(appContent.getObservableIngredientList().stream().map(XmlAdaptedIngredient::new)
                 .collect(Collectors.toList()));
     }
 
@@ -75,7 +75,7 @@ public class XmlSerializableIngredient implements XmlSerializableGeneric {
      */
     public AppContent toModelType() throws IllegalValueException {
 
-        for (XmlAdaptedIngredient i : ingredients) {
+        for (XmlAdaptedIngredient i : ig) {
             Ingredient ingredient = i.toModelType();
             if (this.appContent.getIngredients().contains(ingredient)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_INGREDIENT);
@@ -99,7 +99,7 @@ public class XmlSerializableIngredient implements XmlSerializableGeneric {
         if (!(other instanceof XmlSerializableIngredient)) {
             return false;
         }
-        return ingredients.equals(((XmlSerializableIngredient) other).ingredients);
+        return ig.equals(((XmlSerializableIngredient) other).ig);
     }
 
 

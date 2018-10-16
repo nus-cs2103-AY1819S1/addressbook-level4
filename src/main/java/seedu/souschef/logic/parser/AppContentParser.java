@@ -47,7 +47,6 @@ public class AppContentParser {
 
         if (userInput.charAt(0) == '-') {
             return new UniversalParser().parseCommand(history, userInput, ui);
-            //TODO: Refine condition to redirect for other meal planner commands (clearplanner, displayplanner, etc...)
         } else if (context.equals("Meal Planner")) {
             return new MealPlannerParser()
                 .parseCommand(modelSet.getMealPlannerModel(), modelSet.getRecipeModel(), userInput, ui);

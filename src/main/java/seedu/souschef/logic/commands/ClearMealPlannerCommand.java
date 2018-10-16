@@ -22,7 +22,8 @@ public class ClearMealPlannerCommand extends Command {
 
     @Override
     public CommandResult execute(CommandHistory history) {
-        this.mealPlanner.getFullList().remove(0, mealPlanner.getFullList().size() - 1);
+        this.mealPlanner.resetUniqueList();
+        mealPlanner.commitAppContent();
         return new CommandResult(String.format(MESSAGE_CLEAR_PLANNER_SUCCESS));
     }
 }
