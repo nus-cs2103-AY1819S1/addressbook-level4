@@ -394,14 +394,39 @@ as well as in `Model`, and create another internal list `UniqueEventListByDate` 
 By doing so, we also will not have to regenerate the `TabPanel` in `MainWindow` each time there is a change in the internal event list, and no such listener
 as in Alternative 2 is required.
 
-+
-
 However, this means that we have to maintain two lists, both storing `Event` objects.
 The task of maintaining two lists may lead to inconsistencies between the two lists and more complex code in future,
 should future developers decide to include more actions to mutate the underlying list of `Event` objects.
 Hence, this is not preferred in our implementation.
 
 // end::addEvents[]
+
++
+
+// tag::importcontacts[]
+=== Import Contacts
+==== Current Implementation
+
+`ModelManager` now implements `readImportContactsFile` and it calls on `VersionedAddressBook`. +
+`VersionAddressBook` is being called so that undo redo can work on import contacts command. +
+`VersionAddressBook` extends `AddressBook` and it implements `readImportContactsFile`. +
+`AddressBook` will call `readImportContactsFile` on `FileReader`. +
+`FileReader` will read the provided CSV file, breaking the first line into Arrays of Strings. +
+`FileReader` then take note of the index of mandatory fields:
+
+* Name
+* Email
+* Phone Number
+
+For each of the following lines until end of file, `Person` is created using index saved for each mandatory fields. +
+Returned `Person` objects are then inserted into `UniquePersonsList` with validation. +
+The number of successful inserts and duplicated will be returned to display after reading EOF. +
+
+The following sequence diagram shows how the readImportContactsFile operatoin works:
+
+image::ImportContactsSequenceDiagram.png[width="800"]
+
+// end::importcontacts[]
 
 === Logging
 
@@ -1240,6 +1265,33 @@ User case ends.
 * 3a. User exits email screen without sending email.
 +
 ** 3a1. System returns to original screen.
++
+Use case ends.
+
+[discrete]
+=== UC13: Import contacts
+
+*MSS*
+
+. User request to import contacts.
+. System records and displays how many successfully added and duplicates.
++
+
+Use case ends.
+
+*Extensions*
+
+* 1a. User enters invalid file path (not a file or not an absolute path).
+** 1a1. System displays invalid file path.
++
+Use case ends.
++
+* 2a. System detects empty file.
+** 2a1. System displays empty file.
++
+Use case ends.
+* 2b. System detects invalid csv format (cannot find compulsory header in csv).
+** 2b1. System displays invalid csv file.
 +
 Use case ends.
 
