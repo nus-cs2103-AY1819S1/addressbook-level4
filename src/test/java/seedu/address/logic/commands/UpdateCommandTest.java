@@ -20,7 +20,7 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.UpdateCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.UpdateCommand.UpdateRideDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ThanePark;
@@ -40,7 +40,7 @@ public class UpdateCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Ride editedRide = new RideBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedRide).build();
+        UpdateRideDescriptor descriptor = new EditPersonDescriptorBuilder(editedRide).build();
         UpdateCommand editCommand = new UpdateCommand(INDEX_FIRST_PERSON, descriptor);
 
         String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_RIDE_SUCCESS, editedRide);
@@ -61,7 +61,7 @@ public class UpdateCommandTest {
         Ride editedRide = personInList.withName(VALID_NAME_BOB).withMaintenance(VALID_MAINTENANCE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
+        UpdateRideDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withMaintenance(VALID_MAINTENANCE_BOB).withTags(VALID_TAG_HUSBAND).build();
         UpdateCommand editCommand = new UpdateCommand(indexLastPerson, descriptor);
 
@@ -76,7 +76,7 @@ public class UpdateCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        UpdateCommand editCommand = new UpdateCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
+        UpdateCommand editCommand = new UpdateCommand(INDEX_FIRST_PERSON, new UpdateRideDescriptor());
         Ride editedRide = model.getFilteredRideList().get(INDEX_FIRST_PERSON.getZeroBased());
 
         String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_RIDE_SUCCESS, editedRide);
@@ -108,7 +108,7 @@ public class UpdateCommandTest {
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() {
         Ride firstRide = model.getFilteredRideList().get(INDEX_FIRST_PERSON.getZeroBased());
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstRide).build();
+        UpdateRideDescriptor descriptor = new EditPersonDescriptorBuilder(firstRide).build();
         UpdateCommand editCommand = new UpdateCommand(INDEX_SECOND_PERSON, descriptor);
 
         assertCommandFailure(editCommand, model, commandHistory, UpdateCommand.MESSAGE_DUPLICATE_RIDE);
@@ -129,7 +129,7 @@ public class UpdateCommandTest {
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredRideList().size() + 1);
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        UpdateRideDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
         UpdateCommand editCommand = new UpdateCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_RIDE_DISPLAYED_INDEX);
@@ -156,7 +156,7 @@ public class UpdateCommandTest {
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Ride editedRide = new RideBuilder().build();
         Ride rideToEdit = model.getFilteredRideList().get(INDEX_FIRST_PERSON.getZeroBased());
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedRide).build();
+        UpdateRideDescriptor descriptor = new EditPersonDescriptorBuilder(editedRide).build();
         UpdateCommand editCommand = new UpdateCommand(INDEX_FIRST_PERSON, descriptor);
         Model expectedModel = new ModelManager(new ThanePark(model.getAddressBook()), new UserPrefs());
         expectedModel.updatePerson(rideToEdit, editedRide);
@@ -177,7 +177,7 @@ public class UpdateCommandTest {
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredRideList().size() + 1);
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        UpdateRideDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
         UpdateCommand editCommand = new UpdateCommand(outOfBoundIndex, descriptor);
 
         // execution failed -> address book state not added into model
@@ -198,7 +198,7 @@ public class UpdateCommandTest {
     @Test
     public void executeUndoRedo_validIndexFilteredList_samePersonEdited() throws Exception {
         Ride editedRide = new RideBuilder().buildDifferent();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedRide).build();
+        UpdateRideDescriptor descriptor = new EditPersonDescriptorBuilder(editedRide).build();
         UpdateCommand editCommand = new UpdateCommand(INDEX_FIRST_PERSON, descriptor);
         Model expectedModel = new ModelManager(new ThanePark(model.getAddressBook()), new UserPrefs());
 
@@ -225,7 +225,7 @@ public class UpdateCommandTest {
         final UpdateCommand standardCommand = new UpdateCommand(INDEX_FIRST_PERSON, DESC_AMY);
 
         // same values -> returns true
-        EditPersonDescriptor copyDescriptor = new EditPersonDescriptor(DESC_AMY);
+        UpdateRideDescriptor copyDescriptor = new UpdateCommand.UpdateRideDescriptor(DESC_AMY);
         UpdateCommand commandWithSameValues = new UpdateCommand(INDEX_FIRST_PERSON, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
