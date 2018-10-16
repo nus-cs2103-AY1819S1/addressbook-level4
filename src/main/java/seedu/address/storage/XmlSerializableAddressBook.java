@@ -67,10 +67,10 @@ public class XmlSerializableAddressBook {
         }
         for (XmlAdaptedModule m : modules) {
             Module module = m.toModelType();
-            if (addressBook.hasModule(module)) {
+            if (addressBook.hasEntity(module)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_MODULE);
             }
-            addressBook.addModule(module);
+            addressBook.addEntity(module);
         }
         return addressBook;
     }
