@@ -17,8 +17,6 @@ import static seedu.souschef.logic.parser.CliSyntax.PREFIX_SCHEME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TWEIGHT;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -38,7 +36,10 @@ import seedu.souschef.model.healthplan.HealthPlanName;
 import seedu.souschef.model.healthplan.Scheme;
 import seedu.souschef.model.healthplan.TargetWeight;
 import seedu.souschef.model.ingredient.Ingredient;
-import seedu.souschef.model.ingredient.ServingUnit;
+import seedu.souschef.model.ingredient.IngredientAmount;
+import seedu.souschef.model.ingredient.IngredientDate;
+import seedu.souschef.model.ingredient.IngredientName;
+import seedu.souschef.model.ingredient.IngredientServingUnit;
 import seedu.souschef.model.recipe.CookTime;
 import seedu.souschef.model.recipe.Difficulty;
 import seedu.souschef.model.recipe.Name;
@@ -87,17 +88,25 @@ public class AddCommandParser implements CommandParser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_ADD_INGREDIENT_USAGE));
         }
 
-        String name = tokens[0];
-        double amount = Double.parseDouble(tokens[1]);
-        ServingUnit servingUnit = ServingUnit.valueOf(tokens[2]);
-        Date date;
-        try {
-            date = new SimpleDateFormat("MM-dd-yyyy").parse(tokens[3]);
-        } catch (java.text.ParseException e) {
+        IngredientName name = new IngredientName(tokens[0]);
+        IngredientAmount amount;
+        IngredientServingUnit unit = new IngredientServingUnit(tokens[2]);
+        IngredientDate date;
+
+        if (!(name.isValid() && unit.isValid())) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_ADD_INGREDIENT_USAGE));
         }
 
-        Ingredient toAdd = new Ingredient(name, amount, servingUnit, date);
+        try {
+            amount = new IngredientAmount(tokens[1]);
+            date = new IngredientDate(tokens[3]);
+        } catch (NumberFormatException ne) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_ADD_INGREDIENT_USAGE));
+        } catch (java.text.ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_ADD_INGREDIENT_USAGE));
+        }
+
+        Ingredient toAdd = new Ingredient(name, amount, unit, date);
 
         return new AddCommand<>(model, toAdd);
     }

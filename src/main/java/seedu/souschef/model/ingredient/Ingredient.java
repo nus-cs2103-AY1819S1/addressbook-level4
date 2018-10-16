@@ -1,7 +1,5 @@
 package seedu.souschef.model.ingredient;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Objects;
 
 import seedu.souschef.model.UniqueType;
@@ -10,35 +8,15 @@ import seedu.souschef.model.UniqueType;
  * Represents an ingredient in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Ingredient extends UniqueType {
-    // Identity fields
-    private String name;
+public class Ingredient extends IngredientPortion {
+    private final IngredientDate date;
 
-    // Data fields
-    private double amount;
-    private ServingUnit unit;
-    private Date date;
-
-    public Ingredient(String name, double amount, ServingUnit unit, Date date) {
-        this.name = name;
-        this.amount = amount;
-        this.unit = unit;
+    public Ingredient(IngredientName name, IngredientAmount amount, IngredientServingUnit unit, IngredientDate date) {
+        super(name, amount, unit);
         this.date = date;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public ServingUnit getUnit() {
-        return unit;
-    }
-
-    public Date getDate() {
+    public IngredientDate getDate() {
         return date;
     }
 
@@ -77,7 +55,7 @@ public class Ingredient extends UniqueType {
 
         Ingredient otherIngredient = (Ingredient) other;
         return otherIngredient.getName().equals(getName())
-                && otherIngredient.getAmount() == getAmount()
+                && otherIngredient.getAmount().equals(getAmount())
                 && otherIngredient.getUnit().equals(getUnit())
                 && otherIngredient.getDate().equals(getDate());
     }
@@ -85,19 +63,11 @@ public class Ingredient extends UniqueType {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, amount, unit, date);
+        return Objects.hash(getName(), getAmount(), getUnit(), date);
     }
 
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Amount: ")
-                .append(getAmount())
-                .append(" ")
-                .append(getUnit())
-                .append(" Date: ")
-                .append(new SimpleDateFormat("MM-dd-yyyy").format(getDate()));
-        return builder.toString();
+        return super.toString() + " Date: " + getDate().toString();
     }
 }
