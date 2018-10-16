@@ -45,8 +45,13 @@ public class ServedPatient {
     /**
      * Skeleton to add referral content.
      */
-    public String addReferralContent(String content) {
-        referralContent += " filler" + content;
+    public String addReferralContent(String notes, String todayDate, String doctorName) {
+        referralContent += "Dear Specialist, please assist the patient named above in the following matter:\n";
+        referralContent += notes + "\n";
+        referralContent += "Kindly do accept him under your care. Thank you very much.\n";
+        referralContent += "Date: " + todayDate + "\n";
+        referralContent += "Issuing Doctor: " + doctorName + "\n";
+        referralContent += "CLInic Pte Ltd\n";
         return referralContent;
     }
 
@@ -58,6 +63,7 @@ public class ServedPatient {
         mcContent += "This certificate is not valid for absence from court attendance.\n";
         mcContent += "Date: " + todayDate + "\n";
         mcContent += "Issuing Doctor: " + doctorName + "\n";
+        mcContent += "CLInic Pte Ltd\n";
         return mcContent;
     }
 

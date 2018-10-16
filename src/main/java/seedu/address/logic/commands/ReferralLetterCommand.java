@@ -10,30 +10,30 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.PatientQueue;
-import seedu.address.model.MedicalCertificate;
+import seedu.address.model.ReferralLetter;
 import seedu.address.model.ServedPatientList;
 import seedu.address.model.person.ServedPatient;
 
 //integrate select command
 /**
- * Generates an MC for {@code Patient} specified by {@code index} that appears in the GUI and in a pdf.
+ * Generates a referral letter for {@code Patient} specified by {@code index} that appears in the GUI and in a pdf.
  */
-public class MedicalCertificateCommand extends QueueCommand {
-    public static final String COMMAND_WORD = "mc";
+public class ReferralLetterCommand extends QueueCommand {
+    public static final String COMMAND_WORD = "refer";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Generates a medical certificate for the patient in the specified"
-            + " index. Includes information like name and NRIC of patient, and duration of medical leave. \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Generates a referral letter for the patient in the specified"
+            + " index. Includes information like name and NRIC of patient, and information written by the issuing doctor. \n"
             + "Example: " + COMMAND_WORD + "<person's index>";
 
-    public static final String MESSAGE_SUCCESS = "MC generated for patient!";
+    public static final String MESSAGE_SUCCESS = "Referral letter generated for patient!";
 
     private final Index index;
     private String generatedResult;
 
     /**
-     * Creates a MedicalCertificateCommand for the {@code servedPatient} specified by {@code index}
+     * Creates a ReferralLetterCommand for the {@code servedPatient} specified by {@code index}
      */
-    public MedicalCertificateCommand(Index index) {
+    public ReferralLetterCommand(Index index) {
         requireNonNull(index);
         this.index = index;
     }
@@ -46,11 +46,11 @@ public class MedicalCertificateCommand extends QueueCommand {
         if (index.getZeroBased() >= servedPatientList.getServedPatientListLength()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-        final MedicalCertificate mc;
+        final ReferralLetter rl;
 
         ServedPatient servedPatient = servedPatientList.selectServedPatient(index);
-        mc = new MedicalCertificate(servedPatient);
-        generatedResult = mc.generate();
+        rl = new ReferralLetter(servedPatient);
+        generatedResult = rl.generate();
 
         EventsCenter.getInstance().post(new JumpToListRequestEvent(index));
         return new CommandResult(String.format(String.join("\n", MESSAGE_SUCCESS, generatedResult)));
@@ -59,7 +59,7 @@ public class MedicalCertificateCommand extends QueueCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof MedicalCertificateCommand // instanceof handles nulls
-                && index.equals(((MedicalCertificateCommand) other).index)); // state check
+                || (other instanceof ReferralLetterCommand // instanceof handles nulls
+                && index.equals(((ReferralLetterCommand) other).index)); // state check
     }
 }

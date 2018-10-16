@@ -5,25 +5,25 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.ServedPatient;
 
 /**
- * Represents the medical certificate (MC) for the served patients.
+ * Represents the referral letter for the served patients.
  */
-public class MedicalCertificate extends Document {
+public class ReferralLetter extends Document {
     private final Name name;
     private final IcNumber icNumber;
-    private final String mcContent;
+    private final String referralContent;
 
     /**
-     * Creates an MC object for the specified servedPatient.
+     * Creates a referral letter object for the specified servedPatient.
      * @param servedPatient the patient who has already consulted the doctor.
      */
-    public MedicalCertificate(ServedPatient servedPatient) {
+    public ReferralLetter(ServedPatient servedPatient) {
         this.name = servedPatient.getName();
         this.icNumber = servedPatient.getIcNumber();
-        this.mcContent = servedPatient.getMcContent();
+        this.referralContent = servedPatient.getReferralContent();
     }
 
     /**
-     * Generates the content of the MC object generated for the specified servedPatient.
+     * Generates the content of the referral letter object generated for the specified servedPatient.
      *
      */
     @Override
@@ -31,7 +31,7 @@ public class MedicalCertificate extends Document {
         StringBuilder sb = new StringBuilder();
         sb.append("Name: " + name + "\n");
         sb.append("NRIC: " + icNumber + "\n");
-        sb.append(mcContent);
+        sb.append(referralContent);
         return sb.substring(0, sb.length() - 1);
     }
 }
