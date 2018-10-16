@@ -91,6 +91,7 @@ public class Person {
         return address;
     }
 
+
     public Schedule getSchedule() {
         return schedule;
     }

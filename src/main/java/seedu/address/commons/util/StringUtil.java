@@ -62,13 +62,13 @@ public class StringUtil {
      */
     public static boolean isNonZeroUnsignedInteger(String s) {
         requireNonNull(s);
-        ArrayList<Integer> values = new ArrayList<>();
-        if (s.contains(COMMA)) {
-            values = splitIntegersWithComma(s);
-        } else {
-            values.add(Integer.parseInt(s));
-        }
         try {
+            ArrayList<Integer> values = new ArrayList<>();
+            if (s.contains(COMMA)) {
+                values = splitIntegersWithComma(s);
+            } else {
+                values.add(Integer.parseInt(s));
+            }
             boolean successParse = true;
             for (int value : values) {
                 successParse = value > 0 && !s.startsWith("+"); // "+1" successfully parsed by Integer#parseInt(String)
