@@ -307,6 +307,7 @@ change many parts to add this additional feature. It also makes sense, because a
 ** Cons: Need to gain access to the model before the person can be found, which is not usually done by AddressBookParser; high level changes are necessary.
 // end::editByName[]
 
+// tag::schedule[]
 === Schedule feature
 ==== Current Implementation
 The schedule mechanism is facilitated by the new `Command`, `Schedule`. It extends `AddressBook` with a list of meetings, stored internally as a `UniqueMeetingList`. It also allows meetings to be associated to address book entries, since each `Person` can have up to one `Meeting`.
@@ -364,7 +365,7 @@ image::ScheduleCommand5StateDiagram.png[width="800"]
 * **Alternative 2:** The date and time is stored as a `DateAndTime` object.
 ** Pros: Ability to use Java API functions for dates.
 ** Cons: Less flexible as all dates entered must be valid.
-
+// end::schedule[]
 
 
 // tag::undoredo[]
