@@ -19,7 +19,6 @@ import seedu.address.commons.events.model.UserPrefsChangeEvent;
 import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonPropertyComparator;
-import seedu.address.model.tag.Tag;
 
 /**
  * Represents the in-memory model of the address book data.
