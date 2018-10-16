@@ -13,6 +13,8 @@ public class UserPrefs {
 
     private GuiSettings guiSettings;
     private Path addressBookFilePath = Paths.get("data" , "addressbook.xml");
+    private Path triviaBundleFilePath = Paths.get("data" , "triviabundle.xml");
+
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);
@@ -34,8 +36,16 @@ public class UserPrefs {
         return addressBookFilePath;
     }
 
+    public Path getTriviaBundleFilePath() {
+        return triviaBundleFilePath;
+    }
+
     public void setAddressBookFilePath(Path addressBookFilePath) {
         this.addressBookFilePath = addressBookFilePath;
+    }
+
+    public void setTriviaBundleFilePath(Path triviaBundleFilePath) {
+        this.triviaBundleFilePath = triviaBundleFilePath;
     }
 
     @Override

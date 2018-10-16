@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<triviabundle>
+    <cards>
+        <question>Why is the earth round?</question>
+        <answer>Because of gravity!</answer>
+        <topic>Physics</topic>
+    </cards>
+    <cards>
+        <question>What are the ways to merge to branches?</question>
+        <answer>rebase and merge</answer>
+        <topic>Git</topic>
+    </cards>
+    <cards>
+        <question>What is the formula for force?</question>
+        <answer>force = mass * acceleration</answer>
+        <topic>Physics</topic>
+    </cards>
+    <cards>
+        <question>Name of Singapore's capital</question>
+        <answer>Singapore</answer>
+        <topic>GeneralKnowledge</topic>
+    </cards>
+    <cards>
+        <question>Which git command will get a copy of an online repository to your computer?</question>
+        <answer>git clone</answer>
+        <topic>Git</topic>
+    </cards>
+    <cards>
+        <question>Formula of density</question>
+        <answer>desnity = mass / volume</answer>
+        <topic>Physics</topic>
+    </cards>
+    <cards>
+        <question>Tallest building in the world?</question>
+        <answer>Burj Khalifa</answer>
+        <topic>GeneralKnowledge</topic>
+    </cards>
+</triviabundle>

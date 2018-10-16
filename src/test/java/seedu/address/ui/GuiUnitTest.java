@@ -8,6 +8,7 @@ import org.junit.Rule;
 import guitests.GuiRobot;
 import guitests.guihandles.exceptions.NodeNotFoundException;
 import javafx.scene.Node;
+import seedu.address.commons.core.AsyncEventsCenter;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.ui.testutil.UiPartRule;
 
@@ -23,6 +24,7 @@ public abstract class GuiUnitTest {
     @After
     public void tearDown() {
         EventsCenter.clearSubscribers();
+        AsyncEventsCenter.clearSubscribers();
     }
 
     /**

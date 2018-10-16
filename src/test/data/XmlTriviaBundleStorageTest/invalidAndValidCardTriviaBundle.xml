@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<triviabundle>
+    <!-- Valid Card -->
+    <cards>
+        <question>Formula of force?</question>
+        <answer>force = mass * acceleration</answer>
+        <tag>Physics</tag>
+    </cards>
+    <!-- Card with invalid answer field -->
+    <cards>
+        <question>Best module in NUS?</question>
+        <answer></answer>
+        <tag>NUS</tag>
+    </cards>
+</triviabundle>

@@ -1,5 +1,8 @@
 package seedu.address.ui;
 
+import static seedu.address.commons.events.ExtraInformationDisplay.BROWSER;
+import static seedu.address.commons.events.ExtraInformationDisplay.IMPORT_HELP_DISPLAY;
+
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -10,15 +13,26 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ExtraInformationDisplay;
+import seedu.address.commons.events.ui.CloseTriviaTestViewEvent;
+import seedu.address.commons.events.ui.DisplayBrowserEventChangedEvent;
+import seedu.address.commons.events.ui.DisplayImportHelpChangedEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.events.ui.ExtraInformationDisplayChangeEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.commons.events.ui.ShowTriviaTestResultEvent;
+import seedu.address.commons.events.ui.ShowTriviaTestViewEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
+import seedu.address.ui.home.Homepage;
+import seedu.address.ui.test.TriviaTestPage;
+import seedu.address.ui.test.TriviaTestResultPage;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -34,14 +48,13 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
 
-    @FXML
-    private StackPane browserPlaceholder;
+    private Homepage homePage;
+    private TriviaTestPage triviaTestPage;
+    private TriviaTestResultPage triviaTestResultPage;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -50,13 +63,13 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
-
-    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane displayPagePlaceHolder;
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
@@ -118,24 +131,21 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
-
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    public void fillInnerParts() {
+        CommandBox commandBox = new CommandBox(logic);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
+        homePage = new Homepage(logic);
+        displayPagePlaceHolder.getChildren().add(homePage.getRoot());
+
         StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-
-        CommandBox commandBox = new CommandBox(logic);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
-    void hide() {
+    public void hide() {
         primaryStage.hide();
     }
 
@@ -158,7 +168,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Returns the current size and the position of the main Window.
      */
-    GuiSettings getCurrentGuiSetting() {
+    public GuiSettings getCurrentGuiSetting() {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
@@ -175,8 +185,20 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    void show() {
+    public void releaseResources() {
+        homePage.releaseResources();
+    }
+
+    public void show() {
         primaryStage.show();
+    }
+
+    /**
+     * Will change the scene displayed in {@code displayPagePlaceHolder} according to the given parameter.
+     */
+    private void changeToScene(UiPart<Region> region) {
+        displayPagePlaceHolder.getChildren().clear();
+        displayPagePlaceHolder.getChildren().add(region.getRoot());
     }
 
     /**
@@ -187,17 +209,47 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }
-
-    void releaseResources() {
-        browserPanel.freeResources();
-    }
-
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+    @Subscribe
+    private void handleShowTriviaTestViewEvent(ShowTriviaTestViewEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        triviaTestPage = event.getTriviaTestPage().get();
+        changeToScene(triviaTestPage);
+    }
+
+    @Subscribe
+    private void handleShowTriviaTestResultPage(ShowTriviaTestResultEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        triviaTestResultPage = event.getTriviaTestResultPage().get();
+        changeToScene(triviaTestResultPage);
+    }
+
+    @Subscribe
+    private void handleCloseTriviaTestViewEvent(CloseTriviaTestViewEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        changeToScene(homePage);
+    }
+    @Subscribe
+    private void handleExtraInfomationDisplayChangeEvent(ExtraInformationDisplayChangeEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        raiseExtraInformationToDisplayEventsFor(event.toDisplay());
+    }
+    /**
+     * Raises appropriate events to display desired extra information.
+     * @param extraInfo The extra information to display.
+     */
+    private void raiseExtraInformationToDisplayEventsFor(ExtraInformationDisplay extraInfo) {
+        if (extraInfo == IMPORT_HELP_DISPLAY) {
+            raise(new DisplayImportHelpChangedEvent(true));
+            raise(new DisplayBrowserEventChangedEvent(false));
+        } else if (extraInfo == BROWSER) {
+            raise(new DisplayImportHelpChangedEvent(false));
+            raise(new DisplayBrowserEventChangedEvent(true));
+        }
     }
 }

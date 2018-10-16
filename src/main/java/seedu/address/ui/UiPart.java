@@ -5,8 +5,19 @@ import static java.util.Objects.requireNonNull;
 import java.io.IOException;
 import java.net.URL;
 
+import javafx.animation.Animation;
+import javafx.animation.Interpolator;
+import javafx.animation.Transition;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
+import javafx.util.Duration;
 import seedu.address.MainApp;
+import seedu.address.commons.core.AsyncEventsCenter;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.BaseEvent;
 
@@ -18,6 +29,7 @@ public abstract class UiPart<T> {
 
     /** Resource folder where FXML files are stored. */
     public static final String FXML_FILE_FOLDER = "/view/";
+    public static final int FLASH_TIME = 1000; // 1 second
 
     private final FXMLLoader fxmlLoader = new FXMLLoader();
 
@@ -74,6 +86,7 @@ public abstract class UiPart<T> {
      */
     protected void registerAsAnEventHandler(Object handler) {
         EventsCenter.getInstance().registerHandler(handler);
+        AsyncEventsCenter.getInstance().registerHandler(handler);
     }
 
     /**
@@ -103,4 +116,28 @@ public abstract class UiPart<T> {
         return requireNonNull(fxmlFileUrl);
     }
 
+    /**
+     * A quick flash of a specified color at a certain region of the UI.
+     * @param region The region where the flash is.
+     * @param color The color of the flash.
+     *
+     */
+    public void flashBackgroundColor(Region region, Color color) {
+        final Animation animation = new Transition() {
+            {
+                setCycleDuration(Duration.millis(FLASH_TIME));
+                setInterpolator(Interpolator.EASE_OUT);
+            }
+
+            @Override
+            protected void interpolate(double frac) {
+                Color vColor = new Color(color.getRed(), color.getGreen(), color.getBlue(),
+                        color.getOpacity() - frac);
+                region.setBackground(new Background(new BackgroundFill(vColor,
+                        CornerRadii.EMPTY, Insets.EMPTY)));
+            }
+
+        };
+        animation.play();
+    }
 }

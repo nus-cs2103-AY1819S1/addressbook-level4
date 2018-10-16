@@ -11,8 +11,19 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.model.AddMatchTestResultEvent;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.TriviaBundleChangedEvent;
+import seedu.address.commons.events.ui.CloseTriviaTestViewEvent;
+import seedu.address.commons.events.ui.ShowTriviaTestViewEvent;
+import seedu.address.model.card.Card;
 import seedu.address.model.person.Person;
+import seedu.address.model.state.AppState;
+import seedu.address.model.state.State;
+import seedu.address.model.test.TriviaTest;
+import seedu.address.model.test.matchtest.MatchTest;
+import seedu.address.model.test.matchtest.MatchTestResults;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,6 +33,13 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
+
+    private final VersionedTriviaBundle versionedTriviaBundle;
+    private final FilteredList<Card> filteredCards;
+    private final MatchTestResults matchTestResults;
+    private final AppState appState;
+
+    private TriviaTest currentRunningTest;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -34,10 +52,40 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+
+        versionedTriviaBundle = null;
+        filteredCards = null;
+
+        // TODO Read data from file.
+        matchTestResults = new MatchTestResults();
+
+        currentRunningTest = null;
+        appState = new AppState();
+    }
+
+
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyTriviaBundle triviaBundle, UserPrefs userPrefs) {
+        super();
+        requireAllNonNull(addressBook, triviaBundle, userPrefs);
+
+        logger.fine("Initializing with addressbook and trivia bundle: " + triviaBundle
+                + " and user prefs " + userPrefs);
+
+        versionedTriviaBundle = new VersionedTriviaBundle(triviaBundle);
+        filteredCards = new FilteredList<>(versionedTriviaBundle.getCardList());
+
+        versionedAddressBook = new VersionedAddressBook(addressBook);
+        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+
+        // TODO Read data from file.
+        matchTestResults = new MatchTestResults();
+
+        currentRunningTest = null;
+        appState = new AppState();
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new TriviaBundle(), new UserPrefs());
     }
 
     @Override
@@ -47,13 +95,29 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void resetData(ReadOnlyTriviaBundle newData) {
+        versionedTriviaBundle.resetData(newData);
+        indicateTriviaBundleChanged();
+    }
+
+    @Override
     public ReadOnlyAddressBook getAddressBook() {
         return versionedAddressBook;
+    }
+
+    @Override
+    public ReadOnlyTriviaBundle getTriviaBundle() {
+        return versionedTriviaBundle;
     }
 
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(versionedAddressBook));
+    }
+
+    /** Raises an event to indicate the model has changed */
+    private void indicateTriviaBundleChanged() {
+        raise(new TriviaBundleChangedEvent(versionedTriviaBundle));
     }
 
     @Override
@@ -63,9 +127,21 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public boolean hasCard(Card card) {
+        requireNonNull(card);
+        return versionedTriviaBundle.hasCard(card);
+    }
+
+    @Override
     public void deletePerson(Person target) {
         versionedAddressBook.removePerson(target);
         indicateAddressBookChanged();
+    }
+
+    @Override
+    public void deleteCard(Card target) {
+        versionedTriviaBundle.removeCard(target);
+        indicateTriviaBundleChanged();
     }
 
     @Override
@@ -76,11 +152,18 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updatePerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void addCard(Card card) {
+        versionedTriviaBundle.addCard(card);
+        updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
+        indicateTriviaBundleChanged();
+    }
 
-        versionedAddressBook.updatePerson(target, editedPerson);
-        indicateAddressBookChanged();
+    @Override
+    public void updateCard(Card target, Card editedCard) {
+        requireAllNonNull(target, editedCard);
+
+        versionedTriviaBundle.updateCard(target, editedCard);
+        indicateTriviaBundleChanged();
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -94,39 +177,111 @@ public class ModelManager extends ComponentManager implements Model {
         return FXCollections.unmodifiableObservableList(filteredPersons);
     }
 
+    /**
+     * Returns an unmodifiable view of the list of {@code Card} backed by the internal list of
+     * {@code versionedTriviaBundle}
+     */
+    @Override
+    public ObservableList<Card> getFilteredCardList() {
+        return FXCollections.unmodifiableObservableList(filteredCards);
+    }
+
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
 
+    @Override
+    public void updateFilteredCardList(Predicate<Card> predicate) {
+        requireNonNull(predicate);
+        filteredCards.setPredicate(predicate);
+    }
+
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
+    public boolean canUndoTriviaBundle() {
+        return versionedTriviaBundle.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+    public boolean canRedoTriviaBundle() {
+        return versionedTriviaBundle.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
-        indicateAddressBookChanged();
+    public void undoTriviaBundle() {
+        versionedTriviaBundle.undo();
+        indicateTriviaBundleChanged();
     }
 
     @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
-        indicateAddressBookChanged();
+    public void redoTriviaBundle() {
+        versionedTriviaBundle.redo();
+        indicateTriviaBundleChanged();
     }
 
     @Override
     public void commitAddressBook() {
         versionedAddressBook.commit();
+    }
+
+    @Override
+    public void commitTriviaBundle() {
+        versionedTriviaBundle.commit();
+    }
+
+    //=========== App State =================================================================================
+
+    @Override
+    public State getAppState() {
+        return appState.getState();
+    }
+
+    @Override
+    public boolean isInTestingState() {
+        return appState.getState() == State.TEST || appState.getState() == State.MATCH_TEST;
+    }
+
+    //=========== Trivia Tests ==============================================================================
+
+    @Override
+    public void startTriviaTest(TriviaTest test) {
+        currentRunningTest = test;
+        appState.setAppState(State.MATCH_TEST);
+        test.startTest();
+        raise(new ShowTriviaTestViewEvent(test.getTestingPage()));
+    }
+
+    @Override
+    public void stopTriviaTest() {
+        currentRunningTest.stopTest();
+        appState.setAppState(State.NORMAL);
+        raise(new CloseTriviaTestViewEvent());
+        currentRunningTest = null;
+    }
+
+    @Override
+    public TriviaTest getCurrentRunningTest() {
+        return currentRunningTest;
+    }
+
+    //=========== Matching Tests ============================================================================
+
+    @Override
+    public boolean matchQuestionAndAnswer(Index questionIndex, Index answerIndex) throws IndexOutOfBoundsException {
+        assert currentRunningTest instanceof MatchTest;
+
+        MatchTest matchTest = (MatchTest) currentRunningTest;
+        return matchTest.match(questionIndex, answerIndex);
+    }
+
+    //=========== Matching Test Results =====================================================================
+
+    @Override
+    public void handleAddMatchTestResultEvent(AddMatchTestResultEvent event) {
+        matchTestResults.addMatchTestResult(event.getMatchTest());
     }
 
     @Override
@@ -143,8 +298,13 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
-                && filteredPersons.equals(other.filteredPersons);
+        return (versionedAddressBook.equals(other.versionedAddressBook)
+                && filteredPersons.equals(other.filteredPersons))
+                && (versionedTriviaBundle == null // short circuit for regression compatibility with addressbook
+                    || (versionedTriviaBundle.equals(other.versionedTriviaBundle)
+                    && filteredCards.equals(other.filteredCards)))
+                && ((currentRunningTest == null && other.currentRunningTest == null)
+                    || (currentRunningTest != null && currentRunningTest.equals(other.currentRunningTest)));
     }
 
 }

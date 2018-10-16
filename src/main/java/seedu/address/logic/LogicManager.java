@@ -11,6 +11,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.card.Card;
 import seedu.address.model.person.Person;
 
 /**
@@ -33,7 +34,7 @@ public class LogicManager extends ComponentManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
-            Command command = addressBookParser.parseCommand(commandText);
+            Command command = addressBookParser.parseCommand(commandText, model.getAppState());
             return command.execute(model, history);
         } finally {
             history.add(commandText);
@@ -43,6 +44,11 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
+    }
+
+    @Override
+    public ObservableList<Card> getFilteredCardList() {
+        return model.getFilteredCardList();
     }
 
     @Override

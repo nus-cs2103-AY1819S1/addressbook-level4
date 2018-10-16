@@ -5,7 +5,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
 /**
  * Helper functions for handling strings.
@@ -64,5 +67,13 @@ public class StringUtil {
         } catch (NumberFormatException nfe) {
             return false;
         }
+    }
+
+    /**
+     * Formats the given date according to this format: 01 Jun 2016, 04:13 PM
+     */
+    public static String formatDate(Date date) {
+        DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy, hh:mm a");
+        return dateFormat.format(date);
     }
 }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Person with an invalid phone field -->
+<cards>
+    <question></question>
+    <answer>Because of gravity!</answer>
+    <topic>Physics</topic>
+</cards>

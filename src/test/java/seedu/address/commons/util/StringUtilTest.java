@@ -2,10 +2,12 @@ package seedu.address.commons.util;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.FileNotFoundException;
+import java.util.Date;
 import java.util.Optional;
 
 import org.junit.Rule;
@@ -155,5 +157,23 @@ public class StringUtilTest {
         StringUtil.getDetails(null);
     }
 
+
+    @Test
+    public void formatDateCorrectly() {
+        final int yearFrom = 1900;
+        int yearToTest = 2006 - yearFrom;
+
+        // AM
+        assertEquals("31 Jan 2006, 08:30 AM", StringUtil.formatDate(new Date(yearToTest, 0, 31, 8, 30)));
+
+        // PM
+        assertEquals("31 Jan 2006, 02:30 PM", StringUtil.formatDate(new Date(yearToTest, 0, 31, 14, 30)));
+
+        // Noon
+        assertEquals("31 Jan 2006, 12:30 PM", StringUtil.formatDate(new Date(yearToTest, 0, 31, 12, 30)));
+
+        // MidNight
+        assertEquals("31 Jan 2006, 12:30 AM", StringUtil.formatDate(new Date(yearToTest, 0, 31, 0, 30)));
+    }
 
 }

@@ -8,7 +8,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.topic.Topic;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
@@ -25,7 +25,7 @@ public class PersonBuilder {
     private Phone phone;
     private Email email;
     private Address address;
-    private Set<Tag> tags;
+    private Set<Topic> tags;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -58,7 +58,7 @@ public class PersonBuilder {
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
      */
     public PersonBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
+        this.tags = SampleDataUtil.getTopicSet(tags);
         return this;
     }
 
