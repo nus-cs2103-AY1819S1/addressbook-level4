@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<scheduleplanner>
+    <tasks>
+        <name>CS2100 HW</name>
+        <date>081018</date>
+        <priority>3</priority>
+        <venue>Home</venue>
+        <tagged>Module</tagged>
+    </tasks>
+    <tasks>
+        <name>CS2105 Lab</name>
+        <date>091018</date>
+        <priority>3</priority>
+        <venue>NUS</venue>
+        <tagged>Module</tagged>
+    </tasks>
+    <tasks>
+        <name>CS2106 Read lecture</name>
+        <date>101018</date>
+        <priority>1</priority>
+        <venue>Home</venue>
+        <tagged>Module</tagged>
+    </tasks>
+    <tasks>
+        <name>homework</name>
+        <date>111018</date>
+        <priority>2</priority>
+        <venue>home</venue>
+    </tasks>
+    <tasks>
+        <name>CS2103T Read lecture</name>
+        <date>121018</date>
+        <priority>3</priority>
+        <venue>home</venue>
+    </tasks>
+    <tasks>
+        <name>CS2101 Read Tutorial</name>
+        <date>131018</date>
+        <priority>2</priority>
+        <venue>home</venue>
+    </tasks>
+    <tasks>
+        <name>MA1101R HW</name>
+        <date>141018</date>
+        <priority>3</priority>
+        <venue>home</venue>
+    </tasks>
+    <tasks>
+        <name>CS2030 Lab</name>
+        <date>141018</date>
+        <priority>2</priority>
+        <venue>home</venue>
+    </tasks>
+    <tasks>
+        <name>self study</name>
+        <date>081018</date>
+        <priority>1</priority>
+        <venue>home</venue>
+    </tasks>
+    <tasks>
+        <name>self study</name>
+        <date>091018</date>
+        <priority>1</priority>
+        <venue>home</venue>
+    </tasks>
+    <tasks>
+        <name>self study</name>
+        <date>101018</date>
+        <priority>1</priority>
+        <venue>home</venue>
+    </tasks>
+    <tasks>
+        <name>self study</name>
+        <date>111018</date>
+        <priority>1</priority>
+        <venue>home</venue>
+    </tasks>
+</scheduleplanner>

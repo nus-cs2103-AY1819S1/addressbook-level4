@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<scheduleplanner>
+    <!-- Valid Task -->
+    <tasks>
+        <name>Hans Muster</name>
+        <date isPrivate="false">9482424</date>
+        <priority isPrivate="false">1</priority>
+        <venue isPrivate="false">4th street</venue>
+    </tasks>
+    <!-- Task with invalid date field -->
+    <tasks>
+        <name>Hans Muster</name>
+        <date isPrivate="false">948asdf2424</date>
+        <priority isPrivate="false">2</priority>
+        <venue isPrivate="false">4th street</venue>
+    </tasks>
+</scheduleplanner>

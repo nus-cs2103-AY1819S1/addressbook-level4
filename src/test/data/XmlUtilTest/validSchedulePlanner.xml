@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<scheduleplanner>
+    <tasks>
+        <name>Hans Muster</name>
+        <date isPrivate="false">111124</date>
+        <priority isPrivate="false">1</priority>
+        <venue isPrivate="false">4th street</venue>
+    </tasks>
+    <tasks>
+        <name>Ruth Mueller</name>
+        <date isPrivate="false">120289</date>
+        <priority isPrivate="false">1</priority>
+        <venue isPrivate="false">81th street</venue>
+    </tasks>
+    <tasks>
+        <name>Heinz Kurz</name>
+        <date isPrivate="false">120312</date>
+        <priority isPrivate="false">1</priority>
+        <venue isPrivate="false">wall street</venue>
+    </tasks>
+    <tasks>
+        <name>Cornelia Meier</name>
+        <date isPrivate="false">040123</date>
+        <priority isPrivate="false">1</priority>
+        <venue isPrivate="false">10th street</venue>
+    </tasks>
+    <tasks>
+        <name>Werner Meyer</name>
+        <date isPrivate="false">120312</date>
+        <priority isPrivate="false">1</priority>
+        <venue isPrivate="false">michegan ave</venue>
+    </tasks>
+    <tasks>
+        <name>Lydia Kunz</name>
+        <date isPrivate="false">230423</date>
+        <priority isPrivate="false">2</priority>
+        <venue isPrivate="false">little tokyo</venue>
+    </tasks>
+    <tasks>
+        <name>Anna Best</name>
+        <date isPrivate="false">080412</date>
+        <priority isPrivate="false">3</priority>
+        <venue isPrivate="false">4th street</venue>
+    </tasks>
+    <tasks>
+        <name>Stefan Meier</name>
+        <date isPrivate="false">230412</date>
+        <priority isPrivate="false">2</priority>
+        <venue isPrivate="false">little india</venue>
+    </tasks>
+    <tasks>
+        <name>Martin Mueller</name>
+        <date isPrivate="false">300912</date>
+        <priority isPrivate="false">1</priority>
+        <venue isPrivate="false">chicago ave</venue>
+    </tasks>
+</scheduleplanner>
+

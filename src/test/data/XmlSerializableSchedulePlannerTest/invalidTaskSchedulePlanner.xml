@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<scheduleplanner>
+    <!-- Task with invalid email field -->
+    <tasks>
+        <name>Hans Muster</name>
+        <date isPrivate="false">111124</date>
+        <priority isPrivate="false">hans@exam!32ple</priority>
+        <venue isPrivate="false">4th street</venue>
+    </tasks>
+</scheduleplanner>
