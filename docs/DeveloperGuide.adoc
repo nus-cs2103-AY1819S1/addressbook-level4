@@ -244,6 +244,63 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::mealplannerimplementation[]
+=== Meal Planner feature
+==== Current Implementation
+
+The Meal Planner feature is supported by the classes `Meal` and `Day`.
+
+****
+Supporting classes:
+
+* *Day*: encapsulates a *LocalDate* _date_  and an *ObservableList<Meal>* _mealList_
+containing 3 meals (breakfast, lunch, dinner). *Day* objects are always instantiated
+with 3 empty *Meal* objects in the _mealList_.
+** An empty *Day* is defined as having 3 empty meals in its _mealList_.
+** 2 *Day* objects are defined as same (through overriding equals() method) as long
+as they have the same *LocalDate* _date_. This is to ensure no duplication of dates
+within the Meal Planner.
+
+* *Meal*: encapsulates a *Optional<Recipe>* _recipe_ and an int _slot_ indicating which
+meal slot each *Meal* object is (0 for breakfast, 1 for lunch, 2 for dinner).
+
+** An empty *Meal* is defined having no recipe, i.e. empty *Optional*.
+****
+
+Class diagram:
+
+image::MealPlannerClassDiagram.png[width="800"]
+
+Brief explanation:
+
+Meal Planner is currently implemented as a list of non-empty *Day* objects. This is
+ensured as *Day* objects are only instantiated when recipes are added to a certain
+_date_, with that _date_ being assigned to its *Day* object. When all the recipes
+are deleted from a certain *Day*, the *Day* object is removed from the Meal Planner.
+
+
+==== Other notes
+Since the the recipe list has to be visible for users to select recipes to add to
+the Meal Planner, the panel does not switch to show the Meal Planner list view immediately
+when context is switched to "Meal Planner". Thus, there is a separate *display* command for
+displaying the Meal Planner.
+
+****
+MealPlanner can be displayed by typing in the following commands in order:
+
+1. *-mealplanner*
+
+2. *display*
+
+_Meal Planner is then displayed, showing the current list of Days with plans_
+****
+
+
+
+
+
+// end::mealplannerimplementation[]
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
@@ -848,6 +905,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user who wants to cook more than one serving of dishes |get the accordingly calculated missing amount of ingredients |-
 |=======================================================================
+// tag::mealplanner[]
 === Meal Planner
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
@@ -862,6 +920,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |meticulous user |view the time taken for each recipe |I can plan ahead for meal preparations to fit my schedule
 |=======================================================================
+// end::mealplanner[]
 === User Profiling
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
