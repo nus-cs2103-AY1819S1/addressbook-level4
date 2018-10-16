@@ -74,6 +74,16 @@ Format:
 `edit complete milestone t/2018.09.18 d/a updated detailed description of what needs to be done`
 
 #### Completing a Task: `complete`
+[%hardbreaks]
+Completes task(s) in the task manager
+Format: `complete INDEX` or `complete t/LABEL`
++Example:
+`complete 1`
+`complete l/urgent`
+-Example:
+`complete 1 l/urgent` (Behavior is not clear)
+
+_Note that completion via label is case-sensitive_
 
 #### Listing Tasks: `list`
 [%hardbreaks]
@@ -108,6 +118,8 @@ Format: `find KEYWORD`
 ** `delete INDEX`
 
 ** `edit INDEX [t/DUE_DATE] [p/PRIORITY_VALUE] [d/detailed description] [l/LABEL]`
+
+** `complete INDEX` or `complete l/LABEL`
 
 ** `list`
 
