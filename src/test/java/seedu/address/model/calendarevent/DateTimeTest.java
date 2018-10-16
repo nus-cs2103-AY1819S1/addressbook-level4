@@ -20,7 +20,7 @@ public class DateTimeTest {
         int validHour = 1;
         int validMinute = 1;
         LocalDateTime invalidDate = LocalDateTime.of(invalidYear, validMonth, validDay, validHour, validMinute);
-        Assert.assertThrows(DateTimeException.class, () -> new DateTime(invalidDate));
+        Assert.assertThrows(DateTimeException.class, () -> new DateTime(invalidYear, validMonth, validDay, validHour, validMinute));
     }
 
     @Test

@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
@@ -20,7 +22,9 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.calendarevent.CalendarEvent;
+import seedu.address.model.calendarevent.DateTime;
 import seedu.address.model.calendarevent.Description;
+import seedu.address.model.calendarevent.DateTimeInfo;
 import seedu.address.model.calendarevent.Title;
 import seedu.address.model.calendarevent.Venue;
 import seedu.address.model.tag.Tag;
@@ -38,6 +42,8 @@ public class EditCommand extends Command {
         + "Parameters: INDEX (must be a positive integer) "
         + "[" + PREFIX_TITLE + "TITLE] "
         + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
+        + "[" + PREFIX_START + "START DATE & TIME] "
+        + "[" + PREFIX_END + "END DATE & TIME] "
         + "[" + PREFIX_VENUE + "VENUE] "
         + "[" + PREFIX_TAG + "TAG]...\n"
         + "Example: " + COMMAND_WORD + " 1 "
@@ -90,16 +96,23 @@ public class EditCommand extends Command {
      * edited with {@code editCalendarEventDescriptor}.
      */
     private static CalendarEvent createEditedCalendarEvent(CalendarEvent calendarEventToEdit,
-                                                           EditCalendarEventDescriptor editCalendarEventDescriptor) {
+                                    EditCalendarEventDescriptor editCalendarEventDescriptor) throws CommandException {
         assert calendarEventToEdit != null;
 
         Title updatedName = editCalendarEventDescriptor.getTitle().orElse(calendarEventToEdit.getTitle());
         Description updatedDescription =
             editCalendarEventDescriptor.getDescription().orElse(calendarEventToEdit.getDescription());
+
+        DateTime updatedStart = editCalendarEventDescriptor.getStart().orElse(calendarEventToEdit.getStart());
+        DateTime updatedEnd = editCalendarEventDescriptor.getEnd().orElse(calendarEventToEdit.getEnd());
+        if (!DateTimeInfo.isValidStartAndEnd(updatedStart, updatedEnd)) {
+            throw new CommandException(DateTimeInfo.MESSAGE_STARTEND_CONSTRAINTS);
+        }
+
         Venue updatedVenue = editCalendarEventDescriptor.getVenue().orElse(calendarEventToEdit.getVenue());
         Set<Tag> updatedTags = editCalendarEventDescriptor.getTags().orElse(calendarEventToEdit.getTags());
 
-        return new CalendarEvent(updatedName, updatedDescription, updatedVenue, updatedTags);
+        return new CalendarEvent(updatedName, updatedDescription, new DateTimeInfo(updatedStart, updatedEnd), updatedVenue, updatedTags);
     }
 
     @Override
@@ -127,6 +140,8 @@ public class EditCommand extends Command {
     public static class EditCalendarEventDescriptor {
         private Title title;
         private Description description;
+        private DateTime start;
+        private DateTime end;
         private Venue venue;
         private Set<Tag> tags;
 
@@ -140,6 +155,8 @@ public class EditCommand extends Command {
         public EditCalendarEventDescriptor(EditCalendarEventDescriptor toCopy) {
             setTitle(toCopy.title);
             setDescription(toCopy.description);
+            setStart(toCopy.start);
+            setEnd(toCopy.end);
             setVenue(toCopy.venue);
             setTags(toCopy.tags);
         }
@@ -148,7 +165,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(title, description, venue, tags);
+            return CollectionUtil.isAnyNonNull(title, description, start, end, venue, tags);
         }
 
         public void setTitle(Title title) {
@@ -159,13 +176,17 @@ public class EditCommand extends Command {
             return Optional.ofNullable(title);
         }
 
-        public void setDescription(Description description) {
-            this.description = description;
-        }
+        public void setDescription(Description description) { this.description = description;  }
 
-        public Optional<Description> getDescription() {
-            return Optional.ofNullable(description);
-        }
+        public Optional<Description> getDescription() { return Optional.ofNullable(description); }
+
+        public void setStart(DateTime start) { this.start = start;  }
+
+        public Optional<DateTime> getStart() { return Optional.ofNullable(start); }
+
+        public void setEnd(DateTime end) { this.end = end;  }
+
+        public Optional<DateTime> getEnd() { return Optional.ofNullable(end); }
 
         public void setVenue(Venue venue) {
             this.venue = venue;
@@ -209,6 +230,8 @@ public class EditCommand extends Command {
 
             return getTitle().equals(e.getTitle())
                 && getDescription().equals(e.getDescription())
+                && getStart().equals(e.getStart())
+                && getEnd().equals(e.getEnd())
                 && getVenue().equals(e.getVenue())
                 && getTags().equals(e.getTags());
         }

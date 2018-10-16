@@ -116,11 +116,11 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
 
         /* Case: add a duplicate calendarevent -> rejected */
         command = PersonUtil.getAddCommand(HOON);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CALENDAR_EVENT);
 
         /* Case: add a duplicate calendarevent except with different tags -> rejected */
         command = PersonUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CALENDAR_EVENT);
 
         /* Case: missing name -> rejected */
         command = AddCommand.COMMAND_WORD + DESCRIPTION_DESC_LECTURE + VENUE_DESC_LECTURE;

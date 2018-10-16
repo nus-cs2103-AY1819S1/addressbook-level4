@@ -2,6 +2,8 @@
 <calendarEvent>
     <title>Hans Muster</title>
     <description>9482424</description>
+    <start>2018-10-16 14:00</start>
+    <end>2018-10-16 16:00</end>
     <venue>4th street</venue>
     <tagged>friends</tagged>
 </calendarEvent>
