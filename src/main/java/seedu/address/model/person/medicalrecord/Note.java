@@ -52,6 +52,10 @@ public class Note {
         return Objects.hash(message, dispensedMedicines);
     }
 
+    /**
+     * Convert the Map to a nice looking string for readability.
+     * @return Pretty string of dispensedMedicines
+     */
     private String convertDispensedMedicinesToPrettyString() {
         String result = "";
         for (Map.Entry<SerialNumber, Quantity> entry: dispensedMedicines.entrySet()) {

@@ -9,7 +9,6 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
@@ -17,9 +16,6 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.person.Patient;
-import seedu.address.model.person.medicalrecord.Disease;
-import seedu.address.model.person.medicalrecord.DrugAllergy;
-import seedu.address.model.person.medicalrecord.Note;
 
 /**
  * The Browser Panel of the App.
@@ -45,12 +41,16 @@ public class BrowserPanel extends UiPart<Region> {
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
 
-         loadDefaultPage();
+        loadDefaultPage();
         registerAsAnEventHandler(this);
     }
 
+    /**
+     * Loads the page for given patient
+     * @param patient patient to load
+     */
     private void loadPersonPage(Patient patient) {
-//        loadPage(SEARCH_PAGE_URL + patient.getName().fullName);
+        // loadPage(SEARCH_PAGE_URL + patient.getName().fullName);
         String filePath = "/docs/PatientView.html";
         String url = MainApp.class.getResource(filePath).toExternalForm();
         url = addPatientDetailsAsArgs(patient, url);
@@ -82,6 +82,12 @@ public class BrowserPanel extends UiPart<Region> {
         loadPersonPage(event.getNewSelection());
     }
 
+    /**
+     * Parses patient details from patient object and appends to URL as html parameters.
+     * @param patient Patient details to parse
+     * @param url filepath
+     * @return Final url with args
+     */
     private String addPatientDetailsAsArgs(Patient patient, String url) {
 
         url += "?name=";
@@ -114,6 +120,12 @@ public class BrowserPanel extends UiPart<Region> {
         return url;
     }
 
+    /**
+     * Convert any list into a String with commas.
+     * @param list list to convert
+     * @param <T> Generic method
+     * @return converted list as String
+     */
     private <T> String convertListToString(List<T> list) {
         String result = "";
         for (T item: list) {
