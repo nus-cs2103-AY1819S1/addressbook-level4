@@ -43,8 +43,8 @@ import seedu.address.model.ride.Name;
 import seedu.address.model.ride.Ride;
 import seedu.address.model.ride.WaitTime;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.PersonUtil;
 import seedu.address.testutil.RideBuilder;
+import seedu.address.testutil.RideUtil;
 
 public class AddCommandSystemTest extends AddressBookSystemTest {
 
@@ -84,7 +84,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
          */
         toAdd = new RideBuilder(AMY).withName("Different")
                 .withMaintenance(VALID_MAINTENANCE_BOB).withWaitTime(VALID_WAIT_TIME_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        command = RideUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty address book -> added */
@@ -115,27 +115,27 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
         /* Case: add a duplicate ride -> rejected */
-        command = PersonUtil.getAddCommand(HAUNTED);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        command = RideUtil.getAddCommand(HAUNTED);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_RIDE);
 
         /* Case: add a duplicate ride except with different phone -> rejected */
         toAdd = new RideBuilder(HAUNTED).withMaintenance(VALID_MAINTENANCE_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        command = RideUtil.getAddCommand(toAdd);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_RIDE);
 
         /* Case: add a duplicate ride except with different email -> rejected */
         toAdd = new RideBuilder(HAUNTED).withWaitTime(VALID_WAIT_TIME_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        command = RideUtil.getAddCommand(toAdd);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_RIDE);
 
         /* Case: add a duplicate ride except with different address -> rejected */
         toAdd = new RideBuilder(HAUNTED).withAddress(VALID_ADDRESS_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        command = RideUtil.getAddCommand(toAdd);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_RIDE);
 
         /* Case: add a duplicate ride except with different tags -> rejected */
-        command = PersonUtil.getAddCommand(HAUNTED) + " " + PREFIX_TAG.getPrefix() + "friends";
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        command = RideUtil.getAddCommand(HAUNTED) + " " + PREFIX_TAG.getPrefix() + "friends";
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_RIDE);
 
         /* Case: missing name -> rejected */
         command = AddCommand.COMMAND_WORD + MAINTENANCE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
@@ -154,7 +154,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
-        command = "adds " + PersonUtil.getPersonDetails(toAdd);
+        command = "adds " + RideUtil.getPersonDetails(toAdd);
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
@@ -198,7 +198,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(Ride toAdd) {
-        assertCommandSuccess(PersonUtil.getAddCommand(toAdd), toAdd);
+        assertCommandSuccess(RideUtil.getAddCommand(toAdd), toAdd);
     }
 
     /**

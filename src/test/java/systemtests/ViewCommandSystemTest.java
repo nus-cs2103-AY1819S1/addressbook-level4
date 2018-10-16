@@ -2,7 +2,7 @@ package systemtests;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RIDE_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.ViewCommand.MESSAGE_SELECT_PERSON_SUCCESS;
 import static seedu.address.testutil.TestUtil.getLastIndex;
@@ -59,7 +59,8 @@ public class ViewCommandSystemTest extends AddressBookSystemTest {
          */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getAddressBook().getRideList().size();
-        assertCommandFailure(ViewCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(ViewCommand.COMMAND_WORD + " " + invalidIndex,
+                MESSAGE_INVALID_RIDE_DISPLAYED_INDEX);
 
         /* Case: filtered ride list, select index within bounds of address book and ride list -> selected */
         Index validIndex = Index.fromOneBased(1);
@@ -79,7 +80,8 @@ public class ViewCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: invalid index (size + 1) -> rejected */
         invalidIndex = getModel().getFilteredRideList().size() + 1;
-        assertCommandFailure(ViewCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(ViewCommand.COMMAND_WORD + " " + invalidIndex,
+                MESSAGE_INVALID_RIDE_DISPLAYED_INDEX);
 
         /* Case: invalid arguments (alphabets) -> rejected */
         assertCommandFailure(ViewCommand.COMMAND_WORD + " abc",
@@ -95,7 +97,7 @@ public class ViewCommandSystemTest extends AddressBookSystemTest {
         /* Case: select from empty address book -> rejected */
         deleteAllPersons();
         assertCommandFailure(ViewCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
-                MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+                MESSAGE_INVALID_RIDE_DISPLAYED_INDEX);
     }
 
     /**

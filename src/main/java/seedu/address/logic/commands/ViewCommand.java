@@ -40,7 +40,7 @@ public class ViewCommand extends Command {
         List<Ride> filteredRideList = model.getFilteredRideList();
 
         if (targetIndex.getZeroBased() >= filteredRideList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_RIDE_DISPLAYED_INDEX);
         }
 
         EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));

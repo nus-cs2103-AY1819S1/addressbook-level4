@@ -43,14 +43,14 @@ public class AddCommandIntegrationTest {
     public void execute_duplicateRideSameName_throwsCommandException() {
         Ride sameNameRide = new RideBuilder().build();
         assertCommandFailure(new AddCommand(sameNameRide), model, commandHistory,
-                AddCommand.MESSAGE_DUPLICATE_PERSON);
+                AddCommand.MESSAGE_DUPLICATE_RIDE);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Ride rideInList = model.getAddressBook().getRideList().get(0);
         assertCommandFailure(new AddCommand(rideInList), model, commandHistory,
-                AddCommand.MESSAGE_DUPLICATE_PERSON);
+                AddCommand.MESSAGE_DUPLICATE_RIDE);
     }
 
 }
