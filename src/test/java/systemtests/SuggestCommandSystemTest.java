@@ -18,12 +18,12 @@ public class SuggestCommandSystemTest extends AddressBookSystemTest {
         assertSuggestCommandSuccessBehavior("a", "add");
         assertSuggestCommandSuccessBehavior("c", "clear");
         assertSuggestCommandSuccessBehavior("d", "delete");
-        assertSuggestCommandSuccessBehavior("e", "edit", "exit");
+        assertSuggestCommandSuccessBehavior("e", "exit");
         assertSuggestCommandSuccessBehavior("f", "find");
         assertSuggestCommandSuccessBehavior("h", "help", "history");
         assertSuggestCommandSuccessBehavior("q", "quickView");
         assertSuggestCommandSuccessBehavior("r", "redo");
-        assertSuggestCommandSuccessBehavior("u", "undo");
+        assertSuggestCommandSuccessBehavior("u", "undo", "update");
         assertSuggestCommandSuccessBehavior("v", "viewAll", "view");
 
         assertSuggestCommandFailureBehavior("b");
