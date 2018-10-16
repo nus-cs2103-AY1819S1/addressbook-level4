@@ -181,6 +181,19 @@ Format: `“select [index]” or “s[index]” when [index] is a positive integ
   If a task is already on display, this command instead select a subtask from the displayed tasks’ list of subtasks.
 ****
 
+=== Add Meeting to Group: `meet`
+
+Add a meeting to the group specified by its name.
+
+Format: `meet [groupname] n/[meetingname] t/[meetingtime] l/[meetinglocation] d/[meetingdescription]`
+
+Meeting time is specified in the format `dd-mm-yyyy@hh:mm`
+
+Not specifying any fields will cancel the meeting associated with the group.
+
+Example:
+* `Meet CS2103 n/Demo Rehearsal t/11-11-2018@11:11 l/COM1 02-18 d/preparation for the upcoming product demo`
+* `Meet CS2103` note that this will cancel the current meeting with the group CS2103.
 
 === Going back to the parent task : `back / b`
 
@@ -233,7 +246,6 @@ Example:
 ****
 User can also check the current path of Flashbook use `filepath show`
 ****
-
 
 === Autocomplete
 
