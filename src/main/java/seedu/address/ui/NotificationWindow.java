@@ -1,13 +1,13 @@
 package seedu.address.ui;
 
-/*import javafx.animation.PauseTransition;
+import javafx.animation.PauseTransition;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Duration;*/
+import javafx.util.Duration;
 
 /**
  * Controller for notifications
@@ -18,8 +18,7 @@ public class NotificationWindow {
     /**
      * Creates and displays a notification
      */
-    public static void display() {
-    /*public static void display(String title, String message) {
+    public static void display(String title, String message) {
 
         Stage window = new Stage();
         window.initStyle(StageStyle.UNDECORATED);
@@ -42,9 +41,9 @@ public class NotificationWindow {
         window.setScene(scene);
         window.show();
 
-        PauseTransition delay = new PauseTransition(Duration.seconds(2));
-        delay.setOnFinished( event -> window.close() );
-        delay.play();*/
+        PauseTransition delay = new PauseTransition(Duration.seconds(5));
+        delay.setOnFinished(event -> window.close());
+        delay.play();
 
     }
 }

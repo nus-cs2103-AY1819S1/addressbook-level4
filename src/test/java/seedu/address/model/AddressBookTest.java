@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.testutil.TypicalEvents.DOCTORAPPT;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -19,9 +20,12 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.event.Event;
+import seedu.address.model.event.exceptions.DuplicateEventException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ScheduledEventBuilder;
 
 public class AddressBookTest {
 
@@ -33,6 +37,7 @@ public class AddressBookTest {
     @Test
     public void constructor() {
         assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), addressBook.getEventList());
     }
 
     @Test
@@ -54,9 +59,26 @@ public class AddressBookTest {
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newPersons);
+
+        List<Event> newEvents = Arrays.asList(DOCTORAPPT);
+        AddressBookStub newData = new AddressBookStub(newPersons, newEvents);
 
         thrown.expect(DuplicatePersonException.class);
+        addressBook.resetData(newData);
+    }
+
+    @Test
+    public void resetData_withDuplicateEvents_throwsDuplicateEventException() {
+
+        List<Person> newPersons = Arrays.asList(ALICE);
+
+        // Two events with the same identity fields
+        Event duplicateEvent =
+                new ScheduledEventBuilder(DOCTORAPPT).build();
+        List<Event> newEvents = Arrays.asList(DOCTORAPPT, duplicateEvent);
+        AddressBookStub newData = new AddressBookStub(newPersons, newEvents);
+
+        thrown.expect(DuplicateEventException.class);
         addressBook.resetData(newData);
     }
 
@@ -67,14 +89,31 @@ public class AddressBookTest {
     }
 
     @Test
+    public void hasEvent_nullEvent_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        addressBook.hasEvent(null);
+    }
+
+    @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
         assertFalse(addressBook.hasPerson(ALICE));
+    }
+
+    @Test
+    public void hasEvent_eventNotInAddressBook_returnsFalse() {
+        assertFalse(addressBook.hasEvent(DOCTORAPPT));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
         addressBook.addPerson(ALICE);
         assertTrue(addressBook.hasPerson(ALICE));
+    }
+
+    @Test
+    public void hasEvent_eventInAddressBook_returnsTrue() {
+        addressBook.addEvent(DOCTORAPPT);
+        assertTrue(addressBook.hasEvent(DOCTORAPPT));
     }
 
     @Test
@@ -86,24 +125,44 @@ public class AddressBookTest {
     }
 
     @Test
+    public void hasEvent_eventWithSameIdentityFieldsInAddressBook_returnsTrue() {
+        addressBook.addEvent(DOCTORAPPT);
+        Event duplicateEvent = new ScheduledEventBuilder(DOCTORAPPT).build();
+        assertTrue(addressBook.hasEvent(duplicateEvent));
+    }
+
+    @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         addressBook.getPersonList().remove(0);
     }
 
+    @Test
+    public void getEventList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        addressBook.getEventList().add(new ScheduledEventBuilder().build());
+    }
+
     /**
-     * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
+     * A stub ReadOnlyAddressBook whose persons list and events list can violate interface constraints.
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Event> events = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Person> persons) {
+        AddressBookStub(Collection<Person> persons, Collection<Event> events) {
             this.persons.setAll(persons);
+            this.events.setAll(events);
         }
 
         @Override
         public ObservableList<Person> getPersonList() {
             return persons;
+        }
+
+        @Override
+        public ObservableList<Event> getEventList() {
+            return events;
         }
     }
 

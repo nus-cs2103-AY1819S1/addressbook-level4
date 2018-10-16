@@ -1,8 +1,10 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.logic.commands.CommandTestUtil.addNewEvent;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.deleteFirstPerson;
+import static seedu.address.testutil.TypicalEvents.CLASS;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Before;
@@ -23,10 +25,10 @@ public class UndoCommandTest {
     public void setUp() {
         // set up of models' undo/redo history
         deleteFirstPerson(model);
-        deleteFirstPerson(model);
+        deleteFirstPerson(expectedModel);
 
-        deleteFirstPerson(expectedModel);
-        deleteFirstPerson(expectedModel);
+        addNewEvent(CLASS, model);
+        addNewEvent(CLASS, expectedModel);
     }
 
     @Test

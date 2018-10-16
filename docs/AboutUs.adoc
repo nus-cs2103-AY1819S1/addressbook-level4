@@ -13,7 +13,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Jack Chai Jie Feng
 image::cjiefeng.png[width="150", align="left"]
-{empty}[https://github.com/cjiefeng[github]]
+{empty}[https://github.com/cjiefeng[github]][<<cjiefeng#, portfolio>>]
 
 Role: Team Lead +
 Responsibility: Overall project coordination, Code quality +
@@ -23,7 +23,7 @@ Component: Model
 
 === Peck Kai Ting
 image::kaitingpeck.png[width="150", align="left"]
-{empty}[http://github.com/kaitingpeck[github]]
+{empty}[http://github.com/kaitingpeck[github]][<<kaitingpeck#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Scheduling and Tracking, Documentation, Set up Travis, Coveralls & Appveyor +
@@ -33,7 +33,7 @@ Component: Logic
 
 === Pratyay Jaidev
 image::pratyayj.png[width="150", align="left"]
-{empty}[http://github.com/pratyayj[github]]
+{empty}[http://github.com/pratyayj[github]][<<pratyayj#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Intellij expert +
@@ -43,7 +43,7 @@ Component: UI
 
 === Yap Yu Wei
 image::yap666y.png[width="150", align="left"]
-{empty}[http://github.com/yap666y[github]]
+{empty}[http://github.com/yap666y[github]][<<yap666y#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Deliverables and Deadlines +
@@ -53,7 +53,7 @@ Component: Storage
 
 === Ryan Tan Wei Keat
 image::ryantanwk.png[width="150", align="left"]
-{empty}[http://github.com/ryantanwk[github]]
+{empty}[http://github.com/ryantanwk[github]][<<ryantanwk#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Integration, Testing, Set up team org and repo +

@@ -14,25 +14,28 @@ public class Event {
     private final EventName eventName;
     private final EventDescription eventDescription;
     private final EventDate eventDate;
-    private final EventTime eventTime;
+    private final EventDay eventDay;
+    private final EventTime eventStartTime;
+    private final EventTime eventEndTime;
 
     // data fields
     private final EventAddress eventAddress;
 
     /**
-     * Every field must be present and not null.
+     * Every field must be present and not null. End time must be later than start time.
      */
-    public Event(EventName eventName, EventDescription eventDescription, EventDate eventDate, EventTime eventTime,
-                 EventAddress eventAddress) {
-        requireAllNonNull(eventName, eventDescription, eventDate, eventTime, eventAddress);
+    public Event(EventName eventName, EventDescription eventDescription, EventDate eventDate, EventTime eventStartTime,
+                 EventTime eventEndTime, EventAddress eventAddress) {
+        requireAllNonNull(eventName, eventDescription, eventDate, eventStartTime, eventAddress);
+
         this.eventName = eventName;
         this.eventDescription = eventDescription;
         this.eventDate = eventDate;
-        this.eventTime = eventTime;
+        this.eventDay = new EventDay(eventDate.getEventDay());
+        this.eventStartTime = eventStartTime;
+        this.eventEndTime = eventEndTime;
         this.eventAddress = eventAddress;
     }
-
-    // todo: change type of getter functions when classes for the attributes are created
 
     public EventName getEventName() {
         return eventName;
@@ -46,18 +49,40 @@ public class Event {
         return eventDate;
     }
 
-    public EventTime getEventTime() {
-        return eventTime;
+    public EventTime getEventStartTime() {
+        return eventStartTime;
+    }
+
+    public EventTime getEventEndTime() {
+        return eventEndTime;
     }
 
     public EventAddress getEventAddress() {
         return eventAddress;
     }
 
-    // todo: define a weaker form of equality to check clashes
+    public EventDay getEventDay() {
+        return eventDay;
+    }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
+     * Returns true if the two events clash
+     */
+    public boolean isClashingEvent(Event event) {
+        //todo: implement method
+        return true;
+    }
+
+    //todo: check isSameEvent constraints
+    /**
+     * Returns true if both events are equal
+     */
+    public boolean isSameEvent(Event event) {
+        return equals(event);
+    }
+
+    /**
+     * Returns true if both events have the same identity and data fields.
      */
     @Override
     public boolean equals(Object other) {
@@ -73,27 +98,32 @@ public class Event {
         return otherPerson.getEventName().equals(getEventName())
                 && otherPerson.getEventDescription().equals(getEventDescription())
                 && otherPerson.getEventDate().equals(getEventDate())
-                && otherPerson.getEventTime().equals(getEventTime())
+                && otherPerson.getEventStartTime().equals(getEventStartTime())
+                && otherPerson.getEventEndTime().equals(getEventEndTime())
                 && otherPerson.getEventAddress().equals(getEventAddress());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(eventName, eventDescription, eventDate, eventTime, eventAddress);
+        return Objects.hash(eventName, eventDescription, eventDate, eventStartTime, eventEndTime, eventAddress);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getEventName())
-                .append(" EventDescription: ")
+                .append(" Event description: ")
                 .append(getEventDescription())
-                .append(" EventDate: ")
+                .append(" Event date: ")
                 .append(getEventDate())
-                .append(" EventTime: ")
-                .append(getEventTime())
-                .append(" Address: ")
+                .append(" Event day: ")
+                .append(getEventDay())
+                .append(" Event start time: ")
+                .append(getEventStartTime())
+                .append(" Event end time: ")
+                .append(getEventEndTime())
+                .append(" Event Address: ")
                 .append(getEventAddress());
         return builder.toString();
     }
