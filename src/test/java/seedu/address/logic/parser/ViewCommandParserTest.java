@@ -15,7 +15,7 @@ import seedu.address.logic.commands.ViewCommand;
  */
 public class ViewCommandParserTest {
 
-    private SelectCommandParser parser = new SelectCommandParser();
+    private ViewCommandParser parser = new ViewCommandParser();
 
     @Test
     public void parse_validArgs_returnsSelectCommand() {

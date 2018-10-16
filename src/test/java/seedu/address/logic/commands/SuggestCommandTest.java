@@ -35,6 +35,7 @@ public class SuggestCommandTest {
         assertSuggestCommandSuccessBehavior("e", "edit", "exit");
         assertSuggestCommandSuccessBehavior("f", "find");
         assertSuggestCommandSuccessBehavior("h", "help", "history");
+        assertSuggestCommandSuccessBehavior("q", "quickView");
         assertSuggestCommandSuccessBehavior("r", "redo");
         assertSuggestCommandSuccessBehavior("u", "undo");
         assertSuggestCommandSuccessBehavior("v", "viewAll", "view");
