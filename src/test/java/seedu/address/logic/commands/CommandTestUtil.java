@@ -3,10 +3,15 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SECTION_TYPE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBHEADER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAGS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,6 +42,16 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
+    public static final String VALID_CAT_EDUCATION = "EDUCATION";
+    public static final String VALID_TITLE_SOURCE = "THE SOURCE ACADEMY";
+    public static final String VALID_SUBTITLE_COMPUTING = "Bachelor of Computing";
+    public static final String VALID_DURATION_1 = "JAN 2006 - DEC 2010";
+    public static final String VALID_TITLE_FACEBOOK = "Facebook";
+    public static final String VALID_SUBTITLE_SE = "Software Engineering Intern";
+    public static final String VALID_DURATION_2 = "Jan 2010 - Dec 2012";
+    public static final String VALID_TAG_JAVA = "java";
+    public static final String VALID_TAG_SE = "SE";
+
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
@@ -48,11 +63,21 @@ public class CommandTestUtil {
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
+    public static final String TAG_DESC_JAVA = " " + PREFIX_TAGS + VALID_TAG_JAVA;
+    public static final String TAG_DESC_SE = " " + PREFIX_TAGS + VALID_TAG_SE;
+
+    public static final String CAT_DESC_WORK = " " + PREFIX_SECTION_TYPE + VALID_CAT_EDUCATION;
+    public static final String TITLE_DESC_NUS = " " + PREFIX_TITLE + VALID_TITLE_SOURCE;
+    public static final String SUBTITLE_DESC = " " + PREFIX_SUBHEADER + VALID_SUBTITLE_COMPUTING;
+    public static final String DURATION_DESC = " " + PREFIX_DURATION + VALID_DURATION_1;
+
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+
+    public static final String INVALID_TITLE_DESC = " " + PREFIX_TITLE + "HS_sadji*";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

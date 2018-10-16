@@ -2,14 +2,19 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.category.Category;
+import seedu.address.model.entry.EntryInfo;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -22,6 +27,17 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+
+    /**
+     * Parses {@code s} into an {@code Index} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     */
+    public static String parseString(String s) {
+        String string = s.trim();
+        return string;
+    }
+
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -94,6 +110,23 @@ public class ParserUtil {
             throw new ParseException(Category.MESSAGE_CATE_CONSTRAINTS);
         }
         return new Category(trimmedCategory);
+    }
+
+    /**
+     *
+     * Parses {@code String header} {@code String subHeader} {@code String duration} into an {@code EntryInfo}.
+     * @throws ParseException
+     */
+    public static EntryInfo parseEntryInfo(String header, String subHeader, String duration) throws ParseException {
+        List<String> entryInfoList = Arrays.asList(header, subHeader, duration);
+        CollectionUtil.requireAllNonNull(entryInfoList);
+        List<String> trimmedEntryInfoList = entryInfoList.stream()
+                .map(s -> s.trim()).collect(Collectors.toList());
+
+        if (!EntryInfo.isValidEntryInfo(trimmedEntryInfoList)) {
+            throw new ParseException(EntryInfo.MESSAGE_ENTRYINFO_CONSTRAINTS);
+        }
+        return new EntryInfo(trimmedEntryInfoList);
     }
 
     /**

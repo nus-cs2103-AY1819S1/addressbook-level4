@@ -1,11 +1,16 @@
 package seedu.address.model.util;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.Awareness;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.entry.ResumeEntry;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -17,6 +22,9 @@ import seedu.address.model.tag.Tag;
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
+
+    private static final String SPACE = " ";
+
     public static Person[] getSamplePersons() {
         return new Person[] {
             new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
@@ -55,6 +63,78 @@ public class SampleDataUtil {
         return Arrays.stream(strings)
                 .map(Tag::new)
                 .collect(Collectors.toSet());
+    }
+
+    public static Awareness getSampleAwareness() {
+
+        HashMap<String, String> dictionary = new HashMap<String, String>();
+        TreeSet<String> allFullPhrases = new TreeSet<String>();
+
+        addSlangToFullPhraseMappings(dictionary, allFullPhrases, "computer science",
+                new String[] {"cs", "compsci", "comsci"});
+
+        addSlangToFullPhraseMappings(dictionary, allFullPhrases, "undergraduate",
+                new String[] {"ug"});
+
+        addSlangToFullPhraseMappings(dictionary, allFullPhrases, "postgraduate",
+                new String[] {"pg"});
+
+        addSlangToFullPhraseMappings(dictionary, allFullPhrases, "teaching assistant",
+                new String[] {"ta"});
+
+        addSlangToFullPhraseMappings(dictionary, allFullPhrases, "assistant",
+                new String[] {"asst"});
+
+        addSlangToFullPhraseMappings(dictionary, allFullPhrases, "double degree programme",
+                new String[] {"ddp"});
+
+        addSlangToFullPhraseMappings(dictionary, allFullPhrases, "machine learning",
+                new String[] {"ml"});
+
+        addSlangToFullPhraseMappings(dictionary, allFullPhrases, "singapore", new String[] {"sg"});
+
+        addSlangToFullPhraseMappings(dictionary, allFullPhrases, "financial technology",
+                new String[] {"fintech"});
+
+        addFullPhrase(allFullPhrases, "opportunities");
+
+        addFullPhrase(allFullPhrases, "hackathon");
+
+        addFullPhrase(allFullPhrases, "research");
+
+        addFullPhrase(allFullPhrases, "programme");
+
+        // wip add sample Event Name - ResumeEntry mappings
+        return new Awareness(dictionary, allFullPhrases);
+
+    }
+
+    /**
+     * Updates a given dictionary and set of fullPhrases with additional mappings between a given fullPhrase and its
+     * set of slang
+     */
+    private static void addSlangToFullPhraseMappings(HashMap<String, String> dictionary, TreeSet<String> allFullPhrases,
+                                                     String fullPhrase, String[] slangSet) {
+
+        addFullPhrase(allFullPhrases, fullPhrase);
+        addSlang(dictionary, fullPhrase, slangSet);
+
+    }
+
+    private static void addFullPhrase(TreeSet<String> allFullPhrases, String fullPhrase) {
+        Arrays.stream(fullPhrase.split(SPACE))
+              .forEach(spaceDelimitedPhrase -> allFullPhrases.add(spaceDelimitedPhrase));
+    }
+
+    private static void addSlang(HashMap<String, String> dictionary, String fullPhrase, String[] slangSet) {
+        Arrays.stream(slangSet)
+              .forEach(eachSlang -> dictionary.put(eachSlang, fullPhrase));
+    }
+
+    private static void makeEventToEntryMappings(TreeMap<String, ResumeEntry> eventToEntryMappings,
+                                            String eventName, ResumeEntry resumeEntry) {
+
+        eventToEntryMappings.put(eventName, resumeEntry);
     }
 
 }

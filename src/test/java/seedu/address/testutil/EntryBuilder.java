@@ -6,7 +6,7 @@ import java.util.Set;
 import seedu.address.model.category.Category;
 import seedu.address.model.entry.EntryDescription;
 import seedu.address.model.entry.EntryInfo;
-import seedu.address.model.entry.MajorResumeEntry;
+import seedu.address.model.entry.ResumeEntry;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -33,7 +33,7 @@ public class EntryBuilder {
     /**
      * Initializes the EntryBuilder with the data of {@code entryToCopy}.
      */
-    public EntryBuilder(MajorResumeEntry entryToCopy) {
+    public EntryBuilder(ResumeEntry entryToCopy) {
         category = entryToCopy.getCategory();
         entryInfo = entryToCopy.getEntryInfo();
         tags = entryToCopy.getTags();
@@ -81,7 +81,14 @@ public class EntryBuilder {
     }
 
 
-    public MajorResumeEntry build() {
-        return new MajorResumeEntry(category.cateName, entryInfo.getEntryInfo(), tags);
+    public ResumeEntry build() {
+        return new ResumeEntry(category, entryInfo, tags);
+    }
+
+    /**
+     * @return a minor entry, i.e. without entryInfo
+     */
+    public ResumeEntry buildMinorEntry() {
+        return new ResumeEntry(category, new EntryInfo(), tags);
     }
 }

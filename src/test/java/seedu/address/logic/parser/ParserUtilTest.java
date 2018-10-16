@@ -17,6 +17,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.category.Category;
+import seedu.address.model.entry.EntryInfo;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -31,6 +32,7 @@ public class ParserUtilTest {
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
     private static final String INVALID_CATEGORY = "#work";
+    private static final String INVALID_TITLE = "SOURCE ** ACADEMY";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -39,6 +41,11 @@ public class ParserUtilTest {
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
     private static final String VALID_CATEGORY = "work";
+    private static final String VALID_TITLE = "SOURCE ACADEMY";
+    private static final String VALID_SUBHEADER = "Bachelor Of Computing";
+    private static final String VALID_DURATION = "2010 JAN - 2012 JAN";
+
+
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -160,6 +167,26 @@ public class ParserUtilTest {
         Category expectedCate = new Category(VALID_CATEGORY);
         assertEquals(expectedCate, ParserUtil.parseCategory(cateWithWhitespace));
     }
+
+    @Test
+    public void parseEntryInfo_null_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
+        ParserUtil.parseEntryInfo(null, null, null);
+    }
+
+    @Test
+    public void parseEntryInfo_invalidValue_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parseEntryInfo(INVALID_TITLE, VALID_SUBHEADER, VALID_DURATION);
+    }
+
+    @Test
+    public void parseEntryInfo_validValue_returnsEntryInfo() throws Exception {
+        EntryInfo expectedEntryInfo = new EntryInfo(VALID_TITLE, VALID_SUBHEADER, VALID_DURATION);
+        assertEquals(expectedEntryInfo, ParserUtil
+                .parseEntryInfo(VALID_TITLE, VALID_SUBHEADER, VALID_DURATION));
+    }
+
 
     @Test
     public void parseEmail_null_throwsNullPointerException() {

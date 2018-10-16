@@ -1,5 +1,9 @@
 package seedu.address.model;
 
+import static java.util.Objects.requireNonNull;
+
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Optional;
@@ -24,6 +28,8 @@ public class Awareness {
     private final TreeSet<String> allFullPhrases;
 
     public Awareness(HashMap<String, String> dictionary, TreeSet<String> allFullPhrases) {
+        requireAllNonNull(dictionary, allFullPhrases);
+
         this.dictionary = dictionary;
         this.allFullPhrases = allFullPhrases;
     }
@@ -41,6 +47,8 @@ public class Awareness {
      * information. If NO possible Event name is found, the original expression is returned.
      */
     public String getPossibleEventName(String expression) {
+        requireNonNull(expression);
+
         return Arrays.stream(tokenizeExpression(expression))
                      .map(slang -> getFullPhraseFromSlang(slang))
                      .map(partialPhrase -> getFullPhraseFromPartialPhrase(partialPhrase))

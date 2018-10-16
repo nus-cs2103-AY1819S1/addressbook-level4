@@ -13,4 +13,10 @@ public class CliSyntax {
     public static final Prefix PREFIX_CATEGORY = new Prefix("~");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
 
+    public static final Prefix PREFIX_SECTION_TYPE = new Prefix("~");
+    public static final Prefix PREFIX_TITLE = new Prefix("t/");
+    public static final Prefix PREFIX_SUBHEADER = new Prefix("s/");
+    public static final Prefix PREFIX_TAGS = new Prefix("#");
+    public static final Prefix PREFIX_DURATION = new Prefix("d/");
+
 }

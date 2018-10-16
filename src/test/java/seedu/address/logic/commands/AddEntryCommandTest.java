@@ -1,12 +1,12 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -14,17 +14,17 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.entry.ResumeEntry;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.EntryBuilder;
 import seedu.address.testutil.PersonBuilder;
 
-public class AddCommandTest {
-
+public class AddEntryCommandTest {
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
     @Rule
@@ -33,56 +33,57 @@ public class AddCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullEntry_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddCommand(null);
+        new AddEntryCommand(null);
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    public void execute_entryAcceptedByModel_addSuccessful() throws Exception {
+        AddEntryCommandTest.ModelStubAcceptingEntryAdded modelStub =
+                new AddEntryCommandTest.ModelStubAcceptingEntryAdded();
+        ResumeEntry entry = new EntryBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddEntryCommand(entry).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(String.format(AddEntryCommand.MESSAGE_SUCCESS, entry), commandResult.feedbackToUser);
+        //to be implemented later
+        // assertEquals(Arrays.asList(entry), modelStub.entriesAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
-    @Test
+    /*@Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
         Person validPerson = new PersonBuilder().build();
         AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+        AddCommandTest.ModelStub modelStub = new AddCommandTest.ModelStubWithPerson(validPerson);
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
         addCommand.execute(modelStub, commandHistory);
-    }
+    }*/
 
     @Test
     public void equals() {
         Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        ResumeEntry sourceAcademy = new EntryBuilder().withTitle("SOURCE ACADEMY").build();
+        ResumeEntry facebook = new EntryBuilder().withTitle("Facebook").build();
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(sourceAcademy.equals(sourceAcademy));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddEntryCommand copied = new AddEntryCommand(sourceAcademy);
+        assertTrue(new AddEntryCommand(sourceAcademy).equals(copied));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(sourceAcademy.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(sourceAcademy.equals(null));
 
         // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(sourceAcademy.equals(facebook));
     }
 
     /**
@@ -91,11 +92,6 @@ public class AddCommandTest {
     private class ModelStub implements Model {
         @Override
         public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addEntry(ResumeEntry entry) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -116,6 +112,11 @@ public class AddCommandTest {
 
         @Override
         public boolean hasEntry(ResumeEntry entry) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addEntry(ResumeEntry entry) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -172,8 +173,8 @@ public class AddCommandTest {
 
     /**
      * A Model stub that contains a single person.
-     */
-    private class ModelStubWithPerson extends ModelStub {
+     */ /*
+    private class ModelStubWithPerson extends AddCommandTest.ModelStub {
         private final Person person;
 
         ModelStubWithPerson(Person person) {
@@ -187,24 +188,25 @@ public class AddCommandTest {
             return this.person.isSamePerson(person);
         }
 
-    }
+    }*/
 
     /**
      * A Model stub that always accept the person being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+
+    private class ModelStubAcceptingEntryAdded extends AddEntryCommandTest.ModelStub {
+        final ArrayList<ResumeEntry> entriesAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasEntry(ResumeEntry entry) {
+            requireNonNull(entry);
+            return entriesAdded.stream().anyMatch(entry::isSameEntry);
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addEntry(ResumeEntry entry) {
+            requireNonNull(entry);
+            entriesAdded.add(entry);
         }
 
         @Override
@@ -217,5 +219,4 @@ public class AddCommandTest {
             return new AddressBook();
         }
     }
-
 }

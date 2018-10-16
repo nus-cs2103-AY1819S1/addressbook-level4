@@ -4,7 +4,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 
-import seedu.address.model.entry.MajorResumeEntry;
+import seedu.address.model.entry.ResumeEntry;
 import seedu.address.model.person.Person;
 
 /**
@@ -27,6 +27,13 @@ public interface Model {
     boolean hasPerson(Person person);
 
     /**
+     *
+     * @param entry to be searched
+     * @return true if an entry with the same identity as {@code entry} exists in the ResuMaker.
+     */
+    boolean hasEntry(ResumeEntry entry);
+
+    /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
@@ -37,6 +44,13 @@ public interface Model {
      * {@code person} must not already exist in the address book.
      */
     void addPerson(Person person);
+
+    /**
+     * Adds the given person.
+     * {@code entry} must not already exist in the address book.
+     */
+    void addEntry(ResumeEntry entry);
+
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
@@ -54,6 +68,10 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+    /**
+     * Loads a template from the specified filepath.
+     */
+    void loadTemplate(String filepath);
     /**
      * Returns true if the model has previous address book states to restore.
      */
