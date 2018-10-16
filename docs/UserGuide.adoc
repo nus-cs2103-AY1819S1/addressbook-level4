@@ -169,18 +169,18 @@ Thus it is possible to run commands like
 
 
 
-=== Selecting a task : `select`
+=== Selecting a group / person : `select`
 
 ****
-Pre-condition: user already list all available tasks using  find/findwhere command
-Select and displays a task from the list obtained using find
+Pre-condition: user already list all available groups / persons using `find/findwhere` command
+Select and displays a group / person from the list obtained using `find`
 ****
 
-Format: `“select [index]” or “s[index]” when [index] is a positive integer (starts from 1)`
+Format: `select [person|group] [index]` or `s [p|g][index]` when `[index]` is a positive integer (starts from 1)
 
 ****
-* This also display all subtasks of the selected task.
-  If a task is already on display, this command instead select a subtask from the displayed tasks’ list of subtasks.
+* This will display all person in the group of the selected group if `select group` is used.
+* If `select group` is called, the person list will be filtered to show only person who belong to the group.
 ****
 
 === Add Meeting to Group: `meet`
@@ -282,8 +282,8 @@ e.g. `changeto urgent with deadline on 150918 @COM1: only ten pages is needed`
 e.g. `modules create CS2103T`
 * *Find a task* : `in [module] find [task parameter] / in [module] find [name]` +
 e.g. `in CS2103T find LO5.7`
-* *Selecting a task* : `select` +
-e.g. `select 1`
+* *Selecting a group / person* : `select` +
+e.g. `select g/1`
 * *Going back to the parent task* : `back / b`
 * *List all tasks* : `list`
 * *Marking the selected task as done* : `markdone / md`
