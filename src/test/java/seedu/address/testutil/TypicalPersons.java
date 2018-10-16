@@ -110,7 +110,8 @@ public class TypicalPersons {
             .build();
 
     // Untagged persons
-    public static final Person OPENHEIMER_UNTAGGED = new PersonBuilder().withName("Openheimer Ang").withPhone("93424521")
+    public static final Person OPENHEIMER_UNTAGGED = new PersonBuilder().withName("Openheimer Ang")
+            .withPhone("93424521")
             .withEmail("openheimer@example.com").withAddress("5th Address")
             .withPicture("/images/placeholder_image.jpg").build();
     public static final Person PERCY_UNTAGGED = new PersonBuilder().withName("Percy Jackson").withPhone("83242542")
