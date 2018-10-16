@@ -22,6 +22,7 @@ import com.google.api.client.util.DateTime;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.CalendarScopes;
+import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.Events;
 
 import seedu.scheduler.logic.CommandHistory;
@@ -56,8 +57,50 @@ public class GetGoogleCalendarEventsCommand extends Command {
      */
     private static final List <String> SCOPES = Collections.singletonList(CalendarScopes.CALENDAR_READONLY);
     private static final String CREDENTIALS_FILE_PATH = "/credentials/credentials.json";
+
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        //Get the Google Calendar service object
+        Calendar service = getCalendar();
+
+        //Get events from a specified calendar
+        Events events = getEvents(service);
+
+        //Extract the items from the events object
+        List <Event> items = events.getItems();
+        if (items.isEmpty()) {
+            return new CommandResult(MESSAGE_NO_EVENTS);
+        } else {
+            //Upcoming events
+            for (Event googleEvent : items) {
+                DateTime start = googleEvent.getStart().getDateTime();
+                if (start == null) {
+                    //if no time, only date
+                    start = googleEvent.getStart().getDate();
+                }
+                String newEventname = googleEvent.getSummary(); //Summary==title in GoogleAPI
+
+                //TODO:Simply the string processing code (OOP possible here)
+                String newEventStart = String.valueOf(start); //eg:2018-10-16T22:30:00.000+08:00
+                //TODO:Try not to use the migc number 0,10,11,19. Use other ways of string processing
+                String newEventStartDate = newEventStart.substring(0, 10); //2018-10-16
+                String newEventStartTime = newEventStart.substring(11, 19); //22:30:00
+                newEventStartTime = newEventStartTime.replaceAll(":", ""); //223000
+
+                DateTime end = googleEvent.getEnd().getDateTime();
+                if (end == null) {
+                    //if no time, only date
+                    start = googleEvent.getEnd().getDate();
+                }
+                String newEventEnd = String.valueOf(end);
+                String newEventEndDate = newEventEnd.substring(0, 10);
+                String newEventEndTime = newEventEnd.substring(11, 19);
+                newEventEndTime = newEventEndTime.replaceAll(":", "");
+
+                addGcEventToLocal(model, newEventname, newEventStartDate, newEventStartTime, newEventEndDate,
+                        newEventEndTime);
+            }
+        }
         return new CommandResult(MESSAGE_GGEVENTS_SUCCESS);
     }
 
