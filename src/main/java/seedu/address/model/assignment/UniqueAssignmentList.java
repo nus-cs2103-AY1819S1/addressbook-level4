@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.assignment;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.assignment.exceptions.AssignmentNotFoundException;
+import seedu.address.model.assignment.exceptions.DuplicateAssignmentException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
@@ -20,28 +20,28 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
  *
  * Supports a minimal set of list operations.
  *
- * @see Person#isSamePerson(Person)
+ * @see Assignment#isSameAssignment(Assignment)
  */
-public class UniquePersonList implements Iterable<Person> {
+public class UniqueAssignmentList implements Iterable<Assignment> {
 
-    private final ObservableList<Person> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Assignment> internalList = FXCollections.observableArrayList();
 
     /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
-    public boolean contains(Person toCheck) {
+    public boolean contains(Assignment toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSamePerson);
+        return internalList.stream().anyMatch(toCheck::isSameAssignment);
     }
 
     /**
      * Adds a person to the list.
      * The person must not already exist in the list.
      */
-    public void add(Person toAdd) {
+    public void add(Assignment toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateAssignmentException();
         }
         internalList.add(toAdd);
     }
@@ -51,33 +51,33 @@ public class UniquePersonList implements Iterable<Person> {
      * {@code target} must exist in the list.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void setAssignment(Assignment target, Assignment editedAssignment) {
+        requireAllNonNull(target, editedAssignment);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new AssignmentNotFoundException();
         }
 
-        if (!target.isSamePerson(editedPerson) && contains(editedPerson)) {
-            throw new DuplicatePersonException();
+        if (!target.isSameAssignment(editedAssignment) && contains(editedAssignment)) {
+            throw new DuplicateAssignmentException();
         }
 
-        internalList.set(index, editedPerson);
+        internalList.set(index, editedAssignment);
     }
 
     /**
      * Removes the equivalent person from the list.
      * The person must exist in the list.
      */
-    public void remove(Person toRemove) {
+    public void remove(Assignment toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
+            throw new AssignmentNotFoundException();
         }
     }
 
-    public void setPersons(UniquePersonList replacement) {
+    public void setAssignments(UniqueAssignmentList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -86,19 +86,19 @@ public class UniquePersonList implements Iterable<Person> {
      * Replaces the contents of this list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setPersons(List<Person> persons) {
-        requireAllNonNull(persons);
-        if (!personsAreUnique(persons)) {
-            throw new DuplicatePersonException();
+    public void setAssignments(List<Assignment> assignments) {
+        requireAllNonNull(assignments);
+        if (!assignmentsAreUnique(assignments)) {
+            throw new DuplicateAssignmentException();
         }
 
-        internalList.setAll(persons);
+        internalList.setAll(assignments);
     }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Person> asUnmodifiableObservableList() {
+    public ObservableList<Assignment> asUnmodifiableObservableList() {
         return FXCollections.unmodifiableObservableList(internalList);
     }
 
@@ -106,20 +106,21 @@ public class UniquePersonList implements Iterable<Person> {
      * Sorts all persons in the list according to lexicographical order.
      */
     public void sort() {
-        internalList.sort((person1, person2) -> (
-                person1.getName().toString().compareToIgnoreCase(person2.getName().toString())));
+        internalList.sort((assignment1, assignment2) -> (
+                assignment1.compareTo(assignment2))
+        );
     }
 
     @Override
-    public Iterator<Person> iterator() {
+    public Iterator<Assignment> iterator() {
         return internalList.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniquePersonList // instanceof handles nulls
-                        && internalList.equals(((UniquePersonList) other).internalList));
+                || (other instanceof UniqueAssignmentList // instanceof handles nulls
+                        && internalList.equals(((UniqueAssignmentList) other).internalList));
     }
 
     @Override
@@ -130,10 +131,10 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Returns true if {@code persons} contains only unique persons.
      */
-    private boolean personsAreUnique(List<Person> persons) {
-        for (int i = 0; i < persons.size() - 1; i++) {
-            for (int j = i + 1; j < persons.size(); j++) {
-                if (persons.get(i).isSamePerson(persons.get(j))) {
+    private boolean assignmentsAreUnique(List<Assignment> assignments) {
+        for (int i = 0; i < assignments.size() - 1; i++) {
+            for (int j = i + 1; j < assignments.size(); j++) {
+                if (assignments.get(i).isSameAssignment(assignments.get(j))) {
                     return false;
                 }
             }

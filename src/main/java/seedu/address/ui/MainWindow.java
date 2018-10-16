@@ -1,17 +1,24 @@
 package seedu.address.ui;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import seedu.address.MainApp;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -27,11 +34,13 @@ import seedu.address.model.UserPrefs;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final String FXMLAddWindow = "/view/AddStudentWindow.fxml";
+
+    protected Logic logic;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
-    private Logic logic;
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
@@ -58,6 +67,12 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
+    /**
+     * Default constructor for MainWindow.
+     */
+    protected MainWindow() {
+    }
+
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
 
@@ -76,6 +91,7 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
     }
+
 
     public Stage getPrimaryStage() {
         return primaryStage;
@@ -187,6 +203,15 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
+    /**
+     * Opens a new window to key in the details of the to-be-added student.
+     */
+    @FXML
+    private void handleAdd() {
+
+        showAddWindowAndWait();
+    }
+
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
@@ -200,4 +225,34 @@ public class MainWindow extends UiPart<Stage> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
     }
+
+    /**
+     * Creates AddNewWindow and initialises its parameters.
+     */
+    private void showAddWindowAndWait() {
+        try {
+            // Change implementation to use UiPart in the future?
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource(FXMLAddWindow));
+            AnchorPane pane = (AnchorPane) loader.load();
+            Scene scene = new Scene(pane);
+
+            Stage stage = new Stage();
+            stage.setTitle("Add Student");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(primaryStage);
+            stage.setScene(scene);
+            stage.getIcons().add(new Image("/images/address_book_32.png"));
+
+            AddStudentWindow controller = loader.getController();
+            controller.setStage(stage);
+            controller.setLogic(logic);
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

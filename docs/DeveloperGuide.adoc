@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+﻿= EazyTutors - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,9 +13,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/W12-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W12-4`      Since: `September 2018`      Licence: `MIT`
 
 == Setting up
 
@@ -330,6 +330,26 @@ image::UndoRedoActivityDiagram.png[width="650"]
 _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
+
+// tag::sort[]
+=== Sort mechanism
+
+The sort mechanism is reliant on the logic component.
+The primary sorting algorithm is contained in the 'UniquePersonList' class. It is implemented easily by using a 'Person' comparator.
+
+The 'indicateAddressBookChanged' event is raised by 'Model' after the sorting is done to show that the Address Book has been modified.
+
+ ==== Design Considerations
+
+**Aspect:** Implementation of `SortCommand`
+* **Alternative 1 (current choice):** Only sorts by names of students in the Address Book.
+**Pros:** Easy to implement and more intuitive for the user.
+**Cons:** Functionality is limited and may not improve user satisfaction.
+* **Alternative 2:** Sorts persons in the Address Book by any field (sorting by email or tag for example), which is given as an input by the user.
+**Pros:** Improved flexibility for users since they have the option to sort by any field that they want.
+**Cons:** Harder to implement and requires constant updating of code every time a new field in the 'Person' class is introduced.
+//end:sort[]
+
 
 === Logging
 
@@ -820,13 +840,17 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* NUS lecturers/tutors
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
+
+* Our application helps lecturers/tutors manage simple administrative tasks such as:
+
+** Tracking student’s attendance
+** Tracking student’s academic performance
+** Tracking student’s participation in lessons
+** Tracking student’s profile
+
 
 [appendix]
 == User Stories
@@ -836,17 +860,27 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |tutor |monitor the attendance level of each student |allocate attendance marks accordingly
 
-|`* * *` |user |add a new person |
+|`* * *` |busy tutor |mark attendance using this app |forgo manually marking on a copy of the class list
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |tutor |monitor the assignment submissions of each student |keep track of who has submitted and who has not
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |concerned tutor |monitor the test scores of all my students taking the module |identify the weaker students who need more help
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |tutor |input student assignment scores |keep track of them
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |tutor |record participation marks of each student in tutorial |effectively keep track without tedious manual documentation
+
+|`* *` |tutor |review student’s feedback of me |improve my lessons
+
+|`* *` |tutor |quickly sort and identify which student needs help |customise my teaching to each student
+
+|`*` |tutor |view my students’ images |identify them during class
+
+|`*` |tutor |send automatic reminders to students who have not submitted their assignments |ensure they will not miss out on learning
+
+|`*` |tutor |calculate the average, median, and 25/75 percentile marks |know how the cohort performed
 |=======================================================================
 
 _{More to be added}_
@@ -854,33 +888,73 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `EazyTutors` and the *Tutor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Check Attendance
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+Precondition: Home page
+
+1.  Tutor chooses to check attendance
+2.  EazyTutors requests for details of which tutorial session
+3.  Tutor enters the requested details.
+4.  EazyTutors displays the list of students who attended the tutorial session
 +
 Use case ends.
 
 *Extensions*
 
-[none]
-* 2a. The list is empty.
+* 3a. EazyTutor detects error in the entered data.
+** 3a1. EazyTutors requests for correct data.
+** 3a2. User enters new data.
+* 3b. Tutor doesn’t want to check attendance anymore, he wants to exit.
+** 3b1. EazyTutors exits the prompt for new data.
+** 3b2. Tutor is back at main menu.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+[discrete]
+=== Use case: Assignment Submission
+
+*MSS*
+
+1. Tutor chooses to check for Assignment Submission
+2. EazyTutors requests for details of which assignment
+3. Tutor enters the requested details.
+4. EazyTutors displays the list of students who submitted assignment.
 +
-[none]
-** 3a1. AddressBook shows an error message.
+Use case ends.
+
+*Extensions*
+
+* 3a. EazyTutor detects error in the entered data.
+** 3a1. EazyTutors requests for correct data.
+** 3a2. User enters new data.
+* 3b. Tutor doesn’t want to check assignment submissions anymore, he wants to exit.
+** 3b1. EazyTutors exits the prompt for new data.
+** 3b2. Tutor is back at main menu.
 +
-Use case resumes at step 2.
+Use case ends.
+
+[discrete]
+=== Use case: Assignment Grading
+
+*MSS*
+
+Precondition: Home page
+
+1. Tutor navigates to student list
+2. EazyTutors shows list of students
+3. Tutor selects the student
+4. EazyTutors shows assignments that the student has submitted
+5. Tutor chooses assignment to grade
+6. EazyTutors shows current assignment score if any
+7. Tutor inputs student’s new/updated score
+8. EazyTutors shows the updated score
++
+Use case ends.
 
 _{More to be added}_
 
@@ -899,8 +973,14 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+EazyTutors::
+The name of our application
+
+Tutorial::
+Small group lessons in which there is more interaction between tutors and students compared to in lectures
+
+Participation::
+Marks that students get based on how much they participate during tutorials
 
 [appendix]
 == Product Survey

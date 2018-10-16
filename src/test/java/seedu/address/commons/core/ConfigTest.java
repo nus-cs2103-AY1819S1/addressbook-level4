@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -16,8 +18,7 @@ public class ConfigTest {
     public void toString_defaultObject_stringReturned() {
         String defaultConfigAsString = "App title : Address App\n"
                 + "Current log level : INFO\n"
-                + "Preference file Location : preferences.json";
-
+                + "Preference file Location : EzTutor" + File.separator + "preferences.json";
         assertEquals(defaultConfigAsString, new Config().toString());
     }
 

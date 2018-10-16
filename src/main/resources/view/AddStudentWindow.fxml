@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="background" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.AddStudentWindow">
+   <children>
+      <GridPane prefHeight="314.0" prefWidth="600.0" styleClass="background" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="291.0" minWidth="10.0" prefWidth="84.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="507.0" minWidth="10.0" prefWidth="496.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label prefHeight="21.0" prefWidth="48.0" styleClass="label-bright" text="Name" textAlignment="CENTER" translateX="10.0" />
+            <Label styleClass="label-bright" text="Phone" textAlignment="CENTER" translateX="10.0" GridPane.rowIndex="1" />
+            <Label styleClass="label-bright" text="Address" textAlignment="CENTER" translateX="10.0" GridPane.rowIndex="3" />
+            <Label styleClass="label-bright" text="E-mail" textAlignment="CENTER" translateX="10.0" GridPane.rowIndex="2" />
+            <Label prefHeight="62.0" prefWidth="70.0" styleClass="label-bright" text="Tags (Optional)" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="4" />
+            <TextField fx:id="nameField" GridPane.columnIndex="1" />
+            <TextField fx:id="phoneField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="addressField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <GridPane GridPane.columnIndex="1" GridPane.rowIndex="4">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <TextField fx:id="tagOneField" prefHeight="31.0" prefWidth="138.0" />
+                  <TextField fx:id="tagTwoField" GridPane.columnIndex="1" />
+                  <TextField fx:id="tagThreeField" GridPane.columnIndex="2" />
+               </children>
+            </GridPane>
+         </children>
+         <stylesheets>
+            <URL value="@DarkTheme.css" />
+            <URL value="@Extensions.css" />
+         </stylesheets>
+      </GridPane>
+      <Button layoutX="379.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="33.0" prefWidth="92.0" text="OK" />
+      <Button layoutX="483.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="33.0" prefWidth="92.0" text="Cancel" />
+   </children>
+   <stylesheets>
+      <URL value="@DarkTheme.css" />
+      <URL value="@Extensions.css" />
+   </stylesheets>
+</AnchorPane>

@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+﻿= EazyTutors - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,19 +12,22 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/W12-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W12-4`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+EazyTutors is an application for tutors or teachers who prefer a virtual way to record students’ attendance. It
+also boasts extra features to check on students’ progress and helps users customise their teaching to students
+with different capabilities. EazyTutors is optimized for those who prefer to work with a Command Line Interface
+(CLI) while still having the benefits of a Graphical User Interface (GUI). No need to bring around attendance
+sheets anymore with EazyTutors! Interested? Jump to Section 2, “Quick Start” to get started. Enjoy!
 
 == Quick Start
 
-.  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Ensure that you have Java version `9` or later installed in your Computer.
+.  Copy the file to the folder you want to use as the home folder for EazyTutors.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,9 +36,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`add*``John Doe p/999 e/police@hotmail.com t/cops`: Adds a contact named `John Doe` to the student list`
+* **`view`**`1`: views 1st student shown in the student list
+* **`delete`**`3` : deletes the 3rd student shown in the student list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -54,74 +57,37 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === Viewing help : `help`
 
+Shows all commands available with examples.
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding a student: `add`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds a student with a compulsory name. The other information (index at list to add him to,
+phone number, email and tags) is optional. +
+Format: `add NAME [s/INDEX p/PHONE_NUMBER e/EMAIL t/TAG...]`
 
 [TIP]
-A person can have any number of tags (including 0)
+Students are added to the bottom of the student list by default.
+A student can have multiple tags (or none).
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add John Doe p/98765432 e/johnd@example.com t/CS2103`
+* `add Betsy Crowe s/1 e/betsycrowe@example.com t/CS2103T`
 
-=== Listing all persons : `list`
+=== Clearing all entries : `clear`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Clears all entries from the student list. +
+Format: `clear`
 
-=== Editing a person : `edit`
+=== Deleting a student : `delete`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
+Deletes a student from the student list. +
 Format: `delete INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the student at the specified `INDEX`.
+* The index refers to the index number shown in the displayed student list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -129,50 +95,17 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-=== Selecting a person : `select`
-
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
-
-****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
-
-Examples:
-
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
-
-=== Listing entered commands : `history`
-
-Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
-
-[NOTE]
-====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
+Deletes the 2nd person in the student list.
 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Restores the student list to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the student list's content (`add`, `delete`, `edit`, `mark`, `unmark`, `sort`, `present`, `absent` and `clear`).
 ====
 
 Examples:
@@ -181,7 +114,7 @@ Examples:
 `list` +
 `undo` (reverses the `delete 1` command) +
 
-* `select 1` +
+* `results` +
 `list` +
 `undo` +
 The `undo` command fails as there are no undoable commands executed previously.
@@ -214,47 +147,97 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
 === Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
+=== Mark a student's attendance as present: `present`
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Adds an entry to the attendance specifying the student at the specified index as present. +
+Format: `present INDEX`
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+=== Mark a student's attendance as absent: `absent`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Adds an entry to the attendance specifying the student at the specified index as absent. +
+Format: `absent INDEX`
 
-== FAQ
+=== Sort the student list: `sort`
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+Sort the student list by alphabetical order, score, participation or attendance depending on the presence of an argument. +
+Format: `sort [s/p/a]`
+
+[TIP]
+Students are sorted according by alphabetical order by default (with no argument).
+
+== Sorting students by name : `sort`
+ Sorts all student in the address book by name. +
+Format: `sort`
+
+=== Record a mark for a student: `mark`
+
+Adds a mark entry associated with a student given the percentage value of mark obtained. +
+Format: `mark INDEX m/MARK`
+
+=== View a student's marks: `results`
+
+View the mark entries associated with the student at the specified index. +
+Format: `results INDEX`
+
+=== Delete a mark entry: `unmark`
+
+Delete the indexed mark entry in the list associated with the student at the specified index. +
+Format: `unmark INDEX m/MARK`
+
+=== Editing a student: `edit`
+
+Edits an existing student in the student list. +
+Format: `edit INDEX [NAME] [p/PHONE] [e/EMAIL] [t/TAG]...`
+
+****
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed student list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+****
+
+Examples:
+
+* `edit 1 p/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+* `edit 2 Betsy Crower t/` +
+Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+=== Viewing command history : `history`
+
+Lists all the commands that you have entered in reverse chronological order. +
+Format: `history`
+
+[NOTE]
+====
+Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+====
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Absent* : `absent NAME`
+* *Add* : `add NAME [s/INDEX p/PHONE_NUMBER e/EMAIL [t/TAG]...` +
+e.g. `add James Ho s/1 p/22224444 e/jamesho@example.com t/friend t/colleague`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
+* *Edit* : `edit INDEX [NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]...` +
+e.g. `edit 2 James Lee e/jameslee@example.com`
+* *Exit* : `exit`
 * *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
 * *History* : `history`
-* *Undo* : `undo`
+* *Mark* : `mark m/MARK s/INDEX o/OBTAINED m/MAX`
+* *Present* : `present NAME`
 * *Redo* : `redo`
+* *Results* : `results INDEX`
+* *Sort* : `sort [s/p/a]
+* *Sort* : `sort`
+* *Undo* : `undo`
+* *Unmark* : `unmark INDEX`
+

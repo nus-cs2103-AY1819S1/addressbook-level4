@@ -5,6 +5,8 @@ build/
 .idea/
 lib/*
 *.iml
+*.ipr
+*.iws
 *.log
 *.log.*
 *.csv
@@ -18,3 +20,5 @@ classes/
 /bin/
 src/main/resources/docs/
 out/
+EzTutor/
+src/sandbox/
