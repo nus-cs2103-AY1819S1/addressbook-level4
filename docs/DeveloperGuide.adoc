@@ -448,7 +448,6 @@ Hence, this is not preferred in our implementation.
 
 // end::addEvents[]
 
-+
 // tag::importcontacts[]
 === Import Contacts
 ==== Current Implementation
