@@ -60,16 +60,19 @@ parameter which can be used as `query p/760397`.
 
 === Viewing help : `help`
 
-Shows the list of available commands and how to use them
-Format: `help`
+Shows the list of available commands and how to use them. +
+Format: `help` or `h`
+
+[NOTE]
+====
+A help window will pop up that contains all the commands available and how to
+use them.
+====
 
 === Finding car parks : `find`
 
 Finds a list of available car parks +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-[TIP]
-alias - f
+Format: `find KEYWORD [MORE_KEYWORDS]` or `f KEYWORD [MORE_KEYWORDS]`
 
 [NOTE]
 ====
@@ -85,15 +88,12 @@ image::findafter.png[width="790"]
 Examples:
 
 * `find punggol`
-* `find HG83`
+* `f HG83`
 
 === Select car park : `select`
 
 Select the car park you wish to go to. +
-Format: `select CARPARK_NO`
-
-[TIP]
-alias - s
+Format: `select CARPARK_NO` or `s CARPARK_NO`
 
 .After using list command
 image::select.png[width="790"]
@@ -106,7 +106,7 @@ Examples:
 === Filter car parks : `filter`
 
 Filters the list of car parks by free parking and night parking, must query beforehand. +
-Format: `filter [f/] [n/] [ct/CARPARK_TYPE]`
+Format: `filter [f/] [n/] [ct/CARPARK_TYPE]` or `fi [f/] [n/] [ct/CARPARK_TYPE]`
 
 Flags:
 
@@ -120,12 +120,12 @@ Flags:
 Example:
 
 * `filter f/ n/ ct/SURFACE`
-* `filter ct/BASEMENT`
+* `fi ct/BASEMENT`
 
 === Sort car parks : `sort`
 
 Sort the list of car parks by distance or name, must query beforehand. +
-Format: `sort FILTER_TYPE`
+Format: `sort FILTER_TYPE` or `so FILTER_TYPE`
 
 Flags:
 
@@ -137,26 +137,21 @@ Flags:
 Example:
 
 * `sort DISTANCE`
+* `so NAME`
 
 
 === Add favourite car parks or location: `add` `[coming in v2.0]`
 
-Add your favorite car park into your favorites list +
-Format: `add c/CARPARK_NO`
-
-[TIP]
-alias - a
+Add a car park number into your favorites list for future reference +
+Format: `add c/CARPARK_NO` or `a c/CARPARK_NO`
 
 Examples:
 
-* `a c/SE12`
 * `add c/SE12`
+* `a c/SE12`
 
-Add your favorite location into your favorites list +
-Format: `add p/POSTAL_CODE`
-
-[TIP]
-alias - a
+Add a car park postal code into your favorites list for future reference +
+Format: `add p/POSTAL_CODE` or `a p/POSTAL_CODE`
 
 Examples:
 
@@ -166,8 +161,8 @@ Examples:
 
 === Show favorites list : `list`
 
-Shows your favorites list, with all the car park details. +
-Format: `list`
+Show your favorites list, including details of each car park in the list. +
+Format: `list` or `l`
 
 .After using list command
 image::listafter.png[width="790"]
@@ -175,10 +170,7 @@ image::listafter.png[width="790"]
 === Remove from favorites list : `remove` `[coming in v2.0]`
 
 Removes the specified carpark from your favorites list +
-Format: `remove c/CARPARK_NO`
-
-[TIP]
-alias - r
+Format: `remove c/CARPARK_NO` or `r c/CARPARK_NO`
 
 Examples:
 
@@ -188,11 +180,12 @@ Examples:
 === Data update : `notify`
 
 Sets the interval in seconds to query from data.gov.sg +
-Format: `notify TIME_SECONDS`
+Format: `notify TIME_SECONDS` or `n TIME_SECONDS`
 
 Examples:
 
 * `notify 60`
+* `n 60`
 
 == FAQ
 
@@ -206,14 +199,15 @@ Examples:
 
 * *Clear* : `clear`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find punggol`
+e.g. `find punggol` or `f punggol`
 * *Filter* : `filter [f/FREE_PARKING] [n/NIGHT_PARKING] [ct/CARPARK_TYPE]` +
-e.g. `filter f/true n/false ct/multi`
-* *Help* : `help`
+e.g. `filter f/true n/false ct/multi` or `fi f/true n/false ct/multi`
+* *Help* : `help` or `h`
 * *History* : `history`
-* *List* : `list`
-* *Notify* : `notify`
-* *Sort* : `sort FILTER_TYPE` +
-e.g. `sort DISTANCE`
-* *Select* : `select CARPARK_NO` +
-e.g. `select HG83`
+* *List* : `list` or `l`
+* *Notify* : `notify` or `n` +
+e.g. `notify 60` or `n 60`
+* *Sort* : `sort FILTER_TYPE` or `so FILTER_TYPE` +
+e.g. `sort DISTANCE` or `so FILTER_TYPE`
+* *Select* : `select CARPARK_NO` or `s CARPARK_NO` +
+e.g. `select HG83` or `s HG83`
