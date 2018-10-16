@@ -239,6 +239,25 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::supportforocassionandmodule[]
+=== [Proposed] Features supporting Person, Module and Occasion
+Our application is an extension of address book application. Besides
+supporting basic address book features for Person, we also intended to
+make those features be available for Module and Occasion. This makes this
+application(TheTracker) to be able to track the modules person are taken, as
+well as the Occasions they participate in.
+
+==== Current Design plan
+The graph below shows the inheritance relationship between the related
+interface and classes.
+
+image::ClassInheritanceZijin.png[width="800"]
+
+We would be using polymorphism to realise support for Person, Module and
+Occasion.
+// end::supportforocassionandmodule[]
+
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
@@ -268,8 +287,8 @@ state, which the 'currentStatePointer' is currently pointing to.
 image::UndoRedoStartingStateListDiagramZijin.png[width="800"]
 
 Step 2: The user executes 'add n/David...' command to add a person called
-David in his TheTracker. The 'find' command calls 'Model#commitAddressBook()
-', causing the modified state of TheTracker after the 'find David...' command
+David in his TheTracker. The 'add' command calls 'Model#commitAddressBook()
+', causing the modified state of TheTracker after the 'add n/David' command
  executes to be saved in the 'addressBookStateList', and the
  'currentStatePointer' is shifted to the newly inserted address book state.
 
