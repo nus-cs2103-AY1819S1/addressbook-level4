@@ -85,6 +85,8 @@ public class Education {
         return educationalLevel.toString() + " " + educationalGrade;
     }
 
+
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

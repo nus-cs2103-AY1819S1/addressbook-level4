@@ -13,6 +13,7 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EarningsCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FilterByEducationCommand;
 import seedu.address.logic.commands.FilterByFeeCommand;
 import seedu.address.logic.commands.FilterByGradeCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -103,6 +104,10 @@ public class AddressBookParser {
 
         case FilterByGradeCommand.COMMAND_WORD:
             return new FilterByGradeCommandParser().parse(arguments);
+
+        case FilterByEducationCommand.COMMAND_WORD:
+            return new FilterByEducationCommandParser().parse(arguments);
+
 
 
             default:
