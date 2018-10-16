@@ -23,10 +23,10 @@ public class ReceiptCommand extends QueueCommand {
     public static final String COMMAND_ALIAS = "rct";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Generates a receipt for the patient in the specified"
-            + " index. Includes information like the date of visit, consultation fee, medicine sold etc. \n"
-            + "Example: " + COMMAND_WORD + "<person's index>";
+            + " index. Includes information like the date of visit, consultation fee, medicine dispensed, cost, etc. \n"
+            + "Example: " + COMMAND_WORD + "<Served patient's index>";
 
-    public static final String MESSAGE_SUCCESS = "Receipt generated for patient!";
+    public static final String MESSAGE_SUCCESS = "Receipt generated for patient! Contents can be found below:";
 
     private final Index index;
     private String generatedResult;
