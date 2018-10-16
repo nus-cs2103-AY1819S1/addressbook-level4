@@ -35,7 +35,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         List nameKeywords = new ArrayList<>(Arrays.asList(keywords));
-        for(String ignore:ignoreKeywords) {
+        for (String ignore:ignoreKeywords) {
             nameKeywords.removeAll(Collections.singleton(ignore.toUpperCase()));
         }
 
