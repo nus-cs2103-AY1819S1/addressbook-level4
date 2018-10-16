@@ -31,9 +31,6 @@ public class TypicalEntrys {
     public static final ResumeEntry AWARD_WITH_NO_ENTRYINFO_NO_DESC = new EntryBuilder()
             .withCategory("Awards").buildMinorEntry();
 
-
-
-
     private TypicalEntrys() {} // prevents instantiation
 
     /**
