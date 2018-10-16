@@ -36,6 +36,7 @@ public class XmlAdaptedPerson {
     @XmlElement(required = true)
     private String school;
 
+
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
@@ -56,7 +57,6 @@ public class XmlAdaptedPerson {
         this.email = email;
         this.room = room;
         this.school = school;
-        this.profilePicture = "-.jpg";
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
@@ -71,7 +71,6 @@ public class XmlAdaptedPerson {
         this.email = email;
         this.room = room;
         this.school = school;
-        this.profilePicture = profilePicture;
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
@@ -88,7 +87,6 @@ public class XmlAdaptedPerson {
         email = source.getEmail().value;
         room = source.getRoom().value;
         school = source.getSchool().value;
-        profilePicture = source.getProfilePicture().filePath;
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
