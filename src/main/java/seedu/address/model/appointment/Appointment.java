@@ -20,9 +20,11 @@ public class Appointment {
     private final Time appointmentTime;
     private int appointmentStatus;
 
-
     //to replace with patient class later on
     private final Person patient;
+
+    //to retrieve from patient class later on
+    //private final Doctor assignedDoctor;
 
     public Appointment(Date date, Time time, Person patient) {
         requireAllNonNull(date, time, patient);
@@ -48,6 +50,8 @@ public class Appointment {
         return patient;
     }
 
+    //public Doctor getassignedDoctor() { return assignedDoctor; }
+
     /**
      * Cancels appointment.
      */
@@ -60,6 +64,7 @@ public class Appointment {
      * @param other Appointment to compare with.
      */
     public boolean isSameSlot(Appointment other) {
+        //TODO Add assigned doctor
         return other.getAppointmentDate().equals(getAppointmentDate())
                 && other.getAppointmentTime().equals(getAppointmentTime());
     }
@@ -70,6 +75,17 @@ public class Appointment {
      */
     public boolean isSamePatient(Appointment other) {
         return other.getPatient().equals(getPatient());
+    }
+
+    /**
+     * Returns true if the appointments are the same.
+     * @param  other Appointment to compare with.
+     */
+    public boolean isSameAppointment(Appointment other) {
+        if (other == this) {
+            return true;
+        }
+        return isSamePatient(other) && isSameSlot(other);
     }
 
     /**
@@ -98,6 +114,7 @@ public class Appointment {
      */
     @Override
     public boolean equals(Object other) {
+        //TODO Add assignedDoctor
         if (other == this) {
             return true;
         }
@@ -113,11 +130,13 @@ public class Appointment {
 
     @Override
     public int hashCode() {
+        //TODO Add assignedDoctor
         return Objects.hash(appointmentDate, appointmentTime, patient, appointmentStatus);
     }
 
     @Override
     public String toString() {
+        //TODO Add assignedDoctor
         final StringBuilder builder = new StringBuilder();
         builder.append(appointmentDate.toString())
                 .append("\n")
