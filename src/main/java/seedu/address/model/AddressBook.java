@@ -117,11 +117,20 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if a clashing event with {@code event} exists in the address book.
+     */
+    public boolean hasClashingEvent(Event event) {
+        requireNonNull(event);
+        return events.containsClashingEvent(event);
+    }
+
+    /**
      * Adds an event to the address book.
      * The event must not already exist in the address book.
      */
     public void addEvent(Event event) {
         assert !hasEvent(event);
+        assert !hasClashingEvent(event);
 
         events.add(event);
     }

@@ -9,6 +9,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.event.exceptions.DuplicateEventException;
+import seedu.address.model.event.exceptions.EventClashException;
 
 /**
  * A list of events that enforces uniqueness between its elements and does not allow nulls.
@@ -25,7 +26,7 @@ public class UniqueEventList implements Iterable<Event> {
     private final ObservableList<Event> internalList = FXCollections.observableArrayList();
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent event as the given argument.
      */
     public boolean contains(Event toCheck) {
         requireNonNull(toCheck);
@@ -33,13 +34,25 @@ public class UniqueEventList implements Iterable<Event> {
     }
 
     /**
+     * Returns true if the list contains a clashing event as defined in {@code Event#isClashingEvent(Event)}
+     */
+    public boolean containsClashingEvent(Event toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::isClashingEvent);
+    }
+
+    /**
      * Adds an {@code Event} to the list.
-     * The event must not already exist in the list.
+     * The event must not already exist in the list and there must not be any clashes with existing events in the
+     * addressbook.
      */
     public void add(Event toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicateEventException();
+        }
+        if (containsClashingEvent(toAdd)) {
+            throw new EventClashException();
         }
         internalList.add(toAdd);
     }
@@ -57,6 +70,9 @@ public class UniqueEventList implements Iterable<Event> {
         requireAllNonNull(events);
         if (!eventsAreUnique(events)) {
             throw new DuplicateEventException();
+        }
+        if (!eventsDoNotClash(events)) {
+            throw new EventClashException();
         }
 
         internalList.setAll(events);
@@ -93,6 +109,20 @@ public class UniqueEventList implements Iterable<Event> {
         for (int i = 0; i < events.size() - 1; i++) {
             for (int j = i + 1; j < events.size(); j++) {
                 if (events.get(i).isSameEvent(events.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Returns true if {@code events} does not contain any events with clashes.
+     */
+    private boolean eventsDoNotClash(List<Event> events) {
+        for (int i = 0; i < events.size() - 1; i++) {
+            for (int j = i + 1; j < events.size(); j++) {
+                if (events.get(i).isClashingEvent(events.get(j))) {
                     return false;
                 }
             }
