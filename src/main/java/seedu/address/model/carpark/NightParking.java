@@ -4,13 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Carpark's night parking in the address book.
+ * Represents a car park's night parking.
  * Guarantees: immutable; is valid as declared in {@link #isValidNightPark(String)}
  */
 public class NightParking {
 
     public static final String MESSAGE_NIGHT_PARK_CONSTRAINTS =
-            "Carpark night parking can take any values, and it should not be blank";
+            "Car park night parking can take any values, and it should not be blank";
 
     /*
      * The first character must not be a whitespace,

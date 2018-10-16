@@ -5,11 +5,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.address.logic.commands.CommandTestUtil.showCarparkAtIndex;
+import static seedu.address.testutil.TypicalCarparks.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARPARK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARPARK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_CARPARK;
-import static seedu.address.testutil.TypicalCarparks.getTypicalAddressBook;
+
+import java.io.IOException;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -22,8 +24,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.ui.testutil.EventsCollectorRule;
-
-import java.io.IOException;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
@@ -57,16 +57,16 @@ public class SelectCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showPersonAtIndex(model, INDEX_FIRST_CARPARK);
-        showPersonAtIndex(expectedModel, INDEX_FIRST_CARPARK);
+        showCarparkAtIndex(model, INDEX_FIRST_CARPARK);
+        showCarparkAtIndex(expectedModel, INDEX_FIRST_CARPARK);
 
         assertExecutionSuccess(INDEX_FIRST_CARPARK);
     }
 
     @Test
     public void execute_invalidIndexFilteredList_failure() {
-        showPersonAtIndex(model, INDEX_FIRST_CARPARK);
-        showPersonAtIndex(expectedModel, INDEX_FIRST_CARPARK);
+        showCarparkAtIndex(model, INDEX_FIRST_CARPARK);
+        showCarparkAtIndex(expectedModel, INDEX_FIRST_CARPARK);
 
         Index outOfBoundsIndex = INDEX_SECOND_CARPARK;
         // ensures that outOfBoundIndex is still in bounds of address book list

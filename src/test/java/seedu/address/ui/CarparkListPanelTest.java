@@ -24,7 +24,8 @@ package seedu.address.ui;
 //import seedu.address.model.carpark.Carpark;
 //import seedu.address.storage.XmlSerializableAddressBook;
 
-public class CarparkListPanelTest extends GuiUnitTest {
+//public class CarparkListPanelTest extends GuiUnitTest {
+public class CarparkListPanelTest {
 //    private static final ObservableList<Carpark> TYPICAL_CARPARKS
 // = FXCollections.observableList(getTypicalCarparks());
 //

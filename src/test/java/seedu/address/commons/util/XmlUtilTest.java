@@ -20,7 +20,7 @@ import seedu.address.storage.XmlAdaptedCarpark;
 import seedu.address.storage.XmlAdaptedTag;
 import seedu.address.storage.XmlSerializableAddressBook;
 import seedu.address.testutil.AddressBookBuilder;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.CarparkBuilder;
 import seedu.address.testutil.TestUtil;
 
 public class XmlUtilTest {
@@ -36,10 +36,18 @@ public class XmlUtilTest {
 
     private static final String INVALID_PHONE = "9482asf424";
 
-    private static final String VALID_NAME = "Hans Muster";
-    private static final String VALID_PHONE = "9482424";
-    private static final String VALID_EMAIL = "hans@example";
-    private static final String VALID_ADDRESS = "4th street";
+    private static final String VALID_ADDRESS_1 = "BLK 508-517,520-533 HOUGANG AVENUE 10";
+    private static final String VALID_CARPARK_NUMBER_1 = "HG38";
+    private static final String VALID_CARPARK_TYPE_1 = "SURFACE CAR PARK";
+    private static final String VALID_COORDINATE_1 = "34274.4064, 39391.9731";
+    private static final String VALID_FREE_PARKING_1 = "SUN & PH FR 7AM-10.30PM";
+    private static final String VALID_LOTS_AVAILABLE_1 = "529";
+    private static final String VALID_NIGHT_PARKING_1 = "YES";
+    private static final String VALID_SHORT_TERM_1 = "WHOLE DAY";
+    private static final String VALID_TOTAL_LOTS_1 = "900";
+    private static final String VALID_TYPE_OF_PARKING_1 = "ELECTRONIC PARKING";
+    private static final String VALID_TAG_HUSBAND = "husband";
+
     private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("friends"));
 
     @Rule
@@ -69,37 +77,47 @@ public class XmlUtilTest {
         XmlUtil.getDataFromFile(EMPTY_FILE, AddressBook.class);
     }
 
+    // TO FIX, TEST INVALID
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
         AddressBook dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableAddressBook.class).toModelType();
         //assertEquals(9, dataFromFile.getPersonList().size());
     }
 
+    // TO FIX, TEST INVALID
     @Test
     public void xmlAdaptedPersonFromFile_fileWithMissingPersonField_validResult() throws Exception {
         XmlAdaptedCarpark actualPerson = XmlUtil.getDataFromFile(
                 MISSING_PERSON_FIELD_FILE, XmlAdaptedCarparkWithRootElement.class);
-        XmlAdaptedCarpark expectedPerson = new XmlAdaptedCarpark(
-                null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        assertEquals(expectedPerson, actualPerson);
+        XmlAdaptedCarpark expectedCarpark = new XmlAdaptedCarpark(VALID_ADDRESS_1, VALID_CARPARK_NUMBER_1,
+                VALID_CARPARK_TYPE_1, VALID_COORDINATE_1, VALID_FREE_PARKING_1, VALID_LOTS_AVAILABLE_1,
+                VALID_NIGHT_PARKING_1, VALID_SHORT_TERM_1, VALID_TOTAL_LOTS_1, VALID_TYPE_OF_PARKING_1,
+                VALID_TAGS);
+        assertEquals(expectedCarpark, actualPerson);
     }
 
+    // TO FIX, TEST INVALID
     @Test
     public void xmlAdaptedPersonFromFile_fileWithInvalidPersonField_validResult() throws Exception {
         XmlAdaptedCarpark actualPerson = XmlUtil.getDataFromFile(
                 INVALID_PERSON_FIELD_FILE, XmlAdaptedCarparkWithRootElement.class);
-        XmlAdaptedCarpark expectedPerson = new XmlAdaptedCarpark(
-                VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        assertEquals(expectedPerson, actualPerson);
+        XmlAdaptedCarpark expectedCarpark = new XmlAdaptedCarpark(VALID_ADDRESS_1, VALID_CARPARK_NUMBER_1,
+                VALID_CARPARK_TYPE_1, VALID_COORDINATE_1, VALID_FREE_PARKING_1, VALID_LOTS_AVAILABLE_1,
+                VALID_NIGHT_PARKING_1, VALID_SHORT_TERM_1, VALID_TOTAL_LOTS_1, VALID_TYPE_OF_PARKING_1,
+                VALID_TAGS);
+        assertEquals(expectedCarpark, actualPerson);
     }
 
+    // TO FIX, TEST INVALID
     @Test
     public void xmlAdaptedPersonFromFile_fileWithValidPerson_validResult() throws Exception {
         XmlAdaptedCarpark actualPerson = XmlUtil.getDataFromFile(
                 VALID_PERSON_FILE, XmlAdaptedCarparkWithRootElement.class);
-        XmlAdaptedCarpark expectedPerson = new XmlAdaptedCarpark(
-                VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        assertEquals(expectedPerson, actualPerson);
+        XmlAdaptedCarpark expectedCarpark = new XmlAdaptedCarpark(VALID_ADDRESS_1, VALID_CARPARK_NUMBER_1,
+                VALID_CARPARK_TYPE_1, VALID_COORDINATE_1, VALID_FREE_PARKING_1, VALID_LOTS_AVAILABLE_1,
+                VALID_NIGHT_PARKING_1, VALID_SHORT_TERM_1, VALID_TOTAL_LOTS_1, VALID_TYPE_OF_PARKING_1,
+                VALID_TAGS);
+        assertEquals(expectedCarpark, actualPerson);
     }
 
     @Test
@@ -130,7 +148,7 @@ public class XmlUtilTest {
 
         AddressBookBuilder builder = new AddressBookBuilder(new AddressBook());
         dataToWrite = new XmlSerializableAddressBook(
-                builder.withPerson(new PersonBuilder().build()).build());
+                builder.withCarpark(new CarparkBuilder().build()).build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);

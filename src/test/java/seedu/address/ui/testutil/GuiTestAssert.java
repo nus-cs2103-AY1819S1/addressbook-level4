@@ -19,7 +19,6 @@ public class GuiTestAssert {
      */
     public static void assertCardEquals(CarparkCardHandle expectedCard, CarparkCardHandle actualCard) {
         assertEquals(expectedCard.getCarparkNumber(), actualCard.getCarparkNumber());
-        assertEquals(expectedCard.getAddress(), actualCard.getAddress());
         assertEquals(expectedCard.getCarparkType(), actualCard.getCarparkType());
         assertEquals(expectedCard.getCoordinate(), actualCard.getCoordinate());
         assertEquals(expectedCard.getFreeParking(), actualCard.getFreeParking());
@@ -28,50 +27,52 @@ public class GuiTestAssert {
         assertEquals(expectedCard.getShortTerm(), actualCard.getShortTerm());
         assertEquals(expectedCard.getTotalLots(), actualCard.getTotalLots());
         assertEquals(expectedCard.getTypeOfParking(), actualCard.getTypeOfParking());
+        assertEquals(expectedCard.getAddress(), actualCard.getAddress());
         assertEquals(expectedCard.getTags(), actualCard.getTags());
     }
 
     /**
-     * Asserts that {@code actualCard} displays the details of {@code expectedCarpark}.
+     * Asserts that {@code actualCard} displays the details of {@code expectedPerson}.
      */
     public static void assertCardDisplaysCarpark(Carpark expectedCarpark, CarparkCardHandle actualCard) {
-        assertEquals(expectedCarpark.getAddress(), actualCard.getAddress());
-        assertEquals(expectedCarpark.getCarparkType(), actualCard.getCarparkType());
-        assertEquals(expectedCarpark.getCoordinate(), actualCard.getCoordinate());
-        assertEquals(expectedCarpark.getFreeParking(), actualCard.getFreeParking());
-        assertEquals(expectedCarpark.getLotsAvailable(), actualCard.getLotsAvailable());
-        assertEquals(expectedCarpark.getNightParking(), actualCard.getNightParking());
-        assertEquals(expectedCarpark.getShortTerm(), actualCard.getShortTerm());
-        assertEquals(expectedCarpark.getTotalLots(), actualCard.getTotalLots());
-        assertEquals(expectedCarpark.getTypeOfParking(), actualCard.getTypeOfParking());
+        assertEquals(expectedCarpark.getCarparkNumber().value, actualCard.getCarparkNumber());
+        assertEquals(expectedCarpark.getCarparkType().value, actualCard.getCarparkType());
+        assertEquals(expectedCarpark.getCoordinate().value, actualCard.getCoordinate());
+        assertEquals(expectedCarpark.getFreeParking().value, actualCard.getFreeParking());
+        assertEquals(expectedCarpark.getLotsAvailable().value, actualCard.getLotsAvailable());
+        assertEquals(expectedCarpark.getNightParking().value, actualCard.getNightParking());
+        assertEquals(expectedCarpark.getShortTerm().value, actualCard.getShortTerm());
+        assertEquals(expectedCarpark.getTotalLots().value, actualCard.getTotalLots());
+        assertEquals(expectedCarpark.getTypeOfParking().value, actualCard.getTypeOfParking());
+        assertEquals(expectedCarpark.getAddress().value, actualCard.getAddress());
         assertEquals(expectedCarpark.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
                 actualCard.getTags());
     }
 
     /**
-     * Asserts that the list in {@code carparkListPanelHandle} displays the details of {@code carparks} correctly and
+     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code persons} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(CarparkListPanelHandle carparkListPanelHandle, Carpark... carparks) {
+    public static void assertListMatching(CarparkListPanelHandle personListPanelHandle, Carpark... carparks) {
         for (int i = 0; i < carparks.length; i++) {
-            carparkListPanelHandle.navigateToCard(i);
-            assertCardDisplaysCarpark(carparks[i], carparkListPanelHandle.getCarparkCardHandle(i));
+            personListPanelHandle.navigateToCard(i);
+            assertCardDisplaysCarpark(carparks[i], personListPanelHandle.getPersonCardHandle(i));
         }
     }
 
     /**
-     * Asserts that the list in {@code carparkListPanelHandle} displays the details of {@code carparks} correctly and
+     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code persons} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(CarparkListPanelHandle carparkListPanelHandle, List<Carpark> carparks) {
-        assertListMatching(carparkListPanelHandle, carparks.toArray(new Carpark[0]));
+    public static void assertListMatching(CarparkListPanelHandle personListPanelHandle, List<Carpark> carparks) {
+        assertListMatching(personListPanelHandle, carparks.toArray(new Carpark[0]));
     }
 
     /**
-     * Asserts the size of the list in {@code carparkListPanelHandle} equals to {@code size}.
+     * Asserts the size of the list in {@code personListPanelHandle} equals to {@code size}.
      */
-    public static void assertListSize(CarparkListPanelHandle carparkListPanelHandle, int size) {
-        int numberOfPeople = carparkListPanelHandle.getListSize();
+    public static void assertListSize(CarparkListPanelHandle personListPanelHandle, int size) {
+        int numberOfPeople = personListPanelHandle.getListSize();
         assertEquals(size, numberOfPeople);
     }
 
