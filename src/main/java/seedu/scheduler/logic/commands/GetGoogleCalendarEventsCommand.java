@@ -16,14 +16,15 @@ import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.DateTime;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.CalendarScopes;
+import com.google.api.services.calendar.model.Events;
 
 import seedu.scheduler.logic.CommandHistory;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
 import seedu.scheduler.model.Model;
-
 
 /**
  * Get events from google calendar.
@@ -49,6 +50,30 @@ public class GetGoogleCalendarEventsCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         return new CommandResult(MESSAGE_GGEVENTS_SUCCESS);
+    }
+
+    private Events getEvents(Calendar service) {
+        //TODO:Currently number is hardcoded, maybe can ask user to imputthis.
+        //max 2500 by Google
+        //default value is 250 if not specified
+        int numberOfEventsToBeDownloaded = 999;
+
+        // List the next [userinput] events from calendar name specified by CALENDAR_NAME.
+        DateTime now = new DateTime(System.currentTimeMillis());
+        Events events = null;
+        try {
+            events = service.events().list(CALENDAR_NAME)//set the source calendar on google
+                    .setMaxResults(numberOfEventsToBeDownloaded) //set upper limit for number of events
+                    .setTimeMin(now)//set the starting time
+                    .setOrderBy("startTime")//if not specified, stable order
+                    //TODO: further development can be done for repeated event, more logic must be written
+                    .setSingleEvents(true)//not the repeated ones
+                    //TODO: how to use setSynctoken, to prevent adding the same event multiples times
+                    .execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return events;
     }
 
     private Calendar getCalendar() {
