@@ -161,7 +161,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: invalid address -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + CATEGORY_DESC_AMY + INVALID_ADDRESS_DESC + DATE_DESC_1990;
-        assertCommandFailure(command, Cost.MESSAGE_ADDRESS_CONSTRAINTS);
+        assertCommandFailure(command, Cost.MESSAGE_COST_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + CATEGORY_DESC_AMY + COST_DESC_AMY + DATE_DESC_1990

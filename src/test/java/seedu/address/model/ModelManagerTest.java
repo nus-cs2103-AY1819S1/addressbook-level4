@@ -2,21 +2,24 @@ package seedu.address.model;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
 import static seedu.address.testutil.TypicalExpenses.ALICE;
 import static seedu.address.testutil.TypicalExpenses.BENSON;
 
 import java.nio.file.Paths;
-import java.util.Arrays;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.logic.commands.StatsCommand.StatsMode;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
-import seedu.address.model.expense.NameContainsKeywordsPredicate;
+import seedu.address.model.expense.ExpenseContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.ModelUtil;
 
@@ -107,6 +110,15 @@ public class ModelManagerTest {
         modelManagerLoggedOut.updateExpenseStats(unused -> true);
     }
 
+
+    @Test
+    public void getExpenseStatsReturnsCorrectStatsMode() {
+        modelManager.updateStatsMode(StatsMode.DAY);
+        assertTrue(modelManager.getStatsMode() == StatsMode.DAY);
+        modelManager.updateStatsMode(StatsMode.MONTH);
+        assertTrue(modelManager.getStatsMode() == StatsMode.MONTH);
+    }
+
     @Test
     public void indicateUserLoggedIn_noUserSelected_throwsNoUserSelectedException() throws Exception {
         thrown.expect(NoUserSelectedException.class);
@@ -137,8 +149,9 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getName().expenseName.split("\\s+");
-        modelManager.updateFilteredExpenseList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        ArgumentMultimap keywordsMap = ArgumentTokenizer.tokenize(" n/"
+                + ALICE.getName().expenseName, PREFIX_NAME);
+        modelManager.updateFilteredExpenseList(new ExpenseContainsKeywordsPredicate(keywordsMap));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests

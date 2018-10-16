@@ -304,7 +304,7 @@ public class MainWindow extends UiPart<Stage> {
     private void handleShowStatsEvent(ShowStatsRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         try {
-            statsWindow = new StatsWindow(logic.getExpenseStats());
+            statsWindow = new StatsWindow(logic.getExpenseStats(), logic.getStatsMode());
         } catch (NoUserSelectedException e) {
             throw new IllegalStateException(e.getMessage());
         }

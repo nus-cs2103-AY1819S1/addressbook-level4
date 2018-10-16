@@ -18,11 +18,13 @@ By: `Team T12-1`      Since: `Sept 2018`      Licence: `MIT`
 
 == Introduction
 
-The Expense Tracker (ET) application is a desktop application which enables users to track their expenses. ET features both a Command Line Interface (CLI) and a Graphical User Interface (GUI) which provides users with the efficency of the CLI while still having the benefits of a GUI.
+The Expense Tracker application is a desktop application which enables users to track their expenses. The application features both a Command Line Interface (CLI) and a Graphical User Interface (GUI) which provides users with the efficency of the CLI while still having the benefits of a GUI.
 
 Interested? Jump to <<Quick Start>> to get started!
 
 == Quick Start
+
+Follow these steps to start using the Expense Tracker:
 
 .  Install Java version `9` (or later) on your computer.
 .  Download the latest `expensetracker.jar` file from https://github.com/CS2103-AY1819S1-T12-1/main[here]
@@ -60,6 +62,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Before a user is logged in, only `login`, `signup` and `help` commands are useable.
 * After a user is logged in, the rest of the commands will become useable.
 ====
+
+These are the features and respective commands available to use in the Expense Tracker:
 
 === Signing up a User : `signup`
 Signs up a new user to the Expense Tracker.
@@ -168,20 +172,21 @@ Format: `delete INDEX`
 * The index *must be a non-zero positive integer* and must correspond to an expense in the expense list.
 ====
 
-
-
 === Locating expenses by name: `find`
 
-Finds all expenses which has a name containing any of the given keywords and displays them in the expense list. +
+Finds expense whose names contain any of the given keywords. +
+Format: `find [n/NAME] [c/CATEGORY] [$/COST:COST] [t/TAG] [d/DATE:DATE]`
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Examples:
 
-****
-*Examples:*
-
-*  `find lunch` +
- Finds all expenses with name containing the word "lunch".
-****
+* find c/School
+Find all the expenses under `School` category.
+* find c/Food  t/Lunch
+Find all the expenses with tag `Lunch` plus the expenses under `Food` category.
+* find d/1-10-2018:7-10-2018
+Find all the expenses from 1-10-2018 to 7-10-2018.
+* find $/10.00:20.00
+Find all the expenses with cost which is larger than or equals to 10.00 and smaller or equal to 20.
 
 [NOTE]
 ====
@@ -313,9 +318,29 @@ The second`redo` reverses the first `undo` command, reapplying `clear`.
 
 === Show expense statistics: `stats`
 
-Opens up a new window showing a bar chart of the expenditure of the past 7 days. +
+Opens up a new window showing a bar chart of the expenditure over a specified time period, in a given `MODE`. +
 
-Format: `stats`
+The available modes are `d` and `m`, which represents day and month respectively. E.g. if NUMBER_OF_DAYS_OR_MONTHS is 7
+and MODE is 'd', the statistics will include data from the past 7 days, current day included.
+
+Format: `stats n/NUMBER_OF_DAYS_OR_MONTHS m/MODE`
+
+****
+*Examples:*
+
+* `stats n/14 m/d` +
+Shows the expense statistics for the past 14 days, current day included +
+
+* `stats n/3 m/m` +
+Shows the expense statistics for the past 3 months, current day included +
+****
+
+[NOTE]
+====
+* NUMBER_OF_DAYS_OR_MONTHS must be a positive number greater than 0
+* MODE can only be 'd' or 'm'.
+* If no parameters are provided, the command defaults to show statistics for the past 7 days, current day included.
+====
 
 === Clearing all entries : `clear`
 
@@ -340,6 +365,8 @@ Format: `exit`
 
 == Command Summary
 
+This is a summary of the commands available in the Expense Tracker:
+
 * *SignUp* : `signup USERNAME` +
 e.g. `signup username123`
 * *Login* : `login USERNAME` +
@@ -361,6 +388,6 @@ e.g. `setBudget 20.00`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
-* *Statistics* : `stats`
+* *Statistics* : `stats n/NUMBER_OF_DAYS_OR_MONTHS m/MODE`
 * *Clear* : `clear`
 * *Exit* : `exit`
