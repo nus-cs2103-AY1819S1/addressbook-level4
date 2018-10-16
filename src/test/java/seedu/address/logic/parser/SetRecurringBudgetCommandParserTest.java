@@ -4,6 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_ONE_HOUR;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_ONE_MINUTE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_ONE_SECOND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SECONDS;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -41,4 +42,11 @@ public class SetRecurringBudgetCommandParserTest {
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
             SetRecurringBudgetCommand.MESSAGE_USAGE));
     }
+
+    @Test
+    public void parse_negativeArgs_throwsParseException() {
+        assertParseFailure(parser, " " + PREFIX_SECONDS + "-1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            SetRecurringBudgetCommand.MESSAGE_USAGE));
+    }
+
 }

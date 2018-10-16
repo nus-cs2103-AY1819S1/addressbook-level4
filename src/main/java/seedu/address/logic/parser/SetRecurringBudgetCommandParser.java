@@ -30,14 +30,17 @@ public class SetRecurringBudgetCommandParser implements Parser<SetRecurringBudge
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 SetRecurringBudgetCommand.MESSAGE_USAGE));
         }
-
-        long hours = ParserUtil.parseHours(argMultimap.getValue(PREFIX_HOURS).orElse("0"));
-        long minutes = ParserUtil.parseMinutes(argMultimap.getValue(PREFIX_MINUTES).orElse("0"));
-        long seconds = ParserUtil.parseSeconds(argMultimap.getValue(PREFIX_SECONDS).orElse("0"));
-        long totalSecondsToNextRecurrence = hours + minutes + seconds;
-
-
-        return new SetRecurringBudgetCommand(totalSecondsToNextRecurrence);
+        try {
+            long hours = ParserUtil.parseHours(argMultimap.getValue(PREFIX_HOURS).orElse("0"));
+            long minutes = ParserUtil.parseMinutes(argMultimap.getValue(PREFIX_MINUTES).orElse("0"));
+            long seconds = ParserUtil.parseSeconds(argMultimap.getValue(PREFIX_SECONDS).orElse("0"));
+            long totalSecondsToNextRecurrence = hours + minutes + seconds;
+            return new SetRecurringBudgetCommand(totalSecondsToNextRecurrence);
+        } catch (IllegalArgumentException ce) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                SetRecurringBudgetCommand.MESSAGE_USAGE));
+        }
+        
     }
     private static boolean areAnyPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());

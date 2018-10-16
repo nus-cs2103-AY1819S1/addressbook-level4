@@ -115,27 +115,35 @@ public class ParserUtil {
      * Parses a {@code String hours} into seconds
      * @param hours Number of hours
      * @return Number of hours in seconds in long type
-     * @throws ParseException
+     * @throws IllegalArgumentException
      */
-    public static long parseHours(String hours) {
+    public static long parseHours(String hours) throws IllegalArgumentException {
         if (hours == null) {
             return 0;
         }
-        return Long.parseLong(hours) * 60 * 60;
+        long returnHours = Long.parseLong(hours) * 60 * 60;
+        if (returnHours < 0) {
+            throw new IllegalArgumentException("Number of hours must be more than 0");
+        }
+        return returnHours;
     }
 
     /**
      * Parses a {@code String minutes} into seconds
      * @param minutes Number of minutes
      * @return Number of minutes in seconds in long type
-     * @throws ParseException
+     * @throws IllegalArgumentException
      */
 
     public static long parseMinutes(String minutes) {
         if (minutes == null) {
             return 0;
         }
-        return Long.parseLong(minutes) * 60;
+        long returnMinutes = Long.parseLong(minutes) * 60;
+        if (returnMinutes < 0) {
+            throw new IllegalArgumentException("Number of minutes must be more than 0");
+        }
+        return returnMinutes;
     }
 
     /**
@@ -144,11 +152,15 @@ public class ParserUtil {
      * @return Number of seconds in long type
      * @throws ParseException
      */
-    public static long parseSeconds(String seconds) {
+    public static long parseSeconds(String seconds) throws IllegalArgumentException {
         if (seconds == null) {
             return 0;
         }
-        return Long.parseLong(seconds);
+        long returnSeconds = Long.parseLong(seconds);
+        if (returnSeconds < 0) {
+            throw new IllegalArgumentException("Number of minutes must be more than 0");
+        }
+        return returnSeconds;
     }
 
     /**
