@@ -469,7 +469,7 @@ The number of successful inserts and duplicated will be returned to display afte
 
 The following sequence diagram shows how the readImportContactsFile operatoin works:
 
-image::ImportContactsSequenceDiagram.png[width="800"]
+image::ImportContactsSequenceDiagram.PNG[width="800"]
 
 // end::importcontacts[]
 //tag::meetinglocation[]
