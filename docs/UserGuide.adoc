@@ -395,22 +395,19 @@ Returns all contacts with the `Work` tag.
 * `tag Work Important` +
 Returns all contacts with the `Work` or `Important` tags.
 
-==== Delete a tag
-Delete a tag, removing it from all contacts. +
-Format: `tag TAG_NAME delete`
+==== Remove a tag
+Remove all users from a tag. +
+Format: `tag TAG_NAME remove`
 
 ****
 * All contacts in `TAG_NAME` will be removed from the tag. Contacts that were previously tagged are not deleted.
+* Address book will throw an error if an invalid `TAG_NAME` is given.
 ****
 
 Example:
 
-* `tag Work delete` +
-All contacts that were previously tagged with `Work` have the `Work` tag removed. `Work` tag is deleted.
-
-* `t Work Important delete` +
-All contacts that were previously tagged with `Work` and `Important` have the aforementioned tags removed. `Work` and
-`Important` tags are deleted.
+* `tag Work remove` +
+All contacts that were previously tagged with `Work` have the `Work` tag removed.
 
 === Saving the data
 

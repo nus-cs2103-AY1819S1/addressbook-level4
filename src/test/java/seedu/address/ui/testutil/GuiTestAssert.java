@@ -114,8 +114,6 @@ public class GuiTestAssert {
         switch (tagName) {
         case "classmates":
         case "owesMoney":
-        case "Important":
-        case "Rich":
             return "teal";
         case "colleagues":
         case "neighbours":
@@ -126,20 +124,7 @@ public class GuiTestAssert {
         case "friends":
             return "brown";
         case "husband":
-        case "OCBC":
             return "grey";
-        case "Korean":
-        case "POSB":
-            return "black";
-        case "Japanese":
-            return "blue";
-        case "Chinese":
-        case "Client":
-        case "Singaporean":
-        case "DBS":
-            return "pink";
-        case "Colleague":
-            return "red";
         default:
             throw new AssertionError(tagName + " does not have a color assigned.");
         }

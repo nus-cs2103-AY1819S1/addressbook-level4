@@ -238,19 +238,17 @@ public class AddressBookParserTest {
     @Test
     public void parseCommandWord_tag() throws Exception {
         List<String> keywords = Arrays.asList("foo", "friends", "colleagues");
-        TagCommand findCommand = (TagCommand) parser.parseCommand(
+        TagCommand command = (TagCommand) parser.parseCommand(
                 TagCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new TagCommand(new PersonContainsTagPredicate(keywords), TagCommand.Action.FIND, keywords),
-                findCommand);
+        assertEquals(new TagCommand(new PersonContainsTagPredicate(keywords)), command);
     }
 
     @Test
     public void parseCommandAlias_tag() throws Exception {
         List<String> keywords = Arrays.asList("foo", "friends", "colleagues");
-        TagCommand findCommand = (TagCommand) parser.parseCommand(
-                TagCommand.COMMAND_ALIAS + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new TagCommand(new PersonContainsTagPredicate(keywords), TagCommand.Action.FIND, keywords),
-                findCommand);
+        TagCommand command = (TagCommand) parser.parseCommand(
+                TagCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new TagCommand(new PersonContainsTagPredicate(keywords)), command);
     }
 
     //@@author
