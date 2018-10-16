@@ -85,6 +85,11 @@ Format: `complete INDEX` or `complete t/LABEL`
 
 _Note that completion via label is case-sensitive_
 
+* You can complete multiple tasks at once through the use of the format complete `l/LABEL`
+* Note that the label needs to be valid. Validity for a label, `x`, is defined by the following
+condition:
+** Has at least one task which is labelled `x` and status is not "COMPLETED"
+
 #### Listing Tasks: `list`
 [%hardbreaks]
 Shows a list of all tasks.
