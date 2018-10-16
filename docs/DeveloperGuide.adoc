@@ -249,34 +249,6 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-=== Health Plan list
-
-This is a feature that users can access to have healthplans to manage their diet and health due to dietary
-needs of their choice. Users are able to add a health list to based on their specifications:
-whether they intend to gain/lose/maintain weight from their
-set age, current weight and also their current height. this will then tell them what is the required calories to
-eat per day to hit their target.
-
-==== Current implementation
-
-* Users are able to add to the list based on their personal settings: name, age, height, weight, target weight,
- duration, scheme(gain/loss/maintain)
-* Users are able to delete entries that they do not want to keep anymore.
-* Users are aso able to edit entries which information is incorrect.
-
-==== Ongoing implementation (Adding of meal plans)
-
-The new implementation of this feature should allow users to add meal plans from the meal planner feature, and also
-calculate the nutritional intake against the required calculate intake for the day and then also calculate the
- percentage of the set target by calculated by the system
-met by the user's own personal intake.
-
-==== Ongoing implementation (Expiry of health plans)
-
-The new implementation of this feature should have an expiry feature that counts down the system base on the app's date
- against the duration set by the user.
-
-
 // tag::recipemanagement[]
 === Recipe Management
 ==== All-field search
@@ -315,13 +287,6 @@ instructions.
 
 // tag::mealplannerimplementation[]
 === Meal Planner feature
-
-==== Current Implementation
-* Users are currently able to add entries
-* Users are able to delete entries
-* Users are also able to edit entries
-* This feature is tied to the healthplan.xml
-* This feature is accessible only from the healthplan context done by switching context via "-healthplan" universal commands.
 
 === VersionedAddressBook undo/redo
 
@@ -401,6 +366,33 @@ search based
 Although you just put in 'select' without any additional parameters, it shows the recipes that contains most number
 of ingredients in inventory so that increases the possibility for user to use up the ingredients that are recorded in
  inventory.
+
+=== Health Plan list
+
+This is a feature that users can access to have healthplans to manage their diet and health due to dietary
+needs of their choice. Users are able to add a health list to based on their specifications:
+whether they intend to gain/lose/maintain weight from their
+set age, current weight and also their current height. this will then tell them what is the required calories to
+eat per day to hit their target.
+
+==== Current implementation
+
+* Users are able to add to the list based on their personal settings: name, age, height, weight, target weight,
+ duration, scheme(gain/loss/maintain)
+* Users are able to delete entries that they do not want to keep anymore.
+* Users are aso able to edit entries which information is incorrect.
+
+==== Ongoing implementation (Adding of meal plans)
+
+The new implementation of this feature should allow users to add meal plans from the meal planner feature, and also
+calculate the nutritional intake against the required calculate intake for the day and then also calculate the
+ percentage of the set target by calculated by the system
+met by the user's own personal intake.
+
+==== Ongoing implementation (Expiry of health plans)
+
+The new implementation of this feature should have an expiry feature that counts down the system base on the app's date
+ against the duration set by the user.
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
