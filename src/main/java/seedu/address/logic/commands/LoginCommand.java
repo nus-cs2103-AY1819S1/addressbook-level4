@@ -99,9 +99,9 @@ public class LoginCommand extends Command {
             }
         } catch (ClassCastException ex) {
             throw new ClassCastException();
-        } finally {
-            return doctorFound;   
         }
+        
+        return doctorFound;
     }
 
     @Override
