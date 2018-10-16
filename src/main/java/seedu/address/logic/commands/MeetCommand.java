@@ -24,8 +24,8 @@ public class MeetCommand extends Command {
 
     public static final String COMMAND_WORD = "meet";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Set the meeting of the group identified "
-            + "by the index number used in the displayed group list. "
-            + "Existing values will be overwritten by the input values.\n"
+            + "by its name to the specified value. Existing values will be overwritten by the new values.\n"
+            + "Not specifying any new value will cancel the current meeting.\n"
             + "Parameters: GROUP_NAME (must be a alphanumeric string with out spaces) "
             + "[" + PREFIX_NAME + "MEETING_TITLE] "
             + "[" + PREFIX_TIMESTAMP + "MEETING_TIME] "

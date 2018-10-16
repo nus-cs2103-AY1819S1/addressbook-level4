@@ -246,6 +246,21 @@ The `UniqueGroupList`,
 [NOTE]
 Both `UniqueGroupList` and `UniquePersonList` implements `Iterable` interface.
 
+.The Meeting class
+
+image::meetingClassDiagram.png[width="300"]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/model/group/Meeting.java[`Meeting.java`]
+
+The `Meeting`,
+
+Meeting encapsulates information of a meeting.
+
+* contains the title, time, location and description of a meeting.
+* resides in `Group` objects and can be assigned to a group using the `meet` command which utilises the `updateGroup` method of the `Model` interface.
+* each `Group` object can have a maximum of one meeting.
+* two `Meetings` are considered similiar if they share the same title, time, and location
+
 
 .The enhanced Person class
 image::PersonClassDiagram.png[width="300"]
@@ -407,6 +422,33 @@ image::UndoRedoActivityDiagram.png[width="650"]
 _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
+
+// tag::meeting[]
+=== Meeting
+
+.Sequence diagram for the meet command
+image::meetCommandSequenceDiagram.png[width="500"]
+
+A `Meeting` can be assigned and remove from a `Group` using the `meet` and `cancel` command, respectively.
+
+In order to for these commands to function, we have implemented the following methods:
+* `Group#setMeeting(Meeting meeting)` which set the `meeting` field of the `Group` class to `Optional` of `meeting`
+* `Group#cancelMeeting()` which set the `meeting` field of the `Group` class to an empty `Optional`
+
+This allows us to modify the `Group` in the `UniqueGroupList` by using the `Model#updateGroup(Group target, Group editedGroup)` method.
+
+==== Design Consideration
+
+===== Aspect: Specifying the Group to add the Meeting to
+
+* **Alternative 1 (current choice):** Directly specify the group name when invoking the command.
+** Pros: The command syntax becomes natural and intuitive.
+** Cons: The user have to manually find the group name which might be difficult when the number of groups is high (~20+ groups).
+* **Alternative 2 :** Specify the group with it's index.
+** Pros: Easier to use when the number of groups is high (~20+ groups).
+** Cons: The command syntax becomes unnatural and the program becomes more suspectible to bugs for a benefit that is dubious at best.
+
+// end::meeting[]
 
 === Logging
 
