@@ -358,7 +358,7 @@ A more detailed description of the classes follows below:
 *** `SURGICAL`, with `SRG` as abbreviation
 
 Given below is an example usage scenario and how the relevant classes behave at each step.
-At the end of the explanation is a link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[sequence diagram] of a typical addappt command execution.
+At the end of the explanation is a link:{repoURL}/src/main/docs/images/AddApptSequenceDiagram.png[sequence diagram] of a typical addappt command execution.
 
 The user executes `addappt ic/S1234567A type/SRG pn/Heart Bypass dt/27-04-2019 1030 doc/Dr. Pepper`.
 This command has the following intent: Record the following appointment to a patient with NRIC = S1234567A:
@@ -387,9 +387,10 @@ This updated `Person` object is used to update the existing `Person` object usin
 Finally, the `AddApptCommand::execute` method terminates, returning a `CommandResult` with a success message. The `LogicManager` then returns the same `CommandResult` as the return value of the `LogicManager::execute` method.
 The command execution then ends.
 
-The following sequence diagram shows the execution of the addappt command:
+[#img-addapptsequencediagram]
+The following sequence diagram shows the execution of the `addappt` command:
 
-
+image::AddApptSequenceDiagram.png[width="800"]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
