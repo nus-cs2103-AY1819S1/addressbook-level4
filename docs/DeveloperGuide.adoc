@@ -484,12 +484,12 @@ Given below is an example usage scenario and explanation for the inner workings 
 Step 1. The user executes the `serve` command to serve the first `Patient` in the `PatientQueue`. +
 This creates a new `ServedPatient` object that is added to the `ServedPatientList`.
 
-.Serving a `Patient` in the `PatientQueue`. Note that the `Patient` **Bryan Lew** is the only `Patient` in the `ServedPatientList` and hence has an index of `1`.
+.Serving a `Patient` in the `PatientQueue`. Note that the `Patient` **Bryan Lew** is the only `Patient` in the `ServedPatientList` and hence has an index of `1`. +
 image::ServePatient.png[width="650"]
 
 Step 2. The user executes `receipt 1` command to generate a `Receipt` with the relevant object. Up till this milestone v1.2, the contents of the `Receipt` will be reflected in the `ResultDisplay` as shown below.
 
-.Contents of the `Receipt` generated for the `Patient` Bryan Lew.
+.Contents of the `Receipt` generated for the `Patient` Bryan Lew. +
 image::ReceiptExamplePrintOut.png[width="650"]
 
 [WARNING]
