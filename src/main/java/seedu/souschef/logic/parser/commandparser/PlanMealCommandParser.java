@@ -28,7 +28,7 @@ public class PlanMealCommandParser {
         try {
             String[] arguments = args.split("\\s+");
             List<Recipe> recipeList = recipeModel.getFilteredList();
-            List<Day> mealPlannerList = mealPlannerModel.getFullList();
+            List<Day> mealPlannerList = mealPlannerModel.getFilteredList();
             int listIndex = Integer.parseInt(arguments[0]) - 1;
 
             if ((listIndex < 0) || listIndex >= recipeList.size()) {
@@ -49,7 +49,7 @@ public class PlanMealCommandParser {
 
             Meal meal = toPlan.getMeal(arguments[2]);
 
-            return new PlanMealCommand(toAdd, meal);
+            return new PlanMealCommand(mealPlannerModel, toAdd, meal);
         } catch (ParseException pe) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlanMealCommand.MESSAGE_USAGE), pe);
