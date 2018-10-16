@@ -44,9 +44,8 @@ public class Person {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
-        prescriptionList = new PrescriptionList();
-        appointmentsList = new AppointmentsList();
         this.prescriptionList = new PrescriptionList();
+        this.appointmentsList = new AppointmentsList();
         this.dietCollection = new DietCollection();
     }
 
@@ -80,6 +79,7 @@ public class Person {
         this.address = address;
         this.tags.addAll(tags);
         this.prescriptionList = new PrescriptionList();
+        this.appointmentsList = new AppointmentsList();
         this.dietCollection = dietCollection;
     }
 
