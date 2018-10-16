@@ -1189,8 +1189,6 @@ a|*UC10:* Edit volunteer hours in volunteer profile +
           Use case resumes from step 5.
 |=======================================================================
 
-_{More to be added}_
-
 [appendix]
 == Non Functional Requirements
 
@@ -1199,8 +1197,6 @@ _{More to be added}_
 *  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 *  Files containing volunteer data should be encrypted
 *  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
 
 [appendix]
 == Glossary
