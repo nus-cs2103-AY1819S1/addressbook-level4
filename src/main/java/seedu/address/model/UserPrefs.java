@@ -15,7 +15,7 @@ public class UserPrefs {
     private Path schedulerFilePath = Paths.get("data", "scheduler.xml");
 
     public UserPrefs() {
-        setGuiSettings(500, 500, 0, 0);
+        setGuiSettings(1200, 675, 0, 0);
     }
 
     public GuiSettings getGuiSettings() {

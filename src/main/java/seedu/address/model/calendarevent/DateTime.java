@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class DateTime {
 
     public static final String MESSAGE_DATETIME_CONSTRAINTS =
-            "The valid input will be year-month-localDateTime hour:minute";
+        "The valid input will be year-month-localDateTime hour:minute";
     public final LocalDateTime localDateTime;
     public final int year;
     public final int month;
@@ -25,7 +25,7 @@ public class DateTime {
      * Constructs a {@code DateTime}
      * Wrapper class for LocalDateTime
      *
-     * @param dateTime   A valid dateTime
+     * @param dateTime A valid dateTime
      */
     public DateTime(LocalDateTime dateTime) throws DateTimeException {
         this.localDateTime = dateTime;
@@ -101,8 +101,8 @@ public class DateTime {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DateTime // instanceof handles nulls
-                && localDateTime.equals(((DateTime) other).localDateTime)); // state check
+            || (other instanceof DateTime // instanceof handles nulls
+            && localDateTime.equals(((DateTime) other).localDateTime)); // state check
     }
 
     @Override

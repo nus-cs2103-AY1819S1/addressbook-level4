@@ -55,7 +55,7 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
         CalendarEvent toAdd = AMY;
         String command =
             "   " + AddCommand.COMMAND_WORD + "  " + TITLE_DESC_LECTURE + "  " + DESCRIPTION_DESC_LECTURE + " "
-            + VENUE_DESC_LECTURE + "   " + TAG_DESC_FRIEND + " ";
+                + VENUE_DESC_LECTURE + "   " + TAG_DESC_FRIEND + " ";
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
