@@ -27,7 +27,7 @@ SocialCare is a CLI-based event and volunteer management system designed for soc
 
 * Faster volunteer and event management (than a typical mouse/GUI driven app)
 * Tagging to categorize volunteers and events
-* Additional fields for volunteers, such as number of volunteer hours
+* Managing additional volunteer data, such as number of service hours per volunteer
 * Viewing of volunteer and event statistics
 
 === Core Team
