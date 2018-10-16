@@ -206,6 +206,25 @@ Examples:
 * `delete 1` +
 Deletes the details of the volunteer specified at index 1
 
+==== Exporting volunteer certificate : `exportcert`
+
+Exports a PDF document detailing the volunteer's involvement with the organisation, when in the volunteers context. This includes:
+
+* Name & Volunteer ID
+* List of events involved in
+* Hours of service contributed
+* Organisation's logo
+
+Format: `exportcert VOLUNTEER_INDEX`
+
+* Exports PDF certificate for the volunteer at specified `VOLUNTEER INDEX`
+* `VOLUNTEER INDEX` **must be a positive integer** 1, 2, 3, ...
+
+Example:
+
+* `exportcert 2` +
+Exports PDF certificate of volunteer at specified index 2 to local folder 'certs'
+
 === Event Management
 
 The following commands can only be accessed after switching to the 'event' context. (see <<command-switch>>)
