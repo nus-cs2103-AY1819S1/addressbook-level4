@@ -115,7 +115,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void updatePerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
-        //throw new UnsupportedOperationException();
+        // clear membership of target & set up membership for editedPerson
+        // TODO
         persons.setPerson(target, editedPerson);
     }
 
@@ -128,7 +129,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void updateGroup(Group target, Group editedGroup) {
         requireNonNull(editedGroup);
-        //throw new UnsupportedOperationException();
+        // clear members of target & set up members for editedGroup
+        // TODO
         groups.setGroup(target, editedGroup);
     }
 

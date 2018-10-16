@@ -140,7 +140,7 @@ public class Person {
 
     /**
      * Remove the person from a group.
-     * @param group The group that should removeMember the person from
+     * @param group The group that should remove the person from
      */
     public void removeGroup(Group group) {
         requireNonNull(group);
@@ -158,7 +158,8 @@ public class Person {
      * Remove all the groups that this person is already in.
      */
     public void clearMembership() {
-
+        // enhanced for loop to remove the person from each group
+        //TODO
         this.groups.clear();
     }
 
