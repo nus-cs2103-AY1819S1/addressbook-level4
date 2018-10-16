@@ -4,33 +4,32 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BOB;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.NoEventSelectedException;
+import seedu.address.logic.commands.personcommands.AddUserCommand;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
-import seedu.address.testutil.Assert;
 import seedu.address.testutil.PersonBuilder;
 
-public class LoginCommandTest {
+public class AddUserCommandTest {
+
+    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -39,47 +38,54 @@ public class LoginCommandTest {
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new LoginCommand(null);
+        new AddUserCommand(null);
     }
 
     @Test
-    public void execute_validPersonLogin_loginSuccessful() throws Exception {
-        Person validPerson = new PersonBuilder(ALICE).build();
-        ModelStubAcceptingPersonLogin modelStub = new ModelStubAcceptingPersonLogin(validPerson);
-        CommandResult commandResult = new LoginCommand(validPerson).execute(modelStub, commandHistory);
-        assertEquals(String.format(LoginCommand.MESSAGE_SUCCESS, validPerson.getName()), commandResult.feedbackToUser);
+    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        Person validPerson = new PersonBuilder().build();
+
+        CommandResult commandResult = new AddUserCommand(validPerson).execute(modelStub, commandHistory);
+
+        assertEquals(String.format(AddUserCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
-    public void execute_invalidPersonLogin_loginUnsuccessful() {
-        Person invalidPerson = new PersonBuilder(BOB).build();
-        ModelStubAcceptingPersonLogin modelStub = new ModelStubAcceptingPersonLogin(null);
-        Assert.assertThrows(CommandException.class, () -> new LoginCommand(invalidPerson)
-            .execute(modelStub, commandHistory));
+    public void execute_duplicatePerson_throwsCommandException() throws Exception {
+        Person validPerson = new PersonBuilder().build();
+        AddUserCommand addUserCommand = new AddUserCommand(validPerson);
+        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(AddUserCommand.MESSAGE_DUPLICATE_PERSON);
+        addUserCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
         Person alice = new PersonBuilder().withName("Alice").build();
         Person bob = new PersonBuilder().withName("Bob").build();
-        LoginCommand loginAliceCommand = new LoginCommand(alice);
-        LoginCommand loginBobCommand = new LoginCommand(bob);
+        AddUserCommand addAliceCommand = new AddUserCommand(alice);
+        AddUserCommand addBobCommand = new AddUserCommand(bob);
 
         // same object -> returns true
-        assertTrue(loginAliceCommand.equals(loginAliceCommand));
+        assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        LoginCommand loginAliceCommandCopy = new LoginCommand(alice);
-        assertTrue(loginAliceCommand.equals(loginAliceCommandCopy));
+        AddUserCommand addAliceCommandCopy = new AddUserCommand(alice);
+        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false
-        assertFalse(loginAliceCommand.equals(1));
+        assertFalse(addAliceCommand.equals(1));
 
         // null -> returns false
-        assertFalse(loginAliceCommand == null);
+        assertFalse(addAliceCommand.equals(null));
 
         // different person -> returns false
-        assertFalse(loginAliceCommand.equals(loginBobCommand));
+        assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
     /**
@@ -197,7 +203,7 @@ public class LoginCommandTest {
         }
 
         @Override
-        public void updateEvent(int index, Event event) {
+        public void updateEvent(int index, Event editedEvent) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -228,38 +234,50 @@ public class LoginCommandTest {
     }
 
     /**
-     * A Model stub that always allows a person to Login.
+     * A Model stub that contains a single person.
      */
-    private class ModelStubAcceptingPersonLogin extends ModelStub {
-        private Person currentUser;
-        private final FilteredList<Person> filteredPersons;
+    private class ModelStubWithPerson extends ModelStub {
+        private final Person person;
 
-        public ModelStubAcceptingPersonLogin(Person currentUser) {
-            List<Person> list = new ArrayList<>();
-            list.add(currentUser);
-            ObservableList<Person> observableList = FXCollections.observableList(list);
-            filteredPersons = observableList.filtered(x -> true);
+        ModelStubWithPerson(Person person) {
+            requireNonNull(person);
+            this.person = person;
         }
 
         @Override
         public boolean hasPerson(Person person) {
             requireNonNull(person);
-            return filteredPersons.stream().anyMatch(person::isSamePerson);
-        }
-
-        @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            return FXCollections.unmodifiableObservableList(filteredPersons);
-        }
-
-        @Override
-        public void setCurrentUser(Person currentUser) {
-            this.currentUser = currentUser;
-        }
-
-        @Override
-        public void removeSelectedEvent() {
-            throw new AssertionError("This method should not be called.");
+            return this.person.isSamePerson(person);
         }
     }
+
+    /**
+     * A Model stub that always accept the person being added.
+     */
+    private class ModelStubAcceptingPersonAdded extends ModelStub {
+        final ArrayList<Person> personsAdded = new ArrayList<>();
+
+        @Override
+        public boolean hasPerson(Person person) {
+            requireNonNull(person);
+            return personsAdded.stream().anyMatch(person::isSamePerson);
+        }
+
+        @Override
+        public void addPerson(Person person) {
+            requireNonNull(person);
+            personsAdded.add(person);
+        }
+
+        @Override
+        public void commitAddressBook() {
+            // called by {@code AddUserCommand#execute()}
+        }
+
+        @Override
+        public ReadOnlyAddressBook getAddressBook() {
+            return new AddressBook();
+        }
+    }
+
 }
