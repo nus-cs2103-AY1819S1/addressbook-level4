@@ -276,7 +276,7 @@ Note that the `Model` component does not depend on any of the other components.
 
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `SocialCare`, which `Volunteer` can reference. This would allow `SocialCare` to only require one `Tag` object per unique `Tag`, instead of each `Volunteer` needing their own `Tag` object. +
-An example of how such a model may look like is given in the figure below.
+An example of how such a model may look like is given in the figure below. +
 
 .Example of a more OOP Model
 image::ModelClassBetterOopDiagram.png[width="800"]
@@ -407,13 +407,6 @@ image::UndoRedoActivityDiagram.png[width="650"]
 |===
 +
 // end::undoredo[]
-
-// tag::dataencryption[]
-==== [Proposed] Data encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 ==== Logging
 
