@@ -79,6 +79,19 @@ public interface Model {
      */
     void removeGroup(Person target, Tag oldGroup);
 
+
+    // @@author NyxF4ll
+    /**
+     * Returns true if a group with the same identity as {@code group} exists in the address book.
+     */
+    boolean hasGroup(Group group);
+
+    /** Returns an unmodifiable view of the group list */
+    ObservableList<Group> getGroupList();
+    // @@author
+
+    /** Returns an unmodifiable view of the filtered person list */
+
     /**
      * Returns an unmodifiable view of the filtered person list
      */
