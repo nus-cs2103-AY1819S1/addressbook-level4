@@ -39,11 +39,9 @@ public class Priority {
      * Returns true if a given string is a valid priority.
      */
     public static boolean isValid(String priority) {
-        if(priority.matches(VALIDATION_REGEX))
-        {
+        if (priority.matches(VALIDATION_REGEX)) {
             int i = Integer.parseInt(priority);
-            if(i==1||i==2||i==3)
-            {
+            if (i == 1 || i == 2 || i == 3) {
                 return true;
             }
         }
