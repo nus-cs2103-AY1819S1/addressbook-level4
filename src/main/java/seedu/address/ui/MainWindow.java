@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.AddressBookEventChangedEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
@@ -42,9 +43,10 @@ public class MainWindow extends UiPart<Stage> {
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
+    private TabPanel tabPanel;
 
     @FXML
-    private StackPane browserPlaceholder;
+    private StackPane tabsPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -128,8 +130,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        tabPanel = new TabPanel(logic.getFilteredEventListByDate());
+        tabsPlaceholder.getChildren().add(tabPanel.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
@@ -208,5 +210,17 @@ public class MainWindow extends UiPart<Stage> {
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+    @Subscribe
+    private void handleAddressBookEventChangedEvent(AddressBookEventChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+
+        /* This is a workaround to reset the displayed events list.
+        TODO: Add a listener to ModelManager to listen for changes in the base list, update the list of lists grouped
+         by date, and remove this method.
+        */
+        tabPanel = new TabPanel(logic.getFilteredEventListByDate());
+        tabsPlaceholder.getChildren().add(tabPanel.getRoot());
     }
 }

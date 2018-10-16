@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -10,8 +11,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
+import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 
 /**
@@ -22,7 +25,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
-    private static boolean notificationPref ;
+
+    private static boolean notificationPref = GuiSettings.getNotificationIsEnabled();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -88,6 +92,21 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public boolean hasEvent(Event event) {
+        return false;
+    }
+
+    @Override
+    public boolean hasClashingEvent(Event event) {
+        return false;
+    }
+
+    @Override
+    public void addEvent(Event event) {
+
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -103,6 +122,21 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<Event> getFilteredEventList() {
+        return null;
+    }
+
+    @Override
+    public void updateFilteredEventList(Predicate<Event> predicate) {
+
+    }
+
+    @Override
+    public ObservableList<List<Event>> getFilteredEventListByDate() {
+        return null;
     }
 
     //=========== Undo/Redo =================================================================================
