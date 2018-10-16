@@ -485,9 +485,6 @@ the highest ID with the event ID and creates the event. If it isn't, skip to the
 |===
 +
 
-
-==== Delete event
-
 === Record management
 
 This section describes the details on how the record management features are implemented.
