@@ -447,12 +447,22 @@ the highest ID with the event ID and creates the event. If it isn't, skip to the
 ===== Design considerations
 ====== Aspect: How event ID is generated
 * *Alternative 1 (current choice):* Increment from highest ID
-- Pros: Implementation is easy.
-- Cons: Maintained highest ID may be susceptible to overwrite become desynchronised.
-
++
+[cols="1,10"]
+|===
+|*Pros*| Implementation is easy
+|*Cons*| Maintained highest ID may be susceptible to overwrite and become desynchronised.
+|===
++
 * *Alternative 2:* Randomly generated unique ID
-- Pros: Not dependent on a maintained highest ID variable (single point of failure).
-- Cons: Requires keeping track of all existing event IDs to ensure uniqueness.
++
+[cols="1,10"]
+|===
+|*Pros*| Not dependent on a maintained highest ID variable (single point of failure).
+|*Cons*| Requires keeping track of all existing event IDs to ensure uniqueness.
+|===
++
+
 
 ==== Delete event
 
