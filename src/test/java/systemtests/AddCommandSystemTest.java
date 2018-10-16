@@ -40,6 +40,7 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.calendarevent.CalendarEvent;
+import seedu.address.model.calendarevent.DateTime;
 import seedu.address.model.calendarevent.Description;
 import seedu.address.model.calendarevent.Title;
 import seedu.address.model.calendarevent.Venue;
@@ -170,12 +171,12 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
         /* Case: invalid start -> rejected */
         command = AddCommand.COMMAND_WORD + TITLE_DESC_LECTURE + DESCRIPTION_DESC_LECTURE + VENUE_DESC_LECTURE
                 + INVALID_START_DESC + END_DESC_LECTURE;
-        assertCommandFailure(command, Venue.MESSAGE_CONSTRAINTS);
+        assertCommandFailure(command, DateTime.MESSAGE_DATETIMEINPUT_CONSTRAINTS);
 
         /* Case: invalid end -> rejected */
         command = AddCommand.COMMAND_WORD + TITLE_DESC_LECTURE + DESCRIPTION_DESC_LECTURE + VENUE_DESC_LECTURE
                 + START_DESC_LECTURE + INVALID_END_DESC;
-        assertCommandFailure(command, Venue.MESSAGE_CONSTRAINTS);
+        assertCommandFailure(command, DateTime.MESSAGE_DATETIMEINPUT_CONSTRAINTS);
 
         /* Case: invalid venue -> rejected */
         command = AddCommand.COMMAND_WORD + TITLE_DESC_LECTURE + DESCRIPTION_DESC_LECTURE + INVALID_VENUE_DESC
