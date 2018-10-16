@@ -5,12 +5,11 @@ import static seedu.address.commons.core.Messages.MESSAGE_RIDES_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalPersons.ACCELERATOR;
-import static seedu.address.testutil.TypicalPersons.BIG;
-import static seedu.address.testutil.TypicalPersons.CASTLE;
-import static seedu.address.testutil.TypicalPersons.DUMBO;
-import static seedu.address.testutil.TypicalPersons.GALAXY;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalRides.ACCELERATOR;
+import static seedu.address.testutil.TypicalRides.BIG;
+import static seedu.address.testutil.TypicalRides.CASTLE;
+import static seedu.address.testutil.TypicalRides.DUMBO;
+import static seedu.address.testutil.TypicalRides.KEYWORD_MATCHING_MEIER;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -126,9 +125,9 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find address of ride in thane park -> 3 rides found */
+        /* Case: find address of ride in thane park -> 1 rides found */
         command = FindCommand.COMMAND_WORD + " " + PREFIX_ADDRESS + DUMBO.getAddress().value;
-        ModelHelper.setFilteredList(expectedModel, CASTLE, DUMBO, GALAXY);
+        ModelHelper.setFilteredList(expectedModel, DUMBO);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -204,7 +203,6 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();
-
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
         assertSelectedCardUnchanged();
