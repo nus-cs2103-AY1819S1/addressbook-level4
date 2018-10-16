@@ -12,7 +12,7 @@ import seedu.souschef.commons.core.GuiSettings;
 public class UserPrefs {
 
     private GuiSettings guiSettings;
-    private Path addressBookFilePath = Paths.get("data" , "addressbook.xml");
+    private Path recipeFilePath = Paths.get("data" , "recipe.xml");
     private Path ingredientPath = Paths.get("data" , "ingredient.xml");
     private Path healthplanPath = Paths.get("data" , "healthplan.xml");
     public UserPrefs() {
@@ -31,8 +31,8 @@ public class UserPrefs {
         guiSettings = new GuiSettings(width, height, x, y);
     }
 
-    public Path getAddressBookFilePath() {
-        return addressBookFilePath;
+    public Path getRecipeFilePath() {
+        return recipeFilePath;
     }
     public Path getIngredientFilePath() {
         return ingredientPath;
@@ -41,8 +41,8 @@ public class UserPrefs {
         return healthplanPath;
     }
 
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        this.addressBookFilePath = addressBookFilePath;
+    public void setRecipeFilePath(Path recipeFilePath) {
+        this.recipeFilePath = recipeFilePath;
     }
 
 
@@ -58,19 +58,19 @@ public class UserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return Objects.equals(guiSettings, o.guiSettings)
-                && Objects.equals(addressBookFilePath, o.addressBookFilePath);
+                && Objects.equals(recipeFilePath, o.recipeFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath);
+        return Objects.hash(guiSettings, recipeFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings.toString());
-        sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nLocal data file location : " + recipeFilePath);
         return sb.toString();
     }
 
