@@ -292,7 +292,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 === Sort and Find feature
-The Sort and Find commands modifies the displayed list in the GUI.
+The Sort and Find commands modifies the `ObservableList<Person>` in `Model` that the UI is bound to.
 The Sort command allows the user to sort the displayed persons list according to each person's name, email,
 phone number, or address by alphanumerical order. +
 
