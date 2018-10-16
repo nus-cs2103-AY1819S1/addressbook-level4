@@ -319,6 +319,29 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::calendar[]
+=== Calendar feature
+==== Current Implementation
+
+The calendar feature in Hallper is implemented using a third-party dependency, https://github.com/ical4j/ical4j[iCal4j].
+It allows `.ics` files to be saved onto the computer. Calendars in Hallper are created as monthly calendars.
+It implements the following command:
+
+* `create_calendar` -- Creates a monthly calendar and store it in local memory.
+
+===== Create_Calendar Command
+This command is facilitated by `CalendarModel` and `IcsCalendarStorage`.
+It implements the following operations:
+
+* `CalendarModel#createCalendar(Year year, Month month)` -- Initializes the calendar object in the `CalendarModel`.
+* `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)` -- Saves the calendar passed from `CalendarModel` to the computer.
+
+These operations are exposed in the 'Model` interface as `Model#createCalendar(Year year, Month month)`, and in the `Storage` interface as `Storage#createCalendar(Calendar calendar, String calendarName)` respectively.
+
+Given below is an example usage scenario and how the create_calendar command behaves at each step:
+
+// end::calendar[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
