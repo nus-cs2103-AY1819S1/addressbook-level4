@@ -15,6 +15,8 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
+import seedu.address.model.patientqueue.MainQueue;
+import seedu.address.model.patientqueue.PreferenceQueue;
 import seedu.address.model.person.Person;
 
 /**
@@ -25,10 +27,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
-    private final PatientQueue<Person> patientQueue;
     private final FilteredList<Doctor> filteredDoctors;
     private final FilteredList<Appointment> filteredAppointments;
-
+    private final MainQueue mainQueue;
+    private final PreferenceQueue preferenceQueue;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -45,7 +47,10 @@ public class ModelManager extends ComponentManager implements Model {
         filteredDoctors = new FilteredList<>(versionedAddressBook.getDoctorList());
         filteredAppointments = new FilteredList<>(versionedAddressBook.getAppointmentList());
         patientQueue = new PatientQueue();
-
+      
+        //@@author iamjackslayer
+        mainQueue = new MainQueue();
+        preferenceQueue = new PreferenceQueue();
     }
 
     public ModelManager() {
@@ -156,10 +161,40 @@ public class ModelManager extends ComponentManager implements Model {
     //========== Update ======================================================================================
 
     @Override
+    public void enqueue(Person patient) {
+        mainQueue.add(patient);
+    }
+
+    /**
+     * Enqueues patient who is consulting a particular doctor into the 'special' queue.
+     * @param patient
+     */
+    @Override
+    public void enqueueIntoPreferenceQueue(Person patient) {
+        preferenceQueue.add(patient);
+    }
+
+    @Override
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
         versionedAddressBook.updatePerson(target, editedPerson);
         indicateAddressBookChanged();
+    }
+
+    @Override
+    public boolean hasPatientInMainQueue() {
+        return mainQueue.hasPatient();
+    }
+
+    @Override
+    public boolean hasPatientInPreferenceQueue() {
+        return preferenceQueue.hasPatient();
+    }
+
+    @Override
+    public boolean hasPatientInPatientQueue() {
+        boolean hasPatient = hasPatientInPreferenceQueue() || hasPatientInMainQueue();
+        return hasPatient;
     }
 
     //@@author jjlee050
