@@ -1,6 +1,6 @@
 package seedu.address.model.appointment;
 
-import java.util.Calendar;
+import java.time.format.DateTimeFormatter;
 
 import seedu.address.commons.util.CollectionUtil;
 
@@ -11,6 +11,9 @@ import seedu.address.commons.util.CollectionUtil;
  *
  */
 public class Appointment {
+    /** Date format to be used in HMS */
+    public static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
     private static final String DIVIDER = " | ";
 
     /** Type of medical procedure */
@@ -20,13 +23,13 @@ public class Appointment {
     private String procedureName;
 
     /** Date and time of procedure */
-    private Calendar dateTime;
+    private String dateTime;
 
     /** Name of the doctor-in-charge */
     private String docName;
 
-    public Appointment(Type type, String procedureName, Calendar dateTime, String docName) {
-        CollectionUtil.requireAllNonNull(type, dateTime, docName);
+    public Appointment(Type type, String procedureName, String dateTime, String docName) {
+        CollectionUtil.requireAllNonNull(type, procedureName, dateTime, docName);
         this.type = type;
         this.procedureName = procedureName;
         this.dateTime = dateTime;
@@ -36,8 +39,7 @@ public class Appointment {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        String dt = DateTime.DATE_TIME_FORMAT.format(dateTime.getTime());
-        sb.append(type).append(DIVIDER).append(procedureName).append(DIVIDER).append(dt).append(DIVIDER)
+        sb.append(type).append(DIVIDER).append(procedureName).append(DIVIDER).append(dateTime).append(DIVIDER)
                 .append(docName);
 
         return sb.toString();
@@ -62,7 +64,7 @@ public class Appointment {
         return type;
     }
 
-    public Calendar getDate_time() {
+    public String getDate_time() {
         return dateTime;
     }
 

@@ -45,12 +45,6 @@ public class ParserUtilTest {
     @Rule
     public final ExpectedException thrown = ExpectedException.none();
 
-    //@@author jeffypie369
-    @Test void parseDateTime_invalidInput_throwsParseException() throws Exception {
-        thrown.expect(ParseException.class);
-        ParserUtil.parseDateTime(INVALID_DATE_TIME);
-    }
-
     @Test
     public void parseIndex_invalidInput_throwsParseException() throws Exception {
         thrown.expect(ParseException.class);

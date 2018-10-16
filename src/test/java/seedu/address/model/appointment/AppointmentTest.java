@@ -1,15 +1,12 @@
 package seedu.address.model.appointment;
 
-import org.junit.Before;
-import org.junit.Test;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.parser.ParserUtil;
-import seedu.address.testutil.Assert;
-
-import java.util.Calendar;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import seedu.address.testutil.Assert;
 
 /**
  * Test driver class for Appointment POJO class functionality
@@ -17,15 +14,15 @@ import static org.junit.Assert.assertTrue;
 public class AppointmentTest {
     private Type type;
     private String procedure;
-    private Calendar dateTime;
+    private String dateTime;
     private String doctor;
 
     @Before
-    public void setUp() throws IllegalValueException {
+    public void setUp() {
         type = Type.SURGICAL;
-        String procedure = "Heart Bypass";
-        dateTime = ParserUtil.parseDateTime("12-12-2022 12:00");
-        String doctor = "Dr. Pepper";
+        procedure = "Heart Bypass";
+        dateTime = "12-12-2022 12:00";
+        doctor = "Dr. Pepper";
     }
 
     @Test

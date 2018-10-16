@@ -41,6 +41,15 @@ public class AppointmentsList {
         this.appointmentsList.remove(appt);
     }
 
+    public boolean contains(Appointment appt) {
+        for (Appointment a : this.appointmentsList) {
+            if (a.equals(appt)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Changes an appointment in a patient's list of appointments
      * @param oldAppt the old appointment

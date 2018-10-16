@@ -1,15 +1,10 @@
 package seedu.address.storage;
 
-import java.text.ParseException;
-import java.util.Calendar;
-import java.util.Date;
-
 import javax.xml.bind.annotation.XmlElement;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.appointment.DateTime;
 import seedu.address.model.appointment.Type;
 
 /**
@@ -18,7 +13,6 @@ import seedu.address.model.appointment.Type;
 
 @XmlRootElement
 public class XmlAdaptedAppointment {
-    public static final String MESSAGE_DATE_TIME_BEFORE_NOW = "Duration must be a positive value!";
 
     @XmlElement(required = true)
     private Type type;
@@ -41,20 +35,10 @@ public class XmlAdaptedAppointment {
     /**
      * Constructs a {@code XmlAdaptedAppointment} with the given details.
      */
-    public XmlAdaptedAppointment(Type type, String procedureName, String dateTime, String docName)
-            throws IllegalValueException {
+    public XmlAdaptedAppointment(Type type, String procedureName, String dateTime, String docName) {
         this.type = type;
         this.procedureName = procedureName;
-        try {
-            Calendar currTime = Calendar.getInstance();
-            Date currentTime = currTime.getTime();
-            Date dt = DateTime.DATE_TIME_FORMAT.parse(dateTime);
-            if (dt.before(currentTime)) {
-                throw new IllegalValueException(MESSAGE_DATE_TIME_BEFORE_NOW);
-            }
-        } catch (ParseException e) {
-            throw new IllegalValueException(e.toString());
-        }
+        this.dateTime = dateTime;
         this.dateTime = dateTime;
         this.docName = docName;
     }
@@ -65,24 +49,15 @@ public class XmlAdaptedAppointment {
     public XmlAdaptedAppointment(Appointment source) {
         this.type = source.getType();
         this.procedureName = source.getProcedure_name();
-        this.dateTime = DateTime.DATE_TIME_FORMAT.format(source.getDate_time().getTime());
+        this.dateTime = source.getDate_time();
         this.docName = source.getDoc_name();
     }
 
     /**
      * Converts this JAXB-friendly adapted Appointment object into the model's Appointment object.
-     *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted Appointment.
      */
-    public Appointment toModelType() throws IllegalValueException {
-        Calendar dt = Calendar.getInstance();
-        try {
-            Date d = DateTime.DATE_TIME_FORMAT.parse(this.dateTime);
-            dt.setTime(d);
-        } catch (ParseException e) {
-            throw new IllegalValueException(e.toString());
-        }
-        return new Appointment(type, procedureName, dt, docName);
+    public Appointment toModelType() {
+        return new Appointment(type, procedureName, dateTime, docName);
     }
 
     @Override

@@ -1,12 +1,7 @@
 package seedu.address.testutil;
 
-import java.text.ParseException;
-import java.util.Calendar;
-import java.util.Date;
-
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.appointment.DateTime;
 import seedu.address.model.appointment.Type;
 
 /**
@@ -18,21 +13,17 @@ public class AppointmentBuilder {
     private static final Type DEFAULT_TYPE = Type.SURGICAL;
     private static final String DEFAULT_PROCEDURE = "Heart Bypass";
     private static final String DEFAULT_DATE_TIME = "12-12-2022 12:00";
-    private static final String DEFAULT_DOCTOR = "Dr. Gregory House";
+    private static final String DEFAULT_DOCTOR = "Dr. Pepper";
 
     private Type type;
     private String procedure;
-    private Date dateTime;
+    private String dateTime;
     private String doctor;
 
     public AppointmentBuilder() throws IllegalValueException {
         type = DEFAULT_TYPE;
         procedure = DEFAULT_PROCEDURE;
-        try {
-            dateTime = DateTime.DATE_TIME_FORMAT.parse(DEFAULT_DATE_TIME);
-        } catch (ParseException e) {
-            throw new IllegalValueException("");
-        }
+        dateTime = DEFAULT_DATE_TIME;
         doctor = DEFAULT_DOCTOR;
     }
 
@@ -40,7 +31,7 @@ public class AppointmentBuilder {
     public AppointmentBuilder(Appointment a) {
         type = a.getType();
         procedure = a.getProcedure_name();
-        dateTime = a.getDate_time().getTime();
+        dateTime = a.getDate_time();
         doctor = a.getDoc_name();
     }
 
@@ -66,17 +57,17 @@ public class AppointmentBuilder {
 
     /**
      * Setter for DateTime
-     * @param d The DateTime object to defensively copy and use.
+     * @param d The string object to defensively copy and use.
      * @return this
      */
-    public AppointmentBuilder withDateTime(Date d) {
+    public AppointmentBuilder withDateTime(String d) {
         this.dateTime = d;
         return this;
     }
 
     /**
-     * Setter for DateTime
-     * @param docName The DateTime object to defensively copy and use.
+     * Setter for doctor
+     * @param docName The doctor's name to defensively copy and use.
      * @return this
      */
     public AppointmentBuilder withDocName(String docName) {
@@ -88,9 +79,7 @@ public class AppointmentBuilder {
      * Returns an {@code Appointment} object with the given characteristics.
      */
     public Appointment build() {
-        Calendar dt = Calendar.getInstance();
-        dt.setTime(dateTime);
-        return new Appointment(type, procedure, dt, doctor);
+        return new Appointment(type, procedure, dateTime, doctor);
     }
 }
 

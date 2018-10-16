@@ -2,9 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Calendar;
+import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,7 +11,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.appointment.DateTime;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.medicalhistory.Diagnosis;
 import seedu.address.model.medicine.Dose;
 import seedu.address.model.medicine.Duration;
@@ -186,22 +185,13 @@ public class ParserUtil {
     }
 
     //@@author jeffypie369
-
     /**
-     * Parses a String date into a Calendar date
+     * Parses a String date into a LocalDateTime date
      * @param dateTime String of the date
-     * @return Calender object which contains the date
-     * @throws IllegalValueException if there is an error while parsing the string
+     * @return LocalDateTime object which contains the date
      */
-    public static Calendar parseDateTime(String dateTime) throws IllegalValueException {
-        try {
-            Date dtDate = DateTime.DATE_TIME_FORMAT.parse(dateTime);
-            Calendar dt = Calendar.getInstance();
-            dt.setTime(dtDate);
-            return dt;
-        } catch (java.text.ParseException e) {
-            throw new ParseException("Exception while parsing dateTime", e);
-        }
+    public static LocalDateTime parseDateTime(String dateTime) {
+        return LocalDateTime.parse(dateTime, Appointment.DATE_TIME_FORMAT);
     }
 
     //@@author

@@ -38,7 +38,7 @@ public class AppointmentUtil {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_TYPE + appt.getType().getAbbreviation() + " ");
         sb.append(PREFIX_PROCEDURE + appt.getProcedure_name() + " ");
-        sb.append(PREFIX_DATE_TIME + appt.getDate_time().toString() + " ");
+        sb.append(PREFIX_DATE_TIME + appt.getDate_time() + " ");
         sb.append(PREFIX_DOCTOR + appt.getDoc_name() + " ");
 
         return sb.toString();

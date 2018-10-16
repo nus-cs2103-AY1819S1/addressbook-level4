@@ -7,10 +7,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROCEDURE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
-import java.util.Calendar;
 import java.util.stream.Stream;
 
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddApptCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.Appointment;
@@ -46,16 +44,11 @@ public class AddApptCommandParser implements Parser<AddApptCommand> {
         for (Type t: Type.values()) {
             if (t.getAbbreviation().equals(typeAbbr)) {
                 type = t;
+                break;
             }
         }
         String procedure = argMultimap.getValue(PREFIX_PROCEDURE).get();
-        String dateTimeStr = argMultimap.getValue(PREFIX_DATE_TIME).get();
-        Calendar dateTime;
-        try {
-            dateTime = ParserUtil.parseDateTime(dateTimeStr);
-        } catch (IllegalValueException e) {
-            throw new ParseException("Exception while parsing dateTime", e);
-        }
+        String dateTime = argMultimap.getValue(PREFIX_DATE_TIME).get();
         String doctor = argMultimap.getValue(PREFIX_DOCTOR).get();
 
         nric = new Nric(patientNric);

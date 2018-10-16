@@ -201,7 +201,7 @@ Format: `addappt ic/NRIC type/TYPE pn/PROCEDURE_NAME dt/DD-MM-YYYY HHMM doc/DOCT
 
 Examples:
 
-* `addappt ic/S1234567A type/SURGERY pn/Brain transplant dt/27-04-2019 1030 doc/Dr. Pepper`
+* `addappt ic/S1234567A type/SURGERY pn/Heart Bypass dt/27-04-2019 1030 doc/Dr. Pepper`
 
 === Views all appointments for a patient: `viewappt`
 Views all scheduled appointments for a patient.
