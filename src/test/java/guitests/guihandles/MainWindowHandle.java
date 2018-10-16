@@ -16,7 +16,7 @@ public class MainWindowHandle extends StageHandle {
     private final StatusBarFooterHandle statusBarFooter;
     private final MainMenuHandle mainMenu;
     private final BudgetPanelHandle budgetPanel;
-    private final StatisticPanelHandle statisticPanel;
+    //private final StatisticPanelHandle statisticPanel;
 
     public MainWindowHandle(Stage stage) {
         super(stage);
@@ -25,7 +25,7 @@ public class MainWindowHandle extends StageHandle {
         statusBarFooter = new StatusBarFooterHandle(getChildNode(StatusBarFooterHandle.STATUS_BAR_PLACEHOLDER));
         mainMenu = new MainMenuHandle(getChildNode(MainMenuHandle.MENU_BAR_ID));
         budgetPanel = new BudgetPanelHandle(getChildNode(BudgetPanelHandle.BUDGET_PANEL_ID));
-        statisticPanel = new StatisticPanelHandle(getChildNode(StatisticPanelHandle.STATISTIC_PANEL_ID));
+        //statisticPanel = new StatisticPanelHandle(getChildNode(StatisticPanelHandle.STATISTIC_PANEL_ID));
         postNow(new SwapLeftPanelEvent(SwapLeftPanelEvent.PanelType.LIST));
         expenseListPanel = new ExpenseListPanelHandle(getChildNode(ExpenseListPanelHandle.EXPENSE_LIST_VIEW_ID));
         postNow(new SwapLeftPanelEvent(SwapLeftPanelEvent.PanelType.STATISTIC));

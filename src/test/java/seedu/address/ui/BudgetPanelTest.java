@@ -15,15 +15,12 @@ import seedu.address.model.budget.Budget;
 public class BudgetPanelTest extends GuiUnitTest {
     private BudgetPanel budgetPanel;
     private BudgetPanelHandle budgetPanelHandle;
-    private Timeline timeline;
 
     @Before
     public void setUp() throws InterruptedException {
         budgetPanel = new BudgetPanel(new Budget(0, 0));
         Thread.sleep(1000);
         uiPartRule.setUiPart(budgetPanel);
-
-        timeline = budgetPanel.getTimeline();
         budgetPanelHandle = new BudgetPanelHandle(budgetPanel.getRoot());
     }
 

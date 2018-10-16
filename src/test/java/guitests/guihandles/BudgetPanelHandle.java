@@ -70,7 +70,7 @@ public class BudgetPanelHandle extends NodeHandle<Region> {
      */
     public boolean isBudgetBarProgressAccurate(double percentage) {
         if (percentage >= 1.0) {
-            percentage = 1.0;
+            return budgetBar.getProgress() == 1.0;
         }
         return budgetBar.getProgress() == percentage;
     }
