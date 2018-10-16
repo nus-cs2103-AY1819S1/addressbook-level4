@@ -183,6 +183,7 @@ public class ParserUtil {
             throw new ParseException(ImportCommand.MESSAGE_USAGE);
         }
         return new File(trimmedFile);
+    }
 
     //@@author EatOrBeEaten
     /**
