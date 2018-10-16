@@ -41,7 +41,7 @@ public class Priority {
      * Returns true if a given string is a valid priority.
      */
     public static boolean isValid(String priority) {
-        return  ( priority.matches(VALIDATION_REGEX_HIGH)
+        return (priority.matches(VALIDATION_REGEX_HIGH)
                 || priority.matches(VALIDATION_REGEX_MEDIUM)
                 || priority.matches(VALIDATION_REGEX_LOW));
     }
