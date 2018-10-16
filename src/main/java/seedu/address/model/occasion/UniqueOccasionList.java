@@ -62,7 +62,7 @@ public class UniqueOccasionList implements Iterable<Occasion> {
     public void setOccasion(Occasion target, Occasion editedOccasion) {
         requireAllNonNull(target, editedOccasion);
         // TODO fill up implementation.
-        // Will leave upto the implementer of the
+        // Will leave up to the implementer of the
         // update feature to do.
     }
 
