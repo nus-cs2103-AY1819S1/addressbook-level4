@@ -40,7 +40,6 @@ public class SetRecurringBudgetCommandParser implements Parser<SetRecurringBudge
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 SetRecurringBudgetCommand.MESSAGE_USAGE));
         }
-        
     }
     private static boolean areAnyPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
