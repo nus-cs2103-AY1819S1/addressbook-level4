@@ -41,7 +41,7 @@ image::Ui.png[width="790"]
 e.g. typing *`-help`* and pressing kbd:[Enter] will open the help window.
 
 .  Some example commands you can try:
-* *`-search KEYWORD... [xx KEYWORD...]`* : search for recipes related and excluded from the keywords
+* *`-search KEYWORD... [x/KEYWORD]...`* : search for recipes related and excluded from the keywords
 * *`-favorite`* : display personal favorited recipes
 * *`-plannerlist`* : display personal meal schedule
 * *`-exit`* : exits the app
@@ -76,21 +76,10 @@ Navigate between past pages. +
 Format: +
 `-back [TIMES]`/`-forward [TIMES]`
 
-==== Search and display recipes: `-search KEYWORD... [xx KEYWORD...]`
-Show recipes related to the keyword(s).
-Keywords include but not limited to cuisines (Indian, Japanese),
-dietary types (vegan, Keto),
-ingredients (egg, broccoli),
-preparation time (quick, 30mins)
-and difficulty (easy, simple, challenging). +
-Recipes with keyword(s) after `xx` are restricted.
-****
-* `KEYWORD` is case insensitive.
-* The order of keywords does not matter.
-* However, restrictive keywords must be provided behind `xx`.
-****
+==== Display recipes database: `-recipe`
+Display all recipes records. +
 Format: +
-`-search KEYWORD... [xx KEYWORD...]`
+`-recipe`
 
 ==== Display recipe suggestion: `-suggest`
 Display system suggestions based on user's past navigation history
@@ -122,24 +111,23 @@ lunch and dinner. Displays the calorie count for each meal, as well as the total
 Format: +
 `-plannerlist`
 
-==== Add a recipe: `-add n/NAME t/TIME d/DIFFICULTY i/INSTRUCTION... [t/TAG...] end`
+==== Exit application: `-exit`
+Format: +
+`-exit`
+
+=== Recipes/Favourite List Commands
+==== Add a recipe: `add n/NAME c/TIME d/DIFFICULTY [t/TAG]... i/INSTRUCTION... end`
 Add new recipe. +
 ****
 * Multi-line command that ends with `end`.
-* TIME should come with a h or/and min postfix, e.g. 1h15min or 35min.
+* TIME should come with a PT prefix with H or/and M postfix, e.g. PT1H15M or PT35M.
 * DIFFICULTY should range from 1 to 5.
 * `i` is to be replaced with running numbers for listing of instructions in order.
 * Ingredients can be included in each instruction via `#INGREDIENT, QUANTITY UNIT_OF_MEASUREMENT`.
 ****
 Format: +
-`-add n/NAME t/TIME d/DIFFICULTY i/INSTRUCTION... [t/TAG...] end`
+`add n/NAME c/TIME d/DIFFICULTY [t/TAG]... i/INSTRUCTION... end`
 
-==== Exit application: `-exit`
-Format: +
-`-exit`
-
-
-=== Recipes/Favourite List Commands
 ==== Display recipe details: `INDEX`
 View a recipe and its details from the list. +
 ****
@@ -155,6 +143,22 @@ A cook mode that provides step-by-step guidance to aid real-time cooking. +
 ****
 Format: +
 `cook INDEX`
+
+==== Search and display recipes: `search KEYWORD... [x/KEYWORD]...`
+Show recipes related to the keyword(s).
+Keywords include but not limited to cuisines (Indian, Japanese),
+dietary types (vegan, Keto),
+ingredients (egg, broccoli),
+preparation time (quick, 30mins)
+and difficulty (easy, simple, challenging). +
+Recipes with keyword(s) after `x/` are restricted.
+****
+* `KEYWORD` is case insensitive.
+* The order of keywords does not matter.
+* However, restrictive keywords must be provided behind `x/`.
+****
+Format: +
+`-search KEYWORD... [x/KEYWORD]...`
 
 === Recipe Details Commands
 ==== Add recipe to favourite: `favourite`
@@ -367,17 +371,18 @@ Format: +
 
 * View help: `-help [local]`
 * Navigate pages: `-back [TIMES]`/ `-forward [TIMES]`
-* Search and display recipes: `-search KEYWORD... [xx KEYWORD...]`
+* Search and display recipes: `-search KEYWORD... [x/KEYWORD]...`
+* Display all recipe: '-recipe'
 * Display recipe suggestion: `-suggest`
 * Display new recipe: `-surprise`
 * Display favorites: `-favourite`
 * Display ingredient manager: `-ingredientmanager`
 * Display meal planner: `-plannerlist`
-* Add a recipe: `-add n/NAME t/TIME i/INSTRUCTION... [t/TAG...] end`
 * Exit application: `-exit`
 
 *Recipes/Favourite List*
 
+* Add a recipe: `add n/NAME c/TIME [t/TAG]... i/INSTRUCTION... end`
 * Display recipe details: `INDEX`
 * Activate cook-mode: `cook INDEX`
 
