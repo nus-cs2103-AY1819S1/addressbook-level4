@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<scheduler>
+    <!-- CalendarEvent with invalid title field -->
+    <calendarEvents>
+        <title></title>
+        <description isPrivate="false">9482424</description>
+        <email isPrivate="false">hans@example.com</email>
+        <venue isPrivate="false">4th street</venue>
+    </calendarEvents>
+</scheduler>

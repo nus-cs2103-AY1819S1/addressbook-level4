@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<scheduler>
+
+    <calendarEvents>
+        <title>Alice Pauline</title>
+        <description>94351253</description>
+        <venue>4th street</venue>
+        <tagged>friends</tagged>
+    </calendarEvents>
+
+    <!-- CalendarEvent with same identity as Alice Pauline -->
+    <calendarEvents>
+        <title>Alice Pauline</title>
+        <description>94351253</description>
+        <venue>4th street</venue>
+    </calendarEvents>
+
+</scheduler>

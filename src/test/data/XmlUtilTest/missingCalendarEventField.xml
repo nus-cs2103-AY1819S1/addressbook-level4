@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- CalendarEvent with missing title field -->
+<calendarEvent>
+    <description>9482424</description>
+    <venue>4th street</venue>
+    <tagged>friends</tagged>
+</calendarEvent>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<scheduler>
+    <!-- CalendarEvent with invalid venue field -->
+    <calendarEvents>
+        <title>Hans Muster</title>
+        <description isPrivate="false">9482424</description>
+        <venue isPrivate="false"></venue>
+    </calendarEvents>
+</scheduler>

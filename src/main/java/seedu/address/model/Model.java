@@ -3,76 +3,86 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
+import seedu.address.model.calendarevent.CalendarEvent;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-
-    /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyAddressBook newData);
-
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
-
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * {@code Predicate} that always evaluate to true
      */
-    boolean hasPerson(Person person);
+    Predicate<CalendarEvent> PREDICATE_SHOW_ALL_CALENDAR_EVENTS = unused -> true;
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Clears existing backing model and replaces with the provided new data.
      */
-    void deletePerson(Person target);
+    void resetData(ReadOnlyScheduler newData);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Returns the Scheduler
      */
-    void addPerson(Person person);
+    ReadOnlyScheduler getScheduler();
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Returns true if a calendar event with the same identity as {@code calendarevent} exists in the scheduler.
      */
-    void updatePerson(Person target, Person editedPerson);
-
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    boolean hasCalendarEvent(CalendarEvent calendarEvent);
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Deletes the given calendar event.
+     * The calendar event must exist in the scheduler.
+     */
+    void deleteCalendarEvent(CalendarEvent target);
+
+    /**
+     * Adds the given calendar event.
+     * {@code calendarevent} must not already exist in the scheduler.
+     */
+    void addCalendarEvent(CalendarEvent calendarEvent);
+
+    /**
+     * Replaces the given calendar event {@code target} with {@code editedCalendarEvent}.
+     * {@code target} must exist in the scheduler.
+     * The calendar event identity of {@code editedCalendarEvent} must not be the same as another existing calendar
+     * event in the scheduler.
+     */
+    void updateCalendarEvent(CalendarEvent target, CalendarEvent editedCalendarEvent);
+
+    /**
+     * Returns an unmodifiable view of the filtered calendar event list
+     */
+    ObservableList<CalendarEvent> getFilteredCalendarEventList();
+
+    /**
+     * Updates the filter of the filtered calendar event list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredCalendarEventList(Predicate<CalendarEvent> predicate);
 
     /**
-     * Returns true if the model has previous address book states to restore.
+     * Returns true if the model has previous scheduler states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndoScheduler();
 
     /**
-     * Returns true if the model has undone address book states to restore.
+     * Returns true if the model has undone scheduler states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canRedoScheduler();
 
     /**
-     * Restores the model's address book to its previous state.
+     * Restores the model's scheduler to its previous state.
      */
-    void undoAddressBook();
+    void undoScheduler();
 
     /**
-     * Restores the model's address book to its previously undone state.
+     * Restores the model's scheduler to its previously undone state.
      */
-    void redoAddressBook();
+    void redoScheduler();
 
     /**
-     * Saves the current address book state for undo/redo.
+     * Saves the current scheduler state for undo/redo.
      */
-    void commitAddressBook();
+    void commitScheduler();
 }

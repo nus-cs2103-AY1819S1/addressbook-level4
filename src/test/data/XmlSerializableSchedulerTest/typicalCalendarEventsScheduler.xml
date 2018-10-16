@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Scheduler save file which contains the same CalendarEvent values as in TypicalPersons#getTypicalAddressBook() -->
+<scheduler>
+    <calendarEvents>
+        <title>Alice Pauline</title>
+        <description>94351253</description>
+        <email>alice@example.com</email>
+        <venue>123, Jurong West Ave 6, #08-111</venue>
+        <tagged>friends</tagged>
+    </calendarEvents>
+    <calendarEvents>
+        <title>Benson Meier</title>
+        <description>98765432</description>
+        <email>johnd@example.com</email>
+        <venue>311, Clementi Ave 2, #02-25</venue>
+        <tagged>owesMoney</tagged>
+        <tagged>friends</tagged>
+    </calendarEvents>
+    <calendarEvents>
+        <title>Carl Kurz</title>
+        <description>95352563</description>
+        <email>heinz@example.com</email>
+        <venue>wall street</venue>
+    </calendarEvents>
+    <calendarEvents>
+        <title>Daniel Meier</title>
+        <description>87652533</description>
+        <email>cornelia@example.com</email>
+        <venue>10th street</venue>
+        <tagged>friends</tagged>
+    </calendarEvents>
+    <calendarEvents>
+        <title>Elle Meyer</title>
+        <description>9482224</description>
+        <email>werner@example.com</email>
+        <venue>michegan ave</venue>
+    </calendarEvents>
+    <calendarEvents>
+        <title>Fiona Kunz</title>
+        <description>9482427</description>
+        <email>lydia@example.com</email>
+        <venue>little tokyo</venue>
+    </calendarEvents>
+    <calendarEvents>
+        <title>George Best</title>
+        <description>9482442</description>
+        <email>anna@example.com</email>
+        <venue>4th street</venue>
+    </calendarEvents>
+</scheduler>

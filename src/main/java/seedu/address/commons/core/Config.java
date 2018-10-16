@@ -13,7 +13,7 @@ public class Config {
     public static final Path DEFAULT_CONFIG_FILE = Paths.get("config.json");
 
     // Config values customizable through config file
-    private String appTitle = "Address App";
+    private String appTitle = "College Scheduler";
     private Level logLevel = Level.INFO;
     private Path userPrefsFilePath = Paths.get("preferences.json");
 
@@ -53,8 +53,8 @@ public class Config {
         Config o = (Config) other;
 
         return Objects.equals(appTitle, o.appTitle)
-                && Objects.equals(logLevel, o.logLevel)
-                && Objects.equals(userPrefsFilePath, o.userPrefsFilePath);
+            && Objects.equals(logLevel, o.logLevel)
+            && Objects.equals(userPrefsFilePath, o.userPrefsFilePath);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class Config {
         StringBuilder sb = new StringBuilder();
         sb.append("App title : " + appTitle);
         sb.append("\nCurrent log level : " + logLevel);
-        sb.append("\nPreference file Location : " + userPrefsFilePath);
+        sb.append("\nPreference file Venue : " + userPrefsFilePath);
         return sb.toString();
     }
 
