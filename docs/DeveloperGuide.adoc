@@ -95,6 +95,34 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 [NOTE]
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
+== Implementation
+
+=== Find feature
+==== Current implementation
+The find mechanism is facilitated by `FindCommand` and `FindCommandParser`. It extends `Command` and implements the following operations.
+
+* `FindCommand#execute()` -- Executes the command by running a predicate `CarparkContainsKeywordsPredicate` and updates the car park list.
+
+The find mechanism is supported by `FindCommandParser`. It implements `Parser` that contains the following operations.
+
+* `FindCommandParser#parse()` -- Checks the arguments for empty strings and throws a `ParseException` if empty string is found. It then splits it by one or more white spaces. It then removes any strings in the list of common words.
+
+The predicate `CarparkContainsKeywordsPredicate` takes in a list of strings and checks if any of the strings contain fully or partial in the list of car park names or address, and returns the car park if so.
+
+Given below is an example usage scenario and how the Find mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time.
+
+Step 2. The user executes `find punggol` command to get all car park in punggol.
+The `find` command calls `FindCommandParser#parse()`, checking the values `punggol`.
+
+[NOTE]
+If a command fails its execution, it will not call `FindCommand#execute()`, so the address book state will not be saved.
+
+Step 3. The entire list of car park is filtered by the predicate `CarparkContainsKeywordsPredicate`.
+
+Step 4. The filtered list of car park is returned to the GUI.
+
 [appendix]
 == Product Scope
 

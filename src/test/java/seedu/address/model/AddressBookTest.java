@@ -3,9 +3,10 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_KILO;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_JULIETT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HOME;
 import static seedu.address.testutil.TypicalCarparks.ALFA;
+import static seedu.address.testutil.TypicalCarparks.JULIETT;
 import static seedu.address.testutil.TypicalCarparks.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -51,9 +52,9 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two carparks with the same identity fields
-        Carpark editedAlfa = new CarparkBuilder(ALFA).withAddress(VALID_ADDRESS_KILO).withTags(VALID_TAG_HOME)
+        Carpark editedJuliett = new CarparkBuilder(JULIETT).withAddress(VALID_ADDRESS_JULIETT).withTags(VALID_TAG_HOME)
                 .build();
-        List<Carpark> newPersons = Arrays.asList(ALFA, editedAlfa);
+        List<Carpark> newPersons = Arrays.asList(JULIETT, editedJuliett);
         AddressBookStub newData = new AddressBookStub(newPersons);
 
         thrown.expect(DuplicateCarparkException.class);
@@ -79,10 +80,10 @@ public class AddressBookTest {
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addCarpark(ALFA);
-        Carpark editedAlfa = new CarparkBuilder(ALFA).withAddress(VALID_ADDRESS_KILO).withTags(VALID_TAG_HOME)
+        addressBook.addCarpark(JULIETT);
+        Carpark editedJuliett = new CarparkBuilder(JULIETT).withAddress(VALID_ADDRESS_JULIETT).withTags(VALID_TAG_HOME)
                 .build();
-        assertTrue(addressBook.hasCarpark(editedAlfa));
+        assertTrue(addressBook.hasCarpark(editedJuliett));
     }
 
     @Test

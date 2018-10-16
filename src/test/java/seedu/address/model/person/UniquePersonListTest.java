@@ -3,10 +3,12 @@ package seedu.address.model.person;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_JULIETT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_KILO;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HOME;
 import static seedu.address.testutil.TypicalCarparks.ALFA;
 import static seedu.address.testutil.TypicalCarparks.BRAVO;
+import static seedu.address.testutil.TypicalCarparks.JULIETT;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -47,10 +49,10 @@ public class UniquePersonListTest {
 
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
-        uniqueCarparkList.add(ALFA);
-        Carpark editedAlfa = new CarparkBuilder(ALFA).withAddress(VALID_ADDRESS_KILO).withTags(VALID_TAG_HOME)
+        uniqueCarparkList.add(JULIETT);
+        Carpark editedJuliett = new CarparkBuilder(JULIETT).withAddress(VALID_ADDRESS_JULIETT).withTags(VALID_TAG_HOME)
                 .build();
-        assertTrue(uniqueCarparkList.contains(editedAlfa));
+        assertTrue(uniqueCarparkList.contains(editedJuliett));
     }
 
     @Test

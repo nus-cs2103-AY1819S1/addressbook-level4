@@ -2,13 +2,17 @@ package seedu.address.model.person;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_JULIETT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_KILO;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CARPARK_NUMBER_KILO;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CARPARK_TYPE_JULIETT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CARPARK_TYPE_KILO;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COORDINATE_JULIETT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COORDINATE_KILO;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HOME;
 import static seedu.address.testutil.TypicalCarparks.ALFA;
 import static seedu.address.testutil.TypicalCarparks.BRAVO;
+import static seedu.address.testutil.TypicalCarparks.JULIETT;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -29,36 +33,36 @@ public class CarparkTest {
     }
 
     @Test
-    public void isSamePerson() {
+    public void isSameCarpark() {
         // same object -> returns true
-        assertTrue(ALFA.isSameCarpark(ALFA));
+        assertTrue(JULIETT.isSameCarpark(JULIETT));
 
         // null -> returns false
-        assertFalse(ALFA.isSameCarpark(null));
+        assertFalse(JULIETT.isSameCarpark(null));
 
         // different phone and email -> returns false
-        Carpark editedAlfa = new CarparkBuilder(ALFA)
+        Carpark editedJuliett = new CarparkBuilder(JULIETT)
                 .withCarparkType(VALID_CARPARK_TYPE_KILO)
                 .withCoordinate(VALID_COORDINATE_KILO).build();
-        assertFalse(ALFA.isSameCarpark(editedAlfa));
+        assertFalse(JULIETT.isSameCarpark(editedJuliett));
 
         // different name -> returns false
-        editedAlfa = new CarparkBuilder(ALFA).withCarparkNumber(VALID_CARPARK_NUMBER_KILO).build();
-        assertFalse(ALFA.isSameCarpark(editedAlfa));
+        editedJuliett = new CarparkBuilder(JULIETT).withCarparkNumber(VALID_CARPARK_TYPE_JULIETT).build();
+        assertFalse(JULIETT.isSameCarpark(editedJuliett));
 
         // same name, same phone, different attributes -> returns true
-        editedAlfa = new CarparkBuilder(ALFA).withCoordinate(VALID_COORDINATE_KILO).withAddress(VALID_ADDRESS_KILO)
-                .withTags(VALID_TAG_HOME).build();
-        assertTrue(ALFA.isSameCarpark(editedAlfa));
+        editedJuliett = new CarparkBuilder(JULIETT).withCoordinate(VALID_COORDINATE_JULIETT)
+                .withAddress(VALID_ADDRESS_JULIETT).withTags(VALID_TAG_HOME).build();
+        assertTrue(JULIETT.isSameCarpark(editedJuliett));
 
         // same name, same email, different attributes -> returns true
-        editedAlfa = new CarparkBuilder(ALFA).withCarparkType(VALID_CARPARK_TYPE_KILO).withAddress(VALID_ADDRESS_KILO)
-                .withTags(VALID_TAG_HOME).build();
-        assertTrue(ALFA.isSameCarpark(editedAlfa));
+        editedJuliett = new CarparkBuilder(JULIETT).withCarparkType(VALID_CARPARK_TYPE_KILO)
+                .withAddress(VALID_ADDRESS_JULIETT).withTags(VALID_TAG_HOME).build();
+        assertTrue(JULIETT.isSameCarpark(editedJuliett));
 
         // same name, same phone, same email, different attributes -> returns true
-        editedAlfa = new CarparkBuilder(ALFA).withAddress(VALID_ADDRESS_KILO).withTags(VALID_TAG_HOME).build();
-        assertTrue(ALFA.isSameCarpark(editedAlfa));
+        editedJuliett = new CarparkBuilder(JULIETT).withAddress(VALID_ADDRESS_JULIETT).withTags(VALID_TAG_HOME).build();
+        assertTrue(JULIETT.isSameCarpark(editedJuliett));
     }
 
     @Test

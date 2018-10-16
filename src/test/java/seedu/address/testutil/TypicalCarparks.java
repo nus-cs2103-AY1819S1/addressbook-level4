@@ -37,7 +37,7 @@ public class TypicalCarparks {
             .withAddress("BLK 349-355 CLEMENTI AVE 2").withCarparkType("SURFACE CAR PARK")
             .withCoordinate("21017.6263, 33014.2438").withLotsAvailable("0").withTotalLots("0")
             .withFreeParking("SUN & PH FR 7AM-10.30PM").withNightParking("YES").withShortTerm("WHOLE DAY")
-            .withTypeOfParking("ELECTRONIC PARKING").withTags("Home").build();
+            .withTypeOfParking("ELECTRONIC PARKING").withTags("Office").build();
     public static final Carpark BRAVO = new CarparkBuilder().withCarparkNumber("SK88")
             .withAddress("BLK 451 SENGKANG WEST WAY").withCarparkType("MULTI-STOREY CAR PARK")
             .withCoordinate("32538.8707, 41769.3259").withLotsAvailable("109").withTotalLots("369")

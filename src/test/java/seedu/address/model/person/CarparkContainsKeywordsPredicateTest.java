@@ -73,8 +73,8 @@ public class CarparkContainsKeywordsPredicateTest {
         assertFalse(predicate.test(new CarparkBuilder().withCarparkNumber("Alice Bob").build()));
 
         // Keywords match phone, email and address, but does not match name
-        predicate = new CarparkContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
-        assertFalse(predicate.test(new CarparkBuilder().withCarparkNumber("Alice").withCarparkType("12345")
-                .withFreeParking("alice@email.com").withAddress("Main Street").build()));
+        predicate = new CarparkContainsKeywordsPredicate(Arrays.asList("V32", "SURFACE", "SENGKANG"));
+        assertFalse(predicate.test(new CarparkBuilder().withCarparkNumber("A29").withCarparkType("SURFACE CAR PARK")
+                .withFreeParking("SUN & PH FR 7AM-10.30PM").withAddress("BLK 347 ANG MO KIO AVENUE 3").build()));
     }
 }
