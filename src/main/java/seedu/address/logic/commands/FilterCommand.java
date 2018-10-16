@@ -20,6 +20,7 @@ import seedu.address.model.carpark.CarparkHasNightParkingPredicate;
  */
 public class FilterCommand extends Command {
     public static final String COMMAND_WORD = "filter";
+    public static final String COMMAND_ALIAS = "f";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Filters the carpark depending on the tags attached.\n"

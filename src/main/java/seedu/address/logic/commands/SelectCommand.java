@@ -19,6 +19,7 @@ import seedu.address.model.carpark.Carpark;
 public class SelectCommand extends Command {
 
     public static final String COMMAND_WORD = "select";
+    public static final String COMMAND_ALIAS = "s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Selects the carpark identified by the index number used in the displayed carpark list.\n"
