@@ -43,7 +43,7 @@ public class UpdateCommandTest {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedRide).build();
         UpdateCommand editCommand = new UpdateCommand(INDEX_FIRST_PERSON, descriptor);
 
-        String expectedMessage = String.format(UpdateCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedRide);
+        String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_RIDE_SUCCESS, editedRide);
 
         Model expectedModel = new ModelManager(new ThanePark(model.getAddressBook()), new UserPrefs());
         expectedModel.updatePerson(model.getFilteredRideList().get(0), editedRide);
@@ -65,7 +65,7 @@ public class UpdateCommandTest {
                 .withMaintenance(VALID_MAINTENANCE_BOB).withTags(VALID_TAG_HUSBAND).build();
         UpdateCommand editCommand = new UpdateCommand(indexLastPerson, descriptor);
 
-        String expectedMessage = String.format(UpdateCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedRide);
+        String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_RIDE_SUCCESS, editedRide);
 
         Model expectedModel = new ModelManager(new ThanePark(model.getAddressBook()), new UserPrefs());
         expectedModel.updatePerson(lastRide, editedRide);
@@ -79,7 +79,7 @@ public class UpdateCommandTest {
         UpdateCommand editCommand = new UpdateCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
         Ride editedRide = model.getFilteredRideList().get(INDEX_FIRST_PERSON.getZeroBased());
 
-        String expectedMessage = String.format(UpdateCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedRide);
+        String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_RIDE_SUCCESS, editedRide);
 
         Model expectedModel = new ModelManager(new ThanePark(model.getAddressBook()), new UserPrefs());
         expectedModel.commitAddressBook();
@@ -96,7 +96,7 @@ public class UpdateCommandTest {
         UpdateCommand editCommand = new UpdateCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
-        String expectedMessage = String.format(UpdateCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedRide);
+        String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_RIDE_SUCCESS, editedRide);
 
         Model expectedModel = new ModelManager(new ThanePark(model.getAddressBook()), new UserPrefs());
         expectedModel.updatePerson(model.getFilteredRideList().get(0), editedRide);
@@ -111,7 +111,7 @@ public class UpdateCommandTest {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstRide).build();
         UpdateCommand editCommand = new UpdateCommand(INDEX_SECOND_PERSON, descriptor);
 
-        assertCommandFailure(editCommand, model, commandHistory, UpdateCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editCommand, model, commandHistory, UpdateCommand.MESSAGE_DUPLICATE_RIDE);
     }
 
     @Test
@@ -123,7 +123,7 @@ public class UpdateCommandTest {
         UpdateCommand editCommand = new UpdateCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(rideInList).build());
 
-        assertCommandFailure(editCommand, model, commandHistory, UpdateCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editCommand, model, commandHistory, UpdateCommand.MESSAGE_DUPLICATE_RIDE);
     }
 
     @Test
