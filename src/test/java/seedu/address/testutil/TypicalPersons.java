@@ -39,6 +39,14 @@ public class TypicalPersons {
             .withInterests("study")
             .withTags("owesMoney", "friends")
             .build();
+    public static final Person KENSON = new PersonBuilder()
+            .withName("Kenson Meier")
+            .withAddress("311, Clementi Ave 2, #02-25")
+            .withEmail("kenson@example.com")
+            .withPhone("98765432")
+            .withInterests("study")
+            .withTags("owesMoney", "friends")
+            .build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz")
             .withPhone("95352563")
             .withEmail("heinz@example.com").withAddress("wall street").build();
@@ -109,6 +117,8 @@ public class TypicalPersons {
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+    public static final String BENSON_AND_KENSON_PHONE = "98765432"; // BENSON and KENSON's phone number
+    public static final String CARL_PHONE = "95352563"; // CARL's phone number
 
     private TypicalPersons() {} // prevents instantiation
 
