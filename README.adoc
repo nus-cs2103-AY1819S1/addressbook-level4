@@ -18,7 +18,7 @@ endif::[]
 * The target audience is social welfare organisations that want to better manage their volunteers & events, and gain further statistical insights from the data.
 ** Manage contacts and events faster than a typical mouse/GUI driven app
 ** Use tags to categorize events and volunteers
-** Support more fields for volunteers, such as number of volunteer hours
+** Manage additional volunteer data, such as number of service hours per volunteer
 ** View volunteer and event statistics and derive insights from them
 
 
