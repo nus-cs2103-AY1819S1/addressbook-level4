@@ -373,6 +373,12 @@ Format: `budget`
 * BP displays the total budget allocated to the CCAs, total outstanding amount and budget information of each CCA, in alphabetical order.
 ****
 
+//tag::budget[]
+=== Budget feature
+==== Current Implementation
+
+//end::budget[]
+
 === Viewing CCA budget : `view_cca`
 
 Allows for the viewing of the budget and past transactions of the specified CCA. +
