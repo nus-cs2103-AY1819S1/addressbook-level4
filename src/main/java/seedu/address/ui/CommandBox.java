@@ -1,6 +1,8 @@
 package seedu.address.ui;
 
+import java.io.File;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,9 +13,11 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.logic.ListElementPointer;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.CdCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.UserPrefs;
 
 /**
  * The UI component that is responsible for receiving user command inputs.
@@ -21,18 +25,25 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
+    /**
+     * Used for initial separation of command word and args.
+     */
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     private static final String FXML = "CommandBox.fxml";
 
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private final Logic logic;
+    private final UserPrefs prefs;
+    private String startDir;
     private ListElementPointer historySnapshot;
 
     @FXML
     private TextField commandTextField;
 
-    public CommandBox(Logic logic) {
+    public CommandBox(Logic logic, UserPrefs prefs) {
         super(FXML);
         this.logic = logic;
+        this.prefs = prefs;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
         historySnapshot = logic.getHistorySnapshot();
@@ -54,6 +65,10 @@ public class CommandBox extends UiPart<Region> {
         case DOWN:
             keyEvent.consume();
             navigateToNextInput();
+            break;
+        case TAB:
+            keyEvent.consume();
+            completeDirName();
             break;
         default:
             // let JavaFx handle the keypress
@@ -94,6 +109,81 @@ public class CommandBox extends UiPart<Region> {
         commandTextField.setText(text);
         commandTextField.positionCaret(commandTextField.getText().length());
     }
+
+    //@@author benedictcss
+    /**
+     * Auto complete {@code CommandBox}'s text field with the directory name
+     * if it exists and resets {@code startDir} with the {@code UserPrefs}'s
+     * current directory.
+     */
+    private void completeDirName() {
+        startDir = prefs.getCurrDirectory().toString();
+        String commandText = commandTextField.getText();
+
+        String commandWord = getCommandWord(commandText.trim());
+        String arguments = getArguments(commandText.trim());
+        if (commandWord.equals(CdCommand.COMMAND_WORD)) {
+            searchDirectory(arguments);
+        }
+    }
+
+    /**
+     * Returns command word from given {@code commandText}.
+     */
+    private String getCommandWord(String commandText) {
+        String[] commandLineArgs = commandText.split(" ");
+        return commandLineArgs[0];
+    }
+
+    /**
+     * Returns arguments from given {@code commandText}.
+     */
+    private String getArguments(String commandText) {
+        String[] commandLineArgs = commandText.split(" ", 2);
+        return commandLineArgs[1];
+    }
+
+    /**
+     * Searches if directories exists in the given {@code arguments}.
+     */
+    private void searchDirectory(String arguments) {
+        StringBuilder copyArgs = new StringBuilder();
+
+        String[] directories = arguments.split("/");
+        int numDir = directories.length;
+
+        for (int i = 0; i < numDir; i++) {
+            String dir = directories[i];
+            // Enters if directory is the last argument.
+            if (i == (numDir - 1)) {
+                File checkDir = new File(startDir);
+                File[] fileList = checkDir.listFiles();
+
+                for (File file : fileList) {
+                    if (file.isDirectory()) {
+                        if (file.getName().toUpperCase().startsWith(dir.toUpperCase())) {
+                            copyArgs.append(file.getName());
+                            String newCommandText = "cd " + copyArgs + "/";
+                            replaceText(newCommandText);
+                            return;
+                        }
+                    }
+                }
+            } else {
+                // checks if directory exists
+                String newDir = startDir + "/" + dir;
+
+                File checkDir = new File(newDir);
+                if (checkDir.isDirectory()) {
+                    startDir = newDir;
+                    copyArgs.append(checkDir.getName() + "/");
+                } else {
+                    return;
+                }
+            }
+        }
+    }
+    //@@author
 
     /**
      * Handles the Enter button pressed event.

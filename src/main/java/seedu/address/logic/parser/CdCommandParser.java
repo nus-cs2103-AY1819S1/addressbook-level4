@@ -1,3 +1,4 @@
+//@author benedictcss
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -6,7 +7,6 @@ import java.nio.file.Path;
 
 import seedu.address.logic.commands.CdCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-//@author benedictcss
 
 /**
  * Parses input arguments and creates a new CdCommand object
