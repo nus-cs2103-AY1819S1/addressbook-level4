@@ -54,9 +54,10 @@ public class Medicine {
         }
         return otherMedicine != null
                 && otherMedicine.getMedicineName().equals(getMedicineName())
-                && otherMedicine.getMinimumStockQuantity().equals(getMedicineName())
-                && otherMedicine.getPricePerUnit().equals(getPricePerUnit())
-                || otherMedicine.getSerialNumber().equals(getSerialNumber());
+                && otherMedicine.getSerialNumber().equals(getSerialNumber())
+                && (otherMedicine.getMinimumStockQuantity().equals(getMedicineName())
+                || otherMedicine.getPricePerUnit().equals(getPricePerUnit())
+                || otherMedicine.getStock().equals(getStock()));
     }
 
     /**

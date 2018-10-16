@@ -13,7 +13,9 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DisplayQueueCommand;
+import seedu.address.logic.commands.DisplayServedPatientsCommand;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditMedicineCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -27,6 +29,7 @@ import seedu.address.logic.commands.RemoveCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.ServeCommand;
 import seedu.address.logic.commands.UndoCommand;
+
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -66,6 +69,9 @@ public class AddressBookParser {
         case EditCommand.COMMAND_WORD:
         case EditCommand.COMMAND_ALIAS:
             return new EditCommandParser().parse(arguments);
+
+        case EditMedicineCommand.COMMAND_WORD:
+            return new EditMedicineCommandParser().parse(arguments);
 
         case SelectCommand.COMMAND_WORD:
         case SelectCommand.COMMAND_ALIAS:
@@ -118,7 +124,12 @@ public class AddressBookParser {
         case DisplayQueueCommand.COMMAND_WORD:
             return new DisplayQueueCommand();
 
+        case DisplayServedPatientsCommand.COMMAND_WORD:
+        case DisplayServedPatientsCommand.COMMAND_ALIAS:
+            return new DisplayServedPatientsCommand();
+
         case RegisterCommand.COMMAND_WORD:
+        case RegisterCommand.COMMAND_ALIAS:
             return new RegisterCommandParser().parse(arguments);
 
         case ServeCommand.COMMAND_WORD:

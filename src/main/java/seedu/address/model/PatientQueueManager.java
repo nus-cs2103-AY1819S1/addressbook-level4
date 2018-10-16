@@ -1,9 +1,11 @@
 package seedu.address.model;
 
 import java.util.LinkedList;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.person.Patient;
 
 /**
  * Represents the current patient queue during runtime.
@@ -11,41 +13,42 @@ import seedu.address.commons.core.LogsCenter;
 public class PatientQueueManager implements PatientQueue {
     private static final Logger logger = LogsCenter.getLogger(PatientQueueManager.class);
 
-    private LinkedList<String> patientQueue = new LinkedList<>();
+    private LinkedList<Patient> patientQueue = new LinkedList<>();
 
     @Override
     public String displayQueue() {
         StringBuilder sb = new StringBuilder();
-        sb.append(getQueueLength() + " Patient(s) in queue: ");
-        patientQueue.stream()
-                    .forEach(x -> sb.append(x + ", "));
-        return sb.substring(0, sb.length() - 2);
+        AtomicInteger num = new AtomicInteger(0);
+        sb.append(getQueueLength()).append(" Patient(s) in queue: ");
+        patientQueue.forEach(x -> sb.append("\n").append(num.incrementAndGet())
+                                    .append(". ").append(x.toNameAndIc()));
+        return sb.toString();
     }
 
     @Override
-    public int enqueue(String patient) {
+    public int enqueue(Patient patient) {
         patientQueue.add(patient);
         return getQueueLength();
     }
 
     @Override
-    public void addAtIndex(String patient, int index) {
+    public void addAtIndex(Patient patient, int index) {
         patientQueue.add(index, patient);
     }
 
     @Override
-    public String removePatient(String patient) {
+    public Patient removePatient(Patient patient) {
         patientQueue.remove(patient);
         return patient;
     }
 
     @Override
-    public String dequeue() {
+    public Patient dequeue() {
         return patientQueue.removeFirst();
     }
 
     @Override
-    public String removeAtIndex(int index) {
+    public Patient removeAtIndex(int index) {
         return patientQueue.remove(index);
     }
 
@@ -60,7 +63,7 @@ public class PatientQueueManager implements PatientQueue {
     }
 
     @Override
-    public boolean contains(String patient) {
+    public boolean contains(Patient patient) {
         return patientQueue.contains(patient);
     }
 }
