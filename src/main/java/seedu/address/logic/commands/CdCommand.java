@@ -1,15 +1,17 @@
+//@author benedictcss
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
 
-//@author benedictcss
 /**
  * Changes the current directory.
  */
@@ -42,8 +44,13 @@ public class CdCommand extends Command {
             return new CommandResult(MESSAGE_FAILURE);
         }
 
-        Path newCurrDirectory = dir.toPath().normalize();
-        model.updateUserPrefs(newCurrDirectory);
+        Path newCurrDirectory = Paths.get("");
+        try {
+            newCurrDirectory = dir.toPath().toRealPath();
+            model.updateUserPrefs(newCurrDirectory);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return new CommandResult(newCurrDirectory.toString());
     }
 
