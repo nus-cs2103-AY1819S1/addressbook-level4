@@ -16,6 +16,7 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.StatsCommand.StatsMode;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -167,6 +168,16 @@ public class AddCommandTest {
 
         @Override
         public void updateExpenseStats(Predicate<Expense> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateStatsMode(StatsMode statsMode) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public StatsMode getStatsMode() {
             throw new AssertionError("This method should not be called.");
         }
 

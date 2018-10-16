@@ -15,4 +15,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_PASSWORD = new Prefix("p/");
     public static final Prefix PREFIX_OLD_PASSWORD = new Prefix("o/");
     public static final Prefix PREFIX_NEW_PASSWORD = new Prefix("n/");
+    public static final Prefix PREFIX_NUMBER_OF_DAYS_OR_MONTHS = new Prefix("n/");
+    public static final Prefix PREFIX_MODE = new Prefix("m/");
 }

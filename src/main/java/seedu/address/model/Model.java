@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.logic.commands.StatsCommand.StatsMode;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
@@ -58,6 +59,16 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredExpenseList(Predicate<Expense> predicate) throws NoUserSelectedException;
+
+    /**
+     * Updates statsMode to the given {@code mode}.
+     */
+    void updateStatsMode(StatsMode mode);
+
+    /**
+     * Returns statsMode.
+     */
+    StatsMode getStatsMode();
 
     /**
      * Returns true if the model has previous address book states to restore.
