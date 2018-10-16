@@ -248,7 +248,8 @@ This section describes some noteworthy details on how certain features are imple
 === Meal Planner feature
 ==== Current Implementation
 
-The Meal Planner feature is supported by the classes `Meal` and `Day`.
+===== Model
+The Meal Planner feature is supported by the classes *Meal* and *Day*.
 
 ****
 Supporting classes:
@@ -278,26 +279,31 @@ ensured as *Day* objects are only instantiated when recipes are added to a certa
 _date_, with that _date_ being assigned to its *Day* object. When all the recipes
 are deleted from a certain *Day*, the *Day* object is removed from the Meal Planner.
 
+===== Logic
+For Meal Planner commands to be accessible, context has to be switched to "Meal Planner
+via the command `-mealplanner`. From there, the Meal Planner commands can be used and
+*AppContentParser* will redirect the different commands to their respective CommandParser.
+
+====== _Plan Command_: `plan`
+The plan command adds a recipe from the _recipeModel_ to the _mealPlannerModel_. Therefore
+both models have to be passed to *PlanCommandParser*.
+
+Within *PlanCommandParser*, it parses the target _date_ from a *String* into a *LocalDate*.
+This *LocalDate* object is then used to find out whether _mealPlannerModel_ currently
+contains a *Day* with the target _date_. If such a *Day* object already exists, it is
+taken from _mealPlannerModel_ to be used in *PlanMealCommand*
+
+====== _Display Command_: `display`
+
+
+====== _Clear Command_: `clear`
+
 
 ==== Other notes
 Since the the recipe list has to be visible for users to select recipes to add to
 the Meal Planner, the panel does not switch to show the Meal Planner list view immediately
 when context is switched to "Meal Planner". Thus, there is a separate *display* command for
 displaying the Meal Planner.
-
-****
-MealPlanner can be displayed by typing in the following commands in order:
-
-1. *-mealplanner*
-
-2. *display*
-
-_Meal Planner is then displayed, showing the current list of Days with plans_
-****
-
-
-
-
 
 // end::mealplannerimplementation[]
 
