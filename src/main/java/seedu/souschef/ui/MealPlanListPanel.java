@@ -67,7 +67,7 @@ public class MealPlanListPanel extends GenericListPanel<Day> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Recipe} using a {@code RecipeCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Day} using a {@code MealPlanCard}.
      */
     class MealPlanListViewCell extends ListViewCell<Day> {
         @Override
