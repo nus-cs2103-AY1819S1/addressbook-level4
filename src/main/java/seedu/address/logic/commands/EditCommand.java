@@ -184,8 +184,7 @@ public class EditCommand extends Command {
             return Optional.ofNullable(email);
         }
 
-        public void setAddress(Address address)
-        {
+        public void setAddress(Address address) {
             this.address = address;
         }
 

@@ -1,7 +1,7 @@
 package seedu.address.model.person;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
+// import static java.util.Objects.requireNonNull;
+// import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Person's faculty in the address book.
@@ -27,8 +27,8 @@ public class Faculty {
      * @param faculty A valid faculty.
      */
     public Faculty(String faculty) {
-//        requireNonNull(faculty);
-//        checkArgument(isValidFaculty(faculty), MESSAGE_FACULTY_CONSTRAINTS);
+        // requireNonNull(faculty);
+        // checkArgument(isValidFaculty(faculty), MESSAGE_FACULTY_CONSTRAINTS);
         value = faculty;
     }
 
