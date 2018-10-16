@@ -200,6 +200,7 @@ The following commands can only be accessed after switching to the 'event' conte
 ==== Add new event: `add`
 
 Adds an event to the system when in the 'event' context +
+
 Format: `add n/NAME l/LOCATION sd/START_DATE ed/END_DATE st/START_TIME et/END_TIME d/DESCRIPTION [t/TAG]...`
 
 ****
@@ -259,11 +260,13 @@ image::command_add_event_after.png[After add, 800]
 ==== Listing all events : `list`
 
 Lists all events in the system when in the 'event' context. +
+
 Format: `list`
 
 ==== Editing event details : `edit`
 
 Edit details of an existing event in the system when in the 'event' context. +
+
 Format: `edit INDEX [n/NAME] [l/LOCATION] [sd/START_DATE] [ed/END_DATE] [st/START_TIME] [et/END_TIME] [d/DESCRIPTION] [t/TAG]...`
 
 ****
@@ -292,6 +295,7 @@ image::command_edit_event_after.png[After add, 800]
 ==== Deleting event details : `delete`
 
 Deletes details of an existing event in the system when in the 'event' context. +
+
 Format: `delete INDEX`
 
 Examples:
