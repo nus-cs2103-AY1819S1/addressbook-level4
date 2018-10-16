@@ -110,7 +110,7 @@ public class AddressBookParser {
 
         case ImportCommand.COMMAND_WORD:
             return new ImportCommandParser().parse(arguments);
-            
+
         case AddAllDayEventCommand.COMMAND_WORD:
             return new AddAllDayEventCommandParser().parse(arguments);
 
