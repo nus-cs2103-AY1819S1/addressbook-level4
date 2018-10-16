@@ -172,8 +172,6 @@ Format: `delete INDEX`
 * The index *must be a non-zero positive integer* and must correspond to an expense in the expense list.
 ====
 
-
-
 === Locating expenses by name: `find`
 
 Finds expense whose names contain any of the given keywords. +
@@ -320,9 +318,29 @@ The second`redo` reverses the first `undo` command, reapplying `clear`.
 
 === Show expense statistics: `stats`
 
-Opens up a new window showing a bar chart of the expenditure of the past 7 days. +
+Opens up a new window showing a bar chart of the expenditure over a specified time period, in a given `MODE`. +
 
-Format: `stats`
+The available modes are `d` and `m`, which represents day and month respectively. E.g. if NUMBER_OF_DAYS_OR_MONTHS is 7
+and MODE is 'd', the statistics will include data from the past 7 days, current day included.
+
+Format: `stats n/NUMBER_OF_DAYS_OR_MONTHS m/MODE`
+
+****
+*Examples:*
+
+* `stats n/14 m/d` +
+Shows the expense statistics for the past 14 days, current day included +
+
+* `stats n/3 m/m` +
+Shows the expense statistics for the past 3 months, current day included +
+****
+
+[NOTE]
+====
+* NUMBER_OF_DAYS_OR_MONTHS must be a positive number greater than 0
+* MODE can only be 'd' or 'm'.
+* If no parameters are provided, the command defaults to show statistics for the past 7 days, current day included.
+====
 
 === Clearing all entries : `clear`
 
@@ -370,6 +388,6 @@ e.g. `setBudget 20.00`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
-* *Statistics* : `stats`
+* *Statistics* : `stats n/NUMBER_OF_DAYS_OR_MONTHS m/MODE`
 * *Clear* : `clear`
 * *Exit* : `exit`

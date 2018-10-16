@@ -12,6 +12,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.StatsCommand.StatsMode;
 
 //@@author jonathantjm
 /**
@@ -30,13 +31,18 @@ public class StatsWindow extends UiPart<Stage> {
      *
      * @param statsData to use to populate the stats of the StatsWindow
      */
-    public StatsWindow(LinkedHashMap<String, Double> statsData) {
+    public StatsWindow(LinkedHashMap<String, Double> statsData, StatsMode statsMode) {
         super(FXML, new Stage());
 
-        setData(statsData);
+        setData(statsData, statsMode);
     }
 
-    public void setData(LinkedHashMap<String, Double> statsData) {
+    /**
+     * Sets the data for the bar chart according to statsData and statsMode
+     * @param statsData LinkedHashMap with data for both axes.
+     * @param statsMode StatsMode enum of current statsMode. Either MONTH or DAY
+     */
+    public void setData(LinkedHashMap<String, Double> statsData, StatsMode statsMode) {
         chartArea.getChildren().clear();
 
         CategoryAxis xAxis = new CategoryAxis();
@@ -44,7 +50,11 @@ public class StatsWindow extends UiPart<Stage> {
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("Amount");
         BarChart stats = new BarChart(xAxis, yAxis);
-        stats.setTitle("Daily Expenditure");
+        if (statsMode == StatsMode.DAY) {
+            stats.setTitle("Expenditure by Day");
+        } else {
+            stats.setTitle("Expenditure by Month");
+        }
 
         XYChart.Series series = new XYChart.Series();
         series.setName("Day Amounts");

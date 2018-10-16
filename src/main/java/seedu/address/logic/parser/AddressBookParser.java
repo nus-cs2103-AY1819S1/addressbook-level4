@@ -113,7 +113,7 @@ public class AddressBookParser {
 
         case StatsCommand.COMMAND_WORD:
         case StatsCommand.COMMAND_ALIAS:
-            return new StatsCommand();
+            return new StatsCommandParser().parse(arguments);
 
 
         default:
