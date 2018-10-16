@@ -191,7 +191,7 @@ public class MainWindow extends UiPart<Stage> {
         NotificationPanel notificationPanel = new NotificationPanel();
         notificationPanelPlaceholder.getChildren().add(notificationPanel.getRoot());
 
-        StatisticPanel statisticPanel = new StatisticPanel();
+        StatisticPanel statisticPanel = new StatisticPanel(logic.getExpenseStats());
         CategoriesPanel categoriesPanel = new CategoriesPanel();
 
         statisticsSplitPane = new SplitPane();
