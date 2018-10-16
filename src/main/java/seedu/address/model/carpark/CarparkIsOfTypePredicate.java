@@ -18,25 +18,24 @@ public class CarparkIsOfTypePredicate implements Predicate<Carpark> {
     public boolean test(Carpark carpark) {
 
         switch (carparkType) {
+        case "SURFACE":
+            return carpark.getCarparkType().value.contains("SURFACE");
 
-            case "SURFACE":
-                return carpark.getCarparkType().value.contains("SURFACE");
+        case "MULTISTOREY":
+            return carpark.getCarparkType().value.contains("MULTI-STOREY");
 
-            case "MULTISTOREY":
-                return carpark.getCarparkType().value.contains("MULTI-STOREY");
+        case "BASEMENT":
+            return carpark.getCarparkType().value.contains("BASEMENT");
 
-            case "BASEMENT":
-                return carpark.getCarparkType().value.contains("BASEMENT");
+        case "MECHANISED":
+            return carpark.getCarparkType().value.contains("MECHANISED");
 
-            case "MECHANISED":
-                return carpark.getCarparkType().value.contains("MECHANISED");
+        case "COVERED":
+            return carpark.getCarparkType().value.contains("COVERED");
 
-            case "COVERED":
-                return carpark.getCarparkType().value.contains("COVERED");
-
-            default:
-                // should catch invalid input instead (to be implemented)
-                return carpark.getCarparkType().value.contains("CAR PARK");
+        default:
+            // should catch invalid input instead (to be implemented)
+            return carpark.getCarparkType().value.contains("CAR PARK");
         }
     }
 
