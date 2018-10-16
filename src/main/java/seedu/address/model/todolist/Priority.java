@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents the priority of a calendar event.
+ * Represents the priority of a todoList event.
  * Guarantees: immutable; is valid as declared in {@link #isValid(String)}
  * Setting Rule: user can set 1 for High; 2 for Medium; 3 for Low
  */
