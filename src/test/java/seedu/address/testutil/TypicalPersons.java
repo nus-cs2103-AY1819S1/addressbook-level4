@@ -28,11 +28,11 @@ public class TypicalPersons {
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
             .withRoom("B314").withEmail("alice@example.com")
             .withPhone("94351253").withSchool("FoS")
-        .withTags("Handball").build();
+        .withTags("Basketball").build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
             .withRoom("D111").withSchool("Medicine")
             .withEmail("johnd@example.com").withPhone("98765432")
-        .withTags("Handball", "Floorball").build();
+        .withTags("Soccer", "Floorball").build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
             .withEmail("heinz@example.com").withRoom("A421").withSchool("SDE")
         .withTags("Floorball", "Handball").build();

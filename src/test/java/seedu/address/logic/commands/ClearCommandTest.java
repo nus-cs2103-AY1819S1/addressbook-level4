@@ -28,7 +28,7 @@ public class ClearCommandTest {
         Model modelEmpty = new ModelManager();
         Model expectedModelEmpty = new ModelManager();
         List<String> target = new ArrayList<>();
-        target.add("basketball");
+        target.add("Basketball");
 
         String expectedMessage = String.format(ClearCommand.MESSAGE_CLEAR_NOTHING, '[' + target.get(0) + ']');
 
@@ -38,7 +38,7 @@ public class ClearCommandTest {
     @Test
     public void execute_nonEmptyAddressBook_success() {
         List<String> target = new ArrayList<>();
-        target.add("track");
+        target.add("Basketball");
 
         Person p = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         List<Person> persons = new ArrayList<>();
@@ -55,7 +55,7 @@ public class ClearCommandTest {
     @Test
     public void execute_clearSpecific_success() {
         List<String> target = new ArrayList<>();
-        target.add("track");
+        target.add("Handball");
         ClearCommand clearCommand = new ClearCommand(target);
 
         String expectedMessage = String.format(ClearCommand.MESSAGE_CLEAR_SPECIFIC_SUCCESS, '[' + target.get(0) + ']');
