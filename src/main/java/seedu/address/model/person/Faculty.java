@@ -32,6 +32,7 @@ public class Faculty {
         value = faculty;
     }
 
+
     /**
      * Returns true if a given string is a valid email.
      */
