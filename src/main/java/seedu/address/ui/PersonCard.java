@@ -38,6 +38,8 @@ public class PersonCard extends UiPart<Region> {
     private Label email;
     @FXML
     private FlowPane tags;
+    @FXML
+    private FlowPane groupTags;
 
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
@@ -48,6 +50,7 @@ public class PersonCard extends UiPart<Region> {
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
         person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        person.getGroupTags().forEach(groupTag -> groupTags.getChildren().add(new Label(groupTag.tagName)));
     }
 
     @Override

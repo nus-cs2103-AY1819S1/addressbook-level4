@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.testutil.TypicalGroups.PROJECT_2103T;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -19,6 +20,8 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.PersonBuilder;
@@ -72,9 +75,34 @@ public class AddressBookTest {
     }
 
     @Test
+    public void hasGroup_groupNotInAddressBook_returnsFalse() {
+        assertFalse(addressBook.hasGroup(PROJECT_2103T));
+    }
+
+    @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
         addressBook.addPerson(ALICE);
         assertTrue(addressBook.hasPerson(ALICE));
+    }
+
+    @Test
+    public void hasGroup_groupInAddressBook_returnsTrue() {
+        addressBook.addGroup(PROJECT_2103T);
+        assertTrue(addressBook.hasGroup(PROJECT_2103T));
+    }
+
+    @Test
+    public void hasPerson_personIsRemoved_returnsFalse() {
+        addressBook.addPerson(ALICE);
+        addressBook.removePerson(ALICE);
+        assertFalse(addressBook.hasPerson(ALICE));
+    }
+
+    @Test
+    public void hasGroup_groupIsRemoved_returnsFalse() {
+        addressBook.addGroup(PROJECT_2103T);
+        addressBook.removeGroup(PROJECT_2103T);
+        assertFalse(addressBook.hasGroup(PROJECT_2103T));
     }
 
     @Test
@@ -91,11 +119,18 @@ public class AddressBookTest {
         addressBook.getPersonList().remove(0);
     }
 
+    @Test
+    public void getGroupList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        addressBook.getGroupList().remove(0);
+    }
+
     /**
      * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Group> groups = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Person> persons) {
             this.persons.setAll(persons);
@@ -104,6 +139,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<Person> getPersonList() {
             return persons;
+        }
+
+        @Override
+        public ObservableList<Group> getGroupList() {
+            return groups;
         }
     }
 

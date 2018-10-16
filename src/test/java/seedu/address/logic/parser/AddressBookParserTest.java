@@ -4,9 +4,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MEETING_DESC_WEEKLY;
+import static seedu.address.testutil.TypicalGroups.GROUP_2101;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalMeetings.WEEKLY;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,16 +24,19 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.ExportCommand;
+import seedu.address.logic.commands.FilepathCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.MeetCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.util.NameContainsKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -61,6 +68,13 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_deleteAlias() throws Exception {
+        DeleteCommand command = (DeleteCommand) parser.parseCommand(
+                DeleteCommand.COMMAND_ALIAS + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+    }
+
+    @Test
     public void parseCommand_edit() throws Exception {
         Person person = new PersonBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
@@ -76,11 +90,24 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_export() throws Exception {
+        assertTrue(parser.parseCommand(ExportCommand.COMMAND_WORD + " "
+                + CliSyntax.PREFIX_PATH + "test.xml") instanceof ExportCommand);
+    }
+
+    @Test
+    public void parseCommand_filepath() throws Exception {
+        assertTrue(parser.parseCommand(FilepathCommand.COMMAND_WORD + " "
+                + CliSyntax.PREFIX_PATH + "test.xml") instanceof FilepathCommand);
+    }
+
+    @Test
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(
+            keywords, Collections.emptyList(), Collections.emptyList())), command);
     }
 
     @Test
@@ -119,6 +146,14 @@ public class AddressBookParserTest {
     public void parseCommand_redoCommandWord_returnsRedoCommand() throws Exception {
         assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
         assertTrue(parser.parseCommand("redo 1") instanceof RedoCommand);
+    }
+
+    @Test
+    public void parseCommand_meetCommand() throws Exception {
+        parser.parseCommand(MeetCommand.COMMAND_WORD + " " + GROUP_2101.getTitle() + " "
+                + VALID_MEETING_DESC_WEEKLY);
+
+        MeetCommand expectedCommand = new MeetCommand(GROUP_2101, WEEKLY);
     }
 
     @Test
