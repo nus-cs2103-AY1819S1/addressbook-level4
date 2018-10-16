@@ -76,13 +76,20 @@ Format: `list`
 
 === Searching all persons under specified tag : `search`
 
-Shows a list of all persons in the address book that are tagged with the specified tag. +
-Format: `search TAG`
+Shows a list of all persons in the address book that are associated with the specified keyword. +
+Format: `search KEYWORD`
+
+****
+* KEYWORD can be ROOM or CCA.
+* KEYWORD is case-sensitive.
+****
 
 Examples:
 
-* `search basketball`
-* `search school of computing`
+* `search basketball` +
+Searches Hallper and lists all contacts associated with `basketball`.
+* `search A123` +
+Searches Hallper and lists all contacts associated with `A123`.
 
 === Editing a person : `edit`
 
@@ -226,17 +233,53 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 === Clearing all specified tags : `erase`
 
-Clears all spcified tags from all contacts from the address book. +
+Clears all spcified tags from all contacts from Hallper. +
 Format: `erase CCA`
+
+****
+* Erases the CCA specified for all associated contacts.
+* The CCA specified must be an existing CCA.
+* Multiple CCAs can be specified at once.
+****
 
 Example:
 
-* `erase basketball`
+* `erase basketball` +
+Erases `basketball` from contacts associated with this CCA. +
+* `erase basketball netball` +
+Erases `basketball` and `netball` from contacts associated with these CCAs.
 
-=== Clearing all entries : `clear`
+=== Clearing all entries : `clear all`
 
-Clears all entries from the address book. +
-Format: `clear`
+Clears all entries from Hallper. +
+Format: `clear all`
+
+****
+* 'all' is case-sensitive.
+****
+
+Example:
+
+* `clear all` +
+Clears `all` entries in Hallper.
+
+=== Clearing specific entries : `clear`
+
+Clears specified entries from Hallper. +
+Format: `clear KEYWORD`
+
+****
+* Clears contacts associated with KEYWORD.
+* KEYWORD refers to either a CCA or ROOM.
+* KEYWORD is case-sensitive.
+****
+
+Example:
+
+* `clear basketball` +
+Clears all entries associated with CCA `basketball`.
+* `clear A123` +
+Clears all entries associated with room `A123`.
 
 === Adds a picture to resident detail : `image`
 
@@ -250,22 +293,42 @@ Format: `image`
 
 === Uploading contact information : `import`
 
-Uploads file containing contact information of all contacts. +
-Format: `upload`
+Imports file containing contact information and updates Hallper accordingly. +
+Format: `import f/FILEPATH`
 
 ****
 * Allow for the mass upload of contact information.
 * The file to be uploaded must be a *`.xml`* file.
 ****
 
+Example:
+
+* `import f/C://Users/Files/data.xml` +
+Imports `data.xml` file to be read and for database to be updated accordingly.
+
 === Composing email : `compose`
 
 Composes a *`.eml`* file that can be used to send emails to residents. +
-Format: `compose`
+Format: `compose from/FROM to/TO subject/SUBJECT content/CONTENT`
+
+****
+* FROM and TO must be valid email addresses e.g. johndoe@example.com
+* SUBJECT has a word limit of 10 words.
+* CONTENT has no word limit.
+****
+
+Example:
+
+* `compose from/johndoe@example.com to/samsee@example.com subject/Meeting this Friday
+content/Hey there's a meeting this friday.` +
+Composes an email from `johndoe@example.com` to `samsee@example.com` with subject
+`Meeting this Friday` and email body `Hey there's a meeting this friday.` and saves
+it as a *`.eml`* file.
+
 
 === Creating calendar : `create_calendar`
 
-Creates a calendar file in the address book for updating of events. +
+Creates a calendar file in Hallper for updating of events. +
 Format: `create_calendar month/MONTH year/YEAR`
 
 ****
@@ -275,7 +338,10 @@ Format: `create_calendar month/MONTH year/YEAR`
 ****
 Example:
 
-* `create_calendar month/Feb year/2018`
+* `create_calendar month/Feb year/2018` +
+Creates a calendar for the month of `Feb` and year `2018` and
+saves it as a *`.ics`* file.
+
 
 === Viewing calendar : `view_calendar`
 
@@ -284,7 +350,8 @@ Format: `view_calendar MONTH`
 
 Example:
 
-* `view_calendar Feb`
+* `view_calendar Feb` +
+Displays view of calendar for the month of `Feb`.
 
 === Adding event into calendar : `add_event`
 
@@ -293,7 +360,9 @@ Format: `add_event m/MONTH d/DATE st/START TIME et/END TIME n/NAME OF EVENT
 
 Example:
 
-* `add_event m/Feb d/2 st/1800 et/2100 n/Enthral`
+* `add_event m/Feb d/2 st/1800 et/2100 n/Enthral` +
+Adds an event titled `Enthral` with date `2` nd `Feb` which lasts from `1800` hours
+to `2100` hours to the calendar.
 
 === Viewing the budget for all CCAs : `budget`
 
@@ -311,7 +380,8 @@ Format: `view_cca CCA`
 
 Example:
 
-* `view_cca soccer`
+* `view_cca soccer` +
+Displays budget and past transactions of `soccer` CCA.
 
 === Adding a CCA's budget : `add_cca`
 
@@ -391,7 +461,9 @@ e.g. `delete_cca basketball`
 e.g. `view_cca basketball`
 * *Add Transaction* : `add_transaction CCA AMOUNT TYPE PERSON-IN-CHARGE` +
 e.g. `add_transaction soccer 500 debit James`
-* *Clear* : `clear`
+* *Clear all* : `clear all`
+* *Clear* : `clear KEYWORD [MORE_KEYWORDS]` +
+e.g. `clear basketball A123`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
 * *Erase* : `erase CCA` +
@@ -400,9 +472,9 @@ e.g. `erase basketball`
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
-* *Search* : `search TAG [MORE_TAGS]` +
-e.g. `search basketball`
-* *Compose* : `compose`
+* *Search* : `search KEYWORD [MORE_KEYWORDS]` +
+e.g. `search basketball A123`
+* *Compose* : `compose from/FROM to/TO subject/SUBJECT content/CONTENT`
 * *List* : `list`
 * *Help* : `help`
 * *Select* : `select INDEX` +
@@ -414,7 +486,7 @@ e.g. `view_calendar Feb`
 * *Add Event* : `add_event m/MONTH d/DATE st/START TIME et/END TIME n/NAME OF EVENT` +
 e.g. `add_event m/Feb d/2 st/1800 et/2100 n/Enthral`
 * *Image* : `image`
-* *Import* : `import`
+* *Import* : `import f/FILEPATH`
 * *History* : `history`
 e.g. `view 2`
 * *Undo* : `undo`
