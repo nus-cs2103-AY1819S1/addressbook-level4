@@ -83,6 +83,7 @@ Format: `list`
 
 Shorthand: `l`
 
+// tag::editByName[]
 === Editing a person : `edit`
 
 Edits an existing person in the address book by the displayed list's index or by an existing name. +
@@ -111,6 +112,7 @@ Edits the name of the 2nd person to be `Betsy Crower` and clears all existing ta
 * `edit John Doe p/91234567 e/johndoe@example.com` +
 Edits the phone number and email address of John Doe to be ​91234567​ and
 johndoe@example.com​ respectively.
+// end::editByName[]
 
 === Locating persons by name: `find`
 
