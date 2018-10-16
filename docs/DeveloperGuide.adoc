@@ -475,6 +475,67 @@ Certain properties of the application can be controlled (e.g App name, logging l
 
 This section describes the details on how the volunteer management features are implemented.
 
+// tag::exportcert[]
+==== Export Volunteer Certificate
+The `exportcert` command enables the volunteer manager to export a PDF document (certificate) detailing a volunteer's involvement with the organisation. This is only possible when in the 'volunteer' context. The information included in the certificate are as follows:
+
+* Organisation's logo
+* Volunteer Name and NRIC
+* Date of PDF certificate creation
+* List of events involved in
+* Hours of service contributed
+
+This is a sample of the exported PDF certificate:
+
+image::VolunteerCert.png[width="600"]
+
+===== Intended Implementation
+
+The following is a high level overview of this feature's implementation:
+
+* Inclusion of supported `exportcert` command.
+* Retrieval of the specified volunteer's details.
+* Creation of a new PDF document using Apache PDFBox.
+* Export of the PDF document to a certs folder.
+
+===== Design Considerations
+
+====== Aspect: Medium of Presentation
+
+* **Alternative 1 (current choice):** Export as PDF.
+** Pros: Exports volunteer details in a convenient format for immediate use and distribution.
+** Cons: PDF template has to be set within the application.
+
+* **Alternative 2:** Display volunteer data in a window within the application.
+** Pros: Allows the volunteer manager flexibility as to what to do with the volunteer details. This could include manually inputting it into an existing certificate creation application, or a document template.
+** Cons: Requires more manual work on the volunteer manager's side, especially when the process can be automated to enhance his/her productivity. Certificate templates are also infrequently updated, and thus the costs in terms of efficiency outweigh the benefits in terms of flexibility.
+
+====== Aspect: Choice of PDF Creation Tool
+
+* **Alternative 1 (current choice):** Apache PDFBox
+** Pros: Open source, offers more specific functionality for PDFs than Apache FOP, covers all of the pdf creation and manipulation functionality required for this feature.
+** Cons: Not the most efficient for creating PDFs (refer to http://abhishekkumararya.blogspot.com/2013/09/comparison-of-java-based-pdf-generation.html[this comparison study]).
+
+* **Alternative 2:** Apache FOP
+** Pros: Open source, allows for conversion and formatting of XML data to PDF.
+** Cons: Resource intensive, not the most efficient for PDF creation, and lacks features such as updating and merging PDFs.
+
+* **Alternative 3:** iText
+** Pros: Fastest of the lot for PDF generation (refer to http://abhishekkumararya.blogspot.com/2013/09/comparison-of-java-based-pdf-generation.html[this comparison study]).
+** Cons: Now only available as a free trial, requires a license.
+
+====== Aspect: Identifying Volunteer from Certificate
+
+* **Alternative 1 (current choice):** Use Volunteer's NRIC
+** Pros: Is unique to each volunteer and can be recovered easily, given the volunteer's name or other personal information. It also adds credibility to the exported volunteer certificate.
+** Cons: Requires more space as each NRIC can be represented as string of length 9 or a 7-digit integer.
+
+* **Alternative 2:** Use a Volunteer ID
+** Pros: Shorter than NRIC and still serves the purpose, and can be auto-incremented.
+** Cons: Hard to recover, even if additional information about the volunteer is provided. Would also be meaningless to a third person to whom the certificate is presented for verification purposes.
+
+// end::exportcert[]
+
 === Event management
 
 This section describes the details on how the event management features are implemented.
