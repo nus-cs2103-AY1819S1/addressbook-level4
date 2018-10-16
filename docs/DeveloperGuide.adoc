@@ -392,6 +392,15 @@ The following sequence diagram shows the execution of the `addappt` command:
 
 image::AddApptSequenceDiagram.png[width="800"]
 
+==== Design Considerations
+
+===== Aspect: Representation of types of medical procedures
+* **Alternative 1 (Current implementation):** Use an `Enum` for `Type`
+** Pros: Allows for easier handling of incorrect values
+** Cons: More effort needed to filter and retrieve the different types
+* **Alternative 2:** Have a switch case to handle the different types
+** Pros: Easier to handle.
+** Cons: Less clean
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
