@@ -7,7 +7,7 @@ import static java.util.Objects.requireNonNull;
  * Represents a patient that is currently consulting the doctor in the address book.
  * It has all methods needed to add information to generate various Document later on.
  */
-public class CurrentPatient  {
+public class CurrentPatient {
 
     private ServedPatient patient;
 
@@ -79,12 +79,12 @@ public class CurrentPatient  {
     /**
      * Returns true if there is Current Patient.
      */
-    public boolean hasCurrentPatient(){
+    public boolean hasCurrentPatient() {
         return patient != null;
     }
 
     /**
-     * Return a console-friendly representation of the patient.
+     * Returns a console-friendly representation of the patient.
      */
     public String toNameAndIc() {
         return patient.toNameAndIc();

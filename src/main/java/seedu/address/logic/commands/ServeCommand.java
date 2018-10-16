@@ -9,7 +9,6 @@ import seedu.address.model.PatientQueue;
 import seedu.address.model.ServedPatientList;
 import seedu.address.model.person.CurrentPatient;
 import seedu.address.model.person.Patient;
-import seedu.address.model.person.ServedPatient;
 
 
 /**
