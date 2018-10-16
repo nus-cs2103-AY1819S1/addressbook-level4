@@ -74,6 +74,7 @@ Examples:
 
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/Abigail`
 
 === Listing all persons : `list`
 
@@ -288,7 +289,7 @@ image::import-acceptable-csv.png[width="790"]
 +
 image::import-acceptable-csv2.png[width="790"]
 
-=== Mass export email addresses: `export`
+=== Mass export email addresses: `export` `[coming in v2.0]`
 
 Exports all emails into a csv file in a directory that is given as the second argument. +
 Format: `export DESTINATION_DIRECTORY`
@@ -318,7 +319,7 @@ Example:
 * `schedule Jane Doe d/120319 t/0930` +
 Address book will record that Jane Doe is scheduled for a meeting on 12 March 2019, 0930.
 
-=== View meeting timings: `meetings`
+=== View meeting timings: `meetings` `[coming in v2.0]`
 
 Displays the details of the meeting at the input date and time. +
 Format: `meetings [d/DDMMYY] [t/HHMM]`
@@ -339,7 +340,7 @@ Example:
 * `meetings 23022018 1600` +
 Address book displays meetings at that time or the earliest meeting after the specified time.
 
-=== Notifications for expiring plans
+=== Notifications for expiring plans `[coming in v2.0]`
 
 The address book entries have an optional field for date of plan expiry. You will automatically be notified of clients
 with plans expiring within a month from the day when the address book is initialized. +
@@ -348,26 +349,18 @@ No additional search queries are needed.
 === Adding a picture to contact: `pic`
 
 Adds a picture to a person in the address book. +
-Format: `​pic n/NAME [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] l/FILE_LOCATION​`
+Format: `​pic INDEX l/FILE_LOCATION​`
 
 ****
 * Address book will add the image to the contact.
-* If there are multiple contacts with the same name, address book will prompt for one unique field (address, email,
-phone or other tags) to identify the contact. The image will then be added to the specified contact.
 ****
 
 Examples:
 
-* `pic n/John Doe l/john.jpg` +
-Contact `John Doe` will now have image `john.jpg` in his contact.
-* When there are two `John Doe` s on the list, and command provided is:
-** `pic n/John Doe l/john.jpg` +
-Address book prompts for a unique field.
-** `p/98765432` +
-You provide a unique field. In this example the `John Doe` contact you will be editing should have phone number
-`98765432`. This `John Doe` will then have image `john.jpg` in his contact.
+* `pic 2 l/john.jpg` +
+The second person in the list will now have image `john.jpg` in his contact.
 
-=== Allow user to edit contact if duplicate contact is added
+=== Allow user to add contact if duplicate contact is added
 
 Warns user about adding a contact that has the same name and same phone number or email or address field.
 Address Book allows you to add contact with the same name as an existing contact as long as one of the other fields
@@ -421,8 +414,17 @@ There is no need to save manually.
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
+Encrypt all data in InsuRen behind a password. +
+Format: `encrypt PASSWORD`
 
-_{explain how the user can enable/disable data encryption}_
+****
+* The next time a user opens InsuRen, he will have to enter a password before the contact list populates.
+****
+
+Example:
+
+* `encrypt Pa$$w0rd` +
+All data will be encrypted. The next time the user opens InsuRen, InsuRen will prompt her for a password.
 // end::dataencryption[]
 
 == FAQ
