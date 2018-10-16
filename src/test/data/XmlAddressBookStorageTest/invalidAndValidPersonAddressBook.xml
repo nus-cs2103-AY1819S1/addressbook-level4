@@ -5,13 +5,15 @@
         <name>Hans Muster</name>
         <phone isPrivate="false">9482424</phone>
         <email isPrivate="false">hans@example.com</email>
-        <address isPrivate="false">4th street</address>
+        <room isPrivate="false">C222</room>
+        <school isPrivate="false">Fass</school>
     </persons>
     <!-- Person with invalid phone field -->
     <persons>
         <name>Hans Muster</name>
         <phone isPrivate="false">948asdf2424</phone>
         <email isPrivate="false">hans@example.com</email>
-        <address isPrivate="false">4th street</address>
+        <address isPrivate="false">C222</address>
+        <school isPrivate="false">Fass</school>
     </persons>
 </addressbook>
