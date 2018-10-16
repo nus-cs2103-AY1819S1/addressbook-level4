@@ -130,7 +130,7 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getAddressBook().getRideList().size();
         assertCommandFailure(UpdateCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
-                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+                Messages.MESSAGE_INVALID_RIDE_DISPLAYED_INDEX);
 
         /* --------------------- Performing edit operation while a ride card is selected -------------------------- */
 
@@ -160,7 +160,7 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
         /* Case: invalid index (size + 1) -> rejected */
         invalidIndex = getModel().getFilteredRideList().size() + 1;
         assertCommandFailure(UpdateCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
-                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+                Messages.MESSAGE_INVALID_RIDE_DISPLAYED_INDEX);
 
         /* Case: missing index -> rejected */
         assertCommandFailure(UpdateCommand.COMMAND_WORD + NAME_DESC_BOB,
