@@ -35,7 +35,7 @@ public class LoginCommandTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-    
+
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
@@ -97,7 +97,7 @@ public class LoginCommandTest {
         LoginCommand invalidCommand = new LoginCommand(
                 new Doctor(ADAM.getId(), BEN.getName(), new Password("doctor1", false)));
         List<Doctor> doctorsList = model.getFilteredDoctorList();
-        
+
         assertFalse(invalidCommand.checkDoctorCred(doctorsList));
     }
 
@@ -106,16 +106,16 @@ public class LoginCommandTest {
         LoginCommand command = new LoginCommand(
                 new Doctor(ADAM.getId(), ADAM.getName(), new Password("doctor1", false)));
         List<Doctor> emptyList = new ArrayList<>();
-        
+
         thrown.expect(NullPointerException.class);
         // All fields are null.
         command.searchDoctor(null, null);
-        
+
         // Some fields are null.
         command.searchDoctor(null, ADAM);
         command.searchDoctor(emptyList, null);
     }
-    
+
     @Test
     public void searchDoctor_emptyDoctorList_returnNull() {
         LoginCommand command = new LoginCommand(
@@ -148,13 +148,13 @@ public class LoginCommandTest {
         // Cannot find ADAM in the doctorsList
         assertNull(command.searchDoctor(doctorsList, ADAM));
     }
-    
+
     @Test
     public void searchDoctor_doctorFound_returnDoctor() {
         LoginCommand command = new LoginCommand(
                 new Doctor(ADAM.getId(), ADAM.getName(), new Password("doctor1", false)));
         List<Doctor> doctorsList = model.getFilteredDoctorList();
-        
+
         assertNotNull(command.searchDoctor(doctorsList, BEN));
 
     }
