@@ -532,6 +532,30 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+=== Group
+
+==== Current Implementation
+A `Group` can be created and removed from `AddressBook` using `addGroup` and `removeGroup` command respectively.
+
+Once the `Group` exists in the `AddressBook`, the existing `Person` can be assigned to that group using `addGroup`.
+The person can also be removed from the group by `removeGroup` command.
+
+Each `Group` can keep track of a list of its members. This is supported by `UniquePersonList` class.
+
+Each `Person` can also keep a list of groups he/she enrols in. An `UniqueGroupList` is added to support this functionality.
+
+==== Design Consideration
+
+===== Aspect: Management of group relationship
+
+* **Alternative 1 (current choice):** The `add` and `remove` operations support bidirectional update of relationships.
+** Pros: Less complexity in current project structure.
+** Cons: The future optimisation of these operations is less flexible.
+
+* **Alternative 2:** Use a central `groupManager` to manage the group-person relationships on the `AddressBook level`.
+** Pros: Greater room for possible future improvement, and ability to contain more complex relationships required by potential users.
+** Cons: The idea is less compatible with the current project structure. Extensive change in structure and logic must be performed, and is error-prone.
+
 // tag::meeting[]
 === Meeting
 
