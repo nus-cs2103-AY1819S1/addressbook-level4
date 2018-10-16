@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
-import javafx.collections.ObservableList;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.anakincommands.AnakinNewDeckCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -22,6 +22,9 @@ import seedu.address.model.AnakinReadOnlyAnakin;
 import seedu.address.model.anakindeck.AnakinCard;
 import seedu.address.model.anakindeck.AnakinDeck;
 import seedu.address.testutil.AnakinDeckBuilder;
+
+import javafx.collections.ObservableList;
+
 
 public class AnakinNewDeckCommandTest {
 
