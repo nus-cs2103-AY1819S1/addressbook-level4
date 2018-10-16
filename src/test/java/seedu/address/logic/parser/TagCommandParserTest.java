@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.util.Arrays;
-import java.util.List;
 
 import org.junit.Test;
 
@@ -24,30 +23,14 @@ public class TagCommandParserTest {
     }
 
     @Test
-    void parse_validArgs_returnsTagCommand() {
-        List<String> tags = Arrays.asList("owesMoney", "friends");
-        // Find tags command, no leading and trailing whitespaces
-        TagCommand expectedFindTagCommand =
-                new TagCommand(new PersonContainsTagPredicate(tags), TagCommand.Action.FIND, tags);
-        assertParseSuccess(parser, "owesMoney friends", expectedFindTagCommand);
+    public void parse_validArgs_returnsTagCommand() {
+        // no leading and trailing whitespaces
+        TagCommand expectedTagCommand =
+                new TagCommand(new PersonContainsTagPredicate(Arrays.asList("friends", "owesMoney")));
+        assertParseSuccess(parser, "friends owesMoney", expectedTagCommand);
 
-        // Find tags command, multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n owesMoney \n \t friends \t", expectedFindTagCommand);
-
-        // Delete tags command, no leading and trailing whitespaces
-        List<String> tagsToBeDeleted = Arrays.asList("Chinese", "client");
-        TagCommand firstExpectedDeleteTagCommand =
-                new TagCommand(new PersonContainsTagPredicate(tagsToBeDeleted), TagCommand.Action.DELETE,
-                        tagsToBeDeleted);
-        assertParseSuccess(parser, "Chinese client delete", firstExpectedDeleteTagCommand);
-
-        // Delete tags command, multiple whitespaces between keywords
-        List<String> moreTagsToBeDeleted = Arrays.asList("Client", "foo", "Colleague");
-        TagCommand secondExpectedDeleteTagCommand =
-                new TagCommand(new PersonContainsTagPredicate(moreTagsToBeDeleted), TagCommand.Action.DELETE,
-                        moreTagsToBeDeleted);
-        assertParseSuccess(parser, "Client \t\t\n\n foo   \n \t   Colleagues \t\nDELETE",
-                secondExpectedDeleteTagCommand);
+        // multiple whitespaces between keywords
+        assertParseSuccess(parser, " \n friends \n \t owesMoney  \t", expectedTagCommand);
     }
 
 }
