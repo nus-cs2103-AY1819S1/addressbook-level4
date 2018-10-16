@@ -35,7 +35,7 @@ import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.UpdateCommand;
-import seedu.address.logic.commands.UpdateCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.UpdateCommand.UpdateRideDescriptor;
 import seedu.address.model.ride.Address;
 import seedu.address.model.ride.Maintenance;
 import seedu.address.model.ride.Name;
@@ -123,7 +123,7 @@ public class UpdateCommandParserTest {
         String userInput = targetIndex.getOneBased() + MAINTENANCE_DESC_BOB + TAG_DESC_HUSBAND
                 + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
+        UpdateRideDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withMaintenance(VALID_MAINTENANCE_BOB).withWaitTime(VALID_WAIT_TIME_AMY).withAddress(VALID_ADDRESS_AMY)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         UpdateCommand expectedCommand = new UpdateCommand(targetIndex, descriptor);
@@ -136,7 +136,7 @@ public class UpdateCommandParserTest {
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + MAINTENANCE_DESC_BOB + EMAIL_DESC_AMY;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withMaintenance(VALID_MAINTENANCE_BOB)
+        UpdateRideDescriptor descriptor = new EditPersonDescriptorBuilder().withMaintenance(VALID_MAINTENANCE_BOB)
                 .withWaitTime(VALID_WAIT_TIME_AMY).build();
         UpdateCommand expectedCommand = new UpdateCommand(targetIndex, descriptor);
 
@@ -148,7 +148,7 @@ public class UpdateCommandParserTest {
         // name
         Index targetIndex = INDEX_THIRD_PERSON;
         String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY).build();
+        UpdateRideDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY).build();
         UpdateCommand expectedCommand = new UpdateCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -184,7 +184,7 @@ public class UpdateCommandParserTest {
                 + TAG_DESC_FRIEND + MAINTENANCE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY + TAG_DESC_FRIEND
                 + MAINTENANCE_DESC_BOB + ADDRESS_DESC_BOB + EMAIL_DESC_BOB + TAG_DESC_HUSBAND;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withMaintenance(VALID_MAINTENANCE_BOB)
+        UpdateRideDescriptor descriptor = new EditPersonDescriptorBuilder().withMaintenance(VALID_MAINTENANCE_BOB)
                 .withWaitTime(VALID_WAIT_TIME_BOB)
                 .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
@@ -198,7 +198,7 @@ public class UpdateCommandParserTest {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + INVALID_MAINTENANCE_DESC + MAINTENANCE_DESC_BOB;
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+        UpdateRideDescriptor descriptor = new EditPersonDescriptorBuilder()
                 .withMaintenance(VALID_MAINTENANCE_BOB).build();
         UpdateCommand expectedCommand = new UpdateCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -218,7 +218,7 @@ public class UpdateCommandParserTest {
         Index targetIndex = INDEX_THIRD_PERSON;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withTags().build();
+        UpdateRideDescriptor descriptor = new EditPersonDescriptorBuilder().withTags().build();
         UpdateCommand expectedCommand = new UpdateCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
