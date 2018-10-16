@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+
+    <events>
+        <eventName>Class</eventName>
+		<eventDescription>lecture</eventDescription>
+		<eventDate>2018-01-01</eventDate>
+		<eventStartTime>1200</eventStartTime>
+		<eventEndTime>1200</eventEndTime>
+		<eventAddress>abc road</eventAddress>
+    </events>
+
+    <!-- Event with same identity as Class -->
+    <events>
+        <eventName>Class</eventName>
+		<eventDescription>lecture</eventDescription>
+		<eventDate>2018-01-01</eventDate>
+		<eventStartTime>1200</eventStartTime>
+		<eventEndTime>1200</eventEndTime>
+		<eventAddress>abc road</eventAddress>
+    </events>
+
+</addressbook>

@@ -16,13 +16,15 @@ public class ScheduledEventBuilder {
     public static final String DEFAULT_EVENT_NAME = "Doctor Appointment";
     public static final String DEFAULT_EVENT_DESC = "Consultation";
     public static final String DEFAULT_EVENT_DATE = "2018-09-01";
-    public static final String DEFAULT_EVENT_TIME = "1015";
+    public static final String DEFAULT_EVENT_START_TIME = "1015";
+    public static final String DEFAULT_EVENT_END_TIME = "1045";
     public static final String DEFAULT_EVENT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
     private EventName eventName;
     private EventDescription eventDescription;
     private EventDate eventDate;
-    private EventTime eventTime;
+    private EventTime eventStartTime;
+    private EventTime eventEndTime;
     private EventAddress eventAddress;
 
     /**
@@ -32,7 +34,8 @@ public class ScheduledEventBuilder {
         eventName = new EventName(DEFAULT_EVENT_NAME);
         eventDescription = new EventDescription(DEFAULT_EVENT_DESC);
         eventDate = new EventDate(DEFAULT_EVENT_DATE);
-        eventTime = new EventTime(DEFAULT_EVENT_TIME);
+        eventStartTime = new EventTime(DEFAULT_EVENT_START_TIME);
+        eventEndTime = new EventTime(DEFAULT_EVENT_END_TIME);
         eventAddress = new EventAddress(DEFAULT_EVENT_ADDRESS);
     }
 
@@ -43,7 +46,8 @@ public class ScheduledEventBuilder {
         eventName = eventToCopy.getEventName();
         eventDescription = eventToCopy.getEventDescription();
         eventDate = eventToCopy.getEventDate();
-        eventTime = eventToCopy.getEventTime();
+        eventStartTime = eventToCopy.getEventStartTime();
+        eventEndTime = eventToCopy.getEventEndTime();
         eventAddress = eventToCopy.getEventAddress();
     }
 
@@ -72,10 +76,18 @@ public class ScheduledEventBuilder {
     }
 
     /**
-     * Sets the {@code EventTime} of the {@code Event} that we are building.
+     * Sets the {@code EventStartTime} of the {@code Event} that we are building.
      */
-    public ScheduledEventBuilder withEventTime(String eventTime) {
-        this.eventTime = new EventTime(eventTime);
+    public ScheduledEventBuilder withEventStartTime(String eventTime) {
+        this.eventStartTime = new EventTime(eventTime);
+        return this;
+    }
+
+    /**
+     * Sets the {@code EventEndTime} of the {@code Event} that we are building.
+     */
+    public ScheduledEventBuilder withEventEndTime(String eventTime) {
+        this.eventEndTime = new EventTime(eventTime);
         return this;
     }
 
@@ -88,6 +100,6 @@ public class ScheduledEventBuilder {
     }
 
     public Event build() {
-        return new Event(eventName, eventDescription, eventDate, eventTime, eventAddress);
+        return new Event(eventName, eventDescription, eventDate, eventStartTime, eventEndTime, eventAddress);
     }
 }
