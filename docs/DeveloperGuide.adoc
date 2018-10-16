@@ -382,6 +382,44 @@ AttributePredicate to test the attriute
 ** Pros: Easier to add more numeric attributes and minimal changes required to filter new attributes
 ** Cons: Need to implement more classes to handle
 
+<<<<<<< Updated upstream
+=======
+=== Autocomplete/Suggest feature
+==== Current Implementation
+
+The autocomplete/suggest mechanism is facilitated by `SuggestCommand`.
+It extends `Command` and serves as a special kind of Command that cannot be directly invoked by users.
+A new instance of `SuggestCommand` is created whenever `AddressBookParser` fails to find a matching CommandWord,
+or when {tab} is pressed inside the CommandBox.
+
+When an incomplete command is entered, the `AddressBookParser` will parse the output using a `SuggestCommandParser`.
+The `AddressBookParser` then checks that
+
+Given below are some example usage scenarios and how the undo/redo mechanism behaves at each step.
+
+image::AutocompleteSuggestActivityDiagram.png[width="650"]
+Figure 3.5.1 Activity Diagram of user e
+
+==== Design Considerations
+
+===== Aspect: How undo & redo executes
+
+* **Alternative 1 (current choice):** Saves the entire address book.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage.
+* **Alternative 2:** Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Cons: We must ensure that the implementation of each individual command are correct.
+
+===== Aspect: Data structure to support the undo/redo commands
+
+* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+* **Alternative 2:** Use `HistoryManager` for undo/redo
+** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+>>>>>>> Stashed changes
 
 
 == Documentation

@@ -6,6 +6,7 @@
         <maintenance isPrivate="false">9482424</maintenance>
         <waitingTime isPrivate="false">hans@example.com</waitingTime>
         <address isPrivate="false">4th street</address>
+        <statusString>OPEN</statusString>
     </rides>
     <!-- Ride with invalid maintenance field -->
     <rides>
@@ -13,5 +14,6 @@
         <maintenance isPrivate="false">948asdf2424</maintenance>
         <waitingTime isPrivate="false">hans@example.com</waitingTime>
         <address isPrivate="false">4th street</address>
+        <statusString>OPEN</statusString>
     </rides>
 </thanepark>
