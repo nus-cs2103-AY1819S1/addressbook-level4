@@ -244,6 +244,93 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag:editbyname[]
+=== Edit By Name feature
+==== Current Implementation
+
+The edit by name mechanism is facilitated by the new `Command`, `EditByNameCommand`.
+It extends `EditCommand` with a "Person Identifier" String that is used in place of the Index (of a displayed list) used in the normal `EditCommand`.
+Additionally, it implements the following operations:
+
+* `EditByNameCommand#findPerson(Model model)` -- Finds and returns the person that is uniquely identified by the `personIdentifier` in the `Model` provided.
+* `EditByNameCommand#Execute()` -- Executes the command encapsulated by this `EditByNameCommand`.
+
+The `findPerson` method makes use of the `NameContainsAllKeywordsPredicate`, which is in contrast to the `NameContainsKeywordsPredicate` used in the `FindCommand`.
+This is because when editing by name, we need a more specific filter, rather than a general one.
+So instead of finding a Person that contains at least one identifier term in their name, the Person found must contain *all* identifier terms in their name.
+
+Given below is an example usage scenario and how the EditByName mechanism behaves at each step.
+
+
+// UNDONE
+
+Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+
+image::UndoRedoStartingStateListDiagram.png[width="800"]
+
+Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+
+image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
+
+Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+
+image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
+
+[NOTE]
+If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+
+image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
+
+[NOTE]
+If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+
+The following sequence diagram shows how the undo operation works:
+
+image::UndoRedoSequenceDiagram.png[width="800"]
+
+The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+
+[NOTE]
+If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+
+image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
+
+Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+
+image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::UndoRedoActivityDiagram.png[width="650"]
+
+// END UNDONE
+==== Design Considerations
+
+===== Aspect: Whether `EditByNameCommand` should Extend `EditCommand`
+* **Alternative 1 (current choice):** It extends `EditCommand`.
+** Pros: Due to polymorphism, `EditByNameCommand` can replace instances of `EditCommand` seamlessly in the code without having to
+change many parts to add this additional feature. It also makes sense, because an `EditByNameCommand` "is an" `EditCommand`.
+** Cons: There is an unused field in `EditCommand` (`index`).
+* **Alternative 2:** Create a new `Command`, standalone from `EditCommand`
+** Pros: Can save a bit of memory space on execution, since parts of `EditCommand` that are not used do not provide extra baggage to `EditByNameCommand`.
+** Cons: There is a need to modify many parts of the Logic component in the code base to accommodate a new command.
+
+===== Aspect: When the Person is Searched/Matched
+
+* **Alternative 1 (current choice):** During the execution of `execute`
+** Additioanl details: A `String personIdentifier` will be stored in the command, and upon `execute`, a person is first matched, then the edit is carried out.
+** Pros: Execute takes in the model as an argument, making searching for a Person convenient.
+** Cons: The same `EditByNameCommand` executed at a different time can have a different result since it does not have a unique Person, but a identifier to find a name.
+* **Alternative 2:** Before creation of the command
+** Additional details: The command will have a `Person`
+** Pros: The command is deterministic, since it targets a unique Person.
+** Cons: Need to gain access to the model before the person can be found, which is not usually done by AddressBookParser; high level changes are necessary.
+// end::editByName[]
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
