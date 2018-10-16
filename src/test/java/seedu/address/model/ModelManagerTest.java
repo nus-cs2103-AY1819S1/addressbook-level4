@@ -16,6 +16,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.Date;
+import seedu.address.model.appointment.Time;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
 
@@ -39,6 +42,13 @@ public class ModelManagerTest {
         modelManager.hasDoctor(null);
     }
 
+    //@@author gingivitiss
+    @Test
+    public void hasAppointment_nullAppointment_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.hasAppointment(null);
+    }
+
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
         assertFalse(modelManager.hasPerson(ALICE));
@@ -48,6 +58,15 @@ public class ModelManagerTest {
     @Test
     public void hasDoctor_doctorNotInAddressBook_returnsFalse() {
         assertFalse(modelManager.hasDoctor(ADAM));
+    }
+
+    //@@author gingivitiss
+    @Test
+    public void hasAppointment_appointmentNotInAddressBook_returnsFalse() {
+        Date date = new Date(1, 1, 2018);
+        Time time = new Time(5, 30);
+        Appointment appt = new Appointment(date, time, ALICE);
+        assertFalse(modelManager.hasAppointment(appt));
     }
 
     @Test
@@ -63,6 +82,16 @@ public class ModelManagerTest {
         assertTrue(modelManager.hasDoctor(ADAM));
     }
 
+    //@@author gingivitiss
+    @Test
+    public void hasAppointment_appointmentInAddressBook_returnsTrue() {
+        Date date = new Date(1, 1, 2018);
+        Time time = new Time(5, 30);
+        Appointment appt = new Appointment(date, time, ALICE);
+        modelManager.addAppointment(appt);
+        assertTrue(modelManager.hasAppointment(appt));
+    }
+
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
@@ -74,6 +103,13 @@ public class ModelManagerTest {
     public void getFilteredDoctorList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getFilteredDoctorList().remove(0);
+    }
+
+    //@@author gingivitiss
+    @Test
+    public void getFilteredAppointmentList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getFilteredAppointmentList().remove(0);
     }
 
     @Test

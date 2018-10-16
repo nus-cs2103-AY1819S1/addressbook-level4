@@ -7,6 +7,8 @@ import java.util.Objects;
 
 import javafx.collections.ObservableList;
 
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.UniqueAppointmentList;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.doctor.UniqueDoctorList;
 import seedu.address.model.person.Person;
@@ -21,6 +23,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniquePersonList persons;
     //@@author jjlee050
     private final UniqueDoctorList doctors;
+    //@@author gingivitiss
+    private final UniqueAppointmentList appointments;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -33,6 +37,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons = new UniquePersonList();
         //@@author jjlee050
         doctors = new UniqueDoctorList();
+        //@@author gingivitiss
+        appointments = new UniqueAppointmentList();
     }
 
     public AddressBook() {}
@@ -45,7 +51,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         resetData(toBeCopied);
     }
 
-    //// list overwrite operations
+    //========== List overwrite operations ===================================================================
 
     /**
      * Replaces the contents of the person list with {@code persons}.
@@ -73,7 +79,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         setDoctors(newData.getDoctorList());
     }
 
-    //// person-level operations
+    //========== Person-level operations =====================================================================
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
@@ -92,6 +98,23 @@ public class AddressBook implements ReadOnlyAddressBook {
         return doctors.contains(doctor);
     }
 
+    //@@author gingivitiss
+    /**
+     * Returns true if an appointment with the same identity as {@code appt} exists in the address book.
+     */
+    public boolean hasAppointment(Appointment appt) {
+        requireNonNull(appt);
+        return appointments.contains(appt);
+    }
+
+    /**
+     * Returns true if an appointment has the same slot as {@code appt} in the address book.
+     */
+    public boolean hasAppointmentClash(Appointment appt) {
+        requireNonNull(appt);
+        return appointments.clashes(appt);
+    }
+
     /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
@@ -107,6 +130,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addDoctor(Doctor d) {
         doctors.add(d);
+    }
+
+    //@@author gingivitiss
+    /**
+     * Adds an appointment to the address book.
+     * The appointment must not already exist in the address book.
+     */
+    public void addAppointment(Appointment appt) {
+        appointments.add(appt);
     }
 
     /**
@@ -130,6 +162,18 @@ public class AddressBook implements ReadOnlyAddressBook {
         doctors.setDoctor(target, editedDoctor);
     }
 
+    //@@author gingivitiss
+    /**
+     * Replaces the given appointment {@code target} in the list with {@code editedAppt}.
+     * {@code target} must exist in the address book.
+     * The appointment identity of {@code editedAppt} must not be the same as another existing appointment
+     * in the address book.
+     */
+    public void updateAppointment(Appointment target, Appointment editedAppt) {
+        requireNonNull(editedAppt);
+        appointments.setAppointment(target, editedAppt);
+    }
+
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
@@ -147,13 +191,33 @@ public class AddressBook implements ReadOnlyAddressBook {
         doctors.remove(key);
     }
 
-    //// util methods
+    //@@author gingivitiss
+    /**
+     * Removes {@code key} from this {@code AddressBook}. Not to be used to cancel appointments.
+     * {@code key} must exist in the address book.
+     */
+    public void removeAppointment(Appointment key) {
+        appointments.remove(key);
+    }
+
+    /**
+     * Cancels {@code key} by updating appointment with cancel status.
+     * Calls {@code updateAppointment} to replace {@code key} with cancelled one.
+     * {@code key} must exist in the address book.
+     */
+    public void cancelAppointment(Appointment key) {
+        requireNonNull(key);
+        appointments.cancelAppointment(key);
+    }
+
+    //========== Util methods ================================================================================
 
     @Override
     public String toString() {
         //@@author jjlee050
         return persons.asUnmodifiableObservableList().size() + " persons & "
-                + doctors.asUnmodifiableObservableList().size() + " doctors";
+                + doctors.asUnmodifiableObservableList().size() + " doctors &"
+                + appointments.asUnmodifiableObservableList().size() + "appointments ";
         // TODO: refine later
     }
 
@@ -168,18 +232,25 @@ public class AddressBook implements ReadOnlyAddressBook {
         return doctors.asUnmodifiableObservableList();
     }
 
+    //@@author gingivitiss
+    @Override
+    public ObservableList<Appointment> getAppointmentList() {
+        return appointments.asUnmodifiableObservableList();
+    }
+
     @Override
     public boolean equals(Object other) {
         //@@author jjlee050
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
                 && persons.equals(((AddressBook) other).persons)
-                && doctors.equals(((AddressBook) other).doctors));
+                && doctors.equals(((AddressBook) other).doctors)
+                && appointments.equals(((AddressBook) other).appointments));
     }
 
     @Override
     public int hashCode() {
         //@@author jjlee050
-        return Objects.hash(persons.hashCode(), doctors.hashCode());
+        return Objects.hash(persons.hashCode(), doctors.hashCode(), appointments.hashCode());
     }
 }
