@@ -873,8 +873,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |medical clinic receptionist |patient medical information to the respective doctor |inform a doctor of their patient's medical history
 
-|`* * *` |medical clinic receptionist |create an appointment  |book patients for consultations in advance
-
 |`*` |medical clinic receptionist |prioritize doctors based on patient preference |enable patients to feel comfortable
 
 |`* * *` |medical clinic receptionist |update the drug inventory |ensure it is updated
@@ -886,6 +884,17 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |careless user |undo any command |revert any mistakes
 
 |`* * *` |medical clinic receptionist |request for a specific doctor for consultation |enable patients to feel comfortable
+
+|`* * *` |medical clinic receptionist |create an appointment  |book patients for consultations in advance
+
+|`* * *` |medical clinic receptionist |cancel an appointment |cancel appointments if a patient cannot make the date
+
+|`* * *` |medical clinic receptionist |view a list of appointments |enable receptionists to find free appointment slots
+
+|`* * *` |medical clinic receptionist |reschedule appointments |change appointment bookings in case of an error
+
+|`* *` |medical clinic receptionist |have a calendar view of appointments |provide easier viewing of the appointment schedule
+
 |=======================================================================
 
 [appendix]
