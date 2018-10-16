@@ -5,7 +5,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 import seedu.address.model.ride.Ride;
+import seedu.address.model.ride.Status;
 
 /**
  * An UI component that displays information of a {@code Ride}.
@@ -37,6 +39,8 @@ public class RideCard extends UiPart<Region> {
     @FXML
     private Label waitingTimeString;
     @FXML
+    private Label statusString;
+    @FXML
     private FlowPane tags;
 
     public RideCard(Ride ride, int displayedIndex) {
@@ -47,6 +51,17 @@ public class RideCard extends UiPart<Region> {
         daysSinceMaintenanceString.setText(ride.getDaysSinceMaintenance().toString());
         address.setText(ride.getAddress().value);
         waitingTimeString.setText(ride.getWaitingTime().toString());
+        statusString.setText(ride.getStatus().name());
+        if (ride.getStatus().equals(Status.OPEN)) {
+            statusString.setStyle("-fx-background-color: #17A828");
+            //statusString.setTextFill(Color.web("#dd3333"));
+        } else if (ride.getStatus().equals(Status.SHUTDOWN)
+            || ride.getStatus().equals(Status.MAINTENANCE)) {
+            statusString.setStyle("-fx-background-color: #CC3045");
+            //statusString.setTextFill(Color.web("33dd33"));
+        //error
+        } else {
+        }
         ride.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
