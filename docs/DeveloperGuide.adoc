@@ -319,6 +319,31 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::importcontacts[]
+=== Import Contacts
+==== Current Implementation
+
+`ModelManager` now implements `readImportContactsFile` and it calls on `VersionedAddressBook`. +
+`VersionAddressBook` is being called so that undo redo can work on import contacts command. +
+`VersionAddressBook` extends `AddressBook` and it implements `readImportContactsFile`. +
+`AddressBook` will call `readImportContactsFile` on `FileReader`. +
+`FileReader` will read the provided CSV file, breaking the first line into Arrays of Strings. +
+`FileReader` then take note of the index of mandatory fields:
+
+* Name
+* Email
+* Phone Number
+
+For each of the following lines until end of file, `Person` is created using index saved for each mandatory fields. +
+Returned `Person` objects are then inserted into `UniquePersonsList` with validation. +
+The number of successful inserts and duplicated will be returned to display after reading EOF. +
+
+The following sequence diagram shows how the readImportContactsFile operatoin works:
+
+image::ImportContactsSequenceDiagram.png[width="800"]
+
+// end::importcontacts[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
@@ -1163,6 +1188,33 @@ User case ends.
 * 3a. User exits email screen without sending email.
 +
 ** 3a1. System returns to original screen.
++
+Use case ends.
+
+[discrete]
+=== UC13: Import contacts
+
+*MSS*
+
+. User request to import contacts.
+. System records and displays how many successfully added and duplicates.
++
+
+Use case ends.
+
+*Extensions*
+
+* 1a. User enters invalid file path (not a file or not an absolute path).
+** 1a1. System displays invalid file path.
++
+Use case ends.
++
+* 2a. System detects empty file.
+** 2a1. System displays empty file.
++
+Use case ends.
+* 2b. System detects invalid csv format (cannot find compulsory header in csv).
+** 2b1. System displays invalid csv file.
 +
 Use case ends.
 
