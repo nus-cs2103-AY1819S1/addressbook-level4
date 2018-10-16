@@ -326,6 +326,21 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+// tag::login[]
+=== Login Authentication
+
+==== Current Implementation
+
+The login authentication is using BCrypt library.
+
+==== Design Considerations
+
+===== Aspect: How login authentication executes
+
+_{Explain the pro and cons for login authentication}_
+
+// end::login[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
