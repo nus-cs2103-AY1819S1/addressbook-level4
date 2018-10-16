@@ -7,14 +7,14 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
-import org.junit.Test;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ViewCommand;
-
 import guitests.GuiRobot;
 import guitests.guihandles.HistoryWindowHandle;
 
+import org.junit.Test;
+
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.ViewCommand;
 import seedu.address.ui.StatusBarFooter;
 
 /**
