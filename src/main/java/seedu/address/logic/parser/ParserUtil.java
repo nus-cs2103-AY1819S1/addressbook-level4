@@ -227,7 +227,7 @@ public class ParserUtil {
     public static Faculty parseFaculty(String faculty) throws ParseException {
         requireNonNull(faculty);
         String trimmedFaculty = faculty.trim();
-        if (!Email.isValidEmail(faculty)) {
+        if (!Faculty.isValidFaculty(faculty)) {
             throw new ParseException(Faculty.MESSAGE_FACULTY_CONSTRAINTS);
         }
         return new Faculty(trimmedFaculty);

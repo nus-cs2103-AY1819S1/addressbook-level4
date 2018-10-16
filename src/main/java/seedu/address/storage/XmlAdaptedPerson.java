@@ -33,7 +33,7 @@ public class XmlAdaptedPerson {
     private String email;
     @XmlElement(required = true)
     private String address;
-    @XmlElement(required = true)
+    @XmlElement
     private String faculty;
 
     @XmlElement
@@ -57,7 +57,9 @@ public class XmlAdaptedPerson {
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
-        this.faculty = faculty;
+        if (faculty != null) {
+            this.faculty = faculty;
+        }
     }
 
     /**
@@ -121,6 +123,13 @@ public class XmlAdaptedPerson {
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
+        if (faculty == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Faculty.class.getSimpleName()));
+        }
+        if (!Faculty.isValidFaculty(faculty)) {
+            throw new IllegalValueException(Faculty.MESSAGE_FACULTY_CONSTRAINTS);
+        }
+
         final Faculty modelFaculty = new Faculty(faculty);
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelFaculty);
     }
@@ -140,6 +149,7 @@ public class XmlAdaptedPerson {
                 && Objects.equals(phone, otherPerson.phone)
                 && Objects.equals(email, otherPerson.email)
                 && Objects.equals(address, otherPerson.address)
-                && tagged.equals(otherPerson.tagged);
+                && tagged.equals(otherPerson.tagged)
+                && Objects.equals(faculty, otherPerson.faculty);
     }
 }

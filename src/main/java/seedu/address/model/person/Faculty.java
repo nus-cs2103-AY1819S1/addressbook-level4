@@ -27,14 +27,15 @@ public class Faculty {
      * @param faculty A valid faculty.
      */
     public Faculty(String faculty) {
-        requireNonNull(faculty);
-        checkArgument(isValidFaculty(faculty), MESSAGE_FACULTY_CONSTRAINTS);
+//        requireNonNull(faculty);
+//        checkArgument(isValidFaculty(faculty), MESSAGE_FACULTY_CONSTRAINTS);
         value = faculty;
     }
 
     /**
      * Returns true if a given string is a valid email.
      */
+
     public static boolean isValidFaculty(String test) {
         return test.matches(FACULTY_VALIDATION_REGEX);
     }
