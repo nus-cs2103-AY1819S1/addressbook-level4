@@ -1,4 +1,4 @@
-package seedu.address.logic.AnakinParser;
+package seedu.address.logic.anakinParser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -6,14 +6,14 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.AnakinCommands.AnakinCdCommand;
-import seedu.address.logic.AnakinCommands.AnakinCommand;
-import seedu.address.logic.AnakinCommands.AnakinDelCardCommand;
-import seedu.address.logic.AnakinCommands.AnakinDelDeckCommand;
-import seedu.address.logic.AnakinCommands.AnakinEditCardCommand;
-import seedu.address.logic.AnakinCommands.AnakinEditDeckCommand;
-import seedu.address.logic.AnakinCommands.AnakinNewCardCommand;
-import seedu.address.logic.AnakinCommands.AnakinNewDeckCommand;
+import seedu.address.logic.anakinCommands.AnakinCdCommand;
+import seedu.address.logic.anakinCommands.AnakinCommand;
+import seedu.address.logic.anakinCommands.AnakinDelCardCommand;
+import seedu.address.logic.anakinCommands.AnakinDelDeckCommand;
+import seedu.address.logic.anakinCommands.AnakinEditCardCommand;
+import seedu.address.logic.anakinCommands.AnakinEditDeckCommand;
+import seedu.address.logic.anakinCommands.AnakinNewCardCommand;
+import seedu.address.logic.anakinCommands.AnakinNewDeckCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 

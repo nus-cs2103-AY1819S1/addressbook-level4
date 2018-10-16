@@ -1,4 +1,4 @@
-package seedu.address.logic.AnakinCommands;
+package seedu.address.logic.anakinCommands;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;

@@ -1,6 +1,6 @@
-package seedu.address.logic.AnakinParser;
+package seedu.address.logic.anakinParser;
 
-import seedu.address.logic.AnakinCommands.AnakinCommand;
+import seedu.address.logic.anakinCommands.AnakinCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
