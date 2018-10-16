@@ -89,8 +89,8 @@ public class ModelManager<T extends UniqueType> extends ComponentManager impleme
     }
 
     @Override
-    public UniqueList<T> getUniqueList() {
-        return this.uniqueList;
+    public void resetUniqueList() {
+        this.uniqueList.set(new UniqueList<T>());
     }
 
     //=========== Filtered Recipe List Accessors =============================================================
