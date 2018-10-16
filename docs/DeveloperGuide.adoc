@@ -302,6 +302,33 @@ This section describes some noteworthy details on how certain features are imple
 
 This section describes the details on how the general features are implemented.
 
+==== Switch command
+===== Current implementation
+
+This `switch` command requires the `SwitchCommandParser` class to parse user input and help determine the context to switch to. +
+
+`SwitchCommandParser` implements the `Parser` class which has the `Parser#parse()` operation. This operation will throw an error if the user input does not match the command format or is an invalid context to switch to.
+
+[NOTE]
+There are only 2 valid contexts which a user can switch to with the command: 'volunteer' and 'event' with context ID of 'v' and 'e' respectively.
+
+The `Switch` command updates the context found in `ModelManager` before raising the context change event to update the UI.
+
+Given below is the sequence diagram to show how the `Switch` command works when switching from volunteer to event context.
+
+.Simplified sequence diagram of `switch` command
+image::Command_Switch_SequenceDiagram.png[switch SD, 800]
+
+===== Design considerations
+====== Aspect: How context is maintained
+* **Alternative 1 (current choice):** Create a new `Context` class
+** Pros: Can support even more context in the future due to the flexibility of a class.
+** Cons: Tedious to do as a new class and relevant methods has to be implemented in model.
+
+* **Alternative 2:** Pass a hard-coded context id around
+** Pros: No need to create a new object to handle the context.
+** Cons: Difficult to maintain the id throughout the whole application. Any change in context id would require all the codes to be updated.
+
 // tag::undoredo[]
 ==== Undo/Redo feature
 ===== Current implementation
@@ -420,6 +447,18 @@ This section describes the details on how the event management features are impl
 === Record management
 
 This section describes the details on how the record management features are implemented.
+
+==== Manage function
+===== Current implementation
+
+The manage command extends from the `Command` interface. It implements the following operation:
+
+* `Command#execute()`: -- Executes the command and switches the current context to the 'manage' context.
+
+Given below is an example usage scenario and how the command behaves at each step.
+
+===== Design considerations
+====== Aspect: ???
 
 == Documentation
 
