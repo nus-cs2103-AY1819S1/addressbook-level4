@@ -18,9 +18,9 @@ public interface EmailStorage {
 
     /**
      * Saves the given Email to the storage.
-     * @param email cannot be null.
+     * @param emailModel cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveEmail(EmailModel email) throws IOException;
+    void saveEmail(EmailModel emailModel) throws IOException;
 
 }

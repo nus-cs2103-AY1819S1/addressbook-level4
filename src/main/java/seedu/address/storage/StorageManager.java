@@ -13,6 +13,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.EmailSavedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
+import seedu.address.commons.events.ui.EmailViewEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.EmailModel;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -137,16 +138,17 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public void saveEmail(EmailModel email) throws IOException {
-        emailStorage.saveEmail(email);
+    public void saveEmail(EmailModel emailModel) throws IOException {
+        emailStorage.saveEmail(emailModel);
     }
 
     @Override
     @Subscribe
     public void handleEmailSavedEvent(EmailSavedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Email composed, saving to file"));
         try {
             saveEmail(event.data);
+            raise(new EmailViewEvent(event.data));
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }
