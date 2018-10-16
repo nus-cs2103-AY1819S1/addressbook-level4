@@ -291,6 +291,36 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== Sort and Find feature
+The `sort` command allows the user to sort the displayed persons list according to each person's name, email,
+phone number, or address by alphanumerical order. +
+
+This command is executed with the following syntax: +
+`sort [name|phone|email|address]` +
+
+Example: `sort name`: This command will sort the current displayed list by name by alphanumerical order.
+
+
+The `find` command allows the user to filter the displayed persons list based on keywords given by the user. +
+
+This command is executed with the following syntax: +
+`find [a/<keywords>] [s/<keywords>] [n/<keywords>]` +
+
+The `a/`, `s/`, and `n/`
+
+
+The
+user can specify three groups of keywords. A group where the user want all keywords to be matched in the results shown,
+a group where the user want some of the keywords to be matched in the results shown, and lastly a group where the user
+wants none of the keywords matching the results shown.
+
+==== Current Implementation
+The Sort and Find commands modifies the `ObservableList<Person>` in `Model` that the UI is bound to.
+`ModelManager` maintains the `sortedPersons` list of type `SortedList<Person>`. `sortedPersons` is the list displayed in
+the display panel of the GUI. In the current implementation, the `sortedPersons` list wraps the `filteredPersons` list
+of type `FilteredList<Person>`, also maintained by `ModelManager`. `filteredPersons` wraps the `persons` list of type
+`ObservableList<Person>` maintained by `versionedAddressBook`.
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
