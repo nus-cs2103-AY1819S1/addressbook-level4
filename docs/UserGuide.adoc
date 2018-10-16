@@ -3,6 +3,7 @@
 :toc:
 :toc-title:
 :toc-placement: preamble
+:toclevels: 3
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -18,19 +19,20 @@ By: `Team W16-1`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-Hallper is a desktop app for the JCRC that allows *for better and faster management of residents' contacts*. More importantly, Hallper is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Hallper can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Hallper is a desktop app for the JCRC that allows *for better and faster management of residents' contacts*. More importantly, Hallper is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Hallper can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `Hallper.jar` link:{repoURL}/releases[here].
+
 .  Copy the file to the folder you want to use as the home folder for your Hallper.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+e.g. typing *`help`* and pressing kbd:[Enter] will open the User Guide window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
@@ -191,7 +193,6 @@ This section lists features related to viewing all or specific contacts in Hallp
 
 Shows a list of all persons in the Hallper that are associated with the specified keyword. +
 Format: `search KEYWORD [MORE_KEYWORDS]`
-
 ****
 * KEYWORD can be ROOM or CCA.
 * KEYWORD is not case-sensitive.
@@ -207,7 +208,6 @@ Searches Hallper and lists all contacts associated with `A123`.
 Searches Hallper and lists all contacts associated with `basketball` and `A123`.
 
 ==== Locating persons by name: `find`
-
 Finds persons whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
@@ -231,11 +231,8 @@ Returns any person having names `Betsy`, `Tim`, or `John`
 Shows a list of all persons in Hallper. +
 Format: `list`
 
-
 === Email
 This section lists features related to email in Hallper.
-
-==== Composing email : `compose`
 
 Composes a *`.eml`* file that can be used to send emails to residents. +
 Format: `compose from/FROM to/TO subject/SUBJECT content/CONTENT`
@@ -253,3 +250,202 @@ content/Hey there's a meeting this friday.` +
 Composes an email from `johndoe@example.com` to `samsee@example.com` with subject
 `Meeting this Friday` and email body `Hey there's a meeting this friday.` and saves
 it as a *`.eml`* file.
+
+=== Calendar
+This section lists features related to managing the calendar in Hallper.
+
+==== Creating calendar : `create_calendar`
+==== Viewing calendar : `view_calendar`
+
+Views the calendar of the specified month. +
+Format: `view_calendar MONTH`
+
+Example:
+
+* `view_calendar Feb` +
+Displays view of calendar for the month of `Feb`.
+
+==== Adding event into calendar : `add_event`
+
+Adds an event into the calendar. +
+Format: `add_event m/MONTH d/DATE st/START TIME et/END TIME n/NAME OF EVENT
+
+Example:
+
+* `add_event m/Feb d/2 st/1800 et/2100 n/Enthral` +
+Adds an event titled `Enthral` with date `2` nd `Feb` which lasts from `1800` hours
+to `2100` hours to the calendar.
+
+=== Budget and CCA
+This section lists features related to CCA budget management in Hallper.
+
+==== Viewing the budget for all CCAs : `budget`
+
+Allows for the viewing of the budgets for all the CCAs. +
+Format: `budget`
+==== Viewing CCA budget : `view_cca`
+
+Allows for the viewing of the budget and past transactions of the specified CCA. +
+Format: `view_cca CCA`
+==== Creating a CCA's budget : `create`
+
+Adds a CCA into the budget book with the initial given budget. +
+Format: `create n/CCA bud/BUDGET`
+
+Example:
+
+* `create n/basketball bud/200` +
+Adds `basketball` CCA with SGD`200` budget to Hallper.
+
+
+==== Deleting a CCA's budget : `delete_cca`
+
+Deletes the CCA's existing budget. +
+Format: `delete_cca CCA`
+
+Example:
+
+* `delete_cca soccer` +
+Deletes `soccer` CCA's existing budget.
+
+==== Modifying a CCA's budget : `modify_cca`
+* Adds a transaction to the budget of specifed CCA.
+* The types available are  either *`credit`* or *`debit`*.
+* The *`PERSON-IN-CHARGE`* must be a resident in Hallper.
+****
+
+Example:
+* `add_transaction badminton 500 credit James`
+Adds a `credit` transaction of SGD `500` to `James` from `badminton` CCA.
+
+=== Miscellaneous
+This section lists miscellaneous commands for navigating Hallper.
+
+==== Viewing help : `help`
+
+Opens up the User Guide in a new window. +
+Format: `help`
+
+==== Listing entered commands : `history`
+
+Lists all the commands that you have entered in reverse chronological order. +
+Format: `history`
+
+[NOTE]
+====
+Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+====
+
+// tag::undoredo[]
+==== Undoing previous command : `undo`
+
+Restores Hallper to the state before the previous _undoable_ command was executed. +
+Format: `undo`
+
+[NOTE]
+====
+Undoable commands: those commands that modify Hallper's content (`add`, `delete`, `edit` and `clear`).
+====
+
+Examples:
+
+* `delete 1` +
+`list` +
+`undo` (reverses the `delete 1` command) +
+
+* `select 1` +
+`list` +
+`undo` +
+The `undo` command fails as there are no undoable commands executed previously.
+
+* `delete 1` +
+`clear` +
+`undo` (reverses the `clear` command) +
+`undo` (reverses the `delete 1` command) +
+
+==== Redoing the previously undone command : `redo`
+
+Reverses the most recent `undo` command. +
+Format: `redo`
+
+Examples:
+
+* `delete 1` +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+
+* `delete 1` +
+`redo` +
+The `redo` command fails as there are no `undo` commands executed previously.
+
+* `delete 1` +
+`clear` +
+`undo` (reverses the `clear` command) +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+`redo` (reapplies the `clear` command) +
+// end::undoredo[]
+
+==== Exiting the program : `exit`
+
+Exits the program. +
+Format: `exit`
+
+==== Saving the data
+
+Hallper data are saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
+
+== FAQ
+
+*Q*: How do I transfer my data to another Computer? +
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Hallper folder.
+
+== Command Summary
+
+* *Search* : `search KEYWORD [MORE_KEYWORDS]` +
+e.g. `search basketball A123`
+* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+e.g. `find James Jake`
+* *List* : `list`
+* *Add* : `add n/NAME p/PHONE_NUMBER e/EMAIL b/BLOCK r/ROOM NUMBER s/SCHOOL [c/CCA]...` +
+e.g. `add n/James Ho p/22224444 e/jamesho@example.com b/C r/420 s/School of Computing c/Basketball`
+* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/CCA]...` +
+e.g. `edit 2 n/James Lee e/jameslee@example.com`
+* *Delete* : `delete INDEX` +
+e.g. `delete 3`
+* *Erase* : `erase CCA` +
+e.g. `erase basketball`
+* *Clear* : `clear KEYWORD [MORE_KEYWORDS]` +
+e.g. `clear basketball A123`
+* *Clear all* : `clear all`
+* *Import* : `import f/FILEPATH`
+* *Image* : `image`
+* *Compose* : `compose from/FROM to/TO subject/SUBJECT content/CONTENT`
+* *Create Calendar* : `create_calendar MONTH` +
+e.g. `create_calendar month/Feb year/2018`
+* *View Calendar* : `view_calendar MONTH` +
+e.g. `view_calendar Feb`
+* *Add Event* : `add_event m/MONTH d/DATE st/START TIME et/END TIME n/NAME OF EVENT` +
+e.g. `add_event m/Feb d/2 st/1800 et/2100 n/Enthral`
+* *Create CCA Budget* : `create n/CCA bud/BUDGET` +
+e.g. `create Basketball 500`
+* *Budget* : `budget`
+* *View CCA* : `view_cca CCA` +
+e.g. `view_cca basketball`
+* *Delete CCA* : `delete_cca CCA` +
+e.g. `delete_cca basketball`
+* *Modify CCA* : `modify_cca CCA BUDGET` +
+e.g. `modify_cca basketball 500`
+* *Add Transaction* : `add_transaction CCA AMOUNT TYPE PERSON-IN-CHARGE` +
+e.g. `add_transaction soccer 500 debit James`
+* *Help* : `help`
+* *History* : `history`
+e.g. `view 2`
+* *Undo* : `undo`
+* *Redo* : `redo`
+* *Exit* : `exit`
+
+== Glossary
+
+* `JCRC`: Junior Common Room Committee in charge of administrative duties within their respective halls.
