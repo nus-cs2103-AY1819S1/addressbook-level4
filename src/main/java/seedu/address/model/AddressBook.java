@@ -56,16 +56,34 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the module list with {@code modules}.
+     * {@code modules} must not contain duplicate modules.
+     */
+    public void setModules(List<Module> modules) {
+        this.modules.setModules(modules);
+    }
+
+    /**
+     * Replaces the contents of the occasion list with {@code occasions}.
+     * {@code occasions} must not contain duplicate occasions.
+     */
+    public void setOccasions(List<Occasion> occasions) {
+        this.occasions.setOccasions(occasions);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setModules(newData.getModuleList());
+        setOccasions(newData.getOccasionList());
     }
 
-    //// person-level operations
-
+    //// person-level operation
+    // TODO: Refactor it to Entity-level
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
@@ -85,7 +103,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing
+     * person in the address book.
      */
     public void updatePerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
@@ -126,13 +145,22 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+
+        if (other == this) { // short circuit if same object
+            return true;
+        } else if (!(other instanceof AddressBook)) {
+            return false;
+        }
+
+        AddressBook otherBook = (AddressBook) other;
+        return persons.equals(otherBook.persons)
+            && modules.equals(otherBook.modules)
+            && occasions.equals(otherBook.occasions);
     }
 
     @Override
     public int hashCode() {
         return persons.hashCode();
+        // TODO: proper design of getting the hashcode of this addressBook
     }
 }
