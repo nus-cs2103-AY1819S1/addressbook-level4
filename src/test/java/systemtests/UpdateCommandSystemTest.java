@@ -48,7 +48,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonUtil;
 import seedu.address.testutil.RideBuilder;
 
-public class EditCommandSystemTest extends AddressBookSystemTest {
+public class UpdateCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void edit() {
