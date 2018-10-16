@@ -35,6 +35,26 @@ public class ServedPatient {
     }
 
     /**
+     * Returns the note content for the {@code served patient}.
+     */
+    public String getNoteContent() {
+        return this.noteContent;
+    }
+    /**
+     * Returns the MC content for the {@code served patient}.
+     */
+    public String getMcContent() {
+        return this.mcContent;
+    }
+
+    /**
+     * Returns the referral content for the {@code served patient}.
+     */
+    public String getReferralContent() {
+        return this.referralContent;
+    }
+
+    /**
      * Skeleton to add note content.
      */
     public String addNoteContent(String content) {
@@ -59,34 +79,10 @@ public class ServedPatient {
     }
 
     /**
-     * Returns the note content for the {@code served patient}.
-     */
-    public String getNoteContent() {
-        return this.noteContent;
-    }
-    /**
-     * Returns the MC content for the {@code served patient}.
-     */
-    public String getMcContent() {
-        return this.mcContent;
-    }
-
-    /**
-     * Returns the referral content for the {@code served patient}.
-     */
-    public String getReferralContent() {
-        return this.referralContent;
-    }
-
-
-    /**
      * Console view of a served patient.
      * @return String representation of patient with Name and IcNumber.
      */
     public String toNameAndIc() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getName() + " [")
-                .append(getIcNumber() + "]");
-        return builder.toString();
+        return patient.toNameAndIc();
     }
 }
