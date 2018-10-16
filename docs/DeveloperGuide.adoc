@@ -242,7 +242,7 @@ This section describes some noteworthy details on how certain features are imple
 // tag::tags[]
 === Tags and Categories
 
-Tags and categories are single-word keywords tied to individual entries. Each `ResumeEntry` can classified under one `Category`, but can be associated with multiple `Tag`.
+Tags and categories are single-word keywords tied to individual entries. Each `ResumeEntry` be can classified under one `Category`, but can be associated with multiple `Tag`.
 
 ==== Categories
 Category related functions are mainly contained in the `seedu.address.model.category` package, which includes the `Category` class and its relevant `CategoryManager`. `CategoryManager` is used by the `ModelManager` (`seedu.address.model.ModelManager`) to filter the list of entries by categories.
@@ -255,7 +255,7 @@ To use `CategoryManager` to filter out relevant entries, there are 2 main functi
 * `setFilter(Predicate<ResumeEntry>)`: sets the filtering criteria for the list of entries
 * `getList()`: returns `unmodifiableObservableList<ResumeEntry>` of relevant entries
 
-If there comes a new to set a new source list for the `CategoryManager`, create a new instance with the corresponding `List<ResumeEntry>`.
+If there comes a need to set a new source list for the `CategoryManager`, create a new instance with the corresponding `List<ResumeEntry>`.
 
 ===== Predicates
 Availble predicates (`Predicate<ResumeEntry>`) for use:
