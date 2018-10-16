@@ -17,7 +17,7 @@ public interface EmailStorage {
     Path getEmailPath();
 
     /**
-     * Saves the given Email to the storage.
+     * Saves the given Email to a local directory.
      * @param email cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */

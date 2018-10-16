@@ -121,7 +121,7 @@ public interface Model {
     ObservableList<Cca> getFilteredCcaList();
 
     /**
-     * Saves the email to hard disk
+     * Saves the email to the email model
      */
     void saveEmail(Email email);
 

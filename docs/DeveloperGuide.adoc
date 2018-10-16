@@ -323,6 +323,32 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+//tag::compose[]
+=== Compose feature
+==== Current Implementation
+
+The Compose feature works using a third-party dependency, http://www.simplejavamail.org/#/about[Simple Java Mail].
+It allows `.eml` files to be saved onto the computer.
+The feature is facilitated by `EmailModel` and `EmailDirStorage`.
+It implements the following operations:
+
+* `EmailModel#saveEmail(Email email)` -- Stores each newly composed email in the `EmailModel`.
+* `EmailDirStorage#saveEmail(EmailModel email)` -- Saves the newly composed email in the `EmailModel` to the computer.
+
+These operations are exposed in the `Model` interface as `Model#saveEmail(Email email)`, and in the `Storage` interface as `Storage#saveEmail(EmailModel email)` respectively.
+
+Given below is an example usage scenario and how the Compose feature behaves at each step:
+
+. The user executes the `Compose` command, which creates an email.
+The `Compose` command calls `Model#saveEmail(Email email)`, saving the email to `EmailModel`.
+
+. Once the email is saved in the `EmailModel`, the `ModelManager` raises an `EmailSavedEvent`, to indicate that a new email is saved to the `EmailModel`.
+
+. The `EmailSavedEvent` goes to the `EventsCenter`, and is then handled by `StorageManager#handleEmailSavedEvent(EmailSavedEvent event)`, which then calls EmailDirStorage#saveEmail(EmailModel email).
+This saves the email to a specified local directory.
+
+//end::compose[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
