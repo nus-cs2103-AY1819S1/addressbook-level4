@@ -22,40 +22,40 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
         /* Case: clear non-empty address book, command with leading spaces and trailing alphanumeric characters and
          * spaces -> cleared
          */
-        /** TODO
+    /** TODO
         assertCommandSuccess("   " + ClearCommand.COMMAND_WORD + " ab12   ");
         assertSelectedCardUnchanged();
         **/
         /* Case: undo clearing address book -> original address book restored */
-        /** TODO
+    /** TODO
         String command = UndoCommand.COMMAND_WORD;
         String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, expectedResultMessage, defaultModel);
         assertSelectedCardUnchanged();
         **/
         /* Case: redo clearing address book -> cleared */
-        /** TODO
+    /** TODO
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, expectedResultMessage, new ModelManager());
         assertSelectedCardUnchanged();
         **/
         /* Case: selects first card in person list and clears address book -> cleared and no card selected */
-        /** TODO
+    /** TODO
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
         selectPerson(Index.fromOneBased(1));
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardDeselected();
         **/
         /* Case: filters the person list before clearing -> entire address book cleared */
-        /** TODO
+    /** TODO
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
         **/
         /* Case: clear empty address book -> cleared */
-        /** TODO
+    /** TODO
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
         **/

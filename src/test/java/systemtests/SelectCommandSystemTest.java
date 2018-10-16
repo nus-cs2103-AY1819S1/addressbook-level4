@@ -31,36 +31,36 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         /* Case: select the first card in the person list, command with leading spaces and trailing spaces
          * -> selected
          */
-        /** TODO
+    /** TODO
         String command = "   " + SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + "   ";
         assertCommandSuccess(command, INDEX_FIRST_PERSON);
         **/
         /* Case: select the last card in the person list -> selected */
-        /** TODO
+    /** TODO
         Index personCount = getLastIndex(getModel());
         command = SelectCommand.COMMAND_WORD + " " + personCount.getOneBased();
         assertCommandSuccess(command, personCount);
         **/
         /* Case: undo previous selection -> rejected */
-        /** TODO
+    /** TODO
         command = UndoCommand.COMMAND_WORD;
         String expectedResultMessage = UndoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
         **/
         /* Case: redo selecting last card in the list -> rejected */
-        /** TODO
+    /** TODO
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
         **/
         /* Case: select the middle card in the person list -> selected */
-        /** TODO
+    /** TODO
         Index middleIndex = getMidIndex(getModel());
         command = SelectCommand.COMMAND_WORD + " " + middleIndex.getOneBased();
         assertCommandSuccess(command, middleIndex);
         **/
         /* Case: select the current selected card -> selected */
-        /** TODO
+    /** TODO
         assertCommandSuccess(command, middleIndex);
         **/
         /* ------------------------ Perform select operations on the shown filtered list ---------------------------- */
@@ -68,14 +68,14 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         /* Case: filtered person list, select index within bounds of address book but out of bounds of person list
          * -> rejected
          */
-        /** TODO
+    /** TODO
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getAddressBook().getPersonList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         **/
 
         /* Case: filtered person list, select index within bounds of address book and person list -> selected */
-        /** TODO
+    /** TODO
         Index validIndex = Index.fromOneBased(1);
         assertTrue(validIndex.getZeroBased() < getModel().getFilteredPersonList().size());
         command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();
@@ -85,32 +85,32 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         /* ----------------------------------- Perform invalid select operations ------------------------------------ */
 
         /* Case: invalid index (0) -> rejected */
-        /** TODO
+    /** TODO
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + 0,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
         **/
         /* Case: invalid index (-1) -> rejected */
-        /** TODO
+    /** TODO
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + -1,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
         **/
         /* Case: invalid index (size + 1) -> rejected */
-        /** TODO
+    /** TODO
         invalidIndex = getModel().getFilteredPersonList().size() + 1;
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         **/
         /* Case: invalid arguments (alphabets) -> rejected */
-        /** TODO
+    /** TODO
         assertCommandFailure(SelectCommand.COMMAND_WORD + " abc",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
         **/
         /* Case: invalid arguments (extra argument) -> rejected */
-        /** TODO
+    /** TODO
         assertCommandFailure(SelectCommand.COMMAND_WORD + " 1 abc",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
         **/
         /* Case: mixed case command word -> rejected */
-        /** TODO
+    /** TODO
         assertCommandFailure("SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
         **/
     /* Case: select from empty address book -> rejected */
