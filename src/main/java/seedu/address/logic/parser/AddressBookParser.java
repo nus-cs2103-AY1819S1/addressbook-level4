@@ -14,6 +14,8 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DisplayQueueCommand;
 import seedu.address.logic.commands.DisplayServedPatientsCommand;
+import seedu.address.logic.commands.DocumentContentAddCommand;
+import seedu.address.logic.commands.DocumentContentDisplayCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditMedicineCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -138,12 +140,20 @@ public class AddressBookParser {
         case InsertCommand.COMMAND_ALIAS:
             return new InsertCommandParser().parse(arguments);
 
-        case ServeCommand.COMMAND_WORD:
-            return new ServeCommand();
-
         case RemoveCommand.COMMAND_WORD:
         case RemoveCommand.COMMAND_ALIAS:
             return new RemoveCommandParser().parse(arguments);
+
+        case ServeCommand.COMMAND_WORD:
+            return new ServeCommand();
+
+        case DocumentContentAddCommand.COMMAND_WORD:
+        case DocumentContentAddCommand.COMMAND_ALIAS:
+            return new DocumentContentAddCommandParser().parse(arguments);
+
+        case DocumentContentDisplayCommand.COMMAND_WORD:
+        case DocumentContentDisplayCommand.COMMAND_ALIAS:
+            return new DocumentContentDisplayCommand();
 
         case FinishCommand.COMMAND_WORD:
             return new FinishCommand();
