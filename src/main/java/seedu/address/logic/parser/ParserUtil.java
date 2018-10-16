@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -53,8 +54,7 @@ public class ParserUtil {
      * Leading and trialing whitespaces for each item in the List will be trimmed.
      */
     public static Set<Diet> parseDiet(List<String> diets, DietType type) {
-        requireNonNull(diets);
-        requireNonNull(type);
+        requireAllNonNull(diets, type);
         Set<Diet> parsedDiets = new HashSet<>();
         for (String diet: diets) {
             String trimmedDiet = diet.trim();

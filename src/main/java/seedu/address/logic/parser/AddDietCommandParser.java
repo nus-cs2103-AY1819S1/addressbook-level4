@@ -50,7 +50,7 @@ public class AddDietCommandParser implements Parser<AddDietCommand> {
     }
 
     /**
-     * Returns true if the any of the prefixes does not contain empty {@code Optional} values
+     * Returns true if the one of the prefixes does not contain empty {@code Optional} values
      * in the given {@code ArgumentMultimap}.
      */
     private static boolean anyPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
