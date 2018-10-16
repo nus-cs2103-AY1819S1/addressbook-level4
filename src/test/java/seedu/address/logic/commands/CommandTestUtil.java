@@ -6,7 +6,10 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MINUTES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SECONDS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
@@ -48,6 +51,10 @@ public class CommandTestUtil {
     public static final String VALID_DATE_1990 = "01-01-1990";
     public static final String VALID_DATE_2018 = "01-10-2018";
 
+    public static final String VALID_TIME_ONE = "1";
+    public static final String VALID_TIME_ONE_SECOND = " " + PREFIX_SECONDS + VALID_TIME_ONE;
+    public static final String VALID_TIME_ONE_MINUTE = " " + PREFIX_MINUTES + VALID_TIME_ONE;
+    public static final String VALID_TIME_ONE_HOUR = " " + PREFIX_HOURS + VALID_TIME_ONE;
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String NAME_DESC_KFC = " " + PREFIX_NAME + VALID_NAME_KFC;
@@ -91,7 +98,9 @@ public class CommandTestUtil {
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
             String expectedMessage, Model expectedModel) {
+        System.out.println("Creating expectedCommandHistory");
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
+        System.out.println("Created expectedCommandHistory");
         try {
             CommandResult result = command.execute(actualModel, actualCommandHistory);
             assertEquals(expectedMessage, result.feedbackToUser);

@@ -24,7 +24,7 @@ public class SetRecurringBudgetCommand extends Command {
         + "[" + PREFIX_SECONDS + "SECONDS]\n"
         + "Example " + COMMAND_WORD + " " + PREFIX_HOURS + "3";
 
-    public static final String MESSAGE_SUCCESS = "Budget recurrence is set";
+    public static final String MESSAGE_SUCCESS = "Budget recurrence is set at %s";
 
     private long toSet;
 
@@ -42,7 +42,13 @@ public class SetRecurringBudgetCommand extends Command {
         requireNonNull(model);
         model.setRecurrenceFrequency(this.toSet);
         model.commitAddressBook();
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, this.toSet));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        SetRecurringBudgetCommand otherCommand = (SetRecurringBudgetCommand) other;
+        return otherCommand.toSet == this.toSet;
     }
 
 }
