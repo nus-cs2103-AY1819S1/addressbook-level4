@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.permission.PermissionSet;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -39,12 +40,15 @@ public class XmlAdaptedPerson {
     private String profilePic;
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
+    @XmlElement
+    private List<XmlAdaptedPermission> permission = new ArrayList<>();
 
     /**
      * Constructs an XmlAdaptedPerson.
      * This is the no-arg constructor that is required by JAXB.
      */
-    public XmlAdaptedPerson() {}
+    public XmlAdaptedPerson() {
+    }
 
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
@@ -59,11 +63,8 @@ public class XmlAdaptedPerson {
         }
         this.profilePic = null;
     }
-    /**
-     * Overriden constructor that allows specification of a profile picture
-     */
     public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged,
-                            String profilePic) {
+                            List<XmlAdaptedPermission> permission) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -71,7 +72,31 @@ public class XmlAdaptedPerson {
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
+        if (permission != null) {
+            this.permission = new ArrayList<>(permission);
+        }
+        this.profilePic = null;
+    }
+
+    /**
+     * Overriden constructor that allows specification of a profile picture
+     */
+    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged,
+                            String profilePic, List<XmlAdaptedPermission> permission) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        if (tagged != null) {
+            this.tagged = new ArrayList<>(tagged);
+        }
+
         this.profilePic = profilePic;
+
+        if (permission != null) {
+            this.permission = new ArrayList<>(permission);
+        }
+
     }
 
     /**
@@ -86,6 +111,9 @@ public class XmlAdaptedPerson {
         address = source.getAddress().value;
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
+                .collect(Collectors.toList());
+        permission = source.getPermissionSet().getGrantedPermission().stream()
+                .map(XmlAdaptedPermission::new)
                 .collect(Collectors.toList());
         profilePic = source.getProfilePic().isPresent() ? source.getProfilePic().get().value : null;
     }
@@ -142,7 +170,13 @@ public class XmlAdaptedPerson {
         }
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelProfilePic);
+
+        final PermissionSet pSet = new PermissionSet();
+        for(XmlAdaptedPermission p : permission) {
+            pSet.addPermissions(p.toModelType());
+        }
+
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelProfilePic, pSet);
     }
 
     @Override
