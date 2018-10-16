@@ -13,16 +13,16 @@ import seedu.scheduler.model.UserPrefs;
 /**
  * Contains integration tests (interaction with the Model) and unit tests for GetGoogleEventsCommandCommand.
  */
-public class GetGoogleEventsCommandTest {
+public class GetGoogleCalendarEventsCommandTest {
     private Model model = new ModelManager(getTypicalScheduler(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void executeGgEvents_valid_success() throws Exception {
         //TODO:Implement the test logic
-        GetGoogleEventsCommand getGoogleEventsCommand = new GetGoogleEventsCommand();
+        GetGoogleCalendarEventsCommand getGoogleCalendarEventsCommand = new GetGoogleCalendarEventsCommand();
 
-        String expectedMessage = String.format(GetGoogleEventsCommand.MESSAGE_GGEVENTS_SUCCESS);
+        String expectedMessage = String.format(GetGoogleCalendarEventsCommand.MESSAGE_GGEVENTS_SUCCESS);
 
         Model expectedModel = new ModelManager(new Scheduler(model.getScheduler()), new UserPrefs());
 

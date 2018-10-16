@@ -21,7 +21,7 @@ import seedu.scheduler.logic.commands.EditCommand;
 import seedu.scheduler.logic.commands.EditCommand.EditEventDescriptor;
 import seedu.scheduler.logic.commands.ExitCommand;
 import seedu.scheduler.logic.commands.FindCommand;
-import seedu.scheduler.logic.commands.GetGoogleEventsCommand;
+import seedu.scheduler.logic.commands.GetGoogleCalendarEventsCommand;
 import seedu.scheduler.logic.commands.HelpCommand;
 import seedu.scheduler.logic.commands.HistoryCommand;
 import seedu.scheduler.logic.commands.ListCommand;
@@ -86,7 +86,8 @@ public class SchedulerParserTest {
 
     @Test
     public void parseCommand_ggEvents() throws Exception {
-        assertTrue(parser.parseCommand(GetGoogleEventsCommand.COMMAND_WORD) instanceof GetGoogleEventsCommand);
+        assertTrue(parser.parseCommand(
+                GetGoogleCalendarEventsCommand.COMMAND_WORD) instanceof GetGoogleCalendarEventsCommand);
     }
 
     @Test
