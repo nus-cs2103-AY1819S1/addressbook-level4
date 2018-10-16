@@ -109,7 +109,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void updatePerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
-    
+
         persons.setPerson(target, editedPerson);
     }
 
@@ -146,13 +146,13 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public boolean equals(Object other) {
-    
+
         if (other == this) { // short circuit if same object
             return true;
         } else if (!(other instanceof AddressBook)) {
             return false;
         }
-    
+
         AddressBook otherBook = (AddressBook) other;
         return persons.equals(otherBook.persons)
             && modules.equals(otherBook.modules)
