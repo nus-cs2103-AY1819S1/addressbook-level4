@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
+import javafx.collections.ObservableList;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -19,13 +21,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Anakin;
 import seedu.address.model.AnakinModel;
 import seedu.address.model.AnakinReadOnlyAnakin;
-
-import javafx.collections.ObservableList;
-
 import seedu.address.model.anakindeck.AnakinCard;
 import seedu.address.model.anakindeck.AnakinDeck;
-
-
 import seedu.address.testutil.AnakinDeckBuilder;
 
 
