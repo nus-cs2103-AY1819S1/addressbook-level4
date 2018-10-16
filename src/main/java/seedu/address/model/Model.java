@@ -107,6 +107,11 @@ public interface Model {
     ArrayList<String> getDirectoryImageList();
 
     /**
+     * Updates the list of images in current directory.
+     */
+    void updateImageList();
+
+    /**
      * Removes the image of the given index in the list.
      */
     void removeImageFromList(int idx);

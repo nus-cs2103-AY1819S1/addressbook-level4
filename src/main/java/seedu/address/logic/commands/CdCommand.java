@@ -48,6 +48,7 @@ public class CdCommand extends Command {
         try {
             newCurrDirectory = dir.toPath().toRealPath();
             model.updateUserPrefs(newCurrDirectory);
+            model.updateImageList();
         } catch (IOException e) {
             e.printStackTrace();
         }
