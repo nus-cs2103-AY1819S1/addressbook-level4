@@ -72,7 +72,7 @@ public class UpdateCommand extends Command {
         List<Ride> lastShownList = model.getFilteredRideList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_RIDE_DISPLAYED_INDEX);
         }
 
         Ride rideToEdit = lastShownList.get(index.getZeroBased());
