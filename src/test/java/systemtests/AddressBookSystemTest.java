@@ -8,14 +8,6 @@ import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
-import guitests.guihandles.BrowserPanelHandle;
-import guitests.guihandles.CommandBoxHandle;
-import guitests.guihandles.MainMenuHandle;
-import guitests.guihandles.MainWindowHandle;
-import guitests.guihandles.PersonListPanelHandle;
-import guitests.guihandles.ResultDisplayHandle;
-import guitests.guihandles.StatusBarFooterHandle;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
@@ -42,6 +34,14 @@ import seedu.address.testutil.TypicalRides;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.HelpWindow;
+
+import guitests.guihandles.BrowserPanelHandle;
+import guitests.guihandles.CommandBoxHandle;
+import guitests.guihandles.MainMenuHandle;
+import guitests.guihandles.MainWindowHandle;
+import guitests.guihandles.PersonListPanelHandle;
+import guitests.guihandles.ResultDisplayHandle;
+import guitests.guihandles.StatusBarFooterHandle;
 
 /**
  * A system test class for ThanePark, which provides access to handles of GUI components and helper methods
