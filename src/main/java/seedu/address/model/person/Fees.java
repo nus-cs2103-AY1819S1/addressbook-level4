@@ -30,15 +30,15 @@ public class Fees {
         double baseAmount = 0.00;
 
         switch (education.getEducationalLevel()) {
-            case Primary:
-                baseAmount = PRIMARY_BASE_AMOUNT;
-                break;
-            case Secondary:
-                baseAmount = SECONDARY_BASE_AMOUNT;
-                break;
-            default:
-                baseAmount = JC_BASE_AMOUNT;
-                break;
+        case Primary:
+            baseAmount = PRIMARY_BASE_AMOUNT;
+            break;
+        case Secondary:
+            baseAmount = SECONDARY_BASE_AMOUNT;
+            break;
+        default:
+            baseAmount = JC_BASE_AMOUNT;
+            break;
         }
 
         return baseAmount + education.getEducationalGrade();
