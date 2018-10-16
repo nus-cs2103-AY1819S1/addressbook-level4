@@ -416,6 +416,32 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::export[]
+=== Export feature
+==== Current Implementation
+// TODO
+The export mechanism is facilitated by `ExportCommand`. `ExportCommandParser` is responsible for parsing the input arguments. +
+[NOTE]
+If there is no filepath provided, `export` command will return an invalid messgae, which the usage information to the user.
+
+The following sequence diagram shows how export operation works:
+
+image::ExportCommandSeqDiagram.png[width="650"]
+
+The program will raise a `AddressBookExportEvent` to EventCenter. StorageManager which subscribed to the EventCenter which will trigger `handleAddressBookExportEvent` when received `AddressBookExportEvent`. This method will then export the data using `Model#exportAddressBook`.
+
+==== Design Considerations
+
+===== Aspect: Make export undo-able
+* **Alternative 1 (current choice):** Does not allow it to be undo
+** Pros: Easy to implement and verify if the command is executed successfully.
+** Cons: May have performance issues in terms of memory usage.
+
+* **Alternative 2: ** Allow it to be undo
+** Pros: Allow user to undo the command.
+** Cons: User may accidentally undo the command and does not know about it, thinking that his data has been exported.
+// end::export[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
