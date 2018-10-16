@@ -75,7 +75,7 @@ public class XmlAdaptedIngredient {
         final IngredientAmount modelAmount;
         try {
             modelAmount = new IngredientAmount(amount);
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             throw new IllegalValueException(IngredientAmount.MESSAGE_AMOUNT_CONSTRAINTS);
         }
 

@@ -2,6 +2,9 @@ package seedu.souschef.model.ingredient;
 
 import java.util.ArrayList;
 
+/**
+ * class to store ingredient serving unit.
+ */
 public class IngredientServingUnit {
     public static final String MESSAGE_UNIT_CONSTRAINTS = "Invalid Ingredient Unit!";
 
@@ -15,6 +18,9 @@ public class IngredientServingUnit {
         this.unit = unit;
     }
 
+    /**
+     * checks if the serving unit is valid.
+     */
     public boolean isValid() {
         if (dictionary.contains(unit)) {
             return true;

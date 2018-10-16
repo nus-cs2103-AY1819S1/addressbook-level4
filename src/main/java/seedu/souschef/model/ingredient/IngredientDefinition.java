@@ -2,6 +2,9 @@ package seedu.souschef.model.ingredient;
 
 import seedu.souschef.model.UniqueType;
 
+/**
+ * ingredient class that stores ingredient name.
+ */
 public class IngredientDefinition extends UniqueType {
     private final IngredientName name;
 

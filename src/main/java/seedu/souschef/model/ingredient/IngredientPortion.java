@@ -2,6 +2,9 @@ package seedu.souschef.model.ingredient;
 
 import seedu.souschef.model.UniqueType;
 
+/**
+ * ingredient class that stores ingredient name, amount, serving unit.
+ */
 public class IngredientPortion extends IngredientDefinition {
     private final IngredientAmount amount;
     private final IngredientServingUnit unit;

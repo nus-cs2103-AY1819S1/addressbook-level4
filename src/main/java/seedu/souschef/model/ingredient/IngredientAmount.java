@@ -1,5 +1,8 @@
 package seedu.souschef.model.ingredient;
 
+/**
+ * class to store ingredient amount.
+ */
 public class IngredientAmount {
     public static final String MESSAGE_AMOUNT_CONSTRAINTS = "Invalid Ingredient Amount!";
 

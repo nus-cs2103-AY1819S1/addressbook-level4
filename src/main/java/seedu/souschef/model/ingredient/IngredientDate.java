@@ -4,6 +4,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * class to store ingredient date.
+ */
 public class IngredientDate {
     public static final String MESSAGE_DATE_CONSTRAINTS = "Invalid Ingredient Date!";
 

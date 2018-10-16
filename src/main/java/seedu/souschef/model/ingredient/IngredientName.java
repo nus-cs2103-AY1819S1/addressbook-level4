@@ -1,5 +1,8 @@
 package seedu.souschef.model.ingredient;
 
+/**
+ * class to store ingredient name.
+ */
 public class IngredientName {
     public static final String MESSAGE_NAME_CONSTRAINTS = "Invalid Ingredient Name!";
 
@@ -18,7 +21,7 @@ public class IngredientName {
             }
             fullName = fullName + tokens[i] + "_";
         }
-        this.fullName =  fullName;
+        this.fullName = fullName;
     }
 
     public boolean isValid() {
