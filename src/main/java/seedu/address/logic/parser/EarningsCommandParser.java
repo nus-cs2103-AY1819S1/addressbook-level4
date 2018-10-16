@@ -20,6 +20,6 @@ public class EarningsCommandParser implements Parser<EarningsCommand> {
                     String.format("Enter error message here"));
         }
 
-        return new EarningsCommand(trimmedArgs);
+        return new EarningsCommand();
     }
 }

@@ -208,9 +208,13 @@ public class EditCommand extends Command {
             return Optional.ofNullable(address);
         }
 
-        public void setEducation(Education education) { this.education = education; }
+        public void setEducation(Education education) {
+            this.education = education;
+        }
 
-        public Optional<Education> getEducation() { return Optional.ofNullable(education);}
+        public Optional<Education> getEducation() {
+            return Optional.ofNullable(education);
+        }
 
         public void setGrades(Grades grades) {
             this.grades = grades;
