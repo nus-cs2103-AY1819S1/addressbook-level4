@@ -63,10 +63,10 @@ public class Education {
         educationalGrade = Integer.valueOf(splittedEducation[1]);
 
         switch (splittedEducation[0]) {
-        case "pri":
+        case "Primary":
             educationalLevel = EducationalLevel.PRIMARY;
             break;
-        case "sec":
+        case "Secondary":
             educationalLevel = EducationalLevel.SECONDARY;
             break;
         default:
