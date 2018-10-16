@@ -16,8 +16,8 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ThanePark;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.ride.Ride;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.RideBuilder;
+import seedu.address.testutil.UpdateRideDescriptorBuilder;
 
 public class UndoCommandTest {
 
@@ -68,7 +68,7 @@ public class UndoCommandTest {
 
         //Change some ride back to the deleted one
         Ride editedRide = rideToDelete;
-        UpdateRideDescriptor descriptor = new EditPersonDescriptorBuilder(editedRide).build();
+        UpdateRideDescriptor descriptor = new UpdateRideDescriptorBuilder(editedRide).build();
         expectedModel.updatePerson(model.getFilteredRideList().get(0), editedRide);
         new UpdateCommand(INDEX_FIRST_PERSON, descriptor).execute(model, commandHistory);
         expectedModel.commitAddressBook();
