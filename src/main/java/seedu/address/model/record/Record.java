@@ -17,6 +17,9 @@ public class Record {
     private final Hour hour;
     private final Remark remark;
 
+    private String volunteerName;
+    private String phoneNo;
+
     /**
      * Every field must be present and not null.
      */
@@ -42,6 +45,22 @@ public class Record {
 
     public Remark getRemark() {
         return remark;
+    }
+
+    public String getVolunteerName() {
+        return volunteerName;
+    }
+
+    public String getPhoneNo() {
+        return phoneNo;
+    }
+
+    public void setVolunteerName(String name) {
+        this.volunteerName = name;
+    }
+
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
     }
 
     /**
