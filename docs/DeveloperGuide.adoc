@@ -335,6 +335,64 @@ This section describes some noteworthy details on how certain features are imple
 Look at https://nus-cs2103-ay1819s1.github.io/addressbook-level4/DeveloperGuide.html#implementation
 Its really good
 
+###  Batch Completion via Label feature
+#### Current Implementation
+
+The batch completion mechanism is facilitated by `CompleteCommand`.
+It extends `Command` and encapsulates the internal logic of finding task and completing multiple
+tasks atomically.
+
+Additionally, in order to facilitate the finding of task and completing tasks atomically, the
+following auxiliary classes have been created / extended as a result:
+
+* `LabelMatchesKeywordPredicate` -- Extension of the functional interface `Predicate<E>`
+** This class is required to encapsulate the logic of determining if a task has a `Label` matching
+the desired `Label`.
+
+*Updated*
+
+* `Model` -- Extends with a rollback() method
+* `ModelManager` -- Extends with a rollback() method
+* `VersionedTaskManager` -- Implements a rollback() method
+* `CompleteCommandParser` -- Extended to parse two different formats, `Index` and `Label` based
+commands
+
+These are the methods in the CompleteCommand class supporting the batch completion:
+
+* `#completeAllTasksReturnStringOfTasks(Model)`
+* `#completeOneTaskReturnStringOfTasks(Task, Model)`
+
+[NOTE]
+The `CompleteCommand` class has two overloaded constructors, one taking in a
+`Task<Predicate>` and another taking in an `Index` to support polymorphic behavior for both a
+single operation and batch operation.
+These operations are exposed in the `CompleteCommand` class via `CompleteCommand#execute(...)`.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
+_Premise: The application has several tasks tagger with the `Label::many`.
+
+Step 1. The user executes `complete l/many` command to complete all the tasks labelled `many`.
+
+Step 1.1. The argument `String` is passed to  the `CompleteCommandParser`, which checks to see
+if the user's input contains a label, then calls `CompleteCommandParser#parseLabel(...)`. As a
+result a new `CompleteCommand` instance containing a  `LabelMatchesKeywordPredicate` which
+will only test true against a `Task` containing a `Label::many`.
+
+Step 1.2. A chain of event triggers, ultimately calling `CompleteCommand#execute(...)` for the
+created instance. Subsequently `CompleteCommand#completeAllTasksReturnStringOfTasks(...)` is
+called which handles the logic for updating all valid completable tasks matching the predicate.
+
+[NOTE]
+If a command fails its execution, it will call `Model#rollbackTaskManager()`, so
+all current changes will be reset to the latest commit / state in `taskManagerStateList`.
+
+Step 1.2.1 If all tasks are updated successful, `Model#commit()` will be called.
+
+Step 2. The user sees all tasks previously diplayed on the screen which matches the label change
+it's status to `COMPLETED`
+
+
 ### 3.3. Logging
 We are using java.util.logging package for logging. The LogsCenter class is used to manage the logging levels and logging destinations.
 
