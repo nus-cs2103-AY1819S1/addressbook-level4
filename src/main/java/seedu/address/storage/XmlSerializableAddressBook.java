@@ -13,6 +13,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
+import seedu.address.model.volunteer.Volunteer;
 
 /**
  * An Immutable AddressBook that is serializable to XML format
@@ -21,11 +22,14 @@ import seedu.address.model.record.Record;
 public class XmlSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_VOLUNTEER = "Volunteers list contains duplicate volunteer(s).";
     public static final String MESSAGE_DUPLICATE_EVENT = "Events list contains duplicate event(s).";
     public static final String MESSAGE_DUPLICATE_RECORD = "Record list contains duplicate record(s).";
 
     @XmlElement
     private List<XmlAdaptedPerson> persons;
+    @XmlElement
+    private List<XmlAdaptedVolunteer> volunteers;
     @XmlElement
     private List<XmlAdaptedEvent> events;
     @XmlElement
@@ -37,6 +41,7 @@ public class XmlSerializableAddressBook {
      */
     public XmlSerializableAddressBook() {
         persons = new ArrayList<>();
+        volunteers = new ArrayList<>();
         events = new ArrayList<>();
         records = new ArrayList<>();
     }
@@ -47,6 +52,7 @@ public class XmlSerializableAddressBook {
     public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
         this();
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+        volunteers.addAll(src.getVolunteerList().stream().map(XmlAdaptedVolunteer::new).collect(Collectors.toList()));
         events.addAll(src.getEventList().stream().map(XmlAdaptedEvent::new).collect(Collectors.toList()));
         records.addAll(src.getRecordList().stream().map(XmlAdaptedRecord::new).collect(Collectors.toList()));
     }
@@ -65,6 +71,13 @@ public class XmlSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
             addressBook.addPerson(person);
+        }
+        for (XmlAdaptedVolunteer v : volunteers) {
+            Volunteer volunteer = v.toModelType();
+            if (addressBook.hasVolunteer(volunteer)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_VOLUNTEER);
+            }
+            addressBook.addVolunteer(volunteer);
         }
         for (XmlAdaptedEvent e : events) {
             Event event = e.toModelType();
@@ -94,6 +107,7 @@ public class XmlSerializableAddressBook {
             return false;
         }
         return persons.equals(((XmlSerializableAddressBook) other).persons)
+                && volunteers.equals(((XmlSerializableAddressBook) other).volunteers)
                 && events.equals(((XmlSerializableAddressBook) other).events)
                 && records.equals(((XmlSerializableAddressBook) other).records);
     }
