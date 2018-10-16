@@ -1,14 +1,17 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.ADAM;
+import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BEN;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -71,15 +74,6 @@ public class LoginCommandTest {
     }
 
     @Test
-    public void checkDoctorCred_validCommandWithValidDoctorsList_returnTrue() {
-        List<Doctor> validDoctorsList = model.getFilteredDoctorList();
-        LoginCommand validCommand = new LoginCommand(
-                new Doctor(ADAM.getId(), ADAM.getName(), new Password("doctor1", false)));
-
-        assertTrue(validCommand.checkDoctorCred(validDoctorsList));
-    }
-
-    @Test
     public void checkDoctorCred_emptyDoctorsList_returnFalse() {
         List<Doctor> emptyDoctorsList = new ArrayList<>();
         LoginCommand validCommand = new LoginCommand(
@@ -89,34 +83,63 @@ public class LoginCommandTest {
     }
 
     @Test
-    public void checkDoctorCred_validCommandWithInvalidDoctorsList_returnFalse() {
+    public void checkDoctorCred_validCommand_returnTrue() {
+        List<Doctor> doctorsList = model.getFilteredDoctorList();
         LoginCommand validCommand = new LoginCommand(
-                    new Doctor(ADAM.getId(), ADAM.getName(), new Password("doctor1", false)));
-        List<Doctor> invalidDoctorsList = Collections.singletonList(BEN);
+                new Doctor(ADAM.getId(), ADAM.getName(), new Password("doctor1", false)));
 
-        assertFalse(validCommand.checkDoctorCred(invalidDoctorsList));
+        assertTrue(validCommand.checkDoctorCred(doctorsList));
     }
 
     @Test
-    public void checkDoctorCred_invalidCommandWithValidDoctorsList_returnFalse() {
+    public void checkDoctorCred_invalidCommand_returnFalse() {
         LoginCommand invalidCommand = new LoginCommand(
                 new Doctor(ADAM.getId(), BEN.getName(), new Password("doctor1", false)));
-        List<Doctor> validDoctorsList = model.getFilteredDoctorList();
+        List<Doctor> doctorsList = model.getFilteredDoctorList();
         
-        assertFalse(invalidCommand.checkDoctorCred(validDoctorsList));
-
-        
+        assertFalse(invalidCommand.checkDoctorCred(doctorsList));
     }
-        
-    @Test
-    public void checkDoctorCred_invalidCommandWithInvalidDoctorsList_returnFalse() {
-        LoginCommand invalidCommand = new LoginCommand(
-                new Doctor(ADAM.getId(), BEN.getName(), new Password("doctor1", false)));
-        List<Doctor> invalidDoctorsList = Collections.singletonList(BEN);
 
-        assertFalse(invalidCommand.checkDoctorCred(invalidDoctorsList));
+    @Test
+    public void searchDoctor_nullDoctorListAndNullDoctorToSearch_throwsNullPointerException() {
+        LoginCommand command = new LoginCommand(
+                new Doctor(ADAM.getId(), ADAM.getName(), new Password("doctor1", false)));
+        List<Doctor> emptyList = new ArrayList<>();
+        
+        thrown.expect(NullPointerException.class);
+        // All fields are null.
+        command.searchDoctor(null, null);
+        
+        // Some fields are null.
+        command.searchDoctor(null, ADAM);
+        command.searchDoctor(emptyList, null);
     }
     
+    @Test
+    public void searchDoctor_emptyDoctorList_returnNull() {
+        LoginCommand command = new LoginCommand(
+                new Doctor(ADAM.getId(), ADAM.getName(), new Password("doctor1", false)));
+        List<Doctor> emptyList = new ArrayList<>();
+
+        assertNull(command.searchDoctor(emptyList, ADAM));
+        assertNull(command.searchDoctor(emptyList, BEN));
+    }
+    
+    @Test
+    public void searchDoctor_noDoctorsFound_returnNull() {
+        LoginCommand command = new LoginCommand(
+                new Doctor(ADAM.getId(), ADAM.getName(), new Password("doctor1", false)));
+        List<Doctor> doctorsList = Arrays.asList(BEN);
+        
+        assertNull(command.searchDoctor(doctorsList, ADAM));
+        assertNull(command.searchDoctor(doctorsList, (Doctor) ALICE));
+    }
+
+    @Test
+    public void searchDoctor_validDoctorListWithNoDoctorFound_returnNull() {
+
+    }
+
     @Test
     public void equals() {
         LoginCommand loginFirstCommand = new LoginCommand(

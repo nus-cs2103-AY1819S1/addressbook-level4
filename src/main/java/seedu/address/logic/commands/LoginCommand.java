@@ -85,7 +85,10 @@ public class LoginCommand extends Command {
      * @param doctorToSearch The doctor to search inside the list of doctors.
      * @return The doctor found in the list of doctors. Return null if doctor is not found.
      */
-    private Doctor searchDoctor(List<Doctor> doctorsList, Doctor doctorToSearch) {
+    public Doctor searchDoctor(List<Doctor> doctorsList, Doctor doctorToSearch) {
+        requireNonNull(doctorsList);
+        requireNonNull(doctorToSearch);
+        
         for (Doctor d: doctorsList) {
             if ((d.getName().equals(doctorToSearch.getName()))) {
                 return d;
