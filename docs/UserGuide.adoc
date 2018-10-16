@@ -104,6 +104,7 @@ Format: `remove -id ID [-n NAME]`
 
 ****
 * To use this command, you must be logged in with "Department Manager" permissions.
+* All removed employees will be stored in the archive, when employee in archive is removed again it will be taken out of archve.
 ****
 
 Examples:
@@ -208,6 +209,18 @@ View income summary for the month.
 
 Format: `summary`
 
+=== View deleted employee archive : `archive`
+
+Displays the list of employees removed from the system. To delete an employee from the archive simply remove again.
+
+Format: `archive`
+
+****
+* To use this command, you must be logged in with "Department Manager" permissions.
+****
+
+
+
 === Exiting the program : `exit`
 
 Exits the program, automatically saving data and logging you out.
@@ -255,4 +268,6 @@ e.g. remove -id E01312
 * *List effectiveness of sector by profit* : `sector`
 * *List employees* : `detail -id ID [-n NAME]` +
 e.g. detail -n Elliot
-* *View employee leave summary* : `leavesummary`
+* *View employee leave summary* : `leavesummary` +
+* *View deleted employee archive* : `archive`
+
