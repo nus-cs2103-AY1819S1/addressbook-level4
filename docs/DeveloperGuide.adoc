@@ -25,10 +25,10 @@ Welcome to SocialCare's Developer Guide!
 
 SocialCare is a CLI-based event and volunteer management system designed for social welfare organisations. It enables the following:
 
-* Faster volunteer and event management (than a typical mouse/GUI driven app)
-* Tagging to categorize volunteers and events
-* Managing additional volunteer data, such as number of service hours per volunteer
-* Viewing of volunteer and event statistics
+* Faster volunteer and event management (than a typical mouse/GUI driven app).
+* Tagging to categorize volunteers and events.
+* Managing additional volunteer data, such as number of service hours per volunteer.
+* Viewing of volunteer and event statistics.
 
 === Core team
 
@@ -1189,8 +1189,6 @@ a|*UC10:* Edit volunteer hours in volunteer profile +
           Use case resumes from step 5.
 |=======================================================================
 
-_{More to be added}_
-
 [appendix]
 == Non Functional Requirements
 
@@ -1199,8 +1197,6 @@ _{More to be added}_
 *  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 *  Files containing volunteer data should be encrypted
 *  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -1214,23 +1210,6 @@ _{More to be added}_
 | *UCXX*| Use case with XX being the use case ID
 |[[mainstream-os]] *Mainstream OS*| Windows, Linux, Unix, OS-X
 |=======================================================================
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
