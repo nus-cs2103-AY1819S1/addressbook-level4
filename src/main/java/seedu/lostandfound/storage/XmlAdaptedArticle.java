@@ -32,6 +32,8 @@ public class XmlAdaptedArticle {
     private String email;
     @XmlElement(required = true)
     private String description;
+    @XmlElement(required = true)
+    private boolean isResolved;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -45,11 +47,13 @@ public class XmlAdaptedArticle {
     /**
      * Constructs an {@code XmlAdaptedArticle} with the given article details.
      */
-    public XmlAdaptedArticle(String name, String phone, String email, String description, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedArticle(String name, String phone, String email, String description,
+        boolean isResolved, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.description = description;
+        this.isResolved = isResolved;
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
@@ -65,6 +69,7 @@ public class XmlAdaptedArticle {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         description = source.getDescription().value;
+        isResolved = source.getIsResolved();
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
@@ -115,7 +120,10 @@ public class XmlAdaptedArticle {
         final Description modelDescription = new Description(description);
 
         final Set<Tag> modelTags = new HashSet<>(articleTags);
-        return new Article(modelName, modelPhone, modelEmail, modelDescription, modelTags);
+
+        final boolean modelIsResolved = isResolved;
+
+        return new Article(modelName, modelPhone, modelEmail, modelDescription, modelIsResolved, modelTags);
     }
 
     @Override
