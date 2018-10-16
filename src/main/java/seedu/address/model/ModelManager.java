@@ -244,7 +244,7 @@ public class ModelManager extends ComponentManager implements Model {
         return this.statsMode;
     }
 
-     //@@author JasonChong96
+    //@@author JasonChong96
     //=========== Login =================================================================================
     @Override
     public boolean loadUserData(Username username, Password password) throws NonExistentUserException {
