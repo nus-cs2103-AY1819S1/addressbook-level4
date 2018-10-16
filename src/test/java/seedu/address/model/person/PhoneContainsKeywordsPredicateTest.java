@@ -35,7 +35,7 @@ public class PhoneContainsKeywordsPredicateTest {
         assertFalse(firstPredicate.equals(1));
 
         // null -> returns false
-        assertFalse(firstPredicate.equals(null));
+        assertFalse(firstPredicate == null);
 
         // different person -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));
@@ -62,7 +62,7 @@ public class PhoneContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void test_givenPhoneDoesNotMatchAnyPhone_returnsFalse() {
+    public void test_givenKeywordsDoesNotMatchAnyPhone_returnsFalse() {
         // Non-matching phone number
         PhoneContainsKeywordsPredicate predicate =
                 new PhoneContainsKeywordsPredicate(Collections.singletonList("98765432"));
