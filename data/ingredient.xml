@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ingredients>
-    <ingredients>
+    <ig>
         <name>onion</name>
         <amount>100.0</amount>
         <unit>gram</unit>
         <date>10-16-2018</date>
-    </ingredients>
-    <ingredients>
+    </ig>
+    <ig>
         <name>pineapple</name>
         <amount>100.0</amount>
         <unit>gram</unit>
-        <date>10-28-2017</date>
-    </ingredients>
+        <date>10-10-2018</date>
+    </ig>
 </ingredients>
