@@ -92,14 +92,14 @@ public class EditCommandSystemTest extends SchedulerSystemTest {
 
         /* Case: edit a calendarevent with new values same as another calendarevent's values but with different
         description
-         * -> edited
+         * -> failed to edit since the 2 events are deemed to be the same
          */
         index = INDEX_SECOND_PERSON;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + TITLE_DESC_TUTORIAL + DESCRIPTION_DESC_LECTURE
             + START_DESC_TUTORIAL + END_DESC_TUTORIAL + VENUE_DESC_TUTORIAL + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedCalendarEvent =
             new CalendarEventBuilder(TUTORIAL).withDescription(VALID_DESCRIPTION_LECTURE).build();
-        assertCommandSuccess(command, index, editedCalendarEvent);
+        assertCommandFailure(command, index, editedCalendarEvent);
 
         /* Case: clear tags -> cleared */
         index = INDEX_FIRST_PERSON;

@@ -82,13 +82,12 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
                 + END_DESC_LECTURE + VENUE_DESC_LECTURE + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a calendar event with all fields same as another calendar event in the scheduler except phone
-        and email
-         * -> added
+        /* Case: add a calendar event with all fields same as another calendar event in the scheduler except description
+         * -> failed to add since the 2 events are deemed to be the same
          */
         toAdd = new CalendarEventBuilder(AMY).withDescription(VALID_DESCRIPTION_TUTORIAL).build();
         command = PersonUtil.getAddCommand(toAdd);
-        assertCommandSuccess(command, toAdd);
+        assertCommandFailure(command, toAdd);
 
         /* Case: add to empty address book -> added */
         deleteAllPersons();
