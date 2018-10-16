@@ -126,7 +126,9 @@ public class AddEventCommandTest {
         }
 
         @Override
-        public void readImportContactsFile(FileReader fileReader) {throw new AssertionError("This method should not be called"); }
+        public void readImportContactsFile(FileReader fileReader) {
+            throw new AssertionError("This method should not be called");
+        }
 
         @Override
         public void deletePerson(Person target) {

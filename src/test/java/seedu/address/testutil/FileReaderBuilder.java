@@ -1,9 +1,9 @@
 package seedu.address.testutil;
 
+import java.nio.file.Paths;
+
 import seedu.address.model.filereader.FilePath;
 import seedu.address.model.filereader.FileReader;
-
-import java.nio.file.Paths;
 
 /**
  * A utility class to help with building FileReader objects.
@@ -23,11 +23,11 @@ public class FileReaderBuilder {
             .getAbsolutePath();
 
 
-    private FileReader FileReader;
+    private FileReader fileReader;
 
     public FileReaderBuilder() {
         FilePath filePath = new FilePath(DEFAULT_CSV_FILE_PATH);
-        FileReader = new FileReader(filePath);
+        fileReader = new FileReader(filePath);
     }
 
     /**
@@ -35,9 +35,11 @@ public class FileReaderBuilder {
      */
     public FileReaderBuilder empty() {
         FilePath filePath = new FilePath(EMPTY_CSV_FILE_PATH);
-        this.FileReader = new FileReader(filePath);
+        this.fileReader = new FileReader(filePath);
         return this;
     }
 
-    public FileReader build() { return FileReader; }
+    public FileReader build() {
+        return fileReader;
+    }
 }
