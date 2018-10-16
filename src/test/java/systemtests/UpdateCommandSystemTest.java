@@ -45,8 +45,8 @@ import seedu.address.model.ride.Name;
 import seedu.address.model.ride.Ride;
 import seedu.address.model.ride.WaitTime;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.PersonUtil;
 import seedu.address.testutil.RideBuilder;
+import seedu.address.testutil.RideUtil;
 
 public class UpdateCommandSystemTest extends AddressBookSystemTest {
 
@@ -196,7 +196,7 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
                 Tag.MESSAGE_TAG_CONSTRAINTS);
 
         /* Case: edit a ride with new values same as another ride's values -> rejected */
-        executeCommand(PersonUtil.getAddCommand(BOB));
+        executeCommand(RideUtil.getAddCommand(BOB));
         assertTrue(getModel().getAddressBook().getRideList().contains(BOB));
         index = INDEX_FIRST_PERSON;
         assertFalse(getModel().getFilteredRideList().get(index.getZeroBased()).equals(BOB));
