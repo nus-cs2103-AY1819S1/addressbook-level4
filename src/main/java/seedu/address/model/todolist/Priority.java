@@ -13,9 +13,9 @@ public class Priority {
 
     public static final String DEFAULT_PRIORITY = "1"; // default field name
     public static final String MESSAGE_CONSTRAINTS =
-            "The valid user input for priority is p/[priority]." +
-                    "While [priority] is a integer from 1 to 3," +
-                    "and 1 for high priority, 2 for medium priority, 3 for low priority";
+            "The valid user input for priority is p/[priority]."
+                    + "While [priority] is a integer from 1 to 3,"
+                    + "and 1 for high priority, 2 for medium priority, 3 for low priority";
 
     /*
      * There should be only one integer, and the integer should be 1, 2 or 3.

@@ -1,9 +1,9 @@
 package seedu.address.model.todolist;
 
+import java.util.Objects;
+
 import seedu.address.model.calendarevent.Description;
 import seedu.address.model.calendarevent.Title;
-
-import java.util.Objects;
 
 /**
  * Represents an event in todoList.
@@ -22,7 +22,7 @@ public class TodoListEvent {
     /**
      * Every field must be present and not null.
      */
-    public TodoListEvent(Title title, Description description, Priority priority){
+    public TodoListEvent(Title title, Description description, Priority priority) {
         this.title = title;
         this.description = description;
         this.priority = priority;
@@ -36,7 +36,9 @@ public class TodoListEvent {
         return description;
     }
 
-    public Priority getPriority() { return priority; }
+    public Priority getPriority() {
+        return priority;
+    }
 
     /**
      * Returns true if both todoList events of the same title have one other identity field that is the same.
