@@ -244,6 +244,41 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::recipemanagement[]
+=== Recipe Management
+==== All-field search
+The all-field search matches keywords with details of `Recipe`.
+Each keyword searches through the `Name`, `Tag` and even `Difficulty` and `CookTime` of every recipes. Such search
+feature
+provides a complex querying, rather than a superficial search on merely recipes' name.
+
+To implement this feature, recipe `Model` is implemented with `FilteredList`. This list takes in of a predicate to
+filter away recipes that does not meet the requirement.
+
+The desired search keywords, once parsed as `List` of `String` will be turned to `Stream` checking for matching words
+ in the a recipe `Name`, complete matching of `CookTime`, matching of `Difficulty` and finally exact matching of any
+ one `Tag` in a `Stream` of tags. This ultimately returns a `boolean` that decides whether a `Recipe` stays or remain
+  in
+ the `FilteredList`.
+
+Why it is implemented that way: +
+Due to the existing data structure implemented by model, to access the attributes within a recipe, the system needs
+to use its getter and perform matching with its keywords. Hence, a filter via predicate testing is deemed fit.
+
+Alternatives: Tag saving recipes that uses it
+Pros - Search done more effectively as the system only need to display all recipes stored in a tag
+Cons - Bi-directional association, increase difficulty in maintaining data integrity
+
+==== Cook-mode
+The cook-mode is a feature on its own with its individual feature `Ui` and commands. The switch to cook-mode can be
+triggered by choosing a `Recipe` listed.
+
+Upon `Command` execution, logic identify the context, which in this case cook-mode, of the application and perform a
+switch. Subsequent commands will be parse further by a parser unique to cook-mode. These commands allows the
+navigation between instructions, possibility controlling of a real-time timer is specified by the `Instruction`. A
+`ArrayList` is stored with the current index being saved to track and allow movement forward/backward between
+instructions.
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
