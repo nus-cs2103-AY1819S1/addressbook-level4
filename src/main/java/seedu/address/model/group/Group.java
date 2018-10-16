@@ -1,46 +1,56 @@
 package seedu.address.model.group;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
 
 /**
- * Represents a Group for people in the address book.
- * Guarantees: title and description are present and not null,
+ * Represents a Group for participants in the address book.
+ * The person will be able to have a list of groups that he/she has enrolled.
+ * The group will also keep track of a list of its members.
+ * Every group will contain one and only one meeting. The new meeting will always
+ * overwrite the old one.
+ *
+ * Meeting can be {@code null} if no meeting is required for members of this group.
+ *
+ * Guarantees: title, description and UniquePersonList are present and not null,
  * field values are validated, immutable.
+ *
+ * {@author Derek-Hardy}
  */
 public class Group {
 
     // Identity fields
     private final Title title;
-    private final Description description;
+    private final Optional<Description> description;
 
     // Data fields
-    private final Meeting meeting;
+    private Optional<Meeting> meeting;
     private final UniquePersonList members;
 
     /**
      * Constructor for a simple group which requires no meeting details.
      * Members field is initialised to be empty.
      *
-     * Title and description are guaranteed to be present and non-null.
+     * Title is guaranteed to be present and non-null.
      *
      * However, the meeting can be null and update later.
      *
      * @param title The name of the group
-     * @param description The description of the group or the agenda of meeting
      */
-    public Group(Title title, Description description) {
-        requireAllNonNull(title, description);
+    public Group(Title title) {
+        requireNonNull(title);
         this.title = title;
-        this.description = description;
-        this.meeting = null;
+        this.description = Optional.empty();
+        this.meeting = Optional.empty();
         this.members = new UniquePersonList();
     }
 
@@ -55,8 +65,8 @@ public class Group {
     public Group(Title title, Description description, Meeting meeting) {
         requireAllNonNull(title, meeting, description);
         this.title = title;
-        this.description = description;
-        this.meeting = meeting;
+        this.description = Optional.of(description);
+        this.meeting = Optional.of(meeting);
         this.members = new UniquePersonList();
     }
 
@@ -71,21 +81,20 @@ public class Group {
     public Group(Title title, Description description, UniquePersonList members) {
         requireAllNonNull(title, description, members);
         this.title = title;
-        this.description = description;
-        this.meeting = null;
+        this.description = Optional.of(description);
+        this.meeting = Optional.empty();
         this.members = members;
     }
 
     /**
-     * Constructor for a full description of group, where all details
-     * must be present. Members field is initialised to an existing list of members.
+     * Constructor for a full description of group, Members field is initialised to an existing list of members.
      *
      * @param title The name of the group
      * @param description The description of the group or the agenda of meeting
      * @param meeting The upcoming meeting for people in this group
      * @param members The list of members of the group
      */
-    public Group(Title title, Description description, Meeting meeting,
+    public Group(Title title, Optional<Description> description, Optional<Meeting> meeting,
                  UniquePersonList members) {
         requireAllNonNull(title, meeting, description, members);
         this.title = title;
@@ -100,12 +109,29 @@ public class Group {
     }
 
     public Description getDescription() {
-        return description;
+        return description.orElse(null);
     }
 
     public Meeting getMeeting() {
-        return meeting;
+        return meeting.orElse(null);
     }
+
+    // @@author NyxF4ll
+    /**
+     * Set this group's meeting to {@code meeting}.
+     */
+    public void setMeeting(Meeting meeting) {
+        requireNonNull(meeting);
+        this.meeting = Optional.of(meeting);
+    }
+
+    /**
+     * Set this group's meeting to be an empty optional.
+     */
+    public void cancelMeeting() {
+        this.meeting = Optional.empty();
+    }
+    // @@author
 
     public UniquePersonList getMembers() {
         UniquePersonList toList = new UniquePersonList();
@@ -123,7 +149,57 @@ public class Group {
     }
 
     /**
-     * Returns true if both groups have the same title and description.
+     * Returns true if the {@code person} is in this group.
+     * @param person The person to check membership
+     */
+    public boolean hasMember(Person person) {
+        return this.members.contains(person);
+    }
+
+    /**
+     * Add a person to be the member of this group.
+     */
+    public void addMember(Person toAdd) {
+        requireNonNull(toAdd);
+        this.members.add(toAdd);
+
+        if (!toAdd.hasGroup(this)) {
+            toAdd.addGroup(this);
+        }
+    }
+
+    /**
+     * Remove a person from this group.
+     */
+    public void removeMember(Person toRemove) {
+        requireNonNull(toRemove);
+        if (this.members.contains(toRemove)) {
+            this.members.remove(toRemove);
+        }
+
+        if (toRemove.hasGroup(this)) {
+            toRemove.removeGroup(this);
+        }
+    }
+
+    /**
+     * Remove all the members in this group.
+     */
+    public void clearMembers() {
+        // enhanced for loop to remove the group from person
+        // TODO
+        this.members.clear();
+    }
+
+    /**
+     * Create a copy of this group.
+     */
+    public Group copy() {
+        return new Group(title, description, meeting, members);
+    }
+
+    /**
+     * Returns true if both groups have the same title.
      * This defines a weaker notion of equality between two groups.
      */
     public boolean isSameGroup(Group otherGroup) {
@@ -132,8 +208,7 @@ public class Group {
         }
 
         return otherGroup != null
-                && otherGroup.getTitle().equals(getTitle())
-                && otherGroup.getDescription().equals(getDescription());
+                && otherGroup.getTitle().equals(getTitle());
     }
 
     /**
@@ -152,8 +227,8 @@ public class Group {
 
         Group otherGroup = (Group) other;
         return otherGroup.getTitle().equals(getTitle())
-                && otherGroup.getDescription().equals(getDescription())
-                && otherGroup.getMeeting().equals(getMeeting())
+                && otherGroup.description.equals(this.description)
+                && otherGroup.meeting.equals(this.meeting)
                 && otherGroup.getMembersView().equals(getMembersView());
     }
 

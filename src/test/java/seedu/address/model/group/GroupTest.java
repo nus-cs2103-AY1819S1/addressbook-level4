@@ -5,14 +5,58 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalGroups.GROUP_2101;
 import static seedu.address.testutil.TypicalGroups.PROJECT_2103T;
 import static seedu.address.testutil.TypicalMeetings.URGENT;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalPersons.CARL;
 
+import org.junit.Rule;
 import org.junit.Test;
+
+import org.junit.rules.ExpectedException;
 
 import seedu.address.testutil.GroupBuilder;
 
-
+/**
+ * {@author Derek-Hardy}
+ */
 public class GroupTest {
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    @Test
+    public void asUnmodifiableList_modifyList_throwsUnsupportedOperationException() {
+        Group group = new GroupBuilder().build();
+        thrown.expect(UnsupportedOperationException.class);
+        group.getMembersView().remove(0);
+    }
+
+    @Test
+    public void hasMember_personNotInGroup_returnsFalse() {
+        Group group = new GroupBuilder().build();
+        assertFalse(group.hasMember(ALICE));
+    }
+
+    @Test
+    public void addMember_personInGroup_returnsTrue() {
+        Group group = new GroupBuilder().build();
+        group.addMember(ALICE);
+        assertTrue(group.hasMember(ALICE));
+    }
+
+    @Test
+    public void removeMember_personNotInGroup_returnsFalse() {
+        Group group = new GroupBuilder().withNewPerson(BENSON).build();
+        group.removeMember(BENSON);
+        assertFalse(group.hasMember(BENSON));
+    }
+
+    @Test
+    public void clearMembers_personNotInGroup_returnsFalse() {
+        Group group = new GroupBuilder().withNewPerson(BENSON).withNewPerson(CARL).build();
+        group.clearMembers();
+        assertFalse(group.hasMember(CARL));
+    }
 
     @Test
     public void isSameGroup() {
@@ -26,9 +70,9 @@ public class GroupTest {
         Group editedProject = new GroupBuilder(PROJECT_2103T).withTitle("CS2113").build();
         assertFalse(editedProject.isSameGroup(PROJECT_2103T));
 
-        // different description -> returns false
+        // different description -> returns true
         editedProject = new GroupBuilder(PROJECT_2103T).withDescription("Discussion group for CS2103T").build();
-        assertFalse(editedProject.isSameGroup(PROJECT_2103T));
+        assertTrue(editedProject.isSameGroup(PROJECT_2103T));
 
         // same title, same description, different meeting -> returns true
         editedProject = new GroupBuilder(PROJECT_2103T).withMeeting(URGENT).build();
