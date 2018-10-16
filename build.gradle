@@ -57,6 +57,7 @@ test {
 dependencies {
     String testFxVersion = '4.0.12-alpha'
     String jUnitVersion = '5.1.0'
+    compile 'com.j2html:j2html:1.3.0'
 
     implementation group: 'org.controlsfx', name: 'controlsfx', version: '8.40.11'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
