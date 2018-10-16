@@ -41,7 +41,10 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
 
     @FXML
-    private StackPane browserPlaceholder;
+    private StackPane taskListPanelPlaceholder;
+
+    @FXML
+    private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -52,11 +55,6 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane calendarEventListPanelPlaceholder;
 
-    @FXML
-    private StackPane resultDisplayPlaceholder;
-
-    @FXML
-    private StackPane statusbarPlaceholder;
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
@@ -71,7 +69,7 @@ public class MainWindow extends UiPart<Stage> {
         setTitle(config.getAppTitle());
         setWindowDefaultSize(prefs);
 
-        setAccelerators();
+        // setAccelerators();
         registerAsAnEventHandler(this);
 
         helpWindow = new HelpWindow();
@@ -116,21 +114,20 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
+
     /**
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        TaskListPanel taskListPanel = new TaskListPanel();
+        taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
 
-        calendarEventListPanel = new CalendarEventListPanel(logic.getFilteredCalendarEventList());
+        CalendarEventListPanel calendarEventListPanel =
+            new CalendarEventListPanel(logic.getFilteredCalendarEventList());
         calendarEventListPanelPlaceholder.getChildren().add(calendarEventListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
-        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getSchedulerFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());

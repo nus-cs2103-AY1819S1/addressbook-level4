@@ -119,7 +119,7 @@ public class EditCommandParserTest {
 
         EditCalendarEventDescriptor descriptor =
             new EditPersonDescriptorBuilder().withDescription(VALID_DESCRIPTION_TUTORIAL)
-            .build();
+                .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -163,8 +163,8 @@ public class EditCommandParserTest {
 
         EditCalendarEventDescriptor descriptor =
             new EditPersonDescriptorBuilder().withDescription(VALID_DESCRIPTION_TUTORIAL)
-            .withVenue(VALID_VENUE_TUTORIAL).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
-            .build();
+                .withVenue(VALID_VENUE_TUTORIAL).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+                .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
