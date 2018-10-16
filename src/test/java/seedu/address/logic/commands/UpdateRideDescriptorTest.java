@@ -35,8 +35,8 @@ public class UpdateRideDescriptorTest {
         assertFalse(DESC_AMY.equals(DESC_BOB));
 
         // different name -> returns false
-        UpdateCommand.UpdateRideDescriptor editedAmy
-                = new UpdateRideDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
+        UpdateCommand.UpdateRideDescriptor editedAmy =
+                new UpdateRideDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different phone -> returns false
