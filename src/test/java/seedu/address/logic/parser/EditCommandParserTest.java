@@ -48,8 +48,6 @@ import seedu.address.model.calendarevent.Venue;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
-import java.sql.Date;
-
 public class EditCommandParserTest {
 
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
@@ -89,10 +87,12 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_TITLE_DESC, Title.MESSAGE_CONSTRAINTS); // invalid title
-        assertParseFailure(parser, "1" + INVALID_DESCRIPTION_DESC, Description.MESSAGE_CONSTRAINTS); // invalid
-        // description
-        assertParseFailure(parser, "1" + INVALID_START_DESC, DateTime.MESSAGE_DATETIMEINPUT_CONSTRAINTS); // invalid start
-        assertParseFailure(parser, "1" + INVALID_END_DESC, DateTime.MESSAGE_DATETIMEINPUT_CONSTRAINTS); // invalid end
+        assertParseFailure(parser, "1" + INVALID_DESCRIPTION_DESC,
+                                            Description.MESSAGE_CONSTRAINTS); // invalid description
+        assertParseFailure(parser, "1" + INVALID_START_DESC,
+                                            DateTime.MESSAGE_DATETIMEINPUT_CONSTRAINTS); // invalid start
+        assertParseFailure(parser, "1" + INVALID_END_DESC,
+                                            DateTime.MESSAGE_DATETIMEINPUT_CONSTRAINTS); // invalid end
         assertParseFailure(parser, "1" + INVALID_VENUE_DESC, Venue.MESSAGE_CONSTRAINTS); // invalid venue
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS); // invalid tag
 
