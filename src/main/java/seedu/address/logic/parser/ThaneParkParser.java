@@ -54,22 +54,14 @@ public class ThaneParkParser {
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
-<<<<<<< HEAD
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
-=======
+
         case UpdateCommand.COMMAND_WORD:
             return new UpdateCommandParser().parse(arguments);
 
-        case SelectCommand.COMMAND_WORD:
-            return new SelectCommandParser().parse(arguments);
->>>>>>> 12db7ead8b33d4491556cc0158e55fbc95bb99b3
-
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
-
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

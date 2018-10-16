@@ -59,12 +59,8 @@ public class ViewCommandSystemTest extends AddressBookSystemTest {
          */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getAddressBook().getRideList().size();
-<<<<<<< HEAD:src/test/java/systemtests/ViewCommandSystemTest.java
-        assertCommandFailure(ViewCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-=======
-        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_RIDE_DISPLAYED_INDEX);
->>>>>>> 12db7ead8b33d4491556cc0158e55fbc95bb99b3:src/test/java/systemtests/SelectCommandSystemTest.java
-
+        assertCommandFailure(ViewCommand.COMMAND_WORD + " " + invalidIndex,
+                MESSAGE_INVALID_RIDE_DISPLAYED_INDEX);
         /* Case: filtered ride list, select index within bounds of address book and ride list -> selected */
         Index validIndex = Index.fromOneBased(1);
         assertTrue(validIndex.getZeroBased() < getModel().getFilteredRideList().size());
@@ -83,11 +79,8 @@ public class ViewCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: invalid index (size + 1) -> rejected */
         invalidIndex = getModel().getFilteredRideList().size() + 1;
-<<<<<<< HEAD:src/test/java/systemtests/ViewCommandSystemTest.java
-        assertCommandFailure(ViewCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-=======
-        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_RIDE_DISPLAYED_INDEX);
->>>>>>> 12db7ead8b33d4491556cc0158e55fbc95bb99b3:src/test/java/systemtests/SelectCommandSystemTest.java
+        assertCommandFailure(ViewCommand.COMMAND_WORD + " " + invalidIndex,
+                MESSAGE_INVALID_RIDE_DISPLAYED_INDEX);
 
         /* Case: invalid arguments (alphabets) -> rejected */
         assertCommandFailure(ViewCommand.COMMAND_WORD + " abc",
@@ -102,13 +95,8 @@ public class ViewCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: select from empty address book -> rejected */
         deleteAllPersons();
-<<<<<<< HEAD:src/test/java/systemtests/ViewCommandSystemTest.java
         assertCommandFailure(ViewCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
-                MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-=======
-        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
                 MESSAGE_INVALID_RIDE_DISPLAYED_INDEX);
->>>>>>> 12db7ead8b33d4491556cc0158e55fbc95bb99b3:src/test/java/systemtests/SelectCommandSystemTest.java
     }
 
     /**
