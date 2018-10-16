@@ -287,8 +287,8 @@ state, which the 'currentStatePointer' is currently pointing to.
 image::UndoRedoStartingStateListDiagramZijin.png[width="800"]
 
 Step 2: The user executes 'add n/David...' command to add a person called
-David in his TheTracker. The 'find' command calls 'Model#commitAddressBook()
-', causing the modified state of TheTracker after the 'find David...' command
+David in his TheTracker. The 'add' command calls 'Model#commitAddressBook()
+', causing the modified state of TheTracker after the 'add n/David' command
  executes to be saved in the 'addressBookStateList', and the
  'currentStatePointer' is shifted to the newly inserted address book state.
 
