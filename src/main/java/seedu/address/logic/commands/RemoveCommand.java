@@ -8,8 +8,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.PatientQueue;
 import seedu.address.model.ServedPatientList;
+import seedu.address.model.person.CurrentPatient;
 import seedu.address.model.person.Patient;
-import seedu.address.model.person.ServedPatient;
 
 
 /**
@@ -32,7 +32,7 @@ public class RemoveCommand extends QueueCommand {
     }
 
     @Override
-    public CommandResult execute(Model model, PatientQueue patientQueue, ServedPatient currentPatient,
+    public CommandResult execute(Model model, PatientQueue patientQueue, CurrentPatient currentPatient,
                                  ServedPatientList servedPatientList, CommandHistory history) throws CommandException {
         requireNonNull(patientQueue);
 

@@ -7,7 +7,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.PatientQueue;
 import seedu.address.model.ServedPatientList;
-import seedu.address.model.person.ServedPatient;
+import seedu.address.model.person.CurrentPatient;
 
 /**
  *
@@ -22,7 +22,7 @@ public class DisplayServedPatientsCommand extends QueueCommand {
     public static final String MESSAGE_EMPTY_LIST = "Served patient list is empty!";
 
     @Override
-    public CommandResult execute(Model model, PatientQueue patientQueue, ServedPatient currentPatient,
+    public CommandResult execute(Model model, PatientQueue patientQueue, CurrentPatient currentPatient,
                                  ServedPatientList servedPatientList, CommandHistory history) throws CommandException {
         requireNonNull(patientQueue);
 
