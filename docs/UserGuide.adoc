@@ -174,6 +174,50 @@ Selects the 2nd patient in the clinic record.
 `select 1` +
 Selects the 1st patient in the results of the `find` command.
 
+=== Adding a medicine: `add medicine`
+
+Adds a medicine to the medicine inventory +
+Format: `add medicine m/MEDICINE_NAME ty/MEDICINE_TYPE ed/EFFECTIVE_DOSAGE ld/LETHAL_DOSAGE q/QUANTITY [t/TAG]...`
+
+[TIP]
+A medicine can have any number of tags (including 0)
+
+Example:
+
+* `add m/Paracetamol ty/tablet ed/2 ld/8 q/1000 t/take when necessary t/effects last 6 hours`
+
+=== Finding a medicine by name: `find medicine`
+
+Find a medicine in the medicine inventory +
+Format: `find medicine MEDICINE_NAME`
+
+****
+* The search is case insensitive. e.g `ibuprofen` will match `Ibuprofen`
+* Only the name is searched.
+* Only full words will be matched. e.g. `Ibu` will not match `Ibuprofen`
+* Medicine with the matching name will be returned.
+****
+
+Example:
+
+* `find ibuprofen` +
+Returns `Ibuprofen`
+
+=== Removing a medicine by name : `remove medicine`
+
+Removes the specified medicine from the medicine inventory. +
+Format: `remove medicine MEDICINE_NAME`
+
+****
+* The medicine name is case insensitive.
+* Medicine with the matching name will be removed.
+****
+
+Example:
+
+* `remove medicine Paracetemol` +
+Removes the Paracetemol entry from the medicine inventory.
+
 === Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
