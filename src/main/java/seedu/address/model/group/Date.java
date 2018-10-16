@@ -12,7 +12,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  *
  * {@author Derek-Hardy}
  */
-
+@Deprecated
 public class Date {
 
     public static final String MESSAGE_DATE_CONSTRAINTS =
