@@ -1,14 +1,22 @@
 package seedu.address.storage;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.util.TypeUtil;
-import seedu.address.model.module.*;
-import seedu.address.model.module.Module;
-import seedu.address.model.tag.Tag;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
-import java.util.*;
-import java.util.stream.Collectors;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.TypeUtil;
+import seedu.address.model.module.AcademicYear;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.ModuleTitle;
+import seedu.address.model.module.Semester;
+import seedu.address.model.tag.Tag;
 
 /**
  * JAXB-friendly version of the Module.
@@ -40,7 +48,8 @@ public class XmlAdaptedModule {
     /**
      * Constructs an {@code XmlAdaptedModule} with the given person details.
      */
-    public XmlAdaptedModule(String moduleCode, String moduleTitle, String academicYear, String semester, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedModule(String moduleCode, String moduleTitle, String academicYear,
+                            String semester, List<XmlAdaptedTag> tagged) {
         this.moduleCode = moduleCode;
         this.moduleTitle = moduleTitle;
         this.academicYear = academicYear;
@@ -77,7 +86,8 @@ public class XmlAdaptedModule {
         }
 
         if (moduleCode == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ModuleCode.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    ModuleCode.class.getSimpleName()));
         }
         if (!ModuleCode.isValidCode(moduleCode)) {
             throw new IllegalValueException(ModuleCode.MESSAGE_MODULECODE_CONSTRAINTS);
@@ -85,7 +95,8 @@ public class XmlAdaptedModule {
         final ModuleCode modelCode = new ModuleCode(moduleCode);
 
         if (moduleTitle == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ModuleTitle.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    ModuleTitle.class.getSimpleName()));
         }
         if (!ModuleTitle.isValidTitle(moduleTitle)) {
             throw new IllegalValueException(ModuleTitle.MESSAGE_MODULETITLE_CONSTRAINTS);
@@ -93,7 +104,8 @@ public class XmlAdaptedModule {
         final ModuleTitle modelTitle = new ModuleTitle(moduleTitle);
 
         if (academicYear == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, AcademicYear.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    AcademicYear.class.getSimpleName()));
         }
         if (!AcademicYear.isValidYear(academicYear)) {
             throw new IllegalValueException(AcademicYear.MESSAGE_ACADEMICYEAR_CONSTRAINTS);
@@ -101,7 +113,8 @@ public class XmlAdaptedModule {
         final AcademicYear modelAcademicYear = new AcademicYear(academicYear);
 
         if (semester == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Semester.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Semester.class.getSimpleName()));
         }
         if (!Semester.isValidSemester(semester)) {
             throw new IllegalValueException(Semester.MESSAGE_SEMESTER_CONSTRAINTS);

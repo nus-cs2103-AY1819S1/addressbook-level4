@@ -1,16 +1,19 @@
 package seedu.address.storage;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.util.TypeUtil;
-import seedu.address.model.occasion.Occasion;
-import seedu.address.model.occasion.OccasionDate;
-import seedu.address.model.occasion.OccasionName;
-import seedu.address.model.person.*;
-import seedu.address.model.tag.Tag;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
-import java.util.*;
-import java.util.stream.Collectors;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.occasion.Occasion;
+import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
+
 
 /**
  * JAXB-friendly version of the Occasion.
@@ -44,7 +47,8 @@ public class XmlAdaptedOccasion {
     /**
      * Constructs an {@code XmlAdaptedOccasion} with the given occasion details.
      */
-    public XmlAdaptedOccasion(String occasionName, String occasionDate, String organiser, String location, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedOccasion(String occasionName, String occasionDate, String organiser,
+                              String location, List<XmlAdaptedTag> tagged) {
         this.occasionName = occasionName;
         this.occasionDateTime = occasionDate;
         this.organiser = organiser;
@@ -78,7 +82,8 @@ public class XmlAdaptedOccasion {
         }
 
         final Set<Tag> modelTags = new HashSet<>(occasionTags);
-//        return new Occasion(new OccasionName(occasionName), new OccasionDate(occasionDateTime), organiser, modelTags, TypeUtil.OCCASION);
+//        return new Occasion(new OccasionName(occasionName), new OccasionDate(occasionDateTime),
+// organiser, modelTags, TypeUtil.OCCASION);
     }
 
     @Override
