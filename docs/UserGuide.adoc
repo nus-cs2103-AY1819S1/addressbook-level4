@@ -234,6 +234,7 @@ Format: `list`
 === Email
 This section lists features related to email in Hallper.
 
+==== Composing an email: `compose`
 Composes a *`.eml`* file that can be used to send emails to residents. +
 Format: `compose from/FROM to/TO subject/SUBJECT content/CONTENT`
 
@@ -255,6 +256,22 @@ it as a *`.eml`* file.
 This section lists features related to managing the calendar in Hallper.
 
 ==== Creating calendar : `create_calendar`
+
+Creates a calendar file in Hallper for updating of events. +
+Format: `create_calendar month/MONTH year/YEAR`
+
+****
+* Creates a calendar as a *`.ics`* file.
+* The month *must be specified as MMM*
+* The year *musst be specified as YYYY*
+****
+Example:
+
+* `create_calendar month/Feb year/2018` +
+Creates a calendar for the month of `Feb` and year `2018` and
+saves it as a *`.ics`* file.
+
+
 ==== Viewing calendar : `view_calendar`
 
 Views the calendar of the specified month. +
@@ -268,7 +285,7 @@ Displays view of calendar for the month of `Feb`.
 ==== Adding event into calendar : `add_event`
 
 Adds an event into the calendar. +
-Format: `add_event m/MONTH d/DATE st/START TIME et/END TIME n/NAME OF EVENT
+Format: `add_event m/MONTH d/DATE st/START TIME et/END TIME n/NAME OF EVENT`
 
 Example:
 
@@ -283,14 +300,29 @@ This section lists features related to CCA budget management in Hallper.
 
 Allows for the viewing of the budgets for all the CCAs. +
 Format: `budget`
+
+****
+* BP displays the total budget allocated to the CCAs, total outstanding amount and budget information of each CCA, in alphabetical order.
+****
+
 ==== Viewing CCA budget : `view_cca`
 
 Allows for the viewing of the budget and past transactions of the specified CCA. +
 Format: `view_cca CCA`
+
+Example:
+
+* `view_cca soccer` +
+Displays view of budget and past transactions for `soccer` CCA.
+
 ==== Creating a CCA's budget : `create`
 
 Adds a CCA into the budget book with the initial given budget. +
 Format: `create n/CCA bud/BUDGET`
+
+****
+* BUDGET currency is in SGD.
+****
 
 Example:
 
@@ -309,12 +341,32 @@ Example:
 Deletes `soccer` CCA's existing budget.
 
 ==== Modifying a CCA's budget : `modify_cca`
+
+Modifies the budget of specified CCA. +
+Format: `modify_cca CCA BUDGET`
+
+****
+* BUDGET currency is in SGD.
+****
+
+Example:
+
+* `modify_cca soccer 500` +
+Modifies `soccer` CCA's current budget to SGD `500` .
+
+==== Adding a transaction to the budget : `add_transaction`
+
+Adds a transaction to the budget of specified CCA. +
+Format: `add_transaction CCA AMOUNT TYPE PERSON_IN_CHARGE`
+
+****
 * Adds a transaction to the budget of specifed CCA.
 * The types available are  either *`credit`* or *`debit`*.
 * The *`PERSON-IN-CHARGE`* must be a resident in Hallper.
 ****
 
 Example:
+
 * `add_transaction badminton 500 credit James`
 Adds a `credit` transaction of SGD `500` to `James` from `badminton` CCA.
 
@@ -403,11 +455,6 @@ There is no need to save manually.
 
 == Command Summary
 
-* *Search* : `search KEYWORD [MORE_KEYWORDS]` +
-e.g. `search basketball A123`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
 * *Add* : `add n/NAME p/PHONE_NUMBER e/EMAIL b/BLOCK r/ROOM NUMBER s/SCHOOL [c/CCA]...` +
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com b/C r/420 s/School of Computing c/Basketball`
 * *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/CCA]...` +
@@ -421,6 +468,11 @@ e.g. `clear basketball A123`
 * *Clear all* : `clear all`
 * *Import* : `import f/FILEPATH`
 * *Image* : `image`
+* *Search* : `search KEYWORD [MORE_KEYWORDS]` +
+e.g. `search basketball A123`
+* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+e.g. `find James Jake`
+* *List* : `list`
 * *Compose* : `compose from/FROM to/TO subject/SUBJECT content/CONTENT`
 * *Create Calendar* : `create_calendar MONTH` +
 e.g. `create_calendar month/Feb year/2018`
