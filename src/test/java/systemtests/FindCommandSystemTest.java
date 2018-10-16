@@ -20,6 +20,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 */
+
 import seedu.address.model.Model;
 //import seedu.address.model.tag.Tag;
 
@@ -173,10 +174,10 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertSelectedCardUnchanged();
         **/
         /* Case: mixed case command word -> rejected */
-        /** TODO
+    /** TODO
         command = "FiNd Meier";
         assertCommandFailure(command, MESSAGE_UNKNOWN_COMMAND);
-        **/
+    **/
     // }
 
     /**

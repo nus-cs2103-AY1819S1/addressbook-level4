@@ -60,9 +60,9 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
         assertSelectedCardUnchanged();
         **/
         /* Case: mixed case command word -> rejected */
-        /** TODO
+    /** TODO
         assertCommandFailure("ClEaR", MESSAGE_UNKNOWN_COMMAND);
-        **/
+    **/
     // }
 
     /**

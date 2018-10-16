@@ -15,6 +15,7 @@ import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 */
+
 import seedu.address.commons.core.index.Index;
 //import seedu.address.logic.commands.RedoCommand;
 //import seedu.address.logic.commands.SelectCommand;
@@ -113,11 +114,11 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure("SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
         **/
         /* Case: select from empty address book -> rejected */
-        /** TODO
+    /** TODO
         deleteAllPersons();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
                 MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        **/
+    **/
     // }
 
     /**

@@ -123,9 +123,9 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(DeleteCommand.COMMAND_WORD + " 1 abc", MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
         **/
         /* Case: mixed case command word -> rejected */
-        /** TODO
+    /** TODO
         assertCommandFailure("DelETE 1", MESSAGE_UNKNOWN_COMMAND);
-        **/
+    **/
     // }
 
     /**
