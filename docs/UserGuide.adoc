@@ -309,7 +309,7 @@ The figures below show the before and after results of a delete command.
 .The event at index 2 is targeted before entering the delete command
 image::command_delete_event_before.png[Before add, 800]
 
-.The targeted event is deleted after entering the edit command
+.The targeted event is deleted after entering the delete command
 image::command_delete_event_after.png[After add, 800]
 --
 
