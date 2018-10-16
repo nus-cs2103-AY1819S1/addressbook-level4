@@ -25,10 +25,10 @@ Welcome to SocialCare's Developer Guide!
 
 SocialCare is a CLI-based event and volunteer management system designed for social welfare organisations. It enables the following:
 
-* Faster volunteer and event management (than a typical mouse/GUI driven app)
-* Tagging to categorize volunteers and events
-* Managing additional volunteer data, such as number of service hours per volunteer
-* Viewing of volunteer and event statistics
+* Faster volunteer and event management (than a typical mouse/GUI driven app).
+* Tagging to categorize volunteers and events.
+* Managing additional volunteer data, such as number of service hours per volunteer.
+* Viewing of volunteer and event statistics.
 
 === Core team
 
@@ -44,16 +44,18 @@ To get started, head on to <<Setting-Up>>.
 
 [[Setting-Up]]
 == Setting Up
+This section will describe the steps to successfully set up the project on your computer.
 
 === Prerequisites
+Before setting up your project, you will need:
 
-. *JDK `9`* or later
+* *JDK `9`* or later.
 +
 [WARNING]
 JDK `10` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
 Windows developers are highly recommended to use JDK `9`.
 
-. *IntelliJ* IDE
+* *IntelliJ* IDE.
 +
 [NOTE]
 IntelliJ by default has Gradle and JavaFx plugins installed. +
@@ -61,52 +63,50 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 
 
 === Setting up the project in your computer
+Here are the steps to set up the project in your computer:
 
-. Fork this repo, and clone the fork to your computer
-. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
-. Set up the correct JDK version for Gradle
-.. Click `Configure` > `Project Defaults` > `Project Structure`
-.. Click `New...` and find the directory of the JDK
-. Click `Import Project`
-. Locate the `build.gradle` file and select it. Click `OK`
-. Click `Open as Project`
-. Click `OK` to accept the default settings
+. link:https://github.com/CS2103-AY1819S1-W16-2/main[Fork] this repo, and clone the fork to your computer.
+. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first).
+. Set up the correct JDK version for Gradle.
+.. Click `Configure` > `Project Defaults` > `Project Structure`.
+.. Click `New...` and find the directory of the JDK.
+. Click `Import Project`.
+. Locate the `build.gradle` file and select it. Click `OK`.
+. Click `Open as Project`.
+. Click `OK` to accept the default settings.
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
-.. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
-.. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
+. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors.
++
+[NOTE]
+Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully.
+To resolve this, place your cursor over any of the code section highlighted in red.
+Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error.
+. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way).
 
 === Verifying the setup
+To verify that you have successfully set up your project on your computer, you must:
 
-. Run the `seedu.address.MainApp` and try a few commands
-. <<Testing,Run the tests>> to ensure they all pass.
+* Run the `seedu.address.MainApp` and try a few commands.
+* <<Testing,Run the tests>> and ensure that they all pass.
 
 === Configurations to do before writing code
+Before you can start writing some code for your project, you must first set up the configurations for your project.
 
 ==== Configuring the coding style
 
-This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify,
+This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify this issue, you must:
 
-. Go to `File` > `Settings...` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS)
-. Select `Editor` > `Code Style` > `Java`
-. Click on the `Imports` tab to set the order
+. Go to `File` > `Settings...` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS).
+. Select `Editor` > `Code Style` > `Java`.
+. Click on the `Imports` tab to set the order.
 
-* For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to `999` to prevent IntelliJ from contracting the import statements
-* For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
+. Set `Class count to use import with '\*'` and `Names count to use static import with '*'` to `999` to prevent IntelliJ from contracting the import statements.
+. Set the order of `Import Layout` to `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports` and add a `<blank line>` between each `import`.
 
++
+[NOTE]
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
-
-==== Updating documentation to match your fork
-
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
-
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
-
-. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
-
-. Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
 
 ==== Setting up CI
 
@@ -120,14 +120,14 @@ Coverage reporting could be useful for a team repository that hosts the final ve
 Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingAppVeyor.adoc>>).
 
 [NOTE]
-Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
+Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based).
 
 ==== Getting started with coding
 
-When you are ready to start coding,
+When you are ready to start coding, you should:
 
-1. Get some sense of the overall design by reading <<Design-Architecture>>.
-2. Take a look at <<GetStartedProgramming>>.
+* Get some sense of the overall design by reading <<Design-Architecture>>.
+* Take a look at <<GetStartedProgramming>>.
 
 == Design
 This section will describe the design architecture and the various components of the system.
@@ -1283,8 +1283,6 @@ a|*UC10:* Edit volunteer hours in volunteer profile +
           Use case resumes from step 5.
 |=======================================================================
 
-_{More to be added}_
-
 [appendix]
 == Non Functional Requirements
 
@@ -1293,8 +1291,6 @@ _{More to be added}_
 *  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 *  Files containing volunteer data should be encrypted
 *  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -1309,23 +1305,6 @@ _{More to be added}_
 | *UCXX*| Use case with XX being the use case ID
 |[[mainstream-os]] *Mainstream OS*| Windows, Linux, Unix, OS-X
 |=======================================================================
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
