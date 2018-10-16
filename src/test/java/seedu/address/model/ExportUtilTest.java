@@ -54,21 +54,21 @@ public class ExportUtilTest {
     }
 
     @Test
-    public void writeLine_identicalLength_returnsFalse() throws IOException {
+    public void writeLine_identicalLengthDifferentContent_returnsFalse() throws IOException {
         final File actual = folder.newFile("ActualExportUtilTest.csv");
-        ExportUtil.writeLine(new FileWriter(actual), "x, x, x");
+        ExportUtil.writeLine(new FileWriter(actual), "x, y, z");
         assertFalse(FileUtil.areFilesIdentical(expected, actual));
     }
 
     @Test
-    public void writeLine_greaterLength_returnsFalse() throws IOException {
+    public void writeLine_greaterLengthAdditionalContent_returnsFalse() throws IOException {
         final File actual = folder.newFile("ActualExportUtilTest.csv");
         ExportUtil.writeLine(new FileWriter(actual), "a, b, c, d, e, f, g, h");
         assertFalse(FileUtil.areFilesIdentical(expected, actual));
     }
 
     @Test
-    public void writeLine_lessLength_returnsFalse() throws IOException {
+    public void writeLine_lessLengthSubtractedContent_returnsFalse() throws IOException {
         final File actual = folder.newFile("ActualExportUtilTest.csv");
         ExportUtil.writeLine(new FileWriter(actual), "a");
         assertFalse(FileUtil.areFilesIdentical(expected, actual));
