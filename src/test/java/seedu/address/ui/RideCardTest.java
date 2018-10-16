@@ -17,51 +17,51 @@ public class RideCardTest extends GuiUnitTest {
     public void display() {
         // no tags
         Ride rideWithNoTags = new RideBuilder().withTags(new String[0]).build();
-        PersonCard personCard = new PersonCard(rideWithNoTags, 1);
-        uiPartRule.setUiPart(personCard);
-        assertCardDisplay(personCard, rideWithNoTags, 1);
+        RideCard rideCard = new RideCard(rideWithNoTags, 1);
+        uiPartRule.setUiPart(rideCard);
+        assertCardDisplay(rideCard, rideWithNoTags, 1);
 
         // with tags
         Ride rideWithTags = new RideBuilder().build();
-        personCard = new PersonCard(rideWithTags, 2);
-        uiPartRule.setUiPart(personCard);
-        assertCardDisplay(personCard, rideWithTags, 2);
+        rideCard = new RideCard(rideWithTags, 2);
+        uiPartRule.setUiPart(rideCard);
+        assertCardDisplay(rideCard, rideWithTags, 2);
     }
 
     @Test
     public void equals() {
         Ride ride = new RideBuilder().build();
-        PersonCard personCard = new PersonCard(ride, 0);
+        RideCard rideCard = new RideCard(ride, 0);
 
         // same ride, same index -> returns true
-        PersonCard copy = new PersonCard(ride, 0);
-        assertTrue(personCard.equals(copy));
+        RideCard copy = new RideCard(ride, 0);
+        assertTrue(rideCard.equals(copy));
 
         // same object -> returns true
-        assertTrue(personCard.equals(personCard));
+        assertTrue(rideCard.equals(rideCard));
 
         // null -> returns false
-        assertFalse(personCard.equals(null));
+        assertFalse(rideCard.equals(null));
 
         // different types -> returns false
-        assertFalse(personCard.equals(0));
+        assertFalse(rideCard.equals(0));
 
         // different ride, same index -> returns false
         Ride differentRide = new RideBuilder().withName("differentName").build();
-        assertFalse(personCard.equals(new PersonCard(differentRide, 0)));
+        assertFalse(rideCard.equals(new RideCard(differentRide, 0)));
 
         // same ride, different index -> returns false
-        assertFalse(personCard.equals(new PersonCard(ride, 1)));
+        assertFalse(rideCard.equals(new RideCard(ride, 1)));
     }
 
     /**
-     * Asserts that {@code personCard} displays the details of {@code expectedRide} correctly and matches
+     * Asserts that {@code rideCard} displays the details of {@code expectedRide} correctly and matches
      * {@code expectedId}.
      */
-    private void assertCardDisplay(PersonCard personCard, Ride expectedRide, int expectedId) {
+    private void assertCardDisplay(RideCard rideCard, Ride expectedRide, int expectedId) {
         guiRobot.pauseForHuman();
 
-        PersonCardHandle personCardHandle = new PersonCardHandle(personCard.getRoot());
+        PersonCardHandle personCardHandle = new PersonCardHandle(rideCard.getRoot());
 
         // verify id is displayed correctly
         assertEquals(Integer.toString(expectedId) + ". ", personCardHandle.getId());
