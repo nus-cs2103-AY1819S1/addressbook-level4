@@ -23,7 +23,8 @@ public class ResolveCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_RESOLVED_ARTICLE_SUCCESS = "Resolved Article: %1$s";
+    private static final String MESSAGE_RESOLVED_ARTICLE_SUCCESS = "Resolved Article: %1$s";
+    private static final boolean SET_ISRESOLVED = true;
 
     private final Index targetIndex;
 
@@ -43,7 +44,7 @@ public class ResolveCommand extends Command {
         Article articleToEdit = lastShownList.get(targetIndex.getZeroBased());
 
         Article editedArticle = new Article(articleToEdit.getName(), articleToEdit.getPhone(),
-                articleToEdit.getEmail(), articleToEdit.getAddress(), true, articleToEdit.getTags());
+                articleToEdit.getEmail(), articleToEdit.getAddress(), SET_ISRESOLVED, articleToEdit.getTags());
 
         model.updateArticle(articleToEdit, editedArticle);
         model.updateFilteredArticleList(PREDICATE_SHOW_ALL_ARTICLES);

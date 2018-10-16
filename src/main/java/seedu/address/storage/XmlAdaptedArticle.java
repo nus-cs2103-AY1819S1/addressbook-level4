@@ -32,12 +32,11 @@ public class XmlAdaptedArticle {
     private String email;
     @XmlElement(required = true)
     private String address;
+    @XmlElement(required = true)
+    private boolean isResolved;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
-
-    @XmlElement(required = true)
-    private boolean isResolved;
 
     /**
      * Constructs an XmlAdaptedArticle.
@@ -48,15 +47,15 @@ public class XmlAdaptedArticle {
     /**
      * Constructs an {@code XmlAdaptedArticle} with the given article details.
      */
-    public XmlAdaptedArticle(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged, boolean isResolved) {
+    public XmlAdaptedArticle(String name, String phone, String email, String address, boolean isResolved, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.isResolved = isResolved;
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
-        this.isResolved = isResolved;
     }
 
     /**
@@ -69,10 +68,10 @@ public class XmlAdaptedArticle {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+        isResolved = source.getIsResolved();
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
-        isResolved = source.getIsResolved();
     }
 
     /**

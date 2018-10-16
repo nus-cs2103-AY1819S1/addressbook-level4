@@ -23,6 +23,7 @@ import seedu.address.model.tag.Tag;
  * Parses input arguments and creates a new AddCommand object
  */
 public class AddCommandParser implements Parser<AddCommand> {
+    private static final boolean DEFAULT_ISRESOLVED = false;
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
@@ -43,9 +44,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-        boolean isResolved = false;
 
-        Article article = new Article(name, phone, email, address, isResolved, tagList);
+        Article article = new Article(name, phone, email, address, DEFAULT_ISRESOLVED, tagList);
 
         return new AddCommand(article);
     }
