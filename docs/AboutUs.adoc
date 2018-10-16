@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Auyok Sean
 image::a19sean.png[width="150", align="left"]
-{empty}[https://github.com/A19Sean[github]]
+{empty}[https://github.com/A19Sean[github]] [<<auyoksean#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Documentation and Code Quality, UI Component
@@ -21,7 +21,7 @@ Responsibilities: Documentation and Code Quality, UI Component
 
 === Chattoraj Ayush
 image::ayushchatto.png[width="150", align="left"]
-{empty}[https://github.com/AyushChatto[github]]
+{empty}[https://github.com/AyushChatto[github]] [<<chattorajayush#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Workflow, Git, and Github, Logic Component
@@ -30,7 +30,7 @@ Responsibilities: Workflow, Git, and Github, Logic Component
 
 === Alex Chan
 image::chantca95.png[width="150", align="left"]
-{empty}[https://github.com/chantca95[github]]
+{empty}[https://github.com/chantca95[github]] [<<alexchan#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Testing, UI Component
@@ -39,7 +39,7 @@ Responsibilities: Testing, UI Component
 
 === Denzel Chung
 image::denzelchung.png[width="150", align="left"]
-{empty}[https://github.com/denzelchung[github]]
+{empty}[https://github.com/denzelchung[github]] [<<denzelchung#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Integration, Storage Component
@@ -48,7 +48,7 @@ Responsibilities: Integration, Storage Component
 
 === Louiz Kim-Chan
 image::zioul123.png[width="150", align="left"]
-{empty}[https://github.com/zioul123[github]]
+{empty}[https://github.com/zioul123[github]] [<<louizkimchan#, portfolio>>]
 
 Role: Team lead +
 Responsibilities: Deliverables and deadlines, Model Component
