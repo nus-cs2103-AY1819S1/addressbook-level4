@@ -5,14 +5,14 @@
         <name>Alice Pauline</name>
         <category>School</category>
         <cost>3.00</cost>
-		<date>01-10-2018</date>
+		<date>02-10-2018</date>
         <tagged>friends</tagged>
     </expenses>
     <expenses>
         <name>Benson Meier</name>
         <category>Food</category>
         <cost>2.00</cost>
-		<date>01-10-2018</date>
+		<date>02-10-2018</date>
         <tagged>owesMoney</tagged>
         <tagged>friends</tagged>
     </expenses>
@@ -20,32 +20,32 @@
         <name>Carl Kurz</name>
         <category>Entertainment</category>
         <cost>1.00</cost>
-		<date>01-10-2018</date>
+		<date>03-10-2018</date>
     </expenses>
     <expenses>
         <name>Daniel Meier</name>
         <category>Shopping</category>
         <cost>2.00</cost>
-		<date>01-10-2018</date>
+		<date>04-10-2018</date>
         <tagged>friends</tagged>
     </expenses>
     <expenses>
         <name>Elle Meyer</name>
         <category>Tax</category>
         <cost>5.00</cost>
-		<date>01-10-2018</date>
+		<date>05-10-2018</date>
     </expenses>
     <expenses>
         <name>Fiona Kunz</name>
         <category>Book</category>
         <cost>6.00</cost>
-		<date>01-10-2018</date>
+		<date>06-10-2018</date>
     </expenses>
     <expenses>
         <name>George Best</name>
-        <category>Fine</category>
+        <category>Food</category>
         <cost>7.00</cost>
-		<date>01-10-2018</date>
+		<date>02-10-2018</date>
     </expenses>
     <username>typicalExpensesAddressBook</username>
     <budget>
