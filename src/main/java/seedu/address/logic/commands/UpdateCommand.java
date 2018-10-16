@@ -47,9 +47,9 @@ public class UpdateCommand extends Command {
             + PREFIX_MAINTENANCE + "90 "
             + PREFIX_WAITING_TIME + "60";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Ride: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This ride already exists in the address book.";
+    public static final String MESSAGE_UPDATE_RIDE_SUCCESS = "Updated Ride: %1$s";
+    public static final String MESSAGE_NOT_UPDATED = "At least one field to update must be provided.";
+    public static final String MESSAGE_DUPLICATE_RIDE = "This ride already exists in the address book.";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -79,13 +79,13 @@ public class UpdateCommand extends Command {
         Ride editedRide = createEditedPerson(rideToEdit, editPersonDescriptor);
 
         if (!rideToEdit.isSameRide(editedRide) && model.hasPerson(editedRide)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_RIDE);
         }
 
         model.updatePerson(rideToEdit, editedRide);
         model.updateFilteredRideList(PREDICATE_SHOW_ALL_RIDES);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedRide));
+        return new CommandResult(String.format(MESSAGE_UPDATE_RIDE_SUCCESS, editedRide));
     }
 
     /**
