@@ -1,10 +1,9 @@
 package seedu.address.storage;
 
+import javax.xml.bind.annotation.XmlElement;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.meeting.Meeting;
-import seedu.address.model.tag.Tag;
-
-import javax.xml.bind.annotation.XmlElement;
 
 /**
  * JAXB-friendly version of the Meeting.
