@@ -31,7 +31,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ride.Ride;
 import seedu.address.model.ride.RideContainsKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.RideUtil;
 import seedu.address.testutil.RideBuilder;
 
 public class ThaneParkParserTest {
@@ -43,7 +43,7 @@ public class ThaneParkParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Ride ride = new RideBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(ride));
+        AddCommand command = (AddCommand) parser.parseCommand(RideUtil.getAddCommand(ride));
         assertEquals(new AddCommand(ride), command);
     }
 
@@ -65,7 +65,7 @@ public class ThaneParkParserTest {
         Ride ride = new RideBuilder().build();
         UpdateRideDescriptor descriptor = new EditPersonDescriptorBuilder(ride).build();
         UpdateCommand command = (UpdateCommand) parser.parseCommand(UpdateCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
+                + INDEX_FIRST_PERSON.getOneBased() + " " + RideUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new UpdateCommand(INDEX_FIRST_PERSON, descriptor), command);
     }
 
