@@ -148,26 +148,16 @@ public class AddCommandTest {
         }
 
         @Override
-        public void enqueue(Person target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasPatientInPatientQueue() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
 
         //@@author jjlee050
+
         @Override
         public ObservableList<Doctor> getFilteredDoctorList() {
             throw new AssertionError("This method should not be called.");
         }
-
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
@@ -204,8 +194,45 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        //@@author iamjackslayer
+        @Override
+        public void enqueue(Person patient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void enqueueIntoPreferenceQueue(Person patient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPatientInMainQueue() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPatientInPreferenceQueue() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPatientInPatientQueue() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        //@@author gingivitiss
         @Override
         public boolean hasAppointment(Appointment appt) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasAppointmentClash(Appointment appt) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteAppointment(Appointment appt) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -230,32 +257,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredAppointmentList(Predicate<Person> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean canUndoSchedule() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean canRedoSchedule() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void undoSchedule() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void redoSchedule() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void commitSchedule() {
+        public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }

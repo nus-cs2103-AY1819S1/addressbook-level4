@@ -5,9 +5,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_ADAM;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ADAM;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalPersons.ADAM;
 import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.AMY_APPT;
+import static seedu.address.testutil.TypicalPersons.CARL_APPT;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.ArrayList;
@@ -23,11 +27,13 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.doctor.exceptions.DuplicateDoctorException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 
+import seedu.address.testutil.AppointmentBuilder;
 import seedu.address.testutil.DoctorBuilder;
 import seedu.address.testutil.PersonBuilder;
 
@@ -63,9 +69,10 @@ public class AddressBookTest {
         // Two persons with the same identity fields
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
+        List<Appointment> newAppointments = new ArrayList<Appointment>(); //TODO
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
         //@@author jjlee050
-        AddressBookStub newData = new AddressBookStub(newPersons, new ArrayList<>());
+        AddressBookStub newData = new AddressBookStub(newAppointments, newPersons, new ArrayList<>());
 
         thrown.expect(DuplicatePersonException.class);
         addressBook.resetData(newData);
@@ -75,9 +82,10 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicateDoctors_throwsDuplicateDoctorException() {
         // Two doctors with the same identity fields
-        Doctor editedAdam = new DoctorBuilder(ADAM).withName("Adam Bell").build();
+        List<Appointment> newAppointments = new ArrayList<Appointment>(); //TODO
+        Doctor editedAdam = new DoctorBuilder(ADAM).withName(VALID_NAME_ADAM).build();
         List<Doctor> newDoctors = Arrays.asList(ADAM, editedAdam);
-        AddressBookStub newData = new AddressBookStub(new ArrayList<>(), newDoctors);
+        AddressBookStub newData = new AddressBookStub(newAppointments, new ArrayList<>(), newDoctors);
 
         thrown.expect(DuplicateDoctorException.class);
         addressBook.resetData(newData);
@@ -96,6 +104,13 @@ public class AddressBookTest {
         addressBook.hasDoctor(null);
     }
 
+    //@@author gingivitiss
+    @Test
+    public void hasAppointment_nullAppointment_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        addressBook.hasAppointment(null);
+    }
+
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
         assertFalse(addressBook.hasPerson(ALICE));
@@ -105,6 +120,12 @@ public class AddressBookTest {
     @Test
     public void hasDoctor_doctorNotInAddressBook_returnsFalse() {
         assertFalse(addressBook.hasDoctor(ADAM));
+    }
+
+    //@@author gingivitiss
+    @Test
+    public void hasAppointment_appointmentNotInAddressBook_returnsFalse() {
+        assertFalse(addressBook.hasAppointment(AMY_APPT));
     }
 
     @Test
@@ -120,6 +141,13 @@ public class AddressBookTest {
         assertTrue(addressBook.hasDoctor(ADAM));
     }
 
+    //@@author gingivitiss
+    @Test
+    public void hasAppointment_appointmentInAddressBook_returnsTrue() {
+        addressBook.addAppointment(AMY_APPT);
+        assertTrue(addressBook.hasAppointment(AMY_APPT));
+    }
+
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addPerson(ALICE);
@@ -132,8 +160,30 @@ public class AddressBookTest {
     @Test
     public void hasDoctor_doctorWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addDoctor(ADAM);
-        Doctor editedAdam = new DoctorBuilder(ADAM).withId(1).build();
+        Doctor editedAdam = new DoctorBuilder(ADAM).withId(VALID_ID_ADAM).build();
         assertTrue(addressBook.hasDoctor(editedAdam));
+    }
+
+    //@@author gingivitiss
+    @Test
+    public void hasAppointment_appointmentWithSameIdentityFieldsInAddressBook_returnsTrue() {
+        addressBook.addAppointment(AMY_APPT);
+        Appointment editedAmy = new AppointmentBuilder(AMY_APPT).withTime(13, 00).build();
+        assertTrue(addressBook.hasAppointment(editedAmy));
+    }
+
+    @Test
+    public void hasAppointment_appointmentWithDifferentIdentityFieldsInAddressBook_returnsFalse() {
+        addressBook.addAppointment(AMY_APPT);
+        Appointment editedAmy = new AppointmentBuilder(AMY_APPT).withTime(12, 00).build();
+        assertFalse(addressBook.hasAppointment(editedAmy));
+    }
+
+    @Test
+    public void hasAppointmentClash_appointmentWithSameTimingsInAddressBook_returnsTrue() {
+        addressBook.addAppointment(AMY_APPT);
+        Appointment newAppt = new AppointmentBuilder(CARL_APPT).withTime(13, 00).build();
+        assertTrue(addressBook.hasAppointmentClash(newAppt));
     }
 
     @Test
@@ -149,14 +199,23 @@ public class AddressBookTest {
         addressBook.getDoctorList().remove(0);
     }
 
+    //@@author gingivitiss
+    @Test
+    public void getAppointmentList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        addressBook.getAppointmentList().remove(0);
+    }
+
     /**
      * A stub ReadOnlyAddressBook whose persons list and doctors list can violate interface constraints.
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
+        private final ObservableList<Appointment> appointments = FXCollections.observableArrayList();
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Doctor> doctors = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Person> persons, Collection<Doctor> doctors) {
+        AddressBookStub(Collection<Appointment> appointments, Collection<Person> persons, Collection<Doctor> doctors) {
+            this.appointments.setAll(appointments);
             this.persons.setAll(persons);
             //@@author jjlee050
             this.doctors.setAll(doctors);
@@ -171,6 +230,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<Doctor> getDoctorList() {
             return doctors;
+        }
+
+        @Override
+        public ObservableList<Appointment> getAppointmentList() {
+            return appointments;
         }
     }
 

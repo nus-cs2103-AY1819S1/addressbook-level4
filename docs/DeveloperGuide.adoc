@@ -1064,23 +1064,6 @@ A person that is in charge of the front desk receptionist in a medical clinic.
 A person who is qualified to treat people who are ill.
 
 [appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.

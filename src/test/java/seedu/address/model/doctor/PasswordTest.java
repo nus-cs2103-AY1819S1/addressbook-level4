@@ -12,14 +12,25 @@ import seedu.address.testutil.Assert;
 public class PasswordTest {
 
     @Test
-    public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new Password(null));
+    public void constructor_nullPassword_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> new Password(null, false));
+    }
+
+    @Test
+    public void constructor_nullHashedPassword_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> new Password(null, true));
     }
 
     @Test
     public void constructor_invalidPassword_throwsIllegalArgumentException() {
         String invalidName = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Password(invalidName));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Password(invalidName, false));
+    }
+
+    @Test
+    public void constructor_invalidHashedPassword_throwsIllegalArgumentException() {
+        String invalidName = "";
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Password(invalidName, true));
     }
 
     @Test
@@ -45,6 +56,28 @@ public class PasswordTest {
         assertTrue(Password.isValidPassword("Capital123")); // alphanuemic characters only
 
     }
+
+    @Test
+    public void isValidHashedPassword() {
+        // null name
+        Assert.assertThrows(NullPointerException.class, () -> Password.isValidHashedPassword(null));
+
+        // Invalid hashed password
+        assertFalse(Password.isValidHashedPassword("")); //Empty string
+
+        // Valid hashed password
+        //TODO: Am i suppose to assert false if string is "" or spaces?
+        assertTrue(Password.isValidHashedPassword(HashUtil.hashToString(""))); // empty string
+        assertTrue(Password.isValidHashedPassword(HashUtil.hashToString(" "))); // spaces only
+        assertTrue(Password.isValidHashedPassword(HashUtil.hashToString("joseph")));
+        assertTrue(Password.isValidHashedPassword(HashUtil.hashToString("peterjack")));
+        assertTrue(Password.isValidHashedPassword(HashUtil.hashToString("81920543")));
+        assertTrue(Password.isValidHashedPassword(HashUtil.hashToString("123456789012")));
+        assertTrue(Password.isValidHashedPassword(HashUtil.hashToString("CapitalTan")));
+        assertTrue(Password.isValidHashedPassword(HashUtil.hashToString("Capital123")));
+
+    }
+
 
     @Test
     public void isSameAsHashPassword() {

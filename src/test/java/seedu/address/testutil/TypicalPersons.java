@@ -4,7 +4,13 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_ADAM;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_BEN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_ADAM;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_BEN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ADAM;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
@@ -16,6 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
 
@@ -57,10 +64,18 @@ public class TypicalPersons {
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
-    public static final Doctor ADAM = new DoctorBuilder().withId(1).withName("Adam Bell")
-            .withPassword("doctor1").build();
-    public static final Doctor BEN = new DoctorBuilder().withId(2).withName("Ben Hill")
-            .withPassword("doctor2").build();
+    public static final Doctor ADAM = new DoctorBuilder().withId(VALID_ID_ADAM).withName(VALID_NAME_ADAM)
+            .withPassword(VALID_HASH_PASSWORD_ADAM, true).build();
+    public static final Doctor BEN = new DoctorBuilder().withId(VALID_ID_BEN).withName(VALID_NAME_BEN)
+            .withPassword(VALID_HASH_PASSWORD_BEN, true).build();
+
+    // Appointments
+    public static final Appointment AMY_APPT = new AppointmentBuilder().withDate(2, 10, 2018)
+            .withTime(13, 00).withPerson(AMY).build();
+    public static final Appointment BENSON_APPT = new AppointmentBuilder().withDate(3, 10, 2018)
+            .withTime(17, 45).withPerson(BENSON).build();
+    public static final Appointment CARL_APPT = new AppointmentBuilder().withDate(2, 10, 2018)
+            .withTime(18, 00).withPerson(CARL).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
@@ -78,6 +93,11 @@ public class TypicalPersons {
         for (Doctor doctor : getTypicalDoctors()) {
             ab.addDoctor(doctor);
         }
+        /*
+        for (Appointment appointment : getTypicalAppointments()) {
+            ab.addAppointment(appointment);
+        }
+        */
         return ab;
     }
 
@@ -87,5 +107,9 @@ public class TypicalPersons {
 
     public static List<Doctor> getTypicalDoctors() {
         return new ArrayList<>(Arrays.asList(ADAM, BEN));
+    }
+
+    public static List<Appointment> getTypicalAppointments() {
+        return new ArrayList<>(Arrays.asList(AMY_APPT, BENSON_APPT, CARL_APPT));
     }
 }
