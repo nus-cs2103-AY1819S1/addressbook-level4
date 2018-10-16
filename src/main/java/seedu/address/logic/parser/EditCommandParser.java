@@ -67,33 +67,21 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         if (argMultimap.getValue(PREFIX_TIMETABLE).isPresent()) {
             String link = argMultimap.getValue(PREFIX_TIMETABLE).get();
-            try {
-                TimeTable tt = TimeTableUtil.parseUrl(link);
-                editPersonDescriptor.setSchedule(ParserUtil.parseSchedule(tt.convertToSchedule().valueToString()));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            TimeTable tt = TimeTableUtil.parseUrl(link);
+            editPersonDescriptor.setSchedule(ParserUtil.parseSchedule(tt.convertToSchedule().valueToString()));
         }
 
         if (argMultimap.getValue(PREFIX_SCHEDULE).isPresent()) {
             String scheduleString = argMultimap.getValue(PREFIX_SCHEDULE).get();
-            try {
-                editPersonDescriptor.setSchedule(ParserUtil.parseSchedule(scheduleString));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            editPersonDescriptor.setSchedule(ParserUtil.parseSchedule(scheduleString));
         }
 
         if (argMultimap.getValue(PREFIX_SCHEDULE_UPDATE).isPresent()) {
             String link = argMultimap.getValue(PREFIX_SCHEDULE_UPDATE).get();
-            try {
-                Schedule s = new Schedule();
-                String[] parms = link.split(" ");
-                s.setTimeDay(parms[0].trim(), parms[1].trim(), true);
-                editPersonDescriptor.setUpdateSchedule(s);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            Schedule s = new Schedule();
+            String[] parms = link.split(" ");
+            s.setTimeDay(parms[0].trim(), parms[1].trim(), true);
+            editPersonDescriptor.setUpdateSchedule(s);
         }
 
 

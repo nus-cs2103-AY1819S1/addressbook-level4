@@ -67,8 +67,11 @@ class ScheduleTest {
 
     @Test
     void valueToString() {
-        Schedule s = new Schedule();
-        assertTrue (s.valueToString().equals(emptyScheduleString));
+        Schedule s1 = new Schedule();
+        assertTrue (s1.valueToString().equals(emptyScheduleString));
+
+        Schedule s2 = new Schedule(emptyScheduleString);
+        assertTrue (s2.valueToString().equals(emptyScheduleString));
     }
 
     @Test

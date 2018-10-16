@@ -3,6 +3,7 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.interest.Interest;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -83,7 +84,7 @@ public class PersonBuilder {
     /**
      * Parses the {@code interests} into a {@code Set<Interest>} and set it to the {@code Person} that we are building.
      */
-    public PersonBuilder withInterests(String ... interests) {
+    public PersonBuilder withInterests(String... interests) {
         this.interests = SampleDataUtil.getInterestSet(interests);
         return this;
     }
@@ -91,7 +92,7 @@ public class PersonBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
      */
-    public PersonBuilder withTags(String ... tags) {
+    public PersonBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
@@ -136,4 +137,17 @@ public class PersonBuilder {
         return new Person(name, phone, email, address, interests, tags, schedule);
     }
 
+
+    /**
+     * @param updateDay
+     * @param updateTime
+     * @return
+     * @throws ParseException
+     */
+    public PersonBuilder withUpdateSchedule(String updateDay, String updateTime) throws ParseException {
+        Schedule updateSchedule = new Schedule();
+        updateSchedule.setTimeDay(updateDay, updateTime, true);
+        this.schedule.xor(updateSchedule);
+        return this;
+    }
 }

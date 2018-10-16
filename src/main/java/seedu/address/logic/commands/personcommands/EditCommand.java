@@ -115,7 +115,6 @@ public class EditCommand extends Command {
         Schedule updatedSchedule = editPersonDescriptor.getSchedule().orElse(personToEdit.getSchedule());
         editPersonDescriptor.getUpdateSchedule().ifPresent((x)-> {
             updatedSchedule.xor(x);
-            System.err.println("HELP");
         });
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedInterests, updatedTags,

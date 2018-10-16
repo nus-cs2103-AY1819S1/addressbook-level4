@@ -28,13 +28,15 @@ public class Schedule {
      * 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
      */
 
-    public static final String MESSAGE_SCHEDULE_CONSTRAINTS = "Schedule should be in 0 or 1s";
+    public static final String MESSAGE_SCHEDULE_CONSTRAINTS =
+        "Schedule should be in 0 or 1s and in correct length";
+    public static final String INVALID_MESSAGE_SCHEDULE = "Invalid Schedule Input";
     private static final int DAY = 7;
     private static final int HOUR = 48;
     private static final int TOTAL = DAY * HOUR;
 
     // 7 days 24 hours - 48 30mins
-    public final int[][] value;
+    private final int[][] value;
 
     public Schedule() {
         value = new int[DAY][HOUR];
@@ -42,7 +44,7 @@ public class Schedule {
 
     public Schedule(String schedule) {
         requireNonNull(schedule);
-        assert (schedule.length() == TOTAL);
+
         value = new int[DAY][HOUR];
 
         for (int i = 0, counter = 0; i < value.length; i++) {
@@ -138,7 +140,7 @@ public class Schedule {
             dayNum = 6;
             break;
         default:
-            throw new ParseException("Invalid Schedule Input");
+            throw new ParseException(INVALID_MESSAGE_SCHEDULE);
         }
         return dayNum;
     }
@@ -168,7 +170,7 @@ public class Schedule {
             day = "sunday";
             break;
         default:
-            throw new ParseException("Invalid Schedule Input");
+            throw new ParseException(INVALID_MESSAGE_SCHEDULE);
         }
         return day;
     }
@@ -240,11 +242,11 @@ public class Schedule {
             for (int j = 0; j < value[i].length; j++) {
                 if (this.value[i][j] == 0) {
                     Slot slot = new Slot();
-                    slot.day = getNumDay(i);
+                    slot.setDay(getNumDay(i));
                     if (j / 2 > 9) {
-                        slot.time = "" + j / 2 + ((j % 2 == 1) ? "30" : "00");
+                        slot.setTime("" + j / 2 + ((j % 2 == 1) ? "30" : "00"));
                     } else {
-                        slot.time = "0" + j / 2 + ((j % 2 == 1) ? "30" : "00");
+                        slot.setTime("0" + j / 2 + ((j % 2 == 1) ? "30" : "00"));
                     }
                     slots.add(slot);
                 }
@@ -260,44 +262,7 @@ public class Schedule {
      */
     public String freeTimeToString() throws ParseException {
         StringBuilder sb = new StringBuilder();
-        getFreeTime().forEach((slot) -> sb.append(slot.day + "," + slot.time + ";"));
+        getFreeTime().forEach((slot) -> sb.append(slot.getDay() + "," + slot.getTime() + ";"));
         return sb.toString().trim();
-    }
-
-
-    /**
-     *
-     */
-    class Slot {
-        private String day;
-        private String time;
-
-        /**
-         * @return
-         */
-        public String getDay() {
-            return day;
-        }
-
-        /**
-         * @param day
-         */
-        public void setDay(String day) {
-            this.day = day;
-        }
-
-        /**
-         * @return
-         */
-        public String getTime() {
-            return time;
-        }
-
-        /**
-         * @param time
-         */
-        public void setTime(String time) {
-            this.time = time;
-        }
     }
 }

@@ -33,6 +33,12 @@ public class TimeTableUtilTest {
             TimeTableUtil.parseShortUrl("http://mo.us/4v8s"); });
         assertThrows(ParseException.class, () -> {
             TimeTableUtil.parseShortUrl("http://modsn.us/2322111"); });
+        assertThrows(ParseException.class, () -> {
+            TimeTableUtil.parseShortUrl("htt://modsn.us/"); });
+        assertThrows(ParseException.class, () -> {
+            TimeTableUtil.parseShortUrl("http://odsn.us/"); });
+        assertThrows(ParseException.class, () -> {
+            TimeTableUtil.parseShortUrl("http://modsn.us/"); });
     }
 
     @Test
