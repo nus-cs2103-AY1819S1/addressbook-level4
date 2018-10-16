@@ -65,7 +65,7 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 === Setting up the project in your computer
 Here are the steps to set up the project in your computer:
 
-. Fork this repo, and clone the fork to your computer.
+. link:https://github.com/CS2103-AY1819S1-W16-2/main[Fork] this repo, and clone the fork to your computer.
 . Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first).
 . Set up the correct JDK version for Gradle.
 .. Click `Configure` > `Project Defaults` > `Project Structure`.
