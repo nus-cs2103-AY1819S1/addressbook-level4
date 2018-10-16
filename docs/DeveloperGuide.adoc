@@ -1,4 +1,4 @@
-= EventsPlus+ - Developer Guide
+﻿= EventsPlus+ - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -239,6 +239,51 @@ Classes used by multiple components are in the `seedu.System.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+//tag::notification[]
+=== Enable/Disable Notification feature
+==== Current Implementation
+
+Notification preference is stored in the preferences.json file.
+The notification mechanism is facilitated by Javafx.
+Upon startup, notification preference is loaded from preferences.json and saved to the model.
+Upon exit, the model's notification preference is saved to preferences.json to ensure statefulness.
+When enabled, it creates a child stage and scene from the main window and displays with a countdown timer to automatically close the stage.
+Additionally, it implements the following operations
+
+* `ui#NotificationWindow()` -- creates the stage and scene for the notification using 2 String inputs: `title` and `message`
+* `logic#parser#NotificationCommandParser()` -- creates a the relevant NotificationCommand object based on user's input
+* `logic#commands#NotificationCommand()` -- updates the model's notification preference
+
+Given below is an example usage scenario and how the enable/disable notification mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The model's notification preference is initally enabled, the notification window appears.
+
+Step 2. The user executes `notification disable`. The `notification` command calls NotificationCommandParser which converts `disable` into the boolean `false` and creates a new Notification Command which updates the Model's notification preference to false.
+
+[NOTE]
+The notification command will update the notification preference regardless of whether the new preference is same as the previous preference.
+
+==== Design Considerations
+
+===== Aspect: How notification preferences updated
+
+* **Alternative 1 (current choice):** Re-assign Model's notification preference regardless of previous preference
+** Pros: Easy to implement.
+** Cons: Wasteful in the case of same notification preference.
+* **Alternative 2:** Check current notification preference and only assign new value if it is different from the previous value.
+** Pros: Do not waste computing cycles on unecessary re-assingment of notification preference.
+** Cons: Code becomes more complicated because additional check required.
+
+===== Aspect: Writing to preferences.json
+
+* **Alternative 1 (current choice):** Write all Model preferences to preferences.json
+** Pros: Easy to implement.
+** Cons: Unecessary computing cycles wasted on writing when possibly no change
+* **Alternative 2:** Check for difference between Model preferences and preferences.json, only write to preferences.json if there is difference.
+** Pros: Efficient.
+** Cons: Code becomes more complicated because additional check required
+// end::notification[]
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
@@ -320,6 +365,90 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // end::undoredo[]
 
 =======
+=======
+// tag::addEvents[]
+=== Add Events feature
+==== Current Implementation
+The adding of events is mainly carried out from `Model`. In the `Model` component, an `Event` class, as well as classes for `Event` attributes were created.
+Namely, the classes `EventName`, `EventDescription`, `EventDate`, `EventTime`, `EventAddress` were created to represent their respective information in an `Event`,
+as shown in the Class diagram below. Note that `EventDay` is generated from `EventDate` values. +
+
+By doing so, we achieve more abstraction and cohesion, and this abides by the Separation of Concerns (SoC) principle at the class level.
+On top of facilitating checking of bugs within the individual attributes,
+doing so will also allow the developer to alter the definition of the different attribute classes, as well as to add more attributes into the
+`Event` class easily.
+
+image::Event.png[Event class]
+
++
+
+Methods have been added to `ModelManager`, `AddressBook` and the newly-added class `UniqueEventList` to facilitate adding of persons.
+In order to limit modification of the internal list of `Event` objects, changes to this list is only carried out at the most fundamental level,
+which is `UniqueEventList`. `ModelManager` stores an unmodifiable copy of the list, and `AddressBook` the reference to the internal list.
+
+An example usage scenario of the adding of events is as shown in the sequence diagram below.
+
+image::add-event-component.png[Interactions between components]
+
+When the events are triggered from the `Model` component, they are handled by the UI, which updates the displayed information, and the
+`Storage` component, which saves the information to XML format. The event triggers are handled as follows.
+
+image::add-event-event-trigger.png[Handling of events triggered]
+
+To display the event information according to their date, a list of lists of events grouped by `EventDate` is set in the `ListView` object in the `EventPanelList`.
+Each cell represents the `EventListCard` for a particular date, which contains all the events, each displayed in a `EventCard`. For this implementation,
+we require `ModelManager` to be able to return such an `ObservableList<List<Event>>` object to the UI class `MainWindow`, and this is achieved via the method
+`ModelManager#getFilteredEventListByDate`.
+
+==== Design Considerations
+===== Aspect: Data Structure to Support the UI Events Display
+
+* **Alternative 1 (current choice):** Store a list of type `ObservableList<List<Event>>` in the `ListView` object in the `EventPanelList`.
+This list is re-computed in `ModelManager` each time a change in the internal list of events is detected, and passed to the UI class `MainWindow`.
+This facilitates a regeneration of the `TabPanel` stored in `MainWindow`, updating the display of events to the user.
+
++
+
+Here, we only need to maintain one list of `Event` objects.
+Since this is the case, there is no change to the `ObservableList<List<Event>>` object passed into the `UI` classes. For the UI
+to be updated with new information whenever events are added into the underlying `Event` list, we make use of a listener on the list `filteredEvents`.
+
+** Whenever there is a change detected by `filteredEvents`, an `AddressBookEventChangedEvent` is posted
+** `MainWindow` resets its `TabPanel` and passes the re-computed list (events grouped by date) into it.
+
++
+
+While this means that there is a regeneration of the `TabPanel` object in `MainWindow` each time such an event occurs,
+this overhead is still acceptable given the current scale of the `AddressBook`.
+
+* **Alternative 2:** Store a list of type `ObservableList<ObservableList<Event>>` in the `ListView` object,
+as well as in `ModelManager`, and update this alongside the `filteredEvent` list in `ModelManager`.
+By doing so, we will not have to regenerate the `TabPanel` in `MainWindow` each time there is a change in the internal event list.
+
++
+
+To do so, we can add a listener to `filteredEvents` such that each time the internal list of events changes, the corresponding change is done to a list of type `ObservableList<List<Event>>`.
+
++
+
+However, this will mean that if more actions are carried out on the internal event list, more updates will have be made to the way the listener is set up,
+as it will have to listen to more types of changes and perform more actions accordingly. Though reducing overhead incurred
+(as there is no need to regenerate the list each time a change occurs),
+this could potentially create more bugs in the code, which is not desirable in the long run.
+
+* **Alternative 3:** Store a list of type `ObservableList<ObservableList<Event>>` in the `ListView` object,
+as well as in `Model`, and create another internal list `UniqueEventListByDate` for this list of lists. Update this alongside `UniqueEventList`.
+By doing so, we also will not have to regenerate the `TabPanel` in `MainWindow` each time there is a change in the internal event list, and no such listener
+as in Alternative 2 is required.
+
+However, this means that we have to maintain two lists, both storing `Event` objects.
+The task of maintaining two lists may lead to inconsistencies between the two lists and more complex code in future,
+should future developers decide to include more actions to mutate the underlying list of `Event` objects.
+Hence, this is not preferred in our implementation.
+
+// end::addEvents[]
+
++
 // tag::importcontacts[]
 === Import Contacts
 ==== Current Implementation
@@ -353,13 +482,6 @@ The Faculty field stores the information about the person's location using conve
 
 The information from this field will be used to perform Google Maps URL API calls so as to display a common meeting location for two people.
 // end::meetinglocation[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
