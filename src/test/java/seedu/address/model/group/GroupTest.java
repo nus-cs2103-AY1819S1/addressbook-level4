@@ -17,7 +17,9 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.testutil.GroupBuilder;
 
-
+/**
+ * {@author Derek-Hardy}
+ */
 public class GroupTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();

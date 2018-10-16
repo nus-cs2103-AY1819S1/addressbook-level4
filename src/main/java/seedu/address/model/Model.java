@@ -59,6 +59,7 @@ public interface Model {
      */
     void updateGroup(Group target, Group editedGroup);
 
+    // @@author Derek-Hardy
     /**
      * Add a group tag {@code newGroup} to the given person {@code target}.
      * No action is required if the given person already exists in the
@@ -78,6 +79,7 @@ public interface Model {
      * @param oldGroup Tag of the group that the given person is currently in
      */
     void removeGroup(Person target, Tag oldGroup);
+    // @@author
 
 
     // @@author NyxF4ll

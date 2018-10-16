@@ -20,7 +20,9 @@ import seedu.address.model.group.exceptions.GroupNotFoundException;
 import seedu.address.testutil.GroupBuilder;
 
 
-
+/**
+ * {@author Derek-Hardy}
+ */
 public class UniqueGroupListTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
