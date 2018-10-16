@@ -35,4 +35,10 @@ public class ImportContactsCommandTest {
         assertCommandFailure(new ImportContactsCommand(readFile("ImportContacts.csv").get()),
                 model, commandHistory, ImportContactsCommand.MESSAGE_TEST_EXCEPTION);
     }
+
+    @Test
+    public void execute_emptyCsvFile_throwsCommandException() {
+        assertCommandFailure(new ImportContactsCommand(readFile("EmptyImportContacts.csv").get()),
+                model, commandHistory, ImportContactsCommand.MESSAGE_EMPTY_FILE_EXCEPTION);
+    }
 }
