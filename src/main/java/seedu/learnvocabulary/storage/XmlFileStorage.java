@@ -9,11 +9,11 @@ import seedu.learnvocabulary.commons.exceptions.DataConversionException;
 import seedu.learnvocabulary.commons.util.XmlUtil;
 
 /**
- * Stores learnvocabulary data in an XML file
+ * Stores LearnVocabulary data in an XML file
  */
 public class XmlFileStorage {
     /**
-     * Saves the given learnvocabulary data to the specified file.
+     * Saves the given LearnVocabulary data to the specified file.
      */
     public static void saveDataToFile(Path file, XmlSerializableLearnVocabulary learnVocabulary)
             throws FileNotFoundException {
@@ -25,7 +25,7 @@ public class XmlFileStorage {
     }
 
     /**
-     * Returns learnvocabulary book in the file or an empty learnvocabulary book
+     * Returns LearnVocabulary in the file or an empty LearnVocabulary.
      */
     public static XmlSerializableLearnVocabulary loadDataFromSaveFile(Path file) throws DataConversionException,
                                                                             FileNotFoundException {

@@ -7,7 +7,7 @@ import seedu.learnvocabulary.model.LearnVocabulary;
 import seedu.learnvocabulary.model.Model;
 
 /**
- * Clears the learnvocabulary book.
+ * Clears LearnVocabulary.
  */
 public class ClearCommand extends Command {
 

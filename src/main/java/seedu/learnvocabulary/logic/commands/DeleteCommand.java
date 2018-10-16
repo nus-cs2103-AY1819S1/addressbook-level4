@@ -12,7 +12,7 @@ import seedu.learnvocabulary.model.Model;
 import seedu.learnvocabulary.model.word.Word;
 
 /**
- * Deletes a word identified using it's displayed index from the learnvocabulary book.
+ * Deletes a word identified using it's displayed index from LearnVocabulary.
  */
 public class DeleteCommand extends Command {
 

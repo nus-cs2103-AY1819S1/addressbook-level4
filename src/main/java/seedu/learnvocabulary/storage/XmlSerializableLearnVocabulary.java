@@ -40,7 +40,7 @@ public class XmlSerializableLearnVocabulary {
     }
 
     /**
-     * Converts this learnvocabulary into the model's {@code LearnVocabulary} object.
+     * Converts this LearnVocabulary into the model's {@code LearnVocabulary} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
      * {@code XmlAdaptedWord}.

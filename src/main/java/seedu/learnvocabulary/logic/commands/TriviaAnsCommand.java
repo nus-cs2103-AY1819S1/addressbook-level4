@@ -18,7 +18,7 @@ public class TriviaAnsCommand extends Command {
 
     public static final String MESSAGE_FAILURE = "Please use the trivia command to get a question.";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + "your answer";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " your answer";
 
     private final String answer;
 
