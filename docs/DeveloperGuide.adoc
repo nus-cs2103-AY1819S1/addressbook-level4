@@ -331,7 +331,7 @@ _{Explain here how the data encryption feature will be implemented}_
 
 ==== Current Implementation
 
-The login authentication is using BCrypt library.
+The `login` command authenticate user to gain access to ClinicIO information.
 
 ==== Design Considerations
 
