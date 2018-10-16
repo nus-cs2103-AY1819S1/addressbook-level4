@@ -50,6 +50,7 @@ public class LoginCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history, Analytics analytics) {
         requireNonNull(model);
+
         if (toAuthenticate instanceof Doctor) {
             List<Doctor> doctorsList = model.getFilteredDoctorList();
             if (checkDoctorCred(doctorsList)) {
@@ -64,7 +65,9 @@ public class LoginCommand extends Command {
      * @param doctorsList A list of doctors in ClinicIO.
      * @return Returns true if doctor has valid credentials in ClinicIO.
      */
-    private boolean checkDoctorCred(List<Doctor> doctorsList) {
+    public boolean checkDoctorCred(List<Doctor> doctorsList) {
+        requireNonNull(doctorsList);
+        
         Doctor anotherDoctor = (Doctor) toAuthenticate;
         Doctor doctorFound = searchDoctor(doctorsList, anotherDoctor);
 
