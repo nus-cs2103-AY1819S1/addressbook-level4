@@ -8,8 +8,8 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 
 //@@author jonathantjm
 /**
@@ -19,7 +19,7 @@ public class StatisticPanel extends UiPart<Region> {
     private static final String FXML = "StatisticPanel.fxml";
 
     @FXML
-    private Pane chartArea;
+    private StackPane chartArea;
 
     public StatisticPanel (LinkedHashMap<String, Double> statsData) {
         super(FXML);
@@ -48,7 +48,7 @@ public class StatisticPanel extends UiPart<Region> {
         chartArea.getChildren().add(stats);
     }
 
-    public Pane getChartArea() {
+    public StackPane getChartArea() {
         return chartArea;
     }
 }

@@ -10,7 +10,7 @@ import static seedu.address.logic.commands.StatsCommand.StatsMode;
 import org.junit.Rule;
 import org.junit.Test;
 
-import seedu.address.commons.events.ui.SwapLeftPanelEvent;
+import seedu.address.commons.events.ui.ShowStatsRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.NoUserSelectedException;
@@ -57,8 +57,8 @@ public class StatsCommandTest {
         assertTrue(model.getStatsMode() == StatsMode.DAY);
 
         assertCommandSuccess(new StatsCommand(), model, commandHistory, MESSAGE_SUCCESS, expectedModel);
-        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof SwapLeftPanelEvent);
-        assertEquals(8, eventsCollectorRule.eventsCollector.getSize());
+        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ShowStatsRequestEvent);
+        assertEquals(10, eventsCollectorRule.eventsCollector.getSize());
 
     }
 }

@@ -6,12 +6,12 @@ import com.google.common.eventbus.Subscribe;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Orientation;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -47,6 +47,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private StatsWindow statsWindow;
     private BudgetPanel budgetpanel;
+    private StatisticPanel statisticPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -76,7 +77,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane leftPanelPlaceholder;
 
     @FXML
-    private SplitPane statisticsSplitPane;
+    private AnchorPane statisticsSplitPane;
 
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
@@ -191,13 +192,13 @@ public class MainWindow extends UiPart<Stage> {
         NotificationPanel notificationPanel = new NotificationPanel();
         notificationPanelPlaceholder.getChildren().add(notificationPanel.getRoot());
 
-        StatisticPanel statisticPanel = new StatisticPanel(logic.getExpenseStats());
+        statisticPanel = new StatisticPanel(logic.getExpenseStats());
         CategoriesPanel categoriesPanel = new CategoriesPanel();
 
-        statisticsSplitPane = new SplitPane();
-        statisticsSplitPane.setOrientation(Orientation.VERTICAL);
-        statisticsSplitPane.getItems().add(statisticPanel.getRoot());
-        statisticsSplitPane.getItems().add(categoriesPanel.getRoot());
+        statisticsSplitPane = new AnchorPane();
+        statisticsSplitPane.setTopAnchor(statisticPanel.getRoot(), 0.0);
+        statisticsSplitPane.setTopAnchor(categoriesPanel.getRoot(), 350.00);
+        statisticsSplitPane.getChildren().addAll(statisticPanel.getRoot(), categoriesPanel.getRoot());
 
         swapToStat();
 
@@ -222,7 +223,7 @@ public class MainWindow extends UiPart<Stage> {
         splitPane.setManaged(true);
         splitPane.setVisible(true);
         getPrimaryStage().setMaxHeight(Integer.MAX_VALUE);
-        getPrimaryStage().setMinHeight(600);
+        getPrimaryStage().setMinHeight(800);
         setWindowDefaultSize(prefs);
         statusbarPlaceholder.setManaged(true);
     }
@@ -267,17 +268,6 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    /**
-     * Opens the stats window or focuses on it if it's already opened.
-     */
-    @FXML
-    public void handleStats() {
-        if (statsWindow.isShowing()) {
-            statsWindow.close();
-        }
-        statsWindow.show();
-    }
-
     void show() {
         primaryStage.show();
     }
@@ -304,11 +294,10 @@ public class MainWindow extends UiPart<Stage> {
     private void handleShowStatsEvent(ShowStatsRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         try {
-            statsWindow = new StatsWindow(logic.getExpenseStats(), logic.getStatsMode());
+            statisticPanel.setData(logic.getExpenseStats());
         } catch (NoUserSelectedException e) {
             throw new IllegalStateException(e.getMessage());
         }
-        handleStats();
     }
 
     @Subscribe

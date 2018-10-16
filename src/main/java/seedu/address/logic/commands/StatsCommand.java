@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.function.Predicate;
 
 import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.ShowStatsRequestEvent;
 import seedu.address.commons.events.ui.SwapLeftPanelEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
@@ -73,6 +74,7 @@ public class StatsCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws NoUserSelectedException {
         requireNonNull(model);
         EventsCenter.getInstance().post(new SwapLeftPanelEvent(SwapLeftPanelEvent.PanelType.STATISTIC));
+        EventsCenter.getInstance().post(new ShowStatsRequestEvent());
         model.updateExpenseStats(getStatsPredicate());
         model.updateStatsMode(this.mode);
         return new CommandResult(MESSAGE_SUCCESS);
