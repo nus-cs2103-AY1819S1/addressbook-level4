@@ -7,18 +7,16 @@ import org.junit.Before;
 import org.junit.Test;
 
 import guitests.guihandles.BudgetPanelHandle;
-import javafx.animation.Timeline;
 import seedu.address.commons.events.ui.UpdateBudgetPanelEvent;
 import seedu.address.model.budget.Budget;
 
 //@@author Snookerballs
 public class BudgetPanelTest extends GuiUnitTest {
-    private BudgetPanel budgetPanel;
     private BudgetPanelHandle budgetPanelHandle;
 
     @Before
     public void setUp() throws InterruptedException {
-        budgetPanel = new BudgetPanel(new Budget(0, 0));
+        BudgetPanel budgetPanel = new BudgetPanel(new Budget(0, 0));
         Thread.sleep(1000);
         uiPartRule.setUiPart(budgetPanel);
         budgetPanelHandle = new BudgetPanelHandle(budgetPanel.getRoot());
