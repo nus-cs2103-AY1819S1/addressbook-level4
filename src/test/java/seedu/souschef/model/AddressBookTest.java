@@ -18,6 +18,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import seedu.souschef.model.exceptions.DuplicateException;
+import seedu.souschef.model.favourite.Favourites;
 import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.planner.Day;
@@ -102,7 +103,7 @@ public class AddressBookTest {
         private final ObservableList<Ingredient> ingredients = FXCollections.observableArrayList();
         private final ObservableList<HealthPlan> plans = FXCollections.observableArrayList();
         private final ObservableList<Day> mealPlanner = FXCollections.observableArrayList();
-        private final ObservableList<Recipe> favourites = FXCollections.observableArrayList();
+        private final ObservableList<Favourites> favourites = FXCollections.observableArrayList();
 
         AppContentStub(Collection<Recipe> recipes) {
             this.recipes.setAll(recipes);
@@ -134,6 +135,8 @@ public class AddressBookTest {
         }
 
         @Override
-        public ObservableList<Recipe> getObservableFavouritesList() {return favourites;}
+        public ObservableList<Favourites> getObservableFavouritesList() {
+            return favourites;
+        }
     }
 }

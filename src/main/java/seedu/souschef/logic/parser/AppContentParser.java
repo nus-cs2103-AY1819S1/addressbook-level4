@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.logic.commands.Command;
+import seedu.souschef.logic.parser.contextparser.FavouritesParser;
 import seedu.souschef.logic.parser.contextparser.HealthPlanParser;
 import seedu.souschef.logic.parser.contextparser.IngredientParser;
 import seedu.souschef.logic.parser.contextparser.MealPlannerParser;
@@ -54,7 +55,9 @@ public class AppContentParser {
             if (storage.getListOfFeatureStorage().size() > 0) {
                 storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(0));
             }
-
+            if (userInput.matches("favourite(\\s|\\S)*")) {
+                return new RecipeParser().parseCommand(modelSet.getFavouriteModel(), userInput);
+            }
             return new RecipeParser().parseCommand(modelSet.getRecipeModel(), userInput);
         } else if (context.equals("Ingredient")) {
             if (storage.getListOfFeatureStorage().size() > 0) {
@@ -65,8 +68,12 @@ public class AppContentParser {
             if (storage.getListOfFeatureStorage().size() > 0) {
                 storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(2));
             }
-
             return new HealthPlanParser().parseCommand(modelSet.getHealthPlanModel(), userInput);
+        } else if (context.equals("Favourites")) {
+            if (storage.getListOfFeatureStorage().size() > 0) {
+                storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(3));
+            }
+            return new FavouritesParser().parseCommand(modelSet.getFavouriteModel(), userInput);
         } else {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

@@ -5,6 +5,7 @@ import static seedu.souschef.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.logging.Logger;
 
 import seedu.souschef.commons.core.LogsCenter;
+import seedu.souschef.model.favourite.Favourites;
 import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.planner.Day;
@@ -21,7 +22,7 @@ public class ModelSetCoordinator implements ModelSet {
     private final Model<Day> mealPlannerModel;
     private final Model<Tag> tagModel;
     private final Model<Ingredient> ingredientModel;
-    private final Model<Recipe> favouriteModel;
+    private final Model<Favourites> favouriteModel;
     private final VersionedAppContent versionedAppContent;
     /**
      * Initializes all ModelManagers with the given appContent and userPrefs.
@@ -87,5 +88,8 @@ public class ModelSetCoordinator implements ModelSet {
         return healthPlanModel;
     }
 
-    public Model<Recipe> getFavouriteModel() { return favouriteModel;}
+    public Model<Favourites> getFavouriteModel() {
+        return favouriteModel;
+    }
+
 }

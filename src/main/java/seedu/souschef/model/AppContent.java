@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import javafx.collections.ObservableList;
 
+import seedu.souschef.model.favourite.Favourites;
 import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.planner.Day;
@@ -23,7 +24,7 @@ public class AppContent implements ReadOnlyAppContent {
     private final UniqueList<Ingredient> ingredients;
     private final UniqueList<HealthPlan> healthPlans;
     private final UniqueList<Day> mealPlanner;
-    private final UniqueList<Recipe> favourites;
+    private final UniqueList<Favourites> favourites;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -83,7 +84,7 @@ public class AppContent implements ReadOnlyAppContent {
         if (newData.getObservableMealPlanner().size() > 0) {
             this.mealPlanner.set(newData.getObservableMealPlanner());
         }
-        if (newData.getObservableFavouritesList().size() > 0){
+        if (newData.getObservableFavouritesList().size() > 0) {
             this.favourites.set(newData.getObservableFavouritesList());
         }
     }
@@ -114,7 +115,9 @@ public class AppContent implements ReadOnlyAppContent {
     }
 
     // favourite-level operations
-    public UniqueList<Recipe> getFavourites() { return favourites; }
+    public UniqueList<Favourites> getFavourites() {
+        return favourites;
+    }
 
     //// util methods
     @Override
@@ -149,7 +152,9 @@ public class AppContent implements ReadOnlyAppContent {
     }
 
     @Override
-    public ObservableList<Recipe> getObservableFavouritesList(){ return favourites.asUnmodifiableObservableList(); }
+    public ObservableList<Favourites> getObservableFavouritesList() {
+        return favourites.asUnmodifiableObservableList();
+    }
 
     @Override
     public boolean equals(Object other) {

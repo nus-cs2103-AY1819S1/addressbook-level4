@@ -1,5 +1,6 @@
 package seedu.souschef.model;
 
+import seedu.souschef.model.favourite.Favourites;
 import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.planner.Day;
@@ -26,6 +27,6 @@ public interface ModelSet {
     /** Returns the model for recipes*/
     Model<HealthPlan> getHealthPlanModel();
 
-    /** Returns the model for favourites*/
-    Model<Recipe> getFavouriteModel();
+    /** Returns the model for favourite*/
+    Model<Favourites> getFavouriteModel();
 }
