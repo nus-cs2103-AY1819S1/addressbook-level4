@@ -302,6 +302,7 @@ This section describes some noteworthy details on how certain features are imple
 
 This section describes the details on how the general features are implemented.
 
+[[Implementation-Switch]]
 ==== Switch command
 The `switch` command is used to switch the context between 'volunteer' and 'event'.
 
@@ -316,22 +317,33 @@ There are only 2 valid contexts which a user can switch to with the command. +
 v: 'volunteer' context +
 e: 'event' context
 
-The `Switch` command updates the context found in `ModelManager` before raising the context change event to update the UI.
+The `switch` command updates the context found in `ModelManager` before raising the context change event to update the UI.
 
-Given below is the sequence diagram to show how the `Switch` command works when switching from volunteer to event context.
+The figure below is the sequence diagram to show how the `switch` command works when switching from volunteer to event context.
 
-.Simplified sequence diagram of `switch` command
+.Simplified sequence diagram of switch command
 image::Command_Switch_SequenceDiagram.png[switch SD, 800]
 
 ===== Design considerations
 ====== Aspect: How context is maintained
-* **Alternative 1 (current choice):** Create a new `Context` class
-** Pros: Can support even more context in the future due to the flexibility of a class.
-** Cons: Tedious to do as a new class and relevant methods has to be implemented in model.
+* **Alternative 1 (current choice):** Create a new `Context` class.
++
+[cols="1,10"]
+|===
+|Pros| Can support even more contexts in the future due to the flexibility of a class.
+|Cons| Tedious to do as relevant methods have to be implemented in model.
+|===
++
 
-* **Alternative 2:** Pass a hard-coded context id around
-** Pros: No need to create a new object to handle the context.
-** Cons: Difficult to maintain the id throughout the whole application. Any change in context id would require all the codes to be updated.
+* **Alternative 2:** Pass a hard-coded context id around.
++
+[cols="1,10"]
+|===
+|Pros| No need to create a new object to handle the context.
+|Cons| Difficult to maintain the id throughout the whole application. Any change in context id would require all the codes to be updated.
+|===
++
+
 
 // tag::undoredo[]
 ==== Undo/Redo feature
@@ -455,16 +467,55 @@ This section describes the details on how the event management features are impl
 This section describes the details on how the record management features are implemented.
 
 ==== Manage function
+
+The `manage` command is used in the 'event' context to manage the volunteering records for an event. +
+
 ===== Current implementation
+This `manage` command requires the `ManageCommandParser` class to parse user input and determine which event to manage. +
 
-The manage command extends from the `Command` interface. It implements the following operation:
+`ManageCommandParser` implements the `Parser` class which has the `Parser#parse()` operation. This operation will throw an error if the user input is an invalid event id.
 
-* `Command#execute()`: -- Executes the command and switches the current context to the 'manage' context.
+The `manage` command updates the context found in `ModelManager` through the `model#switchToRecordContext()` function. +
 
-Given below is an example usage scenario and how the command behaves at each step.
+In addition to updating the context, the `manage` command also does the following:
+
+* Clear all predicates for volunteer list.
+* Filter the existing records by the selected event.
+* Raise a `RecordChangeEvent` to set the selected event.
+* Raise a `ContextChangeEvent` to update the UI.
+
+The figure below is the sequence diagram to show how the `switch` command works when switching from volunteer to event context.
+
+.Simplified sequence diagram for manage command
+image::Command_Manage_SequenceDiagram.png[manage SD, 800]
 
 ===== Design considerations
-====== Aspect: ???
+====== Aspect: Context switching
+* **Alternative 1 (current choice):** Utilize `Context` class used in the `switch` function. (See <<Implementation-Switch>>)
++
+[cols="1,10"]
+|===
+|Pros| No need to create a new class to change context.
+|Cons| Have to create a new method in `Context` class to handle parsed user input.
+|===
++
+
+* **Alternative 2:** Pass event and volunteer objects via `LogicManager`.
++
+[cols="1,10"]
+|===
+|Pros| Implementation is easy.
+|Cons| Classes becomes tightly coupled. The UI component would have access to methods it does not need.
+|===
++
+
+
+==== Add record [Coming in V1.3]
+
+==== Edit record [Coming in V1.3]
+
+==== Delete record [Coming in V1.3]
+
 
 == Documentation
 
@@ -948,7 +999,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="100%",cols="21%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new manager |see usage instructions |refer to instructions when I forget how to use the App
@@ -1006,7 +1057,7 @@ _{To be updated and expanded}_
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
 
-[width="59%",cols="22%",options="header",]
+[width="100%",cols="100%",options="header",]
 |=======================================================================
 |Use Cases
 a|*UC01:* Register new volunteer +
@@ -1247,13 +1298,14 @@ _{More to be added}_
 
 [appendix]
 == Glossary
-[width="59%",cols="50%,50%",options="header",]
+[width="100%",cols="30%,70%",options="header",]
 |=======================================================================
 | Term| Explanation
 | *Volunteer Manager*| Staff working for the organization, who handles administrative issues pertaining to volunteer and event management
 | *Volunteer*| A person who has signed up and has a profile with the organization
 | *Admin*| Our application’s intended target user (Most likely the volunteer manager)
 | *Application*| Refers to our system
+| *Context*| A context refers to the management screen that users will see.
 | *UCXX*| Use case with XX being the use case ID
 |[[mainstream-os]] *Mainstream OS*| Windows, Linux, Unix, OS-X
 |=======================================================================
