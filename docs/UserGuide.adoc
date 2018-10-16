@@ -18,7 +18,7 @@ By: `Team W13-2`      Since: `Sept 2018`      Licence: `MIT`
 
 == Introduction
 
-Eventsplus+ is for the busy university student who *prefer to use a desktop app for managing contacts and planning ad-hoc events*. Eventsplus+ aims to simplify some of the more time-consuming administrative tasks such as coordinating location and date of ad-hoc events using a *Command Line Interface* (CLI).
+EventsPlus+ is for the busy university student who *prefer to use a desktop app for managing contacts and planning ad-hoc events*. EventsPlus+ aims to simplify some of the more time-consuming administrative tasks such as coordinating location and date of ad-hoc events using a *Command Line Interface* (CLI).
 
 == Quick Start
 
@@ -272,31 +272,54 @@ Examples:
 
 * `generateLocation event/First Meeting group/CS2103Group`
 
-=== Add personal event: `addEvent`
+=== Adding an event: `addEvent`
 
-Adds an event in the system with the specified information. Any number of contacts (including zero) can be included in the event.
-A notification will be sent to the user only 24 hours before the event.
-(refer to <<Notification, notification>> feature)
+Adds an event in the system with information specified by the user.
 
-Format: `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(DD-MM-YY) t/TIME(HHMM) a/ADDRESS [i/CONTACT_INDEX]…`
+Format: `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(YYYY-MM-DD) st/START_TIME(HHMM) et/END_TIME(HHMM) a/ADDRESS`
+
+The user can input values for the following fields when adding an event: +
+
+* Event name +
+* Event description +
+* Event date +
+* Event start time +
+* Event end time +
+* Address of event +
+
+Note that each of these fields are mandatory, and has to be supplied by the user
+before the event can be successfully added into the system.
+In addition, note the following constraints for the input values.
+
+[TIP]
+====
+* Event names and descriptions should only contain alphanumeric characters
+and should not have any special characters e.g. *, &, etc.
+* Event dates should be in the format YYYY-MM-DD
+* Event times (start or end time) should be in the 24-hour format HHMM
+====
+
+//A notification will be sent to the user only 24 hours before the event.
+//(refer to <<Notification, notification>> feature)
 
 Examples:
 
-* `addEvent n/Doctor Appointment dsc/Consultation d/15-09-18 t/1030 a/123, Clementi Rd, 1234665`
-* `list` +
-  `addEvent n/Doctor Appointment dsc/Consultation d/15-09-18 t/1030 a/123, Clementi Rd, 1234665 i/1`
-* `Find Betsy Tim John` +
-  `addEvent n/Meeting  dsc/Project meeting d/15-09-18 t/1030 a/123, Clementi Rd, 1234665 i/1 i/2 i/3`
+* `addEvent n/Doctor Appointment dsc/Consultation d/2018-10-14 st/1030 et/1200 a/123, Clementi Rd, 1234665` +
+This adds a new event with the provided information.
 
-=== List personal events: `listEvent`
+//* `list` +
+//  `addEvent n/Doctor Appointment dsc/Consultation d/15-09-18 t/1030 a/123, Clementi Rd, 1234665 i/1`
+//* `Find Betsy Tim John` +
+//  `addEvent n/Meeting  dsc/Project meeting d/15-09-18 t/1030 a/123, Clementi Rd, 1234665 i/1 i/2 i/3`
 
-Lists all events in the system.
+In EventsPlus+, the events can be found in the Events tab,
+and are displayed according to their date, in decreasing date order.
 
-Format: `listEvent`
+After the user executes the command, a message indicating successful execution of the command will be displayed.
+The user will be automatically directed to the Events tab,
+where the newly added event (as highlighted in green below) will be shown in the tab.
 
-Examples:
-
-* `listEvent`
+image::addEvent-newEvent.png[Adding an event]
 
 === Import Contacts: `importContacts`
 
@@ -309,7 +332,7 @@ Examples:
 * `importContacts file/~/Downloads/contacts1.csv` +
   Imports all contacts from root/Downloads/contacts1.csv into application address book
 
-=== [[notification]] Notifications: `notification`
+=== Notifications: `notification`
 
 Allow users to disable notifications for upcoming events based on most recently displayed events list. All events initially have notifications enabled by default.
 
@@ -336,6 +359,16 @@ There is no need to save manually.
 
 
 == Features coming up in V2.0
+
+=== List personal events: `listEvent`
+
+Lists all events in the system.
+
+Format: `listEvent`
+
+Examples:
+
+* `listEvent`
 
 === Add group event: `addGroupEvent`
 
@@ -551,8 +584,8 @@ e.g. `archive group/CS2103Group`
 e.g. `unarchive group/CS2103Group`
 * *Suggest Location* : `generateLocation event/EVENT_NAME group/GROUP_NAME` +
 e.g. `generateLocation event/First Meeting group/CS2103Group`
-* *Add Event* : `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(DD-MM-YY) t/TIME(HHMM) a/ADDRESS [i/CONTACT_INDEX]…` +
-e.g. `addEvent n/Doctor Appointment dsc/Consultation d/15-09-18 t/1030 a/123, Clementi Rd, 1234665 i/1`
+* *Add Event* : `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(YYYY-MM-DD) st/START_TIME(HHMM) et/END_TIME(HHMM) a/ADDRESS` +
+e.g. `addEvent n/Doctor Appointment dsc/Consultation d/2019-10-12 st/1030 et/1200 a/123, Clementi Rd, 1234665`
 * *List Events* : `listEvent`
 * *Add Group Event* : `addGroupEvent n/EVENT_NAME dsc/DESCRIPTION d/DATE(DD-MM-YY) t/TIME(HHMM) a/ADDRESS group/GROUP_NAME...` +
 e.g. `addGroupEvent n/Project Meeting dsc/First Meeting d/12-09-18 t/1200 a/123, Clementi Rd, 1234665 group/CS2103_Group`
