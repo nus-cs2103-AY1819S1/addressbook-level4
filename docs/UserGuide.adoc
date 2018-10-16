@@ -128,6 +128,7 @@ Format: `exit`
 ==== Switching context : `switch`
 
 Switches context to volunteers or events +
+
 Format: `switch -CONTEXT_ID`
 
 ****
@@ -151,6 +152,9 @@ image::command_switch_before.png[Before switch, 450]
 .After (Event context)
 image::command_switch_after.png[After switch, 450]
 --
+
+The figures above shows the 2 different contexts. +
+Application will start up in the 'volunteer' context and users can switch to the event context via the `switch` command.
 
 === Volunteer Management
 
@@ -272,39 +276,61 @@ Examples:
 * `manage 1` +
 View the list of volunteers assigned to event at index 1
 
+.Viewing of events
+image::command_switch_after.png[view events, 800]
 
+The figure above shows the 'event' context that the user has to be in before executing the `manage` command.
 
+.Sample display
+image::command_manage_view.png[manage, 800]
 
-==== Add volunteer to event: `add`
+The figure above shows how the UI might look like after selecting to manage it. +
+
+The left panel displays the list of volunteers while the right panel displays the event name and volunteers currently registered for the event.
+
+==== Add volunteer to event: `add [coming in v1.3]`
 
 Adds a volunteer to the event that is currently being managed. +
+
 Format: `add VOLUNTEER_INDEX [h/HOURS] [r/REMARKS]`
 
 ****
-* This command is executed after the 'manage' command.
-* VOLUNTEER_INDEX comes from the global pool of volunteers.
+* VOLUNTEER_INDEX comes from the list of all volunteers.
+* Default value for HOURS is '0'.
+* Default value for REMARKS is '-'.
 ****
+
+.Adding a record
+image::command_record_add.png[add record, 800]
+
+The circled numbers from the figure above indicate the VOLUNTEER_INDEX.
 
 Examples:
 
+
 * `add 1` +
-Adds a volunteer at index 1 to the event with 0 hours
+Adds a volunteer at index 1 to the event with 0 hours +
 * `add 1 r/Vegetarian` +
 Adds a volunteer at index 1 to the event with 0 hours with remarks of 'Vegetarian'
 * `add 3 h/5` +
 Adds a volunteer at index 3 to the event with 5 hours
 
-==== Update volunteer hours: `edit`
+==== Update volunteer hours: `edit [coming in v1.3]`
 
-Update number of hours for volunteer in the event that is currently being managed. +
+Updates a volunteering record for volunteer in the event that is currently being managed. +
+
 Format: `edit [-a] [VOLUNTEER_INDEX] h/HOURS [r/REMARKS]`
 
 ****
-* This command is executed after the 'manage' command.
-* VOLUNTEER_INDEX comes from the table view of existing volunteers.
-* VOLUNTEER_INDEX is only optional when '-a' is entered.
-* Entering just `r/` would result in remarks being deleted.
+* VOLUNTEER_INDEX comes from the volunteers currently registered for the event.
+* VOLUNTEER_INDEX has to be specified if '-a' is not entered.
+* Entering just `r/` will save the remarks with the default value of '-'.
 ****
+
+.Editing a record
+image::command_record_edit.png[edit record, 800]
+
+The highlighted column from the figure above indicate the VOLUNTEER_INDEX for each volunteer.
 
 Examples:
 
@@ -313,15 +339,19 @@ Updates amount of hours volunteered for all existing volunteers in the event to 
 * `edit 3 h/5 r/Emcee` +
 Updates amount of hours volunteered for volunteer at index 3 to 5 hours with remarks of 'Emcee'
 
-==== Delete volunteer record from event: `delete`
+==== Delete volunteer record from event: `delete [coming in v1.3]`
 
 Deletes the volunteer record from the event that is currently being managed. +
+
 Format: `delete VOLUNTEER_INDEX`
 
 ****
-* This command is executed after the 'manage' command.
 * VOLUNTEER_INDEX comes from the table view of existing volunteers.
 ****
+
+.Deleting a record
+image::command_record_edit.png[delete record, 800]
+
 
 Examples:
 

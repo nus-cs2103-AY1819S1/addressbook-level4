@@ -465,9 +465,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_record_management">3.4. Record Management</a>
 <ul class="sectlevel3">
 <li><a href="#_view_event_s_volunteer_records_code_manage_code">3.4.1. View event&#8217;s volunteer records: <code>manage</code></a></li>
-<li><a href="#_add_volunteer_to_event_code_add_code">3.4.2. Add volunteer to event: <code>add</code></a></li>
-<li><a href="#_update_volunteer_hours_code_edit_code">3.4.3. Update volunteer hours: <code>edit</code></a></li>
-<li><a href="#_delete_volunteer_record_from_event_code_delete_code">3.4.4. Delete volunteer record from event: <code>delete</code></a></li>
+<li><a href="#_add_volunteer_to_event_code_add_coming_in_v1_3_code">3.4.2. Add volunteer to event: <code>add [coming in v1.3]</code></a></li>
+<li><a href="#_update_volunteer_hours_code_edit_coming_in_v1_3_code">3.4.3. Update volunteer hours: <code>edit [coming in v1.3]</code></a></li>
+<li><a href="#_delete_volunteer_record_from_event_code_delete_coming_in_v1_3_code">3.4.4. Delete volunteer record from event: <code>delete [coming in v1.3]</code></a></li>
 </ul>
 </li>
 <li><a href="#_miscellaneous">3.5. Miscellaneous</a>
@@ -684,8 +684,10 @@ Format: <code>exit</code></p>
 <div class="sect3">
 <h4 id="command-switch">3.1.7. Switching context : <code>switch</code></h4>
 <div class="paragraph">
-<p>Switches context to volunteers or events<br>
-Format: <code>switch -CONTEXT_ID</code></p>
+<p>Switches context to volunteers or events<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>switch -CONTEXT_ID</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -708,13 +710,13 @@ Format: <code>switch -CONTEXT_ID</code></p>
 </div>
 </div>
 <div class="paragraph">
-<p>Example:</p>
+<p>Examples:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
 <p><code>switch -e</code><br>
-Switch to the event context</p>
+Switch to the 'event' context when in 'volunteer' context</p>
 </li>
 </ul>
 </div>
@@ -733,6 +735,10 @@ Switch to the event context</p>
 <div class="title">Figure 2. After (Event context)</div>
 </div>
 </div>
+</div>
+<div class="paragraph">
+<p>The figures above shows the 2 different contexts.<br>
+Application will start up in the 'volunteer' context and users can switch to the event context via the <code>switch</code> command.</p>
 </div>
 </div>
 </div>
@@ -968,7 +974,7 @@ Deletes the details of the event specified at index 1</p>
 Format: <code>manage EVENT_INDEX</code></p>
 </div>
 <div class="paragraph">
-<p>Example:</p>
+<p>Examples:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -978,26 +984,61 @@ View the list of volunteers assigned to event at index 1</p>
 </li>
 </ul>
 </div>
+<div class="imageblock">
+<div class="content">
+<img src="images/command_switch_after.png" alt="view events" width="800">
+</div>
+<div class="title">Figure 3. Viewing of events</div>
+</div>
+<div class="paragraph">
+<p>The figure above shows the 'event' context that the user has to be in before executing the <code>manage</code> command.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/command_manage_view.png" alt="manage" width="800">
+</div>
+<div class="title">Figure 4. Sample display</div>
+</div>
+<div class="paragraph">
+<p>The figure above shows how the UI might look like after selecting to manage it.<br></p>
+</div>
+<div class="paragraph">
+<p>The left panel displays the list of volunteers while the right panel displays the event name and volunteers currently registered for the event.</p>
+</div>
 </div>
 <div class="sect3">
-<h4 id="_add_volunteer_to_event_code_add_code">3.4.2. Add volunteer to event: <code>add</code></h4>
+<h4 id="_add_volunteer_to_event_code_add_coming_in_v1_3_code">3.4.2. Add volunteer to event: <code>add [coming in v1.3]</code></h4>
 <div class="paragraph">
-<p>Adds a volunteer to the event that is currently being managed.<br>
-Format: <code>add VOLUNTEER_INDEX [h/HOURS] [r/REMARKS]</code></p>
+<p>Adds a volunteer to the event that is currently being managed.<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>add VOLUNTEER_INDEX [h/HOURS] [r/REMARKS]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>This command is executed after the 'manage' command.</p>
+<p>VOLUNTEER_INDEX comes from the list of all volunteers.</p>
 </li>
 <li>
-<p>VOLUNTEER_INDEX comes from the global pool of volunteers.</p>
+<p>Default value for HOURS is '0'.</p>
+</li>
+<li>
+<p>Default value for REMARKS is '-'.</p>
 </li>
 </ul>
 </div>
 </div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/command_record_add.png" alt="add record" width="800">
+</div>
+<div class="title">Figure 5. Adding a record</div>
+</div>
+<div class="paragraph">
+<p>The circled numbers from the figure above indicate the VOLUNTEER_INDEX.</p>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -1006,7 +1047,7 @@ Format: <code>add VOLUNTEER_INDEX [h/HOURS] [r/REMARKS]</code></p>
 <ul>
 <li>
 <p><code>add 1</code><br>
-Adds a volunteer at index 1 to the event with 0 hours</p>
+Adds a volunteer at index 1 to the event with 0 hours<br></p>
 </li>
 <li>
 <p><code>add 1 r/Vegetarian</code><br>
@@ -1020,30 +1061,38 @@ Adds a volunteer at index 3 to the event with 5 hours</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_update_volunteer_hours_code_edit_code">3.4.3. Update volunteer hours: <code>edit</code></h4>
+<h4 id="_update_volunteer_hours_code_edit_coming_in_v1_3_code">3.4.3. Update volunteer hours: <code>edit [coming in v1.3]</code></h4>
 <div class="paragraph">
-<p>Update number of hours for volunteer in the event that is currently being managed.<br>
-Format: <code>edit [-a] [VOLUNTEER_INDEX] h/HOURS [r/REMARKS]</code></p>
+<p>Updates a volunteering record for volunteer in the event that is currently being managed.<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>edit [-a] [VOLUNTEER_INDEX] h/HOURS [r/REMARKS]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>This command is executed after the 'manage' command.</p>
+<p>VOLUNTEER_INDEX comes from the volunteers currently registered for the event.</p>
 </li>
 <li>
-<p>VOLUNTEER_INDEX comes from the table view of existing volunteers.</p>
+<p>VOLUNTEER_INDEX has to be specified if '-a' is not entered.</p>
 </li>
 <li>
-<p>VOLUNTEER_INDEX is only optional when '-a' is entered.</p>
-</li>
-<li>
-<p>Entering just <code>r/</code> would result in remarks being deleted.</p>
+<p>Entering just <code>r/</code> will save the remarks with the default value of '-'.</p>
 </li>
 </ul>
 </div>
 </div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/command_record_edit.png" alt="edit record" width="800">
+</div>
+<div class="title">Figure 6. Editing a record</div>
+</div>
+<div class="paragraph">
+<p>The highlighted column from the figure above indicate the VOLUNTEER_INDEX for each volunteer.</p>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -1062,24 +1111,29 @@ Updates amount of hours volunteered for volunteer at index 3 to 5 hours with rem
 </div>
 </div>
 <div class="sect3">
-<h4 id="_delete_volunteer_record_from_event_code_delete_code">3.4.4. Delete volunteer record from event: <code>delete</code></h4>
+<h4 id="_delete_volunteer_record_from_event_code_delete_coming_in_v1_3_code">3.4.4. Delete volunteer record from event: <code>delete [coming in v1.3]</code></h4>
 <div class="paragraph">
-<p>Deletes the volunteer record from the event that is currently being managed.<br>
-Format: <code>delete VOLUNTEER_INDEX</code></p>
+<p>Deletes the volunteer record from the event that is currently being managed.<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>delete VOLUNTEER_INDEX</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>This command is executed after the 'manage' command.</p>
-</li>
-<li>
 <p>VOLUNTEER_INDEX comes from the table view of existing volunteers.</p>
 </li>
 </ul>
 </div>
 </div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/command_record_edit.png" alt="delete record" width="800">
+</div>
+<div class="title">Figure 7. Deleting a record</div>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -1248,7 +1302,7 @@ e.g. <code>delete 1</code></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-10-16 14:17:19 DST
+Last updated 2018-10-16 15:24:12 DST
 </div>
 </div>
 </body>
