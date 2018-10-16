@@ -63,7 +63,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setModules(List<Module> modules) {
         this.modules.setModules(modules);
     }
-    
+
     /**
      * Replaces the contents of the occasion list with {@code occasions}.
      * {@code occasions} must not contain duplicate occasions.
@@ -71,7 +71,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setOccasions(List<Occasion> occasions) {
         this.occasions.setOccasions(occasions);
     }
-    
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -92,7 +92,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(person);
         return persons.contains(person);
     }
-    
+
     /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
@@ -100,7 +100,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addPerson(Person p) {
         persons.add(p);
     }
-    
+
     /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
@@ -109,10 +109,10 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void updatePerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
-        
+    
         persons.setPerson(target, editedPerson);
     }
-    
+
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
@@ -120,7 +120,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removePerson(Person key) {
         persons.remove(key);
     }
-    
+
     //// util methods
 
     @Override
@@ -146,13 +146,13 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public boolean equals(Object other) {
-        
+    
         if (other == this) { // short circuit if same object
             return true;
         } else if (!(other instanceof AddressBook)) {
             return false;
         }
-        
+    
         AddressBook otherBook = (AddressBook) other;
         return persons.equals(otherBook.persons)
             && modules.equals(otherBook.modules)
