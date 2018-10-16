@@ -44,9 +44,13 @@ public class CalendarEvent {
         return description;
     }
 
-    public DateTime getStart() { return dateTimeInfo.start; }
+    public DateTime getStart() {
+        return dateTimeInfo.start;
+    }
 
-    public DateTime getEnd() { return dateTimeInfo.end; }
+    public DateTime getEnd() {
+        return dateTimeInfo.end;
+    }
 
     public Venue getVenue() {
         return venue;

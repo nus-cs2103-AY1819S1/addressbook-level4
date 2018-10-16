@@ -9,11 +9,11 @@ import java.time.format.DateTimeFormatter;
  * Guarantees: immutable; is valid as declared in {@link #isValidDateTime(int, int, int, int, int)}
  */
 public class DateTime {
-    public static final String MESSAGE_DATETIMEINPUT_CONSTRAINTS
-            = "Format for date and time input should be YYYY-MM-DD HH:MM";
+    public static final String MESSAGE_DATETIMEINPUT_CONSTRAINTS =
+                        "Format for date and time input should be YYYY-MM-DD HH:MM";
     public static final String DATETIMEINPUT_VALIDATION_REGEX = "(\\d{4})-(\\d{1,2})-(\\d{1,2}) (\\d{2}):(\\d{2})";
-    public static final String MESSAGE_DATETIME_CONSTRAINTS
-            = "Ensure that the input year, month, day, hour and minute correspond to a valid date and time";
+    public static final String MESSAGE_DATETIME_CONSTRAINTS =
+                        "Ensure that the input year, month, day, hour and minute correspond to a valid date and time";
 
     public final LocalDateTime localDateTime;
 
@@ -57,7 +57,12 @@ public class DateTime {
         this.localDateTime = LocalDateTime.of(year, month, day, hour, minute);
     }
 
-    public String toInputFormat() { return localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")); }
+    /**
+     * Converts date to the input format.
+     */
+    public String toInputFormat() {
+        return localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+    }
 
     @Override
     public String toString() {
@@ -97,6 +102,9 @@ public class DateTime {
         return true;
     }
 
+    /**
+     * Returns true input year is a leap year.
+     */
     public static boolean isLeapYear(int year) {
         if (year % 4 != 0) {
             return false;

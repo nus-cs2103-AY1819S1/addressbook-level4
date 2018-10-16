@@ -23,8 +23,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.calendarevent.CalendarEvent;
 import seedu.address.model.calendarevent.DateTime;
-import seedu.address.model.calendarevent.Description;
 import seedu.address.model.calendarevent.DateTimeInfo;
+import seedu.address.model.calendarevent.Description;
 import seedu.address.model.calendarevent.Title;
 import seedu.address.model.calendarevent.Venue;
 import seedu.address.model.tag.Tag;
@@ -112,7 +112,8 @@ public class EditCommand extends Command {
         Venue updatedVenue = editCalendarEventDescriptor.getVenue().orElse(calendarEventToEdit.getVenue());
         Set<Tag> updatedTags = editCalendarEventDescriptor.getTags().orElse(calendarEventToEdit.getTags());
 
-        return new CalendarEvent(updatedName, updatedDescription, new DateTimeInfo(updatedStart, updatedEnd), updatedVenue, updatedTags);
+        return new CalendarEvent(updatedName, updatedDescription,
+                                    new DateTimeInfo(updatedStart, updatedEnd), updatedVenue, updatedTags);
     }
 
     @Override
@@ -176,17 +177,29 @@ public class EditCommand extends Command {
             return Optional.ofNullable(title);
         }
 
-        public void setDescription(Description description) { this.description = description;  }
+        public void setDescription(Description description) {
+            this.description = description;
+        }
 
-        public Optional<Description> getDescription() { return Optional.ofNullable(description); }
+        public Optional<Description> getDescription() {
+            return Optional.ofNullable(description);
+        }
 
-        public void setStart(DateTime start) { this.start = start;  }
+        public void setStart(DateTime start) {
+            this.start = start;
+        }
 
-        public Optional<DateTime> getStart() { return Optional.ofNullable(start); }
+        public Optional<DateTime> getStart() {
+            return Optional.ofNullable(start);
+        }
 
-        public void setEnd(DateTime end) { this.end = end;  }
+        public void setEnd(DateTime end) {
+            this.end = end;
+        }
 
-        public Optional<DateTime> getEnd() { return Optional.ofNullable(end); }
+        public Optional<DateTime> getEnd() {
+            return Optional.ofNullable(end);
+        }
 
         public void setVenue(Venue venue) {
             this.venue = venue;
