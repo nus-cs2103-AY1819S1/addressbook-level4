@@ -17,6 +17,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.ProfilePic;
+import seedu.address.model.person.Salary;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -33,7 +34,7 @@ public class XmlAdaptedPerson {
     @XmlElement(required = true)
     private String email;
     @XmlElement(required = true)
-    private String address;
+    private String salary;
 
     @XmlElement
     private String profilePic;
@@ -49,11 +50,11 @@ public class XmlAdaptedPerson {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
-    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedPerson(String name, String phone, String email, String salary) {
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
+        this.salary = salary;
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
@@ -62,12 +63,12 @@ public class XmlAdaptedPerson {
     /**
      * Overriden constructor that allows specification of a profile picture
      */
-    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged,
+    public XmlAdaptedPerson(String name, String phone, String email, String salary,
                             String profilePic) {
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
+        this.salary = salary;
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
@@ -83,10 +84,7 @@ public class XmlAdaptedPerson {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
-        address = source.getAddress().value;
-        tagged = source.getTags().stream()
-                .map(XmlAdaptedTag::new)
-                .collect(Collectors.toList());
+        salary = source.getSalary().value;
         profilePic = source.getProfilePic().isPresent() ? source.getProfilePic().get().value : null;
     }
 
@@ -125,13 +123,13 @@ public class XmlAdaptedPerson {
         }
         final Email modelEmail = new Email(email);
 
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+        if (salary == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Salary.class.getSimpleName()));
         }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
+        if (!Salary.isValidSalary(salary)) {
+            throw new IllegalValueException(Salary.SALARY_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
+        final Salary modelSalary = new Salary(salary);
 
         Optional<ProfilePic> modelProfilePic = Optional.empty();
         if (profilePic != null) {
@@ -141,8 +139,7 @@ public class XmlAdaptedPerson {
             modelProfilePic = Optional.of(new ProfilePic(profilePic));
         }
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelProfilePic);
+        return new Person(modelName, modelPhone, modelEmail, modelSalary, modelProfilePic);
     }
 
     @Override
@@ -159,8 +156,7 @@ public class XmlAdaptedPerson {
         return Objects.equals(name, otherPerson.name)
                 && Objects.equals(phone, otherPerson.phone)
                 && Objects.equals(email, otherPerson.email)
-                && Objects.equals(address, otherPerson.address)
-                && Objects.equals(profilePic, otherPerson.profilePic)
-                && tagged.equals(otherPerson.tagged);
+                && Objects.equals(salary, otherPerson.salary)
+                && Objects.equals(profilePic, otherPerson.profilePic);
     }
 }

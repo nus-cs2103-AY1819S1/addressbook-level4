@@ -22,34 +22,31 @@ public class Person {
     private final Email email;
 
     // Data fields
-    private final Address address;
-    private final Set<Tag> tags = new HashSet<>();
+    private final Salary salary;
     private final Optional<ProfilePic> profilePic;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, Salary salary) {
+        requireAllNonNull(name, phone, email, salary);
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
-        this.tags.addAll(tags);
+        this.salary = salary;
         this.profilePic = Optional.empty();
     }
 
     /**
      * Overriden constructor that allows specification of a profile picture
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+    public Person(Name name, Phone phone, Email email, Salary salary,
                   Optional<ProfilePic> profilePic) {
-        requireAllNonNull(name, phone, email, address, tags);
+        requireAllNonNull(name, phone, email, salary);
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
-        this.tags.addAll(tags);
+        this.salary = salary;
         this.profilePic = profilePic;
     }
 
@@ -65,20 +62,16 @@ public class Person {
         return email;
     }
 
-    public Address getAddress() {
+    /*public Address getAddress() {
         return address;
+    }*/
+
+    public Salary getSalary() {
+        return salary;
     }
 
     public Optional<ProfilePic> getProfilePic() {
         return profilePic;
-    }
-
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
     }
 
     /**
@@ -113,15 +106,14 @@ public class Person {
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags())
+                && otherPerson.getSalary().equals(getSalary())
                 && otherPerson.getProfilePic().equals(getProfilePic());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags, profilePic);
+        return Objects.hash(name, phone, email, salary, profilePic);
     }
 
     @Override
@@ -132,12 +124,10 @@ public class Person {
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" Salary: ")
+                .append(getSalary())
                 .append(" Profile Pic: ")
-                .append(getProfilePic().orElse(new ProfilePic("[no pic]")))
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append(getProfilePic().orElse(new ProfilePic("[no pic]")));
         return builder.toString();
     }
 
