@@ -319,7 +319,7 @@ After the user executes the command, a message indicating successful execution o
 The user will be automatically directed to the Events tab,
 where the newly added event (as highlighted in green below) will be shown in the tab.
 
-image::add-event_new-event.png[Adding an event]
+image::add-event_new-event.PNG[Adding an event]
 
 === Import Contacts: `importContacts`
 
