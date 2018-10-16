@@ -420,6 +420,18 @@ classes for each of the behaviours.
 ** Pros: Clear separation of concern.
 ** Cons: Harder to design properly.
 
+##### Aspect: Representation of `LabelMatchesKeywordPredicate`
+
+* **Alternative 1 (current choice):** As an explicit implemented class.
+** Pros: Notion of equality can be overload, making testing for equality in every class composing
+ the class able to check for structural equality.
+** Cons: Creation of an extra class requires more understanding by developers to pick up the
+quirks as opposed to commonly recognised _Alternative 2_
+* **Alternative 2:** Declaration of predicate as an anonymous function
+** Pros: Easily understood by developers who are familiar with Functional Interfaces being Single
+ Abstract Methods.
+** Cons: Inability to properly check for equality.
+
 ###  Model Rollback feature
 #### Current Implementation
 
