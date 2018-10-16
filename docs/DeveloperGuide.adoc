@@ -287,9 +287,6 @@ instructions.
 
 // tag::mealplannerimplementation[]
 === Meal Planner feature
-
-=== VersionedAddressBook undo/redo
-
 The Meal Planner feature is supported by the classes `Meal` and `Day`.
 
 ****
