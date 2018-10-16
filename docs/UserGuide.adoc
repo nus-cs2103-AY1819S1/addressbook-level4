@@ -81,27 +81,28 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-=== Adding an employee : `add`
+=== Adding an employee to my department: `add`
 
 Adds an employee into the system.
 
 Format: `add -n NAME -s SECTOR [-g GROUP] [-m MERITS] [-f FLAWS] [-p SALARY]`
 
-To use this command, you must be logged in as a manager
-
+****
+* To use this command, you must be logged in with "Department Manager" permissions.
+****
 Examples:
 
 * `add -n John Doe -s Sales -p 15000`
 * `add -n Raynard -s Investment -m Self motivated -p 2000`
 
-=== Removing an employee : `remove`
+=== Removing an employee from my department: `remove`
 
 Removes an employee from the system.
 
 Format: `remove -id ID [-n NAME]`
 
 ****
-* To use this command, you must be logged in as a manager
+* To use this command, you must be logged in with "Department Manager" permissions.
 ****
 
 Examples:
@@ -115,17 +116,16 @@ Lists all the sectors, sorted by more profitable sector first.
 Format: `sector`
 
 ****
-* To use this command, you must be logged in as a manager
+* To use this command, you must be logged in with "Department Manager" permissions.
 ****
 
-=== List effectiveness of employees : `employees`
+=== Sort employee display list : `sort`
 
-Lists all employees, sorted by most profitable employees first.
+Lists all employees, using a given criteria.
 
-Format: `employees -s SORTBY`
+Format: `sort -n NAME [-d DEPARTMENT]`
 
-To use this command, you must be logged in as a manager.
-By default, this sorts by their profitability, but it can also sort by details like name by specifying it in the -s parameter.
+There are many different criteries like name, department, etc.
 
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
