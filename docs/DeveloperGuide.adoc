@@ -985,7 +985,7 @@ Use case ends.
 . User requests to view contacts for a particular group
 . System displays all contacts in that group
 +
-User case ends.
+Use case ends.
 
 *Extensions*
 
@@ -1034,6 +1034,7 @@ Use case ends.
 . System sets event location.
 
 *Extensions*
+
 * 3a. User rejects the generated location.
 ** 3a1. System gives user the option to state his/her preferred location and use case resumes from step 4.
 ** 3a2. If user does not state location, no common event location is set and use case ends.
