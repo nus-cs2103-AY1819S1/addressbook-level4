@@ -26,7 +26,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RIDES;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_RIDE;
 import static seedu.address.testutil.TypicalRides.AMY;
 import static seedu.address.testutil.TypicalRides.BOB;
 import static seedu.address.testutil.TypicalRides.KEYWORD_MATCHING_MEIER;
@@ -85,7 +85,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: edit a ride with new values same as another ride's values but with different name -> edited */
         assertTrue(getModel().getAddressBook().getRideList().contains(BOB));
-        index = INDEX_SECOND_PERSON;
+        index = INDEX_SECOND_RIDE;
         assertNotEquals(getModel().getFilteredRideList().get(index.getZeroBased()), BOB);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased()
                 + NAME_DESC_AMY + MAINTENANCE_DESC_BOB + EMAIL_DESC_BOB
@@ -96,7 +96,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         /* Case: edit a ride with new values same as another ride's values but with different phone and email
          * -> edited
          */
-        index = INDEX_SECOND_PERSON;
+        index = INDEX_SECOND_RIDE;
         String editedName = "Different";
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased()
                 + " " + PREFIX_NAME + editedName + MAINTENANCE_DESC_AMY + EMAIL_DESC_AMY

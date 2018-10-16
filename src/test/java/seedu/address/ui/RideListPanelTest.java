@@ -4,18 +4,18 @@ import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.EventsUtil.postNow;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_RIDE;
 import static seedu.address.testutil.TypicalRides.getTypicalRides;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysRide;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import guitests.guihandles.RideCardHandle;
 import org.junit.Test;
 
-import guitests.guihandles.PersonCardHandle;
-import guitests.guihandles.PersonListPanelHandle;
+import guitests.guihandles.RideListPanelHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
@@ -28,24 +28,24 @@ public class RideListPanelTest extends GuiUnitTest {
     private static final ObservableList<Ride> TYPICAL_RIDES =
             FXCollections.observableList(getTypicalRides());
 
-    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_PERSON);
+    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_RIDE);
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "sandbox");
 
     private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
 
-    private PersonListPanelHandle personListPanelHandle;
+    private RideListPanelHandle rideListPanelHandle;
 
     @Test
     public void display() {
         initUi(TYPICAL_RIDES);
 
         for (int i = 0; i < TYPICAL_RIDES.size(); i++) {
-            personListPanelHandle.navigateToCard(TYPICAL_RIDES.get(i));
+            rideListPanelHandle.navigateToCard(TYPICAL_RIDES.get(i));
             Ride expectedRide = TYPICAL_RIDES.get(i);
-            PersonCardHandle actualCard = personListPanelHandle.getPersonCardHandle(i);
+            RideCardHandle actualCard = rideListPanelHandle.getRideCardHandle(i);
 
-            assertCardDisplaysPerson(expectedRide, actualCard);
+            assertCardDisplaysRide(expectedRide, actualCard);
             assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
         }
     }
@@ -56,13 +56,13 @@ public class RideListPanelTest extends GuiUnitTest {
         postNow(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 
-        PersonCardHandle expectedPerson = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
-        PersonCardHandle selectedPerson = personListPanelHandle.getHandleToSelectedCard();
-        assertCardEquals(expectedPerson, selectedPerson);
+        RideCardHandle expectedRide = rideListPanelHandle.getRideCardHandle(INDEX_SECOND_RIDE.getZeroBased());
+        RideCardHandle selectedRide = rideListPanelHandle.getHandleToSelectedCard();
+        assertCardEquals(expectedRide, selectedRide);
     }
 
     /**
-     * Verifies that creating and deleting large number of persons in {@code RideListPanel} requires lesser than
+     * Verifies that creating and deleting large number of rides in {@code RideListPanel} requires lesser than
      * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
     @Test
@@ -76,49 +76,50 @@ public class RideListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Returns a list of persons containing {@code personCount} persons that is used to populate the
+     * Returns a list of rides containing {@code rideCount} rides that is used to populate the
      * {@code RideListPanel}.
      */
-    private ObservableList<Ride> createBackingList(int personCount) throws Exception {
-        Path xmlFile = createXmlFileWithPersons(personCount);
+    private ObservableList<Ride> createBackingList(int rideCount) throws Exception {
+        Path xmlFile = createXmlFileWithRides(rideCount);
         XmlSerializableThanePark xmlAddressBook =
                 XmlUtil.getDataFromFile(xmlFile, XmlSerializableThanePark.class);
         return FXCollections.observableArrayList(xmlAddressBook.toModelType().getRideList());
     }
 
     /**
-     * Returns a .xml file containing {@code personCount} persons. This file will be deleted when the JVM terminates.
+     * Returns a .xml file containing {@code rideCount} rides. This file will be deleted when the JVM terminates.
      */
-    private Path createXmlFileWithPersons(int personCount) throws Exception {
+    private Path createXmlFileWithRides(int rideCount) throws Exception {
         StringBuilder builder = new StringBuilder();
         builder.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
         builder.append("<thanepark>\n");
-        for (int i = 0; i < personCount; i++) {
+        for (int i = 0; i < rideCount; i++) {
             builder.append("<rides>\n");
             builder.append("<name>").append(i).append("a</name>\n");
             builder.append("<daysSinceMaintenanceString>000</daysSinceMaintenanceString>\n");
             builder.append("<waitingTimeString>123</waitingTimeString>\n");
             builder.append("<address>a</address>\n");
+            builder.append("<statusString>OPEN</statusString>\n");
             builder.append("</rides>\n");
         }
         builder.append("</thanepark>\n");
 
-        Path manyPersonsFile = Paths.get(TEST_DATA_FOLDER + "manyPersons.xml");
-        FileUtil.createFile(manyPersonsFile);
-        FileUtil.writeToFile(manyPersonsFile, builder.toString());
-        manyPersonsFile.toFile().deleteOnExit();
-        return manyPersonsFile;
+        Path manyRidesFile = Paths.get(TEST_DATA_FOLDER + "manyRides.xml");
+        FileUtil.createFile(manyRidesFile);
+        FileUtil.writeToFile(manyRidesFile, builder.toString());
+        manyRidesFile.toFile().deleteOnExit();
+        return manyRidesFile;
     }
 
     /**
-     * Initializes {@code personListPanelHandle} with a {@code RideListPanel} backed by {@code backingList}.
+     * Initializes {@code rideListPanelHandle} with a {@code RideListPanel} backed by {@code backingList}.
      * Also shows the {@code Stage} that displays only {@code RideListPanel}.
      */
     private void initUi(ObservableList<Ride> backingList) {
         RideListPanel rideListPanel = new RideListPanel(backingList);
         uiPartRule.setUiPart(rideListPanel);
 
-        personListPanelHandle = new PersonListPanelHandle(getChildNode(rideListPanel.getRoot(),
-                PersonListPanelHandle.PERSON_LIST_VIEW_ID));
+        rideListPanelHandle = new RideListPanelHandle(getChildNode(rideListPanel.getRoot(),
+                RideListPanelHandle.RIDE_LIST_VIEW_ID));
     }
 }

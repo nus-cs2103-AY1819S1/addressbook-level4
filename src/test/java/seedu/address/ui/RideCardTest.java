@@ -3,11 +3,11 @@ package seedu.address.ui;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysRide;
 
+import guitests.guihandles.RideCardHandle;
 import org.junit.Test;
 
-import guitests.guihandles.PersonCardHandle;
 import seedu.address.model.ride.Ride;
 import seedu.address.testutil.RideBuilder;
 
@@ -61,12 +61,12 @@ public class RideCardTest extends GuiUnitTest {
     private void assertCardDisplay(RideCard rideCard, Ride expectedRide, int expectedId) {
         guiRobot.pauseForHuman();
 
-        PersonCardHandle personCardHandle = new PersonCardHandle(rideCard.getRoot());
+        RideCardHandle rideCardHandle = new RideCardHandle(rideCard.getRoot());
 
         // verify id is displayed correctly
-        assertEquals(Integer.toString(expectedId) + ". ", personCardHandle.getId());
+        assertEquals(Integer.toString(expectedId) + ". ", rideCardHandle.getId());
 
         // verify ride details are displayed correctly
-        assertCardDisplaysPerson(expectedRide, personCardHandle);
+        assertCardDisplaysRide(expectedRide, rideCardHandle);
     }
 }
