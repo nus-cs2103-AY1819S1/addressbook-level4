@@ -292,34 +292,76 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 === Sort and Find feature
-The `sort` command allows the user to sort the displayed persons list according to each person's name, email,
-phone number, or address by alphanumerical order. +
 
-This command is executed with the following syntax: +
-`sort [name|phone|email|address]` +
+The Sort and Find commands modifies the `ObservableList<Person>` in `Model` that the UI is bound to. This section will
+detail how the sort and find commands are implemented.
+
+==== `sort` command usage
+
+The `sort` command allows the user to sort the displayed persons list according to each person's name, email,
+phone number, or address by alphanumerical order. This command is executed with the following syntax: +
+
+Syntax: `sort [name|phone|email|address]` +
 
 Example: `sort name`: This command will sort the current displayed list by name by alphanumerical order.
 
+==== `find` command usage
 
-The `find` command allows the user to filter the displayed persons list based on keywords given by the user. +
+The `find` command allows the user to filter the displayed persons list by each person's name based on
+keywords given by the user. This command is executed with the following syntax: +
 
-This command is executed with the following syntax: +
-`find [a/<keywords>] [s/<keywords>] [n/<keywords>]` +
+Syntax: `find [a/<keywords>] [s/<keywords>] [n/<keywords>]` +
 
-The `a/`, `s/`, and `n/`
+The user can include as many keywords as desired in `<keywords>` separated by a kbd:[space].
+The keywords are case-insensitive. +
 
+The `a/`, `s/`, and `n/` prefixes allows the user to include further specifications. They function as such: +
 
-The
-user can specify three groups of keywords. A group where the user want all keywords to be matched in the results shown,
-a group where the user want some of the keywords to be matched in the results shown, and lastly a group where the user
-wants none of the keywords matching the results shown.
+* `a/`: The results displayed must match all of the keywords following this prefix.
+* `s/`: The results displayed must match some (at least one) of the keywords following this prefix.
+* `n/`: The results displayed must match none of the keywords following this prefix.
 
-==== Current Implementation
-The Sort and Find commands modifies the `ObservableList<Person>` in `Model` that the UI is bound to.
-`ModelManager` maintains the `sortedPersons` list of type `SortedList<Person>`. `sortedPersons` is the list displayed in
-the display panel of the GUI. In the current implementation, the `sortedPersons` list wraps the `filteredPersons` list
-of type `FilteredList<Person>`, also maintained by `ModelManager`. `filteredPersons` wraps the `persons` list of type
-`ObservableList<Person>` maintained by `versionedAddressBook`.
+Example: `find a/alice bob s/shirlene david n/charlie`: This command will filter the displayed list such that all
+results will contain "alice" and "bob", either "shirlene" or "david", and none of the results will contain
+"charlie". +
+
+If the user doesn't use prefixes. With the following syntax: +
+
+Syntax: `find <keywords>` +
+
+The command is equivalent to `find a/<keywords>` by default. +
+
+Example: `find mary john`: This command will filter the displayed list such that all results will contain "mary" and
+"john". This command is equivalent to `find a/mary john`.
+
+==== Implementation of `sort` and `find` commands
+
+`ModelManager` maintains a `sortedPersons` list of type `SortedList<Person>` and a `filteredPersons` list of type
+`FilteredList<Person>`. +
+
+Illustrated in the figure below, `sortedPersons` list wraps the `filteredPersons` list and
+`filteredPersons` list wraps the `persons` list of type `ObservableList<Person>` maintained by `versionedAddressBook`.
+`persons` list in `versionedAddressBook` contains all the persons stored in the MeetingBook.
+
+image::sortedList-filteredList-persons.png[width="400"]
+
+The list displayed in the UI is bound to the `sortedPersons` list. Hence, the `persons` list has two layers of
+modification before being displayed in the GUI as `sortedPersons`. +
+
+Before the user executes any `find` or `sort` commands, no `Comparator<Person>` and no `Predicate<Person>` is applied to
+the `persons` list. The UI will display the all the persons in the MeetingBook as expected. +
+
+When the user executes a `find` command, an appropriate `Predicate<Person>` will be created based on the user's input,
+and the `Predicate<Person>` will be applied to the `persons` list. This modification will be reflected in the
+`sortedPersons` list and in the displayed list in the GUI. +
+
+Similarly, when a user executes a `sort` command, an appropriate `Comparator<Person>` will be applied to the
+`filteredPersons` list. This modification will be reflected in the displayed list in the UI.
+
+==== Design considerations
+
+Due to this two-layered structure. The user can chain `find` and `sort` commands back-to-back to display the desired
+list.
 
 // tag::undoredo[]
 === Undo/Redo feature
