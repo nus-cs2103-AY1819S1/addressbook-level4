@@ -1,0 +1,133 @@
+package seedu.address.storage;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.TypeUtil;
+import seedu.address.model.module.*;
+import seedu.address.model.module.Module;
+import seedu.address.model.tag.Tag;
+
+import javax.xml.bind.annotation.XmlElement;
+import java.util.*;
+import java.util.stream.Collectors;
+
+/**
+ * JAXB-friendly version of the Module.
+ *
+ * @author alistair
+ */
+public class XmlAdaptedModule {
+
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Module's %s field is missing!";
+
+    @XmlElement(required = true)
+    private String moduleCode;
+    @XmlElement(required = true)
+    private String moduleTitle;
+    @XmlElement(required = true)
+    private String academicYear;
+    @XmlElement(required = true)
+    private String semester;
+
+    @XmlElement
+    private List<XmlAdaptedTag> tagged = new ArrayList<>();
+
+    /**
+     * Constructs an XmlAdaptedModule.
+     * This is the no-arg constructor that is required by JAXB.
+     */
+    public XmlAdaptedModule() {}
+
+    /**
+     * Constructs an {@code XmlAdaptedModule} with the given person details.
+     */
+    public XmlAdaptedModule(String moduleCode, String moduleTitle, String academicYear, String semester, List<XmlAdaptedTag> tagged) {
+        this.moduleCode = moduleCode;
+        this.moduleTitle = moduleTitle;
+        this.academicYear = academicYear;
+        this.semester = semester;
+        if (tagged != null) {
+            this.tagged = new ArrayList<>(tagged);
+        }
+    }
+
+    /**
+     * Converts a given Module into this class for JAXB use.
+     *
+     * @param source future changes to this will not affect the created XmlAdaptedModule
+     */
+    public XmlAdaptedModule(Module source) {
+        moduleCode = source.getModuleCode().toString();
+        moduleTitle = source.getModuleTitle().toString();
+        academicYear = source.getAcademicYear().toStringOnlyNumbers();
+        semester = source.getSemester().toString();
+        tagged = source.getTags().stream()
+                .map(XmlAdaptedTag::new)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Converts this jaxb-friendly adapted person object into the model's Module object.
+     *
+     * @throws IllegalValueException if there were any data constraints violated in the adapted module
+     */
+    public Module toModelType() throws IllegalValueException {
+        final List<Tag> moduleTags = new ArrayList<>();
+        for (XmlAdaptedTag tag : tagged) {
+            moduleTags.add(tag.toModelType());
+        }
+
+        if (moduleCode == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ModuleCode.class.getSimpleName()));
+        }
+        if (!ModuleCode.isValidCode(moduleCode)) {
+            throw new IllegalValueException(ModuleCode.MESSAGE_MODULECODE_CONSTRAINTS);
+        }
+        final ModuleCode modelCode = new ModuleCode(moduleCode);
+
+        if (moduleTitle == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ModuleTitle.class.getSimpleName()));
+        }
+        if (!ModuleTitle.isValidTitle(moduleTitle)) {
+            throw new IllegalValueException(ModuleTitle.MESSAGE_MODULETITLE_CONSTRAINTS);
+        }
+        final ModuleTitle modelTitle = new ModuleTitle(moduleTitle);
+
+        if (academicYear == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, AcademicYear.class.getSimpleName()));
+        }
+        if (!AcademicYear.isValidYear(academicYear)) {
+            throw new IllegalValueException(AcademicYear.MESSAGE_ACADEMICYEAR_CONSTRAINTS);
+        }
+        final AcademicYear modelAcademicYear = new AcademicYear(academicYear);
+
+        if (semester == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Semester.class.getSimpleName()));
+        }
+        if (!Semester.isValidSemester(semester)) {
+            throw new IllegalValueException(Semester.MESSAGE_SEMESTER_CONSTRAINTS);
+        }
+        final Semester modelSemester = new Semester(semester);
+
+        final Set<Tag> modelTags = new HashSet<>(moduleTags);
+        final TypeUtil modelType = TypeUtil.MODULE;
+        return new Module(modelCode, modelTitle, modelAcademicYear, modelSemester, modelTags, modelType);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof XmlAdaptedModule)) {
+            return false;
+        }
+
+        XmlAdaptedModule otherModule = (XmlAdaptedModule) other;
+        return Objects.equals(moduleCode, otherModule.moduleCode)
+                && Objects.equals(moduleTitle, otherModule.moduleTitle)
+                && Objects.equals(academicYear, otherModule.academicYear)
+                && Objects.equals(semester, otherModule.semester)
+                && tagged.equals(otherModule.tagged);
+    }
+}

@@ -11,6 +11,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
+import seedu.address.model.module.Module;
 
 /**
  * An Immutable AddressBook that is serializable to XML format
@@ -19,9 +20,16 @@ import seedu.address.model.person.Person;
 public class XmlSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_MODULE = "Modules list contains duplicate module(s).";
+    public static final String MESSAGE_DUPLICATE_OCCASION = "Occasions list contains duplicate occasion(s).";
 
     @XmlElement
     private List<XmlAdaptedPerson> persons;
+    @XmlElement
+    private List<XmlAdaptedModule> modules;
+    @XmlElement
+    private List<XmlAdaptedOccasion> occasions;
+
 
     /**
      * Creates an empty XmlSerializableAddressBook.
@@ -29,6 +37,8 @@ public class XmlSerializableAddressBook {
      */
     public XmlSerializableAddressBook() {
         persons = new ArrayList<>();
+        modules = new ArrayList<>();
+        occasions = new ArrayList<>();
     }
 
     /**
@@ -37,6 +47,7 @@ public class XmlSerializableAddressBook {
     public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
         this();
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+        modules.addAll(src.getModuleList().stream().map(XmlAdaptedModule::new).collect(Collectors.toList()));
     }
 
     /**
@@ -54,6 +65,13 @@ public class XmlSerializableAddressBook {
             }
             addressBook.addEntity(person);
         }
+        for (XmlAdaptedModule m : modules) {
+            Module module = m.toModelType();
+            if (addressBook.hasModule(module)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_MODULE);
+            }
+            addressBook.addModule(module);
+        }
         return addressBook;
     }
 
@@ -66,6 +84,9 @@ public class XmlSerializableAddressBook {
         if (!(other instanceof XmlSerializableAddressBook)) {
             return false;
         }
-        return persons.equals(((XmlSerializableAddressBook) other).persons);
+        XmlSerializableAddressBook otherBook = (XmlSerializableAddressBook) other;
+        return persons.equals(otherBook.persons)
+                && modules.equals(otherBook.modules)
+                && occasions.equals(otherBook.occasions);
     }
 }
