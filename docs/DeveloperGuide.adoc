@@ -328,10 +328,12 @@ as shown in the Class diagram below. Note that `EventDay` is generated from `Eve
 
 By doing so, we achieve more abstraction and cohesion, and this abides by the Separation of Concerns (SoC) principle at the class level.
 On top of facilitating checking of bugs within the individual attributes,
-doing will also allow the developer to alter the definition of the different attribute classes, as well as to add more attributes into the
+doing so will also allow the developer to alter the definition of the different attribute classes, as well as to add more attributes into the
 `Event` class easily.
 
 image::Event.png[Event class]
+
++
 
 Methods have been added to `ModelManager`, `AddressBook` and the newly-added class `UniqueEventList` to facilitate adding of persons.
 In order to limit modification of the internal list of `Event` objects, changes to this list is only carried out at the most fundamental level,
