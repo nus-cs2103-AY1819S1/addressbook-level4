@@ -21,8 +21,7 @@ public class FileReaderBuilder {
             .resolve("EmptyImportContacts.csv")
             .toFile()
             .getAbsolutePath();
-
-
+    
     private FileReader fileReader;
 
     public FileReaderBuilder() {
