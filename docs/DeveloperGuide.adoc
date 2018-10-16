@@ -231,6 +231,21 @@ The `Group`,
 * supports add and remove member using methods `addMember(Person toAdd)` and `removeMember(Person toRemove)`.
 * exposes an unmodifiable `List<Person>` for observation of member enrollment status by `getMembersView()`.
 
+.The UniqueGroupList class
+image::uniqueGroupListClassDiagram.png[width="500"]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/model/group/UniqueGroupList.java[`UniqueGroupList.java`]
+
+The `UniqueGroupList`,
+
+* ensures a list of `Group` objects without duplicates.
+* supports `add`, `remove` and `replace` operations on groups in the list.
+* exposes an unmodifiable `ObservableList<Group>` for observation of the list.
+
+[NOTE]
+Both `UniqueGroupList` and `UniquePersonList` implements `Iterable` interface.
+
+
 .The enhanced Person class
 image::personClassDiagram.png[width="300"]
 
