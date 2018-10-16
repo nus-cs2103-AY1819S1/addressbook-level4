@@ -27,12 +27,11 @@ public class HelpCommandTest {
 
     @Test
     public void execute_help_success() {
-        String[] args = {""};
-        assertCommandSuccess(new HelpCommand(args), model, commandHistory, SHOWING_SHORT_HELP_MESSAGE, expectedModel);
+        assertCommandSuccess(new HelpCommand(), model, commandHistory, SHOWING_SHORT_HELP_MESSAGE, expectedModel);
 
         BaseEvent recentEvent = eventsCollectorRule.eventsCollector.getMostRecent();
         assertTrue(recentEvent instanceof ShowHelpRequestEvent);
-        assertTrue(((ShowHelpRequestEvent) recentEvent).isSummarized);
+        assertTrue(((ShowHelpRequestEvent) recentEvent).isSummarized());
         assertEquals(1, eventsCollectorRule.eventsCollector.getSize());
     }
 
@@ -43,7 +42,7 @@ public class HelpCommandTest {
 
         BaseEvent recentEvent = eventsCollectorRule.eventsCollector.getMostRecent();
         assertTrue(recentEvent instanceof ShowHelpRequestEvent);
-        assertFalse(((ShowHelpRequestEvent) recentEvent).isSummarized);
+        assertFalse(((ShowHelpRequestEvent) recentEvent).isSummarized());
         assertEquals(1, eventsCollectorRule.eventsCollector.getSize());
     }
 
@@ -58,8 +57,8 @@ public class HelpCommandTest {
 
             BaseEvent recentEvent = eventsCollectorRule.eventsCollector.getMostRecent();
             assertTrue(recentEvent instanceof ShowHelpRequestEvent);
-            assertFalse(((ShowHelpRequestEvent) recentEvent).isSummarized);
-            assertEquals(commandWord, ((ShowHelpRequestEvent) recentEvent).commandWord);
+            assertFalse(((ShowHelpRequestEvent) recentEvent).isSummarized());
+            assertEquals(commandWord, ((ShowHelpRequestEvent) recentEvent).getCommandWord());
             assertEquals(numEvents, eventsCollectorRule.eventsCollector.getSize());
         }
     }

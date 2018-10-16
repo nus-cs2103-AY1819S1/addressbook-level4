@@ -7,8 +7,8 @@ import seedu.address.commons.events.BaseEvent;
  */
 public class ShowHelpRequestEvent extends BaseEvent {
 
-    public final boolean isSummarized;
-    public final String commandWord;
+    private final boolean isSummarized;
+    private final String commandWord;
 
     /**
      * Creates an event requesting for help info, and the level of detail is specified by {@param summarized}.
@@ -23,4 +23,11 @@ public class ShowHelpRequestEvent extends BaseEvent {
         return getClass().getSimpleName();
     }
 
+    public boolean isSummarized() {
+        return isSummarized;
+    }
+
+    public String getCommandWord() {
+        return commandWord;
+    }
 }
