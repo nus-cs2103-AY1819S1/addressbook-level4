@@ -1,10 +1,10 @@
 package seedu.address.testutil;
 
-import seedu.address.model.todolist.TodoListEvent;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import seedu.address.model.todolist.TodoListEvent;
 
 /**
  * A utility class containing a list of {@code TodoListEvent} objects to be used in tests.

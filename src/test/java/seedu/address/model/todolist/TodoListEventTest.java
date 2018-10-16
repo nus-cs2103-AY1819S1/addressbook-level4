@@ -1,9 +1,5 @@
 package seedu.address.model.todolist;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TUTORIAL;
@@ -11,6 +7,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_TUTORI
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_TUTORIAL;
 import static seedu.address.testutil.TypicalTodoListEvents.MIDTERM;
 import static seedu.address.testutil.TypicalTodoListEvents.TUTORIAL;
+
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import seedu.address.testutil.TodoListEventBuilder;
 
