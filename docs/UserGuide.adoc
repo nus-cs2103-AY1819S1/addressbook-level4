@@ -330,6 +330,5 @@ e.g `find tim@example.com`
 e.g.`select 2`
 * *filterByFee* : `filterByFee FEE`
 * *History* : `history`
-* *Earnings* : `earnings from/DDMM to/DDMM`
 * *Undo* : `undo`
 * *Redo* : `redo`
