@@ -70,9 +70,9 @@ public class Education {
 
         if (splitTest[0].equals("pri")) {
             return grade <= 6;
-        } else if(splitTest[0].equals("sec")) {
+        } else if (splitTest[0].equals("sec")) {
             return grade <= 5;
-        } else if (splitTest[0].equals("jc")){
+        } else if (splitTest[0].equals("jc")) {
             return grade <= 2;
         } else {
             return false;
