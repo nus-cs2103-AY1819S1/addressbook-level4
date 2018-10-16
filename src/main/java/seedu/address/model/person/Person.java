@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -26,6 +27,7 @@ public class Person {
     private final Address address;
     private final Education education;
     private final Grades grades;
+    private final ArrayList<Time> timeSlots;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -41,6 +43,7 @@ public class Person {
         this.grades = grades;
         this.tags.addAll(tags);
         this.tuitionFee = new Fees(education);
+        this.timeSlots = new ArrayList<>();
     }
 
     public Name getName() {
@@ -59,7 +62,9 @@ public class Person {
         return address;
     }
 
-    public Education getEducation(){ return education; }
+    public Education getEducation() {
+        return education;
+    }
 
     public Grades getGrades() {
         return grades;
@@ -69,7 +74,16 @@ public class Person {
         return tuitionFee;
     }
 
+    public ArrayList getTime() {
+        return timeSlots;
+    }
 
+    /**
+     * Adds a time slot to a Person's time array list
+     */
+    public void addTime(Time time) {
+        timeSlots.add(time);
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -114,8 +128,8 @@ public class Person {
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getEducation().equals(getEducation())
                 && otherPerson.getGrades().equals(getGrades())
-                && otherPerson.getFees() == getFees()
-                && otherPerson.getTags().equals(getTags());
+                && otherPerson.getTags().equals(getTags())
+                && otherPerson.getFees() == getFees();
     }
 
     @Override
