@@ -91,5 +91,4 @@ public class DeleteCommandParser implements CommandParser<DeleteCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_DELETE_HEALTHPLAN_USAGE), pe);
         }
     }
-    
 }
