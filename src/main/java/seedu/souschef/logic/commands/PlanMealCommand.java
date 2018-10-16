@@ -1,6 +1,8 @@
 package seedu.souschef.logic.commands;
 
 import seedu.souschef.logic.CommandHistory;
+import seedu.souschef.model.Model;
+import seedu.souschef.model.planner.Day;
 import seedu.souschef.model.planner.Meal;
 import seedu.souschef.model.recipe.Recipe;
 
@@ -17,10 +19,12 @@ public class PlanMealCommand extends Command {
 
     public static final String MESSAGE_PLAN_RECIPE_SUCCESS = "Planned Recipe: %1$s";
 
+    private final Model<Day> model;
     private final Recipe toAdd;
     private final Meal meal;
 
-    public PlanMealCommand(Recipe toAdd, Meal meal) {
+    public PlanMealCommand(Model<Day> model, Recipe toAdd, Meal meal) {
+        this.model = model;
         this.toAdd = toAdd;
         this.meal = meal;
     }
@@ -28,6 +32,7 @@ public class PlanMealCommand extends Command {
     @Override
     public CommandResult execute(CommandHistory history) {
         meal.setRecipe(toAdd);
+        model.commitAppContent();
         return new CommandResult(String.format(MESSAGE_PLAN_RECIPE_SUCCESS, toAdd));
     }
 }
