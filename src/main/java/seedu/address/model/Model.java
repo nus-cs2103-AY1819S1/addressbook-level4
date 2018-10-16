@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -97,4 +98,14 @@ public interface Model {
      * Retrieves the userPrefs current directory.
      */
     Path getCurrDirectory();
+
+    /**
+     * Retrieves the list of images in current directory.
+     */
+    ArrayList<String> getDirectoryImageList();
+
+    /**
+     * Removes the image of the given index in the list.
+     */
+    void removeImageFromList(int idx);
 }
