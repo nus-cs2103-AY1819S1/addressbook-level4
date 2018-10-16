@@ -248,6 +248,30 @@ Format: `setBudget MONEY_WITH_TWO_DECIMAL_PLACES`
 * MONEY_WITH_TWO_DECIMAL_PLACES must be a positive number with two decimal places.
 ====
 
+=== Sets recurring frequency for budget: `setRecurringFrequency`
+Sets the recurrence frequency for the budget of the expense tracker.
+
+The expense tracker will reset your budget after every `FREQUENCY`
+
+Format: `setRecurringFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]`
+
+
+****
+*Examples:*
+
+* `setRecurringFrequency hrs/1` +
+    Sets the budget to reset every 1 hour
+* `setRecurringFrequency hrs/1 min/30` +
+    Sets the budget reset every 1 hour and 30 minutes
+****
+
+[NOTE]
+====
+* The `setRecurringFrequency` command is case sensitive.
+* HOURS/MINUTES/SECONDS must be a positive number.
+====
+
+
 === Listing entered commands : `history`
 
 Lists all the commands that you have previously entered in reverse chronological order. +
