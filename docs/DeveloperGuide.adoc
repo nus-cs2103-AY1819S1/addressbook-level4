@@ -560,7 +560,7 @@ Each `Person` can also keep a list of groups he/she enrols in. An `UniqueGroupLi
 === Meeting
 
 .Sequence diagram for the meet command
-image::meetCommandSequenceDiagram.png[width="500"]
+image::MeetCommandSequenceDiagram.png[width="500"]
 
 A `Meeting` can be assigned and remove from a `Group` using the `meet` and `cancel` command, respectively.
 
