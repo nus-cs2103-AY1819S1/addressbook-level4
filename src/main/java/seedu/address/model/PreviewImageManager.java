@@ -20,7 +20,7 @@ public class PreviewImageManager {
     // private constructor
     private PreviewImageManager() {
         previewImageStateList = new ArrayList<>();
-        previewImageStateList.add(new PreviewImage());
+        //previewImageStateList.add(new PreviewImage());
         currentStatePointer = 0;
     }
 
