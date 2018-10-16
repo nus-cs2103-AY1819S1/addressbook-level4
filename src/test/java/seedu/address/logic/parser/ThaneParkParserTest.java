@@ -25,7 +25,7 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UpdateCommand;
-import seedu.address.logic.commands.UpdateCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.UpdateCommand.UpdateRideDescriptor;
 import seedu.address.logic.commands.ViewAllCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ride.Ride;
@@ -63,7 +63,7 @@ public class ThaneParkParserTest {
     @Test
     public void parseCommand_edit() throws Exception {
         Ride ride = new RideBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(ride).build();
+        UpdateRideDescriptor descriptor = new EditPersonDescriptorBuilder(ride).build();
         UpdateCommand command = (UpdateCommand) parser.parseCommand(UpdateCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new UpdateCommand(INDEX_FIRST_PERSON, descriptor), command);
