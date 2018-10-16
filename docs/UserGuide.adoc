@@ -322,9 +322,10 @@ e.g.`selectPatient 2`
 
 * *Queue* : `queue QINDEX` +
 e.g. `queue 2`
-* *Enqueue a patient to a specific queue: enqueue INDEX QINDEX
-e.g. `enqueue 3 to 1`
-* *Dequeue a patient from a queue: dequeue QINDEX
+* *Queues* : `queues`
+* *Enqueue* : `enqueue INDEX QINDEX` +
+e.g. `enqueue 3 1`
+* *Dequeue* : `dequeue QINDEX` +
 e.g. `dequeue 4`
 
 === Analytics Commands
