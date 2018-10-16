@@ -1,5 +1,7 @@
 package systemtests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.SuggestCommand.MESSAGE_SUGGEST_COMMAND_SUCCESS;
 
@@ -45,6 +47,26 @@ public class SuggestCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
+     * The commandResult of pressing tab is tested by SuggestCommandTest
+     */
+    @Test
+    public void handleKeyPress_tab() throws Exception {
+        //TODO: Assert that commands are valid or invalid
+        //Check that tab does not do anything on an invalid command
+        assertTabBehavior("fail", "fail");
+
+        //Check that tab does not execute commands
+        assertTabBehavior("help", "help");
+
+        //Check that tab does complete commands
+        assertTabBehavior("dele", "delete");
+
+        //Check that tab does not complete when there are multiple commands
+        assertTabBehavior("h", "h");
+    }
+
+
+    /**
      * Performs UI visible verification of suggest command behavior resulting in 1 or more suggested commands.
      * Logic tests are done by SuggestCommandTest
      * @see seedu.address.logic.commands.SuggestCommandTest
@@ -79,4 +101,15 @@ public class SuggestCommandSystemTest extends AddressBookSystemTest {
         assertApplicationDisplaysExpected(expectedCommandBoxText, expectedResultMessage, expectedModel);
         assertCommandBoxShowsErrorStyle();
     }
+
+    /**
+     * Checks the behavior of tab inside the commandBox
+     */
+    private void assertTabBehavior(String input, String expectedCommandBoxText) {
+        getCommandBox().setText(input);
+        getCommandBox().pressTab();
+        assertEquals(expectedCommandBoxText, getCommandBox().getInput());
+        assertTrue(getCommandBox().isFocused());
+    }
+
 }
