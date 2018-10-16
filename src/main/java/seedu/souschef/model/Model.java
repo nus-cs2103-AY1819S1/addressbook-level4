@@ -53,12 +53,6 @@ public interface Model<T extends UniqueType> {
     void update(T target, T edited);
 
     /**
-     * Returns full unfiltered list.
-     * @return Full unique list as ObservableList.
-     */
-    ObservableList<T> getFullList();
-
-    /**
      * Resets data in the UniqueList.
      */
     void resetUniqueList();

@@ -84,11 +84,6 @@ public class ModelManager<T extends UniqueType> extends ComponentManager impleme
     }
 
     @Override
-    public ObservableList<T> getFullList() {
-        return uniqueList.asUnmodifiableObservableList();
-    }
-
-    @Override
     public void resetUniqueList() {
         this.uniqueList.set(new UniqueList<T>());
     }
