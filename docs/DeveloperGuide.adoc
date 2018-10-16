@@ -467,7 +467,7 @@ Step 1. The user launches an application and there is either a list of existing 
 Step 2. The user executes import command (i for shorthand). If the user ONLY types import, a file browser wlil pop up.
 If the user includes a file path, InsuRen will attempt to retrieve the file from the given path.
 
-image::Import.png[width="800"]
+image::import.png[width="800"]
 
 image::import_user_input.png[width="800"]
 
