@@ -15,7 +15,7 @@ import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.UpdateCommand;
-import seedu.address.logic.commands.UpdateCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.UpdateCommand.UpdateRideDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 
@@ -43,28 +43,28 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE), pe);
         }
 
-        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
+        UpdateRideDescriptor updateRideDescriptor = new UpdateRideDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+            updateRideDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_MAINTENANCE).isPresent()) {
-            editPersonDescriptor.setMaintenance(
+            updateRideDescriptor.setMaintenance(
                     ParserUtil.parseMaintenance(argMultimap.getValue(PREFIX_MAINTENANCE).get()));
         }
         if (argMultimap.getValue(PREFIX_WAITING_TIME).isPresent()) {
-            editPersonDescriptor.setWaitTime(ParserUtil.parseWaitingTime(argMultimap
+            updateRideDescriptor.setWaitTime(ParserUtil.parseWaitingTime(argMultimap
                     .getValue(PREFIX_WAITING_TIME).get()));
         }
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+            updateRideDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(updateRideDescriptor::setTags);
 
-        if (!editPersonDescriptor.isAnyFieldEdited()) {
+        if (!updateRideDescriptor.isAnyFieldEdited()) {
             throw new ParseException(UpdateCommand.MESSAGE_NOT_UPDATED);
         }
 
-        return new UpdateCommand(index, editPersonDescriptor);
+        return new UpdateCommand(index, updateRideDescriptor);
     }
 
     /**
