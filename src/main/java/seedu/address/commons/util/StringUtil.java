@@ -69,11 +69,12 @@ public class StringUtil {
             } else {
                 values.add(Integer.parseInt(s));
             }
-            boolean successParse = true;
             for (int value : values) {
-                successParse = value > 0 && !s.startsWith("+"); // "+1" successfully parsed by Integer#parseInt(String)
+                if (!(value > 0 && !s.startsWith("+"))) { // "+1" successfully parsed by Integer#parseInt(String)
+                    return false;
+                }
             }
-            return successParse;
+            return true;
         } catch (NumberFormatException nfe) {
             return false;
         }
@@ -83,7 +84,7 @@ public class StringUtil {
      * Given a string that separates two integers with a comma (eg "1,2"), this function returns
      * an ArrayList that contains the two integers
      */
-    public static ArrayList<Integer> splitIntegersWithComma(String s) {
+    public static ArrayList<Integer> splitIntegersWithComma(String s) throws NumberFormatException {
         ArrayList<Integer> values = new ArrayList<>();
         StringTokenizer st = new StringTokenizer(s, ",");
         while (st.hasMoreTokens()) {
