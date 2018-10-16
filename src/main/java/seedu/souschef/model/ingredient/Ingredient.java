@@ -68,7 +68,6 @@ public class Ingredient extends IngredientPortion {
 
     @Override
     public String toString() {
-        return getName() + " Amount: " + getAmount().toString() + " " + getUnit().toString() + " Date: "
-                + getDate().toString();
+        return super.toString() + " Date: " + getDate().toString();
     }
 }
