@@ -463,6 +463,58 @@ Step 6. The user finally executes `payment` command to generate the receipt and 
 him from the `ServedPatientQueue`.
 //end::pqms[]
 
+// tag::document[]
+=== Document
+==== Current Implementation
+The `Document` `abstract class` covers all the documents that are issued by the clinic. Hence, the `Receipt`, `MedicalCertificate` and `ReferralLetter` classes all inherit from it. +
+It specifies what general information these documents should have and how they should be formatted. It can be thought of as a template for all its inheriting classes.
+
+===== Implementation of `MedicalCertificate`
+The `MedicalCertificate` class structure is as follows:
+
+* has attributes of the `Served Patient` it is generated from, which includes the served patient's `name` and `IcNumber`.
+** These attributes are marked as `final` and cannot be changed.
+* contains additional information like the `startDate` and `startDate` of their medical leave
+as well as the name of the issuing doctor `doctorName`.
+
+Users can generate a `MedicalCertificate` for a specific `ServedPatient` by invoking the `MedicalCertificateCommand` accompanied by the served patient's index in the `ServedPatientList`. +
+
+Given below is an example usage scenario and explanation for the inner workings of the `MedicalCertificateCommand`.
+
+Step 1. The user executes the `serve` command to serve the first `Patient` in the `PatientQueue`. +
+This creates a new `ServedPatient` object that is added to the `ServedPatientList`.
+
+.Serving a `Patient` in the `PatientQueue`. Note that the `Patient` **Bryan Lew** is the only `Patient` in the `ServedPatientList` and hence has an index of `1`.
+image::ServePatient.png[width="650"]
+
+Step 2. The user executes `mc 1` command to generate a `MedicalCertificate` with the relevant object. Up till this milestone v1.2, the contents of the `MedicalCertificate` will be reflected in the `ResultDisplay` as shown below.
+
+[WARNING]
+Executing `mc` with an invalid index will **not** result in the generation of a `MedicalCertificate`.
+
+===== Implementation of `ReferralLetter`
+The `ReferralLetter` class structure is as follows:
+
+* has attributes of the `Served Patient` it is generated from, which includes the served patient's `name` and `IcNumber`.
+** These attributes are marked as `final` and cannot be changed.
+* contains additional information like the issuing doctor's `notes`.
+
+Users can generate a `MedicalCertificate` for a specific `ServedPatient` by invoking the `ReferralLetterCommand` accompanied by the served patient's index in the `ServedPatientList`. +
+
+Given below is an example usage scenario and explanation for the inner workings of the `ReferralLetterCommand`.
+
+Step 1. The user executes the `serve` command to serve the first `Patient` in the `PatientQueue`. +
+This creates a new `ServedPatient` object that is added to the `ServedPatientList`.
+
+.Serving a `Patient` in the `PatientQueue`. Note that the `Patient` **Bryan Lew** is the only `Patient` in the `ServedPatientList` and hence has an index of `1`.
+image::ServePatient.png[width="650"]
+
+Step 2. The user executes `refer 1` command to generate a `ReferralLetter` with the relevant object. Up till this milestone v1.2, the contents of the `ReferralLetter` will be reflected in the `ResultDisplay` as shown below.
+
+[WARNING]
+Executing `refer` with an invalid index will **not** result in the generation of a `ReferralLetter`.
+//end::document[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
