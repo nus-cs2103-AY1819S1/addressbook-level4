@@ -16,7 +16,8 @@ import seedu.address.model.carpark.Carpark;
  */
 public class DeleteCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = "remove";
+    public static final String COMMAND_ALIAS = "r";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the car park identified by the index number used in the displayed car park list.\n"
