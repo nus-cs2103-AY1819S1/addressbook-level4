@@ -15,6 +15,7 @@ import seedu.address.model.person.Lesson;
 import seedu.address.model.person.TimeTable;
 
 
+
 /**
  * @author adjscent
  */
@@ -35,8 +36,8 @@ public class TimeTableUtil {
      */
 
     // Messages
-    private static final String INVALID_URL = "Invalid NUSMODS URL";
-    private static final String API_CALL_FAILURE = "Cannot retrieve NUSMODS module information";
+    public static final String INVALID_URL = "Invalid NUSMODS URL";
+    public static final String API_CALL_FAILURE = "Cannot retrieve NUSMODS module information";
     // URL indexs for nusmods
     private static final int SEMSTER_INDEX = 4;
     private static final int MODULE_INDEX = 5;
@@ -52,7 +53,6 @@ public class TimeTableUtil {
 
 
     /**
-     *
      * @param url
      * @return
      * @throws ParseException
@@ -60,6 +60,7 @@ public class TimeTableUtil {
     public static TimeTable parseUrl(String url) throws ParseException {
         return parseLongUrl(parseShortUrl(url));
     }
+
     /**
      * @param urlString
      * @return

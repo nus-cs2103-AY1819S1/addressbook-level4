@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -60,13 +61,9 @@ public class MaxScheduleCommand extends Command {
     }
 
     @Override
-    public String toString() {
-        return schedule.valueToString();
-    }
-
-    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof MaxScheduleCommand); // instanceof handles nulls
+            || (other instanceof MaxScheduleCommand)
+            && Arrays.deepEquals(indexs, ((MaxScheduleCommand) other).indexs); // instanceof handles nulls
     }
 }
