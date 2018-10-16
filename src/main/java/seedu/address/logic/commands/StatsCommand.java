@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.function.Predicate;
 
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.ui.ShowStatsRequestEvent;
+import seedu.address.commons.events.ui.SwapLeftPanelEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.NoUserSelectedException;
@@ -21,14 +21,14 @@ public class StatsCommand extends Command {
     public static final String COMMAND_WORD = "stats";
     public static final String COMMAND_ALIAS = "st";
 
-    public static final String MESSAGE_SUCCESS = "Opened the stats window";
+    public static final String MESSAGE_SUCCESS = "swapped to stats window";
 
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws NoUserSelectedException {
         requireNonNull(model);
         model.updateExpenseStats(isPastSevenDays());
-        EventsCenter.getInstance().post(new ShowStatsRequestEvent());
+        EventsCenter.getInstance().post(new SwapLeftPanelEvent(SwapLeftPanelEvent.PanelType.STATISTIC));
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

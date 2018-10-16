@@ -366,7 +366,7 @@
     -fx-padding: 5px;
 }
 
-#notificationPanel .label, #budgetPanel .label{
+#notificationPanel .label, #budgetPanel .label, #statisticLabel{
     -fx-font-size: 20pt;
     -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: #656565;

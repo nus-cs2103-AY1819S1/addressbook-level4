@@ -1,5 +1,8 @@
 package seedu.address.ui;
 
+import java.util.LinkedHashMap;
+import java.util.Set;
+
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -7,9 +10,6 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
-
-import java.util.LinkedHashMap;
-import java.util.Set;
 
 //@@author jonathantjm
 /**

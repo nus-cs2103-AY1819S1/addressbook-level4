@@ -9,7 +9,7 @@ import static seedu.address.logic.commands.StatsCommand.MESSAGE_SUCCESS;
 import org.junit.Rule;
 import org.junit.Test;
 
-import seedu.address.commons.events.ui.ShowStatsRequestEvent;
+import seedu.address.commons.events.ui.SwapLeftPanelEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.NoUserSelectedException;
@@ -32,7 +32,7 @@ public class StatsCommandTest {
     @Test
     public void execute_stats_success() {
         assertCommandSuccess(new StatsCommand(), model, commandHistory, MESSAGE_SUCCESS, expectedModel);
-        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ShowStatsRequestEvent);
+        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof SwapLeftPanelEvent);
         assertEquals(7, eventsCollectorRule.eventsCollector.getSize());
     }
 }
