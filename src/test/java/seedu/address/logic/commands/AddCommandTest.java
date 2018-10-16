@@ -188,8 +188,10 @@ public class AddCommandTest {
         @Override
         public void addEntity(Entity entity) {
             requireNonNull(entity);
-            if (!(entity instanceof Person)) return;
-            personsAdded.add((Person)entity);
+            if (!(entity instanceof Person)) {
+                return;
+            }
+            personsAdded.add((Person) entity);
         }
 
         @Override
