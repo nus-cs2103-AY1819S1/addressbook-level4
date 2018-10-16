@@ -14,7 +14,6 @@ import seedu.souschef.model.ModelSet;
 import seedu.souschef.storage.Storage;
 import seedu.souschef.storage.StorageManager;
 
-
 /**
  * Parses user input.
  */
@@ -38,9 +37,7 @@ public class AppContentParser {
                                 Storage storage) throws ParseException {
         String context = history.getContext();
 
-        if (storage != null) {
-
-        } else {
+        if (storage == null) {
             storage = new StorageManager();
         }
 
@@ -50,11 +47,13 @@ public class AppContentParser {
             if (storage.getListOfFeatureStorage().size() > 0) {
                 storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(0));
             }
+
             return new RecipeParser().parseCommand(modelSet.getRecipeModel(), userInput);
         } else if (context.equals("Health Plan")) {
             if (storage.getListOfFeatureStorage().size() > 0) {
                 storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(2));
             }
+
             return new HealthPlanParser().parseCommand(modelSet.getHealthPlanModel(), userInput);
         } else {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

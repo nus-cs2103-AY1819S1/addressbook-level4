@@ -6,8 +6,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="438.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="cardPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="438.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane prefHeight="80.0" prefWidth="441.0">
         <columnConstraints>
@@ -23,24 +24,36 @@
                <children>
                   <HBox prefHeight="27.0" prefWidth="199.0">
                      <children>
-                        <Label fx:id="name" text="\$name" />
+                        <Label fx:id="name" text="\$name">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font></Label>
                      </children>
                   </HBox>
                   <HBox prefHeight="23.0" prefWidth="199.0">
                      <children>
-                        <Label text="Target weight(kg): " />
+                        <Label text="Target weight(kg): ">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font></Label>
                         <Label fx:id="tweight" text="\$tweight" />
                      </children>
                   </HBox>
                   <HBox prefHeight="23.0" prefWidth="199.0">
                      <children>
-                        <Label text="Duration (days): " />
+                        <Label text="Duration (days): ">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font></Label>
                         <Label fx:id="duration" text="\$duration" />
                      </children>
                   </HBox>
                   <HBox prefHeight="25.0" prefWidth="199.0">
                      <children>
-                        <Label text="Scheme: " />
+                        <Label text="Scheme: ">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font></Label>
                         <Label fx:id="scheme" text="\$scheme" />
                      </children>
                   </HBox>
@@ -50,7 +63,10 @@
                <children>
                   <HBox prefHeight="30.0" prefWidth="216.0">
                      <children>
-                        <Label text="Current weight(kg): " />
+                        <Label text="Current weight(kg): ">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font></Label>
                         <Label fx:id="cweight" text="\$cweight" />
                      </children>
                   </HBox>
@@ -58,14 +74,20 @@
                      <children>
                         <Label fx:id="cheight" text="\$cheight">
                            <graphic>
-                              <Label text="Current height(cm): " />
+                              <Label text="Current height(cm): ">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font></Label>
                            </graphic>
                         </Label>
                      </children>
                   </HBox>
                   <HBox prefHeight="34.0" prefWidth="216.0">
                      <children>
-                        <Label text="Age: " />
+                        <Label text="Age: ">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font></Label>
                         <Label fx:id="age" text="\$age" />
                      </children>
                   </HBox>

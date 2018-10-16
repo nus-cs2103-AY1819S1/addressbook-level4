@@ -150,6 +150,11 @@ public class MainWindow extends UiPart<Stage> {
         generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
     }
 
+    protected void switchToHealthPlanListPanel() {
+        generalListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
+        generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
+    }
+
     /**
      * Sets the default size based on user preferences.
      */
