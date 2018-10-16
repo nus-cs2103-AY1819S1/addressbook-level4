@@ -52,18 +52,18 @@ public class UpdateCommand extends Command {
     public static final String MESSAGE_DUPLICATE_RIDE = "This ride already exists in the address book.";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final UpdateRideDescriptor updateRideDescriptor;
 
     /**
      * @param index of the ride in the filtered ride list to edit
-     * @param editPersonDescriptor details to edit the ride with
+     * @param updateRideDescriptor details to edit the ride with
      */
-    public UpdateCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public UpdateCommand(Index index, UpdateRideDescriptor updateRideDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(updateRideDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.updateRideDescriptor = new UpdateRideDescriptor(updateRideDescriptor);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class UpdateCommand extends Command {
         }
 
         Ride rideToEdit = lastShownList.get(index.getZeroBased());
-        Ride editedRide = createEditedPerson(rideToEdit, editPersonDescriptor);
+        Ride editedRide = createUpdatedRide(rideToEdit, updateRideDescriptor);
 
         if (!rideToEdit.isSameRide(editedRide) && model.hasPerson(editedRide)) {
             throw new CommandException(MESSAGE_DUPLICATE_RIDE);
@@ -90,17 +90,17 @@ public class UpdateCommand extends Command {
 
     /**
      * Creates and returns a {@code Ride} with the details of {@code rideToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * edited with {@code updateRideDescriptor}.
      */
-    private static Ride createEditedPerson(Ride rideToEdit, EditPersonDescriptor editPersonDescriptor) {
+    private static Ride createUpdatedRide(Ride rideToEdit, UpdateRideDescriptor updateRideDescriptor) {
         assert rideToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(rideToEdit.getName());
+        Name updatedName = updateRideDescriptor.getName().orElse(rideToEdit.getName());
         Maintenance updatedMaintenance =
-                editPersonDescriptor.getMaintenance().orElse(rideToEdit.getDaysSinceMaintenance());
-        WaitTime updatedWaitTime = editPersonDescriptor.getWaitTime().orElse(rideToEdit.getWaitingTime());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(rideToEdit.getAddress());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(rideToEdit.getTags());
+                updateRideDescriptor.getMaintenance().orElse(rideToEdit.getDaysSinceMaintenance());
+        WaitTime updatedWaitTime = updateRideDescriptor.getWaitTime().orElse(rideToEdit.getWaitingTime());
+        Address updatedAddress = updateRideDescriptor.getAddress().orElse(rideToEdit.getAddress());
+        Set<Tag> updatedTags = updateRideDescriptor.getTags().orElse(rideToEdit.getTags());
 
         return new Ride(updatedName, updatedMaintenance, updatedWaitTime, updatedAddress, updatedTags);
     }
@@ -120,27 +120,27 @@ public class UpdateCommand extends Command {
         // state check
         UpdateCommand e = (UpdateCommand) other;
         return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+                && updateRideDescriptor.equals(e.updateRideDescriptor);
     }
 
     /**
      * Stores the details to edit the ride with. Each non-empty field value will replace the
      * corresponding field value of the ride.
      */
-    public static class EditPersonDescriptor {
+    public static class UpdateRideDescriptor {
         private Name name;
         private Maintenance maintenance;
         private WaitTime waitTime;
         private Address address;
         private Set<Tag> tags;
 
-        public EditPersonDescriptor() {}
+        public UpdateRideDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
+        public UpdateRideDescriptor(UpdateRideDescriptor toCopy) {
             setName(toCopy.name);
             setMaintenance(toCopy.maintenance);
             setWaitTime(toCopy.waitTime);
@@ -212,12 +212,12 @@ public class UpdateCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof UpdateRideDescriptor)) {
                 return false;
             }
 
             // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            UpdateRideDescriptor e = (UpdateRideDescriptor) other;
 
             return getName().equals(e.getName())
                     && getMaintenance().equals(e.getMaintenance())
