@@ -33,7 +33,7 @@ public class RideContainsKeywordsPredicate implements Predicate<Ride> {
     private void getKeyWords(Optional... others) {
         for (Optional keywords : others) {
             if (keywords.isPresent()) {
-                if (keywords.get().getClass().equals(Address.class)) {
+                if (keywords.get()instanceof Address) {
                     addressKeyWords = keywords;
                 }
                 if (keywords.get().getClass().equals(HashSet.class)) {

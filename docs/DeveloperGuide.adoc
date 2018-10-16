@@ -351,6 +351,39 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+=== Filter Feature
+==== Current Implementation
+The filter function is being implemented with the help of `FilterCommand` and `AttributePredicate` class. When the
+`ThaneParkParser` parses the user input and finds the filter command word `filter` it calls a new `FilterCommandParser` to
+parse the arguments from the user input.
+
+It checks if there are any of the maintenance or waiting time prefix in the arguments. If any of the prefixes are present,
+an `AttributePredicate` is created with the operator (‘<’ or ‘>’) and the attribute they are checking for (ie
+`Maintenance` or `WaitTime`). The AttributePredicates are added to a list. The user can add any amount of predicates that
+they want, like 3 predicates e.g. `filter w/< 50 w/ > 5 m/>10` and the list would contain 3 predicates and if the user
+decides to input only one predicate, the list will only contain one.
+
+A new `RideContainsConditionPredicate` is instantiated with the list of AttributePredicates. The `FilterCommandParser` will
+return a new `FilterCommand` with the `RideContainsConditionPredicate` in it.
+
+The LogicManager execute the command, and the `RideContainsConditionPredicate` will be set as the predicate to filter
+the list of rides and it will check if the ride fulfils the required predicate(s). After that a list of filtered rides
+would be returned after each ride is tested with the predicate.
+
+==== Design Considerations
+
+===== Aspect: Data structure to support filter commands
+* **Alternative 1:** Gives the entire string condition to the RideContainsConditionPredicate to test.
+** Pros: Easier to implement as classes no need to abstracted
+** Cons: RideContainsConditionPredicate would carry out parsing functions which would make it less cohesive
+
+* **Alternative 2(Current Choice):** Abstracting attributes that contain numeric values into a separate class and creating a
+AttributePredicate to test the attriute
+** Pros: Easier to add more numeric attributes and minimal changes required to filter new attributes
+** Cons: Need to implement more classes to handle
+
+
+
 == Documentation
 
 We use asciidoc for writing documentation.

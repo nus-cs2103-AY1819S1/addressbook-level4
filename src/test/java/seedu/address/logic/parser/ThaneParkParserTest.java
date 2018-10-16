@@ -110,7 +110,7 @@ public class ThaneParkParserTest {
     @Test
     public void parseCommand_history() throws Exception {
         assertTrue(parser.parseCommand(HistoryCommand.COMMAND_WORD) instanceof HistoryCommand);
-        assertTrue(parser.parseCommand(HistoryCommand.COMMAND_WORD + " 3") instanceof HistoryCommand);
+        assertTrue(parser.parseCommand(HistoryCommand.COMMAND_WORD + " more") instanceof HistoryCommand);
 
         try {
             parser.parseCommand("histories");

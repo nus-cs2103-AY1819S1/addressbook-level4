@@ -1,15 +1,25 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS_FULL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_FULL;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 import org.junit.Test;
 
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.model.ride.Address;
 import seedu.address.model.ride.RideContainsKeywordsPredicate;
+import seedu.address.model.tag.Tag;
 
 public class FindCommandParserTest {
 
@@ -29,6 +39,54 @@ public class FindCommandParserTest {
 
         // multiple whitespaces between keywords
         assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedFindCommand);
+
+        // input looking with address prefix
+        expectedFindCommand = new FindCommand(new RideContainsKeywordsPredicate(
+                Arrays.asList(PREFIX_ADDRESS.getPrefix(), "10th", "street"), Optional.of(new Address("10th street"))));
+        assertParseSuccess(parser, PREFIX_ADDRESS.getPrefix() + " 10th street", expectedFindCommand);
+
+        // input with address in full
+        expectedFindCommand = new FindCommand(new RideContainsKeywordsPredicate(
+                Arrays.asList(PREFIX_ADDRESS_FULL.getPrefix(), "10th", "street"),
+                Optional.of(new Address("10th street"))));
+        assertParseSuccess(parser, PREFIX_ADDRESS_FULL.getPrefix() + " 10th street", expectedFindCommand);
+
+        // input with single tag prefix
+        List<String> list = Arrays.asList(PREFIX_TAG.getPrefix(), "friends");
+        String userInput = getUserInput(list);
+        Set<Tag> tags = new HashSet<>();
+        tags.add(new Tag("friends"));
+        expectedFindCommand = new FindCommand(new RideContainsKeywordsPredicate(list, Optional.of(tags)));
+        assertParseSuccess(parser, userInput, expectedFindCommand);
+
+        // input with single tag prefix in full
+        list = Arrays.asList(PREFIX_TAG_FULL.getPrefix(), "friends");
+        userInput = getUserInput(list);
+        expectedFindCommand = new FindCommand(new RideContainsKeywordsPredicate(list, Optional.of(tags)));
+        assertParseSuccess(parser, userInput, expectedFindCommand);
+
+        // input with multiple tags prefix
+        list = Arrays.asList(PREFIX_TAG.getPrefix(), "friends", PREFIX_TAG.getPrefix(), "neighbours");
+        userInput = getUserInput(list);
+        tags.add(new Tag("neighbours"));
+        expectedFindCommand = new FindCommand(new RideContainsKeywordsPredicate(list, Optional.of(tags)));
+        assertParseSuccess(parser, userInput, expectedFindCommand);
+
+        // input with multiple tag prefix in full
+        list = Arrays.asList(PREFIX_TAG_FULL.getPrefix(), "friends", PREFIX_TAG_FULL.getPrefix(), "neighbours");
+        userInput = getUserInput(list);
+        expectedFindCommand = new FindCommand(new RideContainsKeywordsPredicate(list, Optional.of(tags)));
+        assertParseSuccess(parser, userInput, expectedFindCommand);
     }
 
+    /**
+     * Creates a user input from a list of strings
+     */
+    private String getUserInput(List<String> strings) {
+        String userInput = "";
+        for (String s : strings) {
+            userInput = userInput.concat(s).concat(" ");
+        }
+        return userInput;
+    }
 }
