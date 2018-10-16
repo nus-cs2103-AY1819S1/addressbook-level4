@@ -23,7 +23,7 @@ public class PersonBuilder {
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ROOM = "E201";
     public static final String DEFAULT_SCHOOL = "BIZ";
-    public static final String DEFAULT_PROFILE_PICTURE = "-";
+    public static final String DEFAULT_PROFILE_PICTURE = "-.jpg";
 
     private Name name;
     private Phone phone;
