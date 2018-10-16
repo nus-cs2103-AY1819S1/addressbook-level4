@@ -35,6 +35,8 @@ public class XmlAdaptedPerson {
     private String room;
     @XmlElement(required = true)
     private String school;
+    @XmlElement(required = true)
+    private String profilePicture;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -46,15 +48,32 @@ public class XmlAdaptedPerson {
     public XmlAdaptedPerson() {}
 
     /**
-     * Constructs an {@code XmlAdaptedPerson} with the given person details.
+     * Constructs an {@code XmlAdaptedPerson} with the given person details
+     * except the {@code profilePicture}.
      */
-    public XmlAdaptedPerson(String name, String phone, String email, String room, String school,
-                            List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedPerson (String name, String phone, String email, String room, String school,
+                             List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.room = room;
         this.school = school;
+        this.profilePicture = "-";
+        if (tagged != null) {
+            this.tagged = new ArrayList<>(tagged);
+        }
+    }
+    /**
+     * Constructs an {@code XmlAdaptedPerson} with the given person details.
+     */
+    public XmlAdaptedPerson(String name, String phone, String email, String room, String school,
+                            String profilePicture, List<XmlAdaptedTag> tagged) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.room = room;
+        this.school = school;
+        this.profilePicture = profilePicture;
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
@@ -71,6 +90,7 @@ public class XmlAdaptedPerson {
         email = source.getEmail().value;
         room = source.getRoom().value;
         school = source.getSchool().value;
+        profilePicture = source.getProfilePicture().filePath;
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
@@ -147,6 +167,7 @@ public class XmlAdaptedPerson {
                 && Objects.equals(email, otherPerson.email)
                 && Objects.equals(room, otherPerson.room)
                 && Objects.equals(school, otherPerson.school)
+                && Objects.equals(profilePicture, otherPerson.profilePicture)
                 && tagged.equals(otherPerson.tagged);
     }
 }
