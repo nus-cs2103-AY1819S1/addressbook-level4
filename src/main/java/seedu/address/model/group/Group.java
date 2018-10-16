@@ -193,7 +193,7 @@ public class Group {
         // enhanced for loop to remove the group from person
         for (Person member : this.members) {
             if (member.hasGroup(this)) {
-                member.removeGroup(this);
+                member.removeGroupHelper(this);
             }
         }
         this.members.clear();

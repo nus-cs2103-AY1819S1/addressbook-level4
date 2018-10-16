@@ -170,7 +170,7 @@ public class Person {
         // enhanced for loop to remove the person from each group
         for (Group group : this.groups) {
             if (group.hasMember(this)) {
-                group.removeMember(this);
+                group.removeMemberHelper(this);
             }
         }
         this.groups.clear();
