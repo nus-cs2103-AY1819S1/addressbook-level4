@@ -56,14 +56,13 @@ public class UserPrefs {
      */
     public void updateCurrDirectory(Path newCurrDirectory) {
         this.currDirectory = newCurrDirectory;
-        updateImageList();
     }
 
     /**
      * Update the list of images {@code imageList} with the images found in current directory
      * {@code currDirectory}
      */
-    private void updateImageList() {
+    public void updateImageList() {
         File currFileDir = new File(currDirectory.toString());
         File[] currFiles = currFileDir.listFiles();
         ArrayList<String> dirImageList = new ArrayList<>();

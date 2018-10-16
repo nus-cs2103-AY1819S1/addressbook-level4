@@ -190,10 +190,16 @@ public class AddCommandTest {
         public BufferedImage getDisplayedImage() {
             throw new AssertionError("This method should not be called");
         }
+
         @Override
         public void updateCurrDisplayedImage(Image img) {
             throw new AssertionError("This method should not be called");
-        };
+        }
+
+        @Override
+        public void updateImageList() {
+            throw new AssertionError("This method should not be called");
+        }
     }
 
     /**

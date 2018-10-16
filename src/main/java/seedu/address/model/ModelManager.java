@@ -128,6 +128,15 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
+     * Returns an array list of the images from the current directory {@code dirImageList}
+     * backed by the list of {@code userPrefs}
+     */
+    @Override
+    public void updateImageList() {
+        userPrefs.updateImageList();
+    }
+
+    /**
      * Remove image from {@code dirImageList} at the given {@code idx}
      */
     @Override
