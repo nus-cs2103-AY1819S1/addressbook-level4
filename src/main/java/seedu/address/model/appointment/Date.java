@@ -61,7 +61,7 @@ public class Date {
         if (day <= 0 || day > 31) {
             return false;
         }
-        if (month == 2 && day > 30 && isLeapYear(year)) { //if leap year
+        if (month == 2 && day > 29 && isLeapYear(year)) { //if leap year
             return false;
         }
         if (month == 2 && day > 28 && !isLeapYear(year)) {

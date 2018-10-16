@@ -46,7 +46,6 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredDoctors = new FilteredList<>(versionedAddressBook.getDoctorList());
         filteredAppointments = new FilteredList<>(versionedAddressBook.getAppointmentList());
-      
         //@@author iamjackslayer
         mainQueue = new MainQueue();
         preferenceQueue = new PreferenceQueue();

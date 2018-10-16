@@ -15,6 +15,8 @@ public class DateTest {
         assertTrue(Date.isValidDay(29, 2, 2020)); //leap day
 
         //invalid day
+        assertFalse(Date.isValidDay(30, 2, 2020));
+        assertFalse(Date.isValidDay(31, 4, 2018));
         assertFalse(Date.isValidDay(679, 12, 2000));
         assertFalse(Date.isValidDay(31, 9, 2000));
         assertFalse(Date.isValidDay(30, 2, 1977));
@@ -73,5 +75,11 @@ public class DateTest {
         //different
         assertFalse(date3.equals(date2));
         assertFalse(date2.equals(null));
+    }
+
+    @Test
+    public void checkToString() {
+        Date date1 = new Date(1, 1, 1000);
+        assertTrue(("Date: 1/1/1000".equals(date1.toString())));
     }
 }
