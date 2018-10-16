@@ -1197,7 +1197,7 @@ Use case ends.
 *MSS*
 
 . User request to import contacts.
-. AddressBook records and displays how many successfully added and duplicates.
+. System records and displays how many successfully added and duplicates.
 +
 
 Use case ends.
@@ -1205,16 +1205,16 @@ Use case ends.
 *Extensions*
 
 * 1a. User enters invalid file path (not a file or not an absolute path).
-** 1a1. AddressBook displays invalid file path.
+** 1a1. System displays invalid file path.
 +
 Use case ends.
 +
-* 2a. AddressBook detects empty file.
-** 2a1. AddressBook displays empty file.
+* 2a. System detects empty file.
+** 2a1. System displays empty file.
 +
 Use case ends.
-* 2b. AddressBook detects invalid csv format (cannot find compulsory header in csv).
-** 2b1. AddressBook displays invalid csv file.
+* 2b. System detects invalid csv format (cannot find compulsory header in csv).
+** 2b1. System displays invalid csv file.
 +
 Use case ends.
 
