@@ -320,21 +320,21 @@ Given below is an example usage scenario and how the Schedule mechanism behaves 
 
 Step 1. The user launches the application and already has at least one client's contact in InsuRen.
 
-image::ScheduleCommand1StateDiagram.png[width="800"]
+image::ScheduleCommand1StateDiagram.png[width="300"]
 
 Step 2. The user executes `schedule 1 m/16/10/18 1800` to schedule a meeting with the person in the first index at 1800 hours on 16th October, 2018. However, there is already a meeting scheduled at this time, so it is flagged out to the user.
 [NOTE]
 No meetings are scheduled if there is a clash
 
-image::ScheduleCommand2StateDiagram.png[width="800"]
+image::ScheduleCommand2StateDiagram.png[width="300"]
 
 Step 3. The user executes `schedule 1 m/32/10/18 1830` but since this is not a valid date, InsuRen flags it out to the user.
 
-image::ScheduleCommand3StateDiagram.png[width="800"]
+image::ScheduleCommand3StateDiagram.png[width="700"]
 
 Step 4. The user executes `schedule 1 m/16/10/18 1830`. The meeting is schedule and the person card is changed to reflect the same accordingly.
 
-image::ScheduleCommand4StateDiagram.png[width="800"]
+image::ScheduleCommand4StateDiagram.png[width="300"]
 
 The following activity diagram summarises what happens when a user executes the `ScheduleCommand`:
 
