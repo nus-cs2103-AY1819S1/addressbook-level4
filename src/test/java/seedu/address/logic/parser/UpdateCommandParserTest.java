@@ -34,23 +34,23 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.UpdateCommand;
+import seedu.address.logic.commands.UpdateCommand.UpdateRideDescriptor;
 import seedu.address.model.ride.Address;
 import seedu.address.model.ride.Maintenance;
 import seedu.address.model.ride.Name;
 import seedu.address.model.ride.WaitTime;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.UpdateRideDescriptorBuilder;
 
-public class EditCommandParserTest {
+public class UpdateCommandParserTest {
 
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE);
 
-    private EditCommandParser parser = new EditCommandParser();
+    private UpdateCommandParser parser = new UpdateCommandParser();
 
     @Test
     public void parse_missingParts_failure() {
@@ -58,7 +58,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
 
         // no field specified
-        assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, "1", UpdateCommand.MESSAGE_NOT_UPDATED);
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
@@ -123,10 +123,10 @@ public class EditCommandParserTest {
         String userInput = targetIndex.getOneBased() + MAINTENANCE_DESC_BOB + TAG_DESC_HUSBAND
                 + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
+        UpdateRideDescriptor descriptor = new UpdateRideDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withMaintenance(VALID_MAINTENANCE_BOB).withWaitTime(VALID_WAIT_TIME_AMY).withAddress(VALID_ADDRESS_AMY)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        UpdateCommand expectedCommand = new UpdateCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -136,9 +136,9 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + MAINTENANCE_DESC_BOB + EMAIL_DESC_AMY;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withMaintenance(VALID_MAINTENANCE_BOB)
+        UpdateRideDescriptor descriptor = new UpdateRideDescriptorBuilder().withMaintenance(VALID_MAINTENANCE_BOB)
                 .withWaitTime(VALID_WAIT_TIME_AMY).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        UpdateCommand expectedCommand = new UpdateCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -148,32 +148,32 @@ public class EditCommandParserTest {
         // name
         Index targetIndex = INDEX_THIRD_PERSON;
         String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        UpdateRideDescriptor descriptor = new UpdateRideDescriptorBuilder().withName(VALID_NAME_AMY).build();
+        UpdateCommand expectedCommand = new UpdateCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // maintenance
         userInput = targetIndex.getOneBased() + MAINTENANCE_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withMaintenance(VALID_MAINTENANCE_AMY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        descriptor = new UpdateRideDescriptorBuilder().withMaintenance(VALID_MAINTENANCE_AMY).build();
+        expectedCommand = new UpdateCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // email
         userInput = targetIndex.getOneBased() + EMAIL_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withWaitTime(VALID_WAIT_TIME_AMY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        descriptor = new UpdateRideDescriptorBuilder().withWaitTime(VALID_WAIT_TIME_AMY).build();
+        expectedCommand = new UpdateCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // address
         userInput = targetIndex.getOneBased() + ADDRESS_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withAddress(VALID_ADDRESS_AMY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        descriptor = new UpdateRideDescriptorBuilder().withAddress(VALID_ADDRESS_AMY).build();
+        expectedCommand = new UpdateCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // tags
         userInput = targetIndex.getOneBased() + TAG_DESC_FRIEND;
-        descriptor = new EditPersonDescriptorBuilder().withTags(VALID_TAG_FRIEND).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        descriptor = new UpdateRideDescriptorBuilder().withTags(VALID_TAG_FRIEND).build();
+        expectedCommand = new UpdateCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
@@ -184,11 +184,11 @@ public class EditCommandParserTest {
                 + TAG_DESC_FRIEND + MAINTENANCE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY + TAG_DESC_FRIEND
                 + MAINTENANCE_DESC_BOB + ADDRESS_DESC_BOB + EMAIL_DESC_BOB + TAG_DESC_HUSBAND;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withMaintenance(VALID_MAINTENANCE_BOB)
+        UpdateRideDescriptor descriptor = new UpdateRideDescriptorBuilder().withMaintenance(VALID_MAINTENANCE_BOB)
                 .withWaitTime(VALID_WAIT_TIME_BOB)
                 .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        UpdateCommand expectedCommand = new UpdateCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -198,18 +198,18 @@ public class EditCommandParserTest {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + INVALID_MAINTENANCE_DESC + MAINTENANCE_DESC_BOB;
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+        UpdateRideDescriptor descriptor = new UpdateRideDescriptorBuilder()
                 .withMaintenance(VALID_MAINTENANCE_BOB).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        UpdateCommand expectedCommand = new UpdateCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
         userInput = targetIndex.getOneBased() + EMAIL_DESC_BOB + INVALID_MAINTENANCE_DESC + ADDRESS_DESC_BOB
                 + MAINTENANCE_DESC_BOB;
-        descriptor = new EditPersonDescriptorBuilder()
+        descriptor = new UpdateRideDescriptorBuilder()
                 .withMaintenance(VALID_MAINTENANCE_BOB).withWaitTime(VALID_WAIT_TIME_BOB)
                 .withAddress(VALID_ADDRESS_BOB).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        expectedCommand = new UpdateCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
@@ -218,8 +218,8 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_THIRD_PERSON;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withTags().build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        UpdateRideDescriptor descriptor = new UpdateRideDescriptorBuilder().withTags().build();
+        UpdateCommand expectedCommand = new UpdateCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
