@@ -25,7 +25,6 @@ import seedu.address.commons.events.ui.ShowStatsRequestEvent;
 import seedu.address.commons.events.ui.SwapLeftPanelEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.budget.Budget;
 import seedu.address.model.exceptions.NoUserSelectedException;
 
 /**
@@ -46,7 +45,6 @@ public class MainWindow extends UiPart<Stage> {
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
-    private StatsWindow statsWindow;
     private StatisticPanel statisticPanel;
 
     @FXML
