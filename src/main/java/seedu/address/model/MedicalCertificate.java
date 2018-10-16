@@ -28,7 +28,6 @@ public class MedicalCertificate extends Document {
      */
     @Override
     public String generate() {
-        //dissect contents of note to extract medicines dispensed
         StringBuilder sb = new StringBuilder();
         sb.append(super.generateHeaders());
         sb.append(super.tabFormat("Name: " + name + "\n"));

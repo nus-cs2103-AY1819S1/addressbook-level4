@@ -8,9 +8,9 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.MedicalCertificate;
 import seedu.address.model.Model;
 import seedu.address.model.PatientQueue;
-import seedu.address.model.MedicalCertificate;
 import seedu.address.model.ServedPatientList;
 import seedu.address.model.person.CurrentPatient;
 import seedu.address.model.person.ServedPatient;
@@ -22,11 +22,13 @@ import seedu.address.model.person.ServedPatient;
 public class MedicalCertificateCommand extends QueueCommand {
     public static final String COMMAND_WORD = "mc";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Generates a medical certificate for the patient in the specified"
-            + " index. Includes information like name and NRIC of patient, and duration of medical leave. \n"
-            + "Example: " + COMMAND_WORD + "<person's index>";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Generates a medical certificate for the patient in"
+            + " the specified index. Includes information like name and"
+            + " NRIC of patient, and duration of medical leave. \n"
+            + "Example: " + COMMAND_WORD + "<Served patient's index>";
 
-    public static final String MESSAGE_SUCCESS = "MC generated for patient! \n";
+    public static final String MESSAGE_SUCCESS = "MC generated for patient! Contents can be found below:";
 
     private final Index index;
     private String generatedResult;

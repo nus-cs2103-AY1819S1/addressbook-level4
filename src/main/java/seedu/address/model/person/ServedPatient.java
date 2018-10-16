@@ -79,7 +79,8 @@ public class ServedPatient {
      * Skeleton to add Mc Content.
      */
     public String addMcContent(int dayNumber, String startDate, String endDate, String todayDate, String doctorName) {
-        mcContent += "The above named is unfit for duty for a period of " + dayNumber + " days from " + startDate + " to " + endDate + ".\n";
+        mcContent += "The above named is unfit for duty for a period of " + dayNumber
+                + " days from " + startDate + " to " + endDate + ".\n";
         mcContent += "This certificate is not valid for absence from court attendance.\n";
         mcContent += "Date: " + todayDate + "\n";
         mcContent += "Issuing Doctor: " + doctorName + "\n";
@@ -94,4 +95,5 @@ public class ServedPatient {
     public String toNameAndIc() {
         return patient.toNameAndIc();
     }
+
 }

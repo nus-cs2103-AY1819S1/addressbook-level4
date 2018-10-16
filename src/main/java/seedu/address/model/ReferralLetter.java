@@ -23,12 +23,11 @@ public class ReferralLetter extends Document {
     }
 
     /**
-     * Generates the content of the MedicalCertificate object generated for the specified servedPatient.
+     * Generates the content of the ReferralLetter object generated for the specified servedPatient.
      *
      */
     @Override
     public String generate() {
-        //dissect contents of note to extract medicines dispensed
         StringBuilder sb = new StringBuilder();
         sb.append(super.generateHeaders());
         sb.append(super.tabFormat("Name: " + name + "\n"));
