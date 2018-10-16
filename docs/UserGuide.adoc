@@ -199,15 +199,15 @@ Examples:
 
 * *Clear* : `clear`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find punggol` or `f punggol`
+e.g. `find punggol`
 * *Filter* : `filter [f/FREE_PARKING] [n/NIGHT_PARKING] [ct/CARPARK_TYPE]` +
-e.g. `filter f/true n/false ct/multi` or `fi f/true n/false ct/multi`
-* *Help* : `help` or `h`
+e.g. `filter f/true n/false ct/multi`
+* *Help* : `help`
 * *History* : `history`
-* *List* : `list` or `l`
-* *Notify* : `notify` or `n` +
-e.g. `notify 60` or `n 60`
-* *Sort* : `sort FILTER_TYPE` or `so FILTER_TYPE` +
-e.g. `sort DISTANCE` or `so FILTER_TYPE`
-* *Select* : `select CARPARK_NO` or `s CARPARK_NO` +
-e.g. `select HG83` or `s HG83`
+* *List* : `list`
+* *Notify* : `notify` +
+e.g. `notify 60`
+* *Sort* : `sort FILTER_TYPE` +
+e.g. `sort DISTANCE`
+* *Select* : `select CARPARK_NO` +
+e.g. `select HG83`
