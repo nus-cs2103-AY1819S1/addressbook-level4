@@ -43,6 +43,20 @@ public class Person {
     }
 
     /**
+     * Overriden constructor that allows specification of a PermissionSet
+     */
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, PermissionSet permissionSet) {
+        requireAllNonNull(name, phone, email, address, tags, permissionSet);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.permissionSet.addAll(permissionSet);
+        this.profilePic = Optional.empty();
+    }
+
+    /**
      * Overriden constructor that allows specification of a profile picture
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
@@ -54,6 +68,21 @@ public class Person {
         this.address = address;
         this.tags.addAll(tags);
         this.profilePic = profilePic;
+    }
+
+    /**
+     * Overriden constructor that allows specification of both a profile picture, and a PermissionSet
+     */
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+                  Optional<ProfilePic> profilePic, PermissionSet permissionSet) {
+        requireAllNonNull(name, phone, email, address, tags);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.profilePic = profilePic;
+        this.permissionSet.addAll(permissionSet);
     }
 
     public Name getName() {
@@ -95,8 +124,8 @@ public class Person {
     /**
      * Returns true if this person possess specified permission. Otherwise false.
      */
-    public boolean havePermission(Permission p) {
-        return permissionSet.contains(p);
+    public boolean havePermissions(Permission... pList) {
+        return permissionSet.containsAll(pList);
     }
 
     /**
