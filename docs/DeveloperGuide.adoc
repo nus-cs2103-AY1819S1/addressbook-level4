@@ -242,9 +242,9 @@ This section describes some noteworthy details on how certain features are imple
 // tag::supportforocassionandmodule[]
 === [Proposed] Features supporting Person, Module and Occasion
 Our application is an extension of address book application. Besides
-supporting basic address book features for Person, we also intended to
-make those features be available for Module and Occasion. This makes this
-application(TheTracker) to be able to track the modules person are taken, as
+supporting basic address book features for 'Person', we also intended to
+make those features be available for 'Module' and 'Occasion'. This makes this
+application(TheTracker) to be able to track the modules a person takes, as
 well as the Occasions they participate in.
 
 ==== Current Design plan
@@ -253,8 +253,8 @@ interface and classes.
 
 image::ClassInheritanceZijin.png[width="800"]
 
-We would be using polymorphism to realise support for Person, Module and
-Occasion.
+We would be using polymorphism to realise support for 'Person', 'Module' and
+'Occasion'.
 // end::supportforocassionandmodule[]
 
 
