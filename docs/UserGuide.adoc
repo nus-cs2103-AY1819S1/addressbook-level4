@@ -124,23 +124,33 @@ Format: `clear`
 Exits the program. +
 Format: `exit`
 
+[[command-switch]]
 ==== Switching context : `switch`
 
 Switches context to volunteers or events +
-Format: `switch`
+Format: `switch -CONTEXT_ID`
 
 ****
-* A context refers to the management screen that users will see.
+* The application will always start up in the 'volunteer' context.
 * Switch would switch the data view and allow the user to switch between two distinct entities: volunteers and events.
+* CONTEXT_ID for events is 'e'.
+* CONTEXT_ID for volunteers is 'v'.
 ****
 
 Examples:
 
 * `switch -e` +
-Switches to the event context
-* `switch -v` +
-Switches to the volunteers context
+Switch to the 'event' context when in 'volunteer' context
 
+[.clearfix]
+--
+[.left]
+.Before (Volunteer context)
+image::command_switch_before.png[Before switch, 450]
+[.left]
+.After (Event context)
+image::command_switch_after.png[After switch, 450]
+--
 
 === Volunteer Management
 
@@ -244,15 +254,26 @@ Deletes the details of the event specified at index 1
 
 === Record Management
 
+This section contains commands related to managing a volunteering record.
+
+
+****
+* The `manage` command can only be accessed after switching to the 'event' context. (see <<command-switch>>) +
+* The other commands under this section can only be accessed after executing the `manage` command.
+****
+
 ==== View event's volunteer records: `manage`
 
-Switches context to event and display volunteers at the side bar. Can only be executed in event context. +
+Switches to the 'manage' context and display volunteers at the side bar. +
 Format: `manage EVENT_INDEX`
 
 Examples:
 
 * `manage 1` +
 View the list of volunteers assigned to event at index 1
+
+
+
 
 ==== Add volunteer to event: `add`
 
@@ -320,11 +341,6 @@ There is no need to save manually.
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
-== FAQ
-
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous SocialCare folder.
-
 == Commands Summary
 
 === General Commands
@@ -366,4 +382,17 @@ e.g. `add h/5 1 2 3`
 e.g. `edit h/5 1 2 3`
 * *Delete* `delete VOLUNTEER_INDEX` +
 e.g. `delete 1`
+
+== FAQ
+
+*Q*: How do I transfer my data to another Computer? +
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous SocialCare folder.
+
+
+== Glossary
+[width="100%",cols="30%,70%",options="header",]
+|=======================================================================
+| Term| Explanation
+| *Context*| A context refers to the management screen that users will see.
+|=======================================================================
 
