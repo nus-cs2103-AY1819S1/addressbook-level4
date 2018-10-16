@@ -50,8 +50,15 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered word list */
     ObservableList<Word> getFilteredWordList();
 
+    /**
+     * Outputs the trivia question
+     *
+     */
     Word getTrivia();
 
+    /**
+     * Sets a trivia question based on the vocabulary list;
+     */
     void setTrivia();
 
     /**

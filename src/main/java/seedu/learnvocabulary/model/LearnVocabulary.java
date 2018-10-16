@@ -18,7 +18,7 @@ import seedu.learnvocabulary.model.word.Word;
 public class LearnVocabulary implements ReadOnlyLearnVocabulary {
 
     private final UniqueWordList words;
-    private Word triviaQ = null;
+    private Word triviaQuestion = null;
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -55,7 +55,7 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
      */
     public void resetData(ReadOnlyLearnVocabulary newData) {
         requireNonNull(newData);
-
+        triviaQuestion = null;
         setWords(newData.getWordList());
     }
 
@@ -101,15 +101,25 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
         words.setWord(target, editedWord);
     }
 
+    /**
+     * Sets the trivia question based on the current vocabulary list
+     */
     public void setTrivia() {
         ObservableList<Word> triviaRef = words.asUnmodifiableObservableList();
         int length = triviaRef.size();
         Random random = new Random();
-        triviaQ = triviaRef.get(random.nextInt(length));
-
+        triviaQuestion = triviaRef.get(random.nextInt(length));
     }
+
+    /**
+     * Returns the current trivia question
+     */
     public Word getTrivia() {
-        return triviaQ;
+        return triviaQuestion;
+    }
+
+    public void clearTrivia() {
+        triviaQuestion = null;
     }
 
     /**
