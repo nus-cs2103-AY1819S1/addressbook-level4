@@ -183,6 +183,19 @@ Format: `“select [index]” or “s[index]” when [index] is a positive integ
   If a task is already on display, this command instead select a subtask from the displayed tasks’ list of subtasks.
 ****
 
+=== Add Meeting to Group: `meet`
+
+Add a meeting to the group specified by its name.
+
+Format: `meet [groupname] n/[meetingname] t/[meetingtime] l/[meetinglocation] d/[meetingdescription]`
+
+Meeting time is specified in the format `dd-mm-yyyy@hh:mm`
+
+Not specifying any fields will cancel the meeting associated with the group.
+
+Example:
+* `Meet CS2103 n/Demo Rehearsal t/11-11-2018@11:11 l/COM1 02-18 d/preparation for the upcoming product demo`
+* `Meet CS2103` note that this will cancel the current meeting with the group CS2103.
 
 === Going back to the parent task : `back / b`
 
@@ -208,8 +221,27 @@ Format: `import <relative filepath>`
 
 User is able to export tasks to store as backup elsewhere or send tasks to other users of Flashbook. +
 Format: +
+
 `Export all tasks : export * <relative filepath>` +
 `Export all tasks of [Module Name]: export #[Module Name] <relative filepath>`
+
+`export f/<filepath>`
+
+Example:
+`export f/backup.xml` : Export FlashBook as `backup.xml`.
+
+== Change Storage Location: `filepath`
+
+Change the storage location of FlashBook.
+Format: +
+`filepath f/<filepath>`
+
+Example:
+`filepath f/new_path.xml` : Storage location of FlashBook is now stored at `new_path.xml`.
+
+****
+User can also check the current path of Flashbook use `filepath show`
+****
 
 === Autocomplete
 
