@@ -41,7 +41,7 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+        model.updateFilteredTaskList(this.predicate);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

@@ -29,7 +29,7 @@ public class DueDateIsBeforeTodayPredicate implements Predicate<Task> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DueDateIsBeforeTodayPredicate; // instanceof handles nulls
+                || (other instanceof DueDateIsBeforeTodayPredicate); // instanceof handles nulls
 
     }
 
