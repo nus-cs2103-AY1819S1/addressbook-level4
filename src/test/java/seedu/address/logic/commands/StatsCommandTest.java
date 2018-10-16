@@ -10,8 +10,6 @@ import static seedu.address.logic.commands.StatsCommand.StatsMode;
 import org.junit.Rule;
 import org.junit.Test;
 
-import org.junit.rules.ExpectedException;
-
 import seedu.address.commons.events.ui.ShowStatsRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
@@ -24,7 +22,7 @@ import seedu.address.ui.testutil.EventsCollectorRule;
 
 public class StatsCommandTest {
     @Rule
-    public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule(
+    public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
     private Model model = ModelUtil.modelWithTestUser();
     private Model expectedModel = ModelUtil.modelWithTestUser();
