@@ -24,20 +24,25 @@ work with a *Command Line Interface (CLI)* to display a list of car parks with t
  various information about car parks.
 
 == Quick Start
+Here are several quick tips to get the application running.
 
-. Ensure you have Java version 9 or later installed in your Computer.
+. Check that you have Java version 9 or later installed in your Computer.
 . Download the latest carparkbook.jar here.
 . Copy the file to the folder you want to use as the home folder for your Car park book.
-. Double-click the file to start the app. The GUI should appear in a few seconds.
+. Double-click the file to start the application. The *Graphical User Interface (GUI)* should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+.Home page
+image::Ui2.png[width="790"]
 +
 . Type the command in the command box and press Enter to execute it.
-. Some example commands you can try:
+
+Some example commands you can try are:
+
 - list: list your favorites list, with all the car park details
 - help: shows the list of available commands and how to use them
 - exit: exit the program
-.  Refer to <<Features>> for details of each command.
+
+Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
@@ -58,17 +63,29 @@ parameter which can be used as `query p/760397`.
 Shows the list of available commands and how to use them
 Format: `help`
 
-=== Query : `query`
+=== Find : `find`
 
-Query for available car parks +
-Format: `query p/POSTAL_CODE d/TRAVELING_DISTANCE`
+Finds a list of available car parks +
+Format: `find KEYWORD [MORE_KEYWORDS]`
 
 [TIP]
-alias - q
+alias - f
+
+[NOTE]
+====
+Upper and lower case characters do not matter.
+====
+
+.Before using find command
+image::findbefore.png[width="790"]
+
+.After using find command
+image::findafter.png[width="790"]
 
 Examples:
-* `query p/612345 d/0.5`
-* `q p/612345 d/0.5`
+
+* `find punggol`
+* `find HG83`
 
 === Select car park : `select`
 
@@ -119,7 +136,7 @@ Example:
 * `sort DISTANCE`
 
 
-=== Add favourite car parks or location: `add`
+=== Add favourite car parks or location: `add` `[coming in v2.0]`
 
 Add your favorite car park into your favorites list +
 Format: `add c/CARPARK_NO`
@@ -150,7 +167,7 @@ Shows your favorites list, with all the car park details. +
 Format: `list`
 
 
-=== Remove from favorites list : `remove`
+=== Remove from favorites list : `remove` `[coming in v2.0]`
 
 Removes the specified carpark from your favorites list +
 Format: `remove c/CARPARK_NO`
@@ -179,3 +196,19 @@ Examples:
 
 *Q*: If I do not know the postal code of the location, am I still able to find car parks through other means? +
 *A*: Yes, by typing keywords like street names.
+
+== Command Summary
+
+* *Clear* : `clear`
+* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+e.g. `find punggol`
+* *Filter* : `filter [f/FREE_PARKING] [n/NIGHT_PARKING] [ct/CARPARK_TYPE]` +
+e.g. `filter f/true n/false ct/multi`
+* *Help* : `help`
+* *History* : `history`
+* *List* : `list`
+* *Notify* : `notify`
+* *Sort* : `sort FILTER_TYPE` +
+e.g. `sort DISTANCE`
+* *Select* : `select CARPARK_NO` +
+e.g. `select HG83`
