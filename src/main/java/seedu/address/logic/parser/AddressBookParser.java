@@ -29,7 +29,7 @@ public class AddressBookParser {
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<tags>\\S+)(?<arguments>.*)");
 
     /**
      * Parses user input into command for execution.
@@ -45,26 +45,31 @@ public class AddressBookParser {
         }
 
         final String commandWord = matcher.group("commandWord");
+        final String tag = matcher.group("tags");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
+            //TODO: AddCommandParser().parse(tags, arguments);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
+            //TODO: EditCommandParser().parse(tags, arguments);
 
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
+            //TODO: DeleteCommandParser().parse(tags, arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
+            //TODO: FindCommandParser().parse(tags, arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
