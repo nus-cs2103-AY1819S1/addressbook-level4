@@ -1,26 +1,21 @@
 package seedu.souschef.logic.parser;
 
-import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.souschef.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.souschef.logic.commands.AddCommand;
-import seedu.souschef.logic.commands.ClearCommand;
+import seedu.souschef.logic.CommandHistory;
 import seedu.souschef.logic.commands.Command;
-import seedu.souschef.logic.commands.DeleteCommand;
-import seedu.souschef.logic.commands.EditCommand;
-import seedu.souschef.logic.commands.ExitCommand;
-import seedu.souschef.logic.commands.FindCommand;
-import seedu.souschef.logic.commands.HelpCommand;
-import seedu.souschef.logic.commands.HistoryCommand;
-import seedu.souschef.logic.commands.ListCommand;
-import seedu.souschef.logic.commands.RedoCommand;
-import seedu.souschef.logic.commands.SelectCommand;
-import seedu.souschef.logic.commands.SurpriseCommand;
-import seedu.souschef.logic.commands.UndoCommand;
+import seedu.souschef.logic.parser.contextparser.HealthPlanParser;
+import seedu.souschef.logic.parser.contextparser.IngredientParser;
+import seedu.souschef.logic.parser.contextparser.MealPlannerParser;
+import seedu.souschef.logic.parser.contextparser.RecipeParser;
+import seedu.souschef.logic.parser.contextparser.UniversalParser;
 import seedu.souschef.logic.parser.exceptions.ParseException;
+import seedu.souschef.model.ModelSet;
+import seedu.souschef.storage.Storage;
+import seedu.souschef.storage.StorageManager;
+import seedu.souschef.ui.Ui;
 
 /**
  * Parses user input.
@@ -35,60 +30,44 @@ public class AppContentParser {
     /**
      * Parses user input into command for execution.
      *
+     * @param modelSet
      * @param userInput full user input string
+     * @param history
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput) throws ParseException {
-        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
-        if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+    public Command parseCommand(ModelSet modelSet, String userInput, CommandHistory history,
+                                Storage storage, Ui ui) throws ParseException {
+        String context = history.getContext();
+
+        if (storage == null) {
+            storage = new StorageManager();
         }
 
-        final String commandWord = matcher.group("commandWord");
-        final String arguments = matcher.group("arguments");
-        switch (commandWord) {
+        if (userInput.charAt(0) == '-') {
+            return new UniversalParser().parseCommand(history, userInput, ui);
+            //TODO: Refine condition to redirect for other meal planner commands (clearplanner, displayplanner, etc...)
+        } else if (context.equals("Meal Planner")) {
+            return new MealPlannerParser()
+                .parseCommand(modelSet.getMealPlannerModel(), modelSet.getRecipeModel(), userInput, ui);
+        } else if (context.equals("Recipe")) {
+            if (storage.getListOfFeatureStorage().size() > 0) {
+                storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(0));
+            }
 
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+            return new RecipeParser().parseCommand(modelSet.getRecipeModel(), userInput);
+        } else if (context.equals("Ingredient")) {
+            if (storage.getListOfFeatureStorage().size() > 0) {
+                storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(1));
+            }
+            return new IngredientParser().parseCommand(modelSet.getIngredientModel(), userInput);
+        } else if (context.equals("Health Plan")) {
+            if (storage.getListOfFeatureStorage().size() > 0) {
+                storage.setMainFeatureStorage(storage.getListOfFeatureStorage().get(2));
+            }
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
-
-        case SelectCommand.COMMAND_WORD:
-            return new SelectCommandParser().parse(arguments);
-
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
-
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
-
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
-
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
-
-        case HistoryCommand.COMMAND_WORD:
-            return new HistoryCommand();
-
-        case SurpriseCommand.COMMAND_WORD:
-            return new SurpriseCommand();
-
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
-
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
-
-        case UndoCommand.COMMAND_WORD:
-            return new UndoCommand();
-
-        case RedoCommand.COMMAND_WORD:
-            return new RedoCommand();
-
-        default:
+            return new HealthPlanParser().parseCommand(modelSet.getHealthPlanModel(), userInput);
+        } else {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }

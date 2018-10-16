@@ -162,14 +162,15 @@ Add a recipe in their favourites list. +
 Format: +
 `favourite`
 
-==== Add to meal plan: `plan DATE TIME`
+==== Add to meal plan: `plan INDEX DATE MEAL`
 Add a specified recipe to meal plan. +
 ****
+* INDEX should be the index number of the recipe displayed
 * DATE should be entered in the format *yyyy-mm-dd*.
-* TIME can be specified with the following keywords: *breakfast*, *lunch*, *dinner*.
+* MEAL can be specified with the following keywords: *breakfast*, *lunch*, *dinner*.
 ****
 Format: +
-`plan DATE TIME`
+`plan INDEX DATE MEAL`
 
 ==== Active cook-mode: `cook`
 A cook mode that provides step-by-step guidance to aid real-time cooking. +
@@ -261,11 +262,11 @@ After displaying the meal planner, deletes the recipe at the specified meal slot
 
 Format: `delete DATE TIME`
 
-==== Clear planner: `clearall`
+==== Clear planner: `plannerclear`
 
 Clears all the meal slots of the meal planner.
 
-Format: `clearall`
+Format: `plannerclear`
 
 // end::mealplanner[]
 === Cook-Mode Commands

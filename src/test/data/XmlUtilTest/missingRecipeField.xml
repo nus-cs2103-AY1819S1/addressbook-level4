@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!-- Recipe with missing name field -->
 <recipe>
-    <phone>9482424</phone>
-    <email>hans@example</email>
-    <address>4th street</address>
+    <difficulty>5</difficulty>
+    <cooktime>PT23M</cooktime>
     <tagged>friends</tagged>
 </recipe>

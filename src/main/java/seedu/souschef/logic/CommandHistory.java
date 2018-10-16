@@ -11,12 +11,27 @@ import java.util.List;
 public class CommandHistory {
     private LinkedList<String> userInputHistory;
 
+    private String context;
+
     public CommandHistory() {
         userInputHistory = new LinkedList<>();
+        context = "Recipe";
     }
 
     public CommandHistory(CommandHistory commandHistory) {
         userInputHistory = new LinkedList<>(commandHistory.userInputHistory);
+        context = "Recipe";
+    }
+
+    /**
+     * returns context.
+     */
+    public String getContext() {
+        return context;
+    }
+
+    public void setContext(String context) {
+        this.context = context;
     }
 
     /**
