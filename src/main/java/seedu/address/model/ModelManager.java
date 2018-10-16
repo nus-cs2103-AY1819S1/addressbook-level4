@@ -107,6 +107,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public boolean hasClashingEvent(Event event) {
+        requireNonNull(event);
+        return versionedAddressBook.hasClashingEvent(event);
+    }
+
+    @Override
     public void addEvent(Event event) {
         versionedAddressBook.addEvent(event);
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);

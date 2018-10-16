@@ -53,6 +53,11 @@ public interface Model {
     boolean hasEvent(Event event);
 
     /**
+     * Returns true if a clashing event with {@code event} exists in the address book.
+     */
+    boolean hasClashingEvent(Event event);
+
+    /**
      * Adds the given event into the address book.
      * {@code event} must not already exist in the address book.
      */

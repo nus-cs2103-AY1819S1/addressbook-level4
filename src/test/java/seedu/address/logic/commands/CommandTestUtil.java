@@ -63,6 +63,9 @@ public class CommandTestUtil {
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     // Events
+    public static final String CLASHING_EVENT_START_TIME_DOCTORAPPT = "1410";
+    public static final String CLASHING_EVENT_END_TIME_DOCTORAPPT = "1440";
+
     public static final String VALID_EVENT_NAME_DOCTORAPPT = "Doctor appointment";
     public static final String VALID_EVENT_NAME_MEETING = "Meeting";
     public static final String VALID_EVENT_DESC_DOCTORAPPT = "Consultation";

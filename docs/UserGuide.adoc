@@ -18,7 +18,7 @@ By: `Team W13-2`      Since: `Sept 2018`      Licence: `MIT`
 
 == Introduction
 
-Eventsplus+ is for the busy university student who *prefer to use a desktop app for managing contacts and planning ad-hoc events*. Eventsplus+ aims to simplify some of the more time-consuming administrative tasks such as coordinating location and date of ad-hoc events using a *Command Line Interface* (CLI).
+EventsPlus+ is for the busy university student who *prefer to use a desktop app for managing contacts and planning ad-hoc events*. EventsPlus+ aims to simplify some of the more time-consuming administrative tasks such as coordinating location and date of ad-hoc events using a *Command Line Interface* (CLI).
 
 == Quick Start
 
@@ -56,11 +56,11 @@ e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend 
 e.g. `{group/GROUP_NAME i/1 INDEX}...` can be used as `group/CS2103_Group1 i/1 group/CS2013_Group2 i/3`
 ====
 
-=== Viewing help : `help`, `h`
+=== Viewing help : `help`, alias `h`
 
 Format: `help`
 
-=== Adding a person: `add`, `a`
+=== Adding a person: `add`, alias `a`
 
 Adds a person to the address book +
 Format: `add n/NAME p/PHONE_NUMBER... e/EMAIL a/ADDRESS [t/TAG]...`
@@ -73,15 +73,15 @@ Format: `add n/NAME p/PHONE_NUMBER... e/EMAIL a/ADDRESS [t/TAG]...`
 
 Examples:
 
-* `add n/John Doe p/98765432 p/88888888 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/John Doe p/98765432 p/88888888 e/johnd@example.com a/John street, block 123, #01-01` or `a n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal` or `a n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-=== Listing all persons : `list`, `ls`
+=== Listing all persons : `list`, alias `ls`
 
 Shows a list of all persons in the address book. +
-Format: `list`
+Format: `list` or `ls`
 
-=== Editing a person : `edit`, `e`
+=== Editing a person : `edit`, alias `e`
 
 Edits an existing person in the address book. +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
@@ -96,12 +96,12 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
+* `edit 1 p/91234567 e/johndoe@example.com` or `e 1 p/91234567 e/johndoe@example.com` +
 Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
+* `edit 2 n/Betsy Crower t/` or `e 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-=== Locating persons by name: `find`, `f`
+=== Locating persons by name: `find`, alias `f`
 
 Finds persons whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
@@ -116,12 +116,12 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 
-* `find John` +
+* `find John` or `f John` +
 Returns `john` and `John Doe`
-* `find Betsy Tim John` +
+* `find Betsy Tim John` or `f Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
 
-=== Deleting a person : `delete`, `d`
+=== Deleting a person : `delete`, alias `d`
 
 Deletes the specified person from the address book. +
 Format: `delete INDEX`
@@ -135,13 +135,13 @@ Format: `delete INDEX`
 Examples:
 
 * `list` +
-`delete 2` +
+`delete 2` or `d 2` +
 Deletes the 2nd person in the address book.
 * `find Betsy` +
-`delete 1` +
+`delete 1` or `d 1` +
 Deletes the 1st person in the results of the `find` command.
 
-=== Selecting a person : `select`, `s`
+=== Selecting a person : `select`, alias `s`
 
 Selects the person identified by the index number used in the displayed person list. +
 Format: `select INDEX`
@@ -155,16 +155,16 @@ Format: `select INDEX`
 Examples:
 
 * `list` +
-`select 2` +
+`select 2` or `s 2` +
 Selects the 2nd person in the address book.
 * `find Betsy` +
-`select 1` +
+`select 1` or `s 1` +
 Selects the 1st person in the results of the `find` command.
 
-=== Listing entered commands : `history`, `hs`
+=== Listing entered commands : `history`, alias `hs`
 
 Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
+Format: `history` or `h`
 
 [NOTE]
 ====
@@ -172,7 +172,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 ====
 
 // tag::undoredo[]
-=== Undoing previous command : `undo`, `u`
+=== Undoing previous command : `undo`, alias `u`
 
 Restores the address book to the state before the previous _undoable_ command was executed. +
 Format: `undo`
@@ -186,7 +186,7 @@ Examples:
 
 * `delete 1` +
 `list` +
-`undo` (reverses the `delete 1` command) +
+`undo` or `u` (reverses the `delete 1` command) +
 
 * `select 1` +
 `list` +
@@ -195,10 +195,10 @@ The `undo` command fails as there are no undoable commands executed previously.
 
 * `delete 1` +
 `clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
+`undo` or `u` (reverses the `clear` command) +
+`undo` or `u` (reverses the `delete 1` command) +
 
-=== Redoing the previously undone command : `redo`, `r`
+=== Redoing the previously undone command : `redo`, alias `r`
 
 Reverses the most recent `undo` command. +
 Format: `redo`
@@ -206,35 +206,20 @@ Format: `redo`
 Examples:
 
 * `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+`undo` or `u` (reverses the `delete 1` command) +
+`redo` or `r` (reapplies the `delete 1` command) +
 
 * `delete 1` +
-`redo` +
+`redo` or `r` +
 The `redo` command fails as there are no `undo` commands executed previously.
 
 * `delete 1` +
 `clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
+`undo` or `u` (reverses the `clear` command) +
+`undo` or `u` (reverses the `delete 1` command) +
+`redo` or `r` (reapplies the `delete 1` command) +
+`redo` or `r` (reapplies the `clear` command) +
 // end::undoredo[]
-
-=== Clearing all entries : `clear`, `cls`
-
-Clears all entries from the address book. +
-Format: `clear`
-
-=== Exiting the program : `exit`, `q`
-
-Exits the program. +
-Format: `exit`
-
-=== Saving the data
-
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
 
 === Add contacts to an existing group : `addToGroup`
 
@@ -244,7 +229,7 @@ Any number of contacts can be added to the group (including 0).
 [NOTE]
 ====
 If the INDEX field is empty, no contacts will be added to the group. +
-The group must be an existing group in the AddressBook. +
+The group must be an existing group in EventsPlus+. +
 ====
 
 Format: `addToGroup group/GROUP_NAME [i/INDEX]...`
@@ -276,6 +261,138 @@ Format: `createGroup group/GROUP_NAME`
 Examples:
 
 * `createGroup group/CS2103Group`
+
+=== Suggested Location : `generateLocation`
+
+Creates a suggested location to meet up based on each team member’s faculty.
+
+Format: `generateLocation event/EVENT_NAME group/GROUP_NAME`
+
+Examples:
+
+* `generateLocation event/First Meeting group/CS2103Group`
+
+=== Adding an event: `addEvent`
+
+Adds an event in the system with information specified by the user.
+
+Format: `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(YYYY-MM-DD) st/START_TIME(HHMM) et/END_TIME(HHMM) a/ADDRESS`
+
+The user can input values for the following fields when adding an event: +
+
+* Event name +
+* Event description +
+* Event date +
+* Event start time +
+* Event end time +
+* Address of event +
+
+Note that each of these fields are mandatory, and has to be supplied by the user
+before the event can be successfully added into the system.
+In addition, note the following constraints for the input values.
+
+[TIP]
+====
+* Event names and descriptions should only contain alphanumeric characters
+and should not have any special characters e.g. *, &, etc.
+* Event dates should be in the format YYYY-MM-DD
+* Event times (start or end time) should be in the 24-hour format HHMM
+====
+
+//A notification will be sent to the user only 24 hours before the event.
+//(refer to <<Notification, notification>> feature)
+
+Examples:
+
+* `addEvent n/Doctor Appointment dsc/Consultation d/2018-10-14 st/1030 et/1200 a/123, Clementi Rd, 1234665` +
+This adds a new event with the provided information.
+
+//* `list` +
+//  `addEvent n/Doctor Appointment dsc/Consultation d/15-09-18 t/1030 a/123, Clementi Rd, 1234665 i/1`
+//* `Find Betsy Tim John` +
+//  `addEvent n/Meeting  dsc/Project meeting d/15-09-18 t/1030 a/123, Clementi Rd, 1234665 i/1 i/2 i/3`
+
+In EventsPlus+, the events can be found in the Events tab,
+and are displayed according to their date, in decreasing date order.
+
+After the user executes the command, a message indicating successful execution of the command will be displayed.
+The user will be automatically directed to the Events tab,
+where the newly added event (as highlighted in green below) will be shown in the tab.
+
+image::add-event_new-event.PNG[Adding an event]
+
+=== Import Contacts: `importContacts`
+
+Import contacts from a specified csv file. Duplicate contacts will be merged together.
+
+Format: `importContacts file/FILEPATH`
+
+Examples:
+
+* `importContacts file/~/Downloads/contacts1.csv` +
+  Imports all contacts from root/Downloads/contacts1.csv into application address book
+
+=== Notifications: `notification`
+
+Allow users to disable notifications for upcoming events based on most recently displayed events list. All events initially have notifications enabled by default.
+
+Format: `notification EVENT_INDEX enable/disable`
+
+Examples:
+
+* `notification 2 disable`
+
+=== Clearing all entries : `clear`, alias `cls`
+
+Clears all entries from the address book. +
+Format: `clear` or `cls`
+
+=== Exiting the program : `exit`, alias `q`
+
+Exits the program. +
+Format: `exit` or `q`
+
+=== Saving the data
+
+Address book data are saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
+
+
+== Features coming up in V2.0
+
+=== List personal events: `listEvent`
+
+Lists all events in the system.
+
+Format: `listEvent`
+
+Examples:
+
+* `listEvent`
+
+=== Add group event: `addGroupEvent`
+
+Adds an event in the system with the specified information, for the specified group(s).
+At least one group has to be included in the user input.
+A notification will be sent to the user and contacts in the group 24 hours before the event.
+(refer to <<Notification, notification>> feature)
+
+Format: `addGroupEvent n/EVENT_NAME dsc/DESCRIPTION d/DATE(DD-MM-YY) t/TIME(HHMM) a/ADDRESS group/GROUP_NAME...`
+
+Examples:
+
+* `addGroupEvent n/Project Meeting dsc/First Meeting d/12-09-18 t/1200 a/123, Clementi Rd, 1234665 group/CS2103_Group`
+* `addGroupEvent n/Project Meeting dsc/First Meeting d/12-09-18 t/1200 a/123, Clementi Rd, 1234665 group/CS2103_Group group/CS2103_otherGroup`
+
+=== List group events: `listGroupEvent`
+
+Lists all group events in the system.
+
+Format: `listGroupEvent`
+
+Examples:
+
+* `listGroupEvent`
 
 === Rename groups : `renameGroup`
 
@@ -386,7 +503,7 @@ App will redirect to the source (For example, Google) to handle majority of the 
 
 === Share multiple contacts with my peers : `share`
 
-Send selected contacts in the AddressBook to one other contact in the same AddressBook.
+Send selected contacts in EventsPlus+ to one other contact in EventsPlus+.
 At least one contact to be sent must be indicated, and only one recipient can be specified.
 
 Format: `share i/INDEX... t/INDEX`
@@ -416,87 +533,6 @@ Format: `unarchive group/GROUP_NAME`
 Examples:
 
 * `unarchive group/CS2103Group`
-
-=== Suggested Location : `generateLocation`
-
-Creates a suggested location to meet up based on each team member’s faculty.
-
-Format: `generateLocation event/EVENT_NAME group/GROUP_NAME`
-
-Examples:
-
-* `generateLocation event/First Meeting group/CS2103Group`
-
-=== Add personal event: `addEvent`
-
-Adds an event in the system with the specified information. Any number of contacts (including zero) can be included in the event.
-A notification will be sent to the user only 24 hours before the event.
-(refer to <<Notification, notification>> feature)
-
-Format: `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(DD-MM-YY) t/TIME(HHMM) a/ADDRESS [i/CONTACT_INDEX]…`
-
-Examples:
-
-* `addEvent n/Doctor Appointment dsc/Consultation d/15-09-18 t/1030 a/123, Clementi Rd, 1234665`
-* `list` +
-  `addEvent n/Doctor Appointment dsc/Consultation d/15-09-18 t/1030 a/123, Clementi Rd, 1234665 i/1`
-* `Find Betsy Tim John` +
-  `addEvent n/Meeting  dsc/Project meeting d/15-09-18 t/1030 a/123, Clementi Rd, 1234665 i/1 i/2 i/3`
-
-=== List personal events: `listEvent`
-
-Lists all events in the system.
-
-Format: `listEvent`
-
-Examples:
-
-* `listEvent`
-
-=== Add group event: `addGroupEvent`
-
-Adds an event in the system with the specified information, for the specified group(s).
-At least one group has to be included in the user input.
-A notification will be sent to the user and contacts in the group 24 hours before the event.
-(refer to <<Notification, notification>> feature)
-
-Format: `addGroupEvent n/EVENT_NAME dsc/DESCRIPTION d/DATE(DD-MM-YY) t/TIME(HHMM) a/ADDRESS group/GROUP_NAME...`
-
-Examples:
-
-* `addGroupEvent n/Project Meeting dsc/First Meeting d/12-09-18 t/1200 a/123, Clementi Rd, 1234665 group/CS2103_Group`
-* `addGroupEvent n/Project Meeting dsc/First Meeting d/12-09-18 t/1200 a/123, Clementi Rd, 1234665 group/CS2103_Group group/CS2103_otherGroup`
-
-=== List group events: `listGroupEvent`
-
-Lists all group events in the system.
-
-Format: `listGroupEvent`
-
-Examples:
-
-* `listGroupEvent`
-
-=== Import Contacts: `importContacts`
-
-Import contacts from a specified csv file. Duplicate contacts will be merged together.
-
-Format: `importContacts file/FILEPATH`
-
-Examples:
-
-* `importContacts file/~/Downloads/contacts1.csv` +
-  Imports all contacts from root/Downloads/contacts1.csv into application address book
-
-=== [[notification]] Notifications: `notification`
-
-Allow users to disable notifications for upcoming events based on most recently displayed events list. All events initially have notifications enabled by default.
-
-Format: `notification EVENT_INDEX enable/disable`
-
-Examples:
-
-* `notification 2 disable`
 
 == FAQ
 
@@ -548,8 +584,8 @@ e.g. `archive group/CS2103Group`
 e.g. `unarchive group/CS2103Group`
 * *Suggest Location* : `generateLocation event/EVENT_NAME group/GROUP_NAME` +
 e.g. `generateLocation event/First Meeting group/CS2103Group`
-* *Add Event* : `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(DD-MM-YY) t/TIME(HHMM) a/ADDRESS [i/CONTACT_INDEX]…` +
-e.g. `addEvent n/Doctor Appointment dsc/Consultation d/15-09-18 t/1030 a/123, Clementi Rd, 1234665 i/1`
+* *Add Event* : `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(YYYY-MM-DD) st/START_TIME(HHMM) et/END_TIME(HHMM) a/ADDRESS` +
+e.g. `addEvent n/Doctor Appointment dsc/Consultation d/2019-10-12 st/1030 et/1200 a/123, Clementi Rd, 1234665`
 * *List Events* : `listEvent`
 * *Add Group Event* : `addGroupEvent n/EVENT_NAME dsc/DESCRIPTION d/DATE(DD-MM-YY) t/TIME(HHMM) a/ADDRESS group/GROUP_NAME...` +
 e.g. `addGroupEvent n/Project Meeting dsc/First Meeting d/12-09-18 t/1200 a/123, Clementi Rd, 1234665 group/CS2103_Group`
