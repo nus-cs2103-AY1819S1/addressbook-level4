@@ -364,6 +364,8 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+=======
+=======
 // tag::addEvents[]
 === Add Events feature
 ==== Current Implementation
@@ -377,8 +379,6 @@ doing so will also allow the developer to alter the definition of the different 
 `Event` class easily.
 
 image::Event.png[Event class]
-
-+
 
 Methods have been added to `ModelManager`, `AddressBook` and the newly-added class `UniqueEventList` to facilitate adding of persons.
 In order to limit modification of the internal list of `Event` objects, changes to this list is only carried out at the most fundamental level,
@@ -446,8 +446,6 @@ Hence, this is not preferred in our implementation.
 
 // end::addEvents[]
 
-+
-
 // tag::importcontacts[]
 === Import Contacts
 ==== Current Implementation
@@ -469,9 +467,18 @@ The number of successful inserts and duplicated will be returned to display afte
 
 The following sequence diagram shows how the readImportContactsFile operatoin works:
 
-image::ImportContactsSequenceDiagram.png[width="800"]
+image::ImportContactsSequenceDiagram.PNG[width="800"]
 
 // end::importcontacts[]
+//tag::meetinglocation[]
+=== Meeting Location
+
+The meeting location mechanism is facilitated by the presence of a Faculty field in the Person class.
+
+The Faculty field stores the information about the person's location using conventional NUS naming (e.g. SDE, COM).
+
+The information from this field will be used to perform Google Maps URL API calls so as to display a common meeting location for two people.
+// end::meetinglocation[]
 
 === Logging
 
