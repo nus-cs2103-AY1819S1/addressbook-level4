@@ -41,6 +41,11 @@ public class AppointmentsList {
         this.appointmentsList.remove(appt);
     }
 
+    /**
+     * Checks if the appointments list contains a particular appointment
+     * @param appt the appointment to check
+     * @return true if the appointment is contained in the list, false otherwise
+     */
     public boolean contains(Appointment appt) {
         for (Appointment a : this.appointmentsList) {
             if (a.equals(appt)) {

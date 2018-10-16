@@ -1,14 +1,14 @@
 package seedu.address.model.appointment;
 
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Test driver class for AppointmentsList wrapper class functionality
@@ -74,12 +74,12 @@ public class AppointmentsListTest {
     }
 
     @Test
-    public void equals_NoArgsConstructorAndListConstructor_returnsTrue() {
+    public void equals_noArgsConstructorAndListConstructor_returnsTrue() {
         assertTrue(new AppointmentsList().equals(new AppointmentsList(new ArrayList<Appointment>())));
     }
 
     @Test
-    public void equals_ApppointmentsListConstructorAndListConstructor_returnsTrue() {
+    public void equals_apppointmentsListConstructorAndListConstructor_returnsTrue() {
         List<Appointment> apptList = new ArrayList<>();
         apptList.add(appt);
         AppointmentsList apptList1 = new AppointmentsList(apptList);

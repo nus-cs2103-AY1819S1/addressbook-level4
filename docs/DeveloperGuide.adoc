@@ -244,6 +244,54 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== AddAppt
+==== Current implementation
+The `addappt` command provides functionality for users to add an appointment for a given patient.
+This is done by adding appointment-related information to a given person, represented by a `Person` object.
+This allows for users to track the upcoming appointments for every patient.
+
+The adding of appointment-related information is facilitated by the following classes:
+* `AppointmentsList`, a list of
+** `Appointment`, each of which have a
+*** `Type`
+
+A more detailed description of the classes follows below:
+* `AppointmentsList`
+** Every `Person` has an `AppointmentsList`, the purpose of which is to store all `Appointment` belonging to a `Person`.
+** A wrapper class around the internal representation of a list of appointments that exposes only a few select methods in the `List` API.
+*** The methods relevant to the `addappt` command from the API are: `add`.
+
+* `Appointment`
+** Class encapsulating all the information about a particular appointment.
+*** These information include the type of appointment (enum Type), name of the procedure, date and time of the appointment and the name of the doctor-in-charge of the appointment
+
+* `Type`
+** An enumeration that covers all the different types of medical procedures. The four types are:
+*** `PROPAEDEUTIC`, with `PROP` as abbreviation
+*** `DIAGNOSTIC`, with `DIAG` as abbreviation
+*** `THERAPEUTIC`, with `THP` as abbreviation
+*** `SURGICAL`, with `SRG` as abbreviation
+
+Given below is an example usage scenario and how the relevant classes behave at each step.
+At the end of the explanation is a link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[sequence diagram] of a typical addappt command execution.
+
+The user executes `addappt ic/S1234567A type/SRG pn/Heart Bypass dt/27-04-2019 1030 doc/Dr. Pepper`.
+This command has the following intent: Record the following appointment to a patient with NRIC = S1234567A:
+
+[cols="1,2a,1", options="header"]
+|===
+|Appointment type |Procedure name |Date and time |Doctor-in-charge
+
+|`SRG`
+|Heart Bypass
+|27-04-2019 1030
+|Dr. Pepper
+|===
+
+[NOTE]
+If no/multiple patient(s) with that `NRIC` exist(s), then the `AddApptCommand::execute` method will throw a `CommandException` with the appropriate error message and the usage case will end.
+
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
