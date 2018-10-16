@@ -326,6 +326,28 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+// tag::budget[]
+
+=== Budget
+==== Keeping spendings within budget
+The budget mechanism is facilitated by `VersionedAddressBook` and `AddCommand`. Whenever a user adds an expense via
+`AddCommand`m if they do not have a budget set, the application will prompt them to do so. After they do so,
+application proceeds normally. If adding another expense will result in them exceeding the budget, they can still do
+so, but a warning will be given to the user.
+
+==== Recurring budget
+Every time a user log in and `Model#loadUserData()`, the application will check if the user has set a time where the
+budget will reset (recurrence time). If it is not set, the expense tracker will issue a notification. Else, the
+expense tracker will track the set recurrence time against the time now. If it exceeds, budget will be reset. Else,
+nothing will be done.
+
+* Recurrence time is set by `setReccurenceFrequency()`. If it has not been set before, the next recurrence time will
+be set to `currentTime` + `recurrenceFrequency`.
+* If it has already been set, the timing will be updated on the next occurence time
+
+
+// end::budget[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
