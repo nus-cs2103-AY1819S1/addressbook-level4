@@ -58,7 +58,7 @@ public class AnakinCdCommand extends AnakinCommand {
             return new CommandResult(String.format(MESSAGE_EXIT_SUCCESS));
         } else {
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+                throw new CommandException(Messages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX);
             }
 
             AnakinDeck deckToEnter = lastShownList.get(targetIndex.getZeroBased());
