@@ -31,8 +31,8 @@ public class TagMap {
      */
     public TagMap(TagMap oldMap) {
         requireNonNull(oldMap);
-        checkArgument(isSimilar(oldMap), MESSAGE_MAP_INSERT_CONSTRAINT);
-        oldMap.getTagMap().forEach((key, value) -> this.tagMap.put(key, value));
+        checkArgument(hasAnyOverlap(oldMap), MESSAGE_MAP_INSERT_CONSTRAINT);
+        oldMap.getTagMap().forEach((key, value) -> tagMap.put(key, value));
     }
 
     public HashMap<TagKey, TagValue> getTagMap() {
@@ -62,26 +62,26 @@ public class TagMap {
      */
     public TagValue remove(TagKey key) {
         requireNonNull(key);
-        if (this.tagMap.containsKey(key)) {
-            return this.tagMap.remove(key);
+        if (tagMap.containsKey(key)) {
+            return tagMap.remove(key);
         }
 
         return new TagValue();
     }
 
     /**
-     * Two TagMaps are similar if and only if they contain
+     * Two TagMaps have an overlap if and only if they contain
      * one common key even though the key maps to different
      * values.
      *
      * @param otherMap The other map comparing to.
-     * @return the result of whether otherMap isSimilar to this tagMap.
+     * @return the result of whether otherMap has any overlap to this tagMap.
      */
-    private boolean isSimilar(TagMap otherMap) {
+    private boolean hasAnyOverlap(TagMap otherMap) {
         Iterator it = otherMap.getTagMap().entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry) it.next();
-            if (this.tagMap.containsKey(pair.getKey())) {
+            if (tagMap.containsKey(pair.getKey())) {
                 return true;
             }
         }
@@ -89,14 +89,14 @@ public class TagMap {
     }
 
     public boolean contains(TagKey key) {
-        return this.tagMap.containsKey(key);
+        return tagMap.containsKey(key);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof TagMap
-                    && ((TagMap) other).getTagMap().equals(this.tagMap));
+                    && ((TagMap) other).getTagMap().equals(tagMap));
     }
 
     @Override
