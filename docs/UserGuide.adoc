@@ -421,7 +421,8 @@ e.g. `delete 3`
 
 === Event Management
 * *Add* `add n/NAME l/LOCATION sd/START_DATE ed/END_DATE d/DESCRIPTION [t/TAG]...` +
-e.g. `add n/Fundraising l/Tampines S sd/31-09-2018 ed/31-09-2018 d/Raising funds  t/fundraiser t/charity`
+e.g. `add n/Fundraising l/Tampines S sd/31-09-2018 ed/31-09-2018 st/13:00 et/18:00 d/Raising funds t/fundraiser
+t/charity`
 * *List* : `list`
 * *Edit* : `edit INDEX [n/NAME] [l/LOCATION] [sd/START_DATE] [ed/END_DATE] [d/DESCRIPTION] [t/TAG]...` +
 e.g. `edit 2 n/Fundraiser`
