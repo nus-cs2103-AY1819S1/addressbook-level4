@@ -195,11 +195,11 @@ Deletes the details of the volunteer specified at index 1
 
 === Event Management
 
-The following commands can only be accessed after switching to the 'event' context (see <<command-switch>>)
+The following commands can only be accessed after switching to the 'event' context. (see <<command-switch>>)
 
 ==== Add new event: `add`
 
-Adds an event to the system when in the 'event' context +
+Adds an event to the system when in the 'event' context. +
 
 Format: `add n/NAME l/LOCATION sd/START_DATE ed/END_DATE st/START_TIME et/END_TIME d/DESCRIPTION [t/TAG]...`
 
@@ -280,7 +280,7 @@ Format: `edit INDEX [n/NAME] [l/LOCATION] [sd/START_DATE] [ed/END_DATE] [st/STAR
 Examples:
 
 * `edit 1 n/Charity Fun Run t/` +
-Edits the name of event at index 1 and removes all tags
+Edits the name of event at index 1 and removes all tags.
 
 The figures below show the before and after results of an edit command.
 
@@ -301,7 +301,7 @@ Format: `delete INDEX`
 Examples:
 
 * `delete 2` +
-Deletes the details of the event specified at index 2
+Deletes the details of the event specified at index 2.
 
 The figures below show the before and after results of a delete command.
 
