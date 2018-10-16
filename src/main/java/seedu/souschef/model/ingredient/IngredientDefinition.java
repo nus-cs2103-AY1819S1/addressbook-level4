@@ -56,4 +56,8 @@ public class IngredientDefinition extends UniqueType {
         return otherIngredient != null
                 && otherIngredient.getName().equals(getName());
     }
+
+    public String toString() {
+        return getName().toString();
+    }
 }

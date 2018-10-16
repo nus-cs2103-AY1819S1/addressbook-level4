@@ -65,4 +65,9 @@ public class IngredientPortion extends IngredientDefinition {
                 && otherIngredient.getAmount().equals(getAmount())
                 && otherIngredient.getUnit().equals(getUnit());
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + " Amount: " + getAmount().toString() + " " + getUnit();
+    }
 }
