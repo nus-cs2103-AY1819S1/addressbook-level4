@@ -31,9 +31,6 @@ import seedu.address.logic.commands.ViewCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ThanePark;
 import seedu.address.testutil.TypicalRides;
-import seedu.address.ui.BrowserPanel;
-import seedu.address.ui.CommandBox;
-import seedu.address.ui.HelpWindow;
 
 import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
@@ -42,6 +39,12 @@ import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
+
+import seedu.address.ui.BrowserPanel;
+import seedu.address.ui.CommandBox;
+import seedu.address.ui.HelpWindow;
+
+
 
 /**
  * A system test class for ThanePark, which provides access to handles of GUI components and helper methods
