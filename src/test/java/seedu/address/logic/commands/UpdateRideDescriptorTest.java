@@ -12,15 +12,14 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_WAIT_TIME_BOB;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.UpdateCommand.EditPersonDescriptor;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
-public class EditRideDescriptorTest {
+public class UpdateRideDescriptorTest {
 
     @Test
     public void equals() {
         // same values -> returns true
-        EditPersonDescriptor descriptorWithSameValues = new EditPersonDescriptor(DESC_AMY);
+        UpdateCommand.UpdateRideDescriptor descriptorWithSameValues = new UpdateCommand.UpdateRideDescriptor(DESC_AMY);
         assertTrue(DESC_AMY.equals(descriptorWithSameValues));
 
         // same object -> returns true
@@ -36,7 +35,7 @@ public class EditRideDescriptorTest {
         assertFalse(DESC_AMY.equals(DESC_BOB));
 
         // different name -> returns false
-        EditPersonDescriptor editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
+        UpdateCommand.UpdateRideDescriptor editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different phone -> returns false
