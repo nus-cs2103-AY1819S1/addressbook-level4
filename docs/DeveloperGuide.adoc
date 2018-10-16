@@ -319,6 +319,16 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+//tag::meetinglocation[]
+=== Meeting Location
+
+The meeting location mechanism is facilitated by the presence of a Faculty field in the Person class.
+
+The Faculty field stores the information about the person's location using conventional NUS naming (e.g. SDE, COM).
+
+The information from this field will be used to perform Google Maps URL API calls so as to display a common meeting location for two people.
+// end::meetinglocation[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
