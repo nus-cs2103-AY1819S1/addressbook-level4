@@ -85,7 +85,7 @@ public class SchedulerParserTest {
     }
 
     @Test
-    public void parseCommand_ggEvents() throws Exception {
+    public void parseCommand_getGcEvents() throws Exception {
         assertTrue(parser.parseCommand(
                 GetGoogleCalendarEventsCommand.COMMAND_WORD) instanceof GetGoogleCalendarEventsCommand);
     }
