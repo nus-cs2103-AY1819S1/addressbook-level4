@@ -1,4 +1,4 @@
-= EventsPlus+ - Developer Guide
+﻿= EventsPlus+ - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -238,6 +238,51 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+//tag::notification[]
+=== Enable/Disable Notification feature
+==== Current Implementation
+
+Notification preference is stored in the preferences.json file.
+The notification mechanism is facilitated by Javafx.
+Upon startup, notification preference is loaded from preferences.json and saved to the model.
+Upon exit, the model's notification preference is saved to preferences.json to ensure statefulness.
+When enabled, it creates a child stage and scene from the main window and displays with a countdown timer to automatically close the stage.
+Additionally, it implements the following operations
+
+* `ui#NotificationWindow()` -- creates the stage and scene for the notification using 2 String inputs: `title` and `message`
+* `logic#parser#NotificationCommandParser()` -- creates a the relevant NotificationCommand object based on user's input
+* `logic#commands#NotificationCommand()` -- updates the model's notification preference
+
+Given below is an example usage scenario and how the enable/disable notification mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The model's notification preference is initally enabled, the notification window appears.
+
+Step 2. The user executes `notification disable`. The `notification` command calls NotificationCommandParser which converts `disable` into the boolean `false` and creates a new Notification Command which updates the Model's notification preference to false.
+
+[NOTE]
+The notification command will update the notification preference regardless of whether the new preference is same as the previous preference.
+
+==== Design Considerations
+
+===== Aspect: How notification preferences updated
+
+* **Alternative 1 (current choice):** Re-assign Model's notification preference regardless of previous preference
+** Pros: Easy to implement.
+** Cons: Wasteful in the case of same notification preference.
+* **Alternative 2:** Check current notification preference and only assign new value if it is different from the previous value.
+** Pros: Do not waste computing cycles on unecessary re-assingment of notification preference.
+** Cons: Code becomes more complicated because additional check required.
+
+===== Aspect: Writing to preferences.json
+
+* **Alternative 1 (current choice):** Write all Model preferences to preferences.json
+** Pros: Easy to implement.
+** Cons: Unecessary computing cycles wasted on writing when possibly no change
+* **Alternative 2:** Check for difference between Model preferences and preferences.json, only write to preferences.json if there is difference.
+** Pros: Efficient.
+** Cons: Code becomes more complicated because additional check required
+// end::notification[]
 
 // tag::undoredo[]
 === Undo/Redo feature

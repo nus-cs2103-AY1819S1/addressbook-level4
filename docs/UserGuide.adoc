@@ -1,4 +1,4 @@
-= EventsPlus+ - User Guide
+﻿= EventsPlus+ - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -59,6 +59,15 @@ e.g. `{group/GROUP_NAME i/1 INDEX}...` can be used as `group/CS2103_Group1 i/1 g
 === Viewing help : `help`, `h`
 
 Format: `help`
+
+=== Enable/Disable notifications: `notification`, `n`
+
+Format: `notification disable`
+
+[NOTE]
+====
+Notifications are initially enabled
+====
 
 === Adding a person: `add`, `a`
 
