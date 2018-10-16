@@ -95,6 +95,49 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 [NOTE]
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
+
+== Implementation
+
+=== Command alias feature
+
+==== Current Implementation
+
+The alias mechanism is facilitated by `AddressBookParser`. It extends the cases
+when shorter command words are parsed through `parseCommand`.
+
+Given below is an example usage scenario and how the alias mechanism behaves at
+each step.
+
+Step 1. The user launches the application for the first time. The `LogicManager`
+will be initialized with an `AddressBookParser`.
+
+Step 2. The user executes `l` command instead of `list`. The `Matcher` object in
+`AddressBookParser` splits the command text into **command word ** section and
+*arguments,* section of which the **command word **is parsed using a _<switch>_
+statement. The *command word* will be matched to case of `COMMAND_ALIAS` from
+`ListCommand`, which holds the final value of 'l'. The program finds a match and
+proceeds as if a `list` command is given.
+
+The following activity diagram summarizes what happens when a user executes a `l`
+command:
+
+image::AliasActivityDiagram.jpg[width="700", align="left"]
+
+==== Designer Considerations
+
+* *Alternative 1 (current choice):* declare `COMMAND_ALIAS` with a string value
+in each Command file.
+** *Pros:* Easy to implement
+** *Cons:* Have to decide the alias subjectively which brings down performance
+if there are alot of commands
+
+* *Alternative 2:* declare `COMMAND_ALIAS` using the first two chars of `COMMAND_WORD`
+in each Command file.
+** *Pros*: Better performance as alias will be assigned systematically.
+** *Cons*: When there are 2 command words starting with same 2 chars e.g. `find`
+& `filter`, it does not work.
+
+
 [appendix]
 == Product Scope
 
