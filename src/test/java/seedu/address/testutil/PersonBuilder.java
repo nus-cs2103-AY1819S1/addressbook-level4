@@ -10,7 +10,6 @@ import seedu.address.model.person.Grades;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.Time;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -25,7 +24,6 @@ public class PersonBuilder {
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_EDUCATION = "Secondary 4";
     public static final String DEFAULT_GRADES = "100";
-    public static final String DEFAULT_TIME = "Monday 1300-1500";
 
     private Name name;
     private Phone phone;
@@ -33,7 +31,6 @@ public class PersonBuilder {
     private Address address;
     private Education education;
     private Grades grades;
-    private Time time;
     private Set<Tag> tags;
 
     public PersonBuilder() {
@@ -56,7 +53,6 @@ public class PersonBuilder {
         address = personToCopy.getAddress();
         education = personToCopy.getEducation();
         grades = personToCopy.getGrades();
-        time = personToCopy.getTime();
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -116,16 +112,8 @@ public class PersonBuilder {
         return this;
     }
 
-    /**
-     * Sets the {@code Time} of the {@code Person} that we are building.
-     */
-    public PersonBuilder withTime(String time) {
-        this.time = new Time(time);
-        return this;
-    }
-
     public Person build() {
-        return new Person(name, phone, email, address, education, grades, time, tags);
+        return new Person(name, phone, email, address, education, grades, tags);
     }
 
 }

@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -26,24 +27,24 @@ public class Person {
     private final Education education;
     private final Fees tuitionFee;
     private final Grades grades;
-    private final Time time;
+    private final ArrayList<Time> timeSlots;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Education education,
-                  Grades grades, Time time, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, education, grades, time, tags);
+    public Person(Name name, Phone phone, Email email, Address address, Education education, Grades grades,
+                  Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, education, grades, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.education = education;
         this.grades = grades;
-        this.time = time;
         this.tags.addAll(tags);
         this.tuitionFee = new Fees(education);
+        this.timeSlots = new ArrayList<>();
     }
 
     public Name getName() {
@@ -70,15 +71,20 @@ public class Person {
         return grades;
     }
 
-    public Time getTime() {
-        return time;
-    }
-
     public Fees getFees() {
         return tuitionFee;
     }
 
+    public ArrayList getTime() {
+        return timeSlots;
+    }
 
+    /**
+     * Adds a time slot to a Person's time array list
+     */
+    public void addTime(Time time) {
+        timeSlots.add(time);
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -123,7 +129,6 @@ public class Person {
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getEducation().equals(getEducation())
                 && otherPerson.getGrades().equals(getGrades())
-                && otherPerson.getTime().equals(getTime())
                 && otherPerson.getTags().equals(getTags())
                 && otherPerson.getFees() == getFees();
     }
@@ -131,7 +136,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, education, grades, time, tags);
+        return Objects.hash(name, phone, email, address, education, grades, tags);
     }
 
     @Override
@@ -148,8 +153,6 @@ public class Person {
                 .append(getEducation())
                 .append(" Grades: ")
                 .append(getGrades())
-                .append(" Time: ")
-                .append(getTime())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
