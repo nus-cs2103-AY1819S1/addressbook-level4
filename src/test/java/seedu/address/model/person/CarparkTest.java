@@ -64,8 +64,8 @@ public class CarparkTest {
     @Test
     public void equals() {
         // same values -> returns true
-        Carpark AlfaCopy = new CarparkBuilder(ALFA).build();
-        assertTrue(ALFA.equals(AlfaCopy));
+        Carpark copyAlfa = new CarparkBuilder(ALFA).build();
+        assertTrue(ALFA.equals(copyAlfa));
 
         // same object -> returns true
         assertTrue(ALFA.equals(ALFA));
