@@ -8,6 +8,9 @@ import org.junit.Test;
 import seedu.address.logic.commands.SuggestCommand;
 import seedu.address.model.Model;
 
+/**
+ * Contains system tests for {@code SuggestCommand}
+ */
 public class SuggestCommandSystemTest extends AddressBookSystemTest {
 
     @Test

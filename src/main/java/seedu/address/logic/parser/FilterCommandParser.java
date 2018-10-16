@@ -26,6 +26,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
      * and returns an FilterCommand object for execution.
      * @throws ParseException if user input does not conform the expected format
      */
+    @Override
     public FilterCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {

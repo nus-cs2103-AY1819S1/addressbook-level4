@@ -51,8 +51,8 @@ public class Maintenance implements NumericAttribute {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Maintenance // instanceof handles nulls
-                && value == ((Maintenance) other).value); // state check
+            || (other instanceof Maintenance // instanceof handles nulls
+            && value == ((Maintenance) other).value); // state check
     }
 
     @Override
