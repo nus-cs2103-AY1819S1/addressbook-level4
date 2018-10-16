@@ -35,6 +35,7 @@ public class DescriptionTest {
         // valid addresses
         assertTrue(Description.isValidDescription("Meeting: Monday 21 Oct"));
         assertTrue(Description.isValidDescription("-")); // one character
-        assertTrue(Description.isValidDescription("Attention: presentation rehearsal is on 22-02-2018")); // long address
+        assertTrue(Description.isValidDescription("Attention: presentation " +
+                "rehearsal is on 22-02-2018")); // long address
     }
 }
