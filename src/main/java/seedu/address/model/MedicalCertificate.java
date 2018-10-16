@@ -5,7 +5,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.ServedPatient;
 
 /**
- * Represents the medical certificate (MC) for the served patients.
+ * Represents the medical certificate for the served patients.
  */
 public class MedicalCertificate extends Document {
     private final Name name;
@@ -13,7 +13,7 @@ public class MedicalCertificate extends Document {
     private final String mcContent;
 
     /**
-     * Creates an MC object for the specified servedPatient.
+     * Creates a MedicalCertificate object for the specified servedPatient.
      * @param servedPatient the patient who has already consulted the doctor.
      */
     public MedicalCertificate(ServedPatient servedPatient) {
@@ -23,15 +23,16 @@ public class MedicalCertificate extends Document {
     }
 
     /**
-     * Generates the content of the MC object generated for the specified servedPatient.
+     * Generates the content of the MedicalCertificate object generated for the specified servedPatient.
      *
      */
     @Override
     public String generate() {
+        //dissect contents of note to extract medicines dispensed
         StringBuilder sb = new StringBuilder();
-        sb.append("Name: " + name + "\n");
-        sb.append("NRIC: " + icNumber + "\n");
-        sb.append(mcContent + "\n");
-        return sb.substring(0, sb.length() - 1);
+        sb.append(super.generateHeaders());
+        sb.append(super.tabFormat("Name: " + name + "\n"));
+        sb.append(super.tabFormat("NRIC: " + icNumber + "\n"));
+        return sb.toString();
     }
 }
