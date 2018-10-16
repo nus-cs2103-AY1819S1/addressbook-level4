@@ -141,7 +141,7 @@ Format: `switch -CONTEXT_ID`
 Examples:
 
 * `switch -e` +
-Switch to the 'event' context when in 'volunteer' context
+Switch to the 'event' context when in 'volunteer' context.
 
 [.clearfix]
 --
@@ -269,12 +269,13 @@ This section contains commands related to managing a volunteering record.
 ==== View event's volunteer records: `manage`
 
 Switches to the 'manage' context and display volunteers at the side bar. +
+
 Format: `manage EVENT_INDEX`
 
 Examples:
 
 * `manage 1` +
-View the list of volunteers assigned to event at index 1
+View the list of volunteers assigned to event at index 1.
 
 .Viewing of events
 image::command_switch_after.png[view events, 800]
@@ -307,13 +308,12 @@ The circled numbers from the figure above indicate the VOLUNTEER_INDEX.
 
 Examples:
 
-
 * `add 1` +
-Adds a volunteer at index 1 to the event with 0 hours +
+Adds a volunteer at index 1 to the event with 0 hours. +
 * `add 1 r/Vegetarian` +
-Adds a volunteer at index 1 to the event with 0 hours with remarks of 'Vegetarian'
+Adds a volunteer at index 1 to the event with 0 hours with remarks of 'Vegetarian'.
 * `add 3 h/5` +
-Adds a volunteer at index 3 to the event with 5 hours
+Adds a volunteer at index 3 to the event with 5 hours.
 
 ==== Update volunteer hours: `edit [coming in v1.3]`
 
@@ -335,9 +335,9 @@ The highlighted column from the figure above indicate the VOLUNTEER_INDEX for ea
 Examples:
 
 * `edit -a h/5` +
-Updates amount of hours volunteered for all existing volunteers in the event to 5 hours
+Updates amount of hours volunteered for all existing volunteers in the event to 5 hours.
 * `edit 3 h/5 r/Emcee` +
-Updates amount of hours volunteered for volunteer at index 3 to 5 hours with remarks of 'Emcee'
+Updates amount of hours volunteered for volunteer at index 3 to 5 hours with remarks of 'Emcee'.
 
 ==== Delete volunteer record from event: `delete [coming in v1.3]`
 
