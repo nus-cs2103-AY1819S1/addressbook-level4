@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+    <!-- Valid Person -->
+    <persons>
+        <name>Hans Muster</name>
+        <phone isPrivate="false">9482424</phone>
+        <email isPrivate="false">hans@example.com</email>
+        <address isPrivate="false">4th street</address>
+    </persons>
+    <!-- Person with invalid phone field -->
+    <persons>
+        <name>Hans Muster</name>
+        <phone isPrivate="false">948asdf2424</phone>
+        <email isPrivate="false">hans@example.com</email>
+        <address isPrivate="false">4th street</address>
+    </persons>
+	<!-- Valid Event -->
+	<events>
+        <eventName>Class</eventName>
+		<eventDescription>lecture</eventDescription>
+		<eventDate>2018-01-01</eventDate>
+		<eventStartTime>1200</eventStartTime>
+		<eventEndTime>1200</eventEndTime>
+		<eventAddress>abc road</eventAddress>
+    </events>
+	<!-- Event with invalid start and end time field -->
+	<events>
+        <eventName>Class</eventName>
+		<eventDescription>lecture</eventDescription>
+		<eventDate>2018-01-01</eventDate>
+		<eventStartTime>1200</eventStartTime>
+		<eventEndTime>1310</eventEndTime>
+		<eventAddress>abc road</eventAddress>
+    </events>
+</addressbook>

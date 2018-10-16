@@ -22,7 +22,7 @@ public class EventTimeTest {
 
     @Test
     public void isValidTime() {
-        // null name
+        // null event time
         Assert.assertThrows(NullPointerException.class, () -> EventTime.isValidTime(null));
 
         // invalid name
@@ -37,5 +37,28 @@ public class EventTimeTest {
         assertTrue(EventTime.isValidTime("1230")); // normal time
         assertTrue(EventTime.isValidTime("0000")); // start point
         assertTrue(EventTime.isValidTime("2359")); // end point
+    }
+
+    @Test
+    public void compareTo() {
+        EventTime eventTime = new EventTime("1200");
+
+        // null EventTime
+        Assert.assertThrows(NullPointerException.class, () -> eventTime.compareTo(null));
+
+        // same object
+        assertTrue(eventTime.compareTo(eventTime) == 0);
+
+        // same time
+        EventTime sameTime = new EventTime("1200");
+        assertTrue(eventTime.compareTo(sameTime) == 0);
+
+        // eventTime is earlier time
+        EventTime laterTime = new EventTime("1230");
+        assertTrue(eventTime.compareTo(laterTime) < 0);
+
+        // eventTime is later time
+        EventTime earlierTime = new EventTime("1130");
+        assertTrue(eventTime.compareTo(earlierTime) > 0);
     }
 }
