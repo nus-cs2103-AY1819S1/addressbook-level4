@@ -2,6 +2,7 @@ package seedu.souschef.model.recipe;
 
 import static seedu.souschef.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -18,39 +19,42 @@ public class Recipe extends UniqueType {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
-    private final Email email;
+    private final CookTime cookTime;
+    private final Difficulty difficulty;
 
     // Data fields
-    private final Address address;
+    private final ArrayList<Instruction> instructions = new ArrayList<>();
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Recipe(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Recipe(Name name, Difficulty difficulty, CookTime cooktime, Set<Tag> tags) {
+        requireAllNonNull(name, difficulty, cooktime, tags);
         this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
+        this.cookTime = cooktime;
+        this.difficulty = difficulty;
         this.tags.addAll(tags);
+
+        //this.instructions.addAll(instructions);
+
+        this.instructions.add(new Instruction("Instruction placeholder 123.", new HashSet<>()));
     }
 
     public Name getName() {
         return name;
     }
 
-    public Phone getPhone() {
-        return phone;
+    public CookTime getCookTime() {
+        return cookTime;
     }
 
-    public Email getEmail() {
-        return email;
+    public Difficulty getDifficulty() {
+        return difficulty;
     }
 
-    public Address getAddress() {
-        return address;
+    public ArrayList<Instruction> getInstructions() {
+        return instructions;
     }
 
     /**
@@ -72,7 +76,8 @@ public class Recipe extends UniqueType {
 
         return otherRecipe != null
                 && otherRecipe.getName().equals(getName())
-                && (otherRecipe.getPhone().equals(getPhone()) || otherRecipe.getEmail().equals(getEmail()));
+                && otherRecipe.getCookTime().equals(getCookTime())
+                && otherRecipe.getDifficulty().equals(getDifficulty());
     }
 
     /**
@@ -105,30 +110,30 @@ public class Recipe extends UniqueType {
 
         Recipe otherRecipe = (Recipe) other;
         return otherRecipe.getName().equals(getName())
-                && otherRecipe.getPhone().equals(getPhone())
-                && otherRecipe.getEmail().equals(getEmail())
-                && otherRecipe.getAddress().equals(getAddress())
-                && otherRecipe.getTags().equals(getTags());
+                && otherRecipe.getCookTime().equals(getCookTime())
+                && otherRecipe.getDifficulty().equals(getDifficulty())
+                && otherRecipe.getTags().equals(getTags())
+                && otherRecipe.getInstructions().equals(getInstructions());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, cookTime, difficulty, tags, instructions);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" CookTime: ")
+                .append(getCookTime())
+                .append(" Difficulty: ")
+                .append(getDifficulty())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
+        builder.append(" Instructions: ");
+        getInstructions().forEach(builder::append);
         return builder.toString();
     }
 

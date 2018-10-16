@@ -18,11 +18,12 @@ import guitests.guihandles.RecipeCardHandle;
 import guitests.guihandles.RecipeListPanelHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import seedu.souschef.commons.events.ui.JumpToListRequestEvent;
 import seedu.souschef.commons.util.FileUtil;
 import seedu.souschef.commons.util.XmlUtil;
 import seedu.souschef.model.recipe.Recipe;
-import seedu.souschef.storage.XmlSerializableAddressBook;
+import seedu.souschef.storage.recipe.XmlSerializableRecipe;
 
 public class RecipeListPanelTest extends GuiUnitTest {
     private static final ObservableList<Recipe> TYPICAL_RECIPES =
@@ -81,8 +82,8 @@ public class RecipeListPanelTest extends GuiUnitTest {
      */
     private ObservableList<Recipe> createBackingList(int recipeCount) throws Exception {
         Path xmlFile = createXmlFileWithRecipes(recipeCount);
-        XmlSerializableAddressBook xmlAddressBook =
-                XmlUtil.getDataFromFile(xmlFile, XmlSerializableAddressBook.class);
+        XmlSerializableRecipe xmlAddressBook =
+                XmlUtil.getDataFromFile(xmlFile, XmlSerializableRecipe.class);
         return FXCollections.observableArrayList(xmlAddressBook.toModelType().getObservableRecipeList());
     }
 
