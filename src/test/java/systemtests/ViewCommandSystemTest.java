@@ -2,7 +2,7 @@ package systemtests;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RIDE_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.ViewCommand.MESSAGE_SELECT_PERSON_SUCCESS;
 import static seedu.address.testutil.TestUtil.getLastIndex;
@@ -59,7 +59,11 @@ public class ViewCommandSystemTest extends AddressBookSystemTest {
          */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getAddressBook().getRideList().size();
+<<<<<<< HEAD:src/test/java/systemtests/ViewCommandSystemTest.java
         assertCommandFailure(ViewCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+=======
+        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_RIDE_DISPLAYED_INDEX);
+>>>>>>> 12db7ead8b33d4491556cc0158e55fbc95bb99b3:src/test/java/systemtests/SelectCommandSystemTest.java
 
         /* Case: filtered ride list, select index within bounds of address book and ride list -> selected */
         Index validIndex = Index.fromOneBased(1);
@@ -79,7 +83,11 @@ public class ViewCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: invalid index (size + 1) -> rejected */
         invalidIndex = getModel().getFilteredRideList().size() + 1;
+<<<<<<< HEAD:src/test/java/systemtests/ViewCommandSystemTest.java
         assertCommandFailure(ViewCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+=======
+        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_RIDE_DISPLAYED_INDEX);
+>>>>>>> 12db7ead8b33d4491556cc0158e55fbc95bb99b3:src/test/java/systemtests/SelectCommandSystemTest.java
 
         /* Case: invalid arguments (alphabets) -> rejected */
         assertCommandFailure(ViewCommand.COMMAND_WORD + " abc",
@@ -94,8 +102,13 @@ public class ViewCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: select from empty address book -> rejected */
         deleteAllPersons();
+<<<<<<< HEAD:src/test/java/systemtests/ViewCommandSystemTest.java
         assertCommandFailure(ViewCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
                 MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+=======
+        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
+                MESSAGE_INVALID_RIDE_DISPLAYED_INDEX);
+>>>>>>> 12db7ead8b33d4491556cc0158e55fbc95bb99b3:src/test/java/systemtests/SelectCommandSystemTest.java
     }
 
     /**
@@ -104,7 +117,7 @@ public class ViewCommandSystemTest extends AddressBookSystemTest {
      * 2. Command box has the default style class.<br>
      * 3. Result display box displays the success message of executing select command with the
      * {@code expectedSelectedCardIndex} of the selected ride.<br>
-     * 4. {@code Storage} and {@code PersonListPanel} remain unchanged.<br>
+     * 4. {@code Storage} and {@code RideListPanel} remain unchanged.<br>
      * 5. Selected card is at {@code expectedSelectedCardIndex} and the browser url is updated accordingly.<br>
      * 6. Status bar remains unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
@@ -136,7 +149,7 @@ public class ViewCommandSystemTest extends AddressBookSystemTest {
      * 1. Command box displays {@code command}.<br>
      * 2. Command box has the error style class.<br>
      * 3. Result display box displays {@code expectedResultMessage}.<br>
-     * 4. {@code Storage} and {@code PersonListPanel} remain unchanged.<br>
+     * 4. {@code Storage} and {@code RideListPanel} remain unchanged.<br>
      * 5. Browser url, selected card and status bar remain unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
