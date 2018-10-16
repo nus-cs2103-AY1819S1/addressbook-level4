@@ -263,7 +263,8 @@ within the Meal Planner.
 
 * *Meal*: encapsulates a *Optional<Recipe>* _recipe_ and an int _slot_ indicating which
 meal slot each *Meal* object is (0 for breakfast, 1 for lunch, 2 for dinner).
-An empty *Meal* is defined having no recipe, i.e. empty *Optional*.
+
+** An empty *Meal* is defined having no recipe, i.e. empty *Optional*.
 ****
 
 Class diagram:
