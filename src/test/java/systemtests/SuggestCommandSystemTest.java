@@ -25,7 +25,6 @@ public class SuggestCommandSystemTest extends AddressBookSystemTest {
         assertSuggestCommandSuccessBehavior("h", "help", "history");
         assertSuggestCommandSuccessBehavior("q", "quickView");
         assertSuggestCommandSuccessBehavior("r", "redo");
-        assertSuggestCommandSuccessBehavior("u", "undo");
         assertSuggestCommandSuccessBehavior("u", "update", "undo");
         assertSuggestCommandSuccessBehavior("v", "viewAll", "view");
 
