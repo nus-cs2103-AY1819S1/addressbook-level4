@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
+import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.Calendar;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
@@ -165,6 +166,11 @@ public class StorageManager extends ComponentManager implements Storage {
     @Override
     public void createCalendar(Calendar calendar, String calendarName) throws IOException {
         calendarStorage.createCalendar(calendar, calendarName);
+    }
+
+    @Override
+    public Calendar loadCalendar(String calendarName) throws IOException, ParserException {
+        return calendarStorage.loadCalendar(calendarName);
     }
 
 }

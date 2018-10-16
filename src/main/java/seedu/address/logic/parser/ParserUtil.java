@@ -27,6 +27,14 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_DATE_CONSTRAINTS =
+            "Date must be a non-negative integer and not greater than 31.";
+    public static final String MESSAGE_HOUR_CONSTRAINTS =
+            "Hour must be a non-negative integer and not greater than 23.";
+    public static final String MESSAGE_MINUTE_CONSTRAINTS =
+            "Minute must be a non-negative integer and not greater than 59";
+    public static final String MESSAGE_TITLE_CONSTRAINTS =
+            "Title must not be empty";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -221,6 +229,69 @@ public class ParserUtil {
             throw new ParseException(Year.MESSAGE_YEAR_CONSTRAINTS);
         }
         return new Year(trimmedYear);
+    }
+
+    /**
+     * Parses a {@code String date} into a {@code int}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static int parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        int dateInt = Integer.parseInt(trimmedDate);
+        if (dateInt < 0 || dateInt > 31) {
+            throw new ParseException(MESSAGE_DATE_CONSTRAINTS);
+        }
+        return dateInt;
+    }
+
+    /**
+     * Parses a {@code String hour} into a {@code int}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code hour} is invalid.
+     */
+    public static int parseHour(String hour) throws ParseException {
+        requireNonNull(hour);
+        String trimmedHour = hour.trim();
+        int hourInt = Integer.parseInt(trimmedHour);
+        if (hourInt < 0 || hourInt > 23) {
+            throw new ParseException(MESSAGE_HOUR_CONSTRAINTS);
+        }
+        return hourInt;
+    }
+
+    /**
+     * Parses a {@code String minute} into a {@code int}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code minute} is invalid.
+     */
+    public static int parseMinute(String minute) throws ParseException {
+        requireNonNull(minute);
+        String trimmedMinute = minute.trim();
+        int minuteInt = Integer.parseInt(trimmedMinute);
+        if (minuteInt < 0 || minuteInt > 59) {
+            throw new ParseException(MESSAGE_MINUTE_CONSTRAINTS);
+        }
+        return minuteInt;
+    }
+
+    /**
+     * Parses a {@code String title} making sure it's not empty.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code title} is invalid.
+     */
+    public static String parseTitle(String title) throws ParseException {
+        requireNonNull(title);
+        String trimmedTitle = title.trim();
+        if (trimmedTitle.isEmpty()) {
+            throw new ParseException(MESSAGE_TITLE_CONSTRAINTS);
+        }
+        return trimmedTitle;
     }
 
 }
