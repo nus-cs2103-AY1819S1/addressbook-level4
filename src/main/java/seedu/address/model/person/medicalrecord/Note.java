@@ -1,5 +1,6 @@
 package seedu.address.model.person.medicalrecord;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -17,6 +18,11 @@ public class Note {
     public Note(Message message, Map<SerialNumber, Quantity> dispensedMedicines) {
         this.message = message;
         this.dispensedMedicines = dispensedMedicines;
+    }
+
+    public Note(String message) {
+        this.message = new Message(message);
+        this.dispensedMedicines = new HashMap<>();
     }
 
     public Message getMessage() {
