@@ -248,25 +248,25 @@ Format: +
 === Meal Planner Commands
 ****
 * DATE should be entered in the format *yyyy-mm-dd*
-* TIME can be specified with the following keywords: *breakfast*, *lunch*, *dinner*
+* MEAL can be specified with the following keywords: *breakfast*, *lunch*, *dinner*
 ****
-==== Display MealPlanner: `planner`
+==== Display MealPlanner: `display`
 
 Lists the dates which currently have allotted recipes at any meal slot, and shows the saved recipes at their respective meal slots.
 
-Format: `planner`
+Format: `display`
 
 ==== Delete recipe: `delete`
 
 After displaying the meal planner, deletes the recipe at the specified meal slot.
 
-Format: `delete DATE TIME`
+Format: `delete INDEX MEAL`
 
-==== Clear planner: `plannerclear`
+==== Clear planner: `clear`
 
 Clears all the meal slots of the meal planner.
 
-Format: `plannerclear`
+Format: `clear`
 
 // end::mealplanner[]
 === Cook-Mode Commands
