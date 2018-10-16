@@ -120,19 +120,19 @@ public class CommandTestUtil {
 
     public static final String EMPTY_APPOINTMENT_DESC = "";
 
-    public static final String INVALID_PRESCRIPTION_DESC_MISSING_TYPE = " " + PREFIX_PROCEDURE + VALID_PROCEDURE
+    public static final String INVALID_APPOINTMENT_DESC_MISSING_TYPE = " " + PREFIX_PROCEDURE + VALID_PROCEDURE
             + " " + PREFIX_DATE_TIME + VALID_DATE_TIME
             + " " + PREFIX_DOCTOR + VALID_DOCTOR;
 
-    public static final String INVALID_PRESCRIPTION_DESC_MISSING_PROCEDURE = " " + PREFIX_TYPE + VALID_TYPE
+    public static final String INVALID_APPOINTMENT_DESC_MISSING_PROCEDURE = " " + PREFIX_TYPE + VALID_TYPE
             + " " + PREFIX_DATE_TIME + VALID_DATE_TIME
             + " " + PREFIX_DOCTOR + VALID_DOCTOR;
 
-    public static final String INVALID_PRESCRIPTION_DESC_MISSING_DATE_TIME = " " + PREFIX_TYPE + VALID_TYPE
+    public static final String INVALID_APPOINTMENT_DESC_MISSING_DATE_TIME = " " + PREFIX_TYPE + VALID_TYPE
             + " " + PREFIX_PROCEDURE + VALID_PROCEDURE
             + " " + PREFIX_DOCTOR + VALID_DOCTOR;
 
-    public static final String INVALID_PRESCRIPTION_DESC_MISSING_DOCTOR = " " + PREFIX_TYPE + VALID_TYPE
+    public static final String INVALID_APPOINTMENT_DESC_MISSING_DOCTOR = " " + PREFIX_TYPE + VALID_TYPE
             + " " + PREFIX_PROCEDURE + VALID_PROCEDURE
             + " " + PREFIX_DATE_TIME + VALID_DATE_TIME;
 
