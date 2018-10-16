@@ -3,8 +3,8 @@ package seedu.address.storage;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -82,8 +82,8 @@ public class XmlAdaptedOccasion {
         }
 
         final Set<Tag> modelTags = new HashSet<>(occasionTags);
-//        return new Occasion(new OccasionName(occasionName), new OccasionDate(occasionDateTime),
-// organiser, modelTags, TypeUtil.OCCASION);
+        //return new Occasion(new OccasionName(occasionName), new OccasionDate(occasionDateTime),
+        //organiser, modelTags, TypeUtil.OCCASION);
     }
 
     @Override
