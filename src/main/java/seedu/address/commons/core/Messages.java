@@ -17,6 +17,7 @@ public class Messages {
             + " the person list!\n"
             + "Please use the standard edit command:\n" + EditCommand.MESSAGE_USAGE;
     public static final String MESSAGE_TAGGED_PERSONS_LISTED_OVERVIEW = "%1$d tagged persons listed!";
+    public static final String MESSAGE_TAG_DELETED_OVERVIEW = "%1$d persons untagged!";
     public static final String MESSAGE_CLASHING_MEETINGS = "There is already a meeting scheduled at the given time";
 
 }

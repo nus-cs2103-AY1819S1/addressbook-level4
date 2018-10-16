@@ -85,4 +85,82 @@
         <meeting>0000000000</meeting>
         <picture>/images/placeholder_image.jpg</picture>
     </persons>
+    <persons>
+        <name>Kenneth Koh</name>
+        <phone>92345085</phone>
+        <email>kenneth@example.com</email>
+        <address>1st Avenue</address>
+        <tagged>Korean</tagged>
+        <tagged>Important</tagged>
+        <meeting>0000000000</meeting>
+        <picture>/images/placeholder_image.jpg</picture>
+    </persons>
+    <persons>
+        <name>Leonard Low</name>
+        <phone>84325731</phone>
+        <email>leonard@example.com</email>
+        <address>2nd Avenue</address>
+        <tagged>Japanese</tagged>
+        <tagged>Important</tagged>
+        <meeting>0000000000</meeting>
+        <picture>/images/placeholder_image.jpg</picture>
+    </persons>
+    <persons>
+        <name>Michael Moore</name>
+        <phone>94325165</phone>
+        <email>michael@example.com</email>
+        <address>3rd Avenue</address>
+        <tagged>Chinese</tagged>
+        <tagged>Colleague</tagged>
+        <meeting>0000000000</meeting>
+        <picture>/images/placeholder_image.jpg</picture>
+    </persons>
+    <persons>
+        <name>Noel Tan</name>
+        <phone>85743754</phone>
+        <email>noel@example.com</email>
+        <address>4th Avenue</address>
+        <tagged>Rich</tagged>
+        <tagged>Client</tagged>
+        <meeting>0000000000</meeting>
+        <picture>/images/placeholder_image.jpg</picture>
+    </persons>
+    <persons>
+        <name>Openheimer Ang</name>
+        <phone>83242542</phone>
+        <email>openheimer@example.com</email>
+        <address>5th Avenue</address>
+        <tagged>Singaporean</tagged>
+        <tagged>OCBC</tagged>
+        <meeting>0000000000</meeting>
+        <picture>/images/placeholder_image.jpg</picture>
+    </persons>
+    <persons>
+        <name>Percy Jackson</name>
+        <phone>83242542</phone>
+        <email>percy@example.com</email>
+        <address>6th Avenue</address>
+        <tagged>Singaporean</tagged>
+        <meeting>0000000000</meeting>
+        <picture>/images/placeholder_image.jpg</picture>
+    </persons>
+    <persons>
+        <name>Quine Ang</name>
+        <phone>94346903</phone>
+        <email>quine@example.com</email>
+        <address>7th Avenue</address>
+        <tagged>OCBC</tagged>
+        <meeting>0000000000</meeting>
+        <picture>/images/placeholder_image.jpg</picture>
+    </persons>
+    <persons>
+        <name>Richard Lim</name>
+        <phone>87779042</phone>
+        <email>richard@example.com</email>
+        <address>8th Avenue</address>
+        <tagged>Singaporean</tagged>
+        <tagged>POSB</tagged>
+        <meeting>0000000000</meeting>
+        <picture>/images/placeholder_image.jpg</picture>
+    </persons>
 </addressbook>
