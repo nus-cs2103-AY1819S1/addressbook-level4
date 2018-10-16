@@ -16,8 +16,8 @@ import seedu.souschef.storage.XmlSerializableGeneric;
 /**
  * An Immutable AppContent that is serializable to XML format
  */
-@XmlRootElement(name = "addressbook")
-public class XmlSerializableAddressBook implements XmlSerializableGeneric {
+@XmlRootElement(name = "souschef")
+public class XmlSerializableRecipe implements XmlSerializableGeneric {
 
     public static final String MESSAGE_DUPLICATE_RECIPE = "Recipes list contains duplicate recipe(s).";
 
@@ -30,19 +30,19 @@ public class XmlSerializableAddressBook implements XmlSerializableGeneric {
      * Creates an empty XmlSerializableAddressBook.
      * This empty constructor is required for marshalling.
      */
-    public XmlSerializableAddressBook() {
+    public XmlSerializableRecipe() {
         recipes = new ArrayList<>();
         appContent = new AppContent();
     }
 
-    public XmlSerializableAddressBook(XmlSerializableAddressBook ab) {
+    public XmlSerializableRecipe(XmlSerializableRecipe ab) {
         recipes = ab.recipes;
         this.appContent = ab.appContent;
         recipes.addAll(ab.appContent.getObservableRecipeList().stream().map(XmlAdaptedRecipe::new)
                 .collect(Collectors.toList()));
     }
 
-    public XmlSerializableAddressBook(AppContent appContent) {
+    public XmlSerializableRecipe(AppContent appContent) {
         this();
         if (appContent != null) {
             this.appContent = appContent;
@@ -57,8 +57,13 @@ public class XmlSerializableAddressBook implements XmlSerializableGeneric {
     /**
      * Conversion
      */
-    public XmlSerializableAddressBook(ReadOnlyAppContent src) {
+    public XmlSerializableRecipe(ReadOnlyAppContent src) {
         this();
+        if (appContent != null) {
+            this.appContent = (AppContent) src;
+        } else {
+            appContent = new AppContent();
+        }
 
         recipes.addAll(src.getObservableRecipeList().stream().map(XmlAdaptedRecipe::new).collect(Collectors.toList()));
     }
@@ -94,9 +99,9 @@ public class XmlSerializableAddressBook implements XmlSerializableGeneric {
             return true;
         }
 
-        if (!(other instanceof XmlSerializableAddressBook)) {
+        if (!(other instanceof XmlSerializableRecipe)) {
             return false;
         }
-        return recipes.equals(((XmlSerializableAddressBook) other).recipes);
+        return recipes.equals(((XmlSerializableRecipe) other).recipes);
     }
 }

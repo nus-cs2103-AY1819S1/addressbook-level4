@@ -42,6 +42,9 @@ public class UniversalParser {
         case "healthplan":
             return new ContextCommand("Health Plan");
 
+        case "mealplanner":
+            return new ContextCommand("Meal Planner");
+
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 

@@ -1,6 +1,8 @@
 package seedu.souschef.logic.parser.commandparser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.souschef.commons.core.Messages.MESSAGE_FIND_HEALTHPLAN_USAGE;
+import static seedu.souschef.commons.core.Messages.MESSAGE_FIND_RECIPE_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Arrays;
@@ -8,8 +10,8 @@ import java.util.Arrays;
 import seedu.souschef.logic.commands.FindCommand;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
-import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.healthplan.HealthPlan;
+import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.recipe.NameContainsKeywordsPredicate;
 import seedu.souschef.model.recipe.Recipe;
 
@@ -28,7 +30,7 @@ public class FindCommandParser implements CommandParser<FindCommand> {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_FIND_RECIPE_USAGE));
         }
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
@@ -51,7 +53,7 @@ public class FindCommandParser implements CommandParser<FindCommand> {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_FIND_HEALTHPLAN_USAGE));
         }
 
         String[] nameKeywords = trimmedArgs.split("\\s+");

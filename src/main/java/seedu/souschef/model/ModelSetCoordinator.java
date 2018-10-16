@@ -7,9 +7,9 @@ import java.util.logging.Logger;
 import seedu.souschef.commons.core.LogsCenter;
 import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.ingredient.Ingredient;
+import seedu.souschef.model.planner.Day;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.tag.Tag;
-
 /**
  * Represents the in-memory recipeModel of the application content data.
  */
@@ -17,11 +17,11 @@ public class ModelSetCoordinator implements ModelSet {
     private static final Logger logger = LogsCenter.getLogger(ModelSetCoordinator.class);
 
     private final Model<Recipe> recipeModel;
+    private final Model<HealthPlan> healthPlanModel;
+    private final Model<Day> mealPlannerModel;
     private final Model<Tag> tagModel;
     private final Model<Ingredient> ingredientModel;
-    private final Model<HealthPlan> healthPlanModel;
     private final VersionedAppContent versionedAppContent;
-
     /**
      * Initializes all ModelManagers with the given appContent and userPrefs.
      */
@@ -33,6 +33,7 @@ public class ModelSetCoordinator implements ModelSet {
         tagModel = new ModelManager<>(versionedAppContent, versionedAppContent.getTags());
         ingredientModel = new ModelManager<>(versionedAppContent, versionedAppContent.getIngredients());
         healthPlanModel = new ModelManager<>(versionedAppContent, versionedAppContent.getHealthPlans());
+        mealPlannerModel = new ModelManager<>(versionedAppContent, versionedAppContent.getMealPlanner());
         // More to be added
     }
 
@@ -59,11 +60,17 @@ public class ModelSetCoordinator implements ModelSet {
         ModelSetCoordinator other = (ModelSetCoordinator) obj;
         return versionedAppContent.equals(other.versionedAppContent)
                 && recipeModel.equals(other.recipeModel)
+                && healthPlanModel.equals(other.healthPlanModel)
+                && mealPlannerModel.equals(other.mealPlannerModel)
                 && ingredientModel.equals(other.ingredientModel);
     }
 
     public Model<Recipe> getRecipeModel() {
         return recipeModel;
+    }
+
+    public Model<Day> getMealPlannerModel() {
+        return mealPlannerModel;
     }
 
     public Model<Tag> getTagModel() {
@@ -77,5 +84,6 @@ public class ModelSetCoordinator implements ModelSet {
     public Model<HealthPlan> getHealthPlanModel() {
         return healthPlanModel;
     }
+
     // More to be added
 }

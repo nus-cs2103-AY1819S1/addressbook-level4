@@ -5,10 +5,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.souschef.logic.EditRecipeDescriptor;
-import seedu.souschef.model.recipe.Address;
-import seedu.souschef.model.recipe.Email;
+import seedu.souschef.model.recipe.CookTime;
+import seedu.souschef.model.recipe.Difficulty;
 import seedu.souschef.model.recipe.Name;
-import seedu.souschef.model.recipe.Phone;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.tag.Tag;
 
@@ -33,9 +32,8 @@ public class EditRecipeDescriptorBuilder {
     public EditRecipeDescriptorBuilder(Recipe recipe) {
         descriptor = new EditRecipeDescriptor();
         descriptor.setName(recipe.getName());
-        descriptor.setPhone(recipe.getPhone());
-        descriptor.setEmail(recipe.getEmail());
-        descriptor.setAddress(recipe.getAddress());
+        descriptor.setDifficulty(recipe.getDifficulty());
+        descriptor.setCooktime(recipe.getCookTime());
         descriptor.setTags(recipe.getTags());
     }
 
@@ -50,24 +48,16 @@ public class EditRecipeDescriptorBuilder {
     /**
      * Sets the {@code Phone} of the {@code EditRecipeDescriptor} that we are building.
      */
-    public EditRecipeDescriptorBuilder withPhone(String phone) {
-        descriptor.setPhone(new Phone(phone));
+    public EditRecipeDescriptorBuilder withDifficulty(String difficulty) {
+        descriptor.setDifficulty(new Difficulty(difficulty));
         return this;
     }
 
     /**
      * Sets the {@code Email} of the {@code EditRecipeDescriptor} that we are building.
      */
-    public EditRecipeDescriptorBuilder withEmail(String email) {
-        descriptor.setEmail(new Email(email));
-        return this;
-    }
-
-    /**
-     * Sets the {@code Address} of the {@code EditRecipeDescriptor} that we are building.
-     */
-    public EditRecipeDescriptorBuilder withAddress(String address) {
-        descriptor.setAddress(new Address(address));
+    public EditRecipeDescriptorBuilder withCooktime(String cooktime) {
+        descriptor.setCooktime(new CookTime(cooktime));
         return this;
     }
 
