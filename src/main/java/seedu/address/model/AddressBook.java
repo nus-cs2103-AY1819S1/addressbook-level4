@@ -20,6 +20,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
 
+    // @@author Derek-Hardy
     private final UniqueGroupList groups;
 
     /*
@@ -33,6 +34,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons = new UniquePersonList();
         groups = new UniqueGroupList();
     }
+    // @@author
 
     public AddressBook() {}
 
@@ -54,6 +56,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.persons.setPersons(persons);
     }
 
+    // @@author Derek-Hardy
     /**
      * Replaces the contents of the group list with {@code groups}.
      * {@code groups} must not contain duplicate groups.
@@ -61,6 +64,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setGroups(List<Group> groups) {
         this.groups.setGroups(groups);
     }
+    // @@author
 
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
@@ -82,6 +86,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.contains(person);
     }
 
+    // @@author Derek-Hardy
     /**
      * Returns true if a group with the same identity as {@code group} exists in the address book.
      */
@@ -89,6 +94,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(group);
         return groups.contains(group);
     }
+    // @@author
 
     /**
      * Adds a person to the address book.
@@ -98,6 +104,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.add(p);
     }
 
+    // @@author Derek-Hardy
     /**
      * Adds a group to the address book.
      * The group must not already exist in the address book.
@@ -115,7 +122,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void updatePerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
-        //throw new UnsupportedOperationException();
+        // clear membership of target & set up membership for editedPerson
+        // TODO
         persons.setPerson(target, editedPerson);
     }
 
@@ -128,7 +136,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void updateGroup(Group target, Group editedGroup) {
         requireNonNull(editedGroup);
-        //throw new UnsupportedOperationException();
+        // clear members of target & set up members for editedGroup
+        // TODO
         groups.setGroup(target, editedGroup);
     }
 
@@ -152,6 +161,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         group.clearMembers();
         groups.remove(group);
     }
+    // @@author
 
     //// util methods
 
@@ -166,10 +176,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.asUnmodifiableObservableList();
     }
 
+    // @@author Derek-Hardy
     @Override
     public ObservableList<Group> getGroupList() {
         return groups.asUnmodifiableObservableList();
     }
+    // @@author
 
     @Override
     public boolean equals(Object other) {

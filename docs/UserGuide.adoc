@@ -132,26 +132,32 @@ Examples:
 
 `[Module Name] must be an alphanumeric string without spaces.`
 
-=== Find a task: `find / findwhere`
+=== Find a task: `find`
 
-Finds tasks and display it on the screen. +
-Format: `in [Module List] findwhere [TaskParameters] , or in [Module List] find [Name]` +
-Shorthand format: `#[Module List] fw [TaskParameters], or #[Module List] f [Name]`
+The `find` command searches the AddressBook for specified persons, groups, or meetings, and displays the results on
+the panel. +
 
-* The first version finds tasks with parameters that match [TaskParameters], while the second version finds tasks with name that match [Name].
-* Possible [TaskParameters] are: +
-.  Deadline: “Deadline [on/after/before] DDMMYY” or “dl[=/>/<]DDMMYY”
-.  Tag: “tag=[Tag]” or “t=[Tag]”
-.  Location: “location=[LocationName]” or “@=[LocationName]”
-* [Module List] can be replaced with “any” or “*” to select all modules
+Syntax: +
+ Longhand: `find [person|group|meeting]  *[all]/<keywords> *[some]/<keywords> *[none]/<keywords>` +
+ Shorthand: `find [p|g|m] *[a]/<keyword...> *[s]/<keywords> *[n]/<keywords>` +
 
-Examples:
 
-* `in MA2101 findwhere tag=high location=S17 deadline before 300918`
-* `in CS2103T, CS2101 find LO5.7`
-* `in any findwhere tag=urgent`
-* `#CS2030,CS2040 fw @=COM1`
-* `#* find lab3`
+* `[person|group|meeting]`, `[p|g|m]`: This parameter specifies whether to search for persons, groups, or meetings.
+    This parameter is required to execute this command.
+    ** `person`, `p`: Specifies to search for persons.
+    ** `group`, `g`: Specifies to search for groups.
+    ** `meeting`, `m`: Specifies to search for meetings.
+* `<keywords>`: This tag contains any number of keywords separated by a kbd:[space].
+* `[all]`, `[a]`: This parameter specifies that the results must contain every keyword specified in `<keywords>`.
+    This parameter may be omitted.
+* `[some]`, `[s]`: This parameter specifies that the results must contain at least one keyword specified in `<keywords>`.
+    This parameter may be omitted.
+* `[none]`, `[n]`: This parameter specifies that the results must not contain any keyword specified in `<keywords>`.
+    This parameter may be omitted.
+
+
+
+
 
 The “then” keyword:
 
@@ -199,28 +205,41 @@ To reverse this, find and select the task then use the changeto command
 
 === Import Persons : `import`
 
-User is able to import FlashBook or any AddressBook-level4. +
+Import FlashBook or any AddressBook-level4. +
 
 ****
 FlashBook is backward compatible to AddressBook-level4. +
 
 This means that users of AddressBook-level4 are able to upgrade to use FlashBook by just importing their AddressBook-level4 storage file. +
 ****
-Format: `import <relative filepath>`
+Format: `import f/<relative filepath>`
 
 Example:
-`import /f flashBookBackUp.xml` : import `flashBookBackUp.xml` into FlashBook.
-`import /f addressBookBackUp.xml` : import `addressBookBackUp.xml` into FlashBook even if the imported file is Addressbook and not FlashBook.
+`import f/flashBookBackUp.xml` : import `flashBookBackUp.xml` into FlashBook.
+`import f/addressBookBackUp.xml` : import `addressBookBackUp.xml` into FlashBook even if the imported file is Addressbook and not FlashBook.
 
 === Export Persons : `export`
 
-User is able to export FlashBook as backup elsewhere. +
+Export FlashBook as backup elsewhere. +
 Format: +
-`export \f <filepath>`
+`export f/<filepath>`
 
 Example:
+`export f/backup.xml` : Export FlashBook as `backup.xml`.
 
-`export \f backup.xml` : Export FlashBook as `backup.xml`.
+== Change Storage Location: `filepath`
+
+Change the storage location of FlashBook.
+Format: +
+`filepath f/<filepath>`
+
+Example:
+`filepath f/new_path.xml` : Storage location of FlashBook is now stored at `new_path.xml`.
+
+****
+User can also check the current path of Flashbook use `filepath show`
+****
+
 
 === Autocomplete
 
