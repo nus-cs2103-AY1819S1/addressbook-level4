@@ -19,10 +19,12 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Anakin;
 import seedu.address.model.AnakinModel;
 import seedu.address.model.AnakinReadOnlyAnakin;
+
+import javafx.collections.ObservableList;
+
 import seedu.address.model.anakindeck.AnakinCard;
 import seedu.address.model.anakindeck.AnakinDeck;
 
-import javafx.collections.ObservableList;
 
 import seedu.address.testutil.AnakinDeckBuilder;
 
