@@ -420,9 +420,10 @@ classes for each of the behaviours.
 ** Pros: Clear separation of concern.
 ** Cons: Harder to design properly.
 
-##### Aspect: Representation of `LabelMatchesKeywordPredicate`
+##### Aspect: Representation of predicate to be stored by CompleteCommand
 
-* **Alternative 1 (current choice):** As an explicit implemented class.
+* **Alternative 1 (current choice):** As an explicit implemented class
+`LabelMatchesKeywordPredicate`.
 ** Pros: Notion of equality can be overload, making testing for equality in every class composing
  the class able to check for structural equality.
 ** Cons: Creation of an extra class requires more understanding by developers to pick up the
