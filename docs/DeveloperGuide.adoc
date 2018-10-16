@@ -219,7 +219,7 @@ This would allow `Address Book` to only require one `Tag` object per unique `Tag
 *New enhancements for `v1.2`:*
 
 .The new Group class
-image::groupClassDiagram.png[width="300"]
+image::GroupClassDiagram.png[width="300"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/group/Group.java[`Group.java`]
 
@@ -247,7 +247,7 @@ Both `UniqueGroupList` and `UniquePersonList` implements `Iterable` interface.
 
 
 .The enhanced Person class
-image::personClassDiagram.png[width="300"]
+image::PersonClassDiagram.png[width="300"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person.java`]
 
