@@ -44,7 +44,7 @@ public class TodoListEvent {
      * Returns true if both todoList events of the same title have one other identity field that is the same.
      * This defines a weaker notion of equality between two calendar events.
      */
-    public boolean isSameCalendarEvent(TodoListEvent otherTodoListEvent) {
+    public boolean isSameTodoListEvent(TodoListEvent otherTodoListEvent) {
         if (otherTodoListEvent == this) {
             return true;
         }
