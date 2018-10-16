@@ -4,10 +4,11 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.util.PersonPropertyComparator;
-import seedu.address.model.tag.Tag;
+
 
 /**
  * The API of the Model component.
@@ -61,24 +62,20 @@ public interface Model {
 
     // @@author Derek-Hardy
     /**
-     * Add a group tag {@code newGroup} to the given person {@code target}.
-     * No action is required if the given person already exists in the
-     * group.
+     * Add a group object {@code group} to the address book.
+     * The group must not already exist in the address book.
      *
-     * @param target   New participant of the group
-     * @param newGroup Tag of the group that given person is added in
+     * @param group The new group to be added into address book
      */
-    void addGroup(Person target, Tag newGroup);
+    void addGroup(Group group);
 
     /**
-     * Remove a group tag {@code oldGroup} from the given person {@code target}.
-     * Report error message if the given person is not previously in the
-     * group.
+     * Remove a group {@code group} from the address book.
+     * Report error message if the given group does not exist inside the address book.
      *
-     * @param target   Existing participant of the group
-     * @param oldGroup Tag of the group that the given person is currently in
+     * @param group The group to be removed from address book
      */
-    void removeGroup(Person target, Tag oldGroup);
+    void removeGroup(Group group);
     // @@author
 
 
