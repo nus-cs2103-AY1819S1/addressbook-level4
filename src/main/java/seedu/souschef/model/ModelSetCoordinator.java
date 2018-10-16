@@ -21,6 +21,7 @@ public class ModelSetCoordinator implements ModelSet {
     private final Model<Day> mealPlannerModel;
     private final Model<Tag> tagModel;
     private final Model<Ingredient> ingredientModel;
+    private final Model<Recipe> favouriteModel;
     private final VersionedAppContent versionedAppContent;
     /**
      * Initializes all ModelManagers with the given appContent and userPrefs.
@@ -34,7 +35,7 @@ public class ModelSetCoordinator implements ModelSet {
         ingredientModel = new ModelManager<>(versionedAppContent, versionedAppContent.getIngredients());
         healthPlanModel = new ModelManager<>(versionedAppContent, versionedAppContent.getHealthPlans());
         mealPlannerModel = new ModelManager<>(versionedAppContent, versionedAppContent.getMealPlanner());
-        // More to be added
+        favouriteModel = new ModelManager<>(versionedAppContent, versionedAppContent.getFavourites());
     }
 
     public ModelSetCoordinator() {
@@ -62,7 +63,8 @@ public class ModelSetCoordinator implements ModelSet {
                 && recipeModel.equals(other.recipeModel)
                 && healthPlanModel.equals(other.healthPlanModel)
                 && mealPlannerModel.equals(other.mealPlannerModel)
-                && ingredientModel.equals(other.ingredientModel);
+                && ingredientModel.equals(other.ingredientModel)
+                && favouriteModel.equals(other.favouriteModel);
     }
 
     public Model<Recipe> getRecipeModel() {
@@ -85,5 +87,5 @@ public class ModelSetCoordinator implements ModelSet {
         return healthPlanModel;
     }
 
-    // More to be added
+    public Model<Recipe> getFavouriteModel() { return favouriteModel;}
 }

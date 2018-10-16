@@ -25,4 +25,7 @@ public interface ModelSet {
 
     /** Returns the model for recipes*/
     Model<HealthPlan> getHealthPlanModel();
+
+    /** Returns the model for favourites*/
+    Model<Recipe> getFavouriteModel();
 }

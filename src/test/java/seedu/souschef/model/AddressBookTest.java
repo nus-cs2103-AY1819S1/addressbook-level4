@@ -102,6 +102,7 @@ public class AddressBookTest {
         private final ObservableList<Ingredient> ingredients = FXCollections.observableArrayList();
         private final ObservableList<HealthPlan> plans = FXCollections.observableArrayList();
         private final ObservableList<Day> mealPlanner = FXCollections.observableArrayList();
+        private final ObservableList<Recipe> favourites = FXCollections.observableArrayList();
 
         AppContentStub(Collection<Recipe> recipes) {
             this.recipes.setAll(recipes);
@@ -126,9 +127,13 @@ public class AddressBookTest {
         public ObservableList<HealthPlan> getObservableHealthPlanList () {
             return plans;
         }
+
         @Override
         public ObservableList<Day> getObservableMealPlanner() {
             return mealPlanner;
         }
+
+        @Override
+        public ObservableList<Recipe> getObservableFavouritesList() {return favourites;}
     }
 }

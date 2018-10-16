@@ -23,6 +23,7 @@ public class AppContent implements ReadOnlyAppContent {
     private final UniqueList<Ingredient> ingredients;
     private final UniqueList<HealthPlan> healthPlans;
     private final UniqueList<Day> mealPlanner;
+    private final UniqueList<Recipe> favourites;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -37,6 +38,7 @@ public class AppContent implements ReadOnlyAppContent {
         ingredients = new UniqueList<>();
         healthPlans = new UniqueList<>();
         mealPlanner = new UniqueList<>();
+        favourites = new UniqueList<>();
     }
 
     public AppContent() {}
@@ -60,6 +62,7 @@ public class AppContent implements ReadOnlyAppContent {
         this.tags.set(newData.getObservableTagList());
         this.healthPlans.set(newData.getObservableHealthPlanList());
         this.mealPlanner.set(newData.getObservableMealPlanner());
+        this.favourites.set(newData.getObservableFavouritesList());
     }
 
     /**
@@ -79,6 +82,9 @@ public class AppContent implements ReadOnlyAppContent {
         }
         if (newData.getObservableMealPlanner().size() > 0) {
             this.mealPlanner.set(newData.getObservableMealPlanner());
+        }
+        if (newData.getObservableFavouritesList().size() > 0){
+            this.favourites.set(newData.getObservableFavouritesList());
         }
     }
 
@@ -107,6 +113,9 @@ public class AppContent implements ReadOnlyAppContent {
         return mealPlanner;
     }
 
+    // favourite-level operations
+    public UniqueList<Recipe> getFavourites() { return favourites; }
+
     //// util methods
     @Override
     public String toString() {
@@ -118,6 +127,7 @@ public class AppContent implements ReadOnlyAppContent {
     public ObservableList<Recipe> getObservableRecipeList() {
         return recipes.asUnmodifiableObservableList();
     }
+
     @Override
     public ObservableList<Tag> getObservableTagList() {
         return tags.asUnmodifiableObservableList();
@@ -128,6 +138,7 @@ public class AppContent implements ReadOnlyAppContent {
         return ingredients.asUnmodifiableObservableList();
     }
 
+    @Override
     public ObservableList<HealthPlan> getObservableHealthPlanList() {
         return healthPlans.asUnmodifiableObservableList();
     }
@@ -138,13 +149,17 @@ public class AppContent implements ReadOnlyAppContent {
     }
 
     @Override
+    public ObservableList<Recipe> getObservableFavouritesList(){ return favourites.asUnmodifiableObservableList(); }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AppContent // instanceof handles nulls
                 && recipes.equals(((AppContent) other).recipes)
                 && healthPlans.equals(((AppContent) other).healthPlans)
                 && mealPlanner.equals(((AppContent) other).mealPlanner)
-                && ingredients.equals(((AppContent) other).ingredients));
+                && ingredients.equals(((AppContent) other).ingredients)
+                && favourites.equals(((AppContent) other).ingredients));
 
     }
 

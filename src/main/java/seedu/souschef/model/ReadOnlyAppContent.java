@@ -36,4 +36,11 @@ public interface ReadOnlyAppContent {
      * This list will not contain any duplicate days.
      */
     ObservableList<Day> getObservableMealPlanner();
+
+    /**
+     * Returns an unmodifiable view of the favourites list.
+     * This list will not contain any duplicate favourite recipes.
+     */
+    ObservableList<Recipe> getObservableFavouritesList();
+
 }
