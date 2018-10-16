@@ -15,7 +15,7 @@ public class FeeFilterPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
-        return person.getFees().feesPerHr >= minLimit;
+        return Double.valueOf(person.getFees().value) >= minLimit;
 
     }
 

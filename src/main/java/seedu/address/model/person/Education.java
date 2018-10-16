@@ -1,9 +1,9 @@
 package seedu.address.model.person;
 
-import java.util.Objects;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+
+import java.util.Objects;
 
 /**
  * Represents a Person's educational level in the address book.
@@ -19,12 +19,16 @@ public class Education {
      */
     public static final String EDUCATION_VALIDATION_REGEX = "[\\S+]{2,3}[\\s][1-6]";
 
+    /**
+     * Represents the educational levels which are allowed.
+     * Also represents the list of educational levels which the tutor is able to teach.
+     */
     enum EducationalLevel {
         PRIMARY, SECONDARY, JC
     }
 
-    public EducationalLevel educationalLevel;
-    public int educationalGrade;
+    private EducationalLevel educationalLevel;
+    private int educationalGrade;
 
     /**
      * Constructs an {@code Education}.
@@ -35,6 +39,20 @@ public class Education {
         requireNonNull(education);
         checkArgument(isValidEducation(education), MESSAGE_EDUCATION_CONSTRAINTS);
         setEducationalLevelAndGrade(education);
+    }
+
+    /**
+     * Returns the educational level of the person.
+     */
+    public EducationalLevel getEducationalLevel() {
+        return educationalLevel;
+    }
+
+    /**
+     * Returns the educational grade of the person.
+     */
+    public int getEducationalGrade() {
+        return educationalGrade;
     }
 
     /**
@@ -51,7 +69,7 @@ public class Education {
         case "sec":
             educationalLevel = EducationalLevel.SECONDARY;
             break;
-        case "jc":
+        default:
             educationalLevel = EducationalLevel.JC;
             break;
         }

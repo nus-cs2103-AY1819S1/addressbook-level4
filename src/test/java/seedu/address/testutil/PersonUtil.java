@@ -36,7 +36,7 @@ public class PersonUtil {
         sb.append(PREFIX_PHONE + person.getPhone().value + " ");
         sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
         sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
-        sb.append(PREFIX_EDUCATION + person.getEducation().value + " ");
+        sb.append(PREFIX_EDUCATION + person.getEducation().toString() + " ");
         sb.append(PREFIX_GRADES + person.getGrades().value + " ");
         person.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
@@ -53,7 +53,8 @@ public class PersonUtil {
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
-        descriptor.getEducation().ifPresent(education -> sb.append(PREFIX_EDUCATION).append(education.value).append(" "));
+        descriptor.getEducation().ifPresent(education -> sb.append(PREFIX_EDUCATION).append(education.toString())
+                .append(" "));
         descriptor.getGrades().ifPresent(grades -> sb.append(PREFIX_GRADES).append(grades.value).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
