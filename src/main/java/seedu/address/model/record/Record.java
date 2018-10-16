@@ -17,7 +17,6 @@ public class Record {
     private final Hour hour;
     private final Remark remark;
 
-    private int displayIndex;
     private String volunteerName;
     private String phoneNo;
 
@@ -48,20 +47,12 @@ public class Record {
         return remark;
     }
 
-    public int getDisplayIndex() {
-        return displayIndex;
-    }
-
     public String getVolunteerName() {
         return volunteerName;
     }
 
     public String getPhoneNo() {
         return phoneNo;
-    }
-
-    public void setDisplayIndex(int index) {
-        this.displayIndex = index;
     }
 
     public void setVolunteerName(String name) {
