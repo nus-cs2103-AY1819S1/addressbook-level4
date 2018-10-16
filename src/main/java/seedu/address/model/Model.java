@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.entity.Entity;
 import seedu.address.model.person.Person;
 
 /**
@@ -19,30 +20,30 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if an entity with the same identity as {@code entity} exists in the address book.
      */
-    boolean hasPerson(Person person);
+    boolean hasEntity(Entity entity);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given entity.
+     * The entity must exist in the address book.
      */
-    void deletePerson(Person target);
+    void deleteEntity(Entity target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given entity.
+     * {@code entity} must not already exist in the address book.
      */
-    void addPerson(Person person);
+    void addEntity(Entity entity);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given entity {@code target} with {@code editedEntity}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The identity of {@code editedPerson} must not be the same as another existing entity in the address book.
      */
-    void updatePerson(Person target, Person editedPerson);
+    void updateEntity(Entity target, Entity editedEntity);
 
-    /** Returns an unmodifiable view of the filtered person list */
+    /** Returns an unmodifiable view of the filtered persons list */
     ObservableList<Person> getFilteredPersonList();
 
     /**
@@ -50,6 +51,8 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    // TODO: Include Filtered Module and Occasion lists
 
     /**
      * Returns true if the model has previous address book states to restore.

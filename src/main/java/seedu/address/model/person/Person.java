@@ -66,14 +66,16 @@ public class Person extends Entity {
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
+    public boolean isSameEntity(Entity otherEntity) {
+        if (otherEntity == this) {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+        return otherEntity != null
+                && otherEntity instanceof Person
+                && ((Person)otherEntity).getName().equals(getName())
+                && (((Person)otherEntity).getPhone().equals(getPhone())
+                || ((Person)otherEntity).getEmail().equals(getEmail()));
     }
 
     /**
