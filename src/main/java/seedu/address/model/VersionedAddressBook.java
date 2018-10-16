@@ -85,10 +85,6 @@ public class VersionedAddressBook extends AddressBook {
         VersionedAddressBook otherVersionedAddressBook = (VersionedAddressBook) other;
 
         // state check
-        System.out.println("State = " + addressBookStateList.equals(otherVersionedAddressBook.addressBookStateList));
-        System.out.println(this.addressBookStateList.get(0).getMaximumBudget().getNumberOfSecondsToRecurAgain());
-        System.out.println(otherVersionedAddressBook.addressBookStateList.get(0).getMaximumBudget().getNumberOfSecondsToRecurAgain());
-        System.out.println("currentState = " + (currentStatePointer == otherVersionedAddressBook.currentStatePointer));
         return super.equals(otherVersionedAddressBook)
                 && addressBookStateList.equals(otherVersionedAddressBook.addressBookStateList)
                 && currentStatePointer == otherVersionedAddressBook.currentStatePointer;

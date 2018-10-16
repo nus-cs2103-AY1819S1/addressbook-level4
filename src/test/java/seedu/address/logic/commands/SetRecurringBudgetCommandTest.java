@@ -40,8 +40,8 @@ public class SetRecurringBudgetCommandTest {
         String expectedMessage = String.format(SetRecurringBudgetCommand.MESSAGE_SUCCESS, this.newRecurrenceFrequency);
         assertCommandSuccess(setRecurringBudgetCommand, model, commandHistory, expectedMessage, expectedModel);
         assertNotNull(expectedModel.getMaximumBudget().getNextRecurrence());
-        assertTrue(this.newRecurrenceFrequency ==
-            expectedModel.getAddressBook().getMaximumBudget().getNumberOfSecondsToRecurAgain());
+        assertTrue(this.newRecurrenceFrequency
+            == expectedModel.getAddressBook().getMaximumBudget().getNumberOfSecondsToRecurAgain());
 
     }
     @Test
@@ -54,8 +54,8 @@ public class SetRecurringBudgetCommandTest {
         String expectedMessage = String.format(SetRecurringBudgetCommand.MESSAGE_SUCCESS, this.newRecurrenceFrequency);
         SetRecurringBudgetCommand setRecurringBudgetCommand = new SetRecurringBudgetCommand(newRecurrenceFrequency);
         assertCommandSuccess(setRecurringBudgetCommand, model, commandHistory, expectedMessage, expectedModel);
-        assertFalse(initialRecurrenceFrequency ==
-            expectedModel.getAddressBook().getMaximumBudget().getNumberOfSecondsToRecurAgain());
+        assertFalse(initialRecurrenceFrequency
+            == expectedModel.getAddressBook().getMaximumBudget().getNumberOfSecondsToRecurAgain());
     }
 
     @Test

@@ -1,6 +1,5 @@
 package seedu.address.model;
 
-import java.time.LocalDateTime;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
