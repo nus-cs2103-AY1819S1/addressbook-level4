@@ -2,7 +2,6 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -12,6 +11,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
 
 /**
  * JAXB-friendly version of a single poll entry.
@@ -35,10 +35,11 @@ public class XmlAdaptedPollEntry {
     /**
      * Constructs an {@code XmlAdaptedPollEntry} with the given poll entry details.
      */
-    public XmlAdaptedPollEntry(String name, LinkedList<Person> voterList) {
+    public XmlAdaptedPollEntry(String name, UniquePersonList voterList) {
         this.name = name;
         if (voterList != null) {
-            this.voterList = voterList.stream()
+            this.voterList = voterList.asUnmodifiableObservableList()
+                    .stream()
                     .map(person -> String.valueOf(personList.indexOf(person)))
                     .map(XmlPersonIndex::new)
                     .collect(Collectors.toList());
@@ -56,8 +57,8 @@ public class XmlAdaptedPollEntry {
         return name;
     }
 
-    public LinkedList<Person> getPersonList(ObservableList<Person> personList) throws IllegalValueException {
-        LinkedList<Person> persons = new LinkedList<>();
+    public UniquePersonList getPersonList(ObservableList<Person> personList) throws IllegalValueException {
+        UniquePersonList persons = new UniquePersonList();
         for (XmlPersonIndex personIndex : voterList) {
             try {
                 Person modelPerson = personIndex.toModelType();

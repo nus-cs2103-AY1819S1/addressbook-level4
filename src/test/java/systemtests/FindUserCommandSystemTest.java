@@ -9,9 +9,9 @@ import static seedu.address.testutil.TypicalPersons.DANIEL;
 import static seedu.address.testutil.TypicalPersons.DESC_ALICE_AND_BENSON_ADDRESS;
 import static seedu.address.testutil.TypicalPersons.DESC_ALICE_AND_BENSON_AND_KENSON_INTEREST;
 import static seedu.address.testutil.TypicalPersons.DESC_ALICE_NAME;
+import static seedu.address.testutil.TypicalPersons.DESC_BENSON_NAME;
 import static seedu.address.testutil.TypicalPersons.DESC_BENSON_PHONE;
 import static seedu.address.testutil.TypicalPersons.DESC_BENSON_TAG;
-import static seedu.address.testutil.TypicalPersons.DESC_BENSON_NAME;
 import static seedu.address.testutil.TypicalPersons.DESC_GEORGE_AND_FIONA_EMAIL;
 import static seedu.address.testutil.TypicalPersons.DESC_GEORGE_AND_FIONA_EMAIL_DIFFERENT_CASES;
 import static seedu.address.testutil.TypicalPersons.DESC_GEORGE_AND_FIONA_EMAIL_NONMATCHING;
@@ -23,7 +23,6 @@ import static seedu.address.testutil.TypicalPersons.DESC_MATCHING_MEIER;
 import static seedu.address.testutil.TypicalPersons.ELLE;
 import static seedu.address.testutil.TypicalPersons.FIONA;
 import static seedu.address.testutil.TypicalPersons.GEORGE;
-import static seedu.address.testutil.TypicalPersons.KENSON;
 
 import org.junit.Before;
 import org.junit.Test;

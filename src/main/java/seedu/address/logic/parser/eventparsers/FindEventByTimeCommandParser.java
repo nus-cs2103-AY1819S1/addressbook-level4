@@ -12,13 +12,14 @@ import java.time.LocalTime;
 import seedu.address.logic.commands.eventcommands.FindEventByTimeCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses inputs arguments and creates a new FindEventByTimeCommand object.
  */
-public class FindEventByTimeCommandParser {
+public class FindEventByTimeCommandParser implements Parser<FindEventByTimeCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the FindEventByTimeCommand
      * and returns an FindEventByTimeCommand object for execution.

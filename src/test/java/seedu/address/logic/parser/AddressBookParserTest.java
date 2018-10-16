@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INTEREST_DESC_STUDY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_MEETING;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
@@ -37,6 +38,9 @@ import seedu.address.logic.commands.eventcommands.AddPollCommand;
 import seedu.address.logic.commands.eventcommands.AddPollOptionCommand;
 import seedu.address.logic.commands.eventcommands.DeleteEventCommand;
 import seedu.address.logic.commands.eventcommands.DisplayPollCommand;
+import seedu.address.logic.commands.eventcommands.FindEventByTimeCommand;
+import seedu.address.logic.commands.eventcommands.FindEventCommand;
+import seedu.address.logic.commands.eventcommands.FindEventCommandTest;
 import seedu.address.logic.commands.eventcommands.JoinEventCommand;
 import seedu.address.logic.commands.eventcommands.SelectEventCommand;
 import seedu.address.logic.commands.eventcommands.SetDateCommand;
@@ -53,6 +57,7 @@ import seedu.address.logic.commands.personcommands.FindUserCommand;
 import seedu.address.logic.commands.personcommands.ListCommand;
 import seedu.address.logic.commands.personcommands.SelectCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.event.EventAttributesPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PhoneContainsKeywordsPredicate;
@@ -140,6 +145,24 @@ public class AddressBookParserTest {
         assertEquals(new DisplayPollCommand(INDEX_FIRST), command);
     }
 
+    @Test
+    public void parseCommand_findEventByTime() throws Exception {
+        FindEventByTimeCommand command = (FindEventByTimeCommand) parser.parseCommand(
+                FindEventByTimeCommand.COMMAND_WORD + " " + "d/12-12-2018 t1/12:30 t2/13:30");
+        LocalDate date = LocalDate.of(2018, 12, 12);
+        LocalTime startTime = LocalTime.of(12, 30);
+        LocalTime endTime = LocalTime.of(13, 30);
+        assertEquals(new FindEventByTimeCommand(date, startTime, endTime), command);
+    }
+
+    @Test
+    public void parseCommand_findEvent() throws Exception {
+        String userInput = FindEventCommand.COMMAND_WORD + " " + NAME_DESC_MEETING + ADDRESS_DESC_BOB;
+        FindEventCommand command = (FindEventCommand) parser.parseCommand(
+                userInput);
+        EventAttributesPredicate predicate = FindEventCommandTest.makeEventsAttributesPredicate(userInput);
+        assertEquals(new FindEventCommand(predicate), command);
+    }
 
     @Test
     public void parseCommand_add() throws Exception {

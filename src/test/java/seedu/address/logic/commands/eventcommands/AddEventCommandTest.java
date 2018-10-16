@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.TypicalEvents.getEmptyAddressBook;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +22,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.NoEventSelectedException;
 import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.AddressBook;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EventBuilder;
@@ -67,14 +71,13 @@ public class AddEventCommandTest {
 
     @Test
     public void execute_noUser_throwsCommandException() throws Exception {
-        AddEventCommandTest.ModelStubAcceptingEventAdded modelStub = new
-                AddEventCommandTest.ModelStubAcceptingEventAdded();
+        Model model = new ModelManager(getEmptyAddressBook(), new UserPrefs());
         Event validEvent = new EventBuilder().build();
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(Messages.MESSAGE_NO_USER_LOGGED_IN);
 
-        new AddEventCommand(validEvent).execute(modelStub, commandHistory);
+        new AddEventCommand(validEvent).execute(model, commandHistory);
     }
 
     @Test

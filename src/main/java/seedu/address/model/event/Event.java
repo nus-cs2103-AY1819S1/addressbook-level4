@@ -213,15 +213,26 @@ public class Event {
     }
 
     /**
+     * Adds an option to the poll at the given index.
+     */
+    public Poll addOptionToPoll(Index index, String option) {
+        Poll poll = polls.get(index.getZeroBased());
+        poll.addOption(option);
+        return poll;
+    }
+
+    /**
      * Adds a person to an option of the poll at the specified index, only if person has joined the event.
      */
-    public void addVoteToPoll(Index pollIndex, Person person, String option)
-            throws UserNotJoinedEventException {
+    public Poll addVoteToPoll(Index pollIndex, Person person, String option)
+            throws UserNotJoinedEventException, DuplicatePersonException {
         if (!personList.contains(person)) {
             throw new UserNotJoinedEventException();
         }
         int index = pollIndex.getZeroBased();
-        polls.get(index).addVote(option, person);
+        Poll poll = polls.get(index);
+        poll.addVote(option, person);
+        return poll;
     }
 
     /**
@@ -253,13 +264,15 @@ public class Event {
     /**
      * Returns true if the target person is the event organiser is or is an event participant.
      */
-    public boolean containsPerson(Person target) {
+    public boolean containsPerson(Name personName) {
         boolean contains = false;
-        if (organiser.equals(target)) {
+        if (organiser.getName().equals(personName)) {
             contains = true;
         }
-        if (personList.contains(target)) {
-            contains = true;
+        for (Person person : personList) {
+            if (person.getName().equals(personName)) {
+                contains = true;
+            }
         }
         return contains;
     }
