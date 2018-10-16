@@ -14,7 +14,6 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import org.junit.Rule;
@@ -30,7 +29,6 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.analytics.Analytics;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.doctor.Password;
-import seedu.address.model.person.Person;
 
 //@@author jjlee050
 public class LoginCommandTest {
