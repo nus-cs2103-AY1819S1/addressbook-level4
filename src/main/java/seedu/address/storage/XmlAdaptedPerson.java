@@ -35,8 +35,6 @@ public class XmlAdaptedPerson {
     private String room;
     @XmlElement(required = true)
     private String school;
-    @XmlElement(required = true)
-    private String profilePicture;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();

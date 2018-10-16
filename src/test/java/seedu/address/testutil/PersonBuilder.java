@@ -7,7 +7,6 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.ProfilePicture;
 import seedu.address.model.person.Room;
 import seedu.address.model.person.School;
 import seedu.address.model.tag.Tag;
@@ -30,7 +29,6 @@ public class PersonBuilder {
     private Email email;
     private Room room;
     private School school;
-    private ProfilePicture profilePicture;
     private Set<Tag> tags;
 
     public PersonBuilder() {
@@ -39,7 +37,6 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         room = new Room(DEFAULT_ROOM);
         school = new School(DEFAULT_SCHOOL);
-        profilePicture = new ProfilePicture(DEFAULT_PROFILE_PICTURE);
         tags = new HashSet<>();
     }
 
@@ -52,7 +49,6 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         room = personToCopy.getRoom();
         school = personToCopy.getSchool();
-        profilePicture = personToCopy.getProfilePicture();
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -104,13 +100,6 @@ public class PersonBuilder {
         return this;
     }
 
-    /**
-     * Sets the {@code ProfilePicture} of the {@code Person} that we are building.
-     */
-    public PersonBuilder withProfilePicture(String profilePicture) {
-        this.profilePicture = new ProfilePicture(profilePicture);
-        return this;
-    }
 
     public Person build() {
         return new Person(name, phone, email, room, school, tags);
