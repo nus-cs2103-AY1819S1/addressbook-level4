@@ -403,6 +403,68 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+=== Delete
+(to be completed) +
+`delete` is a basic feature provided by every version of 'TheTracker'.
+It supports deletions of `Person`, `Module` and `Occasion', by the same `DeleteCommand` with different parameters, which would facilitate
+and improve the user experience.
+
+==== Current Implementation
+The `delete` mechanism is managed by `DeleteCommand`, which extends the `Command` class and uses inheritance to facilitate implementation.
+Generally, it implements the following operation:
+
+* `DeleteCommand#excute(Model model, CommandHistory history)`: deletes the entity passed to the `DeleteCommand` class
+
+This operation is exposed in the Model interface as Model#getFilteredEntity(), Model#deleteEntity() and Model#commitAddressBook() respectively.
+
+Provided below is an usage scenario instance. It illustrates how the
+delete mechanism behaves at each step.
+
+Step 1: The user launches TheTracker for the first time. The
+`VersionedAddressBook` will be initialised with the initial address book
+state.
+
+image::DeleteStartingStateListDiagramXueyan.png[width="800"]
+
+Step 2: The user executes `add n/David...` command to add a person named
+David in his TheTracker. The parser `AddCommandParser` will identify by
+the '\n' tag that the entity to be added is a person. The `add` command
+calls `Model#commitAddressBook()`, causing the modified state of TheTracker
+after the `add David...` command executes to be saved in the `addressBookStateList`.
+
+image::DeleteNewCommand1StateListDiagramXueyan.png[width="800"]
+
+Step 3: The user executes 'delete n/David' to delete the person named David in the address
+book. The parser `DeleteCommandParser` will identify by the '\n' tag that the entity to be
+deleted is a person.The 'delete' command calls Model#getFilteredEntity(), Model#deleteEntity()
+and 'Model#commitAddressBook()', and causes modified address book state to be saved into the 'addressBookStateList'
+
+image::DeleteDeleteCommandStateListDiagramXueyan.png[width="800"]
+
+
+The following sequence diagram shows how the undo operation works:
+
+image::DeleteSequenceDiagramXueyan.png[width="800"]
+
+==== Design Considerations
+===== Aspect: How delete executes
+
+* **Alternative 1 (Use tags and entity):** Inputs the type of the entity to be deleted.
+** Pros:
+*** Easy for user to understand the usage.
+** Cons:
+*** Needs to implement additional class type for checking which type of Entity and which Entity list to delete from.
+*** Needs to search for the Entity in the whole list which may be slow.
+*** User input Entity name may not be valid, which needs extra prompt.
+* **Alternative 2:** Inputs the index number of entity to be deleted.
+** Pros:
+*** Easy to implement.
+*** Fast retrieval of Entity in the list.
+** Cons:
+*** User needs to know the index number of the Entity to be deleted.
+
+
+
 == Documentation
 
 We use asciidoc for writing documentation.
