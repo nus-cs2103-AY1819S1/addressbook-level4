@@ -3,10 +3,10 @@ package seedu.address.model.person;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalCarparks.ALICE;
-import static seedu.address.testutil.TypicalCarparks.BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_KILO;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HOME;
+import static seedu.address.testutil.TypicalCarparks.ALFA;
+import static seedu.address.testutil.TypicalCarparks.BRAVO;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -36,21 +36,21 @@ public class UniquePersonListTest {
 
     @Test
     public void contains_personNotInList_returnsFalse() {
-        assertFalse(uniqueCarparkList.contains(ALICE));
+        assertFalse(uniqueCarparkList.contains(ALFA));
     }
 
     @Test
     public void contains_personInList_returnsTrue() {
-        uniqueCarparkList.add(ALICE);
-        assertTrue(uniqueCarparkList.contains(ALICE));
+        uniqueCarparkList.add(ALFA);
+        assertTrue(uniqueCarparkList.contains(ALFA));
     }
 
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
-        uniqueCarparkList.add(ALICE);
-        Carpark editedAlice = new CarparkBuilder(ALICE).withAddress(VALID_ADDRESS_2).withTags(VALID_TAG_HUSBAND)
+        uniqueCarparkList.add(ALFA);
+        Carpark editedAlfa = new CarparkBuilder(ALFA).withAddress(VALID_ADDRESS_KILO).withTags(VALID_TAG_HOME)
                 .build();
-        assertTrue(uniqueCarparkList.contains(editedAlice));
+        assertTrue(uniqueCarparkList.contains(editedAlfa));
     }
 
     @Test
@@ -61,64 +61,64 @@ public class UniquePersonListTest {
 
     @Test
     public void add_duplicatePerson_throwsDuplicatePersonException() {
-        uniqueCarparkList.add(ALICE);
+        uniqueCarparkList.add(ALFA);
         thrown.expect(DuplicateCarparkException.class);
-        uniqueCarparkList.add(ALICE);
+        uniqueCarparkList.add(ALFA);
     }
 
     @Test
     public void setPerson_nullTargetPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueCarparkList.setCarpark(null, ALICE);
+        uniqueCarparkList.setCarpark(null, ALFA);
     }
 
     @Test
     public void setPerson_nullEditedPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueCarparkList.setCarpark(ALICE, null);
+        uniqueCarparkList.setCarpark(ALFA, null);
     }
 
     @Test
     public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
         thrown.expect(CarparkNotFoundException.class);
-        uniqueCarparkList.setCarpark(ALICE, ALICE);
+        uniqueCarparkList.setCarpark(ALFA, ALFA);
     }
 
     @Test
     public void setPerson_editedPersonIsSamePerson_success() {
-        uniqueCarparkList.add(ALICE);
-        uniqueCarparkList.setCarpark(ALICE, ALICE);
+        uniqueCarparkList.add(ALFA);
+        uniqueCarparkList.setCarpark(ALFA, ALFA);
         UniqueCarparkList expectedUniquePersonList = new UniqueCarparkList();
-        expectedUniquePersonList.add(ALICE);
+        expectedUniquePersonList.add(ALFA);
         assertEquals(expectedUniquePersonList, uniqueCarparkList);
     }
 
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
-        uniqueCarparkList.add(ALICE);
-        Carpark editedAlice = new CarparkBuilder(ALICE).withAddress(VALID_ADDRESS_2).withTags(VALID_TAG_HUSBAND)
+        uniqueCarparkList.add(ALFA);
+        Carpark editedAlfa = new CarparkBuilder(ALFA).withAddress(VALID_ADDRESS_KILO).withTags(VALID_TAG_HOME)
                 .build();
-        uniqueCarparkList.setCarpark(ALICE, editedAlice);
+        uniqueCarparkList.setCarpark(ALFA, editedAlfa);
         UniqueCarparkList expectedUniquePersonList = new UniqueCarparkList();
-        expectedUniquePersonList.add(editedAlice);
+        expectedUniquePersonList.add(editedAlfa);
         assertEquals(expectedUniquePersonList, uniqueCarparkList);
     }
 
     @Test
     public void setPerson_editedPersonHasDifferentIdentity_success() {
-        uniqueCarparkList.add(ALICE);
-        uniqueCarparkList.setCarpark(ALICE, BOB);
+        uniqueCarparkList.add(ALFA);
+        uniqueCarparkList.setCarpark(ALFA, BRAVO);
         UniqueCarparkList expectedUniquePersonList = new UniqueCarparkList();
-        expectedUniquePersonList.add(BOB);
+        expectedUniquePersonList.add(BRAVO);
         assertEquals(expectedUniquePersonList, uniqueCarparkList);
     }
 
     @Test
     public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
-        uniqueCarparkList.add(ALICE);
-        uniqueCarparkList.add(BOB);
+        uniqueCarparkList.add(ALFA);
+        uniqueCarparkList.add(BRAVO);
         thrown.expect(DuplicateCarparkException.class);
-        uniqueCarparkList.setCarpark(ALICE, BOB);
+        uniqueCarparkList.setCarpark(ALFA, BRAVO);
     }
 
     @Test
@@ -130,13 +130,13 @@ public class UniquePersonListTest {
     @Test
     public void remove_personDoesNotExist_throwsPersonNotFoundException() {
         thrown.expect(CarparkNotFoundException.class);
-        uniqueCarparkList.remove(ALICE);
+        uniqueCarparkList.remove(ALFA);
     }
 
     @Test
     public void remove_existingPerson_removesPerson() {
-        uniqueCarparkList.add(ALICE);
-        uniqueCarparkList.remove(ALICE);
+        uniqueCarparkList.add(ALFA);
+        uniqueCarparkList.remove(ALFA);
         UniqueCarparkList expectedUniquePersonList = new UniqueCarparkList();
         assertEquals(expectedUniquePersonList, uniqueCarparkList);
     }
@@ -149,9 +149,9 @@ public class UniquePersonListTest {
 
     @Test
     public void setPersons_uniquePersonList_replacesOwnListWithProvidedUniquePersonList() {
-        uniqueCarparkList.add(ALICE);
+        uniqueCarparkList.add(ALFA);
         UniqueCarparkList expectedUniquePersonList = new UniqueCarparkList();
-        expectedUniquePersonList.add(BOB);
+        expectedUniquePersonList.add(BRAVO);
         uniqueCarparkList.setCarparks(expectedUniquePersonList);
         assertEquals(expectedUniquePersonList, uniqueCarparkList);
     }
@@ -164,17 +164,17 @@ public class UniquePersonListTest {
 
     @Test
     public void setPersons_list_replacesOwnListWithProvidedList() {
-        uniqueCarparkList.add(ALICE);
-        List<Carpark> personList = Collections.singletonList(BOB);
+        uniqueCarparkList.add(ALFA);
+        List<Carpark> personList = Collections.singletonList(BRAVO);
         uniqueCarparkList.setCarparks(personList);
         UniqueCarparkList expectedUniquePersonList = new UniqueCarparkList();
-        expectedUniquePersonList.add(BOB);
+        expectedUniquePersonList.add(BRAVO);
         assertEquals(expectedUniquePersonList, uniqueCarparkList);
     }
 
     @Test
     public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
-        List<Carpark> listWithDuplicatePersons = Arrays.asList(ALICE, ALICE);
+        List<Carpark> listWithDuplicatePersons = Arrays.asList(ALFA, ALFA);
         thrown.expect(DuplicateCarparkException.class);
         uniqueCarparkList.setCarparks(listWithDuplicatePersons);
     }

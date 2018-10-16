@@ -7,7 +7,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.SelectCommand.MESSAGE_SELECT_CARPARK_SUCCESS;
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TypicalCarparks.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalCarparks.KEYWORD_MATCHING_SENGKANG;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARPARK;
 
 import org.junit.Test;
@@ -23,13 +23,13 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
     public void select() {
         /* ------------------------ Perform select operations on the shown unfiltered list -------------------------- */
 
-        /* Case: select the first card in the carpark list, command with leading spaces and trailing spaces
+        /* Case: select the first card in the car park list, command with leading spaces and trailing spaces
          * -> selected
          */
         String command = "   " + SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_CARPARK.getOneBased() + "   ";
         assertCommandSuccess(command, INDEX_FIRST_CARPARK);
 
-        /* Case: select the last card in the carpark list -> selected */
+        /* Case: select the last card in the car park list -> selected */
         Index personCount = getLastIndex(getModel());
         command = SelectCommand.COMMAND_WORD + " " + personCount.getOneBased();
         assertCommandSuccess(command, personCount);
@@ -44,7 +44,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
 
-        /* Case: select the middle card in the carpark list -> selected */
+        /* Case: select the middle card in the car park list -> selected */
         Index middleIndex = getMidIndex(getModel());
         command = SelectCommand.COMMAND_WORD + " " + middleIndex.getOneBased();
         assertCommandSuccess(command, middleIndex);
@@ -54,14 +54,14 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------------ Perform select operations on the shown filtered list ---------------------------- */
 
-        /* Case: filtered carpark list, select index within bounds of address book but out of bounds of carpark list
+        /* Case: filtered car park list, select index within bounds of address book but out of bounds of car park list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showCarparksWithName(KEYWORD_MATCHING_SENGKANG);
         int invalidIndex = getModel().getAddressBook().getCarparkList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_CARPARK_DISPLAYED_INDEX);
 
-        /* Case: filtered carpark list, select index within bounds of address book and carpark list -> selected */
+        /* Case: filtered car park list, select index within bounds of address book and car park list -> selected */
         Index validIndex = Index.fromOneBased(1);
         assertTrue(validIndex.getZeroBased() < getModel().getFilteredCarparkList().size());
         command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();
@@ -93,7 +93,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure("SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: select from empty address book -> rejected */
-        deleteAllPersons();
+        deleteAllCarparks();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_CARPARK.getOneBased(),
                 MESSAGE_INVALID_CARPARK_DISPLAYED_INDEX);
     }

@@ -5,9 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_CARPARKS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalCarparks.CARL;
-import static seedu.address.testutil.TypicalCarparks.ELLE;
-import static seedu.address.testutil.TypicalCarparks.FIONA;
+import static seedu.address.testutil.TypicalCarparks.CHARLIE;
+import static seedu.address.testutil.TypicalCarparks.ECHO;
+import static seedu.address.testutil.TypicalCarparks.FOXTROT;
 import static seedu.address.testutil.TypicalCarparks.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -69,11 +69,11 @@ public class FindCommandTest {
     @Test
     public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_CARPARKS_LISTED_OVERVIEW, 3);
-        CarparkContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
+        CarparkContainsKeywordsPredicate predicate = preparePredicate("U25 PP5 SE39");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredCarparkList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredCarparkList());
+        assertEquals(Arrays.asList(CHARLIE, ECHO, FOXTROT), model.getFilteredCarparkList());
     }
 
     /**

@@ -64,7 +64,7 @@ public class CarparkCardTest extends GuiUnitTest {
         CarparkCardHandle carparkCardHandle = new CarparkCardHandle (carparkCard.getRoot());
 
         // verify id is displayed correctly
-        assertEquals(Integer.toString(expectedId) + ". ", carparkCardHandle.getCarparkNumber());
+        assertEquals(Integer.toString(expectedId) + ". ", carparkCardHandle.getId());
 
         // verify carpark details are displayed correctly
         assertCardDisplaysCarpark(expectedCarpark, carparkCardHandle);

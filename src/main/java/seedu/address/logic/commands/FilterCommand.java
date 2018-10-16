@@ -13,6 +13,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.carpark.CarparkHasFreeParkingPredicate;
 import seedu.address.model.carpark.CarparkHasNightParkingPredicate;
+import seedu.address.model.carpark.CarparkIsOfTypePredicate;
 
 
 /**
@@ -22,9 +23,12 @@ public class FilterCommand extends Command {
     public static final String COMMAND_WORD = "filter";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Filters the carpark depending on the tags attached.\n"
-            + "Parameters: Tags ... \n"
-            + "Example: " + COMMAND_WORD + "f/TRUE";
+            + ": Filters the carpark based using flags.\n"
+            + "Flags:\n"
+            + "> Night Parking: n/ \n"
+            + "> Free Parking: f/ [day] [start time] [end time]     Example: filter f/ SUN 7.30AM 8.30PM\n"
+            + "> Car Park Type: ct/ [car park type]     Example: filter ct/ basement\n"
+            + "   SURFACE\n" + "   MUITISTOREY\n" + "   BASEMENT\n" + "   COVERED\n" + "   MECHANISED";
 
     //public static final String MESSAGE_FILTER_CARPARK_SUCCESS = "Filtered Car Parks.";
     private Predicate predicate;
@@ -46,7 +50,7 @@ public class FilterCommand extends Command {
 
         // Currently can only have one flag at a time.
         if (flagList.contains("n/")) {
-            this.predicate = new CarparkHasNightParkingPredicate("YES");
+            this.predicate = new CarparkHasNightParkingPredicate();
             model.updateFilteredCarparkList(predicate);
         }
         if (flagList.contains("f/")) {
@@ -63,6 +67,15 @@ public class FilterCommand extends Command {
             System.out.println("endTime: " + endTime);
 
             this.predicate = new CarparkHasFreeParkingPredicate(day, startTime, endTime);
+            model.updateFilteredCarparkList(predicate);
+        }
+        if (flagList.contains("ct/")) {
+            int index2 = flagList.indexOf("ct/");
+
+            String carparkType = flagList.get(index2 + 1).toUpperCase();
+            System.out.println("carparkType: " + carparkType);
+
+            this.predicate = new CarparkIsOfTypePredicate(carparkType);
             model.updateFilteredCarparkList(predicate);
         }
         return new CommandResult(
