@@ -16,6 +16,9 @@ public interface Ui {
     /** Switches to RecipeListPanel */
     void switchToRecipeListPanel();
 
+    /** Switches to RecipeListPanel */
+    void switchToIngredientListPanel();
+
     /** Switches to MealPlanListPanel */
     void switchToMealPlanListPanel();
 

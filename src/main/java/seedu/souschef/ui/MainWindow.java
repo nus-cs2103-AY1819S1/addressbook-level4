@@ -150,6 +150,11 @@ public class MainWindow extends UiPart<Stage> {
         generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
     }
 
+    protected void switchToIngredientListPanel() {
+        generalListPanel = new IngredientListPanel(logic.getFilteredIngredientList());
+        generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
+    }
+
     /**
      *  method to switch to healthplan list for the healthplan context
      */

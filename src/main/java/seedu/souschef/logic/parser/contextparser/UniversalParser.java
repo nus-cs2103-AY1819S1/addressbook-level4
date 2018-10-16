@@ -28,6 +28,7 @@ public class UniversalParser {
      *
      * @param history
      * @param userInput full user input string
+     * @param ui
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
@@ -39,6 +40,7 @@ public class UniversalParser {
             return new ContextCommand("Recipe");
 
         case "ingredientmanager":
+            ui.switchToIngredientListPanel();
             return new ContextCommand("Ingredient");
 
         case "healthplan":
