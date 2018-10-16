@@ -69,6 +69,8 @@ public class CommandBox extends UiPart<Region> {
         case TAB:
             keyEvent.consume();
             completeDirName();
+            commandTextField.requestFocus();
+            commandTextField.positionCaret(commandTextField.getLength());
             break;
         default:
             // let JavaFx handle the keypress
@@ -119,10 +121,16 @@ public class CommandBox extends UiPart<Region> {
     private void completeDirName() {
         startDir = prefs.getCurrDirectory().toString();
         String commandText = commandTextField.getText();
+        if (commandText.trim().equals("")) {
+            return;
+        }
 
         String commandWord = getCommandWord(commandText.trim());
-        String arguments = getArguments(commandText.trim());
         if (commandWord.equals(CdCommand.COMMAND_WORD)) {
+            String arguments = getArguments(commandText.trim());
+            if (arguments.equals("")) {
+                return;
+            }
             searchDirectory(arguments);
         }
     }
@@ -140,6 +148,9 @@ public class CommandBox extends UiPart<Region> {
      */
     private String getArguments(String commandText) {
         String[] commandLineArgs = commandText.split(" ", 2);
+        if (commandLineArgs.length == 1) {
+            return "";
+        }
         return commandLineArgs[1];
     }
 
