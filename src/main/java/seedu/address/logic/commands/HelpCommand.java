@@ -1,5 +1,8 @@
 package seedu.address.logic.commands;
 
+import java.util.logging.Logger;
+import seedu.address.MainApp;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.CommandHistory;
@@ -18,8 +21,11 @@ public class HelpCommand extends Command {
 
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
 
+
+    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
+        logger.info("Data file not found. Will be starting with a sample SaveIt");
         EventsCenter.getInstance().post(new ShowHelpRequestEvent());
         return new CommandResult(SHOWING_HELP_MESSAGE);
     }
