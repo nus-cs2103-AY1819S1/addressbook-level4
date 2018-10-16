@@ -15,6 +15,8 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.AddressBookExportEvent;
+import seedu.address.commons.events.model.UserPrefsChangeEvent;
+import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.util.PersonPropertyComparator;
 import seedu.address.model.tag.Tag;
@@ -27,6 +29,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
+    private final UserPrefs userPrefs;
     private final SortedList<Person> sortedPersons;
 
     /**
@@ -40,6 +43,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        this.userPrefs = userPrefs;
         sortedPersons = new SortedList<>(filteredPersons);
     }
 
@@ -90,6 +94,14 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public void updateGroup(Group target, Group editedGroup) {
+        requireAllNonNull(target, editedGroup);
+
+        versionedAddressBook.updateGroup(target, editedGroup);
+        indicateAddressBookChanged();
+    }
+
 
     //=========== AddGroup / RemoveGroup =====================================================================
 
@@ -103,6 +115,17 @@ public class ModelManager extends ComponentManager implements Model {
         //TODO
     }
 
+    // @@author NyxF4ll
+    @Override
+    public boolean hasGroup(Group group) {
+        return versionedAddressBook.getGroupList().stream().anyMatch(group::isSameGroup);
+    }
+
+    @Override
+    public ObservableList<Group> getGroupList() {
+        return versionedAddressBook.getGroupList();
+    }
+    // @@author
 
     //=========== Filtered Person List Accessors =============================================================
 
@@ -166,9 +189,20 @@ public class ModelManager extends ComponentManager implements Model {
     // ================= Export/Import =======================================================================
 
     @Override
-    /** Raises an event to indicate the model to be exported */
     public void exportAddressBook(Path filepath) {
         raise(new AddressBookExportEvent(versionedAddressBook, filepath));
+    }
+
+    @Override
+    public Path getAddressBookFilePath() {
+        return userPrefs.getAddressBookFilePath();
+    }
+
+    @Override
+    public void changeUserPrefs(Path filepath) {
+        Path currentPath = userPrefs.getAddressBookFilePath();
+        userPrefs.setAddressBookFilePath(filepath);
+        raise(new UserPrefsChangeEvent(userPrefs, versionedAddressBook, currentPath, filepath));
     }
 
     @Override
