@@ -3,9 +3,11 @@ package seedu.address.model.meeting;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import seedu.address.model.meeting.exceptions.DuplicateMeetingException;
 import seedu.address.model.meeting.exceptions.MeetingNotFoundException;
@@ -15,7 +17,7 @@ import seedu.address.model.meeting.exceptions.MeetingNotFoundException;
  * A list of meetings that enforces uniqueness between its elements and does not allow nulls.
  */
 public class UniqueMeetingList implements Iterable<Meeting> {
-    private final ArrayList<Meeting> allMeetings = new ArrayList<>();
+    private final ObservableList<Meeting> allMeetings = FXCollections.observableArrayList();
 
     /**
      * Returns true if the list contains an equivalent value as the given argument.
@@ -53,6 +55,20 @@ public class UniqueMeetingList implements Iterable<Meeting> {
     }
 
     /**
+     * Replaces the contents of this list with {@code meetings}.
+     * {@code meetings} must not contain duplicate meetings.
+     */
+    public void setMeetings(List<Meeting> meetings) {
+        requireAllNonNull(meetings);
+        if (!meetingsAreUnique(meetings)) {
+            throw new DuplicateMeetingException();
+        }
+
+        allMeetings.setAll(meetings);
+    }
+
+
+    /**
      * Removes the equivalent value from the list.
      * The value must exist in the list.
      */
@@ -66,6 +82,13 @@ public class UniqueMeetingList implements Iterable<Meeting> {
     @Override
     public Iterator<Meeting> iterator() {
         return allMeetings.iterator();
+    }
+
+    /**
+     * Returns the backing list as an unmodifiable {@code ObservableList}.
+     */
+    public ObservableList<Meeting> asUnmodifiableObservableList() {
+        return FXCollections.unmodifiableObservableList(allMeetings);
     }
 
     /**

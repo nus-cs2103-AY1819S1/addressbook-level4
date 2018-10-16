@@ -244,6 +244,130 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::editByName[]
+=== Edit By Name feature
+==== Current Implementation
+
+The edit by name mechanism is facilitated by the new `Command`, `EditByNameCommand`.
+It extends `EditCommand` with a "Person Identifier" String that is used in place of the Index (of a displayed list) used in the normal `EditCommand`.
+Additionally, it implements the following operations:
+
+* `EditByNameCommand#findPerson(Model model)` -- Finds and returns the person that is uniquely identified by the `personIdentifier` in the `Model` provided.
+* `EditByNameCommand#execute()` -- Executes the command encapsulated by this `EditByNameCommand`.
+
+The `findPerson` method makes use of the `NameContainsAllKeywordsPredicate`, which is in contrast to the `NameContainsKeywordsPredicate` used in the `FindCommand`.
+This is because when editing by name, we need a more specific filter, rather than a general one.
+So instead of finding a Person that contains at least one identifier term in their name, the Person found must contain *all* identifier terms in their name.
+
+Given below is an example usage scenario and how the EditByName mechanism behaves at each step.
+
+Step 1. The user launches the application and already has at least one client's contact in InsuRen.
+
+image::EditByNameCommand1StateDiagram.png[width="800"]
+
+Step 2. The user executes `edit Alice p/91232233` to edit Alice's phone number. However, there are more than two people with a name that matches Alice, so InsuRen notifies the user.
+
+image::EditByNameCommand2StateDiagram.png[width="800"]
+
+[NOTE]
+If a command fails its execution due to multiple or no people matching the identifier, it will not edit any contact details.
+
+Step 3. The user uses a much more specific name identifier, `edit Alice Tay Ren Ying p/91232233`, but this does not match any contact, so InsuRen notifies the user.
+
+image::EditByNameCommand3StateDiagram.png[width="800"]
+
+Step 4. The user uses a name identifier that uniquely identifies one person, `edit Alice Tay p/91232233`. The edit command is carried out, and the contact details of the identified person are changed accordingly.
+
+image::EditByNameCommand4StateDiagram.png[width="800"]
+
+The following activity diagram summarizes what happens when a user executes the `EditByNameCommand`:
+
+image::EditByNameCommandActivityDiagram.png[width="500"]
+
+==== Design Considerations
+
+===== Aspect: Whether `EditByNameCommand` should Extend `EditCommand`
+* **Alternative 1 (current choice):** It extends `EditCommand`.
+** Pros: Due to polymorphism, `EditByNameCommand` can replace instances of `EditCommand` seamlessly in the code without having to
+change many parts to add this additional feature. It also makes sense, because an `EditByNameCommand` "is an" `EditCommand`.
+** Cons: There is an unused field in `EditCommand` (`index`).
+* **Alternative 2:** Create a new `Command`, standalone from `EditCommand`
+** Pros: Can save a bit of memory space on execution, since parts of `EditCommand` that are not used do not provide extra baggage to `EditByNameCommand`.
+** Cons: There is a need to modify many parts of the Logic component in the code base to accommodate a new command.
+
+===== Aspect: When the Person is Searched/Matched
+
+* **Alternative 1 (current choice):** During the execution of `execute`
+** Additional details: A `String personIdentifier` will be stored in the command, and upon `execute`, a person is first matched, then the edit is carried out.
+** Pros: Execute takes in the model as an argument, making searching for a Person convenient.
+** Cons: The same `EditByNameCommand` executed at a different time can have a different result since it does not have a unique Person, but a identifier to find a name.
+* **Alternative 2:** Before creation of the command
+** Additional details: The command will have a `Person`
+** Pros: The command is deterministic, since it targets a unique Person.
+** Cons: Need to gain access to the model before the person can be found, which is not usually done by AddressBookParser; high level changes are necessary.
+// end::editByName[]
+
+// tag::schedule[]
+=== Schedule feature
+==== Current Implementation
+The schedule mechanism is facilitated by the new `Command`, `Schedule`. It extends `AddressBook` with a list of meetings, stored internally as a `UniqueMeetingList`. It also allows meetings to be associated to address book entries, since each `Person` can have up to one `Meeting`.
+Additionally, it implements the following operations:
+
+* `ScheduleCommand#createScheduledPerson(Person personToSchedule, Meeting meeting)` - Returns a `Person` object that has a meeting scheduled according to `meeting`.
+* `ScheduleCommand#execute()` - Executes the command encapsulated by `ScheduleCommand`.
+
+Given below is an example usage scenario and how the Schedule mechanism behaves at each step.
+
+Step 1. The user launches the application and already has at least one client's contact in InsuRen.
+
+image::ScheduleCommand1StateDiagram.png[width="300"]
+
+Step 2. The user executes `schedule 1 m/16/10/18 1800` to schedule a meeting with the person in the first index at 1800 hours on 16th October, 2018. However, there is already a meeting scheduled at this time, so it is flagged out to the user.
+[NOTE]
+No meetings are scheduled if there is a clash
+
+image::ScheduleCommand2StateDiagram.png[width="300"]
+
+Step 3. The user executes `schedule 1 m/32/10/18 1830` but since this is not a valid date, InsuRen flags it out to the user.
+
+image::ScheduleCommand3StateDiagram.png[width="700"]
+
+Step 4. The user executes `schedule 1 m/16/10/18 1830`. The meeting is schedule and the person card is changed to reflect the same accordingly.
+
+image::ScheduleCommand4StateDiagram.png[width="300"]
+
+The following activity diagram summarises what happens when a user executes the `ScheduleCommand`:
+
+image::ScheduleCommand5StateDiagram.png[width="400"]
+
+==== Design Considerations
+
+===== Aspect: Where meetings are stored
+
+* **Alternative 1 (Current choice):** The meetings are stored in both the `Person` model and in the global meeting list `UniqueMeetingList`.
+** Pros: Easy to ensure no clashes occur between meetings.
+** Cons: Significant changes need to be made to the model to accomodate this.
+
+* **Alternative 2: ** The meetings are stored in only the `Person` model.
+** Pros: Minimal changes to the model required; prevents duplication of data.
+** Cons: Difficult to ensure uniqueness of meeting times.
+
+* **Alternative 3: ** The meetings are stored in only the `UniqueMeetingList`.
+** Pros: Prevents the duplication of data; easy to ensure no clashes.
+** Cons: Would need additional data structures to pair the meeting to the entry.
+
+===== Aspect: Date storage format
+
+* **Alternative 1 (Current choice):** The date and time is stored as a 10-character string.
+** Pros: Allows the setting of a `none` value, and offers flexibility.
+** Cons: Does not utilize the Java API libraries for dates and times.
+
+* **Alternative 2:** The date and time is stored as a `DateAndTime` object.
+** Pros: Ability to use Java API functions for dates.
+** Cons: Less flexible as all dates entered must be valid.
+// end::schedule[]
+
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
@@ -323,6 +447,40 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
+
+// tag::addpicture[]
+=== Add Picture feature
+==== Current Implementation
+
+The picture mechanism is facilitated by the new `PictureCommand`.
+It extends `Command` with an execution to set a picture, stored internally in `Person` as `picture`.
+
+Given below is an example usage scenario and how the picture mechanism behaves at each step.
+
+Step 1. The user launches the application and already has at least one client's contact in InsuRen.
+
+image::PictureCommand1StateDiagram.png[width="800"]
+
+Step 2. The user executes `pic 4 l//images/david.jpg` to add a picture for David. The `pic` command calls `Model#getFilteredPersonList()` to retrieve the list of contacts and filters `index` 4. It then calls `Picture#setPicture()` to update the picture for the contact. Finally, `Model#commitAddressBook()` is called, causing the modified state of the address book after the `pic 4 l//images/david.jpg` command executes to be saved.
+
+image::PictureCommand2StateDiagram.png[width="800"]
+
+The following activity diagram summarizes what happens when a user executes the `PictureCommand`:
+
+image::PictureCommandActivityDiagram.png[width="500"]
+
+==== Design Considerations
+
+===== Aspect: How picture is stored
+
+* **Alternative 1 (current choice):** `Person` has a picture field.
+** Pros: `Picture` can have it's own `Picture#isValidPicture()` method to validate the input. It is consistent with the other fields within `Person`.
+** Cons: More memory is used as there is a need to store an object. A new `Picture` class has to be made and implemented.
+* **Alternative 2:** `Person` will store a `Path` or `String` instead.
+** Pros: Will use less memory (do not have to implement a new class and store an object).
+** Cons: All checks have to be done within the `execute` method. Might overlook certain details and cause bugs.
+
+// end:: addpicture[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
