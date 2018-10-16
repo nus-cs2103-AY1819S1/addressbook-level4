@@ -1,4 +1,4 @@
-package seedu.address.logic.anakinParser;
+package seedu.address.logic.anakinparser;
 
 import seedu.address.logic.anakincommands.AnakinCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
