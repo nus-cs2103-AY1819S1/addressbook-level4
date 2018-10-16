@@ -298,7 +298,7 @@ change many parts to add this additional feature. It also makes sense, because a
 ===== Aspect: When the Person is Searched/Matched
 
 * **Alternative 1 (current choice):** During the execution of `execute`
-** Additioanl details: A `String personIdentifier` will be stored in the command, and upon `execute`, a person is first matched, then the edit is carried out.
+** Additional details: A `String personIdentifier` will be stored in the command, and upon `execute`, a person is first matched, then the edit is carried out.
 ** Pros: Execute takes in the model as an argument, making searching for a Person convenient.
 ** Cons: The same `EditByNameCommand` executed at a different time can have a different result since it does not have a unique Person, but a identifier to find a name.
 * **Alternative 2:** Before creation of the command
@@ -306,6 +306,66 @@ change many parts to add this additional feature. It also makes sense, because a
 ** Pros: The command is deterministic, since it targets a unique Person.
 ** Cons: Need to gain access to the model before the person can be found, which is not usually done by AddressBookParser; high level changes are necessary.
 // end::editByName[]
+
+=== Schedule feature
+==== Current Implementation
+The schedule mechanism is facilitated by the new `Command`, `Schedule`. It extends `AddressBook` with a list of meetings, stored internally as a `UniqueMeetingList`. It also allows meetings to be associated to address book entries, since each `Person` can have up to one `Meeting`.
+Additionally, it implements the following operations:
+
+* `ScheduleCommand#createScheduledPerson(Person personToSchedule, Meeting meeting)` - Returns a `Person` object that has a meeting scheduled according to `meeting`.
+* `ScheduleCommand#execute()` - Executes the command encapsulated by `ScheduleCommand`.
+
+Given below is an example usage scenario and how the Schedule mechanism behaves at each step.
+
+Step 1. The user launches the application and already has at least one client's contact in InsuRen.
+
+image::ScheduleCommand1StateDiagram.png[width="800"]
+
+Step 2. The user executes `schedule 1 m/16/10/18 1800` to schedule a meeting with the person in the first index at 1800 hours on 16th October, 2018. However, there is already a meeting scheduled at this time, so it is flagged out to the user.
+[NOTE]
+No meetings are scheduled if there is a clash
+
+image::ScheduleCommand2StateDiagram.png[width="800"]
+
+Step 3. The user executes `schedule 1 m/32/10/18 1830` but since this is not a valid date, InsuRen flags it out to the user.
+
+image::ScheduleCommand3StateDiagram.png[width="800"]
+
+Step 4. The user executes `schedule 1 m/16/10/18 1830`. The meeting is schedule and the person card is changed to reflect the same accordingly.
+
+image::ScheduleCommand4StateDiagram.png[width="800"]
+
+The following activity diagram summarises what happens when a user executes the `ScheduleCommand`:
+
+image::ScheduleCommand5StateDiagram.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: Where meetings are stored
+
+* **Alternative 1 (Current choice):** The meetings are stored in both the `Person` model and in the global meeting list `UniqueMeetingList`.
+** Pros: Easy to ensure no clashes occur between meetings.
+** Cons: Significant changes need to be made to the model to accomodate this.
+
+* **Alternative 2: ** The meetings are stored in only the `Person` model.
+** Pros: Minimal changes to the model required; prevents duplication of data.
+** Cons: Difficult to ensure uniqueness of meeting times.
+
+* **Alternative 3: ** The meetings are stored in only the `UniqueMeetingList`.
+** Pros: Prevents the duplication of data; easy to ensure no clashes.
+** Cons: Would need additional data structures to pair the meeting to the entry.
+
+===== Aspect: Date storage format
+
+* **Alternative 1 (Current choice):** The date and time is stored as a 10-character string.
+** Pros: Allows the setting of a `none` value, and offers flexibility.
+** Cons: Does not utilize the Java API libraries for dates and times.
+
+* **Alternative 2:** The date and time is stored as a `DateAndTime` object.
+** Pros: Ability to use Java API functions for dates.
+** Cons: Less flexible as all dates entered must be valid.
+
+
 
 // tag::undoredo[]
 === Undo/Redo feature
