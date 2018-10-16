@@ -73,6 +73,8 @@ Format:
 -Example:
 `edit complete milestone t/2018.09.18 d/a updated detailed description of what needs to be done`
 
+#### Completing a Task: `complete`
+
 #### Listing Tasks: `list`
 [%hardbreaks]
 Shows a list of all tasks.
