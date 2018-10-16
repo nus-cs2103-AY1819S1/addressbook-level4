@@ -8,6 +8,8 @@ import seedu.address.model.tag.Tag;
 
 /**
  * A utility class containing a list of {@code Group} objects to be used in tests.
+ *
+ * {@author Derek-Hardy}
  */
 public class TypicalGroups {
 

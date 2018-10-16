@@ -32,8 +32,10 @@ public class Person {
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
+    // @@author Derek-Hardy
     // Group field
     private final UniqueGroupList groups = new UniqueGroupList();
+    // @@author
 
     @Deprecated
     private Set<Tag> groupTags = new HashSet<>();
@@ -52,6 +54,7 @@ public class Person {
         this.tags.addAll(tags);
     }
 
+    // @@author Derek-Hardy
     /**
      * Every field must be present and not null.
      */
@@ -65,6 +68,7 @@ public class Person {
         this.tags.addAll(tags);
         this.groups.setGroups(groups);
     }
+    // @@author
 
     /**
      * @deprecated The groupTag is replaced by UniqueGroupList for
@@ -108,6 +112,7 @@ public class Person {
         return Collections.unmodifiableSet(tags);
     }
 
+    // @@author Derek-Hardy
     /**
      * Returns an immutable group list which the person has enrolled in.
      * It throws {@code UnsupportedOperationException} if modification is attempted.
@@ -140,7 +145,7 @@ public class Person {
 
     /**
      * Remove the person from a group.
-     * @param group The group that should removeMember the person from
+     * @param group The group that should remove the person from
      */
     public void removeGroup(Group group) {
         requireNonNull(group);
@@ -158,7 +163,8 @@ public class Person {
      * Remove all the groups that this person is already in.
      */
     public void clearMembership() {
-
+        // enhanced for loop to remove the person from each group
+        //TODO
         this.groups.clear();
     }
 
@@ -195,6 +201,7 @@ public class Person {
         this.groupTags.add(group);
     }
 
+    // @@author
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.

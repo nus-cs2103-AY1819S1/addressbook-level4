@@ -186,7 +186,8 @@ public class Group {
      * Remove all the members in this group.
      */
     public void clearMembers() {
-
+        // enhanced for loop to remove the group from person
+        // TODO
         this.members.clear();
     }
 

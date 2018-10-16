@@ -230,6 +230,7 @@ The `Group`,
 * keeps track of its members in a `UniquePersonList`. The method `hasMember(Person person)` can check the enrollment of a particular `Person`.
 * supports add and remove member using methods `addMember(Person toAdd)` and `removeMember(Person toRemove)`.
 * exposes an unmodifiable `List<Person>` for observation of member enrollment status by `getMembersView()`.
+* supports set and cancel of `Meeting` of this group by methods `setMeeting(Meeting meeting)` and `cancelMeeting()`.
 
 .The UniqueGroupList class
 image::uniqueGroupListClassDiagram.png[width="500"]
