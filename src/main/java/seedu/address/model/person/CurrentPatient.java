@@ -40,17 +40,17 @@ public class CurrentPatient {
     /**
      * Add referral letter content to the ServedPatient.
      */
-    public String addReferralContent(String content) {
+    public String addReferralContent(String notes, String todayDate, String doctorName) {
         requireNonNull(patient);
-        return patient.addReferralContent(content);
+        return patient.addReferralContent(notes, todayDate, doctorName);
     }
 
     /**
      * Add Mc content to the ServedPatient.
      */
-    public String addMcContent(String content) {
+    public String addMcContent(int dayNumber, String startDate, String endDate, String todayDate, String doctorName) {
         requireNonNull(patient);
-        return patient.addMcContent(content);
+        return patient.addMcContent(dayNumber, startDate, endDate, todayDate, doctorName);
     }
 
     /**
