@@ -233,7 +233,11 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the various xml files from each of the different functions. Namely recipe.xml, ingredients.xml and healthplan.xml
+* can do a context switch for storing information into the correct xml file for the function.
+* generalized in its implementation for easy extension
+* controls information by passing a single appcontent unit around the system.
+
 
 [[Design-Commons]]
 === Common classes
@@ -242,11 +246,21 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 == Implementation
 
-This section describes some noteworthy details on how certain features are implemented.
+=== Health Plan list
 
-// tag::undoredo[]
-=== Undo/Redo feature
+This is a feature that users can access to have healthplans to manage their diet and health due to dietary needs of their choice.
+Users are able to add a health list to based on their specifications: whether they intend to gain/lose/maintain weight from their
+set age, current weight and also their current height. this will then tell them what is the required calories to eat per day to hit
+their target.
+
 ==== Current Implementation
+* Users are currently able to add entries
+* Users are able to delete entries
+* Users are also able to edit entries
+* This feature is tied to the healthplan.xml
+* This feature is accessible only from the healthplan context done by switching context via "-healthplan" universal commands.
+
+=== VersionedAddressBook undo/redo
 
 The undo/redo mechanism is facilitated by `VersionedAddressBook`.
 It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.

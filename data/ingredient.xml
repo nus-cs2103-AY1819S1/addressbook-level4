@@ -6,4 +6,10 @@
         <unit>gram</unit>
         <date>10-16-2018</date>
     </ingredients>
+    <ingredients>
+        <name>pineapple</name>
+        <amount>100.0</amount>
+        <unit>gram</unit>
+        <date>10-28-2017</date>
+    </ingredients>
 </ingredients>
