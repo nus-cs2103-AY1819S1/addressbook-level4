@@ -10,6 +10,7 @@ lib/*
 *.csv
 config.json
 commandHistory.xml
+report.html
 src/test/data/sandbox/
 preferences.json
 .DS_Store

@@ -2,9 +2,11 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
+import seedu.address.commons.core.HtmlReportGenerator;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
@@ -20,6 +22,7 @@ public class HistoryCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Entered commands (from most recent to earliest):\n%1$s";
     public static final String MESSAGE_HISTORY_WINDOW = "Showing requested history of commands.";
+    public static final String MESSAGE_HISTORY_WINDOW_FAILURE = "Failed to generate Html report.";
     public static final String MESSAGE_NO_HISTORY = "You have not yet entered any commands.";
 
     private static final String[] ARGUMENTS_BLANK = {""};
@@ -53,8 +56,13 @@ public class HistoryCommand extends Command {
         requireNonNull(history);
         //request for CommandEntry list
         if (!isSummarized) {
-            history.getCommandEntryList();
-            return new CommandResult(MESSAGE_HISTORY_WINDOW);
+            try {
+                HtmlReportGenerator.generateCommandEntryReport(history.getCommandEntryList());
+                return new CommandResult(MESSAGE_HISTORY_WINDOW);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return new CommandResult(MESSAGE_HISTORY_WINDOW_FAILURE);
+            }
         }
 
         //request for command history in the result window

@@ -28,6 +28,14 @@ public class ExecutedCommand {
         }
     }
 
+    public String getCommandWord() {
+        return commandWord;
+    }
+
+    public String getCommandArgs() {
+        return commandArgs;
+    }
+
     @Override
     public String toString() {
         return commandWord + " " + commandArgs;
