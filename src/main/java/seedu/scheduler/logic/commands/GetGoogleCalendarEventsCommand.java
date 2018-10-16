@@ -26,6 +26,7 @@ import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.Events;
 
 import seedu.scheduler.logic.CommandHistory;
+import seedu.scheduler.logic.RepeatEventGenerator;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
 import seedu.scheduler.logic.parser.ParserUtil;
 import seedu.scheduler.logic.parser.exceptions.ParseException;
@@ -148,7 +149,7 @@ public class GetGoogleCalendarEventsCommand extends Command {
                         description,
                         venue, repeatType, repeatUntilDateTime, tags);
 
-        model.addEvents(seedu.scheduler.model.event.Event.generateAllRepeatedEvents(event));
+        model.addEvents(RepeatEventGenerator.getInstance().generateAllRepeatedEvents(event));
         model.commitScheduler();
     }
 
