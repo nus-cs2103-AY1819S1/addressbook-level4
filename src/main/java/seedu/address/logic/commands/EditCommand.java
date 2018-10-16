@@ -30,7 +30,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing ride in the address book.
  */
-public class UpdateCommand extends Command {
+public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
@@ -52,18 +52,18 @@ public class UpdateCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSON = "This ride already exists in the address book.";
 
     private final Index index;
-    private final UpdatePersonDescriptor updatePersonDescriptor;
+    private final EditPersonDescriptor editPersonDescriptor;
 
     /**
      * @param index of the ride in the filtered ride list to edit
-     * @param updatePersonDescriptor details to edit the ride with
+     * @param editPersonDescriptor details to edit the ride with
      */
-    public UpdateCommand(Index index, UpdatePersonDescriptor updatePersonDescriptor) {
+    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
         requireNonNull(index);
-        requireNonNull(updatePersonDescriptor);
+        requireNonNull(editPersonDescriptor);
 
         this.index = index;
-        this.updatePersonDescriptor = new UpdatePersonDescriptor(updatePersonDescriptor);
+        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class UpdateCommand extends Command {
         }
 
         Ride rideToEdit = lastShownList.get(index.getZeroBased());
-        Ride editedRide = createEditedPerson(rideToEdit, updatePersonDescriptor);
+        Ride editedRide = createEditedPerson(rideToEdit, editPersonDescriptor);
 
         if (!rideToEdit.isSameRide(editedRide) && model.hasPerson(editedRide)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
@@ -90,17 +90,17 @@ public class UpdateCommand extends Command {
 
     /**
      * Creates and returns a {@code Ride} with the details of {@code rideToEdit}
-     * edited with {@code updatePersonDescriptor}.
+     * edited with {@code editPersonDescriptor}.
      */
-    private static Ride createEditedPerson(Ride rideToEdit, UpdatePersonDescriptor updatePersonDescriptor) {
+    private static Ride createEditedPerson(Ride rideToEdit, EditPersonDescriptor editPersonDescriptor) {
         assert rideToEdit != null;
 
-        Name updatedName = updatePersonDescriptor.getName().orElse(rideToEdit.getName());
+        Name updatedName = editPersonDescriptor.getName().orElse(rideToEdit.getName());
         Maintenance updatedMaintenance =
-                updatePersonDescriptor.getMaintenance().orElse(rideToEdit.getDaysSinceMaintenance());
-        WaitTime updatedWaitTime = updatePersonDescriptor.getWaitTime().orElse(rideToEdit.getWaitingTime());
-        Address updatedAddress = updatePersonDescriptor.getAddress().orElse(rideToEdit.getAddress());
-        Set<Tag> updatedTags = updatePersonDescriptor.getTags().orElse(rideToEdit.getTags());
+                editPersonDescriptor.getMaintenance().orElse(rideToEdit.getDaysSinceMaintenance());
+        WaitTime updatedWaitTime = editPersonDescriptor.getWaitTime().orElse(rideToEdit.getWaitingTime());
+        Address updatedAddress = editPersonDescriptor.getAddress().orElse(rideToEdit.getAddress());
+        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(rideToEdit.getTags());
 
         return new Ride(updatedName, updatedMaintenance, updatedWaitTime, updatedAddress, updatedTags);
     }
@@ -113,34 +113,34 @@ public class UpdateCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof UpdateCommand)) {
+        if (!(other instanceof EditCommand)) {
             return false;
         }
 
         // state check
-        UpdateCommand e = (UpdateCommand) other;
+        EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && updatePersonDescriptor.equals(e.updatePersonDescriptor);
+                && editPersonDescriptor.equals(e.editPersonDescriptor);
     }
 
     /**
      * Stores the details to edit the ride with. Each non-empty field value will replace the
      * corresponding field value of the ride.
      */
-    public static class UpdatePersonDescriptor {
+    public static class EditPersonDescriptor {
         private Name name;
         private Maintenance maintenance;
         private WaitTime waitTime;
         private Address address;
         private Set<Tag> tags;
 
-        public UpdatePersonDescriptor() {}
+        public EditPersonDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public UpdatePersonDescriptor(UpdatePersonDescriptor toCopy) {
+        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setName(toCopy.name);
             setMaintenance(toCopy.maintenance);
             setWaitTime(toCopy.waitTime);
@@ -212,12 +212,12 @@ public class UpdateCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof UpdatePersonDescriptor)) {
+            if (!(other instanceof EditPersonDescriptor)) {
                 return false;
             }
 
             // state check
-            UpdatePersonDescriptor e = (UpdatePersonDescriptor) other;
+            EditPersonDescriptor e = (EditPersonDescriptor) other;
 
             return getName().equals(e.getName())
                     && getMaintenance().equals(e.getMaintenance())
