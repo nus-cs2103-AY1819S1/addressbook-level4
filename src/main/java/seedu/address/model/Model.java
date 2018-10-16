@@ -1,10 +1,12 @@
 package seedu.address.model;
 
+import java.awt.image.BufferedImage;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.scene.image.Image;
 import seedu.address.model.google.GoogleClientInstance;
 import seedu.address.model.person.Person;
 
@@ -108,4 +110,14 @@ public interface Model {
      * Removes the image of the given index in the list.
      */
     void removeImageFromList(int idx);
+
+    /**
+     * Retrieves the current displayed image.
+     */
+    BufferedImage getDisplayedImage();
+
+    /**
+     * Update the current displayed image.
+     */
+    void updateCurrDisplayedImage(Image img);
 }

@@ -62,6 +62,8 @@ public class SelectCommand extends Command {
         EventsCenter.getInstance().post(new ChangeImageEvent(img, "preview"));
         EventsCenter.getInstance().post(new ChangeImageEvent(img, "original"));
 
+        model.updateCurrDisplayedImage(img);
+
         //EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
         //EventsCenter.getInstance().post(new ChangeImageEvent(
         //        new Image("https://api.thecatapi.com/v1/images/search?format=src&size=full"), "preview"));

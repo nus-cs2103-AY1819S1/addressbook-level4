@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.awt.image.BufferedImage;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.function.Predicate;
@@ -11,6 +12,8 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
@@ -28,6 +31,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private GoogleClientInstance photoLibrary = null;
     private ArrayList<String> dirImageList;
+    private BufferedImage currDisplayedPic;
 
     private final UserPrefs userPrefs;
 
@@ -129,6 +133,16 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void removeImageFromList(int idx) {
         this.dirImageList.remove(idx);
+    }
+
+    @Override
+    public BufferedImage getDisplayedImage() {
+        return this.currDisplayedPic;
+    }
+
+    @Override
+    public void updateCurrDisplayedImage(Image img) {
+        currDisplayedPic = SwingFXUtils.fromFXImage(img, null);
     }
 
     //=========== GoogleClient Accessors =============================================================
