@@ -145,6 +145,9 @@ public class Person {
                 && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
     }
 
+    /**
+     * Represents the user's friends list as a string
+     */
     public String friendsToString() {
         String friendshipString = " Friends: ";
         ArrayList<String> friendsList = new ArrayList<>();

@@ -79,6 +79,10 @@ public class StringUtil {
         }
     }
 
+    /**
+     * Given a string that separates two integers with a comma (eg "1,2"), this function returns
+     * an ArrayList that contains the two integers
+     */
     public static ArrayList<Integer> splitIntegersWithComma(String s) {
         ArrayList<Integer> values = new ArrayList<>();
         StringTokenizer st = new StringTokenizer(s, ",");
