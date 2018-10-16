@@ -30,8 +30,8 @@ import seedu.address.logic.commands.ViewAllCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ride.Ride;
 import seedu.address.model.ride.RideContainsKeywordsPredicate;
-import seedu.address.testutil.RideUtil;
 import seedu.address.testutil.RideBuilder;
+import seedu.address.testutil.RideUtil;
 import seedu.address.testutil.UpdateRideDescriptorBuilder;
 
 public class ThaneParkParserTest {
