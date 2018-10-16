@@ -11,6 +11,7 @@ import seedu.souschef.logic.commands.ExitCommand;
 import seedu.souschef.logic.commands.HelpCommand;
 import seedu.souschef.logic.commands.HistoryCommand;
 import seedu.souschef.logic.parser.exceptions.ParseException;
+import seedu.souschef.ui.Ui;
 
 /**
  * Parses user input.
@@ -30,16 +31,18 @@ public class UniversalParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(CommandHistory history, String userInput) throws ParseException {
+    public Command parseCommand(CommandHistory history, String userInput, Ui ui) throws ParseException {
         final String commandWord = userInput.substring(1);
         switch (commandWord) {
         case "recipe":
+            ui.switchToRecipeListPanel();
             return new ContextCommand("Recipe");
 
         case "ingredientmanager":
             return new ContextCommand("Ingredient");
 
         case "healthplan":
+            ui.switchToHealthPlanListPanel();
             return new ContextCommand("Health Plan");
 
         case "mealplanner":

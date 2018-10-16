@@ -24,6 +24,6 @@ public interface Ui {
 
     /** void switchToIngredientListPanel() */
 
-    /** void switchToHealthPlanListPanel() */
+    void switchToHealthPlanListPanel();
 
 }
