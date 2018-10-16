@@ -68,7 +68,7 @@ public class FindByPhoneCommandTest {
         assertFalse(findFirstCommand.equals(1));
 
         // null -> returns false
-        assertFalse(findFirstCommand.equals(null));
+        assertFalse(findFirstCommand == null);
 
         // different person -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
