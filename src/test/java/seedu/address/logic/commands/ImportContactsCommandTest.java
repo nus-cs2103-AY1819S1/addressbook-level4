@@ -13,32 +13,24 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.filereader.FileReader;
+import seedu.address.testutil.FileReaderBuilder;
 
 public class ImportContactsCommandTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "ImportContactsTest");
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
-    private Optional<String> readFile(String contactsFileInTestDataFolder) {
-        Path csvFilePath = addToTestDataPathIfNotNull(contactsFileInTestDataFolder);
-        return Optional.ofNullable(csvFilePath.toString());
-    }
-
-    private Path addToTestDataPathIfNotNull(String contactsFileInTestDataFolder) {
-        return contactsFileInTestDataFolder != null
-                ? TEST_DATA_FOLDER.resolve(contactsFileInTestDataFolder)
-                : null;
-    }
-
     @Test
     public void execute_importContactsCommand() {
-        assertCommandFailure(new ImportContactsCommand(readFile("ImportContacts.csv").get()),
+        FileReader fileReader = new FileReaderBuilder().build();
+        assertCommandFailure(new ImportContactsCommand(fileReader),
                 model, commandHistory, ImportContactsCommand.MESSAGE_TEST_EXCEPTION);
     }
 
     @Test
     public void execute_emptyCsvFile_throwsCommandException() {
-        assertCommandFailure(new ImportContactsCommand(readFile("EmptyImportContacts.csv").get()),
+        FileReader emptyFileReader = new FileReaderBuilder().empty().build();
+        assertCommandFailure(new ImportContactsCommand(emptyFileReader),
                 model, commandHistory, ImportContactsCommand.MESSAGE_EMPTY_FILE_EXCEPTION);
     }
 }

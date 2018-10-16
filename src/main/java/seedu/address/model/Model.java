@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.event.Event;
+import seedu.address.model.filereader.FileReader;
 import seedu.address.model.person.Person;
 
 /**
@@ -57,6 +58,12 @@ public interface Model {
      * {@code event} must not already exist in the address book.
      */
     void addEvent(Event event);
+
+    /**
+     * Reads contacts info in the given file reader.
+     * {@code fileReader} must be have a valid file.
+     */
+    void readImportContactsFile(FileReader fileReader);
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();

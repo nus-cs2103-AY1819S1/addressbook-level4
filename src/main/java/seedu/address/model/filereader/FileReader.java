@@ -7,11 +7,16 @@ import java.io.FileNotFoundException;
 import java.util.Objects;
 import java.util.Scanner;
 
+import seedu.address.model.filereader.exceptions.EmptyFileException;
+
 /**
  * Represents a FileReader.
  * Guarantees: file path is present and not null, validated, immutable.
  */
 public class FileReader {
+    public static final String CSV_HEADER_NAME = "Name";
+    public static final String CSV_HEADER_PHONE = "Phone 1 - Value";
+
     private final File csvFile;
     private final FilePath csvFilePath;
 
@@ -29,6 +34,34 @@ public class FileReader {
     public int getNameIndex() { return nameIndex; }
 
     public int getPhoneIndex() { return phoneIndex; }
+
+    public void readImportContactsFile() {
+        try {
+            Scanner sc = new Scanner(csvFile);
+            if (!sc.hasNextLine()) {
+                throw new EmptyFileException();
+            }
+            String header = sc.nextLine();
+            String[] parts = header.split(",");
+            boolean isValidIndex = setIndex(parts);
+        } catch (FileNotFoundException e) {
+            // will never happen, toImport is validated by parser
+        }
+    }
+
+
+    private boolean setIndex(String[] parts) {
+        for (int i = 0; i < parts.length; i++) {
+            if (parts[i].equals(CSV_HEADER_NAME)) {
+                nameIndex = i;
+            }
+            if (parts[i].equals(CSV_HEADER_PHONE)) {
+                phoneIndex = i;
+            }
+        }
+        // return true if nameIndex and phoneIndex is valid
+        return nameIndex != -1 && phoneIndex != -1;
+    }
 
     /**
      * Returns true if both persons have the same identity and data fields.

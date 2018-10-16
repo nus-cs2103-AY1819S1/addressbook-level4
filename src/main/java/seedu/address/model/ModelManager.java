@@ -20,6 +20,7 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.AddressBookEventChangedEvent;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDate;
+import seedu.address.model.filereader.FileReader;
 import seedu.address.model.person.Person;
 
 /**
@@ -111,6 +112,12 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.addEvent(event);
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         indicateAddressBookChanged();
+    }
+
+    //=========== File Reader methods ========================================================================
+    @Override
+    public void readImportContactsFile(FileReader fileReader) {
+        versionedAddressBook.readImportContactsFile(fileReader);
     }
 
     //=========== Filtered Person List Accessors =============================================================

@@ -32,13 +32,10 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.Event;
+import seedu.address.model.filereader.FileReader;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.PersonUtil;
-import seedu.address.testutil.ScheduledEventBuilder;
-import seedu.address.testutil.ScheduledEventUtil;
+import seedu.address.testutil.*;
 
 public class AddressBookParserTest {
     @Rule
@@ -226,16 +223,11 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_importContactsCommand() throws Exception {
-        String csvFilePath = Paths
-                .get("src", "test", "data", "ImportContactsTest")
-                .resolve("ImportContacts.csv")
-                .toFile()
-                .getAbsolutePath();
-
+        FileReader fileReader = new FileReaderBuilder().build();
         ImportContactsCommand command = (ImportContactsCommand) parser.parseCommand(
-                ImportContactsCommand.COMMAND_WORD + " file/" + csvFilePath);
+                FileReaderUtil.getImportCommand(fileReader));
 
-        assertEquals(new ImportContactsCommand(csvFilePath), command);
+        assertEquals(new ImportContactsCommand(fileReader), command);
     }
 
     @Test
