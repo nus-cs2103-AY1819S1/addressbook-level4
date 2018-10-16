@@ -29,12 +29,21 @@ public class FileReader {
         this.csvFile = new File(csvFilePath.toString());
     }
 
-    public FilePath getCsvFilePath() { return csvFilePath; }
+    public FilePath getCsvFilePath() {
+        return csvFilePath;
+    }
 
-    public int getNameIndex() { return nameIndex; }
+    public int getNameIndex() {
+        return nameIndex;
+    }
 
-    public int getPhoneIndex() { return phoneIndex; }
+    public int getPhoneIndex() {
+        return phoneIndex;
+    }
 
+    /**
+     * Reads contact information from given csv file.
+     */
     public void readImportContactsFile() {
         try {
             Scanner sc = new Scanner(csvFile);
@@ -48,7 +57,6 @@ public class FileReader {
             // will never happen, toImport is validated by parser
         }
     }
-
 
     private boolean setIndex(String[] parts) {
         for (int i = 0; i < parts.length; i++) {
