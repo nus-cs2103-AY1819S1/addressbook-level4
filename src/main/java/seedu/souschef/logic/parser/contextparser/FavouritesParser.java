@@ -6,26 +6,22 @@ import static seedu.souschef.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.souschef.logic.commands.AddCommand;
-import seedu.souschef.logic.commands.AddFavouriteCommand;
 import seedu.souschef.logic.commands.Command;
 import seedu.souschef.logic.commands.DeleteCommand;
-import seedu.souschef.logic.commands.EditCommand;
 import seedu.souschef.logic.commands.FindCommand;
 import seedu.souschef.logic.commands.HelpCommand;
 import seedu.souschef.logic.commands.ListCommand;
-import seedu.souschef.logic.parser.commandparser.AddCommandParser;
 import seedu.souschef.logic.parser.commandparser.DeleteCommandParser;
-import seedu.souschef.logic.parser.commandparser.EditCommandParser;
 import seedu.souschef.logic.parser.commandparser.FindCommandParser;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.recipe.Recipe;
 
+
 /**
- * Parses user input.
+ * Class to parse favourite logic
  */
-public class RecipeParser {
+public class FavouritesParser {
     /**
      * Used for initial separation of command word and args.
      */
@@ -48,20 +44,11 @@ public class RecipeParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parseRecipe(model, arguments);
-
-        case "favourite":
-            return new AddFavouriteCommand<Recipe>(model, arguments);
-
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parseRecipe(model, arguments);
-
         case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parseRecipe(model, arguments);
+            return new DeleteCommandParser().parseIngredient(model, arguments);
 
         case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parseRecipe(model, arguments);
+            return new FindCommandParser().parseIngredient(model, arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand<Recipe>(model);

@@ -168,6 +168,13 @@ public class MainWindow extends UiPart<Stage> {
         generalListPanel = new MealPlanListPanel(logic.getMealPlanList());
         generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
     }
+    /**
+     *  method to switch to favourite list for the favourite context
+     */
+    protected void switchToFavouritesListPanel() {
+        generalListPanel = new FavouritesPanel(logic.getFilteredFavouritesList());
+        generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
+    }
 
     /**
      * Sets the default size based on user preferences.
