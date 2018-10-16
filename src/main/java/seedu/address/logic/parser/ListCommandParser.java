@@ -28,14 +28,14 @@ public class ListCommandParser implements Parser<ListCommand> {
 
     private static Prefix PREFIX_DUE_BEFORE = new Prefix("b/");
 
-    private Optional<ListCommand.ListFilter> parseListFilter(Optional<String> s) {
+    private Optional<ListCommand.ListFilter> parseListFilter(Optional<String> s)throws ParseException {
         if (s.isPresent()) {
             String val = s.get();
             switch (val) {
                 case "today":
                     return Optional.of(ListCommand.ListFilter.DUE_TODAY);
                 default:
-                    return Optional.empty();
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, "Walk it like I talk it"));
             }
         } else {
             return Optional.empty();
@@ -52,25 +52,10 @@ public class ListCommandParser implements Parser<ListCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DUE_BEFORE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_DUE_BEFORE)
-                || !argMultimap.getPreamble().isEmpty()) {
-          // TODO
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, "Walk it like I talk it"));
-        }
-
         Optional<ListCommand.ListFilter> listFilter = parseListFilter(argMultimap.getValue(PREFIX_DUE_BEFORE));
 
         return listFilter
                 .flatMap(filter -> Optional.of(new ListCommand(filter)))
                 .orElseGet(() -> new ListCommand());
     }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
 }
