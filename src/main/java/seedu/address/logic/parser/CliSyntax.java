@@ -25,6 +25,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_DOSES_PER_DAY = new Prefix("n/");
     public static final Prefix PREFIX_DURATION = new Prefix("t/");
 
-    /** Prefix definitions for dietary related commands. */
+    /** Ordered prefixes for the adddiet command. */
     public static final Prefix PREFIX_ALLERGY = new Prefix("alg/");
+    public static final Prefix PREFIX_CULTURAL_REQUIREMENT = new Prefix("cr/");
+    public static final Prefix PREFIX_PHYSICAL_DIFFICULTY = new Prefix("pd/");
 }

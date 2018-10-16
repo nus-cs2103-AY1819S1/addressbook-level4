@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLERGY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CULTURAL_REQUIREMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSES_PER_DAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSE_UNIT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DRUGNAME;
@@ -13,17 +15,21 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MED_HISTORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHYSICAL_DIFFICULTY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -54,6 +60,10 @@ public class CommandTestUtil {
     public static final int VALID_DOSES_PER_DAY = 4;
     public static final int VALID_DURATION_IN_DAYS = 14;
 
+    public static final String VALID_ALLERGY = "Egg";
+    public static final String VALID_CULTURAL_REQUIREMENT = "Halal";
+    public static final String VALID_PHYSICAL_DIFFICULTY = "Hands cannot move";
+
     public static final String NRIC_DESC_AMY = " " + PREFIX_NRIC + VALID_NRIC_AMY;
     public static final String NRIC_DESC_BOB = " " + PREFIX_NRIC + VALID_NRIC_BOB;
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
@@ -69,6 +79,10 @@ public class CommandTestUtil {
 
 
     public static final String VALID_DIAGNOSIS_DESC = " " + PREFIX_MED_HISTORY + VALID_DIAGNOSIS;
+
+    public static final String VALID_DIET_COLLECTION_DESC = " " + PREFIX_ALLERGY + VALID_ALLERGY
+            + " " + PREFIX_CULTURAL_REQUIREMENT + VALID_CULTURAL_REQUIREMENT
+            + " " + PREFIX_PHYSICAL_DIFFICULTY + VALID_PHYSICAL_DIFFICULTY;
 
     public static final String VALID_PRESCRIPTION_DESC = " " + PREFIX_DRUGNAME + VALID_DRUGNAME
             + " " + PREFIX_QUANTITY + VALID_DOSE
@@ -200,4 +214,73 @@ public class CommandTestUtil {
         model.commitAddressBook();
     }
 
+    /**
+     * A default model stub that have all of the methods failing.
+     */
+    static class ModelStub implements Model {
+        @Override
+        public void addPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void resetData(ReadOnlyAddressBook newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyAddressBook getAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deletePerson(Person target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updatePerson(Person target, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Person> getFilteredPersonList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canUndoAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedoAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commitAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+    }
 }
