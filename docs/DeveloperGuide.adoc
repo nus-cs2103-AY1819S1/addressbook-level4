@@ -406,7 +406,7 @@ image::PictureCommand2StateDiagram.png[width="800"]
 
 The following activity diagram summarizes what happens when a user executes the `PictureCommand`:
 
-image::PictureCommandActivityDiagram.png[width="800"]
+image::PictureCommandActivityDiagram.png[width="500"]
 
 ==== Design Considerations
 
@@ -414,7 +414,7 @@ image::PictureCommandActivityDiagram.png[width="800"]
 
 * **Alternative 1 (current choice):** `Person` has a picture field.
 ** Pros: `Picture` can have it's own `Picture#isValidPicture()` method to validate the input. It is consistent with the other fields within `Person`.
-** Cons: More memory is used as there is a need to store an object. A new `Picture` class have to be made and implemented.
+** Cons: More memory is used as there is a need to store an object. A new `Picture` class has to be made and implemented.
 * **Alternative 2:** `Person` will store a `Path` or `String` instead.
 ** Pros: Will use less memory (do not have to implement a new class and store an object).
 ** Cons: All checks have to be done within the `execute` method. Might overlook certain details and cause bugs.
